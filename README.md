@@ -7,5 +7,6 @@ Welcome to Cosmo PWA, powered by [Aizoon](https://www.aizoongroup.com/home.aspx#
 - `yarn serve` - Preview your production build
 
 ### Development
+
 - Run `yarn` to install all the dependencies.
 - Run `yarn dev` to start the dev server with HR and async Eslint check
