@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import { VitePWA as pwa } from 'vite-plugin-pwa';
+import legacy from '@vitejs/plugin-legacy'
 // @ts-ignore
 import manifest from './manifest.json';
 // @ts-ignore
@@ -24,6 +25,9 @@ function renderChunks(deps: Record<string, string>) {
 export default defineConfig({
   plugins: [
     react(),
+    legacy({
+      targets: ['defaults', 'not IE 11']
+    }),
     eslintPlugin({
       eslintOptions: {
         cacheLocation: 'node_modules/.cache',
