@@ -24,7 +24,11 @@ function renderChunks(deps: Record<string, string>) {
 export default defineConfig({
   plugins: [
     react(),
-    eslintPlugin(),
+    eslintPlugin({
+      eslintOptions: {
+        cacheLocation: 'node_modules/.cache',
+      },
+    }),
     pwa({
       strategies: 'injectManifest',
       srcDir: '',
