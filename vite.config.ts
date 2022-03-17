@@ -1,12 +1,13 @@
 import { defineConfig } from 'vite';
 import { VitePWA as pwa } from 'vite-plugin-pwa';
-import legacy from '@vitejs/plugin-legacy'
+import legacy from '@vitejs/plugin-legacy';
 // @ts-ignore
 import manifest from './manifest.json';
 // @ts-ignore
 import { dependencies } from './package.json';
 import react from '@vitejs/plugin-react';
 import eslintPlugin from '@nabla/vite-plugin-eslint';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 // Packages we want in the vendor aka the deps needed in the entire app.
 const globalVendorPackages = ['react', 'react-dom', 'react-router-dom'];
@@ -23,10 +24,18 @@ function renderChunks(deps: Record<string, string>) {
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  css: {
+    preprocessorOptions: {
+      scss: {
+        includePaths: ['node_modules'],
+      },
+    },
+  },
   plugins: [
     react(),
+    tsconfigPaths(),
     legacy({
-      targets: ['defaults', 'not IE 11']
+      targets: ['defaults', 'not IE 11'],
     }),
     eslintPlugin({
       eslintOptions: {

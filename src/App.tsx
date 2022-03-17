@@ -1,45 +1,35 @@
 import { useState } from 'react';
+import { Button, Search, Slider, Theme } from '@carbon/react';
+import { Add } from '@carbon/react/icons';
 import logo from './logo.svg';
+import 'style/app.scss';
 import './App.css';
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount(c => c + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code className="text-3xl p-4 max-w-p">App.tsx</code> and save to test HMR
-          updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
+    <Theme theme="g100">
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>Hello Vite + React!0 1</p>
+          <Add />
+          <div className="p-10 bg-primary space-y-5">
+            <Slider
+              value={50}
+              min={30}
+              max={100}
+              step={1}
+              stepMultiplier={10}
+              onChange={value => setCount(value.value)}
+            />
+            <Search labelText="ciao" placeholder="sm" size="lg" id="search-1" />
+            <Button onClick={() => setCount(c => c + 1)}>count is: {count}</Button>
+          </div>
+        </header>
+      </div>
+    </Theme>
   );
 }
 
