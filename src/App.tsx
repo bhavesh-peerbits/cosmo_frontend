@@ -1,34 +1,30 @@
-import { useState } from 'react';
-import { Button, Search, Slider, Theme } from '@carbon/react';
+import { Grid, Column, Theme, Button } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
-import logo from './logo.svg';
 import 'style/app.scss';
-import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <Theme theme="g100">
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>Hello Vite + React!0 1</p>
+    <Theme theme="g100" className="h-full">
+      <Grid className="bg-gray-900 text-white h-full">
+        <Column>1/4</Column>
+        <Column>1/4</Column>
+        <Column>1/4</Column>
+        <Column>1/4</Column>
+        <Column>1/4</Column>
+        <Column>
           <Add />
-          <div className="p-10 bg-primary space-y-5">
-            <Slider
-              value={50}
-              min={30}
-              max={100}
-              step={1}
-              stepMultiplier={10}
-              onChange={value => setCount(value.value)}
-            />
-            <Search labelText="ciao" placeholder="sm" size="lg" id="search-1" />
-            <Button onClick={() => setCount(c => c + 1)}>count is: {count}</Button>
-          </div>
-        </header>
-      </div>
+        </Column>
+        <Column className="bg-red-150" sm={3} md={1} lg={4}>
+          <p>Small: Span 0 of 4</p>
+          <p>Medium: Span 0 of 8</p>
+          <Grid condensed>
+            <div>
+              <Button>Butt</Button>
+            </div>
+            <div>TEST</div>
+          </Grid>
+        </Column>
+      </Grid>
     </Theme>
   );
 }
