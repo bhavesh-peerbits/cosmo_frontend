@@ -1,18 +1,18 @@
-@use "@carbon/react" with (
-  $font-path: '@ibm/plex',
+@use '@carbon/react' with (
+	$font-path: '@ibm/plex'
 );
-@use "@carbon/react/scss/grid";
-@use "@carbon/react/scss/spacing" as spacing;
+@use '@carbon/react/scss/grid';
+@use '@carbon/react/scss/spacing' as spacing;
 @use '@carbon/react/scss/type' as type;
 
 @each $typeName, $typeValues in type.$tokens {
-  .text-#{$typeName} {
-    @include type.type-style($typeName, true);
-  }
+	.text-#{$typeName} {
+		@include type.type-style($typeName, true);
+	}
 }
 
 :root {
-  @each $space, $val in spacing.$spacing {
-    --#{$space}: #{$val}
-  }
+	@each $space, $val in spacing.$spacing {
+		--#{$space}: #{$val};
+	}
 }
