@@ -1,8 +1,13 @@
 import { Grid, Column, Theme, Button } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
 import 'style/app.scss';
+import useGetExample from '@api/useGetExample';
 
 function App() {
+	const { isLoading, data } = useGetExample();
+	// eslint-disable-next-line no-console
+	console.log(isLoading, data);
+
 	return (
 		<Theme theme='g100' className='h-full'>
 			<Grid className='h-full bg-gray-900 text-white'>

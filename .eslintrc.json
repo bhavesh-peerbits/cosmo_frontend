@@ -30,9 +30,7 @@
 			{
 				"devDependencies": [
 					"vite.config.ts",
-					"src/setupTests.ts",
-					"src/testUtils.tsx",
-					"src/mocks/**",
+					"src/test/**/*.{ts,tsx}",
 					"**/__tests__/*.{ts,tsx}"
 				]
 			}

@@ -27,11 +27,10 @@ export default defineConfig({
 		include: ['src/**/__tests__/*'],
 		globals: true,
 		environment: 'jsdom',
-		setupFiles: 'src/setupTests.ts',
+		setupFiles: 'src/test/setupTests.ts',
 		clearMocks: true,
 		coverage: {
 			enabled: true,
-			'100': true,
 			reporter: ['text', 'lcov'],
 			reportsDirectory: 'coverage/jest'
 		}
