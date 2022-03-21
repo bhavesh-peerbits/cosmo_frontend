@@ -23,6 +23,7 @@ export default function renderWithProviders(
 	includeRouter = true
 ): void {
 	render(ui, {
+		legacyRoot: true,
 		wrapper: ({ children }: PropsWithChildren<unknown>): ReactElement => (
 			<QueryClientProvider client={queryClient}>
 				{includeRouter ? <BrowserRouter>{children}</BrowserRouter> : children}
