@@ -14,7 +14,7 @@
 		"postinstall": "patch-package",
 		"test:unit": "vitest",
 		"test:unit:ci": "vitest run",
-		"test:e2e": "cypress open",
+		"test:e2e": "cypress open --config-file cypress.dev.json",
 		"test:e2e:ci": "start-server-and-test preview http://localhost:3000 'cypress run --record'",
 		"validate": "yarn lint && yarn test:unit:ci && yarn test:e2e:ci"
 	},
