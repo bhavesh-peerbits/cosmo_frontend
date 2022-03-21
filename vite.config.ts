@@ -24,6 +24,7 @@ function renderChunks(deps: Record<string, string>) {
 
 // https://vitejs.dev/config/
 export default defineConfig({
+	envPrefix: 'COSMO_',
 	test: {
 		include: ['src/**/__tests__/*'],
 		globals: true,

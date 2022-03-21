@@ -6,7 +6,6 @@
 		"es2021": true
 	},
 	"parser": "@typescript-eslint/parser",
-	"plugins": ["react-prefer-function-component"],
 	"extends": [
 		"eslint:all",
 		"plugin:@typescript-eslint/recommended",
@@ -18,7 +17,6 @@
 		"airbnb-typescript",
 		"airbnb/hooks",
 		"plugin:react/jsx-runtime",
-		"plugin:unicorn/all",
 		"plugin:storybook/recommended",
 		"prettier"
 	],
@@ -42,18 +40,6 @@
 					"**/__tests__/*.{ts,tsx}",
 					"src/**/*.stories.tsx"
 				]
-			}
-		],
-		"unicorn/no-array-for-each": "off",
-		"unicorn/no-keyword-prefix": "off",
-		"unicorn/prevent-abbreviations": "off",
-		"unicorn/filename-case": [
-			"error",
-			{
-				"cases": {
-					"camelCase": true,
-					"pascalCase": true
-				}
 			}
 		]
 	},

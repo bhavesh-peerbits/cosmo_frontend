@@ -4,6 +4,8 @@ import './style/index.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
+import initExceptionless from '@error/initExceptionless';
+import initSentry from '@error/initSentry';
 import App from './App';
 
 const MAX_RETRIES = 3;
@@ -16,6 +18,9 @@ const queryClient = new QueryClient({
 		}
 	}
 });
+initExceptionless();
+initSentry();
+
 const container = document.querySelector('#root') as HTMLElement;
 const root = createRoot(container);
 

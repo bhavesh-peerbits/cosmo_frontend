@@ -25,4 +25,4 @@ dist-ssr
 coverage
 cypress/videos
 .nyc_output
-.stylelintcache
+.env.local
