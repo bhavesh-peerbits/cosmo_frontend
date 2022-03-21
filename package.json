@@ -10,6 +10,7 @@
 		"lint:format": "prettier -uw --ignore-path .gitignore .",
 		"lint:stylelint": "stylelint --cache --fix --ignore-path .gitignore '**/*.[s]css'",
 		"lint": "tsc && yarn lint:format && yarn lint:fix && yarn lint:stylelint",
+		"openapi:generate": "cross-env PWD= JAVA_OPTS=\"-Dio.swagger.parser.util.RemoteUrl.trustAll=true -Dio.swagger.v3.parser.util.RemoteUrl.trustAll=true\" openapi-generator-cli generate",
 		"prepare": "yarn-deduplicate yarn.lock",
 		"postinstall": "patch-package",
 		"test:unit": "vitest",
@@ -33,6 +34,7 @@
 	"devDependencies": {
 		"@cypress/code-coverage": "^3.9.12",
 		"@nabla/vite-plugin-eslint": "^1.4.0",
+		"@openapitools/openapi-generator-cli": "^2.4.26",
 		"@testing-library/cypress": "^8.0.2",
 		"@testing-library/dom": "^8.11.3",
 		"@testing-library/jest-dom": "^5.16.2",
@@ -47,6 +49,7 @@
 		"@vitejs/plugin-react": "^1.2.0",
 		"autoprefixer": "^10.4.4",
 		"c8": "^7.11.0",
+		"cross-env": "^7.0.3",
 		"css-mediaquery": "^0.1.2",
 		"cypress": "^9.5.2",
 		"eslint": "^8.11.0",
