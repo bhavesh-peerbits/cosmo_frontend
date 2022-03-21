@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import './style/index.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
 import App from './App';
 
 const MAX_RETRIES = 3;
@@ -22,7 +23,9 @@ root.render(
 	<React.StrictMode>
 		<QueryClientProvider client={queryClient}>
 			<BrowserRouter>
-				<App />
+				<RecoilRoot>
+					<App />
+				</RecoilRoot>
 			</BrowserRouter>
 		</QueryClientProvider>
 	</React.StrictMode>
