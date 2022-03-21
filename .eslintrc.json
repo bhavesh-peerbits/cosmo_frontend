@@ -19,11 +19,16 @@
 		"airbnb/hooks",
 		"plugin:react/jsx-runtime",
 		"plugin:unicorn/all",
-		"plugin:react-prefer-function-component/recommended",
+		"plugin:storybook/recommended",
 		"prettier"
 	],
 	"rules": {
 		"react/react-in-jsx-scope": "off",
+		"react/require-default-props": "off",
+        "react/function-component-definition": [2, {
+			"namedComponents": "arrow-function",
+			"unnamedComponents": "arrow-function"
+        }],
 		"no-console": "error",
 		"import/no-extraneous-dependencies": [
 			"error",
@@ -31,12 +36,14 @@
 				"devDependencies": [
 					"vite.config.ts",
 					"src/test/**/*.{ts,tsx}",
-					"**/__tests__/*.{ts,tsx}"
+					"**/__tests__/*.{ts,tsx}",
+					"src/**/*.stories.tsx"
 				]
 			}
 		],
 		"unicorn/no-array-for-each": "off",
 		"unicorn/no-keyword-prefix": "off",
+		"unicorn/prevent-abbreviations": "off",
 		"unicorn/filename-case": [
 			"error",
 			{

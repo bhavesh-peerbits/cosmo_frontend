@@ -50,7 +50,7 @@ export default defineConfig({
 		}),
 		eslintPlugin({
 			eslintOptions: {
-				cacheLocation: 'node_modules/.cache'
+				cacheLocation: 'node_modules/.cache/'
 			}
 		}),
 		pwa({
@@ -62,6 +62,7 @@ export default defineConfig({
 	],
 	build: {
 		sourcemap: false,
+		outDir: 'dist/cosmo',
 		rollupOptions: {
 			output: {
 				manualChunks: {
