@@ -1,5 +1,13 @@
 import { ReactNode } from 'react';
-import { Modal, Select, SelectItem, TextInput } from '@carbon/react';
+import {
+	Modal,
+	TextInput,
+	Accordion,
+	AccordionItem,
+	CodeSnippet,
+	Layer,
+	TextArea
+} from '@carbon/react';
 import { ErrorBoundary as ReactErrorBoundary, FallbackProps } from 'react-error-boundary';
 import { ExceptionlessErrorBoundary } from '@exceptionless/react';
 
@@ -10,7 +18,7 @@ interface Props {
 const sentryDSN = import.meta.env.COSMO_SENTRY_DSN;
 
 const ErrorFallback = ({ error, resetErrorBoundary }: FallbackProps) => {
-	const sendToSentry = () => {
+	const sendToSentry = async () => {
 		if (sentryDSN) {
 			// TODO from store
 			const eventId = '2698b50fbf5348bb8c76216c44420bff';
@@ -21,7 +29,7 @@ const ErrorFallback = ({ error, resetErrorBoundary }: FallbackProps) => {
 			body.append('email', 'test@test.com');
 			body.append('comments', 'comments');
 
-			fetch(endpoint, {
+			await fetch(endpoint, {
 				method: 'POST',
 				headers: {
 					'Content-type': 'application/x-www-form-urlencoded'
@@ -29,50 +37,70 @@ const ErrorFallback = ({ error, resetErrorBoundary }: FallbackProps) => {
 				body
 			});
 		}
+		window.location.reload();
 	};
 	return (
 		<ExceptionlessErrorBoundary>
 			<Modal
 				open
-				modalHeading='Add a custom domain'
-				modalLabel='Account resources'
-				primaryButtonText='Add'
-				secondaryButtonText='Cancel'
-				onRequestClose={() => {
-					sendToSentry();
-					resetErrorBoundary();
-				}}
+				modalHeading='Application error'
+				modalLabel='Something Unexpected Happened'
+				primaryButtonText={sentryDSN ? 'Send' : 'Reload'}
+				preventCloseOnClickOutside
+				shouldSubmitOnEnter
+				onRequestClose={() => resetErrorBoundary()}
+				onRequestSubmit={() => sendToSentry()}
 			>
-				<p style={{ marginBottom: '1rem' }}>
-					{error.message}
-					Custom domains direct requests for your apps in this Cloud Foundry organization
-					to a URL that you own. A custom domain can be a shared domain, a shared
-					subdomain, or a shared domain and host.
-				</p>
-				<TextInput
-					data-modal-primary-focus
-					id='text-input-1'
-					labelText='Domain name'
-					placeholder='e.g. github.com'
-					style={{ marginBottom: '1rem' }}
-				/>
-				<Select id='select-1' defaultValue='us-south' labelText='Region'>
-					<SelectItem value='us-south' text='US South' />
-					<SelectItem value='us-east' text='US East' />
-				</Select>
+				<div className='space-y-spacing-5'>
+					<span className='mb-spacing-5'>
+						<p>Sorry, an unrecoverable error occurred.</p>
+						<p> Please try reloading the page, it may have been a temporary glitch.</p>
+					</span>
+					<Accordion>
+						<AccordionItem title='Details'>
+							<div className='space-y-spacing-2'>
+								<CodeSnippet type='inline'>{error.message}</CodeSnippet>
+								<Layer>
+									<CodeSnippet type='multi'>{error.stack}</CodeSnippet>
+								</Layer>
+							</div>
+						</AccordionItem>
+					</Accordion>
+					{sentryDSN && (
+						<>
+							<p className='pt-spacing-5'>
+								If you like to help, tell us what happened below.
+							</p>
+							<div className='space-y-spacing-3'>
+								<TextInput
+									data-modal-primary-focus
+									labelText='Name'
+									placeholder='John Doe'
+									id='text-name'
+								/>
+								<TextInput
+									labelText='Email'
+									placeholder='john-doe@mail.com'
+									id='text-mail'
+									type='email'
+								/>
+								<TextArea
+									labelText='What happened?'
+									helperText='Describe here the problem'
+									cols={50}
+									rows={4}
+									id='text-description'
+								/>
+							</div>
+						</>
+					)}
+				</div>
 			</Modal>
 		</ExceptionlessErrorBoundary>
 	);
 };
 
 const ErrorBoundary = ({ children }: Props) => (
-	<ReactErrorBoundary
-		FallbackComponent={ErrorFallback}
-		onReset={() => {
-			// reset the state of your app so the error doesn't happen again
-		}}
-	>
-		{children}
-	</ReactErrorBoundary>
+	<ReactErrorBoundary FallbackComponent={ErrorFallback}>{children}</ReactErrorBoundary>
 );
 export default ErrorBoundary;

@@ -5,7 +5,7 @@ module.exports = {
 			spacing: {
 				...[...Array(14).keys()].reduce((acc, v) => ({
 					...acc,
-					[`spacing-${v}`]: `var(--spacing-${v})`
+					[`spacing-${v}`]: `var(--spacing-${('0' + v).slice(-2)})`
 				}))
 			},
 			colors: {

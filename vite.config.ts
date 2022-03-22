@@ -5,7 +5,6 @@ import legacy from '@vitejs/plugin-legacy';
 import react from '@vitejs/plugin-react';
 import eslintPlugin from '@nabla/vite-plugin-eslint';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import compress from 'vite-plugin-compress';
 import { dependencies } from './package.json';
 import manifest from './manifest.json';
 
@@ -24,6 +23,9 @@ function renderChunks(deps: Record<string, string>) {
 
 // https://vitejs.dev/config/
 export default defineConfig({
+	define: {
+		'process.env': {}
+	},
 	envPrefix: 'COSMO_',
 	test: {
 		include: ['src/**/__tests__/*'],
@@ -47,7 +49,6 @@ export default defineConfig({
 	plugins: [
 		tsconfigPaths(),
 		react(),
-		compress(),
 		legacy({
 			targets: ['defaults', 'not IE 11']
 		}),
