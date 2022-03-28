@@ -4,7 +4,7 @@
 
 // @use "@carbon/ibmdotcom-styles";
 @use '@carbon/react/scss/grid';
-@use "@carbon/react/scss/breakpoint" as breakpoint;
+@use '@carbon/react/scss/breakpoint' as breakpoint;
 @use '@carbon/react/scss/spacing' as spacing;
 @use '@carbon/react/scss/type' as type;
 
@@ -14,7 +14,7 @@
 	}
 }
 
-.container-w-sidenav{
+.container-w-sidenav {
 	margin-left: 0.5rem * 32;
 	@include breakpoint.breakpoint-down('lg') {
 		margin-left: 0;
