@@ -7,6 +7,7 @@ import { RecoilRoot } from 'recoil';
 import initExceptionless from '@error/initExceptionless';
 import initSentry from '@error/initSentry';
 import App from './App';
+import './i18n';
 
 const MAX_RETRIES = 3;
 const queryClient = new QueryClient({

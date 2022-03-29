@@ -26,13 +26,17 @@ import {
 	SwitcherItem,
 	SwitcherDivider,
 	Content,
-	SkipToContent
+	SkipToContent,
+	Button
 } from '@carbon/react';
 import 'style/app.scss';
 import useGetExample from '@api/useGetExample';
 import ErrorBoundary from '@error/components/ErrorBoundary';
 import { Suspense, useEffect, useState } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useSetRecoilState } from 'recoil';
+import languageAtom from '@store/i18n/languageAtom';
 
 const Test = () => {
 	const { data } = useGetExample();
@@ -49,6 +53,9 @@ const Test = () => {
 };
 
 const StoryContent = () => {
+	const { t } = useTranslation(['home', 'test']);
+	const setLanguage = useSetRecoilState(languageAtom);
+
 	const content = (
 		<div className='bx--grid'>
 			<div className='bx--row'>
@@ -60,8 +67,12 @@ const StoryContent = () => {
 							fontSize: '20px'
 						}}
 					>
-						Purpose and function
+						{t('home:purpose')}
 					</h2>
+					<Button onClick={() => setLanguage(val => (val === 'it' ? 'en' : 'it'))}>
+						Change Lang
+					</Button>
+					<h1 className='capitalize'>{t('test:test-string')}</h1>
 					<p style={{ lineHeight: '20px' }}>
 						The shell is perhaps the most crucial piece of any UI built with Carbon. It
 						contains the shared navigation framework for the entire design system and ties
@@ -128,7 +139,7 @@ const App = () => {
 	const [appExpanded, setAppExpanded] = useState(false);
 
 	return (
-		<Theme theme='g100' className='h-full overflow-hidden'>
+		<Theme theme='white' className='h-full overflow-hidden'>
 			<HeaderContainer
 				render={({ isSideNavExpanded, onClickSideNavExpand }) => (
 					<Header aria-label='IBM Platform Name'>
@@ -222,6 +233,11 @@ const App = () => {
 								<SideNavLink renderIcon={Fade} element={Link} to='/test'>
 									Link
 								</SideNavLink>
+								{import.meta.env.DEV && (
+									<SideNavLink renderIcon={Fade} href='?showtranslations'>
+										[TEST ONLY] Show translations
+									</SideNavLink>
+								)}
 							</SideNavItems>
 						</SideNav>
 
