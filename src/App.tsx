@@ -53,7 +53,7 @@ const Test = () => {
 };
 
 const StoryContent = () => {
-	const { t } = useTranslation(['home', 'test']);
+	const { t } = useTranslation();
 	const setLanguage = useSetRecoilState(languageAtom);
 
 	const content = (

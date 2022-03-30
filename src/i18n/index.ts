@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import i18n from 'i18next';
-import { initReactI18next, type LocaleResources } from 'react-i18next';
+import { initReactI18next } from 'react-i18next';
 // @ts-ignore
-import { messages } from 'vite-i18n-resources';
+// import { messages } from 'vite-i18n-resources';
 import { i18nextPlugin } from 'translation-check';
+import messages from './locales';
 
-const resources = messages as LocaleResources;
 if (import.meta.env.DEV) {
 	i18n.use(i18nextPlugin);
 }
@@ -20,12 +20,7 @@ i18n
 		interpolation: {
 			escapeValue: false // not needed for react as it escapes by default
 		},
-		resources
+		resources: messages
 	});
-
-// Hot module replacement when translation message file change
-// if (import.meta.hot) {
-// 	import.meta.hot.on('locales-update', data => {});
-// }
 
 export default i18n;

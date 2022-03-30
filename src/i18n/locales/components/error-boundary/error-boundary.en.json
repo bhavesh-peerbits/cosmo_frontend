@@ -1,0 +1,17 @@
+{
+  "retry": "Retry",
+  "application-error": "Application error",
+  "error-message": "Something Unexpected Happened",
+  "send": "Send",
+  "reload": "Reload",
+  "error-message-detail": "<0>Sorry, an unrecoverable error occurred.</0><1>Please try reloading the page, it may have been a temporary glitch.</1>",
+  "tell-us": "If you like to help, tell us what happened below.",
+  "send-data": "Send data...",
+  "name-required": "Name is required",
+  "email-required": "Email is required",
+  "email-not-valid": "Email is not valid",
+  "name": "Name",
+  "what-happened": "What happened?",
+  "describe-problem": "Describe here the problem",
+  "description-required": "Description is required"
+}

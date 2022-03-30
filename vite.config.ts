@@ -5,11 +5,6 @@ import legacy from '@vitejs/plugin-legacy';
 import react from '@vitejs/plugin-react';
 import eslintPlugin from '@nabla/vite-plugin-eslint';
 import tsconfigPaths from 'vite-tsconfig-paths';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import i18nResources from 'vite-plugin-i18n-resources';
-import { resolve } from 'path';
-import { i18nextDtsGen } from '@liuli-util/rollup-plugin-i18next-dts-gen';
 import { dependencies } from './package.json';
 import manifest from './manifest.json';
 
@@ -67,15 +62,6 @@ export default defineConfig({
 			srcDir: '',
 			filename: 'service-worker.js',
 			manifest
-		}),
-		i18nResources({
-			path: resolve(__dirname, 'src/i18n/locales')
-		}),
-		i18nextDtsGen({
-			dirs: [
-				resolve(__dirname, 'src/i18n/locales/pages/home'),
-				resolve(__dirname, 'src/i18n/locales/pages/test')
-			]
 		})
 	],
 	build: {

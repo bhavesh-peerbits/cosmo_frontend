@@ -1,7 +1,7 @@
 import { memo, ReactNode } from 'react';
 import { ErrorBoundary as ReactErrorBoundary, FallbackProps } from 'react-error-boundary';
 import { useRecoilValue } from 'recoil';
-import errorIdAtom from '@store/errorBoundary/errorIdAtom';
+import errorIdAtom from '@store/error-boundary/errorIdAtom';
 import ApiError from '@api/ApiError';
 import ErrorModalFallback from '@error/components/ErrorModalFallback';
 import ApiErrorFallback from '@error/components/ApiErrorFallback';
