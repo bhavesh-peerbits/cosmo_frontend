@@ -1,28 +1,31 @@
 @use '@carbon/react' with (
 	$font-path: '@ibm/plex'
 );
-
-// @use "@carbon/ibmdotcom-styles";
-@use '@carbon/react/scss/grid';
+@use '@carbon/react/scss/theme' as theme;
 @use '@carbon/react/scss/breakpoint' as breakpoint;
 @use '@carbon/react/scss/spacing' as spacing;
 @use '@carbon/react/scss/type' as type;
 
 @each $typeName, $typeValues in type.$tokens {
-	.text-#{$typeName} {
-		@include type.type-style($typeName, true);
-	}
+  .text-#{$typeName} {
+    @include type.type-style($typeName, true);
+  }
 }
 
 .container-w-sidenav {
-	margin-left: 0.5rem * 32;
-	@include breakpoint.breakpoint-down('lg') {
-		margin-left: 0;
-	}
+  margin-left: 0.5rem * 32;
+  background-color: theme.$background;
+  @include breakpoint.breakpoint-down('lg') {
+    margin-left: 0;
+  }
 }
 
+// body {
+//  background: theme.$layer-01;
+// }
+
 :root {
-	@each $space, $val in spacing.$spacing {
-		--#{$space}: #{$val};
-	}
+  @each $space, $val in spacing.$spacing {
+    --#{$space}: #{$val};
+  }
 }

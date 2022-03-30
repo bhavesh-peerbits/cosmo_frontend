@@ -17,7 +17,6 @@
 		"noEmit": true,
 		"jsx": "react-jsx",
 		"paths": {
-			"@carbon/react": ["../src/types/carbon__react"],
 			"@*": ["./*"]
 		},
 		"types": ["vite/client", "vitest/globals", "vite-plugin-pwa/client"]

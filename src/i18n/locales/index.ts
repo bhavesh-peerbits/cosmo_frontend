@@ -7,17 +7,17 @@ import {
 } from './components/error-boundary';
 
 export default {
-	en: {
+	en_US: {
 		home: homeEn,
 		test: testEn,
 		errorBoundary: errorBoundaryEn
 	},
-	it: {
+	it_IT: {
 		home: homeIt,
 		test: testIt,
 		errorBoundary: errorBoundaryIt
 	},
-	fr: {
+	fr_FR: {
 		errorBoundary: errorBoundaryFr
 	}
 } as const;

@@ -1,42 +1,42 @@
 import {
+	Fade,
 	Notification,
 	Search,
-	Switcher as SwitcherIcon,
-	Fade
+	Switcher as SwitcherIcon
 } from '@carbon/react/icons';
 import {
+	Content,
 	Header,
-	Theme,
-	HeaderMenu,
 	HeaderContainer,
+	HeaderGlobalAction,
+	HeaderGlobalBar,
+	HeaderMenu,
 	HeaderMenuButton,
+	HeaderMenuItem,
 	HeaderName,
 	HeaderNavigation,
-	HeaderMenuItem,
-	HeaderGlobalBar,
-	HeaderGlobalAction,
+	HeaderPanel,
+	HeaderSideNavItems,
 	SideNav,
 	SideNavItems,
-	HeaderSideNavItems,
+	SideNavLink,
 	SideNavMenu,
 	SideNavMenuItem,
-	SideNavLink,
-	HeaderPanel,
-	Switcher,
-	SwitcherItem,
-	SwitcherDivider,
-	Content,
 	SkipToContent,
-	Button
+	Switcher,
+	SwitcherDivider,
+	SwitcherItem,
+	Theme
 } from '@carbon/react';
 import 'style/app.scss';
+// import '@carbon/ibm-products/css/index.min.css';
 import useGetExample from '@api/useGetExample';
 import ErrorBoundary from '@error/components/ErrorBoundary';
 import { Suspense, useEffect, useState } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { useSetRecoilState } from 'recoil';
-import languageAtom from '@store/i18n/languageAtom';
+import { useRecoilValue } from 'recoil';
+import uiStore from '@store/ui/uiStore';
+import Home from '@pages/Home';
 
 const Test = () => {
 	const { data } = useGetExample();
@@ -52,94 +52,12 @@ const Test = () => {
 	return <div>{JSON.stringify(data)}</div>;
 };
 
-const StoryContent = () => {
-	const { t } = useTranslation();
-	const setLanguage = useSetRecoilState(languageAtom);
-
-	const content = (
-		<div className='bx--grid'>
-			<div className='bx--row'>
-				<section className='bx--offset-lg-3 bx--col-lg-13'>
-					<h2
-						style={{
-							fontWeight: '800',
-							margin: '30px 0',
-							fontSize: '20px'
-						}}
-					>
-						{t('home:purpose')}
-					</h2>
-					<Button onClick={() => setLanguage(val => (val === 'it' ? 'en' : 'it'))}>
-						Change Lang
-					</Button>
-					<h1 className='capitalize'>{t('test:test-string')}</h1>
-					<p style={{ lineHeight: '20px' }}>
-						The shell is perhaps the most crucial piece of any UI built with Carbon. It
-						contains the shared navigation framework for the entire design system and ties
-						the products in IBM’s portfolio together in a cohesive and elegant way. The
-						shell is the home of the topmost navigation, where users can quickly and
-						dependably gain their bearings and move between pages.
-						<br />
-						<br />
-						The shell was designed with maximum flexibility built in, to serve the needs
-						of a broad range of products and users. Adopting the shell ensures compliance
-						with IBM design standards, simplifies development efforts, and provides great
-						user experiences. All IBM products built with Carbon are required to use the
-						shell’s header.
-						<br />
-						<br />
-						To better understand the purpose and function of the UI shell, consider the
-						“shell” of MacOS, which contains the Apple menu, top-level navigation, and
-						universal, OS-level controls at the top of the screen, as well as a universal
-						dock along the bottom or side of the screen. The Carbon UI shell is roughly
-						analogous in function to these parts of the Mac UI. For example, the app
-						switcher portion of the shell can be compared to the dock in MacOS.
-					</p>
-					<h2
-						style={{
-							fontWeight: '800',
-							margin: '30px 0',
-							fontSize: '20px'
-						}}
-					>
-						Header responsive behavior
-					</h2>
-					<p style={{ lineHeight: '20px' }}>
-						As a header scales down to fit smaller screen sizes, headers with persistent
-						side nav menus should have the side nav collapse into “hamburger” menu. See
-						the example to better understand responsive behavior of the header.
-					</p>
-					<h2
-						style={{
-							fontWeight: '800',
-							margin: '30px 0',
-							fontSize: '20px'
-						}}
-					>
-						Secondary navigation
-					</h2>
-					<p style={{ lineHeight: '20px' }}>
-						The side-nav contains secondary navigation and fits below the header. It can
-						be configured to be either fixed-width or flexible, with only one level of
-						nested items allowed. Both links and category lists can be used in the
-						side-nav and may be mixed together. There are several configurations of the
-						side-nav, but only one configuration should be used per product section. If
-						tabs are needed on a page when using a side-nav, then the tabs are secondary
-						in hierarchy to the side-nav.
-					</p>
-				</section>
-			</div>
-		</div>
-	);
-
-	return <Content>{content}</Content>;
-};
-
 const App = () => {
 	const [appExpanded, setAppExpanded] = useState(false);
+	const { theme } = useRecoilValue(uiStore);
 
 	return (
-		<Theme theme='white' className='h-full overflow-hidden'>
+		<Theme theme={theme} className='h-full overflow-hidden'>
 			<HeaderContainer
 				render={({ isSideNavExpanded, onClickSideNavExpand }) => (
 					<Header aria-label='IBM Platform Name'>
@@ -271,7 +189,7 @@ const App = () => {
 			<Content className='container-w-sidenav h-full overflow-auto'>
 				<ErrorBoundary>
 					<Routes>
-						<Route index element={<StoryContent />} />
+						<Route index element={<Home />} />
 						<Route
 							path='/test'
 							element={

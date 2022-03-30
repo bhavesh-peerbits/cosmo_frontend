@@ -1,9 +1,9 @@
-import '@carbon/react';
-import React, { InputHTMLAttributes } from 'react';
-import { LinkProps } from 'react-router-dom';
-
 declare module '@carbon/react' {
-	const Theme: React.FC<{ theme: 'white' | 'g10' | 'g90' | 'g100'; className: string }>;
+	import React, { InputHTMLAttributes } from 'react';
+	import { LinkProps } from 'react-router-dom';
+
+	export type CarbonTheme = 'white' | 'g10' | 'g90' | 'g100';
+	const Theme: React.FC<{ theme: CarbonTheme; className: string }>;
 	const Layer: React.FC;
 	const Header: React.FC;
 	const HeaderMenu: React.FC<{ 'aria-label'?: string; menuLinkName: string }>;
@@ -61,7 +61,13 @@ declare module '@carbon/react' {
 	}>;
 	const Accordion: React.FC;
 	const AccordionItem: React.FC<{ title: string }>;
-	const Button: React.FC<React.HTMLProps<HTMLButtonElement>>;
+	const Button: React.FC<
+		React.HTMLProps<HTMLButtonElement> & {
+			renderIcon?: JSX.Element;
+			iconDescription?: string;
+			isExpressive?: boolean;
+		}
+	>;
 	const CodeSnippet: React.FC<{ type: 'inline' | 'multi' }>;
 	const ComposedModal: React.FC<{ open?: boolean; preventCloseOnClickOutside?: boolean }>;
 	const InlineLoading: React.FC<{
@@ -90,4 +96,9 @@ declare module '@carbon/react' {
 			labelText?: string;
 		}
 	>;
+	const Grid: React.FC<{ className?: string }>;
+	const Tile: React.FC;
+	const ButtonSet: React.FC<{ stacked?: boolean; className?: string }>;
+	type SpanType = number | { span?: number; offset?: number };
+	const Column: React.FC<{ sm?: SpanType; md?: SpanType; lg?: SpanType }>;
 }
