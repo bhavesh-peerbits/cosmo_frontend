@@ -1,8 +1,8 @@
 @use '@carbon/react' with (
 	$font-path: '@ibm/plex'
 );
-@use "@carbon/styles";
-@use "@carbon/colors";
+@use '@carbon/styles';
+@use '@carbon/colors';
 @use '@carbon/react/scss/theme' as theme;
 @use '@carbon/react/scss/breakpoint' as breakpoint;
 @use '@carbon/react/scss/spacing' as spacing;
@@ -10,13 +10,13 @@
 @use '@carbon/motion' as motion;
 
 .container-w-sidenav {
-  margin-left: 0.5rem * 32;
-  @include breakpoint.breakpoint-down('lg') {
-    margin-left: 0;
-  }
+	margin-left: 0.5rem * 32;
+	@include breakpoint.breakpoint-down('lg') {
+		margin-left: 0;
+	}
 }
 
 :root main {
-  // colors
-  --primary: #{theme.$background};
+	// colors
+	--primary: #{theme.$background};
 }
