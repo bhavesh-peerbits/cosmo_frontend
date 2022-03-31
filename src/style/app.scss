@@ -1,31 +1,22 @@
 @use '@carbon/react' with (
 	$font-path: '@ibm/plex'
 );
+@use "@carbon/styles";
+@use "@carbon/colors";
 @use '@carbon/react/scss/theme' as theme;
 @use '@carbon/react/scss/breakpoint' as breakpoint;
 @use '@carbon/react/scss/spacing' as spacing;
 @use '@carbon/react/scss/type' as type;
-
-@each $typeName, $typeValues in type.$tokens {
-	.text-#{$typeName} {
-		@include type.type-style($typeName, true);
-	}
-}
+@use '@carbon/motion' as motion;
 
 .container-w-sidenav {
-	margin-left: 0.5rem * 32;
-	background-color: theme.$background;
-	@include breakpoint.breakpoint-down('lg') {
-		margin-left: 0;
-	}
+  margin-left: 0.5rem * 32;
+  @include breakpoint.breakpoint-down('lg') {
+    margin-left: 0;
+  }
 }
 
-// body {
-//  background: theme.$layer-01;
-// }
-
-:root {
-	@each $space, $val in spacing.$spacing {
-		--#{$space}: #{$val};
-	}
+:root main {
+  // colors
+  --primary: #{theme.$background};
 }

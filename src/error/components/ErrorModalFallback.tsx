@@ -75,7 +75,7 @@ const ErrorModalFallback = ({
 					}}
 				/>
 				<ModalBody>
-					<div className='space-y-spacing-5'>
+					<div className='space-y-5'>
 						<span>
 							<Trans t={t} i18nKey='error-message-detail'>
 								<p>Sorry, an unrecoverable error occurred.</p>
@@ -95,8 +95,8 @@ const ErrorModalFallback = ({
 						{/* </Accordion> */}
 						{sentryDSN && (
 							<>
-								<p className='pt-spacing-5'>{t('tell-us')}</p>
-								<div className='space-y-spacing-3'>
+								<p className='pt-5'>{t('tell-us')}</p>
+								<div className='space-y-3'>
 									<TextInput
 										invalid={Boolean(errors.name)}
 										invalidText={errors.name?.message}

@@ -10,13 +10,13 @@ const ApiErrorFallback = ({
 	const { t } = useTranslation('errorBoundary');
 
 	return (
-		<div className='absolute bottom-spacing-5 w-full'>
+		<div className='absolute bottom-5 w-full'>
 			<ActionableNotification
 				onActionButtonClick={() => resetErrorBoundary()}
 				inline
 				actionButtonLabel={t('retry')}
 				kind='error'
-				className='items-center space-x-spacing-2'
+				className='items-center space-x-2'
 			>
 				<p className='font-bold'>API Error</p>
 				<p>Code {error.status}</p>

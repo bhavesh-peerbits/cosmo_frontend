@@ -11,7 +11,7 @@ const Home = () => {
 		<div>
 			<LanguagePrompt />
 			<section className=''>
-				<h2 className='text-heading-02 my-spacing-8'>{t('home:purpose')}</h2>
+				<h2 className='my-8 text-heading-2'>{t('home:purpose')}</h2>
 				<Button
 					onClick={() =>
 						setUiStore(val => ({
@@ -22,7 +22,7 @@ const Home = () => {
 				>
 					Change Theme
 				</Button>
-				<h1 className='my-spacing-4 capitalize'>{t('test:test-string')}</h1>
+				<h1 className='my-4 capitalize'>{t('test:test-string')}</h1>
 				<p style={{ lineHeight: '20px' }}>
 					The shell is perhaps the most crucial piece of any UI built with Carbon. It
 					contains the shared navigation framework for the entire design system and ties
