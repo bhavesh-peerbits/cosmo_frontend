@@ -9,6 +9,7 @@ import uiStore from '@store/ui/uiStore';
 import Home from '@pages/Home';
 import Header from '@components/Header';
 
+console.log('App.tsx');
 const Test = () => {
 	const { data } = useGetExample();
 	const [error, setError] = useState(false);

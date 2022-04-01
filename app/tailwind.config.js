@@ -1,5 +1,4 @@
 const plugin = require('tailwindcss/plugin');
-const { tokens } = require('@carbon/themes');
 const { styles } = require('@carbon/type');
 const spacing = require('@carbon/layout');
 const motion = require('@carbon/motion');
@@ -14,7 +13,7 @@ const carbonFonts = Object.entries(styles).reduce((acc, [key, value]) => {
 	return acc;
 }, {});
 
-const carbonSpacing = tokens.layout.reduce((acc, layout) => {
+const carbonSpacing = spacing.unstable_tokens.reduce((acc, layout) => {
 	acc[toKebabCase(layout.replace('spacing', ''))] = spacing[layout];
 	return acc;
 }, {});
