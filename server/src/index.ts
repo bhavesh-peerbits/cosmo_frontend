@@ -4,26 +4,26 @@ import logger from '@/logger';
 import { IS_PRODUCTION } from '@/env-variables';
 
 const start = async (workerId: number, disconnect: () => void) => {
-  startExpress({ workerId });
+	startExpress({ workerId });
 
-  const shutdown = () => {
-    logger.info(`Worker ${workerId} cleanup.`);
-    // cleanup resources here
-    disconnect();
-  };
+	const shutdown = () => {
+		logger.info(`Worker ${workerId} cleanup.`);
+		// cleanup resources here
+		disconnect();
+	};
 
-  process.once('SIGTERM', shutdown);
-  process.once('SIGINT', shutdown);
+	process.once('SIGTERM', shutdown);
+	process.once('SIGINT', shutdown);
 };
 
 let app;
 if (IS_PRODUCTION) {
-  throng({
-    worker: start,
-    count: import.meta.env.WEB_CONCURRENCY || 10
-  });
+	throng({
+		worker: start,
+		count: import.meta.env.WEB_CONCURRENCY || 10
+	});
 } else {
-  app = startExpress({});
+	app = startExpress({});
 }
 
 export const cosmoNodeApp = app;

@@ -9,8 +9,6 @@ import uiStore from '@store/ui/uiStore';
 import Home from '@pages/Home';
 import Header from '@components/Header';
 
-console.log('App.tsx');
-
 const Test = () => {
 	const { data } = useGetExample();
 	const [error, setError] = useState(false);
@@ -31,7 +29,7 @@ const App = () => {
 	return (
 		<Theme theme={theme} className='h-full overflow-hidden'>
 			<HeaderContainer render={Header} />
-			<Content className='container-w-sidenav h-full overflow-auto bg-primary'>
+			<Content className='container-w-sidenav bg-primary h-full overflow-auto'>
 				<ErrorBoundary>
 					<Routes>
 						<Route index element={<Home />} />
