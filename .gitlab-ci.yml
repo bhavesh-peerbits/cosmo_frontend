@@ -36,7 +36,7 @@ cache:
     - .eslint
 
 build:
-  stage: build_code
+  stage: build_code 🔨
   variables:
     http_proxy: http://srvprx01.aizoon.it:3128
     https_proxy: http://srvprx01.aizoon.it:3128
