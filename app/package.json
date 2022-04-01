@@ -6,8 +6,8 @@
 		"dev": "vite",
 		"build": "tsc && vite build",
 		"preview": "vite preview",
-		"lint:fix": "eslint --cache --fix --ignore-path .gitignore --ext .ts,.tsx",
-		"lint:format": "prettier -uw --ignore-path .gitignore .",
+		"lint:fix": "eslint --cache --fix --ignore-path ../.gitignore --ext .ts,.tsx",
+		"lint:format": "prettier -uw .",
 		"lint:stylelint": "stylelint --cache --cache-location node_modules/.cache/ --fix --ignore-path .gitignore '**/*.[s]css'",
 		"lint": "tsc && yarn lint:format && yarn lint:fix && yarn lint:stylelint",
 		"openapi:generate": "cross-env PWD= JAVA_OPTS=\"-Dio.swagger.parser.util.RemoteUrl.trustAll=true -Dio.swagger.v3.parser.util.RemoteUrl.trustAll=true\" openapi-generator-cli generate",
@@ -84,5 +84,9 @@
 		"workbox-window": "^6.5.1",
 		"yarn-deduplicate": "^3.1.0"
 	},
-	"pre-commit": "lint"
+	"workspaces": {
+		"nohoist": [
+			"prettier-plugin-tailwindcss"
+		]
+	}
 }

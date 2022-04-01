@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint:fix": "eslint --cache --fix --ignore-path .gitignore --ext .ts",
-    "lint:format": "prettier -uw --ignore-path .gitignore .",
+    "lint:fix": "eslint --cache --fix --ignore-path ../.gitignore --ext .ts",
+    "lint:format": "prettier -uw .",
     "lint": "tsc && yarn lint:format && yarn lint:fix",
     "test": "vitest",
     "validate": "yarn lint && yarn test"
@@ -35,6 +35,5 @@
     "ts-jest": "^27.1.4",
     "ts-node": "^10.7.0",
     "vite-plugin-node": "^0.0.19"
-  },
-  "pre-commit": "lint"
+  }
 }

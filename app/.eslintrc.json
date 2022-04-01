@@ -36,10 +36,7 @@
 		"import/no-extraneous-dependencies": [
 			"error",
 			{
-				"packageDir": [
-					"../",
-					"./"
-				],
+				"packageDir": ["../", "./"],
 				"devDependencies": [
 					"vite.config.ts",
 					"src/test/**/*.{ts,tsx}",

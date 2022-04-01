@@ -1,8 +1,6 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "*.js"
-  ],
+  "ignorePatterns": ["*.js"],
   "env": {
     "browser": true,
     "es2021": true
@@ -28,36 +26,23 @@
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "packageDir": [
-          "../",
-          "./"
-        ]
+        "packageDir": ["../", "./"]
       }
     ],
     "import/extensions": "off"
   },
   "overrides": [
     {
-      "files": [
-        "src/**/*.ts"
-      ],
-      "excludedFiles": [
-        "jest.config.ts"
-      ],
+      "files": ["src/**/*.ts"],
+      "excludedFiles": ["jest.config.ts"],
       "parserOptions": {
-        "project": [
-          "./tsconfig.json"
-        ]
+        "project": ["./tsconfig.json"]
       }
     },
     {
-      "files": [
-        "vite.config.ts"
-      ],
+      "files": ["vite.config.ts"],
       "parserOptions": {
-        "project": [
-          "./tsconfig.node.json"
-        ]
+        "project": ["./tsconfig.node.json"]
       }
     }
   ]
