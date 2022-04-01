@@ -8,7 +8,7 @@
 		"build": "tsc && vite build",
 		"lint:fix": "eslint --cache --fix --ignore-path ../.gitignore --ext .ts .",
 		"lint": "tsc && yarn lint:fix",
-		"test": "vitest",
+		"test:ci": "jest",
 		"validate": "yarn lint && yarn test"
 	},
 	"dependencies": {

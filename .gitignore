@@ -26,3 +26,11 @@ coverage
 cypress/videos
 .nyc_output
 .env.local
+.eslintcache
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

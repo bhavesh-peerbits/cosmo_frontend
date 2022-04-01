@@ -1,0 +1,103 @@
+stages:
+  - sonar
+  - build_code 🔨
+  - build_docker 🐳
+  - test ✅
+  - tag 🔖
+  - deploy 🚀
+
+variables:
+  BASE_IMAGE: aramis-nexus.aizoon.it:5000/cosmo/fe
+  IMAGE_COSMO: $BASE_IMAGE/${CI_COMMIT_REF_SLUG}
+  TAG_IMAGE: $BASE_IMAGE:${CI_COMMIT_TAG}
+
+sonar:
+  image:
+    name: sonarsource/sonar-scanner-cli:latest
+    entrypoint: ['']
+  variables:
+    GIT_DEPTH: 0
+  stage: sonar
+  script:
+    - sonar-scanner -Dsonar.projectKey=cosmo-fe -Dsonar.qualitygate.wait=true
+  allow_failure: true
+  only:
+    - develop
+
+image: node:lts
+before_script:
+  - yarn install
+
+# Cache modules in between jobs
+cache:
+  paths:
+    - node_modules
+    - 'packages/*/node_modules'
+    - .eslint
+
+build:
+  stage: build_code
+  variables:
+    http_proxy: http://srvprx01.aizoon.it:3128
+    https_proxy: http://srvprx01.aizoon.it:3128
+    no_proxy: localhost,127.0.0.1,*.aizoon.it
+  script:
+    - yarn build
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - app/dist/
+      - server/dist/
+
+#build:
+#  image: docker:19.03.8
+#  stage: build_docker 🐳
+#  script:
+#    - docker build --label "git-commit=${CI_COMMIT_SHORT_SHA}" -t $BASE_IMAGE/${CI_COMMIT_REF_SLUG} .
+#    - docker tag $BASE_IMAGE/${CI_COMMIT_REF_SLUG} $IMAGE_ESRA
+#    - docker push $BASE_IMAGE/${CI_COMMIT_REF_SLUG}
+#    - docker push $IMAGE_ESRA
+
+trivy scan:
+  image:
+    name: aramis-nexus.aizoon.it:5000/esra/trivy:0.22.0
+    entrypoint: ['']
+  stage: test ✅
+  script:
+    - trivy image $IMAGE_ESRA
+  allow_failure: true
+
+grype scan:
+  image:
+    name: aramis-nexus.aizoon.it:5000/esra/grype:v0.32.0
+    entrypoint: ['']
+  stage: test ✅
+  script:
+    - grype $IMAGE_ESRA
+  allow_failure: true
+
+test:
+  stage: test ✅
+  variables:
+    NODE_ENV: 'CI'
+  script:
+    - yarn test
+#tag:
+#  image: aramis-nexus.aizoon.it:5000/esra/docker:20.10.8
+#  stage: tag 🔖
+#  only:
+#    - tags
+#  script:
+#    - docker tag $IMAGE_ESRA $TAG_IMAGE && docker push $TAG_IMAGE
+
+#deploy sviluppo:
+#  image: aramis-nexus.aizoon.it:5000/ansible
+#  stage: deploy 🚀
+#  environment:
+#    name: sviluppo
+#    url: http://172.17.0.149:25555/
+#  when: manual
+#  script:
+#    - cd operation/ansible
+#    - chmod go-rwx .
+#    - ansible-playbook --limit esra --vault-password-file $VAULT_PASS --extra-vars "{'image_name':'$IMAGE_ESRA'}" deploy_sviluppo.yml
