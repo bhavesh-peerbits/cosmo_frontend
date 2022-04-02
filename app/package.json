@@ -13,7 +13,7 @@
 		"test:unit": "vitest",
 		"test:unit:ci": "vitest run",
 		"test:e2e": "cypress open --config-file cypress.dev.json",
-		"test:e2e:ci": "start-server-and-test preview http://localhost:3000 'cypress run --record'",
+		"test:e2e:ci": "start-server-and-test preview http://localhost:4173 'cypress run'",
 		"test:ci": "yarn test:unit:ci && yarn test:e2e:ci",
 		"validate": "yarn lint && yarn test:unit:ci && yarn test:e2e:ci",
 		"storybook": "start-storybook -p 6006",
