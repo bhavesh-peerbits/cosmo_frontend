@@ -15,7 +15,7 @@
 		"postinstall": "patch-package",
 		"lint:format": "prettier -uw . ",
 		"lint": "yarn lint:format && yarn workspace app lint && yarn workspace server lint",
-		"test": "yarn workspaces run test:ci"
+		"test": "yarn workspace app test:ci && yarn workspace server test:ci"
 	},
 	"dependencies": {
 		"validator": "^13.7.0"

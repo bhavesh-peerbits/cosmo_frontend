@@ -29,11 +29,13 @@ before_script:
   - yarn install
 
 # Cache modules in between jobs
-cache:
+cache: &global_cache
+  key: $CI_PROJECT_ID
+  policy: pull
   paths:
     - node_modules
-    - 'packages/*/node_modules'
-    - .eslint
+    - 'app/node_modules'
+    - 'server/node_modules'
 
 build:
   stage: build_code 🔨
@@ -41,8 +43,12 @@ build:
     http_proxy: http://srvprx01.aizoon.it:3128
     https_proxy: http://srvprx01.aizoon.it:3128
     no_proxy: localhost,127.0.0.1,*.aizoon.it
-  script:
-    - yarn build
+  script: yarn build
+  cache:
+    # inherit all global cache settings
+    <<: *global_cache
+    # override the policy
+    policy: pull-push
   artifacts:
     expire_in: 1 day
     paths:
@@ -64,7 +70,7 @@ trivy scan:
     entrypoint: ['']
   stage: test ✅
   script:
-    - trivy image $IMAGE_ESRA
+    - trivy image $IMAGE_COSMO
   allow_failure: true
 
 grype scan:
@@ -73,7 +79,7 @@ grype scan:
     entrypoint: ['']
   stage: test ✅
   script:
-    - grype $IMAGE_ESRA
+    - grype $IMAGE_COSMO
   allow_failure: true
 
 test:
