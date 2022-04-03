@@ -10,12 +10,12 @@
 		"dev:app": "yarn workspace app dev",
 		"build:server": "yarn workspace server build",
 		"build:app": "yarn workspace app build",
-		"build": "yarn workspace app build && yarn workspace server build",
+		"build": "yarn workspaces foreach -ptR run build",
 		"prepare": "yarn-deduplicate yarn.lock",
 		"postinstall": "patch-package",
 		"lint:format": "prettier -uw . ",
-		"lint": "yarn lint:format && yarn workspace app lint && yarn workspace server lint",
-		"test": "yarn workspace app test:ci && yarn workspace server test:ci"
+		"lint": "yarn lint:format && yarn workspaces foreach -ptR run lint",
+		"test": "yarn workspaces foreach -ptR test:ci"
 	},
 	"dependencies": {
 		"validator": "^13.7.0"

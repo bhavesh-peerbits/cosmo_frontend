@@ -24,7 +24,7 @@ sonar:
   only:
     - develop
 
-image: node:lts
+image: node:lts-alpine
 before_script:
   - yarn install
 
@@ -55,14 +55,14 @@ build:
       - app/dist/
       - server/dist/
 
-#build:
-#  image: docker:19.03.8
-#  stage: build_docker 🐳
-#  script:
-#    - docker build --label "git-commit=${CI_COMMIT_SHORT_SHA}" -t $BASE_IMAGE/${CI_COMMIT_REF_SLUG} .
-#    - docker tag $BASE_IMAGE/${CI_COMMIT_REF_SLUG} $IMAGE_ESRA
-#    - docker push $BASE_IMAGE/${CI_COMMIT_REF_SLUG}
-#    - docker push $IMAGE_ESRA
+build_image:
+  image: docker:19.03.8
+  stage: build_docker 🐳
+  script:
+    - docker build --label "git-commit=${CI_COMMIT_SHORT_SHA}" -t $BASE_IMAGE/${CI_COMMIT_REF_SLUG} .
+    - docker tag $BASE_IMAGE/${CI_COMMIT_REF_SLUG} $IMAGE_COSMO
+    - docker push $BASE_IMAGE/${CI_COMMIT_REF_SLUG}
+    - docker push $IMAGE_COSMO
 
 trivy scan:
   image:
@@ -88,14 +88,13 @@ test:
     NODE_ENV: 'CI'
   script:
     - yarn test
-#tag:
-#  image: aramis-nexus.aizoon.it:5000/esra/docker:20.10.8
-#  stage: tag 🔖
-#  only:
-#    - tags
-#  script:
-#    - docker tag $IMAGE_ESRA $TAG_IMAGE && docker push $TAG_IMAGE
-
+tag:
+  image: aramis-nexus.aizoon.it:5000/esra/docker:20.10.8
+  stage: tag 🔖
+  only:
+    - tags
+  script:
+    - docker tag $IMAGE_COSMO $TAG_IMAGE && docker push $TAG_IMAGE
 #deploy sviluppo:
 #  image: aramis-nexus.aizoon.it:5000/ansible
 #  stage: deploy 🚀

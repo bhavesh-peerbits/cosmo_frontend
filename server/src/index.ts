@@ -20,7 +20,7 @@ let app;
 if (IS_PRODUCTION) {
 	throng({
 		worker: start,
-		count: import.meta.env.WEB_CONCURRENCY || 10
+		count: import.meta.env.WEB_CONCURRENCY
 	});
 } else {
 	app = startExpress({});
