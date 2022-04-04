@@ -25154,6 +25154,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["express-sslify", "npm:1.2.0"],\
             ["helmet", "npm:5.0.2"],\
             ["jest", "virtual:5e2e00b31e527ff544c90eb3e3e3e977a366e52a6e25602d03686a4c9a155eee4d7b92ccdea0b04275344f5b2189eb629d123eb4cc6e1b883b42aea6d965568d#npm:27.5.1"],\
+            ["jsdom", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:19.0.0"],\
             ["morgan", "npm:1.10.0"],\
             ["supertest", "npm:6.2.2"],\
             ["throng", "npm:5.0.0"],\
