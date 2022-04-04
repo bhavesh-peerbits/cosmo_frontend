@@ -9,7 +9,7 @@
 		"build": "yarn tsc && vite build",
 		"lint:fix": "yarn eslint --cache --fix --ignore-path ../.gitignore --ext .ts .",
 		"lint": "yarn tsc && yarn lint:fix",
-		"test:ci": "jest",
+		"test:ci": "jest --detectOpenHandles --runInBand --forceExit",
 		"validate": "yarn lint && yarn test",
 		"tsc": "yarn run -T tsc",
 		"eslint": "yarn run -T eslint"
