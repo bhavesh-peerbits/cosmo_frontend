@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"allowSyntheticDefaultImports": true,
+		"composite": true,
+		"forceConsistentCasingInFileNames": true,
+		"isolatedModules": true,
+		"module": "ESNext",
+		"moduleResolution": "Node",
+		"skipLibCheck": true,
+		"strict": true,
+		"target": "ESNext",
+		"resolveJsonModule": true
+	},
+	"include": ["vite.config.ts", "package.json", "manifest.json"]
+}

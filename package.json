@@ -1,0 +1,38 @@
+{
+	"name": "cosmo",
+	"private": true,
+	"workspaces": [
+		"app",
+		"server"
+	],
+	"scripts": {
+		"dev:server": "yarn workspace server dev",
+		"dev:app": "yarn workspace app dev",
+		"build:server": "yarn workspace server build",
+		"build:app": "yarn workspace app build",
+		"build": "yarn workspaces foreach -pt run build",
+		"lint:format": "prettier -uw . ",
+		"lint": "yarn lint:format && yarn workspaces foreach -pt run lint",
+		"test": "yarn workspaces foreach -pt run test:ci"
+	},
+	"devDependencies": {
+		"@types/node": "^17.0.23",
+		"c8": "^7.11.0",
+		"eslint": "^8.11.0",
+		"husky": "^7.0.4",
+		"jsdom": "^19.0.0",
+		"lint-staged": "^12.3.7",
+		"prettier": "^2.5.1",
+		"prettier-plugin-tailwindcss": "^0.1.8",
+		"ts-node": "^10.7.0",
+		"typescript": "^4.6.3",
+		"vite": "^2.9.1"
+	},
+	"lint-staged": {
+		"**/*.+(js|jsx|ts|tsx|json|css)": [
+			"yarn lint"
+		]
+	},
+	"version": "0.0.0",
+	"packageManager": "yarn@3.2.0"
+}

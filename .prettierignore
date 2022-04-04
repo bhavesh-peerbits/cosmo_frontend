@@ -1,0 +1,7 @@
+dist
+coverage
+node_modules
+.prettierignore
+.yarn
+.pnp.loader.mjs
+.pnp.cjs
