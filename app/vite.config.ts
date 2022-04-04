@@ -54,11 +54,7 @@ export default defineConfig({
 		legacy({
 			targets: ['defaults', 'not IE 11']
 		}),
-		eslintPlugin({
-			eslintOptions: {
-				cacheLocation: 'node_modules/.cache/'
-			}
-		}),
+		eslintPlugin(),
 		pwa({
 			strategies: 'injectManifest',
 			srcDir: '',

@@ -7,7 +7,7 @@
 		"build": "yarn tsc && vite build",
 		"preview": "vite preview",
 		"lint:fix": "yarn eslint --cache --fix --ignore-path ../.gitignore --ext .ts,.tsx .",
-		"lint:stylelint": "stylelint --cache --cache-location node_modules/.cache/ --fix --ignore-path .gitignore '**/*.[s]css'",
+		"lint:stylelint": "stylelint --cache --fix --ignore-path .gitignore '**/*.[s]css'",
 		"lint": "yarn tsc && yarn lint:fix && yarn lint:stylelint",
 		"openapi:generate": "cross-env PWD= JAVA_OPTS=\"-Dio.swagger.parser.util.RemoteUrl.trustAll=true -Dio.swagger.v3.parser.util.RemoteUrl.trustAll=true\" openapi-generator-cli generate",
 		"test:unit": "vitest",
@@ -37,14 +37,14 @@
 		"react-error-boundary": "^3.1.4",
 		"react-hook-form": "^7.29.0",
 		"react-i18next": "^11.16.2",
-		"react-query": "^3.34.19",
-		"react-router-dom": "^6.2.2",
-		"recoil": "^0.6.1",
+		"react-query": "^4.0.0-beta.1",
+		"react-router-dom": "^6.3.0",
+		"recoil": "^0.7.0",
 		"translation-check": "^1.0.2",
 		"validator": "^13.7.0",
-		"workbox-recipes": "^6.5.1",
-		"workbox-routing": "^6.5.1",
-		"workbox-strategies": "^6.5.1"
+		"workbox-recipes": "^6.5.2",
+		"workbox-routing": "^6.5.2",
+		"workbox-strategies": "^6.5.2"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.17.8",
@@ -55,6 +55,7 @@
 		"@storybook/addon-essentials": "^6.4.19",
 		"@storybook/addon-interactions": "^6.4.19",
 		"@storybook/addon-links": "^6.4.19",
+		"@storybook/core-common": "^6.4.20",
 		"@storybook/react": "^6.4.19",
 		"@storybook/testing-library": "^0.0.9",
 		"@testing-library/cypress": "^8.0.2",
@@ -111,8 +112,13 @@
 		"vite-plugin-pwa": "^0.11.13",
 		"vite-tsconfig-paths": "^3.4.1",
 		"vitest": "^0.8.1",
+		"webpack": "^5.71.0",
 		"whatwg-fetch": "^3.6.2",
-		"workbox-build": "^6.5.1",
-		"workbox-window": "^6.5.1"
+		"workbox-build": "^6.5.2",
+		"workbox-window": "^6.5.2"
+	},
+	"peerDependencies": {
+		"prettier": "*",
+		"typescript": "*"
 	}
 }

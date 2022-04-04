@@ -11,4 +11,4 @@ async function getExample(): Promise<string[]> {
 	}
 }
 
-export default () => useQuery('example', getExample);
+export default () => useQuery(['example'], getExample);
