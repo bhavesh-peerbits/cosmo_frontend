@@ -27,6 +27,7 @@ cypress/videos
 .nyc_output
 .env.local
 .eslintcache
+.stylelintcache
 .yarn/*
 !.yarn/cache
 !.yarn/patches
