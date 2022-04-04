@@ -1,7 +1,7 @@
 import throng from 'throng';
 import startExpress from '@/start-express';
 import logger from '@/logger';
-import { IS_PRODUCTION } from '@/env-variables';
+import { IS_PRODUCTION, WEB_CONCURRENCY } from '@/env-variables';
 
 const start = async (workerId: number, disconnect: () => void) => {
 	startExpress({ workerId });
@@ -20,7 +20,7 @@ let app;
 if (IS_PRODUCTION) {
 	throng({
 		worker: start,
-		count: import.meta.env.WEB_CONCURRENCY
+		count: WEB_CONCURRENCY
 	});
 } else {
 	app = startExpress({});

@@ -5,9 +5,11 @@ import legacy from '@vitejs/plugin-legacy';
 import react from '@vitejs/plugin-react';
 import eslintPlugin from '@nabla/vite-plugin-eslint';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import { dependencies } from './package.json';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import sassPnpImporter from 'sass-pnp-importer';
 import manifest from './manifest.json';
-
+import { dependencies } from './package.json';
 // Packages we want in the vendor aka the deps needed in the entire app.
 const globalVendorPackages = ['react', 'react-dom', 'react-router-dom'];
 
@@ -42,7 +44,7 @@ export default defineConfig({
 	css: {
 		preprocessorOptions: {
 			scss: {
-				includePaths: ['node_modules']
+				importer: sassPnpImporter
 			}
 		}
 	},

@@ -1,7 +1,11 @@
+const { createRequire } = require('module');
+
+const getDependency = createRequire(require.resolve('@carbon/react'));
 const plugin = require('tailwindcss/plugin');
-const { styles } = require('@carbon/type');
-const spacing = require('@carbon/layout');
-const motion = require('@carbon/motion');
+const st = createRequire(getDependency.resolve('@carbon/styles/package.json'));
+const { styles } = st(st.resolve('@carbon/type'));
+const spacing = st(st.resolve('@carbon/layout'));
+const motion = st(st.resolve('@carbon/motion'));
 const kebabCase = require('lodash/kebabCase');
 
 const toKebabCase = str => {

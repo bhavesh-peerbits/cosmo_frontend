@@ -1,14 +1,15 @@
 import { atom } from 'recoil';
+import errorEventEmitter from '@event/ErrorEventEmitter';
+import Sentry from '@sentry/react';
 
-type LanguageType = 'en' | 'it' | 'fr';
-
-const errorId = atom<LanguageType>({
+const errorId = atom<string | undefined>({
 	key: 'error-id',
 	default: 'en',
 	effects: [
-		({ onSet }) => {
-			onSet(value => {
-				localStorage.setItem('lng', value);
+		({ setSelf }) => {
+			errorEventEmitter.onErrorEvent(error => {
+				const event = error as CustomEvent<Sentry.Event>;
+				setSelf(event.detail.event_id);
 			});
 		}
 	]

@@ -10,7 +10,11 @@ ARG APP_PATH=/opt/cosmo
 USER root
 
 WORKDIR $APP_PATH
+
 ENV NODE_ENV production
+ENV SERVER_WEB_CONCURRENCY 5
+ENV SERVER_PORT 3000
+
 COPY ./.yarn ./.yarn
 COPY ./server/dist ./server/package.json ./server/
 COPY ./app/dist/cosmo ./server/cosmo
@@ -21,12 +25,11 @@ RUN yarn workspaces focus --production server
 
 RUN chown -R node:node $APP_PATH/server
 
-ENV WEB_CONCURRENCY 5
-ENV PORT 3000
+
 WORKDIR $APP_PATH/server
 
 USER node
 
 EXPOSE 3000
 #ENTRYPOINT ["tini", "--"]
-CMD ["yarn", "node", "index.js"]
+CMD ["yarn", "start"]

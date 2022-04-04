@@ -19,12 +19,7 @@ import {
 	SwitcherDivider,
 	SwitcherItem
 } from '@carbon/react';
-import {
-	Fade,
-	Notification,
-	Search,
-	Switcher as SwitcherIcon
-} from '@carbon/react/icons';
+import { Fade, Notification, Search, Switcher as SwitcherIcon } from '@carbon/react/icons';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -128,7 +123,7 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 						Link
 					</SideNavLink>
 					{import.meta.env.DEV && (
-						<SideNavLink renderIcon={Fade} href='?showtranslations'>
+						<SideNavLink renderIcon={Fade} href='/translation?showtranslations'>
 							[TEST ONLY] Show translations
 						</SideNavLink>
 					)}

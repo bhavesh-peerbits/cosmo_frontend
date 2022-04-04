@@ -2,11 +2,19 @@ import { defineConfig } from 'vite';
 import { VitePluginNode } from 'vite-plugin-node';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
+const viteEnv = {}
+Object.keys(process.env).forEach((key) => {
+	if (key.startsWith(`SERVER_`)) {
+		viteEnv[`import.meta.env.${key}`] = process.env[key]
+	}
+})
+
 export default defineConfig({
 	server: {
 		// vite server configs, for details see [vite doc](https://vitejs.dev/config/#server-host)
 		port: 4000
 	},
+	envPrefix: 'SERVER_',
 	build: {
 		sourcemap: true,
 		outDir: 'dist'
@@ -14,6 +22,7 @@ export default defineConfig({
 	optimizeDeps: {
 		include: ['express']
 	},
+	define: viteEnv,
 	plugins: [
 		tsconfigPaths(),
 		...VitePluginNode({
