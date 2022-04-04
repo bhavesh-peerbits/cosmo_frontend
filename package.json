@@ -10,7 +10,7 @@
 		"dev:app": "yarn workspace app dev",
 		"build:server": "yarn workspace server build",
 		"build:app": "yarn workspace app build",
-		"build": "yarn workspaces foreach -ptR run build",
+		"build": "yarn workspaces foreach -pt run build",
 		"lint:format": "prettier -uw . ",
 		"lint": "yarn lint:format && yarn workspaces foreach -pt run lint",
 		"test": "yarn workspaces foreach -ptR test:ci"
