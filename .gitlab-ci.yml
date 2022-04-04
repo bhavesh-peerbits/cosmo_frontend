@@ -24,7 +24,7 @@ sonar:
   only:
     - develop
 
-image: node:lts-alpine
+image: node:lts
 
 build:
   stage: build_code 🔨
