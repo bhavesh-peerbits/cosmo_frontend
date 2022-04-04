@@ -44,6 +44,7 @@ build:
 build_image:
   image: docker:19.03.8
   stage: build_docker 🐳
+  before_script: []
   script:
     - docker build --label "git-commit=${CI_COMMIT_SHORT_SHA}" -t $BASE_IMAGE/${CI_COMMIT_REF_SLUG} .
     - docker tag $BASE_IMAGE/${CI_COMMIT_REF_SLUG} $IMAGE_COSMO
