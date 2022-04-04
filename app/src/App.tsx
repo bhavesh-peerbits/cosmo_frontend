@@ -27,10 +27,10 @@ const App = () => {
 	const { theme } = useRecoilValue(uiStore);
 
 	return (
-		<Theme theme={theme} className='h-full overflow-hidden'>
-			<HeaderContainer render={Header} />
-			<Content className='container-w-sidenav bg-primary h-full overflow-auto'>
-				<ErrorBoundary>
+		<ErrorBoundary>
+			<Theme theme={theme} className='h-full overflow-hidden'>
+				<HeaderContainer render={Header} />
+				<Content className='container-w-sidenav bg-primary h-full overflow-auto'>
 					<Routes>
 						<Route index element={<Home />} />
 						<Route
@@ -43,9 +43,9 @@ const App = () => {
 						/>
 						<Route path='*' element={<div>Not found</div>} />
 					</Routes>
-				</ErrorBoundary>
-			</Content>
-		</Theme>
+				</Content>
+			</Theme>
+		</ErrorBoundary>
 	);
 };
 

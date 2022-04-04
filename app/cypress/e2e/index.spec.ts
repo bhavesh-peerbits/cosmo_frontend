@@ -10,7 +10,7 @@ describe('Basic flow', () => {
 	it('Should render the fruit gallery correctly', () => {
 		cy.visit('/');
 
-		get('').should('have.length', 6);
+		get('title').invoke('text').should('have.length.gt', 2);
 	});
 
 	// EXAMPLES

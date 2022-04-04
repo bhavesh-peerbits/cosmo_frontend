@@ -22,7 +22,9 @@ const Home = () => {
 				>
 					Change Theme
 				</Button>
-				<h1 className='my-4 capitalize'>{t('test:test-string')}</h1>
+				<h1 data-testid='title' className='my-4 capitalize'>
+					{t('test:test-string')}
+				</h1>
 				<p style={{ lineHeight: '20px' }}>
 					The shell is perhaps the most crucial piece of any UI built with Carbon. It
 					contains the shared navigation framework for the entire design system and ties
