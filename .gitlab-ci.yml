@@ -72,6 +72,8 @@ test:
   stage: test ✅
   variables:
     NODE_ENV: 'CI'
+  before_script:
+    - yarn
   script:
     - yarn test
 tag:
