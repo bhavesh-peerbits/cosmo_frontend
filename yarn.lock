@@ -6270,7 +6270,7 @@ __metadata:
     vite: ^2.9.1
     vite-plugin-pwa: ^0.11.13
     vite-tsconfig-paths: ^3.4.1
-    vitest: ^0.8.1
+    vitest: ^0.8.4
     webpack: ^5.71.0
     whatwg-fetch: ^3.6.2
     workbox-build: ^6.5.2
@@ -8825,6 +8825,7 @@ __metadata:
     c8: ^7.11.0
     eslint: ^8.11.0
     husky: ^7.0.4
+    jsdom: ^19.0.0
     lint-staged: ^12.3.7
     prettier: ^2.5.1
     prettier-plugin-tailwindcss: ^0.1.8
@@ -22147,7 +22148,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vitest@npm:^0.8.1":
+"vitest@npm:^0.8.4":
   version: 0.8.4
   resolution: "vitest@npm:0.8.4"
   dependencies:

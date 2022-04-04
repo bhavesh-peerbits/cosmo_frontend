@@ -13,13 +13,14 @@
 		"build": "yarn workspaces foreach -pt run build",
 		"lint:format": "prettier -uw . ",
 		"lint": "yarn lint:format && yarn workspaces foreach -pt run lint",
-		"test": "yarn workspace server test:ci"
+		"test": "yarn workspace app test:ci"
 	},
 	"devDependencies": {
 		"@types/node": "^17.0.23",
 		"c8": "^7.11.0",
 		"eslint": "^8.11.0",
 		"husky": "^7.0.4",
+		"jsdom": "^19.0.0",
 		"lint-staged": "^12.3.7",
 		"prettier": "^2.5.1",
 		"prettier-plugin-tailwindcss": "^0.1.8",
