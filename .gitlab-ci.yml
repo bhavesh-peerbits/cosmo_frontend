@@ -24,7 +24,7 @@ sonar:
   only:
     - develop
 
-image: node:lts
+image: node:lts-alpine
 
 build:
   stage: build_code 🔨
@@ -69,6 +69,7 @@ grype scan:
   allow_failure: true
 
 test:
+  image: cypress/browsers:node16.14.0-slim-chrome99-ff97
   stage: test ✅
   variables:
     NODE_ENV: 'CI'
