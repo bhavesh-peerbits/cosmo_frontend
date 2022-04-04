@@ -19,7 +19,6 @@ COPY ./.yarn ./.yarn
 COPY ./server/dist ./server/package.json ./server/
 COPY ./app/dist/cosmo ./server/cosmo
 COPY ./package.json ./yarn.lock .yarnrc.yml ./
-COPY ./patches ./patches
 
 RUN yarn workspaces focus --production server
 
