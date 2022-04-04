@@ -13,7 +13,7 @@
 		"build": "yarn workspaces foreach -pt run build",
 		"lint:format": "prettier -uw . ",
 		"lint": "yarn lint:format && yarn workspaces foreach -pt run lint",
-		"test": "yarn workspace app test:ci"
+		"test": "yarn workspaces foreach -pt run test:ci"
 	},
 	"devDependencies": {
 		"@types/node": "^17.0.23",

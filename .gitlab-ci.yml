@@ -1,7 +1,7 @@
 stages:
   - sonar
-  - test ✅
   - build_code 🔨
+  - test ✅
   - build_docker 🐳
   - tag 🔖
   - deploy 🚀
