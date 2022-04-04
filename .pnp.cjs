@@ -3669,8 +3669,21 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         ["npm:2.0.0", {\
           "packageLocation": "./.yarn/cache/@exceptionless-react-npm-2.0.0-99192412b4-22248aac61.zip/node_modules/@exceptionless/react/",\
           "packageDependencies": [\
-            ["@exceptionless/react", "npm:2.0.0"],\
-            ["@exceptionless/browser", "npm:2.0.0"]\
+            ["@exceptionless/react", "npm:2.0.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.0.0", {\
+          "packageLocation": "./.yarn/__virtual__/@exceptionless-react-virtual-673d5a9f9c/0/cache/@exceptionless-react-npm-2.0.0-99192412b4-22248aac61.zip/node_modules/@exceptionless/react/",\
+          "packageDependencies": [\
+            ["@exceptionless/react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.0.0"],\
+            ["@exceptionless/browser", "npm:2.0.0"],\
+            ["@types/react", "npm:17.0.43"],\
+            ["react", "npm:18.0.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -9471,7 +9484,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/core", "npm:7.17.8"],\
             ["@carbon/react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:0.17.0"],\
             ["@cypress/code-coverage", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:3.9.12"],\
-            ["@exceptionless/react", "npm:2.0.0"],\
+            ["@exceptionless/react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.0.0"],\
             ["@ibm/plex", "npm:6.0.0"],\
             ["@nabla/vite-plugin-eslint", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.4.0"],\
             ["@openapitools/openapi-generator-cli", "npm:2.4.26"],\

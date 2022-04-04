@@ -24,7 +24,7 @@ function renderChunks(deps: Record<string, string>) {
 }
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
 	define: {
 		'process.env': {}
 	},
@@ -48,9 +48,12 @@ export default defineConfig({
 			}
 		}
 	},
+	esbuild: mode === 'production' ? {
+		jsxInject: `import React from 'react'`
+	} : {},
 	plugins: [
 		tsconfigPaths(),
-		react(),
+		...mode === 'development' ? [react()] : [],
 		legacy({
 			targets: ['defaults', 'not IE 11']
 		}),
@@ -74,4 +77,4 @@ export default defineConfig({
 			}
 		}
 	}
-});
+}));

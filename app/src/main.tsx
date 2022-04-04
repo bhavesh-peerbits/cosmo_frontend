@@ -1,4 +1,4 @@
-import React from 'react';
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './style/index.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -26,7 +26,7 @@ const container = document.querySelector('#root') as HTMLElement;
 const root = createRoot(container);
 
 root.render(
-	<React.StrictMode>
+	<StrictMode>
 		<QueryClientProvider client={queryClient}>
 			<BrowserRouter>
 				<RecoilRoot>
@@ -34,5 +34,5 @@ root.render(
 				</RecoilRoot>
 			</BrowserRouter>
 		</QueryClientProvider>
-	</React.StrictMode>
+	</StrictMode>
 );
