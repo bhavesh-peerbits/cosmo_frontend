@@ -19,7 +19,12 @@ import {
 	SwitcherDivider,
 	SwitcherItem
 } from '@carbon/react';
-import { Fade, Notification, Search, Switcher as SwitcherIcon } from '@carbon/react/icons';
+import {
+	Fade,
+	Notification,
+	Search,
+	Switcher as SwitcherIcon
+} from '@carbon/react/icons';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 

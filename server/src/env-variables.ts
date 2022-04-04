@@ -17,7 +17,9 @@ if (import.meta.env?.DEV) {
 	IS_PRODUCTION = process.env.NODE_ENV === 'production';
 	SERVER_PORT = process.env.SERVER_PORT ? +process.env.SERVER_PORT : undefined;
 	CURRENT_DIRNAME = () => __dirname;
-	WEB_CONCURRENCY = process.env.SERVER_WEB_CONCURRENCY ? +process.env.SERVER_WEB_CONCURRENCY : 10;
+	WEB_CONCURRENCY = process.env.SERVER_WEB_CONCURRENCY
+		? +process.env.SERVER_WEB_CONCURRENCY
+		: 10;
 }
 
 export { IS_PRODUCTION, SERVER_PORT, CURRENT_DIRNAME, WEB_CONCURRENCY };

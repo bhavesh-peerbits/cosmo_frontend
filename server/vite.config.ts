@@ -2,12 +2,12 @@ import { defineConfig } from 'vite';
 import { VitePluginNode } from 'vite-plugin-node';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
-const viteEnv = {}
-Object.keys(process.env).forEach((key) => {
+const viteEnv = {};
+Object.keys(process.env).forEach(key => {
 	if (key.startsWith(`SERVER_`)) {
-		viteEnv[`import.meta.env.${key}`] = process.env[key]
+		viteEnv[`import.meta.env.${key}`] = process.env[key];
 	}
-})
+});
 
 export default defineConfig({
 	server: {

@@ -28,15 +28,6 @@ image: node:lts-alpine
 before_script:
   - yarn install
 
-# Cache modules in between jobs
-cache: &global_cache
-  key: $CI_PROJECT_ID
-  policy: pull
-  paths:
-    - node_modules
-    - 'app/node_modules'
-    - 'server/node_modules'
-
 build:
   stage: build_code 🔨
   variables:
@@ -44,11 +35,6 @@ build:
     https_proxy: http://srvprx01.aizoon.it:3128
     no_proxy: localhost,127.0.0.1,*.aizoon.it
   script: yarn build
-  cache:
-    # inherit all global cache settings
-    <<: *global_cache
-    # override the policy
-    policy: pull-push
   artifacts:
     expire_in: 1 day
     paths:
