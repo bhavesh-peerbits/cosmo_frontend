@@ -69,7 +69,7 @@ grype scan:
   allow_failure: true
 
 test:
-  image: cypress/browsers:node16.14.0-slim-chrome99-ff97
+  image: cypress/browsers:node16.13.2-chrome100-ff98
   stage: test ✅
   variables:
     NODE_ENV: 'CI'
