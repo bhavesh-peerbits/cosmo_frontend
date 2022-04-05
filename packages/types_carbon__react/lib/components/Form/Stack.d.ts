@@ -1,5 +1,4 @@
 import { HTMLProps, ReactElement, ReactNode } from 'react';
-import { spacing } from '@carbon/layout';
 
 type Ran<T extends number> = number extends T ? number : _Range<T, []>;
 type _Range<T extends number, R extends unknown[]> = R['length'] extends T
@@ -30,7 +29,7 @@ type StackProps<K extends keyof HTMLElementTagNameMap> = {
 	 * Provide either a custom value or a step from the spacing scale to be used
 	 * as the gap in the layout
 	 */
-	gap?: string | Ran<spacing>;
+	gap?: string | Ran<14>;
 
 	/**
 	 * Specify the orientation of them items in the Stack
@@ -38,8 +37,8 @@ type StackProps<K extends keyof HTMLElementTagNameMap> = {
 	orientation?: 'horizontal' | 'vertical';
 } & HTMLProps<HTMLElementTagNameMap[K]>;
 
-declare function Layer<T extends keyof HTMLElementTagNameMap = 'a'>(
+declare function Stack<T extends keyof HTMLElementTagNameMap = 'a'>(
 	props: StackProps<T>
 ): ReactElement;
 
-export default Layer;
+export default Stack;

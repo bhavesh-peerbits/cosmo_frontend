@@ -36,6 +36,7 @@ const carbonTransition = Object.entries(motion.easings).reduce((acc, [name, valu
 }, {});
 
 module.exports = {
+	important: true,
 	content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
 	theme: {
 		spacing: carbonSpacing,
