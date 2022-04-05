@@ -34,10 +34,9 @@ type HeaderProps = {
 };
 const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 	const [appExpanded, setAppExpanded] = useState(false);
-
 	return (
 		<CarbonHeader aria-label='IBM Platform Name'>
-			<SkipToContent />
+			<SkipToContent href=''>TEST</SkipToContent>
 			<HeaderMenuButton
 				aria-label='Open menu'
 				onClick={onClickSideNavExpand}
@@ -47,7 +46,9 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 				[Platform]
 			</HeaderName>
 			<HeaderNavigation aria-label='IBM [Platform]'>
-				<HeaderMenuItem href='#'>Link 1</HeaderMenuItem>
+				<HeaderMenuItem element='div' href='#'>
+					Link 1
+				</HeaderMenuItem>
 				<HeaderMenuItem href='#'>Link 2</HeaderMenuItem>
 				<HeaderMenuItem href='#'>Link 3</HeaderMenuItem>
 				<HeaderMenu aria-label='Link 4' menuLinkName='Link 4'>
@@ -58,7 +59,7 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 			</HeaderNavigation>
 
 			<HeaderGlobalBar>
-				<HeaderGlobalAction aria-label='Search' onClick={() => {}}>
+				<HeaderGlobalAction aria-label='Search' className='' onClick={() => {}}>
 					<Search />
 				</HeaderGlobalAction>
 				<HeaderGlobalAction aria-label='Notifications' onClick={() => {}}>

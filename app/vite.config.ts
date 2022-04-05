@@ -8,6 +8,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import sassPnpImporter from 'sass-pnp-importer';
+import svgrPlugin from 'vite-plugin-svgr';
 import manifest from './manifest.json';
 import { dependencies } from './package.json';
 // Packages we want in the vendor aka the deps needed in the entire app.
@@ -59,6 +60,11 @@ export default defineConfig(({ mode }) => ({
 		...(mode === 'development' ? [react()] : []),
 		legacy({
 			targets: ['defaults', 'not IE 11']
+		}),
+		svgrPlugin({
+			svgrOptions: {
+				icon: true
+			}
 		}),
 		eslintPlugin(),
 		pwa({

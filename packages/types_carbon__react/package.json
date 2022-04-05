@@ -1,0 +1,12 @@
+{
+	"private": true,
+	"name": "@types/carbon__react",
+	"version": "1.0.1",
+	"types": "index.d.ts",
+	"peerDependencies": {
+		"@carbon/react": "*",
+		"react": "^18.0.0",
+		"react-dom": "^18.0.0",
+		"react-router-dom": "^6.3.0"
+	}
+}
