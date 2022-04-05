@@ -56,7 +56,7 @@ export default defineConfig(({ mode }) => ({
 			: {},
 	plugins: [
 		tsconfigPaths(),
-		...(mode === 'development' ? [react()] : []),
+		...(mode !== 'production' ? [react()] : []),
 		legacy({
 			targets: ['defaults', 'not IE 11']
 		}),
