@@ -2,7 +2,17 @@ import loginUrl from '@images/login.svg';
 import '@style/login.scss';
 import { ReactComponent as StellantisLogo } from '@images/stellantis-logo.svg';
 
-import { Button, Checkbox, Column, Form, Grid, PasswordInput, Stack, TextInput, Theme } from '@carbon/react';
+import {
+	Button,
+	Checkbox,
+	Column,
+	Form,
+	Grid,
+	PasswordInput,
+	Stack,
+	TextInput,
+	Theme
+} from '@carbon/react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -11,9 +21,11 @@ const Login = () => {
 	const { t } = useTranslation('login');
 
 	return (
-		<Theme theme='white' className='
-		h-full custom-login-theme'>
-
+		<Theme
+			theme='white'
+			className='
+		custom-login-theme h-full'
+		>
 			<div
 				id='login'
 				style={{ backgroundImage: `url('${loginUrl}')` }}

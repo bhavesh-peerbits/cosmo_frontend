@@ -1,7 +1,11 @@
 import { loginEn, loginFr, loginIt } from '@i18n/locales/pages/login';
 import { homeEn, homeIt } from './pages/home';
 import { testEn, testIt } from './pages/test';
-import { errorBoundaryEn, errorBoundaryFr, errorBoundaryIt } from './components/error-boundary';
+import {
+	errorBoundaryEn,
+	errorBoundaryFr,
+	errorBoundaryIt
+} from './components/error-boundary';
 
 export default {
 	en_US: {
