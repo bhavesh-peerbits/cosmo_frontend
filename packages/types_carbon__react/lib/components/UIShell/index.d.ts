@@ -18,3 +18,5 @@ export { default as SideNavMenuItem } from './SideNavMenuItem';
 export { default as Switcher } from './Switcher';
 export { default as SwitcherItem } from './SwitcherItem';
 export { default as SwitcherDivider } from './SwitcherDivider';
+export { default as Content } from './Content';
+export { default as HeaderContainer } from './HeaderContainer';

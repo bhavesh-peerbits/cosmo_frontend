@@ -46,9 +46,7 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 				[Platform]
 			</HeaderName>
 			<HeaderNavigation aria-label='IBM [Platform]'>
-				<HeaderMenuItem element='div' href='#'>
-					Link 1
-				</HeaderMenuItem>
+				<HeaderMenuItem href='#'>Link 1</HeaderMenuItem>
 				<HeaderMenuItem href='#'>Link 2</HeaderMenuItem>
 				<HeaderMenuItem href='#'>Link 3</HeaderMenuItem>
 				<HeaderMenu aria-label='Link 4' menuLinkName='Link 4'>

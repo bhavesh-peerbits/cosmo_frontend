@@ -15,4 +15,6 @@ declare function Theme<T extends keyof HTMLElementTagNameMap = 'div'>(
 	props: ThemeProps<T>
 ): ReactElement;
 
+export declare function useTheme(): { theme: CarbonTheme };
+
 export default Theme;
