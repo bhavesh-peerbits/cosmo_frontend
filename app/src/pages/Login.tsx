@@ -1,31 +1,26 @@
 import loginUrl from '@images/login.svg';
-import './login.scss';
+import '@style/login.scss';
 import { ReactComponent as StellantisLogo } from '@images/stellantis-logo.svg';
 
-import {
-	Button,
-	Checkbox,
-	Column,
-	Form,
-	Grid,
-	PasswordInput,
-	Stack,
-	TextInput,
-	Theme
-} from '@carbon/react';
+import { Button, Checkbox, Column, Form, Grid, PasswordInput, Stack, TextInput, Theme } from '@carbon/react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
 	const [rememberMe, setRememberMe] = useState(false);
+	const { t } = useTranslation('login');
+
 	return (
-		<Theme theme='white' className='custom-login-theme h-full'>
+		<Theme theme='white' className='
+		h-full custom-login-theme'>
+
 			<div
 				id='login'
 				style={{ backgroundImage: `url('${loginUrl}')` }}
 				className='h-full w-full bg-cover bg-center bg-no-repeat'
 			>
 				<Grid className='h-1/2 items-end'>
-					<Column lg={{ span: 6 }} sm={{ span: 4 }} md={4}>
+					<Column lg={6} sm={4} md={4}>
 						<Form>
 							<Stack gap={6}>
 								<div className='flex items-end space-x-5'>
@@ -34,8 +29,9 @@ const Login = () => {
 								</div>
 								<TextInput
 									id='username'
-									invalidText='Invalid error message.'
+									invalidText={t('invalidUsername')}
 									labelText='Username'
+									invalid
 									placeholder='mail@aizoongroup.com'
 								/>
 								<PasswordInput
@@ -57,7 +53,6 @@ const Login = () => {
 							</Stack>
 						</Form>
 					</Column>
-					<Column />
 				</Grid>
 				<Grid className='h-1/2 items-end p-6'>
 					<Column sm={2} md={4} lg={8}>
