@@ -7847,19 +7847,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         ["virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#workspace:packages/types_carbon__react", {\
           "packageLocation": "./.yarn/__virtual__/@types-carbon__react-virtual-8003eede0a/1/packages/types_carbon__react/",\
           "packageDependencies": [\
-            ["@carbon/react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.1"],\
             ["@types/carbon__react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#workspace:packages/types_carbon__react"],\
             ["@types/react", "npm:17.0.43"],\
             ["@types/react-dom", "npm:17.0.14"],\
+            ["@types/react-router-dom", null],\
             ["react", "npm:18.0.0"],\
-            ["react-dom", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:18.0.0"]\
+            ["react-dom", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:18.0.0"],\
+            ["react-router-dom", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:6.3.0"]\
           ],\
           "packagePeers": [\
-            "@carbon/react",\
-            "@types/carbon__react",\
             "@types/react-dom",\
+            "@types/react-router-dom",\
             "@types/react",\
             "react-dom",\
+            "react-router-dom",\
             "react"\
           ],\
           "linkType": "SOFT"\

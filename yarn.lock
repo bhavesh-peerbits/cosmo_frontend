@@ -4822,9 +4822,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@types/carbon__react@workspace:packages/types_carbon__react"
   peerDependencies:
-    "@carbon/react": "*"
     react: ^18.0.0
     react-dom: ^18.0.0
+    react-router-dom: ^6.3.0
   languageName: unknown
   linkType: soft
 
