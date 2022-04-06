@@ -2,14 +2,23 @@ import loginUrl from '@images/login.svg';
 import './login.scss';
 import { ReactComponent as StellantisLogo } from '@images/stellantis-logo.svg';
 
-import { Button, Checkbox, Column, Form, Grid, PasswordInput, Stack, TextInput, Theme } from '@carbon/react';
+import {
+	Button,
+	Checkbox,
+	Column,
+	Form,
+	Grid,
+	PasswordInput,
+	Stack,
+	TextInput,
+	Theme
+} from '@carbon/react';
 import { useState } from 'react';
 
 const Login = () => {
 	const [rememberMe, setRememberMe] = useState(false);
 	return (
-		<Theme theme='white' className='h-full custom-login-theme'>
-
+		<Theme theme='white' className='custom-login-theme h-full'>
 			<div
 				id='login'
 				style={{ backgroundImage: `url('${loginUrl}')` }}
