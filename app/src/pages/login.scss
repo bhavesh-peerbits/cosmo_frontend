@@ -1,0 +1,12 @@
+@use '@carbon/react/scss/theme' as theme with (
+  $theme: (
+    text-secondary: #FFFF,
+    text-error: #ff8389
+  ),
+);
+
+#login {
+  @include theme.theme;
+
+  color: theme.$text-secondary;
+}
