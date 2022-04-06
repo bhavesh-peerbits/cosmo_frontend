@@ -20,6 +20,7 @@
 			"@*": ["./*"]
 		},
 		"types": [
+			"react",
 			"vite/client",
 			"vitest/globals",
 			"vite-plugin-pwa/client",

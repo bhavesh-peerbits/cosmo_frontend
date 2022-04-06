@@ -7,19 +7,30 @@
 	},
 	"ignorePatterns": ["**/*.js"],
 	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		}
+	},
 	"extends": [
-		"eslint:all",
+		"eslint:recommended",
 		"plugin:@typescript-eslint/recommended",
 		"plugin:import/recommended",
 		"plugin:import/typescript",
-		"plugin:react/all",
 		"plugin:jsx-a11y/recommended",
 		"airbnb",
 		"airbnb-typescript",
 		"airbnb/hooks",
 		"plugin:react/jsx-runtime",
 		"plugin:storybook/recommended",
-		"prettier"
+		"plugin:prettier/recommended"
+	],
+	"plugins": [
+		"@typescript-eslint",
+		"eslint-plugin-import",
+		"eslint-plugin-react",
+		"eslint-plugin-react-hooks",
+		"import"
 	],
 	"rules": {
 		"react/react-in-jsx-scope": "off",

@@ -52,12 +52,12 @@ export default defineConfig(({ mode }) => ({
 	esbuild:
 		mode === 'production'
 			? {
-					jsxInject: `import React from 'react'`
+					// jsxInject: `import * as React from 'react'`
 			  }
 			: {},
 	plugins: [
 		tsconfigPaths(),
-		...(mode !== 'production' ? [react()] : []),
+		react(),
 		legacy({
 			targets: ['defaults', 'not IE 11']
 		}),

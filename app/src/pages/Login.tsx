@@ -1,6 +1,7 @@
 import loginUrl from '@images/login.svg';
 import '@style/login.scss';
 import { ReactComponent as StellantisLogo } from '@images/stellantis-logo.svg';
+import { Navigate } from 'react-router-dom';
 
 import {
 	Button,
@@ -15,10 +16,17 @@ import {
 } from '@carbon/react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import useAuthStore from '@hooks/useAuthStore';
 
 const Login = () => {
 	const [rememberMe, setRememberMe] = useState(false);
 	const { t } = useTranslation('login');
+
+	const { auth, login } = useAuthStore();
+
+	if (auth.authenticated) {
+		return <Navigate replace to='/home' />;
+	}
 
 	return (
 		<Theme
@@ -31,7 +39,7 @@ const Login = () => {
 				style={{ backgroundImage: `url('${loginUrl}')` }}
 				className='h-full w-full bg-cover bg-center bg-no-repeat'
 			>
-				<Grid className='h-1/2 items-end'>
+				<Grid className='ml-1 h-1/2 items-end'>
 					<Column lg={6} sm={4} md={4}>
 						<Form>
 							<Stack gap={6}>
@@ -53,7 +61,11 @@ const Login = () => {
 									invalid
 									placeholder='**********'
 								/>
-								<Button kind='secondary' className='w-full max-w-full'>
+								<Button
+									onClick={() => login()}
+									kind='secondary'
+									className='w-full max-w-full'
+								>
 									Login
 								</Button>
 								<Checkbox
@@ -66,7 +78,7 @@ const Login = () => {
 						</Form>
 					</Column>
 				</Grid>
-				<Grid className='h-1/2 items-end p-6'>
+				<Grid fullWidth className='h-1/2 items-end p-6'>
 					<Column sm={2} md={4} lg={8}>
 						<span className='text-caption-1'>Copyright © aizoOn 2022.</span>
 					</Column>
