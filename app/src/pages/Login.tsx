@@ -38,11 +38,6 @@ const Login = () => {
 	}
 
 	const formLogin = async (data: LoginForm) => {
-		await new Promise<void>(resolve => {
-			setTimeout(() => {
-				resolve();
-			}, 5000);
-		});
 		login({
 			username: data.username,
 			password: data.password,

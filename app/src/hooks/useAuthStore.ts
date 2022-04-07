@@ -15,10 +15,13 @@ const useAuthStore = () => {
 	const resetAuth = useResetRecoilState(authStore);
 
 	const login = ({ username, rememberMe }: LoginData) => {
-		setCookie('accessToken', username, {
-			expires: rememberMe ? '7D' : '1s',
-			path: '/'
-		});
+		if (rememberMe) {
+			setCookie('accessToken', username, {
+				path: '/'
+			});
+		} else {
+			sessionStorage.setItem('accessToken', username);
+		}
 		window.location.href = '/home';
 	};
 

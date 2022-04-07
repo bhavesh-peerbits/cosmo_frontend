@@ -10,7 +10,7 @@ type PersistedData = {
 };
 
 const retrieveUserInfo = async () => {
-	const token = getCookie('accessToken');
+	const token = sessionStorage.getItem('accessToken') || getCookie('accessToken');
 	if (token) {
 		// TODO fetch user info
 		return {

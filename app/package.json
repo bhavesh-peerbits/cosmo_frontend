@@ -22,7 +22,7 @@
 		"eslint": "yarn run -T eslint"
 	},
 	"dependencies": {
-		"@carbon/react": "^0.17.0",
+		"@carbon/react": "^1.0.3",
 		"@exceptionless/react": "^2.0.0",
 		"@ibm/plex": "^6.0.0",
 		"@sentry/core": "^6.19.3",
