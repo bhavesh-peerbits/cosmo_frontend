@@ -11,7 +11,7 @@ const AppRoutes = () => {
 	return (
 		<Suspense
 			fallback={
-				<DelayedMount delay={1000}>
+				<DelayedMount delay={100}>
 					<FullScreenLoading />
 				</DelayedMount>
 			}

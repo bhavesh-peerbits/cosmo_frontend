@@ -9,24 +9,46 @@ import {
 	Column,
 	Form,
 	Grid,
+	InlineLoading,
 	PasswordInput,
 	Stack,
 	TextInput,
 	Theme
 } from '@carbon/react';
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import useAuthStore from '@hooks/useAuthStore';
+import { useForm } from 'react-hook-form';
+
+interface LoginForm {
+	username: string;
+	password: string;
+	rememberMe: boolean;
+}
 
 const Login = () => {
-	const [rememberMe, setRememberMe] = useState(false);
-	const { t } = useTranslation('login');
-
+	// const { t } = useTranslation('login');
+	const {
+		register,
+		handleSubmit,
+		formState: { isSubmitting, errors }
+	} = useForm<LoginForm>({ mode: 'onBlur' });
 	const { auth, login } = useAuthStore();
 
 	if (auth.authenticated) {
 		return <Navigate replace to='/home' />;
 	}
+
+	const formLogin = async (data: LoginForm) => {
+		await new Promise<void>(resolve => {
+			setTimeout(() => {
+				resolve();
+			}, 5000);
+		});
+		login({
+			username: data.username,
+			password: data.password,
+			rememberMe: data.rememberMe
+		});
+	};
 
 	return (
 		<Theme
@@ -41,7 +63,7 @@ const Login = () => {
 			>
 				<Grid className='ml-1 h-1/2 items-end'>
 					<Column lg={6} sm={4} md={4}>
-						<Form>
+						<Form onSubmit={handleSubmit(formLogin)}>
 							<Stack gap={6}>
 								<div className='flex items-end space-x-5'>
 									<span className='text-heading-7'>CoSMo</span>
@@ -49,30 +71,47 @@ const Login = () => {
 								</div>
 								<TextInput
 									id='username'
-									invalidText={t('invalidUsername')}
+									invalidText={errors.username?.message}
 									labelText='Username'
-									invalid
+									invalid={Boolean(errors.username)}
 									placeholder='mail@aizoongroup.com'
+									{...register('username', {
+										minLength: {
+											value: 3,
+											message: 'Username must be at least 3 characters'
+										},
+										required: {
+											value: true,
+											message: 'Username is required'
+										}
+									})}
 								/>
+
 								<PasswordInput
 									id='password'
-									invalidText='Invalid error message.'
+									invalidText={errors.password?.message}
 									labelText='Password'
-									invalid
+									invalid={Boolean(errors.password)}
 									placeholder='**********'
+									{...register('password', {
+										required: {
+											value: true,
+											message: 'Password is required'
+										}
+									})}
 								/>
 								<Button
-									onClick={() => login()}
+									disabled={isSubmitting}
+									type='submit'
 									kind='secondary'
 									className='w-full max-w-full'
 								>
-									Login
+									{isSubmitting ? <InlineLoading description='Logging in...' /> : 'Login'}
 								</Button>
 								<Checkbox
-									id='remember'
-									checked={rememberMe}
-									onChange={(e, { checked }) => setRememberMe(checked)}
+									id='rememberMe'
 									labelText='Remember me'
+									{...register('rememberMe')}
 								/>
 							</Stack>
 						</Form>

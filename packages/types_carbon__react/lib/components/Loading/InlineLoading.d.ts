@@ -26,7 +26,7 @@ interface InlineLoadingProps extends ReactDivAttr {
 	/**
 	 * Specify the loading status
 	 */
-	status: 'inactive' | 'active' | 'finished' | 'error';
+	status?: 'inactive' | 'active' | 'finished' | 'error';
 
 	/**
 	 * Provide a delay for the `setTimeout` for success

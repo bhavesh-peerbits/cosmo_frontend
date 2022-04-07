@@ -4,12 +4,21 @@ import { setCookie } from 'tiny-cookie';
 
 const NO_REDIRECT_PATHS = ['/', '/home'];
 
+interface LoginData {
+	username: string;
+	password: string;
+	rememberMe: boolean;
+}
+
 const useAuthStore = () => {
 	const auth = useRecoilValue(authStore);
 	const resetAuth = useResetRecoilState(authStore);
 
-	const login = () => {
-		setCookie('accessToken', 'TODO');
+	const login = ({ username, rememberMe }: LoginData) => {
+		setCookie('accessToken', username, {
+			expires: rememberMe ? '7D' : '1s',
+			path: '/'
+		});
 		window.location.href = '/home';
 	};
 
