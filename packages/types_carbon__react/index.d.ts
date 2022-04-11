@@ -21,3 +21,7 @@ export * from './lib/components/Tile';
 export * from './lib/components/Notification';
 
 export * from './lib/components/Form';
+
+export * from './lib/components/Accordion'
+
+export * from './lib/components/ContentSwitcher'
