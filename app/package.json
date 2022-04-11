@@ -23,7 +23,6 @@
 	},
 	"dependencies": {
 		"@carbon/react": "^1.0.3",
-		"@exceptionless/react": "^2.0.0",
 		"@ibm/plex": "^6.0.0",
 		"@sentry/core": "^6.19.3",
 		"@sentry/react": "6.18.2",

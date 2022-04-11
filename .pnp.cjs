@@ -3665,49 +3665,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["@exceptionless/browser", [\
-        ["npm:2.0.0", {\
-          "packageLocation": "./.yarn/cache/@exceptionless-browser-npm-2.0.0-81cd27e72b-5051f600bd.zip/node_modules/@exceptionless/browser/",\
-          "packageDependencies": [\
-            ["@exceptionless/browser", "npm:2.0.0"],\
-            ["@exceptionless/core", "npm:2.0.0"],\
-            ["stacktrace-js", "npm:2.0.2"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["@exceptionless/core", [\
-        ["npm:2.0.0", {\
-          "packageLocation": "./.yarn/cache/@exceptionless-core-npm-2.0.0-dcf8991b35-8d1472a145.zip/node_modules/@exceptionless/core/",\
-          "packageDependencies": [\
-            ["@exceptionless/core", "npm:2.0.0"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["@exceptionless/react", [\
-        ["npm:2.0.0", {\
-          "packageLocation": "./.yarn/cache/@exceptionless-react-npm-2.0.0-99192412b4-22248aac61.zip/node_modules/@exceptionless/react/",\
-          "packageDependencies": [\
-            ["@exceptionless/react", "npm:2.0.0"]\
-          ],\
-          "linkType": "SOFT"\
-        }],\
-        ["virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.0.0", {\
-          "packageLocation": "./.yarn/__virtual__/@exceptionless-react-virtual-673d5a9f9c/0/cache/@exceptionless-react-npm-2.0.0-99192412b4-22248aac61.zip/node_modules/@exceptionless/react/",\
-          "packageDependencies": [\
-            ["@exceptionless/react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.0.0"],\
-            ["@exceptionless/browser", "npm:2.0.0"],\
-            ["@types/react", "npm:17.0.43"],\
-            ["react", "npm:18.0.0"]\
-          ],\
-          "packagePeers": [\
-            "@types/react",\
-            "react"\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["@gar/promisify", [\
         ["npm:1.1.3", {\
           "packageLocation": "./.yarn/cache/@gar-promisify-npm-1.1.3-ac1a325862-4059f790e2.zip/node_modules/@gar/promisify/",\
@@ -9789,7 +9746,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/core", "npm:7.17.8"],\
             ["@carbon/react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.3"],\
             ["@cypress/code-coverage", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:3.9.12"],\
-            ["@exceptionless/react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.0.0"],\
             ["@ibm/plex", "npm:6.0.0"],\
             ["@nabla/vite-plugin-eslint", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.4.0"],\
             ["@openapitools/openapi-generator-cli", "npm:2.4.26"],\
@@ -25800,13 +25756,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["source-map", [\
-        ["npm:0.5.6", {\
-          "packageLocation": "./.yarn/cache/source-map-npm-0.5.6-ac261b6171-390b3f5165.zip/node_modules/source-map/",\
-          "packageDependencies": [\
-            ["source-map", "npm:0.5.6"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:0.5.7", {\
           "packageLocation": "./.yarn/cache/source-map-npm-0.5.7-7c3f035429-5dc2043b93.zip/node_modules/source-map/",\
           "packageDependencies": [\
@@ -26054,16 +26003,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["stack-generator", [\
-        ["npm:2.0.5", {\
-          "packageLocation": "./.yarn/cache/stack-generator-npm-2.0.5-61f6fcda09-a85c45a6f1.zip/node_modules/stack-generator/",\
-          "packageDependencies": [\
-            ["stack-generator", "npm:2.0.5"],\
-            ["stackframe", "npm:1.2.1"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["stack-trace", [\
         ["npm:0.0.10", {\
           "packageLocation": "./.yarn/cache/stack-trace-npm-0.0.10-9460b173e1-473036ad32.zip/node_modules/stack-trace/",\
@@ -26088,29 +26027,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/stackframe-npm-1.2.1-aaac89bd31-1a3f281014.zip/node_modules/stackframe/",\
           "packageDependencies": [\
             ["stackframe", "npm:1.2.1"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["stacktrace-gps", [\
-        ["npm:3.0.4", {\
-          "packageLocation": "./.yarn/cache/stacktrace-gps-npm-3.0.4-073ec5f443-b98cb77632.zip/node_modules/stacktrace-gps/",\
-          "packageDependencies": [\
-            ["stacktrace-gps", "npm:3.0.4"],\
-            ["source-map", "npm:0.5.6"],\
-            ["stackframe", "npm:1.2.1"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["stacktrace-js", [\
-        ["npm:2.0.2", {\
-          "packageLocation": "./.yarn/cache/stacktrace-js-npm-2.0.2-f022fac9f9-081e786d56.zip/node_modules/stacktrace-js/",\
-          "packageDependencies": [\
-            ["stacktrace-js", "npm:2.0.2"],\
-            ["error-stack-parser", "npm:2.0.7"],\
-            ["stack-generator", "npm:2.0.5"],\
-            ["stacktrace-gps", "npm:3.0.4"]\
           ],\
           "linkType": "HARD"\
         }]\

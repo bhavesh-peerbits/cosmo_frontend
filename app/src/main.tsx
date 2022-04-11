@@ -4,7 +4,6 @@ import './style/index.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import initExceptionless from '@error/initExceptionless';
 import initSentry from '@error/initSentry';
 import App from './App';
 import './i18n';
@@ -19,7 +18,6 @@ const queryClient = new QueryClient({
 		}
 	}
 });
-initExceptionless();
 initSentry();
 
 const container = document.querySelector('#root') as HTMLElement;

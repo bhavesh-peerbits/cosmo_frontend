@@ -15,7 +15,6 @@ import {
 	TextInput
 } from '@carbon/react';
 import validator from 'validator';
-// import { ExceptionlessErrorBoundary } from '@exceptionless/react';
 import { Trans, useTranslation } from 'react-i18next';
 
 const sentryDSN = import.meta.env.COSMO_SENTRY_DSN;
@@ -64,8 +63,6 @@ const ErrorModalFallback = ({
 
 	const buttonLabel = sentryDSN ? t('send') : t('reload');
 	return (
-		// TODO find a solution because the import will cause an error during tests
-		//  <ExceptionlessErrorBoundary>
 		<ComposedModal open preventCloseOnClickOutside>
 			<ModalHeader
 				title={t('application-error')}
@@ -153,7 +150,6 @@ const ErrorModalFallback = ({
 				)}
 			</ModalFooter>
 		</ComposedModal>
-		// </ExceptionlessErrorBoundary>
 	);
 };
 
