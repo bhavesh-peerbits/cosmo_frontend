@@ -6,6 +6,7 @@
 	"bracketSameLine": false,
 	"bracketSpacing": true,
 	"jsxSingleQuote": true,
+	"plugins": ["prettier-plugin-tailwindcss"],
 	"quoteProps": "as-needed",
 	"singleQuote": true,
 	"tabWidth": 2,
