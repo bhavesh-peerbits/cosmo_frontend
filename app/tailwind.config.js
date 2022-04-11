@@ -9,7 +9,7 @@ const motion = st(st.resolve('@carbon/motion'));
 const kebabCase = require('lodash/kebabCase');
 
 const toKebabCase = str => {
-	return kebabCase(str).replace('0', '');
+	return kebabCase(str).replace(/(0?)(\d*)$/, '$2');
 };
 
 const carbonFonts = Object.entries(styles).reduce((acc, [key, value]) => {
@@ -21,7 +21,7 @@ const carbonSpacing = spacing.unstable_tokens.reduce((acc, layout) => {
 	acc[toKebabCase(layout.replace('spacing', ''))] = spacing[layout];
 	return acc;
 }, {});
-
+console.log(carbonSpacing);
 const carbonDuration = motion.unstable_tokens.reduce((acc, token) => {
 	acc[toKebabCase(token)] = motion[token];
 	return acc;
