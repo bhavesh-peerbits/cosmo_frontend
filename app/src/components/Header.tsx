@@ -8,7 +8,6 @@ import {
 	HeaderName,
 	HeaderNavigation,
 	HeaderPanel,
-	HeaderSideNavItems,
 	SideNav,
 	SideNavItems,
 	SideNavLink,
@@ -71,16 +70,15 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 			</HeaderGlobalBar>
 			<SideNav aria-label='Side navigation' expanded={isSideNavExpanded}>
 				<SideNavItems>
-					<HeaderSideNavItems hasDivider>
-						<HeaderMenuItem href='#'>Link 1</HeaderMenuItem>
-						<HeaderMenu aria-label='Link 2' menuLinkName='Link 2'>
-							<HeaderMenuItem href='#'>Sub-link 1</HeaderMenuItem>
-						</HeaderMenu>
-					</HeaderSideNavItems>
-					<SideNavMenu renderIcon={Fade} title='Category title'>
-						<SideNavMenuItem href='https://www.carbondesignsystem.com/'>
-							Link
-						</SideNavMenuItem>
+					<SideNavMenu renderIcon={Fade} title='Narrative'>
+						<SideNavMenuItem href='/management'>Management</SideNavMenuItem>
+
+						<SideNavMenuItem href='/review'>Review</SideNavMenuItem>
+					</SideNavMenu>
+					<SideNavMenu renderIcon={Fade} title='Revalidation'>
+						<SideNavMenuItem href='/home'>SUID</SideNavMenuItem>
+						<SideNavMenuItem href='/home'>Firecall</SideNavMenuItem>
+						<SideNavMenuItem href='/home'>User Access</SideNavMenuItem>
 					</SideNavMenu>
 					<SideNavLink renderIcon={Fade} element={Link} to='/test'>
 						Test Error
