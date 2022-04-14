@@ -21,6 +21,7 @@ import {
 } from '@carbon/react';
 import {
 	Fade,
+	Logout,
 	Notification,
 	Search,
 	Switcher as SwitcherIcon
@@ -34,31 +35,26 @@ type HeaderProps = {
 };
 const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 	const [appExpanded, setAppExpanded] = useState(false);
-
 	return (
 		<CarbonHeader aria-label='IBM Platform Name'>
-			<SkipToContent />
+			<SkipToContent href=''>TEST</SkipToContent>
 			<HeaderMenuButton
 				aria-label='Open menu'
 				onClick={onClickSideNavExpand}
 				isActive={isSideNavExpanded}
 			/>
-			<HeaderName href='#' prefix='IBM'>
-				[Platform]
+			<HeaderName href='/home' prefix='Cosmo'>
+				[Dashboard]
 			</HeaderName>
 			<HeaderNavigation aria-label='IBM [Platform]'>
 				<HeaderMenuItem href='#'>Link 1</HeaderMenuItem>
-				<HeaderMenuItem href='#'>Link 2</HeaderMenuItem>
-				<HeaderMenuItem href='#'>Link 3</HeaderMenuItem>
-				<HeaderMenu aria-label='Link 4' menuLinkName='Link 4'>
+				<HeaderMenu aria-label='Link 2' menuLinkName='Link 2'>
 					<HeaderMenuItem href='#one'>Sub-link 1</HeaderMenuItem>
-					<HeaderMenuItem href='#two'>Sub-link 2</HeaderMenuItem>
-					<HeaderMenuItem href='#three'>Sub-link 3</HeaderMenuItem>
 				</HeaderMenu>
 			</HeaderNavigation>
 
 			<HeaderGlobalBar>
-				<HeaderGlobalAction aria-label='Search' onClick={() => {}}>
+				<HeaderGlobalAction aria-label='Search' className='' onClick={() => {}}>
 					<Search />
 				</HeaderGlobalAction>
 				<HeaderGlobalAction aria-label='Notifications' onClick={() => {}}>
@@ -77,61 +73,26 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 				<SideNavItems>
 					<HeaderSideNavItems hasDivider>
 						<HeaderMenuItem href='#'>Link 1</HeaderMenuItem>
-						<HeaderMenuItem href='#'>Link 2</HeaderMenuItem>
-						<HeaderMenuItem href='#'>Link 3</HeaderMenuItem>
-						<HeaderMenu aria-label='Link 4' menuLinkName='Link 4'>
+						<HeaderMenu aria-label='Link 2' menuLinkName='Link 2'>
 							<HeaderMenuItem href='#'>Sub-link 1</HeaderMenuItem>
-							<HeaderMenuItem href='#'>Sub-link 2</HeaderMenuItem>
-							<HeaderMenuItem href='#'>Sub-link 3</HeaderMenuItem>
 						</HeaderMenu>
 					</HeaderSideNavItems>
 					<SideNavMenu renderIcon={Fade} title='Category title'>
 						<SideNavMenuItem href='https://www.carbondesignsystem.com/'>
 							Link
 						</SideNavMenuItem>
-						<SideNavMenuItem href='https://www.carbondesignsystem.com/'>
-							Link
-						</SideNavMenuItem>
-						<SideNavMenuItem href='https://www.carbondesignsystem.com/'>
-							Link
-						</SideNavMenuItem>
 					</SideNavMenu>
-					<SideNavMenu renderIcon={Fade} title='Category title'>
-						<SideNavMenuItem href='https://www.carbondesignsystem.com/'>
-							Link
-						</SideNavMenuItem>
-						<SideNavMenuItem href='https://www.carbondesignsystem.com/'>
-							Link
-						</SideNavMenuItem>
-						<SideNavMenuItem href='https://www.carbondesignsystem.com/'>
-							Link
-						</SideNavMenuItem>
-					</SideNavMenu>
-					<SideNavMenu renderIcon={Fade} title='Category title' isActive>
-						<SideNavMenuItem href='https://www.carbondesignsystem.com/'>
-							Link
-						</SideNavMenuItem>
-						<SideNavMenuItem
-							aria-current='page'
-							href='https://www.carbondesignsystem.com/'
-						>
-							Link
-						</SideNavMenuItem>
-						<SideNavMenuItem href='https://www.carbondesignsystem.com/'>
-							Link
-						</SideNavMenuItem>
-					</SideNavMenu>
-					<SideNavLink renderIcon={Fade} href='https://www.carbondesignsystem.com/'>
-						Link
-					</SideNavLink>
 					<SideNavLink renderIcon={Fade} element={Link} to='/test'>
-						Link
+						Test Error
 					</SideNavLink>
 					{import.meta.env.DEV && (
 						<SideNavLink renderIcon={Fade} href='/translation?showtranslations'>
 							[TEST ONLY] Show translations
 						</SideNavLink>
 					)}
+					<SideNavLink renderIcon={Logout} href='/logout'>
+						Logout
+					</SideNavLink>
 				</SideNavItems>
 			</SideNav>
 
@@ -143,19 +104,6 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 					<SwitcherDivider />
 					<SwitcherItem href='#' aria-label='Link 2'>
 						Link 2
-					</SwitcherItem>
-					<SwitcherItem href='#' aria-label='Link 3'>
-						Link 3
-					</SwitcherItem>
-					<SwitcherItem href='#' aria-label='Link 4'>
-						Link 4
-					</SwitcherItem>
-					<SwitcherItem href='#' aria-label='Link 5'>
-						Link 5
-					</SwitcherItem>
-					<SwitcherDivider />
-					<SwitcherItem href='#' aria-label='Link 6'>
-						Link 6
 					</SwitcherItem>
 				</Switcher>
 			</HeaderPanel>

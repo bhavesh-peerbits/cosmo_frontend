@@ -7,7 +7,7 @@ const logger = createLogger({
 			info.level = info.level.toUpperCase();
 			return info;
 		})(),
-		...(IS_PRODUCTION ? [format.colorize()] : []),
+		...(IS_PRODUCTION ? [] : [format.colorize()]),
 		format.splat(),
 		format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
 		format.printf(

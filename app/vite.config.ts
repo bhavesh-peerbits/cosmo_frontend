@@ -8,10 +8,11 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import sassPnpImporter from 'sass-pnp-importer';
+import svgrPlugin from 'vite-plugin-svgr';
 import manifest from './manifest.json';
 import { dependencies } from './package.json';
 // Packages we want in the vendor aka the deps needed in the entire app.
-const globalVendorPackages = ['react', 'react-dom', 'react-router-dom'];
+const globalVendorPackages = ['react', 'react-dom', 'react-router-dom', '@carbon/react'];
 
 // vendor splitting
 function renderChunks(deps: Record<string, string>) {
@@ -24,7 +25,7 @@ function renderChunks(deps: Record<string, string>) {
 }
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
 	define: {
 		'process.env': {}
 	},
@@ -48,11 +49,24 @@ export default defineConfig({
 			}
 		}
 	},
+	esbuild:
+		mode === 'production'
+			? {
+					jsxFactory: '_jsx',
+					jsxFragment: '_jsxFragment',
+					jsxInject: `import { createElement as _jsx, Fragment as _jsxFragment } from 'react'`
+			  }
+			: {},
 	plugins: [
 		tsconfigPaths(),
-		react(),
+		mode === 'production' ? [] : react(),
 		legacy({
 			targets: ['defaults', 'not IE 11']
+		}),
+		svgrPlugin({
+			svgrOptions: {
+				icon: true
+			}
 		}),
 		eslintPlugin(),
 		pwa({
@@ -74,4 +88,4 @@ export default defineConfig({
 			}
 		}
 	}
-});
+}));

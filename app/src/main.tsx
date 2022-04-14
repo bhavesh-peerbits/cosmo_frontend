@@ -1,10 +1,9 @@
-import React from 'react';
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './style/index.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import initExceptionless from '@error/initExceptionless';
 import initSentry from '@error/initSentry';
 import App from './App';
 import './i18n';
@@ -19,14 +18,13 @@ const queryClient = new QueryClient({
 		}
 	}
 });
-initExceptionless();
 initSentry();
 
 const container = document.querySelector('#root') as HTMLElement;
 const root = createRoot(container);
 
 root.render(
-	<React.StrictMode>
+	<StrictMode>
 		<QueryClientProvider client={queryClient}>
 			<BrowserRouter>
 				<RecoilRoot>
@@ -34,5 +32,5 @@ root.render(
 				</RecoilRoot>
 			</BrowserRouter>
 		</QueryClientProvider>
-	</React.StrictMode>
+	</StrictMode>
 );
