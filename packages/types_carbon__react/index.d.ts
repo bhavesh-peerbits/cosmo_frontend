@@ -27,3 +27,5 @@ export * from './lib/components/Accordion';
 export * from './lib/components/ContentSwitcher';
 
 export * from './lib/components/DataTable';
+
+export * from './lib/components/Tag';

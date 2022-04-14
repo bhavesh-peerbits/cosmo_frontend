@@ -1,4 +1,4 @@
-import { Button, Column, ContentSwitcher, Grid, Switch } from '@carbon/react';
+import { Button, Column, ContentSwitcher, Grid, Switch, Tag } from '@carbon/react';
 import { Grid as GridIcon, HorizontalView } from '@carbon/react/icons';
 import { useState } from 'react';
 import ApplicationsFilters from './ApplicationsFilters';
@@ -7,12 +7,25 @@ import ApplicationsTileContainer from './ApplicationsTileContainer';
 
 const ManagementContainer = () => {
 	const [isTileView, setIsTileView] = useState(true);
+	const [filtersChecked, setFiltersChecked] = useState<string[]>([]);
+
+	const handleSelectFilter = (id: string) => {
+		return filtersChecked.includes(id) ? '' : setFiltersChecked(old => [...old, id]);
+	};
+
+	const closeFilter = (filter: string) => {
+		setFiltersChecked(filtersChecked.filter(idFilter => idFilter !== filter));
+	};
+
 	return (
 		<div>
 			{isTileView ? (
 				<Grid fullWidth narrow>
 					<Column sm={2} md={2} lg={2}>
-						<ApplicationsFilters />
+						<ApplicationsFilters
+							idList={filtersChecked}
+							handleFilters={handleSelectFilter}
+						/>
 					</Column>
 					<Column sm={4} md={6} lg={14}>
 						<div className='flex flex-col space-y-7'>
@@ -26,6 +39,25 @@ const ManagementContainer = () => {
 									</ContentSwitcher>
 								</div>
 							</div>
+							{filtersChecked.length > 0 ? (
+								<div className=' flex items-center space-x-4'>
+									<h2>Filters: </h2>
+									{filtersChecked.map(filter => (
+										<Tag
+											onClose={() => {
+												closeFilter(filter);
+											}}
+											type='cyan'
+											filter
+										>
+											{filter}
+										</Tag>
+									))}
+								</div>
+							) : (
+								''
+							)}
+
 							<ApplicationsTileContainer />
 						</div>
 					</Column>
