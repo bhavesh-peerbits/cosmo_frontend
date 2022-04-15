@@ -12,7 +12,9 @@ import {
 	TableSelectAll,
 	TableSelectRow,
 	TableHead,
-	TableCell
+	TableCell,
+	TableToolbarContent,
+	TableToolbarSearch
 } from '@carbon/react';
 
 import { TrashCan, Email, CloudDownload } from '@carbon/react/icons';
@@ -134,21 +136,21 @@ const ApplicationsTable = () => {
 		<DataTable rows={rows} headers={headers}>
 			{() => (
 				<TableContainer>
-					{checkedList.length > 0 ? (
-						<TableToolbar>
-							<TableBatchActions
-								onCancel={() => setCheckedList([])}
-								totalSelected={checkedList.length}
-								shouldShowBatchActions={checkedList.length > 0}
-							>
-								<TableBatchAction renderIcon={Email}>Review</TableBatchAction>
-								<TableBatchAction renderIcon={CloudDownload}>Generate</TableBatchAction>
-								<TableBatchAction renderIcon={TrashCan}>Remove</TableBatchAction>
-							</TableBatchActions>
-						</TableToolbar>
-					) : (
-						''
-					)}
+					<TableToolbar>
+						<TableBatchActions
+							onCancel={() => setCheckedList([])}
+							totalSelected={checkedList.length}
+							shouldShowBatchActions={checkedList.length > 0}
+						>
+							<TableBatchAction renderIcon={Email}>Review</TableBatchAction>
+							<TableBatchAction renderIcon={CloudDownload}>Generate</TableBatchAction>
+							<TableBatchAction renderIcon={TrashCan}>Remove</TableBatchAction>
+						</TableBatchActions>
+						<TableToolbarContent>
+							<TableToolbarSearch placeholder='Search application' />
+						</TableToolbarContent>
+					</TableToolbar>
+
 					<Layer level={1}>
 						<Table>
 							<TableHead>
