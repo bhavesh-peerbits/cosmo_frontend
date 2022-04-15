@@ -1,11 +1,12 @@
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 import authStore from '@store/auth/authStore';
 import { setCookie } from 'tiny-cookie';
+import useLogin from '@api/useLogin';
 
 const NO_REDIRECT_PATHS = ['/', '/home'];
 
 interface LoginData {
-	username: string;
+	user: string;
 	password: string;
 	rememberMe: boolean;
 }
@@ -13,14 +14,20 @@ interface LoginData {
 const useAuthStore = () => {
 	const auth = useRecoilValue(authStore);
 	const resetAuth = useResetRecoilState(authStore);
-
-	const login = ({ username, rememberMe }: LoginData) => {
+	const loginApi = useLogin();
+	const login = async ({ user, password, rememberMe }: LoginData) => {
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const resp = await loginApi.mutateAsync({
+			user,
+			password,
+			tenant: 'cosmo'
+		});
 		if (rememberMe) {
-			setCookie('accessToken', username, {
+			setCookie('accessToken', user, {
 				path: '/'
 			});
 		} else {
-			sessionStorage.setItem('accessToken', username);
+			sessionStorage.setItem('accessToken', user);
 		}
 		window.location.href = '/home';
 	};

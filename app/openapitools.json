@@ -2,6 +2,26 @@
 	"$schema": "node_modules/@openapitools/openapi-generator-cli/config.schema.json",
 	"spaces": 2,
 	"generator-cli": {
-		"version": "5.4.0"
+		"version": "6.0.0-beta",
+		"generators": {
+			"cosmo-axios": {
+				"inputSpec": "https://172.17.0.46:3000/api/swagger/api-docs",
+				"generatorName": "typescript-axios",
+				"skipValidateSpec": true,
+				"output": "src/openapi/cosmo/",
+				"apiNameSuffix": "Api",
+				"additionalProperties": {
+					"apiPackage": "api",
+					"modelPackage": "models",
+					"supportsES6": true,
+					"nullSafeAdditionalProps": true,
+					"disallowAdditionalPropertiesIfNotPresent": false,
+					"ensureUniqueParams": true,
+					"useSingleRequestParameter": true,
+					"withSeparateModelsAndApi": true
+				},
+				"glob": "/"
+			}
+		}
 	}
 }

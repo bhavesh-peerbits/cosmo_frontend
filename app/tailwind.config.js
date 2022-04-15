@@ -21,7 +21,6 @@ const carbonSpacing = spacing.unstable_tokens.reduce((acc, layout) => {
 	acc[toKebabCase(layout.replace('spacing', ''))] = spacing[layout];
 	return acc;
 }, {});
-console.log(carbonSpacing);
 const carbonDuration = motion.unstable_tokens.reduce((acc, token) => {
 	acc[toKebabCase(token)] = motion[token];
 	return acc;

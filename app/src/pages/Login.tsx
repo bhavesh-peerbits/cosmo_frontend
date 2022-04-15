@@ -1,7 +1,7 @@
 import loginUrl from '@images/login.svg';
 import '@style/login.scss';
 import { ReactComponent as StellantisLogo } from '@images/stellantis-logo.svg';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 import {
 	Button,
@@ -26,6 +26,7 @@ interface LoginForm {
 
 const Login = () => {
 	// const { t } = useTranslation('login');
+	const navigate = useNavigate();
 	const {
 		register,
 		handleSubmit,
@@ -38,11 +39,21 @@ const Login = () => {
 	}
 
 	const formLogin = async (data: LoginForm) => {
-		login({
-			username: data.username,
-			password: data.password,
-			rememberMe: data.rememberMe
-		});
+		try {
+			return await login({
+				user: data.username,
+				password: data.password,
+				rememberMe: data.rememberMe
+			});
+		} catch (e) {
+			return navigate(
+				{
+					pathname: '/',
+					search: '?error=error-login'
+				},
+				{ replace: true }
+			);
+		}
 	};
 
 	return (
