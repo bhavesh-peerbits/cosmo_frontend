@@ -1,20 +1,27 @@
-import { Button, Column, ContentSwitcher, Grid, Switch, Tag } from '@carbon/react';
+import { Column, ContentSwitcher, Grid, Search, Switch, Tag } from '@carbon/react';
 import { Grid as GridIcon, HorizontalView } from '@carbon/react/icons';
 import { useState } from 'react';
 import ApplicationsFilters from './ApplicationsFilters';
 import ApplicationsTable from './ApplicationsTable';
 import ApplicationsTileContainer from './ApplicationsTileContainer';
 
+type Filter = {
+	id: string;
+	category: string;
+};
+
 const ManagementContainer = () => {
 	const [isTileView, setIsTileView] = useState(true);
-	const [filtersChecked, setFiltersChecked] = useState<string[]>([]);
+	const [checkedFilters, setCheckedFilters] = useState<Filter[]>([]);
 
-	const handleSelectFilter = (id: string) => {
-		return filtersChecked.includes(id) ? '' : setFiltersChecked(old => [...old, id]);
+	const handleSelectFilter = (filter: Filter) => {
+		return checkedFilters.some(e => e.id === filter.id)
+			? setCheckedFilters(checkedFilters.filter(e => e.id !== filter.id))
+			: setCheckedFilters(old => [...old, filter]);
 	};
 
-	const closeFilter = (filter: string) => {
-		setFiltersChecked(filtersChecked.filter(idFilter => idFilter !== filter));
+	const closeFilter = (filterToRemove: Filter) => {
+		setCheckedFilters(checkedFilters.filter(filter => filter !== filterToRemove));
 	};
 
 	return (
@@ -23,14 +30,19 @@ const ManagementContainer = () => {
 				<Grid fullWidth narrow>
 					<Column sm={2} md={2} lg={2}>
 						<ApplicationsFilters
-							idList={filtersChecked}
-							handleFilters={handleSelectFilter}
+							checkedFilters={checkedFilters}
+							handleSelect={handleSelectFilter}
 						/>
 					</Column>
 					<Column sm={4} md={6} lg={14}>
 						<div className='flex flex-col space-y-7'>
 							<div className='flex w-full justify-between'>
-								<Button>Add Application</Button>
+								<Search
+									light
+									className='w-1/3'
+									labelText='Search application name'
+									placeholder='Search by application name'
+								/>
 								<div className='flex items-center justify-end space-x-4'>
 									<div className='whitespace-nowrap'> 16 Applications </div>
 									<ContentSwitcher onChange={() => setIsTileView(!isTileView)}>
@@ -39,10 +51,10 @@ const ManagementContainer = () => {
 									</ContentSwitcher>
 								</div>
 							</div>
-							{filtersChecked.length > 0 ? (
+							{checkedFilters.length > 0 ? (
 								<div className=' flex items-center space-x-4'>
 									<h2>Filters: </h2>
-									{filtersChecked.map(filter => (
+									{checkedFilters.map(filter => (
 										<Tag
 											onClose={() => {
 												closeFilter(filter);
@@ -50,7 +62,7 @@ const ManagementContainer = () => {
 											type='cyan'
 											filter
 										>
-											{filter}
+											{filter.category}
 										</Tag>
 									))}
 								</div>
@@ -66,8 +78,7 @@ const ManagementContainer = () => {
 				<Grid fullWidth narrow>
 					<Column sm={4} md={8} lg={16}>
 						<div className='flex flex-col space-y-7'>
-							<div className='flex w-full justify-between'>
-								<Button>Add Application</Button>
+							<div className='flex w-full justify-end'>
 								<div className='flex items-center justify-end space-x-4'>
 									<div className='whitespace-nowrap'> 16 Applications </div>
 									<ContentSwitcher
