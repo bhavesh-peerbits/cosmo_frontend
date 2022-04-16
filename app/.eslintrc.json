@@ -22,7 +22,6 @@
 		"airbnb-typescript",
 		"airbnb/hooks",
 		"plugin:react/jsx-runtime",
-		"plugin:storybook/recommended",
 		"plugin:prettier/recommended"
 	],
 	"plugins": [

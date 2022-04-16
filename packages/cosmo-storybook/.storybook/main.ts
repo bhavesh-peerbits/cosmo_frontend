@@ -1,5 +1,5 @@
 import { UserConfig } from 'vite';
-import { StorybookConfig, CoreConfig, Options } from '@storybook/core-common';
+import { CoreConfig, Options, StorybookConfig } from '@storybook/core-common';
 
 interface CustomizedCoreConfig extends CoreConfig {
 	builder: CoreConfig['builder'] | 'storybook-builder-vite';
@@ -10,15 +10,19 @@ interface CustomizedStorybookConfig extends StorybookConfig {
 }
 
 const config: CustomizedStorybookConfig = {
-	stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+	stories: ['../stories/**/*.stories.mdx', '../stories/**/*.stories.@(js|jsx|ts|tsx)'],
 	addons: [
+		'@storybook/addon-a11y',
 		'@storybook/addon-links',
 		'@storybook/addon-essentials',
 		'@storybook/addon-interactions'
 	],
 	framework: '@storybook/react',
 	core: {
-		builder: 'storybook-builder-vite'
+		builder: '@storybook/builder-vite'
+	},
+	features: {
+		storyStoreV7: true
 	},
 	/**
 	 * Extend Vite config
