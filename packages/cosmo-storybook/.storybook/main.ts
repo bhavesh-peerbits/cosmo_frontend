@@ -46,8 +46,19 @@ const config: CustomizedStorybookConfig = {
 							'@storybook/components',
 							'@storybook/store',
 							// Add all addons that imported in the `preview.js` or `preview.ts` file and used in exported constants
-							'@storybook/addon-links',
-							'@storybook/theming'
+							'@storybook/addon-docs/dist/esm/frameworks/common/config.js',
+							'@storybook/addon-docs/dist/esm/frameworks/react/config.js',
+							'@storybook/react/dist/esm/client/preview/config',
+							'@storybook/addon-a11y/dist/esm/a11yRunner.js',
+							'@storybook/addon-a11y/dist/esm/a11yHighlight.js',
+							'@storybook/addon-links/dist/esm/preset/addDecorator.js',
+							'@storybook/addon-actions/dist/esm/preset/addDecorator.js',
+							'@storybook/addon-actions/dist/esm/preset/addArgs.js',
+							'@storybook/addon-backgrounds/dist/esm/preset/addDecorator.js',
+							'@storybook/addon-backgrounds/dist/esm/preset/addParameter.js',
+							'@storybook/addon-measure/dist/esm/preset/addDecorator.js',
+							'@storybook/addon-outline/dist/esm/preset/addDecorator.js',
+							'@storybook/addon-interactions/dist/esm/preset/argsEnhancers.js'
 						]
 				  };
 		return config;
