@@ -5,9 +5,6 @@ import legacy from '@vitejs/plugin-legacy';
 import react from '@vitejs/plugin-react';
 import eslintPlugin from '@nabla/vite-plugin-eslint';
 import tsconfigPaths from 'vite-tsconfig-paths';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import sassPnpImporter from 'sass-pnp-importer';
 import svgrPlugin from 'vite-plugin-svgr';
 import manifest from './manifest.json';
 import { dependencies } from './package.json';
@@ -45,7 +42,7 @@ export default defineConfig(({ mode }) => ({
 	css: {
 		preprocessorOptions: {
 			scss: {
-				importer: sassPnpImporter
+				includePaths: ['node_modules']
 			}
 		}
 	},

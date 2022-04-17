@@ -6385,8 +6385,7 @@ __metadata:
     react-query: ^4.0.0-beta.1
     react-router-dom: ^6.3.0
     recoil: ^0.7.0
-    sass: ^1.49.9
-    sass-pnp-importer: ^0.3.0
+    sass: ^1.50.0
     start-server-and-test: ^1.14.0
     stylelint: ^14.6.0
     stylelint-config-prettier-scss: ^0.0.1
@@ -8949,16 +8948,20 @@ __metadata:
     app: "workspace:^"
     babel-loader: ^8.2.4
     core-js: ^3.22.0
-    esbuild: ^0.14.29
-    esbuild-register: ^3.3.2
     global: ^4.4.0
     http-server: ^14.1.0
     jest-mock: ^27.5.1
     react: ^18.0.0
     react-dom: ^18.0.0
+    sass: ^1.50.0
+    sass-pnp-importer: ^0.3.0
     typescript: ^4.6.3
     vite: ^2.9.5
+    vite-tsconfig-paths: ^3.4.1
     webpack: ^5.72.0
+  peerDependencies:
+    c8: "*"
+    prettier: "*"
   languageName: unknown
   linkType: soft
 
@@ -10589,15 +10592,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-register@npm:^3.3.2":
-  version: 3.3.2
-  resolution: "esbuild-register@npm:3.3.2"
-  peerDependencies:
-    esbuild: ">=0.12 <1"
-  checksum: 94c353571b23f9a54d00e4551f03696c99b068699f6afaa2bed9cdf5247ec54536f50ea4c68572485904026a4fd374625418682fd240837895839aeba3f29ec2
-  languageName: node
-  linkType: hard
-
 "esbuild-sunos-64@npm:0.13.8":
   version: 0.13.8
   resolution: "esbuild-sunos-64@npm:0.13.8"
@@ -10744,7 +10738,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:^0.14.27, esbuild@npm:^0.14.29":
+"esbuild@npm:^0.14.27":
   version: 0.14.30
   resolution: "esbuild@npm:0.14.30"
   dependencies:
@@ -19421,16 +19415,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.49.9":
-  version: 1.49.11
-  resolution: "sass@npm:1.49.11"
+"sass@npm:^1.50.0":
+  version: 1.50.0
+  resolution: "sass@npm:1.50.0"
   dependencies:
     chokidar: ">=3.0.0 <4.0.0"
     immutable: ^4.0.0
     source-map-js: ">=0.6.2 <2.0.0"
   bin:
     sass: sass.js
-  checksum: f81cabfc43d6baf710979d647e24019f7cfb68242f8421d20dfc8c864cf83512b0b74a89098331696f758756829cb736f7b8aca70a11cff365928393ae351bcc
+  checksum: 43738cc83a3921731456f769aba190277f0620f8b80c14426ab098be9ab8dc8465957f5bf2edbcffda189edb3024ed83dee2cb8cd580459ca4984a9fc88c18f7
   languageName: node
   linkType: hard
 

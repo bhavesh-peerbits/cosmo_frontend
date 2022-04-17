@@ -1,5 +1,5 @@
-/* eslint-disable react/jsx-props-no-spreading */
-import './button.css';
+import './index.scss';
+import ErrorModalFallback from 'app/src/error/components/ErrorModalFallback';
 
 type ButtonProps = {
 	/**
@@ -36,14 +36,21 @@ const Button = ({
 }: ButtonProps) => {
 	const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
 	return (
-		<button
-			type='button'
-			className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
-			style={{ backgroundColor }}
-			{...props}
-		>
-			{label}
-		</button>
+		// <button
+		// 	type='button'
+		// 	className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
+		// 	style={{ backgroundColor }}
+		// 	{...props}
+		// >
+		// 	{label}
+		// </button>
+		<ErrorModalFallback
+			errorId={'id'}
+			error={undefined}
+			resetErrorBoundary={function (...args: unknown[]): void {
+				throw new Error('Function not implemented.');
+			}}
+		/>
 	);
 };
 export default Button;
