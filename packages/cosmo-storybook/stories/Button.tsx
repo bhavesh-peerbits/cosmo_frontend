@@ -1,5 +1,6 @@
 import './index.scss';
 import ErrorModalFallback from 'app/src/error/components/ErrorModalFallback';
+import FullScreenLoading from 'app/src/components/FullScreenLoading';
 
 type ButtonProps = {
 	/**
@@ -45,6 +46,7 @@ const Button = ({
 			>
 				{label}
 			</button>
+			<FullScreenLoading />
 			<ErrorModalFallback errorId='id' error={undefined} resetErrorBoundary={() => {}} />
 		</>
 	);

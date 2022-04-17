@@ -6403,6 +6403,7 @@ __metadata:
     workbox-window: ^6.5.2
   peerDependencies:
     c8: "*"
+    eslint: "*"
     prettier: "*"
   languageName: unknown
   linkType: soft
@@ -8955,6 +8956,7 @@ __metadata:
     webpack: ^5.72.0
   peerDependencies:
     c8: "*"
+    eslint: "*"
     prettier: "*"
   languageName: unknown
   linkType: soft
@@ -19670,8 +19672,6 @@ __metadata:
     "@types/node": ^17.0.23
     "@types/supertest": ^2.0.12
     "@types/throng": ^5.0.3
-    "@typescript-eslint/eslint-plugin": ^5.15.0
-    "@typescript-eslint/parser": ^5.15.0
     esbuild: ^0.14.31
     esbuild-jest: ^0.5.0
     express: 5.0.0-beta.1
@@ -19691,6 +19691,7 @@ __metadata:
   peerDependencies:
     "@types/node": "*"
     c8: "*"
+    eslint: "*"
     prettier: "*"
     typescript: "*"
   languageName: unknown

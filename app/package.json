@@ -83,6 +83,7 @@
 	},
 	"peerDependencies": {
 		"c8": "*",
+		"eslint": "*",
 		"prettier": "*"
 	}
 }

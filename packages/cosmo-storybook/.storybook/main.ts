@@ -28,6 +28,12 @@ const config: CustomizedStorybookConfig = {
 	 * Extend Vite config
 	 */
 	viteFinal(config, { configType }) {
+		const basePath = 'app/src';
+		config.resolve.alias = {
+			...config.resolve.alias,
+			'@components': `${basePath}/components`
+		};
+
 		if (process.env.NODE_ENV === 'production') {
 			config.build.chunkSizeWarningLimit = 1200;
 		}
