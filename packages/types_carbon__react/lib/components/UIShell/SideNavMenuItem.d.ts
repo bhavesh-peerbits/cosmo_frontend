@@ -1,5 +1,5 @@
-import { ExtendLink, LinkProps } from './Link';
 import { ReactElement, ReactNode } from 'react';
+import { ExtendLink, LinkProps } from './Link';
 
 type SideNavMenuItemProps<K extends ExtendLink> = LinkProps<K> & {
 	/**

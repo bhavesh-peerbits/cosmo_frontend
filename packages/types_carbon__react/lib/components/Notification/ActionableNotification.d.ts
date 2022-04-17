@@ -1,5 +1,5 @@
-import { FCReturn, ReactDivAttr } from '../../../typings/shared';
 import React, { AriaRole, ReactNode } from 'react';
+import { FCReturn, ReactDivAttr } from '../../../typings/shared';
 
 interface ActionableNotificationProps extends ReactDivAttr {
 	/**

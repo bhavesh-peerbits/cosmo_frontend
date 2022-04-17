@@ -6358,8 +6358,6 @@ __metadata:
     "@types/css-mediaquery": ^0.1.1
     "@types/testing-library__jest-dom": ^5.14.3
     "@types/validator": ^13.7.1
-    "@typescript-eslint/eslint-plugin": ^5.15.0
-    "@typescript-eslint/parser": ^5.15.0
     "@vitejs/plugin-legacy": ^1.8.1
     "@vitejs/plugin-react": ^1.3.1
     "@vitest/ui": ^0.9.3
@@ -6370,18 +6368,6 @@ __metadata:
     cross-env: ^7.0.3
     css-mediaquery: ^0.1.2
     cypress: ^9.5.2
-    eslint: ^8.11.0
-    eslint-config-airbnb: ^19.0.4
-    eslint-config-airbnb-base: ^15.0.0
-    eslint-config-airbnb-typescript: ^16.1.2
-    eslint-config-prettier: ^8.5.0
-    eslint-plugin-cypress: ^2.12.1
-    eslint-plugin-import: ^2.25.4
-    eslint-plugin-jsx-a11y: ^6.5.1
-    eslint-plugin-prettier: ^4.0.0
-    eslint-plugin-react: ^7.29.4
-    eslint-plugin-react-hooks: ^4.3.0
-    eslint-plugin-testing-library: ^5.1.0
     framer-motion: ^6.2.9
     i18next: ^21.6.14
     jsdom: ^19.0.0
@@ -6389,7 +6375,6 @@ __metadata:
     moment: ^2.29.1
     msw: ^0.39.2
     postcss: ^8.4.12
-    prettier-plugin-tailwindcss: ^0.1.8
     react: ^18.0.0
     react-dom: ^18.0.0
     react-error-boundary: ^3.1.4
@@ -6400,9 +6385,6 @@ __metadata:
     recoil: ^0.7.2
     sass: ^1.50.0
     start-server-and-test: ^1.14.0
-    stylelint: ^14.6.0
-    stylelint-config-prettier-scss: ^0.0.1
-    stylelint-config-standard-scss: ^3.0.0
     tailwindcss: ^3.0.23
     tiny-cookie: ^2.3.2
     translation-check: ^1.0.2
@@ -8982,13 +8964,29 @@ __metadata:
   resolution: "cosmo@workspace:."
   dependencies:
     "@types/node": ^17.0.23
+    "@typescript-eslint/eslint-plugin": ^5.15.0
+    "@typescript-eslint/parser": ^5.15.0
     c8: ^7.11.0
-    eslint: ^8.11.0
+    eslint: ^8.13.0
+    eslint-config-airbnb: ^19.0.4
+    eslint-config-airbnb-base: ^15.0.0
+    eslint-config-airbnb-typescript: ^17.0.0
+    eslint-config-prettier: ^8.5.0
+    eslint-plugin-cypress: ^2.12.1
+    eslint-plugin-import: ^2.26.0
+    eslint-plugin-jsx-a11y: ^6.5.1
+    eslint-plugin-prettier: ^4.0.0
+    eslint-plugin-react: ^7.29.4
+    eslint-plugin-react-hooks: ^4.4.0
+    eslint-plugin-testing-library: ^5.3.1
     husky: ^7.0.4
     jsdom: ^19.0.0
     lint-staged: ^12.3.7
     prettier: ^2.5.1
     prettier-plugin-tailwindcss: ^0.1.8
+    stylelint: ^14.6.0
+    stylelint-config-prettier-scss: ^0.0.1
+    stylelint-config-standard-scss: ^3.0.0
     ts-node: ^10.7.0
     typescript: ^4.6.3
     vite: ^2.9.1
@@ -10961,17 +10959,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-airbnb-typescript@npm:^16.1.2":
-  version: 16.2.0
-  resolution: "eslint-config-airbnb-typescript@npm:16.2.0"
+"eslint-config-airbnb-typescript@npm:^17.0.0":
+  version: 17.0.0
+  resolution: "eslint-config-airbnb-typescript@npm:17.0.0"
   dependencies:
     eslint-config-airbnb-base: ^15.0.0
   peerDependencies:
-    "@typescript-eslint/eslint-plugin": ^5.0.0
+    "@typescript-eslint/eslint-plugin": ^5.13.0
     "@typescript-eslint/parser": ^5.0.0
     eslint: ^7.32.0 || ^8.2.0
     eslint-plugin-import: ^2.25.3
-  checksum: eb44e32874f6ac566da7bfb451f7d271eab3c6f6f4e863bbacc13a7c6d09671f02819886d37f8fe670bafa6cc5fbe38450632cc9f8862e405734fd7bb813d02a
+  checksum: e598ae7bcc3629bbc847a749f8c1ad69e6ef111335b60d88bde91d1bb335077b06688868257fe2fcc95c3687a0d6e3e1f91e0534cc633f5a118239e52bb05a54
   languageName: node
   linkType: hard
 
@@ -11013,7 +11011,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-module-utils@npm:^2.7.2":
+"eslint-module-utils@npm:^2.7.3":
   version: 2.7.3
   resolution: "eslint-module-utils@npm:2.7.3"
   dependencies:
@@ -11034,26 +11032,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-import@npm:^2.25.4":
-  version: 2.25.4
-  resolution: "eslint-plugin-import@npm:2.25.4"
+"eslint-plugin-import@npm:^2.26.0":
+  version: 2.26.0
+  resolution: "eslint-plugin-import@npm:2.26.0"
   dependencies:
     array-includes: ^3.1.4
     array.prototype.flat: ^1.2.5
     debug: ^2.6.9
     doctrine: ^2.1.0
     eslint-import-resolver-node: ^0.3.6
-    eslint-module-utils: ^2.7.2
+    eslint-module-utils: ^2.7.3
     has: ^1.0.3
-    is-core-module: ^2.8.0
+    is-core-module: ^2.8.1
     is-glob: ^4.0.3
-    minimatch: ^3.0.4
+    minimatch: ^3.1.2
     object.values: ^1.1.5
-    resolve: ^1.20.0
-    tsconfig-paths: ^3.12.0
+    resolve: ^1.22.0
+    tsconfig-paths: ^3.14.1
   peerDependencies:
     eslint: ^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8
-  checksum: 0af24f5c7c6ca692f42e3947127f0ae7dfe44f1e02740f7cbe988b510a9c52bab0065d7df04e2d953dcc88a4595a00cbdcf14018acf8cd75cfd47b72efcbb734
+  checksum: 0bf77ad80339554481eafa2b1967449e1f816b94c7a6f9614ce33fb4083c4e6c050f10d241dd50b4975d47922880a34de1e42ea9d8e6fd663ebb768baa67e655
   languageName: node
   linkType: hard
 
@@ -11094,7 +11092,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-hooks@npm:^4.3.0":
+"eslint-plugin-react-hooks@npm:^4.4.0":
   version: 4.4.0
   resolution: "eslint-plugin-react-hooks@npm:4.4.0"
   peerDependencies:
@@ -11127,14 +11125,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-testing-library@npm:^5.1.0":
-  version: 5.2.0
-  resolution: "eslint-plugin-testing-library@npm:5.2.0"
+"eslint-plugin-testing-library@npm:^5.3.1":
+  version: 5.3.1
+  resolution: "eslint-plugin-testing-library@npm:5.3.1"
   dependencies:
     "@typescript-eslint/utils": ^5.13.0
   peerDependencies:
     eslint: ^7.5.0 || ^8.0.0
-  checksum: 43b75b26d04771f3b8c494785e1e6a95c5526d4d51615e6c544ad74f879ee943df731a567785a8ffe240a77082d854be51aa4079745f6387963af7e8f4887a7b
+  checksum: 39b11c5a412ddba994bc8e0734f6e6ba23ef88c99995d6a0e9e9e7c572c6d71f19589fe4d1bbafd8589cf7438d35559aeca6227e885d2b5f6d8baf8d7304e31e
   languageName: node
   linkType: hard
 
@@ -11193,9 +11191,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8.11.0":
-  version: 8.12.0
-  resolution: "eslint@npm:8.12.0"
+"eslint@npm:^8.13.0":
+  version: 8.13.0
+  resolution: "eslint@npm:8.13.0"
   dependencies:
     "@eslint/eslintrc": ^1.2.1
     "@humanwhocodes/config-array": ^0.9.2
@@ -11234,7 +11232,7 @@ __metadata:
     v8-compile-cache: ^2.0.3
   bin:
     eslint: bin/eslint.js
-  checksum: 111bf9046b7a463049788dd00d7f4cd91e024029982352dff4811ce5dfa8cb1136aa127cd8a7a91508234d3e1b4fb6f638a1f5ef9ea08b1af93a18703a4a8dc1
+  checksum: bc7d2fc9a046d42cb2c8987573ecaf534c1fae14747c4695e32388e179c5f21b83eefdb3e4f35924bf76152e226d7cc9dfb21f12348baf12c803109005b17439
   languageName: node
   linkType: hard
 
@@ -13791,7 +13789,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-core-module@npm:^2.2.0, is-core-module@npm:^2.5.0, is-core-module@npm:^2.8.0, is-core-module@npm:^2.8.1":
+"is-core-module@npm:^2.2.0, is-core-module@npm:^2.5.0, is-core-module@npm:^2.8.1":
   version: 2.8.1
   resolution: "is-core-module@npm:2.8.1"
   dependencies:
@@ -19676,12 +19674,6 @@ __metadata:
     "@typescript-eslint/parser": ^5.15.0
     esbuild: ^0.14.31
     esbuild-jest: ^0.5.0
-    eslint-config-airbnb: ^19.0.4
-    eslint-config-airbnb-base: ^15.0.0
-    eslint-config-airbnb-typescript: ^16.1.2
-    eslint-config-prettier: ^8.5.0
-    eslint-plugin-import: ^2.25.4
-    eslint-plugin-prettier: ^4.0.0
     express: 5.0.0-beta.1
     express-sslify: ^1.2.0
     helmet: ^5.0.2
@@ -19699,10 +19691,6 @@ __metadata:
   peerDependencies:
     "@types/node": "*"
     c8: "*"
-    eslint: "*"
-    eslint-plugin-jsx-a11y: "*"
-    eslint-plugin-react: "*"
-    eslint-plugin-react-hooks: "*"
     prettier: "*"
     typescript: "*"
   languageName: unknown
@@ -21557,7 +21545,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsconfig-paths@npm:^3.12.0, tsconfig-paths@npm:^3.9.0":
+"tsconfig-paths@npm:^3.14.1, tsconfig-paths@npm:^3.9.0":
   version: 3.14.1
   resolution: "tsconfig-paths@npm:3.14.1"
   dependencies:

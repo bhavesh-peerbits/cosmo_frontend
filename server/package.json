@@ -6,13 +6,10 @@
 	"scripts": {
 		"start": "yarn node index.js",
 		"dev": "vite",
-		"build": "yarn tsc && vite build",
-		"lint:fix": "yarn eslint --cache --fix --ignore-path ../.gitignore --ext .ts .",
-		"lint": "yarn tsc && yarn lint:fix",
+		"build": "yarn comm:tsc && vite build",
 		"test:ci": "jest --detectOpenHandles --runInBand --forceExit",
 		"validate": "yarn lint && yarn test",
-		"tsc": "yarn run -T tsc",
-		"eslint": "yarn run -T eslint"
+		"comm:tsc": "yarn run -T tsc"
 	},
 	"dependencies": {
 		"esbuild-jest": "^0.5.0",
@@ -36,12 +33,6 @@
 		"@typescript-eslint/eslint-plugin": "^5.15.0",
 		"@typescript-eslint/parser": "^5.15.0",
 		"esbuild": "^0.14.31",
-		"eslint-config-airbnb": "^19.0.4",
-		"eslint-config-airbnb-base": "^15.0.0",
-		"eslint-config-airbnb-typescript": "^16.1.2",
-		"eslint-config-prettier": "^8.5.0",
-		"eslint-plugin-import": "^2.25.4",
-		"eslint-plugin-prettier": "^4.0.0",
 		"jest": "^27.5.1",
 		"jsdom": "^19.0.0",
 		"supertest": "^6.2.2",
@@ -54,10 +45,6 @@
 	"peerDependencies": {
 		"@types/node": "*",
 		"c8": "*",
-		"eslint": "*",
-		"eslint-plugin-jsx-a11y": "*",
-		"eslint-plugin-react": "*",
-		"eslint-plugin-react-hooks": "*",
 		"prettier": "*",
 		"typescript": "*"
 	}

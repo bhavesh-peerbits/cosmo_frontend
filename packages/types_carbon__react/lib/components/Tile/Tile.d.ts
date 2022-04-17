@@ -1,5 +1,5 @@
-import { FCReturn, ReactDivAttr } from '../../../typings/shared';
 import { ReactNode } from 'react';
+import { FCReturn, ReactDivAttr } from '../../../typings/shared';
 
 interface TileProps extends ReactDivAttr {
 	/**

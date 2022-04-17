@@ -1,7 +1,7 @@
 import { ReactElement, ReactNode, RefObject } from 'react';
 import { FCReturn } from '../../../typings/shared';
 
-interface SideNavMenu {
+interface SideNavMenuProps {
 	buttonRef?: RefObject<HTMLButtonElement>;
 
 	/**
@@ -49,6 +49,6 @@ interface SideNavMenu {
 	title: string;
 }
 
-declare const SideNavMenu: FCReturn<SideNavMenu>;
+declare const SideNavMenu: FCReturn<SideNavMenuProps>;
 
 export default SideNavMenu;

@@ -1,5 +1,5 @@
-import { AriaLabelProps, FCReturn, ReactDivAttr } from '../../../typings/shared';
 import { ReactNode } from 'react';
+import { AriaLabelProps, FCReturn, ReactDivAttr } from '../../../typings/shared';
 
 interface ModalBodyProps extends AriaLabelProps, ReactDivAttr {
 	/**
