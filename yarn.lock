@@ -1650,10 +1650,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/standalone@npm:^7.17.8":
-  version: 7.17.8
-  resolution: "@babel/standalone@npm:7.17.8"
-  checksum: ca72ff478ab72ae79601e2070a65df30b38de874772f66469cee860981d55f4ef45a57fff2afcaac588e644733696596ed7e0fa0907836f7d0f53a22b9fcd622
+"@babel/standalone@npm:^7.17.9":
+  version: 7.17.9
+  resolution: "@babel/standalone@npm:7.17.9"
+  checksum: fcddeb533fc6cddf046d1e73357955452c33ac914c37e7ac8b6e0376b438a03cfa9e69dacd3f24abc47a7366c6f6b774eda9e0218d07105c431121fc32889eef
   languageName: node
   linkType: hard
 
@@ -1728,10 +1728,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@carbon/colors@npm:^11.0.0":
-  version: 11.0.0
-  resolution: "@carbon/colors@npm:11.0.0"
-  checksum: f27b6e19b34655759b71b2a09326b9db916b108678405120bac6dbb73d4c58abe07077290fb8f942a4a48d1dcf171a32f58d19acb61633ea496eef19b9752243
+"@carbon/colors@npm:^11.1.0":
+  version: 11.1.0
+  resolution: "@carbon/colors@npm:11.1.0"
+  checksum: fc131533011acfc582e44cff7b7c39a777460e34140f4dc585e9c74592e3862c192cbeb695d05d2cc67c1128068d6e81f936e6ff2b5cbc90df0dddba4c93e132
   languageName: node
   linkType: hard
 
@@ -1742,12 +1742,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@carbon/grid@npm:^11.0.0":
-  version: 11.0.0
-  resolution: "@carbon/grid@npm:11.0.0"
+"@carbon/grid@npm:^11.1.0":
+  version: 11.1.0
+  resolution: "@carbon/grid@npm:11.1.0"
   dependencies:
-    "@carbon/layout": ^11.0.0
-  checksum: 1d6208b4b0df8e4d9b354ec3ea3f2773aa96ec4edb3b8398d2fa521594c24542d48544262927ef56f12b5eca94cae6d179f41ec48f8ac6f073331571028ade44
+    "@carbon/layout": ^11.1.0
+  checksum: 3ca7939b5b4ddf86fac94f6a6d98bfc553e3dc921b1ab445b6977c77460debd1d45e8067436027c7e4bfdd29739d2be60740e0a2ea53ef2c7a14ba5fd5517817
   languageName: node
   linkType: hard
 
@@ -1758,23 +1758,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@carbon/icons-react@npm:^11.0.2":
-  version: 11.0.2
-  resolution: "@carbon/icons-react@npm:11.0.2"
+"@carbon/icons-react@npm:^11.1.0":
+  version: 11.1.0
+  resolution: "@carbon/icons-react@npm:11.1.0"
   dependencies:
     "@carbon/icon-helpers": ^10.29.0
     "@carbon/telemetry": 0.1.0
     prop-types: ^15.7.2
   peerDependencies:
     react: ">=16"
-  checksum: 15da3047bdf17f184526cc2298eb4e64eb3219a11951ef8cdfaa821f7f66e79cb086f5c01e973ae5c9dc9b48ac90036671d21fc912ee2882296c416e6c29a395
+  checksum: b21a4f36c72d8f69ce49e3dd9ad60870cbbdbd5f0439649f1e4c4d57430abd501e5de527578dd4bb019b27e2527b54210beb74be7ef8e34fa0451ab07434e283
   languageName: node
   linkType: hard
 
-"@carbon/layout@npm:^11.0.0":
-  version: 11.0.0
-  resolution: "@carbon/layout@npm:11.0.0"
-  checksum: 82fa6c06eec11274a06f02f51f0f9db655d6069b0e9a20d5b7fe8e6f79869ab04ed54115374efa8860e4ae00a24f29142d7475ec15d5b8902fe9e5484354e168
+"@carbon/layout@npm:^11.1.0":
+  version: 11.1.0
+  resolution: "@carbon/layout@npm:11.1.0"
+  checksum: cde79bb36e5293570a3346e4d5bcc1b93fbdf46cffd89ea87f81dca9f7ea665c6d4452461f4943f1160a8bf49e3547ff9e958b45ac64de01dcb89642f0a13385
   languageName: node
   linkType: hard
 
@@ -1785,15 +1785,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@carbon/react@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "@carbon/react@npm:1.0.3"
+"@carbon/react@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@carbon/react@npm:1.1.0"
   dependencies:
     "@babel/runtime": ^7.16.7
     "@carbon/feature-flags": ^0.7.0
-    "@carbon/icons-react": ^11.0.2
-    "@carbon/layout": ^11.0.0
-    "@carbon/styles": ^1.0.2
+    "@carbon/icons-react": ^11.1.0
+    "@carbon/layout": ^11.1.0
+    "@carbon/styles": ^1.1.0
     "@carbon/telemetry": 0.1.0
     classnames: 2.3.1
     copy-to-clipboard: ^3.3.1
@@ -1814,25 +1814,25 @@ __metadata:
     react: ^16.8.6 || ^17.0.1
     react-dom: ^16.8.6 || ^17.0.1
     sass: ^1.33.0
-  checksum: 00b918e7edd261327b48d94111f6460c9e42b17e71fb717ee05f8b6714b69c9febdc3f63a7922adf62b173e33826ea84f339d910b3aa7b1bc7558a3ad20a241f
+  checksum: 0004c853a51f74c1ef888dbcbd0c847c8e625e4256c77b63fabacf8d87cacdcd4ec7a595ee58f3394de5b0f9d4a71a5a3fbd2a7ddcb6aa22cd1f773043c25481
   languageName: node
   linkType: hard
 
-"@carbon/styles@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@carbon/styles@npm:1.0.2"
+"@carbon/styles@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@carbon/styles@npm:1.1.0"
   dependencies:
-    "@carbon/colors": ^11.0.0
+    "@carbon/colors": ^11.1.0
     "@carbon/feature-flags": ^0.7.0
-    "@carbon/grid": ^11.0.0
-    "@carbon/layout": ^11.0.0
+    "@carbon/grid": ^11.1.0
+    "@carbon/layout": ^11.1.0
     "@carbon/motion": ^11.0.0
-    "@carbon/themes": ^11.0.1
-    "@carbon/type": ^11.0.0
+    "@carbon/themes": ^11.1.0
+    "@carbon/type": ^11.1.0
     "@ibm/plex": 6.0.0-next.6
   peerDependencies:
     sass: ^1.33.0
-  checksum: 3563a5cce67c53eb492fe05b666e55e5c8398668783de5caa70f8a84cc2f7d40b452aa2f9e1b6fc770289fe231e6e09cd34b22111a668134726eeda6f361f28e
+  checksum: 9b5500e57b61e924ef4e20cd999d8c3c3a93ae94818108e4f87f290dd75c759e8c700d73b43083593eed32722c7c83c4a2b425b031a67611ef968af765973bdc
   languageName: node
   linkType: hard
 
@@ -1845,24 +1845,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@carbon/themes@npm:^11.0.1":
-  version: 11.0.1
-  resolution: "@carbon/themes@npm:11.0.1"
+"@carbon/themes@npm:^11.1.0":
+  version: 11.1.0
+  resolution: "@carbon/themes@npm:11.1.0"
   dependencies:
-    "@carbon/colors": ^11.0.0
-    "@carbon/layout": ^11.0.0
-    "@carbon/type": ^11.0.0
+    "@carbon/colors": ^11.1.0
+    "@carbon/layout": ^11.1.0
+    "@carbon/type": ^11.1.0
     color: ^3.1.2
-  checksum: 95510a57cb1f45576af6d8595c76b6cfb1c45ea8ed0f9e3da96905369fbe3cbb076114f618ec693946cfedb176bd06e689c7abae496b77eba438a3760d6eda01
+  checksum: 5e1909fffa4a7a05597e5e58d6403205667e88654157e1b5fbaa5e0a23cc6e7b8731e1419d8533761ac920d9069bf2fd401e53c6f846620b10357dc0db6d2705
   languageName: node
   linkType: hard
 
-"@carbon/type@npm:^11.0.0":
-  version: 11.0.0
-  resolution: "@carbon/type@npm:11.0.0"
+"@carbon/type@npm:^11.1.0":
+  version: 11.1.0
+  resolution: "@carbon/type@npm:11.1.0"
   dependencies:
-    "@carbon/grid": ^11.0.0
-  checksum: 60b0f0e1fdad8e59d7bcf89dbe4269ca615e1cc57ccc8f67f6456e1aa055dfd6f71dc4d0d83275d7a4d789150351d9702ddd3f6608b73187999a5aa13dccba5e
+    "@carbon/grid": ^11.1.0
+  checksum: 0074fe978a43504f854aadba1ef3e52039a9f2c499b539ad81c2644d8c0c1ab85c330383669a5b8867fce2c4bf73ba6db883684796cbb3be9af70657728d4f9d
   languageName: node
   linkType: hard
 
@@ -2825,6 +2825,13 @@ __metadata:
     webpack-plugin-serve:
       optional: true
   checksum: 66deb75fe06c0d93f9f6f87c57349013cdc82d4cc536b3aff919fd417df1c6603d14a96448d4088f1a680ec22a75f994b30c374a0042c524dfecd96a942ff674
+  languageName: node
+  linkType: hard
+
+"@polka/url@npm:^1.0.0-next.20":
+  version: 1.0.0-next.21
+  resolution: "@polka/url@npm:1.0.0-next.21"
+  checksum: c7654046d38984257dd639eab3dc770d1b0340916097b2fac03ce5d23506ada684e05574a69b255c32ea6a144a957c8cd84264159b545fca031c772289d88788
   languageName: node
   linkType: hard
 
@@ -5174,7 +5181,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:*, @types/react-dom@npm:>=16.9.0, @types/react-dom@npm:^17.0.14":
+"@types/react-dom@npm:*, @types/react-dom@npm:>=16.9.0":
   version: 17.0.14
   resolution: "@types/react-dom@npm:17.0.14"
   dependencies:
@@ -5201,7 +5208,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:>=16.9.0, @types/react@npm:^17.0.43":
+"@types/react@npm:*, @types/react@npm:>=16.9.0":
   version: 17.0.43
   resolution: "@types/react@npm:17.0.43"
   dependencies:
@@ -5548,22 +5555,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitejs/plugin-legacy@npm:^1.7.1":
-  version: 1.8.0
-  resolution: "@vitejs/plugin-legacy@npm:1.8.0"
+"@vitejs/plugin-legacy@npm:^1.8.1":
+  version: 1.8.1
+  resolution: "@vitejs/plugin-legacy@npm:1.8.1"
   dependencies:
-    "@babel/standalone": ^7.17.8
+    "@babel/standalone": ^7.17.9
     core-js: ^3.21.1
     magic-string: ^0.26.1
     regenerator-runtime: ^0.13.9
     systemjs: ^6.12.1
   peerDependencies:
     vite: ^2.8.0
-  checksum: 8a129c0885e1f112b877c18fee1ab4b088668c402b1617894490dbd35a78567659d4fce7e0bc534b6d9133c7d7c0f7dc6811b723e3d67ec0e3f8380de35e859a
+  checksum: 1536dfae39cd27068e84f6f95e8a16b4aaae10b5ce4bca1cf9b81071f4fb1b45ebeca94f7b6152b41b2786a2979a9aa96829d39ba7137f2661ca28b702008f9e
   languageName: node
   linkType: hard
 
-"@vitejs/plugin-react@npm:^1.0.8, @vitejs/plugin-react@npm:^1.2.0":
+"@vitejs/plugin-react@npm:^1.0.8":
   version: 1.3.0
   resolution: "@vitejs/plugin-react@npm:1.3.0"
   dependencies:
@@ -5592,6 +5599,15 @@ __metadata:
     react-refresh: ^0.12.0
     resolve: ^1.22.0
   checksum: 2d71677ec14b62589fd411bc9c76a0eba48469d06cf7b29106f0fae265bc386aeeb3071215d6a95f561a26c30a8bab8f523eedaabe7fe5f91b27d6317897bd47
+  languageName: node
+  linkType: hard
+
+"@vitest/ui@npm:^0.9.3":
+  version: 0.9.3
+  resolution: "@vitest/ui@npm:0.9.3"
+  dependencies:
+    sirv: ^2.0.2
+  checksum: 401c07568cbbdb5b2231a249fda31b8b735e647366f52d44708fc34477e2ea045f2ba4cb09d3de466646b555b0bbd762577cf8dfa92cbf9a2ebdc00984f387b6
   languageName: node
   linkType: hard
 
@@ -6324,8 +6340,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "app@workspace:app"
   dependencies:
-    "@babel/core": ^7.17.8
-    "@carbon/react": ^1.0.3
+    "@carbon/react": ^1.1.0
     "@cypress/code-coverage": ^3.9.12
     "@ibm/plex": ^6.0.0
     "@nabla/vite-plugin-eslint": ^1.4.0
@@ -6341,19 +6356,17 @@ __metadata:
     "@testing-library/user-event": ^13.5.0
     "@types/carbon__react": "workspace:^"
     "@types/css-mediaquery": ^0.1.1
-    "@types/react": ^17.0.43
-    "@types/react-dom": ^17.0.14
     "@types/testing-library__jest-dom": ^5.14.3
     "@types/validator": ^13.7.1
     "@typescript-eslint/eslint-plugin": ^5.15.0
     "@typescript-eslint/parser": ^5.15.0
-    "@vitejs/plugin-legacy": ^1.7.1
-    "@vitejs/plugin-react": ^1.2.0
+    "@vitejs/plugin-legacy": ^1.8.1
+    "@vitejs/plugin-react": ^1.3.1
+    "@vitest/ui": ^0.9.3
     "@yarnpkg/fslib": ^2.6.1
     "@yarnpkg/libzip": ^2.2.4
     autoprefixer: ^10.4.4
     axios: ^0.26.1
-    babel-loader: ^8.2.3
     cross-env: ^7.0.3
     css-mediaquery: ^0.1.2
     cypress: ^9.5.2
@@ -6384,7 +6397,7 @@ __metadata:
     react-i18next: ^11.16.2
     react-query: ^4.0.0-beta.1
     react-router-dom: ^6.3.0
-    recoil: ^0.7.0
+    recoil: ^0.7.2
     sass: ^1.50.0
     start-server-and-test: ^1.14.0
     stylelint: ^14.6.0
@@ -6399,8 +6412,7 @@ __metadata:
     vite-plugin-pwa: ^0.11.13
     vite-plugin-svgr: ^1.1.0
     vite-tsconfig-paths: ^3.4.1
-    vitest: ^0.8.4
-    webpack: ^5.71.0
+    vitest: ^0.9.3
     whatwg-fetch: ^3.6.2
     workbox-build: ^6.5.2
     workbox-recipes: ^6.5.2
@@ -6912,7 +6924,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-loader@npm:^8.0.0, babel-loader@npm:^8.2.3, babel-loader@npm:^8.2.4":
+"babel-loader@npm:^8.0.0, babel-loader@npm:^8.2.4":
   version: 8.2.4
   resolution: "babel-loader@npm:8.2.4"
   dependencies:
@@ -16479,6 +16491,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mrmime@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "mrmime@npm:1.0.0"
+  checksum: 2c72a40942af7c53bc97d1e9e9c5cb0e6541d18f736811c3a1b46fa2a2b2362480d687daa8ae8372523acaacd82426a4f7ce34b0bf1825ea83b3983e8cb91afd
+  languageName: node
+  linkType: hard
+
 "ms@npm:2.0.0":
   version: 2.0.0
   resolution: "ms@npm:2.0.0"
@@ -18760,9 +18779,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"recoil@npm:^0.7.0":
-  version: 0.7.0
-  resolution: "recoil@npm:0.7.0"
+"recoil@npm:^0.7.2":
+  version: 0.7.2
+  resolution: "recoil@npm:0.7.2"
   dependencies:
     hamt_plus: 1.0.2
   peerDependencies:
@@ -18772,7 +18791,7 @@ __metadata:
       optional: true
     react-native:
       optional: true
-  checksum: e190db5153e322ba8ca824e97701e756c41681080da23f3e87d104544da2e8c9eea44ada8a36857ef9a1ade368dfe6ea3af7d51796441b08c40272c0a1386c81
+  checksum: 2ad0c2052fd33ee358e3b448fd36ea6d4b37e69ace65ff44124605171c4794e4f167215209731aac3d45d42ea9f4c67e9c5a0704ff04ab94b64bcca96d5f59a3
   languageName: node
   linkType: hard
 
@@ -19846,6 +19865,17 @@ __metadata:
   dependencies:
     is-arrayish: ^0.3.1
   checksum: a7f3f2ab5c76c4472d5c578df892e857323e452d9f392e1b5cf74b74db66e6294a1e1b8b390b519fa1b96b5b613f2a37db6cffef52c3f1f8f3c5ea64eb2d54c0
+  languageName: node
+  linkType: hard
+
+"sirv@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "sirv@npm:2.0.2"
+  dependencies:
+    "@polka/url": ^1.0.0-next.20
+    mrmime: ^1.0.0
+    totalist: ^3.0.0
+  checksum: 6982f8ecee9392d246d7eeea8144e50334fe1b46a4fa942995a844ea88c2d518b17cce781bb09926c9a5692a7002a207d18dfd67af2aa538a15e733dc2042298
   languageName: node
   linkType: hard
 
@@ -21224,10 +21254,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tinyspy@npm:^0.3.0":
-  version: 0.3.0
-  resolution: "tinyspy@npm:0.3.0"
-  checksum: 8776bc6b29d190195c12a0769f8e9f0ae7756ff4a8de070b181a5962fc17fdffb1b95043501f7970cea007d4ddf41559c5b376576c8d244ccf35d04a49e664fb
+"tinyspy@npm:^0.3.2":
+  version: 0.3.2
+  resolution: "tinyspy@npm:0.3.2"
+  checksum: 674d238c9b879a9d7acee3c30cfbc94334016d15a43b9db2f750aa74f107fa7096821d3866603576ea8efda9f2ec0683ffbd960f83de166f250ed583e68f25b3
   languageName: node
   linkType: hard
 
@@ -21321,6 +21351,13 @@ __metadata:
   version: 1.0.1
   resolution: "toidentifier@npm:1.0.1"
   checksum: 952c29e2a85d7123239b5cfdd889a0dde47ab0497f0913d70588f19c53f7e0b5327c95f4651e413c74b785147f9637b17410ac8c846d5d4a20a5a33eb6dc3a45
+  languageName: node
+  linkType: hard
+
+"totalist@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "totalist@npm:3.0.0"
+  checksum: ec499bddfc73d5b6c73f8ff68afd7bed286705797f928a11177fee5d1ee80e9052ffcb434638437702e16864bd5490f437a54f79bfea9564e875d34ed3254bca
   languageName: node
   linkType: hard
 
@@ -22388,7 +22425,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^2.8.6, vite@npm:^2.9.1":
+"vite@npm:^2.9.1":
   version: 2.9.1
   resolution: "vite@npm:2.9.1"
   dependencies:
@@ -22446,17 +22483,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vitest@npm:^0.8.4":
-  version: 0.8.4
-  resolution: "vitest@npm:0.8.4"
+"vitest@npm:^0.9.3":
+  version: 0.9.3
+  resolution: "vitest@npm:0.9.3"
   dependencies:
     "@types/chai": ^4.3.0
     "@types/chai-subset": ^1.3.3
     chai: ^4.3.6
     local-pkg: ^0.4.1
     tinypool: ^0.1.2
-    tinyspy: ^0.3.0
-    vite: ^2.8.6
+    tinyspy: ^0.3.2
+    vite: ^2.9.1
   peerDependencies:
     "@vitest/ui": "*"
     c8: "*"
@@ -22473,7 +22510,7 @@ __metadata:
       optional: true
   bin:
     vitest: vitest.mjs
-  checksum: 4048499c3339f5b6f9ba9468f7bfe987f140f6e0553922321a021ee0f8829c7ea75e93780a7328529dfb1c292423def738048e73574621ec6e8efe2c56edb019
+  checksum: 0f9d7016ac4c2795172984ab76577bbf2cbaca938697f515b69c8b86f4952da7539c18c6952def4a71a9caefce96e35a11c46cfcce467b7663bde24ce53bf772
   languageName: node
   linkType: hard
 
@@ -22765,7 +22802,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.71.0, webpack@npm:^5.72.0":
+"webpack@npm:^5.72.0":
   version: 5.72.0
   resolution: "webpack@npm:5.72.0"
   dependencies:

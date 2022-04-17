@@ -21,6 +21,8 @@ function renderChunks(deps: Record<string, string>) {
 	return chunks;
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
 	define: {
@@ -55,8 +57,8 @@ export default defineConfig(({ mode }) => ({
 			  }
 			: {},
 	plugins: [
+		react(),
 		tsconfigPaths(),
-		mode === 'production' ? [] : react(),
 		legacy({
 			targets: ['defaults', 'not IE 11']
 		}),
