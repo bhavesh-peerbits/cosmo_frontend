@@ -5190,6 +5190,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-dom@npm:^18.0.1":
+  version: 18.0.1
+  resolution: "@types/react-dom@npm:18.0.1"
+  dependencies:
+    "@types/react": "*"
+  checksum: 6c183e2e50240b77ed767cd968fe061ef4f2b47f84da5ec9e412a767d68c9a004d1f6ccca4295a5aa2c3ee723377e59006a2031f3767c00d8ac9e240a51bb142
+  languageName: node
+  linkType: hard
+
 "@types/react-syntax-highlighter@npm:11.0.5":
   version: 11.0.5
   resolution: "@types/react-syntax-highlighter@npm:11.0.5"
@@ -5219,7 +5228,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:>=16":
+"@types/react@npm:>=16, @types/react@npm:^18.0.5":
   version: 18.0.5
   resolution: "@types/react@npm:18.0.5"
   dependencies:
@@ -6356,6 +6365,8 @@ __metadata:
     "@testing-library/user-event": ^13.5.0
     "@types/carbon__react": "workspace:^"
     "@types/css-mediaquery": ^0.1.1
+    "@types/react": ^18.0.5
+    "@types/react-dom": ^18.0.1
     "@types/testing-library__jest-dom": ^5.14.3
     "@types/validator": ^13.7.1
     "@vitejs/plugin-legacy": ^1.8.1
@@ -6368,6 +6379,7 @@ __metadata:
     cross-env: ^7.0.3
     css-mediaquery: ^0.1.2
     cypress: ^9.5.2
+    eslint-plugin-testing-library: ^5.3.1
     framer-motion: ^6.2.9
     i18next: ^21.6.14
     jsdom: ^19.0.0
@@ -6375,6 +6387,7 @@ __metadata:
     moment: ^2.29.1
     msw: ^0.39.2
     postcss: ^8.4.12
+    prettier-plugin-tailwindcss: ^0.1.8
     react: ^18.0.0
     react-dom: ^18.0.0
     react-error-boundary: ^3.1.4
@@ -6384,6 +6397,7 @@ __metadata:
     react-router-dom: ^6.3.0
     recoil: ^0.7.2
     sass: ^1.50.0
+    sass-pnp-importer: ^0.3.0
     start-server-and-test: ^1.14.0
     tailwindcss: ^3.0.23
     tiny-cookie: ^2.3.2
@@ -9383,6 +9397,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"debug@npm:*, debug@npm:4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.3, debug@npm:^4.3.4":
+  version: 4.3.4
+  resolution: "debug@npm:4.3.4"
+  dependencies:
+    ms: 2.1.2
+  peerDependenciesMeta:
+    supports-color:
+      optional: true
+  checksum: 3dbad3f94ea64f34431a9cbf0bafb61853eda57bff2880036153438f50fb5a84f27683ba0d8e5426bf41a8c6ff03879488120cf5b3a761e77953169c0600a708
+  languageName: node
+  linkType: hard
+
 "debug@npm:2.6.9, debug@npm:^2.2.0, debug@npm:^2.3.3, debug@npm:^2.6.0, debug@npm:^2.6.9":
   version: 2.6.9
   resolution: "debug@npm:2.6.9"
@@ -9398,18 +9424,6 @@ __metadata:
   dependencies:
     ms: 2.0.0
   checksum: 0b52718ab957254a5b3ca07fc34543bc778f358620c206a08452251eb7fc193c3ea3505072acbf4350219c14e2d71ceb7bdaa0d3370aa630b50da790458d08b3
-  languageName: node
-  linkType: hard
-
-"debug@npm:4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.3, debug@npm:^4.3.4":
-  version: 4.3.4
-  resolution: "debug@npm:4.3.4"
-  dependencies:
-    ms: 2.1.2
-  peerDependenciesMeta:
-    supports-color:
-      optional: true
-  checksum: 3dbad3f94ea64f34431a9cbf0bafb61853eda57bff2880036153438f50fb5a84f27683ba0d8e5426bf41a8c6ff03879488120cf5b3a761e77953169c0600a708
   languageName: node
   linkType: hard
 
@@ -17916,17 +17930,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^7.0.14, postcss@npm:^7.0.26, postcss@npm:^7.0.32, postcss@npm:^7.0.36, postcss@npm:^7.0.5, postcss@npm:^7.0.6":
-  version: 7.0.39
-  resolution: "postcss@npm:7.0.39"
-  dependencies:
-    picocolors: ^0.2.1
-    source-map: ^0.6.1
-  checksum: 4ac793f506c23259189064bdc921260d869a115a82b5e713973c5af8e94fbb5721a5cc3e1e26840500d7e1f1fa42a209747c5b1a151918a9bc11f0d7ed9048e3
-  languageName: node
-  linkType: hard
-
-"postcss@npm:^8.4.12, postcss@npm:^8.4.6":
+"postcss@npm:*, postcss@npm:^8.4.12, postcss@npm:^8.4.6":
   version: 8.4.12
   resolution: "postcss@npm:8.4.12"
   dependencies:
@@ -17934,6 +17938,16 @@ __metadata:
     picocolors: ^1.0.0
     source-map-js: ^1.0.2
   checksum: 248e3d0f9bbb8efaafcfda7f91627a29bdc9a19f456896886330beb28c5abea0e14c7901b35191928602e2eccbed496b1e94097d27a0b2a980854cd00c7a835f
+  languageName: node
+  linkType: hard
+
+"postcss@npm:^7.0.14, postcss@npm:^7.0.26, postcss@npm:^7.0.32, postcss@npm:^7.0.36, postcss@npm:^7.0.5, postcss@npm:^7.0.6":
+  version: 7.0.39
+  resolution: "postcss@npm:7.0.39"
+  dependencies:
+    picocolors: ^0.2.1
+    source-map: ^0.6.1
+  checksum: 4ac793f506c23259189064bdc921260d869a115a82b5e713973c5af8e94fbb5721a5cc3e1e26840500d7e1f1fa42a209747c5b1a151918a9bc11f0d7ed9048e3
   languageName: node
   linkType: hard
 
@@ -19689,10 +19703,8 @@ __metadata:
     vite-tsconfig-paths: ^3.4.1
     winston: ^3.6.0
   peerDependencies:
-    "@types/node": "*"
     c8: "*"
     eslint: "*"
-    prettier: "*"
     typescript: "*"
   languageName: unknown
   linkType: soft

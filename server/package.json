@@ -41,10 +41,8 @@
 		"vite-tsconfig-paths": "^3.4.1"
 	},
 	"peerDependencies": {
-		"@types/node": "*",
 		"c8": "*",
 		"eslint": "*",
-		"prettier": "*",
 		"typescript": "*"
 	}
 }

@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 /// <reference types="vitest" />
 import { defineConfig } from 'vite';
 import { VitePWA as pwa } from 'vite-plugin-pwa';
@@ -43,9 +44,13 @@ export default defineConfig(({ mode }) => ({
 	},
 	css: {
 		preprocessorOptions: {
-			scss: {
-				includePaths: ['node_modules']
-			}
+			scss: process.versions.pnp
+				? { importer: require('sass-pnp-importer') }
+				: {
+						importer: () => {
+							return () => {};
+						}
+				  }
 		}
 	},
 	esbuild:

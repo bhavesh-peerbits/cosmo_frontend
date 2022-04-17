@@ -34,6 +34,16 @@ const config: CustomizedStorybookConfig = {
 			'@components': `${basePath}/components`
 		};
 
+		config.css = {
+			preprocessorOptions: {
+				scss: {
+					importer: () => {
+						return () => {};
+					}
+				}
+			}
+		};
+
 		if (process.env.NODE_ENV === 'production') {
 			config.build.chunkSizeWarningLimit = 1200;
 		}

@@ -11,7 +11,7 @@ const Home = () => {
 		<div>
 			<LanguagePrompt />
 			<section className=''>
-				<h2 className='text-heading-2 my-8'>{t('home:purpose')}</h2>
+				<h2 className='my-8 text-heading-2'>{t('home:purpose')}</h2>
 				<Button
 					onClick={() =>
 						setUiStore(val => ({
