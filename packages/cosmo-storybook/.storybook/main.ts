@@ -6,7 +6,7 @@ interface CustomizedCoreConfig extends CoreConfig {
 }
 interface CustomizedStorybookConfig extends StorybookConfig {
 	core: CustomizedCoreConfig;
-	viteFinal?: (config: UserConfig, options: Options) => UserConfig;
+	viteFinal?: (config: UserConfig, options: Options) => UserConfig | Promise<UserConfig>;
 }
 
 const config: CustomizedStorybookConfig = {
@@ -21,19 +21,17 @@ const config: CustomizedStorybookConfig = {
 	core: {
 		builder: '@storybook/builder-vite'
 	},
-	features: {
-		storyStoreV7: true
-	},
+
 	/**
 	 * Extend Vite config
 	 */
 	viteFinal(config, { configType }) {
 		const basePath = 'app/src';
-		config.resolve.alias = {
-			...config.resolve.alias,
-			'@components': `${basePath}/components`
+		config.resolve = {
+			alias: {
+				'@components': `${basePath}/components`
+			}
 		};
-
 		config.css = {
 			preprocessorOptions: {
 				scss: {
@@ -44,9 +42,30 @@ const config: CustomizedStorybookConfig = {
 			}
 		};
 
+		config.esbuild = {
+			jsxFactory: '_jsx',
+			jsxFragment: '_jsxFragment',
+			jsxInject: `import { createElement as _jsx, Fragment as _jsxFragment } from 'react'`
+		};
+
 		if (process.env.NODE_ENV === 'production') {
-			config.build.chunkSizeWarningLimit = 1200;
+			const index = config.plugins.findIndex(v =>
+				Array.isArray(v)
+					? v.find(v => v && v.name === 'vite:react-jsx')
+					: v && v.name === 'vite:react-jsx'
+			);
+
+			if (index > -1) {
+				config.plugins.splice(index, 1);
+			}
+
+			config.build = {
+				chunkSizeWarningLimit: 1200,
+				minify: 'esbuild',
+				target: 'esnext'
+			};
 		}
+
 		// Needed only for development mode: `npm run storybook`
 		config.optimizeDeps =
 			configType === 'PRODUCTION'
@@ -62,19 +81,16 @@ const config: CustomizedStorybookConfig = {
 							'@storybook/components',
 							'@storybook/store',
 							// Add all addons that imported in the `preview.js` or `preview.ts` file and used in exported constants
-							'@storybook/addon-docs/dist/esm/frameworks/common/config.js',
-							'@storybook/addon-docs/dist/esm/frameworks/react/config.js',
+							'@storybook/react/dist/esm/client/docs/config',
 							'@storybook/react/dist/esm/client/preview/config',
-							'@storybook/addon-a11y/dist/esm/a11yRunner.js',
-							'@storybook/addon-a11y/dist/esm/a11yHighlight.js',
-							'@storybook/addon-links/dist/esm/preset/addDecorator.js',
-							'@storybook/addon-actions/dist/esm/preset/addDecorator.js',
-							'@storybook/addon-actions/dist/esm/preset/addArgs.js',
-							'@storybook/addon-backgrounds/dist/esm/preset/addDecorator.js',
-							'@storybook/addon-backgrounds/dist/esm/preset/addParameter.js',
-							'@storybook/addon-measure/dist/esm/preset/addDecorator.js',
-							'@storybook/addon-outline/dist/esm/preset/addDecorator.js',
-							'@storybook/addon-interactions/dist/esm/preset/argsEnhancers.js'
+							'@storybook/addon-a11y/preview.js',
+							'@storybook/addon-links/preview.js',
+							'@storybook/addon-docs/preview.js',
+							'@storybook/addon-actions/preview.js',
+							'@storybook/addon-backgrounds/preview.js',
+							'@storybook/addon-measure/preview.js',
+							'@storybook/addon-outline/preview.js',
+							'@storybook/addon-interactions/preview.js'
 						]
 				  };
 		return config;
