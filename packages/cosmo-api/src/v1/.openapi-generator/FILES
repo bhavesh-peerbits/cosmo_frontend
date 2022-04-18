@@ -1,6 +1,5 @@
 .gitignore
 .npmignore
-.openapi-generator-ignore
 api.ts
 api/access-controller-api.ts
 api/application-controller-api.ts
