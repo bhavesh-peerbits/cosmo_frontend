@@ -13,5 +13,5 @@
 		"target": "ESNext",
 		"types": ["node", "cypress", "@testing-library/cypress"]
 	},
-	"include": ["."]
+	"include": ["cypress"]
 }
