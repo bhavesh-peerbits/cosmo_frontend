@@ -27,10 +27,16 @@ const config: CustomizedStorybookConfig = {
 	 */
 	viteFinal(config, { configType }) {
 		const basePath = 'app/src';
+		const aliases = ['components', 'i18n'];
+
 		config.resolve = {
-			alias: {
-				'@components': `${basePath}/components`
-			}
+			alias: aliases.reduce(
+				(acc, alias) => ({
+					...acc,
+					[`@${alias}`]: `${basePath}/${alias}`
+				}),
+				{}
+			)
 		};
 		config.css = {
 			preprocessorOptions: {
@@ -90,7 +96,9 @@ const config: CustomizedStorybookConfig = {
 							'@storybook/addon-backgrounds/preview.js',
 							'@storybook/addon-measure/preview.js',
 							'@storybook/addon-outline/preview.js',
-							'@storybook/addon-interactions/preview.js'
+							'@storybook/addon-interactions/preview.js',
+							'i18next',
+							'translation-check'
 						]
 				  };
 		return config;
