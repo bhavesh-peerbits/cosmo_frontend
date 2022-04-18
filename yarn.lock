@@ -8926,7 +8926,6 @@ __metadata:
   dependencies:
     "@openapitools/openapi-generator-cli": ^2.4.26
     cross-env: ^7.0.3
-    vite: ^2.9.5
   peerDependencies:
     axios: "*"
   languageName: unknown

@@ -13139,8 +13139,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@openapitools/openapi-generator-cli", "npm:2.4.26"],\
             ["@types/axios", null],\
             ["axios", "npm:0.26.1"],\
-            ["cross-env", "npm:7.0.3"],\
-            ["vite", "virtual:95635fb1d08ede3c03a5de877148d985b69836f4f8e8702c89ec4ccfd7f0744249646e230a682c0746d618f9fd0b67f7d6e3e8845e728fba888394471bc7f2e1#npm:2.9.5"]\
+            ["cross-env", "npm:7.0.3"]\
           ],\
           "packagePeers": [\
             "@types/axios",\
@@ -13153,8 +13152,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["cosmo-api", "workspace:packages/cosmo-api"],\
             ["@openapitools/openapi-generator-cli", "npm:2.4.26"],\
-            ["cross-env", "npm:7.0.3"],\
-            ["vite", "virtual:95635fb1d08ede3c03a5de877148d985b69836f4f8e8702c89ec4ccfd7f0744249646e230a682c0746d618f9fd0b67f7d6e3e8845e728fba888394471bc7f2e1#npm:2.9.5"]\
+            ["cross-env", "npm:7.0.3"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -28963,32 +28961,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["vite", "npm:2.9.5"]\
           ],\
           "linkType": "SOFT"\
-        }],\
-        ["virtual:95635fb1d08ede3c03a5de877148d985b69836f4f8e8702c89ec4ccfd7f0744249646e230a682c0746d618f9fd0b67f7d6e3e8845e728fba888394471bc7f2e1#npm:2.9.5", {\
-          "packageLocation": "./.yarn/__virtual__/vite-virtual-926b1e9e17/0/cache/vite-npm-2.9.5-d80948fb05-354189cbce.zip/node_modules/vite/",\
-          "packageDependencies": [\
-            ["vite", "virtual:95635fb1d08ede3c03a5de877148d985b69836f4f8e8702c89ec4ccfd7f0744249646e230a682c0746d618f9fd0b67f7d6e3e8845e728fba888394471bc7f2e1#npm:2.9.5"],\
-            ["@types/less", null],\
-            ["@types/sass", null],\
-            ["@types/stylus", null],\
-            ["esbuild", "npm:0.14.30"],\
-            ["fsevents", "patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=18f3a7"],\
-            ["less", null],\
-            ["postcss", "npm:8.4.12"],\
-            ["resolve", "patch:resolve@npm%3A1.22.0#~builtin<compat/resolve>::version=1.22.0&hash=07638b"],\
-            ["rollup", "npm:2.70.1"],\
-            ["sass", null],\
-            ["stylus", null]\
-          ],\
-          "packagePeers": [\
-            "@types/less",\
-            "@types/sass",\
-            "@types/stylus",\
-            "less",\
-            "sass",\
-            "stylus"\
-          ],\
-          "linkType": "HARD"\
         }],\
         ["virtual:d72d1598bbaf5335ce12a3e46bb2a8d4366ddd79062b44fce4b1e7a587156f3cffef120a84394215bbd16b49dd1d84e4692528aee10dba5d9ab1993a3b0c7f63#npm:2.9.1", {\
           "packageLocation": "./.yarn/__virtual__/vite-virtual-9f5cbdff1d/0/cache/vite-npm-2.9.1-bf1ef94a48-0f0ac9337f.zip/node_modules/vite/",\
