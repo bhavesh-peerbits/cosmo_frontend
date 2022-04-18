@@ -4,10 +4,9 @@
 	"version": "1.0.0",
 	"scripts": {
 		"openapi:generate": "cross-env PWD= JAVA_OPTS=\"-Dio.swagger.parser.util.RemoteUrl.trustAll=true -Dio.swagger.v3.parser.util.RemoteUrl.trustAll=true\" openapi-generator-cli generate && yarn lint",
-		"lint": "yarn lint:format && yarn lint:fix && yarn tsc",
+		"lint": "yarn lint:format && yarn lint:fix",
 		"lint:fix": "yarn run -T eslint --fix --ignore-path ../../.gitignore --ext .ts,.tsx .",
-		"lint:format": "yarn run -T prettier -uw . ",
-		"tsc": "yarn run -T tsc"
+		"lint:format": "yarn run -T prettier -uw . "
 	},
 	"main": "src/index.ts",
 	"devDependencies": {
