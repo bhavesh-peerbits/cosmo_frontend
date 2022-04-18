@@ -1,5 +1,5 @@
 import { useMutation } from 'react-query';
-import { accessApi } from '@api/index';
+import api from '@api/index';
 
 interface LoginRequest {
 	user: string;
@@ -8,7 +8,7 @@ interface LoginRequest {
 }
 
 async function performLogin(user: string, password: string, tenant: string) {
-	return accessApi.login({
+	return api.accessApi.login({
 		user,
 		password,
 		tenant

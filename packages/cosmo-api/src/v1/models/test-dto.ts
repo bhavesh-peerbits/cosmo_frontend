@@ -12,8 +12,6 @@
  * Do not edit the class manually.
  */
 
-import { CustomValidatorResult } from './custom-validator-result';
-
 /**
  *
  * @export
@@ -80,10 +78,4 @@ export interface TestDto {
 	 * @memberof TestDto
 	 */
 	dateOfBirth: string;
-	/**
-	 *
-	 * @type {CustomValidatorResult}
-	 * @memberof TestDto
-	 */
-	customValid?: CustomValidatorResult;
 }

@@ -19,6 +19,7 @@
 		"@sentry/react": "6.18.2",
 		"@sentry/tracing": "6.18.2",
 		"axios": "^0.26.1",
+		"cosmo-api": "workspace:^",
 		"framer-motion": "^6.2.9",
 		"i18next": "^21.6.14",
 		"lodash": "^4.17.21",
@@ -40,7 +41,6 @@
 	},
 	"devDependencies": {
 		"@nabla/vite-plugin-eslint": "^1.4.0",
-		"@openapitools/openapi-generator-cli": "^2.4.26",
 		"@testing-library/dom": "^8.11.3",
 		"@testing-library/jest-dom": "^5.16.2",
 		"@testing-library/react": "^13.1.1",
@@ -58,7 +58,6 @@
 		"@yarnpkg/fslib": "^2.6.1",
 		"@yarnpkg/libzip": "^2.2.4",
 		"autoprefixer": "^10.4.4",
-		"cross-env": "^7.0.3",
 		"css-mediaquery": "^0.1.2",
 		"eslint-plugin-testing-library": "^5.3.1",
 		"jsdom": "^19.0.0",

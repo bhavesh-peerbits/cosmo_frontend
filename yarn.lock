@@ -6352,7 +6352,6 @@ __metadata:
     "@carbon/react": ^1.1.0
     "@ibm/plex": ^6.0.0
     "@nabla/vite-plugin-eslint": ^1.4.0
-    "@openapitools/openapi-generator-cli": ^2.4.26
     "@sentry/core": ^6.19.3
     "@sentry/react": 6.18.2
     "@sentry/tracing": 6.18.2
@@ -6374,7 +6373,7 @@ __metadata:
     "@yarnpkg/libzip": ^2.2.4
     autoprefixer: ^10.4.4
     axios: ^0.26.1
-    cross-env: ^7.0.3
+    cosmo-api: "workspace:^"
     css-mediaquery: ^0.1.2
     eslint-plugin-testing-library: ^5.3.1
     framer-motion: ^6.2.9
@@ -8921,6 +8920,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cosmo-api@workspace:^, cosmo-api@workspace:packages/cosmo-api":
+  version: 0.0.0-use.local
+  resolution: "cosmo-api@workspace:packages/cosmo-api"
+  dependencies:
+    "@openapitools/openapi-generator-cli": ^2.4.26
+    cross-env: ^7.0.3
+    vite: ^2.9.5
+  peerDependencies:
+    axios: "*"
+  languageName: unknown
+  linkType: soft
+
 "cosmo-cypress@workspace:packages/cosmo-cypress":
   version: 0.0.0-use.local
   resolution: "cosmo-cypress@workspace:packages/cosmo-cypress"
@@ -8931,6 +8942,8 @@ __metadata:
     eslint-plugin-cypress: ^2.12.1
     start-server-and-test: ^1.14.0
     typescript: ^4.6.3
+  peerDependencies:
+    eslint: "*"
   languageName: unknown
   linkType: soft
 

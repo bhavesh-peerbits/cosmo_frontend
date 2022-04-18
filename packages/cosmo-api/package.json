@@ -1,0 +1,16 @@
+{
+	"name": "cosmo-api",
+	"private": true,
+	"version": "1.0.0",
+	"scripts": {
+		"openapi:generate": "cross-env PWD= JAVA_OPTS=\"-Dio.swagger.parser.util.RemoteUrl.trustAll=true -Dio.swagger.v3.parser.util.RemoteUrl.trustAll=true\" openapi-generator-cli generate"
+	},
+	"main": "src/index.ts",
+	"devDependencies": {
+		"@openapitools/openapi-generator-cli": "^2.4.26",
+		"cross-env": "^7.0.3"
+	},
+	"peerDependencies": {
+		"axios": "*"
+	}
+}

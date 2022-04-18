@@ -44,7 +44,8 @@ export const ProfileProfileTypesEnum = {
 	RevalidationAnalyst: 'REVALIDATION_ANALYST',
 	RequestAnalyst: 'REQUEST_ANALYST',
 	Reviewer: 'REVIEWER',
-	ReviewerCollaborator: 'REVIEWER_COLLABORATOR'
+	ReviewerCollaborator: 'REVIEWER_COLLABORATOR',
+	UserUnknown: 'USER_UNKNOWN'
 } as const;
 
 export type ProfileProfileTypesEnum =

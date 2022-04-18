@@ -37,9 +37,11 @@ import {
 	RequiredError
 } from '../base';
 // @ts-ignore
-import { AccessTokenResponse } from '../models';
+import { AccessLoginDto } from '../models';
 // @ts-ignore
 import { ApiErrorResponse } from '../models';
+// @ts-ignore
+import { RefreshTokenDto } from '../models';
 /**
  * AccessControllerApi - axios parameter creator
  * @export
@@ -196,7 +198,7 @@ export const AccessControllerApiFp = function (configuration?: Configuration) {
 			tenant: string,
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AccessTokenResponse>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AccessLoginDto>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.login(
 				user,
@@ -223,7 +225,7 @@ export const AccessControllerApiFp = function (configuration?: Configuration) {
 			tenant: string,
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AccessTokenResponse>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RefreshTokenDto>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.refreshToken(
 				refreshToken,
@@ -264,7 +266,7 @@ export const AccessControllerApiFactory = function (
 			password: string,
 			tenant: string,
 			options?: any
-		): AxiosPromise<AccessTokenResponse> {
+		): AxiosPromise<AccessLoginDto> {
 			return localVarFp
 				.login(user, password, tenant, options)
 				.then(request => request(axios, basePath));
@@ -280,7 +282,7 @@ export const AccessControllerApiFactory = function (
 			refreshToken: string,
 			tenant: string,
 			options?: any
-		): AxiosPromise<AccessTokenResponse> {
+		): AxiosPromise<RefreshTokenDto> {
 			return localVarFp
 				.refreshToken(refreshToken, tenant, options)
 				.then(request => request(axios, basePath));

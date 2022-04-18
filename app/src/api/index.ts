@@ -1,14 +1,18 @@
-/* eslint-disable import/prefer-default-export */
-import { AccessControllerApi, Configuration } from '@openapi/cosmo';
 import axios from 'axios';
 import errorManager from '@api/ErrorManager';
+import configureApi, { ApiConfiguration } from 'cosmo-api';
 
-const DEFAULT_CONFIG = new Configuration({
+const DEFAULT_CONFIG = new ApiConfiguration({
 	basePath: import.meta.env.COSMO_API_URL
 });
+
 axios.interceptors.response.use(
 	res => res.data,
 	err => errorManager(err.response)
 );
 
-export const accessApi = new AccessControllerApi(DEFAULT_CONFIG);
+const api = configureApi(DEFAULT_CONFIG);
+
+export default {
+	...api
+};
