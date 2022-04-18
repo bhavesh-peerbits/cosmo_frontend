@@ -24,7 +24,7 @@ const AuthenticatedRoutes = () => {
 			}
 		>
 			<HeaderContainer render={Header} />
-			<Content className='container-w-sidenav h-full overflow-auto bg-primary'>
+			<Content className='container-w-sidenav h-full overflow-auto bg-layer-1'>
 				<Routes>
 					<Route path='/home' element={<Home />} />
 					<Route path='/logout' element={<Logout />} />
