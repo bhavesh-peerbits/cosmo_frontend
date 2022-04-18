@@ -20,5 +20,7 @@
 		},
 		"types": ["vite/client", "jest"]
 	},
-	"include": ["src"]
+	"include": [
+      "src"
+    ]
 }

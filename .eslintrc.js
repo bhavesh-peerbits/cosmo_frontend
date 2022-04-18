@@ -12,7 +12,7 @@ const noExtraneousOverrides = readdirSync(resolve(__dirname, PACKAGE_DIR))
 			lstatSync(resolve(__dirname, PACKAGE_DIR, entry)).isDirectory()
 	)
 	.map(entry => ({ pkg: PACKAGE_DIR, entry }))
-	.concat({ pkg: 'app', entry: '' }, { pkg: 'server', entry: '' })
+	.concat({ pkg: 'app', entry: '' })
 	// map to override rules pointing to local and root package.json for rule
 	.flatMap(({ pkg, entry }) => [
 		{

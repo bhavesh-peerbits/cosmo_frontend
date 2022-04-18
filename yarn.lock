@@ -19680,9 +19680,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"server@workspace:server":
+"server@workspace:packages/server":
   version: 0.0.0-use.local
-  resolution: "server@workspace:server"
+  resolution: "server@workspace:packages/server"
   dependencies:
     "@nabla/vite-plugin-eslint": ^1.4.0
     "@swc/core": ^1.2.162
@@ -20041,7 +20041,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map-support@npm:^0.5.16, source-map-support@npm:^0.5.6, source-map-support@npm:~0.5.12, source-map-support@npm:~0.5.20":
+"source-map-support@npm:*, source-map-support@npm:^0.5.16, source-map-support@npm:^0.5.6, source-map-support@npm:~0.5.12, source-map-support@npm:~0.5.20":
   version: 0.5.21
   resolution: "source-map-support@npm:0.5.21"
   dependencies:

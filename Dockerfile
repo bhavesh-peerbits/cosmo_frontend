@@ -16,8 +16,8 @@ ENV SERVER_WEB_CONCURRENCY 5
 ENV SERVER_PORT 3000
 
 COPY ./.yarn ./.yarn
-COPY ./server/dist ./server/package.json ./server/
-COPY ./app/dist/cosmo ./server/cosmo
+COPY packages/server/dist packages/server/package.json ./server/
+COPY ./app/dist ./server/cosmo
 COPY ./package.json ./yarn.lock .yarnrc.yml ./
 
 RUN yarn workspaces focus --production server

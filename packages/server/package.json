@@ -12,7 +12,6 @@
 		"comm:tsc": "yarn run -T tsc"
 	},
 	"dependencies": {
-		"esbuild-jest": "^0.5.0",
 		"express": "5.0.0-beta.1",
 		"express-sslify": "^1.2.0",
 		"helmet": "^5.0.2",
@@ -31,6 +30,7 @@
 		"@types/supertest": "^2.0.12",
 		"@types/throng": "^5.0.3",
 		"esbuild": "^0.14.31",
+		"esbuild-jest": "^0.5.0",
 		"jest": "^27.5.1",
 		"jsdom": "^19.0.0",
 		"supertest": "^6.2.2",

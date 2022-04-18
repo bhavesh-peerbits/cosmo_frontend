@@ -14,5 +14,6 @@
 			"@/*": ["./*"]
 		}
 	},
-	"include": ["vite.config.ts", "jest.config.ts"]
+	"include": [
+      "vite.config.ts", "jest.config.ts"]
 }
