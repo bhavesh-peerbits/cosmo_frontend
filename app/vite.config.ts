@@ -62,7 +62,7 @@ export default defineConfig(({ mode }) => ({
 			  }
 			: {},
 	plugins: [
-		react(),
+		...(mode === 'production' ? [] : [react()]),
 		tsconfigPaths(),
 		legacy({
 			targets: ['defaults', 'not IE 11']
@@ -82,7 +82,6 @@ export default defineConfig(({ mode }) => ({
 	],
 	build: {
 		sourcemap: false,
-		outDir: 'dist/cosmo',
 		rollupOptions: {
 			output: {
 				manualChunks: {
