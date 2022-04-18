@@ -7,7 +7,7 @@
 		"build": "yarn comm:tsc && vite build",
 		"preview": "vite preview",
 		"openapi:generate": "cross-env PWD= JAVA_OPTS=\"-Dio.swagger.parser.util.RemoteUrl.trustAll=true -Dio.swagger.v3.parser.util.RemoteUrl.trustAll=true\" openapi-generator-cli generate",
-		"test:unit": "vitest --ui",
+		"test:unit": "echo n | vitest --ui",
 		"test:ci": "vitest run",
 		"validate": "yarn lint && yarn test:ci",
 		"comm:tsc": "yarn run -T tsc"
