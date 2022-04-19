@@ -106,3 +106,7 @@ deploy storybook:
     - yarn
   script:
     - yarn workspace cosmo-storybook build-storybook
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - packages/cosmo-storybook/dist/
