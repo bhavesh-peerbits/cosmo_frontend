@@ -1,6 +1,6 @@
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 import authStore, { setSession } from '@store/auth/authStore';
-import { setCookie } from 'tiny-cookie';
+import { getCookie, removeCookie, setCookie } from 'tiny-cookie';
 import useLogin from '@api/user/useLogin';
 
 const NO_REDIRECT_PATHS = ['/', '/home'];
@@ -10,6 +10,7 @@ interface LoginData {
 	password: string;
 	rememberMe: boolean;
 }
+const REDIRECT_PATH_COOKIE = 'postLoginRedirectPath';
 
 const useAuthStore = () => {
 	const auth = useRecoilValue(authStore);
@@ -24,7 +25,9 @@ const useAuthStore = () => {
 		if (resp.accessToken) {
 			setSession(resp.accessToken, rememberMe);
 		}
-		window.location.href = '/home';
+		const redirect = getCookie(REDIRECT_PATH_COOKIE);
+		removeCookie(REDIRECT_PATH_COOKIE);
+		window.location.href = redirect || '/home';
 	};
 
 	const logout = (savePath = false) => {
@@ -34,7 +37,7 @@ const useAuthStore = () => {
 			const pathName = window.location.pathname;
 
 			if (!NO_REDIRECT_PATHS.includes(pathName)) {
-				setCookie('postLoginRedirectPath', pathName);
+				setCookie(REDIRECT_PATH_COOKIE, pathName);
 			}
 		}
 

@@ -68,11 +68,27 @@ const authStore = atom<PersistedData>({
 		policies: null
 	},
 	effects: [
-		({ trigger, setSelf, resetSelf }) => {
+		({ trigger, setSelf }) => {
 			// Avoid expensive initialization
 			if (trigger === 'get') {
 				setSelf(retrieveUserInfo());
 			}
+		},
+		({ onSet, resetSelf, setSelf }) => {
+			onSet((authInfo, old, isReset) => {
+				if (isReset) {
+					// remove authentication token itself
+					cleanSession();
+				}
+
+				localStorage.setItem(
+					AUTH_STORE,
+					JSON.stringify({
+						user: authInfo.user,
+						policies: authInfo.policies
+					})
+				);
+			});
 
 			window.addEventListener('storage', event => {
 				if (event.key === null || (event.key === AUTH_STORE && event.newValue)) {
@@ -87,22 +103,6 @@ const authStore = atom<PersistedData>({
 					}
 					retrieveUserInfo().then(setSelf);
 				}
-			});
-		},
-		({ onSet }) => {
-			onSet((authInfo, old, isReset) => {
-				if (isReset) {
-					// remove authentication token itself
-					cleanSession();
-				}
-
-				localStorage.setItem(
-					AUTH_STORE,
-					JSON.stringify({
-						user: authInfo.user,
-						policies: authInfo.policies
-					})
-				);
 			});
 		}
 	]
