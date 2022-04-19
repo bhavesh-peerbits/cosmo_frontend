@@ -90,14 +90,19 @@ const authStore = atom<PersistedData>({
 			const onStorageChange = (event: StorageEvent) => {
 				if (event.key === null || (event.key === AUTH_STORE && event.newValue)) {
 					const data: PersistedData | null = JSON.parse(event.newValue || '{}');
+
 					// data may be null if key is deleted in localStorage
-					if (!data) {
-						return;
-					}
-					if (!data.user) {
+					if (!data || !data.user) {
 						resetSelf();
 						return;
 					}
+					const oldData: PersistedData | null = JSON.parse(event.oldValue || '{}');
+					if (oldData && JSON.stringify(oldData.user) === JSON.stringify(data.user)) {
+						// values not change update only local storage
+						persistInfo(data);
+						return;
+					}
+
 					retrieveUserInfo().then(v => {
 						setSelf(v);
 						persistInfo(v);
