@@ -9,6 +9,7 @@ import '@style/loading.scss';
 const Home = React.lazy(() => import('@pages/Home'));
 const Logout = React.lazy(() => import('@pages/Logout'));
 const Test = React.lazy(() => import('@pages/Test'));
+const Management = React.lazy(() => import('@pages/Management'));
 
 const AuthenticatedRoutes = () => {
 	return (
@@ -24,9 +25,10 @@ const AuthenticatedRoutes = () => {
 			}
 		>
 			<HeaderContainer render={Header} />
-			<Content className='container-w-sidenav h-full overflow-auto bg-layer-1'>
+			<Content className='container-w-sidenav h-full overflow-auto bg-layer-1 p-[0px]'>
 				<Routes>
 					<Route path='/home' element={<Home />} />
+					<Route path='/management' element={<Management />} />
 					<Route path='/logout' element={<Logout />} />
 					<Route path='/test' element={<Test />} />
 					<Route path='*' element={<div>NOT FOUND</div>} />

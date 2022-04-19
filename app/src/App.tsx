@@ -7,7 +7,7 @@ import useUiStore from '@hooks/useUiStore';
 const App = () => {
 	const { theme } = useUiStore();
 	return (
-		<Theme theme={theme} className='h-full overflow-hidden'>
+		<Theme theme={theme} className='h-fit'>
 			<ErrorBoundary>
 				<AppRoutes />
 			</ErrorBoundary>

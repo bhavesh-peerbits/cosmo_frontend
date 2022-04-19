@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const {existsSync} = require(`fs`);
-const {createRequire, createRequireFromPath} = require(`module`);
+const {createRequire, createRequireFromPath, Module} = require(`module`);
 const {resolve} = require(`path`);
 
 const relPnpApiPath = "../../../.pnp.cjs";
@@ -15,6 +15,12 @@ if (existsSync(absPnpApiPath)) {
     require(absPnpApiPath).setup();
   }
 }
+
+const originalModuleResolveFilename = Module._resolveFilename;
+Module._resolveFilename = function (request, parent, isMain, options) {
+    return originalModuleResolveFilename.call(this, request, parent, isMain);
+}
+
 
 // Defer to the real prettier/index.js your application uses
 module.exports = absRequire(`prettier/index.js`);
