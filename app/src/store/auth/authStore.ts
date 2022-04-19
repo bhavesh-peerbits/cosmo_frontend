@@ -37,6 +37,16 @@ const cleanSession = () => {
 	removeCookie(ACCESS_TOKEN_KEY);
 };
 
+const persistInfo = (authInfo: PersistedData) => {
+	localStorage.setItem(
+		AUTH_STORE,
+		JSON.stringify({
+			user: authInfo.user,
+			policies: authInfo.policies
+		})
+	);
+};
+
 const retrieveUserInfo = async () => {
 	const token = retrieveUserToken();
 	if (token) {
@@ -68,29 +78,16 @@ const authStore = atom<PersistedData>({
 		policies: null
 	},
 	effects: [
-		({ trigger, setSelf }) => {
+		({ trigger, setSelf, resetSelf, onSet }) => {
 			// Avoid expensive initialization
 			if (trigger === 'get') {
-				setSelf(retrieveUserInfo());
+				retrieveUserInfo().then(v => {
+					setSelf(v);
+					persistInfo(v);
+				});
 			}
-		},
-		({ onSet, resetSelf, setSelf }) => {
-			onSet((authInfo, old, isReset) => {
-				if (isReset) {
-					// remove authentication token itself
-					cleanSession();
-				}
 
-				localStorage.setItem(
-					AUTH_STORE,
-					JSON.stringify({
-						user: authInfo.user,
-						policies: authInfo.policies
-					})
-				);
-			});
-
-			window.addEventListener('storage', event => {
+			const onStorageChange = (event: StorageEvent) => {
 				if (event.key === null || (event.key === AUTH_STORE && event.newValue)) {
 					const data: PersistedData | null = JSON.parse(event.newValue || '{}');
 					// data may be null if key is deleted in localStorage
@@ -103,7 +100,23 @@ const authStore = atom<PersistedData>({
 					}
 					retrieveUserInfo().then(setSelf);
 				}
+			};
+
+			window.addEventListener('storage', onStorageChange);
+
+			onSet((authInfo, old, isReset) => {
+				if (isReset) {
+					// remove authentication token itself
+					cleanSession();
+					localStorage.removeKey(AUTH_STORE);
+				} else {
+					persistInfo(authInfo);
+				}
 			});
+
+			return () => {
+				window.removeEventListener('storage', onStorageChange);
+			};
 		}
 	]
 });
