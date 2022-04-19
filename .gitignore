@@ -23,7 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 coverage
-cypress/videos
+cypress/videos/*
 .nyc_output
 .env.local
 .eslintcache
