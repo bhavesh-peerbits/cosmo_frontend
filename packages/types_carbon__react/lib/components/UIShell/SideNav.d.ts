@@ -1,5 +1,5 @@
-import { AriaLabelProps, FCReturn, ReactDivAttr } from '../../../typings/shared';
 import React from 'react';
+import { AriaLabelProps, FCReturn, ReactDivAttr } from '../../../typings/shared';
 
 interface SideNavProps extends AriaLabelProps, ReactDivAttr {
 	/**

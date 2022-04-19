@@ -1,5 +1,5 @@
-import { ExtendLink, LinkProps } from './Link';
 import { ReactNode } from 'react';
+import { ExtendLink, LinkProps } from './Link';
 
 type HeaderNameProps<K extends ExtendLink> = LinkProps<K> & {
 	/**

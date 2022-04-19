@@ -1,5 +1,5 @@
-import { AriaLabelProps, FCReturn, ReactAttr } from '../../../typings/shared';
 import { ReactNode } from 'react';
+import { AriaLabelProps, FCReturn, ReactAttr } from '../../../typings/shared';
 
 interface HeaderGlobalActionProps extends AriaLabelProps, ReactAttr<HTMLButtonElement> {
 	/**

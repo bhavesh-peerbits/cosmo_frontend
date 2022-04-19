@@ -1,8 +1,9 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { motion } from 'framer-motion';
 
 type FadeProps = {
 	timing?: string;
+	children: ReactNode;
 };
 
 const Fade: FC<FadeProps> = ({ timing, children }) => {

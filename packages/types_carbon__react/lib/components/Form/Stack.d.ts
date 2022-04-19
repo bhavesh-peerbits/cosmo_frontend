@@ -1,9 +1,9 @@
 import { HTMLProps, ReactElement, ReactNode } from 'react';
 
-type Ran<T extends number> = number extends T ? number : _Range<T, []>;
-type _Range<T extends number, R extends unknown[]> = R['length'] extends T
+type Ran<T extends number> = number extends T ? number : NumRange<T, []>;
+type NumRange<T extends number, R extends unknown[]> = R['length'] extends T
 	? R[number]
-	: _Range<T, [R['length'], ...R]>;
+	: NumRange<T, [R['length'], ...R]>;
 
 type StackProps<K extends keyof HTMLElementTagNameMap> = {
 	/**

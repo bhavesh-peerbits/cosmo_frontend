@@ -6,10 +6,15 @@ const st = createRequire(getDependency.resolve('@carbon/styles/package.json'));
 const { styles } = st(st.resolve('@carbon/type'));
 const spacing = st(st.resolve('@carbon/layout'));
 const motion = st(st.resolve('@carbon/motion'));
+const { white } = st(st.resolve('@carbon/themes'));
 const kebabCase = require('lodash/kebabCase');
 
-const toKebabCase = str => {
-	return kebabCase(str).replace(/(0?)(\d*)$/, '$2');
+const themeTokens = Object.keys(white).filter(
+	key => styles[key] === undefined && spacing[key] === undefined
+);
+
+const toKebabCase = (str, replaceZero = true) => {
+	return replaceZero ? kebabCase(str).replace(/(0?)(\d*)$/, '$2') : kebabCase(str);
 };
 
 const carbonFonts = Object.entries(styles).reduce((acc, [key, value]) => {
@@ -21,7 +26,6 @@ const carbonSpacing = spacing.unstable_tokens.reduce((acc, layout) => {
 	acc[toKebabCase(layout.replace('spacing', ''))] = spacing[layout];
 	return acc;
 }, {});
-console.log(carbonSpacing);
 const carbonDuration = motion.unstable_tokens.reduce((acc, token) => {
 	acc[toKebabCase(token)] = motion[token];
 	return acc;
@@ -41,7 +45,12 @@ module.exports = {
 	theme: {
 		spacing: carbonSpacing,
 		colors: {
-			primary: 'var(--primary)'
+			test: 'var(--cds-t)',
+			...themeTokens.reduce((acc, key) => {
+				const k = toKebabCase(key);
+				acc[k] = `var(--cds-${toKebabCase(key, false)})`;
+				return acc;
+			}, {})
 		},
 		fontSize: {},
 		transitionDuration: carbonDuration,

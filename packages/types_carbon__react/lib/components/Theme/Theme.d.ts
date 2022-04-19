@@ -1,8 +1,8 @@
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import CarbonTheme from './CarbonTheme';
 
 type ThemeProps<K extends keyof HTMLElementTagNameMap> = {
-	children: ReactElement;
+	children: ReactNode;
 	className?: string;
 	as?: K;
 	/**

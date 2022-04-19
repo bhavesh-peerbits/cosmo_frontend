@@ -1,5 +1,5 @@
-import { ExtendLink, LinkProps } from './Link';
 import { ReactElement, ReactNode } from 'react';
+import { ExtendLink, LinkProps } from './Link';
 import { AriaLabelProps } from '../../../typings/shared';
 
 type SwitcherItemProps<K extends ExtendLink> = AriaLabelProps &

@@ -1,13 +1,13 @@
 import { screen } from '@testing-library/react';
 import renderWithProviders from '@test/testUtils';
 import ErrorBoundary from '@error/components/ErrorBoundary';
-import { expect, fn } from 'vitest';
+import { expect } from 'vitest';
 import { useEffect, useState } from 'react';
 import ApiError from '@api/ApiError';
 
 const ErrComponent = () => {
 	// eslint-disable-next-line no-console
-	console.error = fn();
+	console.error = vi.fn();
 	throw new Error('Test Boundary');
 };
 

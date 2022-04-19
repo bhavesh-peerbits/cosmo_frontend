@@ -1,8 +1,12 @@
-import { FC } from 'react';
 import useAuthStore from '@hooks/useAuthStore';
 import { Navigate } from 'react-router-dom';
+import { ReactNode } from 'react';
 
-const Authenticated: FC = ({ children }) => {
+type AuthenticatedProps = {
+	children: ReactNode;
+};
+
+const Authenticated = ({ children }: AuthenticatedProps) => {
 	const { auth, logout } = useAuthStore();
 
 	if (auth.authenticated) {
@@ -11,7 +15,7 @@ const Authenticated: FC = ({ children }) => {
 	}
 
 	logout(true);
-	return <Navigate replace to='/' />;
+	return <Navigate replace to='/?error=authentication-needed' />;
 };
 
 export default Authenticated;

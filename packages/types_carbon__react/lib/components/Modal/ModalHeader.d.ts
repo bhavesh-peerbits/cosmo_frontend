@@ -1,5 +1,5 @@
-import { FCReturn, ReactDivAttr } from '../../../typings/shared';
 import React, { ReactNode } from 'react';
+import { FCReturn, ReactDivAttr } from '../../../typings/shared';
 
 interface ModalHeaderProps extends ReactDivAttr {
 	/**

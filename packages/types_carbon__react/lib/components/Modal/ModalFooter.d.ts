@@ -1,5 +1,5 @@
-import { FCReturn, ReactDivAttr } from '../../../typings/shared';
 import { ReactNode, RefObject } from 'react';
+import { FCReturn, ReactDivAttr } from '../../../typings/shared';
 
 interface ModalFooterProps extends ReactDivAttr {
 	/**

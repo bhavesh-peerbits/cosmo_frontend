@@ -1,6 +1,6 @@
 import { FCReturn, ReactAttr } from '../../../typings/shared';
 
-interface HeaderGlobalBarProps extends ReactAttr<HTMLDivElement> {}
+type HeaderGlobalBarProps = ReactAttr<HTMLDivElement>;
 
 declare const HeaderGlobalBar: FCReturn<HeaderGlobalBarProps>;
 export default HeaderGlobalBar;

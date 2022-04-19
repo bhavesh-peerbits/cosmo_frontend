@@ -1,5 +1,5 @@
-import { FCReturn, ReactAttr } from '../../../typings/shared';
 import { ReactNode } from 'react';
+import { FCReturn, ReactAttr } from '../../../typings/shared';
 
 interface FormProps extends ReactAttr<HTMLFormElement> {
 	/**

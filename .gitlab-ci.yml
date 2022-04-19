@@ -39,7 +39,7 @@ build:
     expire_in: 1 day
     paths:
       - app/dist/
-      - server/dist/
+      - packages/server/dist/
 
 build_image:
   image: docker:19.03.8

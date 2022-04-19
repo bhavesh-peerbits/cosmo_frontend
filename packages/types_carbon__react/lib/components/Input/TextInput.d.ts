@@ -1,5 +1,5 @@
-import { FCReturn, ReactInputAttr } from '../../../typings/shared';
 import { ReactNode } from 'react';
+import { FCReturn, ReactInputAttr } from '../../../typings/shared';
 
 interface TextInputProps extends ReactInputAttr {
 	/**

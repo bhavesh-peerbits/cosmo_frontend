@@ -1,7 +1,7 @@
 import loginUrl from '@images/login.svg';
 import '@style/login.scss';
 import { ReactComponent as StellantisLogo } from '@images/stellantis-logo.svg';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 
 import {
 	Button,
@@ -17,6 +17,7 @@ import {
 } from '@carbon/react';
 import useAuthStore from '@hooks/useAuthStore';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 interface LoginForm {
 	username: string;
@@ -24,25 +25,45 @@ interface LoginForm {
 	rememberMe: boolean;
 }
 
+const errorCodes = ['error-login', 'authentication-needed'] as const;
+type ErrorCode = typeof errorCodes[number];
+
 const Login = () => {
-	// const { t } = useTranslation('login');
+	const { t } = useTranslation('login');
+	const navigate = useNavigate();
 	const {
 		register,
 		handleSubmit,
 		formState: { isSubmitting, errors }
 	} = useForm<LoginForm>({ mode: 'onBlur' });
 	const { auth, login } = useAuthStore();
+	const [params] = useSearchParams();
+	const error = params.get('error') as ErrorCode | undefined;
 
 	if (auth.authenticated) {
 		return <Navigate replace to='/home' />;
 	}
+	const rememberMe = localStorage.getItem('rememberMe') === 'true';
+	const saveRememberMe = (checked: boolean) => {
+		localStorage.setItem('rememberMe', `${checked}`);
+	};
 
 	const formLogin = async (data: LoginForm) => {
-		login({
-			username: data.username,
-			password: data.password,
-			rememberMe: data.rememberMe
-		});
+		try {
+			return await login({
+				user: data.username,
+				password: data.password,
+				rememberMe: data.rememberMe
+			});
+		} catch (e) {
+			return navigate(
+				{
+					pathname: '/',
+					search: '?error=error-login'
+				},
+				{ replace: true }
+			);
+		}
 	};
 
 	return (
@@ -59,6 +80,11 @@ const Login = () => {
 				<Grid className='ml-1 h-1/2 items-end'>
 					<Column lg={6} sm={4} md={4}>
 						<Form onSubmit={handleSubmit(formLogin)}>
+							{error && errorCodes.includes(error) && (
+								<div className='my-3 w-full bg-text-error px-2 py-1 text-heading-2'>
+									{t(error)}
+								</div>
+							)}
 							<Stack gap={6}>
 								<div className='flex items-end space-x-5'>
 									<span className='text-heading-7'>CoSMo</span>
@@ -73,11 +99,11 @@ const Login = () => {
 									{...register('username', {
 										minLength: {
 											value: 3,
-											message: 'Username must be at least 3 characters'
+											message: t('usernameAtLeast', { chars: 3 })
 										},
 										required: {
 											value: true,
-											message: 'Username is required'
+											message: t('usernameRequired')
 										}
 									})}
 								/>
@@ -91,7 +117,7 @@ const Login = () => {
 									{...register('password', {
 										required: {
 											value: true,
-											message: 'Password is required'
+											message: t('passwordRequired')
 										}
 									})}
 								/>
@@ -105,8 +131,9 @@ const Login = () => {
 								</Button>
 								<Checkbox
 									id='rememberMe'
-									labelText='Remember me'
-									{...register('rememberMe')}
+									labelText={t('rememberMe')}
+									{...register('rememberMe', { value: rememberMe })}
+									onChange={(_, { checked }) => saveRememberMe(checked)}
 								/>
 							</Stack>
 						</Form>

@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 /// <reference types="vitest" />
 import { defineConfig } from 'vite';
 import { VitePWA as pwa } from 'vite-plugin-pwa';
@@ -5,9 +6,6 @@ import legacy from '@vitejs/plugin-legacy';
 import react from '@vitejs/plugin-react';
 import eslintPlugin from '@nabla/vite-plugin-eslint';
 import tsconfigPaths from 'vite-tsconfig-paths';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import sassPnpImporter from 'sass-pnp-importer';
 import svgrPlugin from 'vite-plugin-svgr';
 import manifest from './manifest.json';
 import { dependencies } from './package.json';
@@ -24,6 +22,8 @@ function renderChunks(deps: Record<string, string>) {
 	return chunks;
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
 	define: {
@@ -44,9 +44,13 @@ export default defineConfig(({ mode }) => ({
 	},
 	css: {
 		preprocessorOptions: {
-			scss: {
-				importer: sassPnpImporter
-			}
+			scss: process.versions.pnp
+				? { importer: require('sass-pnp-importer') }
+				: {
+						importer: () => {
+							return () => {};
+						}
+				  }
 		}
 	},
 	esbuild:
@@ -58,8 +62,8 @@ export default defineConfig(({ mode }) => ({
 			  }
 			: {},
 	plugins: [
+		...(mode === 'production' ? [] : [react()]),
 		tsconfigPaths(),
-		mode === 'production' ? [] : react(),
 		legacy({
 			targets: ['defaults', 'not IE 11']
 		}),
@@ -78,7 +82,6 @@ export default defineConfig(({ mode }) => ({
 	],
 	build: {
 		sourcemap: false,
-		outDir: 'dist/cosmo',
 		rollupOptions: {
 			output: {
 				manualChunks: {
