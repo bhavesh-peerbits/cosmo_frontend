@@ -13,7 +13,7 @@ const themeTokens = Object.keys(white).filter(
 	key => styles[key] === undefined && spacing[key] === undefined
 );
 
-const toKebabCase = (str, replaceZero=true) => {
+const toKebabCase = (str, replaceZero = true) => {
 	return replaceZero ? kebabCase(str).replace(/(0?)(\d*)$/, '$2') : kebabCase(str);
 };
 
