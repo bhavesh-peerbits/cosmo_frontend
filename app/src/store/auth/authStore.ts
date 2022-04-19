@@ -100,7 +100,7 @@ const authStore = atom<PersistedData>({
 					AUTH_STORE,
 					JSON.stringify({
 						user: authInfo.user,
-						policy: authInfo.policies
+						policies: authInfo.policies
 					})
 				);
 			});
