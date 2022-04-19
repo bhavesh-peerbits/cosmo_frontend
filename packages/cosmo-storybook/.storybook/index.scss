@@ -5,17 +5,17 @@
 @use '@carbon/themes' as *;
 
 :root {
-  @include theme($white);
+	@include theme($white);
 }
 
 :root[storybook-carbon-theme='g10'] {
-  @include theme($g10);
+	@include theme($g10);
 }
 
 :root[storybook-carbon-theme='g90'] {
-  @include theme($g90);
+	@include theme($g90);
 }
 
 :root[storybook-carbon-theme='g100'] {
-  @include theme($g100);
+	@include theme($g100);
 }
