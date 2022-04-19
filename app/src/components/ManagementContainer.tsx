@@ -28,22 +28,21 @@ const ManagementContainer = () => {
 		<div>
 			{isTileView ? (
 				<Grid fullWidth narrow>
-					<Column sm={2} md={2} lg={2}>
+					<Column sm={2} md={2} lg={3}>
 						<ApplicationsFilters
 							checkedFilters={checkedFilters}
 							handleSelect={handleSelectFilter}
 						/>
 					</Column>
-					<Column sm={4} md={6} lg={14}>
+					<Column sm={4} md={6} lg={13}>
 						<div className='flex flex-col space-y-7'>
-							<div className='flex w-full justify-between'>
+							<div className='flex w-full justify-between space-x-5'>
 								<Search
 									light
-									className='w-1/3'
 									labelText='Search application name'
 									placeholder='Search by application name'
 								/>
-								<div className='flex items-center justify-end space-x-4'>
+								<div className='flex items-center justify-end space-x-5'>
 									<div className='whitespace-nowrap'> 16 Applications </div>
 									<ContentSwitcher onChange={() => setIsTileView(!isTileView)}>
 										<Switch name='first' text={<GridIcon />} />
@@ -52,7 +51,7 @@ const ManagementContainer = () => {
 								</div>
 							</div>
 							{checkedFilters.length > 0 ? (
-								<div className=' flex items-center space-x-4'>
+								<div className=' flex items-center space-x-5'>
 									<h2>Filters: </h2>
 									{checkedFilters.map(filter => (
 										<Tag
@@ -69,8 +68,9 @@ const ManagementContainer = () => {
 							) : (
 								''
 							)}
-
-							<ApplicationsTileContainer />
+							<div>
+								<ApplicationsTileContainer />
+							</div>
 						</div>
 					</Column>
 				</Grid>
@@ -79,7 +79,7 @@ const ManagementContainer = () => {
 					<Column sm={4} md={8} lg={16}>
 						<div className='flex flex-col space-y-7'>
 							<div className='flex w-full justify-end'>
-								<div className='flex items-center justify-end space-x-4'>
+								<div className='flex items-center justify-end space-x-5'>
 									<div className='whitespace-nowrap'> 16 Applications </div>
 									<ContentSwitcher
 										selectedIndex={1}
@@ -90,7 +90,9 @@ const ManagementContainer = () => {
 									</ContentSwitcher>
 								</div>
 							</div>
-							<ApplicationsTable />
+							<div>
+								<ApplicationsTable />
+							</div>
 						</div>
 					</Column>
 				</Grid>

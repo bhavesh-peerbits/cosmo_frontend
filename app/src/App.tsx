@@ -8,7 +8,7 @@ import AppRoutes from '@routes/AppRoutes';
 const App = () => {
 	const { theme } = useRecoilValue(uiStore);
 	return (
-		<Theme theme={theme} className='h-full overflow-hidden'>
+		<Theme theme={theme} className='h-fit'>
 			<ErrorBoundary>
 				<AppRoutes />
 			</ErrorBoundary>

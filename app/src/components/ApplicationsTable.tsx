@@ -147,7 +147,7 @@ const ApplicationsTable = () => {
 							<TableBatchAction renderIcon={TrashCan}>Remove</TableBatchAction>
 						</TableBatchActions>
 						<TableToolbarContent>
-							<TableToolbarSearch placeholder='Search application' />
+							<TableToolbarSearch placeholder='Search application' persistent />
 						</TableToolbarContent>
 					</TableToolbar>
 
