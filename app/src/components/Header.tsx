@@ -70,8 +70,10 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 			</HeaderGlobalBar>
 			<SideNav aria-label='Side navigation' expanded={isSideNavExpanded}>
 				<SideNavItems>
-					<SideNavMenu renderIcon={Fade} title='Narrative'>
-						<SideNavMenuItem href='/management'>Management</SideNavMenuItem>
+					<SideNavMenu renderIcon={Fade} title='Narrative' className='transition-all'>
+						<SideNavMenuItem element={Link} to='/management'>
+							Management
+						</SideNavMenuItem>
 
 						<SideNavMenuItem href='/review'>Review</SideNavMenuItem>
 					</SideNavMenu>
