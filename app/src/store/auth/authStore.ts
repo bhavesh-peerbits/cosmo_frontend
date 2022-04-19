@@ -83,6 +83,7 @@ const authStore = atom<PersistedData>({
 					}
 					if (data.user === null) {
 						resetSelf();
+						return;
 					}
 					retrieveUserInfo().then(setSelf);
 				}

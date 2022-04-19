@@ -81,7 +81,7 @@ export default defineConfig(({ mode }) => ({
 		})
 	],
 	build: {
-		sourcemap: false,
+		sourcemap: true,
 		rollupOptions: {
 			output: {
 				manualChunks: {
