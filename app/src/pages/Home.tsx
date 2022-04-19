@@ -2,14 +2,17 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@carbon/react';
 import LanguagePrompt from '@components/LanguagePrompt';
 import useUiStore from '@hooks/useUiStore';
+import usePolicyStore from '@hooks/usePolicyStore';
 
 const Home = () => {
 	const { t } = useTranslation();
 	const { setTheme } = useUiStore();
+	const { canCreateReport } = usePolicyStore();
 
 	return (
 		<div>
 			<LanguagePrompt />
+			<div>USER CAN CREATE REPORT? {canCreateReport ? 'YES' : 'NO'}</div>
 			<section className=''>
 				<h2 className='my-8 text-heading-2'>{t('home:purpose')}</h2>
 				<Button onClick={() => setTheme(val => (val === 'g100' ? 'white' : 'g100'))}>

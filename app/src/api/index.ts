@@ -30,6 +30,7 @@ axios.interceptors.request.use(
 const api = configureApi(DEFAULT_CONFIG);
 
 export type UserRole = UserDtoRolesEnum;
+export const UserRoleEnum = UserDtoRolesEnum;
 export default {
 	...api
 };
