@@ -1,24 +1,24 @@
-import { useRecoilState } from 'recoil';
-import uiStore from '@store/ui/uiStore';
 import { Button, ButtonSet, Column, Grid, Layer, Tile, useTheme } from '@carbon/react';
 import { memo } from 'react';
 import { ArrowRight, Translate } from '@carbon/react/icons';
 import { languageOptions, languages } from '@i18n';
 import detectLanguage from '@i18n/detectLanguage';
+import useUiStore from '@hooks/useUiStore';
 
 const LanguagePrompt = () => {
-	const [{ languagePromptDismissed, language }, setUiStore] = useRecoilState(uiStore);
+	const { languagePromptDismissed, language, setLanguagePromptDismissed, setLanguage } =
+		useUiStore();
 	const { theme } = useTheme();
 	if (languagePromptDismissed) {
 		return null;
 	}
 
-	const systemLanguage = detectLanguage();
+	const systemLanguage = detectLanguage() as typeof language;
 	if (systemLanguage === 'en_US' || systemLanguage === language) {
 		return null;
 	}
 
-	if (!languages.includes(systemLanguage as typeof language)) {
+	if (!languages.includes(systemLanguage)) {
 		return null;
 	}
 
@@ -30,7 +30,7 @@ const LanguagePrompt = () => {
 				className={`${small ? '' : 'h-full'}`}
 				kind='secondary'
 				isExpressive={small}
-				onClick={() => setUiStore(val => ({ ...val, languagePromptDismissed: true }))}
+				onClick={() => setLanguagePromptDismissed(true)}
 			>
 				Dismiss
 			</Button>
@@ -39,13 +39,7 @@ const LanguagePrompt = () => {
 				isExpressive={small}
 				renderIcon={ArrowRight}
 				iconDescription='Change language'
-				onClick={() =>
-					setUiStore(val => ({
-						...val,
-						languagePromptDismissed: true,
-						language: systemLanguage as typeof language
-					}))
-				}
+				onClick={() => setLanguage(systemLanguage)}
 			>
 				Change to {option}
 			</Button>

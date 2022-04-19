@@ -5353,7 +5353,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/emscripten@npm:^1.38.0":
+"@types/emscripten@npm:^1.38.0, @types/emscripten@npm:^1.39.6":
   version: 1.39.6
   resolution: "@types/emscripten@npm:1.39.6"
   checksum: 437f2f9cdfd9057255662508fa9a415fe704ba484c6198f3549c5b05feebcdcd612b1ec7b10026d2566935d05d3c36f9366087cb42bc90bd25772a88fcfc9343
@@ -6476,6 +6476,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yarnpkg/fslib@npm:^3.0.0-rc.2":
+  version: 3.0.0-rc.2
+  resolution: "@yarnpkg/fslib@npm:3.0.0-rc.2"
+  dependencies:
+    "@yarnpkg/libzip": ^3.0.0-rc.2
+    tslib: ^1.13.0
+  checksum: 3cca8a6197a30e9f40c4eb00eafe2dcc65b570889e1af75875babccaf8039bf46f2e2fed4163f7e277150ff0b6e94f91817af1864ca3b90f2d541a19068afad0
+  languageName: node
+  linkType: hard
+
 "@yarnpkg/libzip@npm:^2.2.1, @yarnpkg/libzip@npm:^2.2.3":
   version: 2.2.4
   resolution: "@yarnpkg/libzip@npm:2.2.4"
@@ -6483,6 +6493,16 @@ __metadata:
     "@types/emscripten": ^1.38.0
     tslib: ^1.13.0
   checksum: 974a286d4e7ff52bd924d56cb39492898a2306e95774362e4a3eb94690f180273a078243bf4044909e0fe29354552acc1cddd7d10d71ce332f7b1e1ff8eb54d9
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/libzip@npm:^3.0.0-rc.2":
+  version: 3.0.0-rc.2
+  resolution: "@yarnpkg/libzip@npm:3.0.0-rc.2"
+  dependencies:
+    "@types/emscripten": ^1.39.6
+    tslib: ^1.13.0
+  checksum: c5b22308798ce18c0ee5c0a004c344150f53ca07c2dd08d28ff3ffdd985259567729dcca92613fddf6b103a38abab4503db51cb8f59c73050f39c72facd5baf4
   languageName: node
   linkType: hard
 
@@ -9528,6 +9548,8 @@ __metadata:
     "@types/node": ^17.0.23
     "@typescript-eslint/eslint-plugin": ^5.15.0
     "@typescript-eslint/parser": ^5.15.0
+    "@yarnpkg/fslib": ^3.0.0-rc.2
+    "@yarnpkg/libzip": ^3.0.0-rc.2
     c8: ^7.11.0
     eslint: ^8.13.0
     eslint-config-airbnb: ^19.0.4

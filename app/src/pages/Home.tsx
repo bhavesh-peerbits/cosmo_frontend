@@ -1,25 +1,18 @@
 import { useTranslation } from 'react-i18next';
-import { useSetRecoilState } from 'recoil';
 import { Button } from '@carbon/react';
-import uiStore from '@store/ui/uiStore';
 import LanguagePrompt from '@components/LanguagePrompt';
+import useUiStore from '@hooks/useUiStore';
 
 const Home = () => {
 	const { t } = useTranslation();
-	const setUiStore = useSetRecoilState(uiStore);
+	const { setTheme } = useUiStore();
+
 	return (
 		<div>
 			<LanguagePrompt />
 			<section className=''>
 				<h2 className='my-8 text-heading-2'>{t('home:purpose')}</h2>
-				<Button
-					onClick={() =>
-						setUiStore(val => ({
-							...val,
-							theme: val.theme === 'g100' ? 'white' : 'g100'
-						}))
-					}
-				>
+				<Button onClick={() => setTheme(val => (val === 'g100' ? 'white' : 'g100'))}>
 					Change Theme
 				</Button>
 				<h1 data-testid='title' className='my-4 capitalize'>

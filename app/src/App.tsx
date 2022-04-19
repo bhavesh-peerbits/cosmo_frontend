@@ -1,14 +1,13 @@
 import 'style/app.scss';
 import ErrorBoundary from '@error/components/ErrorBoundary';
-import { useRecoilValue } from 'recoil';
-import uiStore from '@store/ui/uiStore';
 import AppRoutes from '@routes/AppRoutes';
-import Theme from '@components/Theme';
+import { Theme } from '@carbon/react';
+import useUiStore from '@hooks/useUiStore';
 
 const App = () => {
-	const { theme } = useRecoilValue(uiStore);
+	const { theme } = useUiStore();
 	return (
-		<Theme theme={theme}>
+		<Theme theme={theme} className='h-full overflow-hidden'>
 			<ErrorBoundary>
 				<AppRoutes />
 			</ErrorBoundary>
