@@ -94,11 +94,14 @@ const authStore = atom<PersistedData>({
 					if (!data) {
 						return;
 					}
-					if (data.user === null) {
+					if (!data.user) {
 						resetSelf();
 						return;
 					}
-					retrieveUserInfo().then(setSelf);
+					retrieveUserInfo().then(v => {
+						setSelf(v);
+						persistInfo(v);
+					});
 				}
 			};
 
@@ -108,7 +111,7 @@ const authStore = atom<PersistedData>({
 				if (isReset) {
 					// remove authentication token itself
 					cleanSession();
-					localStorage.removeKey(AUTH_STORE);
+					localStorage.removeItem(AUTH_STORE);
 				} else {
 					persistInfo(authInfo);
 				}
