@@ -84,14 +84,25 @@ tag:
     - tags
   script:
     - docker tag $IMAGE_COSMO $TAG_IMAGE && docker push $TAG_IMAGE
-#deploy sviluppo:
-#  image: aramis-nexus.aizoon.it:5000/ansible
-#  stage: deploy 🚀
-#  environment:
-#    name: sviluppo
-#    url: http://172.17.0.149:25555/
-#  when: manual
-#  script:
-#    - cd operation/ansible
-#    - chmod go-rwx .
-#    - ansible-playbook --limit esra --vault-password-file $VAULT_PASS --extra-vars "{'image_name':'$IMAGE_ESRA'}" deploy_sviluppo.yml
+
+deploy develop:
+  image: aramis-nexus.aizoon.it:5000/ansible
+  stage: deploy 🚀
+  when: manual
+  environment:
+    name: develop
+    url: https://172.17.0.46:3000
+  script:
+    - cd ansible
+    - chmod go-rwx .
+    - ansible-playbook --vault-password-file $VAULT_PASS --extra-vars "{'image_name':'$IMAGE_COSMO'}" deploy.yml
+
+deploy storybook:
+  stage: deploy 🚀
+  when: manual
+  variables:
+    LINKER: node-modules
+  before_script:
+    - yarn
+  script:
+    - yarn workspace cosmo-storybook build-storybook
