@@ -43,6 +43,10 @@ const Login = () => {
 	if (auth.authenticated) {
 		return <Navigate replace to='/home' />;
 	}
+	const rememberMe = localStorage.getItem('rememberMe') === 'true';
+	const saveRememberMe = (checked: boolean) => {
+		localStorage.setItem('rememberMe', `${checked}`);
+	};
 
 	const formLogin = async (data: LoginForm) => {
 		try {
@@ -128,7 +132,8 @@ const Login = () => {
 								<Checkbox
 									id='rememberMe'
 									labelText={t('rememberMe')}
-									{...register('rememberMe')}
+									{...register('rememberMe', { value: rememberMe })}
+									onChange={(_, { checked }) => saveRememberMe(checked)}
 								/>
 							</Stack>
 						</Form>
