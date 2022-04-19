@@ -8,11 +8,13 @@ interface LoginRequest {
 }
 
 async function performLogin(user: string, password: string, tenant: string) {
-	return api.accessApi.login({
-		user,
-		password,
-		tenant
-	});
+	return (
+		await api.accessApi.login({
+			user,
+			password,
+			tenant
+		})
+	).data;
 }
 
 export default () =>

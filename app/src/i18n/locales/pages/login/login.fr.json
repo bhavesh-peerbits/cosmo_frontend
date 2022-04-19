@@ -1,3 +1,7 @@
 {
-	"invalidUsername": "Nom d'utilisateur ou mot de passe invalide"
+	"usernameRequired": "Le nom d'utilisateur est requis",
+	"passwordRequired": "Le mot de passe est requis",
+	"usernameAtLeast": "Le nom d'utilisateur doit contenir au moins {{chars}} caractères",
+	"rememberMe": "Souviens-toi de moi",
+	"error-login": "Erreur de connexion, vérifiez vos identifiants et réessayez"
 }

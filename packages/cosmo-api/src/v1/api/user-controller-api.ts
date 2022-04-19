@@ -45,6 +45,8 @@ import { UserApplication } from '../models';
 // @ts-ignore
 import { UserApplicationKey } from '../models';
 // @ts-ignore
+import { UserDto } from '../models';
+// @ts-ignore
 import { UserProfile } from '../models';
 // @ts-ignore
 import { UserProfileKey } from '../models';
@@ -420,6 +422,41 @@ export const UserControllerApiAxiosParamCreator = function (
 		 */
 		getAllUsers: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
 			const localVarPath = `/api/users`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAuthInfo: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+			const localVarPath = `/api/users/authInfo`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -921,6 +958,22 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 		},
 		/**
 		 *
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getAuthInfo(
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserDto>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAuthInfo(options);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
 		 * @param {string} id
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
@@ -1156,6 +1209,14 @@ export const UserControllerApiFactory = function (
 		 */
 		getAllUsers(options?: any): AxiosPromise<Array<User>> {
 			return localVarFp.getAllUsers(options).then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAuthInfo(options?: any): AxiosPromise<UserDto> {
+			return localVarFp.getAuthInfo(options).then(request => request(axios, basePath));
 		},
 		/**
 		 *
@@ -1601,6 +1662,18 @@ export class UserControllerApi extends BaseAPI {
 	public getAllUsers(options?: AxiosRequestConfig) {
 		return UserControllerApiFp(this.configuration)
 			.getAllUsers(options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof UserControllerApi
+	 */
+	public getAuthInfo(options?: AxiosRequestConfig) {
+		return UserControllerApiFp(this.configuration)
+			.getAuthInfo(options)
 			.then(request => request(this.axios, this.basePath));
 	}
 

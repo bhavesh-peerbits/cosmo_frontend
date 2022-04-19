@@ -15,7 +15,7 @@ const Authenticated = ({ children }: AuthenticatedProps) => {
 	}
 
 	logout(true);
-	return <Navigate replace to='/' />;
+	return <Navigate replace to='/?error=authentication-needed' />;
 };
 
 export default Authenticated;
