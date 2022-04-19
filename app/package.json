@@ -4,12 +4,12 @@
 	"version": "1.0.0",
 	"scripts": {
 		"dev": "vite",
-		"build": "yarn tsc && vite build",
+		"build": "yarn comm:tsc && vite build",
 		"preview": "vite preview",
 		"test:unit": "echo n | vitest --ui",
 		"test:ci": "vitest run",
 		"validate": "yarn lint && yarn test:ci",
-		"tsc": "yarn run -T tsc"
+		"comm:tsc": "yarn run -T tsc"
 	},
 	"dependencies": {
 		"@carbon/react": "^1.1.0",

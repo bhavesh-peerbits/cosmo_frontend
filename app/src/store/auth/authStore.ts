@@ -8,9 +8,9 @@ const ACCESS_TOKEN_KEY = 'accessToken';
 
 type User = {
 	username: string;
-	name: string;
-	surname: string;
-	email: string;
+	name?: string;
+	surname?: string;
+	email?: string;
 };
 
 type PersistedData = {

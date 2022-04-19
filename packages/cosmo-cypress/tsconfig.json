@@ -11,7 +11,7 @@
 		"skipLibCheck": true,
 		"strict": true,
 		"target": "ESNext",
-		"types": ["node", "cypress", "@testing-library/cypress"]
+		"types": ["cypress", "@testing-library/cypress"]
 	},
 	"include": ["cypress"]
 }

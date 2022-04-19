@@ -19,11 +19,11 @@
  */
 export interface UserDto {
 	/**
-	 *
+	 * The user username
 	 * @type {string}
 	 * @memberof UserDto
 	 */
-	username?: string;
+	username: string;
 	/**
 	 *
 	 * @type {string}
