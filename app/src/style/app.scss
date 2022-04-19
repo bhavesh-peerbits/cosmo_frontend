@@ -16,7 +16,14 @@
 	}
 }
 
-:root main {
-	// colors
-	--primary: #{theme.$layer-01};
+$theme-cosmo: (
+	// override here default tokens
+	//      layer-01: #ffffff
+);
+
+// include in the specific theme class or add to root component to override all
+.cds--white {
+	@include theme.theme($theme-cosmo);
 }
+
+// :root main {}
