@@ -14,6 +14,7 @@
 	},
 	"devDependencies": {
 		"@babel/core": "^7.17.9",
+		"@carbon/storybook-addon-theme": "^0.22.14",
 		"@mdx-js/react": "^2.1.1",
 		"@storybook/addon-a11y": "^6.5.0-alpha.64",
 		"@storybook/addon-actions": "^6.5.0-alpha.64",
@@ -47,7 +48,6 @@
 		"require-from-string": "^2.0.2",
 		"sass": "^1.50.0",
 		"sass-pnp-importer": "^0.3.0",
-		"storybook-addon-themes": "^6.1.0",
 		"storybook-react-i18next": "^1.0.20",
 		"typescript": "^4.6.3",
 		"vite": "^2.9.5",

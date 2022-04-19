@@ -13,11 +13,11 @@ const config: CustomizedStorybookConfig = {
 	stories: ['../stories/**/*.stories.mdx', '../stories/**/*.stories.@(js|jsx|ts|tsx)'],
 	addons: [
 		'storybook-react-i18next',
-		'storybook-addon-themes',
 		'@storybook/addon-a11y',
 		'@storybook/addon-links',
 		'@storybook/addon-essentials',
-		'@storybook/addon-interactions'
+		'@storybook/addon-interactions',
+		'@carbon/storybook-addon-theme/register'
 	],
 	framework: '@storybook/react',
 	core: {
