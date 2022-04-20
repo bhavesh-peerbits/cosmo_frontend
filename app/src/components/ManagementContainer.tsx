@@ -1,4 +1,4 @@
-import { Column, ContentSwitcher, Grid, Search, Switch, Tag } from '@carbon/react';
+import { Column, ContentSwitcher, Grid, Layer, Search, Switch, Tag } from '@carbon/react';
 import { Grid as GridIcon, HorizontalView } from '@carbon/react/icons';
 import { useState } from 'react';
 import ApplicationsFilters from './ApplicationsFilters';
@@ -25,10 +25,10 @@ const ManagementContainer = () => {
 	};
 
 	return (
-		<div>
+		<div className='h-full'>
 			{isTileView ? (
-				<Grid fullWidth narrow>
-					<Column sm={2} md={2} lg={3}>
+				<Grid fullWidth narrow className='h-full'>
+					<Column sm={4} md={2} lg={3}>
 						<ApplicationsFilters
 							checkedFilters={checkedFilters}
 							handleSelect={handleSelectFilter}
@@ -37,11 +37,13 @@ const ManagementContainer = () => {
 					<Column sm={4} md={6} lg={13}>
 						<div className='flex flex-col space-y-7'>
 							<div className='flex w-full justify-between space-x-5'>
-								<Search
-									light
-									labelText='Search application name'
-									placeholder='Search by application name'
-								/>
+								<Layer className='w-full'>
+									<Search
+										size='lg'
+										labelText='Search application name'
+										placeholder='Search by application name'
+									/>
+								</Layer>
 								<div className='flex items-center justify-end space-x-5'>
 									<div className='whitespace-nowrap'> 16 Applications </div>
 									<ContentSwitcher onChange={() => setIsTileView(!isTileView)}>
@@ -75,7 +77,7 @@ const ManagementContainer = () => {
 					</Column>
 				</Grid>
 			) : (
-				<Grid fullWidth narrow>
+				<Grid fullWidth narrow className='h-full'>
 					<Column sm={4} md={8} lg={16}>
 						<div className='flex flex-col space-y-7'>
 							<div className='flex w-full justify-end'>

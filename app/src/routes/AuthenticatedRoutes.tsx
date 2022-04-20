@@ -1,10 +1,11 @@
 import React, { Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { Content, HeaderContainer } from '@carbon/react';
+import { HeaderContainer } from '@carbon/react';
 import Header from '@components/Header';
 import Fade from '@components/Fade';
 import Centered from '@components/Centered';
 import '@style/loading.scss';
+import ApplicationContainer from '@components/ApplicationContainer';
 
 const Home = React.lazy(() => import('@pages/Home'));
 const Logout = React.lazy(() => import('@pages/Logout'));
@@ -24,16 +25,16 @@ const AuthenticatedRoutes = () => {
 				</div>
 			}
 		>
-			<HeaderContainer render={Header} />
-			<Content className='container-w-sidenav h-full overflow-auto bg-layer-1 p-[0px]'>
-				<Routes>
+			<Routes>
+				<Route path='/' element={<HeaderContainer render={Header} />}>
 					<Route path='/home' element={<Home />} />
 					<Route path='/management' element={<Management />} />
+					<Route path='/ApplicationName' element={<ApplicationContainer />} />
 					<Route path='/logout' element={<Logout />} />
 					<Route path='/test' element={<Test />} />
 					<Route path='*' element={<Navigate replace to='/404' />} />
-				</Routes>
-			</Content>
+				</Route>
+			</Routes>
 		</Suspense>
 	);
 };

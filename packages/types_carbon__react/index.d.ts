@@ -31,3 +31,7 @@ export * from './lib/components/ContentSwitcher';
 export * from './lib/components/DataTable';
 
 export * from './lib/components/Tag';
+
+export * from './lib/components/Breadcrumb';
+
+export * from './lib/components/Tabs';

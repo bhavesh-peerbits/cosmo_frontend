@@ -13,6 +13,8 @@ type RowShape = {
 	isExpanded?: boolean;
 };
 
+type RenderType = Record<string, unknown>;
+
 interface DataTableProps extends ReactDivAttr {
 	/**
 	 * Optional hook to manually control filtering of the rows from the
@@ -88,6 +90,10 @@ interface DataTableProps extends ReactDivAttr {
 	 * `true` to add useZebraStyles striping.
 	 */
 	useZebraStyles?: boolean;
+
+	render?: FCReturn<RenderType>;
+
+	children?: FCReturn<RenderType>;
 }
 
 declare const DataTable: FCReturn<DataTableProps>;

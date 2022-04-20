@@ -2,28 +2,15 @@ import { Column, Grid } from '@carbon/react';
 import ApplicationTile from './ApplicationTile';
 
 const ApplicationsTileContainer = () => {
-	const applicationsList = [
-		<ApplicationTile />,
-		<ApplicationTile />,
-		<ApplicationTile />,
-		<ApplicationTile />,
-		<ApplicationTile />,
-		<ApplicationTile />,
-		<ApplicationTile />,
-		<ApplicationTile />,
-		<ApplicationTile />,
-		<ApplicationTile />,
-		<ApplicationTile />,
-		<ApplicationTile />,
-		<ApplicationTile />
-	];
+	const applicationsList = [...Array(20).keys()];
+
 	return (
 		<Grid fullWidth narrow>
 			<Column sm={{ span: 4 }} md={{ span: 6 }} lg={{ span: 16 }}>
 				<Grid fullWidth narrow>
-					{applicationsList.map(application => (
+					{applicationsList.map(() => (
 						<Column sm={{ span: 2 }} md={{ span: 2 }} lg={{ span: 4 }}>
-							{application}
+							<ApplicationTile />
 						</Column>
 					))}
 				</Grid>
