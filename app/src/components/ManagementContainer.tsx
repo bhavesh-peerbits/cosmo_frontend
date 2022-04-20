@@ -28,7 +28,7 @@ const ManagementContainer = () => {
 		<div>
 			{isTileView ? (
 				<Grid fullWidth narrow>
-					<Column sm={2} md={2} lg={3}>
+					<Column sm={4} md={2} lg={3}>
 						<ApplicationsFilters
 							checkedFilters={checkedFilters}
 							handleSelect={handleSelectFilter}

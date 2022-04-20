@@ -39,6 +39,11 @@ const carbonTransition = Object.entries(motion.easings).reduce((acc, [name, valu
 	return acc;
 }, {});
 
+const carbonBreakpoints = Object.entries(spacing.breakpoints).reduce((acc, [name, breakpoint]) => {
+  acc[name] = breakpoint.width;
+  return acc;
+}, {});
+
 module.exports = {
 	important: true,
 	content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
@@ -47,8 +52,8 @@ module.exports = {
 			0: '0',
 			...carbonSpacing
 		},
+    screens: carbonBreakpoints,
 		colors: {
-			test: 'var(--cds-t)',
 			...themeTokens.reduce((acc, key) => {
 				const k = toKebabCase(key);
 				acc[k] = `var(--cds-${toKebabCase(key, false)})`;
