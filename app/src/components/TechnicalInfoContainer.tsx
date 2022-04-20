@@ -1,6 +1,6 @@
 import { Button, Column, Grid, TextArea, TextInput, Tile } from '@carbon/react';
 
-const GeneralInfoContainer = () => {
+const TechnicalInfoContainer = () => {
 	return (
 		<Tile href='ApplicationName' className='w-full bg-background'>
 			<Grid fullWidth narrow className='space-y-7'>
@@ -10,22 +10,22 @@ const GeneralInfoContainer = () => {
 					lg={{ span: 16 }}
 					className='text-fluid-heading-3'
 				>
-					General Information
+					Technical Information
 				</Column>
 				<Column sm={{ span: 4 }} md={{ span: 8 }} lg={{ span: 16 }}>
 					<div className='flex w-full space-x-5'>
 						<TextInput
 							className='w-full'
-							id='code'
-							labelText='Code'
-							placeholder='Code'
+							id='application-servers'
+							labelText='Application Servers'
+							placeholder='Application servers'
 							defaultValue='Default value'
 						/>
 						<TextInput
 							className='w-full'
-							id='name'
-							labelText='Name'
-							placeholder='Name'
+							id='application-servers-os'
+							labelText='Application Servers OS'
+							placeholder='Application servers OS'
 							defaultValue='Default value'
 						/>
 					</div>
@@ -34,24 +34,24 @@ const GeneralInfoContainer = () => {
 					<div className='flex w-full items-stretch space-x-5'>
 						<TextArea
 							className='w-full'
-							id='description'
-							labelText='Description'
-							placeholder='Description'
+							id='application-code-path'
+							labelText='Application Code Path'
+							placeholder='Application code path'
 							defaultValue='Default value'
 						/>
 						<div className='flex w-full flex-col space-y-5'>
 							<TextInput
 								className='w-full'
-								id='owner'
-								labelText='Owner'
-								placeholder='Application owner'
+								id='db-servers'
+								labelText='DB Servers'
+								placeholder='DB servers'
 								defaultValue='Default value'
 							/>
 							<TextInput
 								className='w-full'
-								id='owner-delegates'
-								labelText='Owner Delegates'
-								placeholder='Application owner delegates'
+								id='db-servers-os'
+								labelText='DB Servers OS'
+								placeholder='DB servers OS'
 								defaultValue='Default value'
 							/>
 						</div>
@@ -61,16 +61,16 @@ const GeneralInfoContainer = () => {
 					<div className='flex w-full space-x-5'>
 						<TextInput
 							className='w-full'
-							id='application-maintenance-supplier'
-							labelText='Application Maintenance Supplier'
-							placeholder='Application maintenance supplier'
+							id='database-service'
+							labelText='Database Service'
+							placeholder='Database service'
 							defaultValue='Default value'
 						/>
 						<TextInput
 							className='w-full'
-							id='operation-supplier'
-							labelText='Operation Supplier'
-							placeholder='Operation supplier'
+							id='database-instance'
+							labelText='Database Instance'
+							placeholder='Database instance'
 							defaultValue='Default value'
 						/>
 					</div>
@@ -85,4 +85,4 @@ const GeneralInfoContainer = () => {
 		</Tile>
 	);
 };
-export default GeneralInfoContainer;
+export default TechnicalInfoContainer;

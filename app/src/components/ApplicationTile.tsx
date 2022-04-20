@@ -8,12 +8,12 @@ const ApplicationTile = () => {
 					<div>Icon</div>
 					<div className='space-y-9'>
 						<div>
-							<div>Name</div>
-							<div>Owner</div>
+							<div className='text-heading-2'>Name</div>
+							<div className='text-body-short-1'>Owner</div>
 						</div>
 						<div className='flex flex-row justify-between'>
-							<h2>Code</h2>
-							<h2>Category</h2>
+							<div className='text-body-short-1'>Code</div>
+							<div className='text-text-secondary'>Category</div>
 						</div>
 					</div>
 				</div>
