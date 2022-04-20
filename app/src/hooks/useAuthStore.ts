@@ -1,9 +1,21 @@
-import { useRecoilValue, useResetRecoilState } from 'recoil';
-import authStore, { setSession } from '@store/auth/authStore';
+import { useRecoilValue } from 'recoil';
+import authStore, {
+	cleanSession,
+	retrieveUserToken,
+	setSession
+} from '@store/auth/authStore';
 import { getCookie, removeCookie, setCookie } from 'tiny-cookie';
 import useLogin from '@api/user/useLogin';
 
-const NO_REDIRECT_PATHS = ['/', '/home'];
+const NO_REDIRECT_PATHS = [
+	'/',
+	'/home',
+	'/logout',
+	'/404',
+	'/unauthorized',
+	'/forbidden',
+	'/unauthorized'
+];
 
 interface LoginData {
 	user: string;
@@ -14,7 +26,6 @@ const REDIRECT_PATH_COOKIE = 'postLoginRedirectPath';
 
 const useAuthStore = () => {
 	const auth = useRecoilValue(authStore);
-	const resetAuth = useResetRecoilState(authStore);
 	const loginApi = useLogin();
 	const login = async ({ user, password, rememberMe }: LoginData) => {
 		const resp = await loginApi.mutateAsync({
@@ -41,12 +52,12 @@ const useAuthStore = () => {
 			}
 		}
 
-		setTimeout(() => resetAuth());
+		cleanSession();
 	};
 	return {
 		auth: {
 			...auth,
-			authenticated: Boolean(auth.token)
+			authenticated: Boolean(retrieveUserToken())
 		},
 		login,
 		logout

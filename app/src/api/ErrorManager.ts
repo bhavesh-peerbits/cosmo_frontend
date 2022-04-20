@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios';
 import ApiError from '@api/ApiError';
+import { cleanSession } from '@store/auth/authStore';
 
 async function errorManager(response: AxiosResponse) {
 	const errorMessage = response?.data?.message;
@@ -10,8 +11,12 @@ async function errorManager(response: AxiosResponse) {
 			throw new ApiError(400, `Bad Request\n${errorMessage}`);
 		// Handle unauthorized requests by redirecting to login
 		case 401:
-			// TODO clear session storage, local storage, cookie
-			throw new ApiError(401, `Unauthorized\n${errorMessage}`);
+			cleanSession();
+			window.location.href = '/unauthorized';
+			return;
+		case 403:
+			window.location.href = '/forbidden';
+			return;
 		default:
 			throw new ApiError(response?.status || 500, errorMessage);
 	}
