@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { Content, HeaderContainer } from '@carbon/react';
 import Header from '@components/Header';
 import Fade from '@components/Fade';
@@ -33,7 +33,7 @@ const AuthenticatedRoutes = () => {
 					<Route path='/ApplicationName' element={<ApplicationContainer />} />
 					<Route path='/logout' element={<Logout />} />
 					<Route path='/test' element={<Test />} />
-					<Route path='*' element={<div>NOT FOUND</div>} />
+					<Route path='*' element={<Navigate replace to='/404' />} />
 				</Routes>
 			</Content>
 		</Suspense>

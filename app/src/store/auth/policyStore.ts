@@ -9,7 +9,7 @@ type Policies = {
 const policyStore = selector<Policies>({
 	key: 'policyStore',
 	get: ({ get }) => {
-		const { policies } = get(authStore);
+		const { policies } = get(authStore) || {};
 		return { canCreateReport: Boolean(policies?.includes(UserRoleEnum.SysAdmin)) };
 	}
 });
