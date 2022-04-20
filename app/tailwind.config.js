@@ -39,10 +39,13 @@ const carbonTransition = Object.entries(motion.easings).reduce((acc, [name, valu
 	return acc;
 }, {});
 
-const carbonBreakpoints = Object.entries(spacing.breakpoints).reduce((acc, [name, breakpoint]) => {
-  acc[name] = breakpoint.width;
-  return acc;
-}, {});
+const carbonBreakpoints = Object.entries(spacing.breakpoints).reduce(
+	(acc, [name, breakpoint]) => {
+		acc[name] = breakpoint.width;
+		return acc;
+	},
+	{}
+);
 
 module.exports = {
 	important: true,
@@ -52,7 +55,7 @@ module.exports = {
 			0: '0',
 			...carbonSpacing
 		},
-    screens: carbonBreakpoints,
+		screens: carbonBreakpoints,
 		colors: {
 			...themeTokens.reduce((acc, key) => {
 				const k = toKebabCase(key);

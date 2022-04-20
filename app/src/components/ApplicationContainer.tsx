@@ -1,4 +1,4 @@
-import { Tabs, Tab, TabList } from '@carbon/react';
+import { Tab, TabList, Tabs } from '@carbon/react';
 import { useState } from 'react';
 import ApplicationHeader from './ApplicationHeader';
 import ApplicationInfo from './ApplicationInfo';
@@ -17,9 +17,9 @@ const ApplicationContainer = () => {
 		}
 	};
 	return (
-		<div>
+		<div className='h-full'>
 			<ApplicationHeader />
-			<div className='h-[48px]' style={{ background: 'white' }}>
+			<div className='h-full'>
 				<Tabs>
 					<TabList contained ariaLabel='List of tabs'>
 						<Tab
@@ -44,7 +44,7 @@ const ApplicationContainer = () => {
 							Application Changes
 						</Tab>
 					</TabList>
-					<div className='pt-7'>{contentToRender()}</div>
+					<div className='h-full pt-7'>{contentToRender()}</div>
 				</Tabs>
 			</div>
 		</div>

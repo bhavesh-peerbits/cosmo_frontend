@@ -25,9 +25,9 @@ const ManagementContainer = () => {
 	};
 
 	return (
-		<div>
+		<div className='h-full'>
 			{isTileView ? (
-				<Grid fullWidth narrow>
+				<Grid fullWidth narrow className='h-full'>
 					<Column sm={4} md={2} lg={3}>
 						<ApplicationsFilters
 							checkedFilters={checkedFilters}
@@ -75,7 +75,7 @@ const ManagementContainer = () => {
 					</Column>
 				</Grid>
 			) : (
-				<Grid fullWidth narrow>
+				<Grid fullWidth narrow className='h-full'>
 					<Column sm={4} md={8} lg={16}>
 						<div className='flex flex-col space-y-7'>
 							<div className='flex w-full justify-end'>

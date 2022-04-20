@@ -3,7 +3,7 @@ import ManagementContainer from '@components/ManagementContainer';
 
 const Management = () => {
 	return (
-		<div className='w-full space-y-5'>
+		<div className='h-full w-full space-y-5'>
 			<div className='bg-background'>
 				<Grid fullWidth className='items-end pt-10 pb-7'>
 					<Column sm={4} md={5} lg={11}>
@@ -16,7 +16,7 @@ const Management = () => {
 					</Column>
 				</Grid>
 			</div>
-			<div>
+			<div className='h-full'>
 				<ManagementContainer />
 			</div>
 		</div>
