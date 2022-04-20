@@ -1,0 +1,14 @@
+{
+	"errorCode403": "Error 403",
+	"errorTitle403": "Accès refusé",
+	"errorMessage403": "Vous n'avez pas les droits d'accès à cette page.",
+	"errorCode401": "Error 401",
+	"errorTitle401": "Authentification requise",
+	"errorMessage401": "Vous devez être authentifié pour accéder à cette page.",
+	"errorCode404": "Error 404",
+	"errorTitle404": "Page introuvable",
+	"errorMessage404": "La page que vous recherchez n'existe pas.",
+	"goToHomePage": "Retour à la page d'accueil",
+	"goToLoginPage": "Aller à la page de connexion",
+	"goBack": "Retour"
+}

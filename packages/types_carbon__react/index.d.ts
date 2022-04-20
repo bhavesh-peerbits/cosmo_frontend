@@ -8,6 +8,8 @@ export * from './lib/components/UIShell';
 
 export * from './lib/components/Button';
 
+export * from './lib/components/CodeSnippet';
+
 export * from './lib/components/Modal';
 
 export * from './lib/components/Loading';

@@ -5,9 +5,13 @@ import * as Sentry from '@sentry/react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getReportDialogEndpoint } from '@sentry/core';
 import {
+	Accordion,
+	AccordionItem,
 	Button,
+	CodeSnippet,
 	ComposedModal,
 	InlineLoading,
+	Layer,
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
@@ -81,16 +85,20 @@ const ErrorModalFallback = ({
 						</Trans>
 					</span>
 
-					{/* <Accordion> */}
-					{/*	<AccordionItem title='Details'> */}
-					{/*		<div className='space-y-spacing-2'> */}
-					{/*			<CodeSnippet type='inline'>{error.message}</CodeSnippet> */}
-					{/*			<Layer> */}
-					{/*				<CodeSnippet type='multi'>{error.stack}</CodeSnippet> */}
-					{/*			</Layer> */}
-					{/*		</div> */}
-					{/*	</AccordionItem> */}
-					{/* </Accordion> */}
+					{import.meta.env.DEV && (
+						<Accordion>
+							<AccordionItem title='Details'>
+								<div className='space-y-spacing-2'>
+									<CodeSnippet type='inline'>{error.message}</CodeSnippet>
+									<Layer>
+										<CodeSnippet type='multi' wrapText>
+											{error.stack}
+										</CodeSnippet>
+									</Layer>
+								</div>
+							</AccordionItem>
+						</Accordion>
+					)}
 					{sentryDSN && (
 						<>
 							<p className='pt-5'>{t('tell-us')}</p>

@@ -1,0 +1,14 @@
+{
+	"errorCode403": "Errore 403",
+	"errorTitle403": "Non consentito",
+	"errorMessage403": "Non hai i permessi per accedere a questa pagina.",
+	"errorCode401": "Errore 401",
+	"errorTitle401": "Non autorizzato",
+	"errorMessage401": "Non sei autenticato per visualizzare questa pagina.",
+	"errorCode404": "Errore 404",
+	"errorTitle404": "Pagina non trovata",
+	"errorMessage404": "La pagina che stai cercando non è stata trovata.",
+	"goToHomePage": "Vai alla home page",
+	"goToLoginPage": "Vai alla pagina di login",
+	"goBack": "Indietro"
+}

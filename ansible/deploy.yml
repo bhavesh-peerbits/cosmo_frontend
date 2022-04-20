@@ -1,0 +1,23 @@
+- name: deploy
+  hosts: all
+  become: yes
+  become_method: sudo
+
+  tasks:
+    - name: Log
+      ansible.builtin.debug:
+        msg:
+          - "Image: {{ image_name }}"
+
+    - name: Replace image name on docker-compose
+      replace:
+        path: "{{ compose_folder }}/docker-compose.yml"
+        regexp: 'image:\s*aramis-nexus\.aizoon\.it:5000\/cosmo\/fe.*$'
+        replace: "image: {{ image_name }}"
+
+    - name: Create and start services
+      environment:
+        PWD: "{{ compose_folder }}/"
+      community.docker.docker_compose:
+        project_src: "{{ compose_folder }}/"
+        pull: yes
