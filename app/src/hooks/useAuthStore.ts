@@ -6,6 +6,7 @@ import authStore, {
 } from '@store/auth/authStore';
 import { getCookie, removeCookie, setCookie } from 'tiny-cookie';
 import useLogin from '@api/user/useLogin';
+import { useNavigate } from 'react-router-dom';
 
 const NO_REDIRECT_PATHS = [
 	'/',
@@ -27,6 +28,8 @@ const REDIRECT_PATH_COOKIE = 'postLoginRedirectPath';
 const useAuthStore = () => {
 	const auth = useRecoilValue(authStore);
 	const loginApi = useLogin();
+	const navigate = useNavigate();
+
 	const login = async ({ user, password, rememberMe }: LoginData) => {
 		const resp = await loginApi.mutateAsync({
 			user,
@@ -34,11 +37,11 @@ const useAuthStore = () => {
 			tenant: 'cosmo'
 		});
 		if (resp.accessToken) {
-			setSession(resp.accessToken, rememberMe);
+			setSession(resp.accessToken, resp.refreshToken ?? '', rememberMe);
 		}
 		const redirect = getCookie(REDIRECT_PATH_COOKIE);
 		removeCookie(REDIRECT_PATH_COOKIE);
-		window.location.href = redirect || '/home';
+		navigate(redirect ?? '/home', { replace: true });
 	};
 
 	const logout = (savePath = false) => {
