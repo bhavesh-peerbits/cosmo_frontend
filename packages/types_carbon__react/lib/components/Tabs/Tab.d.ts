@@ -27,7 +27,7 @@ interface TabProps extends ReactDivAttr {
 	/**
 	 * Provide a string that represents the `href` of the Tab
 	 */
-	//href: deprecate(PropTypes.string),
+	// href: deprecate(PropTypes.string),
 
 	/**
 	 * The element ID for the top-level element.
