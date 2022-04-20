@@ -4,19 +4,19 @@ import ManagementContainer from '@components/ManagementContainer';
 const Management = () => {
 	return (
 		<div className='w-full space-y-5'>
-			<div className='h-[138px] bg-background'>
-				<Grid fullWidth narrow className='h-full items-end'>
-					<Column sm={4} md={8} lg={16}>
-						<div className='flex h-[138px] items-end justify-between pb-7'>
-							<h2 className='text-productive-heading-5'>Management Dashboard</h2>
+			<div className='sticky top-0 z-10 bg-background'>
+				<Grid fullWidth className='items-end pt-10 pb-7'>
+					<Column sm={4} md={5} lg={11}>
+						<h2 className='text-productive-heading-5'>Management Dashboard</h2>
+					</Column>
+					<Column sm={4} md={3} lg={5}>
+						<div className='mt-4 flex justify-end md:mt-0'>
 							<Button size='md'>Add Application</Button>
 						</div>
 					</Column>
 				</Grid>
 			</div>
-			<div className='h-full'>
-				<ManagementContainer />
-			</div>
+			<ManagementContainer />
 		</div>
 	);
 };

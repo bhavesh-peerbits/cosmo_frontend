@@ -36,7 +36,7 @@ const ManagementContainer = () => {
 					</Column>
 					<Column sm={4} md={6} lg={13}>
 						<div className='flex flex-col space-y-7'>
-							<div className='flex w-full justify-between space-x-5'>
+							<div className='flex w-full flex-wrap justify-between space-x-5 space-y-5 md:flex-nowrap md:space-y-0'>
 								<Layer className='w-full'>
 									<Search
 										size='lg'
@@ -44,31 +44,37 @@ const ManagementContainer = () => {
 										placeholder='Search by application name'
 									/>
 								</Layer>
-								<div className='flex items-center justify-end space-x-5'>
+								<div className='flex w-full items-center justify-between space-x-5 md:justify-end'>
 									<div className='whitespace-nowrap'> 16 Applications </div>
-									<ContentSwitcher onChange={() => setIsTileView(!isTileView)}>
-										<Switch name='first' text={<GridIcon />} />
-										<Switch name='second' text={<HorizontalView />} />
-									</ContentSwitcher>
+									<div>
+										<ContentSwitcher onChange={() => setIsTileView(!isTileView)}>
+											<Switch name='first'>
+												<GridIcon />
+											</Switch>
+											<Switch name='second'>
+												<HorizontalView />
+											</Switch>
+										</ContentSwitcher>
+									</div>
 								</div>
 							</div>
-							{checkedFilters.length > 0 ? (
-								<div className=' flex items-center space-x-5'>
+							{checkedFilters.length > 0 && (
+								<div className='flex items-center space-x-5'>
 									<h2>Filters: </h2>
-									{checkedFilters.map(filter => (
-										<Tag
-											onClose={() => {
-												closeFilter(filter);
-											}}
-											type='cyan'
-											filter
-										>
-											{filter.category}
-										</Tag>
-									))}
+									<div className='flex flex-wrap'>
+										{checkedFilters.map(filter => (
+											<Tag
+												onClose={() => {
+													closeFilter(filter);
+												}}
+												type='cyan'
+												filter
+											>
+												{filter.category}
+											</Tag>
+										))}
+									</div>
 								</div>
-							) : (
-								''
 							)}
 							<div>
 								<ApplicationsTileContainer />
@@ -81,15 +87,18 @@ const ManagementContainer = () => {
 					<Column sm={4} md={8} lg={16}>
 						<div className='flex flex-col space-y-7'>
 							<div className='flex w-full justify-end'>
-								<div className='flex items-center justify-end space-x-5'>
+								<div className='ml-5 flex w-full items-center justify-between space-x-5 md:justify-end'>
 									<div className='whitespace-nowrap'> 16 Applications </div>
-									<ContentSwitcher
-										selectedIndex={1}
-										onChange={() => setIsTileView(!isTileView)}
-									>
-										<Switch name='first' text={<GridIcon />} />
-										<Switch name='second' text={<HorizontalView />} />
-									</ContentSwitcher>
+
+									<div>
+										<ContentSwitcher
+											selectedIndex={1}
+											onChange={() => setIsTileView(!isTileView)}
+										>
+											<Switch name='first' text={<GridIcon />} />
+											<Switch name='second' text={<HorizontalView />} />
+										</ContentSwitcher>
+									</div>
 								</div>
 							</div>
 							<div>

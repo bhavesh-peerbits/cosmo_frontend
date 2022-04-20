@@ -1812,7 +1812,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@carbon/react@npm:^1.1.0":
+"@carbon/react@npm:1.1.0":
   version: 1.1.0
   resolution: "@carbon/react@npm:1.1.0"
   dependencies:
@@ -1842,6 +1842,39 @@ __metadata:
     react-dom: ^16.8.6 || ^17.0.1
     sass: ^1.33.0
   checksum: 0004c853a51f74c1ef888dbcbd0c847c8e625e4256c77b63fabacf8d87cacdcd4ec7a595ee58f3394de5b0f9d4a71a5a3fbd2a7ddcb6aa22cd1f773043c25481
+  languageName: node
+  linkType: hard
+
+"@carbon/react@patch:@carbon/react@npm:1.1.0#../.yarn/patches/@carbon-react-npm-1.1.0-1854f2fa66.patch::locator=app%40workspace%3Aapp":
+  version: 1.1.0
+  resolution: "@carbon/react@patch:@carbon/react@npm%3A1.1.0#../.yarn/patches/@carbon-react-npm-1.1.0-1854f2fa66.patch::version=1.1.0&hash=adb00a&locator=app%40workspace%3Aapp"
+  dependencies:
+    "@babel/runtime": ^7.16.7
+    "@carbon/feature-flags": ^0.7.0
+    "@carbon/icons-react": ^11.1.0
+    "@carbon/layout": ^11.1.0
+    "@carbon/styles": ^1.1.0
+    "@carbon/telemetry": 0.1.0
+    classnames: 2.3.1
+    copy-to-clipboard: ^3.3.1
+    downshift: 5.2.1
+    flatpickr: 4.6.9
+    invariant: ^2.2.3
+    lodash.debounce: ^4.0.8
+    lodash.findlast: ^4.5.0
+    lodash.isequal: ^4.5.0
+    lodash.omit: ^4.5.0
+    lodash.throttle: ^4.1.1
+    prop-types: ^15.7.2
+    react-is: ^17.0.2
+    use-resize-observer: ^6.0.0
+    wicg-inert: ^3.1.1
+    window-or-global: ^1.0.1
+  peerDependencies:
+    react: ^16.8.6 || ^17.0.1
+    react-dom: ^16.8.6 || ^17.0.1
+    sass: ^1.33.0
+  checksum: 0d044861224cafc11e3be85869ea16e4590b064570956df2dde805bf2cc86541747e8fc4153b40334b4b8147389fcc0ee4536fb80008b74ee35641a15eb568b3
   languageName: node
   linkType: hard
 
@@ -6862,7 +6895,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "app@workspace:app"
   dependencies:
-    "@carbon/react": ^1.1.0
+    "@carbon/react": "patch:@carbon/react@npm:1.1.0#../.yarn/patches/@carbon-react-npm-1.1.0-1854f2fa66.patch"
     "@ibm/plex": ^6.0.0
     "@nabla/vite-plugin-eslint": ^1.4.0
     "@sentry/core": ^6.19.3
@@ -6884,6 +6917,7 @@ __metadata:
     "@vitest/ui": ^0.9.3
     autoprefixer: ^10.4.4
     axios: ^0.26.1
+    classnames: ^2.3.1
     cosmo-api: "workspace:^"
     css-mediaquery: ^0.1.2
     eslint-plugin-testing-library: ^5.3.1
@@ -8789,7 +8823,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"classnames@npm:2.3.1":
+"classnames@npm:2.3.1, classnames@npm:^2.3.1":
   version: 2.3.1
   resolution: "classnames@npm:2.3.1"
   checksum: 14db8889d56c267a591f08b0834989fe542d47fac659af5a539e110cc4266694e8de86e4e3bbd271157dbd831361310a8293e0167141e80b0f03a0f175c80960
