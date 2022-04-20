@@ -91,9 +91,9 @@ interface DataTableProps extends ReactDivAttr {
 	 */
 	useZebraStyles?: boolean;
 
-	render: FCReturn<RenderType>;
+	render?: FCReturn<RenderType>;
 
-	children: FCReturn<RenderType>;
+	children?: FCReturn<RenderType>;
 }
 
 declare const DataTable: FCReturn<DataTableProps>;

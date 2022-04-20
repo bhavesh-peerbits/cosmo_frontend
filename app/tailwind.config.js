@@ -43,7 +43,10 @@ module.exports = {
 	important: true,
 	content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
 	theme: {
-		spacing: carbonSpacing,
+		spacing: {
+			0: '0',
+			...carbonSpacing
+		},
 		colors: {
 			test: 'var(--cds-t)',
 			...themeTokens.reduce((acc, key) => {

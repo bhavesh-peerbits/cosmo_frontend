@@ -133,7 +133,7 @@ const ApplicationsTable = () => {
 	};
 
 	return (
-		<DataTable rows={rows} headers={headers} render={() => <div />}>
+		<DataTable rows={rows} headers={headers}>
 			{() => (
 				<TableContainer>
 					<TableToolbar>
