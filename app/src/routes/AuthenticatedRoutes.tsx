@@ -5,6 +5,7 @@ import Header from '@components/Header';
 import Fade from '@components/Fade';
 import Centered from '@components/Centered';
 import '@style/loading.scss';
+import ApplicationContainer from '@components/ApplicationContainer';
 
 const Home = React.lazy(() => import('@pages/Home'));
 const Logout = React.lazy(() => import('@pages/Logout'));
@@ -29,6 +30,7 @@ const AuthenticatedRoutes = () => {
 				<Routes>
 					<Route path='/home' element={<Home />} />
 					<Route path='/management' element={<Management />} />
+					<Route path='/ApplicationName' element={<ApplicationContainer />} />
 					<Route path='/logout' element={<Logout />} />
 					<Route path='/test' element={<Test />} />
 					<Route path='*' element={<div>NOT FOUND</div>} />
