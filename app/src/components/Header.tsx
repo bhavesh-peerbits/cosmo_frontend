@@ -28,6 +28,7 @@ import {
 } from '@carbon/react/icons';
 import { Link, Outlet } from 'react-router-dom';
 import { useState } from 'react';
+import useNoHeader from '@hooks/useNoHeader';
 
 type HeaderProps = {
 	isSideNavExpanded: boolean;
@@ -35,6 +36,8 @@ type HeaderProps = {
 };
 const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 	const [appExpanded, setAppExpanded] = useState(false);
+	useNoHeader(true);
+
 	return (
 		<>
 			<CarbonHeader aria-label='IBM Platform Name'>

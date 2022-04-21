@@ -2,6 +2,7 @@ import { Content, Stack } from '@carbon/react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
+import useNoHeader from '@hooks/useNoHeader';
 
 interface HTTPErrorProps {
 	errorCode: string;
@@ -18,6 +19,7 @@ const HTTPError = ({
 	errorImage,
 	link
 }: HTTPErrorProps) => {
+	useNoHeader();
 	const navigate = useNavigate();
 	const { t } = useTranslation('httpError');
 
