@@ -35,10 +35,12 @@ const ApplicationsFilters = ({
 	return (
 		<div className='flex flex-col'>
 			<Accordion className='divide-y'>
-				{filters.map(filter => (
-					<AccordionItem title='Filter' className='border-0'>
+				{filters.map((filter, index) => (
+					// eslint-disable-next-line react/no-array-index-key
+					<AccordionItem key={`filter${index}`} title='Filter' className='border-0'>
 						{filter.map(item => (
 							<Checkbox
+								key={item.id}
 								checked={checkedFilters.some(
 									checkedFilter => checkedFilter.id === item.id
 								)}

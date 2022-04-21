@@ -1,9 +1,9 @@
-import { Button, Column, Grid, Breadcrumb, BreadcrumbItem } from '@carbon/react';
-import { TrashCan, Email, CloudDownload } from '@carbon/react/icons';
+import { Breadcrumb, BreadcrumbItem, Button, Column, Grid } from '@carbon/react';
+import { CloudDownload, Email, TrashCan } from '@carbon/react/icons';
 
 const ApplicationHeader = () => {
 	return (
-		<div className='h-[138px]' style={{ background: 'white' }}>
+		<div className='h-[138px] bg-background'>
 			<Grid fullWidth narrow className='h-full items-end'>
 				<Column sm={4} md={8} lg={16}>
 					<div className='flex h-[138px] flex-col pt-5 pl-5'>
