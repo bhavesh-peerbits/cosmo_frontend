@@ -78,7 +78,7 @@ module.exports = {
 	rules: {
 		'react/react-in-jsx-scope': 'off',
 		'react/require-default-props': 'off',
-    '@typescript-eslint/no-unused-expressions': 'off',
+		'@typescript-eslint/no-unused-expressions': 'off',
 		'react/jsx-props-no-spreading': 'off',
 		'react/function-component-definition': [
 			2,

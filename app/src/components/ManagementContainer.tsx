@@ -44,7 +44,7 @@ const ManagementContainer = () => {
 										placeholder='Search by application name'
 									/>
 								</Layer>
-								<div className='flex w-full items-center justify-between space-x-5 md:justify-end'>
+								<div className='flex w-full items-center justify-between space-x-5 md:w-auto md:justify-end'>
 									<div className='whitespace-nowrap'> 16 Applications </div>
 									<div>
 										<ContentSwitcher onChange={() => setIsTileView(!isTileView)}>
