@@ -2,6 +2,7 @@ import { atom } from 'recoil';
 import { getCookie, removeCookie, setCookie } from 'tiny-cookie';
 import { getAuthInfo } from '@api/user/useUserAuthInfo';
 import { UserRole } from '@api';
+import ApiError from '@api/ApiError';
 
 const ACCESS_TOKEN_KEY = 'accessToken';
 const REFRESH_TOKEN_KEY = 'refreshToken';
@@ -61,7 +62,12 @@ const retrieveUserInfo = async () => {
 				policies: info.roles || []
 			};
 		} catch (e) {
-			cleanSession();
+			const apiError = e as ApiError | undefined;
+			throw new ApiError(
+				apiError?.status ?? 500,
+				apiError?.message ?? 'Generic Error',
+				true
+			);
 		}
 	}
 	return undefined;

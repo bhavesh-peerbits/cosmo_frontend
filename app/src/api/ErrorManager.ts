@@ -4,8 +4,8 @@ import { cleanSession, retrieveRefreshToken, setSession } from '@store/auth/auth
 import api, { refreshTokenUrl } from '@api';
 
 async function errorManager(response: AxiosResponse) {
-	const errorMessage = response?.data?.message;
-	const originalConfig: typeof response.config & { retry?: boolean } = response.config;
+	const errorMessage = response?.data?.message ?? 'Generic error';
+	const originalConfig: typeof response.config & { retry?: boolean } = response?.config;
 
 	switch (response?.status || 500) {
 		case 400:
@@ -14,7 +14,11 @@ async function errorManager(response: AxiosResponse) {
 
 		// Handle unauthorized requests by redirecting to log in
 		case 401:
-			if (originalConfig.url !== (await refreshTokenUrl) && !originalConfig.retry) {
+			if (
+				originalConfig &&
+				originalConfig.url !== (await refreshTokenUrl) &&
+				!originalConfig.retry
+			) {
 				originalConfig.retry = true;
 				const refreshToken = retrieveRefreshToken();
 				if (refreshToken) {
