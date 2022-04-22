@@ -1,5 +1,6 @@
 import { Tab, TabList, Tabs } from '@carbon/react';
 import { useState } from 'react';
+import ApplicationChangesContainer from './ApplicationChangesContainer';
 import ApplicationHeader from './ApplicationHeader';
 import ApplicationInfo from './ApplicationInfo';
 import ProcedureInfo from './ProcedureInfo';
@@ -10,7 +11,7 @@ const ApplicationContainer = () => {
 	const contentToRender = () => {
 		switch (selectedTab) {
 			case 'Application Changes':
-				return <div>Changes</div>;
+				return <ApplicationChangesContainer />;
 			case 'Procedure Info':
 				return <ProcedureInfo />;
 			default:
