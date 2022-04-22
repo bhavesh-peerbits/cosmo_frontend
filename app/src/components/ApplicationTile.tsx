@@ -6,7 +6,7 @@ const ApplicationTile = () => {
 	return (
 		<Layer level={1}>
 			<ClickableTile
-				onClick={() => navigate('/ApplicationName')}
+				onClick={() => navigate('ApplicationName')}
 				className='bg-white mb-5 w-full'
 			>
 				<div className='flex flex-col space-y-4 p-2'>

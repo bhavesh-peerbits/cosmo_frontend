@@ -22,6 +22,11 @@
 	@apply flex;
 }
 
+// Remove outline from tab panel
+.#{$prefix}--tab-content {
+  outline: 0!important;
+}
+
 .fix-height {
 	height: calc(100% - 3rem);
 }

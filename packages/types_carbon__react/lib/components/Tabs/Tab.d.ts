@@ -47,12 +47,12 @@ interface TabProps extends ReactDivAttr {
 	/**
 	 * Provide a handler that is invoked when a user clicks on the control
 	 */
-	onClick: () => void;
+	onClick?: () => void;
 
 	/**
 	 * Provide a handler that is invoked on the key down event for the control
 	 */
-	onKeyDown: () => void;
+	onKeyDown?: () => void;
 
 	/**
 	 * An optional parameter to allow overriding the anchor rendering.
@@ -76,7 +76,7 @@ interface TabProps extends ReactDivAttr {
 	 * Whether your Tab is selected.
 	 * Reserved for usage in Tabs
 	 */
-	selected: boolean;
+	selected?: boolean;
 
 	/**
 	 * Specify the tab index of the `<button>` node

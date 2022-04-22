@@ -2,10 +2,10 @@ import React, { Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Content, HeaderContainer } from '@carbon/react';
 import '@style/loading.scss';
-import ApplicationContainer from '@components/ApplicationContainer';
 import Header from '@components/Header';
 import ErrorBoundary from '@error/components/ErrorBoundary';
 import PageSkeleton from '@components/PageSkeleton';
+import ApplicationDetailPage from '@pages/ApplicationDetailPage';
 
 const Home = React.lazy(() => import('@pages/Home'));
 const Logout = React.lazy(() => import('@pages/Logout'));
@@ -20,13 +20,15 @@ const AuthenticatedRoutes = () => {
 				<ErrorBoundary>
 					<Suspense fallback={<PageSkeleton />}>
 						<Routes>
-							<Route path='/loading' element={<PageSkeleton />} />
-							<Route path='/home' element={<Home />} />
-							<Route path='/management' element={<Management />} />
-							<Route path='/ApplicationName' element={<ApplicationContainer />} />
+							<Route path='loading' element={<PageSkeleton />} />
+							<Route path='home' element={<Home />} />
+							<Route path='management'>
+								<Route index element={<Management />} />
+								<Route path=':appId' element={<ApplicationDetailPage />} />
+							</Route>
 
-							<Route path='/logout' element={<Logout />} />
-							<Route path='/test' element={<Test />} />
+							<Route path='logout' element={<Logout />} />
+							<Route path='test' element={<Test />} />
 							<Route path='*' element={<Navigate replace to='/404' />} />
 						</Routes>
 					</Suspense>
