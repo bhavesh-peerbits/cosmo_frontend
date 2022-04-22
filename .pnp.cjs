@@ -9770,6 +9770,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@types/js-cookie", [\
+        ["npm:2.2.7", {\
+          "packageLocation": "./.yarn/cache/@types-js-cookie-npm-2.2.7-025262d629-851f47e94c.zip/node_modules/@types/js-cookie/",\
+          "packageDependencies": [\
+            ["@types/js-cookie", "npm:2.2.7"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@types/js-levenshtein", [\
         ["npm:1.1.1", {\
           "packageLocation": "./.yarn/cache/@types-js-levenshtein-npm-1.1.1-304aa359d0-1d1ff1ee2a.zip/node_modules/@types/js-levenshtein/",\
@@ -11196,6 +11205,45 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["ahooks", [\
+        ["npm:3.3.8", {\
+          "packageLocation": "./.yarn/cache/ahooks-npm-3.3.8-00de87391e-c646186e2f.zip/node_modules/ahooks/",\
+          "packageDependencies": [\
+            ["ahooks", "npm:3.3.8"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:3.3.8", {\
+          "packageLocation": "./.yarn/__virtual__/ahooks-virtual-132bcdb2f7/0/cache/ahooks-npm-3.3.8-00de87391e-c646186e2f.zip/node_modules/ahooks/",\
+          "packageDependencies": [\
+            ["ahooks", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:3.3.8"],\
+            ["@types/js-cookie", "npm:2.2.7"],\
+            ["@types/react", "npm:18.0.5"],\
+            ["ahooks-v3-count", "npm:1.0.0"],\
+            ["dayjs", "npm:1.11.1"],\
+            ["intersection-observer", "npm:0.12.0"],\
+            ["js-cookie", "npm:2.2.1"],\
+            ["lodash", "npm:4.17.21"],\
+            ["react", "npm:18.0.0"],\
+            ["resize-observer-polyfill", "npm:1.5.1"],\
+            ["screenfull", "npm:5.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["ahooks-v3-count", [\
+        ["npm:1.0.0", {\
+          "packageLocation": "./.yarn/cache/ahooks-v3-count-npm-1.0.0-6e2b8385ab-3974d94b7c.zip/node_modules/ahooks-v3-count/",\
+          "packageDependencies": [\
+            ["ahooks-v3-count", "npm:1.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["airbnb-js-shims", [\
         ["npm:2.2.1", {\
           "packageLocation": "./.yarn/cache/airbnb-js-shims-npm-2.2.1-431dc070fb-bdd96e4cac.zip/node_modules/airbnb-js-shims/",\
@@ -11425,6 +11473,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/app-virtual-743bdfb37c/1/app/",\
           "packageDependencies": [\
             ["app", "virtual:a505dd4ab6824c357f6d0e84e86dfdee47d0482e22ca3f6b89e61a9b6f620f02b168c9ca47f1ab2b434784b29a5267a25a5b16dbbcdd8ac9c9c61365f2729933#workspace:app"],\
+            ["@carbon/layout", "npm:11.1.0"],\
             ["@carbon/react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#patch:@carbon/react@npm%3A1.1.0#../.yarn/patches/@carbon-react-npm-1.1.0-1854f2fa66.patch::version=1.1.0&hash=adb00a&locator=app%40workspace%3Aapp"],\
             ["@ibm/plex", "npm:6.0.0"],\
             ["@nabla/vite-plugin-eslint", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.4.0"],\
@@ -11448,6 +11497,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@vitejs/plugin-legacy", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.8.1"],\
             ["@vitejs/plugin-react", "npm:1.3.1"],\
             ["@vitest/ui", "npm:0.9.3"],\
+            ["ahooks", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:3.3.8"],\
             ["autoprefixer", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:10.4.4"],\
             ["axios", "npm:0.26.1"],\
             ["c8", null],\
@@ -11504,6 +11554,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./app/",\
           "packageDependencies": [\
             ["app", "workspace:app"],\
+            ["@carbon/layout", "npm:11.1.0"],\
             ["@carbon/react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#patch:@carbon/react@npm%3A1.1.0#../.yarn/patches/@carbon-react-npm-1.1.0-1854f2fa66.patch::version=1.1.0&hash=adb00a&locator=app%40workspace%3Aapp"],\
             ["@ibm/plex", "npm:6.0.0"],\
             ["@nabla/vite-plugin-eslint", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.4.0"],\
@@ -11524,6 +11575,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@vitejs/plugin-legacy", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.8.1"],\
             ["@vitejs/plugin-react", "npm:1.3.1"],\
             ["@vitest/ui", "npm:0.9.3"],\
+            ["ahooks", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:3.3.8"],\
             ["autoprefixer", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:10.4.4"],\
             ["axios", "npm:0.26.1"],\
             ["classnames", "npm:2.3.1"],\
@@ -15204,6 +15256,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/dayjs-npm-1.11.0-592daa78a5-2d36f6d713.zip/node_modules/dayjs/",\
           "packageDependencies": [\
             ["dayjs", "npm:1.11.0"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:1.11.1", {\
+          "packageLocation": "./.yarn/cache/dayjs-npm-1.11.1-aef2935f8f-d5fefd7993.zip/node_modules/dayjs/",\
+          "packageDependencies": [\
+            ["dayjs", "npm:1.11.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -20228,6 +20287,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["intersection-observer", [\
+        ["npm:0.12.0", {\
+          "packageLocation": "./.yarn/cache/intersection-observer-npm-0.12.0-5917d76e28-96d2f3ea49.zip/node_modules/intersection-observer/",\
+          "packageDependencies": [\
+            ["intersection-observer", "npm:0.12.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["invariant", [\
         ["npm:2.2.4", {\
           "packageLocation": "./.yarn/cache/invariant-npm-2.2.4-717fbdb119-cc3182d793.zip/node_modules/invariant/",\
@@ -21891,6 +21959,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@sideway/address", "npm:4.1.4"],\
             ["@sideway/formula", "npm:3.0.0"],\
             ["@sideway/pinpoint", "npm:2.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["js-cookie", [\
+        ["npm:2.2.1", {\
+          "packageLocation": "./.yarn/cache/js-cookie-npm-2.2.1-e879cd2148-9b1fb980a1.zip/node_modules/js-cookie/",\
+          "packageDependencies": [\
+            ["js-cookie", "npm:2.2.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -27389,6 +27466,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/json-schema", "npm:7.0.11"],\
             ["ajv", "npm:6.12.6"],\
             ["ajv-keywords", "virtual:f84d18c473fad3c01e1cf352f81ad13de804ca40da5bf6e752464a2e78dcb097ad579b06da5ff33a55ba9957fb9c74909b99fc5e215420a3f9b5dc87ad71363b#npm:3.5.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["screenfull", [\
+        ["npm:5.2.0", {\
+          "packageLocation": "./.yarn/cache/screenfull-npm-5.2.0-d920287dd9-21eae33b78.zip/node_modules/screenfull/",\
+          "packageDependencies": [\
+            ["screenfull", "npm:5.2.0"]\
           ],\
           "linkType": "HARD"\
         }]\

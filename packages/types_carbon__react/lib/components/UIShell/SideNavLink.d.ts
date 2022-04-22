@@ -1,5 +1,6 @@
 import { ReactElement, ReactNode } from 'react';
 import { ExtendLink, LinkProps } from './Link';
+import { FCReturn } from '../../../typings/shared';
 
 type SideNavLinkProps<K extends ExtendLink> = LinkProps<K> & {
 	/**
@@ -26,7 +27,7 @@ type SideNavLinkProps<K extends ExtendLink> = LinkProps<K> & {
 	/**
 	 * Provide an icon to render in the side navigation link. Should be a React class.
 	 */
-	renderIcon: (() => ReactElement) | ReactElement;
+	renderIcon: (() => ReactNode) | FCReturn<any>;
 };
 
 declare function SideNavLink<T extends ExtendLink = 'a'>(

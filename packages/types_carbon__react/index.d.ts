@@ -35,3 +35,5 @@ export * from './lib/components/Tag';
 export * from './lib/components/Breadcrumb';
 
 export * from './lib/components/Tabs';
+
+export * from './lib/components/Skeleton';
