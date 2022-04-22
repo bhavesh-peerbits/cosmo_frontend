@@ -12,7 +12,7 @@ interface TabListProps extends ReactDivAttr {
 	 * Provide an accessible label to be read when a user interacts with this
 	 * component
 	 */
-	ariaLabel: string;
+	'aria-label': string;
 
 	/**
 	 * Provide child elements to be rendered inside of `ContentTabs`.

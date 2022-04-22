@@ -1,7 +1,7 @@
 import { FCReturn, ReactAttr } from 'typings/shared';
 import { ReactNode } from 'react';
 
-interface BreadcrumbItemProps extends ReactAttr<HTMLElement> {
+interface BreadcrumbItemProps extends ReactAttr<HTMLUListElement> {
 	ariaCurrent?: string | boolean;
 
 	/**

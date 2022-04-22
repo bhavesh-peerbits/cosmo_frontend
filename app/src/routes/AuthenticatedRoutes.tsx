@@ -5,12 +5,12 @@ import '@style/loading.scss';
 import Header from '@components/Header';
 import ErrorBoundary from '@error/components/ErrorBoundary';
 import PageSkeleton from '@components/PageSkeleton';
-import ApplicationDetailPage from '@pages/ApplicationDetailPage';
 
 const Home = React.lazy(() => import('@pages/Home'));
 const Logout = React.lazy(() => import('@pages/Logout'));
 const Test = React.lazy(() => import('@pages/Test'));
 const Management = React.lazy(() => import('@pages/Management'));
+const ApplicationDetail = React.lazy(() => import('@pages/ApplicationDetail'));
 
 const AuthenticatedRoutes = () => {
 	return (
@@ -24,7 +24,7 @@ const AuthenticatedRoutes = () => {
 							<Route path='home' element={<Home />} />
 							<Route path='management'>
 								<Route index element={<Management />} />
-								<Route path=':appId' element={<ApplicationDetailPage />} />
+								<Route path=':appId' element={<ApplicationDetail />} />
 							</Route>
 
 							<Route path='logout' element={<Logout />} />
