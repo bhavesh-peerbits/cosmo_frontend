@@ -13,19 +13,19 @@ import {
 	SideNavLink,
 	SideNavMenu,
 	SideNavMenuItem,
-	SkipToContent,
 	Switcher,
 	SwitcherDivider,
 	SwitcherItem
 } from '@carbon/react';
 import {
+	AlignBoxMiddleCenter,
 	Fade,
 	Logout,
 	Notification,
 	Search,
 	Switcher as SwitcherIcon
 } from '@carbon/react/icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useMount, useUnmount } from 'ahooks';
 
@@ -34,6 +34,7 @@ type HeaderProps = {
 	onClickSideNavExpand: () => void;
 };
 const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
+	const navigate = useNavigate();
 	const [appExpanded, setAppExpanded] = useState(false);
 	useMount(() => {
 		document.body.classList.add('fix-height');
@@ -43,13 +44,17 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 	});
 	return (
 		<CarbonHeader aria-label='Cosmo'>
-			<SkipToContent href=''>TEST</SkipToContent>
 			<HeaderMenuButton
 				aria-label='Open menu'
 				onClick={onClickSideNavExpand}
 				isActive={isSideNavExpanded}
 			/>
-			<HeaderName href='/home' prefix='Cosmo'>
+			<HeaderName
+				as='div'
+				className='cursor-pointer'
+				onClick={() => navigate('/home')}
+				prefix='Cosmo'
+			>
 				[Dashboard]
 			</HeaderName>
 			<HeaderNavigation aria-label='IBM [Platform]'>
@@ -77,7 +82,11 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 			</HeaderGlobalBar>
 			<SideNav aria-label='Side navigation' expanded={isSideNavExpanded}>
 				<SideNavItems>
-					<SideNavMenu renderIcon={Fade} title='Narrative' className='transition-all'>
+					<SideNavMenu
+						renderIcon={AlignBoxMiddleCenter}
+						title='Narrative'
+						className='transition-all'
+					>
 						<SideNavMenuItem element={Link} to='/management'>
 							Management Dashboard
 						</SideNavMenuItem>

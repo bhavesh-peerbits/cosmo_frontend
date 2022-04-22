@@ -54,13 +54,16 @@ const PageHeader = ({
 					}
 				)}
 			>
-				<Grid>
+				<Grid fullWidth>
 					<FullWidthColumn>
 						<Breadcrumb noTrailingSlash={!inViewport} className='self-start'>
 							<div className='flex w-full  justify-between'>
 								<div className='flex flex-wrap'>
 									{md && (
-										<BreadcrumbItem onClick={() => navigate('/home')}>
+										<BreadcrumbItem
+											className='cursor-pointer'
+											onClick={() => navigate('/home')}
+										>
 											Home
 										</BreadcrumbItem>
 									)}
