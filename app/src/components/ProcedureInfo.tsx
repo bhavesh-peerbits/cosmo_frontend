@@ -1,8 +1,7 @@
 import { Column, Grid } from '@carbon/react';
-import GeneralInfoContainer from './GeneralInfoContainer';
-import TechnicalInfoContainer from './TechnicalInfoContainer';
+import ProcedureContainer from './ProcedureContainer';
 
-const ApplicationInfo = () => {
+const ProcedureInfo = () => {
 	return (
 		<div className='pb-7'>
 			<Grid fullWidth narrow className='h-full'>
@@ -11,12 +10,11 @@ const ApplicationInfo = () => {
 				</Column>
 				<Column sm={4} md={6} lg={13}>
 					<div className='space-y-7'>
-						<GeneralInfoContainer />
-						<TechnicalInfoContainer />
+						<ProcedureContainer />
 					</div>
 				</Column>
 			</Grid>
 		</div>
 	);
 };
-export default ApplicationInfo;
+export default ProcedureInfo;

@@ -2,6 +2,7 @@ import { Tab, TabList, Tabs } from '@carbon/react';
 import { useState } from 'react';
 import ApplicationHeader from './ApplicationHeader';
 import ApplicationInfo from './ApplicationInfo';
+import ProcedureInfo from './ProcedureInfo';
 
 const ApplicationContainer = () => {
 	const [selectedTab, setSelectedTab] = useState('');
@@ -11,7 +12,7 @@ const ApplicationContainer = () => {
 			case 'Application Changes':
 				return <div>Changes</div>;
 			case 'Procedure Info':
-				return <div>Procedure Information</div>;
+				return <ProcedureInfo />;
 			default:
 				return <ApplicationInfo />;
 		}
@@ -21,7 +22,7 @@ const ApplicationContainer = () => {
 			<ApplicationHeader />
 			<div className='h-full'>
 				<Tabs>
-					<TabList contained ariaLabel='List of tabs'>
+					<TabList contained aria-label='Tab List'>
 						<Tab
 							selected
 							onKeyDown={() => setSelectedTab('Application Info')}
