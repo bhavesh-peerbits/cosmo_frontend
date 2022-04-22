@@ -23,7 +23,7 @@
 }
 
 // Remove outline from tab panel
-.#{$prefix}--tab-content {
+.#{$prefix}--tab-content, .#{$prefix}--tabs__nav-link {
 	outline: 0 !important;
 }
 

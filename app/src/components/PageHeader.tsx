@@ -3,7 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import FullWidthColumn from '@components/FullWidthColumn';
 import useResponsive from '@hooks/useResponsive';
 import { Email } from '@carbon/react/icons';
-import { ReactElement } from 'react';
+import { ReactElement, useEffect, useRef } from 'react';
+import { useInViewport } from 'ahooks';
+import classNames from 'classnames';
+import Fade from '@components/Fade';
+import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
+import Centered from '@components/Centered';
 
 interface PageHeaderProps {
 	pageTitle: string;
@@ -24,27 +29,94 @@ const PageHeader = ({
 	actions = [],
 	children
 }: PageHeaderProps) => {
+	const { setBreadcrumbSize } = useBreadcrumbSize();
+	const actionButtonRef = useRef<HTMLButtonElement>(null);
+	const breadcrumbRef = useRef<HTMLDivElement>(null);
 	const navigate = useNavigate();
 	const { md } = useResponsive();
+	const [inViewport] = useInViewport(actionButtonRef, {
+		rootMargin: `-${breadcrumbRef.current?.getBoundingClientRect()?.bottom || '0'}px`
+	});
+
+	useEffect(() => {
+		setBreadcrumbSize(breadcrumbRef.current?.getBoundingClientRect()?.height || 0);
+	}, [md, inViewport, setBreadcrumbSize]);
 
 	return (
 		<>
-			<div className='sticky top-0 z-10 w-full space-y-5 bg-background py-5'>
+			<div
+				ref={breadcrumbRef}
+				className={classNames(
+					'sticky top-0 z-10 w-full space-y-5 border-b-[1px] border-solid border-border-subtle-0 bg-background',
+					{
+						'py-5': inViewport,
+						'py-3': !inViewport
+					}
+				)}
+			>
 				<Grid>
 					<FullWidthColumn>
-						<Breadcrumb noTrailingSlash className='cursor-pointer self-start'>
-							{md && (
-								<BreadcrumbItem onClick={() => navigate('/home')}>Home</BreadcrumbItem>
-							)}
-							{intermediateRoutes.map(({ name, to }) => (
-								<BreadcrumbItem onClick={() => navigate(to)}>{name}</BreadcrumbItem>
-							))}
-							<BreadcrumbItem isCurrentPage>{pageTitle}</BreadcrumbItem>
+						<Breadcrumb noTrailingSlash={!inViewport} className='self-start'>
+							<div className='flex w-full  justify-between'>
+								<div className='flex flex-wrap'>
+									{md && (
+										<BreadcrumbItem onClick={() => navigate('/home')}>
+											Home
+										</BreadcrumbItem>
+									)}
+									{intermediateRoutes.map(({ name, to }) => (
+										<BreadcrumbItem key={name} onClick={() => navigate(to)}>
+											{name}
+										</BreadcrumbItem>
+									))}
+									{!inViewport && (
+										<BreadcrumbItem isCurrentPage>
+											<Fade>
+												<Centered>{pageTitle}</Centered>
+											</Fade>
+										</BreadcrumbItem>
+									)}
+								</div>
+								{!inViewport && (
+									<div>
+										<Fade>
+											<div className='flex flex-1 flex-wrap items-center justify-end'>
+												{actions?.slice(0, 1).map(action => (
+													<Button
+														key={action.name}
+														hasIconOnly={!md}
+														onClick={action.onClick}
+														size='sm'
+														tooltipPosition='bottom'
+														iconDescription={action.name}
+														renderIcon={action.icon}
+													>
+														{action.name}
+													</Button>
+												))}
+												<div>
+													{actions?.slice(1)?.map(action => (
+														<Button
+															size='sm'
+															kind='ghost'
+															renderIcon={action.icon}
+															iconDescription={action.name}
+															tooltipPosition='bottom'
+															hasIconOnly
+															onClick={() => {}}
+														/>
+													))}
+												</div>
+											</div>
+										</Fade>
+									</div>
+								)}
+							</div>
 						</Breadcrumb>
 					</FullWidthColumn>
 				</Grid>
 			</div>
-			<div className='space-y-4 bg-background md:pt-8'>
+			<div className='bg-background md:pt-10'>
 				<Grid fullWidth className='items-end space-y-4 pb-7 md:space-y-10'>
 					<FullWidthColumn>
 						<Grid>
@@ -54,7 +126,7 @@ const PageHeader = ({
 							<Column sm={4} md={3} lg={9} xlg={5}>
 								{actions?.length === 1 ? (
 									<div className='mt-4 flex justify-end md:mt-0'>
-										<Button renderIcon={actions[0].icon} size='md'>
+										<Button renderIcon={actions[0].icon} size='md' ref={actionButtonRef}>
 											{actions[0].name}
 										</Button>
 									</div>
@@ -62,6 +134,7 @@ const PageHeader = ({
 									actions?.length === 3 && (
 										<div className='mt-4 flex flex-col justify-end space-y-2 md:mt-0 lg:flex-row lg:space-y-0'>
 											<Button
+												key={actions[0].name}
 												kind='tertiary'
 												className='min-w-full lg:min-w-fit'
 												size='md'
@@ -72,6 +145,7 @@ const PageHeader = ({
 											</Button>
 											<div className='flex lg:space-x-3'>
 												<Button
+													key={actions[1].name}
 													size='md'
 													className='w-1/2'
 													onClick={actions[1].onClick}
@@ -80,6 +154,8 @@ const PageHeader = ({
 													{actions[1].name}
 												</Button>
 												<Button
+													ref={actionButtonRef}
+													key={actions[2].name}
 													size='md'
 													kind='danger'
 													className='w-1/2'
@@ -96,7 +172,7 @@ const PageHeader = ({
 						</Grid>
 					</FullWidthColumn>
 				</Grid>
-				{children}
+				<div className='h-full bg-layer-1 pt-5'>{children}</div>
 			</div>
 		</>
 	);
