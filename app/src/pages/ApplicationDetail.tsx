@@ -3,11 +3,13 @@ import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@carbon/react';
 import PageHeader from '@components/PageHeader';
 import { CloudDownload, Email, TrashCan } from '@carbon/react/icons';
 import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ProcedureInfo from '@components/ProcedureInfo';
 import ApplicationChangesContainer from '@components/ApplicationChangesContainer';
+import ReviewModal from '@components/ReviewModal';
 
 const ApplicationDetail = () => {
+	const [openModalReview, setOpenModalReview] = useState(false);
 	const { breadcrumbSize } = useBreadcrumbSize();
 	const tabRef = useRef<HTMLDivElement>(null);
 	const tab = tabRef.current?.getElementsByClassName('sticky')?.[0] as HTMLElement;
@@ -23,7 +25,9 @@ const ApplicationDetail = () => {
 				{
 					name: 'Application Review',
 					icon: Email,
-					onClick: () => {}
+					onClick: () => {
+						setOpenModalReview(true);
+					}
 				},
 				{
 					name: 'Generate',
@@ -60,6 +64,7 @@ const ApplicationDetail = () => {
 						</TabPanel>
 					</TabPanels>
 				</Tabs>
+				{openModalReview ? <ReviewModal /> : ''}
 			</div>
 		</PageHeader>
 	);
