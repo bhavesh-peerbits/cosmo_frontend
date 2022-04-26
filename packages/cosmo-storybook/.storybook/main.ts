@@ -29,7 +29,7 @@ const config: CustomizedStorybookConfig = {
 	 */
 	viteFinal(config, { configType }) {
 		const basePath = 'app/src';
-		const aliases = ['components', 'i18n'];
+		const aliases = ['components', 'i18n', 'hooks'];
 
 		config.resolve = {
 			alias: aliases.reduce(
@@ -42,11 +42,13 @@ const config: CustomizedStorybookConfig = {
 		};
 		config.css = {
 			preprocessorOptions: {
-				scss: {
-					importer: () => {
-						return () => {};
-					}
-				}
+				scss: process.versions.pnp
+					? { importer: require('sass-pnp-importer') }
+					: {
+							importer: () => {
+								return () => {};
+							}
+					  }
 			}
 		};
 
@@ -100,7 +102,8 @@ const config: CustomizedStorybookConfig = {
 							'@storybook/addon-outline/preview.js',
 							'@storybook/addon-interactions/preview.js',
 							'i18next',
-							'translation-check'
+							'translation-check',
+							'@carbon/storybook-addon-theme'
 						]
 				  };
 		return config;
