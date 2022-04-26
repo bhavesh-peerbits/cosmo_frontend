@@ -1,8 +1,8 @@
-import useAuthStore from '@hooks/useAuthStore';
 import { Navigate } from 'react-router-dom';
+import useLogout from '@hooks/auth/useLogout';
 
 const Logout = () => {
-	const { logout } = useAuthStore();
+	const { logout } = useLogout();
 	logout();
 	return <Navigate replace to='/' />;
 };

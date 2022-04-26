@@ -7,7 +7,6 @@ import ErrorBoundary from '@error/components/ErrorBoundary';
 import PageSkeleton from '@components/PageSkeleton';
 
 const Home = React.lazy(() => import('@pages/Home'));
-const Logout = React.lazy(() => import('@pages/Logout'));
 const Test = React.lazy(() => import('@pages/Test'));
 const Management = React.lazy(() => import('@pages/Management'));
 const ApplicationDetail = React.lazy(() => import('@pages/ApplicationDetail'));
@@ -27,7 +26,6 @@ const AuthenticatedRoutes = () => {
 								<Route path=':appId' element={<ApplicationDetail />} />
 							</Route>
 
-							<Route path='logout' element={<Logout />} />
 							<Route path='test' element={<Test />} />
 							<Route path='*' element={<Navigate replace to='/404' />} />
 						</Routes>

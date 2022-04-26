@@ -12146,7 +12146,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@vitest/ui", "npm:0.10.0"],\
             ["ahooks", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:3.3.8"],\
             ["autoprefixer", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:10.4.5"],\
-            ["axios", "npm:0.27.1"],\
+            ["axios", "npm:0.26.1"],\
             ["c8", null],\
             ["classnames", "npm:2.3.1"],\
             ["cosmo-api", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#workspace:packages/cosmo-api"],\
@@ -12224,7 +12224,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@vitest/ui", "npm:0.10.0"],\
             ["ahooks", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:3.3.8"],\
             ["autoprefixer", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:10.4.5"],\
-            ["axios", "npm:0.27.1"],\
+            ["axios", "npm:0.26.1"],\
             ["classnames", "npm:2.3.1"],\
             ["cosmo-api", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#workspace:packages/cosmo-api"],\
             ["css-mediaquery", "npm:0.1.2"],\
@@ -12785,7 +12785,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/axios-npm-0.21.4-e278873748-44245f24ac.zip/node_modules/axios/",\
           "packageDependencies": [\
             ["axios", "npm:0.21.4"],\
-            ["follow-redirects", "virtual:48b178e6387f0dc5afc288d9bc566d0a8bc306752b704012dfa93818c3a1e984e81d102faeac0b7fb858f6967c088c52f7ffdc877762378951f9969a802a7049#npm:1.14.9"]\
+            ["follow-redirects", "virtual:a6641ce4e3bdcc0997f8f53d9481b67c5d38e21276de8eeee7bf92881685b3ad5600bae416c2af904ceab8132bac649e7efd0af93f18e158e0e65ee05a263d72#npm:1.14.9"]\
           ],\
           "linkType": "HARD"\
         }],\
@@ -12793,16 +12793,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/axios-npm-0.24.0-39e5c1e79e-468cf496c0.zip/node_modules/axios/",\
           "packageDependencies": [\
             ["axios", "npm:0.24.0"],\
-            ["follow-redirects", "virtual:48b178e6387f0dc5afc288d9bc566d0a8bc306752b704012dfa93818c3a1e984e81d102faeac0b7fb858f6967c088c52f7ffdc877762378951f9969a802a7049#npm:1.14.9"]\
+            ["follow-redirects", "virtual:a6641ce4e3bdcc0997f8f53d9481b67c5d38e21276de8eeee7bf92881685b3ad5600bae416c2af904ceab8132bac649e7efd0af93f18e158e0e65ee05a263d72#npm:1.14.9"]\
           ],\
           "linkType": "HARD"\
         }],\
-        ["npm:0.27.1", {\
-          "packageLocation": "./.yarn/cache/axios-npm-0.27.1-48b178e638-0da3131125.zip/node_modules/axios/",\
+        ["npm:0.26.1", {\
+          "packageLocation": "./.yarn/cache/axios-npm-0.26.1-a6641ce4e3-d9eb58ff4b.zip/node_modules/axios/",\
           "packageDependencies": [\
-            ["axios", "npm:0.27.1"],\
-            ["follow-redirects", "virtual:48b178e6387f0dc5afc288d9bc566d0a8bc306752b704012dfa93818c3a1e984e81d102faeac0b7fb858f6967c088c52f7ffdc877762378951f9969a802a7049#npm:1.14.9"],\
-            ["form-data", "npm:4.0.0"]\
+            ["axios", "npm:0.26.1"],\
+            ["follow-redirects", "virtual:a6641ce4e3bdcc0997f8f53d9481b67c5d38e21276de8eeee7bf92881685b3ad5600bae416c2af904ceab8132bac649e7efd0af93f18e158e0e65ee05a263d72#npm:1.14.9"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -15589,7 +15588,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["cosmo-api", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#workspace:packages/cosmo-api"],\
             ["@openapitools/openapi-generator-cli", "npm:2.4.26"],\
             ["@types/axios", null],\
-            ["axios", "npm:0.27.1"],\
+            ["axios", "npm:0.26.1"],\
             ["cross-env", "npm:7.0.3"]\
           ],\
           "packagePeers": [\
@@ -19309,10 +19308,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:48b178e6387f0dc5afc288d9bc566d0a8bc306752b704012dfa93818c3a1e984e81d102faeac0b7fb858f6967c088c52f7ffdc877762378951f9969a802a7049#npm:1.14.9", {\
-          "packageLocation": "./.yarn/__virtual__/follow-redirects-virtual-91faa03001/0/cache/follow-redirects-npm-1.14.9-522f191631-f5982e0eb4.zip/node_modules/follow-redirects/",\
+        ["virtual:a6641ce4e3bdcc0997f8f53d9481b67c5d38e21276de8eeee7bf92881685b3ad5600bae416c2af904ceab8132bac649e7efd0af93f18e158e0e65ee05a263d72#npm:1.14.9", {\
+          "packageLocation": "./.yarn/__virtual__/follow-redirects-virtual-2db68225c5/0/cache/follow-redirects-npm-1.14.9-522f191631-f5982e0eb4.zip/node_modules/follow-redirects/",\
           "packageDependencies": [\
-            ["follow-redirects", "virtual:48b178e6387f0dc5afc288d9bc566d0a8bc306752b704012dfa93818c3a1e984e81d102faeac0b7fb858f6967c088c52f7ffdc877762378951f9969a802a7049#npm:1.14.9"],\
+            ["follow-redirects", "virtual:a6641ce4e3bdcc0997f8f53d9481b67c5d38e21276de8eeee7bf92881685b3ad5600bae416c2af904ceab8132bac649e7efd0af93f18e158e0e65ee05a263d72#npm:1.14.9"],\
             ["@types/debug", null],\
             ["debug", null]\
           ],\
@@ -20814,7 +20813,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["http-proxy", "npm:1.18.1"],\
             ["eventemitter3", "npm:4.0.7"],\
-            ["follow-redirects", "virtual:48b178e6387f0dc5afc288d9bc566d0a8bc306752b704012dfa93818c3a1e984e81d102faeac0b7fb858f6967c088c52f7ffdc877762378951f9969a802a7049#npm:1.14.9"],\
+            ["follow-redirects", "virtual:a6641ce4e3bdcc0997f8f53d9481b67c5d38e21276de8eeee7bf92881685b3ad5600bae416c2af904ceab8132bac649e7efd0af93f18e158e0e65ee05a263d72#npm:1.14.9"],\
             ["requires-port", "npm:1.0.0"]\
           ],\
           "linkType": "HARD"\

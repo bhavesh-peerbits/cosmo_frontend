@@ -15,9 +15,9 @@ import {
 	TextInput,
 	Theme
 } from '@carbon/react';
-import useAuthStore from '@hooks/useAuthStore';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import useLoginStore from '@hooks/auth/useLoginStore';
 
 interface LoginForm {
 	username: string;
@@ -36,7 +36,7 @@ const Login = () => {
 		handleSubmit,
 		formState: { isSubmitting, errors }
 	} = useForm<LoginForm>({ mode: 'onBlur' });
-	const { auth, login } = useAuthStore();
+	const { auth, login } = useLoginStore();
 	const [params] = useSearchParams();
 	const error = params.get('error') as ErrorCode | undefined;
 

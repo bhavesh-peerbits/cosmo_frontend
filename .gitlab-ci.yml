@@ -111,7 +111,6 @@ deploy storybook:
     expire_in: 1 day
     paths:
       - packages/cosmo-storybook/dist/
-
 #pages:
 #  stage: pages 🌎
 #  when: on_success
