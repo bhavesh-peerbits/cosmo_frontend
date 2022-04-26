@@ -1,7 +1,8 @@
 import { ReactNode } from 'react';
-import { FCReturn, ReactDivAttr } from '../../../typings/shared';
+import { FCReturn } from '../../../typings/shared';
+import { SearchProps } from '../Input/Search';
 
-interface TableToolbarSearchProps extends ReactDivAttr {
+interface TableToolbarSearchProps extends Omit<SearchProps, 'labelText'> {
 	children?: ReactNode;
 
 	/**
@@ -49,7 +50,7 @@ interface TableToolbarSearchProps extends ReactDivAttr {
 	/**
 	 * Provide an optional hook that is called each time the input is updated
 	 */
-	onChange?: () => void;
+	onChange?: SearchProps['onChange'];
 
 	/**
 	 * Optional callback called when the search value is cleared.

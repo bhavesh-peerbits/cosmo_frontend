@@ -1,24 +1,29 @@
 import { ClickableTile, Layer } from '@carbon/react';
 import { useNavigate } from 'react-router-dom';
+import Application from '@model/Application';
 
-const ApplicationTile = () => {
+type ApplicationTileProps = {
+	application: Application;
+};
+
+const ApplicationTile = ({ application }: ApplicationTileProps) => {
 	const navigate = useNavigate();
 	return (
 		<Layer level={1}>
 			<ClickableTile
-				onClick={() => navigate('ApplicationName')}
+				onClick={() => navigate(application.name ?? '')}
 				className='bg-white mb-5 w-full'
 			>
 				<div className='flex flex-col space-y-4 p-2'>
-					<div>Icon</div>
+					<div>{application.icon}</div>
 					<div className='space-y-9'>
 						<div>
-							<div className='text-heading-2'>Name</div>
-							<div className='text-body-short-1'>Owner</div>
+							<div className='text-heading-2'>{application.name}</div>
+							<div className='text-body-short-1'>{application.owner}</div>
 						</div>
 						<div className='flex flex-row justify-between'>
-							<div className='text-body-short-1'>Code</div>
-							<div className='text-text-secondary'>Category</div>
+							<div className='text-body-short-1'>{application.code}</div>
+							<div className='text-text-secondary'>{application.category}</div>
 						</div>
 					</div>
 				</div>

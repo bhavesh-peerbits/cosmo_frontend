@@ -1,56 +1,34 @@
 import { Accordion, AccordionItem, Checkbox } from '@carbon/react';
+import useManagementApps from '@hooks/management/useManagementApps';
 
-type Filter = {
-	id: string;
-	category: string;
-};
+const ApplicationsFilters = () => {
+	const { categories, setFilters } = useManagementApps();
 
-type ApplicationFiltersProps = {
-	handleSelect: (filter: Filter) => void;
-	checkedFilters: Filter[];
-};
-
-const ApplicationsFilters = ({
-	handleSelect,
-	checkedFilters
-}: ApplicationFiltersProps) => {
-	const filters = [
-		[
-			{ id: 'id1', category: 'Category1' },
-			{ id: 'id2', category: 'Category2' },
-			{ id: 'id3', category: 'Category3' }
-		],
-		[
-			{ id: 'id4', category: 'Category4' },
-			{ id: 'id5', category: 'Category5' },
-			{ id: 'id6', category: 'Category6' }
-		],
-		[
-			{ id: 'id7', category: 'Category7' },
-			{ id: 'id8', category: 'Category8' },
-			{ id: 'id9', category: 'Category9' }
-		]
-	];
+	const handleFilter = (filter: string, action: 'add' | 'remove') => {
+		setFilters(old => ({
+			categories:
+				action === 'add'
+					? [...(old.categories ?? []), filter]
+					: (old.categories ?? []).filter((f: string) => f !== filter)
+		}));
+	};
 
 	return (
 		<div className='flex flex-col'>
 			<Accordion className='divide-y'>
-				{filters.map((filter, index) => (
-					// eslint-disable-next-line react/no-array-index-key
-					<AccordionItem key={`filter${index}`} title='Filter' className='border-0'>
-						{filter.map(item => (
-							<Checkbox
-								key={item.id}
-								checked={checkedFilters.some(
-									checkedFilter => checkedFilter.id === item.id
-								)}
-								onChange={() => handleSelect(item)}
-								id={item.id}
-								labelText={item.category}
-							/>
-						))}
-					</AccordionItem>
-				))}
+				<AccordionItem title='Categories' className='border-0'>
+					{categories.map(filter => (
+						<Checkbox
+							key={filter.category}
+							checked={filter.enabled}
+							onChange={(_, { checked, id }) =>
+								handleFilter(id, checked ? 'add' : 'remove')
+							}
+							id={filter.category}
+							labelText={filter.category}
+						/>
+					))}
+				</AccordionItem>
 			</Accordion>
 		</div>
 	);

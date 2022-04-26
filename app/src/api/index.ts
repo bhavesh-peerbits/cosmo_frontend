@@ -37,6 +37,7 @@ export const loginUrl = AccessControllerApiAxiosParamCreator(DEFAULT_CONFIG)
 	.login('', '', '')
 	.then(v => DEFAULT_CONFIG.basePath + v.url);
 export const UserRoleEnum = UserDtoRolesEnum;
+
 export default {
 	...api
 };

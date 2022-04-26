@@ -1,7 +1,7 @@
-import { ReactNode, ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import { FCReturn, ReactInputAttr } from '../../../typings/shared';
 
-interface SearchProps extends ReactInputAttr {
+export interface SearchProps extends ReactInputAttr {
 	/**
 	 * Specify an optional className to be applied to the container node
 	 */
@@ -40,7 +40,7 @@ interface SearchProps extends ReactInputAttr {
 	/**
 	 * Optional callback called when the search value changes.
 	 */
-	onChange?: () => void;
+	onChange?: ReactInputAttr['onChange'];
 
 	/**
 	 * Optional callback called when the search value is cleared.
