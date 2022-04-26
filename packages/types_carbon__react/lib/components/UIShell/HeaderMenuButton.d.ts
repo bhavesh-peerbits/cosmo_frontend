@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { AriaLabelProps, FCReturn, ReactButtonAttr } from '../../../typings/shared';
 
 interface HeaderMenuButtonProps extends AriaLabelProps, ReactButtonAttr {
@@ -8,6 +9,10 @@ interface HeaderMenuButtonProps extends AriaLabelProps, ReactButtonAttr {
 	className?: string;
 
 	isActive?: boolean;
+
+	isCollapsible?: boolean;
+
+	renderMenuIcon?: ReactNode;
 }
 
 declare const HeaderMenuButton: FCReturn<HeaderMenuButtonProps>;

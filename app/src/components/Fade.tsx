@@ -12,7 +12,7 @@ const Fade: FC<FadeProps> = ({ timing, children }) => {
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
-			className={`h-full w-full ${timing || 'duration-slow-2'}`}
+			className={`h-full w-full ${timing || 'duration-fast-1'}`}
 		>
 			{children}
 		</motion.div>

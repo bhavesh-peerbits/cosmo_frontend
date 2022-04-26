@@ -23,6 +23,7 @@ async function errorManager(response: AxiosResponse) {
 				const refreshToken = retrieveRefreshToken();
 				if (refreshToken) {
 					try {
+						cleanSession();
 						const resp = await api.accessApi.refreshToken({
 							refreshToken,
 							tenant: 'cosmo'

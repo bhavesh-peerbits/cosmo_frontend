@@ -127,6 +127,8 @@ interface ButtonProps extends ReactButtonAttr {
 	 * Optional prop to specify the type of the Button
 	 */
 	type?: 'button' | 'reset' | 'submit';
+
+	to?: string;
 }
 
 declare const Button: FCReturn<ButtonProps>;

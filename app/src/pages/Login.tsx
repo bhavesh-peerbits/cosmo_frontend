@@ -18,7 +18,6 @@ import {
 import useAuthStore from '@hooks/useAuthStore';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import useNoHeader from '@hooks/useNoHeader';
 
 interface LoginForm {
 	username: string;
@@ -30,7 +29,6 @@ const errorCodes = ['error-login', 'authentication-needed'] as const;
 type ErrorCode = typeof errorCodes[number];
 
 const Login = () => {
-	useNoHeader();
 	const { t } = useTranslation('login');
 	const navigate = useNavigate();
 	const {

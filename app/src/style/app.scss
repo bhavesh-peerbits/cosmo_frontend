@@ -1,4 +1,4 @@
-@use '@carbon/react' with (
+@use '@carbon/react' as * with (
 	$font-path: '@ibm/plex'
 );
 @use '@carbon/styles';
@@ -17,6 +17,17 @@
 	// }
 }
 
+// fix tab skeleton component
+.#{$prefix}--tabs--scrollable__nav {
+	@apply flex;
+}
+
+// Remove outline from tab panel
+.#{$prefix}--tab-content,
+.#{$prefix}--tabs__nav-link {
+	outline: 0 !important;
+}
+
 .fix-height {
 	height: calc(100% - 3rem);
 }
@@ -27,7 +38,7 @@ $theme-cosmo: (
 );
 
 // include in the specific theme class or add to root component to override all
-.cds--white {
+.#{$prefix}--white {
 	@include theme.theme($theme-cosmo);
 }
 
