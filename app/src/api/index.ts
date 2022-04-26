@@ -31,7 +31,10 @@ const api = configureApi(DEFAULT_CONFIG);
 
 export type UserRole = UserDtoRolesEnum;
 export const refreshTokenUrl = AccessControllerApiAxiosParamCreator(DEFAULT_CONFIG)
-	.refreshToken('', '')
+	.refreshToken('')
+	.then(v => DEFAULT_CONFIG.basePath + v.url);
+export const loginUrl = AccessControllerApiAxiosParamCreator(DEFAULT_CONFIG)
+	.login('', '', '')
 	.then(v => DEFAULT_CONFIG.basePath + v.url);
 export const UserRoleEnum = UserDtoRolesEnum;
 export default {

@@ -6,6 +6,7 @@ import useLogin from '@api/user/useLogin';
 interface LoginData {
 	user: string;
 	password: string;
+	tenant: string;
 	rememberMe: boolean;
 }
 const REDIRECT_PATH_COOKIE = 'postLoginRedirectPath';
@@ -14,11 +15,11 @@ const useLoginStore = () => {
 	const auth = useRecoilValue(authStore);
 	const loginApi = useLogin();
 
-	const login = async ({ user, password, rememberMe }: LoginData) => {
+	const login = async ({ user, password, tenant, rememberMe }: LoginData) => {
 		const resp = await loginApi.mutateAsync({
 			user,
 			password,
-			tenant: 'cosmo'
+			tenant
 		});
 		if (resp.accessToken) {
 			setSession(resp.accessToken, resp.refreshToken ?? '', rememberMe);

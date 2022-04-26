@@ -119,19 +119,15 @@ export const AccessControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {string} refreshToken
-		 * @param {string} tenant
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		refreshToken: async (
 			refreshToken: string,
-			tenant: string,
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'refreshToken' is not null or undefined
 			assertParamExists('refreshToken', 'refreshToken', refreshToken);
-			// verify required parameter 'tenant' is not null or undefined
-			assertParamExists('refreshToken', 'tenant', tenant);
 			const localVarPath = `/api/public/refresh-token`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -151,10 +147,6 @@ export const AccessControllerApiAxiosParamCreator = function (
 
 			if (refreshToken !== undefined) {
 				localVarFormParams.append('refresh-token', refreshToken as any);
-			}
-
-			if (tenant !== undefined) {
-				localVarFormParams.append('tenant', tenant as any);
 			}
 
 			localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
@@ -216,20 +208,17 @@ export const AccessControllerApiFp = function (configuration?: Configuration) {
 		/**
 		 *
 		 * @param {string} refreshToken
-		 * @param {string} tenant
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async refreshToken(
 			refreshToken: string,
-			tenant: string,
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RefreshTokenDto>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.refreshToken(
 				refreshToken,
-				tenant,
 				options
 			);
 			return createRequestFunction(
@@ -274,17 +263,12 @@ export const AccessControllerApiFactory = function (
 		/**
 		 *
 		 * @param {string} refreshToken
-		 * @param {string} tenant
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		refreshToken(
-			refreshToken: string,
-			tenant: string,
-			options?: any
-		): AxiosPromise<RefreshTokenDto> {
+		refreshToken(refreshToken: string, options?: any): AxiosPromise<RefreshTokenDto> {
 			return localVarFp
-				.refreshToken(refreshToken, tenant, options)
+				.refreshToken(refreshToken, options)
 				.then(request => request(axios, basePath));
 		}
 	};
@@ -330,13 +314,6 @@ export interface AccessControllerApiRefreshTokenRequest {
 	 * @memberof AccessControllerApiRefreshToken
 	 */
 	readonly refreshToken: string;
-
-	/**
-	 *
-	 * @type {string}
-	 * @memberof AccessControllerApiRefreshToken
-	 */
-	readonly tenant: string;
 }
 
 /**
@@ -379,7 +356,7 @@ export class AccessControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return AccessControllerApiFp(this.configuration)
-			.refreshToken(requestParameters.refreshToken, requestParameters.tenant, options)
+			.refreshToken(requestParameters.refreshToken, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 }
