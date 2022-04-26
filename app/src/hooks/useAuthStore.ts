@@ -27,6 +27,7 @@ const REDIRECT_PATH_COOKIE = 'postLoginRedirectPath';
 const useAuthStore = () => {
 	const auth = useRecoilValue(authStore);
 	const loginApi = useLogin();
+
 	const login = async ({ user, password, rememberMe }: LoginData) => {
 		const resp = await loginApi.mutateAsync({
 			user,
@@ -34,11 +35,11 @@ const useAuthStore = () => {
 			tenant: 'cosmo'
 		});
 		if (resp.accessToken) {
-			setSession(resp.accessToken, rememberMe);
+			setSession(resp.accessToken, resp.refreshToken ?? '', rememberMe);
 		}
 		const redirect = getCookie(REDIRECT_PATH_COOKIE);
 		removeCookie(REDIRECT_PATH_COOKIE);
-		window.location.href = redirect || '/home';
+		window.location.href = redirect ?? '/home';
 	};
 
 	const logout = (savePath = false) => {

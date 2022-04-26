@@ -27,7 +27,7 @@ const TechnicalInfoContainer = () => {
 					Technical Information
 				</Column>
 				<Column sm={{ span: 4 }} md={{ span: 8 }} lg={{ span: 16 }} className='space-y-5'>
-					<Form onSubmit={() => console.log('Submitted')} className='w-full space-y-5'>
+					<Form className='w-full space-y-5'>
 						<div className='flex w-full space-x-5'>
 							<TextInput
 								className='w-full'

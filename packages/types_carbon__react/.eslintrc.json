@@ -2,6 +2,7 @@
 	"root": false,
 	"rules": {
 		"import/prefer-default-export": "off",
-		"import/no-extraneous-dependencies": "off"
+		"import/no-extraneous-dependencies": "off",
+		"@typescript-eslint/no-explicit-any": "off"
 	}
 }

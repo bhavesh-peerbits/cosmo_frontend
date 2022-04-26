@@ -1,9 +1,14 @@
 import { ClickableTile, Layer } from '@carbon/react';
+import { useNavigate } from 'react-router-dom';
 
 const ApplicationTile = () => {
+	const navigate = useNavigate();
 	return (
 		<Layer level={1}>
-			<ClickableTile href='ApplicationName' className='bg-white mb-5 w-full'>
+			<ClickableTile
+				onClick={() => navigate('ApplicationName')}
+				className='bg-white mb-5 w-full'
+			>
 				<div className='flex flex-col space-y-4 p-2'>
 					<div>Icon</div>
 					<div className='space-y-9'>

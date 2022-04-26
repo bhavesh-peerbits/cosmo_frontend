@@ -18,7 +18,7 @@ const ProcedureContainer = () => {
 	} = useForm<ProcedureForm>({ mode: 'onBlur' });
 	return (
 		<Tile href='ApplicationName' className='w-full bg-background'>
-			<Form onSubmit={() => console.log('Submitted')}>
+			<Form>
 				<Grid fullWidth narrow className='space-y-7'>
 					<Column
 						sm={{ span: 4 }}

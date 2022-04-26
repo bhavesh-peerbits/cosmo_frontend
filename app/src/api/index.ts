@@ -3,7 +3,7 @@ import axios from 'axios';
 import errorManager from '@api/ErrorManager';
 import configureApi, { ApiConfiguration } from 'cosmo-api';
 import { retrieveUserToken } from '@store/auth/authStore';
-import { UserDtoRolesEnum } from 'cosmo-api/src/v1';
+import { AccessControllerApiAxiosParamCreator, UserDtoRolesEnum } from 'cosmo-api/src/v1';
 
 const DEFAULT_CONFIG = new ApiConfiguration({
 	basePath: import.meta.env.COSMO_API_URL
@@ -30,6 +30,9 @@ axios.interceptors.request.use(
 const api = configureApi(DEFAULT_CONFIG);
 
 export type UserRole = UserDtoRolesEnum;
+export const refreshTokenUrl = AccessControllerApiAxiosParamCreator(DEFAULT_CONFIG)
+	.refreshToken('', '')
+	.then(v => DEFAULT_CONFIG.basePath + v.url);
 export const UserRoleEnum = UserDtoRolesEnum;
 export default {
 	...api

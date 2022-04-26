@@ -2,11 +2,10 @@ import React, { Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import FullScreenLoading from '@components/FullScreenLoading';
 import DelayedMount from '@components/DelayedMount';
-
-const Login = React.lazy(() => import('@pages/Login'));
-const Forbidden = React.lazy(() => import('@pages/Forbidden'));
-const Unauthorized = React.lazy(() => import('@pages/Unauthorized'));
-const NotFound = React.lazy(() => import('@pages/NotFound'));
+import Login from '@pages/Login';
+import Forbidden from '@pages/Forbidden';
+import Unauthorized from '@pages/Unauthorized';
+import NotFound from '@pages/NotFound';
 
 const Authenticated = React.lazy(() => import('@routes/Authenticated'));
 const AuthenticatedRoutes = React.lazy(() => import('@routes/AuthenticatedRoutes'));
