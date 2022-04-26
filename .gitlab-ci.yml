@@ -5,6 +5,7 @@ stages:
   - test ✅
   - tag 🔖
   - deploy 🚀
+  - pages 🌎
 
 variables:
   BASE_IMAGE: aramis-nexus.aizoon.it:5000/cosmo/fe
@@ -112,7 +113,7 @@ deploy storybook:
       - packages/cosmo-storybook/dist/
 
 pages:
-  stage: deploy 🚀
+  stage: pages 🌎
   when: on_success
   needs:
     - deploy storybook
