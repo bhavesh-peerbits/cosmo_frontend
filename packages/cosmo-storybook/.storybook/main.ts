@@ -103,7 +103,9 @@ const config: CustomizedStorybookConfig = {
 							'@storybook/addon-interactions/preview.js',
 							'i18next',
 							'translation-check',
-							'@carbon/storybook-addon-theme'
+							'@carbon/storybook-addon-theme',
+							'storybook-i18n/preview.js',
+							'storybook-react-i18next/dist/esm/preset/preview.js'
 						]
 				  };
 		return config;
