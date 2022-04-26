@@ -112,7 +112,7 @@ deploy storybook:
       - packages/cosmo-storybook/dist/
 
 pages:
-  stage: deploy
+  stage: deploy 🚀
   when: on_success
   needs:
     - deploy storybook
