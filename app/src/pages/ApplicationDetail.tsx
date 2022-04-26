@@ -7,9 +7,13 @@ import { useEffect, useRef, useState } from 'react';
 import ProcedureInfo from '@components/ProcedureInfo';
 import ApplicationChangesContainer from '@components/ApplicationChangesContainer';
 import ReviewModal from '@components/ReviewModal';
+import GenerateModal from '@components/GenerateModal';
+import DeleteModal from '@components/DeleteModal';
 
 const ApplicationDetail = () => {
-	const [openModalReview, setOpenModalReview] = useState(false);
+	const [isGenerateModalOpen, setIsGenerateModalOpen] = useState(false);
+	const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 	const { breadcrumbSize } = useBreadcrumbSize();
 	const tabRef = useRef<HTMLDivElement>(null);
 	const tab = tabRef.current?.getElementsByClassName('sticky')?.[0] as HTMLElement;
@@ -26,18 +30,22 @@ const ApplicationDetail = () => {
 					name: 'Application Review',
 					icon: Email,
 					onClick: () => {
-						setOpenModalReview(true);
+						setIsReviewModalOpen(true);
 					}
 				},
 				{
 					name: 'Generate',
 					icon: CloudDownload,
-					onClick: () => {}
+					onClick: () => {
+						setIsGenerateModalOpen(true);
+					}
 				},
 				{
 					name: 'Delete',
 					icon: TrashCan,
-					onClick: () => {}
+					onClick: () => {
+						setIsDeleteModalOpen(true);
+					}
 				}
 			]}
 		>
@@ -64,7 +72,9 @@ const ApplicationDetail = () => {
 						</TabPanel>
 					</TabPanels>
 				</Tabs>
-				{openModalReview ? <ReviewModal /> : ''}
+				<ReviewModal isOpen={isReviewModalOpen} setIsOpen={setIsReviewModalOpen} />
+				<GenerateModal isOpen={isGenerateModalOpen} setIsOpen={setIsGenerateModalOpen} />
+				<DeleteModal isOpen={isDeleteModalOpen} setIsOpen={setIsDeleteModalOpen} />
 			</div>
 		</PageHeader>
 	);

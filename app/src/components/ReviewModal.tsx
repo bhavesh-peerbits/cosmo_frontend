@@ -13,16 +13,22 @@ import {
 	TextInput
 } from '@carbon/react';
 
-const ReviewModal = () => {
+type ReviewModalProps = {
+	isOpen: boolean;
+	setIsOpen: (value: boolean) => void;
+};
+
+const ReviewModal = ({ isOpen, setIsOpen }: ReviewModalProps) => {
 	const current = new Date();
 	const date = `${current.getMonth() + 1}/${current.getDate()}/${current.getFullYear()}`;
 	return (
 		<Grid fullWidth narrow>
-			<ComposedModal open>
+			<ComposedModal open={isOpen} onClose={() => setIsOpen(false)}>
 				<Column>
 					<ModalHeader
 						title='Application Review'
 						label='Please enter the fields above, then press Send Email.'
+						closeModal={() => setIsOpen(false)}
 					/>
 				</Column>
 
@@ -56,7 +62,9 @@ const ReviewModal = () => {
 						</Column>
 					</ModalBody>
 					<ModalFooter>
-						<Button kind='secondary'>Cancel</Button>
+						<Button kind='secondary' onClick={() => setIsOpen(false)}>
+							Cancel
+						</Button>
 						<Button>Send Email</Button>
 					</ModalFooter>
 				</Form>
