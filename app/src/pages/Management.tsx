@@ -1,4 +1,5 @@
 import PageHeader from '@components/PageHeader';
+import { Add } from '@carbon/react/icons';
 import useManagementApps from '@hooks/management/useManagementApps';
 import ManagementTileView from '@components/management/ManagementTileView';
 import ManagementTableView from '@components/management/ManagementTableView';
@@ -14,6 +15,7 @@ const Management = () => {
 			actions={[
 				{
 					name: t('add-application'),
+					icon: Add,
 					onClick: () => {}
 				}
 			]}

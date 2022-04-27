@@ -93,6 +93,13 @@ const ApplicationsTable = () => {
 								</TableRow>
 							</TableHead>
 							<TableBody>
+								{apps.length === 0 && (
+									<TableRow>
+										<TableCell colSpan={headers.length + 1}>
+											<p className='flex justify-center'>{t('no-applications')}</p>
+										</TableCell>
+									</TableRow>
+								)}
 								{apps.map(row => (
 									<TableRow key={row.id}>
 										<TableSelectRow

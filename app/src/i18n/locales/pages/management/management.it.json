@@ -1,11 +1,11 @@
 {
-  "categories": "Categorie",
-  "search-placeholder": "Cerca per nome applicazione",
-  "applications": "Applicazioni",
-  "no-applications": "Nessun applicazione trovata",
-  "add-application": "Aggiungi applicazione",
-  "application-name": "Nome applicazione",
-  "owner": "Proprietario",
-  "code": "Codice",
-  "filters": "Filtri"
+	"categories": "Categorie",
+	"search-placeholder": "Cerca per nome applicazione",
+	"applications": "Applicazioni",
+	"no-applications": "Nessun applicazione trovata",
+	"add-application": "Aggiungi applicazione",
+	"application-name": "Nome applicazione",
+	"owner": "Proprietario",
+	"code": "Codice",
+	"filters": "Filtri"
 }

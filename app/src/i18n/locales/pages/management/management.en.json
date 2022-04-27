@@ -1,11 +1,11 @@
 {
-  "categories": "Categories",
-  "search-placeholder": "Search by application name",
-  "applications": "Applications",
-  "no-applications": "No applications found",
-  "add-application": "Add application",
-  "application-name": "Application name",
-  "owner": "Owner",
-  "code": "Code",
-  "filters": "Filters"
+	"categories": "Categories",
+	"search-placeholder": "Search by application name",
+	"applications": "Applications",
+	"no-applications": "No applications found",
+	"add-application": "Add application",
+	"application-name": "Application name",
+	"owner": "Owner",
+	"code": "Code",
+	"filters": "Filters"
 }
