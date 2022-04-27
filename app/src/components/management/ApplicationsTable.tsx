@@ -16,18 +16,19 @@ import {
 	TableToolbarContent,
 	TableToolbarSearch
 } from '@carbon/react';
-
 import { CloudDownload, Email, TrashCan } from '@carbon/react/icons';
 import { useState } from 'react';
 import useManagementApps from '@hooks/management/useManagementApps';
+import { useTranslation } from 'react-i18next';
 
 const ApplicationsTable = () => {
+	const { t } = useTranslation('management');
 	const { filters, setFilters, apps } = useManagementApps();
 
 	const headers = [
-		{ key: 'name', header: 'Application Name' },
-		{ key: 'owner', header: 'Owner' },
-		{ key: 'code', header: 'Code' },
+		{ key: 'name', header: t('application-name') },
+		{ key: 'owner', header: t('owner') },
+		{ key: 'code', header: t('code') },
 		{ key: 'other', header: 'Other' }
 	];
 
@@ -62,7 +63,7 @@ const ApplicationsTable = () => {
 						<TableToolbarContent>
 							<TableToolbarSearch
 								size='lg'
-								placeholder='Search application'
+								placeholder={t('search-placeholder')}
 								persistent
 								value={filters.query ?? ''}
 								onChange={e => setFilters({ q: e.currentTarget?.value })}

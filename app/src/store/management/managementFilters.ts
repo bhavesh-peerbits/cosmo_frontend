@@ -29,7 +29,7 @@ const filteredApplications = selector({
 		return {
 			apps: apps
 				.filter(app =>
-					filters.isTile && filters.categories.length > 0
+					filters.isTile !== false && filters.categories.length > 0
 						? filters.categories.some(
 								category => app.category.toLowerCase() === category.toLowerCase()
 						  )

@@ -1,7 +1,9 @@
 import { Accordion, AccordionItem, Checkbox } from '@carbon/react';
 import useManagementApps from '@hooks/management/useManagementApps';
+import { useTranslation } from 'react-i18next';
 
 const ApplicationsFilters = () => {
+	const { t } = useTranslation('management');
 	const { categories, setFilters } = useManagementApps();
 
 	const handleFilter = (filter: string, action: 'add' | 'remove') => {
@@ -16,7 +18,7 @@ const ApplicationsFilters = () => {
 	return (
 		<div className='flex flex-col'>
 			<Accordion className='divide-y'>
-				<AccordionItem title='Categories' className='border-0'>
+				<AccordionItem title={t('categories')} className='border-0'>
 					{categories.map(filter => (
 						<Checkbox
 							key={filter.category}
