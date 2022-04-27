@@ -1,4 +1,4 @@
-import { Button, Column, Form, Grid, TextArea, TextInput, Tile } from '@carbon/react';
+import { Column, Form, Grid, TextArea, TextInput, Tile } from '@carbon/react';
 import { useForm } from 'react-hook-form';
 
 interface GeneralInfoForm {
@@ -13,7 +13,7 @@ interface GeneralInfoForm {
 const GeneralInfoContainer = () => {
 	const {
 		register,
-		formState: { errors, isValid, isDirty }
+		formState: { errors }
 	} = useForm<GeneralInfoForm>({ mode: 'onBlur' });
 	return (
 		<Tile href='ApplicationName' className='w-full bg-background'>
@@ -111,14 +111,6 @@ const GeneralInfoContainer = () => {
 							defaultValue='Default value'
 							{...register('description')}
 						/>
-						<div className='flex justify-end space-x-5 pt-5'>
-							<Button type='reset' kind='tertiary' disabled={!isDirty}>
-								Cancel
-							</Button>
-							<Button type='submit' disabled={!isValid}>
-								Save
-							</Button>
-						</div>
 					</Form>
 				</Column>
 			</Grid>

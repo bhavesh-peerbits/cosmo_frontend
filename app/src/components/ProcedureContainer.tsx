@@ -1,5 +1,8 @@
 import { Button, Column, Form, Grid, TextArea, TextInput, Tile } from '@carbon/react';
+import { TrashCan } from '@carbon/react/icons';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import DeleteModal from './DeleteModal';
 
 interface ProcedureForm {
 	procedure: string;
@@ -12,6 +15,7 @@ interface ProcedureForm {
 }
 
 const ProcedureContainer = () => {
+	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 	const {
 		register,
 		formState: { errors, isValid, isDirty }
@@ -24,10 +28,23 @@ const ProcedureContainer = () => {
 						sm={{ span: 4 }}
 						md={{ span: 8 }}
 						lg={{ span: 16 }}
-						className='text-fluid-heading-3'
+						className='flex items-center justify-between text-fluid-heading-3'
 					>
 						Titolo
+						<Button
+							hasIconOnly
+							kind='ghost'
+							renderIcon={TrashCan}
+							tooltipPosition='bottom'
+							iconDescription='Delete Procedure'
+							onClick={() => setIsDeleteModalOpen(true)}
+						/>
 					</Column>
+					<DeleteModal
+						isOpen={isDeleteModalOpen}
+						setIsOpen={setIsDeleteModalOpen}
+						itemToDelete='ProcedureName'
+					/>
 					<Column sm={{ span: 4 }} md={{ span: 8 }} lg={{ span: 16 }}>
 						<div className='flex w-full space-x-5'>
 							<TextInput

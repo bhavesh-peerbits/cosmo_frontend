@@ -74,7 +74,11 @@ const ApplicationDetail = () => {
 				</Tabs>
 				<ReviewModal isOpen={isReviewModalOpen} setIsOpen={setIsReviewModalOpen} />
 				<GenerateModal isOpen={isGenerateModalOpen} setIsOpen={setIsGenerateModalOpen} />
-				<DeleteModal isOpen={isDeleteModalOpen} setIsOpen={setIsDeleteModalOpen} />
+				<DeleteModal
+					isOpen={isDeleteModalOpen}
+					setIsOpen={setIsDeleteModalOpen}
+					itemToDelete='ApplicationName'
+				/>
 			</div>
 		</PageHeader>
 	);

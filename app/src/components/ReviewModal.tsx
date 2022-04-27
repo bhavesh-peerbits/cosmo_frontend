@@ -39,7 +39,7 @@ const ReviewModal = ({ isOpen, setIsOpen }: ReviewModalProps) => {
 								<TextInput
 									id='email-address'
 									labelText='Email Address'
-									value='email'
+									value='Email'
 									helperText='The review request will be sent to this email address'
 									className='w-full grow-0'
 								/>

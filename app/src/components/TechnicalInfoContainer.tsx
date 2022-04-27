@@ -16,7 +16,7 @@ const TechnicalInfoContainer = () => {
 		formState: { isValid, isDirty }
 	} = useForm<TechnicalInfoForm>({ mode: 'onBlur' });
 	return (
-		<Tile href='ApplicationName' className='w-full bg-background'>
+		<Tile href='ApplicationName' className='w-full bg-background pb-7'>
 			<Grid fullWidth narrow className='space-y-7'>
 				<Column
 					sm={{ span: 4 }}
@@ -89,14 +89,6 @@ const TechnicalInfoContainer = () => {
 								defaultValue='Default value'
 								{...register('dbInstance')}
 							/>
-						</div>
-						<div className='flex justify-end space-x-5 pt-5'>
-							<Button type='reset' kind='tertiary' disabled={!isDirty}>
-								Cancel
-							</Button>
-							<Button type='submit' disabled={!isValid}>
-								Save
-							</Button>
 						</div>
 					</Form>
 				</Column>

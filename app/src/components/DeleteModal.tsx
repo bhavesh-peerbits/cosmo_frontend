@@ -9,20 +9,21 @@ import {
 type DeleteModalProps = {
 	isOpen: boolean;
 	setIsOpen: (value: boolean) => void;
+	itemToDelete: string;
 };
 
-const DeleteModal = ({ isOpen, setIsOpen }: DeleteModalProps) => {
+const DeleteModal = ({ isOpen, setIsOpen, itemToDelete }: DeleteModalProps) => {
 	return (
 		<ComposedModal open={isOpen} onClose={() => setIsOpen(false)}>
-			<ModalHeader title='Delete Application' closeModal={() => setIsOpen(false)} />
+			<ModalHeader title='Confirm Delete' closeModal={() => setIsOpen(false)} />
 			<ModalBody className='flex'>
-				Are you sure you want to delete Application Name?
+				Are you sure you want to delete {itemToDelete}?
 			</ModalBody>
 			<ModalFooter>
 				<Button kind='secondary' onClick={() => setIsOpen(false)}>
 					Cancel
 				</Button>
-				<Button kind='danger'>Delete Application</Button>
+				<Button kind='danger'>Delete</Button>
 			</ModalFooter>
 		</ComposedModal>
 	);
