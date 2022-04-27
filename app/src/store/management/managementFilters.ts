@@ -28,13 +28,13 @@ const filteredApplications = selector({
 		const apps = get(managementApps);
 		return {
 			apps: apps
-				.filter(app =>
-					filters.isTile !== false && filters.categories.length > 0
-						? filters.categories.some(
-								category => app.category.toLowerCase() === category.toLowerCase()
-						  )
-						: true
-				)
+				// .filter(app =>
+				// 	filters.isTile !== false && filters.categories.length > 0
+				// 		? filters.categories.some(
+				// 				category => app.category.toLowerCase() === category.toLowerCase()
+				// 		  )
+				// 		: true
+				// )
 				.filter(app =>
 					filters.query
 						? app.name
@@ -43,7 +43,7 @@ const filteredApplications = selector({
 								?.includes(filters.query.toLowerCase().trim())
 						: true
 				),
-			categories: [...new Set(apps.map(a => a.category))].map(category => ({
+			categories: [...new Set(apps.map(a => a.icon))].map(category => ({
 				category,
 				enabled: filters.categories.includes(category)
 			}))

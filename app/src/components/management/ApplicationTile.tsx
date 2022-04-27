@@ -1,6 +1,7 @@
 import { ClickableTile, Layer } from '@carbon/react';
 import { useNavigate } from 'react-router-dom';
 import Application from '@model/Application';
+import IconResolver from '@components/IconResolver';
 
 type ApplicationTileProps = {
 	application: Application;
@@ -15,7 +16,7 @@ const ApplicationTile = ({ application }: ApplicationTileProps) => {
 				className='bg-white mb-5 w-full'
 			>
 				<div className='flex flex-col space-y-4 p-2'>
-					<div>{application.icon}</div>
+					<IconResolver icon={application.icon} size={24} />
 					<div className='space-y-9'>
 						<div>
 							<div className='text-heading-2'>{application.name}</div>
@@ -23,7 +24,9 @@ const ApplicationTile = ({ application }: ApplicationTileProps) => {
 						</div>
 						<div className='flex flex-row justify-between'>
 							<div className='text-body-short-1'>{application.code}</div>
-							<div className='text-text-secondary'>{application.category}</div>
+							<div className='text-text-secondary'>
+								{application.lastModify?.toDateString()}
+							</div>
 						</div>
 					</div>
 				</div>

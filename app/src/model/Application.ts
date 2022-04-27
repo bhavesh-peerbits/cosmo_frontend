@@ -1,21 +1,24 @@
 import { ApplicationApi } from 'cosmo-api';
+import { icons } from '@components/IconPicker';
 
 interface Application {
 	id: string;
 	name: ApplicationApi['name'];
-	category: string;
 	code: string;
+	lastReview?: Date;
+	lastModify?: Date;
 	owner: NonNullable<ApplicationApi['owner']>['name'];
-	icon: string;
+	icon: keyof typeof icons;
 }
 
 export const fromApplicationApi = (applicationApi: ApplicationApi): Application => ({
 	id: `${applicationApi.id || 0}`,
 	name: applicationApi.name,
-	category: 'Category', // TODO
+	lastReview: applicationApi.lastReview ? new Date(applicationApi.lastReview) : undefined,
+	lastModify: applicationApi.lastModify ? new Date(applicationApi.lastModify) : undefined,
 	code: 'Code', // TODO
 	owner: applicationApi.owner?.name,
-	icon: 'icon' // TODO
+	icon: 'mobile' // TODO
 });
 
 export default Application;
