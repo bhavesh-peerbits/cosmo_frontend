@@ -62,12 +62,14 @@ export const UserControllerApiAxiosParamCreator = function (
 		 *
 		 * @param {string} userId
 		 * @param {number} applicationId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		addApplicationToUser: async (
 			userId: string,
 			applicationId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'userId' is not null or undefined
@@ -97,6 +99,10 @@ export const UserControllerApiAxiosParamCreator = function (
 				localVarQueryParameter['applicationId'] = applicationId;
 			}
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -115,12 +121,14 @@ export const UserControllerApiAxiosParamCreator = function (
 		 *
 		 * @param {string} userId
 		 * @param {number} profileId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		addProfileToUser: async (
 			userId: string,
 			profileId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'userId' is not null or undefined
@@ -150,6 +158,10 @@ export const UserControllerApiAxiosParamCreator = function (
 				localVarQueryParameter['profileId'] = profileId;
 			}
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -167,11 +179,13 @@ export const UserControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {string} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		deleteUser: async (
 			id: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
@@ -195,6 +209,10 @@ export const UserControllerApiAxiosParamCreator = function (
 				localVarQueryParameter['id'] = id;
 			}
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -212,11 +230,13 @@ export const UserControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {UserApplicationKey} userApplicationKey
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		deleteUserApplicationAssociation: async (
 			userApplicationKey: UserApplicationKey,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'userApplicationKey' is not null or undefined
@@ -239,6 +259,10 @@ export const UserControllerApiAxiosParamCreator = function (
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
 
 			localVarHeaderParameter['Content-Type'] = 'application/json';
 
@@ -266,6 +290,7 @@ export const UserControllerApiAxiosParamCreator = function (
 		 * @param {string} userId
 		 * @param {number} profileId
 		 * @param {UserProfileKey} userProfileKey
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
@@ -273,6 +298,7 @@ export const UserControllerApiAxiosParamCreator = function (
 			userId: string,
 			profileId: number,
 			userProfileKey: UserProfileKey,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'userId' is not null or undefined
@@ -304,6 +330,10 @@ export const UserControllerApiAxiosParamCreator = function (
 				localVarQueryParameter['profileId'] = profileId;
 			}
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			localVarHeaderParameter['Content-Type'] = 'application/json';
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -328,11 +358,13 @@ export const UserControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {string} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getAllApplicationOfAUser: async (
 			id: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
@@ -356,6 +388,10 @@ export const UserControllerApiAxiosParamCreator = function (
 				localVarQueryParameter['id'] = id;
 			}
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -373,11 +409,13 @@ export const UserControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {string} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getAllProfileOfAUser: async (
 			id: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
@@ -401,6 +439,10 @@ export const UserControllerApiAxiosParamCreator = function (
 				localVarQueryParameter['id'] = id;
 			}
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -417,10 +459,14 @@ export const UserControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllUsers: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+		getAllUsers: async (
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
 			const localVarPath = `/api/users`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -436,6 +482,10 @@ export const UserControllerApiAxiosParamCreator = function (
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -452,10 +502,14 @@ export const UserControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAuthInfo: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+		getAuthInfo: async (
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
 			const localVarPath = `/api/users/authInfo`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -470,6 +524,10 @@ export const UserControllerApiAxiosParamCreator = function (
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
@@ -488,11 +546,13 @@ export const UserControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {string} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getOneUsers: async (
 			id: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
@@ -515,6 +575,10 @@ export const UserControllerApiAxiosParamCreator = function (
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -534,6 +598,7 @@ export const UserControllerApiAxiosParamCreator = function (
 		 * @param {string} userId
 		 * @param {number} applicationId
 		 * @param {UserApplication} userApplication
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
@@ -541,6 +606,7 @@ export const UserControllerApiAxiosParamCreator = function (
 			userId: string,
 			applicationId: number,
 			userApplication: UserApplication,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'userId' is not null or undefined
@@ -580,6 +646,10 @@ export const UserControllerApiAxiosParamCreator = function (
 				localVarQueryParameter['applicationId'] = applicationId;
 			}
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			localVarHeaderParameter['Content-Type'] = 'application/json';
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -606,6 +676,7 @@ export const UserControllerApiAxiosParamCreator = function (
 		 * @param {string} userId
 		 * @param {number} profileId
 		 * @param {UserProfile} userProfile
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
@@ -613,6 +684,7 @@ export const UserControllerApiAxiosParamCreator = function (
 			userId: string,
 			profileId: number,
 			userProfile: UserProfile,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'userId' is not null or undefined
@@ -648,6 +720,10 @@ export const UserControllerApiAxiosParamCreator = function (
 				localVarQueryParameter['userProfile'] = userProfile;
 			}
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -665,11 +741,13 @@ export const UserControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {User} user
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		newUser: async (
 			user: User,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'user' is not null or undefined
@@ -688,6 +766,10 @@ export const UserControllerApiAxiosParamCreator = function (
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
 
 			localVarHeaderParameter['Content-Type'] = 'application/json';
 
@@ -714,12 +796,14 @@ export const UserControllerApiAxiosParamCreator = function (
 		 *
 		 * @param {number} id
 		 * @param {User} user
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		updateUser: async (
 			id: number,
 			user: User,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
@@ -743,6 +827,10 @@ export const UserControllerApiAxiosParamCreator = function (
 
 			if (id !== undefined) {
 				localVarQueryParameter['id'] = id;
+			}
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
 			}
 
 			localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -780,12 +868,14 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 		 *
 		 * @param {string} userId
 		 * @param {number} applicationId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async addApplicationToUser(
 			userId: string,
 			applicationId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserApplication>
@@ -793,6 +883,7 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.addApplicationToUser(
 				userId,
 				applicationId,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -806,17 +897,20 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 		 *
 		 * @param {string} userId
 		 * @param {number} profileId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async addProfileToUser(
 			userId: string,
 			profileId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserProfile>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.addProfileToUser(
 				userId,
 				profileId,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -829,14 +923,20 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 		/**
 		 *
 		 * @param {string} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async deleteUser(
 			id: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.deleteUser(id, options);
+			const localVarAxiosArgs = await localVarAxiosParamCreator.deleteUser(
+				id,
+				acceptLanguage,
+				options
+			);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
@@ -847,16 +947,19 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 		/**
 		 *
 		 * @param {UserApplicationKey} userApplicationKey
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async deleteUserApplicationAssociation(
 			userApplicationKey: UserApplicationKey,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.deleteUserApplicationAssociation(
 					userApplicationKey,
+					acceptLanguage,
 					options
 				);
 			return createRequestFunction(
@@ -871,6 +974,7 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 		 * @param {string} userId
 		 * @param {number} profileId
 		 * @param {UserProfileKey} userProfileKey
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
@@ -878,6 +982,7 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 			userId: string,
 			profileId: number,
 			userProfileKey: UserProfileKey,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
 			const localVarAxiosArgs =
@@ -885,6 +990,7 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 					userId,
 					profileId,
 					userProfileKey,
+					acceptLanguage,
 					options
 				);
 			return createRequestFunction(
@@ -897,17 +1003,20 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 		/**
 		 *
 		 * @param {string} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getAllApplicationOfAUser(
 			id: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserApplication>>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllApplicationOfAUser(
 				id,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -920,17 +1029,20 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 		/**
 		 *
 		 * @param {string} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getAllProfileOfAUser(
 			id: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserProfile>>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllProfileOfAUser(
 				id,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -942,13 +1054,18 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 		},
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getAllUsers(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<User>>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllUsers(options);
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllUsers(
+				acceptLanguage,
+				options
+			);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
@@ -958,13 +1075,18 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 		},
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getAuthInfo(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserDto>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getAuthInfo(options);
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAuthInfo(
+				acceptLanguage,
+				options
+			);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
@@ -975,14 +1097,20 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 		/**
 		 *
 		 * @param {string} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getOneUsers(
 			id: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getOneUsers(id, options);
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getOneUsers(
+				id,
+				acceptLanguage,
+				options
+			);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
@@ -995,6 +1123,7 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 		 * @param {string} userId
 		 * @param {number} applicationId
 		 * @param {UserApplication} userApplication
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
@@ -1002,6 +1131,7 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 			userId: string,
 			applicationId: number,
 			userApplication: UserApplication,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserApplication>
@@ -1011,6 +1141,7 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 					userId,
 					applicationId,
 					userApplication,
+					acceptLanguage,
 					options
 				);
 			return createRequestFunction(
@@ -1025,6 +1156,7 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 		 * @param {string} userId
 		 * @param {number} profileId
 		 * @param {UserProfile} userProfile
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
@@ -1032,6 +1164,7 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 			userId: string,
 			profileId: number,
 			userProfile: UserProfile,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserProfile>> {
 			const localVarAxiosArgs =
@@ -1039,6 +1172,7 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 					userId,
 					profileId,
 					userProfile,
+					acceptLanguage,
 					options
 				);
 			return createRequestFunction(
@@ -1051,14 +1185,20 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 		/**
 		 *
 		 * @param {User} user
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async newUser(
 			user: User,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.newUser(user, options);
+			const localVarAxiosArgs = await localVarAxiosParamCreator.newUser(
+				user,
+				acceptLanguage,
+				options
+			);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
@@ -1070,17 +1210,20 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 		 *
 		 * @param {number} id
 		 * @param {User} user
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async updateUser(
 			id: number,
 			user: User,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.updateUser(
 				id,
 				user,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -1108,55 +1251,68 @@ export const UserControllerApiFactory = function (
 		 *
 		 * @param {string} userId
 		 * @param {number} applicationId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		addApplicationToUser(
 			userId: string,
 			applicationId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<UserApplication> {
 			return localVarFp
-				.addApplicationToUser(userId, applicationId, options)
+				.addApplicationToUser(userId, applicationId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {string} userId
 		 * @param {number} profileId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		addProfileToUser(
 			userId: string,
 			profileId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<UserProfile> {
 			return localVarFp
-				.addProfileToUser(userId, profileId, options)
+				.addProfileToUser(userId, profileId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {string} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		deleteUser(id: string, options?: any): AxiosPromise<string> {
-			return localVarFp.deleteUser(id, options).then(request => request(axios, basePath));
+		deleteUser(
+			id: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<string> {
+			return localVarFp
+				.deleteUser(id, acceptLanguage, options)
+				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {UserApplicationKey} userApplicationKey
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		deleteUserApplicationAssociation(
 			userApplicationKey: UserApplicationKey,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<string> {
 			return localVarFp
-				.deleteUserApplicationAssociation(userApplicationKey, options)
+				.deleteUserApplicationAssociation(userApplicationKey, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -1164,6 +1320,7 @@ export const UserControllerApiFactory = function (
 		 * @param {string} userId
 		 * @param {number} profileId
 		 * @param {UserProfileKey} userProfileKey
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
@@ -1171,62 +1328,93 @@ export const UserControllerApiFactory = function (
 			userId: string,
 			profileId: number,
 			userProfileKey: UserProfileKey,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<string> {
 			return localVarFp
-				.deleteUserProfileAssociation(userId, profileId, userProfileKey, options)
+				.deleteUserProfileAssociation(
+					userId,
+					profileId,
+					userProfileKey,
+					acceptLanguage,
+					options
+				)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {string} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getAllApplicationOfAUser(
 			id: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Array<UserApplication>> {
 			return localVarFp
-				.getAllApplicationOfAUser(id, options)
+				.getAllApplicationOfAUser(id, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {string} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllProfileOfAUser(id: string, options?: any): AxiosPromise<Array<UserProfile>> {
+		getAllProfileOfAUser(
+			id: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<UserProfile>> {
 			return localVarFp
-				.getAllProfileOfAUser(id, options)
+				.getAllProfileOfAUser(id, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllUsers(options?: any): AxiosPromise<Array<User>> {
-			return localVarFp.getAllUsers(options).then(request => request(axios, basePath));
+		getAllUsers(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<User>> {
+			return localVarFp
+				.getAllUsers(acceptLanguage, options)
+				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAuthInfo(options?: any): AxiosPromise<UserDto> {
-			return localVarFp.getAuthInfo(options).then(request => request(axios, basePath));
+		getAuthInfo(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<UserDto> {
+			return localVarFp
+				.getAuthInfo(acceptLanguage, options)
+				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {string} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getOneUsers(id: string, options?: any): AxiosPromise<User> {
+		getOneUsers(
+			id: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<User> {
 			return localVarFp
-				.getOneUsers(id, options)
+				.getOneUsers(id, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -1234,6 +1422,7 @@ export const UserControllerApiFactory = function (
 		 * @param {string} userId
 		 * @param {number} applicationId
 		 * @param {UserApplication} userApplication
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
@@ -1241,6 +1430,7 @@ export const UserControllerApiFactory = function (
 			userId: string,
 			applicationId: number,
 			userApplication: UserApplication,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<UserApplication> {
 			return localVarFp
@@ -1248,6 +1438,7 @@ export const UserControllerApiFactory = function (
 					userId,
 					applicationId,
 					userApplication,
+					acceptLanguage,
 					options
 				)
 				.then(request => request(axios, basePath));
@@ -1257,6 +1448,7 @@ export const UserControllerApiFactory = function (
 		 * @param {string} userId
 		 * @param {number} profileId
 		 * @param {UserProfile} userProfile
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
@@ -1264,31 +1456,51 @@ export const UserControllerApiFactory = function (
 			userId: string,
 			profileId: number,
 			userProfile: UserProfile,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<UserProfile> {
 			return localVarFp
-				.modifyUserProfileAssociation(userId, profileId, userProfile, options)
+				.modifyUserProfileAssociation(
+					userId,
+					profileId,
+					userProfile,
+					acceptLanguage,
+					options
+				)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {User} user
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		newUser(user: User, options?: any): AxiosPromise<User> {
-			return localVarFp.newUser(user, options).then(request => request(axios, basePath));
+		newUser(
+			user: User,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<User> {
+			return localVarFp
+				.newUser(user, acceptLanguage, options)
+				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {number} id
 		 * @param {User} user
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		updateUser(id: number, user: User, options?: any): AxiosPromise<User> {
+		updateUser(
+			id: number,
+			user: User,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<User> {
 			return localVarFp
-				.updateUser(id, user, options)
+				.updateUser(id, user, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		}
 	};
@@ -1313,6 +1525,13 @@ export interface UserControllerApiAddApplicationToUserRequest {
 	 * @memberof UserControllerApiAddApplicationToUser
 	 */
 	readonly applicationId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserControllerApiAddApplicationToUser
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -1334,6 +1553,13 @@ export interface UserControllerApiAddProfileToUserRequest {
 	 * @memberof UserControllerApiAddProfileToUser
 	 */
 	readonly profileId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserControllerApiAddProfileToUser
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -1348,6 +1574,13 @@ export interface UserControllerApiDeleteUserRequest {
 	 * @memberof UserControllerApiDeleteUser
 	 */
 	readonly id: string;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserControllerApiDeleteUser
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -1362,6 +1595,13 @@ export interface UserControllerApiDeleteUserApplicationAssociationRequest {
 	 * @memberof UserControllerApiDeleteUserApplicationAssociation
 	 */
 	readonly userApplicationKey: UserApplicationKey;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserControllerApiDeleteUserApplicationAssociation
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -1390,6 +1630,13 @@ export interface UserControllerApiDeleteUserProfileAssociationRequest {
 	 * @memberof UserControllerApiDeleteUserProfileAssociation
 	 */
 	readonly userProfileKey: UserProfileKey;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserControllerApiDeleteUserProfileAssociation
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -1404,6 +1651,13 @@ export interface UserControllerApiGetAllApplicationOfAUserRequest {
 	 * @memberof UserControllerApiGetAllApplicationOfAUser
 	 */
 	readonly id: string;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserControllerApiGetAllApplicationOfAUser
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -1418,6 +1672,41 @@ export interface UserControllerApiGetAllProfileOfAUserRequest {
 	 * @memberof UserControllerApiGetAllProfileOfAUser
 	 */
 	readonly id: string;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserControllerApiGetAllProfileOfAUser
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getAllUsers operation in UserControllerApi.
+ * @export
+ * @interface UserControllerApiGetAllUsersRequest
+ */
+export interface UserControllerApiGetAllUsersRequest {
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserControllerApiGetAllUsers
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getAuthInfo operation in UserControllerApi.
+ * @export
+ * @interface UserControllerApiGetAuthInfoRequest
+ */
+export interface UserControllerApiGetAuthInfoRequest {
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserControllerApiGetAuthInfo
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -1432,6 +1721,13 @@ export interface UserControllerApiGetOneUsersRequest {
 	 * @memberof UserControllerApiGetOneUsers
 	 */
 	readonly id: string;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserControllerApiGetOneUsers
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -1460,6 +1756,13 @@ export interface UserControllerApiModifyApplicationToUserAssociationRequest {
 	 * @memberof UserControllerApiModifyApplicationToUserAssociation
 	 */
 	readonly userApplication: UserApplication;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserControllerApiModifyApplicationToUserAssociation
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -1488,6 +1791,13 @@ export interface UserControllerApiModifyUserProfileAssociationRequest {
 	 * @memberof UserControllerApiModifyUserProfileAssociation
 	 */
 	readonly userProfile: UserProfile;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserControllerApiModifyUserProfileAssociation
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -1502,6 +1812,13 @@ export interface UserControllerApiNewUserRequest {
 	 * @memberof UserControllerApiNewUser
 	 */
 	readonly user: User;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserControllerApiNewUser
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -1523,6 +1840,13 @@ export interface UserControllerApiUpdateUserRequest {
 	 * @memberof UserControllerApiUpdateUser
 	 */
 	readonly user: User;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserControllerApiUpdateUser
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -1547,6 +1871,7 @@ export class UserControllerApi extends BaseAPI {
 			.addApplicationToUser(
 				requestParameters.userId,
 				requestParameters.applicationId,
+				requestParameters.acceptLanguage,
 				options
 			)
 			.then(request => request(this.axios, this.basePath));
@@ -1564,7 +1889,12 @@ export class UserControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return UserControllerApiFp(this.configuration)
-			.addProfileToUser(requestParameters.userId, requestParameters.profileId, options)
+			.addProfileToUser(
+				requestParameters.userId,
+				requestParameters.profileId,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -1580,7 +1910,7 @@ export class UserControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return UserControllerApiFp(this.configuration)
-			.deleteUser(requestParameters.id, options)
+			.deleteUser(requestParameters.id, requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -1596,7 +1926,11 @@ export class UserControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return UserControllerApiFp(this.configuration)
-			.deleteUserApplicationAssociation(requestParameters.userApplicationKey, options)
+			.deleteUserApplicationAssociation(
+				requestParameters.userApplicationKey,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -1616,6 +1950,7 @@ export class UserControllerApi extends BaseAPI {
 				requestParameters.userId,
 				requestParameters.profileId,
 				requestParameters.userProfileKey,
+				requestParameters.acceptLanguage,
 				options
 			)
 			.then(request => request(this.axios, this.basePath));
@@ -1633,7 +1968,11 @@ export class UserControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return UserControllerApiFp(this.configuration)
-			.getAllApplicationOfAUser(requestParameters.id, options)
+			.getAllApplicationOfAUser(
+				requestParameters.id,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -1649,31 +1988,43 @@ export class UserControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return UserControllerApiFp(this.configuration)
-			.getAllProfileOfAUser(requestParameters.id, options)
+			.getAllProfileOfAUser(
+				requestParameters.id,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 
 	/**
 	 *
+	 * @param {UserControllerApiGetAllUsersRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
 	 * @memberof UserControllerApi
 	 */
-	public getAllUsers(options?: AxiosRequestConfig) {
+	public getAllUsers(
+		requestParameters: UserControllerApiGetAllUsersRequest = {},
+		options?: AxiosRequestConfig
+	) {
 		return UserControllerApiFp(this.configuration)
-			.getAllUsers(options)
+			.getAllUsers(requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 
 	/**
 	 *
+	 * @param {UserControllerApiGetAuthInfoRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
 	 * @memberof UserControllerApi
 	 */
-	public getAuthInfo(options?: AxiosRequestConfig) {
+	public getAuthInfo(
+		requestParameters: UserControllerApiGetAuthInfoRequest = {},
+		options?: AxiosRequestConfig
+	) {
 		return UserControllerApiFp(this.configuration)
-			.getAuthInfo(options)
+			.getAuthInfo(requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -1689,7 +2040,7 @@ export class UserControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return UserControllerApiFp(this.configuration)
-			.getOneUsers(requestParameters.id, options)
+			.getOneUsers(requestParameters.id, requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -1709,6 +2060,7 @@ export class UserControllerApi extends BaseAPI {
 				requestParameters.userId,
 				requestParameters.applicationId,
 				requestParameters.userApplication,
+				requestParameters.acceptLanguage,
 				options
 			)
 			.then(request => request(this.axios, this.basePath));
@@ -1730,6 +2082,7 @@ export class UserControllerApi extends BaseAPI {
 				requestParameters.userId,
 				requestParameters.profileId,
 				requestParameters.userProfile,
+				requestParameters.acceptLanguage,
 				options
 			)
 			.then(request => request(this.axios, this.basePath));
@@ -1747,7 +2100,7 @@ export class UserControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return UserControllerApiFp(this.configuration)
-			.newUser(requestParameters.user, options)
+			.newUser(requestParameters.user, requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -1763,7 +2116,12 @@ export class UserControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return UserControllerApiFp(this.configuration)
-			.updateUser(requestParameters.id, requestParameters.user, options)
+			.updateUser(
+				requestParameters.id,
+				requestParameters.user,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 }

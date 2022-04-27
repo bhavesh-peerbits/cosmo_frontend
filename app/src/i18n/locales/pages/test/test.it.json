@@ -1,4 +1,4 @@
 {
 	"test-string": "questa è una stringa di test",
-  "date": "Postato il {{ date, relative }}"
+	"date": "Postato il {{ date, relative }}"
 }

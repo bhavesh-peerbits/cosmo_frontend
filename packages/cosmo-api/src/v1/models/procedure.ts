@@ -29,7 +29,7 @@ export interface Procedure {
 	 * @type {string}
 	 * @memberof Procedure
 	 */
-	majorprocedure?: string;
+	majorProcedure?: string;
 	/**
 	 *
 	 * @type {string}

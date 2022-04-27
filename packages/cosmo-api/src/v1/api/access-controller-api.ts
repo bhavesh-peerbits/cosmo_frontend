@@ -55,6 +55,7 @@ export const AccessControllerApiAxiosParamCreator = function (
 		 * @param {string} user
 		 * @param {string} password
 		 * @param {string} tenant
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
@@ -62,6 +63,7 @@ export const AccessControllerApiAxiosParamCreator = function (
 			user: string,
 			password: string,
 			tenant: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'user' is not null or undefined
@@ -86,6 +88,10 @@ export const AccessControllerApiAxiosParamCreator = function (
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
 
 			if (user !== undefined) {
 				localVarFormParams.append('user', user as any);
@@ -119,11 +125,13 @@ export const AccessControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {string} refreshToken
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		refreshToken: async (
 			refreshToken: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'refreshToken' is not null or undefined
@@ -144,6 +152,10 @@ export const AccessControllerApiAxiosParamCreator = function (
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
 
 			if (refreshToken !== undefined) {
 				localVarFormParams.append('refresh-token', refreshToken as any);
@@ -181,6 +193,7 @@ export const AccessControllerApiFp = function (configuration?: Configuration) {
 		 * @param {string} user
 		 * @param {string} password
 		 * @param {string} tenant
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
@@ -188,6 +201,7 @@ export const AccessControllerApiFp = function (configuration?: Configuration) {
 			user: string,
 			password: string,
 			tenant: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AccessLoginDto>
@@ -196,6 +210,7 @@ export const AccessControllerApiFp = function (configuration?: Configuration) {
 				user,
 				password,
 				tenant,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -208,17 +223,20 @@ export const AccessControllerApiFp = function (configuration?: Configuration) {
 		/**
 		 *
 		 * @param {string} refreshToken
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async refreshToken(
 			refreshToken: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RefreshTokenDto>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.refreshToken(
 				refreshToken,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -247,6 +265,7 @@ export const AccessControllerApiFactory = function (
 		 * @param {string} user
 		 * @param {string} password
 		 * @param {string} tenant
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
@@ -254,21 +273,27 @@ export const AccessControllerApiFactory = function (
 			user: string,
 			password: string,
 			tenant: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<AccessLoginDto> {
 			return localVarFp
-				.login(user, password, tenant, options)
+				.login(user, password, tenant, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {string} refreshToken
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		refreshToken(refreshToken: string, options?: any): AxiosPromise<RefreshTokenDto> {
+		refreshToken(
+			refreshToken: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<RefreshTokenDto> {
 			return localVarFp
-				.refreshToken(refreshToken, options)
+				.refreshToken(refreshToken, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		}
 	};
@@ -300,6 +325,13 @@ export interface AccessControllerApiLoginRequest {
 	 * @memberof AccessControllerApiLogin
 	 */
 	readonly tenant: string;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AccessControllerApiLogin
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -314,6 +346,13 @@ export interface AccessControllerApiRefreshTokenRequest {
 	 * @memberof AccessControllerApiRefreshToken
 	 */
 	readonly refreshToken: string;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AccessControllerApiRefreshToken
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -339,6 +378,7 @@ export class AccessControllerApi extends BaseAPI {
 				requestParameters.user,
 				requestParameters.password,
 				requestParameters.tenant,
+				requestParameters.acceptLanguage,
 				options
 			)
 			.then(request => request(this.axios, this.basePath));
@@ -356,7 +396,11 @@ export class AccessControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return AccessControllerApiFp(this.configuration)
-			.refreshToken(requestParameters.refreshToken, options)
+			.refreshToken(
+				requestParameters.refreshToken,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 }

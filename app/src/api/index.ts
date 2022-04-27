@@ -4,6 +4,9 @@ import errorManager from '@api/ErrorManager';
 import configureApi, { ApiConfiguration } from 'cosmo-api';
 import { retrieveUserToken } from '@store/auth/authStore';
 import { AccessControllerApiAxiosParamCreator, UserDtoRolesEnum } from 'cosmo-api/src/v1';
+import i18n from '@i18n';
+
+const underscoreToDash = (text: string) => text.replace('_', '-');
 
 const DEFAULT_CONFIG = new ApiConfiguration({
 	basePath: import.meta.env.COSMO_API_URL
@@ -15,9 +18,14 @@ axios.interceptors.response.use(
 );
 axios.interceptors.request.use(
 	config => {
+		config.headers = {
+			'Accept-Language': underscoreToDash(i18n.language)
+		};
+
 		const token = retrieveUserToken();
 		if (token) {
 			config.headers = {
+				...config.headers,
 				Authorization: `Bearer ${token}`
 			};
 		}

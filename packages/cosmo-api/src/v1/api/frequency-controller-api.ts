@@ -50,10 +50,14 @@ export const FrequencyControllerApiAxiosParamCreator = function (
 	return {
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllFrequency: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+		getAllFrequency: async (
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
 			const localVarPath = `/api/frequency`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -68,6 +72,10 @@ export const FrequencyControllerApiAxiosParamCreator = function (
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
@@ -96,15 +104,20 @@ export const FrequencyControllerApiFp = function (configuration?: Configuration)
 	return {
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getAllFrequency(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Frequency>>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllFrequency(options);
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllFrequency(
+				acceptLanguage,
+				options
+			);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
@@ -128,16 +141,34 @@ export const FrequencyControllerApiFactory = function (
 	return {
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllFrequency(options?: any): AxiosPromise<Array<Frequency>> {
+		getAllFrequency(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<Frequency>> {
 			return localVarFp
-				.getAllFrequency(options)
+				.getAllFrequency(acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		}
 	};
 };
+
+/**
+ * Request parameters for getAllFrequency operation in FrequencyControllerApi.
+ * @export
+ * @interface FrequencyControllerApiGetAllFrequencyRequest
+ */
+export interface FrequencyControllerApiGetAllFrequencyRequest {
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof FrequencyControllerApiGetAllFrequency
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
 
 /**
  * FrequencyControllerApi - object-oriented interface
@@ -148,13 +179,17 @@ export const FrequencyControllerApiFactory = function (
 export class FrequencyControllerApi extends BaseAPI {
 	/**
 	 *
+	 * @param {FrequencyControllerApiGetAllFrequencyRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
 	 * @memberof FrequencyControllerApi
 	 */
-	public getAllFrequency(options?: AxiosRequestConfig) {
+	public getAllFrequency(
+		requestParameters: FrequencyControllerApiGetAllFrequencyRequest = {},
+		options?: AxiosRequestConfig
+	) {
 		return FrequencyControllerApiFp(this.configuration)
-			.getAllFrequency(options)
+			.getAllFrequency(requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 }

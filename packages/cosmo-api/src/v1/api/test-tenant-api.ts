@@ -48,10 +48,12 @@ export const TestTenantApiAxiosParamCreator = function (configuration?: Configur
 	return {
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		listCatalogBranch1: async (
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			const localVarPath = `/api/test/tenant/catalog`;
@@ -68,6 +70,10 @@ export const TestTenantApiAxiosParamCreator = function (configuration?: Configur
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
@@ -86,11 +92,13 @@ export const TestTenantApiAxiosParamCreator = function (configuration?: Configur
 		/**
 		 *
 		 * @param {TestDto} testDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		test: async (
 			testDto: TestDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'testDto' is not null or undefined
@@ -112,6 +120,10 @@ export const TestTenantApiAxiosParamCreator = function (configuration?: Configur
 
 			if (testDto !== undefined) {
 				localVarQueryParameter['testDto'] = testDto;
+			}
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
 			}
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -140,13 +152,16 @@ export const TestTenantApiFp = function (configuration?: Configuration) {
 	return {
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async listCatalogBranch1(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.listCatalogBranch1(
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -159,14 +174,20 @@ export const TestTenantApiFp = function (configuration?: Configuration) {
 		/**
 		 *
 		 * @param {TestDto} testDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async test(
 			testDto: TestDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TestDto>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.test(testDto, options);
+			const localVarAxiosArgs = await localVarAxiosParamCreator.test(
+				testDto,
+				acceptLanguage,
+				options
+			);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
@@ -190,25 +211,50 @@ export const TestTenantApiFactory = function (
 	return {
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		listCatalogBranch1(options?: any): AxiosPromise<string> {
+		listCatalogBranch1(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<string> {
 			return localVarFp
-				.listCatalogBranch1(options)
+				.listCatalogBranch1(acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {TestDto} testDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		test(testDto: TestDto, options?: any): AxiosPromise<TestDto> {
-			return localVarFp.test(testDto, options).then(request => request(axios, basePath));
+		test(
+			testDto: TestDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<TestDto> {
+			return localVarFp
+				.test(testDto, acceptLanguage, options)
+				.then(request => request(axios, basePath));
 		}
 	};
 };
+
+/**
+ * Request parameters for listCatalogBranch1 operation in TestTenantApi.
+ * @export
+ * @interface TestTenantApiListCatalogBranch1Request
+ */
+export interface TestTenantApiListCatalogBranch1Request {
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof TestTenantApiListCatalogBranch1
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
 
 /**
  * Request parameters for test operation in TestTenantApi.
@@ -222,6 +268,13 @@ export interface TestTenantApiTestRequest {
 	 * @memberof TestTenantApiTest
 	 */
 	readonly testDto: TestDto;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof TestTenantApiTest
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -233,13 +286,17 @@ export interface TestTenantApiTestRequest {
 export class TestTenantApi extends BaseAPI {
 	/**
 	 *
+	 * @param {TestTenantApiListCatalogBranch1Request} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
 	 * @memberof TestTenantApi
 	 */
-	public listCatalogBranch1(options?: AxiosRequestConfig) {
+	public listCatalogBranch1(
+		requestParameters: TestTenantApiListCatalogBranch1Request = {},
+		options?: AxiosRequestConfig
+	) {
 		return TestTenantApiFp(this.configuration)
-			.listCatalogBranch1(options)
+			.listCatalogBranch1(requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -252,7 +309,7 @@ export class TestTenantApi extends BaseAPI {
 	 */
 	public test(requestParameters: TestTenantApiTestRequest, options?: AxiosRequestConfig) {
 		return TestTenantApiFp(this.configuration)
-			.test(requestParameters.testDto, options)
+			.test(requestParameters.testDto, requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 }
