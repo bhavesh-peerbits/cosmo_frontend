@@ -68,7 +68,11 @@ const PageHeader = ({
 										</BreadcrumbItem>
 									)}
 									{intermediateRoutes.map(({ name, to }) => (
-										<BreadcrumbItem key={name} onClick={() => navigate(to)}>
+										<BreadcrumbItem
+											className='cursor-pointer'
+											key={name}
+											onClick={() => navigate(to)}
+										>
 											{name}
 										</BreadcrumbItem>
 									))}
@@ -93,20 +97,21 @@ const PageHeader = ({
 														tooltipPosition='bottom'
 														iconDescription={action.name}
 														renderIcon={action.icon}
+														kind={actions?.length > 1 ? 'tertiary' : 'primary'}
 													>
 														{action.name}
 													</Button>
 												))}
-												<div>
-													{actions?.slice(1)?.map(action => (
+												<div className='space-x-1'>
+													{actions?.slice(1)?.map((action, index) => (
 														<Button
 															size='sm'
-															kind='ghost'
+															kind={index === 0 ? 'primary' : 'danger'}
 															renderIcon={action.icon}
 															iconDescription={action.name}
 															tooltipPosition='bottom'
 															hasIconOnly
-															onClick={() => {}}
+															onClick={action.onClick}
 														/>
 													))}
 												</div>
