@@ -37,3 +37,6 @@ export * from './lib/components/Breadcrumb';
 export * from './lib/components/Tabs';
 
 export * from './lib/components/Skeleton';
+
+export * from './lib/components/Toggle';
+

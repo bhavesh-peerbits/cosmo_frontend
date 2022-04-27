@@ -58,7 +58,7 @@ const ApplicationDetail = () => {
 					>
 						<Tab>Application Info</Tab>
 						<Tab>Procedure Info</Tab>
-						<Tab>Application Changes</Tab>
+						<Tab>Changes</Tab>
 					</TabList>
 					<TabPanels>
 						<TabPanel>
