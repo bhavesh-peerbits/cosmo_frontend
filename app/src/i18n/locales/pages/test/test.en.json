@@ -1,3 +1,4 @@
 {
-	"test-string": "This is a test string"
+	"test-string": "This is a test string",
+  "date": "Posted on {{ date, relative }}"
 }

@@ -106,6 +106,7 @@ const PageHeader = ({
 													{actions?.slice(1)?.map((action, index) => (
 														<Button
 															size='sm'
+															key={action.name}
 															kind={index === 0 ? 'primary' : 'danger'}
 															renderIcon={action.icon}
 															iconDescription={action.name}

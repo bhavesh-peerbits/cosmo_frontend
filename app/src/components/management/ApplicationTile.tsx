@@ -2,6 +2,7 @@ import { ClickableTile, Layer } from '@carbon/react';
 import { useNavigate } from 'react-router-dom';
 import Application from '@model/Application';
 import IconResolver from '@components/IconResolver';
+import { formatDate } from '@i18n';
 
 type ApplicationTileProps = {
 	application: Application;
@@ -22,10 +23,10 @@ const ApplicationTile = ({ application }: ApplicationTileProps) => {
 							<div className='text-heading-2'>{application.name}</div>
 							<div className='text-body-short-1'>{application.owner}</div>
 						</div>
-						<div className='flex flex-row justify-between'>
+						<div className='flex flex-row justify-between space-x-2'>
 							<div className='text-body-short-1'>{application.code}</div>
-							<div className='text-text-secondary'>
-								{application.lastModify?.toDateString()}
+							<div className='text-right text-text-secondary'>
+								{application.lastModify && formatDate(application.lastModify)}
 							</div>
 						</div>
 					</div>
