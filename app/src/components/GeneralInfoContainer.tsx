@@ -16,7 +16,7 @@ const GeneralInfoContainer = () => {
 		formState: { errors }
 	} = useForm<GeneralInfoForm>({ mode: 'onBlur' });
 	return (
-		<Tile href='ApplicationName' className='w-full bg-background'>
+		<Tile href='ApplicationName' className='w-full bg-background pb-7'>
 			<Grid fullWidth narrow className='space-y-7'>
 				<Column
 					sm={{ span: 4 }}

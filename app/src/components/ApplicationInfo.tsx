@@ -10,6 +10,7 @@ const ApplicationInfo = () => {
 				<Column sm={2} md={2} lg={3}>
 					<div className='sticky top-[112px]'>
 						<ScrollToContent
+							withCheckbox={false}
 							contentList={[
 								{ id: 'general-info', content: 'General Info' },
 								{ id: 'technical-info', content: 'Technical Info' }
@@ -17,19 +18,21 @@ const ApplicationInfo = () => {
 						/>
 					</div>
 				</Column>
-				<Column sm={4} md={6} lg={13}>
-					<div className='space-y-7'>
+				<Column sm={4} md={6} lg={13} className='pt-4'>
+					<div className='space-y-4'>
 						<div className=' flex w-full space-x-4'>
 							<Button size='md'>Save Changes</Button>
 							<Button kind='secondary' size='md'>
 								Discard Changes
 							</Button>
 						</div>
-						<div id='general-info'>
-							<GeneralInfoContainer />
-						</div>
-						<div id='technical-info'>
-							<TechnicalInfoContainer />
+						<div className='space-y-7'>
+							<div id='general-info'>
+								<GeneralInfoContainer />
+							</div>
+							<div id='technical-info'>
+								<TechnicalInfoContainer />
+							</div>
 						</div>
 					</div>
 				</Column>
