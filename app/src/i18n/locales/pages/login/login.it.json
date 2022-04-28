@@ -2,6 +2,6 @@
 	"usernameRequired": "Il campo username è obbligatorio",
 	"passwordRequired": "Il campo password è obbligatorio",
 	"usernameAtLeast": "Il campo username deve contenere almeno {{chars}} caratteri",
-	"rememberMe": "Ricorda user",
+	"rememberMe": "Ricorda utente",
 	"login-error": "Errore durante il login, controlla le tue credenziali e riprova"
 }

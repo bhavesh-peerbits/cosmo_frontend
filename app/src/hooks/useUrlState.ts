@@ -13,12 +13,14 @@ export interface Options {
 
 const baseParseConfig: ParseOptions = {
 	parseNumbers: true,
-	parseBooleans: true
+	parseBooleans: true,
+	arrayFormat: 'comma'
 };
 
 const baseStringifyConfig: StringifyOptions = {
 	skipNull: false,
-	skipEmptyString: false
+	skipEmptyString: false,
+	arrayFormat: 'comma'
 };
 
 type UrlState = Record<

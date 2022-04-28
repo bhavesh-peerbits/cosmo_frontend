@@ -68,6 +68,7 @@ module.exports = {
 		transitionTimingFunction: carbonTransition
 	},
 	plugins: [
+		require('@tailwindcss/line-clamp'),
 		plugin(function ({ addUtilities }) {
 			addUtilities(carbonFonts);
 		})

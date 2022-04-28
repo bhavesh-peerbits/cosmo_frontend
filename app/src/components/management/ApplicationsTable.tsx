@@ -20,6 +20,7 @@ import { CloudDownload, Email, TrashCan } from '@carbon/react/icons';
 import { useState } from 'react';
 import useManagementApps from '@hooks/management/useManagementApps';
 import { useTranslation } from 'react-i18next';
+import { formatDate } from '@i18n';
 
 const ApplicationsTable = () => {
 	const { t } = useTranslation('management');
@@ -114,7 +115,9 @@ const ApplicationsTable = () => {
 										{Object.entries(row)
 											.filter(([key]) => key !== 'id' && key !== 'icon')
 											.map(([key, value]) => (
-												<TableCell key={key}>{value}</TableCell>
+												<TableCell key={key}>
+													{value instanceof Date ? formatDate(value) : value}
+												</TableCell>
 											))}
 									</TableRow>
 								))}

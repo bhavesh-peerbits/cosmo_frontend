@@ -10,17 +10,21 @@ import useUrlState from '@hooks/useUrlState';
 
 const useManagementApps = () => {
 	const [urlFilters, setUrlFilters] = useUrlState<{
-		categories: string[];
+		lastReview: number | undefined;
+		lastModify: number | undefined;
+		owner: string[];
 		q: string | undefined;
 		isTile: boolean;
 	}>({
 		isTile: true,
-		categories: [],
-		q: ''
+		lastModify: undefined,
+		lastReview: undefined,
+		owner: [],
+		q: undefined
 	});
 	const [filters, setFilters] = useRecoilState(managementFilters);
 	const setApps = useSetRecoilState(managementApps);
-	const { apps, categories } = useRecoilValue(filteredApplications);
+	const { apps, lastReview, lastModify, owner } = useRecoilValue(filteredApplications);
 	const { data = [] } = useGetApps();
 
 	useEffect(() => {
@@ -29,13 +33,20 @@ const useManagementApps = () => {
 
 	useEffect(() => {
 		setFilters({
-			categories: urlFilters.categories ?? [],
+			lastModify: urlFilters.lastModify,
+			lastReview: urlFilters.lastReview,
+			owner: urlFilters.owner ?? [],
 			query: urlFilters.q,
 			isTile: urlFilters.isTile
 		});
 	}, [urlFilters, setFilters]);
 
-	return { apps, categories, filters, setFilters: setUrlFilters };
+	const filtersAvailable = {
+		lastModify,
+		lastReview,
+		owner
+	};
+	return { apps, filtersAvailable, filters, setFilters: setUrlFilters };
 };
 
 export default useManagementApps;

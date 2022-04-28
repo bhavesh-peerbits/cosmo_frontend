@@ -7,5 +7,10 @@
 	"application-name": "Application name",
 	"owner": "Owner",
 	"code": "Code",
-	"filters": "Filters"
+	"filters": "Filters",
+	"last-review": "Last review",
+	"no-description": "No description available",
+	"never-done": "Never",
+	"last-modify": "Last modify",
+	"all": "All"
 }

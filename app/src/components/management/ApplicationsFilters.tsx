@@ -1,33 +1,96 @@
-import { Accordion, AccordionItem, Checkbox } from '@carbon/react';
+import {
+	Accordion,
+	AccordionItem,
+	Checkbox,
+	RadioButton,
+	RadioButtonGroup
+} from '@carbon/react';
 import useManagementApps from '@hooks/management/useManagementApps';
 import { useTranslation } from 'react-i18next';
+import useResponsive from '@hooks/useResponsive';
+
+interface FilterRadioGroupProps {
+	filterName: 'lastReview' | 'lastModify';
+	withNever?: boolean;
+}
+
+const FilterRadioGroup = ({ filterName, withNever }: FilterRadioGroupProps) => {
+	const { t } = useTranslation('management');
+	const { setFilters, filtersAvailable } = useManagementApps();
+	const filterOption = filtersAvailable[filterName];
+
+	return (
+		<RadioButtonGroup
+			name={filterName}
+			orientation='vertical'
+			valueSelected={filterOption.find(f => f.enabled)?.date ?? ''}
+			onChange={(value, group) => setFilters({ [group]: value || undefined })}
+		>
+			<RadioButton labelText={t('all')} value='' id={`${filterName}-all`} />
+			{withNever ? (
+				<RadioButton
+					labelText={t('never-done')}
+					value='never'
+					id={`${filterName}-never`}
+				/>
+			) : (
+				<div />
+			)}
+			{filterOption.map(filter => (
+				<RadioButton
+					key={filter.value}
+					labelText={filter.value}
+					value={filter.date}
+					id={`${filterName}-${filter.value}`}
+				/>
+			))}
+		</RadioButtonGroup>
+	);
+};
 
 const ApplicationsFilters = () => {
 	const { t } = useTranslation('management');
-	const { categories, setFilters } = useManagementApps();
+	const { filtersAvailable, setFilters } = useManagementApps();
+	const { md } = useResponsive();
 
-	const handleFilter = (filter: string, action: 'add' | 'remove') => {
+	const handleCheckFilter = (filter: string, action: 'add' | 'remove') => {
 		setFilters(old => ({
-			categories:
+			owner:
 				action === 'add'
-					? [...(old.categories ?? []), filter]
-					: (old.categories ?? []).filter((f: string) => f !== filter)
+					? [...(old.owner ?? []), filter]
+					: (old.owner ?? []).filter((f: string) => f !== filter)
 		}));
 	};
 
 	return (
 		<div className='flex flex-col'>
 			<Accordion className='divide-y'>
-				<AccordionItem title={t('categories')} className='border-0'>
-					{categories.map(filter => (
+				<AccordionItem title={t('last-review')} className='border-0' open={md}>
+					<FilterRadioGroup filterName='lastReview' withNever />
+				</AccordionItem>
+				<AccordionItem title={t('last-modify')} className='border-0' open={md}>
+					<FilterRadioGroup filterName='lastModify' />
+				</AccordionItem>
+				<AccordionItem title={t('owner')} className='border-0' open={md}>
+					<Checkbox
+						labelText={t('all')}
+						id='owner-all'
+						checked={filtersAvailable.owner.every(f => f.enabled)}
+						onChange={(_, { checked }) =>
+							setFilters({
+								owner: checked ? filtersAvailable.owner.map(({ owner }) => owner) : []
+							})
+						}
+					/>
+					{filtersAvailable.owner.map(filter => (
 						<Checkbox
-							key={filter.category}
+							key={filter.owner}
 							checked={filter.enabled}
 							onChange={(_, { checked, id }) =>
-								handleFilter(id, checked ? 'add' : 'remove')
+								handleCheckFilter(id, checked ? 'add' : 'remove')
 							}
-							id={filter.category}
-							labelText={filter.category}
+							id={filter.owner}
+							labelText={filter.owner}
 						/>
 					))}
 				</AccordionItem>

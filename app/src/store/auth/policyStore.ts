@@ -1,6 +1,6 @@
 import { selector } from 'recoil';
 import authStore from '@store/auth/authStore';
-import { UserRoleEnum } from '@api';
+import { UserRoleEnum } from '@model/UserRole';
 
 type Policies = {
 	canCreateReport: boolean;

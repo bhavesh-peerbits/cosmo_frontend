@@ -3,7 +3,7 @@ import axios from 'axios';
 import errorManager from '@api/ErrorManager';
 import configureApi, { ApiConfiguration } from 'cosmo-api';
 import { retrieveUserToken } from '@store/auth/authStore';
-import { AccessControllerApiAxiosParamCreator, UserDtoRolesEnum } from 'cosmo-api/src/v1';
+import { AccessControllerApiAxiosParamCreator } from 'cosmo-api/src/v1';
 import i18n from '@i18n';
 
 const underscoreToDash = (text: string) => text.replace('_', '-');
@@ -37,14 +37,12 @@ axios.interceptors.request.use(
 
 const api = configureApi(DEFAULT_CONFIG);
 
-export type UserRole = UserDtoRolesEnum;
 export const refreshTokenUrl = AccessControllerApiAxiosParamCreator(DEFAULT_CONFIG)
 	.refreshToken('')
 	.then(v => DEFAULT_CONFIG.basePath + v.url);
 export const loginUrl = AccessControllerApiAxiosParamCreator(DEFAULT_CONFIG)
 	.login('', '', '')
 	.then(v => DEFAULT_CONFIG.basePath + v.url);
-export const UserRoleEnum = UserDtoRolesEnum;
 
 export default {
 	...api

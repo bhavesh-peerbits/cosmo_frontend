@@ -5,3 +5,5 @@ export { default as PasswordInput } from './PasswordInput';
 export { default as Search } from './Search';
 export { default as Select } from './Select';
 export { default as SelectItem } from './SelectItem';
+export { default as RadioButton } from './RadioButton';
+export { default as RadioButtonGroup } from './RadioButtonGroup';

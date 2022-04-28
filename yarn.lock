@@ -1668,7 +1668,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.3.1":
+"@babel/runtime@npm:^7.17.9, @babel/runtime@npm:^7.3.1":
   version: 7.17.9
   resolution: "@babel/runtime@npm:7.17.9"
   dependencies:
@@ -5263,6 +5263,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tailwindcss/line-clamp@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "@tailwindcss/line-clamp@npm:0.4.0"
+  peerDependencies:
+    tailwindcss: ">=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1"
+  checksum: 71ba25a4a18323496a7af34e55871121b8459530b0e5696c4173fd65a76162675619f1d1158a8a32e1ace2069333949bef6f1061b17f49fef98dc2291a979dcd
+  languageName: node
+  linkType: hard
+
 "@testing-library/cypress@npm:^8.0.2":
   version: 8.0.2
   resolution: "@testing-library/cypress@npm:8.0.2"
@@ -5938,15 +5947,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^18.0.2":
-  version: 18.0.2
-  resolution: "@types/react-dom@npm:18.0.2"
-  dependencies:
-    "@types/react": "*"
-  checksum: 2b0b138d8634ccfd8a86b17cb5414b122ee0cb6f650377d772f6008761a27e4c2531c08e3cab71aaa19b6893af6a508c664aa314db3ebcff5b8179173c9c9307
-  languageName: node
-  linkType: hard
-
 "@types/react-syntax-highlighter@npm:11.0.5":
   version: 11.0.5
   resolution: "@types/react-syntax-highlighter@npm:11.0.5"
@@ -5978,14 +5978,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^18.0.7":
-  version: 18.0.7
-  resolution: "@types/react@npm:18.0.7"
+"@types/react@npm:^18.0.8":
+  version: 18.0.8
+  resolution: "@types/react@npm:18.0.8"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: 0cbbfc118227a8bd25cbec253f6ace46c1af0c9b1a4abfe5a51ed1977b93c3e82af2a70d38ba77fc36075e886d303dd57f3302447b70152702028f20a4675e32
+  checksum: 12d0e6bc390709926d8eaeb7d2edb4ef9c9fbe8eac41cb0619d958386700547bff91c880c2a12a9eb1e0d09afa4f1e86fd1b93164c627824465b72123f149f3b
   languageName: node
   linkType: hard
 
@@ -7153,9 +7153,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ahooks@npm:^3.3.8":
-  version: 3.3.8
-  resolution: "ahooks@npm:3.3.8"
+"ahooks@npm:^3.3.10":
+  version: 3.3.10
+  resolution: "ahooks@npm:3.3.10"
   dependencies:
     "@types/js-cookie": ^2.x.x
     ahooks-v3-count: ^1.0.0
@@ -7167,7 +7167,7 @@ __metadata:
     screenfull: ^5.0.0
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: c646186e2fa137946120ff5a7560e8defd0ab12a37fc7cd2013008231c9b7195cf517baf5495f8019246fc3a529e181b4582c86b668531602072c4baf081974e
+  checksum: 4084f9910bb86b6a9ad216ae035d62da4967c879d99a36a9c0da58cc3f19280de99fc2b89eece66b2abd69ce0d4e8f920b0c4bf134f97106958dcf5a2362ee56
   languageName: node
   linkType: hard
 
@@ -7381,6 +7381,7 @@ __metadata:
     "@sentry/core": ^6.19.3
     "@sentry/react": 6.18.2
     "@sentry/tracing": 6.18.2
+    "@tailwindcss/line-clamp": ^0.4.0
     "@testing-library/dom": ^8.13.0
     "@testing-library/jest-dom": ^5.16.4
     "@testing-library/react": ^13.1.1
@@ -7388,14 +7389,14 @@ __metadata:
     "@testing-library/user-event": ^14.1.1
     "@types/carbon__react": "workspace:^"
     "@types/css-mediaquery": ^0.1.1
-    "@types/react": ^18.0.7
-    "@types/react-dom": ^18.0.2
+    "@types/react": ^18.0.8
+    "@types/react-dom": ^18.0.0
     "@types/testing-library__jest-dom": ^5.14.3
     "@types/validator": ^13.7.2
     "@vitejs/plugin-legacy": ^1.8.1
     "@vitejs/plugin-react": ^1.3.1
     "@vitest/ui": ^0.10.0
-    ahooks: ^3.3.8
+    ahooks: ^3.3.10
     autoprefixer: ^10.4.5
     axios: ^0.26.1
     classnames: ^2.3.1
@@ -7403,7 +7404,7 @@ __metadata:
     css-mediaquery: ^0.1.2
     date-fns: ^2.28.0
     eslint-plugin-testing-library: ^5.3.1
-    framer-motion: ^6.3.2
+    framer-motion: ^6.3.3
     i18next: ^21.6.16
     jsdom: ^19.0.0
     lodash: ^4.17.21
@@ -7411,12 +7412,12 @@ __metadata:
     postcss: ^8.4.12
     prettier-plugin-tailwindcss: ^0.1.10
     query-string: ^7.1.1
-    react: ^18.0.0
-    react-dom: ^18.0.0
+    react: ^18.1.0
+    react-dom: ^18.1.0
     react-error-boundary: ^3.1.4
     react-hook-form: ^7.30.0
     react-i18next: ^11.16.7
-    react-query: ^4.0.0-beta.5
+    react-query: ^4.0.0-beta.7
     react-router-dom: ^6.3.0
     recoil: ^0.7.2
     sass: ^1.51.0
@@ -7425,7 +7426,7 @@ __metadata:
     tiny-cookie: ^2.3.2
     translation-check: ^1.0.2
     validator: ^13.7.0
-    vite: ^2.9.5
+    vite: ^2.9.6
     vite-plugin-pwa: ^0.12.0
     vite-plugin-svgr: ^1.1.0
     vite-tsconfig-paths: ^3.4.1
@@ -13499,9 +13500,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^6.3.2":
-  version: 6.3.2
-  resolution: "framer-motion@npm:6.3.2"
+"framer-motion@npm:^6.3.3":
+  version: 6.3.3
+  resolution: "framer-motion@npm:6.3.3"
   dependencies:
     "@emotion/is-prop-valid": ^0.8.2
     framesync: 6.0.1
@@ -13515,7 +13516,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: 50dc1263165a70a8eec54f8b30d7e1a788d17dcf876d37a7b919e2664264d48d235286640425a485a9ab0c8829aaf1604d708cb0e9ec0b60dc7f0a9e747a9a56
+  checksum: 905ccf2679a45b00f6fd3fa6220f73f176e0c14b43d65ceb5feb93e23b12098def275930b98926c9bd4320f0436564745ebcfd488d7a477646a7a4600362fdbf
   languageName: node
   linkType: hard
 
@@ -20629,6 +20630,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-dom@npm:^18.1.0":
+  version: 18.1.0
+  resolution: "react-dom@npm:18.1.0"
+  dependencies:
+    loose-envify: ^1.1.0
+    scheduler: ^0.22.0
+  peerDependencies:
+    react: ^18.1.0
+  checksum: bb0d48eeb0b297c79c2a03978baa29f5b3ff7ba3d070b21e34c9af1a6e7fdf0ca8b8d73e41f9214d91ad40eeb6d1f3559f884cbbc338713374a51320637c23df
+  languageName: node
+  linkType: hard
+
 "react-element-to-jsx-string@npm:^14.3.4":
   version: 14.3.4
   resolution: "react-element-to-jsx-string@npm:14.3.4"
@@ -20757,11 +20770,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-query@npm:^4.0.0-beta.5":
-  version: 4.0.0-beta.5
-  resolution: "react-query@npm:4.0.0-beta.5"
+"react-query@npm:^4.0.0-beta.7":
+  version: 4.0.0-beta.7
+  resolution: "react-query@npm:4.0.0-beta.7"
   dependencies:
-    "@babel/runtime": ^7.5.5
+    "@babel/runtime": ^7.17.9
     "@types/use-sync-external-store": ^0.0.3
     broadcast-channel: ^3.4.1
     match-sorter: ^6.0.2
@@ -20773,7 +20786,7 @@ __metadata:
       optional: true
     react-native:
       optional: true
-  checksum: 4fd58c664a90754ae73b9419fdfbb2998a23a0ac6bacd41ed3abefe5dc0aeb59e24dc9e505163dcfa3a22fb8c7c0373eaffe38a24ede7b4f8f1320004bf68925
+  checksum: 8491a1f143bf162fe10ed486919be5f607fc2e36fc81d7709e57c7c8167a5a6e1a7b61cf2b29b27e48ed3c4b4bab7f307b2944565638e9154da7acd90fbfdd15
   languageName: node
   linkType: hard
 
@@ -20861,6 +20874,15 @@ __metadata:
   dependencies:
     loose-envify: ^1.1.0
   checksum: 293020b96536b3c7113ee57ca5c990a3f25649d1751b1c7a3aabd16dff0691fe9f1eed1206616d0906d05933536052037340a0c8d0941ff870b0eb469a2f975b
+  languageName: node
+  linkType: hard
+
+"react@npm:^18.1.0":
+  version: 18.1.0
+  resolution: "react@npm:18.1.0"
+  dependencies:
+    loose-envify: ^1.1.0
+  checksum: 5bb296b561b43ef2220395da4faac86c14a087c8c80e1a7598a5740f01ee605c11eaf249985c1e2000971c4cd32ccb46d40f00479bbd9fb6b1c7cf857393b7d4
   languageName: node
   linkType: hard
 
@@ -21695,6 +21717,15 @@ __metadata:
   dependencies:
     loose-envify: ^1.1.0
   checksum: 4f8285076041ed2c81acdd1faa987f1655fdbd30554bc667c1ea64743fc74fb3a04ca7d27454b3d678735df5a230137a3b84756061b43dc5796e80701b66d124
+  languageName: node
+  linkType: hard
+
+"scheduler@npm:^0.22.0":
+  version: 0.22.0
+  resolution: "scheduler@npm:0.22.0"
+  dependencies:
+    loose-envify: ^1.1.0
+  checksum: a8ef5cab769c020cd6382ad9ecc3f72dbde56a50a36639b3a42ad9c11f7724f03700bcad373044059b8067d4a6365154dc7c0ca8027ef20ff4900cf58a0fc2c5
   languageName: node
   linkType: hard
 
@@ -24833,6 +24864,35 @@ __metadata:
   bin:
     vite: bin/vite.js
   checksum: 354189cbce6904a3b58ca70b7ad9e1bb751ded9c13e483165562e634804cfb29bbf1507a4e6334cb9987e3f1f41e9f50764878a3c837523762e9da65229c9543
+  languageName: node
+  linkType: hard
+
+"vite@npm:^2.9.6":
+  version: 2.9.6
+  resolution: "vite@npm:2.9.6"
+  dependencies:
+    esbuild: ^0.14.27
+    fsevents: ~2.3.2
+    postcss: ^8.4.12
+    resolve: ^1.22.0
+    rollup: ^2.59.0
+  peerDependencies:
+    less: "*"
+    sass: "*"
+    stylus: "*"
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  peerDependenciesMeta:
+    less:
+      optional: true
+    sass:
+      optional: true
+    stylus:
+      optional: true
+  bin:
+    vite: bin/vite.js
+  checksum: 79bbf516547f4adb1a297ac8648f8818b3e2a7bb113a7e12acc2355498d247556f58fc50d39eec4891c07250e7420e72773e358eeb8dc62af62fc1ff32c70877
   languageName: node
   linkType: hard
 
