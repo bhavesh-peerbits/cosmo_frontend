@@ -30,7 +30,7 @@ const ProcedureContainer = () => {
 						lg={{ span: 16 }}
 						className='flex items-center justify-between text-fluid-heading-3'
 					>
-						Titolo
+						Title
 						<Button
 							hasIconOnly
 							kind='ghost'

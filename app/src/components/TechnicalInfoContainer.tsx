@@ -1,4 +1,4 @@
-import { Button, Column, Form, Grid, TextInput, Tile } from '@carbon/react';
+import { Column, Form, Grid, TextInput, Tile } from '@carbon/react';
 import { useForm } from 'react-hook-form';
 
 interface TechnicalInfoForm {
@@ -11,10 +11,7 @@ interface TechnicalInfoForm {
 	dbInstance: string;
 }
 const TechnicalInfoContainer = () => {
-	const {
-		register,
-		formState: { isValid, isDirty }
-	} = useForm<TechnicalInfoForm>({ mode: 'onBlur' });
+	const { register } = useForm<TechnicalInfoForm>({ mode: 'onBlur' });
 	return (
 		<Tile href='ApplicationName' className='w-full bg-background pb-7'>
 			<Grid fullWidth narrow className='space-y-7'>
