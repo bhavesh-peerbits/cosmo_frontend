@@ -20,7 +20,7 @@ export const fromApplicationApi = (applicationApi: ApplicationApi): Application 
 	lastModify: applicationApi.lastModify ? new Date(applicationApi.lastModify) : undefined,
 	code: 'Code', // TODO
 	owner: applicationApi.owner?.name,
-	icon: 'mobile' // TODO
+	icon: applicationApi.icon as keyof typeof icons
 });
 
 export default Application;

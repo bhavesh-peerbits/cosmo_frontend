@@ -5,6 +5,7 @@ import {
 	httpErrorIt
 } from '@i18n/locales/components/http-error';
 import { managementEn, managementFr, managementIt } from '@i18n/locales/pages/management';
+import { tableEn, tableFr, tableIt } from '@i18n/locales/components/table';
 import { homeEn, homeIt } from './pages/home';
 import { testEn, testIt } from './pages/test';
 import {
@@ -20,7 +21,8 @@ export default {
 		errorBoundary: errorBoundaryEn,
 		login: loginEn,
 		httpError: httpErrorEn,
-		management: managementEn
+		management: managementEn,
+		table: tableEn
 	},
 	it_IT: {
 		home: homeIt,
@@ -28,12 +30,14 @@ export default {
 		errorBoundary: errorBoundaryIt,
 		login: loginIt,
 		httpError: httpErrorIt,
-		management: managementIt
+		management: managementIt,
+		table: tableIt
 	},
 	fr_FR: {
 		errorBoundary: errorBoundaryFr,
 		login: loginFr,
 		httpError: httpErrorFr,
-		management: managementFr
+		management: managementFr,
+		table: tableFr
 	}
 } as const;

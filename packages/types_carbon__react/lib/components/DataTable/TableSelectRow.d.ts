@@ -1,6 +1,7 @@
-import { FCReturn, ReactDivAttr } from '../../../typings/shared';
+import { ChangeEvent } from 'react';
+import { FCReturn, ReactInputAttr } from '../../../typings/shared';
 
-interface TableSelectRowProps extends ReactDivAttr {
+interface TableSelectRowProps extends ReactInputAttr {
 	/**
 	 * Specify the aria label for the underlying input control
 	 */
@@ -9,7 +10,7 @@ interface TableSelectRowProps extends ReactDivAttr {
 	/**
 	 * Specify whether all items are selected, or not
 	 */
-	checked: boolean;
+	checked?: boolean;
 
 	/**
 	 * The CSS class names of the cell that wraps the underlying input control
@@ -39,7 +40,7 @@ interface TableSelectRowProps extends ReactDivAttr {
 	/**
 	 * Provide a handler to listen to when a user initiates a selection request
 	 */
-	onSelect: () => void;
+	onSelect: ((event: ChangeEvent<HTMLInputElement>) => void) | undefined;
 
 	/**
 	 * Specify whether the control should be a radio button or inline checkbox

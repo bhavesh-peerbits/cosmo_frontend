@@ -12,5 +12,9 @@
 	"no-description": "Nessuna descrizione disponibile",
 	"never-done": "Mai",
 	"last-modify": "Ultima modifica",
-	"all": "Tutto"
+	"all": "Tutto",
+	"description": "Descrizione",
+	"email": "Email",
+	"download": "Download",
+	"delete": "Elimina"
 }
