@@ -5,7 +5,7 @@ interface TableHeaderProps extends ReactDivAttr {
 	/**
 	 * Pass in children that will be embedded in the table header label
 	 */
-	children?: ReactNode | object;
+	children?: ReactNode;
 
 	/**
 	 * Specify an optional className to be applied to the container node

@@ -19,7 +19,6 @@ const AuthenticatedRoutes = () => {
 				<ErrorBoundary>
 					<Suspense fallback={<PageSkeleton />}>
 						<Routes>
-							<Route path='loading' element={<PageSkeleton />} />
 							<Route path='home' element={<Home />} />
 							<Route path='management'>
 								<Route index element={<Management />} />

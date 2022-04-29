@@ -1,18 +1,18 @@
-import { CellProps, Column } from 'react-table';
-import { useMemo } from 'react';
+import { useCallback } from 'react';
 import useManagementApps from '@hooks/management/useManagementApps';
 import { useTranslation } from 'react-i18next';
 import Application from '@model/Application';
 import { CloudDownload, Email, TrashCan } from '@carbon/react/icons';
 import { TableToolbarSearch } from '@carbon/react';
-import CosmoTable from '@components/CosmoTable';
+import CosmoTable, { CellProperties, HeaderFunction } from '@components/table/CosmoTable';
 import IconResolver from '@components/IconResolver';
+import { formatDate } from '@i18n';
 
-const ApplicationIconCell = ({ value, row }: CellProps<Application, string>) => {
+const ApplicationIconCell = ({ row, value }: CellProperties<Application, string>) => {
 	return (
 		<div className='flex items-center space-x-3'>
 			<div>
-				<IconResolver icon={row.original.icon} />
+				<IconResolver icon={row.original?.icon} />
 			</div>
 			<p>{value}</p>
 		</div>
@@ -24,14 +24,35 @@ const ApplicationsTable = () => {
 	const { apps } = useManagementApps();
 	const { filters, setFilters } = useManagementApps();
 
-	const columns: Column<Application>[] = useMemo(
-		() => [
-			{ accessor: 'name', Header: t('application-name'), Cell: ApplicationIconCell },
-			{ accessor: 'description', Header: t('description') },
-			{ accessor: 'owner', Header: t('owner') },
-			{ accessor: 'code', Header: t('code') }
-			// { accessor: 'lastReview', Header: t('last-review') },
-			// { accessor: 'lastModify', Header: t('last-modify') }
+	const columns: HeaderFunction<Application> = useCallback(
+		table => [
+			table.createDataColumn(row => row.name, {
+				id: 'name',
+				header: t('application-name'),
+				cell: ApplicationIconCell
+			}),
+			table.createDataColumn(row => row.description, {
+				id: 'description',
+				header: t('description')
+			}),
+			table.createDataColumn(row => row.owner, {
+				id: 'owner',
+				header: t('owner')
+			}),
+			table.createDataColumn(row => row.code, {
+				id: 'code',
+				header: t('code')
+			}),
+			table.createDataColumn(row => row.lastReview, {
+				id: 'lastReview',
+				header: t('last-review'),
+				cell: info => info.value && formatDate(info.value)
+			}),
+			table.createDataColumn(row => row.lastModify, {
+				id: 'lastModify',
+				header: t('last-modify'),
+				cell: info => info.value && formatDate(info.value)
+			})
 		],
 		[t]
 	);
@@ -55,8 +76,8 @@ const ApplicationsTable = () => {
 
 	return (
 		<CosmoTable
-			data={apps}
-			columns={columns}
+			data={[...apps, ...apps, ...apps, ...apps]}
+			createHeaders={columns}
 			noDataMessage={t('no-applications')}
 			toolbar={{ toolbarContent, toolbarBatchActions }}
 		/>
