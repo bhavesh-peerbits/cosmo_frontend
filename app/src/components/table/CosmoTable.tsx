@@ -1,5 +1,6 @@
 import {
 	Layer,
+	Pagination,
 	Table,
 	TableBody,
 	TableCell,
@@ -64,10 +65,12 @@ const CosmoTable = <D extends object>({
 		getRowModel,
 		getHeaderGroups,
 		getToggleAllRowsSelectedProps,
-		...other
+		setPageIndex,
+		setPageSize
 	} = useTableInstance(table, {
 		data,
 		columns,
+		autoResetPageIndex: false,
 		state: {
 			pagination,
 			sorting,
@@ -162,80 +165,24 @@ const CosmoTable = <D extends object>({
 				</Table>
 			</Layer>
 
-			{other.getOverallProgress() < 1 ? (
-				<div className='p-2'>
-					<div>Loading data...</div>
-					<div>
-						<progress value={other.getOverallProgress()} />
-					</div>
-				</div>
-			) : null}
-			<div className='h-2' />
-			<div className='flex items-center gap-2'>
-				<button
-					type='button'
-					className='rounded border p-1'
-					onClick={() => other.setPageIndex(0)}
-					disabled={!other.getCanPreviousPage()}
-				>
-					{'<<'}
-				</button>
-				<button
-					type='button'
-					className='rounded border p-1'
-					onClick={() => other.previousPage()}
-					disabled={!other.getCanPreviousPage()}
-				>
-					{'<'}
-				</button>
-				<button
-					type='button'
-					className='rounded border p-1'
-					onClick={() => other.nextPage()}
-					disabled={!other.getCanNextPage()}
-				>
-					{'>'}
-				</button>
-				<button
-					type='button'
-					className='rounded border p-1'
-					onClick={() => other.setPageIndex(other.getPageCount() - 1)}
-					disabled={!other.getCanNextPage()}
-				>
-					{'>>'}
-				</button>
-				<span className='flex items-center gap-1'>
-					<div>Page</div>
-					<strong>
-						{other.getState().pagination.pageIndex + 1} of {other.getPageCount()}
-					</strong>
-				</span>
-				<span className='flex items-center gap-1'>
-					| Go to page:
-					<input
-						type='number'
-						defaultValue={other.getState().pagination.pageIndex + 1}
-						onChange={e => {
-							const page = e.target.value ? Number(e.target.value) - 1 : 0;
-							other.setPageIndex(page);
-						}}
-						className='w-16 rounded border p-1'
-					/>
-				</span>
-				<select
-					value={other.getState().pagination.pageSize}
-					onChange={e => {
-						other.setPageSize(Number(e.target.value));
-					}}
-				>
-					{[10, 20, 30, 40, 50].map(pageSize => (
-						<option key={pageSize} value={pageSize}>
-							Show {pageSize}
-						</option>
-					))}
-				</select>
-			</div>
-			<div>{getRowModel().rows.length} Rows</div>
+			<Pagination
+				backwardText={t('previous-page')}
+				forwardText={t('next-page')}
+				itemsPerPageText={t('items-per-page')}
+				itemRangeText={(min, max, total) => t('item-range', { min, max, total })}
+				pageRangeText={(current, total) =>
+					t(total > 1 ? 'page-range-plural' : 'page-range', { current, total })
+				}
+				page={1}
+				onChange={({ page, pageSize }) => {
+					setPageIndex(page - 1);
+					setPageSize(pageSize);
+				}}
+				pageSize={10}
+				pageSizes={[10, 20, 30, 40, 50]}
+				size='md'
+				totalItems={data.length}
+			/>
 		</TableContainer>
 	);
 };

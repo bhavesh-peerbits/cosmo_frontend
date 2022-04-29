@@ -2,5 +2,11 @@
 	"no-data": "No data",
 	"carbon.table.batch.cancel": "Cancel",
 	"carbon.table.batch.items.selected": "{{totalSelected}} items selected",
-	"carbon.table.batch.item.selected": "{{totalSelected}} item selected"
+	"carbon.table.batch.item.selected": "{{totalSelected}} item selected",
+	"previous-page": "Previous page",
+	"next-page": "Next page",
+	"items-per-page": "Items per page:",
+	"item-range": "{{min}}-{{max}} of {{total}}",
+	"page-range": "of {{total}} page",
+	"page-range-plural": "of {{total}} pages"
 }

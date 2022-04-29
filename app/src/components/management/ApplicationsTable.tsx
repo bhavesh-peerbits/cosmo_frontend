@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import useManagementApps from '@hooks/management/useManagementApps';
 import { useTranslation } from 'react-i18next';
 import Application from '@model/Application';
@@ -24,38 +23,37 @@ const ApplicationsTable = () => {
 	const { apps } = useManagementApps();
 	const { filters, setFilters } = useManagementApps();
 
-	const columns: HeaderFunction<Application> = useCallback(
-		table => [
-			table.createDataColumn(row => row.name, {
-				id: 'name',
-				header: t('application-name'),
-				cell: ApplicationIconCell
-			}),
-			table.createDataColumn(row => row.description, {
-				id: 'description',
-				header: t('description')
-			}),
-			table.createDataColumn(row => row.owner, {
-				id: 'owner',
-				header: t('owner')
-			}),
-			table.createDataColumn(row => row.code, {
-				id: 'code',
-				header: t('code')
-			}),
-			table.createDataColumn(row => row.lastReview, {
-				id: 'lastReview',
-				header: t('last-review'),
-				cell: info => info.value && formatDate(info.value)
-			}),
-			table.createDataColumn(row => row.lastModify, {
-				id: 'lastModify',
-				header: t('last-modify'),
-				cell: info => info.value && formatDate(info.value)
-			})
-		],
-		[t]
-	);
+	const columns: HeaderFunction<Application> = table => [
+		table.createDataColumn(row => row.name, {
+			id: 'name',
+			header: t('application-name'),
+			cell: ApplicationIconCell
+		}),
+		table.createDataColumn(row => row.description, {
+			id: 'description',
+			sortUndefined: 1,
+			header: t('description')
+		}),
+		table.createDataColumn(row => row.owner, {
+			id: 'owner',
+			header: t('owner')
+		}),
+		table.createDataColumn(row => row.code, {
+			id: 'code',
+			header: t('code')
+		}),
+		table.createDataColumn(row => row.lastReview, {
+			id: 'lastReview',
+			header: t('last-review'),
+			sortUndefined: 1,
+			cell: info => info.value && formatDate(info.value)
+		}),
+		table.createDataColumn(row => row.lastModify, {
+			id: 'lastModify',
+			header: t('last-modify'),
+			cell: info => info.value && formatDate(info.value)
+		})
+	];
 
 	const toolbarBatchActions = [
 		{ id: 'email', icon: Email, onClick: () => {}, label: t('email') },
@@ -76,7 +74,7 @@ const ApplicationsTable = () => {
 
 	return (
 		<CosmoTable
-			data={[...apps, ...apps, ...apps, ...apps]}
+			data={apps}
 			createHeaders={columns}
 			noDataMessage={t('no-applications')}
 			toolbar={{ toolbarContent, toolbarBatchActions }}

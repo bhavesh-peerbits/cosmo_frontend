@@ -16,14 +16,24 @@ interface FilterRadioGroupProps {
 
 const FilterRadioGroup = ({ filterName, withNever }: FilterRadioGroupProps) => {
 	const { t } = useTranslation('management');
-	const { setFilters, filtersAvailable } = useManagementApps();
+	const { setFilters, filtersAvailable, filters } = useManagementApps();
 	const filterOption = filtersAvailable[filterName];
+	let selectedValue;
+
+	if (withNever) {
+		selectedValue =
+			filterOption.find(f => f.enabled)?.date ?? filters[filterName] === 'never'
+				? 'never'
+				: '';
+	} else {
+		selectedValue = filterOption.find(f => f.enabled)?.date ?? '';
+	}
 
 	return (
 		<RadioButtonGroup
 			name={filterName}
 			orientation='vertical'
-			valueSelected={filterOption.find(f => f.enabled)?.date ?? ''}
+			valueSelected={selectedValue}
 			onChange={(value, group) => setFilters({ [group]: value || undefined })}
 		>
 			<RadioButton labelText={t('all')} value='' id={`${filterName}-all`} />
