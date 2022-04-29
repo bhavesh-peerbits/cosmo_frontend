@@ -1,5 +1,5 @@
 {
-  "no-data": "No data",
+	"no-data": "No data",
 	"carbon.table.batch.cancel": "Cancel",
 	"carbon.table.batch.items.selected": "{{totalSelected}} items selected",
 	"carbon.table.batch.item.selected": "{{totalSelected}} item selected"

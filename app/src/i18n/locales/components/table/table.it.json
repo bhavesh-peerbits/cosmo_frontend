@@ -1,6 +1,6 @@
 {
-  "no-data": "Nessun dato",
-  "carbon.table.batch.cancel": "Cancella",
+	"no-data": "Nessun dato",
+	"carbon.table.batch.cancel": "Cancella",
 	"carbon.table.batch.items.selected": "{{totalSelected}} elementi selezionati",
 	"carbon.table.batch.item.selected": "{{totalSelected}} elemento selezionato"
 }
