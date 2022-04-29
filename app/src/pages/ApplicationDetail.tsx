@@ -6,7 +6,7 @@ import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
 import { useEffect, useRef, useState } from 'react';
 import ProcedureInfo from '@components/ProcedureInfo';
 import ApplicationChangesContainer from '@components/ApplicationChangesContainer';
-import ReviewModal from '@components/ReviewModal';
+import ApplicationReviewModal from '@components/ApplicationReviewModal';
 import GenerateModal from '@components/GenerateModal';
 import DeleteModal from '@components/DeleteModal';
 
@@ -72,7 +72,10 @@ const ApplicationDetail = () => {
 						</TabPanel>
 					</TabPanels>
 				</Tabs>
-				<ReviewModal isOpen={isReviewModalOpen} setIsOpen={setIsReviewModalOpen} />
+				<ApplicationReviewModal
+					isOpen={isReviewModalOpen}
+					setIsOpen={setIsReviewModalOpen}
+				/>
 				<GenerateModal isOpen={isGenerateModalOpen} setIsOpen={setIsGenerateModalOpen} />
 				<DeleteModal
 					isOpen={isDeleteModalOpen}

@@ -15,6 +15,7 @@ const ApplicationChangesTable = () => {
 		[key: string]: string;
 		id: string;
 	};
+
 	const rows: Row[] = [
 		{
 			id: 'change-1',
@@ -51,7 +52,7 @@ const ApplicationChangesTable = () => {
 		{
 			id: 'change-5',
 			procedure: 'Procedure Name 5',
-			field: 'Field',
+			field: 'Field5',
 			value: 'New Value',
 			date: 'mm/dd/yyyy',
 			changedBy: 'Name Surname'
@@ -59,30 +60,30 @@ const ApplicationChangesTable = () => {
 		{
 			id: 'change-6',
 			procedure: 'Procedure Name 6',
-			field: 'Field',
+			field: 'Field6',
 			value: 'New Value',
 			date: 'mm/dd/yyyy',
 			changedBy: 'Name Surname'
 		}
 	];
 	const headers = [
-		{ key: 'Procedure', header: 'Procedure' },
-		{ key: 'Field', header: 'Field' },
-		{ key: 'Value', header: 'Value' },
-		{ key: 'Date', header: 'Date' },
-		{ key: 'ChangedBy', header: 'Changed By' }
+		{ key: 'procedure', header: 'Procedure' },
+		{ key: 'field', header: 'Field' },
+		{ key: 'value', header: 'Value' },
+		{ key: 'date', header: 'Date' },
+		{ key: 'changedBy', header: 'Changed By' }
 	];
 
 	return (
-		<DataTable rows={rows} headers={headers}>
+		<DataTable rows={rows} headers={headers} isSortable>
 			{() => (
 				<TableContainer>
 					<Layer level={1}>
-						<Table>
+						<Table isSortable>
 							<TableHead>
 								<TableRow>
 									{headers.map(header => (
-										<TableHeader key={header.key} scope='' isSortable>
+										<TableHeader scope='' key={header.key} isSortable>
 											{header.header}
 										</TableHeader>
 									))}

@@ -1,4 +1,4 @@
-import { Checkbox } from '@carbon/react';
+import { Checkbox, ListItem } from '@carbon/react';
 
 type ContentType = {
 	id: string;
@@ -10,17 +10,20 @@ type ScrollToContentProps = {
 };
 const ScrollToContent = ({ contentList, withCheckbox }: ScrollToContentProps) => {
 	return (
-		<div className='flex flex-col pt-5'>
+		<div className='flex cursor-pointer flex-col pt-5'>
 			{contentList.map(content => (
-				<div className='flex h-[54px] items-center border-l-[3px] border-solid border-border-subtle-1 py-4 pl-3'>
+				<div className='flex h-[54px] items-center border-l-[3px] border-solid border-background-brand py-4 pl-3'>
 					{withCheckbox && <Checkbox id={content.id} labelText='' />}
-
-					<a
+					<ListItem
+						onClick={() =>
+							document
+								.getElementById(content.id)
+								?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+						}
 						className='flex justify-self-start text-text-primary hover:text-link-primary'
-						href={`#${content.id}`}
 					>
 						{content.content}
-					</a>
+					</ListItem>
 				</div>
 			))}
 		</div>

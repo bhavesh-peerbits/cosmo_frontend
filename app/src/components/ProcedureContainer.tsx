@@ -7,6 +7,7 @@ import DeleteModal from './DeleteModal';
 interface ProcedureForm {
 	procedure: string;
 	procedureOwner: string;
+	procedureDelegates: string;
 	description: string;
 	lastModDate: string;
 	lastModifier: string;
@@ -63,6 +64,26 @@ const ProcedureContainer = () => {
 								invalid={Boolean(errors.procedureOwner)}
 								defaultValue='Default value'
 								{...register('procedureOwner', {
+									required: {
+										value: true,
+										message: 'Required'
+									}
+								})}
+							/>
+						</div>
+					</Column>
+					<Column sm={{ span: 4 }} md={{ span: 8 }} lg={{ span: 16 }}>
+						<div className='flex w-full items-stretch space-x-5'>
+							<TextArea
+								rows={1}
+								className='w-full'
+								id='procedure-delegates'
+								invalidText={errors.description?.message}
+								labelText='Procedure Delegates'
+								placeholder='Procedure delegates'
+								invalid={Boolean(errors.description)}
+								defaultValue='Default value'
+								{...register('procedureDelegates', {
 									required: {
 										value: true,
 										message: 'Required'

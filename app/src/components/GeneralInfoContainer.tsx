@@ -10,11 +10,16 @@ interface GeneralInfoForm {
 	appMaintenance: string;
 	operationSupplier: string;
 }
-const GeneralInfoContainer = () => {
+
+type GeneralInfoProps = {
+	setIsDirty: (val: boolean) => void;
+};
+
+const GeneralInfoContainer = ({ setIsDirty }: GeneralInfoProps) => {
 	const {
 		register,
 		formState: { errors }
-	} = useForm<GeneralInfoForm>({ mode: 'onBlur' });
+	} = useForm<GeneralInfoForm>({ mode: 'onChange' });
 	return (
 		<Tile href='ApplicationName' className='w-full bg-background pb-7'>
 			<Grid fullWidth narrow className='space-y-7'>
@@ -38,6 +43,9 @@ const GeneralInfoContainer = () => {
 								invalid={Boolean(errors.code)}
 								defaultValue='Default value'
 								{...register('code', {
+									onChange: () => {
+										setIsDirty(true);
+									},
 									required: {
 										value: true,
 										message: 'Required'
@@ -53,6 +61,9 @@ const GeneralInfoContainer = () => {
 								invalid={Boolean(errors.name)}
 								defaultValue='Default value'
 								{...register('name', {
+									onChange: () => {
+										setIsDirty(true);
+									},
 									required: {
 										value: true,
 										message: 'Required'
@@ -70,21 +81,29 @@ const GeneralInfoContainer = () => {
 								defaultValue='Default value'
 								invalid={Boolean(errors.owner)}
 								{...register('owner', {
+									onChange: () => {
+										setIsDirty(true);
+									},
 									required: {
 										value: true,
 										message: 'Required'
 									}
 								})}
 							/>
-							<TextInput
-								className='w-full'
-								id='owner-delegates'
-								labelText='Owner Delegates'
-								placeholder='Application owner delegates'
-								defaultValue='Default value'
-								{...register('ownerDelegates')}
-							/>
 						</div>
+						<TextArea
+							className='w-full'
+							rows={1}
+							id='owner-delegates'
+							labelText='Owner Delegates'
+							placeholder='Application owner delegates'
+							defaultValue='Default value'
+							{...register('ownerDelegates', {
+								onChange: () => {
+									setIsDirty(true);
+								}
+							})}
+						/>
 						<div className='flex w-full items-end space-x-5'>
 							<TextInput
 								className='w-full'
@@ -92,7 +111,12 @@ const GeneralInfoContainer = () => {
 								labelText='Application Maintenance Supplier'
 								placeholder='Application maintenance supplier'
 								defaultValue='Default value'
-								{...register('appMaintenance')}
+								{...(register('appMaintenance'),
+								{
+									onChange: () => {
+										setIsDirty(true);
+									}
+								})}
 							/>
 							<TextInput
 								className='w-full'
@@ -100,7 +124,12 @@ const GeneralInfoContainer = () => {
 								labelText='Operation Supplier'
 								placeholder='Operation supplier'
 								defaultValue='Default value'
-								{...register('operationSupplier')}
+								{...(register('operationSupplier'),
+								{
+									onChange: () => {
+										setIsDirty(true);
+									}
+								})}
 							/>
 						</div>
 						<TextArea
@@ -109,7 +138,12 @@ const GeneralInfoContainer = () => {
 							labelText='Description'
 							placeholder='Description'
 							defaultValue='Default value'
-							{...register('description')}
+							{...(register('description'),
+							{
+								onChange: () => {
+									setIsDirty(true);
+								}
+							})}
 						/>
 					</Form>
 				</Column>

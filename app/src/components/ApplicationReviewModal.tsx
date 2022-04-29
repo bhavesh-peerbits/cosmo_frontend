@@ -13,12 +13,12 @@ import {
 	TextInput
 } from '@carbon/react';
 
-type ReviewModalProps = {
+type AppReviewModalProps = {
 	isOpen: boolean;
 	setIsOpen: (value: boolean) => void;
 };
 
-const ReviewModal = ({ isOpen, setIsOpen }: ReviewModalProps) => {
+const ApplicationReviewModal = ({ isOpen, setIsOpen }: AppReviewModalProps) => {
 	const current = new Date();
 	const date = `${current.getMonth() + 1}/${current.getDate()}/${current.getFullYear()}`;
 	return (
@@ -72,4 +72,4 @@ const ReviewModal = ({ isOpen, setIsOpen }: ReviewModalProps) => {
 		</Grid>
 	);
 };
-export default ReviewModal;
+export default ApplicationReviewModal;

@@ -1,9 +1,12 @@
 import { Button, Column, Grid } from '@carbon/react';
+import { useState } from 'react';
 import GeneralInfoContainer from './GeneralInfoContainer';
 import ScrollToContent from './ScrollToContent';
 import TechnicalInfoContainer from './TechnicalInfoContainer';
 
 const ApplicationInfo = () => {
+	const [isDirty, setIsDirty] = useState(false);
+
 	return (
 		<div className='pb-7'>
 			<Grid fullWidth narrow className='h-full'>
@@ -22,13 +25,13 @@ const ApplicationInfo = () => {
 					<div className='space-y-4'>
 						<div className=' flex w-full space-x-4'>
 							<Button size='md'>Save Changes</Button>
-							<Button kind='secondary' size='md'>
+							<Button kind='secondary' size='md' disabled={!isDirty}>
 								Discard Changes
 							</Button>
 						</div>
 						<div className='space-y-7'>
 							<div id='general-info'>
-								<GeneralInfoContainer />
+								<GeneralInfoContainer setIsDirty={setIsDirty} />
 							</div>
 							<div id='technical-info'>
 								<TechnicalInfoContainer />
