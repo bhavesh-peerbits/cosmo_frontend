@@ -10,7 +10,7 @@
 	},
 	"main": "src/index.ts",
 	"devDependencies": {
-		"@openapitools/openapi-generator-cli": "^2.4.26",
+		"@openapitools/openapi-generator-cli": "^2.5.1",
 		"cross-env": "^7.0.3"
 	},
 	"peerDependencies": {

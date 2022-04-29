@@ -61,7 +61,7 @@ const config: CustomizedStorybookConfig = {
 		if (process.env.NODE_ENV === 'production') {
 			const index = config.plugins.findIndex(v =>
 				Array.isArray(v)
-					? v.find(v => v && v.name === 'vite:react-jsx')
+					? v.find(v => v && !Array.isArray(v) && v.name === 'vite:react-jsx')
 					: v && v.name === 'vite:react-jsx'
 			);
 
