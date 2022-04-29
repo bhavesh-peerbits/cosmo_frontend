@@ -32,19 +32,27 @@ const NewProcedureModal = ({ isOpen, setIsOpen }: NewProcedureModalProps) => {
 						onToggle={() => setIsCopySelected(!isCopySelected)}
 					/>
 					{isCopySelected ? (
-						<Select id='select-app' labelText='Select application'>
-							<SelectItemGroup label='Application group 1' />
-							<SelectItem text='Application1' value='Application1' />
-							<SelectItem text='Application2' value='Application2' />
-							<SelectItemGroup label='Application group 2' />
-							<SelectItem text='Application3' value='Application3' />
-							<SelectItem text='Application4' value='Application4' />
-						</Select>
+						<div className='space-y-7'>
+							<Select id='select-app' labelText='Select application'>
+								<SelectItemGroup label='Application group 1' />
+								<SelectItem text='Application1' value='Application1' />
+								<SelectItem text='Application2' value='Application2' />
+								<SelectItemGroup label='Application group 2' />
+								<SelectItem text='Application3' value='Application3' />
+								<SelectItem text='Application4' value='Application4' />
+							</Select>
+							<Select id='select-app' labelText='Select procedure to copy'>
+								<SelectItem text='Procedure1' value='ProcedureApp1' />
+								<SelectItem text='Procedure2' value='ProcedureApp2' />
+								<SelectItem text='Procedure3' value='ProcedureApp3' />
+								<SelectItem text='Procedure4' value='ProcedureApp4' />
+							</Select>
+						</div>
 					) : (
 						''
 					)}
 
-					<Select id='select-procedure' labelText='Select a procedure'>
+					<Select id='select-procedure' labelText='Select procedure to add'>
 						<SelectItemGroup label='Procedure group 1' />
 						<SelectItem text='Procedure1' value='Procedure1' />
 						<SelectItem text='Procedure2' value='Procedure2' />
