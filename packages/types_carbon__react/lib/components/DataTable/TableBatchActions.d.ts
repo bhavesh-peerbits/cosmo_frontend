@@ -28,7 +28,7 @@ interface TableBatchActionsProps extends ReactDivAttr {
 	 * choice. Translation keys are available on the `translationKeys` field for
 	 * this component.
 	 */
-	translateWithId?: () => void;
+	translateWithId?: (key: string) => string;
 }
 
 declare const TableBatchActions: FCReturn<TableBatchActionsProps>;

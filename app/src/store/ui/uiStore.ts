@@ -9,6 +9,10 @@ type UIStore = {
 	languagePromptDismissed: NonNullable<GetRecoilType<typeof languagePromptDismissedAtom>>;
 	theme: NonNullable<GetRecoilType<typeof themeAtom>>;
 };
+//
+// const transformLanguage = (language: string): string => {
+//   return language;
+// };
 
 const uiStore = selector<UIStore>({
 	key: 'uiStore',

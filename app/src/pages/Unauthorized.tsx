@@ -2,10 +2,10 @@ import { ReactComponent as UnauthorizedImg } from '@images/unauthorized.svg';
 import { Navigate, NavLink } from 'react-router-dom';
 import HTTPError from '@components/HTTPError';
 import { useTranslation } from 'react-i18next';
-import useAuthStore from '@hooks/useAuthStore';
+import useLoginStore from '@hooks/auth/useLoginStore';
 
 const Unauthorized = () => {
-	const { auth } = useAuthStore();
+	const { auth } = useLoginStore();
 	const { t } = useTranslation('httpError');
 	if (auth.authenticated) {
 		return <Navigate to='/home' replace />;

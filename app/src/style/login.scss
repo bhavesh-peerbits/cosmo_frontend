@@ -9,4 +9,9 @@
 	@include theme.theme;
 
 	color: theme.$text-secondary;
+	min-height: 36.5rem;
+
+	& .cds--form-item {
+		min-height: 84px;
+	}
 }

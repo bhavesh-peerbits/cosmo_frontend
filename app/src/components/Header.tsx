@@ -110,7 +110,7 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 							[TEST ONLY] Show translations
 						</SideNavLink>
 					)}
-					<SideNavLink renderIcon={Logout} element={Link} to='/logout'>
+					<SideNavLink renderIcon={Logout} href='/logout'>
 						Logout
 					</SideNavLink>
 				</SideNavItems>

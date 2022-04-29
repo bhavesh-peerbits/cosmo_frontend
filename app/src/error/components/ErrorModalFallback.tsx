@@ -89,10 +89,10 @@ const ErrorModalFallback = ({
 						<Accordion>
 							<AccordionItem title='Details'>
 								<div className='space-y-spacing-2'>
-									<CodeSnippet type='inline'>{error.message}</CodeSnippet>
+									<CodeSnippet type='inline'>{error?.message}</CodeSnippet>
 									<Layer>
 										<CodeSnippet type='multi' wrapText>
-											{error.stack}
+											{error?.stack}
 										</CodeSnippet>
 									</Layer>
 								</div>

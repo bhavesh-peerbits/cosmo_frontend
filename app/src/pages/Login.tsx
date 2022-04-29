@@ -11,17 +11,20 @@ import {
 	Grid,
 	InlineLoading,
 	PasswordInput,
+	Select,
+	SelectItem,
 	Stack,
 	TextInput,
 	Theme
 } from '@carbon/react';
-import useAuthStore from '@hooks/useAuthStore';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import useLoginStore from '@hooks/auth/useLoginStore';
 
 interface LoginForm {
 	username: string;
 	password: string;
+	tenant: string;
 	rememberMe: boolean;
 }
 
@@ -36,7 +39,7 @@ const Login = () => {
 		handleSubmit,
 		formState: { isSubmitting, errors }
 	} = useForm<LoginForm>({ mode: 'onBlur' });
-	const { auth, login } = useAuthStore();
+	const { auth, login } = useLoginStore();
 	const [params] = useSearchParams();
 	const error = params.get('error') as ErrorCode | undefined;
 
@@ -53,7 +56,8 @@ const Login = () => {
 			return await login({
 				user: data.username,
 				password: data.password,
-				rememberMe: data.rememberMe
+				rememberMe: data.rememberMe,
+				tenant: data.tenant
 			});
 		} catch (e) {
 			return navigate(
@@ -77,7 +81,7 @@ const Login = () => {
 				style={{ backgroundImage: `url('${loginUrl}')` }}
 				className='h-full w-full bg-cover bg-center bg-no-repeat'
 			>
-				<Grid className='ml-1 h-1/2 items-end'>
+				<Grid className='ml-1 h-2/3 items-end'>
 					<Column lg={6} sm={4} md={4}>
 						<Form onSubmit={handleSubmit(formLogin)}>
 							{error && errorCodes.includes(error) && (
@@ -121,6 +125,16 @@ const Login = () => {
 										}
 									})}
 								/>
+								<Select
+									id='tenant'
+									defaultValue='cosmo'
+									labelText='Tenant'
+									{...register('tenant', { required: true })}
+								>
+									<SelectItem value='cosmo' text='Cosmo' />
+									<SelectItem value='aizoOn' text='AizoOn' />
+								</Select>
+
 								<Button
 									disabled={isSubmitting}
 									type='submit'
@@ -139,7 +153,7 @@ const Login = () => {
 						</Form>
 					</Column>
 				</Grid>
-				<Grid fullWidth className='h-1/2 items-end p-6'>
+				<Grid fullWidth className='h-1/3 items-end p-6'>
 					<Column sm={2} md={4} lg={8}>
 						<span className='text-caption-1'>Copyright © aizoOn 2022.</span>
 					</Column>

@@ -53,11 +53,13 @@ export const ProfileControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} profileId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getAllUsersForAProfile: async (
 			profileId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'profileId' is not null or undefined
@@ -81,6 +83,10 @@ export const ProfileControllerApiAxiosParamCreator = function (
 				localVarQueryParameter['profileId'] = profileId;
 			}
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -97,10 +103,14 @@ export const ProfileControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getProfiles: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+		getProfiles: async (
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
 			const localVarPath = `/api/profiles`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -115,6 +125,10 @@ export const ProfileControllerApiAxiosParamCreator = function (
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
@@ -143,17 +157,20 @@ export const ProfileControllerApiFp = function (configuration?: Configuration) {
 		/**
 		 *
 		 * @param {number} profileId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getAllUsersForAProfile(
 			profileId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserProfile>>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllUsersForAProfile(
 				profileId,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -165,15 +182,20 @@ export const ProfileControllerApiFp = function (configuration?: Configuration) {
 		},
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getProfiles(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Profile>>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getProfiles(options);
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getProfiles(
+				acceptLanguage,
+				options
+			);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
@@ -198,24 +220,32 @@ export const ProfileControllerApiFactory = function (
 		/**
 		 *
 		 * @param {number} profileId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getAllUsersForAProfile(
 			profileId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Array<UserProfile>> {
 			return localVarFp
-				.getAllUsersForAProfile(profileId, options)
+				.getAllUsersForAProfile(profileId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getProfiles(options?: any): AxiosPromise<Array<Profile>> {
-			return localVarFp.getProfiles(options).then(request => request(axios, basePath));
+		getProfiles(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<Profile>> {
+			return localVarFp
+				.getProfiles(acceptLanguage, options)
+				.then(request => request(axios, basePath));
 		}
 	};
 };
@@ -232,6 +262,27 @@ export interface ProfileControllerApiGetAllUsersForAProfileRequest {
 	 * @memberof ProfileControllerApiGetAllUsersForAProfile
 	 */
 	readonly profileId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ProfileControllerApiGetAllUsersForAProfile
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getProfiles operation in ProfileControllerApi.
+ * @export
+ * @interface ProfileControllerApiGetProfilesRequest
+ */
+export interface ProfileControllerApiGetProfilesRequest {
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ProfileControllerApiGetProfiles
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -253,19 +304,27 @@ export class ProfileControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return ProfileControllerApiFp(this.configuration)
-			.getAllUsersForAProfile(requestParameters.profileId, options)
+			.getAllUsersForAProfile(
+				requestParameters.profileId,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 
 	/**
 	 *
+	 * @param {ProfileControllerApiGetProfilesRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
 	 * @memberof ProfileControllerApi
 	 */
-	public getProfiles(options?: AxiosRequestConfig) {
+	public getProfiles(
+		requestParameters: ProfileControllerApiGetProfilesRequest = {},
+		options?: AxiosRequestConfig
+	) {
 		return ProfileControllerApiFp(this.configuration)
-			.getProfiles(options)
+			.getProfiles(requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 }

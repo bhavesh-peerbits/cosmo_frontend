@@ -1,0 +1,20 @@
+{
+	"categories": "Catégories",
+	"search-placeholder": "Rechercher par nom d'application",
+	"applications": "Applications",
+	"no-applications": "Aucune application trouvée",
+	"add-application": "Ajouter une application",
+	"application-name": "Nom de l'application",
+	"owner": "Propriétaire",
+	"code": "Code",
+	"filters": "Filtres",
+	"last-review": "Dernière révision",
+	"no-description": "Aucune description disponible",
+	"never-done": "Jamais",
+	"last-modify": "Dernière modification",
+	"all": "Toutes",
+	"description": "Description",
+	"email": "Email",
+	"download": "Download",
+	"delete": "Supprimer"
+}

@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import ApiError from '@api/ApiError';
 import { cleanSession, retrieveRefreshToken, setSession } from '@store/auth/authStore';
-import api, { refreshTokenUrl } from '@api';
+import api, { loginUrl, refreshTokenUrl } from '@api';
 
 async function errorManager(response: AxiosResponse) {
 	const errorMessage = response?.data?.message ?? 'Generic error';
@@ -25,8 +25,7 @@ async function errorManager(response: AxiosResponse) {
 					try {
 						cleanSession();
 						const resp = await api.accessApi.refreshToken({
-							refreshToken,
-							tenant: 'cosmo'
+							refreshToken
 						});
 						const token = resp.data.accessToken;
 						if (token) {
@@ -46,8 +45,11 @@ async function errorManager(response: AxiosResponse) {
 				}
 			}
 			cleanSession();
-			window.location.href = '/unauthorized';
-			return Promise.resolve();
+			if (originalConfig.url !== (await loginUrl)) {
+				window.location.href = '/unauthorized';
+				return Promise.resolve();
+			}
+			return Promise.reject(response);
 
 		case 403:
 			window.location.href = '/forbidden';

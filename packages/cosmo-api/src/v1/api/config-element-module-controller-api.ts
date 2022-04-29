@@ -54,12 +54,14 @@ export const ConfigElementModuleControllerApiAxiosParamCreator = function (
 		 *
 		 * @param {number} configId
 		 * @param {number} moduleId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		createConfigForModule: async (
 			configId: number,
 			moduleId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'configId' is not null or undefined
@@ -89,6 +91,10 @@ export const ConfigElementModuleControllerApiAxiosParamCreator = function (
 				localVarQueryParameter['moduleId'] = moduleId;
 			}
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -106,11 +112,13 @@ export const ConfigElementModuleControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {ConfigModuleKey} configModuleKey
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		deleteConfigModule: async (
 			configModuleKey: ConfigModuleKey,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'configModuleKey' is not null or undefined
@@ -134,6 +142,10 @@ export const ConfigElementModuleControllerApiAxiosParamCreator = function (
 				localVarQueryParameter['configModuleKey'] = configModuleKey;
 			}
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -150,10 +162,12 @@ export const ConfigElementModuleControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getAllConfigModules: async (
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			const localVarPath = `/api/configmodule`;
@@ -170,6 +184,10 @@ export const ConfigElementModuleControllerApiAxiosParamCreator = function (
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
@@ -188,11 +206,13 @@ export const ConfigElementModuleControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {ConfigModuleKey} configModuleKey
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getConfigModule: async (
 			configModuleKey: ConfigModuleKey,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'configModuleKey' is not null or undefined
@@ -216,6 +236,10 @@ export const ConfigElementModuleControllerApiAxiosParamCreator = function (
 				localVarQueryParameter['configModuleKey'] = configModuleKey;
 			}
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -234,12 +258,14 @@ export const ConfigElementModuleControllerApiAxiosParamCreator = function (
 		 *
 		 * @param {ConfigModuleKey} configModuleKey
 		 * @param {ConfigModule} configModule
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		modifyConfigModule: async (
 			configModuleKey: ConfigModuleKey,
 			configModule: ConfigModule,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'configModuleKey' is not null or undefined
@@ -263,6 +289,10 @@ export const ConfigElementModuleControllerApiAxiosParamCreator = function (
 
 			if (configModuleKey !== undefined) {
 				localVarQueryParameter['configModuleKey'] = configModuleKey;
+			}
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
 			}
 
 			localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -303,17 +333,20 @@ export const ConfigElementModuleControllerApiFp = function (
 		 *
 		 * @param {number} configId
 		 * @param {number} moduleId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async createConfigForModule(
 			configId: number,
 			moduleId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConfigModule>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.createConfigForModule(
 				configId,
 				moduleId,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -326,15 +359,18 @@ export const ConfigElementModuleControllerApiFp = function (
 		/**
 		 *
 		 * @param {ConfigModuleKey} configModuleKey
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async deleteConfigModule(
 			configModuleKey: ConfigModuleKey,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.deleteConfigModule(
 				configModuleKey,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -346,15 +382,18 @@ export const ConfigElementModuleControllerApiFp = function (
 		},
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getAllConfigModules(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ConfigModule>>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllConfigModules(
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -367,15 +406,18 @@ export const ConfigElementModuleControllerApiFp = function (
 		/**
 		 *
 		 * @param {ConfigModuleKey} configModuleKey
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getConfigModule(
 			configModuleKey: ConfigModuleKey,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConfigModule>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getConfigModule(
 				configModuleKey,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -389,17 +431,20 @@ export const ConfigElementModuleControllerApiFp = function (
 		 *
 		 * @param {ConfigModuleKey} configModuleKey
 		 * @param {ConfigModule} configModule
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async modifyConfigModule(
 			configModuleKey: ConfigModuleKey,
 			configModule: ConfigModule,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConfigModule>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.modifyConfigModule(
 				configModuleKey,
 				configModule,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -427,70 +472,82 @@ export const ConfigElementModuleControllerApiFactory = function (
 		 *
 		 * @param {number} configId
 		 * @param {number} moduleId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		createConfigForModule(
 			configId: number,
 			moduleId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<ConfigModule> {
 			return localVarFp
-				.createConfigForModule(configId, moduleId, options)
+				.createConfigForModule(configId, moduleId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {ConfigModuleKey} configModuleKey
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		deleteConfigModule(
 			configModuleKey: ConfigModuleKey,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<string> {
 			return localVarFp
-				.deleteConfigModule(configModuleKey, options)
+				.deleteConfigModule(configModuleKey, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllConfigModules(options?: any): AxiosPromise<Array<ConfigModule>> {
+		getAllConfigModules(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<ConfigModule>> {
 			return localVarFp
-				.getAllConfigModules(options)
+				.getAllConfigModules(acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {ConfigModuleKey} configModuleKey
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getConfigModule(
 			configModuleKey: ConfigModuleKey,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<ConfigModule> {
 			return localVarFp
-				.getConfigModule(configModuleKey, options)
+				.getConfigModule(configModuleKey, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {ConfigModuleKey} configModuleKey
 		 * @param {ConfigModule} configModule
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		modifyConfigModule(
 			configModuleKey: ConfigModuleKey,
 			configModule: ConfigModule,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<ConfigModule> {
 			return localVarFp
-				.modifyConfigModule(configModuleKey, configModule, options)
+				.modifyConfigModule(configModuleKey, configModule, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		}
 	};
@@ -515,6 +572,13 @@ export interface ConfigElementModuleControllerApiCreateConfigForModuleRequest {
 	 * @memberof ConfigElementModuleControllerApiCreateConfigForModule
 	 */
 	readonly moduleId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ConfigElementModuleControllerApiCreateConfigForModule
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -529,6 +593,27 @@ export interface ConfigElementModuleControllerApiDeleteConfigModuleRequest {
 	 * @memberof ConfigElementModuleControllerApiDeleteConfigModule
 	 */
 	readonly configModuleKey: ConfigModuleKey;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ConfigElementModuleControllerApiDeleteConfigModule
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getAllConfigModules operation in ConfigElementModuleControllerApi.
+ * @export
+ * @interface ConfigElementModuleControllerApiGetAllConfigModulesRequest
+ */
+export interface ConfigElementModuleControllerApiGetAllConfigModulesRequest {
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ConfigElementModuleControllerApiGetAllConfigModules
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -543,6 +628,13 @@ export interface ConfigElementModuleControllerApiGetConfigModuleRequest {
 	 * @memberof ConfigElementModuleControllerApiGetConfigModule
 	 */
 	readonly configModuleKey: ConfigModuleKey;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ConfigElementModuleControllerApiGetConfigModule
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -564,6 +656,13 @@ export interface ConfigElementModuleControllerApiModifyConfigModuleRequest {
 	 * @memberof ConfigElementModuleControllerApiModifyConfigModule
 	 */
 	readonly configModule: ConfigModule;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ConfigElementModuleControllerApiModifyConfigModule
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -588,6 +687,7 @@ export class ConfigElementModuleControllerApi extends BaseAPI {
 			.createConfigForModule(
 				requestParameters.configId,
 				requestParameters.moduleId,
+				requestParameters.acceptLanguage,
 				options
 			)
 			.then(request => request(this.axios, this.basePath));
@@ -605,19 +705,27 @@ export class ConfigElementModuleControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return ConfigElementModuleControllerApiFp(this.configuration)
-			.deleteConfigModule(requestParameters.configModuleKey, options)
+			.deleteConfigModule(
+				requestParameters.configModuleKey,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 
 	/**
 	 *
+	 * @param {ConfigElementModuleControllerApiGetAllConfigModulesRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
 	 * @memberof ConfigElementModuleControllerApi
 	 */
-	public getAllConfigModules(options?: AxiosRequestConfig) {
+	public getAllConfigModules(
+		requestParameters: ConfigElementModuleControllerApiGetAllConfigModulesRequest = {},
+		options?: AxiosRequestConfig
+	) {
 		return ConfigElementModuleControllerApiFp(this.configuration)
-			.getAllConfigModules(options)
+			.getAllConfigModules(requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -633,7 +741,11 @@ export class ConfigElementModuleControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return ConfigElementModuleControllerApiFp(this.configuration)
-			.getConfigModule(requestParameters.configModuleKey, options)
+			.getConfigModule(
+				requestParameters.configModuleKey,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -652,6 +764,7 @@ export class ConfigElementModuleControllerApi extends BaseAPI {
 			.modifyConfigModule(
 				requestParameters.configModuleKey,
 				requestParameters.configModule,
+				requestParameters.acceptLanguage,
 				options
 			)
 			.then(request => request(this.axios, this.basePath));

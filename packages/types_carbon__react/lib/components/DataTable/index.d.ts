@@ -29,3 +29,5 @@ export { default as TableToolbar } from './TableToolbar';
 export { default as TableToolbarContent } from './TableToolbarContent';
 
 export { default as TableToolbarSearch } from './TableToolbarSearch';
+
+export { default as Pagination } from './Pagination';
