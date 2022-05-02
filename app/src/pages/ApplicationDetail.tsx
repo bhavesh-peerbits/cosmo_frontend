@@ -52,7 +52,7 @@ const ApplicationDetail = () => {
 			<div ref={tabRef} className='-mt-5 h-full'>
 				<Tabs>
 					<TabList
-						className='sticky z-[9] bg-background shadow shadow-border-disabled'
+						className='sticky z-[9] bg-background'
 						contained
 						aria-label='List of tabs'
 					>

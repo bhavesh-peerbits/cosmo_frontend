@@ -9,7 +9,7 @@ const ApplicationInfo = () => {
 
 	return (
 		<div className='pb-7'>
-			<Grid fullWidth narrow className='h-full'>
+			<Grid fullWidth className='h-full'>
 				<Column sm={2} md={2} lg={3}>
 					<div className='sticky top-[112px]'>
 						<ScrollToContent

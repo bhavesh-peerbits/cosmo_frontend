@@ -43,19 +43,18 @@ const PageHeader = ({
 	}, [md, inViewport, setBreadcrumbSize]);
 
 	return (
-		<>
+		<div className='fix-height flex flex-col'>
 			<div
 				ref={breadcrumbRef}
-				className={classNames(
-					'sticky top-0 z-10 w-full space-y-5 border-b-[1px] border-solid border-border-subtle-0 bg-background',
-					{
-						'py-5': inViewport,
-						'py-3': !inViewport
-					}
-				)}
+				className='sticky top-0 z-10 w-full space-y-5 bg-background'
 			>
-				<Grid fullWidth>
-					<FullWidthColumn>
+				<Grid>
+					<FullWidthColumn
+						className={classNames('border-b-[1px] border-solid border-border-subtle-0', {
+							'py-5': inViewport,
+							'py-3': !inViewport
+						})}
+					>
 						<Breadcrumb noTrailingSlash={!inViewport} className='self-start'>
 							<div className='flex w-full  justify-between'>
 								<div className='flex flex-wrap'>
@@ -125,8 +124,8 @@ const PageHeader = ({
 					</FullWidthColumn>
 				</Grid>
 			</div>
-			<div className='bg-background md:pt-10'>
-				<Grid fullWidth className='items-end space-y-4 pb-7 md:space-y-10'>
+			<div className='h-full bg-background md:pt-10'>
+				<Grid className='items-end space-y-4 pb-7 md:space-y-10'>
 					<FullWidthColumn>
 						<Grid>
 							<Column sm={4} md={5} lg={7} xlg={11}>
@@ -181,9 +180,11 @@ const PageHeader = ({
 						</Grid>
 					</FullWidthColumn>
 				</Grid>
-				<div className='h-full bg-layer-1 pt-5'>{children}</div>
+				<Grid className='pt-5'>
+					<FullWidthColumn className='bg-layer-1'>{children}</FullWidthColumn>
+				</Grid>
 			</div>
-		</>
+		</div>
 	);
 };
 

@@ -10,7 +10,7 @@
 @use '@carbon/motion' as motion;
 
 .container-w-sidenav {
-	@apply mr-0 p-0 lg:ml-[calc(32*0.5rem)];
+	@apply mr-0 p-0 md:ml-[3rem] lg:ml-[calc(32*0.5rem)];
 
 	// @include breakpoint.breakpoint-down('lg') {
 	//	margin-left: 0;

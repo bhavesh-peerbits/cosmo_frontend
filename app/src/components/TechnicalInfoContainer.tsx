@@ -14,7 +14,7 @@ const TechnicalInfoContainer = () => {
 	const { register } = useForm<TechnicalInfoForm>({ mode: 'onBlur' });
 	return (
 		<Tile href='ApplicationName' className='w-full bg-background pb-7'>
-			<Grid fullWidth narrow className='space-y-7'>
+			<Grid fullWidth className='space-y-7'>
 				<Column
 					sm={{ span: 4 }}
 					md={{ span: 8 }}
