@@ -15,7 +15,7 @@ const ApplicationTile = ({ application }: ApplicationTileProps) => {
 
 	return (
 		<Layer level={1}>
-			<ClickableTile onClick={() => navigate(application.name ?? '')} className='mb-5'>
+			<ClickableTile onClick={() => navigate(application.id ?? '')} className='mb-5'>
 				<div className='flex flex-col justify-between'>
 					<div className='flex flex-col'>
 						<div className='mb-3 flex min-h-[2.5rem] justify-between'>
@@ -45,15 +45,12 @@ const ApplicationTile = ({ application }: ApplicationTileProps) => {
 								</div>
 							</div>
 						</div>
-						<div className='flex flex-row items-end justify-between space-x-2'>
-							<div className='text-body-short-1'>{application.code}</div>
-							{application.lastModify && (
-								<div className='text-right text-text-secondary'>
-									<div className='font-bold'>{t('last-modify')}</div>
-									<div>{formatDate(application.lastModify)}</div>
-								</div>
-							)}
-						</div>
+						{application.lastModify && (
+							<div className='text-right text-text-secondary'>
+								<div className='font-bold'>{t('last-modify')}</div>
+								<div>{formatDate(application.lastModify)}</div>
+							</div>
+						)}
 					</div>
 				</div>
 			</ClickableTile>

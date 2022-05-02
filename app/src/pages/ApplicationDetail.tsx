@@ -1,26 +1,30 @@
 import ApplicationInfo from '@components/ApplicationInfo';
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@carbon/react';
+import { Tab, TabList, TabPanel, TabPanels } from '@carbon/react';
 import PageHeader from '@components/PageHeader';
 import { CloudDownload, Email, TrashCan } from '@carbon/react/icons';
-import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import ProcedureInfo from '@components/ProcedureInfo';
 import ApplicationChangesContainer from '@components/ApplicationChangesContainer';
 import ApplicationReviewModal from '@components/ApplicationReviewModal';
 import GenerateModal from '@components/GenerateModal';
 import DeleteModal from '@components/DeleteModal';
+import { Navigate, useParams } from 'react-router-dom';
+import StickyTabs from '@components/StickyTabs';
+import useGetApps from '@api/management/useGetApps';
 
 const ApplicationDetail = () => {
+	const { appId } = useParams<'appId'>();
+	const { data = [] } = useGetApps();
+
 	const [isGenerateModalOpen, setIsGenerateModalOpen] = useState(false);
 	const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-	const { breadcrumbSize } = useBreadcrumbSize();
-	const tabRef = useRef<HTMLDivElement>(null);
-	const tab = tabRef.current?.getElementsByClassName('sticky')?.[0] as HTMLElement;
 
-	useEffect(() => {
-		tab && (tab.style.top = `${breadcrumbSize}px`);
-	}, [breadcrumbSize, tab]);
+	const application = data.find(app => app.id === appId);
+	if (!application) {
+		return <Navigate to='/404' replace />;
+	}
+
 	return (
 		<PageHeader
 			pageTitle='ApplicationName'
@@ -49,8 +53,8 @@ const ApplicationDetail = () => {
 				}
 			]}
 		>
-			<div ref={tabRef} className='-mt-5 h-full'>
-				<Tabs>
+			<>
+				<StickyTabs>
 					<TabList
 						className='sticky z-[9] bg-background'
 						contained
@@ -71,7 +75,8 @@ const ApplicationDetail = () => {
 							<ApplicationChangesContainer />
 						</TabPanel>
 					</TabPanels>
-				</Tabs>
+				</StickyTabs>
+
 				<ApplicationReviewModal
 					isOpen={isReviewModalOpen}
 					setIsOpen={setIsReviewModalOpen}
@@ -82,7 +87,7 @@ const ApplicationDetail = () => {
 					setIsOpen={setIsDeleteModalOpen}
 					itemToDelete='ApplicationName'
 				/>
-			</div>
+			</>
 		</PageHeader>
 	);
 };

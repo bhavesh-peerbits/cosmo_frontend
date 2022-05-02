@@ -55,6 +55,9 @@ module.exports = {
 			0: '0',
 			...carbonSpacing
 		},
+		borderWidth: {
+			...carbonSpacing
+		},
 		screens: carbonBreakpoints,
 		colors: {
 			...themeTokens.reduce((acc, key) => {
