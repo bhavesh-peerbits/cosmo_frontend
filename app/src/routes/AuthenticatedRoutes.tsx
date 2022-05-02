@@ -15,7 +15,7 @@ const AuthenticatedRoutes = () => {
 	return (
 		<>
 			<HeaderContainer render={Header} />
-			<Content className='container-w-sidenav relative h-full overflow-auto bg-layer-1'>
+			<Content className='container-w-sidenav relative h-full overflow-auto'>
 				<ErrorBoundary>
 					<Suspense fallback={<PageSkeleton />}>
 						<Routes>

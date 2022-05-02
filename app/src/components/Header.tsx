@@ -28,6 +28,7 @@ import {
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useMount, useUnmount } from 'ahooks';
+import useResponsive from '@hooks/useResponsive';
 
 type HeaderProps = {
 	isSideNavExpanded: boolean;
@@ -35,6 +36,7 @@ type HeaderProps = {
 };
 const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 	const navigate = useNavigate();
+	const { md, lg } = useResponsive();
 	const [appExpanded, setAppExpanded] = useState(false);
 	useMount(() => {
 		document.body.classList.add('fix-height');
@@ -80,7 +82,12 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 					<SwitcherIcon />
 				</HeaderGlobalAction>
 			</HeaderGlobalBar>
-			<SideNav aria-label='Side navigation' expanded={isSideNavExpanded}>
+			<SideNav
+				onOverlayClick={onClickSideNavExpand}
+				aria-label='Side navigation'
+				expanded={isSideNavExpanded}
+				isRail={md && !lg}
+			>
 				<SideNavItems>
 					<SideNavMenu
 						renderIcon={AlignBoxMiddleCenter}

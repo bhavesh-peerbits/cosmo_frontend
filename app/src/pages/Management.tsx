@@ -20,7 +20,7 @@ const Management = () => {
 				}
 			]}
 		>
-			<div className='h-full'>
+			<div className='h-full p-container-1'>
 				{filters.isTile !== false ? <ManagementTileView /> : <ManagementTableView />}
 			</div>
 		</PageHeader>

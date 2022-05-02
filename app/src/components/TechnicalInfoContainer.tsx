@@ -1,9 +1,20 @@
-import { Button, Column, Grid, TextArea, TextInput, Tile } from '@carbon/react';
+import { Column, Form, Grid, TextInput, Tile } from '@carbon/react';
+import { useForm } from 'react-hook-form';
 
+interface TechnicalInfoForm {
+	appServers: string;
+	appServersOS: string;
+	appCodePath: string;
+	dbServers: string;
+	dbServersOS: string;
+	dbService: string;
+	dbInstance: string;
+}
 const TechnicalInfoContainer = () => {
+	const { register } = useForm<TechnicalInfoForm>({ mode: 'onBlur' });
 	return (
-		<Tile href='ApplicationName' className='w-full bg-background'>
-			<Grid fullWidth narrow className='space-y-7'>
+		<Tile href='ApplicationName' className='w-full bg-background pb-7'>
+			<Grid fullWidth className='space-y-7'>
 				<Column
 					sm={{ span: 4 }}
 					md={{ span: 8 }}
@@ -12,40 +23,42 @@ const TechnicalInfoContainer = () => {
 				>
 					Technical Information
 				</Column>
-				<Column sm={{ span: 4 }} md={{ span: 8 }} lg={{ span: 16 }}>
-					<div className='flex w-full space-x-5'>
+				<Column sm={{ span: 4 }} md={{ span: 8 }} lg={{ span: 16 }} className='space-y-5'>
+					<Form className='w-full space-y-5'>
+						<div className='flex w-full space-x-5'>
+							<TextInput
+								className='w-full'
+								id='application-servers'
+								labelText='Application Servers'
+								placeholder='Application servers'
+								defaultValue='Default value'
+								{...register('appServers')}
+							/>
+							<TextInput
+								className='w-full'
+								id='application-servers-os'
+								labelText='Application Servers OS'
+								placeholder='Application servers OS'
+								defaultValue='Default value'
+								{...register('appServersOS')}
+							/>
+						</div>
 						<TextInput
-							className='w-full'
-							id='application-servers'
-							labelText='Application Servers'
-							placeholder='Application servers'
-							defaultValue='Default value'
-						/>
-						<TextInput
-							className='w-full'
-							id='application-servers-os'
-							labelText='Application Servers OS'
-							placeholder='Application servers OS'
-							defaultValue='Default value'
-						/>
-					</div>
-				</Column>
-				<Column sm={{ span: 4 }} md={{ span: 8 }} lg={{ span: 16 }}>
-					<div className='flex w-full items-stretch space-x-5'>
-						<TextArea
-							className='w-full'
+							className='w-full self-stretch'
 							id='application-code-path'
 							labelText='Application Code Path'
 							placeholder='Application code path'
 							defaultValue='Default value'
+							{...register('appCodePath')}
 						/>
-						<div className='flex w-full flex-col space-y-5'>
+						<div className='flex w-full space-x-5'>
 							<TextInput
 								className='w-full'
 								id='db-servers'
 								labelText='DB Servers'
 								placeholder='DB servers'
 								defaultValue='Default value'
+								{...register('dbServers')}
 							/>
 							<TextInput
 								className='w-full'
@@ -53,33 +66,28 @@ const TechnicalInfoContainer = () => {
 								labelText='DB Servers OS'
 								placeholder='DB servers OS'
 								defaultValue='Default value'
+								{...register('dbServersOS')}
 							/>
 						</div>
-					</div>
-				</Column>
-				<Column sm={{ span: 4 }} md={{ span: 8 }} lg={{ span: 16 }}>
-					<div className='flex w-full space-x-5'>
-						<TextInput
-							className='w-full'
-							id='database-service'
-							labelText='Database Service'
-							placeholder='Database service'
-							defaultValue='Default value'
-						/>
-						<TextInput
-							className='w-full'
-							id='database-instance'
-							labelText='Database Instance'
-							placeholder='Database instance'
-							defaultValue='Default value'
-						/>
-					</div>
-				</Column>
-				<Column sm={{ span: 4 }} md={{ span: 5, offset: 3 }} lg={{ span: 3, offset: 13 }}>
-					<div className='space-x-5'>
-						<Button kind='tertiary'>Cancel</Button>
-						<Button>Save</Button>
-					</div>
+						<div className='flex w-full space-x-5'>
+							<TextInput
+								className='w-full'
+								id='database-service'
+								labelText='Database Service'
+								placeholder='Database service'
+								defaultValue='Default value'
+								{...register('dbService')}
+							/>
+							<TextInput
+								className='w-full'
+								id='database-instance'
+								labelText='Database Instance'
+								placeholder='Database instance'
+								defaultValue='Default value'
+								{...register('dbInstance')}
+							/>
+						</div>
+					</Form>
 				</Column>
 			</Grid>
 		</Tile>
