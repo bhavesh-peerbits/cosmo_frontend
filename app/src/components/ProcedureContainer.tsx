@@ -24,7 +24,7 @@ const ProcedureContainer = () => {
 	return (
 		<Tile href='ApplicationName' className='w-full bg-background'>
 			<Form>
-				<Grid fullWidth narrow className='space-y-7'>
+				<Grid fullWidth className='space-y-7'>
 					<Column
 						sm={{ span: 4 }}
 						md={{ span: 8 }}

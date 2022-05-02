@@ -32,17 +32,19 @@ import CosmoTableToolbar from './CosmoTableToolbar';
 interface ApplicationsTableProps<D extends object> {
 	createHeaders: HeaderFunction<D>;
 	data: D[];
-	toolbar:
+	toolbar?:
 		| Pick<CosmoTableToolbarProps, 'toolbarContent' | 'toolbarBatchActions'>
 		| undefined;
 	noDataMessage?: string;
+	isSelectable?: boolean;
 }
 
 const CosmoTable = <D extends object>({
 	createHeaders,
 	data,
 	toolbar,
-	noDataMessage
+	noDataMessage,
+	isSelectable
 }: ApplicationsTableProps<D>) => {
 	const { t } = useTranslation('table');
 	const [rowSelection, setRowSelection] = useState({});
@@ -91,14 +93,16 @@ const CosmoTable = <D extends object>({
 				const properties = row.getToggleSelectedProps();
 				return (
 					<TableRow {...row.getRowProps()}>
-						<TableSelectRow
-							{...properties}
-							ariaLabel='Select'
-							id={row.id}
-							name={row.id}
-							onSelect={properties?.onChange}
-							onChange={undefined}
-						/>
+						{isSelectable && (
+							<TableSelectRow
+								{...properties}
+								ariaLabel='Select'
+								id={row.id}
+								name={row.id}
+								onSelect={properties?.onChange}
+								onChange={undefined}
+							/>
+						)}
 						{row.getVisibleCells().map(cell => (
 							<TableCell {...cell.getCellProps()}>{cell.renderCell()}</TableCell>
 						))}
@@ -131,14 +135,16 @@ const CosmoTable = <D extends object>({
 							const properties = getToggleAllRowsSelectedProps();
 							return (
 								<TableRow {...headerGroup.getHeaderGroupProps()}>
-									<TableSelectAll
-										{...properties}
-										ariaLabel='SelectAll'
-										id='selectAll'
-										name='selectAll'
-										onSelect={properties?.onChange}
-										onChange={undefined}
-									/>
+									{isSelectable && (
+										<TableSelectAll
+											{...properties}
+											ariaLabel='SelectAll'
+											id='selectAll'
+											name='selectAll'
+											onSelect={properties?.onChange}
+											onChange={undefined}
+										/>
+									)}
 									{headerGroup.headers.map(header => {
 										return (
 											<TableHeader

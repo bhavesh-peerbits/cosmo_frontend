@@ -15,7 +15,7 @@ const ProcedureInfo = () => {
 	const [isCheckboxView, setIsCheckboxView] = useState(false);
 	return (
 		<div className='pb-7'>
-			<Grid fullWidth narrow className='h-full '>
+			<Grid fullWidth className='h-full '>
 				<Column sm={2} md={2} lg={3} className='justify-self-start'>
 					<div className='sticky top-[112px]'>
 						<ScrollToContent withCheckbox={isCheckboxView} contentList={proceduresList} />

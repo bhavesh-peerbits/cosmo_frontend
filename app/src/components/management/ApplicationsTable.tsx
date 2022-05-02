@@ -78,6 +78,7 @@ const ApplicationsTable = () => {
 			createHeaders={columns}
 			noDataMessage={t('no-applications')}
 			toolbar={{ toolbarContent, toolbarBatchActions }}
+			isSelectable
 		/>
 	);
 };
