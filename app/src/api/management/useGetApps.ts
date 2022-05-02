@@ -4,7 +4,7 @@ const useGetApps = () => {
 	// return api.applicationApi
 	// 	.getAllApplications()
 	// 	.then(({ data }) => (data ? data.map(fromApplicationApi) : []));
-	return [...Array(5)].flatMap(() => [
+	return [
 		{
 			id: '1',
 			name: 'App 1',
@@ -67,7 +67,7 @@ const useGetApps = () => {
 			icon: 'web' as const, // TODO
 			lastModify: new Date('2022-01-01T00:00:00.000Z')
 		}
-	]);
+	];
 };
 
 export default () => useQuery(['managementApps'], useGetApps);

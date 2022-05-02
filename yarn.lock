@@ -1794,16 +1794,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@carbon/icons-react@npm:^11.1.0":
-  version: 11.1.0
-  resolution: "@carbon/icons-react@npm:11.1.0"
+"@carbon/icons-react@npm:^11.2.0":
+  version: 11.2.0
+  resolution: "@carbon/icons-react@npm:11.2.0"
   dependencies:
     "@carbon/icon-helpers": ^10.29.0
     "@carbon/telemetry": 0.1.0
     prop-types: ^15.7.2
   peerDependencies:
     react: ">=16"
-  checksum: b21a4f36c72d8f69ce49e3dd9ad60870cbbdbd5f0439649f1e4c4d57430abd501e5de527578dd4bb019b27e2527b54210beb74be7ef8e34fa0451ab07434e283
+  checksum: 9dd1db9061987cb29142d18a260eedce5b21761213666805088bf87be799d83bfdb28949f22248c96d07e73aaf676511e63f36e5e03f9fb6e166da85d438d177
   languageName: node
   linkType: hard
 
@@ -1821,15 +1821,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@carbon/react@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@carbon/react@npm:1.1.0"
+"@carbon/react@npm:1.2.0":
+  version: 1.2.0
+  resolution: "@carbon/react@npm:1.2.0"
   dependencies:
     "@babel/runtime": ^7.16.7
     "@carbon/feature-flags": ^0.7.0
-    "@carbon/icons-react": ^11.1.0
+    "@carbon/icons-react": ^11.2.0
     "@carbon/layout": ^11.1.0
-    "@carbon/styles": ^1.1.0
+    "@carbon/styles": ^1.2.0
     "@carbon/telemetry": 0.1.0
     classnames: 2.3.1
     copy-to-clipboard: ^3.3.1
@@ -1850,19 +1850,19 @@ __metadata:
     react: ^16.8.6 || ^17.0.1
     react-dom: ^16.8.6 || ^17.0.1
     sass: ^1.33.0
-  checksum: 0004c853a51f74c1ef888dbcbd0c847c8e625e4256c77b63fabacf8d87cacdcd4ec7a595ee58f3394de5b0f9d4a71a5a3fbd2a7ddcb6aa22cd1f773043c25481
+  checksum: 43d78e6d9f979e66d4beb632f773d922cf1becfb1d8cb2bf057dcb252b9eea5e657a7a017db35415bd0830f9ba4ca942bad882640182ec35f44d76c745365fd1
   languageName: node
   linkType: hard
 
-"@carbon/react@patch:@carbon/react@npm:1.1.0#../.yarn/patches/@carbon-react-npm-1.1.0-1854f2fa66.patch::locator=app%40workspace%3Aapp":
-  version: 1.1.0
-  resolution: "@carbon/react@patch:@carbon/react@npm%3A1.1.0#../.yarn/patches/@carbon-react-npm-1.1.0-1854f2fa66.patch::version=1.1.0&hash=adb00a&locator=app%40workspace%3Aapp"
+"@carbon/react@patch:@carbon/react@npm:1.2.0#../.yarn/patches/@carbon-react-npm-1.2.0-1854f2fa66.patch::locator=app%40workspace%3Aapp":
+  version: 1.2.0
+  resolution: "@carbon/react@patch:@carbon/react@npm%3A1.2.0#../.yarn/patches/@carbon-react-npm-1.2.0-1854f2fa66.patch::version=1.2.0&hash=adb00a&locator=app%40workspace%3Aapp"
   dependencies:
     "@babel/runtime": ^7.16.7
     "@carbon/feature-flags": ^0.7.0
-    "@carbon/icons-react": ^11.1.0
+    "@carbon/icons-react": ^11.2.0
     "@carbon/layout": ^11.1.0
-    "@carbon/styles": ^1.1.0
+    "@carbon/styles": ^1.2.0
     "@carbon/telemetry": 0.1.0
     classnames: 2.3.1
     copy-to-clipboard: ^3.3.1
@@ -1883,7 +1883,7 @@ __metadata:
     react: ^16.8.6 || ^17.0.1
     react-dom: ^16.8.6 || ^17.0.1
     sass: ^1.33.0
-  checksum: 0d044861224cafc11e3be85869ea16e4590b064570956df2dde805bf2cc86541747e8fc4153b40334b4b8147389fcc0ee4536fb80008b74ee35641a15eb568b3
+  checksum: f4fb78f581fcc2e2045a2968455933762abbfba823ed88b5b41e42e1b2d36e0278fe2b7c78f6d0aece5a503cb382a7cee54462920a268d84de07cbd27ce4523c
   languageName: node
   linkType: hard
 
@@ -1907,21 +1907,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@carbon/styles@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@carbon/styles@npm:1.1.0"
+"@carbon/styles@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "@carbon/styles@npm:1.2.0"
   dependencies:
     "@carbon/colors": ^11.1.0
     "@carbon/feature-flags": ^0.7.0
     "@carbon/grid": ^11.1.0
     "@carbon/layout": ^11.1.0
     "@carbon/motion": ^11.0.0
-    "@carbon/themes": ^11.1.0
-    "@carbon/type": ^11.1.0
+    "@carbon/themes": ^11.2.0
+    "@carbon/type": ^11.2.0
     "@ibm/plex": 6.0.0-next.6
   peerDependencies:
     sass: ^1.33.0
-  checksum: 9b5500e57b61e924ef4e20cd999d8c3c3a93ae94818108e4f87f290dd75c759e8c700d73b43083593eed32722c7c83c4a2b425b031a67611ef968af765973bdc
+  checksum: 540a08f55c3c0930a3e5994df5b7c6d0fa3c589cd29da415d87f25464ee6132746059e022e1cb64681af311424f7238fd826f23d994f40547c588a3a210da84a
   languageName: node
   linkType: hard
 
@@ -1934,18 +1934,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@carbon/themes@npm:^11.1.0":
-  version: 11.1.0
-  resolution: "@carbon/themes@npm:11.1.0"
-  dependencies:
-    "@carbon/colors": ^11.1.0
-    "@carbon/layout": ^11.1.0
-    "@carbon/type": ^11.1.0
-    color: ^3.1.2
-  checksum: 5e1909fffa4a7a05597e5e58d6403205667e88654157e1b5fbaa5e0a23cc6e7b8731e1419d8533761ac920d9069bf2fd401e53c6f846620b10357dc0db6d2705
-  languageName: node
-  linkType: hard
-
 "@carbon/themes@npm:^11.2.0":
   version: 11.2.0
   resolution: "@carbon/themes@npm:11.2.0"
@@ -1955,15 +1943,6 @@ __metadata:
     "@carbon/type": ^11.2.0
     color: ^3.1.2
   checksum: 1e4cbb64e953163576faa6b56390576be6ac5a7a4bb80574447244d1cf3bd8afcdf30af89c244f2fc08b713e5031e1bb95c37aace95604f31a0a7bffa88e8f2f
-  languageName: node
-  linkType: hard
-
-"@carbon/type@npm:^11.1.0":
-  version: 11.1.0
-  resolution: "@carbon/type@npm:11.1.0"
-  dependencies:
-    "@carbon/grid": ^11.1.0
-  checksum: 0074fe978a43504f854aadba1ef3e52039a9f2c499b539ad81c2644d8c0c1ab85c330383669a5b8867fce2c4bf73ba6db883684796cbb3be9af70657728d4f9d
   languageName: node
   linkType: hard
 
@@ -7245,7 +7224,7 @@ __metadata:
   resolution: "app@workspace:app"
   dependencies:
     "@carbon/layout": ^11.1.0
-    "@carbon/react": "patch:@carbon/react@npm:1.1.0#../.yarn/patches/@carbon-react-npm-1.1.0-1854f2fa66.patch"
+    "@carbon/react": "patch:@carbon/react@npm:1.2.0#../.yarn/patches/@carbon-react-npm-1.2.0-1854f2fa66.patch"
     "@ibm/plex": ^6.0.0
     "@nabla/vite-plugin-eslint": ^1.4.0
     "@sentry/core": ^6.19.7

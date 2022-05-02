@@ -8,6 +8,7 @@ import {
 import useManagementApps from '@hooks/management/useManagementApps';
 import { useTranslation } from 'react-i18next';
 import useResponsive from '@hooks/useResponsive';
+import { useEffect, useState } from 'react';
 
 interface FilterRadioGroupProps {
 	filterName: 'lastReview' | 'lastModify';
@@ -18,16 +19,18 @@ const FilterRadioGroup = ({ filterName, withNever }: FilterRadioGroupProps) => {
 	const { t } = useTranslation('management');
 	const { setFilters, filtersAvailable, filters } = useManagementApps();
 	const filterOption = filtersAvailable[filterName];
-	let selectedValue;
+	const [selectedValue, setSelectedValue] = useState<'never' | number | ''>('');
 
-	if (withNever) {
-		selectedValue =
-			filterOption.find(f => f.enabled)?.date ?? filters[filterName] === 'never'
-				? 'never'
-				: '';
-	} else {
-		selectedValue = filterOption.find(f => f.enabled)?.date ?? '';
-	}
+	useEffect(() => {
+		if (withNever) {
+			setSelectedValue(
+				filterOption.find(f => f.enabled)?.date ||
+					(filters[filterName] === 'never' ? 'never' : '')
+			);
+		} else {
+			setSelectedValue(filterOption.find(f => f.enabled)?.date ?? '');
+		}
+	}, [filterName, filterOption, filters, withNever]);
 
 	return (
 		<RadioButtonGroup
