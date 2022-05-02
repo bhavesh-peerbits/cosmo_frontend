@@ -1,13 +1,15 @@
-import useAuthStore from '@hooks/useAuthStore';
 import { Navigate } from 'react-router-dom';
 import { ReactNode } from 'react';
+import useLoginStore from '@hooks/auth/useLoginStore';
+import useLogout from '@hooks/auth/useLogout';
 
 type AuthenticatedProps = {
 	children: ReactNode;
 };
 
 const Authenticated = ({ children }: AuthenticatedProps) => {
-	const { auth, logout } = useAuthStore();
+	const { auth } = useLoginStore();
+	const { logout } = useLogout();
 
 	if (auth.authenticated) {
 		// eslint-disable-next-line react/jsx-no-useless-fragment

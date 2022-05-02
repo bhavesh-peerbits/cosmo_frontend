@@ -50,7 +50,7 @@ interface TableHeaderProps extends ReactDivAttr {
 	 * Specify which direction we are currently sorting by, should be one of DESC,
 	 * NONE, or ASC.
 	 */
-	// sortDirection: PropTypes.oneOf(Object.values(sortStates)),
+	sortDirection?: 'DESC' | 'NONE' | 'ASC';
 
 	/**
 	 * Supply a method to translate internal strings with your i18n tool of

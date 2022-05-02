@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
-import { FCReturn, ReactInputAttr } from '../../../typings/shared';
+import { ChangeEvent, ReactNode } from 'react';
+import { FCReturn, ReactAttr } from '../../../typings/shared';
 
-interface SelectProps extends ReactInputAttr {
+interface SelectProps extends ReactAttr<HTMLSelectElement> {
 	/**
 	 * Provide the contents of your Select
 	 */
@@ -59,6 +59,11 @@ interface SelectProps extends ReactInputAttr {
 	labelText?: ReactNode;
 
 	/**
+	 * `true` to use the light version. For use on $ui-01 backgrounds only.
+	 * Don't use this to make tile background color same as container background color.
+	 */
+	light?: boolean;
+	/**
 	 * Reserved for use with <Pagination> component. Will not render a label for the
 	 * select since Pagination renders one for us.
 	 */
@@ -68,7 +73,7 @@ interface SelectProps extends ReactInputAttr {
 	 * Provide an optional `onChange` hook that is called each time the value of
 	 * the underlying `<input>` changes
 	 */
-	onChange?: () => void;
+	onChange?: (event: ChangeEvent<HTMLSelectElement>) => void;
 
 	/**
 	 * Specify the size of the Select Input.
@@ -87,5 +92,4 @@ interface SelectProps extends ReactInputAttr {
 }
 
 declare const Select: FCReturn<SelectProps>;
-
 export default Select;

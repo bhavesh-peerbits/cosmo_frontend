@@ -1,6 +1,6 @@
-import { FCReturn, ReactInputAttr } from '../../../typings/shared';
+import { FCReturn, ReactAttr } from '../../../typings/shared';
 
-interface SelectItemProps extends ReactInputAttr {
+interface SelectItemProps extends ReactAttr<HTMLOptionElement> {
 	/**
 	 * Specify an optional className to be applied to the node
 	 */
@@ -28,5 +28,4 @@ interface SelectItemProps extends ReactInputAttr {
 }
 
 declare const SelectItem: FCReturn<SelectItemProps>;
-
 export default SelectItem;

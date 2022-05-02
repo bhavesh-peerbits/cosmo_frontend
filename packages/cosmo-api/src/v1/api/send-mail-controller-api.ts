@@ -51,11 +51,13 @@ export const SendMailControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {Email} email
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		sendEmail: async (
 			email: Email,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'email' is not null or undefined
@@ -74,6 +76,10 @@ export const SendMailControllerApiAxiosParamCreator = function (
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
 
 			localVarHeaderParameter['Content-Type'] = 'application/json';
 
@@ -99,11 +105,13 @@ export const SendMailControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {Email} email
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		sendNarrativeEmail: async (
 			email: Email,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'email' is not null or undefined
@@ -122,6 +130,10 @@ export const SendMailControllerApiAxiosParamCreator = function (
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
 
 			localVarHeaderParameter['Content-Type'] = 'application/json';
 
@@ -157,14 +169,20 @@ export const SendMailControllerApiFp = function (configuration?: Configuration) 
 		/**
 		 *
 		 * @param {Email} email
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async sendEmail(
 			email: Email,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.sendEmail(email, options);
+			const localVarAxiosArgs = await localVarAxiosParamCreator.sendEmail(
+				email,
+				acceptLanguage,
+				options
+			);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
@@ -175,15 +193,18 @@ export const SendMailControllerApiFp = function (configuration?: Configuration) 
 		/**
 		 *
 		 * @param {Email} email
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async sendNarrativeEmail(
 			email: Email,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.sendNarrativeEmail(
 				email,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -210,23 +231,33 @@ export const SendMailControllerApiFactory = function (
 		/**
 		 *
 		 * @param {Email} email
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		sendEmail(email: Email, options?: any): AxiosPromise<string> {
+		sendEmail(
+			email: Email,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<string> {
 			return localVarFp
-				.sendEmail(email, options)
+				.sendEmail(email, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {Email} email
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		sendNarrativeEmail(email: Email, options?: any): AxiosPromise<string> {
+		sendNarrativeEmail(
+			email: Email,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<string> {
 			return localVarFp
-				.sendNarrativeEmail(email, options)
+				.sendNarrativeEmail(email, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		}
 	};
@@ -244,6 +275,13 @@ export interface SendMailControllerApiSendEmailRequest {
 	 * @memberof SendMailControllerApiSendEmail
 	 */
 	readonly email: Email;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof SendMailControllerApiSendEmail
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -258,6 +296,13 @@ export interface SendMailControllerApiSendNarrativeEmailRequest {
 	 * @memberof SendMailControllerApiSendNarrativeEmail
 	 */
 	readonly email: Email;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof SendMailControllerApiSendNarrativeEmail
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -279,7 +324,7 @@ export class SendMailControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return SendMailControllerApiFp(this.configuration)
-			.sendEmail(requestParameters.email, options)
+			.sendEmail(requestParameters.email, requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -295,7 +340,11 @@ export class SendMailControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return SendMailControllerApiFp(this.configuration)
-			.sendNarrativeEmail(requestParameters.email, options)
+			.sendNarrativeEmail(
+				requestParameters.email,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 }

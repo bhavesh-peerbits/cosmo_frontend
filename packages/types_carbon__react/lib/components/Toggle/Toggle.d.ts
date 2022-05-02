@@ -1,4 +1,4 @@
-import { ReactNode, ReactElement } from 'react';
+import { ReactNode } from 'react';
 import { FCReturn, ReactDivAttr } from '../../../typings/shared';
 
 interface ToggleProps extends ReactDivAttr {

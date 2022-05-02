@@ -53,11 +53,13 @@ export const ConfigElementControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {ConfigElement} configElement
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		createConfigElement: async (
 			configElement: ConfigElement,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'configElement' is not null or undefined
@@ -76,6 +78,10 @@ export const ConfigElementControllerApiAxiosParamCreator = function (
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
 
 			localVarHeaderParameter['Content-Type'] = 'application/json';
 
@@ -101,11 +107,13 @@ export const ConfigElementControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		deleteConfigElement: async (
 			id: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
@@ -129,6 +137,10 @@ export const ConfigElementControllerApiAxiosParamCreator = function (
 				localVarQueryParameter['id'] = id;
 			}
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -145,10 +157,14 @@ export const ConfigElementControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllConfig: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+		getAllConfig: async (
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
 			const localVarPath = `/api/configelements`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -163,6 +179,10 @@ export const ConfigElementControllerApiAxiosParamCreator = function (
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
@@ -182,12 +202,14 @@ export const ConfigElementControllerApiAxiosParamCreator = function (
 		 *
 		 * @param {number} id
 		 * @param {ConfigElement} configElement
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getAllModulesForConfigElements: async (
 			id: number,
 			configElement: ConfigElement,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
@@ -217,6 +239,10 @@ export const ConfigElementControllerApiAxiosParamCreator = function (
 				localVarQueryParameter['configElement'] = configElement;
 			}
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -234,11 +260,13 @@ export const ConfigElementControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getConfigElement: async (
 			id: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
@@ -262,6 +290,10 @@ export const ConfigElementControllerApiAxiosParamCreator = function (
 				localVarQueryParameter['id'] = id;
 			}
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -280,12 +312,14 @@ export const ConfigElementControllerApiAxiosParamCreator = function (
 		 *
 		 * @param {number} id
 		 * @param {ConfigElement} configElement
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		modifyConfigElements: async (
 			id: number,
 			configElement: ConfigElement,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
@@ -309,6 +343,10 @@ export const ConfigElementControllerApiAxiosParamCreator = function (
 
 			if (id !== undefined) {
 				localVarQueryParameter['id'] = id;
+			}
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
 			}
 
 			localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -346,17 +384,20 @@ export const ConfigElementControllerApiFp = function (configuration?: Configurat
 		/**
 		 *
 		 * @param {ConfigElement} configElement
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async createConfigElement(
 			configElement: ConfigElement,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConfigElement>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.createConfigElement(
 				configElement,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -369,15 +410,18 @@ export const ConfigElementControllerApiFp = function (configuration?: Configurat
 		/**
 		 *
 		 * @param {number} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async deleteConfigElement(
 			id: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.deleteConfigElement(
 				id,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -389,15 +433,20 @@ export const ConfigElementControllerApiFp = function (configuration?: Configurat
 		},
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getAllConfig(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ConfigElement>>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllConfig(options);
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllConfig(
+				acceptLanguage,
+				options
+			);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
@@ -409,12 +458,14 @@ export const ConfigElementControllerApiFp = function (configuration?: Configurat
 		 *
 		 * @param {number} id
 		 * @param {ConfigElement} configElement
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getAllModulesForConfigElements(
 			id: number,
 			configElement: ConfigElement,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ConfigModule>>
@@ -423,6 +474,7 @@ export const ConfigElementControllerApiFp = function (configuration?: Configurat
 				await localVarAxiosParamCreator.getAllModulesForConfigElements(
 					id,
 					configElement,
+					acceptLanguage,
 					options
 				);
 			return createRequestFunction(
@@ -435,17 +487,20 @@ export const ConfigElementControllerApiFp = function (configuration?: Configurat
 		/**
 		 *
 		 * @param {number} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getConfigElement(
 			id: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConfigElement>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getConfigElement(
 				id,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -459,12 +514,14 @@ export const ConfigElementControllerApiFp = function (configuration?: Configurat
 		 *
 		 * @param {number} id
 		 * @param {ConfigElement} configElement
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async modifyConfigElements(
 			id: number,
 			configElement: ConfigElement,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConfigElement>
@@ -472,6 +529,7 @@ export const ConfigElementControllerApiFp = function (configuration?: Configurat
 			const localVarAxiosArgs = await localVarAxiosParamCreator.modifyConfigElements(
 				id,
 				configElement,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -498,77 +556,99 @@ export const ConfigElementControllerApiFactory = function (
 		/**
 		 *
 		 * @param {ConfigElement} configElement
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		createConfigElement(
 			configElement: ConfigElement,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<ConfigElement> {
 			return localVarFp
-				.createConfigElement(configElement, options)
+				.createConfigElement(configElement, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {number} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		deleteConfigElement(id: number, options?: any): AxiosPromise<string> {
+		deleteConfigElement(
+			id: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<string> {
 			return localVarFp
-				.deleteConfigElement(id, options)
+				.deleteConfigElement(id, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllConfig(options?: any): AxiosPromise<Array<ConfigElement>> {
-			return localVarFp.getAllConfig(options).then(request => request(axios, basePath));
+		getAllConfig(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<ConfigElement>> {
+			return localVarFp
+				.getAllConfig(acceptLanguage, options)
+				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {number} id
 		 * @param {ConfigElement} configElement
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getAllModulesForConfigElements(
 			id: number,
 			configElement: ConfigElement,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Array<ConfigModule>> {
 			return localVarFp
-				.getAllModulesForConfigElements(id, configElement, options)
+				.getAllModulesForConfigElements(id, configElement, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {number} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getConfigElement(id: number, options?: any): AxiosPromise<ConfigElement> {
+		getConfigElement(
+			id: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<ConfigElement> {
 			return localVarFp
-				.getConfigElement(id, options)
+				.getConfigElement(id, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {number} id
 		 * @param {ConfigElement} configElement
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		modifyConfigElements(
 			id: number,
 			configElement: ConfigElement,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<ConfigElement> {
 			return localVarFp
-				.modifyConfigElements(id, configElement, options)
+				.modifyConfigElements(id, configElement, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		}
 	};
@@ -586,6 +666,13 @@ export interface ConfigElementControllerApiCreateConfigElementRequest {
 	 * @memberof ConfigElementControllerApiCreateConfigElement
 	 */
 	readonly configElement: ConfigElement;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ConfigElementControllerApiCreateConfigElement
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -600,6 +687,27 @@ export interface ConfigElementControllerApiDeleteConfigElementRequest {
 	 * @memberof ConfigElementControllerApiDeleteConfigElement
 	 */
 	readonly id: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ConfigElementControllerApiDeleteConfigElement
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getAllConfig operation in ConfigElementControllerApi.
+ * @export
+ * @interface ConfigElementControllerApiGetAllConfigRequest
+ */
+export interface ConfigElementControllerApiGetAllConfigRequest {
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ConfigElementControllerApiGetAllConfig
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -621,6 +729,13 @@ export interface ConfigElementControllerApiGetAllModulesForConfigElementsRequest
 	 * @memberof ConfigElementControllerApiGetAllModulesForConfigElements
 	 */
 	readonly configElement: ConfigElement;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ConfigElementControllerApiGetAllModulesForConfigElements
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -635,6 +750,13 @@ export interface ConfigElementControllerApiGetConfigElementRequest {
 	 * @memberof ConfigElementControllerApiGetConfigElement
 	 */
 	readonly id: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ConfigElementControllerApiGetConfigElement
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -656,6 +778,13 @@ export interface ConfigElementControllerApiModifyConfigElementsRequest {
 	 * @memberof ConfigElementControllerApiModifyConfigElements
 	 */
 	readonly configElement: ConfigElement;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ConfigElementControllerApiModifyConfigElements
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -677,7 +806,11 @@ export class ConfigElementControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return ConfigElementControllerApiFp(this.configuration)
-			.createConfigElement(requestParameters.configElement, options)
+			.createConfigElement(
+				requestParameters.configElement,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -693,19 +826,27 @@ export class ConfigElementControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return ConfigElementControllerApiFp(this.configuration)
-			.deleteConfigElement(requestParameters.id, options)
+			.deleteConfigElement(
+				requestParameters.id,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 
 	/**
 	 *
+	 * @param {ConfigElementControllerApiGetAllConfigRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
 	 * @memberof ConfigElementControllerApi
 	 */
-	public getAllConfig(options?: AxiosRequestConfig) {
+	public getAllConfig(
+		requestParameters: ConfigElementControllerApiGetAllConfigRequest = {},
+		options?: AxiosRequestConfig
+	) {
 		return ConfigElementControllerApiFp(this.configuration)
-			.getAllConfig(options)
+			.getAllConfig(requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -724,6 +865,7 @@ export class ConfigElementControllerApi extends BaseAPI {
 			.getAllModulesForConfigElements(
 				requestParameters.id,
 				requestParameters.configElement,
+				requestParameters.acceptLanguage,
 				options
 			)
 			.then(request => request(this.axios, this.basePath));
@@ -741,7 +883,7 @@ export class ConfigElementControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return ConfigElementControllerApiFp(this.configuration)
-			.getConfigElement(requestParameters.id, options)
+			.getConfigElement(requestParameters.id, requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -760,6 +902,7 @@ export class ConfigElementControllerApi extends BaseAPI {
 			.modifyConfigElements(
 				requestParameters.id,
 				requestParameters.configElement,
+				requestParameters.acceptLanguage,
 				options
 			)
 			.then(request => request(this.axios, this.basePath));

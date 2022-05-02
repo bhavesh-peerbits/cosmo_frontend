@@ -57,6 +57,12 @@ export interface Application {
 	 * @type {string}
 	 * @memberof Application
 	 */
+	icon?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Application
+	 */
 	lastReview?: string;
 	/**
 	 *
@@ -88,4 +94,10 @@ export interface Application {
 	 * @memberof Application
 	 */
 	tenant?: Tenant;
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof Application
+	 */
+	disable?: boolean;
 }

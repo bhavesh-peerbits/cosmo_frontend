@@ -55,11 +55,13 @@ export const TenantControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {Tenant} tenant
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		createTenant: async (
 			tenant: Tenant,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'tenant' is not null or undefined
@@ -78,6 +80,10 @@ export const TenantControllerApiAxiosParamCreator = function (
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
 
 			localVarHeaderParameter['Content-Type'] = 'application/json';
 
@@ -103,11 +109,13 @@ export const TenantControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} body
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		deleteTenant: async (
 			body: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'body' is not null or undefined
@@ -126,6 +134,10 @@ export const TenantControllerApiAxiosParamCreator = function (
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
 
 			localVarHeaderParameter['Content-Type'] = 'application/json';
 
@@ -150,10 +162,14 @@ export const TenantControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllTenants: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+		getAllTenants: async (
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
 			const localVarPath = `/api/tenants`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -168,6 +184,10 @@ export const TenantControllerApiAxiosParamCreator = function (
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
@@ -186,11 +206,13 @@ export const TenantControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} tenantId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getTenantApplications: async (
 			tenantId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'tenantId' is not null or undefined
@@ -214,6 +236,10 @@ export const TenantControllerApiAxiosParamCreator = function (
 				localVarQueryParameter['tenantId'] = tenantId;
 			}
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -231,11 +257,13 @@ export const TenantControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getTenantById: async (
 			id: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
@@ -259,6 +287,10 @@ export const TenantControllerApiAxiosParamCreator = function (
 				localVarQueryParameter['id'] = id;
 			}
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -276,11 +308,13 @@ export const TenantControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} tenantId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getTenantUsers: async (
 			tenantId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'tenantId' is not null or undefined
@@ -304,6 +338,10 @@ export const TenantControllerApiAxiosParamCreator = function (
 				localVarQueryParameter['tenantId'] = tenantId;
 			}
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -322,12 +360,14 @@ export const TenantControllerApiAxiosParamCreator = function (
 		 *
 		 * @param {number} id
 		 * @param {Tenant} tenant
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		modifyTenant: async (
 			id: number,
 			tenant: Tenant,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
@@ -351,6 +391,10 @@ export const TenantControllerApiAxiosParamCreator = function (
 
 			if (id !== undefined) {
 				localVarQueryParameter['id'] = id;
+			}
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
 			}
 
 			localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -387,15 +431,18 @@ export const TenantControllerApiFp = function (configuration?: Configuration) {
 		/**
 		 *
 		 * @param {Tenant} tenant
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async createTenant(
 			tenant: Tenant,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Tenant>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.createTenant(
 				tenant,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -408,15 +455,18 @@ export const TenantControllerApiFp = function (configuration?: Configuration) {
 		/**
 		 *
 		 * @param {number} body
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async deleteTenant(
 			body: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.deleteTenant(
 				body,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -428,15 +478,20 @@ export const TenantControllerApiFp = function (configuration?: Configuration) {
 		},
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getAllTenants(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Tenant>>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllTenants(options);
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllTenants(
+				acceptLanguage,
+				options
+			);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
@@ -447,17 +502,20 @@ export const TenantControllerApiFp = function (configuration?: Configuration) {
 		/**
 		 *
 		 * @param {number} tenantId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getTenantApplications(
 			tenantId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Application>>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getTenantApplications(
 				tenantId,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -470,15 +528,18 @@ export const TenantControllerApiFp = function (configuration?: Configuration) {
 		/**
 		 *
 		 * @param {number} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getTenantById(
 			id: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Tenant>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getTenantById(
 				id,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -491,15 +552,18 @@ export const TenantControllerApiFp = function (configuration?: Configuration) {
 		/**
 		 *
 		 * @param {number} tenantId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getTenantUsers(
 			tenantId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<User>>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getTenantUsers(
 				tenantId,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -513,17 +577,20 @@ export const TenantControllerApiFp = function (configuration?: Configuration) {
 		 *
 		 * @param {number} id
 		 * @param {Tenant} tenant
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async modifyTenant(
 			id: number,
 			tenant: Tenant,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Tenant>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.modifyTenant(
 				id,
 				tenant,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -550,79 +617,113 @@ export const TenantControllerApiFactory = function (
 		/**
 		 *
 		 * @param {Tenant} tenant
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		createTenant(tenant: Tenant, options?: any): AxiosPromise<Tenant> {
+		createTenant(
+			tenant: Tenant,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Tenant> {
 			return localVarFp
-				.createTenant(tenant, options)
+				.createTenant(tenant, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {number} body
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		deleteTenant(body: number, options?: any): AxiosPromise<string> {
+		deleteTenant(
+			body: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<string> {
 			return localVarFp
-				.deleteTenant(body, options)
+				.deleteTenant(body, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllTenants(options?: any): AxiosPromise<Array<Tenant>> {
-			return localVarFp.getAllTenants(options).then(request => request(axios, basePath));
+		getAllTenants(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<Tenant>> {
+			return localVarFp
+				.getAllTenants(acceptLanguage, options)
+				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {number} tenantId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getTenantApplications(
 			tenantId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Array<Application>> {
 			return localVarFp
-				.getTenantApplications(tenantId, options)
+				.getTenantApplications(tenantId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {number} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getTenantById(id: number, options?: any): AxiosPromise<Tenant> {
+		getTenantById(
+			id: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Tenant> {
 			return localVarFp
-				.getTenantById(id, options)
+				.getTenantById(id, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {number} tenantId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getTenantUsers(tenantId: number, options?: any): AxiosPromise<Array<User>> {
+		getTenantUsers(
+			tenantId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<User>> {
 			return localVarFp
-				.getTenantUsers(tenantId, options)
+				.getTenantUsers(tenantId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {number} id
 		 * @param {Tenant} tenant
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		modifyTenant(id: number, tenant: Tenant, options?: any): AxiosPromise<Tenant> {
+		modifyTenant(
+			id: number,
+			tenant: Tenant,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Tenant> {
 			return localVarFp
-				.modifyTenant(id, tenant, options)
+				.modifyTenant(id, tenant, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		}
 	};
@@ -640,6 +741,13 @@ export interface TenantControllerApiCreateTenantRequest {
 	 * @memberof TenantControllerApiCreateTenant
 	 */
 	readonly tenant: Tenant;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof TenantControllerApiCreateTenant
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -654,6 +762,27 @@ export interface TenantControllerApiDeleteTenantRequest {
 	 * @memberof TenantControllerApiDeleteTenant
 	 */
 	readonly body: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof TenantControllerApiDeleteTenant
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getAllTenants operation in TenantControllerApi.
+ * @export
+ * @interface TenantControllerApiGetAllTenantsRequest
+ */
+export interface TenantControllerApiGetAllTenantsRequest {
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof TenantControllerApiGetAllTenants
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -668,6 +797,13 @@ export interface TenantControllerApiGetTenantApplicationsRequest {
 	 * @memberof TenantControllerApiGetTenantApplications
 	 */
 	readonly tenantId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof TenantControllerApiGetTenantApplications
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -682,6 +818,13 @@ export interface TenantControllerApiGetTenantByIdRequest {
 	 * @memberof TenantControllerApiGetTenantById
 	 */
 	readonly id: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof TenantControllerApiGetTenantById
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -696,6 +839,13 @@ export interface TenantControllerApiGetTenantUsersRequest {
 	 * @memberof TenantControllerApiGetTenantUsers
 	 */
 	readonly tenantId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof TenantControllerApiGetTenantUsers
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -717,6 +867,13 @@ export interface TenantControllerApiModifyTenantRequest {
 	 * @memberof TenantControllerApiModifyTenant
 	 */
 	readonly tenant: Tenant;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof TenantControllerApiModifyTenant
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -738,7 +895,7 @@ export class TenantControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return TenantControllerApiFp(this.configuration)
-			.createTenant(requestParameters.tenant, options)
+			.createTenant(requestParameters.tenant, requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -754,19 +911,23 @@ export class TenantControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return TenantControllerApiFp(this.configuration)
-			.deleteTenant(requestParameters.body, options)
+			.deleteTenant(requestParameters.body, requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 
 	/**
 	 *
+	 * @param {TenantControllerApiGetAllTenantsRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
 	 * @memberof TenantControllerApi
 	 */
-	public getAllTenants(options?: AxiosRequestConfig) {
+	public getAllTenants(
+		requestParameters: TenantControllerApiGetAllTenantsRequest = {},
+		options?: AxiosRequestConfig
+	) {
 		return TenantControllerApiFp(this.configuration)
-			.getAllTenants(options)
+			.getAllTenants(requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -782,7 +943,11 @@ export class TenantControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return TenantControllerApiFp(this.configuration)
-			.getTenantApplications(requestParameters.tenantId, options)
+			.getTenantApplications(
+				requestParameters.tenantId,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -798,7 +963,7 @@ export class TenantControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return TenantControllerApiFp(this.configuration)
-			.getTenantById(requestParameters.id, options)
+			.getTenantById(requestParameters.id, requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -814,7 +979,11 @@ export class TenantControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return TenantControllerApiFp(this.configuration)
-			.getTenantUsers(requestParameters.tenantId, options)
+			.getTenantUsers(
+				requestParameters.tenantId,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -830,7 +999,12 @@ export class TenantControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return TenantControllerApiFp(this.configuration)
-			.modifyTenant(requestParameters.id, requestParameters.tenant, options)
+			.modifyTenant(
+				requestParameters.id,
+				requestParameters.tenant,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 }

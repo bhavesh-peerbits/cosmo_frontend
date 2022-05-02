@@ -56,12 +56,14 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 		 *
 		 * @param {number} procedureId
 		 * @param {number} applicationId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		addApplicationToProcedure: async (
 			procedureId: number,
 			applicationId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'procedureId' is not null or undefined
@@ -91,6 +93,10 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 				localVarQueryParameter['applicationId'] = applicationId;
 			}
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -108,11 +114,13 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		deleteProcedure: async (
 			id: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
@@ -136,6 +144,10 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 				localVarQueryParameter['id'] = id;
 			}
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -155,6 +167,7 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 		 * @param {number} procedureId
 		 * @param {number} applicationId
 		 * @param {ProcedureAppInstanceKey} procedureAppInstanceKey
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
@@ -162,6 +175,7 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 			procedureId: number,
 			applicationId: number,
 			procedureAppInstanceKey: ProcedureAppInstanceKey,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'procedureId' is not null or undefined
@@ -205,6 +219,10 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 				localVarQueryParameter['applicationId'] = applicationId;
 			}
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			localVarHeaderParameter['Content-Type'] = 'application/json';
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -229,11 +247,13 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} procedureId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getAllApplicationForProcedure: async (
 			procedureId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'procedureId' is not null or undefined
@@ -257,6 +277,10 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 				localVarQueryParameter['procedureId'] = procedureId;
 			}
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -273,10 +297,14 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllProcedure: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+		getAllProcedure: async (
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
 			const localVarPath = `/api/procedure`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -291,6 +319,10 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
@@ -309,11 +341,13 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getSingleProcedure: async (
 			id: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
@@ -337,6 +371,10 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 				localVarQueryParameter['id'] = id;
 			}
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -356,6 +394,7 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 		 * @param {number} procedureId
 		 * @param {number} applicationId
 		 * @param {ProcedureAppInstanceKey} procedureAppInstanceKey
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
@@ -363,6 +402,7 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 			procedureId: number,
 			applicationId: number,
 			procedureAppInstanceKey: ProcedureAppInstanceKey,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'procedureId' is not null or undefined
@@ -406,6 +446,10 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 				localVarQueryParameter['procedureAppInstanceKey'] = procedureAppInstanceKey;
 			}
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -425,6 +469,7 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 		 * @param {number} procedureId
 		 * @param {number} applicationId
 		 * @param {ProcedureAppInstance} procedureAppInstance
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
@@ -432,6 +477,7 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 			procedureId: number,
 			applicationId: number,
 			procedureAppInstance: ProcedureAppInstance,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'procedureId' is not null or undefined
@@ -467,6 +513,10 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 				localVarQueryParameter['applicationId'] = applicationId;
 			}
 
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
 			localVarHeaderParameter['Content-Type'] = 'application/json';
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -492,12 +542,14 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 		 *
 		 * @param {number} id
 		 * @param {Procedure} procedure
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		modifyProcedure: async (
 			id: number,
 			procedure: Procedure,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
@@ -521,6 +573,10 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 
 			if (id !== undefined) {
 				localVarQueryParameter['id'] = id;
+			}
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
 			}
 
 			localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -547,11 +603,13 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {Procedure} procedure
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		newProcedure: async (
 			procedure: Procedure,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'procedure' is not null or undefined
@@ -570,6 +628,10 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
 
 			localVarHeaderParameter['Content-Type'] = 'application/json';
 
@@ -607,12 +669,14 @@ export const ProcedureControllerApiFp = function (configuration?: Configuration)
 		 *
 		 * @param {number} procedureId
 		 * @param {number} applicationId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async addApplicationToProcedure(
 			procedureId: number,
 			applicationId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProcedureAppInstance>
@@ -620,6 +684,7 @@ export const ProcedureControllerApiFp = function (configuration?: Configuration)
 			const localVarAxiosArgs = await localVarAxiosParamCreator.addApplicationToProcedure(
 				procedureId,
 				applicationId,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -632,15 +697,18 @@ export const ProcedureControllerApiFp = function (configuration?: Configuration)
 		/**
 		 *
 		 * @param {number} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async deleteProcedure(
 			id: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.deleteProcedure(
 				id,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -655,6 +723,7 @@ export const ProcedureControllerApiFp = function (configuration?: Configuration)
 		 * @param {number} procedureId
 		 * @param {number} applicationId
 		 * @param {ProcedureAppInstanceKey} procedureAppInstanceKey
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
@@ -662,6 +731,7 @@ export const ProcedureControllerApiFp = function (configuration?: Configuration)
 			procedureId: number,
 			applicationId: number,
 			procedureAppInstanceKey: ProcedureAppInstanceKey,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
 			const localVarAxiosArgs =
@@ -669,6 +739,7 @@ export const ProcedureControllerApiFp = function (configuration?: Configuration)
 					procedureId,
 					applicationId,
 					procedureAppInstanceKey,
+					acceptLanguage,
 					options
 				);
 			return createRequestFunction(
@@ -681,11 +752,13 @@ export const ProcedureControllerApiFp = function (configuration?: Configuration)
 		/**
 		 *
 		 * @param {number} procedureId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getAllApplicationForProcedure(
 			procedureId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(
@@ -696,6 +769,7 @@ export const ProcedureControllerApiFp = function (configuration?: Configuration)
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.getAllApplicationForProcedure(
 					procedureId,
+					acceptLanguage,
 					options
 				);
 			return createRequestFunction(
@@ -707,15 +781,20 @@ export const ProcedureControllerApiFp = function (configuration?: Configuration)
 		},
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getAllProcedure(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Procedure>>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllProcedure(options);
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllProcedure(
+				acceptLanguage,
+				options
+			);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
@@ -726,15 +805,18 @@ export const ProcedureControllerApiFp = function (configuration?: Configuration)
 		/**
 		 *
 		 * @param {number} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getSingleProcedure(
 			id: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Procedure>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getSingleProcedure(
 				id,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -749,6 +831,7 @@ export const ProcedureControllerApiFp = function (configuration?: Configuration)
 		 * @param {number} procedureId
 		 * @param {number} applicationId
 		 * @param {ProcedureAppInstanceKey} procedureAppInstanceKey
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
@@ -756,6 +839,7 @@ export const ProcedureControllerApiFp = function (configuration?: Configuration)
 			procedureId: number,
 			applicationId: number,
 			procedureAppInstanceKey: ProcedureAppInstanceKey,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProcedureAppInstance>
@@ -765,6 +849,7 @@ export const ProcedureControllerApiFp = function (configuration?: Configuration)
 					procedureId,
 					applicationId,
 					procedureAppInstanceKey,
+					acceptLanguage,
 					options
 				);
 			return createRequestFunction(
@@ -779,6 +864,7 @@ export const ProcedureControllerApiFp = function (configuration?: Configuration)
 		 * @param {number} procedureId
 		 * @param {number} applicationId
 		 * @param {ProcedureAppInstance} procedureAppInstance
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
@@ -786,6 +872,7 @@ export const ProcedureControllerApiFp = function (configuration?: Configuration)
 			procedureId: number,
 			applicationId: number,
 			procedureAppInstance: ProcedureAppInstance,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProcedureAppInstance>
@@ -795,6 +882,7 @@ export const ProcedureControllerApiFp = function (configuration?: Configuration)
 					procedureId,
 					applicationId,
 					procedureAppInstance,
+					acceptLanguage,
 					options
 				);
 			return createRequestFunction(
@@ -808,17 +896,20 @@ export const ProcedureControllerApiFp = function (configuration?: Configuration)
 		 *
 		 * @param {number} id
 		 * @param {Procedure} procedure
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async modifyProcedure(
 			id: number,
 			procedure: Procedure,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Procedure>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.modifyProcedure(
 				id,
 				procedure,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -831,15 +922,18 @@ export const ProcedureControllerApiFp = function (configuration?: Configuration)
 		/**
 		 *
 		 * @param {Procedure} procedure
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async newProcedure(
 			procedure: Procedure,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Procedure>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.newProcedure(
 				procedure,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -867,27 +961,34 @@ export const ProcedureControllerApiFactory = function (
 		 *
 		 * @param {number} procedureId
 		 * @param {number} applicationId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		addApplicationToProcedure(
 			procedureId: number,
 			applicationId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<ProcedureAppInstance> {
 			return localVarFp
-				.addApplicationToProcedure(procedureId, applicationId, options)
+				.addApplicationToProcedure(procedureId, applicationId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {number} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		deleteProcedure(id: number, options?: any): AxiosPromise<string> {
+		deleteProcedure(
+			id: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<string> {
 			return localVarFp
-				.deleteProcedure(id, options)
+				.deleteProcedure(id, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -895,6 +996,7 @@ export const ProcedureControllerApiFactory = function (
 		 * @param {number} procedureId
 		 * @param {number} applicationId
 		 * @param {ProcedureAppInstanceKey} procedureAppInstanceKey
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
@@ -902,6 +1004,7 @@ export const ProcedureControllerApiFactory = function (
 			procedureId: number,
 			applicationId: number,
 			procedureAppInstanceKey: ProcedureAppInstanceKey,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<string> {
 			return localVarFp
@@ -909,6 +1012,7 @@ export const ProcedureControllerApiFactory = function (
 					procedureId,
 					applicationId,
 					procedureAppInstanceKey,
+					acceptLanguage,
 					options
 				)
 				.then(request => request(axios, basePath));
@@ -916,36 +1020,47 @@ export const ProcedureControllerApiFactory = function (
 		/**
 		 *
 		 * @param {number} procedureId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getAllApplicationForProcedure(
 			procedureId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Array<ProcedureAppInstance>> {
 			return localVarFp
-				.getAllApplicationForProcedure(procedureId, options)
+				.getAllApplicationForProcedure(procedureId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllProcedure(options?: any): AxiosPromise<Array<Procedure>> {
+		getAllProcedure(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<Procedure>> {
 			return localVarFp
-				.getAllProcedure(options)
+				.getAllProcedure(acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {number} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getSingleProcedure(id: number, options?: any): AxiosPromise<Procedure> {
+		getSingleProcedure(
+			id: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Procedure> {
 			return localVarFp
-				.getSingleProcedure(id, options)
+				.getSingleProcedure(id, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -953,6 +1068,7 @@ export const ProcedureControllerApiFactory = function (
 		 * @param {number} procedureId
 		 * @param {number} applicationId
 		 * @param {ProcedureAppInstanceKey} procedureAppInstanceKey
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
@@ -960,6 +1076,7 @@ export const ProcedureControllerApiFactory = function (
 			procedureId: number,
 			applicationId: number,
 			procedureAppInstanceKey: ProcedureAppInstanceKey,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<ProcedureAppInstance> {
 			return localVarFp
@@ -967,6 +1084,7 @@ export const ProcedureControllerApiFactory = function (
 					procedureId,
 					applicationId,
 					procedureAppInstanceKey,
+					acceptLanguage,
 					options
 				)
 				.then(request => request(axios, basePath));
@@ -976,6 +1094,7 @@ export const ProcedureControllerApiFactory = function (
 		 * @param {number} procedureId
 		 * @param {number} applicationId
 		 * @param {ProcedureAppInstance} procedureAppInstance
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
@@ -983,6 +1102,7 @@ export const ProcedureControllerApiFactory = function (
 			procedureId: number,
 			applicationId: number,
 			procedureAppInstance: ProcedureAppInstance,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<ProcedureAppInstance> {
 			return localVarFp
@@ -990,6 +1110,7 @@ export const ProcedureControllerApiFactory = function (
 					procedureId,
 					applicationId,
 					procedureAppInstance,
+					acceptLanguage,
 					options
 				)
 				.then(request => request(axios, basePath));
@@ -998,27 +1119,34 @@ export const ProcedureControllerApiFactory = function (
 		 *
 		 * @param {number} id
 		 * @param {Procedure} procedure
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		modifyProcedure(
 			id: number,
 			procedure: Procedure,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Procedure> {
 			return localVarFp
-				.modifyProcedure(id, procedure, options)
+				.modifyProcedure(id, procedure, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {Procedure} procedure
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		newProcedure(procedure: Procedure, options?: any): AxiosPromise<Procedure> {
+		newProcedure(
+			procedure: Procedure,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Procedure> {
 			return localVarFp
-				.newProcedure(procedure, options)
+				.newProcedure(procedure, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		}
 	};
@@ -1043,6 +1171,13 @@ export interface ProcedureControllerApiAddApplicationToProcedureRequest {
 	 * @memberof ProcedureControllerApiAddApplicationToProcedure
 	 */
 	readonly applicationId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ProcedureControllerApiAddApplicationToProcedure
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -1057,6 +1192,13 @@ export interface ProcedureControllerApiDeleteProcedureRequest {
 	 * @memberof ProcedureControllerApiDeleteProcedure
 	 */
 	readonly id: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ProcedureControllerApiDeleteProcedure
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -1085,6 +1227,13 @@ export interface ProcedureControllerApiDeleteProcedureApplicationAssociationRequ
 	 * @memberof ProcedureControllerApiDeleteProcedureApplicationAssociation
 	 */
 	readonly procedureAppInstanceKey: ProcedureAppInstanceKey;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ProcedureControllerApiDeleteProcedureApplicationAssociation
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -1099,6 +1248,27 @@ export interface ProcedureControllerApiGetAllApplicationForProcedureRequest {
 	 * @memberof ProcedureControllerApiGetAllApplicationForProcedure
 	 */
 	readonly procedureId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ProcedureControllerApiGetAllApplicationForProcedure
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getAllProcedure operation in ProcedureControllerApi.
+ * @export
+ * @interface ProcedureControllerApiGetAllProcedureRequest
+ */
+export interface ProcedureControllerApiGetAllProcedureRequest {
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ProcedureControllerApiGetAllProcedure
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -1113,6 +1283,13 @@ export interface ProcedureControllerApiGetSingleProcedureRequest {
 	 * @memberof ProcedureControllerApiGetSingleProcedure
 	 */
 	readonly id: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ProcedureControllerApiGetSingleProcedure
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -1141,6 +1318,13 @@ export interface ProcedureControllerApiGetSpecificProcedureAppInstanceRequest {
 	 * @memberof ProcedureControllerApiGetSpecificProcedureAppInstance
 	 */
 	readonly procedureAppInstanceKey: ProcedureAppInstanceKey;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ProcedureControllerApiGetSpecificProcedureAppInstance
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -1169,6 +1353,13 @@ export interface ProcedureControllerApiModifyApplicationToProcedureRequest {
 	 * @memberof ProcedureControllerApiModifyApplicationToProcedure
 	 */
 	readonly procedureAppInstance: ProcedureAppInstance;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ProcedureControllerApiModifyApplicationToProcedure
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -1190,6 +1381,13 @@ export interface ProcedureControllerApiModifyProcedureRequest {
 	 * @memberof ProcedureControllerApiModifyProcedure
 	 */
 	readonly procedure: Procedure;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ProcedureControllerApiModifyProcedure
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -1204,6 +1402,13 @@ export interface ProcedureControllerApiNewProcedureRequest {
 	 * @memberof ProcedureControllerApiNewProcedure
 	 */
 	readonly procedure: Procedure;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ProcedureControllerApiNewProcedure
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -1228,6 +1433,7 @@ export class ProcedureControllerApi extends BaseAPI {
 			.addApplicationToProcedure(
 				requestParameters.procedureId,
 				requestParameters.applicationId,
+				requestParameters.acceptLanguage,
 				options
 			)
 			.then(request => request(this.axios, this.basePath));
@@ -1245,7 +1451,7 @@ export class ProcedureControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return ProcedureControllerApiFp(this.configuration)
-			.deleteProcedure(requestParameters.id, options)
+			.deleteProcedure(requestParameters.id, requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -1265,6 +1471,7 @@ export class ProcedureControllerApi extends BaseAPI {
 				requestParameters.procedureId,
 				requestParameters.applicationId,
 				requestParameters.procedureAppInstanceKey,
+				requestParameters.acceptLanguage,
 				options
 			)
 			.then(request => request(this.axios, this.basePath));
@@ -1282,19 +1489,27 @@ export class ProcedureControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return ProcedureControllerApiFp(this.configuration)
-			.getAllApplicationForProcedure(requestParameters.procedureId, options)
+			.getAllApplicationForProcedure(
+				requestParameters.procedureId,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 
 	/**
 	 *
+	 * @param {ProcedureControllerApiGetAllProcedureRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
 	 * @memberof ProcedureControllerApi
 	 */
-	public getAllProcedure(options?: AxiosRequestConfig) {
+	public getAllProcedure(
+		requestParameters: ProcedureControllerApiGetAllProcedureRequest = {},
+		options?: AxiosRequestConfig
+	) {
 		return ProcedureControllerApiFp(this.configuration)
-			.getAllProcedure(options)
+			.getAllProcedure(requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -1310,7 +1525,7 @@ export class ProcedureControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return ProcedureControllerApiFp(this.configuration)
-			.getSingleProcedure(requestParameters.id, options)
+			.getSingleProcedure(requestParameters.id, requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -1330,6 +1545,7 @@ export class ProcedureControllerApi extends BaseAPI {
 				requestParameters.procedureId,
 				requestParameters.applicationId,
 				requestParameters.procedureAppInstanceKey,
+				requestParameters.acceptLanguage,
 				options
 			)
 			.then(request => request(this.axios, this.basePath));
@@ -1351,6 +1567,7 @@ export class ProcedureControllerApi extends BaseAPI {
 				requestParameters.procedureId,
 				requestParameters.applicationId,
 				requestParameters.procedureAppInstance,
+				requestParameters.acceptLanguage,
 				options
 			)
 			.then(request => request(this.axios, this.basePath));
@@ -1368,7 +1585,12 @@ export class ProcedureControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return ProcedureControllerApiFp(this.configuration)
-			.modifyProcedure(requestParameters.id, requestParameters.procedure, options)
+			.modifyProcedure(
+				requestParameters.id,
+				requestParameters.procedure,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -1384,7 +1606,11 @@ export class ProcedureControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return ProcedureControllerApiFp(this.configuration)
-			.newProcedure(requestParameters.procedure, options)
+			.newProcedure(
+				requestParameters.procedure,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 }

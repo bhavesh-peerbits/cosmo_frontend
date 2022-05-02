@@ -1,0 +1,12 @@
+{
+	"no-data": "Nessun dato",
+	"carbon.table.batch.cancel": "Cancella",
+	"carbon.table.batch.items.selected": "{{totalSelected}} elementi selezionati",
+	"carbon.table.batch.item.selected": "{{totalSelected}} elemento selezionato",
+	"previous-page": "Pagina precedente",
+	"next-page": "Pagina successiva",
+	"items-per-page": "Elementi per pagina:",
+	"item-range": "{{min}}-{{max}} di {{total}}",
+	"page-range": "di {{total}} pagina",
+	"page-range-plural": "di {{total}} pagine"
+}
