@@ -7,7 +7,8 @@ import CosmoTable, { CellProperties, HeaderFunction } from '@components/table/Co
 import IconResolver from '@components/IconResolver';
 import { formatDate } from '@i18n';
 import { useState } from 'react';
-import MultipleReviewModal from '@components/MultipleReviewModal';
+import MultipleReviewModal from '@components/Modals/MultipleReviewModal';
+import MultipleDeleteModal from '@components/Modals/MultipleDeleteModal';
 
 const ApplicationIconCell = ({ row, value }: CellProperties<Application, string>) => {
 	return (
@@ -25,7 +26,8 @@ const ApplicationsTable = () => {
 	const { apps } = useManagementApps();
 	const { filters, setFilters } = useManagementApps();
 
-	const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+	const [actionSelected, setActionSelected] = useState('');
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const columns: HeaderFunction<Application> = table => [
 		table.createDataColumn(row => row.name, {
@@ -64,12 +66,21 @@ const ApplicationsTable = () => {
 			id: 'email',
 			icon: Email,
 			onClick: () => {
-				setIsReviewModalOpen(true);
+				setActionSelected('Review');
+				setIsModalOpen(true);
 			},
 			label: t('email')
 		},
 		{ id: 'cloud', icon: CloudDownload, onClick: () => {}, label: t('download') },
-		{ id: 'trash', icon: TrashCan, onClick: () => {}, label: t('delete') }
+		{
+			id: 'trash',
+			icon: TrashCan,
+			onClick: () => {
+				setActionSelected('Delete');
+				setIsModalOpen(true);
+			},
+			label: t('delete')
+		}
 	];
 
 	const toolbarContent = (
@@ -83,15 +94,31 @@ const ApplicationsTable = () => {
 		/>
 	);
 
+	const modalToOpen = () => {
+		switch (actionSelected) {
+			case 'Review':
+				return (
+					<MultipleReviewModal
+						type='application'
+						isOpen={isModalOpen}
+						setIsOpen={setIsModalOpen}
+					/>
+				);
+			default:
+				return (
+					<MultipleDeleteModal
+						isOpen={isModalOpen}
+						setIsOpen={setIsModalOpen}
+						totalSelected={2}
+					/>
+				);
+		}
+	};
+
 	return (
 		<div>
-			{isReviewModalOpen && (
-				<MultipleReviewModal
-					type='application'
-					isOpen={isReviewModalOpen}
-					setIsOpen={setIsReviewModalOpen}
-				/>
-			)}
+			{isModalOpen && modalToOpen()}
+
 			<CosmoTable
 				data={apps}
 				createHeaders={columns}

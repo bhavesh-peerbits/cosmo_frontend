@@ -1,9 +1,9 @@
 import { Button, Column, Grid } from '@carbon/react';
 import { Add, Email } from '@carbon/react/icons';
 import { useState } from 'react';
-import NewProcedureModal from './NewProcedureModal';
+import NewProcedureModal from './Modals/NewProcedureModal';
 import ProcedureContainer from './ProcedureContainer';
-import MultipleReviewModal from './MultipleReviewModal';
+import MultipleReviewModal from './Modals/MultipleReviewModal';
 import ScrollToContent from './ScrollToContent';
 
 const ProcedureInfo = () => {

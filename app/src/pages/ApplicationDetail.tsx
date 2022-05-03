@@ -6,9 +6,9 @@ import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
 import { useEffect, useRef, useState } from 'react';
 import ProcedureInfo from '@components/ProcedureInfo';
 import ApplicationChangesContainer from '@components/ApplicationChangesContainer';
-import ApplicationReviewModal from '@components/ApplicationReviewModal';
-import GenerateModal from '@components/GenerateModal';
-import DeleteModal from '@components/DeleteModal';
+import ApplicationReviewModal from '@components/Modals/ApplicationReviewModal';
+import GenerateModal from '@components/Modals/GenerateModal';
+import DeleteModal from '@components/Modals/DeleteModal';
 
 const ApplicationDetail = () => {
 	const [isGenerateModalOpen, setIsGenerateModalOpen] = useState(false);

@@ -2,7 +2,7 @@ import { Button, Column, Form, Grid, TextArea, TextInput, Tile } from '@carbon/r
 import { TrashCan } from '@carbon/react/icons';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import DeleteModal from './DeleteModal';
+import DeleteModal from './Modals/DeleteModal';
 
 interface ProcedureForm {
 	procedure: string;
