@@ -1,5 +1,6 @@
 import { Column, Form, Grid, TextArea, TextInput, Tile } from '@carbon/react';
 import { useForm } from 'react-hook-form';
+import FullWidthColumn from '@components/FullWidthColumn';
 
 interface GeneralInfoForm {
 	code: string;
@@ -15,62 +16,62 @@ type GeneralInfoProps = {
 	setIsDirty: (val: boolean) => void;
 };
 
-const GeneralInfoContainer = ({ setIsDirty }: GeneralInfoProps) => {
+const GeneralInfo = ({ setIsDirty }: GeneralInfoProps) => {
 	const {
 		register,
 		formState: { errors }
 	} = useForm<GeneralInfoForm>({ mode: 'onChange' });
+
 	return (
-		<Tile href='ApplicationName' className='w-full bg-background pb-7'>
+		<Tile href='ApplicationName' className='w-full bg-layer-accent-1 pb-7'>
 			<Grid fullWidth className='space-y-7'>
-				<Column
-					sm={{ span: 4 }}
-					md={{ span: 8 }}
-					lg={{ span: 16 }}
-					className='text-fluid-heading-3'
-				>
+				<FullWidthColumn data-toc-id='general-info' className='text-fluid-heading-3'>
 					General Information
-				</Column>
-				<Column sm={{ span: 4 }} md={{ span: 8 }} lg={{ span: 16 }} className='space-y-5'>
+				</FullWidthColumn>
+				<FullWidthColumn className='space-y-5'>
 					<Form className='w-full space-y-5'>
-						<div className='flex w-full space-x-5'>
-							<TextInput
-								className='w-full'
-								id='code'
-								invalidText={errors.code?.message}
-								labelText='Code *'
-								placeholder='Code'
-								invalid={Boolean(errors.code)}
-								defaultValue='Default value'
-								{...register('code', {
-									onChange: () => {
-										setIsDirty(true);
-									},
-									required: {
-										value: true,
-										message: 'Required'
-									}
-								})}
-							/>
-							<TextInput
-								className='w-full'
-								id='name'
-								invalidText={errors.name?.message}
-								labelText='Name *'
-								placeholder='Name'
-								invalid={Boolean(errors.name)}
-								defaultValue='Default value'
-								{...register('name', {
-									onChange: () => {
-										setIsDirty(true);
-									},
-									required: {
-										value: true,
-										message: 'Required'
-									}
-								})}
-							/>
-						</div>
+						<Grid fullWidth>
+							<Column sm={4} md={8} lg={8}>
+								<TextInput
+									className='w-full'
+									id='code'
+									invalidText={errors.code?.message}
+									labelText='Code *'
+									placeholder='Code'
+									invalid={Boolean(errors.code)}
+									defaultValue='Default value'
+									{...register('code', {
+										onChange: () => {
+											setIsDirty(true);
+										},
+										required: {
+											value: true,
+											message: 'Required'
+										}
+									})}
+								/>
+							</Column>
+							<Column sm={4} md={8} lg={8}>
+								<TextInput
+									className='w-full'
+									id='name'
+									invalidText={errors.name?.message}
+									labelText='Name *'
+									placeholder='Name'
+									invalid={Boolean(errors.name)}
+									defaultValue='Default value'
+									{...register('name', {
+										onChange: () => {
+											setIsDirty(true);
+										},
+										required: {
+											value: true,
+											message: 'Required'
+										}
+									})}
+								/>
+							</Column>
+						</Grid>
 						<div className='flex w-full space-x-5'>
 							<TextInput
 								className='w-full'
@@ -111,8 +112,7 @@ const GeneralInfoContainer = ({ setIsDirty }: GeneralInfoProps) => {
 								labelText='Application Maintenance Supplier'
 								placeholder='Application maintenance supplier'
 								defaultValue='Default value'
-								{...(register('appMaintenance'),
-								{
+								{...register('appMaintenance', {
 									onChange: () => {
 										setIsDirty(true);
 									}
@@ -124,8 +124,7 @@ const GeneralInfoContainer = ({ setIsDirty }: GeneralInfoProps) => {
 								labelText='Operation Supplier'
 								placeholder='Operation supplier'
 								defaultValue='Default value'
-								{...(register('operationSupplier'),
-								{
+								{...register('operationSupplier', {
 									onChange: () => {
 										setIsDirty(true);
 									}
@@ -138,17 +137,16 @@ const GeneralInfoContainer = ({ setIsDirty }: GeneralInfoProps) => {
 							labelText='Description'
 							placeholder='Description'
 							defaultValue='Default value'
-							{...(register('description'),
-							{
+							{...register('description', {
 								onChange: () => {
 									setIsDirty(true);
 								}
 							})}
 						/>
 					</Form>
-				</Column>
+				</FullWidthColumn>
 			</Grid>
 		</Tile>
 	);
 };
-export default GeneralInfoContainer;
+export default GeneralInfo;

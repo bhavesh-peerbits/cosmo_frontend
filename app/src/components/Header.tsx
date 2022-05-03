@@ -21,6 +21,7 @@ import {
 	AlignBoxMiddleCenter,
 	Fade,
 	Logout,
+	Moon,
 	Notification,
 	Search,
 	Switcher as SwitcherIcon
@@ -29,12 +30,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useMount, useUnmount } from 'ahooks';
 import useResponsive from '@hooks/useResponsive';
+import useUiStore from '@hooks/useUiStore';
 
 type HeaderProps = {
 	isSideNavExpanded: boolean;
 	onClickSideNavExpand: () => void;
 };
 const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
+	const { setTheme } = useUiStore();
 	const navigate = useNavigate();
 	const { md, lg } = useResponsive();
 	const [appExpanded, setAppExpanded] = useState(false);
@@ -69,6 +72,14 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 			<HeaderGlobalBar>
 				<HeaderGlobalAction aria-label='Search' className='' onClick={() => {}}>
 					<Search />
+				</HeaderGlobalAction>
+				<HeaderGlobalAction
+					aria-label='Theme'
+					onClick={() => {
+						setTheme(old => (old === 'white' ? 'g100' : 'white'));
+					}}
+				>
+					<Moon />
 				</HeaderGlobalAction>
 				<HeaderGlobalAction aria-label='Notifications' onClick={() => {}}>
 					<Notification />

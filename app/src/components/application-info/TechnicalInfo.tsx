@@ -1,5 +1,6 @@
 import { Column, Form, Grid, TextInput, Tile } from '@carbon/react';
 import { useForm } from 'react-hook-form';
+import FullWidthColumn from '@components/FullWidthColumn';
 
 interface TechnicalInfoForm {
 	appServers: string;
@@ -10,19 +11,14 @@ interface TechnicalInfoForm {
 	dbService: string;
 	dbInstance: string;
 }
-const TechnicalInfoContainer = () => {
+const TechnicalInfo = () => {
 	const { register } = useForm<TechnicalInfoForm>({ mode: 'onBlur' });
 	return (
-		<Tile href='ApplicationName' className='w-full bg-background pb-7'>
+		<Tile href='ApplicationName' className='w-full bg-layer-accent-1 pb-7'>
 			<Grid fullWidth className='space-y-7'>
-				<Column
-					sm={{ span: 4 }}
-					md={{ span: 8 }}
-					lg={{ span: 16 }}
-					className='text-fluid-heading-3'
-				>
+				<FullWidthColumn data-toc-id='technical-info' className='text-fluid-heading-3'>
 					Technical Information
-				</Column>
+				</FullWidthColumn>
 				<Column sm={{ span: 4 }} md={{ span: 8 }} lg={{ span: 16 }} className='space-y-5'>
 					<Form className='w-full space-y-5'>
 						<div className='flex w-full space-x-5'>
@@ -93,4 +89,4 @@ const TechnicalInfoContainer = () => {
 		</Tile>
 	);
 };
-export default TechnicalInfoContainer;
+export default TechnicalInfo;

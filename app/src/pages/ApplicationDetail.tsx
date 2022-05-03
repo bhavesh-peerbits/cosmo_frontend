@@ -1,4 +1,4 @@
-import ApplicationInfo from '@components/ApplicationInfo';
+import ApplicationInfo from '@components/application-info/ApplicationInfo';
 import { Tab, TabList, TabPanel, TabPanels } from '@carbon/react';
 import PageHeader from '@components/PageHeader';
 import { CloudDownload, Email, TrashCan } from '@carbon/react/icons';
