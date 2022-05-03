@@ -3,6 +3,7 @@ import { Add, Email } from '@carbon/react/icons';
 import { useState } from 'react';
 import NewProcedureModal from './NewProcedureModal';
 import ProcedureContainer from './ProcedureContainer';
+import MultipleReviewModal from './MultipleReviewModal';
 import ScrollToContent from './ScrollToContent';
 
 const ProcedureInfo = () => {
@@ -13,6 +14,7 @@ const ProcedureInfo = () => {
 	];
 	const [isNewProcedureOpen, setIsNewProcedureOpen] = useState(false);
 	const [isCheckboxView, setIsCheckboxView] = useState(false);
+	const [showProcedureModal, setShowProcedureModal] = useState(false);
 	return (
 		<div className='pb-7'>
 			<Grid fullWidth className='h-full '>
@@ -41,7 +43,11 @@ const ProcedureInfo = () => {
 									kind={isCheckboxView ? 'primary' : 'tertiary'}
 									size='md'
 									renderIcon={Email}
-									onClick={() => setIsCheckboxView(true)}
+									onClick={
+										isCheckboxView
+											? () => setShowProcedureModal(true)
+											: () => setIsCheckboxView(true)
+									}
 								>
 									Review
 								</Button>
@@ -56,6 +62,13 @@ const ProcedureInfo = () => {
 								)}
 							</div>
 						</div>
+						{showProcedureModal && (
+							<MultipleReviewModal
+								isOpen={showProcedureModal}
+								setIsOpen={setShowProcedureModal}
+								type='procedure'
+							/>
+						)}
 						<div className='space-y-7'>
 							{proceduresList.map(procedure => (
 								<div id={procedure.id}>

@@ -6,6 +6,8 @@ import { TableToolbarSearch } from '@carbon/react';
 import CosmoTable, { CellProperties, HeaderFunction } from '@components/table/CosmoTable';
 import IconResolver from '@components/IconResolver';
 import { formatDate } from '@i18n';
+import { useState } from 'react';
+import MultipleReviewModal from '@components/MultipleReviewModal';
 
 const ApplicationIconCell = ({ row, value }: CellProperties<Application, string>) => {
 	return (
@@ -22,6 +24,8 @@ const ApplicationsTable = () => {
 	const { t } = useTranslation('management');
 	const { apps } = useManagementApps();
 	const { filters, setFilters } = useManagementApps();
+
+	const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 
 	const columns: HeaderFunction<Application> = table => [
 		table.createDataColumn(row => row.name, {
@@ -56,7 +60,14 @@ const ApplicationsTable = () => {
 	];
 
 	const toolbarBatchActions = [
-		{ id: 'email', icon: Email, onClick: () => {}, label: t('email') },
+		{
+			id: 'email',
+			icon: Email,
+			onClick: () => {
+				setIsReviewModalOpen(true);
+			},
+			label: t('email')
+		},
 		{ id: 'cloud', icon: CloudDownload, onClick: () => {}, label: t('download') },
 		{ id: 'trash', icon: TrashCan, onClick: () => {}, label: t('delete') }
 	];
@@ -73,13 +84,22 @@ const ApplicationsTable = () => {
 	);
 
 	return (
-		<CosmoTable
-			data={apps}
-			createHeaders={columns}
-			noDataMessage={t('no-applications')}
-			toolbar={{ toolbarContent, toolbarBatchActions }}
-			isSelectable
-		/>
+		<div>
+			{isReviewModalOpen && (
+				<MultipleReviewModal
+					type='application'
+					isOpen={isReviewModalOpen}
+					setIsOpen={setIsReviewModalOpen}
+				/>
+			)}
+			<CosmoTable
+				data={apps}
+				createHeaders={columns}
+				noDataMessage={t('no-applications')}
+				toolbar={{ toolbarContent, toolbarBatchActions }}
+				isSelectable
+			/>
+		</div>
 	);
 };
 
