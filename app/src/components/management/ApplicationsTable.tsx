@@ -9,6 +9,7 @@ import { formatDate } from '@i18n';
 import { useState } from 'react';
 import MultipleReviewModal from '@components/Modals/MultipleReviewModal';
 import MultipleDeleteModal from '@components/Modals/MultipleDeleteModal';
+import MultipleGenerateModal from '@components/Modals/MultipleGenerateModal';
 
 const ApplicationIconCell = ({ row, value }: CellProperties<Application, string>) => {
 	return (
@@ -71,7 +72,15 @@ const ApplicationsTable = () => {
 			},
 			label: t('email')
 		},
-		{ id: 'cloud', icon: CloudDownload, onClick: () => {}, label: t('download') },
+		{
+			id: 'cloud',
+			icon: CloudDownload,
+			onClick: () => {
+				setActionSelected('Generate');
+				setIsModalOpen(true);
+			},
+			label: t('download')
+		},
 		{
 			id: 'trash',
 			icon: TrashCan,
@@ -104,6 +113,8 @@ const ApplicationsTable = () => {
 						setIsOpen={setIsModalOpen}
 					/>
 				);
+			case 'Generate':
+				return <MultipleGenerateModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />;
 			default:
 				return (
 					<MultipleDeleteModal
