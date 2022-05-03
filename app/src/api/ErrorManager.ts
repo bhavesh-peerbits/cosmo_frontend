@@ -5,12 +5,15 @@ import api, { loginUrl, refreshTokenUrl } from '@api';
 
 async function errorManager(response: AxiosResponse) {
 	const errorMessage = response?.data?.message ?? 'Generic error';
+	const details = Object.entries(response?.data?.errors || {})
+		.map(([key, value]) => `${key}: ${value}`)
+		.join('\n');
 	const originalConfig: typeof response.config & { retry?: boolean } = response?.config;
 
 	switch (response?.status || 500) {
 		case 400:
 			// const errorDetails = response.data instanceof ApiErrorResponse ? response.data.
-			throw new ApiError(400, `Bad Request\n${errorMessage}`);
+			throw new ApiError(400, `${errorMessage} ${details}`);
 
 		// Handle unauthorized requests by redirecting to log in
 		case 401:
@@ -46,13 +49,19 @@ async function errorManager(response: AxiosResponse) {
 			}
 			cleanSession();
 			if (originalConfig.url !== (await loginUrl)) {
-				window.location.href = '/unauthorized';
+				window.location.replace('/unauthorized');
 				return Promise.resolve();
 			}
 			return Promise.reject(response);
 
 		case 403:
-			window.location.href = '/forbidden';
+			window.location.replace('/forbidden');
+			return Promise.resolve();
+		case 404:
+			if (originalConfig && originalConfig.method !== 'GET') {
+				throw new ApiError(404, errorMessage);
+			}
+			window.location.replace('/404');
 			return Promise.resolve();
 		default:
 			throw new ApiError(response?.status || 500, errorMessage);

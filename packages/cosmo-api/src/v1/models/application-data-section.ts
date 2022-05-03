@@ -13,33 +13,21 @@
  */
 
 /**
- *
+ * Application info data
  * @export
- * @interface Tenant
+ * @interface ApplicationDataSection
  */
-export interface Tenant {
+export interface ApplicationDataSection {
 	/**
 	 *
-	 * @type {number}
-	 * @memberof Tenant
+	 * @type {{ [key: string]: string | undefined; }}
+	 * @memberof ApplicationDataSection
 	 */
-	id?: number;
+	generalInfo?: { [key: string]: string | undefined };
 	/**
 	 *
-	 * @type {string}
-	 * @memberof Tenant
+	 * @type {{ [key: string]: string | undefined; }}
+	 * @memberof ApplicationDataSection
 	 */
-	name?: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof Tenant
-	 */
-	description?: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof Tenant
-	 */
-	jsonTenantData?: string;
+	technicalInfo?: { [key: string]: string | undefined };
 }

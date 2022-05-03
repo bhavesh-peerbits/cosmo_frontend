@@ -8,21 +8,20 @@ import ApplicationChangesContainer from '@components/ApplicationChangesContainer
 import ApplicationReviewModal from '@components/ApplicationReviewModal';
 import GenerateModal from '@components/GenerateModal';
 import DeleteModal from '@components/DeleteModal';
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import StickyTabs from '@components/StickyTabs';
-import useGetApps from '@api/management/useGetApps';
+import useGetApp from '@api/management/useGetApp';
 
 const ApplicationDetail = () => {
-	const { appId } = useParams<'appId'>();
-	const { data = [] } = useGetApps();
+	const { appId = '' } = useParams<'appId'>();
+	const { data } = useGetApp(appId);
 
 	const [isGenerateModalOpen, setIsGenerateModalOpen] = useState(false);
 	const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-	const application = data.find(app => app.id === appId);
-	if (!application) {
-		return <Navigate to='/404' replace />;
+	if (!data) {
+		return null;
 	}
 
 	return (
@@ -56,7 +55,7 @@ const ApplicationDetail = () => {
 			<>
 				<StickyTabs>
 					<TabList
-						className='sticky z-[9] bg-background'
+						className='sticky z-10 bg-background'
 						contained
 						aria-label='List of tabs'
 					>
@@ -66,7 +65,7 @@ const ApplicationDetail = () => {
 					</TabList>
 					<TabPanels>
 						<TabPanel>
-							<ApplicationInfo />
+							<ApplicationInfo application={data} />
 						</TabPanel>
 						<TabPanel>
 							<ProcedureInfo />

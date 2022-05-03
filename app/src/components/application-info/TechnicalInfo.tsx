@@ -1,90 +1,98 @@
-import { Column, Form, Grid, TextInput, Tile } from '@carbon/react';
-import { useForm } from 'react-hook-form';
+import { Column, Grid, TextInput, Tile } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
-interface TechnicalInfoForm {
-	appServers: string;
-	appServersOS: string;
-	appCodePath: string;
-	dbServers: string;
-	dbServersOS: string;
-	dbService: string;
-	dbInstance: string;
+export interface TechnicalInfoForm {
+	technicalInfo: {
+		appServers: string;
+		appServersOS: string;
+		appCodePath: string;
+		dbServers: string;
+		dbServersOS: string;
+		dbService: string;
+		dbInstance: string;
+	};
 }
-const TechnicalInfo = () => {
-	const { register } = useForm<TechnicalInfoForm>({ mode: 'onBlur' });
+
+interface TechnicalInfoProps {
+	register: UseFormRegister<TechnicalInfoForm>;
+	errors: FieldErrors<TechnicalInfoForm>;
+}
+
+const TechnicalInfo = ({ register }: TechnicalInfoProps) => {
 	return (
 		<Tile href='ApplicationName' className='w-full bg-layer-accent-1 pb-7'>
 			<Grid fullWidth className='space-y-7'>
 				<FullWidthColumn data-toc-id='technical-info' className='text-fluid-heading-3'>
 					Technical Information
 				</FullWidthColumn>
-				<Column sm={{ span: 4 }} md={{ span: 8 }} lg={{ span: 16 }} className='space-y-5'>
-					<Form className='w-full space-y-5'>
-						<div className='flex w-full space-x-5'>
+				<FullWidthColumn>
+					<Grid fullWidth>
+						<Column sm={4} md={8} lg={8} className='mb-5'>
 							<TextInput
 								className='w-full'
 								id='application-servers'
 								labelText='Application Servers'
 								placeholder='Application servers'
-								defaultValue='Default value'
-								{...register('appServers')}
+								{...register('technicalInfo.appServers')}
 							/>
+						</Column>
+						<Column sm={4} md={8} lg={8} className='mb-5'>
 							<TextInput
 								className='w-full'
 								id='application-servers-os'
 								labelText='Application Servers OS'
 								placeholder='Application servers OS'
-								defaultValue='Default value'
-								{...register('appServersOS')}
+								{...register('technicalInfo.appServersOS')}
 							/>
-						</div>
-						<TextInput
-							className='w-full self-stretch'
-							id='application-code-path'
-							labelText='Application Code Path'
-							placeholder='Application code path'
-							defaultValue='Default value'
-							{...register('appCodePath')}
-						/>
-						<div className='flex w-full space-x-5'>
+						</Column>
+						<FullWidthColumn className='mb-5'>
+							<TextInput
+								className='w-full self-stretch'
+								id='application-code-path'
+								labelText='Application Code Path'
+								placeholder='Application code path'
+								{...register('technicalInfo.appCodePath')}
+							/>
+						</FullWidthColumn>
+						<Column sm={4} md={8} lg={8} className='mb-5'>
 							<TextInput
 								className='w-full'
 								id='db-servers'
 								labelText='DB Servers'
 								placeholder='DB servers'
-								defaultValue='Default value'
-								{...register('dbServers')}
+								{...register('technicalInfo.dbServers')}
 							/>
+						</Column>
+						<Column sm={4} md={8} lg={8} className='mb-5'>
 							<TextInput
 								className='w-full'
 								id='db-servers-os'
 								labelText='DB Servers OS'
 								placeholder='DB servers OS'
-								defaultValue='Default value'
-								{...register('dbServersOS')}
+								{...register('technicalInfo.dbServersOS')}
 							/>
-						</div>
-						<div className='flex w-full space-x-5'>
+						</Column>
+						<Column sm={4} md={8} lg={8} className='mb-5'>
 							<TextInput
 								className='w-full'
 								id='database-service'
 								labelText='Database Service'
 								placeholder='Database service'
-								defaultValue='Default value'
-								{...register('dbService')}
+								{...register('technicalInfo.dbService')}
 							/>
+						</Column>
+						<Column sm={4} md={8} lg={8} className='mb-5'>
 							<TextInput
 								className='w-full'
 								id='database-instance'
 								labelText='Database Instance'
 								placeholder='Database instance'
-								defaultValue='Default value'
-								{...register('dbInstance')}
+								{...register('technicalInfo.dbInstance')}
 							/>
-						</div>
-					</Form>
-				</Column>
+						</Column>
+					</Grid>
+				</FullWidthColumn>
 			</Grid>
 		</Tile>
 	);

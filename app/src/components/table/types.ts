@@ -10,7 +10,7 @@ type TableType<D extends object> = {
 };
 
 export type CellProperties<D extends object, V> = Parameters<
-	NonNullable<Exclude<ColumnDef<TableType<D> & { Value: V | undefined }>['cell'], string>>
+	NonNullable<Exclude<ColumnDef<TableType<D> & { Value: V }>['cell'], string>>
 >[0];
 
 export type HeaderFunction<D extends object> = (

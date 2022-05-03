@@ -1,9 +1,10 @@
 import {
 	AccessControllerApi,
-	Application,
 	ApplicationControllerApi,
+	ApplicationDto,
 	Configuration,
-	UserControllerApi
+	UserControllerApi,
+	UserDto
 } from './v1';
 
 export const ApiConfiguration = Configuration;
@@ -14,4 +15,5 @@ export default function configureApi(config: Configuration) {
 		applicationApi: new ApplicationControllerApi(config)
 	};
 }
-export type ApplicationApi = Application;
+export type ApplicationApi = ApplicationDto;
+export type UserApi = UserDto;

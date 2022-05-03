@@ -1,149 +1,103 @@
-import { Column, Form, Grid, TextArea, TextInput, Tile } from '@carbon/react';
-import { useForm } from 'react-hook-form';
+import { Column, Grid, TextArea, TextInput, Tile } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import User from '@model/User';
 
-interface GeneralInfoForm {
-	code: string;
-	name: string;
-	owner: string;
-	description: string;
-	ownerDelegates: string;
-	appMaintenance: string;
-	operationSupplier: string;
+export interface GeneralInfoForm {
+	generalInfo: {
+		name: string;
+		owner: User;
+		description: string;
+		ownerDelegates: User[];
+		appMaintenance: string;
+		operationSupplier: string;
+	};
 }
 
 type GeneralInfoProps = {
-	setIsDirty: (val: boolean) => void;
+	register: UseFormRegister<GeneralInfoForm>;
+	errors: FieldErrors<GeneralInfoForm>;
 };
 
-const GeneralInfo = ({ setIsDirty }: GeneralInfoProps) => {
-	const {
-		register,
-		formState: { errors }
-	} = useForm<GeneralInfoForm>({ mode: 'onChange' });
-
+const GeneralInfo = ({ register, errors }: GeneralInfoProps) => {
 	return (
 		<Tile href='ApplicationName' className='w-full bg-layer-accent-1 pb-7'>
 			<Grid fullWidth className='space-y-7'>
-				<FullWidthColumn data-toc-id='general-info' className='text-fluid-heading-3'>
+				<FullWidthColumn data-toc-id='general-info' className='text-productive-heading-3'>
 					General Information
 				</FullWidthColumn>
-				<FullWidthColumn className='space-y-5'>
-					<Form className='w-full space-y-5'>
-						<Grid fullWidth>
-							<Column sm={4} md={8} lg={8}>
-								<TextInput
-									className='w-full'
-									id='code'
-									invalidText={errors.code?.message}
-									labelText='Code *'
-									placeholder='Code'
-									invalid={Boolean(errors.code)}
-									defaultValue='Default value'
-									{...register('code', {
-										onChange: () => {
-											setIsDirty(true);
-										},
-										required: {
-											value: true,
-											message: 'Required'
-										}
-									})}
-								/>
-							</Column>
-							<Column sm={4} md={8} lg={8}>
-								<TextInput
-									className='w-full'
-									id='name'
-									invalidText={errors.name?.message}
-									labelText='Name *'
-									placeholder='Name'
-									invalid={Boolean(errors.name)}
-									defaultValue='Default value'
-									{...register('name', {
-										onChange: () => {
-											setIsDirty(true);
-										},
-										required: {
-											value: true,
-											message: 'Required'
-										}
-									})}
-								/>
-							</Column>
-						</Grid>
-						<div className='flex w-full space-x-5'>
+				<FullWidthColumn>
+					<Grid fullWidth>
+						<FullWidthColumn className='mb-5'>
 							<TextInput
 								className='w-full'
-								id='owner'
-								invalidText={errors.owner?.message}
-								labelText='Owner *'
-								placeholder='Application owner'
-								defaultValue='Default value'
-								invalid={Boolean(errors.owner)}
-								{...register('owner', {
-									onChange: () => {
-										setIsDirty(true);
-									},
+								id='name'
+								invalidText={errors.generalInfo?.name?.message}
+								labelText='Name *'
+								placeholder='Name'
+								invalid={Boolean(errors.generalInfo?.name)}
+								{...register('generalInfo.name', {
 									required: {
 										value: true,
 										message: 'Required'
 									}
 								})}
 							/>
-						</div>
-						<TextArea
-							className='w-full'
-							rows={1}
-							id='owner-delegates'
-							labelText='Owner Delegates'
-							placeholder='Application owner delegates'
-							defaultValue='Default value'
-							{...register('ownerDelegates', {
-								onChange: () => {
-									setIsDirty(true);
-								}
-							})}
-						/>
-						<div className='flex w-full items-end space-x-5'>
+						</FullWidthColumn>
+						<FullWidthColumn className='mb-5'>
+							<TextInput
+								className='w-full'
+								id='owner'
+								invalidText={errors.generalInfo?.owner?.id?.message}
+								labelText='Owner *'
+								placeholder='Application owner'
+								invalid={Boolean(errors.generalInfo?.owner)}
+								{...register('generalInfo.owner', {
+									required: {
+										value: true,
+										message: 'Required'
+									}
+								})}
+							/>
+						</FullWidthColumn>
+						<FullWidthColumn className='mb-5'>
+							<TextArea
+								className='w-full'
+								rows={1}
+								id='owner-delegates'
+								labelText='Owner Delegates'
+								placeholder='Application owner delegates'
+								{...register('generalInfo.ownerDelegates')}
+							/>
+						</FullWidthColumn>
+						<Column sm={4} md={8} lg={8} className='mb-5'>
 							<TextInput
 								className='w-full'
 								id='application-maintenance-supplier'
 								labelText='Application Maintenance Supplier'
 								placeholder='Application maintenance supplier'
-								defaultValue='Default value'
-								{...register('appMaintenance', {
-									onChange: () => {
-										setIsDirty(true);
-									}
-								})}
+								{...register('generalInfo.appMaintenance')}
 							/>
+						</Column>
+						<Column sm={4} md={8} lg={8} className='mb-5'>
 							<TextInput
 								className='w-full'
 								id='operation-supplier'
 								labelText='Operation Supplier'
 								placeholder='Operation supplier'
-								defaultValue='Default value'
-								{...register('operationSupplier', {
-									onChange: () => {
-										setIsDirty(true);
-									}
-								})}
+								{...register('generalInfo.operationSupplier')}
 							/>
-						</div>
-						<TextArea
-							className='w-full'
-							id='description'
-							labelText='Description'
-							placeholder='Description'
-							defaultValue='Default value'
-							{...register('description', {
-								onChange: () => {
-									setIsDirty(true);
-								}
-							})}
-						/>
-					</Form>
+						</Column>
+						<FullWidthColumn>
+							<TextArea
+								className='w-full'
+								id='description'
+								labelText='Description'
+								placeholder='Description'
+								{...register('generalInfo.description')}
+							/>
+						</FullWidthColumn>
+					</Grid>
 				</FullWidthColumn>
 			</Grid>
 		</Tile>
