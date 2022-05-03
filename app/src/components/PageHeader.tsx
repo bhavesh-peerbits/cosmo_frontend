@@ -134,7 +134,12 @@ const PageHeader = ({
 							<Column sm={4} md={3} lg={9} xlg={5}>
 								{actions?.length === 1 ? (
 									<div className='mt-4 flex justify-end md:mt-0'>
-										<Button renderIcon={actions[0].icon} size='md' ref={actionButtonRef}>
+										<Button
+											renderIcon={actions[0].icon}
+											size='md'
+											ref={actionButtonRef}
+											onClick={actions[0].onClick}
+										>
 											{actions[0].name}
 										</Button>
 									</div>

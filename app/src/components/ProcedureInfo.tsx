@@ -12,9 +12,11 @@ const ProcedureInfo = () => {
 		{ id: 'procedure-2', content: 'Procedure 2' },
 		{ id: 'procedure-3', content: 'Procedure 3' }
 	];
+
 	const [isNewProcedureOpen, setIsNewProcedureOpen] = useState(false);
 	const [isCheckboxView, setIsCheckboxView] = useState(false);
 	const [showProcedureModal, setShowProcedureModal] = useState(false);
+
 	return (
 		<div className='pb-7'>
 			<Grid fullWidth className='h-full '>
