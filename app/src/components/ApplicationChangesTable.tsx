@@ -1,5 +1,3 @@
-import { formatDate } from '@i18n';
-import { t } from 'i18next';
 import CosmoTable, { HeaderFunction } from './table/CosmoTable';
 
 const ApplicationChangesTable = () => {
@@ -11,11 +9,6 @@ const ApplicationChangesTable = () => {
 		change: string;
 		modify_date: string;
 	}
-	type Row = {
-		[key: string]: string;
-		id: string;
-	};
-
 	const data: ApplicationChange[] = [
 		{
 			id: 'change-1',
@@ -66,6 +59,6 @@ const ApplicationChangesTable = () => {
 		})
 	];
 
-	return <CosmoTable data={data} createHeaders={columns} noDataMessage={'No data'} />;
+	return <CosmoTable data={data} createHeaders={columns} noDataMessage='No data' />;
 };
 export default ApplicationChangesTable;

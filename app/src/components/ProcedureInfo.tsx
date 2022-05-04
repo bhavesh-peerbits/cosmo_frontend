@@ -16,13 +16,19 @@ const ProcedureInfo = () => {
 	const [isNewProcedureOpen, setIsNewProcedureOpen] = useState(false);
 	const [isCheckboxView, setIsCheckboxView] = useState(false);
 	const [showProcedureModal, setShowProcedureModal] = useState(false);
+	const [totalSelected, setTotalSelected] = useState(0);
 
 	return (
 		<div className='pb-7'>
 			<Grid fullWidth className='h-full '>
 				<Column sm={2} md={2} lg={3} className='justify-self-start'>
 					<div className='sticky top-[112px]'>
-						<ScrollToContent withCheckbox={isCheckboxView} contentList={proceduresList} />
+						<ScrollToContent
+							withCheckbox={isCheckboxView}
+							contentList={proceduresList}
+							totalSelected={totalSelected}
+							setTotalSelected={setTotalSelected}
+						/>
 					</div>
 				</Column>
 				<Column sm={4} md={6} lg={13} className='pt-4'>
@@ -69,6 +75,7 @@ const ProcedureInfo = () => {
 								isOpen={showProcedureModal}
 								setIsOpen={setShowProcedureModal}
 								type='procedure'
+								totalSelected={totalSelected}
 							/>
 						)}
 						<div className='space-y-7'>

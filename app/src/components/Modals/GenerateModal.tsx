@@ -27,8 +27,8 @@ const GenerateModal = ({ isOpen, setIsOpen }: GenerateModalProps) => {
 
 				<ModalBody>
 					<Column lg={16} md={8} sm={4}>
-						<div className=' divide-y divide-solid divide-border-subtle-1'>
-							<div className='space-y-6 pb-5'>
+						<div className='divide-y divide-solid divide-border-subtle-1'>
+							<div className='space-y-5 pb-5'>
 								<div className='flex w-full space-x-5'>
 									<p className='flex w-full text-heading-compact-1'>Application Name:</p>
 									<p className='flex w-full text-heading-compact-1'>Owner:</p>
@@ -45,7 +45,7 @@ const GenerateModal = ({ isOpen, setIsOpen }: GenerateModalProps) => {
 									<p className='flex w-full text-heading-compact-1'>Code:</p>
 								</div>
 							</div>
-							<div className='space-y-6 pt-5 pb-5'>
+							<div className='space-y-5 pt-5 pb-5'>
 								<div className='flex w-full space-x-5'>
 									<p className='flex w-full text-heading-compact-1'>
 										Application Servers:

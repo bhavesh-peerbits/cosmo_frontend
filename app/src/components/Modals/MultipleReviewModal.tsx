@@ -16,9 +16,15 @@ type MultipleReviewModalProps = {
 	isOpen: boolean;
 	setIsOpen: (value: boolean) => void;
 	type: string;
+	totalSelected: number;
 };
 
-const MultipleReviewModal = ({ isOpen, setIsOpen, type }: MultipleReviewModalProps) => {
+const MultipleReviewModal = ({
+	isOpen,
+	setIsOpen,
+	type,
+	totalSelected
+}: MultipleReviewModalProps) => {
 	const current = new Date();
 	const date = `${current.getMonth() + 1}/${current.getDate()}/${current.getFullYear()}`;
 	return (
@@ -27,30 +33,36 @@ const MultipleReviewModal = ({ isOpen, setIsOpen, type }: MultipleReviewModalPro
 				<Column>
 					<ModalHeader
 						title={type === 'procedure' ? 'Procedure Review' : 'Application Review'}
-						label='Please enter the fields above, then press Send Email.'
+						label='Please fill in the fields above, then press Send Email.'
 						closeModal={() => setIsOpen(false)}
 					/>
 				</Column>
 
 				<Form>
 					<ModalBody>
-						<Column lg={16} md={8} sm={4} className='space-y-6'>
+						<Column
+							lg={16}
+							md={8}
+							sm={4}
+							className='space-y-5 divide-y divide-solid divide-border-subtle-1'
+						>
 							<div className='flex space-x-3'>
 								<div className='text-productive-heading-2'>
 									Total {type === 'procedure' ? 'procedures' : 'applications'} selected to
 									review:
 								</div>
-								<div className='text-productive-heading-2'>2</div>
+								<div className='text-productive-heading-2'>{totalSelected}</div>
 							</div>
-
-							<DatePicker datePickerType='single' allowInput minDate={date}>
-								<DatePickerInput
-									id='expiry-date'
-									labelText='Expiry Date of the Review'
-									placeholder='mm/dd/yyyy'
-								/>
-							</DatePicker>
-							<TextArea labelText='Description' />
+							<div className='pt-5'>
+								<DatePicker datePickerType='single' allowInput minDate={date}>
+									<DatePickerInput
+										id='expiry-date'
+										labelText='Expiry Date of the Review'
+										placeholder='mm/dd/yyyy'
+									/>
+								</DatePicker>
+								<TextArea labelText='Description' />
+							</div>
 						</Column>
 					</ModalBody>
 					<ModalFooter>
