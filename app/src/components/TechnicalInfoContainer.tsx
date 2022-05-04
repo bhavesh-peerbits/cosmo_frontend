@@ -5,6 +5,7 @@ interface TechnicalInfoForm {
 	appServers: string;
 	appServersOS: string;
 	appCodePath: string;
+	technicalCode: string;
 	dbServers: string;
 	dbServersOS: string;
 	dbService: string;
@@ -50,6 +51,14 @@ const TechnicalInfoContainer = () => {
 							placeholder='Application code path'
 							defaultValue='Default value'
 							{...register('appCodePath')}
+						/>
+						<TextInput
+							className='w-full self-stretch'
+							id='technical-code'
+							labelText='Technical Code'
+							placeholder='Technical code'
+							defaultValue='Default value'
+							{...register('technicalCode')}
 						/>
 						<div className='flex w-full space-x-5'>
 							<TextInput

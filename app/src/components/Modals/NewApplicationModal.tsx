@@ -12,14 +12,25 @@ import {
 	TextArea,
 	TextInput
 } from '@carbon/react';
+import React, { useState } from 'react';
 
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-interface GeneralInfoForm {
-	code: string;
+interface NewAppForm {
 	name: string;
 	owner: string;
+	description: string;
+	ownerDelegates: string;
+	appMaintenance: string;
+	operationSupplier: string;
+	appServers: string;
+	appServersOS: string;
+	appCodePath: string;
+	technicalCode: string;
+	dbServers: string;
+	dbServersOS: string;
+	dbInstance: string;
+	dbService: string;
 }
 
 type NewApplicationProps = {
@@ -31,10 +42,11 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const {
 		register,
+		reset,
 		formState: { errors, isValid }
-	} = useForm<GeneralInfoForm>({ mode: 'onChange' });
+	} = useForm<NewAppForm>({ mode: 'onChange' });
 
-	const GeneralInfo = (
+	const GeneralInfo = React.memo(() => (
 		<Grid fullWidth className='space-y-7'>
 			<Column
 				sm={{ span: 4 }}
@@ -45,22 +57,8 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 				General Information
 			</Column>
 			<Column sm={{ span: 4 }} md={{ span: 8 }} lg={{ span: 16 }} className='space-y-5'>
-				<Form className='w-full space-y-5'>
+				<Form className='w-full space-y-5' id='general-info-form'>
 					<div className='flex w-full space-x-5'>
-						<TextInput
-							className='w-full'
-							id='code'
-							invalidText={errors.code?.message}
-							labelText='Code *'
-							placeholder='Code'
-							invalid={Boolean(errors.code)}
-							{...register('code', {
-								required: {
-									value: true,
-									message: 'Required'
-								}
-							})}
-						/>
 						<TextInput
 							className='w-full'
 							id='name'
@@ -75,21 +73,14 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 								}
 							})}
 						/>
-					</div>
-					<div className='flex w-full space-x-5'>
 						<TextInput
 							className='w-full'
 							id='owner'
 							invalidText={errors.owner?.message}
-							labelText='Owner *'
+							labelText='Owner'
 							placeholder='Application owner'
 							invalid={Boolean(errors.owner)}
-							{...register('owner', {
-								required: {
-									value: true,
-									message: 'Required'
-								}
-							})}
+							{...register('owner')}
 						/>
 					</div>
 					<TextArea
@@ -98,6 +89,7 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 						id='owner-delegates'
 						labelText='Owner Delegates'
 						placeholder='Application owner delegates'
+						{...register('ownerDelegates')}
 					/>
 					<div className='flex w-full items-end space-x-5'>
 						<TextInput
@@ -105,12 +97,14 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 							id='application-maintenance-supplier'
 							labelText='Application Maintenance Supplier'
 							placeholder='Application maintenance supplier'
+							{...register('appMaintenance')}
 						/>
 						<TextInput
 							className='w-full'
 							id='operation-supplier'
 							labelText='Operation Supplier'
 							placeholder='Operation supplier'
+							{...register('operationSupplier')}
 						/>
 					</div>
 					<TextArea
@@ -118,12 +112,13 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 						id='description'
 						labelText='Description'
 						placeholder='Description'
+						{...register('description')}
 					/>
 				</Form>
 			</Column>
 		</Grid>
-	);
-	const TechnicalInfo = (
+	));
+	const TechnicalInfo = React.memo(() => (
 		<Grid fullWidth className='space-y-7'>
 			<Column
 				sm={{ span: 4 }}
@@ -134,19 +129,21 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 				Technical Information
 			</Column>
 			<Column sm={{ span: 4 }} md={{ span: 8 }} lg={{ span: 16 }} className='space-y-5'>
-				<Form className='w-full space-y-5'>
+				<Form className='w-full space-y-5' id='technical-info-form'>
 					<div className='flex w-full space-x-5'>
 						<TextInput
 							className='w-full'
-							id='application-servers'
+							id='application-server'
 							labelText='Application Servers'
 							placeholder='Application servers'
+							{...register('appServers')}
 						/>
 						<TextInput
 							className='w-full'
 							id='application-servers-os'
 							labelText='Application Servers OS'
 							placeholder='Application servers OS'
+							{...register('appServersOS')}
 						/>
 					</div>
 					<TextInput
@@ -154,6 +151,14 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 						id='application-code-path'
 						labelText='Application Code Path'
 						placeholder='Application code path'
+						{...register('appCodePath')}
+					/>
+					<TextInput
+						className='w-full self-stretch'
+						id='technical-code'
+						labelText='Technical Code'
+						placeholder='Technical code'
+						{...register('technicalCode')}
 					/>
 					<div className='flex w-full space-x-5'>
 						<TextInput
@@ -161,12 +166,14 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 							id='db-servers'
 							labelText='DB Servers'
 							placeholder='DB servers'
+							{...register('dbServers')}
 						/>
 						<TextInput
 							className='w-full'
 							id='db-servers-os'
 							labelText='DB Servers OS'
 							placeholder='DB servers OS'
+							{...register('dbServersOS')}
 						/>
 					</div>
 					<div className='flex w-full space-x-5'>
@@ -175,29 +182,38 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 							id='database-service'
 							labelText='Database Service'
 							placeholder='Database service'
+							{...register('dbService')}
 						/>
 						<TextInput
 							className='w-full'
 							id='database-instance'
 							labelText='Database Instance'
 							placeholder='Database instance'
+							{...register('dbInstance')}
 						/>
 					</div>
 				</Form>
 			</Column>
 		</Grid>
-	);
-	const currentContent = () => {
-		switch (currentIndex) {
-			case 1:
-				return TechnicalInfo;
-			default:
-				return GeneralInfo;
-		}
-	};
+	));
 	return (
-		<ComposedModal open={isOpen} onClose={() => setIsOpen(false)} size='lg'>
-			<ModalHeader title='New Application' closeModal={() => setIsOpen(false)} />
+		<ComposedModal
+			open={isOpen}
+			onClose={() => {
+				setIsOpen(false);
+				setCurrentIndex(0);
+				reset();
+			}}
+			size='lg'
+		>
+			<ModalHeader
+				title='New Application'
+				closeModal={() => {
+					setIsOpen(false);
+					setCurrentIndex(0);
+					reset();
+				}}
+			/>
 			<ModalBody>
 				<Grid fullWidth className='h-full'>
 					<Column sm={1} md={2} lg={3}>
@@ -211,7 +227,7 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 						</ProgressIndicator>
 					</Column>
 					<Column sm={3} md={6} lg={13}>
-						{currentContent()}
+						{currentIndex === 0 ? <GeneralInfo /> : <TechnicalInfo />}
 					</Column>
 				</Grid>
 			</ModalBody>
@@ -222,7 +238,15 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 					</Button>
 				)}
 				{currentIndex === 0 && (
-					<Button kind='secondary' onClick={() => setIsOpen(false)}>
+					<Button
+						type='reset'
+						kind='secondary'
+						onClick={() => {
+							setIsOpen(false);
+							setCurrentIndex(0);
+							reset();
+						}}
+					>
 						Cancel
 					</Button>
 				)}

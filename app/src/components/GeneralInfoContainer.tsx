@@ -2,7 +2,6 @@ import { Column, Form, Grid, TextArea, TextInput, Tile } from '@carbon/react';
 import { useForm } from 'react-hook-form';
 
 interface GeneralInfoForm {
-	code: string;
 	name: string;
 	owner: string;
 	description: string;
@@ -36,24 +35,6 @@ const GeneralInfoContainer = ({ setIsDirty }: GeneralInfoProps) => {
 						<div className='flex w-full space-x-5'>
 							<TextInput
 								className='w-full'
-								id='code'
-								invalidText={errors.code?.message}
-								labelText='Code *'
-								placeholder='Code'
-								invalid={Boolean(errors.code)}
-								defaultValue='Default value'
-								{...register('code', {
-									onChange: () => {
-										setIsDirty(true);
-									},
-									required: {
-										value: true,
-										message: 'Required'
-									}
-								})}
-							/>
-							<TextInput
-								className='w-full'
 								id='name'
 								invalidText={errors.name?.message}
 								labelText='Name *'
@@ -70,8 +51,6 @@ const GeneralInfoContainer = ({ setIsDirty }: GeneralInfoProps) => {
 									}
 								})}
 							/>
-						</div>
-						<div className='flex w-full space-x-5'>
 							<TextInput
 								className='w-full'
 								id='owner'

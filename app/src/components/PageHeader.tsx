@@ -43,7 +43,7 @@ const PageHeader = ({
 	}, [md, inViewport, setBreadcrumbSize]);
 
 	return (
-		<div className='fix-height flex flex-col'>
+		<div className='flex flex-col'>
 			<div
 				ref={breadcrumbRef}
 				className='sticky top-0 z-10 w-full space-y-5 bg-background'
@@ -186,7 +186,7 @@ const PageHeader = ({
 					</FullWidthColumn>
 				</Grid>
 				<Grid className='pt-5'>
-					<FullWidthColumn className='bg-layer-1'>{children}</FullWidthColumn>
+					<FullWidthColumn className='h-full bg-layer-1'>{children}</FullWidthColumn>
 				</Grid>
 			</div>
 		</div>
