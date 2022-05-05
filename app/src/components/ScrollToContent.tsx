@@ -56,7 +56,7 @@ const ScrollToContent = ({
 							: 'border-border-subtle-0'
 					} border-solid py-4 pl-3`}
 				>
-					{withCheckbox && totalSelected && setTotalSelected && (
+					{withCheckbox && setTotalSelected && totalSelected !== undefined && (
 						<Checkbox
 							id={content.id}
 							labelText=''
