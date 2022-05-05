@@ -39,8 +39,9 @@ const GeneralInfoContainer = ({ setIsDirty }: GeneralInfoProps) => {
 								invalidText={errors.name?.message}
 								labelText='Name *'
 								placeholder='Name'
-								invalid={Boolean(errors.name)}
+								helperText='Application name'
 								defaultValue='Default value'
+								invalid={Boolean(errors.name)}
 								{...register('name', {
 									onChange: () => {
 										setIsDirty(true);
@@ -57,6 +58,7 @@ const GeneralInfoContainer = ({ setIsDirty }: GeneralInfoProps) => {
 								invalidText={errors.owner?.message}
 								labelText='Owner *'
 								placeholder='Application owner'
+								helperText='Last Name First Name'
 								defaultValue='Default value'
 								invalid={Boolean(errors.owner)}
 								{...register('owner', {
@@ -76,6 +78,7 @@ const GeneralInfoContainer = ({ setIsDirty }: GeneralInfoProps) => {
 							id='owner-delegates'
 							labelText='Owner Delegates'
 							placeholder='Application owner delegates'
+							helperText="Please type in delegate's full name then press ENTER"
 							defaultValue='Default value'
 							{...register('ownerDelegates', {
 								onChange: () => {
