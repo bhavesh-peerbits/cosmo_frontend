@@ -1,8 +1,10 @@
 import { Column, Form, Grid, TextArea, TextInput, Tile } from '@carbon/react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 interface GeneralInfoForm {
 	name: string;
+	codeName: string;
 	owner: string;
 	description: string;
 	ownerDelegates: string;
@@ -12,13 +14,23 @@ interface GeneralInfoForm {
 
 type GeneralInfoProps = {
 	setIsDirty: (val: boolean) => void;
+	isResetting: boolean;
+	setIsResetting: (val: boolean) => void;
 };
 
-const GeneralInfoContainer = ({ setIsDirty }: GeneralInfoProps) => {
+const GeneralInfoContainer = ({
+	setIsDirty,
+	isResetting,
+	setIsResetting
+}: GeneralInfoProps) => {
 	const {
 		register,
+		reset,
 		formState: { errors }
 	} = useForm<GeneralInfoForm>({ mode: 'onChange' });
+	useEffect(() => {
+		isResetting && (reset(), setIsResetting(false), setIsDirty(false));
+	});
 	return (
 		<Tile href='ApplicationName' className='w-full bg-background pb-7'>
 			<Grid fullWidth className='space-y-7'>
@@ -54,17 +66,14 @@ const GeneralInfoContainer = ({ setIsDirty }: GeneralInfoProps) => {
 							/>
 							<TextInput
 								className='w-full'
-								id='owner'
+								id='codeName'
 								invalidText={errors.owner?.message}
-								labelText='Owner *'
-								placeholder='Application owner'
-								helperText='Last Name First Name'
+								labelText='Code *'
+								placeholder='Application code'
+								helperText='Acronym for the application name'
 								defaultValue='Default value'
 								invalid={Boolean(errors.owner)}
-								{...register('owner', {
-									onChange: () => {
-										setIsDirty(true);
-									},
+								{...register('codeName', {
 									required: {
 										value: true,
 										message: 'Required'
@@ -72,6 +81,25 @@ const GeneralInfoContainer = ({ setIsDirty }: GeneralInfoProps) => {
 								})}
 							/>
 						</div>
+						<TextInput
+							className='w-full'
+							id='owner'
+							invalidText={errors.owner?.message}
+							labelText='Owner *'
+							placeholder='Application owner'
+							helperText='Last Name First Name'
+							defaultValue='Default value'
+							invalid={Boolean(errors.owner)}
+							{...register('owner', {
+								onChange: () => {
+									setIsDirty(true);
+								},
+								required: {
+									value: true,
+									message: 'Required'
+								}
+							})}
+						/>
 						<TextArea
 							className='w-full'
 							rows={1}

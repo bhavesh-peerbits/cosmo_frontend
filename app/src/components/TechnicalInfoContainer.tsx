@@ -1,4 +1,5 @@
 import { Column, Form, Grid, TextInput, Tile } from '@carbon/react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 interface TechnicalInfoForm {
@@ -11,8 +12,20 @@ interface TechnicalInfoForm {
 	dbService: string;
 	dbInstance: string;
 }
-const TechnicalInfoContainer = () => {
-	const { register } = useForm<TechnicalInfoForm>({ mode: 'onBlur' });
+type TechnicalInfoProps = {
+	setIsDirty: (val: boolean) => void;
+	isResetting: boolean;
+	setIsResetting: (val: boolean) => void;
+};
+const TechnicalInfoContainer = ({
+	setIsDirty,
+	isResetting,
+	setIsResetting
+}: TechnicalInfoProps) => {
+	const { register, reset } = useForm<TechnicalInfoForm>({ mode: 'onChange' });
+	useEffect(() => {
+		isResetting && (reset(), setIsResetting(false), setIsDirty(false));
+	});
 	return (
 		<Tile href='ApplicationName' className='w-full bg-background pb-7'>
 			<Grid fullWidth className='space-y-7'>
@@ -33,7 +46,11 @@ const TechnicalInfoContainer = () => {
 								labelText='Application Servers'
 								placeholder='Application servers'
 								defaultValue='Default value'
-								{...register('appServers')}
+								{...register('appServers', {
+									onChange: () => {
+										setIsDirty(true);
+									}
+								})}
 							/>
 							<TextInput
 								className='w-full'
@@ -41,7 +58,11 @@ const TechnicalInfoContainer = () => {
 								labelText='Application Servers OS'
 								placeholder='Application servers OS'
 								defaultValue='Default value'
-								{...register('appServersOS')}
+								{...register('appServersOS', {
+									onChange: () => {
+										setIsDirty(true);
+									}
+								})}
 							/>
 						</div>
 						<TextInput
@@ -50,7 +71,11 @@ const TechnicalInfoContainer = () => {
 							labelText='Application Code Path'
 							placeholder='Application code path'
 							defaultValue='Default value'
-							{...register('appCodePath')}
+							{...register('appCodePath', {
+								onChange: () => {
+									setIsDirty(true);
+								}
+							})}
 						/>
 						<TextInput
 							className='w-full self-stretch'
@@ -58,7 +83,11 @@ const TechnicalInfoContainer = () => {
 							labelText='Technical Code'
 							placeholder='Technical code'
 							defaultValue='Default value'
-							{...register('technicalCode')}
+							{...register('technicalCode', {
+								onChange: () => {
+									setIsDirty(true);
+								}
+							})}
 						/>
 						<div className='flex w-full space-x-5'>
 							<TextInput
@@ -67,7 +96,11 @@ const TechnicalInfoContainer = () => {
 								labelText='DB Servers'
 								placeholder='DB servers'
 								defaultValue='Default value'
-								{...register('dbServers')}
+								{...register('dbServers', {
+									onChange: () => {
+										setIsDirty(true);
+									}
+								})}
 							/>
 							<TextInput
 								className='w-full'
@@ -75,7 +108,11 @@ const TechnicalInfoContainer = () => {
 								labelText='DB Servers OS'
 								placeholder='DB servers OS'
 								defaultValue='Default value'
-								{...register('dbServersOS')}
+								{...register('dbServersOS', {
+									onChange: () => {
+										setIsDirty(true);
+									}
+								})}
 							/>
 						</div>
 						<div className='flex w-full space-x-5'>
@@ -85,7 +122,11 @@ const TechnicalInfoContainer = () => {
 								labelText='Database Service'
 								placeholder='Database service'
 								defaultValue='Default value'
-								{...register('dbService')}
+								{...register('dbService', {
+									onChange: () => {
+										setIsDirty(true);
+									}
+								})}
 							/>
 							<TextInput
 								className='w-full'
@@ -93,7 +134,11 @@ const TechnicalInfoContainer = () => {
 								labelText='Database Instance'
 								placeholder='Database instance'
 								defaultValue='Default value'
-								{...register('dbInstance')}
+								{...register('dbInstance', {
+									onChange: () => {
+										setIsDirty(true);
+									}
+								})}
 							/>
 						</div>
 					</Form>

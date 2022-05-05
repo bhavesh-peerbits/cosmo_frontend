@@ -51,6 +51,7 @@ const ProcedureInfo = () => {
 									kind={isCheckboxView ? 'primary' : 'tertiary'}
 									size='md'
 									renderIcon={Email}
+									disabled={isCheckboxView && totalSelected === 0}
 									onClick={
 										isCheckboxView
 											? () => setShowProcedureModal(true)
@@ -63,7 +64,10 @@ const ProcedureInfo = () => {
 									<Button
 										kind='secondary'
 										size='md'
-										onClick={() => setIsCheckboxView(false)}
+										onClick={() => {
+											setIsCheckboxView(false);
+											setTotalSelected(0);
+										}}
 									>
 										Cancel
 									</Button>

@@ -6,6 +6,7 @@ import TechnicalInfoContainer from './TechnicalInfoContainer';
 
 const ApplicationInfo = () => {
 	const [isDirty, setIsDirty] = useState(false);
+	const [isResetting, setIsResetting] = useState(false);
 
 	return (
 		<div className='pb-7'>
@@ -25,16 +26,29 @@ const ApplicationInfo = () => {
 					<div className='space-y-4'>
 						<div className=' flex w-full space-x-4'>
 							<Button size='md'>Save Changes</Button>
-							<Button kind='secondary' size='md' disabled={!isDirty}>
+							<Button
+								kind='secondary'
+								size='md'
+								disabled={!isDirty}
+								onClick={() => setIsResetting(true)}
+							>
 								Discard Changes
 							</Button>
 						</div>
 						<div className='space-y-7'>
 							<div id='general-info'>
-								<GeneralInfoContainer setIsDirty={setIsDirty} />
+								<GeneralInfoContainer
+									setIsDirty={setIsDirty}
+									isResetting={isResetting}
+									setIsResetting={setIsResetting}
+								/>
 							</div>
 							<div id='technical-info'>
-								<TechnicalInfoContainer />
+								<TechnicalInfoContainer
+									setIsDirty={setIsDirty}
+									isResetting={isResetting}
+									setIsResetting={setIsResetting}
+								/>
 							</div>
 						</div>
 					</div>

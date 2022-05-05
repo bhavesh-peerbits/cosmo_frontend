@@ -18,6 +18,7 @@ import { useForm } from 'react-hook-form';
 
 interface NewAppForm {
 	name: string;
+	codeName: string;
 	owner: string;
 	description: string;
 	ownerDelegates: string;
@@ -65,6 +66,7 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 							invalidText={errors.name?.message}
 							labelText='Name *'
 							placeholder='Name'
+							helperText='Application name'
 							invalid={Boolean(errors.name)}
 							{...register('name', {
 								required: {
@@ -75,14 +77,29 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 						/>
 						<TextInput
 							className='w-full'
-							id='owner'
+							id='codeName'
 							invalidText={errors.owner?.message}
-							labelText='Owner'
-							placeholder='Application owner'
+							labelText='Code *'
+							placeholder='Application code'
+							helperText='Acronym for the application name'
 							invalid={Boolean(errors.owner)}
-							{...register('owner')}
+							{...register('codeName', {
+								required: {
+									value: true,
+									message: 'Required'
+								}
+							})}
 						/>
 					</div>
+					<TextInput
+						className='w-full'
+						id='owner'
+						invalidText={errors.owner?.message}
+						labelText='Owner'
+						placeholder='Application owner'
+						invalid={Boolean(errors.owner)}
+						{...register('owner')}
+					/>
 					<TextArea
 						className='w-full'
 						rows={1}
