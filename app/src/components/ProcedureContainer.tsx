@@ -19,6 +19,7 @@ const ProcedureContainer = () => {
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 	const {
 		register,
+		reset,
 		formState: { errors, isValid, isDirty }
 	} = useForm<ProcedureForm>({ mode: 'onBlur' });
 	return (
@@ -149,7 +150,12 @@ const ProcedureContainer = () => {
 						lg={{ span: 3, offset: 13 }}
 					>
 						<div className='space-x-5'>
-							<Button type='reset' kind='tertiary' disabled={!isDirty}>
+							<Button
+								type='reset'
+								kind='tertiary'
+								disabled={!isDirty}
+								onClick={() => reset()}
+							>
 								Cancel
 							</Button>
 							<Button type='submit' disabled={!isValid}>
