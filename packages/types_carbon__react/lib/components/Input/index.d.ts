@@ -10,3 +10,4 @@ export { default as SelectItem } from './SelectItem';
 export { default as SelectItemGroup } from './SelectItemGroup';
 export { default as RadioButton } from './RadioButton';
 export { default as RadioButtonGroup } from './RadioButtonGroup';
+export { default as Dropdown } from './Dropdown';

@@ -9998,6 +9998,24 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@types/carbon__colors", [\
+        ["npm:10.31.0", {\
+          "packageLocation": "./.yarn/cache/@types-carbon__colors-npm-10.31.0-28fca32ce5-3fa2243fa5.zip/node_modules/@types/carbon__colors/",\
+          "packageDependencies": [\
+            ["@types/carbon__colors", "npm:10.31.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/carbon__layout", [\
+        ["npm:0.0.1", {\
+          "packageLocation": "./.yarn/cache/@types-carbon__layout-npm-0.0.1-3c55367d2e-286d5c5290.zip/node_modules/@types/carbon__layout/",\
+          "packageDependencies": [\
+            ["@types/carbon__layout", "npm:0.0.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@types/carbon__react", [\
         ["virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#workspace:packages/types_carbon__react", {\
           "packageLocation": "./.yarn/__virtual__/@types-carbon__react-virtual-8003eede0a/1/packages/types_carbon__react/",\
@@ -12393,6 +12411,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/app-virtual-743bdfb37c/1/app/",\
           "packageDependencies": [\
             ["app", "virtual:a505dd4ab6824c357f6d0e84e86dfdee47d0482e22ca3f6b89e61a9b6f620f02b168c9ca47f1ab2b434784b29a5267a25a5b16dbbcdd8ac9c9c61365f2729933#workspace:app"],\
+            ["@carbon/colors", "npm:11.1.0"],\
             ["@carbon/layout", "npm:11.1.0"],\
             ["@carbon/react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#patch:@carbon/react@npm%3A1.2.0#../.yarn/patches/@carbon-react-npm-1.2.0-1854f2fa66.patch::version=1.2.0&hash=adb00a&locator=app%40workspace%3Aapp"],\
             ["@ibm/plex", "npm:6.0.0"],\
@@ -12408,6 +12427,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@testing-library/react-hooks", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:8.0.0"],\
             ["@testing-library/user-event", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:14.1.1"],\
             ["@types/c8", null],\
+            ["@types/carbon__colors", "npm:10.31.0"],\
+            ["@types/carbon__layout", "npm:0.0.1"],\
             ["@types/carbon__react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#workspace:packages/types_carbon__react"],\
             ["@types/css-mediaquery", "npm:0.1.1"],\
             ["@types/eslint", null],\
@@ -12479,6 +12500,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./app/",\
           "packageDependencies": [\
             ["app", "workspace:app"],\
+            ["@carbon/colors", "npm:11.1.0"],\
             ["@carbon/layout", "npm:11.1.0"],\
             ["@carbon/react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#patch:@carbon/react@npm%3A1.2.0#../.yarn/patches/@carbon-react-npm-1.2.0-1854f2fa66.patch::version=1.2.0&hash=adb00a&locator=app%40workspace%3Aapp"],\
             ["@ibm/plex", "npm:6.0.0"],\
@@ -12493,6 +12515,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@testing-library/react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:13.1.1"],\
             ["@testing-library/react-hooks", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:8.0.0"],\
             ["@testing-library/user-event", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:14.1.1"],\
+            ["@types/carbon__colors", "npm:10.31.0"],\
+            ["@types/carbon__layout", "npm:0.0.1"],\
             ["@types/carbon__react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#workspace:packages/types_carbon__react"],\
             ["@types/css-mediaquery", "npm:0.1.1"],\
             ["@types/react", "npm:18.0.8"],\

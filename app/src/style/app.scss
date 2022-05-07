@@ -1,13 +1,7 @@
 @use '@carbon/react' as * with (
 	$font-path: '@ibm/plex'
 );
-@use '@carbon/styles';
-@use '@carbon/colors';
 @use '@carbon/react/scss/theme' as theme;
-@use '@carbon/react/scss/breakpoint' as breakpoint;
-@use '@carbon/react/scss/spacing' as spacing;
-@use '@carbon/react/scss/type' as type;
-@use '@carbon/motion' as motion;
 
 .container-w-sidenav {
 	@apply mr-0 p-0 md:ml-[3rem] lg:ml-[calc(32*0.5rem)];
@@ -26,6 +20,10 @@
 .#{$prefix}--tab-content,
 .#{$prefix}--tabs__nav-link {
 	outline: 0 !important;
+}
+
+.#{$prefix}--overflow-menu-options {
+	z-index: 9090 !important;
 }
 
 .fix-height {

@@ -12,6 +12,7 @@
 		"comm:tsc": "yarn run -T tsc"
 	},
 	"dependencies": {
+		"@carbon/colors": "^11.1.0",
 		"@carbon/layout": "^11.1.0",
 		"@carbon/react": "patch:@carbon/react@npm:1.2.0#../.yarn/patches/@carbon-react-npm-1.2.0-1854f2fa66.patch",
 		"@ibm/plex": "^6.0.0",
@@ -52,6 +53,8 @@
 		"@testing-library/react": "^13.1.1",
 		"@testing-library/react-hooks": "^8.0.0",
 		"@testing-library/user-event": "^14.1.1",
+		"@types/carbon__colors": "^10.31.0",
+		"@types/carbon__layout": "^0.0.1",
 		"@types/carbon__react": "workspace:^",
 		"@types/css-mediaquery": "^0.1.1",
 		"@types/react": "^18.0.8",

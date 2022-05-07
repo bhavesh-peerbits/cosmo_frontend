@@ -5511,6 +5511,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/carbon__colors@npm:^10.31.0":
+  version: 10.31.0
+  resolution: "@types/carbon__colors@npm:10.31.0"
+  checksum: 3fa2243fa586edd586a79cb8b4aee6ea64564221b3c5b98509ea6e9cc611bfa2136806e4e6e80e3a7e2a1c030a5f1eb0ceff9db4097655ae19817d2ad7bff2af
+  languageName: node
+  linkType: hard
+
+"@types/carbon__layout@npm:^0.0.1":
+  version: 0.0.1
+  resolution: "@types/carbon__layout@npm:0.0.1"
+  checksum: 286d5c52908deb78cf2fe29456516252072b5594d20c0679c962c8ab0063c14eecd1a1bc027904b10ef3d88f4709c2f6932a9a391df5789949132dbbc5bff1de
+  languageName: node
+  linkType: hard
+
 "@types/carbon__react@workspace:^, @types/carbon__react@workspace:packages/types_carbon__react":
   version: 0.0.0-use.local
   resolution: "@types/carbon__react@workspace:packages/types_carbon__react"
@@ -7503,6 +7517,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "app@workspace:app"
   dependencies:
+    "@carbon/colors": ^11.1.0
     "@carbon/layout": ^11.1.0
     "@carbon/react": "patch:@carbon/react@npm:1.2.0#../.yarn/patches/@carbon-react-npm-1.2.0-1854f2fa66.patch"
     "@ibm/plex": ^6.0.0
@@ -7517,6 +7532,8 @@ __metadata:
     "@testing-library/react": ^13.1.1
     "@testing-library/react-hooks": ^8.0.0
     "@testing-library/user-event": ^14.1.1
+    "@types/carbon__colors": ^10.31.0
+    "@types/carbon__layout": ^0.0.1
     "@types/carbon__react": "workspace:^"
     "@types/css-mediaquery": ^0.1.1
     "@types/react": ^18.0.8

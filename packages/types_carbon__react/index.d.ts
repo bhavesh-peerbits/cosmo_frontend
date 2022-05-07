@@ -41,3 +41,11 @@ export * from './lib/components/Skeleton';
 export * from './lib/components/Toggle';
 
 export * from './lib/components/List';
+
+export * from './lib/components/Tooltip';
+
+export * from './lib/components/StructuredList';
+
+export * from './lib/components/OverflowMenu';
+
+export * from './lib/components/Menu';
