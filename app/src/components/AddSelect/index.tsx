@@ -68,18 +68,18 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 		const [flatItems, setFlatItems] = useState<ItemNoChildren[]>([]);
 		const [globalFilterOpts, setGlobalFilterOpts] = useState<GlobalFilter[]>([]);
 		const [appliedGlobalFilters, setAppliedGlobalFilters] = useState<
-			Record<string, string>
+			Record<string, { label: string; value: string }>
 		>({});
 
 		useEffect(() => {
 			const { entries } = items;
 			// flatItems is just a single array of all entries including children
 			const flattenedItems = flatten(entries);
+			if (globalFilters?.length) {
+				const globalFilterValues = getGlobalFilterValues(globalFilters, flattenedItems);
+				setGlobalFilterOpts(globalFilterValues);
+			}
 			if (multi) {
-				if (globalFilters?.length) {
-					const globalFilterValues = getGlobalFilterValues(globalFilters, flattenedItems);
-					setGlobalFilterOpts(globalFilterValues);
-				}
 				// multi select with nested data needs to be normalized
 				if (entries?.find(entry => entry.children)) {
 					const newItems = normalize(items);
@@ -120,6 +120,13 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 			return pages;
 		};
 
+		const performSearch = (item: ItemType | ItemNoChildren) => {
+			return (
+				item.title.toLowerCase().includes(searchTerm) ||
+				item.subtitle?.toLowerCase()?.includes(searchTerm)
+			);
+		};
+
 		// item filtering
 		const getFilteredItems = () => {
 			const { entries } = items;
@@ -139,21 +146,21 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 				!searchTerm
 					? item
 					: // otherwise use the default label filter
-					  item.title.toLowerCase().includes(searchTerm)
+					  performSearch(item)
 			);
 		};
 
 		const getDisplayItems = () => {
+			// when global search or filter is in use the results are not in column format
+			const filters = Object.keys(appliedGlobalFilters);
+			if (searchTerm || filters.length) {
+				return flatItems
+					.filter(item => performSearch(item))
+					.filter(item =>
+						filters.every(filter => item[filter] === appliedGlobalFilters[filter])
+					);
+			}
 			if (useNormalizedItems) {
-				// when global search or filter is in use the results are not in column format
-				const filters = Object.keys(appliedGlobalFilters);
-				if (searchTerm || filters.length) {
-					return flatItems
-						.filter(item => item.title.toLowerCase().includes(searchTerm))
-						.filter(item =>
-							filters.every(filter => item[filter] === appliedGlobalFilters[filter])
-						);
-				}
 				return getPages();
 			}
 			return getFilteredItems();
@@ -177,7 +184,7 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 			setSearchTerm(term);
 		};
 
-		const handleFilter = (filters: Record<string, string>) => {
+		const handleFilter = (filters: Record<string, { value: string; label: string }>) => {
 			setAppliedGlobalFilters(filters);
 		};
 
@@ -190,7 +197,7 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 			open,
 			title,
 			description,
-			closeIconDescription: 'temp description',
+			closeIconDescription: 'Close',
 			actions: [
 				{
 					label: onCloseButtonText,
@@ -244,7 +251,6 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 						inputPlaceholder={globalSearchPlaceholder}
 						searchTerm={searchTerm}
 						handleSearch={handleSearch}
-						multi={multi}
 						filterOpts={globalFilterOpts}
 						handleFilter={handleFilter}
 						primaryButtonText={globalFiltersPrimaryButtonText}

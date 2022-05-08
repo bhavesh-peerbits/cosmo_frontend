@@ -19,6 +19,32 @@ interface SingleAddSelectProps {
 	 */
 	description?: string;
 	/**
+	 * options to display in the global filter box. values are generated
+	 * from the id which should correlate with a specific property in an
+	 * item entry
+	 */
+	globalFilters?: Array<{
+		id: string;
+		label: string;
+	}>;
+
+	globalFiltersIconDescription?: string;
+	/**
+	 * placeholder text for the global filter dropdown
+	 */
+	globalFiltersPlaceholderText?: string;
+	/**
+	 * text for the global filter primary button
+	 */
+	globalFiltersPrimaryButtonText?: string;
+	/**
+	 * text for the global filter secondary button
+	 */
+	globalFiltersSecondaryButtonText?: string;
+	/**
+	 * label for global search input
+	 */
+	/**
 	 * label for global search input
 	 */
 	globalSearchLabel?: string;

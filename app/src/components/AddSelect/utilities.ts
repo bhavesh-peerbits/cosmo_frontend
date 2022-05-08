@@ -15,6 +15,7 @@ export interface ItemType {
 	id: string;
 	title: string;
 	subtitle?: string;
+	tagInfo?: string;
 	icon?: ReactElement;
 	avatar?: Omit<ComponentProps<typeof UserProfileImage>, 'size' | 'className'>;
 	children?: ItemElement;
@@ -27,6 +28,7 @@ export interface ItemNoChildren {
 	id: string;
 	title: string;
 	subtitle?: string;
+	tagInfo?: string;
 	icon?: ReactElement;
 	avatar?: Omit<ComponentProps<typeof UserProfileImage>, 'size' | 'className'>;
 	children?: string[];

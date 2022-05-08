@@ -3,7 +3,8 @@ import {
 	Dropdown,
 	RadioButton,
 	StructuredListCell,
-	StructuredListRow
+	StructuredListRow,
+	Tag
 } from '@carbon/react';
 import UserProfileImage from '@components/UserProfileImage';
 import { ChevronRight } from '@carbon/react/icons';
@@ -100,6 +101,11 @@ const AddSelectListItem = ({
 									</span>
 								)}
 							</div>
+							{item.tagInfo && (
+								<div className='ml-5 whitespace-nowrap'>
+									<Tag type='blue'>{item.tagInfo}</Tag>
+								</div>
+							)}
 						</div>
 					</div>
 					{modifiers?.options?.length && (

@@ -13,23 +13,28 @@ const AddSelectFilter = ({
 	iconDescription,
 	inputLabel,
 	inputPlaceholder,
-	multi,
 	placeholder,
 	primaryButtonText,
 	searchTerm,
 	secondaryButtonText
 }: AddSelectFilterProps) => {
-	const [filters, setFilters] = useState<Record<string, string>>({});
+	const [filters, setFilters] = useState<
+		Record<string, { value: string; label: string }>
+	>({});
 	const [open, setOpen] = useState(false);
 
 	const searchHandler = (e: FormEvent<HTMLInputElement>) => {
 		handleSearch((e.target as HTMLInputElement)?.value);
 	};
 
-	const onchangeHandler = ({ selectedItem }: { selectedItem: string }, id: string) => {
+	const onchangeHandler = (
+		{ selectedItem }: { selectedItem: string },
+		id: string,
+		label: string
+	) => {
 		setFilters({
 			...filters,
-			[id]: selectedItem
+			[id]: { value: selectedItem, label }
 		});
 	};
 
@@ -65,7 +70,7 @@ const AddSelectFilter = ({
 		return filters[id] || '';
 	};
 
-	const showFilter = multi && Boolean(filterOpts?.length);
+	const showFilter = Boolean(filterOpts?.length);
 
 	return (
 		<div>
@@ -89,7 +94,7 @@ const AddSelectFilter = ({
 					/>
 				)}
 				{open && (
-					<div className='absolute right-0 z-[6000] w-full max-w-[40rem] translate-y-full bg-field-1'>
+					<div className='absolute right-0 z-[6000] w-full max-w-[40rem] translate-y-full bg-field-1 shadow shadow-md shadow-background'>
 						<div className='p-5'>
 							<p>Filters</p>
 							<div className='grid grid-cols-2 gap-y-5 gap-x-7'>
@@ -99,8 +104,8 @@ const AddSelectFilter = ({
 										key={ops.id}
 										titleText={ops.label}
 										items={(ops.opts as string[]) || []}
-										onChange={value => onchangeHandler(value, ops.id)}
-										selectedItem={getSelectedItem(ops.id)}
+										onChange={value => onchangeHandler(value, ops.id, ops.label)}
+										selectedItem={getSelectedItem(ops.id).value}
 										label={placeholder}
 									/>
 								))}
@@ -123,7 +128,7 @@ const AddSelectFilter = ({
 			</div>
 			{hasFiltersApplied && (
 				<div className='flex items-center bg-background-selected p-3'>
-					{Object.keys(appliedFilters).map(filterType => (
+					{Object.entries(appliedFilters).map(([filterType, { value, label }]) => (
 						<Tag
 							key={filterType}
 							type='gray'
@@ -131,7 +136,7 @@ const AddSelectFilter = ({
 							onClose={() => removeTag(filterType)}
 							filter
 						>
-							{`${filterType}: ${appliedFilters[filterType]}`}
+							{`${label}: ${value}`}
 						</Tag>
 					))}
 					<Button kind='ghost' size='sm' onClick={clearFilters}>
@@ -144,16 +149,15 @@ const AddSelectFilter = ({
 };
 
 interface AddSelectFilterProps {
-	appliedFilters: Record<string, string>;
+	appliedFilters: Record<string, { value: string; label: string }>;
 	clearFiltersText?: string;
 	filterOpts?: GlobalFilter[];
-	handleFilter: (filters: Record<string, string>) => void;
+	handleFilter: (filters: Record<string, { value: string; label: string }>) => void;
 	handleSearch: (searchTerm: string) => void;
 	hasFiltersApplied?: boolean;
 	iconDescription?: string;
 	inputLabel?: string;
 	inputPlaceholder?: string;
-	multi?: boolean;
 	placeholder?: string;
 	primaryButtonText?: string;
 	searchTerm?: string;
