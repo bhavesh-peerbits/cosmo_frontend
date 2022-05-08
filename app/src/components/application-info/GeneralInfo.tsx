@@ -1,13 +1,15 @@
 import { Column, Grid, TextArea, TextInput, Tile } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
-import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
+import { Control, FieldErrors, useController, UseFormRegister } from 'react-hook-form';
 import User from '@model/User';
 import SingleUserSelect from '@components/SingleUserSelect';
 import MultipleUserSelect from '@components/MultipleUserSelect';
+import IconPicker, { icons } from '@components/IconPicker';
 
 export interface GeneralInfoForm {
 	generalInfo: {
 		name: string;
+		icon: keyof typeof icons;
 		codeName: string;
 		owner: User;
 		description: string;
@@ -24,6 +26,16 @@ type GeneralInfoProps = {
 };
 
 const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
+	const {
+		field: { onChange, value }
+	} = useController({
+		control,
+		name: 'generalInfo.icon',
+		rules: {
+			required: true
+		}
+	});
+
 	return (
 		<Tile href='ApplicationName' className='w-full bg-layer-accent-1 pb-7'>
 			<Grid fullWidth className='space-y-7'>
@@ -32,6 +44,9 @@ const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
 				</FullWidthColumn>
 				<FullWidthColumn>
 					<Grid fullWidth>
+						<FullWidthColumn>
+							<IconPicker icon={value} onChange={onChange} />
+						</FullWidthColumn>
 						<Column sm={4} md={8} lg={8} className='mb-5'>
 							<TextInput
 								className='w-full'

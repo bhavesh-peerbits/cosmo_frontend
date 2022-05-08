@@ -36,6 +36,7 @@ const ApplicationInfo = ({ application }: ApplicationInfoProps) => {
 		defaultValues: {
 			generalInfo: {
 				name: application.name,
+				icon: application.icon,
 				owner: application.owner,
 				description: application.description,
 				delegates: application.delegates,
