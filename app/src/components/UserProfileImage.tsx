@@ -163,7 +163,7 @@ const UserProfileImage = forwardRef<HTMLDivElement, UserProfileImageProps>(
 				</button>
 			</Tooltip>
 		) : (
-			renderUserProfileImage()
+			<div>{renderUserProfileImage()}</div>
 		);
 	}
 );

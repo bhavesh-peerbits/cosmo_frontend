@@ -5,6 +5,7 @@ import { fromApplicationApi } from '@model/Application';
 const useGetApp = (appId: string) => {
 	return fromApplicationApi({
 		icon: '',
+		codeName: 'code',
 		owner: {
 			id: '376baaf1-28d5-4d0e-961c-9ef016bdf811',
 			username: 'ownerusername',

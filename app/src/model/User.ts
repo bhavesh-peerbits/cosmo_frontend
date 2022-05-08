@@ -1,4 +1,10 @@
 import { UserApi } from 'cosmo-api/src';
+import {
+	mapUserRoleToDisplayRole,
+	UserDisplayRole,
+	UserRole,
+	UserRoleEnum
+} from '@model/UserRole';
 
 interface User {
 	id: string;
@@ -6,6 +12,9 @@ interface User {
 	name: string | undefined;
 	surname: string | undefined;
 	email: string | undefined;
+	displayName: string;
+	roles: UserRole[];
+	principalRole: UserDisplayRole;
 }
 
 export const fromUserApi = (userApi: UserApi): User => {
@@ -14,7 +23,15 @@ export const fromUserApi = (userApi: UserApi): User => {
 		username: userApi.username,
 		name: userApi.name,
 		email: userApi.email,
-		surname: userApi.surname
+		surname: userApi.surname,
+		roles: userApi.roles || [],
+		principalRole: mapUserRoleToDisplayRole(
+			userApi.roles?.[0] || UserRoleEnum.UserUnknown
+		),
+		displayName:
+			!userApi.name && !userApi.surname
+				? userApi.username
+				: `${userApi.name || ''} ${userApi.surname || ''}`
 	};
 };
 export const toUserApi = (user: User): UserApi => {

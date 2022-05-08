@@ -1,6 +1,6 @@
 import { Column, Grid, TextArea, TextInput, Tile } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
 import User from '@model/User';
 import SingleUserSelect from '@components/SingleUserSelect';
 import MultipleUserSelect from '@components/MultipleUserSelect';
@@ -11,7 +11,7 @@ export interface GeneralInfoForm {
 		codeName: string;
 		owner: User;
 		description: string;
-		ownerDelegates: User[];
+		delegates: User[];
 		appMaintenance: string;
 		operationSupplier: string;
 	};
@@ -20,9 +20,10 @@ export interface GeneralInfoForm {
 type GeneralInfoProps = {
 	register: UseFormRegister<GeneralInfoForm>;
 	errors: FieldErrors<GeneralInfoForm>;
+	control: Control<GeneralInfoForm>;
 };
 
-const GeneralInfo = ({ register, errors }: GeneralInfoProps) => {
+const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
 	return (
 		<Tile href='ApplicationName' className='w-full bg-layer-accent-1 pb-7'>
 			<Grid fullWidth className='space-y-7'>
@@ -51,10 +52,10 @@ const GeneralInfo = ({ register, errors }: GeneralInfoProps) => {
 							<TextInput
 								className='w-full'
 								id='code'
-								invalidText={errors.generalInfo?.name?.message}
+								invalidText={errors.generalInfo?.codeName?.message}
 								labelText='Code *'
 								placeholder='Code'
-								invalid={Boolean(errors.generalInfo?.name)}
+								invalid={Boolean(errors.generalInfo?.codeName)}
 								{...register('generalInfo.codeName', {
 									required: {
 										value: true,
@@ -64,31 +65,20 @@ const GeneralInfo = ({ register, errors }: GeneralInfoProps) => {
 							/>
 						</Column>
 						<FullWidthColumn className='mb-5'>
-							<TextInput
-								className='w-full'
-								id='owner'
-								invalidText={errors.generalInfo?.owner?.id?.message}
-								labelText='Owner *'
-								placeholder='Application owner'
-								invalid={Boolean(errors.generalInfo?.owner)}
-								{...register('generalInfo.owner', {
-									required: {
-										value: true,
-										message: 'Required'
-									}
-								})}
+							<SingleUserSelect
+								control={control}
+								label='Owner *'
+								name='generalInfo.owner'
+								rules={{
+									required: true
+								}}
 							/>
-							<SingleUserSelect />
 						</FullWidthColumn>
 						<FullWidthColumn className='mb-5'>
-							<MultipleUserSelect />
-							<TextArea
-								className='w-full'
-								rows={1}
-								id='owner-delegates'
-								labelText='Owner Delegates'
-								placeholder='Application owner delegates'
-								{...register('generalInfo.ownerDelegates')}
+							<MultipleUserSelect
+								control={control}
+								label='Owner Delegates'
+								name='generalInfo.delegates'
 							/>
 						</FullWidthColumn>
 						<Column sm={4} md={8} lg={8} className='mb-5'>

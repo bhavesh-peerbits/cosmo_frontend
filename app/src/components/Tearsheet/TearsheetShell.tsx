@@ -321,6 +321,7 @@ export const TearsheetShell = React.forwardRef<HTMLDivElement, TearsheetShellPro
 										{actions?.map(btProps => (
 											<Button
 												{...btProps}
+												key={btProps.id}
 												size='2xl'
 												className={cx({ 'flex-[0_1_25%]': size === 'wide' })}
 											>

@@ -1,29 +1,83 @@
 import { Button, FormLabel, Tile } from '@carbon/react';
-import { Close, Document } from '@carbon/react/icons';
+import { Close } from '@carbon/react/icons';
 import { useState } from 'react';
 import UserProfileImage from '@components/UserProfileImage';
 import MultiAddSelect from '@components/MultiAddSelect';
+import User from '@model/User';
+import {
+	FieldPath,
+	FieldValues,
+	PathValue,
+	UnpackNestedValue,
+	useController,
+	UseControllerProps
+} from 'react-hook-form';
+import useGetUsers from '@api/user/useGetUsers';
+import cx from 'classnames';
 
-const MultipleUserSelect = () => {
+type MultipleUserSelectProps<
+	T extends FieldValues,
+	TName extends FieldPath<T>
+> = UnpackNestedValue<PathValue<T, TName>> extends User[]
+	? {
+			label: string;
+			name: TName;
+			control: UseControllerProps<T, TName>['control'];
+			rules?: UseControllerProps<T, TName>['rules'];
+	  }
+	: never;
+
+const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
+	label,
+	name,
+	control,
+	rules
+}: MultipleUserSelectProps<T, TName>) => {
 	const [openSearch, setOpenSearch] = useState(false);
-	const [selectedUser, setSelectedUser] = useState<string[]>([]);
+	const {
+		field: { onChange, onBlur, value: formValue, ref },
+		fieldState: { invalid }
+	} = useController({
+		name,
+		control,
+		rules
+	});
+	const { data: users = [] } = useGetUsers();
+
+	const selectUsers = formValue as User[];
 
 	return (
 		<>
 			<div className='flex flex-wrap items-end justify-end md:flex-nowrap'>
 				<div className='w-full space-y-3'>
 					<FormLabel>
-						<span>Multiple User Select</span>
+						<span>{label}</span>
 					</FormLabel>
-					<Tile className='flex min-h-[2.5rem] items-center border-b-[1px] border-solid border-border-strong-1 p-0'>
+					<Tile
+						{...{
+							ref,
+							onBlur,
+							name
+						}}
+						className={cx(
+							'z-0 flex min-h-[2.5rem] items-center border-b-[1px] border-solid border-border-strong-1 p-0',
+							{
+								'outline-support-error': invalid
+							}
+						)}
+					>
 						<div className='flex h-full items-center justify-between space-x-2 pl-5 pr-2'>
-							{selectedUser.length ? (
+							{selectUsers.length ? (
 								<div className='flex flex-wrap'>
-									{selectedUser.map(u => (
-										<div className='mr-3 flex items-center justify-center space-x-2'>
+									{selectUsers.map(u => (
+										<div
+											className='mr-3 flex items-center justify-center space-x-2'
+											key={u.id}
+										>
 											<UserProfileImage
-												tooltipText={u}
-												imageDescription='Stefano Imperiale'
+												initials={u.displayName}
+												imageDescription={u.username}
+												tooltipText={u.displayName}
 												size='md'
 											/>
 											<Button
@@ -32,7 +86,7 @@ const MultipleUserSelect = () => {
 												renderIcon={Close}
 												hasIconOnly
 												iconDescription='remove'
-												onClick={() => setSelectedUser(old => old.filter(uu => uu !== u))}
+												onClick={() => onChange(selectUsers.filter(uu => uu.id !== u.id))}
 											/>
 										</div>
 									))}
@@ -45,6 +99,7 @@ const MultipleUserSelect = () => {
 						</div>
 					</Tile>
 				</div>
+
 				<div>
 					<Button kind='ghost' onClick={() => setOpenSearch(true)}>
 						Add user
@@ -52,109 +107,51 @@ const MultipleUserSelect = () => {
 				</div>
 			</div>
 			<MultiAddSelect
-				clearFiltersText='Clear filters'
-				columnInputPlaceholder='Find'
-				description='Select business terms from the list'
-				globalSearchLabel='test input label'
-				globalSearchPlaceholder='Find business terms'
-				influencerTitle='Selected business terms'
-				globalFilters={[
-					{
-						id: 'fileType',
-						label: 'File type'
-					},
-					{
-						id: 'size',
-						label: 'Size'
-					},
-					{
-						id: 'tag',
-						label: 'Tag'
-					}
-				]}
-				globalFiltersIconDescription='Filter'
-				globalFiltersPlaceholderText='Choose an option'
-				globalFiltersPrimaryButtonText='Apply'
-				open={openSearch}
-				onClose={() => setOpenSearch(false)}
-				globalFiltersSecondaryButtonText='Reset'
-				// globalSortBy={['title']}
-				items={{
-					sortBy: [{ label: 'titleLabel', attribute: 'title' }],
-					entries: [
-						{
-							id: '1',
-							value: 'folder 1',
-							title: 'folder 1',
-							children: {
-								sortBy: [
-									{ label: 'titleLabel', attribute: 'title' },
-									{ label: 'sizeLabel', attribute: 'size' }
-								],
-								filterBy: { label: 'SizeLabel', attribute: 'size' },
-								entries: [
-									{
-										id: '1-1',
-										value: 'file1.pdf',
-										title: 'file1.pdf',
-										fileType: 'pdf',
-										size: '100',
-										icon: <Document />,
-										tag: 'business',
-										children: {
-											entries: [
-												{
-													id: '3-2',
-													value: 'file1.pdf',
-													title: 'file1.pdf',
-													fileType: 'pdf',
-													size: '100',
-													icon: <Document />,
-													tag: 'business'
-												}
-											]
-										}
-									},
-									{
-										id: '1-2',
-										value: 'index.js',
-										title: 'index.js',
-										fileType: 'js',
-										size: '200',
-										icon: <Document />
-									},
-									{
-										id: '1-3',
-										value: 'sitemap.xml',
-										title: 'sitemap.xml',
-										fileType: 'xml',
-										size: '10',
-										icon: <Document />
-									}
-								]
-							}
-						},
-						{
-							id: '2',
-							value: 'folder 2',
-							title: 'folder 2'
-						}
-					]
-				}}
-				itemsLabel='Business terms'
+				itemsLabel='Users'
 				noResultsTitle='No results'
-				noSelectionDescription='Select a term to include the full set of the governance artifacts it contains in the governance scope.'
-				noSelectionTitle='No business terms selected'
-				noResultsDescription='Try again'
+				noResultsDescription='Try with different keywords'
 				onCloseButtonText='Close'
-				onSubmit={select => {
-					setSelectedUser(select);
+				onSubmit={id => {
+					onChange(users.filter(user => id.includes(user.id)));
 					setOpenSearch(false);
 				}}
+				onClose={() => setOpenSearch(false)}
 				onSubmitButtonText='Select'
-				removeIconDescription='Remove'
 				searchResultsLabel='Search results'
-				title='Add business terms'
+				title='Select User'
+				description='Select a single user from the list'
+				globalSearchLabel='Username or email'
+				globalSearchPlaceholder='Find user'
+				open={openSearch}
+				influencerTitle='Users selected'
+				influencerItemTitle='Name'
+				influencerItemSubtitle='email'
+				globalFilters={[
+					{
+						id: 'role',
+						label: 'Role'
+					}
+				]}
+				globalFiltersIconDescription='Filters'
+				globalFiltersPlaceholderText='Choose an option'
+				globalFiltersPrimaryButtonText='Apply'
+				globalFiltersSecondaryButtonText='Reset'
+				clearFiltersText='Clear filters'
+				items={{
+					entries: users
+						.filter(u => !selectUsers.some(s => s.id === u.id))
+						.map(u => ({
+							id: u.id,
+							title: u.displayName,
+							tagInfo: u.principalRole,
+							subtitle: u.email || 'No email provided',
+							role: u.principalRole,
+							avatar: {
+								imageDescription: u.username,
+								initials: u.displayName
+							}
+						}))
+				}}
 			/>
 		</>
 	);

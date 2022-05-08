@@ -1,6 +1,7 @@
 export * from './access-login-dto';
 export * from './api-error-response';
 export * from './application';
+export * from './application-audit';
 export * from './application-dto';
 export * from './application-profile';
 export * from './config-element';

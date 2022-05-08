@@ -27,6 +27,12 @@ export interface ApplicationDto {
 	 */
 	id: number;
 	/**
+	 * Application code name
+	 * @type {string}
+	 * @memberof ApplicationDto
+	 */
+	codeName: string;
+	/**
 	 * Application name
 	 * @type {string}
 	 * @memberof ApplicationDto

@@ -4,6 +4,8 @@ import { ItemNoChildren } from '@components/AddSelect/utilities';
 
 const AddSelectSidebar = ({
 	influencerTitle,
+	influencerItemTitle,
+	influencerItemSubtitle,
 	items = [],
 	multiSelection = [],
 	noSelectionDescription,
@@ -57,12 +59,28 @@ const AddSelectSidebar = ({
 				<Accordion align='start'>
 					{sidebarItems.map(item => (
 						<AccordionItem title={getTitle(item)} key={item.id}>
-							{Object.keys(item).map(key => (
-								<div key={key}>
-									<p className='mb-3 text-text-secondary text-label-1'>{key}</p>
-									<p className='mb-5 text-body-long-1'>{item[key] as string}</p>
-								</div>
-							))}
+							<div>
+								<p className='mb-3 text-text-secondary text-label-1 first-letter:uppercase'>
+									{influencerItemTitle || 'Title'}
+								</p>
+								<p className='mb-5 text-body-long-1'>{item.title}</p>
+							</div>
+							<div>
+								<p className='mb-3 text-text-secondary text-label-1 first-letter:uppercase'>
+									{influencerItemSubtitle || 'Subtitle'}
+								</p>
+								<p className='mb-5 text-body-long-1'>{item.subtitle}</p>
+							</div>
+							{Object.keys(item)
+								.filter(key => key !== 'title' && key !== 'subtitle' && key !== 'tagInfo')
+								.map(key => (
+									<div key={key}>
+										<p className='mb-3 text-text-secondary text-label-1 first-letter:uppercase'>
+											{key}
+										</p>
+										<p className='mb-5 text-body-long-1'>{item[key] as string}</p>
+									</div>
+								))}
 						</AccordionItem>
 					))}
 				</Accordion>
@@ -83,6 +101,8 @@ const AddSelectSidebar = ({
 
 interface AddSelectSidebarProps {
 	influencerTitle?: string;
+	influencerItemTitle?: string;
+	influencerItemSubtitle?: string;
 	items?: Array<ItemNoChildren>;
 	multiSelection?: Array<string>;
 	noSelectionDescription?: string;
