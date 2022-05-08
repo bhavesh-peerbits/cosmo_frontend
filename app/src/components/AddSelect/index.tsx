@@ -197,6 +197,7 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 			open,
 			title,
 			description,
+			onClose,
 			closeIconDescription: 'Close',
 			actions: [
 				{

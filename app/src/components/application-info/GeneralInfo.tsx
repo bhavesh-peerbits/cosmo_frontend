@@ -1,10 +1,9 @@
 import { Column, Grid, TextArea, TextInput, Tile } from '@carbon/react';
-import { Document } from '@carbon/react/icons';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import User from '@model/User';
-import MultiAddSelect from '@components/MultiAddSelect';
 import SingleUserSelect from '@components/SingleUserSelect';
+import MultipleUserSelect from '@components/MultipleUserSelect';
 
 export interface GeneralInfoForm {
 	generalInfo: {
@@ -26,109 +25,6 @@ type GeneralInfoProps = {
 const GeneralInfo = ({ register, errors }: GeneralInfoProps) => {
 	return (
 		<Tile href='ApplicationName' className='w-full bg-layer-accent-1 pb-7'>
-			<SingleUserSelect />
-			<MultiAddSelect
-				clearFiltersText='Clear filters'
-				columnInputPlaceholder='Find'
-				description='Select business terms from the list'
-				globalSearchLabel='test input label'
-				globalSearchPlaceholder='Find business terms'
-				influencerTitle='Selected business terms'
-				globalFilters={[
-					{
-						id: 'fileType',
-						label: 'File type'
-					},
-					{
-						id: 'size',
-						label: 'Size'
-					},
-					{
-						id: 'tag',
-						label: 'Tag'
-					}
-				]}
-				globalFiltersIconDescription='Filter'
-				globalFiltersPlaceholderText='Choose an option'
-				globalFiltersPrimaryButtonText='Apply'
-				open
-				globalFiltersSecondaryButtonText='Reset'
-				// globalSortBy={['title']}
-				items={{
-					sortBy: [{ label: 'titleLabel', attribute: 'title' }],
-					entries: [
-						{
-							id: '1',
-							value: 'folder 1',
-							title: 'folder 1',
-							children: {
-								sortBy: [
-									{ label: 'titleLabel', attribute: 'title' },
-									{ label: 'sizeLabel', attribute: 'size' }
-								],
-								filterBy: { label: 'SizeLabel', attribute: 'size' },
-								entries: [
-									{
-										id: '1-1',
-										value: 'file1.pdf',
-										title: 'file1.pdf',
-										fileType: 'pdf',
-										size: '100',
-										icon: <Document />,
-										tag: 'business',
-										children: {
-											entries: [
-												{
-													id: '3-2',
-													value: 'file1.pdf',
-													title: 'file1.pdf',
-													fileType: 'pdf',
-													size: '100',
-													icon: <Document />,
-													tag: 'business'
-												}
-											]
-										}
-									},
-									{
-										id: '1-2',
-										value: 'index.js',
-										title: 'index.js',
-										fileType: 'js',
-										size: '200',
-										icon: <Document />
-									},
-									{
-										id: '1-3',
-										value: 'sitemap.xml',
-										title: 'sitemap.xml',
-										fileType: 'xml',
-										size: '10',
-										icon: <Document />
-									}
-								]
-							}
-						},
-						{
-							id: '2',
-							value: 'folder 2',
-							title: 'folder 2'
-						}
-					]
-				}}
-				itemsLabel='Business terms'
-				noResultsTitle='No results'
-				noSelectionDescription='Select a term to include the full set of the governance artifacts it contains in the governance scope.'
-				noSelectionTitle='No business terms selected'
-				noResultsDescription='Try again'
-				onCloseButtonText='Cancel'
-				onSubmit={() => {}}
-				onSubmitButtonText='Add'
-				removeIconDescription='Remove'
-				searchResultsLabel='Search results'
-				title='Add business terms'
-			/>
-
 			<Grid fullWidth className='space-y-7'>
 				<FullWidthColumn data-toc-id='general-info' className='text-productive-heading-3'>
 					General Information
@@ -182,8 +78,10 @@ const GeneralInfo = ({ register, errors }: GeneralInfoProps) => {
 									}
 								})}
 							/>
+							<SingleUserSelect />
 						</FullWidthColumn>
 						<FullWidthColumn className='mb-5'>
+							<MultipleUserSelect />
 							<TextArea
 								className='w-full'
 								rows={1}
