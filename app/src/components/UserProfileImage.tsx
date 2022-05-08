@@ -121,7 +121,7 @@ const UserProfileImage = forwardRef<HTMLDivElement, UserProfileImageProps>(
 				);
 			}
 			if (initials) {
-				return <>{formatInitials()}</>;
+				return <span className='pointer-events-none'>{formatInitials()}</span>;
 			}
 			if (kind && size) {
 				return icons[kind][size];

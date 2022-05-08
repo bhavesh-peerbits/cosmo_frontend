@@ -20,11 +20,7 @@ const SingleUserSelect = () => {
 							{selectedUser ? (
 								<>
 									<div className='flex items-center justify-center space-x-2'>
-										<UserProfileImage
-											tooltipText='ciao'
-											imageDescription='Stefano Imperiale'
-											size='md'
-										/>
+										<UserProfileImage imageDescription='Stefano Imperiale' size='md' />
 										<span>Stefano Imperiale</span>
 									</div>
 									<Button
