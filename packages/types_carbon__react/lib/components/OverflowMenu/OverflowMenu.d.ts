@@ -1,12 +1,7 @@
-import { ReactNode } from 'react';
-import { FCReturn, ReactDivAttr } from '../../../typings/shared';
+import { FC, ReactNode } from 'react';
+import { ReactButtonAttr } from '../../../typings/shared';
 
-type MenuOffsetShape = {
-	top?: number;
-	left?: number;
-};
-
-interface OverflowMenuProps extends ReactDivAttr {
+interface OverflowMenuProps extends ReactButtonAttr {
 	/**
 	 * The ARIA label.
 	 */
@@ -16,6 +11,7 @@ interface OverflowMenuProps extends ReactDivAttr {
 	 * The child nodes.
 	 */
 	children?: ReactNode;
+
 	/**
 	 * The CSS class names.
 	 */
@@ -54,12 +50,17 @@ interface OverflowMenuProps extends ReactDivAttr {
 	/**
 	 * The adjustment in position applied to the floating menu.
 	 */
-	menuOffset?: MenuOffsetShape | (() => void);
+	menuOffset?:
+		| {
+				top: number;
+				left: number;
+		  }
+		| (() => void);
 
 	/**
 	 * The adjustment in position applied to the floating menu.
 	 */
-	menuOffsetFlip?: MenuOffsetShape | (() => void);
+	menuOffsetFlip?: OverflowMenuProps['menuOffset'];
 
 	/**
 	 * The class to apply to the menu options
@@ -69,7 +70,7 @@ interface OverflowMenuProps extends ReactDivAttr {
 	/**
 	 * The event handler for the `click` event.
 	 */
-	onClick?: () => void;
+	onClick?: ReactButtonAttr['onClick'];
 
 	/**
 	 * Function called when menu is closed
@@ -79,12 +80,12 @@ interface OverflowMenuProps extends ReactDivAttr {
 	/**
 	 * The event handler for the `focus` event.
 	 */
-	onFocus?: () => void;
+	onFocus?: ReactButtonAttr['onFocus'];
 
 	/**
 	 * The event handler for the `keydown` event.
 	 */
-	onKeyDown?: () => void;
+	onKeyDown?: ReactButtonAttr['onKeyDown'];
 
 	/**
 	 * Function called when menu is opened
@@ -99,7 +100,7 @@ interface OverflowMenuProps extends ReactDivAttr {
 	/**
 	 * Function called to override icon rendering.
 	 */
-	renderIcon?: (() => void) | object;
+	renderIcon?: ReactNode | (() => ReactNode);
 
 	/**
 	 * Specify a CSS selector that matches the DOM element that should
@@ -113,6 +114,5 @@ interface OverflowMenuProps extends ReactDivAttr {
 	size?: 'sm' | 'md' | 'lg';
 }
 
-declare const OverflowMenu: FCReturn<OverflowMenuProps>;
-
+declare const OverflowMenu: FC<OverflowMenuProps>;
 export default OverflowMenu;

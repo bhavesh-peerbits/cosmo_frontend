@@ -43,12 +43,13 @@ const ApplicationsTable = () => {
 		}),
 		table.createDataColumn(row => row.owner, {
 			id: 'owner',
-			header: t('owner')
+			header: t('owner'),
+			cell: info => info.value.name
 		}),
-		table.createDataColumn(row => row.code, {
-			id: 'code',
-			header: t('code')
-		}),
+		// table.createDataColumn(row => row.code, {
+		// 	id: 'code',
+		// 	header: t('code')
+		// }),
 		table.createDataColumn(row => row.lastReview, {
 			id: 'lastReview',
 			header: t('last-review'),

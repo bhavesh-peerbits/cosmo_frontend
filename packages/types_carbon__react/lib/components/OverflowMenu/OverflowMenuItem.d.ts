@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
-import { FCReturn, ReactDivAttr } from '../../../typings/shared';
+import { FC, ReactNode } from 'react';
+import { ReactButtonAttr } from '../../../typings/shared';
 
-interface OverflowMenuItemProps extends ReactDivAttr {
+interface OverflowMenuItemProps extends ReactButtonAttr {
 	/**
 	 * The CSS class name to be placed on the button element
 	 */
@@ -44,15 +44,15 @@ interface OverflowMenuItemProps extends ReactDivAttr {
 	/**
 	 * event handlers
 	 */
-	onBlur?: () => void;
-	onClick?: () => void;
-	onFocus?: () => void;
-	onKeyDown?: () => void;
-	onKeyUp?: () => void;
-	onMouseDown?: () => void;
-	onMouseEnter?: () => void;
-	onMouseLeave?: () => void;
-	onMouseUp?: () => void;
+	onBlur?: ReactButtonAttr['onBlur'];
+	onClick?: ReactButtonAttr['onClick'];
+	onFocus?: ReactButtonAttr['onFocus'];
+	onKeyDown?: ReactButtonAttr['onKeyDown'];
+	onKeyUp?: ReactButtonAttr['onKeyUp'];
+	onMouseDown?: ReactButtonAttr['onMouseDown'];
+	onMouseEnter?: ReactButtonAttr['onMouseEnter'];
+	onMouseLeave?: ReactButtonAttr['onMouseLeave'];
+	onMouseUp?: ReactButtonAttr['onMouseUp'];
 
 	/**
 	 * `true` if this menu item has long text and requires a browser tooltip
@@ -70,6 +70,5 @@ interface OverflowMenuItemProps extends ReactDivAttr {
 	wrapperClassName?: string;
 }
 
-declare const OverflowMenuItem: FCReturn<OverflowMenuItemProps>;
-
+declare const OverflowMenuItem: FC<OverflowMenuItemProps>;
 export default OverflowMenuItem;

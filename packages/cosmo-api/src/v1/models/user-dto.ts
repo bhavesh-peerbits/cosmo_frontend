@@ -13,11 +13,17 @@
  */
 
 /**
- * The user info
+ *
  * @export
  * @interface UserDto
  */
 export interface UserDto {
+	/**
+	 * The user id
+	 * @type {string}
+	 * @memberof UserDto
+	 */
+	id: string;
 	/**
 	 * The user username
 	 * @type {string}

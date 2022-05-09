@@ -595,151 +595,6 @@ export const UserControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {string} userId
-		 * @param {number} applicationId
-		 * @param {UserApplication} userApplication
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		modifyApplicationToUserAssociation: async (
-			userId: string,
-			applicationId: number,
-			userApplication: UserApplication,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'userId' is not null or undefined
-			assertParamExists('modifyApplicationToUserAssociation', 'userId', userId);
-			// verify required parameter 'applicationId' is not null or undefined
-			assertParamExists(
-				'modifyApplicationToUserAssociation',
-				'applicationId',
-				applicationId
-			);
-			// verify required parameter 'userApplication' is not null or undefined
-			assertParamExists(
-				'modifyApplicationToUserAssociation',
-				'userApplication',
-				userApplication
-			);
-			const localVarPath = `/api/users/{userId}/applications/{applicationId}`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (userId !== undefined) {
-				localVarQueryParameter['userId'] = userId;
-			}
-
-			if (applicationId !== undefined) {
-				localVarQueryParameter['applicationId'] = applicationId;
-			}
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			localVarHeaderParameter['Content-Type'] = 'application/json';
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				userApplication,
-				localVarRequestOptions,
-				configuration
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {string} userId
-		 * @param {number} profileId
-		 * @param {UserProfile} userProfile
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		modifyUserProfileAssociation: async (
-			userId: string,
-			profileId: number,
-			userProfile: UserProfile,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'userId' is not null or undefined
-			assertParamExists('modifyUserProfileAssociation', 'userId', userId);
-			// verify required parameter 'profileId' is not null or undefined
-			assertParamExists('modifyUserProfileAssociation', 'profileId', profileId);
-			// verify required parameter 'userProfile' is not null or undefined
-			assertParamExists('modifyUserProfileAssociation', 'userProfile', userProfile);
-			const localVarPath = `/api/users/{userId}/profiles/{profileId}`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (userId !== undefined) {
-				localVarQueryParameter['userId'] = userId;
-			}
-
-			if (profileId !== undefined) {
-				localVarQueryParameter['profileId'] = profileId;
-			}
-
-			if (userProfile !== undefined) {
-				localVarQueryParameter['userProfile'] = userProfile;
-			}
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
 		 * @param {User} user
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
@@ -1061,7 +916,9 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 		async getAllUsers(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<User>>> {
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserDto>>
+		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllUsers(
 				acceptLanguage,
 				options
@@ -1111,70 +968,6 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 				acceptLanguage,
 				options
 			);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {string} userId
-		 * @param {number} applicationId
-		 * @param {UserApplication} userApplication
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async modifyApplicationToUserAssociation(
-			userId: string,
-			applicationId: number,
-			userApplication: UserApplication,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserApplication>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.modifyApplicationToUserAssociation(
-					userId,
-					applicationId,
-					userApplication,
-					acceptLanguage,
-					options
-				);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {string} userId
-		 * @param {number} profileId
-		 * @param {UserProfile} userProfile
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async modifyUserProfileAssociation(
-			userId: string,
-			profileId: number,
-			userProfile: UserProfile,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserProfile>> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.modifyUserProfileAssociation(
-					userId,
-					profileId,
-					userProfile,
-					acceptLanguage,
-					options
-				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
@@ -1382,7 +1175,7 @@ export const UserControllerApiFactory = function (
 		getAllUsers(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Array<User>> {
+		): AxiosPromise<Array<UserDto>> {
 			return localVarFp
 				.getAllUsers(acceptLanguage, options)
 				.then(request => request(axios, basePath));
@@ -1415,58 +1208,6 @@ export const UserControllerApiFactory = function (
 		): AxiosPromise<User> {
 			return localVarFp
 				.getOneUsers(id, acceptLanguage, options)
-				.then(request => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @param {string} userId
-		 * @param {number} applicationId
-		 * @param {UserApplication} userApplication
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		modifyApplicationToUserAssociation(
-			userId: string,
-			applicationId: number,
-			userApplication: UserApplication,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: any
-		): AxiosPromise<UserApplication> {
-			return localVarFp
-				.modifyApplicationToUserAssociation(
-					userId,
-					applicationId,
-					userApplication,
-					acceptLanguage,
-					options
-				)
-				.then(request => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @param {string} userId
-		 * @param {number} profileId
-		 * @param {UserProfile} userProfile
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		modifyUserProfileAssociation(
-			userId: string,
-			profileId: number,
-			userProfile: UserProfile,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: any
-		): AxiosPromise<UserProfile> {
-			return localVarFp
-				.modifyUserProfileAssociation(
-					userId,
-					profileId,
-					userProfile,
-					acceptLanguage,
-					options
-				)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -1731,76 +1472,6 @@ export interface UserControllerApiGetOneUsersRequest {
 }
 
 /**
- * Request parameters for modifyApplicationToUserAssociation operation in UserControllerApi.
- * @export
- * @interface UserControllerApiModifyApplicationToUserAssociationRequest
- */
-export interface UserControllerApiModifyApplicationToUserAssociationRequest {
-	/**
-	 *
-	 * @type {string}
-	 * @memberof UserControllerApiModifyApplicationToUserAssociation
-	 */
-	readonly userId: string;
-
-	/**
-	 *
-	 * @type {number}
-	 * @memberof UserControllerApiModifyApplicationToUserAssociation
-	 */
-	readonly applicationId: number;
-
-	/**
-	 *
-	 * @type {UserApplication}
-	 * @memberof UserControllerApiModifyApplicationToUserAssociation
-	 */
-	readonly userApplication: UserApplication;
-
-	/**
-	 *
-	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof UserControllerApiModifyApplicationToUserAssociation
-	 */
-	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
-}
-
-/**
- * Request parameters for modifyUserProfileAssociation operation in UserControllerApi.
- * @export
- * @interface UserControllerApiModifyUserProfileAssociationRequest
- */
-export interface UserControllerApiModifyUserProfileAssociationRequest {
-	/**
-	 *
-	 * @type {string}
-	 * @memberof UserControllerApiModifyUserProfileAssociation
-	 */
-	readonly userId: string;
-
-	/**
-	 *
-	 * @type {number}
-	 * @memberof UserControllerApiModifyUserProfileAssociation
-	 */
-	readonly profileId: number;
-
-	/**
-	 *
-	 * @type {UserProfile}
-	 * @memberof UserControllerApiModifyUserProfileAssociation
-	 */
-	readonly userProfile: UserProfile;
-
-	/**
-	 *
-	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof UserControllerApiModifyUserProfileAssociation
-	 */
-	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
-}
-
-/**
  * Request parameters for newUser operation in UserControllerApi.
  * @export
  * @interface UserControllerApiNewUserRequest
@@ -2041,50 +1712,6 @@ export class UserControllerApi extends BaseAPI {
 	) {
 		return UserControllerApiFp(this.configuration)
 			.getOneUsers(requestParameters.id, requestParameters.acceptLanguage, options)
-			.then(request => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @param {UserControllerApiModifyApplicationToUserAssociationRequest} requestParameters Request parameters.
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof UserControllerApi
-	 */
-	public modifyApplicationToUserAssociation(
-		requestParameters: UserControllerApiModifyApplicationToUserAssociationRequest,
-		options?: AxiosRequestConfig
-	) {
-		return UserControllerApiFp(this.configuration)
-			.modifyApplicationToUserAssociation(
-				requestParameters.userId,
-				requestParameters.applicationId,
-				requestParameters.userApplication,
-				requestParameters.acceptLanguage,
-				options
-			)
-			.then(request => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @param {UserControllerApiModifyUserProfileAssociationRequest} requestParameters Request parameters.
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof UserControllerApi
-	 */
-	public modifyUserProfileAssociation(
-		requestParameters: UserControllerApiModifyUserProfileAssociationRequest,
-		options?: AxiosRequestConfig
-	) {
-		return UserControllerApiFp(this.configuration)
-			.modifyUserProfileAssociation(
-				requestParameters.userId,
-				requestParameters.profileId,
-				requestParameters.userProfile,
-				requestParameters.acceptLanguage,
-				options
-			)
 			.then(request => request(this.axios, this.basePath));
 	}
 

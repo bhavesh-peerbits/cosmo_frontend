@@ -261,7 +261,7 @@ export default () => {
 	});
 
 	return (
-		<div className='divide-y divide-solid divide-background border border-solid border-border-strong-1'>
+		<div className='divide-y border divide-solid divide-background border-solid border-border-strong-1'>
 			<div className='bg-layer-1'>
 				<MenuBar editor={editor} />
 			</div>

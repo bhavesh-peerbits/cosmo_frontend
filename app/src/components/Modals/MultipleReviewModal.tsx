@@ -16,7 +16,7 @@ type MultipleReviewModalProps = {
 	isOpen: boolean;
 	setIsOpen: (value: boolean) => void;
 	type: string;
-	totalSelected: number;
+	totalSelected?: number;
 };
 
 const MultipleReviewModal = ({
@@ -44,7 +44,7 @@ const MultipleReviewModal = ({
 							lg={16}
 							md={8}
 							sm={4}
-							className='space-y-5 divide-y divide-solid divide-border-subtle-1'
+							className='divide-y space-y-5 divide-solid divide-border-subtle-1'
 						>
 							<div className='flex space-x-3'>
 								<div className='text-productive-heading-2'>

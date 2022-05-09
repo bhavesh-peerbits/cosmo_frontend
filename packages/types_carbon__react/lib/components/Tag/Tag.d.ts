@@ -1,4 +1,4 @@
-import { ReactNode, ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import { FCReturn, ReactDivAttr } from '../../../typings/shared';
 
 interface TagProps extends ReactDivAttr {
@@ -52,7 +52,19 @@ interface TagProps extends ReactDivAttr {
 	/**
 	 * Specify the type of the <Tag>
 	 */
-	type?: 'blue' | 'cyan';
+	type?:
+		| 'red'
+		| 'magenta'
+		| 'purple'
+		| 'blue'
+		| 'cyan'
+		| 'teal'
+		| 'green'
+		| 'gray'
+		| 'cool-gray'
+		| 'warm-gray'
+		| 'high-contrast'
+		| 'outline';
 }
 
 declare const Tag: FCReturn<TagProps>;

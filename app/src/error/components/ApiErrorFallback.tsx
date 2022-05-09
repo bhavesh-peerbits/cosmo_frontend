@@ -2,12 +2,14 @@ import { ActionableNotification } from '@carbon/react';
 import ApiError from '@api/ApiError';
 import { FallbackProps } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const ApiErrorFallback = ({
 	error,
 	resetErrorBoundary
 }: { error: ApiError } & FallbackProps) => {
 	const { t } = useTranslation('errorBoundary');
+	const navigate = useNavigate();
 
 	return (
 		<div className='absolute bottom-5 flex w-full items-center justify-center'>
@@ -16,6 +18,7 @@ const ApiErrorFallback = ({
 					resetErrorBoundary();
 					error.reload && window.location.reload();
 				}}
+				onClose={() => navigate('/', { replace: true })}
 				inline
 				actionButtonLabel={t('retry')}
 				kind='error'
