@@ -8,9 +8,14 @@
 		margin-top: 0.75em;
 	}
 
-	ul,
 	ol {
 		padding: 0 1rem;
+		list-style-type: decimal;
+	}
+
+	ul {
+		padding: 0 1rem;
+		list-style: disc;
 	}
 
 	h1,
