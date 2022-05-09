@@ -1,6 +1,7 @@
 import { Column, Form, Grid, TextArea, TextInput, Tile } from '@carbon/react';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import TiptapEditor from './tiptap/TiptapEditor';
 
 interface GeneralInfoForm {
 	name: string;
@@ -142,19 +143,7 @@ const GeneralInfoContainer = ({
 								})}
 							/>
 						</div>
-						<TextArea
-							className='w-full'
-							id='description'
-							labelText='Description'
-							placeholder='Description'
-							defaultValue='Default value'
-							{...(register('description'),
-							{
-								onChange: () => {
-									setIsDirty(true);
-								}
-							})}
-						/>
+						<TiptapEditor />
 					</Form>
 				</Column>
 			</Grid>
