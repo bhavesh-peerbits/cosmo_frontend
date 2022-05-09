@@ -5,7 +5,7 @@ import TableRow from '@tiptap/extension-table-row';
 import TableCell from '@tiptap/extension-table-cell';
 import TableHeader from '@tiptap/extension-table-header';
 
-import { Button } from '@carbon/react';
+import { Button, OverflowMenu, OverflowMenuItem } from '@carbon/react';
 import '../../style/tiptap.scss';
 import {
 	TextBold,
@@ -56,7 +56,7 @@ const MenuBar = ({ editor }: EditorType) => {
 	}
 
 	return (
-		<>
+		<div className='flex'>
 			<Button
 				size='sm'
 				hasIconOnly
@@ -181,24 +181,24 @@ const MenuBar = ({ editor }: EditorType) => {
 						.run()
 				}
 			/>
-			<Button
-				size='sm'
-				hasIconOnly
+
+			<OverflowMenu
+				className='h-[32px] w-[32px] flex-none'
+				ariaLabel='overflow-menu'
 				renderIcon={ColumnInsert}
-				iconDescription='Add Column Before'
-				kind='ghost'
-				onClick={() => editor.chain().focus().addColumnBefore().run()}
-				disabled={!editor.can().addColumnBefore()}
-			/>
-			<Button
-				size='sm'
-				hasIconOnly
-				renderIcon={ColumnInsert}
-				iconDescription='Add Column After'
-				kind='ghost'
-				onClick={() => editor.chain().focus().addColumnAfter().run()}
-				disabled={!editor.can().addColumnAfter()}
-			/>
+				iconDescription='Add Column'
+			>
+				<OverflowMenuItem
+					itemText='Add Column Before'
+					onClick={() => editor.chain().focus().addColumnBefore().run()}
+					disabled={!editor.can().addColumnBefore()}
+				/>
+				<OverflowMenuItem
+					itemText='Add Column After'
+					onClick={() => editor.chain().focus().addColumnAfter().run()}
+					disabled={!editor.can().addColumnAfter()}
+				/>
+			</OverflowMenu>
 			<Button
 				size='sm'
 				hasIconOnly
@@ -208,24 +208,23 @@ const MenuBar = ({ editor }: EditorType) => {
 				onClick={() => editor.chain().focus().deleteColumn().run()}
 				disabled={!editor.can().deleteColumn()}
 			/>
-			<Button
-				size='sm'
-				hasIconOnly
+			<OverflowMenu
+				className='h-[32px] w-[32px] flex-none'
+				ariaLabel='overflow-menu'
 				renderIcon={RowInsert}
-				iconDescription='Add Row Before'
-				kind='ghost'
-				onClick={() => editor.chain().focus().addRowBefore().run()}
-				disabled={!editor.can().addRowBefore()}
-			/>
-			<Button
-				size='sm'
-				hasIconOnly
-				renderIcon={RowInsert}
-				iconDescription='Add Row After'
-				kind='ghost'
-				onClick={() => editor.chain().focus().addRowAfter().run()}
-				disabled={!editor.can().addRowAfter()}
-			/>
+				iconDescription='Add Row'
+			>
+				<OverflowMenuItem
+					itemText='Add Row Before'
+					onClick={() => editor.chain().focus().addRowBefore().run()}
+					disabled={!editor.can().addRowBefore()}
+				/>
+				<OverflowMenuItem
+					itemText='Add Row After'
+					onClick={() => editor.chain().focus().addRowAfter().run()}
+					disabled={!editor.can().addRowAfter()}
+				/>
+			</OverflowMenu>
 			<Button
 				size='sm'
 				hasIconOnly
@@ -244,7 +243,7 @@ const MenuBar = ({ editor }: EditorType) => {
 				onClick={() => editor.chain().focus().deleteTable().run()}
 				disabled={!editor.can().deleteTable()}
 			/>
-		</>
+		</div>
 	);
 };
 
@@ -258,13 +257,7 @@ export default () => {
 			TableRow,
 			TableHeader,
 			CustomTableCell
-		],
-		content: `
-        <ol>
-          <li>A list item</li>
-          <li>And another one</li>
-        </ol>
-      `
+		]
 	});
 
 	return (
