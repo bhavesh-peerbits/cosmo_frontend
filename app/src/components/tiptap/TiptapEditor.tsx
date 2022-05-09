@@ -1,6 +1,12 @@
 import { useEditor, EditorContent, Editor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import Table from '@tiptap/extension-table';
+import TableRow from '@tiptap/extension-table-row';
+import TableCell from '@tiptap/extension-table-cell';
+import TableHeader from '@tiptap/extension-table-header';
+
 import { Button } from '@carbon/react';
+import '../../style/tiptap.scss';
 import {
 	TextBold,
 	TextItalic,
@@ -11,12 +17,38 @@ import {
 	Quotes,
 	Row,
 	Undo,
-	Redo
+	Redo,
+	Table as TableIcon,
+	ColumnInsert,
+	ColumnDelete,
+	RowInsert,
+	RowDelete,
+	TrashCan
 } from '@carbon/react/icons';
 
 type EditorType = {
 	editor?: Editor | null;
 };
+const CustomTableCell = TableCell.extend({
+	addAttributes() {
+		return {
+			// extend the existing attributes …
+			...this.parent?.(),
+
+			// and add a new one …
+			backgroundColor: {
+				default: null,
+				parseHTML: element => element.getAttribute('data-background-color'),
+				renderHTML: attributes => {
+					return {
+						'data-background-color': attributes.backgroundColor,
+						style: `background-color: ${attributes.backgroundColor}`
+					};
+				}
+			}
+		};
+	}
+});
 
 const MenuBar = ({ editor }: EditorType) => {
 	if (!editor) {
@@ -100,7 +132,7 @@ const MenuBar = ({ editor }: EditorType) => {
 				hasIconOnly
 				renderIcon={ListNumbered}
 				iconDescription='Ordered List'
-				kind={editor.isActive('bulletList') ? 'primary' : 'ghost'}
+				kind={editor.isActive('orderedList') ? 'primary' : 'ghost'}
 				onClick={() => editor.chain().focus().toggleOrderedList().run()}
 			/>
 			<Button
@@ -115,8 +147,8 @@ const MenuBar = ({ editor }: EditorType) => {
 				size='sm'
 				hasIconOnly
 				renderIcon={Row}
-				iconDescription='Quotes'
-				kind={editor.isActive('blockquote') ? 'primary' : 'ghost'}
+				iconDescription='Horizontal Rule'
+				kind={editor.isActive('Horizontal') ? 'primary' : 'ghost'}
 				onClick={() => editor.chain().focus().setHorizontalRule().run()}
 			/>
 			<Button
@@ -135,14 +167,104 @@ const MenuBar = ({ editor }: EditorType) => {
 				kind='ghost'
 				onClick={() => editor.chain().focus().redo().run()}
 			/>
+			<Button
+				size='sm'
+				hasIconOnly
+				renderIcon={TableIcon}
+				iconDescription='Insert Table'
+				kind='ghost'
+				onClick={() =>
+					editor
+						.chain()
+						.focus()
+						.insertTable({ rows: 3, cols: 3, withHeaderRow: true })
+						.run()
+				}
+			/>
+			<Button
+				size='sm'
+				hasIconOnly
+				renderIcon={ColumnInsert}
+				iconDescription='Add Column Before'
+				kind='ghost'
+				onClick={() => editor.chain().focus().addColumnBefore().run()}
+				disabled={!editor.can().addColumnBefore()}
+			/>
+			<Button
+				size='sm'
+				hasIconOnly
+				renderIcon={ColumnInsert}
+				iconDescription='Add Column After'
+				kind='ghost'
+				onClick={() => editor.chain().focus().addColumnAfter().run()}
+				disabled={!editor.can().addColumnAfter()}
+			/>
+			<Button
+				size='sm'
+				hasIconOnly
+				renderIcon={ColumnDelete}
+				iconDescription='Delete Column'
+				kind='ghost'
+				onClick={() => editor.chain().focus().deleteColumn().run()}
+				disabled={!editor.can().deleteColumn()}
+			/>
+			<Button
+				size='sm'
+				hasIconOnly
+				renderIcon={RowInsert}
+				iconDescription='Add Row Before'
+				kind='ghost'
+				onClick={() => editor.chain().focus().addRowBefore().run()}
+				disabled={!editor.can().addRowBefore()}
+			/>
+			<Button
+				size='sm'
+				hasIconOnly
+				renderIcon={RowInsert}
+				iconDescription='Add Row After'
+				kind='ghost'
+				onClick={() => editor.chain().focus().addRowAfter().run()}
+				disabled={!editor.can().addRowAfter()}
+			/>
+			<Button
+				size='sm'
+				hasIconOnly
+				renderIcon={RowDelete}
+				iconDescription='Delete Row'
+				kind='ghost'
+				onClick={() => editor.chain().focus().deleteRow().run()}
+				disabled={!editor.can().deleteRow()}
+			/>
+			<Button
+				size='sm'
+				hasIconOnly
+				renderIcon={TrashCan}
+				iconDescription='Delete Table'
+				kind='ghost'
+				onClick={() => editor.chain().focus().deleteTable().run()}
+				disabled={!editor.can().deleteTable()}
+			/>
 		</>
 	);
 };
 
 export default () => {
 	const editor = useEditor({
-		extensions: [StarterKit],
-		content: ''
+		extensions: [
+			StarterKit,
+			Table.configure({
+				resizable: true
+			}),
+			TableRow,
+			TableHeader,
+			CustomTableCell
+		],
+		content: `
+        <ol>
+          <li>A list item</li>
+          <li>And another one</li>
+        </ol>
+      `
 	});
 
 	return (

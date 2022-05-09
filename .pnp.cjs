@@ -9994,6 +9994,96 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@tiptap/extension-table", [\
+        ["npm:2.0.0-beta.48", {\
+          "packageLocation": "./.yarn/cache/@tiptap-extension-table-npm-2.0.0-beta.48-b8a049c96b-a4cb51916c.zip/node_modules/@tiptap/extension-table/",\
+          "packageDependencies": [\
+            ["@tiptap/extension-table", "npm:2.0.0-beta.48"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.0.0-beta.48", {\
+          "packageLocation": "./.yarn/__virtual__/@tiptap-extension-table-virtual-59f1ed1b8d/0/cache/@tiptap-extension-table-npm-2.0.0-beta.48-b8a049c96b-a4cb51916c.zip/node_modules/@tiptap/extension-table/",\
+          "packageDependencies": [\
+            ["@tiptap/extension-table", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.0.0-beta.48"],\
+            ["@tiptap/core", "npm:2.0.0-beta.175"],\
+            ["@types/tiptap__core", null],\
+            ["prosemirror-tables", "npm:1.1.1"],\
+            ["prosemirror-view", "npm:1.23.13"]\
+          ],\
+          "packagePeers": [\
+            "@tiptap/core",\
+            "@types/tiptap__core"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@tiptap/extension-table-cell", [\
+        ["npm:2.0.0-beta.20", {\
+          "packageLocation": "./.yarn/cache/@tiptap-extension-table-cell-npm-2.0.0-beta.20-4da418adad-a8c7c4fc97.zip/node_modules/@tiptap/extension-table-cell/",\
+          "packageDependencies": [\
+            ["@tiptap/extension-table-cell", "npm:2.0.0-beta.20"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.0.0-beta.20", {\
+          "packageLocation": "./.yarn/__virtual__/@tiptap-extension-table-cell-virtual-d5382f212f/0/cache/@tiptap-extension-table-cell-npm-2.0.0-beta.20-4da418adad-a8c7c4fc97.zip/node_modules/@tiptap/extension-table-cell/",\
+          "packageDependencies": [\
+            ["@tiptap/extension-table-cell", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.0.0-beta.20"],\
+            ["@tiptap/core", "npm:2.0.0-beta.175"],\
+            ["@types/tiptap__core", null]\
+          ],\
+          "packagePeers": [\
+            "@tiptap/core",\
+            "@types/tiptap__core"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@tiptap/extension-table-header", [\
+        ["npm:2.0.0-beta.22", {\
+          "packageLocation": "./.yarn/cache/@tiptap-extension-table-header-npm-2.0.0-beta.22-acaae6f548-a9aa1bc31b.zip/node_modules/@tiptap/extension-table-header/",\
+          "packageDependencies": [\
+            ["@tiptap/extension-table-header", "npm:2.0.0-beta.22"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.0.0-beta.22", {\
+          "packageLocation": "./.yarn/__virtual__/@tiptap-extension-table-header-virtual-ad3eaf9d7b/0/cache/@tiptap-extension-table-header-npm-2.0.0-beta.22-acaae6f548-a9aa1bc31b.zip/node_modules/@tiptap/extension-table-header/",\
+          "packageDependencies": [\
+            ["@tiptap/extension-table-header", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.0.0-beta.22"],\
+            ["@tiptap/core", "npm:2.0.0-beta.175"],\
+            ["@types/tiptap__core", null]\
+          ],\
+          "packagePeers": [\
+            "@tiptap/core",\
+            "@types/tiptap__core"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@tiptap/extension-table-row", [\
+        ["npm:2.0.0-beta.19", {\
+          "packageLocation": "./.yarn/cache/@tiptap-extension-table-row-npm-2.0.0-beta.19-904482f8cc-ce6407e733.zip/node_modules/@tiptap/extension-table-row/",\
+          "packageDependencies": [\
+            ["@tiptap/extension-table-row", "npm:2.0.0-beta.19"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.0.0-beta.19", {\
+          "packageLocation": "./.yarn/__virtual__/@tiptap-extension-table-row-virtual-7d11b2873f/0/cache/@tiptap-extension-table-row-npm-2.0.0-beta.19-904482f8cc-ce6407e733.zip/node_modules/@tiptap/extension-table-row/",\
+          "packageDependencies": [\
+            ["@tiptap/extension-table-row", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.0.0-beta.19"],\
+            ["@tiptap/core", "npm:2.0.0-beta.175"],\
+            ["@types/tiptap__core", null]\
+          ],\
+          "packagePeers": [\
+            "@tiptap/core",\
+            "@types/tiptap__core"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@tiptap/extension-text", [\
         ["npm:2.0.0-beta.15", {\
           "packageLocation": "./.yarn/cache/@tiptap-extension-text-npm-2.0.0-beta.15-fa61df4cc5-a8937c2a6c.zip/node_modules/@tiptap/extension-text/",\
@@ -12689,6 +12779,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@testing-library/react-hooks", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:8.0.0"],\
             ["@testing-library/user-event", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:14.1.1"],\
             ["@tiptap/core", "npm:2.0.0-beta.175"],\
+            ["@tiptap/extension-table", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.0.0-beta.48"],\
+            ["@tiptap/extension-table-cell", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.0.0-beta.20"],\
+            ["@tiptap/extension-table-header", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.0.0-beta.22"],\
+            ["@tiptap/extension-table-row", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.0.0-beta.19"],\
             ["@tiptap/react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.0.0-beta.109"],\
             ["@tiptap/starter-kit", "npm:2.0.0-beta.184"],\
             ["@types/c8", null],\
@@ -12777,6 +12871,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@testing-library/react-hooks", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:8.0.0"],\
             ["@testing-library/user-event", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:14.1.1"],\
             ["@tiptap/core", "npm:2.0.0-beta.175"],\
+            ["@tiptap/extension-table", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.0.0-beta.48"],\
+            ["@tiptap/extension-table-cell", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.0.0-beta.20"],\
+            ["@tiptap/extension-table-header", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.0.0-beta.22"],\
+            ["@tiptap/extension-table-row", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.0.0-beta.19"],\
             ["@tiptap/react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.0.0-beta.109"],\
             ["@tiptap/starter-kit", "npm:2.0.0-beta.184"],\
             ["@types/carbon__react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#workspace:packages/types_carbon__react"],\
@@ -27286,6 +27384,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["prosemirror-state", "npm:1.3.4"],\
             ["prosemirror-model", "npm:1.16.1"],\
             ["prosemirror-transform", "npm:1.4.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["prosemirror-tables", [\
+        ["npm:1.1.1", {\
+          "packageLocation": "./.yarn/cache/prosemirror-tables-npm-1.1.1-4bb1b6fcf3-26033de877.zip/node_modules/prosemirror-tables/",\
+          "packageDependencies": [\
+            ["prosemirror-tables", "npm:1.1.1"],\
+            ["prosemirror-keymap", "npm:1.1.5"],\
+            ["prosemirror-model", "npm:1.16.1"],\
+            ["prosemirror-state", "npm:1.3.4"],\
+            ["prosemirror-transform", "npm:1.4.2"],\
+            ["prosemirror-view", "npm:1.23.13"]\
           ],\
           "linkType": "HARD"\
         }]\

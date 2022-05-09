@@ -5385,6 +5385,45 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tiptap/extension-table-cell@npm:^2.0.0-beta.20":
+  version: 2.0.0-beta.20
+  resolution: "@tiptap/extension-table-cell@npm:2.0.0-beta.20"
+  peerDependencies:
+    "@tiptap/core": ^2.0.0-beta.1
+  checksum: a8c7c4fc97512d25b504bb05240eeca04f87b63bfe108c808a4ce9664fe2f6a7554b89b89d0fb7727b46718c8b2bcc237104b4b6ff10836b91ae4278ac4147f8
+  languageName: node
+  linkType: hard
+
+"@tiptap/extension-table-header@npm:^2.0.0-beta.22":
+  version: 2.0.0-beta.22
+  resolution: "@tiptap/extension-table-header@npm:2.0.0-beta.22"
+  peerDependencies:
+    "@tiptap/core": ^2.0.0-beta.1
+  checksum: a9aa1bc31b3245660ca0a3a158144b2f272500063680535ee39a6703a2333dd6f9cb17ee2808a77c1d07c7df0da46a11677f923483040911c03eb976e97cf3ee
+  languageName: node
+  linkType: hard
+
+"@tiptap/extension-table-row@npm:^2.0.0-beta.19":
+  version: 2.0.0-beta.19
+  resolution: "@tiptap/extension-table-row@npm:2.0.0-beta.19"
+  peerDependencies:
+    "@tiptap/core": ^2.0.0-beta.1
+  checksum: ce6407e73355a774e56eb8436c120756a3550e1f1c0253badc600a1b03cebc26546e5d4c86909591d6bece9df499a1958026f109205c7ac031e2de77de06a15e
+  languageName: node
+  linkType: hard
+
+"@tiptap/extension-table@npm:^2.0.0-beta.48":
+  version: 2.0.0-beta.48
+  resolution: "@tiptap/extension-table@npm:2.0.0-beta.48"
+  dependencies:
+    prosemirror-tables: ^1.1.1
+    prosemirror-view: ^1.23.6
+  peerDependencies:
+    "@tiptap/core": ^2.0.0-beta.1
+  checksum: a4cb51916c11cbd1ca9e16ab08b5974037efd42e3849f66c954d815dcc4d6198dbae76ecad898d2b7847761345ebb0170bac5e575a05d9305e3551dccc12f91f
+  languageName: node
+  linkType: hard
+
 "@tiptap/extension-text@npm:^2.0.0-beta.15":
   version: 2.0.0-beta.15
   resolution: "@tiptap/extension-text@npm:2.0.0-beta.15"
@@ -7613,6 +7652,10 @@ __metadata:
     "@testing-library/react-hooks": ^8.0.0
     "@testing-library/user-event": ^14.1.1
     "@tiptap/core": ^2.0.0-beta.175
+    "@tiptap/extension-table": ^2.0.0-beta.48
+    "@tiptap/extension-table-cell": ^2.0.0-beta.20
+    "@tiptap/extension-table-header": ^2.0.0-beta.22
+    "@tiptap/extension-table-row": ^2.0.0-beta.19
     "@tiptap/react": ^2.0.0-beta.109
     "@tiptap/starter-kit": ^2.0.0-beta.184
     "@types/carbon__react": "workspace:^"
@@ -19991,7 +20034,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prosemirror-keymap@npm:^1.0.0, prosemirror-keymap@npm:^1.1.5":
+"prosemirror-keymap@npm:^1.0.0, prosemirror-keymap@npm:^1.1.2, prosemirror-keymap@npm:^1.1.5":
   version: 1.1.5
   resolution: "prosemirror-keymap@npm:1.1.5"
   dependencies:
@@ -20001,7 +20044,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prosemirror-model@npm:^1.0.0, prosemirror-model@npm:^1.16.0, prosemirror-model@npm:^1.16.1":
+"prosemirror-model@npm:^1.0.0, prosemirror-model@npm:^1.16.0, prosemirror-model@npm:^1.16.1, prosemirror-model@npm:^1.8.1":
   version: 1.16.1
   resolution: "prosemirror-model@npm:1.16.1"
   dependencies:
@@ -20020,7 +20063,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prosemirror-state@npm:^1.0.0, prosemirror-state@npm:^1.2.2, prosemirror-state@npm:^1.3.4":
+"prosemirror-state@npm:^1.0.0, prosemirror-state@npm:^1.2.2, prosemirror-state@npm:^1.3.1, prosemirror-state@npm:^1.3.4":
   version: 1.3.4
   resolution: "prosemirror-state@npm:1.3.4"
   dependencies:
@@ -20030,7 +20073,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prosemirror-transform@npm:^1.0.0, prosemirror-transform@npm:^1.1.0, prosemirror-transform@npm:^1.3.3":
+"prosemirror-tables@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "prosemirror-tables@npm:1.1.1"
+  dependencies:
+    prosemirror-keymap: ^1.1.2
+    prosemirror-model: ^1.8.1
+    prosemirror-state: ^1.3.1
+    prosemirror-transform: ^1.2.1
+    prosemirror-view: ^1.13.3
+  checksum: 26033de8776db5aa6f806ee151344df7a79bdea423bf6a9733be16df15206abcac72899af170529eb884fb4e10ff8248dbb6a2252cf47dd073df673a20a31ece
+  languageName: node
+  linkType: hard
+
+"prosemirror-transform@npm:^1.0.0, prosemirror-transform@npm:^1.1.0, prosemirror-transform@npm:^1.2.1, prosemirror-transform@npm:^1.3.3":
   version: 1.4.2
   resolution: "prosemirror-transform@npm:1.4.2"
   dependencies:
@@ -20039,7 +20095,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prosemirror-view@npm:^1.0.0, prosemirror-view@npm:^1.1.0, prosemirror-view@npm:^1.23.6":
+"prosemirror-view@npm:^1.0.0, prosemirror-view@npm:^1.1.0, prosemirror-view@npm:^1.13.3, prosemirror-view@npm:^1.23.6":
   version: 1.23.13
   resolution: "prosemirror-view@npm:1.23.13"
   dependencies:
