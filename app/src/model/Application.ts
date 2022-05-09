@@ -5,6 +5,7 @@ import User, { fromUserApi, toUserApi } from '@model/User';
 interface Application {
 	id: string;
 	name: string;
+	codeName: string;
 	description?: string;
 	lastReview?: Date;
 	lastModify?: Date;
@@ -16,6 +17,7 @@ interface Application {
 
 export const fromApplicationApi = (applicationApi: ApplicationApi): Application => ({
 	id: `${applicationApi.id}`,
+	codeName: applicationApi.codeName,
 	name: applicationApi.name,
 	description: applicationApi.description,
 	lastReview: applicationApi.lastReview ? new Date(applicationApi.lastReview) : undefined,
@@ -29,6 +31,7 @@ export const fromApplicationApi = (applicationApi: ApplicationApi): Application 
 export const toApplicationApi = (application: Application): ApplicationApi => ({
 	id: +application.id,
 	name: application.name,
+	codeName: application.codeName,
 	description: application.description,
 	lastReview: application.lastReview?.toISOString(),
 	lastModify: application.lastModify?.toISOString(),

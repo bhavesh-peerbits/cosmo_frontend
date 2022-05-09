@@ -76,6 +76,7 @@ const AddSelectList = ({
 								onNavigateItem,
 								shrink
 							}}
+							key={item.id}
 							isFirstLevel={index === 0}
 						/>
 					))}

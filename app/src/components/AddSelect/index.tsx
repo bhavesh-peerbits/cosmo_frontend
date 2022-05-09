@@ -13,6 +13,7 @@ import {
 	normalize,
 	NormalizeItem
 } from '@components/AddSelect/utilities';
+import Centered from '@components/Centered';
 import AddSelectSidebar from './AddSelectSidebar';
 import AddSelectBreadcrumbs from './AddSelectBreadcrumbs';
 import AddSelectList from './AddSelectList';
@@ -34,6 +35,8 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 			globalSearchLabel,
 			globalSearchPlaceholder,
 			influencerTitle,
+			influencerItemTitle,
+			influencerItemSubtitle,
 			items = { entries: [] as ItemType[] },
 			itemsLabel,
 			multi,
@@ -70,6 +73,13 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 		const [appliedGlobalFilters, setAppliedGlobalFilters] = useState<
 			Record<string, { label: string; value: string }>
 		>({});
+
+		useEffect(() => {
+			if (!open) {
+				setSingleSelection('');
+				setMultiSelection([]);
+			}
+		}, [open]);
 
 		useEffect(() => {
 			const { entries } = items;
@@ -157,7 +167,7 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 				return flatItems
 					.filter(item => performSearch(item))
 					.filter(item =>
-						filters.every(filter => item[filter] === appliedGlobalFilters[filter])
+						filters.every(filter => item[filter] === appliedGlobalFilters[filter].value)
 					);
 			}
 			if (useNormalizedItems) {
@@ -201,11 +211,13 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 			closeIconDescription: 'Close',
 			actions: [
 				{
+					id: 'close',
 					label: onCloseButtonText,
 					kind: 'secondary' as const,
 					onClick: onClose
 				},
 				{
+					id: 'submit',
 					label: onSubmitButtonText,
 					kind: 'primary' as const,
 					onClick: submitHandler,
@@ -217,6 +229,8 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 
 		const sidebarProps = {
 			influencerTitle,
+			influencerItemTitle,
+			influencerItemSubtitle,
 			items: flatItems,
 			multiSelection,
 			noSelectionDescription,
@@ -299,10 +313,12 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 								modifiers={items?.modifiers}
 							/>
 						) : (
-							<div className='p-5'>
-								<span>{noResultsTitle}</span>
-								<span>{noResultsDescription}</span>
-							</div>
+							<Centered>
+								<div className='flex flex-col p-5 text-body-2'>
+									<span>{noResultsTitle}</span>
+									<span>{noResultsDescription}</span>
+								</div>
+							</Centered>
 						)}
 					</div>
 				)}
@@ -344,6 +360,8 @@ interface AddSelectProps {
 	globalSearchLabel?: string;
 	globalSearchPlaceholder?: string;
 	influencerTitle?: string;
+	influencerItemTitle?: string;
+	influencerItemSubtitle?: string;
 	items?: ItemElement;
 	itemsLabel?: string;
 	multi?: boolean;

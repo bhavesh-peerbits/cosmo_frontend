@@ -76,7 +76,7 @@ const AddSelectListItem = ({
 								onChange={(e, { checked }) => handleMultiSelection(item.id, checked)}
 								id={item.id}
 								checked={isSelected(item.id)}
-								labelText={undefined}
+								labelText=''
 							/>
 						) : (
 							<RadioButton
@@ -85,7 +85,7 @@ const AddSelectListItem = ({
 								id={item.id}
 								className='m-0'
 								value={item.id}
-								labelText={undefined}
+								labelText=''
 								onChange={() => handleSingleSelection(item.id)}
 								checked={item.id === singleSelection}
 							/>

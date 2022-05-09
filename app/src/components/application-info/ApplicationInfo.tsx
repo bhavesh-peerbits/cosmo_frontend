@@ -7,7 +7,7 @@ import GeneralInfo, { GeneralInfoForm } from '@components/application-info/Gener
 import TechnicalInfo, {
 	TechnicalInfoForm
 } from '@components/application-info/TechnicalInfo';
-import { FieldErrors, useForm, UseFormRegister } from 'react-hook-form';
+import { Control, FieldErrors, useForm, UseFormRegister } from 'react-hook-form';
 import Application from '@model/Application';
 import useEditApp from '@api/management/useEditApp';
 import Fade from '@components/Fade';
@@ -29,17 +29,19 @@ const ApplicationInfo = ({ application }: ApplicationInfoProps) => {
 		register,
 		handleSubmit,
 		reset,
+		control,
 		formState: { errors, isDirty }
 	} = useForm<ApplicationForm>({
-		mode: 'onBlur',
+		mode: 'onSubmit',
 		defaultValues: {
 			generalInfo: {
 				name: application.name,
+				icon: application.icon,
 				owner: application.owner,
 				description: application.description,
-				ownerDelegates: application.delegates,
-				appMaintenance: '', // TODO
-				operationSupplier: '' // TODO
+				delegates: application.delegates,
+				appMaintenance: applicationData?.appMaintenance,
+				operationSupplier: applicationData?.operationSupplier
 			},
 			technicalInfo: {
 				appServers: applicationData?.appServers,
@@ -67,12 +69,17 @@ const ApplicationInfo = ({ application }: ApplicationInfoProps) => {
 	};
 
 	const sendData = (data: ApplicationForm) => {
+		const { appMaintenance, operationSupplier, ...rest } = data.generalInfo;
 		return mutate({
 			appId: application.id,
 			appData: {
 				...application,
-				...data.generalInfo,
-				applicationData: data.technicalInfo
+				...rest,
+				applicationData: {
+					appMaintenance,
+					operationSupplier,
+					...data.technicalInfo
+				}
 			}
 		});
 	};
@@ -124,6 +131,7 @@ const ApplicationInfo = ({ application }: ApplicationInfoProps) => {
 						</div>
 						<div className='space-y-7'>
 							<GeneralInfo
+								control={control as unknown as Control<GeneralInfoForm>}
 								errors={errors as FieldErrors<GeneralInfoForm>}
 								register={register as unknown as UseFormRegister<GeneralInfoForm>}
 							/>

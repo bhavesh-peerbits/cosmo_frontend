@@ -33,6 +33,12 @@ export interface Application {
 	 * @type {string}
 	 * @memberof Application
 	 */
+	codeName?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Application
+	 */
 	name?: string;
 	/**
 	 *
@@ -51,7 +57,7 @@ export interface Application {
 	 * @type {ApplicationProfile}
 	 * @memberof Application
 	 */
-	profileType?: ApplicationProfile;
+	applicationProfileType?: ApplicationProfile;
 	/**
 	 *
 	 * @type {string}

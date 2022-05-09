@@ -63,6 +63,10 @@ interface MultiAddSelectProps {
 	 * title that displays in the sidebar / influencer
 	 */
 	influencerTitle?: string;
+
+	influencerItemTitle?: string;
+	influencerItemSubtitle?: string;
+
 	/**
 	 * object that contains the item data. for more information reference the
 	 * "Structuring items" section in the docs tab

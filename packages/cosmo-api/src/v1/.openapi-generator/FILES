@@ -21,6 +21,7 @@ git_push.sh
 index.ts
 models/access-login-dto.ts
 models/api-error-response.ts
+models/application-audit.ts
 models/application-dto.ts
 models/application-profile.ts
 models/application.ts
