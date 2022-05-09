@@ -10,8 +10,10 @@ import {
 	ProgressIndicator,
 	ProgressStep,
 	TextArea,
-	TextInput
+	TextInput,
+	Tile
 } from '@carbon/react';
+import TiptapEditor from '@components/tiptap/TiptapEditor';
 import React, { useState } from 'react';
 
 import { useForm } from 'react-hook-form';
@@ -48,92 +50,91 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 	} = useForm<NewAppForm>({ mode: 'onChange' });
 
 	const GeneralInfo = React.memo(() => (
-		<Grid fullWidth className='space-y-7'>
-			<Column
-				sm={{ span: 4 }}
-				md={{ span: 8 }}
-				lg={{ span: 16 }}
-				className='text-fluid-heading-3'
-			>
-				General Information
-			</Column>
-			<Column sm={{ span: 4 }} md={{ span: 8 }} lg={{ span: 16 }} className='space-y-5'>
-				<Form className='w-full space-y-5' id='general-info-form'>
-					<div className='flex w-full space-x-5'>
+		<Tile className='w-full pb-7'>
+			<Grid fullWidth className='space-y-7'>
+				<Column
+					sm={{ span: 4 }}
+					md={{ span: 8 }}
+					lg={{ span: 16 }}
+					className='text-fluid-heading-3'
+				>
+					General Information
+				</Column>
+				<Column sm={{ span: 4 }} md={{ span: 8 }} lg={{ span: 16 }} className='space-y-5'>
+					<Form className='w-full space-y-5' id='general-info-form'>
+						<div className='flex w-full space-x-5'>
+							<TextInput
+								className='w-full'
+								id='name'
+								invalidText={errors.name?.message}
+								labelText='Name *'
+								placeholder='Name'
+								helperText='Application name'
+								invalid={Boolean(errors.name)}
+								{...register('name', {
+									required: {
+										value: true,
+										message: 'Required'
+									}
+								})}
+							/>
+							<TextInput
+								className='w-full'
+								id='codeName'
+								invalidText={errors.owner?.message}
+								labelText='Code *'
+								placeholder='Application code'
+								helperText='Acronym for the application name'
+								invalid={Boolean(errors.owner)}
+								{...register('codeName', {
+									required: {
+										value: true,
+										message: 'Required'
+									}
+								})}
+							/>
+						</div>
 						<TextInput
 							className='w-full'
-							id='name'
-							invalidText={errors.name?.message}
-							labelText='Name *'
-							placeholder='Name'
-							helperText='Application name'
-							invalid={Boolean(errors.name)}
-							{...register('name', {
-								required: {
-									value: true,
-									message: 'Required'
-								}
-							})}
-						/>
-						<TextInput
-							className='w-full'
-							id='codeName'
+							id='owner'
 							invalidText={errors.owner?.message}
-							labelText='Code *'
-							placeholder='Application code'
-							helperText='Acronym for the application name'
+							labelText='Owner'
+							placeholder='Application owner'
 							invalid={Boolean(errors.owner)}
-							{...register('codeName', {
-								required: {
-									value: true,
-									message: 'Required'
-								}
-							})}
+							{...register('owner')}
 						/>
-					</div>
-					<TextInput
-						className='w-full'
-						id='owner'
-						invalidText={errors.owner?.message}
-						labelText='Owner'
-						placeholder='Application owner'
-						invalid={Boolean(errors.owner)}
-						{...register('owner')}
-					/>
-					<TextArea
-						className='w-full'
-						rows={1}
-						id='owner-delegates'
-						labelText='Owner Delegates'
-						placeholder='Application owner delegates'
-						{...register('ownerDelegates')}
-					/>
-					<div className='flex w-full items-end space-x-5'>
-						<TextInput
+						<TextArea
 							className='w-full'
-							id='application-maintenance-supplier'
-							labelText='Application Maintenance Supplier'
-							placeholder='Application maintenance supplier'
-							{...register('appMaintenance')}
+							rows={1}
+							id='owner-delegates'
+							labelText='Owner Delegates'
+							placeholder='Application owner delegates'
+							{...register('ownerDelegates')}
 						/>
-						<TextInput
-							className='w-full'
-							id='operation-supplier'
-							labelText='Operation Supplier'
-							placeholder='Operation supplier'
-							{...register('operationSupplier')}
-						/>
-					</div>
-					<TextArea
-						className='w-full'
-						id='description'
-						labelText='Description'
-						placeholder='Description'
-						{...register('description')}
-					/>
-				</Form>
-			</Column>
-		</Grid>
+						<div className='flex w-full items-end space-x-5'>
+							<TextInput
+								className='w-full'
+								id='application-maintenance-supplier'
+								labelText='Application Maintenance Supplier'
+								placeholder='Application maintenance supplier'
+								{...register('appMaintenance')}
+							/>
+							<TextInput
+								className='w-full'
+								id='operation-supplier'
+								labelText='Operation Supplier'
+								placeholder='Operation supplier'
+								{...register('operationSupplier')}
+							/>
+						</div>
+						<div>
+							<p className='mb-3 text-text-secondary text-label-1'> Description </p>
+							<TiptapEditor />
+						</div>
+					</Form>
+				</Column>
+			</Grid>
+		</Tile>
 	));
 	const TechnicalInfo = React.memo(() => (
 		<Grid fullWidth className='space-y-7'>

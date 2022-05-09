@@ -3,6 +3,7 @@ import { TrashCan } from '@carbon/react/icons';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import DeleteModal from './Modals/DeleteModal';
+import TiptapEditor from './tiptap/TiptapEditor';
 
 interface ProcedureForm {
 	procedure: string;
@@ -94,25 +95,6 @@ const ProcedureContainer = () => {
 						</div>
 					</Column>
 					<Column sm={{ span: 4 }} md={{ span: 8 }} lg={{ span: 16 }}>
-						<div className='flex w-full items-stretch space-x-5'>
-							<TextArea
-								className='w-full'
-								id='description'
-								invalidText={errors.description?.message}
-								labelText='Description'
-								placeholder='Description'
-								invalid={Boolean(errors.description)}
-								defaultValue='Default value'
-								{...register('description', {
-									required: {
-										value: true,
-										message: 'Required'
-									}
-								})}
-							/>
-						</div>
-					</Column>
-					<Column sm={{ span: 4 }} md={{ span: 8 }} lg={{ span: 16 }}>
 						<div className='flex w-full space-x-5'>
 							<TextInput
 								className='w-full'
@@ -142,6 +124,12 @@ const ProcedureContainer = () => {
 								labelText='Last Reviewer'
 								value='Default value'
 							/>
+						</div>
+					</Column>
+					<Column sm={{ span: 4 }} md={{ span: 8 }} lg={{ span: 16 }}>
+						<div>
+							<p className='mb-3 text-text-secondary text-label-1'> Description </p>
+							<TiptapEditor />
 						</div>
 					</Column>
 					<Column

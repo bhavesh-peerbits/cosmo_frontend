@@ -33,7 +33,7 @@ const GeneralInfoContainer = ({
 		isResetting && (reset(), setIsResetting(false), setIsDirty(false));
 	});
 	return (
-		<Tile href='ApplicationName' className='w-full bg-background pb-7'>
+		<Tile className='w-full bg-background pb-7'>
 			<Grid fullWidth className='space-y-7'>
 				<Column
 					sm={{ span: 4 }}
@@ -143,7 +143,10 @@ const GeneralInfoContainer = ({
 								})}
 							/>
 						</div>
-						<TiptapEditor />
+						<div>
+							<p className='mb-3 text-text-secondary text-label-1'> Description </p>
+							<TiptapEditor />
+						</div>
 					</Form>
 				</Column>
 			</Grid>
