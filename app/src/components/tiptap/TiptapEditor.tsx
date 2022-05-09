@@ -1,4 +1,4 @@
-import { useEditor, EditorContent, Editor } from '@tiptap/react';
+import { Editor, EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Table from '@tiptap/extension-table';
 import TableRow from '@tiptap/extension-table-row';
@@ -8,22 +8,22 @@ import TableHeader from '@tiptap/extension-table-header';
 import { Button, OverflowMenu, OverflowMenuItem } from '@carbon/react';
 import '../../style/tiptap.scss';
 import {
+	ColumnDelete,
+	ColumnInsert,
+	ListBulleted,
+	ListNumbered,
+	Paragraph,
+	Quotes,
+	Redo,
+	Row,
+	RowDelete,
+	RowInsert,
+	Table as TableIcon,
 	TextBold,
 	TextItalic,
 	TextStrikethrough,
-	Paragraph,
-	ListBulleted,
-	ListNumbered,
-	Quotes,
-	Row,
-	Undo,
-	Redo,
-	Table as TableIcon,
-	ColumnInsert,
-	ColumnDelete,
-	RowInsert,
-	RowDelete,
-	TrashCan
+	TrashCan,
+	Undo
 } from '@carbon/react/icons';
 
 type EditorType = {
@@ -56,7 +56,7 @@ const MenuBar = ({ editor }: EditorType) => {
 	}
 
 	return (
-		<div className='flex'>
+		<div className='flex flex-wrap'>
 			<Button
 				size='sm'
 				hasIconOnly

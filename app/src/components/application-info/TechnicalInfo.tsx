@@ -62,7 +62,6 @@ const TechnicalInfo = ({ register }: TechnicalInfoProps) => {
 								id='technical-code'
 								labelText='Technical Code'
 								placeholder='Technical code'
-								defaultValue='Default value'
 								{...register('technicalInfo.technicalCode')}
 							/>
 						</Column>
