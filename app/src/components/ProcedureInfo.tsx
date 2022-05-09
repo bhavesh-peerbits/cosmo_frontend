@@ -3,7 +3,6 @@ import { Add, Email } from '@carbon/react/icons';
 import { useState } from 'react';
 import NewProcedureModal from './NewProcedureModal';
 import ProcedureContainer from './ProcedureContainer';
-import ScrollToContent from './ScrollToContent';
 
 const ProcedureInfo = () => {
 	const proceduresList = [
@@ -18,7 +17,7 @@ const ProcedureInfo = () => {
 			<Grid fullWidth narrow className='h-full '>
 				<Column sm={2} md={2} lg={3} className='justify-self-start'>
 					<div className='sticky top-[112px]'>
-						<ScrollToContent withCheckbox={isCheckboxView} contentList={proceduresList} />
+						{/* <ScrollToContent withCheckbox={isCheckboxView} contentList={proceduresList} /> */}
 					</div>
 				</Column>
 				<Column sm={4} md={6} lg={13} className='pt-4'>

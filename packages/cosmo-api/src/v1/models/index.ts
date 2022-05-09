@@ -1,6 +1,7 @@
 export * from './access-login-dto';
 export * from './api-error-response';
 export * from './application';
+export * from './application-dto';
 export * from './application-profile';
 export * from './config-element';
 export * from './config-module';
@@ -13,7 +14,6 @@ export * from './frequency';
 export * from './module';
 export * from './procedure';
 export * from './procedure-app-instance';
-export * from './procedure-app-instance-key';
 export * from './profile';
 export * from './refresh-token-dto';
 export * from './tenant';

@@ -1,0 +1,149 @@
+@use '@carbon/react/scss/_spacing' as *;
+@use '@carbon/react/scss/utilities' as *;
+@use '@carbon/react/scss/_motion' as *;
+@use '@carbon/react/scss/_breakpoint' as *;
+
+@mixin stacked-background($opacity) {
+	@apply bg-overlay;
+
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: -1;
+	opacity: $opacity;
+}
+
+$motion-duration: $duration-moderate-02;
+
+@mixin modal {
+	.tearsheet {
+		@apply items-end text-text-primary #{!important};
+
+		z-index: z('modal') + 1;
+		transition: visibility 0s linear $motion-duration,
+			background-color $motion-duration motion(exit, expressive),
+			opacity $motion-duration motion(exit, expressive);
+
+		--tearsheet-stacking-scale-factor-single: 0.95;
+		--tearsheet-stacking-scale-factor-double: 0.9;
+
+		&.is-visible {
+			@apply items-end text-text-primary #{!important};
+
+			z-index: z('modal');
+			transition: visibility 0s linear,
+				background-color $motion-duration motion(entrance, expressive),
+				opacity $motion-duration motion(entrance, expressive);
+			@media (prefers-reduced-motion: reduce) {
+				transition: none;
+			}
+		}
+
+		&--stacked-1-of-2 {
+			@apply bg-transparent;
+
+			&::before {
+				@include stacked-background(0.6);
+			}
+
+			z-index: z('modal') - 1;
+		}
+
+		&--stacked-1-of-3 {
+			@apply bg-transparent;
+
+			&::before {
+				@include stacked-background(0.2);
+			}
+
+			z-index: z('modal') - 2;
+		}
+
+		&--stacked-2-of-3 {
+			@apply bg-transparent;
+
+			&::before {
+				@include stacked-background(0.4);
+			}
+
+			z-index: z('modal') - 1;
+		}
+
+		&--stacked-2-of-2,
+		&--stacked-3-of-3 {
+			@apply bg-transparent;
+
+			&::before {
+				@include stacked-background(0.4);
+			}
+		}
+
+		&__container {
+			max-height: calc(100% - (#{$spacing-09} + #{$spacing-08}));
+			transform: translate3d(0, calc(min(95vh, 500px)), 0);
+		}
+
+		&--stacked-1-of-2 &__container,
+		&--stacked-2-of-3 &__container {
+			max-height: calc(100% - (#{$spacing-09} + #{$spacing-08}) + #{$spacing-05});
+		}
+
+		&--stacked-1-of-3 &__container {
+			max-height: calc(100% - (#{$spacing-09} + #{$spacing-08}) + (2 * #{$spacing-05}));
+		}
+
+		&--wide &__container {
+			width: 100%;
+		}
+
+		@include breakpoint(md) {
+			&--wide &__container {
+				width: calc(100% - (2 * #{$spacing-10}));
+			}
+		}
+
+		&--stacked-1-of-2.is-visible &__container,
+		&--stacked-2-of-3.is-visible &__container {
+			transform: scale(var(--tearsheet-stacking-scale-factor-single));
+		}
+
+		&--stacked-1-of-3.is-visible &__container {
+			transform: scale(var(--tearsheet-stacking-scale-factor-double));
+		}
+
+		&--wide &__header {
+			@apply border-b-1 border-solid border-border-subtle-1;
+
+			padding: $spacing-06 $spacing-07;
+			margin: 0;
+		}
+
+		&--wide &__header--with-nav {
+			padding-bottom: 0;
+		}
+
+		&--narrow &__header {
+			padding: $spacing-05;
+			margin: 0;
+		}
+
+		&--wide &__header--with-close-icon {
+			padding-right: $spacing-10;
+		}
+
+		// buttons inside button sets in the header action area have 8px gap
+		&__header-actions &--btn-set &--btn:not(:first-of-type) {
+			margin-left: $spacing-03;
+		}
+	}
+
+	.tearsheet.tearsheet .tearsheet__container {
+		transition: transform $motion-duration motion(entrance, expressive),
+			max-height $motion-duration motion(entrance, expressive);
+	}
+}
+
+@include modal;

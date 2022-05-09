@@ -14,7 +14,6 @@
 
 import { Application } from './application';
 import { Procedure } from './procedure';
-import { ProcedureAppInstanceKey } from './procedure-app-instance-key';
 import { User } from './user';
 
 /**
@@ -25,10 +24,10 @@ import { User } from './user';
 export interface ProcedureAppInstance {
 	/**
 	 *
-	 * @type {ProcedureAppInstanceKey}
+	 * @type {number}
 	 * @memberof ProcedureAppInstance
 	 */
-	procedureAppInstanceKey?: ProcedureAppInstanceKey;
+	id?: number;
 	/**
 	 *
 	 * @type {Procedure}
@@ -83,6 +82,12 @@ export interface ProcedureAppInstance {
 	 * @memberof ProcedureAppInstance
 	 */
 	owner?: User;
+	/**
+	 *
+	 * @type {Array<User>}
+	 * @memberof ProcedureAppInstance
+	 */
+	delegatedProcedureApp?: Array<User>;
 	/**
 	 *
 	 * @type {User}

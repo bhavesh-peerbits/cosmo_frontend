@@ -55,8 +55,12 @@ module.exports = {
 			0: '0',
 			...carbonSpacing
 		},
+		borderWidth: {
+			...carbonSpacing
+		},
 		screens: carbonBreakpoints,
 		colors: {
+			transparent: 'transparent',
 			...themeTokens.reduce((acc, key) => {
 				const k = toKebabCase(key);
 				acc[k] = `var(--cds-${toKebabCase(key, false)})`;

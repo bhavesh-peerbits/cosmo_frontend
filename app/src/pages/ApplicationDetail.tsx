@@ -1,26 +1,29 @@
-import ApplicationInfo from '@components/ApplicationInfo';
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@carbon/react';
+import ApplicationInfo from '@components/application-info/ApplicationInfo';
+import { Tab, TabList, TabPanel, TabPanels } from '@carbon/react';
 import PageHeader from '@components/PageHeader';
 import { CloudDownload, Email, TrashCan } from '@carbon/react/icons';
-import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import ProcedureInfo from '@components/ProcedureInfo';
 import ApplicationChangesContainer from '@components/ApplicationChangesContainer';
 import ApplicationReviewModal from '@components/ApplicationReviewModal';
 import GenerateModal from '@components/GenerateModal';
 import DeleteModal from '@components/DeleteModal';
+import { useParams } from 'react-router-dom';
+import StickyTabs from '@components/StickyTabs';
+import useGetApp from '@api/management/useGetApp';
 
 const ApplicationDetail = () => {
+	const { appId = '' } = useParams<'appId'>();
+	const { data } = useGetApp(appId);
+
 	const [isGenerateModalOpen, setIsGenerateModalOpen] = useState(false);
 	const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-	const { breadcrumbSize } = useBreadcrumbSize();
-	const tabRef = useRef<HTMLDivElement>(null);
-	const tab = tabRef.current?.getElementsByClassName('sticky')?.[0] as HTMLElement;
 
-	useEffect(() => {
-		tab && (tab.style.top = `${breadcrumbSize}px`);
-	}, [breadcrumbSize, tab]);
+	if (!data) {
+		return null;
+	}
+
 	return (
 		<PageHeader
 			pageTitle='ApplicationName'
@@ -49,10 +52,10 @@ const ApplicationDetail = () => {
 				}
 			]}
 		>
-			<div ref={tabRef} className='-mt-5 h-full'>
-				<Tabs>
+			<>
+				<StickyTabs>
 					<TabList
-						className='sticky z-[9] bg-background'
+						className='sticky z-10 bg-background'
 						contained
 						aria-label='List of tabs'
 					>
@@ -62,7 +65,7 @@ const ApplicationDetail = () => {
 					</TabList>
 					<TabPanels>
 						<TabPanel>
-							<ApplicationInfo />
+							<ApplicationInfo application={data} />
 						</TabPanel>
 						<TabPanel>
 							<ProcedureInfo />
@@ -71,7 +74,8 @@ const ApplicationDetail = () => {
 							<ApplicationChangesContainer />
 						</TabPanel>
 					</TabPanels>
-				</Tabs>
+				</StickyTabs>
+
 				<ApplicationReviewModal
 					isOpen={isReviewModalOpen}
 					setIsOpen={setIsReviewModalOpen}
@@ -82,7 +86,7 @@ const ApplicationDetail = () => {
 					setIsOpen={setIsDeleteModalOpen}
 					itemToDelete='ApplicationName'
 				/>
-			</div>
+			</>
 		</PageHeader>
 	);
 };

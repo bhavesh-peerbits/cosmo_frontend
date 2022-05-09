@@ -36,4 +36,10 @@ export interface Tenant {
 	 * @memberof Tenant
 	 */
 	description?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Tenant
+	 */
+	jsonTenantData?: string;
 }

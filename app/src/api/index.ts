@@ -19,6 +19,7 @@ axios.interceptors.response.use(
 axios.interceptors.request.use(
 	config => {
 		config.headers = {
+			...config.headers,
 			'Accept-Language': underscoreToDash(i18n.language)
 		};
 

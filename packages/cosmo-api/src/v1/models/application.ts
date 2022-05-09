@@ -78,6 +78,18 @@ export interface Application {
 	owner?: User;
 	/**
 	 *
+	 * @type {Array<User>}
+	 * @memberof Application
+	 */
+	delegated?: Array<User>;
+	/**
+	 *
+	 * @type {User}
+	 * @memberof Application
+	 */
+	creatorUser?: User;
+	/**
+	 *
 	 * @type {User}
 	 * @memberof Application
 	 */
@@ -90,10 +102,22 @@ export interface Application {
 	lastModifier?: User;
 	/**
 	 *
+	 * @type {string}
+	 * @memberof Application
+	 */
+	creationDate?: string;
+	/**
+	 *
 	 * @type {Tenant}
 	 * @memberof Application
 	 */
 	tenant?: Tenant;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Application
+	 */
+	jsonApplicationData?: string;
 	/**
 	 *
 	 * @type {boolean}

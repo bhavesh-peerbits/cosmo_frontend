@@ -12,22 +12,18 @@
  * Do not edit the class manually.
  */
 
+import { ApplicationDataSection } from './application-data-section';
+
 /**
  *
  * @export
- * @interface ProcedureAppInstanceKey
+ * @interface EditApplicationDto
  */
-export interface ProcedureAppInstanceKey {
+export interface EditApplicationDto {
 	/**
 	 *
-	 * @type {number}
-	 * @memberof ProcedureAppInstanceKey
+	 * @type {ApplicationDataSection}
+	 * @memberof EditApplicationDto
 	 */
-	procedureId?: number;
-	/**
-	 *
-	 * @type {number}
-	 * @memberof ProcedureAppInstanceKey
-	 */
-	applicationId?: number;
+	applicationData: ApplicationDataSection;
 }
