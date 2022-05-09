@@ -2,7 +2,8 @@ import { Button, Column, Form, Grid, TextArea, TextInput, Tile } from '@carbon/r
 import { TrashCan } from '@carbon/react/icons';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import DeleteModal from './DeleteModal';
+import DeleteModal from './Modals/DeleteModal';
+import TiptapEditor from './tiptap/TiptapEditor';
 
 interface ProcedureForm {
 	procedure: string;
@@ -19,12 +20,13 @@ const ProcedureContainer = () => {
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 	const {
 		register,
+		reset,
 		formState: { errors, isValid, isDirty }
 	} = useForm<ProcedureForm>({ mode: 'onBlur' });
 	return (
 		<Tile href='ApplicationName' className='w-full bg-background'>
 			<Form>
-				<Grid fullWidth narrow className='space-y-7'>
+				<Grid fullWidth className='space-y-7'>
 					<Column
 						sm={{ span: 4 }}
 						md={{ span: 8 }}
@@ -93,25 +95,6 @@ const ProcedureContainer = () => {
 						</div>
 					</Column>
 					<Column sm={{ span: 4 }} md={{ span: 8 }} lg={{ span: 16 }}>
-						<div className='flex w-full items-stretch space-x-5'>
-							<TextArea
-								className='w-full'
-								id='description'
-								invalidText={errors.description?.message}
-								labelText='Description'
-								placeholder='Description'
-								invalid={Boolean(errors.description)}
-								defaultValue='Default value'
-								{...register('description', {
-									required: {
-										value: true,
-										message: 'Required'
-									}
-								})}
-							/>
-						</div>
-					</Column>
-					<Column sm={{ span: 4 }} md={{ span: 8 }} lg={{ span: 16 }}>
 						<div className='flex w-full space-x-5'>
 							<TextInput
 								className='w-full'
@@ -143,13 +126,24 @@ const ProcedureContainer = () => {
 							/>
 						</div>
 					</Column>
+					<Column sm={{ span: 4 }} md={{ span: 8 }} lg={{ span: 16 }}>
+						<div>
+							<p className='mb-3 text-text-secondary text-label-1'> Description </p>
+							<TiptapEditor />
+						</div>
+					</Column>
 					<Column
 						sm={{ span: 4 }}
 						md={{ span: 5, offset: 3 }}
 						lg={{ span: 3, offset: 13 }}
 					>
 						<div className='space-x-5'>
-							<Button type='reset' kind='tertiary' disabled={!isDirty}>
+							<Button
+								type='reset'
+								kind='tertiary'
+								disabled={!isDirty}
+								onClick={() => reset()}
+							>
 								Cancel
 							</Button>
 							<Button type='submit' disabled={!isValid}>

@@ -1,8 +1,10 @@
 import { Button, Column, Grid } from '@carbon/react';
 import { Add, Email } from '@carbon/react/icons';
 import { useState } from 'react';
-import NewProcedureModal from './NewProcedureModal';
+import NewProcedureModal from './Modals/NewProcedureModal';
 import ProcedureContainer from './ProcedureContainer';
+import MultipleReviewModal from './Modals/MultipleReviewModal';
+import ScrollToContent from './ScrollToContent';
 
 const ProcedureInfo = () => {
 	const proceduresList = [
@@ -10,14 +12,23 @@ const ProcedureInfo = () => {
 		{ id: 'procedure-2', content: 'Procedure 2' },
 		{ id: 'procedure-3', content: 'Procedure 3' }
 	];
+
 	const [isNewProcedureOpen, setIsNewProcedureOpen] = useState(false);
 	const [isCheckboxView, setIsCheckboxView] = useState(false);
+	const [showProcedureModal, setShowProcedureModal] = useState(false);
+	const [totalSelected, setTotalSelected] = useState(0);
+
 	return (
 		<div className='pb-7'>
-			<Grid fullWidth narrow className='h-full '>
+			<Grid fullWidth className='h-full '>
 				<Column sm={2} md={2} lg={3} className='justify-self-start'>
 					<div className='sticky top-[112px]'>
-						{/* <ScrollToContent withCheckbox={isCheckboxView} contentList={proceduresList} /> */}
+						<ScrollToContent
+							withCheckbox={isCheckboxView}
+							contentList={proceduresList}
+							totalSelected={totalSelected}
+							setTotalSelected={setTotalSelected}
+						/>
 					</div>
 				</Column>
 				<Column sm={4} md={6} lg={13} className='pt-4'>
@@ -40,7 +51,12 @@ const ProcedureInfo = () => {
 									kind={isCheckboxView ? 'primary' : 'tertiary'}
 									size='md'
 									renderIcon={Email}
-									onClick={() => setIsCheckboxView(true)}
+									disabled={isCheckboxView && totalSelected === 0}
+									onClick={
+										isCheckboxView
+											? () => setShowProcedureModal(true)
+											: () => setIsCheckboxView(true)
+									}
 								>
 									Review
 								</Button>
@@ -48,13 +64,24 @@ const ProcedureInfo = () => {
 									<Button
 										kind='secondary'
 										size='md'
-										onClick={() => setIsCheckboxView(false)}
+										onClick={() => {
+											setIsCheckboxView(false);
+											setTotalSelected(0);
+										}}
 									>
 										Cancel
 									</Button>
 								)}
 							</div>
 						</div>
+						{showProcedureModal && (
+							<MultipleReviewModal
+								isOpen={showProcedureModal}
+								setIsOpen={setShowProcedureModal}
+								type='procedure'
+								totalSelected={totalSelected}
+							/>
+						)}
 						<div className='space-y-7'>
 							{proceduresList.map(procedure => (
 								<div id={procedure.id}>

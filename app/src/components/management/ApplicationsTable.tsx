@@ -6,6 +6,10 @@ import { TableToolbarSearch } from '@carbon/react';
 import CosmoTable, { CellProperties, HeaderFunction } from '@components/table/CosmoTable';
 import IconResolver from '@components/IconResolver';
 import { formatDate } from '@i18n';
+import { useState } from 'react';
+import MultipleReviewModal from '@components/Modals/MultipleReviewModal';
+import MultipleDeleteModal from '@components/Modals/MultipleDeleteModal';
+import MultipleGenerateModal from '@components/Modals/MultipleGenerateModal';
 
 const ApplicationIconCell = ({ row, value }: CellProperties<Application, string>) => {
 	return (
@@ -22,6 +26,9 @@ const ApplicationsTable = () => {
 	const { t } = useTranslation('management');
 	const { apps } = useManagementApps();
 	const { filters, setFilters } = useManagementApps();
+
+	const [actionSelected, setActionSelected] = useState('');
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const columns: HeaderFunction<Application> = table => [
 		table.createDataColumn(row => row.name, {
@@ -57,9 +64,33 @@ const ApplicationsTable = () => {
 	];
 
 	const toolbarBatchActions = [
-		{ id: 'email', icon: Email, onClick: () => {}, label: t('email') },
-		{ id: 'cloud', icon: CloudDownload, onClick: () => {}, label: t('download') },
-		{ id: 'trash', icon: TrashCan, onClick: () => {}, label: t('delete') }
+		{
+			id: 'email',
+			icon: Email,
+			onClick: () => {
+				setActionSelected('Review');
+				setIsModalOpen(true);
+			},
+			label: t('email')
+		},
+		{
+			id: 'cloud',
+			icon: CloudDownload,
+			onClick: () => {
+				setActionSelected('Generate');
+				setIsModalOpen(true);
+			},
+			label: t('download')
+		},
+		{
+			id: 'trash',
+			icon: TrashCan,
+			onClick: () => {
+				setActionSelected('Delete');
+				setIsModalOpen(true);
+			},
+			label: t('delete')
+		}
 	];
 
 	const toolbarContent = (
@@ -73,13 +104,41 @@ const ApplicationsTable = () => {
 		/>
 	);
 
+	const modalToOpen = () => {
+		switch (actionSelected) {
+			case 'Review':
+				return (
+					<MultipleReviewModal
+						type='application'
+						isOpen={isModalOpen}
+						setIsOpen={setIsModalOpen}
+					/>
+				);
+			case 'Generate':
+				return <MultipleGenerateModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />;
+			default:
+				return (
+					<MultipleDeleteModal
+						isOpen={isModalOpen}
+						setIsOpen={setIsModalOpen}
+						totalSelected={2}
+					/>
+				);
+		}
+	};
+
 	return (
-		<CosmoTable
-			data={apps}
-			createHeaders={columns}
-			noDataMessage={t('no-applications')}
-			toolbar={{ toolbarContent, toolbarBatchActions }}
-		/>
+		<div>
+			{isModalOpen && modalToOpen()}
+
+			<CosmoTable
+				data={apps}
+				createHeaders={columns}
+				noDataMessage={t('no-applications')}
+				toolbar={{ toolbarContent, toolbarBatchActions }}
+				isSelectable
+			/>
+		</div>
 	);
 };
 

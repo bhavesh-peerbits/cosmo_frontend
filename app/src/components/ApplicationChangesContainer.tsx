@@ -3,7 +3,7 @@ import ApplicationChangesTable from './ApplicationChangesTable';
 
 const ApplicationChangesContainer = () => {
 	return (
-		<Grid fullWidth narrow className='h-full'>
+		<Grid fullWidth className='h-full'>
 			<Column sm={4} md={8} lg={16}>
 				<div>
 					<ApplicationChangesTable />

@@ -7,6 +7,7 @@ export interface TechnicalInfoForm {
 		appServers: string;
 		appServersOS: string;
 		appCodePath: string;
+		technicalCode: string;
 		dbServers: string;
 		dbServersOS: string;
 		dbService: string;
@@ -46,7 +47,7 @@ const TechnicalInfo = ({ register }: TechnicalInfoProps) => {
 								{...register('technicalInfo.appServersOS')}
 							/>
 						</Column>
-						<FullWidthColumn className='mb-5'>
+						<Column sm={4} md={8} lg={8} className='mb-5'>
 							<TextInput
 								className='w-full self-stretch'
 								id='application-code-path'
@@ -54,7 +55,17 @@ const TechnicalInfo = ({ register }: TechnicalInfoProps) => {
 								placeholder='Application code path'
 								{...register('technicalInfo.appCodePath')}
 							/>
-						</FullWidthColumn>
+						</Column>
+						<Column sm={4} md={8} lg={8} className='mb-5'>
+							<TextInput
+								className='w-full self-stretch'
+								id='technical-code'
+								labelText='Technical Code'
+								placeholder='Technical code'
+								defaultValue='Default value'
+								{...register('technicalInfo.technicalCode')}
+							/>
+						</Column>
 						<Column sm={4} md={8} lg={8} className='mb-5'>
 							<TextInput
 								className='w-full'

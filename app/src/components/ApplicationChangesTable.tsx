@@ -1,110 +1,64 @@
-import {
-	DataTable,
-	TableContainer,
-	Layer,
-	Table,
-	TableHead,
-	TableRow,
-	TableHeader,
-	TableBody,
-	TableCell
-} from '@carbon/react';
+import CosmoTable, { HeaderFunction } from './table/CosmoTable';
 
 const ApplicationChangesTable = () => {
-	type Row = {
-		[key: string]: string;
+	interface ApplicationChange {
 		id: string;
-	};
-
-	const rows: Row[] = [
+		object_modified: string;
+		field_modified: string;
+		user: string;
+		change: string;
+		modify_date: string;
+	}
+	const data: ApplicationChange[] = [
 		{
 			id: 'change-1',
-			procedure: 'Procedure Name 1',
-			field: 'Field',
-			value: 'New Value',
-			date: 'mm/dd/yyyy',
-			changedBy: 'Name Surname'
+			object_modified: 'Procedure Name 1',
+			field_modified: 'Field1',
+			change: 'New Value',
+			user: 'Name Surname',
+			modify_date: '03/01/2022'
 		},
 		{
 			id: 'change-2',
-			procedure: 'Procedure Name 2',
-			field: 'Field',
-			value: 'New Value',
-			date: 'mm/dd/yyyy',
-			changedBy: 'Name Surname'
+			object_modified: 'Procedure Name 2',
+			field_modified: 'Field2',
+			change: 'New Value',
+			user: 'Name Surname',
+			modify_date: '03/01/2022'
 		},
 		{
 			id: 'change-3',
-			procedure: 'Procedure Name 3',
-			field: 'Field',
-			value: 'New Value',
-			date: 'mm/dd/yyyy',
-			changedBy: 'Name Surname'
-		},
-		{
-			id: 'change-4',
-			procedure: 'Procedure Name 4',
-			field: 'Field',
-			value: 'New Value',
-			date: 'mm/dd/yyyy',
-			changedBy: 'Name Surname'
-		},
-		{
-			id: 'change-5',
-			procedure: 'Procedure Name 5',
-			field: 'Field5',
-			value: 'New Value',
-			date: 'mm/dd/yyyy',
-			changedBy: 'Name Surname'
-		},
-		{
-			id: 'change-6',
-			procedure: 'Procedure Name 6',
-			field: 'Field6',
-			value: 'New Value',
-			date: 'mm/dd/yyyy',
-			changedBy: 'Name Surname'
+			object_modified: 'Procedure Name 3',
+			field_modified: 'Field3',
+			change: 'New Value',
+			user: 'Name Surname',
+			modify_date: '03/01/2022'
 		}
 	];
-	const headers = [
-		{ key: 'procedure', header: 'Procedure' },
-		{ key: 'field', header: 'Field' },
-		{ key: 'value', header: 'Value' },
-		{ key: 'date', header: 'Date' },
-		{ key: 'changedBy', header: 'Changed By' }
+	const columns: HeaderFunction<ApplicationChange> = table => [
+		table.createDataColumn(row => row.object_modified, {
+			id: 'objec-modified',
+			header: 'Object Modified',
+			sortUndefined: 1
+		}),
+		table.createDataColumn(row => row.field_modified, {
+			id: 'field-modified',
+			header: 'Field Modified'
+		}),
+		table.createDataColumn(row => row.change, {
+			id: 'change',
+			header: 'Change'
+		}),
+		table.createDataColumn(row => row.user, {
+			id: 'user',
+			header: 'User'
+		}),
+		table.createDataColumn(row => row.modify_date, {
+			id: 'modify-date',
+			header: 'Modify Date'
+		})
 	];
 
-	return (
-		<DataTable rows={rows} headers={headers} isSortable>
-			{() => (
-				<TableContainer>
-					<Layer level={1}>
-						<Table isSortable>
-							<TableHead>
-								<TableRow>
-									{headers.map(header => (
-										<TableHeader scope='' key={header.key} isSortable>
-											{header.header}
-										</TableHeader>
-									))}
-								</TableRow>
-							</TableHead>
-							<TableBody>
-								{rows.map(row => (
-									<TableRow key={row.id}>
-										{Object.keys(row)
-											.filter(key => key !== 'id')
-											.map(key => {
-												return <TableCell key={key}>{row[key]}</TableCell>;
-											})}
-									</TableRow>
-								))}
-							</TableBody>
-						</Table>
-					</Layer>
-				</TableContainer>
-			)}
-		</DataTable>
-	);
+	return <CosmoTable data={data} createHeaders={columns} noDataMessage='No data' />;
 };
 export default ApplicationChangesTable;

@@ -1,10 +1,11 @@
-import { Column, Grid, TextArea, TextInput, Tile } from '@carbon/react';
+import { Column, Grid, TextInput, Tile } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { Control, FieldErrors, useController, UseFormRegister } from 'react-hook-form';
 import User from '@model/User';
 import SingleUserSelect from '@components/SingleUserSelect';
 import MultipleUserSelect from '@components/MultipleUserSelect';
 import IconPicker, { icons } from '@components/IconPicker';
+import TiptapEditor from '@components/tiptap/TiptapEditor';
 
 export interface GeneralInfoForm {
 	generalInfo: {
@@ -54,6 +55,7 @@ const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
 								invalidText={errors.generalInfo?.name?.message}
 								labelText='Name *'
 								placeholder='Name'
+								helperText='Application name'
 								invalid={Boolean(errors.generalInfo?.name)}
 								{...register('generalInfo.name', {
 									required: {
@@ -70,6 +72,7 @@ const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
 								invalidText={errors.generalInfo?.codeName?.message}
 								labelText='Code *'
 								placeholder='Code'
+								helperText='Acronym for the application name'
 								invalid={Boolean(errors.generalInfo?.codeName)}
 								{...register('generalInfo.codeName', {
 									required: {
@@ -115,13 +118,10 @@ const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
 							/>
 						</Column>
 						<FullWidthColumn>
-							<TextArea
-								className='w-full'
-								id='description'
-								labelText='Description'
-								placeholder='Description'
-								{...register('generalInfo.description')}
-							/>
+							<div>
+								<p className='mb-3 text-text-secondary text-label-1'> Description </p>
+								<TiptapEditor />
+							</div>
 						</FullWidthColumn>
 					</Grid>
 				</FullWidthColumn>
