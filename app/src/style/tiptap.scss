@@ -1,6 +1,6 @@
 /* Basic editor styles */
 .ProseMirror {
-  @apply py-4 px-2;
+	@apply py-4 px-2;
 
 	min-height: 100px;
 
@@ -120,5 +120,5 @@
 }
 
 .resize-cursor {
-  cursor: col-resize;
+	cursor: col-resize;
 }
