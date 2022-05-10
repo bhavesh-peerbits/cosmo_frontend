@@ -39,7 +39,7 @@ const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
 	});
 
 	return (
-		<Tile href='ApplicationName' className='w-full bg-layer-accent-1 pb-7'>
+		<Tile href='ApplicationName' className='w-full bg-background pb-7'>
 			<Grid fullWidth className='space-y-7'>
 				<FullWidthColumn data-toc-id='general-info' className='text-productive-heading-3'>
 					General Information

@@ -22,7 +22,7 @@ interface TechnicalInfoProps {
 
 const TechnicalInfo = ({ register }: TechnicalInfoProps) => {
 	return (
-		<Tile href='ApplicationName' className='w-full bg-layer-accent-1 pb-7'>
+		<Tile href='ApplicationName' className='w-full bg-background pb-7'>
 			<Grid fullWidth className='space-y-7'>
 				<FullWidthColumn data-toc-id='technical-info' className='text-fluid-heading-3'>
 					Technical Information
