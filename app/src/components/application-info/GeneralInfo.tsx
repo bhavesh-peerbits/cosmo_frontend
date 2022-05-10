@@ -6,6 +6,7 @@ import SingleUserSelect from '@components/SingleUserSelect';
 import MultipleUserSelect from '@components/MultipleUserSelect';
 import IconPicker, { icons } from '@components/IconPicker';
 import TiptapEditor from '@components/tiptap/TiptapEditor';
+import cx from 'classnames';
 
 export interface GeneralInfoForm {
 	generalInfo: {
@@ -28,7 +29,7 @@ type GeneralInfoProps = {
 
 const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
 	const {
-		field: { onChange, value }
+		field: { onChange, value, ref, onBlur }
 	} = useController({
 		control,
 		name: 'generalInfo.icon',
@@ -46,7 +47,14 @@ const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
 				<FullWidthColumn>
 					<Grid fullWidth>
 						<FullWidthColumn>
-							<IconPicker icon={value} onChange={onChange} />
+							<IconPicker
+								{...{ ref, onBlur }}
+								className={cx({
+									'outline outline-support-error': Boolean(errors.generalInfo?.icon)
+								})}
+								icon={value}
+								onChange={onChange}
+							/>
 						</FullWidthColumn>
 						<Column sm={4} md={8} lg={8} className='mb-5'>
 							<TextInput
