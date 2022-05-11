@@ -1,9 +1,8 @@
 /* Basic editor styles */
 .ProseMirror {
-	padding-bottom: 1em;
+	@apply py-4 px-2;
+
 	min-height: 100px;
-	padding-left: 0.2em;
-	background-color: #fff;
 
 	> * + * {
 		margin-top: 0.75em;
@@ -121,6 +120,5 @@
 }
 
 .resize-cursor {
-	cursor: ew-resize;
 	cursor: col-resize;
 }

@@ -24,7 +24,7 @@ export const fromApplicationApi = (applicationApi: ApplicationApi): Application 
 	lastModify: applicationApi.lastModify ? new Date(applicationApi.lastModify) : undefined,
 	owner: fromUserApi(applicationApi.owner),
 	delegates: applicationApi.delegates?.map(fromUserApi) ?? [],
-	icon: applicationApi.icon as keyof typeof icons,
+	icon: (applicationApi.icon as keyof typeof icons) || 'web',
 	applicationData: applicationApi.applicationData
 });
 
