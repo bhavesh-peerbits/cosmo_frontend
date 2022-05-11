@@ -102,13 +102,11 @@ const GroupableCosmoTable = <D extends object>({
 					>
 						{row.getVisibleCells().map(cell => (
 							<TableCell {...cell.getCellProps()}>
-								{(cell.getIsGrouped() && (
+								{cell.getIsGrouped() && (
 									<>
 										{cell.renderCell()} ({row.subRows.length})
 									</>
-								)) ||
-									(cell.getIsAggregated() && cell.renderAggregatedCell()) ||
-									(!cell.getIsPlaceholder() && cell.renderCell())}
+								)}
 							</TableCell>
 						))}
 					</TableExpandRow>
