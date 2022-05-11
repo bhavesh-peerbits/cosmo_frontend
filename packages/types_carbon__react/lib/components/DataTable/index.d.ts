@@ -1,5 +1,7 @@
 export { default as TableExpandRow } from './TableExpandRow';
 
+export { default as TableExpandHeader } from './TableExpandHeader';
+
 export { default as DataTable } from './DataTable';
 
 export { default as Table } from './Table';

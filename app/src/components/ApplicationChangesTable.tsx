@@ -37,7 +37,7 @@ const ApplicationChangesTable = () => {
 	];
 	const columns: HeaderFunction<ApplicationChange> = table => [
 		table.createDataColumn(row => row.object_modified, {
-			id: 'objec-modified',
+			id: 'object-modified',
 			header: 'Object Modified',
 			sortUndefined: 1
 		}),
