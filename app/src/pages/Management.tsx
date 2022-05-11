@@ -26,6 +26,19 @@ const Management = () => {
 			]}
 		>
 			<div className='h-full p-container-1'>
+				{/* <MultiStepTearsheet */}
+				{/* 	{...{ */}
+				{/* 		title: 'Create topic', */}
+				{/* 		description: 'Specify details for the new topic you want to create', */}
+				{/* 		submitButtonText: 'Create', */}
+				{/* 		cancelButtonText: 'Cancel', */}
+				{/* 		backButtonText: 'Back', */}
+				{/* 		nextButtonText: 'Next', */}
+				{/* 		className: 'test-class-name', */}
+				{/* 		label: '', */}
+				{/* 		influencerWidth: 'narrow' */}
+				{/* 	}} */}
+				{/* /> */}
 				<NewApplicationModal isOpen={isNewAppOpen} setIsOpen={setIsNewAppOpen} />
 				{filters.isTile !== false ? <ManagementTileView /> : <ManagementTableView />}
 			</div>

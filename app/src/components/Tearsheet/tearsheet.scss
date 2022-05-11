@@ -138,6 +138,20 @@ $motion-duration: $duration-moderate-02;
 		&__header-actions &--btn-set &--btn:not(:first-of-type) {
 			margin-left: $spacing-03;
 		}
+
+		&__influencer p {
+			@apply p-0 #{!important};
+		}
+
+		@include breakpoint-down(md) {
+			&__influencer {
+				max-width: 4rem;
+			}
+
+			&__influencer p {
+				@apply hidden #{!important};
+			}
+		}
 	}
 
 	.tearsheet.tearsheet .tearsheet__container {

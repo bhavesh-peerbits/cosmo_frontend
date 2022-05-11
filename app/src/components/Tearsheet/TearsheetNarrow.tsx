@@ -1,7 +1,7 @@
 import { Button } from '@carbon/react';
 import { ComponentProps, forwardRef, ReactElement, ReactNode, useRef } from 'react';
 
-import { TearsheetShell } from './TearsheetShell';
+import TearsheetShell from './TearsheetShell';
 
 /**
  * A narrow tearsheet is a slimmer variant of the tearsheet, providing a dialog

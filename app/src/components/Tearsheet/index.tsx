@@ -1,6 +1,6 @@
 import React, { ComponentProps, ReactElement, ReactNode, useRef } from 'react';
 import { Button } from '@carbon/react';
-import { TearsheetShell } from './TearsheetShell';
+import TearsheetShell from './TearsheetShell';
 import './tearsheet.scss';
 
 /**
@@ -49,7 +49,7 @@ interface TearsheetProps {
 	 *
 	 * See https://react.carbondesignsystem.com/?path=/docs/components-button--default#component-api
 	 */
-	actions?: Array<ComponentProps<typeof Button> & { label?: string }>;
+	actions?: Array<ComponentProps<typeof Button> & { label?: string; loading?: boolean }>;
 
 	/**
 	 * An optional class or classes to be added to the outermost element.
@@ -115,7 +115,7 @@ interface TearsheetProps {
 	 * clicking the close button, if enabled, or clicking outside, if enabled).
 	 * Returning `false` here prevents the modal from closing.
 	 */
-	onClose?: () => void;
+	onClose?: (byCancel: boolean) => void;
 
 	/**
 	 * Specifies whether the tearsheet is currently open.
@@ -126,6 +126,8 @@ interface TearsheetProps {
 	 * The main title of the tearsheet, displayed in the header area.
 	 */
 	title?: ReactNode;
+
+	isRail?: boolean;
 
 	children?: ReactElement;
 }

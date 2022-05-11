@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import ApiError from '@api/ApiError';
 import { cleanSession, retrieveRefreshToken, setSession } from '@store/auth/authStore';
 import api, { loginUrl, refreshTokenUrl } from '@api';
+import { logoutApp } from '@hooks/auth/useLogout';
 
 async function errorManager(response: AxiosResponse) {
 	const errorMessage = response?.data?.message ?? 'Generic error';
@@ -49,6 +50,7 @@ async function errorManager(response: AxiosResponse) {
 			}
 			cleanSession();
 			if (originalConfig.url !== (await loginUrl)) {
+				logoutApp(true);
 				window.location.replace('/unauthorized');
 				return Promise.resolve();
 			}
