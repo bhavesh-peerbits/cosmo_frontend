@@ -132,7 +132,7 @@ interface DatePickerProps extends ReactInputAttr {
 	/**
 	 * The `change` event handler.
 	 */
-	onChange?: () => void;
+	onChange?: (dates: Date[]) => void;
 
 	/**
 	 * The `close` event handler.

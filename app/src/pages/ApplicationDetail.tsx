@@ -77,6 +77,7 @@ const ApplicationDetail = () => {
 				</StickyTabs>
 
 				<ApplicationReviewModal
+					appId={appId}
 					isOpen={isReviewModalOpen}
 					setIsOpen={setIsReviewModalOpen}
 				/>
