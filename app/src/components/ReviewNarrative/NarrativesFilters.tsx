@@ -21,6 +21,13 @@ const NarrativesFilters = () => {
 						<RadioButton value='In Progress' labelText='In Progress' id='in-progress' />
 					</RadioButtonGroup>
 				</AccordionItem>
+				<AccordionItem title='Due Date' className='border-0 '>
+					<Checkbox labelText='Today' id='today' />
+					<Checkbox labelText='Tomorrow' id='tomorrow' />
+					<Checkbox labelText='This Week' id='this-week' />
+					<Checkbox labelText='Next Week' id='next-week' />
+					<Checkbox labelText='Next 14 days ' id='next-14-days' />
+				</AccordionItem>
 			</Accordion>
 		</div>
 	);
