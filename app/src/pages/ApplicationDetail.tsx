@@ -26,7 +26,7 @@ const ApplicationDetail = () => {
 
 	return (
 		<PageHeader
-			pageTitle='ApplicationName'
+			pageTitle={data.name}
 			intermediateRoutes={[{ name: 'Management', to: '/management' }]}
 			actions={[
 				{

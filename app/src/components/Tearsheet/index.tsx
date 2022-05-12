@@ -1,4 +1,4 @@
-import React, { ComponentProps, ReactElement, ReactNode, useRef } from 'react';
+import React, { ComponentProps, ReactElement, ReactNode } from 'react';
 import { Button } from '@carbon/react';
 import TearsheetShell from './TearsheetShell';
 import './tearsheet.scss';
@@ -17,20 +17,17 @@ import './tearsheet.scss';
  */
 const Tearsheet = React.forwardRef<HTMLDivElement, TearsheetProps>(
 	({ influencerPosition = 'left', influencerWidth = 'narrow', ...rest }, ref) => {
-		const portalRef = useRef<HTMLDivElement>(null);
 		return (
-			<div ref={portalRef}>
-				<TearsheetShell
-					{...{
-						...rest,
-						influencerPosition,
-						influencerWidth,
-						portalTarget: portalRef.current,
-						ref,
-						size: 'wide'
-					}}
-				/>
-			</div>
+			<TearsheetShell
+				{...{
+					...rest,
+					influencerPosition,
+					influencerWidth,
+					portalTarget: document.getElementById('main'),
+					ref,
+					size: 'wide'
+				}}
+			/>
 		);
 	}
 );

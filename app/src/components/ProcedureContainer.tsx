@@ -129,7 +129,7 @@ const ProcedureContainer = () => {
 					<Column sm={{ span: 4 }} md={{ span: 8 }} lg={{ span: 16 }}>
 						<div>
 							<p className='mb-3 text-text-secondary text-label-1'> Description </p>
-							<TiptapEditor />
+							<TiptapEditor content='' onChange={() => {}} />
 						</div>
 					</Column>
 					<Column

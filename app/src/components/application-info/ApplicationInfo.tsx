@@ -1,4 +1,4 @@
-import { Button, Form, Grid, InlineLoading } from '@carbon/react';
+import { Button, Form, Grid, InlineLoading, Tile } from '@carbon/react';
 import { useRef } from 'react';
 import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
 import FullWidthColumn from '@components/FullWidthColumn';
@@ -123,7 +123,9 @@ const ApplicationInfo = ({ application }: ApplicationInfoProps) => {
 									<Fade>
 										<InlineLoading
 											description={
-												isLoading ? 'Save data...' : `${(error as ApiError)?.message}`
+												isLoading
+													? 'Save data...'
+													: `${(error as ApiError)?.message || 'Saved'}`
 											}
 											status={getInlineLoadingStatus()}
 										/>
@@ -132,15 +134,39 @@ const ApplicationInfo = ({ application }: ApplicationInfoProps) => {
 							</div>
 						</div>
 						<div className='space-y-7'>
-							<GeneralInfo
-								control={control as unknown as Control<GeneralInfoForm>}
-								errors={errors as FieldErrors<GeneralInfoForm>}
-								register={register as unknown as UseFormRegister<GeneralInfoForm>}
-							/>
-							<TechnicalInfo
-								errors={errors as FieldErrors<TechnicalInfoForm>}
-								register={register as unknown as UseFormRegister<TechnicalInfoForm>}
-							/>
+							<Tile href='ApplicationName' className='w-full bg-background pb-7'>
+								<Grid fullWidth className='space-y-7'>
+									<FullWidthColumn
+										data-toc-id='general-info'
+										className='text-productive-heading-3'
+									>
+										General Information
+									</FullWidthColumn>
+									<FullWidthColumn>
+										<GeneralInfo
+											control={control as unknown as Control<GeneralInfoForm>}
+											errors={errors as FieldErrors<GeneralInfoForm>}
+											register={register as unknown as UseFormRegister<GeneralInfoForm>}
+										/>
+									</FullWidthColumn>
+								</Grid>
+							</Tile>
+							<Tile href='ApplicationName' className='w-full bg-background pb-7'>
+								<Grid fullWidth className='space-y-7'>
+									<FullWidthColumn
+										data-toc-id='technical-info'
+										className='text-fluid-heading-3'
+									>
+										Technical Information
+									</FullWidthColumn>
+									<FullWidthColumn>
+										<TechnicalInfo
+											errors={errors as FieldErrors<TechnicalInfoForm>}
+											register={register as unknown as UseFormRegister<TechnicalInfoForm>}
+										/>
+									</FullWidthColumn>
+								</Grid>
+							</Tile>
 						</div>
 					</Form>
 				</FullWidthColumn>

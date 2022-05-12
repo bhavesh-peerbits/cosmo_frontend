@@ -39,6 +39,7 @@ async function errorManager(response: AxiosResponse) {
 								localStorage.getItem('rememberMe') === 'true'
 							);
 							originalConfig.headers = {
+								...originalConfig.headers,
 								Authorization: `Bearer ${token}`
 							};
 							return await axios(originalConfig);

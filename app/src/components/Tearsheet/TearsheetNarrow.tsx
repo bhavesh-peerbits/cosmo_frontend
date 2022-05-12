@@ -1,5 +1,5 @@
 import { Button } from '@carbon/react';
-import { ComponentProps, forwardRef, ReactElement, ReactNode, useRef } from 'react';
+import { ComponentProps, forwardRef, ReactElement, ReactNode } from 'react';
 
 import TearsheetShell from './TearsheetShell';
 
@@ -13,18 +13,15 @@ import TearsheetShell from './TearsheetShell';
  */
 const TearsheetNarrow = forwardRef<HTMLDivElement, TearsheetNarrowProps>(
 	({ ...rest }, ref) => {
-		const portalRef = useRef<HTMLDivElement>(null);
 		return (
-			<div ref={portalRef}>
-				<TearsheetShell
-					{...{
-						...rest,
-						portalTarget: portalRef.current,
-						ref,
-						size: 'narrow'
-					}}
-				/>
-			</div>
+			<TearsheetShell
+				{...{
+					...rest,
+					portalTarget: document.getElementById('main'),
+					ref,
+					size: 'narrow'
+				}}
+			/>
 		);
 	}
 );
