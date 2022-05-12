@@ -81,7 +81,11 @@ const ApplicationDetail = () => {
 					isOpen={isReviewModalOpen}
 					setIsOpen={setIsReviewModalOpen}
 				/>
-				<GenerateModal isOpen={isGenerateModalOpen} setIsOpen={setIsGenerateModalOpen} />
+				<GenerateModal
+					isOpen={isGenerateModalOpen}
+					setIsOpen={setIsGenerateModalOpen}
+					application={data}
+				/>
 				<DeleteModal
 					isOpen={isDeleteModalOpen}
 					setIsOpen={setIsDeleteModalOpen}

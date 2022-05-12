@@ -70,15 +70,11 @@ const ApplicationReviewModal = ({ appId, isOpen, setIsOpen }: AppReviewModalProp
 
 	return (
 		<Form>
-			<ComposedModal
-				preventCloseOnClickOutside
-				open={isOpen}
-				onClose={() => setIsOpen(false)}
-			>
+			<ComposedModal preventCloseOnClickOutside open={isOpen} onClose={() => cleanUp()}>
 				<ModalHeader
 					title='Application Review'
 					label='Please enter the fields above, then press Send Email.'
-					closeModal={() => setIsOpen(false)}
+					closeModal={() => cleanUp()}
 				/>
 				<ModalBody>
 					<Grid>
@@ -142,7 +138,7 @@ const ApplicationReviewModal = ({ appId, isOpen, setIsOpen }: AppReviewModalProp
 					</Grid>
 				</ModalBody>
 				<ModalFooter>
-					<Button kind='secondary' onClick={() => setIsOpen(false)}>
+					<Button kind='secondary' onClick={() => cleanUp()}>
 						Cancel
 					</Button>
 					<Button
