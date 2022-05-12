@@ -6,6 +6,7 @@ import Header from '@components/Header';
 import ErrorBoundary from '@error/components/ErrorBoundary';
 import PageSkeleton from '@components/PageSkeleton';
 import Review from '@pages/Review';
+import NarrativeReview from '@pages/NarrativeReview';
 
 const Home = React.lazy(() => import('@pages/Home'));
 const Test = React.lazy(() => import('@pages/Test'));
@@ -26,7 +27,7 @@ const AuthenticatedRoutes = () => {
 								<Route path=':appId' element={<ApplicationDetail />} />
 							</Route>
 							<Route path='review' element={<Review />} />
-
+							<Route path='review-narrative' element={<NarrativeReview />} />
 							<Route path='test' element={<Test />} />
 							<Route path='*' element={<Navigate replace to='/404' />} />
 						</Routes>

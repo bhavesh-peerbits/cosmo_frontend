@@ -24,6 +24,7 @@ import {
 	Moon,
 	Notification,
 	Search,
+	RequestQuote,
 	Switcher as SwitcherIcon
 } from '@carbon/react/icons';
 import { Link, useNavigate } from 'react-router-dom';
@@ -110,6 +111,15 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 						</SideNavMenuItem>
 
 						<SideNavMenuItem href='/review'>Review</SideNavMenuItem>
+					</SideNavMenu>
+					<SideNavMenu
+						renderIcon={RequestQuote}
+						title='Review'
+						className='transition-all'
+					>
+						<SideNavMenuItem element={Link} to='/review-narrative'>
+							Narrative
+						</SideNavMenuItem>
 					</SideNavMenu>
 					<SideNavMenu
 						isSideNavExpanded={isSideNavExpanded}
