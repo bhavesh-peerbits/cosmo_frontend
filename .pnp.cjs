@@ -10669,7 +10669,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         ["workspace:packages/types_carbon__react", {\
           "packageLocation": "./packages/types_carbon__react/",\
           "packageDependencies": [\
-            ["@types/carbon__react", "workspace:packages/types_carbon__react"]\
+            ["@types/carbon__react", "workspace:packages/types_carbon__react"],\
+            ["@types/react", "npm:18.0.9"],\
+            ["@types/react-dom", "npm:18.0.1"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -11339,9 +11341,27 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["csstype", "npm:3.0.11"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:18.0.9", {\
+          "packageLocation": "./.yarn/cache/@types-react-npm-18.0.9-4dccadcd56-162364dad7.zip/node_modules/@types/react/",\
+          "packageDependencies": [\
+            ["@types/react", "npm:18.0.9"],\
+            ["@types/prop-types", "npm:15.7.4"],\
+            ["@types/scheduler", "npm:0.16.2"],\
+            ["csstype", "npm:3.0.11"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["@types/react-dom", [\
+        ["npm:18.0.1", {\
+          "packageLocation": "./.yarn/cache/@types-react-dom-npm-18.0.1-3444453ba7-6c183e2e50.zip/node_modules/@types/react-dom/",\
+          "packageDependencies": [\
+            ["@types/react-dom", "npm:18.0.1"],\
+            ["@types/react", "npm:17.0.43"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:18.0.3", {\
           "packageLocation": "./.yarn/cache/@types-react-dom-npm-18.0.3-c26e1c1245-5c87fb610e.zip/node_modules/@types/react-dom/",\
           "packageDependencies": [\

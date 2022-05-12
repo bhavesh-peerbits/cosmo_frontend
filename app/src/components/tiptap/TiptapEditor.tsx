@@ -1,4 +1,4 @@
-import { Editor, EditorContent, useEditor } from '@tiptap/react';
+import { Editor, EditorContent, PureEditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Table from '@tiptap/extension-table';
 import TableRow from '@tiptap/extension-table-row';
@@ -6,7 +6,6 @@ import TableCell from '@tiptap/extension-table-cell';
 import TableHeader from '@tiptap/extension-table-header';
 
 import { Button, OverflowMenu, OverflowMenuItem } from '@carbon/react';
-import '../../style/tiptap.scss';
 import {
 	ColumnDelete,
 	ColumnInsert,
@@ -25,6 +24,8 @@ import {
 	TrashCan,
 	Undo
 } from '@carbon/react/icons';
+import '@style/tiptap.scss';
+import { forwardRef } from 'react';
 
 type EditorType = {
 	editor?: Editor | null;
@@ -247,25 +248,40 @@ const MenuBar = ({ editor }: EditorType) => {
 	);
 };
 
-export default () => {
-	const editor = useEditor({
-		extensions: [
-			StarterKit,
-			Table.configure({
-				resizable: true
-			}),
-			TableRow,
-			TableHeader,
-			CustomTableCell
-		]
-	});
+const TipTapEditor = forwardRef<PureEditorContent, TipTapEditorProps>(
+	({ content, onChange, onBlur }, ref) => {
+		const editor = useEditor({
+			extensions: [
+				StarterKit,
+				Table.configure({
+					resizable: true
+				}),
+				TableRow,
+				TableHeader,
+				CustomTableCell
+			],
+			content,
+			onBlur,
+			onUpdate({ editor: e }) {
+				onChange(e.getHTML());
+			}
+		});
 
-	return (
-		<div className='divide-y-[1px] divide-solid divide-border-subtle-0 border-[1px] border-solid border-border-strong-3'>
-			<div className='bg-layer-1'>
-				<MenuBar editor={editor} />
+		return (
+			<div className='divide-y-[1px] divide-solid divide-border-subtle-0 border-[1px] border-solid border-border-strong-3'>
+				<div className='bg-layer-1'>
+					<MenuBar editor={editor} />
+				</div>
+				<EditorContent ref={ref} editor={editor} />
 			</div>
-			<EditorContent editor={editor} />
-		</div>
-	);
-};
+		);
+	}
+);
+
+interface TipTapEditorProps {
+	content: string | undefined;
+	onChange: (content: string) => void;
+	onBlur?: () => void;
+}
+
+export default TipTapEditor;

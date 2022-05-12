@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query';
 import api from '@api';
-import Application, { toApplicationApi } from '@model/Application';
+import Application, { fromApplicationApi, toApplicationApi } from '@model/Application';
 
 interface EditAppParams {
 	appId: string;
@@ -13,14 +13,16 @@ const editApp = ({ appId, appData }: EditAppParams) => {
 			id: +appId,
 			applicationDto: toApplicationApi(appData)
 		})
-		.then(({ data }) => data);
+		.then(({ data }) => fromApplicationApi(data));
 };
 
 const useEditApp = () => {
 	const queryClient = useQueryClient();
 	return useMutation(editApp, {
 		onSuccess: (data, variables) => {
-			queryClient.setQueriesData(['managementApps', { id: variables.appId }], data);
+			queryClient.setQueriesData(['managementApps'], old =>
+				Array.isArray(old) ? old.map(a => (a.id !== variables.appId ? a : data)) : data
+			);
 		}
 	});
 };

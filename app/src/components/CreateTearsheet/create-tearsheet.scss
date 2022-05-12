@@ -1,0 +1,34 @@
+@use '@carbon/react/scss/_spacing' as *;
+@use '@carbon/react/scss/_motion' as *;
+
+@mixin create-tearsheet {
+	@keyframes step-content-entrance {
+		0% {
+			opacity: 0;
+			transform: translateY(-0.75rem);
+		}
+
+		100% {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.create-tearsheet {
+		&__visible-step {
+			animation: $duration-slow-01 step-content-entrance;
+			animation-timing-function: motion('standard', 'productive');
+			animation-fill-mode: forwards;
+			opacity: 0;
+		}
+
+		@media (prefers-reduced-motion) {
+			&__visible-step {
+				animation: none;
+				opacity: 1;
+			}
+		}
+	}
+}
+
+@include create-tearsheet;

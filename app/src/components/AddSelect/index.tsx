@@ -260,7 +260,7 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 		// main content
 		const body = (
 			<>
-				<div className='border-t-[1px] border-solid border-border-subtle-1 px-5 pt-5 pb-0'>
+				<div className='border-solid border-border-subtle-1 px-5 pt-5 pb-0'>
 					<AddSelectFilter
 						inputLabel={globalSearchLabel}
 						inputPlaceholder={globalSearchPlaceholder}

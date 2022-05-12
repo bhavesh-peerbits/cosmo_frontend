@@ -19,11 +19,13 @@ import cx from 'classnames';
 import {
 	Button,
 	ComposedModal,
+	InlineLoading,
 	ModalBody,
 	ModalFooter,
 	ModalHeader
 } from '@carbon/react';
 import Wrap from '@components/Tearsheet/Wrap';
+import useResponsive from '@hooks/useResponsive';
 
 type HandlerType = {
 	(newDepth: number, newPosition: number): void;
@@ -38,15 +40,16 @@ const stack: {
 	all: HandlerType[];
 } = { open: [], all: [] };
 
-export const tearsheetIsPassive = (actions: unknown[] | undefined) =>
+const tearsheetIsPassive = (actions: unknown[] | undefined) =>
 	!actions || !actions?.length;
-export const tearsheetHasCloseIcon = (
+const tearsheetHasCloseIcon = (
 	actions: unknown[] | undefined,
-	hasCloseIcon: boolean | undefined
-) => hasCloseIcon ?? tearsheetIsPassive(actions);
+	hasCloseIcon: boolean | undefined,
+	md: boolean
+) => hasCloseIcon || !md || tearsheetIsPassive(actions);
 
 // TearSheetShell is used internally by TearSheet and TearSheetNarrow
-export const TearsheetShell = React.forwardRef<HTMLDivElement, TearsheetShellProps>(
+const TearsheetShell = React.forwardRef<HTMLDivElement, TearsheetShellProps>(
 	(
 		{
 			// The component props, in alphabetical order (for consistency).
@@ -68,6 +71,7 @@ export const TearsheetShell = React.forwardRef<HTMLDivElement, TearsheetShellPro
 			selectorPrimaryFocus,
 			portalTarget: portalTargetIn,
 			title,
+			isRail,
 			// Collect any other property values passed in.
 			...rest
 		},
@@ -75,6 +79,8 @@ export const TearsheetShell = React.forwardRef<HTMLDivElement, TearsheetShellPro
 	) => {
 		// node the modal tearsheet is hosted in
 		const [open, setOpen] = useState(propOpen);
+		const { md } = useResponsive();
+
 		useEffect(() => {
 			setOpen(propOpen);
 		}, [propOpen]);
@@ -103,7 +109,7 @@ export const TearsheetShell = React.forwardRef<HTMLDivElement, TearsheetShellPro
 
 		// A "passive" tearsheet is one with no navigation actions.
 		const isPassive = tearsheetIsPassive(actions);
-		const effectiveHasCloseIcon = tearsheetHasCloseIcon(actions, hasCloseIcon);
+		const effectiveHasCloseIcon = tearsheetHasCloseIcon(actions, hasCloseIcon, md);
 
 		// Callback that will be called whenever the stacking order changes.
 		// position is 1-based with 0 indicating closed.
@@ -191,8 +197,11 @@ export const TearsheetShell = React.forwardRef<HTMLDivElement, TearsheetShellPro
 			// Include an ActionSet if and only if one or more actions is given.
 			const includeActions = actions && actions?.length > 0;
 			const influencerClasses = cx(
-				'flex-[0_0_321px] border-t-[1px] overflow-y-auto border-solid border-border-subtle-1 bg-layer-1',
+				'overflow-y-auto border-solid border-border-subtle-1 bg-layer-1',
 				{
+					'flex-[0_1_321px]': md,
+					'flex-[0_0_321px]': !md,
+					tearsheet__influencer: isRail,
 					'basis-1/2': influencerWidth === 'wide'
 				}
 			);
@@ -229,7 +238,7 @@ export const TearsheetShell = React.forwardRef<HTMLDivElement, TearsheetShellPro
 					selectorPrimaryFocus={selectorPrimaryFocus}
 					onClose={() => {
 						setOpen(false);
-						onClose?.();
+						onClose?.(false);
 					}}
 				>
 					{includeHeader && (
@@ -240,7 +249,7 @@ export const TearsheetShell = React.forwardRef<HTMLDivElement, TearsheetShellPro
 							})}
 							closeModal={() => {
 								setOpen(false);
-								onClose?.();
+								onClose?.(true);
 							}}
 							iconDescription={closeIconDescription}
 						>
@@ -269,7 +278,7 @@ export const TearsheetShell = React.forwardRef<HTMLDivElement, TearsheetShellPro
 							<Wrap className='mt-4'>{navigation}</Wrap>
 						</ModalHeader>
 					)}
-					<Wrap element={ModalBody} className='m-0 flex flex-row p-0'>
+					<Wrap element={ModalBody} className='m-0 flex flex-row overflow-hidden p-0'>
 						<Wrap
 							className={cx('border-r-1', influencerClasses)}
 							neverRender={influencerPosition === 'right'}
@@ -282,7 +291,9 @@ export const TearsheetShell = React.forwardRef<HTMLDivElement, TearsheetShellPro
 						>
 							<Wrap
 								alwaysRender={includeActions}
-								className={cx(`flex flex-row`, { 'bg-background': size === 'wide' })}
+								className={cx(`flex flex-row overflow-x-auto`, {
+									'bg-background': size === 'wide'
+								})}
 								style={{ gridColumn: '1 / -1', gridRow: '1 / -1' }}
 							>
 								<Wrap
@@ -305,11 +316,11 @@ export const TearsheetShell = React.forwardRef<HTMLDivElement, TearsheetShellPro
 									style={{ gridColumn: '1 / -1', gridRow: '-1 / -1' }}
 								>
 									<>
-										{size === 'wide' && (
+										{size === 'wide' && md && (
 											<Button
 												onClick={() => {
 													setOpen(false);
-													onClose?.();
+													onClose?.(true);
 												}}
 												kind='ghost'
 												size='2xl'
@@ -318,14 +329,22 @@ export const TearsheetShell = React.forwardRef<HTMLDivElement, TearsheetShellPro
 												Cancel
 											</Button>
 										)}
-										{actions?.map(btProps => (
+										{actions?.map(({ loading, disabled, ...btProps }) => (
 											<Button
 												{...btProps}
 												key={btProps.id}
 												size='2xl'
-												className={cx({ 'flex-[0_1_25%]': size === 'wide' })}
+												disabled={disabled || loading}
+												className={cx({
+													'relative flex-[0_1_25%]': size === 'wide' && md
+												})}
 											>
 												{btProps.label}
+												{loading && (
+													<span className='absolute top-0 right-0 w-7'>
+														<InlineLoading />
+													</span>
+												)}
 											</Button>
 										))}
 									</>
@@ -356,7 +375,7 @@ interface TearsheetShellProps {
 	 *
 	 * See https://react.carbondesignsystem.com/?path=/docs/components-button--default#component-api
 	 */
-	actions?: Array<ComponentProps<typeof Button> & { label?: string }>;
+	actions?: Array<ComponentProps<typeof Button> & { label?: string; loading?: boolean }>;
 
 	/**
 	 * The main content of the tearsheet.
@@ -439,7 +458,7 @@ interface TearsheetShellProps {
 	 * clicking the close button, if enabled, or clicking outside, if enabled).
 	 * Returning `false` here prevents the modal from closing.
 	 */
-	onClose?: () => void;
+	onClose?: (byCancel: boolean) => void;
 
 	/**
 	 * Specifies whether the tearsheet is currently open.
@@ -460,4 +479,7 @@ interface TearsheetShellProps {
 	 * The main title of the tearsheet, displayed in the header area.
 	 */
 	title?: ReactNode;
+	isRail?: boolean;
 }
+
+export default TearsheetShell;

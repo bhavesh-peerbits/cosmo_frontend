@@ -39,8 +39,6 @@ import {
 // @ts-ignore
 import { ApiErrorResponse } from '../models';
 // @ts-ignore
-import { Application } from '../models';
-// @ts-ignore
 import { ApplicationAudit } from '../models';
 // @ts-ignore
 import { ApplicationDto } from '../models';
@@ -241,18 +239,18 @@ export const ApplicationControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {Application} application
+		 * @param {ApplicationDto} applicationDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		createApplication: async (
-			application: Application,
+			applicationDto: ApplicationDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'application' is not null or undefined
-			assertParamExists('createApplication', 'application', application);
+			// verify required parameter 'applicationDto' is not null or undefined
+			assertParamExists('createApplication', 'applicationDto', applicationDto);
 			const localVarPath = `/api/applications`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -283,7 +281,7 @@ export const ApplicationControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				application,
+				applicationDto,
 				localVarRequestOptions,
 				configuration
 			);
@@ -1331,18 +1329,20 @@ export const ApplicationControllerApiFp = function (configuration?: Configuratio
 		},
 		/**
 		 *
-		 * @param {Application} application
+		 * @param {ApplicationDto} applicationDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async createApplication(
-			application: Application,
+			applicationDto: ApplicationDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Application>> {
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApplicationDto>
+		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.createApplication(
-				application,
+				applicationDto,
 				acceptLanguage,
 				options
 			);
@@ -1862,18 +1862,18 @@ export const ApplicationControllerApiFactory = function (
 		},
 		/**
 		 *
-		 * @param {Application} application
+		 * @param {ApplicationDto} applicationDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		createApplication(
-			application: Application,
+			applicationDto: ApplicationDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Application> {
+		): AxiosPromise<ApplicationDto> {
 			return localVarFp
-				.createApplication(application, acceptLanguage, options)
+				.createApplication(applicationDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -2281,10 +2281,10 @@ export interface ApplicationControllerApiAddUserToApplicationRequest {
 export interface ApplicationControllerApiCreateApplicationRequest {
 	/**
 	 *
-	 * @type {Application}
+	 * @type {ApplicationDto}
 	 * @memberof ApplicationControllerApiCreateApplication
 	 */
-	readonly application: Application;
+	readonly applicationDto: ApplicationDto;
 
 	/**
 	 *
@@ -2790,7 +2790,7 @@ export class ApplicationControllerApi extends BaseAPI {
 	) {
 		return ApplicationControllerApiFp(this.configuration)
 			.createApplication(
-				requestParameters.application,
+				requestParameters.applicationDto,
 				requestParameters.acceptLanguage,
 				options
 			)
