@@ -97,7 +97,7 @@ const AddSelectColumn = ({
 		}
 	];
 	return (
-		<div className='max-w-[15rem] flex-[1_0_15rem] overflow-auto border-t-[1px] border-r-[1px] border-solid border-border-subtle-1 p-5'>
+		<div className='max-w-[15rem] flex-[1_0_15rem] overflow-auto  border-r-[1px] border-solid border-border-subtle-1 p-5'>
 			<div className='flex items-end justify-end bg-field-2'>
 				<TextInput
 					value={searchTerm}

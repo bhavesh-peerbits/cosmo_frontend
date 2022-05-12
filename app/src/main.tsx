@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import initSentry from '@error/initSentry';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import App from './App';
 import './i18n';
 
@@ -31,6 +32,7 @@ root.render(
 					<App />
 				</RecoilRoot>
 			</BrowserRouter>
+			<ReactQueryDevtools initialIsOpen={false} />
 		</QueryClientProvider>
 	</StrictMode>
 );

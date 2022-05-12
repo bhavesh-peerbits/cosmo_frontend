@@ -30,14 +30,16 @@
 	height: calc(100% - 3rem);
 }
 
-$theme-cosmo: (
+$theme-cosmo-dark: (
 	// override here default tokens
-	//      layer-01: #ffffff
+	button-disabled: #525252 !important
 );
 
 // include in the specific theme class or add to root component to override all
-.#{$prefix}--white {
-	@include theme.theme($theme-cosmo);
+// .#{$prefix}--white;
+
+.#{$prefix}--g100 {
+	@include theme.theme($theme-cosmo-dark);
 }
 
 // :root main {}

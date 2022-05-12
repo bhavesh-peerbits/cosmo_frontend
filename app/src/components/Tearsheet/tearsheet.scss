@@ -33,7 +33,6 @@ $motion-duration: $duration-moderate-02;
 		&.is-visible {
 			@apply items-end text-text-primary #{!important};
 
-			z-index: z('modal');
 			transition: visibility 0s linear,
 				background-color $motion-duration motion(entrance, expressive),
 				opacity $motion-duration motion(entrance, expressive);
@@ -74,6 +73,8 @@ $motion-duration: $duration-moderate-02;
 
 		&--stacked-2-of-2,
 		&--stacked-3-of-3 {
+			z-index: z('modal');
+
 			@apply bg-transparent;
 
 			&::before {
@@ -137,6 +138,20 @@ $motion-duration: $duration-moderate-02;
 		// buttons inside button sets in the header action area have 8px gap
 		&__header-actions &--btn-set &--btn:not(:first-of-type) {
 			margin-left: $spacing-03;
+		}
+
+		&__influencer p {
+			@apply p-0 #{!important};
+		}
+
+		@include breakpoint-down(md) {
+			&__influencer {
+				max-width: 4rem;
+			}
+
+			&__influencer p {
+				@apply hidden #{!important};
+			}
 		}
 	}
 
