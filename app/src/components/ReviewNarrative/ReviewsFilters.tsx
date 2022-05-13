@@ -6,7 +6,7 @@ import {
 	RadioButtonGroup
 } from '@carbon/react';
 
-const NarrativesFilters = () => {
+const ReviewsFilters = () => {
 	return (
 		<div className='flex flex-col'>
 			<Accordion className='divide-y'>
@@ -32,4 +32,4 @@ const NarrativesFilters = () => {
 		</div>
 	);
 };
-export default NarrativesFilters;
+export default ReviewsFilters;

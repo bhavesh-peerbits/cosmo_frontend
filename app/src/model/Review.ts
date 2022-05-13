@@ -1,9 +1,9 @@
-interface Narrative {
+interface Review {
 	id: string;
-	name: string;
+	narrativeName: string;
 	applicationName: string;
 	analyst: string;
 	startDate: Date;
 	dueDate: Date;
 }
-export default Narrative;
+export default Review;
