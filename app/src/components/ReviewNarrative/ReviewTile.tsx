@@ -22,8 +22,8 @@ const ReviewTile = ({ review }: ReviewTileProps) => {
 							</div>
 						</div>
 						<div className='mb-5'>
-							<p className='text-heading-1'>{review.narrativeName}</p>
-							<p className='text-label-1'>{review.applicationName}</p>
+							<p className='text-heading-1'>{review.applicationName}</p>
+							<p className='text-label-1'>{review.narrativeName}</p>
 						</div>
 					</div>
 					<div className='flex min-h-[7rem] flex-col justify-between'>

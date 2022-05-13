@@ -9,13 +9,14 @@ const SearchBar = () => {
 	const { filters, setFilters } = useReviewApps();
 
 	return (
-		<Layer className='ml-5 w-full'>
+		<Layer className=' w-full'>
 			<Search
 				size='lg'
 				labelText='placeholder'
 				placeholder='placeholder'
 				value={filters.query ?? ''}
 				onChange={e => setFilters(old => ({ ...old, q: e.currentTarget?.value }))}
+				light
 			/>
 		</Layer>
 	);
