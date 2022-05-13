@@ -46,7 +46,8 @@ const ProcedureContainer = () => {
 					<DeleteModal
 						isOpen={isDeleteModalOpen}
 						setIsOpen={setIsDeleteModalOpen}
-						itemToDelete='ProcedureName'
+						id='0'
+						// itemToDelete='ProcedureName'
 					/>
 					<Column sm={{ span: 4 }} md={{ span: 8 }} lg={{ span: 16 }}>
 						<div className='flex w-full space-x-5'>

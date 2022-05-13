@@ -77,14 +77,19 @@ const ApplicationDetail = () => {
 				</StickyTabs>
 
 				<ApplicationReviewModal
+					appId={appId}
 					isOpen={isReviewModalOpen}
 					setIsOpen={setIsReviewModalOpen}
 				/>
-				<GenerateModal isOpen={isGenerateModalOpen} setIsOpen={setIsGenerateModalOpen} />
+				<GenerateModal
+					isOpen={isGenerateModalOpen}
+					setIsOpen={setIsGenerateModalOpen}
+					application={data}
+				/>
 				<DeleteModal
 					isOpen={isDeleteModalOpen}
 					setIsOpen={setIsDeleteModalOpen}
-					itemToDelete='ApplicationName'
+					id={data.id}
 				/>
 			</>
 		</PageHeader>

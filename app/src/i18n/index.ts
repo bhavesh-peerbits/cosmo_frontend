@@ -1,41 +1,9 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { i18nextPlugin } from 'translation-check';
-import {
-	format as formatDateFn,
-	formatDistance,
-	formatRelative,
-	isDate,
-	Locale
-} from 'date-fns';
-import { enUS, fr, it } from 'date-fns/locale'; // import all locales we need
+import { format as formatDateFn, formatDistance, formatRelative, isDate } from 'date-fns';
+import { languages, locales } from '@i18n/languageOptions';
 import messages from './locales';
-
-export const languageOptions = [
-	{
-		label: 'English (US)',
-		value: 'en_US',
-		locale: enUS
-	},
-	{
-		label: 'Français (France)',
-		value: 'fr_FR',
-		locale: fr
-	},
-	{
-		label: 'Italiano (Italia)',
-		value: 'it_IT',
-		locale: it
-	}
-] as const;
-export const languages = languageOptions.map(i => i.value);
-const locales = languageOptions.reduce(
-	(acc, i) => ({
-		...acc,
-		[i.value]: i.locale
-	}),
-	{} as Record<typeof languages[number], Locale>
-);
 
 if (import.meta.env.DEV) {
 	i18n.use(i18nextPlugin);
