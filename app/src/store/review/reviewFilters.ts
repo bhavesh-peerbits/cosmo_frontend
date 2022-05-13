@@ -7,7 +7,7 @@ import { formatDate } from '@i18n';
 type Filters = {
 	query: string | undefined;
 	analyst: string[];
-	startDate: number | 'never' | undefined;
+	startDate: 'in-progress' | 'never' | undefined;
 };
 
 const reviewFilters = atom<Filters>({
@@ -37,7 +37,7 @@ const prepareDateFilter = (
 			.map(({ date, time }) => ({
 				date: time,
 				value: formatDate(date),
-				enabled: filters[filterName] === time
+				enabled: filters[filterName] === 'in-progress'
 			}))
 			// remove duplicates
 			.filter((o, index, array) => array.findIndex(t => t.value === o.value) === index)
@@ -73,7 +73,7 @@ const applyFilters = (
 			filters.startDate
 				? filters.startDate === 'never'
 					? app.startDate === undefined
-					: app.startDate && app.startDate.getTime() >= filters.startDate
+					: app.startDate
 				: true
 		);
 

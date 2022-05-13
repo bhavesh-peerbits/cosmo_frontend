@@ -16,16 +16,19 @@ interface FilterRadioGroupProps {
 const FilterRadioGroup = ({ filterName, withNever }: FilterRadioGroupProps) => {
 	const { setFilters, filtersAvailable, filters } = useReviewApps();
 	const filterOption = filtersAvailable[filterName];
-	const [selectedValue, setSelectedValue] = useState<'never' | number | ''>('');
+	const [selectedValue, setSelectedValue] = useState<
+		'never' | 'in-progress' | '' | number
+	>('');
 
 	useEffect(() => {
 		if (withNever) {
 			setSelectedValue(
-				filterOption.find(f => f.enabled)?.date ||
-					(filters[filterName] === 'never' ? 'never' : '')
+				(filters[filterName] === 'never' && 'never') ||
+					(filters[filterName] === 'in-progress' && 'in-progress') ||
+					''
 			);
 		} else {
-			setSelectedValue(filterOption.find(f => f.enabled)?.date ?? '');
+			setSelectedValue('');
 		}
 	}, [filterName, filterOption, filters, withNever]);
 
@@ -37,19 +40,24 @@ const FilterRadioGroup = ({ filterName, withNever }: FilterRadioGroupProps) => {
 			onChange={(value, group) => setFilters({ [group]: value || undefined })}
 		>
 			<RadioButton labelText='All' value='' id={`${filterName}-all`} />
+			<RadioButton
+				labelText='In Progress'
+				value='in-progress'
+				id={`${filterName}-in-progress`}
+			/>
 			{withNever ? (
 				<RadioButton labelText='Not Started' value='never' id={`${filterName}-never`} />
 			) : (
 				<div />
 			)}
-			{filterOption.map(filter => (
+			{/* {filterOption.map(filter => (
 				<RadioButton
 					key={filter.value}
 					labelText={filter.value}
 					value={filter.date}
 					id={`${filterName}-${filter.value}`}
 				/>
-			))}
+			))} */}
 		</RadioButtonGroup>
 	);
 };
