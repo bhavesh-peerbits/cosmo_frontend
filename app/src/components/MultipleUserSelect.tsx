@@ -44,7 +44,7 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 	});
 	const { data: users = [] } = useGetUsers();
 
-	const selectUsers = formValue as User[];
+	const selectUsers = formValue as User[] | undefined;
 
 	return (
 		<>
@@ -67,9 +67,9 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 						)}
 					>
 						<div className='flex h-full items-center justify-between space-x-2 pl-5 pr-2'>
-							{selectUsers.length ? (
+							{selectUsers?.length ? (
 								<div className='flex flex-wrap'>
-									{selectUsers.map(u => (
+									{selectUsers?.map(u => (
 										<div
 											className='mr-3 flex items-center justify-center space-x-2'
 											key={u.id}
@@ -139,7 +139,7 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 				clearFiltersText='Clear filters'
 				items={{
 					entries: users
-						.filter(u => !selectUsers.some(s => s.id === u.id))
+						.filter(u => !selectUsers?.some(s => s.id === u.id))
 						.map(u => ({
 							id: u.id,
 							title: u.displayName,

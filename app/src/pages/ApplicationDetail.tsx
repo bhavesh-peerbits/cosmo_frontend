@@ -3,7 +3,7 @@ import { Tab, TabList, TabPanel, TabPanels } from '@carbon/react';
 import PageHeader from '@components/PageHeader';
 import { CloudDownload, Email, TrashCan } from '@carbon/react/icons';
 import { useState } from 'react';
-import ProcedureInfo from '@components/ProcedureInfo';
+import ProcedureInfo from '@components/procedure-info/ProcedureInfo';
 import ApplicationChangesContainer from '@components/ApplicationChangesContainer';
 import ApplicationReviewModal from '@components/Modals/ApplicationReviewModal';
 import GenerateModal from '@components/Modals/GenerateModal';

@@ -49,6 +49,8 @@ import { ControlAppInstanceKey } from '../models';
 // @ts-ignore
 import { ProcedureAppInstance } from '../models';
 // @ts-ignore
+import { ProcedureAppInstanceDto } from '../models';
+// @ts-ignore
 import { UserApplication } from '../models';
 // @ts-ignore
 import { UserApplicationKey } from '../models';
@@ -734,7 +736,10 @@ export const ApplicationControllerApiAxiosParamCreator = function (
 		): Promise<RequestArgs> => {
 			// verify required parameter 'applicationid' is not null or undefined
 			assertParamExists('getAllProcedureForApplication', 'applicationid', applicationid);
-			const localVarPath = `/api/applications/{applicationid}/procedure`;
+			const localVarPath = `/api/applications/{applicationid}/procedure`.replace(
+				`{${'applicationid'}}`,
+				encodeURIComponent(String(applicationid))
+			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -748,10 +753,6 @@ export const ApplicationControllerApiAxiosParamCreator = function (
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (applicationid !== undefined) {
-				localVarQueryParameter['applicationid'] = applicationid;
-			}
 
 			if (acceptLanguage !== undefined && acceptLanguage !== null) {
 				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
@@ -1563,7 +1564,7 @@ export const ApplicationControllerApiFp = function (configuration?: Configuratio
 			(
 				axios?: AxiosInstance,
 				basePath?: string
-			) => AxiosPromise<Array<ProcedureAppInstance>>
+			) => AxiosPromise<Array<ProcedureAppInstanceDto>>
 		> {
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.getAllProcedureForApplication(
@@ -2026,7 +2027,7 @@ export const ApplicationControllerApiFactory = function (
 			applicationid: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Array<ProcedureAppInstance>> {
+		): AxiosPromise<Array<ProcedureAppInstanceDto>> {
 			return localVarFp
 				.getAllProcedureForApplication(applicationid, acceptLanguage, options)
 				.then(request => request(axios, basePath));

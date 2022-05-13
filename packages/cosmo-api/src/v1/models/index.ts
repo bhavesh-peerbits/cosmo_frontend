@@ -15,6 +15,8 @@ export * from './frequency';
 export * from './module';
 export * from './procedure';
 export * from './procedure-app-instance';
+export * from './procedure-app-instance-dto';
+export * from './procedure-dto';
 export * from './profile';
 export * from './refresh-token-dto';
 export * from './tenant';

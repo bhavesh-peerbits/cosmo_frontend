@@ -42,6 +42,8 @@ import { ApiErrorResponse } from '../models';
 import { Procedure } from '../models';
 // @ts-ignore
 import { ProcedureAppInstance } from '../models';
+// @ts-ignore
+import { ProcedureDto } from '../models';
 /**
  * ProcedureControllerApi - axios parameter creator
  * @export
@@ -783,7 +785,7 @@ export const ProcedureControllerApiFp = function (configuration?: Configuration)
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Procedure>>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ProcedureDto>>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllProcedure(
 				acceptLanguage,
@@ -1036,7 +1038,7 @@ export const ProcedureControllerApiFactory = function (
 		getAllProcedure(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Array<Procedure>> {
+		): AxiosPromise<Array<ProcedureDto>> {
 			return localVarFp
 				.getAllProcedure(acceptLanguage, options)
 				.then(request => request(axios, basePath));

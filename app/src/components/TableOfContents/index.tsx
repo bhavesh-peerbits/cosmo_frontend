@@ -42,6 +42,12 @@ interface TableOfContentsProps {
 	stickyOffset?: number;
 
 	tocStickyOffset?: number;
+
+	isCheckView?: boolean;
+
+	checked?: string[];
+
+	setChecked?: (f: (old: string[]) => string[]) => void;
 }
 
 /**
@@ -51,6 +57,9 @@ const TableOfContents = ({
 	menuItems,
 	children,
 	menuLabel,
+	isCheckView,
+	checked,
+	setChecked,
 	tocStickyOffset = 0,
 	stickyOffset = 0
 }: TableOfContentsProps) => {
@@ -141,9 +150,12 @@ const TableOfContents = ({
 		menuItems: useMenuItems,
 		stickyOffset: containerStickyOffset + 20,
 		selectedId: selectedMenu?.id,
+		checked,
+		setChecked,
 		menuLabel,
 		updateState,
-		children
+		children,
+		isCheckbox: isCheckView
 	};
 
 	return (
