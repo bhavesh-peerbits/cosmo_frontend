@@ -2,12 +2,12 @@
 import { atom, selector } from 'recoil';
 import Review from '@model/Review';
 import { GetRecoilType } from '@store/util';
-import { formatDate } from '@i18n';
 
 type Filters = {
 	query: string | undefined;
 	analyst: string[];
 	startDate: string | undefined;
+	dueDate: number | undefined;
 };
 
 const reviewFilters = atom<Filters>({
@@ -15,7 +15,8 @@ const reviewFilters = atom<Filters>({
 	default: {
 		query: '',
 		analyst: [],
-		startDate: undefined
+		startDate: undefined,
+		dueDate: undefined
 	}
 });
 
@@ -27,17 +28,17 @@ const reviewApps = atom<Review[]>({
 const prepareDateFilter = (
 	apps: GetRecoilType<typeof reviewApps>,
 	filters: GetRecoilType<typeof reviewFilters>,
-	filterName: 'startDate'
+	filterName: 'startDate' | 'dueDate'
 ) => {
 	return (
 		(apps.map(app => app[filterName]).filter(l => !!l) as Date[])
-			.map(date => ({ date, time: date.getTime() }))
+			.map(date => ({ date, time: date.getMonth() / date.getFullYear() }))
 			// sort in ascending order by time
 			.sort((a, b) => a.time - b.time)
 			.map(({ date, time }) => ({
 				date: time,
-				value: formatDate(date),
-				enabled: filters[filterName] === 'in-progress'
+				value: `${date.getMonth() + 1}/${date.getFullYear()}`,
+				enabled: (filters[filterName] === time || filters[filterName]) === ''
 			}))
 			// remove duplicates
 			.filter((o, index, array) => array.findIndex(t => t.value === o.value) === index)
@@ -69,11 +70,19 @@ const applyFilters = (
 				  )
 				: true
 		)
+		// filter by start date
 		.filter(app =>
 			filters.startDate
 				? filters.startDate === 'never'
 					? app.startDate === undefined
 					: app.startDate
+				: true
+		)
+		// filter due date
+		.filter(app =>
+			filters.dueDate
+				? app.dueDate &&
+				  app.dueDate.getMonth() / app.dueDate.getFullYear() === filters.dueDate
 				: true
 		);
 
@@ -88,6 +97,7 @@ const filteredApplications = selector({
 		return {
 			apps: applyFilters(apps, filters),
 			startDate: prepareDateFilter(apps, filters, 'startDate'),
+			dueDate: prepareDateFilter(apps, filters, 'dueDate'),
 			analyst: [
 				...new Set(apps.map(app => app.analyst).filter(o => !!o) as string[])
 			].map(analyst => ({

@@ -9,7 +9,7 @@ import useReviewApps from '@hooks/review/useReviewApps';
 import { useEffect, useState } from 'react';
 
 interface FilterRadioGroupProps {
-	filterName: 'startDate';
+	filterName: 'startDate' | 'dueDate';
 	withNever?: boolean;
 }
 
@@ -28,7 +28,7 @@ const FilterRadioGroup = ({ filterName, withNever }: FilterRadioGroupProps) => {
 					''
 			);
 		} else {
-			setSelectedValue('');
+			setSelectedValue(filterOption.find(f => f.enabled)?.date ?? '');
 		}
 	}, [filterName, filterOption, filters, withNever]);
 
@@ -40,13 +40,30 @@ const FilterRadioGroup = ({ filterName, withNever }: FilterRadioGroupProps) => {
 			onChange={(value, group) => setFilters({ [group]: value || undefined })}
 		>
 			<RadioButton labelText='All' value='' id={`${filterName}-all`} />
-			<RadioButton
-				labelText='In Progress'
-				value='in-progress'
-				id={`${filterName}-in-progress`}
-			/>
+			{filterName === 'startDate' ? (
+				<RadioButton
+					labelText='In Progress'
+					value='in-progress'
+					id={`${filterName}-in-progress`}
+				/>
+			) : (
+				<div />
+			)}
+
 			{withNever ? (
 				<RadioButton labelText='Not Started' value='never' id={`${filterName}-never`} />
+			) : (
+				<div />
+			)}
+			{filterName === 'dueDate' ? (
+				filterOption.map(filter => (
+					<RadioButton
+						key={filter.value}
+						labelText={filter.value}
+						value={filter.date}
+						id={`${filterName}-${filter.value}`}
+					/>
+				))
 			) : (
 				<div />
 			)}
@@ -104,11 +121,12 @@ const ReviewsFilters = () => {
 					<FilterRadioGroup filterName='startDate' withNever />
 				</AccordionItem>
 				<AccordionItem title='Due Date' className='border-0 '>
-					<Checkbox labelText='Today' id='today' />
+					<FilterRadioGroup filterName='dueDate' />
+					{/* <Checkbox labelText='Today' id='today' />
 					<Checkbox labelText='Tomorrow' id='tomorrow' />
 					<Checkbox labelText='This Week' id='this-week' />
 					<Checkbox labelText='Next Week' id='next-week' />
-					<Checkbox labelText='Next 14 days ' id='next-14-days' />
+					<Checkbox labelText='Next 14 days ' id='next-14-days' /> */}
 				</AccordionItem>
 			</Accordion>
 		</div>
