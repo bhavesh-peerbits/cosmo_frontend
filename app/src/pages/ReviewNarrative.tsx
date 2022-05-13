@@ -3,36 +3,25 @@ import Fade from '@components/Fade';
 import PageHeader from '@components/PageHeader';
 import ReviewsFilters from '@components/ReviewNarrative/ReviewsFilters';
 import ReviewsTileContainer from '@components/ReviewNarrative/ReviewsTileContainer';
+import useReviewApps from '@hooks/review/useReviewApps';
 
 const SearchBar = () => {
+	const { filters, setFilters } = useReviewApps();
+
 	return (
-		<Search
-			size='lg'
-			light
-			placeholder='Search by Application Name'
-			labelText='Search by Application Name'
-		/>
+		<Layer className='ml-5 w-full'>
+			<Search
+				size='lg'
+				labelText='placeholder'
+				placeholder='placeholder'
+				value={filters.query ?? ''}
+				onChange={e => setFilters(old => ({ ...old, q: e.currentTarget?.value }))}
+			/>
+		</Layer>
 	);
 };
 const ReviewNarrative = () => {
-	const reviews = [
-		{
-			id: 'Review1',
-			narrativeName: 'Narrative 1',
-			applicationName: 'Application1',
-			analyst: 'Name Surname',
-			startDate: new Date(2022, 4, 7),
-			dueDate: new Date(2022, 7, 7)
-		},
-		{
-			id: 'Review2',
-			narrativeName: 'Narrative 2',
-			applicationName: 'Application2',
-			analyst: 'Name Surname',
-			startDate: new Date(2022, 5, 7),
-			dueDate: new Date(2022, 6, 7)
-		}
-	];
+	const { apps } = useReviewApps();
 	return (
 		<PageHeader pageTitle='Review'>
 			<div className='h-full p-container-1'>
@@ -50,11 +39,11 @@ const ReviewNarrative = () => {
 										<SearchBar />
 									</Layer>
 									<div className='flex w-full items-center justify-between space-x-5 md:w-auto md:justify-end'>
-										<div className='whitespace-nowrap'>{`${reviews.length} Applications to Review `}</div>
+										<div className='whitespace-nowrap'>{`${apps.length} Applications to Review `}</div>
 									</div>
 								</div>
 								<div>
-									<ReviewsTileContainer reviews={reviews} />
+									<ReviewsTileContainer />
 								</div>
 							</div>
 						</Column>
