@@ -12,8 +12,8 @@ const SearchBar = () => {
 		<Layer className=' w-full'>
 			<Search
 				size='lg'
-				labelText='placeholder'
-				placeholder='placeholder'
+				labelText='Search by Application Name'
+				placeholder='Search by Application Name'
 				value={filters.query ?? ''}
 				onChange={e => setFilters(old => ({ ...old, q: e.currentTarget?.value }))}
 				light

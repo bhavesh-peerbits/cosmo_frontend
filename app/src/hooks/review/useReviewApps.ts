@@ -11,12 +11,14 @@ import useUrlState from '@hooks/useUrlState';
 const useReviewApps = () => {
 	const [urlFilters, setUrlFilters] = useUrlState<{
 		q: string | undefined;
+		analyst: string[];
 	}>({
-		q: undefined
+		q: undefined,
+		analyst: []
 	});
 	const [filters, setFilters] = useRecoilState(reviewFilters);
 	const setApps = useSetRecoilState(reviewApps);
-	const { apps } = useRecoilValue(filteredApplications);
+	const { apps, analyst } = useRecoilValue(filteredApplications);
 	const { data = [] } = useGetApps();
 
 	useEffect(() => {
@@ -25,11 +27,16 @@ const useReviewApps = () => {
 
 	useEffect(() => {
 		setFilters({
-			query: urlFilters.q
+			query: urlFilters.q,
+			analyst: urlFilters.analyst ?? []
 		});
 	}, [urlFilters, setFilters]);
 
-	return { apps, filters, setFilters: setUrlFilters };
+	const filtersAvailable = {
+		analyst
+	};
+
+	return { apps, filtersAvailable, filters, setFilters: setUrlFilters };
 };
 
 export default useReviewApps;

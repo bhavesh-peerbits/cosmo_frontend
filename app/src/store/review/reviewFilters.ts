@@ -5,12 +5,14 @@ import { GetRecoilType } from '@store/util';
 
 type Filters = {
 	query: string | undefined;
+	analyst: string[];
 };
 
 const reviewFilters = atom<Filters>({
 	key: 'reviewFilters',
 	default: {
-		query: ''
+		query: '',
+		analyst: []
 	}
 });
 
@@ -32,6 +34,15 @@ const applyFilters = (
 						?.trim()
 						?.includes(filters.query.toLowerCase().trim())
 				: true
+		)
+
+		// filter by analyst
+		.filter(app =>
+			filters.analyst.length
+				? filters.analyst.some(
+						analyst => app.analyst?.toLowerCase() === analyst.toLowerCase()
+				  )
+				: true
 		);
 
 	return filteredApps;
@@ -43,7 +54,13 @@ const filteredApplications = selector({
 		const filters = get(reviewFilters);
 		const apps = get(reviewApps);
 		return {
-			apps: applyFilters(apps, filters)
+			apps: applyFilters(apps, filters),
+			analyst: [
+				...new Set(apps.map(app => app.analyst).filter(o => !!o) as string[])
+			].map(analyst => ({
+				analyst,
+				enabled: filters.analyst.includes(analyst ?? '')
+			}))
 		};
 	}
 });

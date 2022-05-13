@@ -5,14 +5,45 @@ import {
 	RadioButton,
 	RadioButtonGroup
 } from '@carbon/react';
+import useReviewApps from '@hooks/review/useReviewApps';
 
 const ReviewsFilters = () => {
+	const { filtersAvailable, setFilters } = useReviewApps();
+	const handleCheckFilter = (filter: string, action: 'add' | 'remove') => {
+		setFilters(old => ({
+			analyst:
+				action === 'add'
+					? [...(old.analyst ?? []), filter]
+					: (old.analyst ?? []).filter((f: string) => f !== filter)
+		}));
+	};
 	return (
 		<div className='flex flex-col'>
 			<Accordion className='divide-y'>
 				<AccordionItem title='Analyst' className='border-0'>
-					<Checkbox labelText='Analyst1' id='analyst-1' />
-					<Checkbox labelText='Analyst2' id='analyst-2' />
+					<Checkbox
+						labelText='All'
+						id='analyst-all'
+						checked={filtersAvailable.analyst.every(f => f.enabled)}
+						onChange={(_, { checked }) =>
+							setFilters({
+								analyst: checked
+									? filtersAvailable.analyst.map(({ analyst }) => analyst)
+									: []
+							})
+						}
+					/>
+					{filtersAvailable.analyst.map(filter => (
+						<Checkbox
+							key={filter.analyst}
+							checked={filter.enabled}
+							onChange={(_, { checked, id }) =>
+								handleCheckFilter(id, checked ? 'add' : 'remove')
+							}
+							id={filter.analyst}
+							labelText={filter.analyst}
+						/>
+					))}
 				</AccordionItem>
 				<AccordionItem title='Status' className='border-0 '>
 					<RadioButtonGroup name='status' orientation='vertical'>
