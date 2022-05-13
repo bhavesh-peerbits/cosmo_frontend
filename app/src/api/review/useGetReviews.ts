@@ -7,7 +7,7 @@ const useGetReviews = () => {
 			narrativeName: 'Narrative 1',
 			applicationName: 'Application1',
 			analyst: 'Name Surname1',
-			startDate: new Date(2022, 4, 7),
+			startDate: undefined,
 			dueDate: new Date(2022, 7, 7)
 		},
 		{

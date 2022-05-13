@@ -2,17 +2,20 @@
 import { atom, selector } from 'recoil';
 import Review from '@model/Review';
 import { GetRecoilType } from '@store/util';
+import { formatDate } from '@i18n';
 
 type Filters = {
 	query: string | undefined;
 	analyst: string[];
+	startDate: number | 'never' | undefined;
 };
 
 const reviewFilters = atom<Filters>({
 	key: 'reviewFilters',
 	default: {
 		query: '',
-		analyst: []
+		analyst: [],
+		startDate: undefined
 	}
 });
 
@@ -20,6 +23,28 @@ const reviewApps = atom<Review[]>({
 	key: 'reviewApps',
 	default: []
 });
+
+const prepareDateFilter = (
+	apps: GetRecoilType<typeof reviewApps>,
+	filters: GetRecoilType<typeof reviewFilters>,
+	filterName: 'startDate'
+) => {
+	return (
+		(apps.map(app => app[filterName]).filter(l => !!l) as Date[])
+			.map(date => ({ date, time: date.getTime() }))
+			// sort in ascending order by time
+			.sort((a, b) => a.time - b.time)
+			.map(({ date, time }) => ({
+				date: time,
+				value: formatDate(date),
+				enabled: filters[filterName] === time
+			}))
+			// remove duplicates
+			.filter((o, index, array) => array.findIndex(t => t.value === o.value) === index)
+			// sort in descending order by time
+			.reverse()
+	);
+};
 
 const applyFilters = (
 	apps: GetRecoilType<typeof reviewApps>,
@@ -43,6 +68,13 @@ const applyFilters = (
 						analyst => app.analyst?.toLowerCase() === analyst.toLowerCase()
 				  )
 				: true
+		)
+		.filter(app =>
+			filters.startDate
+				? filters.startDate === 'never'
+					? app.startDate === undefined
+					: app.startDate && app.startDate.getTime() >= filters.startDate
+				: true
 		);
 
 	return filteredApps;
@@ -55,6 +87,7 @@ const filteredApplications = selector({
 		const apps = get(reviewApps);
 		return {
 			apps: applyFilters(apps, filters),
+			startDate: prepareDateFilter(apps, filters, 'startDate'),
 			analyst: [
 				...new Set(apps.map(app => app.analyst).filter(o => !!o) as string[])
 			].map(analyst => ({

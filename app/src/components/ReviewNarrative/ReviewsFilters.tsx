@@ -6,6 +6,53 @@ import {
 	RadioButtonGroup
 } from '@carbon/react';
 import useReviewApps from '@hooks/review/useReviewApps';
+import { useEffect, useState } from 'react';
+
+interface FilterRadioGroupProps {
+	filterName: 'startDate';
+	withNever?: boolean;
+}
+
+const FilterRadioGroup = ({ filterName, withNever }: FilterRadioGroupProps) => {
+	const { setFilters, filtersAvailable, filters } = useReviewApps();
+	const filterOption = filtersAvailable[filterName];
+	const [selectedValue, setSelectedValue] = useState<'never' | number | ''>('');
+
+	useEffect(() => {
+		if (withNever) {
+			setSelectedValue(
+				filterOption.find(f => f.enabled)?.date ||
+					(filters[filterName] === 'never' ? 'never' : '')
+			);
+		} else {
+			setSelectedValue(filterOption.find(f => f.enabled)?.date ?? '');
+		}
+	}, [filterName, filterOption, filters, withNever]);
+
+	return (
+		<RadioButtonGroup
+			name={filterName}
+			orientation='vertical'
+			valueSelected={selectedValue}
+			onChange={(value, group) => setFilters({ [group]: value || undefined })}
+		>
+			<RadioButton labelText='All' value='' id={`${filterName}-all`} />
+			{withNever ? (
+				<RadioButton labelText='Not Started' value='never' id={`${filterName}-never`} />
+			) : (
+				<div />
+			)}
+			{filterOption.map(filter => (
+				<RadioButton
+					key={filter.value}
+					labelText={filter.value}
+					value={filter.date}
+					id={`${filterName}-${filter.value}`}
+				/>
+			))}
+		</RadioButtonGroup>
+	);
+};
 
 const ReviewsFilters = () => {
 	const { filtersAvailable, setFilters } = useReviewApps();
@@ -46,11 +93,7 @@ const ReviewsFilters = () => {
 					))}
 				</AccordionItem>
 				<AccordionItem title='Status' className='border-0 '>
-					<RadioButtonGroup name='status' orientation='vertical'>
-						<RadioButton value='All' labelText='All' id='all' />
-						<RadioButton value='Not Started' labelText='Not Started' id='not-started' />
-						<RadioButton value='In Progress' labelText='In Progress' id='in-progress' />
-					</RadioButtonGroup>
+					<FilterRadioGroup filterName='startDate' withNever />
 				</AccordionItem>
 				<AccordionItem title='Due Date' className='border-0 '>
 					<Checkbox labelText='Today' id='today' />

@@ -12,13 +12,15 @@ const useReviewApps = () => {
 	const [urlFilters, setUrlFilters] = useUrlState<{
 		q: string | undefined;
 		analyst: string[];
+		startDate: number | undefined;
 	}>({
 		q: undefined,
-		analyst: []
+		analyst: [],
+		startDate: undefined
 	});
 	const [filters, setFilters] = useRecoilState(reviewFilters);
 	const setApps = useSetRecoilState(reviewApps);
-	const { apps, analyst } = useRecoilValue(filteredApplications);
+	const { apps, analyst, startDate } = useRecoilValue(filteredApplications);
 	const { data = [] } = useGetApps();
 
 	useEffect(() => {
@@ -28,12 +30,14 @@ const useReviewApps = () => {
 	useEffect(() => {
 		setFilters({
 			query: urlFilters.q,
-			analyst: urlFilters.analyst ?? []
+			analyst: urlFilters.analyst ?? [],
+			startDate: urlFilters.startDate
 		});
 	}, [urlFilters, setFilters]);
 
 	const filtersAvailable = {
-		analyst
+		analyst,
+		startDate
 	};
 
 	return { apps, filtersAvailable, filters, setFilters: setUrlFilters };

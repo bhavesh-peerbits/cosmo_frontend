@@ -3,7 +3,7 @@ interface Review {
 	narrativeName: string;
 	applicationName: string;
 	analyst: string;
-	startDate: Date;
+	startDate?: Date;
 	dueDate: Date;
 }
 export default Review;
