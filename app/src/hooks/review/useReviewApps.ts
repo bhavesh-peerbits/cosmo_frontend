@@ -12,7 +12,7 @@ const useReviewApps = () => {
 	const [urlFilters, setUrlFilters] = useUrlState<{
 		q: string | undefined;
 		analyst: string[];
-		startDate: undefined | 'in-progress';
+		startDate: undefined | string;
 	}>({
 		q: undefined,
 		analyst: [],

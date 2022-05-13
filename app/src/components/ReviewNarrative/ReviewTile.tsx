@@ -18,7 +18,7 @@ const ReviewTile = ({ review }: ReviewTileProps) => {
 							icon
 							<div className='text-right text-text-secondary'>
 								<div className='font-bold'>Start Date</div>
-								<div>{review.startDate ? formatDate(review.startDate) : ''}</div>
+								<div>{review.startDate ? formatDate(review.startDate) : 'Never'}</div>
 							</div>
 						</div>
 						<div className='mb-5'>

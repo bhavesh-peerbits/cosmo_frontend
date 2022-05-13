@@ -7,7 +7,7 @@ import { formatDate } from '@i18n';
 type Filters = {
 	query: string | undefined;
 	analyst: string[];
-	startDate: 'in-progress' | 'never' | undefined;
+	startDate: string | undefined;
 };
 
 const reviewFilters = atom<Filters>({
