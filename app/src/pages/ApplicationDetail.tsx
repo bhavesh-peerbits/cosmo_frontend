@@ -89,7 +89,7 @@ const ApplicationDetail = () => {
 				<DeleteModal
 					isOpen={isDeleteModalOpen}
 					setIsOpen={setIsDeleteModalOpen}
-					itemToDelete='ApplicationName'
+					id={data.id}
 				/>
 			</>
 		</PageHeader>

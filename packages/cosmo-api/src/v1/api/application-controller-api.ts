@@ -305,7 +305,10 @@ export const ApplicationControllerApiAxiosParamCreator = function (
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists('deleteApplication', 'id', id);
-			const localVarPath = `/api/applications/{id}`;
+			const localVarPath = `/api/applications/{id}`.replace(
+				`{${'id'}}`,
+				encodeURIComponent(String(id))
+			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -319,10 +322,6 @@ export const ApplicationControllerApiAxiosParamCreator = function (
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (id !== undefined) {
-				localVarQueryParameter['id'] = id;
-			}
 
 			if (acceptLanguage !== undefined && acceptLanguage !== null) {
 				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
