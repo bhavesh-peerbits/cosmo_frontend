@@ -51,7 +51,7 @@ interface ApplicationsTableProps<D extends object> {
 	>;
 	data: D[];
 	toolbar?:
-		| Pick<CosmoTableToolbarProps, 'toolbarContent' | 'toolbarBatchActions'>
+		| Pick<CosmoTableToolbarProps<D>, 'toolbarContent' | 'toolbarBatchActions'>
 		| undefined;
 	noDataMessage?: string;
 	isSelectable?: boolean;
@@ -77,6 +77,7 @@ const CosmoTable = <D extends object>({
 	const columns = useMemo(() => createHeaders(table), [createHeaders, table]);
 	const {
 		toggleAllRowsSelected,
+		getSelectedRowModel,
 		getIsAllRowsSelected,
 		getIsSomeRowsSelected,
 		getToggleAllRowsSelectedHandler,
@@ -137,8 +138,12 @@ const CosmoTable = <D extends object>({
 	return (
 		<TableContainer>
 			{toolbar && (
-				<CosmoTableToolbar
-					selectionIds={Object.keys(rowSelection).length}
+				<CosmoTableToolbar<D>
+					selectionIds={
+						getSelectedRowModel()
+							.flatRows.map(row => row.original)
+							.filter(r => r) as D[]
+					}
 					onCancel={() => toggleAllRowsSelected(false)}
 					toolbarBatchActions={toolbar.toolbarBatchActions}
 					toolbarContent={toolbar.toolbarContent}

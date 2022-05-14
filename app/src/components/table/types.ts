@@ -15,14 +15,14 @@ export type CellProperties<D extends object, V> = Parameters<
 	>
 >[0];
 
-export interface CosmoTableToolbarProps {
-	selectionIds: number;
+export interface CosmoTableToolbarProps<T extends object> {
+	selectionIds: T[];
 	onCancel: () => void;
 	toolbarBatchActions: Array<{
 		id: string;
 		icon: (() => ReactElement) | ReactElement;
 		label: string;
-		onClick: () => void;
+		onClick: (selectionIds: T[]) => void;
 	}>;
 	toolbarContent?: ReactNode;
 }

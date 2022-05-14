@@ -27,6 +27,7 @@ const ApplicationsTable = () => {
 	const { apps } = useManagementApps();
 	const { filters, setFilters } = useManagementApps();
 
+	const [rowSelected, setRowSelected] = useState<Application[]>([]);
 	const [actionSelected, setActionSelected] = useState('');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -76,7 +77,8 @@ const ApplicationsTable = () => {
 		{
 			id: 'email',
 			icon: Email,
-			onClick: () => {
+			onClick: (selected: Application[]) => {
+				setRowSelected(selected);
 				setActionSelected('Review');
 				setIsModalOpen(true);
 			},
@@ -85,7 +87,8 @@ const ApplicationsTable = () => {
 		{
 			id: 'cloud',
 			icon: CloudDownload,
-			onClick: () => {
+			onClick: (selected: Application[]) => {
+				setRowSelected(selected);
 				setActionSelected('Generate');
 				setIsModalOpen(true);
 			},
@@ -94,7 +97,8 @@ const ApplicationsTable = () => {
 		{
 			id: 'trash',
 			icon: TrashCan,
-			onClick: () => {
+			onClick: (selected: Application[]) => {
+				setRowSelected(selected);
 				setActionSelected('Delete');
 				setIsModalOpen(true);
 			},
@@ -121,16 +125,23 @@ const ApplicationsTable = () => {
 						type='application'
 						isOpen={isModalOpen}
 						setIsOpen={setIsModalOpen}
+						applications={rowSelected}
 					/>
 				);
 			case 'Generate':
-				return <MultipleGenerateModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />;
+				return (
+					<MultipleGenerateModal
+						isOpen={isModalOpen}
+						setIsOpen={setIsModalOpen}
+						applications={rowSelected}
+					/>
+				);
 			default:
 				return (
 					<MultipleDeleteModal
 						isOpen={isModalOpen}
 						setIsOpen={setIsModalOpen}
-						totalSelected={2}
+						applications={rowSelected}
 					/>
 				);
 		}

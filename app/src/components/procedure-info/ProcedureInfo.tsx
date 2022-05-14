@@ -10,7 +10,6 @@ import ProcedureForm from '@components/procedure-info/ProcedureForm';
 import NoDataMessage from '@components/NoDataMessage';
 import ProcedureAppInstance from '@model/ProcedureAppInstance';
 import NewProcedureModal from '../Modals/NewProcedureModal';
-import MultipleReviewModal from '../Modals/MultipleReviewModal';
 
 type ProcedureState = Partial<ProcedureAppInstance> & {
 	procedure: ProcedureAppInstance['procedure'];
@@ -116,12 +115,13 @@ const ProcedureInfo = () => {
 							)}
 						</div>
 						{showProcedureModal && (
-							<MultipleReviewModal
-								isOpen={showProcedureModal}
-								setIsOpen={setShowProcedureModal}
-								type='procedure'
-								totalSelected={procedureChecked.length}
-							/>
+							<div />
+
+							// <MultipleReviewModal
+							// 	isOpen={showProcedureModal}
+							// 	setIsOpen={setShowProcedureModal}
+							// 	type='procedure'
+							// /> // TODO fix modal for procedure type
 						)}
 						<div className='space-y-7'>
 							{procedureList.length === 0 && (
