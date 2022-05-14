@@ -1,5 +1,7 @@
 import PageHeader from '@components/PageHeader';
-import { HeaderFunction } from '@components/table/GroupableCosmoTable';
+import GroupableCosmoTable, {
+	HeaderFunction
+} from '@components/table/GroupableCosmoTable';
 
 const Review = () => {
 	interface Review {
@@ -97,11 +99,11 @@ const Review = () => {
 		<div>
 			<PageHeader pageTitle='Review'>
 				<div className='h-full p-container-1'>
-					{/* <GroupableCosmoTable */}
-					{/* 	data={data} */}
-					{/* 	createHeaders={columns} */}
-					{/* 	noDataMessage='No data' */}
-					{/* /> */}
+					<GroupableCosmoTable
+						data={data}
+						createHeaders={columns}
+						noDataMessage='No data'
+					/>
 				</div>
 			</PageHeader>
 		</div>
