@@ -1,4 +1,4 @@
-import { ColumnDef, Renderable, Table } from '@tanstack/react-table';
+import { ColumnDef, Overwrite, Render, Renderable, Table } from '@tanstack/react-table';
 import { ReactElement, ReactNode } from 'react';
 
 type TableType<D extends object> = {
@@ -10,7 +10,17 @@ type TableType<D extends object> = {
 };
 
 export type CellProperties<D extends object, V> = Parameters<
-	NonNullable<Exclude<ColumnDef<TableType<D> & { Value: V }>['cell'], string>>
+	NonNullable<
+		Exclude<
+			ColumnDef<
+				Overwrite<
+					{ Renderer: Render; Rendered: ReactNode | JSX.Element; Row: unknown },
+					{ Row: D }
+				> & { Value: V }
+			>['cell'],
+			string
+		>
+	>
 >[0];
 
 export type HeaderFunction<D extends object> = (

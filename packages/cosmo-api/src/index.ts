@@ -1,5 +1,7 @@
 import {
 	AccessControllerApi,
+	ApplicationAuditDto,
+	ApplicationAuditDtoAuditActionTypesEnum,
 	ApplicationControllerApi,
 	ApplicationDto,
 	Configuration,
@@ -23,3 +25,5 @@ export type ApplicationApi = ApplicationDto;
 export type UserApi = UserDto;
 export type ProcedureApi = ProcedureDto;
 export type ProcedureAppInstanceApi = ProcedureAppInstanceDto;
+export type ApplicationAuditApi = ApplicationAuditDto;
+export type ApplicationAuditActionTypeApi = ApplicationAuditDtoAuditActionTypesEnum;

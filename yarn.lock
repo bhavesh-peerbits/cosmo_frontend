@@ -1863,7 +1863,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@carbon/colors@npm:^11.2.0-rc.0":
+"@carbon/colors@npm:^11.2.0, @carbon/colors@npm:^11.2.0-rc.0":
   version: 11.2.0
   resolution: "@carbon/colors@npm:11.2.0"
   checksum: 5f45adda59d37aecc4ed707f2dff48e816d6a5567b335db839938cc861aecede90b5b909e9f2c500cb5d62d58fdf617cde76b1a74da5e220090cadfd2e3200be
@@ -1922,7 +1922,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@carbon/layout@npm:^11.2.0-rc.0":
+"@carbon/layout@npm:^11.2.0, @carbon/layout@npm:^11.2.0-rc.0":
   version: 11.2.0
   resolution: "@carbon/layout@npm:11.2.0"
   checksum: 6e169bf74323694d19a616f91fa3e5b3cde56498f997f36c6e398ddd3a7384d1c046a0a204ea33d3eccb5ba6f48939e1c3c13893b895cdb347213ace1fc0bd61
@@ -2593,10 +2593,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ibm/plex@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "@ibm/plex@npm:6.0.0"
-  checksum: 1a90ec2ca6c0e7762d2b3ae30bc6cde52f366b9e3568a930af10adcd0f415149119c5f9a3f705e50decb451dd45346e0eb688615fdb1b047ad4a834c9feb3ad7
+"@ibm/plex@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "@ibm/plex@npm:6.0.1"
+  checksum: 139e4301f9bca2300299f70f1030f04612fed6414e5bdcdc0fb8194f53fa741df25eb48ef639be122b408820f2465ffd16db1160f29cd40b24a3b0900c96ff92
   languageName: node
   linkType: hard
 
@@ -5325,22 +5325,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-table@npm:^8.0.0-alpha.58":
-  version: 8.0.0-alpha.58
-  resolution: "@tanstack/react-table@npm:8.0.0-alpha.58"
+"@tanstack/react-table@npm:^8.0.0-alpha.74":
+  version: 8.0.0-alpha.74
+  resolution: "@tanstack/react-table@npm:8.0.0-alpha.74"
   dependencies:
-    "@tanstack/table-core": 8.0.0-alpha.58
+    "@tanstack/table-core": 8.0.0-alpha.74
   peerDependencies:
     react: ">=16"
     react-dom: ">=16"
-  checksum: 252dc38ad8d4ce2b19634e47aca6fe8f77777f768e0f17e8e5491235b8b62ca916eb52cfc525959697de29ec2e3b43c916d0f8b6bb0112d72335f9ab3de87e4d
+  checksum: 99d877f3ace53d79ee03b35667e53b7788e26e01f5ec00ce49b2b2131ad6c2a2b981f2321beaef0642387d90531b03c8a414ae11bee030712d362e17731b3c76
   languageName: node
   linkType: hard
 
-"@tanstack/table-core@npm:8.0.0-alpha.58":
-  version: 8.0.0-alpha.58
-  resolution: "@tanstack/table-core@npm:8.0.0-alpha.58"
-  checksum: 3af8a4bd6e2297f46e624842a3f32eb268ae47fd6cc1e3a8bb5238f9a9dfa62c3aea206fb706262ac1fab1255e2675a9920bd62be002f5789dced3df28e659cd
+"@tanstack/table-core@npm:8.0.0-alpha.74":
+  version: 8.0.0-alpha.74
+  resolution: "@tanstack/table-core@npm:8.0.0-alpha.74"
+  checksum: f9205c13f5bcef51991a1d9396b9c10b601384735113aec304703ccfa72a5ca01641ace99d44b4ffc60ca09fba48f9f69ae1215135da72aa641fb18af1ef0b9a
   languageName: node
   linkType: hard
 
@@ -7989,16 +7989,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "app@workspace:app"
   dependencies:
-    "@carbon/colors": ^11.1.0
-    "@carbon/layout": ^11.1.0
+    "@carbon/colors": ^11.2.0
+    "@carbon/layout": ^11.2.0
     "@carbon/react": "patch:@carbon/react@npm:1.3.0#../.yarn/patches/@carbon-react-npm-1.3.0-1854f2fa66.patch"
-    "@ibm/plex": ^6.0.0
+    "@ibm/plex": ^6.0.1
     "@nabla/vite-plugin-eslint": ^1.4.0
     "@sentry/core": ^6.19.7
     "@sentry/react": 6.19.7
     "@sentry/tracing": 6.19.7
     "@tailwindcss/line-clamp": ^0.4.0
-    "@tanstack/react-table": ^8.0.0-alpha.58
+    "@tanstack/react-table": ^8.0.0-alpha.74
     "@testing-library/dom": ^8.13.0
     "@testing-library/jest-dom": ^5.16.4
     "@testing-library/react": ^13.1.1
@@ -8031,7 +8031,7 @@ __metadata:
     date-fns: ^2.28.0
     eslint-plugin-testing-library: ^5.3.1
     framer-motion: ^6.3.3
-    i18next: ^21.6.16
+    i18next: ^21.8.2
     jsdom: ^19.0.0
     lodash: ^4.17.21
     msw: ^0.39.2
@@ -8041,11 +8041,11 @@ __metadata:
     react: ^18.1.0
     react-dom: ^18.1.0
     react-error-boundary: ^3.1.4
-    react-hook-form: ^7.30.0
-    react-i18next: ^11.16.7
-    react-query: ^4.0.0-beta.7
+    react-hook-form: ^7.31.1
+    react-i18next: ^11.16.9
+    react-query: ^4.0.0-beta.10
     react-router-dom: ^6.3.0
-    react-select: ^5.3.1
+    react-select: ^5.3.2
     recoil: ^0.7.2
     sass: ^1.51.0
     sass-pnp-importer: ^0.3.0
@@ -15332,6 +15332,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"i18next@npm:^21.8.2":
+  version: 21.8.2
+  resolution: "i18next@npm:21.8.2"
+  dependencies:
+    "@babel/runtime": ^7.17.2
+  checksum: 6114fafa9604073f783bdeb25c0b81cdadbe00ac7ae85a756576c52e4191f5ba3e4bc818bf57826493fc1770edfd69940fdcd337abb8a52dd50d0bc7819175cc
+  languageName: node
+  linkType: hard
+
 "iconv-lite@npm:0.4.24, iconv-lite@npm:^0.4.24":
   version: 0.4.24
   resolution: "iconv-lite@npm:0.4.24"
@@ -20870,12 +20879,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:^7.30.0":
-  version: 7.30.0
-  resolution: "react-hook-form@npm:7.30.0"
+"react-hook-form@npm:^7.31.1":
+  version: 7.31.1
+  resolution: "react-hook-form@npm:7.31.1"
   peerDependencies:
     react: ^16.8.0 || ^17 || ^18
-  checksum: 7af442c80e1d8e04b6345f4f46177974d82488e81cc12b165d6ff1c69ba0f6234bd2ef0f7b51dda34f77b36fe74464815bbb0f4c77dc2cd9793f8e89d528ae25
+  checksum: c387f81f0a740b610a601e06e148fce1abd466d353c9a5fd05253644d47270b69c8a0278cdc0f28a3adf5bef2c510adb4bcf37269892dc596750af8e8d062fb1
   languageName: node
   linkType: hard
 
@@ -20895,6 +20904,25 @@ __metadata:
     react-native:
       optional: true
   checksum: 666594e20dcff000294e904b6ea36f4e5fa2d3b7cebf8c78f04ec3b96ff52d9ad2931adb0d6865ccbd870cc8a782f76a77dfc134653647c8fd73c4217a65e0e6
+  languageName: node
+  linkType: hard
+
+"react-i18next@npm:^11.16.9":
+  version: 11.16.9
+  resolution: "react-i18next@npm:11.16.9"
+  dependencies:
+    "@babel/runtime": ^7.14.5
+    html-escaper: ^2.0.2
+    html-parse-stringify: ^3.0.1
+  peerDependencies:
+    i18next: ">= 19.0.0"
+    react: ">= 16.8.0"
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+    react-native:
+      optional: true
+  checksum: b79606a0c36a822b3d9a1e4f2bb4b44643c121de9425ddfeea7e63e5136fe33d4b0b42f045f14d53592dcdbde1fb43cd7be4555b22747d2e0f6f754d3a60c711
   languageName: node
   linkType: hard
 
@@ -20966,9 +20994,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-query@npm:^4.0.0-beta.7":
-  version: 4.0.0-beta.7
-  resolution: "react-query@npm:4.0.0-beta.7"
+"react-query@npm:^4.0.0-beta.10":
+  version: 4.0.0-beta.10
+  resolution: "react-query@npm:4.0.0-beta.10"
   dependencies:
     "@babel/runtime": ^7.17.9
     "@types/use-sync-external-store": ^0.0.3
@@ -20982,7 +21010,7 @@ __metadata:
       optional: true
     react-native:
       optional: true
-  checksum: 8491a1f143bf162fe10ed486919be5f607fc2e36fc81d7709e57c7c8167a5a6e1a7b61cf2b29b27e48ed3c4b4bab7f307b2944565638e9154da7acd90fbfdd15
+  checksum: 1c473be171196e6cffee393801c6263671e5ce941419600614efd65ede2e11548849a4d6117a4dfe1fb52d807fbb133ddcb144adfe13b93c6843ccd5cec3fb05
   languageName: node
   linkType: hard
 
@@ -21031,9 +21059,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-select@npm:^5.3.1":
-  version: 5.3.1
-  resolution: "react-select@npm:5.3.1"
+"react-select@npm:^5.3.2":
+  version: 5.3.2
+  resolution: "react-select@npm:5.3.2"
   dependencies:
     "@babel/runtime": ^7.12.0
     "@emotion/cache": ^11.4.0
@@ -21045,7 +21073,7 @@ __metadata:
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: d84581571b6374183ab176c9c95ec16858ea43d115de8daf417f83d1f2bd84f1d9b07e6f3d6f87bfb0f46e3691904ea54ded0e6801815bc9e6db1c988329e985
+  checksum: c8c0ecd75704098ef1010fba4df68bcc5e7d76ffcd6d3bac40bc3017758a9c035a887fa82ead9105dc719c14e04c4164d8b7a8e8fa61d0ed39e4bdf48ee3bf1c
   languageName: node
   linkType: hard
 

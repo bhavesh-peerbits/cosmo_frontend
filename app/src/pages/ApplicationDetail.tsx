@@ -4,7 +4,7 @@ import PageHeader from '@components/PageHeader';
 import { CloudDownload, Email, TrashCan } from '@carbon/react/icons';
 import { useState } from 'react';
 import ProcedureInfo from '@components/procedure-info/ProcedureInfo';
-import ApplicationChangesContainer from '@components/ApplicationChangesContainer';
+import ApplicationChangesContainer from '@components/application-changes/ApplicationChangesContainer';
 import ApplicationReviewModal from '@components/Modals/ApplicationReviewModal';
 import GenerateModal from '@components/Modals/GenerateModal';
 import { useParams } from 'react-router-dom';
@@ -71,7 +71,7 @@ const ApplicationDetail = () => {
 							<ProcedureInfo />
 						</TabPanel>
 						<TabPanel>
-							<ApplicationChangesContainer />
+							<ApplicationChangesContainer appId={appId} />
 						</TabPanel>
 					</TabPanels>
 				</StickyTabs>

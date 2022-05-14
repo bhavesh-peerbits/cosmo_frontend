@@ -1,7 +1,5 @@
 import PageHeader from '@components/PageHeader';
-import GroupableCosmoTable, {
-	HeaderFunction
-} from '@components/table/GroupableCosmoTable';
+import { HeaderFunction } from '@components/table/GroupableCosmoTable';
 
 const Review = () => {
 	interface Review {
@@ -12,6 +10,7 @@ const Review = () => {
 		due_date: string;
 		status: string;
 	}
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const data: Review[] = [
 		{
 			id: 'review-1',
@@ -70,6 +69,7 @@ const Review = () => {
 			status: 'Ongoing'
 		}
 	];
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const columns: HeaderFunction<Review> = table => [
 		table.createDataColumn(row => row.application_name, {
 			id: 'application-name',
@@ -97,11 +97,11 @@ const Review = () => {
 		<div>
 			<PageHeader pageTitle='Review'>
 				<div className='h-full p-container-1'>
-					<GroupableCosmoTable
-						data={data}
-						createHeaders={columns}
-						noDataMessage='No data'
-					/>
+					{/* <GroupableCosmoTable */}
+					{/* 	data={data} */}
+					{/* 	createHeaders={columns} */}
+					{/* 	noDataMessage='No data' */}
+					{/* /> */}
 				</div>
 			</PageHeader>
 		</div>

@@ -39,7 +39,7 @@ import {
 // @ts-ignore
 import { ApiErrorResponse } from '../models';
 // @ts-ignore
-import { ApplicationAudit } from '../models';
+import { ApplicationAuditDto } from '../models';
 // @ts-ignore
 import { ApplicationDto } from '../models';
 // @ts-ignore
@@ -485,19 +485,22 @@ export const ApplicationControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {number} applicationid
+		 * @param {number} applicationId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getAllAuditForApplication: async (
-			applicationid: number,
+			applicationId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'applicationid' is not null or undefined
-			assertParamExists('getAllAuditForApplication', 'applicationid', applicationid);
-			const localVarPath = `/api/applications/{applicationid}/audit`;
+			// verify required parameter 'applicationId' is not null or undefined
+			assertParamExists('getAllAuditForApplication', 'applicationId', applicationId);
+			const localVarPath = `/api/applications/{applicationId}/audit`.replace(
+				`{${'applicationId'}}`,
+				encodeURIComponent(String(applicationId))
+			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -511,10 +514,6 @@ export const ApplicationControllerApiAxiosParamCreator = function (
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (applicationid !== undefined) {
-				localVarQueryParameter['applicationid'] = applicationid;
-			}
 
 			if (acceptLanguage !== undefined && acceptLanguage !== null) {
 				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
@@ -1223,20 +1222,23 @@ export const ApplicationControllerApiFp = function (configuration?: Configuratio
 		},
 		/**
 		 *
-		 * @param {number} applicationid
+		 * @param {number} applicationId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getAllAuditForApplication(
-			applicationid: number,
+			applicationId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApplicationAudit>>
+			(
+				axios?: AxiosInstance,
+				basePath?: string
+			) => AxiosPromise<Array<ApplicationAuditDto>>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllAuditForApplication(
-				applicationid,
+				applicationId,
 				acceptLanguage,
 				options
 			);
@@ -1637,18 +1639,18 @@ export const ApplicationControllerApiFactory = function (
 		},
 		/**
 		 *
-		 * @param {number} applicationid
+		 * @param {number} applicationId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getAllAuditForApplication(
-			applicationid: number,
+			applicationId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Array<ApplicationAudit>> {
+		): AxiosPromise<Array<ApplicationAuditDto>> {
 			return localVarFp
-				.getAllAuditForApplication(applicationid, acceptLanguage, options)
+				.getAllAuditForApplication(applicationId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -2007,7 +2009,7 @@ export interface ApplicationControllerApiGetAllAuditForApplicationRequest {
 	 * @type {number}
 	 * @memberof ApplicationControllerApiGetAllAuditForApplication
 	 */
-	readonly applicationid: number;
+	readonly applicationId: number;
 
 	/**
 	 *
@@ -2392,7 +2394,7 @@ export class ApplicationControllerApi extends BaseAPI {
 	) {
 		return ApplicationControllerApiFp(this.configuration)
 			.getAllAuditForApplication(
-				requestParameters.applicationid,
+				requestParameters.applicationId,
 				requestParameters.acceptLanguage,
 				options
 			)
