@@ -16,7 +16,7 @@ type DeleteModalProps = {
 	id: string;
 };
 
-const DeleteModal = ({ isOpen, setIsOpen, id }: DeleteModalProps) => {
+const DeleteAppModal = ({ isOpen, setIsOpen, id }: DeleteModalProps) => {
 	const { mutate, isLoading, isError, error, reset } = useDeleteApp();
 	const navigate = useNavigate();
 
@@ -67,4 +67,4 @@ const DeleteModal = ({ isOpen, setIsOpen, id }: DeleteModalProps) => {
 		</ComposedModal>
 	);
 };
-export default DeleteModal;
+export default DeleteAppModal;

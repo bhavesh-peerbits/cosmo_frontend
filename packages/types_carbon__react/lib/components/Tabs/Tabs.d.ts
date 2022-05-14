@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { FCReturn, ReactDivAttr } from '../../../typings/shared';
 
-interface TabContentProps extends ReactDivAttr {
+interface TabContentProps extends Omit<ReactDivAttr, 'onChange' | 'selected'> {
 	/**
 	 * Pass in a collection of <Tab> children to be rendered depending on the
 	 * currently selected tab
@@ -96,7 +96,7 @@ interface TabContentProps extends ReactDivAttr {
 	 * Provide an optional function which is called whenever the state of the
 	 * `Tabs` changes
 	 */
-	onChange?: () => void;
+	onChange?: (selection: { selectedIndex: number }) => void;
 
 	/**
 	 * Control which content panel is currently selected. This puts the component

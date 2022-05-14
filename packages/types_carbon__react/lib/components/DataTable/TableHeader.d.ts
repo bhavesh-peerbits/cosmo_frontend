@@ -37,7 +37,7 @@ interface TableHeaderProps extends ReactDivAttr {
 	/**
 	 * Hook that is invoked when the header is clicked
 	 */
-	onClick?: () => void;
+	onClick?: ReactDivAttr['onClick'];
 
 	/**
 	 * Specify the scope of this table header. You can find more info about this

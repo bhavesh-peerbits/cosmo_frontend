@@ -11,6 +11,7 @@ const Home = React.lazy(() => import('@pages/Home'));
 const Test = React.lazy(() => import('@pages/Test'));
 const Management = React.lazy(() => import('@pages/Management'));
 const ApplicationDetail = React.lazy(() => import('@pages/ApplicationDetail'));
+const ReviewNarrative = React.lazy(() => import('@pages/ReviewNarrative'));
 
 const AuthenticatedRoutes = () => {
 	return (
@@ -26,7 +27,7 @@ const AuthenticatedRoutes = () => {
 								<Route path=':appId' element={<ApplicationDetail />} />
 							</Route>
 							<Route path='review' element={<Review />} />
-
+							<Route path='review-narrative' element={<ReviewNarrative />} />
 							<Route path='test' element={<Test />} />
 							<Route path='*' element={<Navigate replace to='/404' />} />
 						</Routes>

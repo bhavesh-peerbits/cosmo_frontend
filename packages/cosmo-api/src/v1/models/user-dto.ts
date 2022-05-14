@@ -13,7 +13,7 @@
  */
 
 /**
- *
+ * Last modifier
  * @export
  * @interface UserDto
  */

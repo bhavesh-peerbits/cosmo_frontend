@@ -109,6 +109,13 @@ const ApplicationReviewModal = ({ appId, isOpen, setIsOpen }: AppReviewModalProp
 							<DatePickerWrapper
 								control={control}
 								name='reviewDate'
+								label='Expiry Date of the Review'
+								rules={{
+									required: {
+										value: true,
+										message: 'Please select a date'
+									}
+								}}
 								minDate={new Date()}
 							/>
 						</FullWidthColumn>

@@ -6,18 +6,18 @@ import { TableToolbarSearch } from '@carbon/react';
 import CosmoTable, { CellProperties, HeaderFunction } from '@components/table/CosmoTable';
 import IconResolver from '@components/IconResolver';
 import { formatDate } from '@i18n';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import MultipleReviewModal from '@components/Modals/MultipleReviewModal';
 import MultipleDeleteModal from '@components/Modals/MultipleDeleteModal';
 import MultipleGenerateModal from '@components/Modals/MultipleGenerateModal';
 
-const ApplicationIconCell = ({ row, value }: CellProperties<Application, string>) => {
+const ApplicationIconCell = ({ row, getValue }: CellProperties<Application, string>) => {
 	return (
 		<div className='flex items-center space-x-3'>
 			<div>
 				<IconResolver icon={row.original?.icon} />
 			</div>
-			<p>{value}</p>
+			<p>{getValue() || '-'}</p>
 		</div>
 	);
 };
@@ -30,38 +30,47 @@ const ApplicationsTable = () => {
 	const [actionSelected, setActionSelected] = useState('');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
-	const columns: HeaderFunction<Application> = table => [
-		table.createDataColumn(row => row.name, {
-			id: 'name',
-			header: t('application-name'),
-			cell: ApplicationIconCell
-		}),
-		table.createDataColumn(row => row.description, {
-			id: 'description',
-			sortUndefined: 1,
-			header: t('description')
-		}),
-		table.createDataColumn(row => row.owner, {
-			id: 'owner',
-			header: t('owner'),
-			cell: info => info.value.name
-		}),
-		// table.createDataColumn(row => row.code, {
-		// 	id: 'code',
-		// 	header: t('code')
-		// }),
-		table.createDataColumn(row => row.lastReview, {
-			id: 'lastReview',
-			header: t('last-review'),
-			sortUndefined: 1,
-			cell: info => info.value && formatDate(info.value)
-		}),
-		table.createDataColumn(row => row.lastModify, {
-			id: 'lastModify',
-			header: t('last-modify'),
-			cell: info => info.value && formatDate(info.value)
-		})
-	];
+	const columns: HeaderFunction<Application> = useCallback(
+		table => [
+			table.createDataColumn(row => row.name, {
+				id: 'name',
+				header: () => t('application-name'),
+				cell: ApplicationIconCell
+			}),
+			table.createDataColumn(row => row.codeName, {
+				id: 'code',
+				header: t('code')
+			}),
+			table.createDataColumn(row => row.description || '-', {
+				id: 'description',
+				sortUndefined: 1,
+				header: () => t('description')
+			}),
+			table.createDataColumn(row => row.owner, {
+				id: 'owner',
+				header: () => t('owner'),
+				cell: info => info.getValue()?.name || '-'
+			}),
+			table.createDataColumn(row => row.lastReview, {
+				id: 'lastReview',
+				header: () => t('last-review'),
+				sortUndefined: 1,
+				cell: info => {
+					const value = info.getValue();
+					return (value && formatDate(value)) || '-';
+				}
+			}),
+			table.createDataColumn(row => row.lastModify, {
+				id: 'lastModify',
+				header: () => t('last-modify'),
+				cell: info => {
+					const value = info.getValue();
+					return (value && formatDate(value)) || '-';
+				}
+			})
+		],
+		[t]
+	);
 
 	const toolbarBatchActions = [
 		{

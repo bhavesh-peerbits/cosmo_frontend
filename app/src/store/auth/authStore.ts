@@ -29,10 +29,12 @@ const retrieveRefreshToken = () => {
 const setSession = (token: string, refreshToken: string, useCookie: boolean) => {
 	if (useCookie) {
 		setCookie(ACCESS_TOKEN_KEY, token, {
-			path: '/'
+			path: '/',
+			secure: true
 		});
 		setCookie(REFRESH_TOKEN_KEY, refreshToken, {
-			path: '/'
+			path: '/',
+			secure: true
 		});
 	} else {
 		sessionStorage.setItem(ACCESS_TOKEN_KEY, token);

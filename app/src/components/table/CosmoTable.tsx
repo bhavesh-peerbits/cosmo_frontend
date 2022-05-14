@@ -12,25 +12,43 @@ import {
 	TableSelectRow
 } from '@carbon/react';
 import {
+	ColumnDef,
 	ColumnSort,
 	createTable,
-	getCoreRowModelSync,
+	getCoreRowModel,
 	getPaginationRowModel,
-	getSortedRowModelSync,
+	getSortedRowModel,
+	Overwrite,
 	PaginationState,
+	Render,
+	Table as TableType,
 	useTableInstance
 } from '@tanstack/react-table';
-import { useMemo, useState } from 'react';
+import { ReactNode, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-	CellProperties,
-	CosmoTableToolbarProps,
-	HeaderFunction
-} from '@components/table/types';
+import { CellProperties, CosmoTableToolbarProps } from '@components/table/types';
+import NoDataMessage from '@components/NoDataMessage';
+import Centered from '@components/Centered';
 import CosmoTableToolbar from './CosmoTableToolbar';
 
+type HeaderFunction<T extends object> = ApplicationsTableProps<T>['createHeaders'];
+
 interface ApplicationsTableProps<D extends object> {
-	createHeaders: HeaderFunction<D>;
+	createHeaders: (
+		table: TableType<
+			Overwrite<
+				{ Renderer: Render; Rendered: ReactNode | JSX.Element; Row: unknown },
+				{ Row: D }
+			>
+		>
+	) => Array<
+		ColumnDef<
+			Overwrite<
+				{ Renderer: Render; Rendered: ReactNode | JSX.Element; Row: unknown },
+				{ Row: D }
+			>
+		>
+	>;
 	data: D[];
 	toolbar?:
 		| Pick<CosmoTableToolbarProps, 'toolbarContent' | 'toolbarBatchActions'>
@@ -52,21 +70,18 @@ const CosmoTable = <D extends object>({
 	const [pagination, setPagination] = useState<PaginationState>({
 		pageIndex: 0,
 		pageSize: 10,
-		pageCount: -1 // -1 allows the table to calculate the page count for us via instance.getPageCount()
+		pageCount: undefined //  allows the table to calculate the page count for us via instance.getPageCount()
 	});
 
 	const table = createTable().setRowType<D>();
-	const columns = useMemo(
-		() => table.createColumns(createHeaders(table)),
-		[createHeaders, table]
-	);
+	const columns = useMemo(() => createHeaders(table), [createHeaders, table]);
 	const {
 		toggleAllRowsSelected,
-		getTableProps,
-		getTableBodyProps,
+		getIsAllRowsSelected,
+		getIsSomeRowsSelected,
+		getToggleAllRowsSelectedHandler,
 		getRowModel,
 		getHeaderGroups,
-		getToggleAllRowsSelectedProps,
 		setPageIndex,
 		setPageSize
 	} = useTableInstance(table, {
@@ -81,8 +96,8 @@ const CosmoTable = <D extends object>({
 		onPaginationChange: setPagination,
 		onSortingChange: setSorting,
 		onRowSelectionChange: setRowSelection,
-		getCoreRowModel: getCoreRowModelSync(),
-		getSortedRowModel: getSortedRowModelSync(),
+		getCoreRowModel: getCoreRowModel(),
+		getSortedRowModel: getSortedRowModel(),
 		getPaginationRowModel: getPaginationRowModel()
 	});
 
@@ -90,21 +105,20 @@ const CosmoTable = <D extends object>({
 		const { rows } = getRowModel();
 		return rows.length ? (
 			rows.map(row => {
-				const properties = row.getToggleSelectedProps();
 				return (
-					<TableRow {...row.getRowProps()}>
+					<TableRow key={row.id}>
 						{isSelectable && (
 							<TableSelectRow
-								{...properties}
+								checked={row.getIsSelected()}
 								ariaLabel='Select'
 								id={row.id}
 								name={row.id}
-								onSelect={properties?.onChange}
+								onSelect={row.getToggleSelectedHandler()}
 								onChange={undefined}
 							/>
 						)}
 						{row.getVisibleCells().map(cell => (
-							<TableCell {...cell.getCellProps()}>{cell.renderCell()}</TableCell>
+							<TableCell key={cell.id}>{cell.renderCell()}</TableCell>
 						))}
 					</TableRow>
 				);
@@ -112,7 +126,9 @@ const CosmoTable = <D extends object>({
 		) : (
 			<TableRow>
 				<TableCell colSpan={columns.length + 1}>
-					<p className='flex justify-center'>{noDataMessage || t('no-data')}</p>
+					<Centered>
+						<NoDataMessage className='p-5' title={noDataMessage} />
+					</Centered>
 				</TableCell>
 			</TableRow>
 		);
@@ -129,30 +145,34 @@ const CosmoTable = <D extends object>({
 				/>
 			)}
 			<Layer level={1}>
-				<Table {...getTableProps()}>
+				<Table>
 					<TableHead>
 						{getHeaderGroups().map(headerGroup => {
-							const properties = getToggleAllRowsSelectedProps();
 							return (
-								<TableRow {...headerGroup.getHeaderGroupProps()}>
+								<TableRow key={headerGroup.id}>
 									{isSelectable && (
-										<TableSelectAll
-											{...properties}
-											ariaLabel='SelectAll'
-											id='selectAll'
-											name='selectAll'
-											onSelect={properties?.onChange}
-											onChange={undefined}
-										/>
+										<th className='relative'>
+											<TableSelectAll
+												ariaLabel='SelectAll'
+												id='selectAll'
+												className='absolute top-1/2 left-0 -translate-y-1/2'
+												name='selectAll'
+												checked={getIsAllRowsSelected()}
+												indeterminate={getIsSomeRowsSelected()}
+												onSelect={getToggleAllRowsSelectedHandler()}
+												onChange={undefined}
+											/>
+										</th>
 									)}
 									{headerGroup.headers.map(header => {
 										return (
 											<TableHeader
-												{...header.getHeaderProps()}
+												key={header.id}
+												colSpan={header.colSpan}
 												sortDirection={
 													header.column.getIsSorted() === 'desc' ? 'DESC' : 'ASC'
 												}
-												onClick={() => header.column.toggleSorting()}
+												onClick={header.column.getToggleSortingHandler()}
 												scope=''
 												isSortable
 												isSortHeader={
@@ -167,7 +187,7 @@ const CosmoTable = <D extends object>({
 							);
 						})}
 					</TableHead>
-					<TableBody {...getTableBodyProps()}>{renderBody()}</TableBody>
+					<TableBody>{renderBody()}</TableBody>
 				</Table>
 			</Layer>
 

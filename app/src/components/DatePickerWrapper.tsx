@@ -7,10 +7,14 @@ interface DatePickerWrapperProps<T extends FieldValues, TName extends FieldPath<
 	control: UseControllerProps<T, TName>['control'];
 	name: TName;
 	minDate?: Date;
+	label: string;
+	rules?: UseControllerProps<T, TName>['rules'];
 }
 
 const DatePickerWrapper = <T extends FieldValues, TName extends FieldPath<T>>({
 	control,
+	label,
+	rules,
 	name,
 	minDate
 }: DatePickerWrapperProps<T, TName>) => {
@@ -21,9 +25,7 @@ const DatePickerWrapper = <T extends FieldValues, TName extends FieldPath<T>>({
 		<Controller
 			control={control}
 			name={name}
-			rules={{
-				required: true
-			}}
+			rules={rules}
 			render={({ field: { onChange, onBlur, value } }) => (
 				<DatePicker
 					locale={localeCode}
@@ -32,15 +34,11 @@ const DatePickerWrapper = <T extends FieldValues, TName extends FieldPath<T>>({
 					onBlur={onBlur}
 					onChange={v => onChange(v[0])}
 					allowInput
+					className='w-full'
 					minDate={minDate ? formatShort(minDate) : undefined}
 					value={value}
 				>
-					<DatePickerInput
-						className='w-full'
-						id='expiry-date'
-						placeholder={placeholder}
-						labelText='Expiry Date of the Review'
-					/>
+					<DatePickerInput id={name} placeholder={placeholder} labelText={label} />
 				</DatePicker>
 			)}
 		/>

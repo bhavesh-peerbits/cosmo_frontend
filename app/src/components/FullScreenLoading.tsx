@@ -71,7 +71,7 @@ const FullScreenLoading = () => {
 					</SideNavItems>
 				</SideNav>
 			</CarbonHeader>
-			<Content className='container-w-sidenav ml-6 h-full space-y-8 overflow-auto overflow-hidden bg-layer-1 p-9 lg:ml-[calc(32*0.5rem)]'>
+			<Content className='container-w-sidenav ml-6 h-full space-y-8 overflow-auto bg-layer-1 p-9 lg:ml-[calc(32*0.5rem)]'>
 				<PageSkeleton />
 			</Content>
 		</>

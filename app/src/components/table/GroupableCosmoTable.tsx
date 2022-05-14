@@ -1,40 +1,59 @@
 import {
 	Layer,
+	OverflowMenu,
+	OverflowMenuItem,
 	Pagination,
 	Table,
 	TableBody,
 	TableCell,
 	TableContainer,
+	TableExpandHeader,
 	TableExpandRow,
 	TableHead,
-	TableRow,
-	TableExpandHeader,
 	TableHeader,
-	OverflowMenu,
-	OverflowMenuItem
+	TableRow
 } from '@carbon/react';
 
 import {
+	ColumnDef,
 	ColumnSort,
 	createTable,
-	getCoreRowModelSync,
-	getPaginationRowModel,
-	getSortedRowModelSync,
-	getGroupedRowModelSync,
-	PaginationState,
-	useTableInstance,
 	ExpandedState,
-	getExpandedRowModel
+	getCoreRowModel,
+	getExpandedRowModel,
+	getGroupedRowModel,
+	getPaginationRowModel,
+	getSortedRowModel,
+	Overwrite,
+	PaginationState,
+	Render,
+	Table as TableType,
+	useTableInstance
 } from '@tanstack/react-table';
-import { useMemo, useState } from 'react';
+import { ReactNode, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CellProperties, HeaderFunction } from '@components/table/types';
+import { CellProperties } from '@components/table/types';
+
+type HeaderFunction<T extends object> = ApplicationsTableProps<T>['createHeaders'];
 
 interface ApplicationsTableProps<D extends object> {
-	createHeaders: HeaderFunction<D>;
+	createHeaders: (
+		table: TableType<
+			Overwrite<
+				{ Renderer: Render; Rendered: ReactNode | JSX.Element; Row: unknown },
+				{ Row: D }
+			>
+		>
+	) => Array<
+		ColumnDef<
+			Overwrite<
+				{ Renderer: Render; Rendered: ReactNode | JSX.Element; Row: unknown },
+				{ Row: D }
+			>
+		>
+	>;
 	data: D[];
 	noDataMessage?: string;
-	isSelectable?: boolean;
 }
 
 const GroupableCosmoTable = <D extends object>({
@@ -51,43 +70,36 @@ const GroupableCosmoTable = <D extends object>({
 	const [pagination, setPagination] = useState<PaginationState>({
 		pageIndex: 0,
 		pageSize: 10,
-		pageCount: -1 // -1 allows the table to calculate the page count for us via instance.getPageCount()
+		pageCount: undefined // allows the table to calculate the page count for us via instance.getPageCount()
 	});
 
 	const table = createTable().setRowType<D>();
-	const columns = useMemo(
-		() => table.createColumns(createHeaders(table)),
-		[createHeaders, table]
+	const columns = useMemo(() => createHeaders(table), [createHeaders, table]);
+	const { getRowModel, getHeaderGroups, setPageIndex, setPageSize } = useTableInstance(
+		table,
+		{
+			data,
+			columns,
+			autoResetPageIndex: false,
+			state: {
+				pagination,
+				sorting,
+				grouping,
+				rowSelection,
+				expanded
+			},
+			onPaginationChange: setPagination,
+			onSortingChange: setSorting,
+			onGroupingChange: setGrouping,
+			onRowSelectionChange: setRowSelection,
+			onExpandedChange: setExpanded,
+			getCoreRowModel: getCoreRowModel(),
+			getExpandedRowModel: getExpandedRowModel(),
+			getSortedRowModel: getSortedRowModel(),
+			getGroupedRowModel: getGroupedRowModel(),
+			getPaginationRowModel: getPaginationRowModel()
+		}
 	);
-	const {
-		getTableProps,
-		getTableBodyProps,
-		getRowModel,
-		getHeaderGroups,
-		setPageIndex,
-		setPageSize
-	} = useTableInstance(table, {
-		data,
-		columns,
-		autoResetPageIndex: false,
-		state: {
-			pagination,
-			sorting,
-			grouping,
-			rowSelection,
-			expanded
-		},
-		onPaginationChange: setPagination,
-		onSortingChange: setSorting,
-		onGroupingChange: setGrouping,
-		onRowSelectionChange: setRowSelection,
-		onExpandedChange: setExpanded,
-		getCoreRowModel: getCoreRowModelSync(),
-		getExpandedRowModel: getExpandedRowModel(),
-		getSortedRowModel: getSortedRowModelSync(),
-		getGroupedRowModel: getGroupedRowModelSync(),
-		getPaginationRowModel: getPaginationRowModel()
-	});
 
 	const renderBody = () => {
 		const { rows } = getRowModel();
@@ -95,13 +107,14 @@ const GroupableCosmoTable = <D extends object>({
 			rows.map(row => {
 				return row.getCanExpand() ? (
 					<TableExpandRow
-						{...row.getToggleExpandedProps()}
+						key={row.id}
 						isExpanded={row.getIsExpanded()}
 						ariaLabel=''
+						onClick={row.getToggleExpandedHandler()}
 						onExpand={() => null}
 					>
 						{row.getVisibleCells().map(cell => (
-							<TableCell {...cell.getCellProps()}>
+							<TableCell key={cell.id}>
 								{cell.getIsGrouped() && (
 									<>
 										{cell.renderCell()} ({row.subRows.length})
@@ -114,7 +127,7 @@ const GroupableCosmoTable = <D extends object>({
 					<TableRow className='w-full'>
 						<TableCell />
 						{row.getVisibleCells().map(cell => (
-							<TableCell {...cell.getCellProps()}>
+							<TableCell key={cell.id}>
 								{(cell.getIsGrouped() && (
 									<>
 										{cell.renderCell()} ({row.subRows.length})
@@ -139,16 +152,17 @@ const GroupableCosmoTable = <D extends object>({
 	return (
 		<TableContainer>
 			<Layer level={1}>
-				<Table {...getTableProps()}>
+				<Table>
 					<TableHead>
 						{getHeaderGroups().map(headerGroup => {
 							return (
-								<TableRow {...headerGroup.getHeaderGroupProps()}>
+								<TableRow key={headerGroup.id}>
 									<TableExpandHeader />
 									{headerGroup.headers.map(header => {
 										return (
 											<TableHeader
-												{...header.getHeaderProps()}
+												key={header.id}
+												colSpan={header.colSpan}
 												sortDirection={
 													header.column.getIsSorted() === 'desc' ? 'DESC' : 'ASC'
 												}
@@ -173,7 +187,7 @@ const GroupableCosmoTable = <D extends object>({
 																		'Sord Descending') ||
 																	'Sord Ascending'
 																}
-																onClick={() => header.column.toggleSorting()}
+																onClick={header.column.getToggleSortingHandler()}
 															/>
 
 															<OverflowMenuItem
@@ -183,7 +197,7 @@ const GroupableCosmoTable = <D extends object>({
 																		? 'Remove Group'
 																		: 'Group by'
 																}
-																onClick={() => header.column.toggleGrouping()}
+																onClick={header.column.getToggleGroupingHandler()}
 															/>
 														</OverflowMenu>
 													)}
@@ -195,7 +209,7 @@ const GroupableCosmoTable = <D extends object>({
 							);
 						})}
 					</TableHead>
-					<TableBody {...getTableBodyProps()}>{renderBody()}</TableBody>
+					<TableBody>{renderBody()}</TableBody>
 				</Table>
 			</Layer>
 
