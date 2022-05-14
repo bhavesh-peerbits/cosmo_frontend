@@ -78,6 +78,7 @@ const ApplicationDetail = () => {
 
 				<ApplicationReviewModal
 					appId={appId}
+					owner={data.owner}
 					isOpen={isReviewModalOpen}
 					setIsOpen={setIsReviewModalOpen}
 				/>

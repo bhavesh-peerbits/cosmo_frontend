@@ -1,5 +1,5 @@
 import { Button, FormLabel, Tile } from '@carbon/react';
-import { Close, UserFollow } from '@carbon/react/icons';
+import { Close, EditOff, UserFollow } from '@carbon/react/icons';
 import SingleAddSelect from '@components/SingleAddSelect';
 import { useState } from 'react';
 import UserProfileImage from '@components/UserProfileImage';
@@ -26,6 +26,8 @@ type SingleUserSelectProps<
 			rules?: UseControllerProps<T, TName>['rules'];
 			level?: number;
 			helperText?: string;
+			readOnly?: boolean;
+			defaultValue?: User;
 	  }
 	: never;
 
@@ -35,7 +37,9 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 	name,
 	rules,
 	level = 1,
-	helperText
+	helperText,
+	readOnly,
+	defaultValue
 }: SingleUserSelectProps<T, TName>) => {
 	const {
 		field: { onChange, onBlur, value: formValue, ref },
@@ -43,7 +47,8 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 	} = useController({
 		name,
 		control,
-		rules
+		rules,
+		defaultValue: defaultValue as UnpackNestedValue<PathValue<T, TName>>
 	});
 	const value = formValue as User;
 	const [openSearch, setOpenSearch] = useState(false);
@@ -75,25 +80,31 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 								)}
 							>
 								<div className='absolute top-1/2 right-2 -translate-y-1/2'>
-									{value ? (
-										<Button
-											kind='ghost'
-											size='sm'
-											renderIcon={() => <Close size={20} />}
-											hasIconOnly
-											iconDescription='remove'
-											onClick={() => onChange(null)}
-										/>
-									) : (
-										<Button
-											kind='ghost'
-											renderIcon={() => <UserFollow size={20} />}
-											size='sm'
-											hasIconOnly
-											iconDescription='add user'
-											onClick={() => setOpenSearch(true)}
-										/>
+									{readOnly && (
+										<div className='pr-4'>
+											<EditOff />
+										</div>
 									)}
+									{!readOnly &&
+										(value ? (
+											<Button
+												kind='ghost'
+												size='sm'
+												renderIcon={() => <Close size={20} />}
+												hasIconOnly
+												iconDescription='remove'
+												onClick={() => onChange(null)}
+											/>
+										) : (
+											<Button
+												kind='ghost'
+												renderIcon={() => <UserFollow size={20} />}
+												size='sm'
+												hasIconOnly
+												iconDescription='add user'
+												onClick={() => setOpenSearch(true)}
+											/>
+										))}
 								</div>
 								<div className='flex h-full w-full items-center justify-between space-x-2 pl-5 pr-8'>
 									{value ? (
