@@ -12,7 +12,7 @@ import useAddProcedureApp from '@api/procedures/useAddProcedureApp';
 import useEditProcedureApp from '@api/procedures/useEditProcedureApp';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';
-import DeleteModal from '../Modals/DeleteModal';
+import DeleteProcedureModal from '@components/Modals/DeleteProcedureModal';
 import TiptapEditor from '../tiptap/TiptapEditor';
 
 interface ProcedureFormData {
@@ -33,9 +33,10 @@ interface ProcedureFormProps {
 	};
 	isNew?: boolean;
 	appId: string;
+	onDelete: () => void;
 }
 
-const ProcedureForm = ({ procedure, isNew, appId }: ProcedureFormProps) => {
+const ProcedureForm = ({ procedure, isNew, appId, onDelete }: ProcedureFormProps) => {
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 	const {
 		mutate: addMutate,
@@ -125,11 +126,14 @@ const ProcedureForm = ({ procedure, isNew, appId }: ProcedureFormProps) => {
 							onClick={() => setIsDeleteModalOpen(true)}
 						/>
 					</FullWidthColumn>
-					<DeleteModal
+					<DeleteProcedureModal
 						isOpen={isDeleteModalOpen}
 						setIsOpen={setIsDeleteModalOpen}
-						id='0'
-						// itemToDelete='ProcedureName'
+						procedureId={procedure.procedure.id}
+						procedureAppId={procedure.id}
+						appId={appId}
+						onDelete={onDelete}
+						softDelete={isNew}
 					/>
 					<FullWidthColumn>
 						<Grid fullWidth>

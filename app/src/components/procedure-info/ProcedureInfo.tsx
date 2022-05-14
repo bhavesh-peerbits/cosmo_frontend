@@ -1,6 +1,6 @@
 import { Button, Grid } from '@carbon/react';
 import { Add, Email } from '@carbon/react/icons';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import TableOfContents from '@components/TableOfContents';
 import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
 import FullWidthColumn from '@components/FullWidthColumn';
@@ -28,8 +28,19 @@ const ProcedureInfo = () => {
 	const [isCheckboxView, setIsCheckboxView] = useState(false);
 	const [showProcedureModal, setShowProcedureModal] = useState(false);
 	const [procedureChecked, setProcedureChecked] = useState<string[]>([]);
-	const [totalSelected, setTotalSelected] = useState(0);
 	const buttonRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		setProcedureList(old => {
+			const p = old.findIndex(proc => proc.isNew);
+			if (p !== -1) {
+				return old.splice(p, 1, serverProcs[p]);
+			}
+			return serverProcs;
+		});
+	}, [serverProcs]);
+
+	const somethingNew = procedureList.some(p => p.isNew);
 
 	return (
 		<TableOfContents
@@ -51,7 +62,7 @@ const ProcedureInfo = () => {
 								renderIcon={Add}
 								className='md:max-w-auto w-full max-w-full md:w-auto'
 								onClick={() => setIsNewProcedureOpen(true)}
-								disabled={isCheckboxView}
+								disabled={isCheckboxView || somethingNew}
 							>
 								New Procedure
 							</Button>
@@ -78,7 +89,9 @@ const ProcedureInfo = () => {
 								className='md:max-w-auto w-full max-w-full md:w-auto'
 								renderIcon={Email}
 								disabled={
-									procedureList.length === 0 || (isCheckboxView && totalSelected === 0)
+									procedureList.length === 0 ||
+									somethingNew ||
+									(isCheckboxView && procedureChecked.length === 0)
 								}
 								onClick={
 									isCheckboxView
@@ -95,7 +108,7 @@ const ProcedureInfo = () => {
 									className='md:max-w-auto w-full max-w-full md:w-auto'
 									onClick={() => {
 										setIsCheckboxView(false);
-										setTotalSelected(0);
+										setProcedureChecked([]);
 									}}
 								>
 									Cancel
@@ -107,7 +120,7 @@ const ProcedureInfo = () => {
 								isOpen={showProcedureModal}
 								setIsOpen={setShowProcedureModal}
 								type='procedure'
-								totalSelected={totalSelected}
+								totalSelected={procedureChecked.length}
 							/>
 						)}
 						<div className='space-y-7'>
@@ -126,6 +139,9 @@ const ProcedureInfo = () => {
 									procedure={procedure}
 									isNew={procedure.isNew}
 									appId={appId as string}
+									onDelete={() =>
+										setProcedureList(old => old.filter(o => o.id !== procedure.id))
+									}
 								/>
 							))}
 						</div>

@@ -7,10 +7,10 @@ import ProcedureInfo from '@components/procedure-info/ProcedureInfo';
 import ApplicationChangesContainer from '@components/ApplicationChangesContainer';
 import ApplicationReviewModal from '@components/Modals/ApplicationReviewModal';
 import GenerateModal from '@components/Modals/GenerateModal';
-import DeleteModal from '@components/Modals/DeleteModal';
 import { useParams } from 'react-router-dom';
 import StickyTabs from '@components/StickyTabs';
 import useGetApp from '@api/management/useGetApp';
+import DeleteAppModal from '@components/Modals/DeleteAppModal';
 
 const ApplicationDetail = () => {
 	const { appId = '' } = useParams<'appId'>();
@@ -86,7 +86,7 @@ const ApplicationDetail = () => {
 					setIsOpen={setIsGenerateModalOpen}
 					application={data}
 				/>
-				<DeleteModal
+				<DeleteAppModal
 					isOpen={isDeleteModalOpen}
 					setIsOpen={setIsDeleteModalOpen}
 					id={data.id}

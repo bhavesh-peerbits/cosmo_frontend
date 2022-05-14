@@ -175,25 +175,25 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {number} procedureId
+		 * @param {number} procedureAppInstanceId
 		 * @param {number} applicationId
-		 * @param {number} body
+		 * @param {number} procedureId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		deleteProcedureApplicationAssociation: async (
-			procedureId: number,
+			procedureAppInstanceId: number,
 			applicationId: number,
-			body: number,
+			procedureId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'procedureId' is not null or undefined
+			// verify required parameter 'procedureAppInstanceId' is not null or undefined
 			assertParamExists(
 				'deleteProcedureApplicationAssociation',
-				'procedureId',
-				procedureId
+				'procedureAppInstanceId',
+				procedureAppInstanceId
 			);
 			// verify required parameter 'applicationId' is not null or undefined
 			assertParamExists(
@@ -201,9 +201,20 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 				'applicationId',
 				applicationId
 			);
-			// verify required parameter 'body' is not null or undefined
-			assertParamExists('deleteProcedureApplicationAssociation', 'body', body);
-			const localVarPath = `/api/procedure/{procedureid}/applications/{applicationid}`;
+			// verify required parameter 'procedureId' is not null or undefined
+			assertParamExists(
+				'deleteProcedureApplicationAssociation',
+				'procedureId',
+				procedureId
+			);
+			const localVarPath =
+				`/api/procedure/{procedureId}/applications/{applicationId}/{procedureAppInstanceId}`
+					.replace(
+						`{${'procedureAppInstanceId'}}`,
+						encodeURIComponent(String(procedureAppInstanceId))
+					)
+					.replace(`{${'applicationId'}}`, encodeURIComponent(String(applicationId)))
+					.replace(`{${'procedureId'}}`, encodeURIComponent(String(procedureId)));
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -218,19 +229,9 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
 
-			if (procedureId !== undefined) {
-				localVarQueryParameter['procedureId'] = procedureId;
-			}
-
-			if (applicationId !== undefined) {
-				localVarQueryParameter['applicationId'] = applicationId;
-			}
-
 			if (acceptLanguage !== undefined && acceptLanguage !== null) {
 				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
 			}
-
-			localVarHeaderParameter['Content-Type'] = 'application/json';
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
@@ -240,11 +241,6 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 				...headersFromBaseOptions,
 				...options.headers
 			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				body,
-				localVarRequestOptions,
-				configuration
-			);
 
 			return {
 				url: toPathString(localVarUrlObj),
@@ -737,25 +733,25 @@ export const ProcedureControllerApiFp = function (configuration?: Configuration)
 		},
 		/**
 		 *
-		 * @param {number} procedureId
+		 * @param {number} procedureAppInstanceId
 		 * @param {number} applicationId
-		 * @param {number} body
+		 * @param {number} procedureId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async deleteProcedureApplicationAssociation(
-			procedureId: number,
+			procedureAppInstanceId: number,
 			applicationId: number,
-			body: number,
+			procedureId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.deleteProcedureApplicationAssociation(
-					procedureId,
+					procedureAppInstanceId,
 					applicationId,
-					body,
+					procedureId,
 					acceptLanguage,
 					options
 				);
@@ -1021,25 +1017,25 @@ export const ProcedureControllerApiFactory = function (
 		},
 		/**
 		 *
-		 * @param {number} procedureId
+		 * @param {number} procedureAppInstanceId
 		 * @param {number} applicationId
-		 * @param {number} body
+		 * @param {number} procedureId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		deleteProcedureApplicationAssociation(
-			procedureId: number,
+			procedureAppInstanceId: number,
 			applicationId: number,
-			body: number,
+			procedureId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<string> {
 			return localVarFp
 				.deleteProcedureApplicationAssociation(
-					procedureId,
+					procedureAppInstanceId,
 					applicationId,
-					body,
+					procedureId,
 					acceptLanguage,
 					options
 				)
@@ -1250,7 +1246,7 @@ export interface ProcedureControllerApiDeleteProcedureApplicationAssociationRequ
 	 * @type {number}
 	 * @memberof ProcedureControllerApiDeleteProcedureApplicationAssociation
 	 */
-	readonly procedureId: number;
+	readonly procedureAppInstanceId: number;
 
 	/**
 	 *
@@ -1264,7 +1260,7 @@ export interface ProcedureControllerApiDeleteProcedureApplicationAssociationRequ
 	 * @type {number}
 	 * @memberof ProcedureControllerApiDeleteProcedureApplicationAssociation
 	 */
-	readonly body: number;
+	readonly procedureId: number;
 
 	/**
 	 *
@@ -1514,9 +1510,9 @@ export class ProcedureControllerApi extends BaseAPI {
 	) {
 		return ProcedureControllerApiFp(this.configuration)
 			.deleteProcedureApplicationAssociation(
-				requestParameters.procedureId,
+				requestParameters.procedureAppInstanceId,
 				requestParameters.applicationId,
-				requestParameters.body,
+				requestParameters.procedureId,
 				requestParameters.acceptLanguage,
 				options
 			)

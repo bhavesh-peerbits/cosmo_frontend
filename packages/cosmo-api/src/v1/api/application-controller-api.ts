@@ -442,84 +442,6 @@ export const ApplicationControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {number} applicationid
-		 * @param {number} procedureid
-		 * @param {number} body
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		deleteProcedureApplicationAssociation1: async (
-			applicationid: number,
-			procedureid: number,
-			body: number,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'applicationid' is not null or undefined
-			assertParamExists(
-				'deleteProcedureApplicationAssociation1',
-				'applicationid',
-				applicationid
-			);
-			// verify required parameter 'procedureid' is not null or undefined
-			assertParamExists(
-				'deleteProcedureApplicationAssociation1',
-				'procedureid',
-				procedureid
-			);
-			// verify required parameter 'body' is not null or undefined
-			assertParamExists('deleteProcedureApplicationAssociation1', 'body', body);
-			const localVarPath = `/api/applications/{applicationid}/procedure/{procedureid}`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (applicationid !== undefined) {
-				localVarQueryParameter['applicationid'] = applicationid;
-			}
-
-			if (procedureid !== undefined) {
-				localVarQueryParameter['procedureid'] = procedureid;
-			}
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			localVarHeaderParameter['Content-Type'] = 'application/json';
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				body,
-				localVarRequestOptions,
-				configuration
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
@@ -1278,37 +1200,6 @@ export const ApplicationControllerApiFp = function (configuration?: Configuratio
 		},
 		/**
 		 *
-		 * @param {number} applicationid
-		 * @param {number} procedureid
-		 * @param {number} body
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async deleteProcedureApplicationAssociation1(
-			applicationid: number,
-			procedureid: number,
-			body: number,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.deleteProcedureApplicationAssociation1(
-					applicationid,
-					procedureid,
-					body,
-					acceptLanguage,
-					options
-				);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
@@ -1732,32 +1623,6 @@ export const ApplicationControllerApiFactory = function (
 		},
 		/**
 		 *
-		 * @param {number} applicationid
-		 * @param {number} procedureid
-		 * @param {number} body
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		deleteProcedureApplicationAssociation1(
-			applicationid: number,
-			procedureid: number,
-			body: number,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: any
-		): AxiosPromise<string> {
-			return localVarFp
-				.deleteProcedureApplicationAssociation1(
-					applicationid,
-					procedureid,
-					body,
-					acceptLanguage,
-					options
-				)
-				.then(request => request(axios, basePath));
-		},
-		/**
-		 *
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
@@ -2113,41 +1978,6 @@ export interface ApplicationControllerApiDeleteControlApplicationAssociation1Req
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
 	 * @memberof ApplicationControllerApiDeleteControlApplicationAssociation1
-	 */
-	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
-}
-
-/**
- * Request parameters for deleteProcedureApplicationAssociation1 operation in ApplicationControllerApi.
- * @export
- * @interface ApplicationControllerApiDeleteProcedureApplicationAssociation1Request
- */
-export interface ApplicationControllerApiDeleteProcedureApplicationAssociation1Request {
-	/**
-	 *
-	 * @type {number}
-	 * @memberof ApplicationControllerApiDeleteProcedureApplicationAssociation1
-	 */
-	readonly applicationid: number;
-
-	/**
-	 *
-	 * @type {number}
-	 * @memberof ApplicationControllerApiDeleteProcedureApplicationAssociation1
-	 */
-	readonly procedureid: number;
-
-	/**
-	 *
-	 * @type {number}
-	 * @memberof ApplicationControllerApiDeleteProcedureApplicationAssociation1
-	 */
-	readonly body: number;
-
-	/**
-	 *
-	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ApplicationControllerApiDeleteProcedureApplicationAssociation1
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
@@ -2527,28 +2357,6 @@ export class ApplicationControllerApi extends BaseAPI {
 				requestParameters.applicationid,
 				requestParameters.controlid,
 				requestParameters.controlAppInstanceKey,
-				requestParameters.acceptLanguage,
-				options
-			)
-			.then(request => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @param {ApplicationControllerApiDeleteProcedureApplicationAssociation1Request} requestParameters Request parameters.
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof ApplicationControllerApi
-	 */
-	public deleteProcedureApplicationAssociation1(
-		requestParameters: ApplicationControllerApiDeleteProcedureApplicationAssociation1Request,
-		options?: AxiosRequestConfig
-	) {
-		return ApplicationControllerApiFp(this.configuration)
-			.deleteProcedureApplicationAssociation1(
-				requestParameters.applicationid,
-				requestParameters.procedureid,
-				requestParameters.body,
 				requestParameters.acceptLanguage,
 				options
 			)
