@@ -38,7 +38,7 @@ export interface ProcedureAppInstanceDto {
 	 * @type {string}
 	 * @memberof ProcedureAppInstanceDto
 	 */
-	name?: string;
+	name: string;
 	/**
 	 * Procedure description
 	 * @type {string}
@@ -62,23 +62,23 @@ export interface ProcedureAppInstanceDto {
 	 * @type {UserDto}
 	 * @memberof ProcedureAppInstanceDto
 	 */
-	owner?: UserDto;
+	owner: UserDto;
 	/**
 	 * Procedure delegates
 	 * @type {Array<UserDto>}
 	 * @memberof ProcedureAppInstanceDto
 	 */
-	delegatedProcedureApp?: Array<UserDto>;
+	delegatedProcedureApp: Array<UserDto>;
 	/**
 	 *
 	 * @type {UserDto}
 	 * @memberof ProcedureAppInstanceDto
 	 */
-	lastReviewer?: UserDto;
+	lastReviewer: UserDto;
 	/**
 	 *
 	 * @type {UserDto}
 	 * @memberof ProcedureAppInstanceDto
 	 */
-	lastModifier?: UserDto;
+	lastModifier: UserDto;
 }

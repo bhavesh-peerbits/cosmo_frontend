@@ -13,27 +13,33 @@
  */
 
 /**
- * Procedure
+ *
  * @export
- * @interface ProcedureDto
+ * @interface MailTemplateDto
  */
-export interface ProcedureDto {
+export interface MailTemplateDto {
 	/**
-	 * Procedure id
+	 * Mail Template id
 	 * @type {number}
-	 * @memberof ProcedureDto
+	 * @memberof MailTemplateDto
 	 */
 	id: number;
 	/**
-	 * Procedure name
+	 * Name of the template
 	 * @type {string}
-	 * @memberof ProcedureDto
+	 * @memberof MailTemplateDto
 	 */
 	name: string;
 	/**
-	 * Procedure description
+	 * Object of the mail
 	 * @type {string}
-	 * @memberof ProcedureDto
+	 * @memberof MailTemplateDto
 	 */
-	description?: string;
+	object?: string;
+	/**
+	 * Text of the mail
+	 * @type {string}
+	 * @memberof MailTemplateDto
+	 */
+	message?: string;
 }

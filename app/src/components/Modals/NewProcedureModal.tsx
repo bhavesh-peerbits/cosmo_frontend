@@ -52,7 +52,7 @@ const ApplicationProcedureSelect = ({
 			onChange={e =>
 				setProcedureSelection(old => ({
 					...old,
-					procedureFrom: procedures.find(({ id }) => id === +e.target.value)
+					procedureFrom: procedures.find(({ id }) => id === e.target.value)
 				}))
 			}
 		>
@@ -166,7 +166,7 @@ const ProcedureBody = ({
 				onChange={e =>
 					setProcedureSelection(old => ({
 						...old,
-						procedure: procedures.find(({ id }) => id === +e.target.value)
+						procedure: procedures.find(({ id }) => id === e.target.value)
 					}))
 				}
 			>
@@ -177,7 +177,7 @@ const ProcedureBody = ({
 					text={procedures.length === 0 ? 'No procedures available' : 'Select procedure'}
 				/>
 				{procedures.map(proc => (
-					<SelectItem text={proc.name} value={proc.id} />
+					<SelectItem key={proc.id} text={proc.name} value={proc.id} />
 				))}
 			</Select>
 		</div>

@@ -61,7 +61,7 @@ export interface ApplicationDto {
 	 * @type {Array<UserDto>}
 	 * @memberof ApplicationDto
 	 */
-	delegates?: Array<UserDto>;
+	delegates: Array<UserDto>;
 	/**
 	 *
 	 * @type {string}

@@ -12,6 +12,7 @@ export * from './control-app-instance';
 export * from './control-app-instance-key';
 export * from './email';
 export * from './frequency';
+export * from './mail-template-dto';
 export * from './module';
 export * from './procedure';
 export * from './procedure-app-instance';

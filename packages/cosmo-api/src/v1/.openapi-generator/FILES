@@ -11,6 +11,7 @@ api/module-controller-api.ts
 api/procedure-controller-api.ts
 api/profile-controller-api.ts
 api/send-mail-controller-api.ts
+api/template-controller-api.ts
 api/tenant-controller-api.ts
 api/test-tenant-api.ts
 api/user-controller-api.ts
@@ -34,6 +35,7 @@ models/control.ts
 models/email.ts
 models/frequency.ts
 models/index.ts
+models/mail-template-dto.ts
 models/module.ts
 models/procedure-app-instance-dto.ts
 models/procedure-app-instance.ts

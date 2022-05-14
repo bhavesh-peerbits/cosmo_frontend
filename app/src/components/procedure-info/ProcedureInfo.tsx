@@ -8,15 +8,22 @@ import useGetProcedureByApp from '@api/procedures/useGetProcedureByApp';
 import { useParams } from 'react-router-dom';
 import ProcedureForm from '@components/procedure-info/ProcedureForm';
 import NoDataMessage from '@components/NoDataMessage';
+import ProcedureAppInstance from '@model/ProcedureAppInstance';
 import NewProcedureModal from '../Modals/NewProcedureModal';
 import MultipleReviewModal from '../Modals/MultipleReviewModal';
+
+type ProcedureState = Partial<ProcedureAppInstance> & {
+	procedure: ProcedureAppInstance['procedure'];
+	id: string;
+	isNew?: boolean;
+};
 
 const ProcedureInfo = () => {
 	const { appId } = useParams();
 	const { data: serverProcs = [] } = useGetProcedureByApp(appId);
 	const { breadcrumbSize } = useBreadcrumbSize();
 
-	const [procedureList, setProcedureList] = useState(serverProcs);
+	const [procedureList, setProcedureList] = useState<ProcedureState[]>(serverProcs);
 	const [isNewProcedureOpen, setIsNewProcedureOpen] = useState(false);
 	const [isCheckboxView, setIsCheckboxView] = useState(false);
 	const [showProcedureModal, setShowProcedureModal] = useState(false);
@@ -56,10 +63,11 @@ const ProcedureInfo = () => {
 										...old,
 										{
 											...appProc,
-											id: Math.random() * 10000,
+											id: `${Math.random() * 10000}`,
 											title: prc.name,
 											procedure: prc,
-											name: appProc?.name || ''
+											name: appProc?.name || '',
+											isNew: true
 										}
 									])
 								}
@@ -113,7 +121,12 @@ const ProcedureInfo = () => {
 								</div>
 							)}
 							{procedureList.map(procedure => (
-								<ProcedureForm key={procedure.id} procedure={procedure} />
+								<ProcedureForm
+									key={procedure.id}
+									procedure={procedure}
+									isNew={procedure.isNew}
+									appId={appId as string}
+								/>
 							))}
 						</div>
 					</div>

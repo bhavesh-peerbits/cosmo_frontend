@@ -8,6 +8,10 @@ import DatePickerWrapper from '@components/DatePickerWrapper';
 import SingleUserSelect from '@components/SingleUserSelect';
 import ProcedureAppInstance from '@model/ProcedureAppInstance';
 import User from '@model/User';
+import useAddProcedureApp from '@api/procedures/useAddProcedureApp';
+import useEditProcedureApp from '@api/procedures/useEditProcedureApp';
+import InlineLoadingStatus from '@components/InlineLoadingStatus';
+import ApiError from '@api/ApiError';
 import DeleteModal from '../Modals/DeleteModal';
 import TiptapEditor from '../tiptap/TiptapEditor';
 
@@ -23,11 +27,33 @@ interface ProcedureFormData {
 }
 
 interface ProcedureFormProps {
-	procedure: ProcedureAppInstance;
+	procedure: Partial<ProcedureAppInstance> & {
+		procedure: ProcedureAppInstance['procedure'];
+		id: string;
+	};
+	isNew?: boolean;
+	appId: string;
 }
 
-const ProcedureForm = ({ procedure }: ProcedureFormProps) => {
+const ProcedureForm = ({ procedure, isNew, appId }: ProcedureFormProps) => {
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+	const {
+		mutate: addMutate,
+		isLoading: isAddLoading,
+		isSuccess: isAddSuccess,
+		isError: isAddError,
+		error: addError,
+		reset: resetNew
+	} = useAddProcedureApp();
+	const {
+		mutate: editMutate,
+		isLoading: isEditLoading,
+		isSuccess: isEditSuccess,
+		isError: isEditError,
+		error: editError,
+		reset: resetEdit
+	} = useEditProcedureApp();
+
 	const {
 		control,
 		register,
@@ -59,10 +85,25 @@ const ProcedureForm = ({ procedure }: ProcedureFormProps) => {
 		name: 'description'
 	});
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const saveForm = (data: ProcedureFormData) => {
-		// console.log(data);
-		reset();
+		const onSuccess = () => {
+			reset();
+			resetNew();
+			resetEdit();
+		};
+		const commonParams = {
+			procedure: {
+				...procedure,
+				...data
+			},
+			procedureId: procedure.procedure.id,
+			appId
+		};
+		if (isNew) {
+			addMutate(commonParams, { onSuccess });
+		} else {
+			editMutate({ ...commonParams, procedureAppId: procedure.id }, { onSuccess });
+		}
 	};
 
 	return (
@@ -182,22 +223,32 @@ const ProcedureForm = ({ procedure }: ProcedureFormProps) => {
 								</div>
 							</FullWidthColumn>
 							<FullWidthColumn className='mt-7'>
-								<div className='flex w-full justify-end space-x-5'>
-									<Button
-										type='reset'
-										kind='tertiary'
-										disabled={!isDirty}
-										onClick={() => reset()}
-									>
-										Cancel
-									</Button>
-									<Button
-										type='submit'
-										onClick={handleSubmit(saveForm)}
-										disabled={!isValid || !isDirty}
-									>
-										Save
-									</Button>
+								<div className='flex flex-wrap justify-between space-x-2'>
+									<div className='flex-1'>
+										<InlineLoadingStatus
+											isLoading={isAddLoading || isEditLoading}
+											isSuccess={isAddSuccess || isEditSuccess}
+											isError={isAddError || isEditError}
+											error={(addError || editError) as ApiError}
+										/>
+									</div>
+									<div className='flex w-full flex-1 justify-end space-x-5'>
+										<Button
+											type='reset'
+											kind='tertiary'
+											disabled={!isDirty}
+											onClick={() => reset()}
+										>
+											Cancel
+										</Button>
+										<Button
+											type='submit'
+											onClick={handleSubmit(saveForm)}
+											disabled={!isValid || !isDirty}
+										>
+											Save
+										</Button>
+									</div>
 								</div>
 							</FullWidthColumn>
 						</Grid>

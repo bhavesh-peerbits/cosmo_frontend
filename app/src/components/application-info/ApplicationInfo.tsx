@@ -1,4 +1,4 @@
-import { Button, Form, Grid, InlineLoading, Tile } from '@carbon/react';
+import { Button, Form, Grid, Tile } from '@carbon/react';
 import { useRef } from 'react';
 import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
 import FullWidthColumn from '@components/FullWidthColumn';
@@ -10,7 +10,7 @@ import TechnicalInfo, {
 import { Control, FieldErrors, useForm, UseFormRegister } from 'react-hook-form';
 import Application from '@model/Application';
 import useEditApp from '@api/management/useEditApp';
-import Fade from '@components/Fade';
+import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';
 
 type ApplicationForm = GeneralInfoForm & TechnicalInfoForm;
@@ -56,19 +56,6 @@ const ApplicationInfo = ({ application }: ApplicationInfoProps) => {
 			}
 		}
 	});
-
-	const getInlineLoadingStatus = () => {
-		if (isLoading) {
-			return 'active';
-		}
-		if (isError) {
-			return 'error';
-		}
-		if (isSuccess) {
-			return 'finished';
-		}
-		return 'inactive';
-	};
 
 	const sendData = (data: ApplicationForm) => {
 		const { appMaintenance, operationSupplier, ...rest } = data.generalInfo;
@@ -118,20 +105,9 @@ const ApplicationInfo = ({ application }: ApplicationInfoProps) => {
 							>
 								Discard Changes
 							</Button>
-							<div>
-								{(isLoading || isError || isSuccess) && (
-									<Fade>
-										<InlineLoading
-											description={
-												isLoading
-													? 'Save data...'
-													: `${(error as ApiError)?.message || 'Saved'}`
-											}
-											status={getInlineLoadingStatus()}
-										/>
-									</Fade>
-								)}
-							</div>
+							<InlineLoadingStatus
+								{...{ isLoading, isSuccess, isError, error: error as ApiError }}
+							/>
 						</div>
 						<div className='space-y-7'>
 							<Tile href='ApplicationName' className='w-full bg-background pb-7'>

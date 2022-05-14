@@ -22,6 +22,7 @@ export * from './api/module-controller-api';
 export * from './api/procedure-controller-api';
 export * from './api/profile-controller-api';
 export * from './api/send-mail-controller-api';
+export * from './api/template-controller-api';
 export * from './api/tenant-controller-api';
 export * from './api/test-tenant-api';
 export * from './api/user-controller-api';
