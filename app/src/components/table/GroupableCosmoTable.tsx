@@ -187,7 +187,7 @@ const GroupableCosmoTable = <D extends object>({
 																		'Sord Descending') ||
 																	'Sord Ascending'
 																}
-																onClick={() => header.column.toggleSorting()}
+																onClick={header.column.getToggleSortingHandler()}
 															/>
 
 															<OverflowMenuItem
@@ -197,7 +197,7 @@ const GroupableCosmoTable = <D extends object>({
 																		? 'Remove Group'
 																		: 'Group by'
 																}
-																onClick={() => header.column.toggleGrouping()}
+																onClick={header.column.getToggleGroupingHandler()}
 															/>
 														</OverflowMenu>
 													)}

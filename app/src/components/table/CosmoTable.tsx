@@ -172,7 +172,7 @@ const CosmoTable = <D extends object>({
 												sortDirection={
 													header.column.getIsSorted() === 'desc' ? 'DESC' : 'ASC'
 												}
-												onClick={() => header.column.toggleSorting()}
+												onClick={header.column.getToggleSortingHandler()}
 												scope=''
 												isSortable
 												isSortHeader={
