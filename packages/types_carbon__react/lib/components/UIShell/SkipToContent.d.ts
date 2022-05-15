@@ -1,6 +1,6 @@
 import { FCReturn, ReactAttr } from '../../../typings/shared';
 
-interface SkipToContentProps extends ReactAttr<HTMLAnchorElement> {
+interface SkipToContentProps extends Omit<ReactAttr<HTMLAnchorElement>, 'tabIndex'> {
 	/**
 	 * Provide text to display in the SkipToContent `a` tag
 	 */

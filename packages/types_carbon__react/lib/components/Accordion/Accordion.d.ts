@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { FCReturn, ReactAttr } from '../../../typings/shared';
 
-interface AccordionProps extends ReactAttr<HTMLElement> {
+interface AccordionProps extends Omit<ReactAttr, 'size'> {
 	/**
 	 * Specify the alignment of the accordion heading title and chevron.
 	 */

@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { FCReturn, ReactDivAttr } from '../../../typings/shared';
 
-interface TableContainerProps extends ReactDivAttr {
+interface TableContainerProps extends Omit<ReactDivAttr, 'title'> {
 	children?: ReactNode;
 	className?: string;
 	/**

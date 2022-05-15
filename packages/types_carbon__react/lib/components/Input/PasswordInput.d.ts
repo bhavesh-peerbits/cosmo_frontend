@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { FCReturn, ReactInputAttr } from '../../../typings/shared';
 
-interface PasswordInputProps extends ReactInputAttr {
+interface PasswordInputProps extends Omit<ReactInputAttr, 'size'> {
 	/**
 	 * Provide a custom className that is applied directly to the underlying
 	 * `<input>` node

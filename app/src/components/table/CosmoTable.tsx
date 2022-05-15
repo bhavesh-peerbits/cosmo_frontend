@@ -18,43 +18,38 @@ import {
 	getCoreRowModel,
 	getPaginationRowModel,
 	getSortedRowModel,
-	Overwrite,
 	PaginationState,
-	Render,
 	Table as TableType,
 	useTableInstance
 } from '@tanstack/react-table';
-import { ReactNode, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CellProperties, CosmoTableToolbarProps } from '@components/table/types';
+import {
+	AvailableFileType,
+	CellProperties,
+	CosmoTableToolbarProps,
+	ExportProperties,
+	TB
+} from '@components/table/types';
 import NoDataMessage from '@components/NoDataMessage';
 import Centered from '@components/Centered';
+import useExportTablePlugin from '@hooks/useExportTablePlugin';
 import CosmoTableToolbar from './CosmoTableToolbar';
 
-type HeaderFunction<T extends object> = ApplicationsTableProps<T>['createHeaders'];
-
-interface ApplicationsTableProps<D extends object> {
-	createHeaders: (
-		table: TableType<
-			Overwrite<
-				{ Renderer: Render; Rendered: ReactNode | JSX.Element; Row: unknown },
-				{ Row: D }
-			>
-		>
-	) => Array<
-		ColumnDef<
-			Overwrite<
-				{ Renderer: Render; Rendered: ReactNode | JSX.Element; Row: unknown },
-				{ Row: D }
-			>
-		>
-	>;
+type HeaderFunction<T extends object> = CosmoTableProps<T>['createHeaders'];
+interface CosmoTableProps<D extends object> {
+	createHeaders: (table: TableType<TB<D>>) => Array<ColumnDef<TB<D>>>;
 	data: D[];
 	toolbar?:
 		| Pick<CosmoTableToolbarProps<D>, 'toolbarContent' | 'toolbarBatchActions'>
 		| undefined;
 	noDataMessage?: string;
 	isSelectable?: boolean;
+	exportFileName?: (param: {
+		fileType: AvailableFileType;
+		all: boolean | 'selection';
+	}) => string;
+	disableExport?: boolean;
 }
 
 const CosmoTable = <D extends object>({
@@ -62,8 +57,10 @@ const CosmoTable = <D extends object>({
 	data,
 	toolbar,
 	noDataMessage,
-	isSelectable
-}: ApplicationsTableProps<D>) => {
+	isSelectable,
+	exportFileName,
+	disableExport
+}: CosmoTableProps<D>) => {
 	const { t } = useTranslation('table');
 	const [rowSelection, setRowSelection] = useState({});
 	const [sorting, setSorting] = useState<ColumnSort[]>([]);
@@ -73,19 +70,9 @@ const CosmoTable = <D extends object>({
 		pageCount: undefined //  allows the table to calculate the page count for us via instance.getPageCount()
 	});
 
-	const table = createTable().setRowType<D>();
+	const table = createTable().setColumnMetaType<ExportProperties>().setRowType<D>();
 	const columns = useMemo(() => createHeaders(table), [createHeaders, table]);
-	const {
-		toggleAllRowsSelected,
-		getSelectedRowModel,
-		getIsAllRowsSelected,
-		getIsSomeRowsSelected,
-		getToggleAllRowsSelectedHandler,
-		getRowModel,
-		getHeaderGroups,
-		setPageIndex,
-		setPageSize
-	} = useTableInstance(table, {
+	const instance = useTableInstance(table, {
 		data,
 		columns,
 		autoResetPageIndex: false,
@@ -101,6 +88,19 @@ const CosmoTable = <D extends object>({
 		getSortedRowModel: getSortedRowModel(),
 		getPaginationRowModel: getPaginationRowModel()
 	});
+	const {
+		toggleAllRowsSelected,
+		getSelectedRowModel,
+		getIsAllRowsSelected,
+		getIsSomeRowsSelected,
+		getToggleAllRowsSelectedHandler,
+		getRowModel,
+		getHeaderGroups,
+		setPageIndex,
+		setPageSize
+	} = instance;
+
+	const { exportData } = useExportTablePlugin(instance, exportFileName, disableExport);
 
 	const renderBody = () => {
 		const { rows } = getRowModel();
@@ -139,6 +139,7 @@ const CosmoTable = <D extends object>({
 		<TableContainer>
 			{toolbar && (
 				<CosmoTableToolbar<D>
+					onExportClick={exportData}
 					selectionIds={
 						getSelectedRowModel()
 							.flatRows.map(row => row.original)

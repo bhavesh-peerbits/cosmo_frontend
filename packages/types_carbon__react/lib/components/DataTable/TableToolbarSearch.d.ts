@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { FCReturn } from '../../../typings/shared';
 import { SearchProps } from '../Input/Search';
 
-interface TableToolbarSearchProps extends Omit<SearchProps, 'labelText'> {
+interface TableToolbarSearchProps extends Omit<SearchProps, 'labelText' | 'tabIndex'> {
 	children?: ReactNode;
 
 	/**
