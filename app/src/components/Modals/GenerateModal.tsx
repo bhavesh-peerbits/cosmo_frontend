@@ -1,84 +1,165 @@
 import {
-	Grid,
-	ComposedModal,
+	Button,
 	Column,
-	ModalHeader,
+	ComposedModal,
+	Grid,
+	InlineNotification,
 	ModalBody,
 	ModalFooter,
-	Button
+	ModalHeader
 } from '@carbon/react';
+import Application from '@model/Application';
+import { useMemo } from 'react';
+import useGenerateNarrative from '@api/management/useGenerateNarrative';
+import FullWidthColumn from '@components/FullWidthColumn';
+import ApiError from '@api/ApiError';
+import cx from 'classnames';
 
 type GenerateModalProps = {
 	isOpen: boolean;
 	setIsOpen: (value: boolean) => void;
+	application: Application;
 };
 
-const GenerateModal = ({ isOpen, setIsOpen }: GenerateModalProps) => {
-	return (
-		<Grid fullWidth narrow>
-			<ComposedModal open={isOpen} onClose={() => setIsOpen(false)}>
-				<Column>
-					<ModalHeader
-						title='Narrative Name'
-						label='Generate Narrative'
-						closeModal={() => setIsOpen(false)}
-					/>
-				</Column>
+const GenerateModal = ({ isOpen, setIsOpen, application }: GenerateModalProps) => {
+	const { mutate, isLoading, isError, error, reset } = useGenerateNarrative(
+		application.id
+	);
 
-				<ModalBody>
-					<Column lg={16} md={8} sm={4}>
-						<div className='divide-y divide-solid divide-border-subtle-1'>
-							<div className='space-y-5 pb-5'>
-								<div className='flex w-full space-x-5'>
-									<p className='flex w-full text-heading-compact-1'>Application Name:</p>
-									<p className='flex w-full text-heading-compact-1'>Owner:</p>
-								</div>
-								<div className='flex w-full space-x-5'>
-									<p className='flex w-full text-heading-compact-1'>
-										Application Maintenance Supplier:
-									</p>
-								</div>
-								<div className='flex w-full space-x-5'>
-									<p className='flex w-full text-heading-compact-1'>
-										Operation Supplier:
-									</p>
-									<p className='flex w-full text-heading-compact-1'>Code:</p>
-								</div>
+	const applicationProperties = useMemo(
+		() => [
+			{
+				key: 'name',
+				label: 'Application Name',
+				value: application.name
+			},
+			{
+				key: 'owner',
+				label: 'Owner',
+				value: application.owner.displayName
+			},
+			{
+				key: 'supplier',
+				label: 'Application Maintenance Supplier',
+				value: application.applicationData?.appMaintenance
+			},
+			{
+				key: 'supplierContact',
+				label: 'Operation Supplier',
+				value: application.applicationData?.operationSupplier
+			},
+			{
+				key: 'applicationServer',
+				label: 'Application Server',
+				value: application.applicationData?.appServers
+			},
+			{
+				key: 'applicationServerOs',
+				label: 'Application Server OS',
+				value: application.applicationData?.appServersOS
+			},
+			{
+				key: 'applicationPath',
+				label: 'Application Code Path',
+				value: application.applicationData?.appCodePath
+			},
+			{
+				key: 'dbServers',
+				label: 'DB Servers',
+				value: application.applicationData?.dbServers
+			},
+			{
+				key: 'dbServersOs',
+				label: 'DB Servers OS',
+				value: application.applicationData?.dbServersOS
+			},
+			{
+				key: 'dbService',
+				label: 'Database Service',
+				value: application.applicationData?.dbService
+			},
+			{
+				key: 'dbInstance',
+				label: 'Database Instance',
+				value: application.applicationData?.dbInstance
+			}
+		],
+		[application]
+	);
+
+	const cleanUp = () => {
+		reset();
+		setIsOpen(false);
+	};
+
+	const generateNarrative = () => {
+		mutate(undefined, {
+			onSuccess: () => {
+				cleanUp();
+			}
+		});
+	};
+
+	return (
+		<ComposedModal open={isOpen} onClose={() => cleanUp()}>
+			<ModalHeader
+				title='Narrative Name'
+				label='Generate Narrative'
+				closeModal={() => cleanUp()}
+			/>
+
+			<ModalBody className='mt-5'>
+				<Grid fullWidth>
+					{applicationProperties.map(property => (
+						<Column key={property.key} lg={8} md={4} sm={4} className='mb-8 px-4'>
+							<div className='flex w-full justify-between space-x-4'>
+								<span className='text-heading-compact-1 first-letter:uppercase'>
+									{property.label}:
+								</span>
+								<span className='text-right'>
+									{property.value || <span className='italic'>{'<No value>'}</span>}
+								</span>
 							</div>
-							<div className='space-y-5 pt-5 pb-5'>
-								<div className='flex w-full space-x-5'>
-									<p className='flex w-full text-heading-compact-1'>
-										Application Servers:
-									</p>
-									<p className='flex w-full text-heading-compact-1'>
-										Application Servers OS:
-									</p>
-								</div>
-								<div className='flex w-full space-x-5'>
-									<p className='flex w-full text-heading-compact-1'>
-										Application Code Path:
-									</p>
-									<p className='flex w-full text-heading-compact-1'>DB Servers:</p>
-								</div>
-								<div className='flex w-full space-x-5'>
-									<p className='flex w-full text-heading-compact-1'>Database Service:</p>
-									<p className='flex w-full text-heading-compact-1'>Database Instance:</p>
-								</div>
-							</div>
-							<div className='pt-5'>
-								<p className='flex w-full text-heading-compact-1'>Total Procedures:</p>
-							</div>
+						</Column>
+					))}
+
+					<Column lg={16} md={8} sm={4} className='px-4'>
+						<div className='pt-5'>
+							<p className='flex w-full text-heading-compact-2'>Total Procedures:</p>
 						</div>
 					</Column>
-				</ModalBody>
-				<ModalFooter>
-					<Button kind='secondary' onClick={() => setIsOpen(false)}>
-						Cancel
-					</Button>
-					<Button>Generate Narrative</Button>
-				</ModalFooter>
-			</ComposedModal>
-		</Grid>
+
+					<FullWidthColumn className='pt-5'>
+						<div
+							className={cx(
+								'flex items-center justify-center transition-all duration-fast-2 ease-entrance-expressive',
+								{
+									'opacity-0': !isError
+								}
+							)}
+						>
+							<InlineNotification
+								kind='error'
+								title='Error'
+								hideCloseButton
+								subtitle={
+									(error as ApiError)?.message ||
+									'An error has occurred, please try again'
+								}
+							/>
+						</div>
+					</FullWidthColumn>
+				</Grid>
+			</ModalBody>
+			<ModalFooter>
+				<Button kind='secondary' onClick={() => cleanUp()}>
+					Cancel
+				</Button>
+				<Button type='submit' disabled={isLoading} onClick={generateNarrative}>
+					Generate Narrative
+				</Button>
+			</ModalFooter>
+		</ComposedModal>
 	);
 };
 export default GenerateModal;

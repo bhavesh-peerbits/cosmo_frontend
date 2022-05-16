@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { FCReturn, ReactInputAttr } from '../../../typings/shared';
 
-interface DatePickerInputProps extends ReactInputAttr {
+interface DatePickerInputProps extends Omit<ReactInputAttr, 'size'> {
 	/**
 	 * The type of the date picker:
 	 *

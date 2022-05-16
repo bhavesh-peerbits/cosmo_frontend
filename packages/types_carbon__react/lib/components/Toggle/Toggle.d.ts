@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { FCReturn, ReactDivAttr } from '../../../typings/shared';
 
-interface ToggleProps extends ReactDivAttr {
+interface ToggleProps extends Omit<ReactDivAttr, 'size'> {
 	['aria-label']: string;
 
 	/**

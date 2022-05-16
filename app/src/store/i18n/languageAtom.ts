@@ -1,5 +1,6 @@
 import { atom } from 'recoil';
-import i18n, { languages } from '@i18n';
+import i18n from '@i18n';
+import { languages } from '@i18n/languageOptions';
 
 type Language = typeof languages[number];
 

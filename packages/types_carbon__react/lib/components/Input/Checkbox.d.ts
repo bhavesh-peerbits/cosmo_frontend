@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { FCReturn, ReactInputAttr } from '../../../typings/shared';
 
-interface CheckboxProps extends ReactInputAttr {
+interface CheckboxProps extends Omit<ReactInputAttr, 'onChange'> {
 	/**
 	 * Specify whether the underlying input should be checked
 	 */

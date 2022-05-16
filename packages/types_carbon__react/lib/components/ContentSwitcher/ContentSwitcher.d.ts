@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { FCReturn, ReactDivAttr } from '../../../typings/shared';
 
-interface ContentSwitcherProps extends ReactDivAttr {
+interface ContentSwitcherProps extends Omit<ReactDivAttr, 'size'> {
 	/**
 	 * Pass in Switch components to be rendered in the ContentSwitcher
 	 */

@@ -12,31 +12,44 @@ import {
 	TableSelectRow
 } from '@carbon/react';
 import {
+	ColumnDef,
 	ColumnSort,
 	createTable,
-	getCoreRowModelSync,
+	getCoreRowModel,
 	getPaginationRowModel,
-	getSortedRowModelSync,
+	getSortedRowModel,
 	PaginationState,
+	Table as TableType,
 	useTableInstance
 } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+	AvailableFileType,
 	CellProperties,
 	CosmoTableToolbarProps,
-	HeaderFunction
+	ExportProperties,
+	TB
 } from '@components/table/types';
+import NoDataMessage from '@components/NoDataMessage';
+import Centered from '@components/Centered';
+import useExportTablePlugin from '@hooks/useExportTablePlugin';
 import CosmoTableToolbar from './CosmoTableToolbar';
 
-interface ApplicationsTableProps<D extends object> {
-	createHeaders: HeaderFunction<D>;
+type HeaderFunction<T extends object> = CosmoTableProps<T>['createHeaders'];
+interface CosmoTableProps<D extends object> {
+	createHeaders: (table: TableType<TB<D>>) => Array<ColumnDef<TB<D>>>;
 	data: D[];
 	toolbar?:
-		| Pick<CosmoTableToolbarProps, 'toolbarContent' | 'toolbarBatchActions'>
+		| Pick<CosmoTableToolbarProps<D>, 'toolbarContent' | 'toolbarBatchActions'>
 		| undefined;
 	noDataMessage?: string;
 	isSelectable?: boolean;
+	exportFileName?: (param: {
+		fileType: AvailableFileType;
+		all: boolean | 'selection';
+	}) => string;
+	disableExport?: boolean;
 }
 
 const CosmoTable = <D extends object>({
@@ -44,32 +57,22 @@ const CosmoTable = <D extends object>({
 	data,
 	toolbar,
 	noDataMessage,
-	isSelectable
-}: ApplicationsTableProps<D>) => {
+	isSelectable,
+	exportFileName,
+	disableExport
+}: CosmoTableProps<D>) => {
 	const { t } = useTranslation('table');
 	const [rowSelection, setRowSelection] = useState({});
 	const [sorting, setSorting] = useState<ColumnSort[]>([]);
 	const [pagination, setPagination] = useState<PaginationState>({
 		pageIndex: 0,
 		pageSize: 10,
-		pageCount: -1 // -1 allows the table to calculate the page count for us via instance.getPageCount()
+		pageCount: undefined //  allows the table to calculate the page count for us via instance.getPageCount()
 	});
 
-	const table = createTable().setRowType<D>();
-	const columns = useMemo(
-		() => table.createColumns(createHeaders(table)),
-		[createHeaders, table]
-	);
-	const {
-		toggleAllRowsSelected,
-		getTableProps,
-		getTableBodyProps,
-		getRowModel,
-		getHeaderGroups,
-		getToggleAllRowsSelectedProps,
-		setPageIndex,
-		setPageSize
-	} = useTableInstance(table, {
+	const table = createTable().setColumnMetaType<ExportProperties>().setRowType<D>();
+	const columns = useMemo(() => createHeaders(table), [createHeaders, table]);
+	const instance = useTableInstance(table, {
 		data,
 		columns,
 		autoResetPageIndex: false,
@@ -81,30 +84,42 @@ const CosmoTable = <D extends object>({
 		onPaginationChange: setPagination,
 		onSortingChange: setSorting,
 		onRowSelectionChange: setRowSelection,
-		getCoreRowModel: getCoreRowModelSync(),
-		getSortedRowModel: getSortedRowModelSync(),
+		getCoreRowModel: getCoreRowModel(),
+		getSortedRowModel: getSortedRowModel(),
 		getPaginationRowModel: getPaginationRowModel()
 	});
+	const {
+		toggleAllRowsSelected,
+		getSelectedRowModel,
+		getIsAllRowsSelected,
+		getIsSomeRowsSelected,
+		getToggleAllRowsSelectedHandler,
+		getRowModel,
+		getHeaderGroups,
+		setPageIndex,
+		setPageSize
+	} = instance;
+
+	const { exportData } = useExportTablePlugin(instance, exportFileName, disableExport);
 
 	const renderBody = () => {
 		const { rows } = getRowModel();
 		return rows.length ? (
 			rows.map(row => {
-				const properties = row.getToggleSelectedProps();
 				return (
-					<TableRow {...row.getRowProps()}>
+					<TableRow key={row.id}>
 						{isSelectable && (
 							<TableSelectRow
-								{...properties}
+								checked={row.getIsSelected()}
 								ariaLabel='Select'
 								id={row.id}
 								name={row.id}
-								onSelect={properties?.onChange}
+								onSelect={row.getToggleSelectedHandler()}
 								onChange={undefined}
 							/>
 						)}
 						{row.getVisibleCells().map(cell => (
-							<TableCell {...cell.getCellProps()}>{cell.renderCell()}</TableCell>
+							<TableCell key={cell.id}>{cell.renderCell()}</TableCell>
 						))}
 					</TableRow>
 				);
@@ -112,7 +127,9 @@ const CosmoTable = <D extends object>({
 		) : (
 			<TableRow>
 				<TableCell colSpan={columns.length + 1}>
-					<p className='flex justify-center'>{noDataMessage || t('no-data')}</p>
+					<Centered>
+						<NoDataMessage className='p-5' title={noDataMessage} />
+					</Centered>
 				</TableCell>
 			</TableRow>
 		);
@@ -121,38 +138,47 @@ const CosmoTable = <D extends object>({
 	return (
 		<TableContainer>
 			{toolbar && (
-				<CosmoTableToolbar
-					selectionIds={Object.keys(rowSelection).length}
+				<CosmoTableToolbar<D>
+					onExportClick={exportData}
+					selectionIds={
+						getSelectedRowModel()
+							.flatRows.map(row => row.original)
+							.filter(r => r) as D[]
+					}
 					onCancel={() => toggleAllRowsSelected(false)}
 					toolbarBatchActions={toolbar.toolbarBatchActions}
 					toolbarContent={toolbar.toolbarContent}
 				/>
 			)}
 			<Layer level={1}>
-				<Table {...getTableProps()}>
+				<Table>
 					<TableHead>
 						{getHeaderGroups().map(headerGroup => {
-							const properties = getToggleAllRowsSelectedProps();
 							return (
-								<TableRow {...headerGroup.getHeaderGroupProps()}>
+								<TableRow key={headerGroup.id}>
 									{isSelectable && (
-										<TableSelectAll
-											{...properties}
-											ariaLabel='SelectAll'
-											id='selectAll'
-											name='selectAll'
-											onSelect={properties?.onChange}
-											onChange={undefined}
-										/>
+										<th className='relative'>
+											<TableSelectAll
+												ariaLabel='SelectAll'
+												id='selectAll'
+												className='absolute top-1/2 left-0 -translate-y-1/2'
+												name='selectAll'
+												checked={getIsAllRowsSelected()}
+												indeterminate={getIsSomeRowsSelected()}
+												onSelect={getToggleAllRowsSelectedHandler()}
+												onChange={undefined}
+											/>
+										</th>
 									)}
 									{headerGroup.headers.map(header => {
 										return (
 											<TableHeader
-												{...header.getHeaderProps()}
+												key={header.id}
+												colSpan={header.colSpan}
 												sortDirection={
 													header.column.getIsSorted() === 'desc' ? 'DESC' : 'ASC'
 												}
-												onClick={() => header.column.toggleSorting()}
+												onClick={header.column.getToggleSortingHandler()}
 												scope=''
 												isSortable
 												isSortHeader={
@@ -167,7 +193,7 @@ const CosmoTable = <D extends object>({
 							);
 						})}
 					</TableHead>
-					<TableBody {...getTableBodyProps()}>{renderBody()}</TableBody>
+					<TableBody>{renderBody()}</TableBody>
 				</Table>
 			</Layer>
 

@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { FCReturn, ReactAttr } from '../../../typings/shared';
 
-interface AccordionItemProps extends ReactAttr<HTMLElement> {
+interface AccordionItemProps extends Omit<ReactAttr, 'size' | 'title'> {
 	/**
 	 * Provide the contents of your AccordionItem
 	 */

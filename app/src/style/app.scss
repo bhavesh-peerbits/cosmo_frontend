@@ -26,6 +26,11 @@
 	z-index: 9090 !important;
 }
 
+// fix datepicker width
+.#{$prefix}--date-picker.#{$prefix}--date-picker--single .#{$prefix}--date-picker__input {
+	width: 100%;
+}
+
 .fix-height {
 	height: calc(100% - 3rem);
 }

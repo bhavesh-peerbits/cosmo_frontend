@@ -1,7 +1,7 @@
 import { ReactElement, ReactNode } from 'react';
 import { FCReturn, ReactInputAttr } from '../../../typings/shared';
 
-export interface SearchProps extends ReactInputAttr {
+export interface SearchProps extends Omit<ReactInputAttr, 'size'> {
 	/**
 	 * Specify an optional className to be applied to the container node
 	 */

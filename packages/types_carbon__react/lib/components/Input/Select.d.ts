@@ -1,7 +1,7 @@
 import { ChangeEvent, ReactNode } from 'react';
 import { FCReturn, ReactAttr } from '../../../typings/shared';
 
-interface SelectProps extends ReactAttr<HTMLSelectElement> {
+interface SelectProps extends Omit<ReactAttr<HTMLSelectElement>, 'size'> {
 	/**
 	 * Provide the contents of your Select
 	 */

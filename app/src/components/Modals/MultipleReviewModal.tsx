@@ -11,34 +11,35 @@ import {
 	ModalHeader,
 	TextArea
 } from '@carbon/react';
+import Application from '@model/Application';
 
 type MultipleReviewModalProps = {
 	isOpen: boolean;
 	setIsOpen: (value: boolean) => void;
 	type: string;
-	totalSelected?: number;
+	applications: Application[];
 };
 
 const MultipleReviewModal = ({
 	isOpen,
 	setIsOpen,
 	type,
-	totalSelected
+	applications
 }: MultipleReviewModalProps) => {
 	const current = new Date();
 	const date = `${current.getMonth() + 1}/${current.getDate()}/${current.getFullYear()}`;
 	return (
-		<Grid fullWidth narrow>
-			<ComposedModal open={isOpen} onClose={() => setIsOpen(false)}>
-				<Column>
-					<ModalHeader
-						title={type === 'procedure' ? 'Procedure Review' : 'Application Review'}
-						label='Please fill in the fields above, then press Send Email.'
-						closeModal={() => setIsOpen(false)}
-					/>
-				</Column>
+		<Form>
+			<Grid fullWidth narrow>
+				<ComposedModal open={isOpen} onClose={() => setIsOpen(false)}>
+					<Column>
+						<ModalHeader
+							title={type === 'procedure' ? 'Procedure Review' : 'Application Review'}
+							label='Please fill in the fields above, then press Send Email.'
+							closeModal={() => setIsOpen(false)}
+						/>
+					</Column>
 
-				<Form>
 					<ModalBody>
 						<Column
 							lg={16}
@@ -51,7 +52,7 @@ const MultipleReviewModal = ({
 									Total {type === 'procedure' ? 'procedures' : 'applications'} selected to
 									review:
 								</div>
-								<div className='text-productive-heading-2'>{totalSelected}</div>
+								<div className='text-productive-heading-2'>{applications.length}</div>
 							</div>
 							<div className='pt-5'>
 								<DatePicker datePickerType='single' allowInput minDate={date}>
@@ -71,9 +72,9 @@ const MultipleReviewModal = ({
 						</Button>
 						<Button>Send Email</Button>
 					</ModalFooter>
-				</Form>
-			</ComposedModal>
-		</Grid>
+				</ComposedModal>
+			</Grid>
+		</Form>
 	);
 };
 export default MultipleReviewModal;

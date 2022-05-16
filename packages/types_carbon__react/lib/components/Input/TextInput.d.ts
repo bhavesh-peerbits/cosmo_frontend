@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { FCReturn, ReactInputAttr } from '../../../typings/shared';
 
-interface TextInputProps extends ReactInputAttr {
+interface TextInputProps extends Omit<ReactInputAttr, 'size'> {
 	/**
 	 * Specify an optional className to be applied to the `<input>` node
 	 */

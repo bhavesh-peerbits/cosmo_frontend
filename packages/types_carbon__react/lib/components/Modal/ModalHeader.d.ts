@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { FCReturn, ReactDivAttr } from '../../../typings/shared';
 
-interface ModalHeaderProps extends ReactDivAttr {
+interface ModalHeaderProps extends Omit<ReactDivAttr, 'label' | 'title'> {
 	/**
 	 * Provide an optional function to be called when the close button is
 	 * clicked

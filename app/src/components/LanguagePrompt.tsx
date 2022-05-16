@@ -1,7 +1,7 @@
 import { Button, ButtonSet, Column, Grid, Layer, Tile, useTheme } from '@carbon/react';
 import { memo } from 'react';
 import { ArrowRight, Translate } from '@carbon/react/icons';
-import { languageOptions, languages } from '@i18n';
+import { languageOptions, languages } from '@i18n/languageOptions';
 import detectLanguage from '@i18n/detectLanguage';
 import useUiStore from '@hooks/useUiStore';
 

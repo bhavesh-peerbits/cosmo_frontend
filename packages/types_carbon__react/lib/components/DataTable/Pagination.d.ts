@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { ReactDivAttr } from '../../../typings/shared';
 
-interface PaginationProps extends ReactDivAttr {
+interface PaginationProps extends Omit<ReactDivAttr, 'size' | 'onChange'> {
 	/**
 	 * The description for the backward icon.
 	 */
@@ -25,7 +25,7 @@ interface PaginationProps extends ReactDivAttr {
 	/**
 	 * The unique ID of this component instance.
 	 */
-	id?: string | number;
+	id?: string;
 
 	/**
 	 * The function returning a translatable text showing where the current page is,

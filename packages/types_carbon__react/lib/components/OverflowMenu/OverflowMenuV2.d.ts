@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react';
 import { ReactButtonAttr } from '../../../typings/shared';
 
-interface OverflowMenuV2Props extends ReactButtonAttr {
+interface OverflowMenuV2Props extends Omit<ReactButtonAttr, 'size'> {
 	/**
 	 * Specify the children of the OverflowMenu
 	 */

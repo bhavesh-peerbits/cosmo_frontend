@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { FCReturn, ReactDivAttr } from '../../../typings/shared';
 
-interface TableToolbarProps extends ReactDivAttr {
+interface TableToolbarProps extends Omit<ReactDivAttr, 'size'> {
 	/**
 	 * Required props for the accessibility label of the TableToolbar
 	 */

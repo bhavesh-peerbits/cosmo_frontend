@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react';
 import { ReactButtonAttr } from '../../../typings/shared';
 
-interface OverflowMenuProps extends ReactButtonAttr {
+interface OverflowMenuProps extends Omit<ReactButtonAttr, 'size'> {
 	/**
 	 * The ARIA label.
 	 */

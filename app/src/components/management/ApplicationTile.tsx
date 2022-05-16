@@ -31,8 +31,8 @@ const ApplicationTile = ({ application }: ApplicationTileProps) => {
 							</div>
 						</div>
 						<div className='mb-5'>
-							<p className='text-heading-1'>{application.name}</p>
-							<p className='text-label-1'>{application.owner.name}</p>
+							<p className='line-clamp-1 text-heading-1'>{application.name}</p>
+							<p className='line-clamp-1 text-label-1'>{application.owner.name}</p>
 						</div>
 					</div>
 					<div className='flex min-h-[7rem] flex-col justify-between'>

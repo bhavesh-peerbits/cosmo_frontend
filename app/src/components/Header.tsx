@@ -23,8 +23,8 @@ import {
 	Logout,
 	Moon,
 	Notification,
-	Search,
 	RequestQuote,
+	Search,
 	Switcher as SwitcherIcon
 } from '@carbon/react/icons';
 import { Link, useNavigate } from 'react-router-dom';
@@ -110,7 +110,9 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 							Management Dashboard
 						</SideNavMenuItem>
 
-						<SideNavMenuItem href='/review'>Review</SideNavMenuItem>
+						<SideNavMenuItem element={Link} to='/review'>
+							Review
+						</SideNavMenuItem>
 					</SideNavMenu>
 					<SideNavMenu
 						renderIcon={RequestQuote}

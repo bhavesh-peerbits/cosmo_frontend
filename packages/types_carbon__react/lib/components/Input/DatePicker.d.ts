@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { FCReturn, ReactInputAttr } from '../../../typings/shared';
 
-interface DatePickerProps extends ReactInputAttr {
+interface DatePickerProps extends Omit<ReactInputAttr, 'value' | 'onChange'> {
 	/**
 	 * flatpickr prop passthrough. Allows the user to enter a date directly
 	 * into the input field
@@ -132,7 +132,7 @@ interface DatePickerProps extends ReactInputAttr {
 	/**
 	 * The `change` event handler.
 	 */
-	onChange?: () => void;
+	onChange?: (dates: Date[]) => void;
 
 	/**
 	 * The `close` event handler.
