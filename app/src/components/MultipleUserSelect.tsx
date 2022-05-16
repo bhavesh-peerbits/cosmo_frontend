@@ -57,7 +57,7 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 
 	return (
 		<>
-			<div className='flex flex-wrap items-end justify-end md:flex-nowrap'>
+			<div className='flex w-full flex-wrap justify-end md:flex-nowrap'>
 				<div className='flex w-full flex-col'>
 					<FormLabel className='mb-3'>
 						<span>{label}</span>
