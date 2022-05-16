@@ -14,6 +14,21 @@ const ReviewDetail = () => {
 					<div className='space-y-7'>
 						<Tile className='w-full bg-background pb-7'>
 							<Grid>
+								<FullWidthColumn
+									data-toc-id='general-info'
+									className='flex justify-between'
+								>
+									<p className='text-productive-heading-3'>General Info</p>
+									<div>
+										<p className='text-text-secondary text-body-compact-1'>
+											Last Review Date:
+										</p>
+										<p className=' text-text-secondary text-body-compact-1'>
+											Last Reviewer:
+										</p>
+									</div>
+								</FullWidthColumn>
+
 								<FullWidthColumn>
 									<GeneralInfoReview />
 								</FullWidthColumn>

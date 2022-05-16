@@ -6,6 +6,8 @@ import MultipleUserSelect from '@components/MultipleUserSelect';
 import SingleUserSelect from '@components/SingleUserSelect';
 import { useController, useForm } from 'react-hook-form';
 import TiptapEditor from '@components/tiptap/TiptapEditor';
+import { Checkmark } from '@carbon/react/icons';
+import { useState } from 'react';
 
 export interface GeneralInfoForm {
 	generalInfo: {
@@ -21,6 +23,7 @@ export interface GeneralInfoForm {
 }
 
 const GeneralInfoReview = () => {
+	const [isConfirmed, setIsConfirmed] = useState(false);
 	const {
 		control,
 		register,
@@ -44,7 +47,7 @@ const GeneralInfoReview = () => {
 		<Grid fullWidth>
 			<Column sm={4} md={8} lg={8} className='mb-5'>
 				<TextInput
-					value='value'
+					defaultValue='value'
 					className='w-full'
 					id='name'
 					invalidText={errors.generalInfo?.name?.message}
@@ -62,7 +65,7 @@ const GeneralInfoReview = () => {
 			</Column>
 			<Column sm={4} md={8} lg={8} className='mb-5'>
 				<TextInput
-					value='value'
+					defaultValue='value'
 					className='w-full'
 					id='code'
 					invalidText={errors.generalInfo?.codeName?.message}
@@ -124,10 +127,23 @@ const GeneralInfoReview = () => {
 					/>
 				</div>
 			</FullWidthColumn>
+
 			<FullWidthColumn className='flex justify-end'>
-				<Button type='submit' disabled={!isValid} size='md'>
-					Confirm
-				</Button>
+				{isConfirmed ? (
+					<div className='flex h-8 items-center space-x-2 text-link-primary'>
+						<p className='text-body-short-2'>Confirmed</p>
+						<Checkmark />
+					</div>
+				) : (
+					<Button
+						type='submit'
+						onClick={() => setIsConfirmed(true)}
+						disabled={!isValid}
+						size='md'
+					>
+						Confirm
+					</Button>
+				)}
 			</FullWidthColumn>
 		</Grid>
 	);
