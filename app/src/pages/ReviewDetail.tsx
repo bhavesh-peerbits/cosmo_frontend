@@ -1,10 +1,20 @@
 import PageHeader from '@components/PageHeader';
-
-import GeneralInfoReview from '@components/ReviewNarrative/GeneralInfoReview';
-import { Grid, Form, Tile } from '@carbon/react';
+import { Control, FieldErrors, useForm, UseFormRegister } from 'react-hook-form';
+import GeneralInfoReview, {
+	GeneralInfoForm
+} from '@components/ReviewNarrative/GeneralInfoReview';
+import { Grid, Tile } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 
+type ApplicationForm = GeneralInfoForm;
 const ReviewDetail = () => {
+	const {
+		register,
+		control,
+		formState: { errors }
+	} = useForm<ApplicationForm>({
+		mode: 'onSubmit'
+	});
 	return (
 		<PageHeader
 			pageTitle='Name'
@@ -12,17 +22,19 @@ const ReviewDetail = () => {
 		>
 			<Grid fullWidth className='h-full pb-4 pr-4'>
 				<FullWidthColumn className='pt-4'>
-					<Form className='space-y-4'>
-						<div className='flex w-full flex-wrap items-center md:space-x-4'>
-							<Tile className='w-full bg-background pb-7'>
-								<Grid>
-									<FullWidthColumn>
-										<GeneralInfoReview />
-									</FullWidthColumn>
-								</Grid>
-							</Tile>
-						</div>
-					</Form>
+					<div className='space-y-7'>
+						<Tile className='w-full bg-background pb-7'>
+							<Grid>
+								<FullWidthColumn>
+									<GeneralInfoReview
+										control={control as unknown as Control<GeneralInfoForm>}
+										errors={errors as FieldErrors<GeneralInfoForm>}
+										register={register as unknown as UseFormRegister<GeneralInfoForm>}
+									/>
+								</FullWidthColumn>
+							</Grid>
+						</Tile>
+					</div>
 				</FullWidthColumn>
 			</Grid>
 		</PageHeader>
