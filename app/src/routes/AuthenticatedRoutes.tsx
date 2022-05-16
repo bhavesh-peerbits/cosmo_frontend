@@ -6,7 +6,7 @@ import Header from '@components/Header';
 import ErrorBoundary from '@error/components/ErrorBoundary';
 import PageSkeleton from '@components/PageSkeleton';
 import Review from '@pages/Review';
-import ReviewDetail from '@components/ReviewNarrative/ReviewDetail';
+import ReviewDetail from '@pages/ReviewDetail';
 
 const Home = React.lazy(() => import('@pages/Home'));
 const Test = React.lazy(() => import('@pages/Test'));
