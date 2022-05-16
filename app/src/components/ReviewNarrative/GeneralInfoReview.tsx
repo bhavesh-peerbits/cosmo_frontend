@@ -1,10 +1,10 @@
-import { Column, Grid, TextInput } from '@carbon/react';
+import { Button, Column, Grid, TextInput } from '@carbon/react';
 import User from '@model/User';
 import { icons } from '@components/IconPicker';
 import FullWidthColumn from '@components/FullWidthColumn';
 import MultipleUserSelect from '@components/MultipleUserSelect';
 import SingleUserSelect from '@components/SingleUserSelect';
-import { UseFormRegister, FieldErrors, Control, useController } from 'react-hook-form';
+import { useController, useForm } from 'react-hook-form';
 import TiptapEditor from '@components/tiptap/TiptapEditor';
 
 export interface GeneralInfoForm {
@@ -20,13 +20,14 @@ export interface GeneralInfoForm {
 	};
 }
 
-type GeneralInfoProps = {
-	register: UseFormRegister<GeneralInfoForm>;
-	errors: FieldErrors<GeneralInfoForm>;
-	control: Control<GeneralInfoForm>;
-};
-
-const GeneralInfoReview = ({ register, errors, control }: GeneralInfoProps) => {
+const GeneralInfoReview = () => {
+	const {
+		control,
+		register,
+		formState: { errors, isValid }
+	} = useForm<GeneralInfoForm>({
+		mode: 'onChange'
+	});
 	const {
 		field: {
 			onChange: onChangeDescription,
@@ -43,6 +44,7 @@ const GeneralInfoReview = ({ register, errors, control }: GeneralInfoProps) => {
 		<Grid fullWidth>
 			<Column sm={4} md={8} lg={8} className='mb-5'>
 				<TextInput
+					value='value'
 					className='w-full'
 					id='name'
 					invalidText={errors.generalInfo?.name?.message}
@@ -60,6 +62,7 @@ const GeneralInfoReview = ({ register, errors, control }: GeneralInfoProps) => {
 			</Column>
 			<Column sm={4} md={8} lg={8} className='mb-5'>
 				<TextInput
+					value='value'
 					className='w-full'
 					id='code'
 					invalidText={errors.generalInfo?.codeName?.message}
@@ -110,7 +113,7 @@ const GeneralInfoReview = ({ register, errors, control }: GeneralInfoProps) => {
 					{...register('generalInfo.operationSupplier')}
 				/>
 			</Column>
-			<FullWidthColumn>
+			<FullWidthColumn className='mb-5'>
 				<div>
 					<p className='mb-3 text-text-secondary text-label-1'> Description </p>
 					<TiptapEditor
@@ -120,6 +123,11 @@ const GeneralInfoReview = ({ register, errors, control }: GeneralInfoProps) => {
 						ref={descriptionRef}
 					/>
 				</div>
+			</FullWidthColumn>
+			<FullWidthColumn className='flex justify-end'>
+				<Button type='submit' disabled={!isValid} size='md'>
+					Confirm
+				</Button>
 			</FullWidthColumn>
 		</Grid>
 	);
