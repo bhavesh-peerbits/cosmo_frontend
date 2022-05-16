@@ -50,7 +50,7 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 		rules,
 		defaultValue: defaultValue as UnpackNestedValue<PathValue<T, TName>>
 	});
-	const value = formValue as User;
+	const value = formValue as User | undefined;
 	const [openSearch, setOpenSearch] = useState(false);
 	const { data: users = [] } = useGetUsers();
 	const invalidText = error?.message;
