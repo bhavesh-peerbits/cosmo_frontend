@@ -25,6 +25,7 @@ import {
 	Notification,
 	RequestQuote,
 	Search,
+	Help,
 	Switcher as SwitcherIcon
 } from '@carbon/react/icons';
 import { Link, useNavigate } from 'react-router-dom';
@@ -84,6 +85,9 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 				</HeaderGlobalAction>
 				<HeaderGlobalAction aria-label='Notifications' onClick={() => {}}>
 					<Notification />
+				</HeaderGlobalAction>
+				<HeaderGlobalAction aria-label='Contact an Analyst' onClick={() => {}}>
+					<Help />
 				</HeaderGlobalAction>
 				<HeaderGlobalAction
 					aria-label='App Switcher'

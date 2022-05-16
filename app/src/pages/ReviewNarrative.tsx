@@ -1,4 +1,5 @@
 import { Grid, Column, Search, Layer } from '@carbon/react';
+import Centered from '@components/Centered';
 import Fade from '@components/Fade';
 import PageHeader from '@components/PageHeader';
 import ReviewsFilters from '@components/ReviewNarrative/ReviewsFilters';
@@ -44,7 +45,23 @@ const ReviewNarrative = () => {
 									</div>
 								</div>
 								<div>
-									<ReviewsTileContainer />
+									{apps.length === 0 ? (
+										<Fade>
+											<Centered>
+												<div className='flex flex-col'>
+													<p className='pt-5 text-productive-heading-3'>
+														No Application to Review
+													</p>
+													<p className='pt-5 text-productive-heading-2'>
+														If you should have application to review, please contact the
+														analyst
+													</p>
+												</div>
+											</Centered>
+										</Fade>
+									) : (
+										<ReviewsTileContainer />
+									)}
 								</div>
 							</div>
 						</Column>
