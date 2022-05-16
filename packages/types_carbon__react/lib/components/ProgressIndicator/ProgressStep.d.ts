@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { FCReturn, ReactDivAttr } from '../../../typings/shared';
 
-interface ProgressStepProps extends ReactDivAttr {
+interface ProgressStepProps extends Omit<ReactDivAttr, 'label'> {
 	/**
 	 * Provide an optional className to be applied to the containing `<li>` node
 	 */

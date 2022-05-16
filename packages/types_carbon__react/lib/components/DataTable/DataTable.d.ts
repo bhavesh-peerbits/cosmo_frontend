@@ -15,7 +15,8 @@ type RowShape = {
 
 type RenderType = Record<string, unknown>;
 
-interface DataTableProps extends ReactDivAttr {
+interface DataTableProps
+	extends Omit<ReactDivAttr, 'headers' | 'rows' | 'size' | 'children'> {
 	/**
 	 * Optional hook to manually control filtering of the rows from the
 	 * TableToolbarSearch component

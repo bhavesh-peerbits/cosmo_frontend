@@ -1,19 +1,26 @@
 import {
-	Grid,
-	ComposedModal,
+	Button,
 	Column,
-	ModalHeader,
+	ComposedModal,
+	Grid,
 	ModalBody,
 	ModalFooter,
-	Button
+	ModalHeader
 } from '@carbon/react';
+import Application from '@model/Application';
+import FullWidthColumn from '@components/FullWidthColumn';
 
 type MultipleGenerateModalProps = {
 	isOpen: boolean;
 	setIsOpen: (value: boolean) => void;
+	applications: Application[];
 };
 
-const MultipleGenerateModal = ({ isOpen, setIsOpen }: MultipleGenerateModalProps) => {
+const MultipleGenerateModal = ({
+	isOpen,
+	setIsOpen,
+	applications
+}: MultipleGenerateModalProps) => {
 	return (
 		<Grid fullWidth narrow>
 			<ComposedModal open={isOpen} onClose={() => setIsOpen(false)}>
@@ -21,30 +28,22 @@ const MultipleGenerateModal = ({ isOpen, setIsOpen }: MultipleGenerateModalProps
 					<ModalHeader title='Generate Narratives' closeModal={() => setIsOpen(false)} />
 				</Column>
 				<ModalBody>
-					<Column lg={16} md={8} sm={4}>
+					<FullWidthColumn>
 						<div>
-							<div className='flex space-x-5 py-5'>
-								<div className='flex w-1/2 space-x-3'>
-									<div className='text-heading-compact-1'>Application:</div>
-									<div>ApplicationName</div>
+							{applications.map(app => (
+								<div className='flex space-x-5 py-5'>
+									<div className='flex w-1/2 space-x-3'>
+										<div className='text-heading-compact-1'>Application:</div>
+										<div>{app.name}</div>
+									</div>
+									<div className='flex w-1/2 space-x-3'>
+										<div className='text-heading-compact-1'>Narrative Name:</div>
+										<div>NarrativeName</div>
+									</div>
 								</div>
-								<div className='flex w-1/2 space-x-3'>
-									<div className='text-heading-compact-1'>Narrative Name:</div>
-									<div>NarrativeName</div>
-								</div>
-							</div>
-							<div className='flex space-x-5 py-5'>
-								<div className='flex w-1/2 space-x-3'>
-									<div className='text-heading-compact-1'>Application:</div>
-									<div>ApplicationName</div>
-								</div>
-								<div className='flex w-1/2 space-x-3'>
-									<div className='text-heading-compact-1'>Narrative Name:</div>
-									<div>NarrativeName</div>
-								</div>
-							</div>
+							))}
 						</div>
-					</Column>
+					</FullWidthColumn>
 				</ModalBody>
 				<ModalFooter>
 					<Button kind='secondary' onClick={() => setIsOpen(false)}>

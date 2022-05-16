@@ -1,7 +1,8 @@
 import { ReactElement, ReactNode } from 'react';
 import { ReactDivAttr } from '../../../typings/shared';
 
-interface DropdownProps<T extends string | number | object> extends ReactDivAttr {
+interface DropdownProps<T extends string | number | object>
+	extends Omit<ReactDivAttr, 'size' | 'label' | 'onChange'> {
 	/**
 	 * 'aria-label' of the ListBox component.
 	 */

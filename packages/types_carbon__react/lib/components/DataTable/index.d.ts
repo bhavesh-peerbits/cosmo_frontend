@@ -33,3 +33,7 @@ export { default as TableToolbarContent } from './TableToolbarContent';
 export { default as TableToolbarSearch } from './TableToolbarSearch';
 
 export { default as Pagination } from './Pagination';
+
+export { default as TableToolbarAction } from './TableToolbarAction';
+
+export { default as TableToolbarMenu } from './TableToolbarMenu';

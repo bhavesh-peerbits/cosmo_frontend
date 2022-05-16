@@ -1,7 +1,7 @@
 import { ReactElement, ReactNode } from 'react';
 import { FCReturn, ReactDivAttr } from '../../../typings/shared';
 
-interface TagProps extends ReactDivAttr {
+interface TagProps extends Omit<ReactDivAttr, 'size'> {
 	/**
 	 * Provide content to be rendered inside of a <Tag>
 	 */

@@ -2,7 +2,7 @@ import { AriaRole, ElementType, ReactElement, ReactNode } from 'react';
 import { FCReturn, ReactButtonAttr } from '../../../typings/shared';
 import ButtonKinds from './ButtonKinds';
 
-interface ButtonProps extends ReactButtonAttr {
+interface ButtonProps extends Omit<ReactButtonAttr, 'as' | 'size'> {
 	/**
 	 * Specify how the button itself should be rendered.
 	 * Make sure to apply all props to the root node and render children appropriately

@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { FCReturn, ReactDivAttr } from '../../../typings/shared';
 
-interface TableProps extends ReactDivAttr {
+interface TableProps extends Omit<ReactDivAttr, 'size'> {
 	/**
 	 * Pass in the children that will be rendered within the Table
 	 */

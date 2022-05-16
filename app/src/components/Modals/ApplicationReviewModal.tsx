@@ -11,7 +11,7 @@ import {
 	TextArea,
 	TextInput
 } from '@carbon/react';
-import { useForm, useWatch } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import SingleUserSelect from '@components/SingleUserSelect';
 import FullWidthColumn from '@components/FullWidthColumn';
 import User from '@model/User';
@@ -24,15 +24,22 @@ type AppReviewModalProps = {
 	appId: string;
 	isOpen: boolean;
 	setIsOpen: (value: boolean) => void;
+	owner: User;
 };
 
 type FormData = {
 	reviewer: User;
 	reviewDate: Date;
 	description: string;
+	owner: User;
 };
 
-const ApplicationReviewModal = ({ appId, isOpen, setIsOpen }: AppReviewModalProps) => {
+const ApplicationReviewModal = ({
+	appId,
+	isOpen,
+	setIsOpen,
+	owner
+}: AppReviewModalProps) => {
 	const { mutate, error, isError, isLoading, reset } = useReviewApp(appId);
 	const {
 		control,
@@ -42,11 +49,6 @@ const ApplicationReviewModal = ({ appId, isOpen, setIsOpen }: AppReviewModalProp
 		formState: { isValid }
 	} = useForm<FormData>({
 		mode: 'onChange'
-	});
-
-	const reviewerMail = useWatch({
-		control,
-		name: 'reviewer.email'
 	});
 
 	const cleanUp = () => {
@@ -84,12 +86,14 @@ const ApplicationReviewModal = ({ appId, isOpen, setIsOpen }: AppReviewModalProp
 								helperText='The review request will be sent to this user'
 								label='Reviewer'
 								name='reviewer'
+								defaultValue={owner}
 								rules={{
 									required: {
 										value: true,
-										message: 'Please select a reviewer'
+										message: 'A owner is required'
 									}
 								}}
+								readOnly
 								control={control}
 							/>
 						</Column>
@@ -99,7 +103,7 @@ const ApplicationReviewModal = ({ appId, isOpen, setIsOpen }: AppReviewModalProp
 								id='email-address'
 								placeholder="User's email address"
 								labelText='Email Address'
-								value={reviewerMail || ''}
+								value={owner.email || ''}
 								helperText='The review request will be sent to this email address'
 								className='w-full grow-0'
 							/>

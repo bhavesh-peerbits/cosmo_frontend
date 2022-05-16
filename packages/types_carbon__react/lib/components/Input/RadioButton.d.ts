@@ -1,7 +1,7 @@
 import { FC, ReactNode, SyntheticEvent } from 'react';
 import { ReactInputAttr } from '../../../typings/shared';
 
-export interface RadioButtonProps extends ReactInputAttr {
+export interface RadioButtonProps extends Omit<ReactInputAttr, 'onChange'> {
 	/**
 	 * Specify whether the `<RadioButton>` is currently checked
 	 */

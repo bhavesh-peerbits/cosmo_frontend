@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { FCReturn, ReactDivAttr } from '../../../typings/shared';
 
-interface TabProps extends ReactDivAttr {
+interface TabProps extends Omit<ReactDivAttr, 'label'> {
 	/**
 	 * Specify an optional className to be added to your Tab
 	 */

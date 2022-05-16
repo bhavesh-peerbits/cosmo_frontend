@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { AriaLabelProps, FCReturn, ReactDivAttr } from '../../../typings/shared';
 
-interface ComposedModalProps extends AriaLabelProps, ReactDivAttr {
+interface ComposedModalProps extends AriaLabelProps, Omit<ReactDivAttr, 'size'> {
 	/**
 	 * Specify the content to be placed in the ComposedModal
 	 */

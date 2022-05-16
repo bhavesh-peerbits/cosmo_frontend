@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { FCReturn, ReactAttr } from '../../../typings/shared';
 
-interface ReactAttrTableCell extends ReactAttr<HTMLTableCellElement> {
+interface ReactAttrTableCell extends Omit<ReactAttr<HTMLTableCellElement>, 'children'> {
 	children?: ReactNode | object;
 }
 
