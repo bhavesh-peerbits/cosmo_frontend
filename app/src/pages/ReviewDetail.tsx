@@ -5,6 +5,7 @@ import GeneralInfoReview from '@components/ReviewNarrative/GeneralInfoReview';
 import { Grid, Tile } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import TableOfContents from '@components/TableOfContents';
+import TechnicalInfoReview from '@components/ReviewNarrative/TechnicalInfoReview';
 
 const ReviewDetail = () => {
 	const { breadcrumbSize } = useBreadcrumbSize();
@@ -14,38 +15,62 @@ const ReviewDetail = () => {
 			pageTitle='Name'
 			intermediateRoutes={[{ name: 'Review', to: '/review-narrative' }]}
 		>
-			<TableOfContents
-				stickyOffset={buttonRef.current?.getBoundingClientRect()?.height || 0}
-				tocStickyOffset={breadcrumbSize * 2}
-			>
-				<Grid fullWidth className='h-full pb-4 pr-4'>
-					<FullWidthColumn className='pt-4'>
-						<div className='space-y-7'>
-							<Tile className='w-full bg-background pb-7'>
-								<Grid>
-									<FullWidthColumn className='flex justify-between'>
-										<p data-toc-id='general-info' className='text-productive-heading-3'>
-											General Info
-										</p>
-										<div>
-											<p className='text-text-secondary text-body-compact-1'>
-												Last Review Date:
+			<div className='p-container-1'>
+				<TableOfContents
+					stickyOffset={buttonRef.current?.getBoundingClientRect()?.height || 0}
+					tocStickyOffset={breadcrumbSize * 2}
+				>
+					<Grid fullWidth className='h-full pb-4'>
+						<FullWidthColumn className='pt-4'>
+							<div className='space-y-7'>
+								<Tile className='w-full bg-background pb-7'>
+									<Grid>
+										<FullWidthColumn className='flex justify-between'>
+											<p data-toc-id='general-info' className='text-productive-heading-3'>
+												General Info
 											</p>
-											<p className=' text-text-secondary text-body-compact-1'>
-												Last Reviewer:
+											<div>
+												<p className='text-text-secondary text-body-compact-1'>
+													Last Review Date:
+												</p>
+												<p className=' text-text-secondary text-body-compact-1'>
+													Last Reviewer:
+												</p>
+											</div>
+										</FullWidthColumn>
+										<FullWidthColumn>
+											<GeneralInfoReview />
+										</FullWidthColumn>
+									</Grid>
+								</Tile>
+								<Tile className='w-full bg-background pb-7'>
+									<Grid>
+										<FullWidthColumn className='flex justify-between'>
+											<p
+												data-toc-id='technical-info'
+												className='text-productive-heading-3'
+											>
+												Technical Info
 											</p>
-										</div>
-									</FullWidthColumn>
-
-									<FullWidthColumn>
-										<GeneralInfoReview />
-									</FullWidthColumn>
-								</Grid>
-							</Tile>
-						</div>
-					</FullWidthColumn>
-				</Grid>
-			</TableOfContents>
+											<div>
+												<p className='text-text-secondary text-body-compact-1'>
+													Last Review Date:
+												</p>
+												<p className=' text-text-secondary text-body-compact-1'>
+													Last Reviewer:
+												</p>
+											</div>
+										</FullWidthColumn>
+										<FullWidthColumn>
+											<TechnicalInfoReview />
+										</FullWidthColumn>
+									</Grid>
+								</Tile>
+							</div>
+						</FullWidthColumn>
+					</Grid>
+				</TableOfContents>
+			</div>
 		</PageHeader>
 	);
 };
