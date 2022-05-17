@@ -39,8 +39,8 @@ const ApplicationTile = ({ application }: ApplicationTileProps) => {
 						<div className='mb-5 max-w-[40rem]'>
 							<div className='box-content max-h-[60px] overflow-hidden line-clamp-3'>
 								<div className='mb-5 max-w-[40rem] text-ellipsis text-body-1'>
-									{application.description || (
-										<p className='italic text-body-short-1'>{t('no-description')}</p>
+									{application.codeName || (
+										<p className='italic text-body-short-1'>{t('no-code')}</p>
 									)}
 								</div>
 							</div>

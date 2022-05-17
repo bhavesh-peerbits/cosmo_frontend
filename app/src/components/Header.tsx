@@ -2,11 +2,8 @@ import {
 	Header as CarbonHeader,
 	HeaderGlobalAction,
 	HeaderGlobalBar,
-	HeaderMenu,
 	HeaderMenuButton,
-	HeaderMenuItem,
 	HeaderName,
-	HeaderNavigation,
 	HeaderPanel,
 	SideNav,
 	SideNavItems,
@@ -64,12 +61,6 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 			>
 				[Dashboard]
 			</HeaderName>
-			<HeaderNavigation aria-label='IBM [Platform]'>
-				<HeaderMenuItem href='#'>Link 1</HeaderMenuItem>
-				<HeaderMenu aria-label='Link 2' menuLinkName='Link 2'>
-					<HeaderMenuItem href='#one'>Sub-link 1</HeaderMenuItem>
-				</HeaderMenu>
-			</HeaderNavigation>
 
 			<HeaderGlobalBar>
 				<HeaderGlobalAction aria-label='Search' className='' onClick={() => {}}>
@@ -126,15 +117,6 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 						<SideNavMenuItem element={Link} to='/review-narrative'>
 							Narrative
 						</SideNavMenuItem>
-					</SideNavMenu>
-					<SideNavMenu
-						isSideNavExpanded={isSideNavExpanded}
-						renderIcon={Fade}
-						title='Revalidation'
-					>
-						<SideNavMenuItem href='/home'>SUID</SideNavMenuItem>
-						<SideNavMenuItem href='/home'>Firecall</SideNavMenuItem>
-						<SideNavMenuItem href='/home'>User Access</SideNavMenuItem>
 					</SideNavMenu>
 					<SideNavLink renderIcon={Fade} element={Link} to='/test'>
 						Test Error
