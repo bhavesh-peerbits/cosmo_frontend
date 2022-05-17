@@ -6,8 +6,18 @@ import { Grid, Tile } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import TableOfContents from '@components/TableOfContents';
 import TechnicalInfoReview from '@components/ReviewNarrative/TechnicalInfoReview';
+import ProcedureReview from '@components/ReviewNarrative/ProcedureReview';
 
 const ReviewDetail = () => {
+	const procedureList = [
+		{
+			id: 'id',
+			name: 'Procedure Name',
+			description: 'Description',
+			lastModify: new Date(),
+			lastReview: new Date()
+		}
+	];
 	const { breadcrumbSize } = useBreadcrumbSize();
 	const buttonRef = useRef<HTMLDivElement>(null);
 	return (
@@ -66,6 +76,31 @@ const ReviewDetail = () => {
 										</FullWidthColumn>
 									</Grid>
 								</Tile>
+								{procedureList.map(procedure => (
+									<Tile className='w-full bg-background pb-7'>
+										<Grid>
+											<FullWidthColumn className='flex justify-between'>
+												<p
+													data-toc-id={`procedure-container-${procedure.id}`}
+													className='text-productive-heading-3'
+												>
+													{procedure.name}
+												</p>
+												<div>
+													<p className='text-text-secondary text-body-compact-1'>
+														Last Review Date:
+													</p>
+													<p className=' text-text-secondary text-body-compact-1'>
+														Last Reviewer:
+													</p>
+												</div>
+											</FullWidthColumn>
+											<FullWidthColumn>
+												<ProcedureReview procedure={procedure} />
+											</FullWidthColumn>
+										</Grid>
+									</Tile>
+								))}
 							</div>
 						</FullWidthColumn>
 					</Grid>
