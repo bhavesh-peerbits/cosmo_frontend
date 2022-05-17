@@ -17,9 +17,17 @@ export interface TechnicalInfoForm {
 	};
 }
 
-const TechnicalInfoReview = () => {
+interface TechnicalInfoReviewProps {
+	isInReview?: boolean;
+}
+
+const TechnicalInfoReview = ({ isInReview }: TechnicalInfoReviewProps) => {
 	const [isConfirmed, setIsConfirmed] = useState(false);
-	const { register } = useForm<TechnicalInfoForm>({
+	const {
+		register,
+		reset,
+		formState: { isDirty }
+	} = useForm<TechnicalInfoForm>({
 		mode: 'onChange'
 	});
 
@@ -98,15 +106,29 @@ const TechnicalInfoReview = () => {
 				/>
 			</Column>
 			<FullWidthColumn className='flex justify-end'>
-				{isConfirmed ? (
-					<div className='flex h-8 items-center space-x-2 text-link-primary'>
-						<p className='text-body-short-2'>Confirmed</p>
-						<Checkmark />
+				{isInReview ? (
+					<div className='flex w-full flex-1 justify-end space-x-5'>
+						<Button
+							type='reset'
+							kind='tertiary'
+							disabled={!isDirty && !isConfirmed}
+							onClick={() => reset()}
+						>
+							Cancel
+						</Button>
+						{isConfirmed ? (
+							<div className='flex h-8 items-center space-x-2 text-link-primary'>
+								<p className='text-body-short-2'>Confirmed</p>
+								<Checkmark />
+							</div>
+						) : (
+							<Button type='submit' onClick={() => setIsConfirmed(true)} size='md'>
+								Confirm
+							</Button>
+						)}
 					</div>
 				) : (
-					<Button type='submit' onClick={() => setIsConfirmed(true)} size='md'>
-						Confirm
-					</Button>
+					<p className='text-link-primary text-body-short-2'>Read Only</p>
 				)}
 			</FullWidthColumn>
 		</Grid>
