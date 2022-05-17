@@ -9,7 +9,7 @@ import TiptapEditor from '@components/tiptap/TiptapEditor';
 import { Checkmark } from '@carbon/react/icons';
 import { useState } from 'react';
 
-export interface GeneralInfoForm {
+interface GeneralInfoForm {
 	generalInfo: {
 		name: string;
 		icon: keyof typeof icons;
@@ -53,6 +53,7 @@ const GeneralInfoReview = ({ isInReview }: GeneralInfoReviewProps) => {
 			<Grid fullWidth>
 				<Column sm={4} md={8} lg={8} className='mb-5'>
 					<TextInput
+						value={isInReview ? undefined : 'name'}
 						className='w-full'
 						id='name'
 						invalidText={errors.generalInfo?.name?.message}
@@ -70,6 +71,7 @@ const GeneralInfoReview = ({ isInReview }: GeneralInfoReviewProps) => {
 				</Column>
 				<Column sm={4} md={8} lg={8} className='mb-5'>
 					<TextInput
+						value={isInReview ? undefined : 'code'}
 						className='w-full'
 						id='code'
 						invalidText={errors.generalInfo?.codeName?.message}
@@ -87,6 +89,7 @@ const GeneralInfoReview = ({ isInReview }: GeneralInfoReviewProps) => {
 				</Column>
 				<FullWidthColumn className='mb-5'>
 					<SingleUserSelect
+						readOnly={!isInReview}
 						control={control}
 						label='Owner *'
 						name='generalInfo.owner'
@@ -97,6 +100,7 @@ const GeneralInfoReview = ({ isInReview }: GeneralInfoReviewProps) => {
 				</FullWidthColumn>
 				<FullWidthColumn className='mb-5'>
 					<MultipleUserSelect
+						readOnly={!isInReview}
 						control={control}
 						label='Owner Delegates'
 						name='generalInfo.delegates'
@@ -104,6 +108,7 @@ const GeneralInfoReview = ({ isInReview }: GeneralInfoReviewProps) => {
 				</FullWidthColumn>
 				<Column sm={4} md={8} lg={8} className='mb-5'>
 					<TextInput
+						value={isInReview ? undefined : 'App Maintenance Supplier'}
 						className='w-full'
 						id='application-maintenance-supplier'
 						labelText='Application Maintenance Supplier'
@@ -113,6 +118,7 @@ const GeneralInfoReview = ({ isInReview }: GeneralInfoReviewProps) => {
 				</Column>
 				<Column sm={4} md={8} lg={8} className='mb-5'>
 					<TextInput
+						value={isInReview ? undefined : 'Operation Supplier'}
 						className='w-full'
 						id='operation-supplier'
 						labelText='Operation Supplier'

@@ -35,6 +35,7 @@ const TechnicalInfoReview = ({ isInReview }: TechnicalInfoReviewProps) => {
 		<Grid fullWidth>
 			<Column sm={4} md={8} lg={8} className='mb-5'>
 				<TextInput
+					value={isInReview ? undefined : 'Application Servers'}
 					className='w-full'
 					id='application-servers'
 					labelText='Application Servers'
@@ -44,6 +45,7 @@ const TechnicalInfoReview = ({ isInReview }: TechnicalInfoReviewProps) => {
 			</Column>
 			<Column sm={4} md={8} lg={8} className='mb-5'>
 				<TextInput
+					value={isInReview ? undefined : 'App Servers OS'}
 					className='w-full'
 					id='application-servers-os'
 					labelText='Application Servers OS'
@@ -53,6 +55,7 @@ const TechnicalInfoReview = ({ isInReview }: TechnicalInfoReviewProps) => {
 			</Column>
 			<FullWidthColumn className='mb-5'>
 				<TextInput
+					value={isInReview ? undefined : 'Code Path'}
 					className='w-full self-stretch'
 					id='application-code-path'
 					labelText='Application Code Path'
@@ -62,6 +65,7 @@ const TechnicalInfoReview = ({ isInReview }: TechnicalInfoReviewProps) => {
 			</FullWidthColumn>
 			<FullWidthColumn className='mb-5'>
 				<TextInput
+					value={isInReview ? undefined : 'Technical Code'}
 					className='w-full self-stretch'
 					id='technical-code'
 					labelText='Technical Code'
@@ -71,6 +75,7 @@ const TechnicalInfoReview = ({ isInReview }: TechnicalInfoReviewProps) => {
 			</FullWidthColumn>
 			<Column sm={4} md={8} lg={8} className='mb-5'>
 				<TextInput
+					value={isInReview ? undefined : 'DB Servers'}
 					className='w-full'
 					id='db-servers'
 					labelText='DB Servers'
@@ -80,6 +85,7 @@ const TechnicalInfoReview = ({ isInReview }: TechnicalInfoReviewProps) => {
 			</Column>
 			<Column sm={4} md={8} lg={8} className='mb-5'>
 				<TextInput
+					value={isInReview ? undefined : 'DB Servers OS'}
 					className='w-full'
 					id='db-servers-os'
 					labelText='DB Servers OS'
@@ -89,6 +95,7 @@ const TechnicalInfoReview = ({ isInReview }: TechnicalInfoReviewProps) => {
 			</Column>
 			<Column sm={4} md={8} lg={8} className='mb-5'>
 				<TextInput
+					value={isInReview ? undefined : 'DB Service'}
 					className='w-full'
 					id='database-service'
 					labelText='Database Service'
@@ -98,6 +105,7 @@ const TechnicalInfoReview = ({ isInReview }: TechnicalInfoReviewProps) => {
 			</Column>
 			<Column sm={4} md={8} lg={8} className='mb-5'>
 				<TextInput
+					value={isInReview ? undefined : 'DB Instance'}
 					className='w-full'
 					id='database-instance'
 					labelText='Database Instance'

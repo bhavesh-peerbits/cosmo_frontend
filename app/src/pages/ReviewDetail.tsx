@@ -88,7 +88,7 @@ const ReviewDetail = () => {
 												</p>
 												<div>
 													<p className='text-text-secondary text-body-compact-1'>
-														Last Review Date:
+														{`Last Review Date: ${procedure.lastReview.toLocaleString()}`}
 													</p>
 													<p className=' text-text-secondary text-body-compact-1'>
 														Last Reviewer:
@@ -96,7 +96,7 @@ const ReviewDetail = () => {
 												</div>
 											</FullWidthColumn>
 											<FullWidthColumn>
-												<ProcedureReview procedure={procedure} />
+												<ProcedureReview isInReview procedure={procedure} />
 											</FullWidthColumn>
 										</Grid>
 									</Tile>

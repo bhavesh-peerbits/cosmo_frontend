@@ -62,6 +62,7 @@ const ProcedureReview = ({ procedure, isInReview }: ProcedureReviewProps) => {
 			<Grid fullWidth>
 				<Column sm={4} md={8} lg={8} className='mb-5'>
 					<TextInput
+						value={isInReview ? undefined : procedure.name}
 						className='w-full'
 						id='procedure'
 						labelText='Procedure *'
@@ -78,6 +79,7 @@ const ProcedureReview = ({ procedure, isInReview }: ProcedureReviewProps) => {
 				</Column>
 				<Column sm={4} md={8} lg={8} className='mb-5'>
 					<SingleUserSelect
+						readOnly={!isInReview}
 						control={control}
 						label='Procedure Owner *'
 						name='owner'
@@ -91,21 +93,32 @@ const ProcedureReview = ({ procedure, isInReview }: ProcedureReviewProps) => {
 				</Column>
 				<FullWidthColumn className='mb-5'>
 					<MultipleUserSelect
+						readOnly={!isInReview}
 						control={control}
 						label='Owner Delegates'
 						name='delegated'
 					/>
 				</FullWidthColumn>
 				<Column sm={4} md={8} lg={8} className='mb-5'>
-					<DatePickerWrapper
-						control={control}
-						label='Last Modify Date'
-						name='lastModify'
-						minDate={new Date()}
-					/>
+					{isInReview ? (
+						<DatePickerWrapper
+							control={control}
+							label='Last Modify Date'
+							name='lastModify'
+							minDate={new Date()}
+						/>
+					) : (
+						<TextInput
+							id='procedure-last-modify'
+							labelText='Last Modify Date'
+							name='lastModify'
+							value={procedure.lastModify?.toString()}
+						/>
+					)}
 				</Column>
 				<Column sm={4} md={8} lg={8} className='mb-5'>
 					<SingleUserSelect
+						readOnly={!isInReview}
 						control={control}
 						label='Last Modifier *'
 						name='lastModifier'
@@ -113,27 +126,6 @@ const ProcedureReview = ({ procedure, isInReview }: ProcedureReviewProps) => {
 							required: {
 								value: true,
 								message: 'Please select a last modifier'
-							}
-						}}
-					/>
-				</Column>
-				<Column sm={4} md={8} lg={8} className='mb-5'>
-					<DatePickerWrapper
-						label='Last Review Date'
-						control={control}
-						name='lastReview'
-						minDate={new Date()}
-					/>
-				</Column>
-				<Column sm={4} md={8} lg={8} className='mb-5'>
-					<SingleUserSelect
-						control={control}
-						label='Last Reviewer *'
-						name='lastReviewer'
-						rules={{
-							required: {
-								value: true,
-								message: 'Please select a last reviewer'
 							}
 						}}
 					/>
