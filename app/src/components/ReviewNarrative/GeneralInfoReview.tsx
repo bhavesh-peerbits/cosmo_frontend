@@ -134,6 +134,7 @@ const GeneralInfoReview = ({ isInReview }: GeneralInfoReviewProps) => {
 							onChange={onChangeDescription}
 							onBlur={onBlurDescription}
 							ref={descriptionRef}
+							readOnly={!isInReview}
 						/>
 					</div>
 				</FullWidthColumn>

@@ -138,6 +138,7 @@ const ProcedureReview = ({ procedure, isInReview }: ProcedureReviewProps) => {
 							onChange={onChangeDescription}
 							onBlur={onBlurDescription}
 							ref={descriptionRef}
+							readOnly={!isInReview}
 						/>
 					</div>
 				</FullWidthColumn>

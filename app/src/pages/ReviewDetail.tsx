@@ -11,11 +11,20 @@ import ProcedureReview from '@components/ReviewNarrative/ProcedureReview';
 const ReviewDetail = () => {
 	const procedureList = [
 		{
-			id: 'id',
-			name: 'Procedure Name',
+			id: 'id1',
+			name: 'Procedure Name 1',
 			description: 'Description',
 			lastModify: new Date(),
-			lastReview: new Date()
+			lastReview: new Date(),
+			allowModifyOwner: true
+		},
+		{
+			id: 'id2',
+			name: 'Procedure Name 2',
+			description: 'Description',
+			lastModify: new Date(),
+			lastReview: new Date(),
+			allowModifyOwner: false
 		}
 	];
 	const { breadcrumbSize } = useBreadcrumbSize();
@@ -96,7 +105,10 @@ const ReviewDetail = () => {
 												</div>
 											</FullWidthColumn>
 											<FullWidthColumn>
-												<ProcedureReview isInReview procedure={procedure} />
+												<ProcedureReview
+													isInReview={procedure.allowModifyOwner}
+													procedure={procedure}
+												/>
 											</FullWidthColumn>
 										</Grid>
 									</Tile>
