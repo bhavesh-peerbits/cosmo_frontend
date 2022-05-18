@@ -8,6 +8,7 @@ import { useController, useForm } from 'react-hook-form';
 import TiptapEditor from '@components/tiptap/TiptapEditor';
 import { Checkmark } from '@carbon/react/icons';
 import { useState } from 'react';
+import Application from '@model/Application';
 
 interface GeneralInfoForm {
 	generalInfo: {
@@ -22,7 +23,12 @@ interface GeneralInfoForm {
 	};
 }
 
-const GeneralInfoReview = () => {
+interface GeneralInfoReviewProps {
+	application: Application;
+}
+
+const GeneralInfoReview = ({ application }: GeneralInfoReviewProps) => {
+	const { applicationData } = application;
 	const [isConfirmed, setIsConfirmed] = useState(false);
 	const {
 		control,
@@ -30,7 +36,19 @@ const GeneralInfoReview = () => {
 		reset,
 		formState: { errors, isValid, isDirty }
 	} = useForm<GeneralInfoForm>({
-		mode: 'onChange'
+		mode: 'onChange',
+		defaultValues: {
+			generalInfo: {
+				name: application.name,
+				codeName: application.codeName,
+				icon: application.icon,
+				owner: application.owner,
+				description: application.description,
+				delegates: application.delegates,
+				appMaintenance: applicationData?.appMaintenance,
+				operationSupplier: applicationData?.operationSupplier
+			}
+		}
 	});
 	const {
 		field: {

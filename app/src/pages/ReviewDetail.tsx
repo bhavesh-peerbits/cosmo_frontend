@@ -7,8 +7,40 @@ import FullWidthColumn from '@components/FullWidthColumn';
 import TableOfContents from '@components/TableOfContents';
 import TechnicalInfoReview from '@components/ReviewNarrative/TechnicalInfoReview';
 import ProcedureReview from '@components/ReviewNarrative/ProcedureReview';
+import { UserDisplayRole } from '@model/UserRole';
+import { icons } from '@components/IconPicker';
+
+const admin: UserDisplayRole = 'Admin';
+const webIcon: keyof typeof icons = 'web';
 
 const ReviewDetail = () => {
+	const application = {
+		id: 'id1',
+		name: 'App Name',
+		codeName: 'Code Name',
+		description: '',
+		lastReview: new Date(),
+		lastModify: new Date(),
+		owner: {
+			id: '1',
+			name: 'owner1',
+			displayName: 'owner1',
+			username: 'owner1',
+			roles: [],
+			email: 'test@mail.com',
+			surname: 'surname1',
+			principalRole: admin
+		},
+		delegates: [],
+		icon: webIcon,
+		applicationData: {
+			appMaintenance: 'appMaintenance',
+			operationSupplier: 'operationSupplier',
+			appServers: 'AppServers',
+			appServersOS: 'App Servers OS'
+		}
+	};
+
 	const procedureList = [
 		{
 			id: 'id1',
@@ -50,7 +82,7 @@ const ReviewDetail = () => {
 											</p>
 											<div>
 												<p className='text-text-secondary text-body-compact-1'>
-													Last Review Date:
+													{`Last Review Date: ${application.lastReview.toLocaleString()}`}
 												</p>
 												<p className=' text-text-secondary text-body-compact-1'>
 													Last Reviewer:
@@ -58,7 +90,7 @@ const ReviewDetail = () => {
 											</div>
 										</FullWidthColumn>
 										<FullWidthColumn>
-											<GeneralInfoReview />
+											<GeneralInfoReview application={application} />
 										</FullWidthColumn>
 									</Grid>
 								</Tile>
@@ -73,7 +105,7 @@ const ReviewDetail = () => {
 											</p>
 											<div>
 												<p className='text-text-secondary text-body-compact-1'>
-													Last Review Date:
+													{`Last Review Date: ${application.lastReview.toLocaleString()}`}
 												</p>
 												<p className=' text-text-secondary text-body-compact-1'>
 													Last Reviewer:
@@ -81,7 +113,7 @@ const ReviewDetail = () => {
 											</div>
 										</FullWidthColumn>
 										<FullWidthColumn>
-											<TechnicalInfoReview />
+											<TechnicalInfoReview application={application} />
 										</FullWidthColumn>
 									</Grid>
 								</Tile>

@@ -3,6 +3,7 @@ import FullWidthColumn from '@components/FullWidthColumn';
 import { Checkmark } from '@carbon/react/icons';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import Application from '@model/Application';
 
 export interface TechnicalInfoForm {
 	technicalInfo: {
@@ -17,14 +18,31 @@ export interface TechnicalInfoForm {
 	};
 }
 
-const TechnicalInfoReview = () => {
+interface TechnicalInfoReviewProps {
+	application: Application;
+}
+
+const TechnicalInfoReview = ({ application }: TechnicalInfoReviewProps) => {
+	const { applicationData } = application;
 	const [isConfirmed, setIsConfirmed] = useState(false);
 	const {
 		register,
 		reset,
 		formState: { isDirty }
 	} = useForm<TechnicalInfoForm>({
-		mode: 'onChange'
+		mode: 'onChange',
+		defaultValues: {
+			technicalInfo: {
+				appServers: applicationData?.appServers,
+				appServersOS: applicationData?.appServersOS,
+				appCodePath: applicationData?.appCodePath,
+				technicalCode: applicationData?.technicalCode,
+				dbServers: applicationData?.dbServers,
+				dbServersOS: applicationData?.dbServersOS,
+				dbService: applicationData?.dbService,
+				dbInstance: applicationData?.dbInstance
+			}
+		}
 	});
 
 	return (
