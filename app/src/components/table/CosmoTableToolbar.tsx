@@ -141,7 +141,7 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 		[onExportClick]
 	);
 
-	return (
+	return onCancel && selectionIds && toolbarBatchActions && toolbarContent ? (
 		<TableToolbar>
 			<TableBatchActions
 				onCancel={onCancel}
@@ -174,7 +174,7 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 								<TableToolbarAction
 									key={subAction.id}
 									onClick={subAction.onClick}
-									itemText=''
+									itemText={subAction.label}
 								>
 									<div className='flex items-center justify-between space-x-5'>
 										<div>{subAction.icon}</div>
@@ -187,6 +187,30 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 				</TableToolbarContent>
 			)}
 		</TableToolbar>
+	) : (
+		<TableToolbarContent>
+			{actions.map(action => (
+				<TableToolbarMenu
+					key={action.id}
+					iconDescription={action.menuLabel}
+					renderIcon={() => action.menuIcon}
+					ariaLabel={action.menuLabel}
+				>
+					{action.actions.map(subAction => (
+						<TableToolbarAction
+							key={subAction.id}
+							onClick={subAction.onClick}
+							itemText={subAction.label}
+						>
+							<div className='flex items-center justify-between space-x-5'>
+								<div>{subAction.icon}</div>
+								<span>{subAction.label}</span>
+							</div>
+						</TableToolbarAction>
+					))}
+				</TableToolbarMenu>
+			))}
+		</TableToolbarContent>
 	);
 };
 
