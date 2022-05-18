@@ -23,10 +23,9 @@ interface ProcedureData {
 
 interface ProcedureReviewProps {
 	procedure: Partial<ProcedureAppInstance>;
-	isInReview?: boolean;
 }
 
-const ProcedureReview = ({ procedure, isInReview }: ProcedureReviewProps) => {
+const ProcedureReview = ({ procedure }: ProcedureReviewProps) => {
 	const [isConfirmed, setIsConfirmed] = useState(false);
 	const {
 		control,
@@ -62,7 +61,6 @@ const ProcedureReview = ({ procedure, isInReview }: ProcedureReviewProps) => {
 			<Grid fullWidth>
 				<Column sm={4} md={8} lg={8} className='mb-5'>
 					<TextInput
-						value={isInReview ? undefined : procedure.name}
 						className='w-full'
 						id='procedure'
 						labelText='Procedure *'
@@ -79,7 +77,6 @@ const ProcedureReview = ({ procedure, isInReview }: ProcedureReviewProps) => {
 				</Column>
 				<Column sm={4} md={8} lg={8} className='mb-5'>
 					<SingleUserSelect
-						readOnly={!isInReview}
 						control={control}
 						label='Procedure Owner *'
 						name='owner'
@@ -93,32 +90,21 @@ const ProcedureReview = ({ procedure, isInReview }: ProcedureReviewProps) => {
 				</Column>
 				<FullWidthColumn className='mb-5'>
 					<MultipleUserSelect
-						readOnly={!isInReview}
 						control={control}
 						label='Owner Delegates'
 						name='delegated'
 					/>
 				</FullWidthColumn>
 				<Column sm={4} md={8} lg={8} className='mb-5'>
-					{isInReview ? (
-						<DatePickerWrapper
-							control={control}
-							label='Last Modify Date'
-							name='lastModify'
-							minDate={new Date()}
-						/>
-					) : (
-						<TextInput
-							id='procedure-last-modify'
-							labelText='Last Modify Date'
-							name='lastModify'
-							value={procedure.lastModify?.toString()}
-						/>
-					)}
+					<DatePickerWrapper
+						control={control}
+						label='Last Modify Date'
+						name='lastModify'
+						minDate={new Date()}
+					/>
 				</Column>
 				<Column sm={4} md={8} lg={8} className='mb-5'>
 					<SingleUserSelect
-						readOnly={!isInReview}
 						control={control}
 						label='Last Modifier *'
 						name='lastModifier'
@@ -138,40 +124,35 @@ const ProcedureReview = ({ procedure, isInReview }: ProcedureReviewProps) => {
 							onChange={onChangeDescription}
 							onBlur={onBlurDescription}
 							ref={descriptionRef}
-							readOnly={!isInReview}
 						/>
 					</div>
 				</FullWidthColumn>
 				<FullWidthColumn className='flex justify-end'>
-					{isInReview ? (
-						<div className='flex w-full flex-1 justify-end space-x-5'>
+					<div className='flex w-full flex-1 justify-end space-x-5'>
+						<Button
+							type='reset'
+							kind='tertiary'
+							disabled={!isDirty && !isConfirmed}
+							onClick={() => reset()}
+						>
+							Cancel
+						</Button>
+						{isConfirmed ? (
+							<div className='flex h-8 items-center space-x-2 text-link-primary'>
+								<p className='text-body-short-2'>Confirmed</p>
+								<Checkmark />
+							</div>
+						) : (
 							<Button
-								type='reset'
-								kind='tertiary'
-								disabled={!isDirty && !isConfirmed}
-								onClick={() => reset()}
+								type='submit'
+								onClick={() => setIsConfirmed(true)}
+								disabled={!isValid}
+								size='md'
 							>
-								Cancel
+								Confirm
 							</Button>
-							{isConfirmed ? (
-								<div className='flex h-8 items-center space-x-2 text-link-primary'>
-									<p className='text-body-short-2'>Confirmed</p>
-									<Checkmark />
-								</div>
-							) : (
-								<Button
-									type='submit'
-									onClick={() => setIsConfirmed(true)}
-									disabled={!isValid}
-									size='md'
-								>
-									Confirm
-								</Button>
-							)}
-						</div>
-					) : (
-						<p className='text-link-primary text-body-short-2'>Read Only</p>
-					)}
+						)}
+					</div>
 				</FullWidthColumn>
 			</Grid>
 		</Form>

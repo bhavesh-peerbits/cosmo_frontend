@@ -85,34 +85,34 @@ const ReviewDetail = () => {
 										</FullWidthColumn>
 									</Grid>
 								</Tile>
-								{procedureList.map(procedure => (
-									<Tile className='w-full bg-background pb-7'>
-										<Grid>
-											<FullWidthColumn className='flex justify-between'>
-												<p
-													data-toc-id={`procedure-container-${procedure.id}`}
-													className='text-productive-heading-3'
-												>
-													{procedure.name}
-												</p>
-												<div>
-													<p className='text-text-secondary text-body-compact-1'>
-														{`Last Review Date: ${procedure.lastReview.toLocaleString()}`}
-													</p>
-													<p className=' text-text-secondary text-body-compact-1'>
-														Last Reviewer:
-													</p>
-												</div>
-											</FullWidthColumn>
-											<FullWidthColumn>
-												<ProcedureReview
-													isInReview={procedure.allowModifyOwner}
-													procedure={procedure}
-												/>
-											</FullWidthColumn>
-										</Grid>
-									</Tile>
-								))}
+								{procedureList.map(
+									procedure =>
+										procedure.allowModifyOwner && (
+											<Tile className='w-full bg-background pb-7'>
+												<Grid>
+													<FullWidthColumn className='flex justify-between'>
+														<p
+															data-toc-id={`procedure-container-${procedure.id}`}
+															className='text-productive-heading-3'
+														>
+															{procedure.name}
+														</p>
+														<div>
+															<p className='text-text-secondary text-body-compact-1'>
+																{`Last Review Date: ${procedure.lastReview.toLocaleString()}`}
+															</p>
+															<p className=' text-text-secondary text-body-compact-1'>
+																Last Reviewer:
+															</p>
+														</div>
+													</FullWidthColumn>
+													<FullWidthColumn>
+														<ProcedureReview procedure={procedure} />
+													</FullWidthColumn>
+												</Grid>
+											</Tile>
+										)
+								)}
 							</div>
 						</FullWidthColumn>
 					</Grid>

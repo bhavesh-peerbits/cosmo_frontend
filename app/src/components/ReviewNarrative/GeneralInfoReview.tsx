@@ -22,11 +22,7 @@ interface GeneralInfoForm {
 	};
 }
 
-interface GeneralInfoReviewProps {
-	isInReview?: boolean;
-}
-
-const GeneralInfoReview = ({ isInReview }: GeneralInfoReviewProps) => {
+const GeneralInfoReview = () => {
 	const [isConfirmed, setIsConfirmed] = useState(false);
 	const {
 		control,
@@ -53,7 +49,6 @@ const GeneralInfoReview = ({ isInReview }: GeneralInfoReviewProps) => {
 			<Grid fullWidth>
 				<Column sm={4} md={8} lg={8} className='mb-5'>
 					<TextInput
-						value={isInReview ? undefined : 'name'}
 						className='w-full'
 						id='name'
 						invalidText={errors.generalInfo?.name?.message}
@@ -71,7 +66,6 @@ const GeneralInfoReview = ({ isInReview }: GeneralInfoReviewProps) => {
 				</Column>
 				<Column sm={4} md={8} lg={8} className='mb-5'>
 					<TextInput
-						value={isInReview ? undefined : 'code'}
 						className='w-full'
 						id='code'
 						invalidText={errors.generalInfo?.codeName?.message}
@@ -89,7 +83,6 @@ const GeneralInfoReview = ({ isInReview }: GeneralInfoReviewProps) => {
 				</Column>
 				<FullWidthColumn className='mb-5'>
 					<SingleUserSelect
-						readOnly={!isInReview}
 						control={control}
 						label='Owner *'
 						name='generalInfo.owner'
@@ -100,7 +93,6 @@ const GeneralInfoReview = ({ isInReview }: GeneralInfoReviewProps) => {
 				</FullWidthColumn>
 				<FullWidthColumn className='mb-5'>
 					<MultipleUserSelect
-						readOnly={!isInReview}
 						control={control}
 						label='Owner Delegates'
 						name='generalInfo.delegates'
@@ -108,7 +100,6 @@ const GeneralInfoReview = ({ isInReview }: GeneralInfoReviewProps) => {
 				</FullWidthColumn>
 				<Column sm={4} md={8} lg={8} className='mb-5'>
 					<TextInput
-						value={isInReview ? undefined : 'App Maintenance Supplier'}
 						className='w-full'
 						id='application-maintenance-supplier'
 						labelText='Application Maintenance Supplier'
@@ -118,7 +109,6 @@ const GeneralInfoReview = ({ isInReview }: GeneralInfoReviewProps) => {
 				</Column>
 				<Column sm={4} md={8} lg={8} className='mb-5'>
 					<TextInput
-						value={isInReview ? undefined : 'Operation Supplier'}
 						className='w-full'
 						id='operation-supplier'
 						labelText='Operation Supplier'
@@ -134,41 +124,36 @@ const GeneralInfoReview = ({ isInReview }: GeneralInfoReviewProps) => {
 							onChange={onChangeDescription}
 							onBlur={onBlurDescription}
 							ref={descriptionRef}
-							readOnly={!isInReview}
 						/>
 					</div>
 				</FullWidthColumn>
 
 				<FullWidthColumn className='flex justify-end'>
-					{isInReview ? (
-						<div className='flex w-full flex-1 justify-end space-x-5'>
+					<div className='flex w-full flex-1 justify-end space-x-5'>
+						<Button
+							type='reset'
+							kind='tertiary'
+							disabled={!isDirty && !isConfirmed}
+							onClick={() => reset()}
+						>
+							Cancel
+						</Button>
+						{isConfirmed ? (
+							<div className='flex h-8 items-center space-x-2 text-link-primary'>
+								<p className='text-body-short-2'>Confirmed</p>
+								<Checkmark />
+							</div>
+						) : (
 							<Button
-								type='reset'
-								kind='tertiary'
-								disabled={!isDirty && !isConfirmed}
-								onClick={() => reset()}
+								type='submit'
+								onClick={() => setIsConfirmed(true)}
+								disabled={!isValid}
+								size='md'
 							>
-								Cancel
+								Confirm
 							</Button>
-							{isConfirmed ? (
-								<div className='flex h-8 items-center space-x-2 text-link-primary'>
-									<p className='text-body-short-2'>Confirmed</p>
-									<Checkmark />
-								</div>
-							) : (
-								<Button
-									type='submit'
-									onClick={() => setIsConfirmed(true)}
-									disabled={!isValid}
-									size='md'
-								>
-									Confirm
-								</Button>
-							)}
-						</div>
-					) : (
-						<p className='text-link-primary text-body-short-2'>Read Only</p>
-					)}
+						)}
+					</div>
 				</FullWidthColumn>
 			</Grid>
 		</Form>

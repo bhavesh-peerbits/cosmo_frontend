@@ -17,11 +17,7 @@ export interface TechnicalInfoForm {
 	};
 }
 
-interface TechnicalInfoReviewProps {
-	isInReview?: boolean;
-}
-
-const TechnicalInfoReview = ({ isInReview }: TechnicalInfoReviewProps) => {
+const TechnicalInfoReview = () => {
 	const [isConfirmed, setIsConfirmed] = useState(false);
 	const {
 		register,
@@ -35,7 +31,6 @@ const TechnicalInfoReview = ({ isInReview }: TechnicalInfoReviewProps) => {
 		<Grid fullWidth>
 			<Column sm={4} md={8} lg={8} className='mb-5'>
 				<TextInput
-					value={isInReview ? undefined : 'Application Servers'}
 					className='w-full'
 					id='application-servers'
 					labelText='Application Servers'
@@ -45,7 +40,6 @@ const TechnicalInfoReview = ({ isInReview }: TechnicalInfoReviewProps) => {
 			</Column>
 			<Column sm={4} md={8} lg={8} className='mb-5'>
 				<TextInput
-					value={isInReview ? undefined : 'App Servers OS'}
 					className='w-full'
 					id='application-servers-os'
 					labelText='Application Servers OS'
@@ -55,7 +49,6 @@ const TechnicalInfoReview = ({ isInReview }: TechnicalInfoReviewProps) => {
 			</Column>
 			<FullWidthColumn className='mb-5'>
 				<TextInput
-					value={isInReview ? undefined : 'Code Path'}
 					className='w-full self-stretch'
 					id='application-code-path'
 					labelText='Application Code Path'
@@ -65,7 +58,6 @@ const TechnicalInfoReview = ({ isInReview }: TechnicalInfoReviewProps) => {
 			</FullWidthColumn>
 			<FullWidthColumn className='mb-5'>
 				<TextInput
-					value={isInReview ? undefined : 'Technical Code'}
 					className='w-full self-stretch'
 					id='technical-code'
 					labelText='Technical Code'
@@ -75,7 +67,6 @@ const TechnicalInfoReview = ({ isInReview }: TechnicalInfoReviewProps) => {
 			</FullWidthColumn>
 			<Column sm={4} md={8} lg={8} className='mb-5'>
 				<TextInput
-					value={isInReview ? undefined : 'DB Servers'}
 					className='w-full'
 					id='db-servers'
 					labelText='DB Servers'
@@ -85,7 +76,6 @@ const TechnicalInfoReview = ({ isInReview }: TechnicalInfoReviewProps) => {
 			</Column>
 			<Column sm={4} md={8} lg={8} className='mb-5'>
 				<TextInput
-					value={isInReview ? undefined : 'DB Servers OS'}
 					className='w-full'
 					id='db-servers-os'
 					labelText='DB Servers OS'
@@ -95,7 +85,6 @@ const TechnicalInfoReview = ({ isInReview }: TechnicalInfoReviewProps) => {
 			</Column>
 			<Column sm={4} md={8} lg={8} className='mb-5'>
 				<TextInput
-					value={isInReview ? undefined : 'DB Service'}
 					className='w-full'
 					id='database-service'
 					labelText='Database Service'
@@ -105,7 +94,6 @@ const TechnicalInfoReview = ({ isInReview }: TechnicalInfoReviewProps) => {
 			</Column>
 			<Column sm={4} md={8} lg={8} className='mb-5'>
 				<TextInput
-					value={isInReview ? undefined : 'DB Instance'}
 					className='w-full'
 					id='database-instance'
 					labelText='Database Instance'
@@ -114,30 +102,26 @@ const TechnicalInfoReview = ({ isInReview }: TechnicalInfoReviewProps) => {
 				/>
 			</Column>
 			<FullWidthColumn className='flex justify-end'>
-				{isInReview ? (
-					<div className='flex w-full flex-1 justify-end space-x-5'>
-						<Button
-							type='reset'
-							kind='tertiary'
-							disabled={!isDirty && !isConfirmed}
-							onClick={() => reset()}
-						>
-							Cancel
+				<div className='flex w-full flex-1 justify-end space-x-5'>
+					<Button
+						type='reset'
+						kind='tertiary'
+						disabled={!isDirty && !isConfirmed}
+						onClick={() => reset()}
+					>
+						Cancel
+					</Button>
+					{isConfirmed ? (
+						<div className='flex h-8 items-center space-x-2 text-link-primary'>
+							<p className='text-body-short-2'>Confirmed</p>
+							<Checkmark />
+						</div>
+					) : (
+						<Button type='submit' onClick={() => setIsConfirmed(true)} size='md'>
+							Confirm
 						</Button>
-						{isConfirmed ? (
-							<div className='flex h-8 items-center space-x-2 text-link-primary'>
-								<p className='text-body-short-2'>Confirmed</p>
-								<Checkmark />
-							</div>
-						) : (
-							<Button type='submit' onClick={() => setIsConfirmed(true)} size='md'>
-								Confirm
-							</Button>
-						)}
-					</div>
-				) : (
-					<p className='text-link-primary text-body-short-2'>Read Only</p>
-				)}
+					)}
+				</div>
 			</FullWidthColumn>
 		</Grid>
 	);
