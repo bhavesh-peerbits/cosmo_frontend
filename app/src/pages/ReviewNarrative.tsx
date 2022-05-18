@@ -1,6 +1,7 @@
 import { Grid, Column, Search, Layer } from '@carbon/react';
 import Centered from '@components/Centered';
 import Fade from '@components/Fade';
+import NoDataMessage from '@components/NoDataMessage';
 import PageHeader from '@components/PageHeader';
 import ReviewsFilters from '@components/ReviewNarrative/ReviewsFilters';
 import ReviewsTileContainer from '@components/ReviewNarrative/ReviewsTileContainer';
@@ -49,13 +50,7 @@ const ReviewNarrative = () => {
 										<Fade>
 											<Centered>
 												<div className='flex flex-col'>
-													<p className='pt-5 text-productive-heading-3'>
-														No Application to Review
-													</p>
-													<p className='pt-5 text-productive-heading-2'>
-														If you should have application to review, please contact the
-														analyst
-													</p>
+													<NoDataMessage title='No Application to Review' />
 												</div>
 											</Centered>
 										</Fade>

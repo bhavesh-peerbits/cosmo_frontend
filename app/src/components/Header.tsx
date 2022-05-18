@@ -19,10 +19,7 @@ import {
 	Fade,
 	Logout,
 	Moon,
-	Notification,
 	RequestQuote,
-	Search,
-	Help,
 	Switcher as SwitcherIcon
 } from '@carbon/react/icons';
 import { Link, useNavigate } from 'react-router-dom';
@@ -63,9 +60,6 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 			</HeaderName>
 
 			<HeaderGlobalBar>
-				<HeaderGlobalAction aria-label='Search' className='' onClick={() => {}}>
-					<Search />
-				</HeaderGlobalAction>
 				<HeaderGlobalAction
 					aria-label='Theme'
 					onClick={() => {
@@ -74,12 +68,7 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 				>
 					<Moon />
 				</HeaderGlobalAction>
-				<HeaderGlobalAction aria-label='Notifications' onClick={() => {}}>
-					<Notification />
-				</HeaderGlobalAction>
-				<HeaderGlobalAction aria-label='Contact an Analyst' onClick={() => {}}>
-					<Help />
-				</HeaderGlobalAction>
+
 				<HeaderGlobalAction
 					aria-label='App Switcher'
 					isActive={appExpanded}
