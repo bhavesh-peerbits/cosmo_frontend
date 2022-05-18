@@ -15,14 +15,14 @@ const ReviewTile = ({ review }: ReviewTileProps) => {
 				<div className='flex flex-col justify-between'>
 					<div className='flex flex-col'>
 						<div className='mb-3 flex min-h-[2.5rem] justify-between'>
-							icon
+							{review.icon}
 							<div className='text-right text-text-secondary'>
 								<div className='font-bold'>Start Date</div>
 								<div>{review.startDate ? formatDate(review.startDate) : 'Never'}</div>
 							</div>
 						</div>
 						<div className='mb-5'>
-							<p className='text-heading-1'>{review.applicationName}</p>
+							<p className='text-heading-1'>{review.name}</p>
 							<p className='text-label-1'>{review.narrativeName}</p>
 						</div>
 					</div>

@@ -5,7 +5,7 @@ import {
 	reviewFilters
 } from '@store/review/reviewFilters';
 import { useEffect } from 'react';
-import useGetApps from '@api/review/useGetReviews';
+import useGetApps from '@api/review/useGetAppsReview';
 import useUrlState from '@hooks/useUrlState';
 
 const useReviewApps = () => {
