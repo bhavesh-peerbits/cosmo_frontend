@@ -11,14 +11,13 @@ const SearchBar = () => {
 	const { filters, setFilters } = useReviewApps();
 
 	return (
-		<Layer className=' w-full'>
+		<Layer className='w-full' level={1}>
 			<Search
 				size='lg'
 				labelText='Search by Application Name'
 				placeholder='Search by Application Name'
 				value={filters.query ?? ''}
 				onChange={e => setFilters(old => ({ ...old, q: e.currentTarget?.value }))}
-				light
 			/>
 		</Layer>
 	);
@@ -31,7 +30,7 @@ const ReviewNarrative = () => {
 				<Fade>
 					<Grid fullWidth narrow className='h-full'>
 						<Column sm={4} md={2} lg={3}>
-							<div className='ml-5 md:ml-0'>
+							<div className='pl-5 md:ml-0'>
 								<ReviewsFilters />
 							</div>
 						</Column>

@@ -33,7 +33,7 @@ const ManagementTileView = () => {
 		<Fade>
 			<Grid fullWidth narrow className='h-full'>
 				<Column sm={4} md={2} lg={3}>
-					<div className='ml-5 md:ml-0'>
+					<div className='pl-5 md:ml-0'>
 						<ApplicationsFilters />
 					</div>
 				</Column>
