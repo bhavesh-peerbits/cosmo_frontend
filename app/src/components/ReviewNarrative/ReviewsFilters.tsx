@@ -83,37 +83,35 @@ const ReviewsFilters = () => {
 	const { filtersAvailable, setFilters } = useReviewApps();
 	const handleCheckFilter = (filter: string, action: 'add' | 'remove') => {
 		setFilters(old => ({
-			analyst:
+			owner:
 				action === 'add'
-					? [...(old.analyst ?? []), filter]
-					: (old.analyst ?? []).filter((f: string) => f !== filter)
+					? [...(old.owner ?? []), filter]
+					: (old.owner ?? []).filter((f: string) => f !== filter)
 		}));
 	};
 	return (
 		<div className='flex flex-col'>
 			<Accordion className='divide-y'>
-				<AccordionItem title='Analyst' className='border-0'>
+				<AccordionItem title='Owner' className='border-0'>
 					<Checkbox
 						labelText='All'
-						id='analyst-all'
-						checked={filtersAvailable.analyst.every(f => f.enabled)}
+						id='owner-all'
+						checked={filtersAvailable.owner.every(f => f.enabled)}
 						onChange={(_, { checked }) =>
 							setFilters({
-								analyst: checked
-									? filtersAvailable.analyst.map(({ analyst }) => analyst)
-									: []
+								owner: checked ? filtersAvailable.owner.map(({ owner }) => owner) : []
 							})
 						}
 					/>
-					{filtersAvailable.analyst.map(filter => (
+					{filtersAvailable.owner.map(filter => (
 						<Checkbox
-							key={filter.analyst}
+							key={filter.owner}
 							checked={filter.enabled}
 							onChange={(_, { checked, id }) =>
 								handleCheckFilter(id, checked ? 'add' : 'remove')
 							}
-							id={filter.analyst}
-							labelText={filter.analyst}
+							id={filter.owner}
+							labelText={filter.owner}
 						/>
 					))}
 				</AccordionItem>
@@ -122,11 +120,6 @@ const ReviewsFilters = () => {
 				</AccordionItem>
 				<AccordionItem title='Due Date' className='border-0 '>
 					<FilterRadioGroup filterName='dueDate' />
-					{/* <Checkbox labelText='Today' id='today' />
-					<Checkbox labelText='Tomorrow' id='tomorrow' />
-					<Checkbox labelText='This Week' id='this-week' />
-					<Checkbox labelText='Next Week' id='next-week' />
-					<Checkbox labelText='Next 14 days ' id='next-14-days' /> */}
 				</AccordionItem>
 			</Accordion>
 		</div>

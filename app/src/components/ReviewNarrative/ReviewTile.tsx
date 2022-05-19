@@ -30,7 +30,7 @@ const ReviewTile = ({ review }: ReviewTileProps) => {
 						<div className='mb-5 max-w-[40rem]'>
 							<div className='box-content max-h-[60px] overflow-hidden line-clamp-3'>
 								<div className='mb-5 flex max-w-[40rem] text-ellipsis text-body-1'>
-									<p className='text-body-short-1'>Analyst: {review.analyst}</p>
+									<p className='text-body-short-1'>Owner: {review.owner.name}</p>
 								</div>
 							</div>
 						</div>

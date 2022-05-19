@@ -30,7 +30,6 @@ const useGetAppReview = () => {
 			appServersOS: 'App Servers OS'
 		},
 		allowModifyOwner: true,
-		analyst: 'Analyst Name',
 		startDate: new Date(2022, 5, 7),
 		dueDate: new Date(2024, 6, 7),
 		narrativeName: 'Narrative1'

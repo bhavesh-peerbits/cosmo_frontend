@@ -11,18 +11,18 @@ import useUrlState from '@hooks/useUrlState';
 const useReviewApps = () => {
 	const [urlFilters, setUrlFilters] = useUrlState<{
 		q: string | undefined;
-		analyst: string[];
+		owner: string[];
 		startDate: undefined | string;
 		dueDate: number | undefined;
 	}>({
 		q: undefined,
-		analyst: [],
+		owner: [],
 		startDate: undefined,
 		dueDate: undefined
 	});
 	const [filters, setFilters] = useRecoilState(reviewFilters);
 	const setApps = useSetRecoilState(reviewApps);
-	const { apps, analyst, startDate, dueDate } = useRecoilValue(filteredApplications);
+	const { apps, owner, startDate, dueDate } = useRecoilValue(filteredApplications);
 	const { data = [] } = useGetApps();
 
 	useEffect(() => {
@@ -32,14 +32,14 @@ const useReviewApps = () => {
 	useEffect(() => {
 		setFilters({
 			query: urlFilters.q,
-			analyst: urlFilters.analyst ?? [],
+			owner: urlFilters.owner ?? [],
 			startDate: urlFilters.startDate,
 			dueDate: urlFilters.dueDate
 		});
 	}, [urlFilters, setFilters]);
 
 	const filtersAvailable = {
-		analyst,
+		owner,
 		startDate,
 		dueDate
 	};

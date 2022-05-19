@@ -5,7 +5,7 @@ import { GetRecoilType } from '@store/util';
 
 type Filters = {
 	query: string | undefined;
-	analyst: string[];
+	owner: string[];
 	startDate: string | undefined;
 	dueDate: number | undefined;
 };
@@ -14,7 +14,7 @@ const reviewFilters = atom<Filters>({
 	key: 'reviewFilters',
 	default: {
 		query: '',
-		analyst: [],
+		owner: [],
 		startDate: undefined,
 		dueDate: undefined
 	}
@@ -59,11 +59,11 @@ const applyFilters = (
 				: true
 		)
 
-		// filter by analyst
+		// filter by owner
 		.filter(app =>
-			filters.analyst.length
-				? filters.analyst.some(
-						analyst => app.analyst?.toLowerCase() === analyst.toLowerCase()
+			filters.owner.length
+				? filters.owner.some(
+						owner => app.owner.name?.toLowerCase() === owner.toLowerCase()
 				  )
 				: true
 		)
@@ -95,11 +95,11 @@ const filteredApplications = selector({
 			apps: applyFilters(apps, filters),
 			startDate: prepareDateFilter(apps, filters, 'startDate'),
 			dueDate: prepareDateFilter(apps, filters, 'dueDate'),
-			analyst: [
-				...new Set(apps.map(app => app.analyst).filter(o => !!o) as string[])
-			].map(analyst => ({
-				analyst,
-				enabled: filters.analyst.includes(analyst ?? '')
+			owner: [
+				...new Set(apps.map(app => app.owner.name).filter(o => !!o) as string[])
+			].map(owner => ({
+				owner,
+				enabled: filters.owner.includes(owner ?? '')
 			}))
 		};
 	}

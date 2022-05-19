@@ -12,7 +12,6 @@ interface Review {
 	delegates: User[];
 	icon: keyof typeof icons;
 	applicationData: Record<string, string | undefined> | undefined;
-	analyst: string;
 	startDate: Date;
 	dueDate: Date;
 	narrativeName: string;
