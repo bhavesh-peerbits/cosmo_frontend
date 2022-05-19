@@ -147,11 +147,11 @@ const GeneralInfoReview = ({ application }: GeneralInfoReviewProps) => {
 				</FullWidthColumn>
 
 				<FullWidthColumn className='flex justify-end'>
-					<div className='flex w-full flex-1 justify-end space-x-5'>
+					<div className='flex w-full flex-1 items-center justify-end space-x-5'>
 						<Button
 							type='reset'
 							kind='tertiary'
-							disabled={!isDirty && !isConfirmed}
+							disabled={!isDirty || isConfirmed}
 							onClick={() => reset()}
 						>
 							Cancel
@@ -166,7 +166,6 @@ const GeneralInfoReview = ({ application }: GeneralInfoReviewProps) => {
 								type='submit'
 								onClick={() => setIsConfirmed(true)}
 								disabled={!isValid}
-								size='md'
 							>
 								Confirm
 							</Button>

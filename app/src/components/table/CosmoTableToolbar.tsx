@@ -82,7 +82,8 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 	onCancel,
 	toolbarBatchActions,
 	toolbarContent,
-	onExportClick
+	onExportClick,
+	disableExport
 }: CosmoTableToolbarProps<T>) => {
 	const { t } = useTranslation('table');
 	const actions = useMemo(
@@ -195,6 +196,7 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 					iconDescription={action.menuLabel}
 					renderIcon={() => action.menuIcon}
 					ariaLabel={action.menuLabel}
+					disabled={disableExport}
 				>
 					{action.actions.map(subAction => (
 						<TableToolbarAction

@@ -45,10 +45,7 @@ interface GroupableTableProps<D extends object> {
 	createHeaders: (table: TableType<TB<D>>) => Array<ColumnDef<TB<D>>>;
 	data: D[];
 	noDataMessage?: string;
-	exportFileName?: (param: {
-		fileType: AvailableFileType;
-		all: boolean | 'selection';
-	}) => string;
+	exportFileName?: (param: { fileType: AvailableFileType }) => string;
 	disableExport?: boolean;
 }
 
@@ -95,7 +92,11 @@ const GroupableCosmoTable = <D extends object>({
 		getPaginationRowModel: getPaginationRowModel()
 	});
 	const { getRowModel, getHeaderGroups, setPageIndex, setPageSize } = instance;
-	const { exportData } = useExportTablePlugin(instance, exportFileName, disableExport);
+	const { exportData } = useExportTablePlugin(
+		instance,
+		exportFileName,
+		disableExport || grouping.length > 0
+	);
 	const renderBody = () => {
 		const { rows } = getRowModel();
 		return rows.length ? (
@@ -146,7 +147,10 @@ const GroupableCosmoTable = <D extends object>({
 
 	return (
 		<TableContainer>
-			<CosmoTableToolbar<D> onExportClick={exportData} />
+			<CosmoTableToolbar<D>
+				onExportClick={exportData}
+				disableExport={grouping.length > 0}
+			/>
 			<Layer level={1}>
 				<Table>
 					<TableHead>

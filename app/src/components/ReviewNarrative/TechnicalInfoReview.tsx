@@ -120,11 +120,11 @@ const TechnicalInfoReview = ({ application }: TechnicalInfoReviewProps) => {
 				/>
 			</Column>
 			<FullWidthColumn className='flex justify-end'>
-				<div className='flex w-full flex-1 justify-end space-x-5'>
+				<div className='flex w-full flex-1 items-center justify-end space-x-5'>
 					<Button
 						type='reset'
 						kind='tertiary'
-						disabled={!isDirty && !isConfirmed}
+						disabled={!isDirty || isConfirmed}
 						onClick={() => reset()}
 					>
 						Cancel
@@ -135,7 +135,7 @@ const TechnicalInfoReview = ({ application }: TechnicalInfoReviewProps) => {
 							<Checkmark />
 						</div>
 					) : (
-						<Button type='submit' onClick={() => setIsConfirmed(true)} size='md'>
+						<Button type='submit' onClick={() => setIsConfirmed(true)}>
 							Confirm
 						</Button>
 					)}

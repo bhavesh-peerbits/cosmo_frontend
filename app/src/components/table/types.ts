@@ -38,4 +38,5 @@ export interface CosmoTableToolbarProps<T extends object> {
 	}>;
 	onExportClick: (fileType: AvailableFileType, all?: boolean | 'selection') => void;
 	toolbarContent?: ReactNode;
+	disableExport?: boolean;
 }
