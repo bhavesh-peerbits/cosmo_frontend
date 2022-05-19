@@ -175,13 +175,13 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 								<TableToolbarAction
 									key={subAction.id}
 									onClick={subAction.onClick}
-									itemText={subAction.label}
-								>
-									<div className='flex items-center justify-between space-x-5'>
-										<div>{subAction.icon}</div>
-										<span>{subAction.label}</span>
-									</div>
-								</TableToolbarAction>
+									itemText={
+										<div className='flex items-center justify-between space-x-5'>
+											<div>{subAction.icon}</div>
+											<span>{subAction.label}</span>
+										</div>
+									}
+								/>
 							))}
 						</TableToolbarMenu>
 					))}
@@ -190,28 +190,31 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 		</TableToolbar>
 	) : (
 		<TableToolbarContent>
-			{actions.map(action => (
-				<TableToolbarMenu
-					key={action.id}
-					iconDescription={action.menuLabel}
-					renderIcon={() => action.menuIcon}
-					ariaLabel={action.menuLabel}
-					disabled={disableExport}
-				>
-					{action.actions.map(subAction => (
-						<TableToolbarAction
-							key={subAction.id}
-							onClick={subAction.onClick}
-							itemText={subAction.label}
+			{actions.map(
+				action =>
+					action.id === 'export-all' && (
+						<TableToolbarMenu
+							key={action.id}
+							iconDescription={action.menuLabel}
+							renderIcon={() => action.menuIcon}
+							ariaLabel={action.menuLabel}
+							disabled={disableExport}
 						>
-							<div className='flex items-center justify-between space-x-5'>
-								<div>{subAction.icon}</div>
-								<span>{subAction.label}</span>
-							</div>
-						</TableToolbarAction>
-					))}
-				</TableToolbarMenu>
-			))}
+							{action.actions.map(subAction => (
+								<TableToolbarAction
+									key={subAction.id}
+									onClick={subAction.onClick}
+									itemText={
+										<div className='flex items-center justify-between space-x-5'>
+											<div>{subAction.icon}</div>
+											<span>{subAction.label}</span>
+										</div>
+									}
+								/>
+							))}
+						</TableToolbarMenu>
+					)
+			)}
 		</TableToolbarContent>
 	);
 };
