@@ -4,6 +4,11 @@ import {
 	httpErrorFr,
 	httpErrorIt
 } from '@i18n/locales/components/http-error';
+import {
+	procedureInfoEn,
+	procedureInfoFr,
+	procedureInfoIt
+} from '@i18n/locales/components/procedure-info';
 import { managementEn, managementFr, managementIt } from '@i18n/locales/pages/management';
 import { tableEn, tableFr, tableIt } from '@i18n/locales/components/table';
 import {
@@ -35,7 +40,8 @@ export default {
 		management: managementEn,
 		reviewNarrative: reviewNarrativeEn,
 		table: tableEn,
-		applicationInfo: applicationInfoEn
+		applicationInfo: applicationInfoEn,
+		procedureInfo: procedureInfoEn
 	},
 	it_IT: {
 		home: homeIt,
@@ -46,7 +52,8 @@ export default {
 		management: managementIt,
 		reviewNarrative: reviewNarrativeIt,
 		table: tableIt,
-		applicationInfo: applicationInfoIt
+		applicationInfo: applicationInfoIt,
+		procedureInfo: procedureInfoIt
 	},
 	fr_FR: {
 		errorBoundary: errorBoundaryFr,
@@ -55,6 +62,7 @@ export default {
 		management: managementFr,
 		reviewNarrative: reviewNarrativeFr,
 		table: tableFr,
-		applicationInfo: applicationInfoFr
+		applicationInfo: applicationInfoFr,
+		procedureInfo: procedureInfoFr
 	}
 } as const;

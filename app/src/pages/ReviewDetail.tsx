@@ -8,8 +8,10 @@ import TableOfContents from '@components/TableOfContents';
 import TechnicalInfoReview from '@components/ReviewNarrative/TechnicalInfoReview';
 import ProcedureReview from '@components/ReviewNarrative/ProcedureReview';
 import useGetAppReview from '@api/review/useGetAppReview';
+import { useTranslation } from 'react-i18next';
 
 const ReviewDetail = () => {
+	const { t } = useTranslation('reviewNarrative');
 	const application = useGetAppReview();
 	const procedureList = [
 		{
@@ -53,14 +55,16 @@ const ReviewDetail = () => {
 														data-toc-id='general-info'
 														className='text-productive-heading-3'
 													>
-														General Info
+														{t('general-info')}
 													</p>
 													<div>
 														<p className='text-text-secondary text-body-compact-1'>
-															{`Last Review Date: ${application.lastReview.toLocaleString()}`}
+															{`${t(
+																'last-review'
+															)}: ${application.lastReview.toLocaleString()}`}
 														</p>
 														<p className=' text-text-secondary text-body-compact-1'>
-															Last Reviewer:
+															{`${t('last-reviewer')}:`}
 														</p>
 													</div>
 												</FullWidthColumn>
@@ -76,14 +80,16 @@ const ReviewDetail = () => {
 														data-toc-id='technical-info'
 														className='text-productive-heading-3'
 													>
-														Technical Info
+														{t('technical-info')}
 													</p>
 													<div>
 														<p className='text-text-secondary text-body-compact-1'>
-															{`Last Review Date: ${application.lastReview.toLocaleString()}`}
+															{`${t(
+																'last-review'
+															)}: ${application.lastReview.toLocaleString()}`}
 														</p>
 														<p className=' text-text-secondary text-body-compact-1'>
-															Last Reviewer:
+															{`${t('last-reviewer')}:`}
 														</p>
 													</div>
 												</FullWidthColumn>
@@ -109,10 +115,12 @@ const ReviewDetail = () => {
 														</p>
 														<div>
 															<p className='text-text-secondary text-body-compact-1'>
-																{`Last Review Date: ${procedure.lastReview.toLocaleString()}`}
+																{`${t(
+																	'last-review'
+																)}: ${procedure.lastReview.toLocaleString()}`}
 															</p>
 															<p className=' text-text-secondary text-body-compact-1'>
-																Last Reviewer:
+																{`${t('last-reviewer')}:`}
 															</p>
 														</div>
 													</FullWidthColumn>

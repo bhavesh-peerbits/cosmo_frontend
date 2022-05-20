@@ -4,6 +4,7 @@ import { Checkmark } from '@carbon/react/icons';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Application from '@model/Application';
+import { useTranslation } from 'react-i18next';
 
 export interface TechnicalInfoForm {
 	technicalInfo: {
@@ -23,6 +24,7 @@ interface TechnicalInfoReviewProps {
 }
 
 const TechnicalInfoReview = ({ application }: TechnicalInfoReviewProps) => {
+	const { t } = useTranslation('applicationInfo');
 	const { applicationData } = application;
 	const [isConfirmed, setIsConfirmed] = useState(false);
 	const {
@@ -131,12 +133,12 @@ const TechnicalInfoReview = ({ application }: TechnicalInfoReviewProps) => {
 					</Button>
 					{isConfirmed ? (
 						<div className='flex h-8 items-center space-x-2 text-link-primary'>
-							<p className='text-body-short-2'>Confirmed</p>
+							<p className='text-body-short-2'>{t('confirmed')}</p>
 							<Checkmark />
 						</div>
 					) : (
 						<Button type='submit' onClick={() => setIsConfirmed(true)}>
-							Confirm
+							{t('confirm')}
 						</Button>
 					)}
 				</div>

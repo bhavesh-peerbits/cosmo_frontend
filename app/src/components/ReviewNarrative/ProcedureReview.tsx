@@ -9,6 +9,7 @@ import ProcedureAppInstance from '@model/ProcedureAppInstance';
 import User from '@model/User';
 import { useController, useForm } from 'react-hook-form';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface ProcedureData {
 	name: string;
@@ -26,6 +27,7 @@ interface ProcedureReviewProps {
 }
 
 const ProcedureReview = ({ procedure }: ProcedureReviewProps) => {
+	const { t } = useTranslation('procedureInfo');
 	const [isConfirmed, setIsConfirmed] = useState(false);
 	const {
 		control,
@@ -63,14 +65,14 @@ const ProcedureReview = ({ procedure }: ProcedureReviewProps) => {
 					<TextInput
 						className='w-full'
 						id='procedure'
-						labelText='Procedure *'
-						placeholder='Procedure Name'
+						labelText={`${t('procedure-name')} *`}
+						placeholder={`${t('procedure-name')}`}
 						invalidText={errors.name?.message}
 						invalid={Boolean(errors.name)}
 						{...register('name', {
 							required: {
 								value: true,
-								message: 'Procedure is required'
+								message: `${t('procedure-required')}`
 							}
 						})}
 					/>
@@ -78,12 +80,12 @@ const ProcedureReview = ({ procedure }: ProcedureReviewProps) => {
 				<Column sm={4} md={8} lg={8} className='mb-5'>
 					<SingleUserSelect
 						control={control}
-						label='Procedure Owner *'
+						label={`${t('procedure-owner')} *`}
 						name='owner'
 						rules={{
 							required: {
 								value: true,
-								message: 'Please select a procedure owner'
+								message: `${t('owner-required')}`
 							}
 						}}
 					/>
@@ -91,14 +93,14 @@ const ProcedureReview = ({ procedure }: ProcedureReviewProps) => {
 				<FullWidthColumn className='mb-5'>
 					<MultipleUserSelect
 						control={control}
-						label='Owner Delegates'
+						label={`${t('owner-delegates')}`}
 						name='delegated'
 					/>
 				</FullWidthColumn>
 				<Column sm={4} md={8} lg={8} className='mb-5'>
 					<DatePickerWrapper
 						control={control}
-						label='Last Modify Date'
+						label={`${t('last-modify')}`}
 						name='lastModify'
 						minDate={new Date()}
 					/>
@@ -106,19 +108,21 @@ const ProcedureReview = ({ procedure }: ProcedureReviewProps) => {
 				<Column sm={4} md={8} lg={8} className='mb-5'>
 					<SingleUserSelect
 						control={control}
-						label='Last Modifier *'
+						label={`${t('last-modifier')} *`}
 						name='lastModifier'
 						rules={{
 							required: {
 								value: true,
-								message: 'Please select a last modifier'
+								message: `${t('modifier-required')}`
 							}
 						}}
 					/>
 				</Column>
 				<FullWidthColumn className='mb-5'>
 					<div>
-						<p className='mb-3 text-text-secondary text-label-1'> Description </p>
+						<p className='mb-3 text-text-secondary text-label-1'>
+							{`${t('description')}`}
+						</p>
 						<TiptapEditor
 							content={descriptionValue}
 							onChange={onChangeDescription}

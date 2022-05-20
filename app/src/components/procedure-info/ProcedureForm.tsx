@@ -13,6 +13,7 @@ import useEditProcedureApp from '@api/procedures/useEditProcedureApp';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';
 import DeleteProcedureModal from '@components/Modals/DeleteProcedureModal';
+import { useTranslation } from 'react-i18next';
 import TiptapEditor from '../tiptap/TiptapEditor';
 
 interface ProcedureFormData {
@@ -37,6 +38,7 @@ interface ProcedureFormProps {
 }
 
 const ProcedureForm = ({ procedure, isNew, appId, onDelete }: ProcedureFormProps) => {
+	const { t } = useTranslation('procedureInfo');
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 	const {
 		mutate: addMutate,
@@ -141,14 +143,14 @@ const ProcedureForm = ({ procedure, isNew, appId, onDelete }: ProcedureFormProps
 								<TextInput
 									className='w-full'
 									id='procedure'
-									labelText='Procedure *'
-									placeholder='Procedure Name'
+									labelText={`${t('procedure-name')} *`}
+									placeholder={`${t('procedure-name')}`}
 									invalidText={errors.name?.message}
 									invalid={Boolean(errors.name)}
 									{...register('name', {
 										required: {
 											value: true,
-											message: 'Procedure is required'
+											message: `${t('procedure-required')}`
 										}
 									})}
 								/>
@@ -156,12 +158,12 @@ const ProcedureForm = ({ procedure, isNew, appId, onDelete }: ProcedureFormProps
 							<Column sm={4} md={8} lg={8} className='mb-5'>
 								<SingleUserSelect
 									control={control}
-									label='Procedure Owner *'
+									label={`${t('procedure-owner')} *`}
 									name='owner'
 									rules={{
 										required: {
 											value: true,
-											message: 'Please select a procedure owner'
+											message: `${t('procedure-required')}`
 										}
 									}}
 								/>
@@ -169,14 +171,14 @@ const ProcedureForm = ({ procedure, isNew, appId, onDelete }: ProcedureFormProps
 							<FullWidthColumn className='mb-5'>
 								<MultipleUserSelect
 									control={control}
-									label='Owner Delegates'
+									label={`${t('owner-delegates')}`}
 									name='delegated'
 								/>
 							</FullWidthColumn>
 							<Column sm={4} md={8} lg={8} className='mb-5'>
 								<DatePickerWrapper
 									control={control}
-									label='Last Modify Date'
+									label={`${t('last-modify')}`}
 									name='lastModify'
 									minDate={new Date()}
 								/>
@@ -184,19 +186,19 @@ const ProcedureForm = ({ procedure, isNew, appId, onDelete }: ProcedureFormProps
 							<Column sm={4} md={8} lg={8} className='mb-5'>
 								<SingleUserSelect
 									control={control}
-									label='Last Modifier *'
+									label={`${t('last-modifier')} *`}
 									name='lastModifier'
 									rules={{
 										required: {
 											value: true,
-											message: 'Please select a last modifier'
+											message: `${t('modifier-required')}`
 										}
 									}}
 								/>
 							</Column>
 							<Column sm={4} md={8} lg={8} className='mb-5'>
 								<DatePickerWrapper
-									label='Last Review Date'
+									label={`${t('last-review')}`}
 									control={control}
 									name='lastReview'
 									minDate={new Date()}
@@ -205,19 +207,21 @@ const ProcedureForm = ({ procedure, isNew, appId, onDelete }: ProcedureFormProps
 							<Column sm={4} md={8} lg={8} className='mb-5'>
 								<SingleUserSelect
 									control={control}
-									label='Last Reviewer *'
+									label={`${t('last-reviewer')} *`}
 									name='lastReviewer'
 									rules={{
 										required: {
 											value: true,
-											message: 'Please select a last reviewer'
+											message: `${t('reviewer-required')}`
 										}
 									}}
 								/>
 							</Column>
 							<FullWidthColumn>
 								<div>
-									<p className='mb-3 text-text-secondary text-label-1'> Description </p>
+									<p className='mb-3 text-text-secondary text-label-1'>
+										{`${t('description')}`}
+									</p>
 									<TiptapEditor
 										content={descriptionValue}
 										onChange={onChangeDescription}
@@ -250,7 +254,7 @@ const ProcedureForm = ({ procedure, isNew, appId, onDelete }: ProcedureFormProps
 											onClick={handleSubmit(saveForm)}
 											disabled={!isValid || !isDirty}
 										>
-											Save
+											{`${t('save')}`}
 										</Button>
 									</div>
 								</div>

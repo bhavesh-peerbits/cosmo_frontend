@@ -8,5 +8,9 @@
 	"in-progress": "In corso",
 	"not-started": "Non iniziato",
 	"no-applications-review": "Nessun applicazione da revisionare",
-	"start-date": "Data di inizio"
+	"start-date": "Data di inizio",
+	"last-review": "Data ultima revisione",
+	"last-reviewer": "Ultimo rivalidatore",
+	"general-info": "Informazioni generali",
+	"technical-info": "Informazioni tecniche"
 }
