@@ -1,3 +1,12 @@
 {
-	"search-placeholder": "Search by application name"
+	"search-placeholder": "Search by application name",
+	"applications-to-review": "Applications to review",
+	"due-date": "Due date",
+	"status": "Status",
+	"owner": "Owner",
+	"all": "All",
+	"in-progress": "In progress",
+	"not-started": "Not started",
+	"no-applications-review": "No applications to review",
+	"start-date": "Start date"
 }

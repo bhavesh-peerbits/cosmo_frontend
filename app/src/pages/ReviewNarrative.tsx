@@ -26,6 +26,7 @@ const SearchBar = () => {
 };
 const ReviewNarrative = () => {
 	const { apps } = useReviewApps();
+	const { t } = useTranslation('reviewNarrative');
 	return (
 		<PageHeader pageTitle='Review'>
 			<div className='h-full p-container-1'>
@@ -43,7 +44,9 @@ const ReviewNarrative = () => {
 										<SearchBar />
 									</Layer>
 									<div className='flex w-full items-center justify-between space-x-5 md:w-auto md:justify-end'>
-										<div className='whitespace-nowrap'>{`${apps.length} Applications to Review `}</div>
+										<div className='whitespace-nowrap'>{`${apps.length} ${t(
+											'applications-to-review'
+										)}`}</div>
 									</div>
 								</div>
 								<div>
@@ -51,7 +54,7 @@ const ReviewNarrative = () => {
 										<Fade>
 											<Centered>
 												<div className='flex flex-col'>
-													<NoDataMessage title='No Application to Review' />
+													<NoDataMessage title={t('no-applications-review')} />
 												</div>
 											</Centered>
 										</Fade>

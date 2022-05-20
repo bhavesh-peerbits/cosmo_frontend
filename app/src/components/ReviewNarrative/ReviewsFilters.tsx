@@ -7,6 +7,7 @@ import {
 } from '@carbon/react';
 import useReviewApps from '@hooks/review/useReviewApps';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface FilterRadioGroupProps {
 	filterName: 'startDate' | 'dueDate';
@@ -14,6 +15,7 @@ interface FilterRadioGroupProps {
 }
 
 const FilterRadioGroup = ({ filterName, withNever }: FilterRadioGroupProps) => {
+	const { t } = useTranslation('reviewNarrative');
 	const { setFilters, filtersAvailable, filters } = useReviewApps();
 	const filterOption = filtersAvailable[filterName];
 	const [selectedValue, setSelectedValue] = useState<
@@ -39,10 +41,10 @@ const FilterRadioGroup = ({ filterName, withNever }: FilterRadioGroupProps) => {
 			valueSelected={selectedValue}
 			onChange={(value, group) => setFilters({ [group]: value || undefined })}
 		>
-			<RadioButton labelText='All' value='' id={`${filterName}-all`} />
+			<RadioButton labelText={t('all')} value='' id={`${filterName}-all`} />
 			{filterName === 'startDate' ? (
 				<RadioButton
-					labelText='In Progress'
+					labelText={t('in-progress')}
 					value='in-progress'
 					id={`${filterName}-in-progress`}
 				/>
@@ -51,7 +53,11 @@ const FilterRadioGroup = ({ filterName, withNever }: FilterRadioGroupProps) => {
 			)}
 
 			{withNever ? (
-				<RadioButton labelText='Not Started' value='never' id={`${filterName}-never`} />
+				<RadioButton
+					labelText={t('not-started')}
+					value='never'
+					id={`${filterName}-never`}
+				/>
 			) : (
 				<div />
 			)}
@@ -67,19 +73,12 @@ const FilterRadioGroup = ({ filterName, withNever }: FilterRadioGroupProps) => {
 			) : (
 				<div />
 			)}
-			{/* {filterOption.map(filter => (
-				<RadioButton
-					key={filter.value}
-					labelText={filter.value}
-					value={filter.date}
-					id={`${filterName}-${filter.value}`}
-				/>
-			))} */}
 		</RadioButtonGroup>
 	);
 };
 
 const ReviewsFilters = () => {
+	const { t } = useTranslation('reviewNarrative');
 	const { filtersAvailable, setFilters } = useReviewApps();
 	const handleCheckFilter = (filter: string, action: 'add' | 'remove') => {
 		setFilters(old => ({
@@ -92,9 +91,9 @@ const ReviewsFilters = () => {
 	return (
 		<div className='flex flex-col'>
 			<Accordion className='divide-y'>
-				<AccordionItem title='Owner' className='border-0'>
+				<AccordionItem title={t('owner')} className='border-0'>
 					<Checkbox
-						labelText='All'
+						labelText={t('all')}
 						id='owner-all'
 						checked={filtersAvailable.owner.every(f => f.enabled)}
 						onChange={(_, { checked }) =>
@@ -115,10 +114,10 @@ const ReviewsFilters = () => {
 						/>
 					))}
 				</AccordionItem>
-				<AccordionItem title='Status' className='border-0 '>
+				<AccordionItem title={t('status')} className='border-0 '>
 					<FilterRadioGroup filterName='startDate' withNever />
 				</AccordionItem>
-				<AccordionItem title='Due Date' className='border-0 '>
+				<AccordionItem title={t('due-date')} className='border-0 '>
 					<FilterRadioGroup filterName='dueDate' />
 				</AccordionItem>
 			</Accordion>

@@ -1,6 +1,7 @@
 import { Layer, ClickableTile } from '@carbon/react';
 import { formatDate } from '@i18n';
 import Review from '@model/Review';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 type ReviewTileProps = {
@@ -8,6 +9,7 @@ type ReviewTileProps = {
 };
 
 const ReviewTile = ({ review }: ReviewTileProps) => {
+	const { t } = useTranslation('reviewNarrative');
 	const navigate = useNavigate();
 	return (
 		<Layer level={1}>
@@ -17,7 +19,7 @@ const ReviewTile = ({ review }: ReviewTileProps) => {
 						<div className='mb-3 flex min-h-[2.5rem] justify-between'>
 							{review.icon}
 							<div className='text-right text-text-secondary'>
-								<div className='font-bold'>Start Date</div>
+								<div className='font-bold'>{t('start-date')}</div>
 								<div>{review.startDate ? formatDate(review.startDate) : 'Never'}</div>
 							</div>
 						</div>
@@ -30,13 +32,15 @@ const ReviewTile = ({ review }: ReviewTileProps) => {
 						<div className='mb-5 max-w-[40rem]'>
 							<div className='box-content max-h-[60px] overflow-hidden line-clamp-3'>
 								<div className='mb-5 flex max-w-[40rem] text-ellipsis text-body-1'>
-									<p className='text-body-short-1'>Owner: {review.owner.name}</p>
+									<p className='text-body-short-1'>{`${t('owner')}: ${
+										review.owner.name
+									}`}</p>
 								</div>
 							</div>
 						</div>
 						{review.dueDate && (
 							<div className='text-right text-text-secondary'>
-								<div className='font-bold'>Due Date</div>
+								<div className='font-bold'>{t('due-date')}</div>
 								<div>{formatDate(review.dueDate)}</div>
 							</div>
 						)}
