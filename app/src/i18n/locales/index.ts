@@ -6,6 +6,11 @@ import {
 } from '@i18n/locales/components/http-error';
 import { managementEn, managementFr, managementIt } from '@i18n/locales/pages/management';
 import { tableEn, tableFr, tableIt } from '@i18n/locales/components/table';
+import {
+	reviewNarrativeEn,
+	reviewNarrativeFr,
+	reviewNarrativeIt
+} from './pages/reviewNarrative';
 import { homeEn, homeIt } from './pages/home';
 import { testEn, testIt } from './pages/test';
 import {
@@ -22,6 +27,7 @@ export default {
 		login: loginEn,
 		httpError: httpErrorEn,
 		management: managementEn,
+		reviewNarrative: reviewNarrativeEn,
 		table: tableEn
 	},
 	it_IT: {
@@ -31,6 +37,7 @@ export default {
 		login: loginIt,
 		httpError: httpErrorIt,
 		management: managementIt,
+		reviewNarrative: reviewNarrativeIt,
 		table: tableIt
 	},
 	fr_FR: {
@@ -38,6 +45,7 @@ export default {
 		login: loginFr,
 		httpError: httpErrorFr,
 		management: managementFr,
+		reviewNarrative: reviewNarrativeFr,
 		table: tableFr
 	}
 } as const;

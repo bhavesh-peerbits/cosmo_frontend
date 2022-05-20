@@ -6,16 +6,18 @@ import PageHeader from '@components/PageHeader';
 import ReviewsFilters from '@components/ReviewNarrative/ReviewsFilters';
 import ReviewsTileContainer from '@components/ReviewNarrative/ReviewsTileContainer';
 import useReviewApps from '@hooks/review/useReviewApps';
+import { useTranslation } from 'react-i18next';
 
 const SearchBar = () => {
 	const { filters, setFilters } = useReviewApps();
+	const { t } = useTranslation('reviewNarrative');
 
 	return (
 		<Layer className='w-full' level={1}>
 			<Search
 				size='lg'
-				labelText='Search by Application Name'
-				placeholder='Search by Application Name'
+				labelText={t('search-placeholder')}
+				placeholder={t('search-placeholder')}
 				value={filters.query ?? ''}
 				onChange={e => setFilters(old => ({ ...old, q: e.currentTarget?.value }))}
 			/>
