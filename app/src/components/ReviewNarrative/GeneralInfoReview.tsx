@@ -9,6 +9,7 @@ import TiptapEditor from '@components/tiptap/TiptapEditor';
 import { Checkmark } from '@carbon/react/icons';
 import { useState } from 'react';
 import Application from '@model/Application';
+import { useTranslation } from 'react-i18next';
 
 interface GeneralInfoForm {
 	generalInfo: {
@@ -28,6 +29,7 @@ interface GeneralInfoReviewProps {
 }
 
 const GeneralInfoReview = ({ application }: GeneralInfoReviewProps) => {
+	const { t } = useTranslation('applicationInfo');
 	const { applicationData } = application;
 	const [isConfirmed, setIsConfirmed] = useState(false);
 	const {
@@ -70,14 +72,14 @@ const GeneralInfoReview = ({ application }: GeneralInfoReviewProps) => {
 						className='w-full'
 						id='name'
 						invalidText={errors.generalInfo?.name?.message}
-						labelText='Name *'
-						placeholder='Name'
-						helperText='Application name'
+						labelText={`${t('name')} *`}
+						placeholder={`${t('name')} *`}
+						helperText={`${t('application-name')} *`}
 						invalid={Boolean(errors.generalInfo?.name)}
 						{...register('generalInfo.name', {
 							required: {
 								value: true,
-								message: 'Required'
+								message: `${t('required')}`
 							}
 						})}
 					/>
@@ -87,14 +89,14 @@ const GeneralInfoReview = ({ application }: GeneralInfoReviewProps) => {
 						className='w-full'
 						id='code'
 						invalidText={errors.generalInfo?.codeName?.message}
-						labelText='Code *'
-						placeholder='Code'
-						helperText='Acronym for the application name'
+						labelText={`${t('code')} *`}
+						placeholder={`${t('code')} *`}
+						helperText={`${t('application-acronym')}`}
 						invalid={Boolean(errors.generalInfo?.codeName)}
 						{...register('generalInfo.codeName', {
 							required: {
 								value: true,
-								message: 'Required'
+								message: `${t('required')}`
 							}
 						})}
 					/>
@@ -102,7 +104,7 @@ const GeneralInfoReview = ({ application }: GeneralInfoReviewProps) => {
 				<FullWidthColumn className='mb-5'>
 					<SingleUserSelect
 						control={control}
-						label='Owner *'
+						label={`${t('owner')} *`}
 						name='generalInfo.owner'
 						rules={{
 							required: true
@@ -112,7 +114,7 @@ const GeneralInfoReview = ({ application }: GeneralInfoReviewProps) => {
 				<FullWidthColumn className='mb-5'>
 					<MultipleUserSelect
 						control={control}
-						label='Owner Delegates'
+						label={`${t('owner-delegates')} *`}
 						name='generalInfo.delegates'
 					/>
 				</FullWidthColumn>
@@ -136,7 +138,7 @@ const GeneralInfoReview = ({ application }: GeneralInfoReviewProps) => {
 				</Column>
 				<FullWidthColumn className='mb-5'>
 					<div>
-						<p className='mb-3 text-text-secondary text-label-1'> Description </p>
+						<p className='mb-3 text-text-secondary text-label-1'> {t('description')} </p>
 						<TiptapEditor
 							content={descriptionValue}
 							onChange={onChangeDescription}
@@ -158,7 +160,7 @@ const GeneralInfoReview = ({ application }: GeneralInfoReviewProps) => {
 						</Button>
 						{isConfirmed ? (
 							<div className='flex h-8 items-center space-x-2 text-link-primary'>
-								<p className='text-body-short-2'>Confirmed</p>
+								<p className='text-body-short-2'>{t('confirmed')}</p>
 								<Checkmark />
 							</div>
 						) : (
@@ -167,7 +169,7 @@ const GeneralInfoReview = ({ application }: GeneralInfoReviewProps) => {
 								onClick={() => setIsConfirmed(true)}
 								disabled={!isValid}
 							>
-								Confirm
+								{t('confirm')}
 							</Button>
 						)}
 					</div>

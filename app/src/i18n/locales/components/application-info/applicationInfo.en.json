@@ -1,0 +1,12 @@
+{
+	"required": "Required",
+	"name": "Name",
+	"application-name": "Application name",
+	"code": "Code",
+	"application-acronym": "Acronym for the application name",
+	"owner": "Owner",
+	"owner-delegates": "Owner delegates",
+	"description": "Description",
+	"confirmed": "Confirmed",
+	"confirm": "Confirm"
+}

@@ -7,6 +7,7 @@ import MultipleUserSelect from '@components/MultipleUserSelect';
 import IconPicker, { icons } from '@components/IconPicker';
 import TiptapEditor from '@components/tiptap/TiptapEditor';
 import cx from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 export interface GeneralInfoForm {
 	generalInfo: {
@@ -28,6 +29,7 @@ type GeneralInfoProps = {
 };
 
 const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
+	const { t } = useTranslation('applicationInfo');
 	const {
 		field: { onChange, value, ref, onBlur }
 	} = useController({
@@ -67,14 +69,14 @@ const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
 					className='w-full'
 					id='name'
 					invalidText={errors.generalInfo?.name?.message}
-					labelText='Name *'
-					placeholder='Name'
-					helperText='Application name'
+					labelText={`${t('name')} *`}
+					placeholder={`${t('name')} *`}
+					helperText={`${t('application-name')} *`}
 					invalid={Boolean(errors.generalInfo?.name)}
 					{...register('generalInfo.name', {
 						required: {
 							value: true,
-							message: 'Required'
+							message: `${t('required')}`
 						}
 					})}
 				/>
@@ -84,14 +86,14 @@ const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
 					className='w-full'
 					id='code'
 					invalidText={errors.generalInfo?.codeName?.message}
-					labelText='Code *'
-					placeholder='Code'
-					helperText='Acronym for the application name'
+					labelText={`${t('code')} *`}
+					placeholder={`${t('code')} *`}
+					helperText={`${t('application-acronym')}`}
 					invalid={Boolean(errors.generalInfo?.codeName)}
 					{...register('generalInfo.codeName', {
 						required: {
 							value: true,
-							message: 'Required'
+							message: `${t('required')}`
 						}
 					})}
 				/>
@@ -99,7 +101,7 @@ const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
 			<FullWidthColumn className='mb-5'>
 				<SingleUserSelect
 					control={control}
-					label='Owner *'
+					label={`${t('owner')} *`}
 					name='generalInfo.owner'
 					rules={{
 						required: true
@@ -109,7 +111,7 @@ const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
 			<FullWidthColumn className='mb-5'>
 				<MultipleUserSelect
 					control={control}
-					label='Owner Delegates'
+					label={`${t('owner-delegates')} *`}
 					name='generalInfo.delegates'
 				/>
 			</FullWidthColumn>
@@ -133,7 +135,7 @@ const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
 			</Column>
 			<FullWidthColumn>
 				<div>
-					<p className='mb-3 text-text-secondary text-label-1'> Description </p>
+					<p className='mb-3 text-text-secondary text-label-1'> {t('description')} </p>
 					<TiptapEditor
 						content={descriptionValue}
 						onChange={onChangeDescription}

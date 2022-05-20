@@ -7,10 +7,16 @@ import {
 import { managementEn, managementFr, managementIt } from '@i18n/locales/pages/management';
 import { tableEn, tableFr, tableIt } from '@i18n/locales/components/table';
 import {
+	applicationInfoEn,
+	applicationInfoFr,
+	applicationInfoIt
+} from '@i18n/locales/components/application-info';
+import {
 	reviewNarrativeEn,
 	reviewNarrativeFr,
 	reviewNarrativeIt
 } from './pages/reviewNarrative';
+
 import { homeEn, homeIt } from './pages/home';
 import { testEn, testIt } from './pages/test';
 import {
@@ -28,7 +34,8 @@ export default {
 		httpError: httpErrorEn,
 		management: managementEn,
 		reviewNarrative: reviewNarrativeEn,
-		table: tableEn
+		table: tableEn,
+		applicationInfo: applicationInfoEn
 	},
 	it_IT: {
 		home: homeIt,
@@ -38,7 +45,8 @@ export default {
 		httpError: httpErrorIt,
 		management: managementIt,
 		reviewNarrative: reviewNarrativeIt,
-		table: tableIt
+		table: tableIt,
+		applicationInfo: applicationInfoIt
 	},
 	fr_FR: {
 		errorBoundary: errorBoundaryFr,
@@ -46,6 +54,7 @@ export default {
 		httpError: httpErrorFr,
 		management: managementFr,
 		reviewNarrative: reviewNarrativeFr,
-		table: tableFr
+		table: tableFr,
+		applicationInfo: applicationInfoFr
 	}
 } as const;
