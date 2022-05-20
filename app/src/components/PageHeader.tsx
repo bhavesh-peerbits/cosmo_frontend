@@ -30,11 +30,11 @@ const PageHeader = ({
 	children
 }: PageHeaderProps) => {
 	const { setBreadcrumbSize } = useBreadcrumbSize();
-	const actionButtonRef = useRef<HTMLButtonElement>(null);
+	const pageTitleRef = useRef(null);
 	const breadcrumbRef = useRef<HTMLDivElement>(null);
 	const navigate = useNavigate();
 	const { md } = useResponsive();
-	const [inViewport] = useInViewport(actionButtonRef, {
+	const [inViewport] = useInViewport(pageTitleRef, {
 		rootMargin: `-${breadcrumbRef.current?.getBoundingClientRect()?.bottom || '0'}px`
 	});
 
@@ -129,7 +129,9 @@ const PageHeader = ({
 					<FullWidthColumn>
 						<Grid>
 							<Column sm={4} md={5} lg={7} xlg={11}>
-								<h2 className='text-productive-heading-5'>{pageTitle}</h2>
+								<h2 ref={pageTitleRef} className='text-productive-heading-5'>
+									{pageTitle}
+								</h2>
 							</Column>
 							<Column sm={4} md={3} lg={9} xlg={5}>
 								{actions?.length === 1 ? (
@@ -137,7 +139,7 @@ const PageHeader = ({
 										<Button
 											renderIcon={actions[0].icon}
 											size='md'
-											ref={actionButtonRef}
+											// ref={actionButtonRef}
 											onClick={actions[0].onClick}
 										>
 											{actions[0].name}
@@ -167,7 +169,7 @@ const PageHeader = ({
 													{actions[1].name}
 												</Button>
 												<Button
-													ref={actionButtonRef}
+													// ref={actionButtonRef}
 													key={actions[2].name}
 													size='md'
 													kind='danger'
