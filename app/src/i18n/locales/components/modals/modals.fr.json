@@ -1,0 +1,9 @@
+{
+	"delete-apps": "Êtes-vous sûr de vouloir supprimer ces ",
+	"applications": "applications",
+	"delete-app": "Êtes-vous sûr de vouloir supprimer cette application?",
+	"cancel": "Annuler",
+	"delete": "Supprimé",
+	"confirm-delete": "Confirmation de la suppression",
+	"delete-procedure": "Êtes-vous sûr de vouloir supprimer cette procédure?"
+}

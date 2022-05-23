@@ -8,6 +8,7 @@ import {
 } from '@carbon/react';
 import ApiError from '@api/ApiError';
 import useDeleteProcedureApp from '@api/procedures/useDeleteProcedureApp';
+import { useTranslation } from 'react-i18next';
 
 type DeleteProcedureModalProps = {
 	isOpen: boolean;
@@ -29,6 +30,7 @@ const DeleteProcedureModal = ({
 	onDelete
 }: DeleteProcedureModalProps) => {
 	const { mutate, isLoading, isError, error, reset } = useDeleteProcedureApp();
+	const { t } = useTranslation('modals');
 
 	const cleanUp = () => {
 		reset();
@@ -46,9 +48,9 @@ const DeleteProcedureModal = ({
 
 	return (
 		<ComposedModal open={isOpen} onClose={cleanUp}>
-			<ModalHeader title='Confirm Delete' closeModal={cleanUp} />
+			<ModalHeader title={t('confirm-delete')} closeModal={cleanUp} />
 			<ModalBody>
-				<span>Are you sure you want to delete the procedure?</span>
+				<span>{t('delete-procedure')}</span>
 				{isError && (
 					<div className='mt-5 flex items-center justify-center'>
 						<InlineNotification
@@ -65,10 +67,10 @@ const DeleteProcedureModal = ({
 			</ModalBody>
 			<ModalFooter>
 				<Button kind='secondary' onClick={cleanUp}>
-					Cancel
+					{t('cancel')}
 				</Button>
 				<Button kind='danger' disabled={isLoading} onClick={deleteElement}>
-					Delete
+					{t('delete')}
 				</Button>
 			</ModalFooter>
 		</ComposedModal>

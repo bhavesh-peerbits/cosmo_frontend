@@ -16,6 +16,7 @@ import {
 	applicationInfoFr,
 	applicationInfoIt
 } from '@i18n/locales/components/application-info';
+import { modalsEn, modalsFr, modalsIt } from '@i18n/locales/components/modals';
 import {
 	reviewNarrativeEn,
 	reviewNarrativeFr,
@@ -41,7 +42,8 @@ export default {
 		reviewNarrative: reviewNarrativeEn,
 		table: tableEn,
 		applicationInfo: applicationInfoEn,
-		procedureInfo: procedureInfoEn
+		procedureInfo: procedureInfoEn,
+		modals: modalsEn
 	},
 	it_IT: {
 		home: homeIt,
@@ -53,7 +55,8 @@ export default {
 		reviewNarrative: reviewNarrativeIt,
 		table: tableIt,
 		applicationInfo: applicationInfoIt,
-		procedureInfo: procedureInfoIt
+		procedureInfo: procedureInfoIt,
+		modals: modalsIt
 	},
 	fr_FR: {
 		errorBoundary: errorBoundaryFr,
@@ -63,6 +66,7 @@ export default {
 		reviewNarrative: reviewNarrativeFr,
 		table: tableFr,
 		applicationInfo: applicationInfoFr,
-		procedureInfo: procedureInfoFr
+		procedureInfo: procedureInfoFr,
+		modals: modalsFr
 	}
 } as const;

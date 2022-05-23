@@ -9,6 +9,7 @@ import {
 import useDeleteApp from '@api/management/useDeleteApp';
 import ApiError from '@api/ApiError';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 type DeleteModalProps = {
 	isOpen: boolean;
@@ -19,6 +20,7 @@ type DeleteModalProps = {
 const DeleteAppModal = ({ isOpen, setIsOpen, id }: DeleteModalProps) => {
 	const { mutate, isLoading, isError, error, reset } = useDeleteApp();
 	const navigate = useNavigate();
+	const { t } = useTranslation('modals');
 
 	const cleanUp = () => {
 		reset();
@@ -39,9 +41,9 @@ const DeleteAppModal = ({ isOpen, setIsOpen, id }: DeleteModalProps) => {
 
 	return (
 		<ComposedModal open={isOpen} onClose={cleanUp}>
-			<ModalHeader title='Confirm Delete' closeModal={cleanUp} />
+			<ModalHeader title={t('confirm-delete')} closeModal={cleanUp} />
 			<ModalBody>
-				<span>Are you sure you want to delete the element?</span>
+				<span>{`${t('delete-app')}`}</span>
 				{isError && (
 					<div className='mt-5 flex items-center justify-center'>
 						<InlineNotification
@@ -58,10 +60,10 @@ const DeleteAppModal = ({ isOpen, setIsOpen, id }: DeleteModalProps) => {
 			</ModalBody>
 			<ModalFooter>
 				<Button kind='secondary' onClick={cleanUp}>
-					Cancel
+					{t('cancel')}
 				</Button>
 				<Button kind='danger' disabled={isLoading} onClick={deleteElement}>
-					Delete
+					{t('delete')}
 				</Button>
 			</ModalFooter>
 		</ComposedModal>
