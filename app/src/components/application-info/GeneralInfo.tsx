@@ -8,6 +8,7 @@ import IconPicker, { icons } from '@components/IconPicker';
 import TiptapEditor from '@components/tiptap/TiptapEditor';
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
+import useManagementApps from '@hooks/management/useManagementApps';
 
 export interface GeneralInfoForm {
 	generalInfo: {
@@ -29,6 +30,8 @@ type GeneralInfoProps = {
 };
 
 const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
+	const { apps } = useManagementApps();
+	const appNameList = apps.map(app => app.name);
 	const { t } = useTranslation('applicationInfo');
 	const {
 		field: { onChange, value, ref, onBlur }
@@ -77,7 +80,8 @@ const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
 						required: {
 							value: true,
 							message: `${t('required')}`
-						}
+						},
+						validate: name => !appNameList.includes(name) || 'This name already exists'
 					})}
 				/>
 			</Column>
