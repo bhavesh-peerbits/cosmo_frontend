@@ -81,7 +81,7 @@ const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
 							value: true,
 							message: `${t('required')}`
 						},
-						validate: name => !appNameList.includes(name) || 'This name already exists'
+						validate: name => !appNameList.includes(name) || `${t('name-exists')}`
 					})}
 				/>
 			</Column>
@@ -115,7 +115,7 @@ const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
 			<FullWidthColumn className='mb-5'>
 				<MultipleUserSelect
 					control={control}
-					label={`${t('owner-delegates')} *`}
+					label={`${t('owner-delegates')}`}
 					name='generalInfo.delegates'
 				/>
 			</FullWidthColumn>

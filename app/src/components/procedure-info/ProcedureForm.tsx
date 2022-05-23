@@ -14,6 +14,7 @@ import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';
 import DeleteProcedureModal from '@components/Modals/DeleteProcedureModal';
 import { useTranslation } from 'react-i18next';
+import useGetProcedures from '@api/procedures/useGetProcedures';
 import TiptapEditor from '../tiptap/TiptapEditor';
 
 interface ProcedureFormData {
@@ -38,6 +39,8 @@ interface ProcedureFormProps {
 }
 
 const ProcedureForm = ({ procedure, isNew, appId, onDelete }: ProcedureFormProps) => {
+	const { data: procedures = [] } = useGetProcedures();
+	const procedureNameList = procedures.map(proc => proc.name);
 	const { t } = useTranslation('procedureInfo');
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 	const {
@@ -151,7 +154,9 @@ const ProcedureForm = ({ procedure, isNew, appId, onDelete }: ProcedureFormProps
 										required: {
 											value: true,
 											message: `${t('procedure-required')}`
-										}
+										},
+										validate: name =>
+											!procedureNameList.includes(name) || `${t('name-exists')}`
 									})}
 								/>
 							</Column>

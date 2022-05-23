@@ -8,5 +8,6 @@
 	"owner-delegates": "Owner delegates",
 	"description": "Description",
 	"confirmed": "Confirmed",
-	"confirm": "Confirm"
+	"confirm": "Confirm",
+	"name-exists": "This name already exists"
 }

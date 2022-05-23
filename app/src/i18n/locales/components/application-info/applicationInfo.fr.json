@@ -8,5 +8,6 @@
 	"owner-delegates": "Délégués du propriétaire",
 	"description": "Description",
 	"confirmed": "Confirmé",
-	"confirm": "Confirmer"
+	"confirm": "Confirmer",
+	"name-exists": "Ce nom existe déjà"
 }
