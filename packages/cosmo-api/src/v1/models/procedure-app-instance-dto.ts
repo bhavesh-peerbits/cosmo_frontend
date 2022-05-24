@@ -81,4 +81,16 @@ export interface ProcedureAppInstanceDto {
 	 * @memberof ProcedureAppInstanceDto
 	 */
 	lastModifier: UserDto;
+  /**
+	 *
+	 * @type {string}
+	 * @memberof ProcedureAppInstanceDto
+	 */
+	dueDate?: string;
+  /**
+	 *
+	 * @type {boolean}
+	 * @memberof ProcedureAppInstanceDto
+	 */
+	allowModifyOwner: boolean;
 }

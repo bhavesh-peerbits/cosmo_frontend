@@ -13,6 +13,8 @@ interface ProcedureAppInstance {
 	delegated?: User[];
 	lastReviewer: User;
 	lastModifier: User;
+	dueDate?: Date;
+	allowModifyOwner: boolean;
 }
 
 export const fromProcedureAppInstanceApi = (
@@ -28,7 +30,9 @@ export const fromProcedureAppInstanceApi = (
 		lastModify: procedureApi.lastModify ? new Date(procedureApi.lastModify) : undefined,
 		lastReview: procedureApi.lastReview ? new Date(procedureApi.lastReview) : undefined,
 		lastReviewer: fromUserApi(procedureApi.lastReviewer),
-		owner: fromUserApi(procedureApi.owner)
+		owner: fromUserApi(procedureApi.owner),
+		dueDate: procedureApi.dueDate ? new Date(procedureApi.dueDate) : undefined,
+		allowModifyOwner: procedureApi.allowModifyOwner
 	};
 };
 
@@ -45,7 +49,9 @@ export const toProcedureAppInstanceApi = (
 		lastModify: procedure.lastModify?.toISOString(),
 		lastReview: procedure.lastReview?.toISOString(),
 		lastReviewer: toUserApi(procedure.lastReviewer),
-		owner: toUserApi(procedure.owner)
+		owner: toUserApi(procedure.owner),
+		dueDate: procedure.dueDate?.toISOString(),
+		allowModifyOwner: procedure.allowModifyOwner
 	};
 };
 
