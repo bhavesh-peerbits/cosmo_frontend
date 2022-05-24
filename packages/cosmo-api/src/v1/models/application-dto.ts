@@ -80,4 +80,16 @@ export interface ApplicationDto {
 	 * @memberof ApplicationDto
 	 */
 	applicationData?: { [key: string]: string | undefined };
+  /**
+	 * Review due date
+	 * @type {string}
+	 * @memberof ApplicationDto
+	 */
+	dueDate?: string;
+  /**
+	 *
+	 * @type {boolean}
+	 * @memberof ApplicationDto
+	 */
+	allowModifyOwner: boolean;
 }

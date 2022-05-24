@@ -8,17 +8,19 @@ import useManagementApps from '@hooks/management/useManagementApps';
 import useGetProcedureByApp from '@api/procedures/useGetProcedureByApp';
 
 const Review = () => {
+	const [proceduresList, setProceduresList] = useState<ApplicationReview[]>();
 	const [data, setData] = useState<ApplicationReview[]>();
 	const { apps } = useManagementApps();
 
 	function ReviewList() {
 		const GetProceduresByAppId = (id: string) => {
 			const { data: procedures = [] } = useGetProcedureByApp(id);
+
 			return procedures.filter(procedure => procedure.dueDate !== undefined);
 		};
 
 		useEffect(() => {
-			setData(
+			setProceduresList(
 				apps
 					.map(app =>
 						GetProceduresByAppId(app.id).map(procedure => {
@@ -35,8 +37,25 @@ const Review = () => {
 					.flat()
 			);
 		}, []);
-		return data;
+		return proceduresList;
 	}
+	useEffect(() => {
+		const appInfoList = apps
+			.filter(app => app.dueDate !== undefined)
+			.map(app => {
+				return {
+					id: app.id,
+					appName: app.name,
+					procedure: 'General Info and Technical Info',
+					owner: app.owner,
+					status: app.allowModifyOwner ? 'Ongoing' : 'Closed',
+					expireDate: app.dueDate
+				};
+			});
+		if (proceduresList) {
+			setData([...proceduresList, ...appInfoList]);
+		}
+	}, [apps, proceduresList]);
 
 	const columns: HeaderFunction<ApplicationReview> = useCallback(
 		table => [
@@ -75,7 +94,7 @@ const Review = () => {
 			<PageHeader pageTitle='Review'>
 				<div className='h-full p-container-1'>
 					<GroupableCosmoTable
-						data={ReviewList() || []}
+						data={(ReviewList() && data) || []}
 						createHeaders={columns}
 						noDataMessage='No data'
 					/>
