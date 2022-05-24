@@ -14,7 +14,7 @@ interface ProcedureAppInstance {
 	lastReviewer: User;
 	lastModifier: User;
 	dueDate?: Date;
-	allowModifyOwner: boolean;
+	allowModifyOwner?: boolean;
 }
 
 export const fromProcedureAppInstanceApi = (

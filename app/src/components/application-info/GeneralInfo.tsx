@@ -1,6 +1,12 @@
 import { Column, Grid, TextInput } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
-import { Control, FieldErrors, useController, UseFormRegister } from 'react-hook-form';
+import {
+	Control,
+	FieldErrors,
+	useController,
+	UseFormGetValues,
+	UseFormRegister
+} from 'react-hook-form';
 import User from '@model/User';
 import SingleUserSelect from '@components/SingleUserSelect';
 import MultipleUserSelect from '@components/MultipleUserSelect';
@@ -9,6 +15,7 @@ import TiptapEditor from '@components/tiptap/TiptapEditor';
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
 import useManagementApps from '@hooks/management/useManagementApps';
+import React from 'react';
 
 export interface GeneralInfoForm {
 	generalInfo: {
@@ -27,11 +34,30 @@ type GeneralInfoProps = {
 	register: UseFormRegister<GeneralInfoForm>;
 	errors: FieldErrors<GeneralInfoForm>;
 	control: Control<GeneralInfoForm>;
+	getValues?: UseFormGetValues<GeneralInfoForm>;
 };
 
-const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
+const GeneralInfo = ({ register, errors, control, getValues }: GeneralInfoProps) => {
 	const { apps } = useManagementApps();
-	const appNameList = apps.map(app => app.name);
+	const appNameList = React.useMemo(
+		() =>
+			getValues
+				? apps
+						.filter(app => app.name !== getValues('generalInfo.name'))
+						.map(app => app.name.toLowerCase())
+				: apps.map(app => app.name.toLowerCase()),
+		[getValues, apps]
+	);
+
+	const appCodeList = React.useMemo(
+		() =>
+			getValues
+				? apps
+						.filter(app => app.codeName !== getValues('generalInfo.codeName'))
+						.map(app => app.codeName.toLowerCase())
+				: apps.map(app => app.codeName.toLowerCase()),
+		[getValues, apps]
+	);
 	const { t } = useTranslation('applicationInfo');
 	const {
 		field: { onChange, value, ref, onBlur }
@@ -42,7 +68,6 @@ const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
 			required: true
 		}
 	});
-
 	const {
 		field: {
 			onChange: onChangeDescription,
@@ -81,7 +106,8 @@ const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
 							value: true,
 							message: `${t('required')}`
 						},
-						validate: name => !appNameList.includes(name) || `${t('name-exists')}`
+						validate: name =>
+							!appNameList.includes(name.toLowerCase()) || `${t('name-exists')}`
 					})}
 				/>
 			</Column>
@@ -98,7 +124,10 @@ const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
 						required: {
 							value: true,
 							message: `${t('required')}`
-						}
+						},
+
+						validate: code =>
+							!appCodeList.includes(code.toLowerCase()) || `${t('code-exists')}`
 					})}
 				/>
 			</Column>

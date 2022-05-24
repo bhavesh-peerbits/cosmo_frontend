@@ -7,7 +7,13 @@ import GeneralInfo, { GeneralInfoForm } from '@components/application-info/Gener
 import TechnicalInfo, {
 	TechnicalInfoForm
 } from '@components/application-info/TechnicalInfo';
-import { Control, FieldErrors, useForm, UseFormRegister } from 'react-hook-form';
+import {
+	Control,
+	FieldErrors,
+	useForm,
+	UseFormGetValues,
+	UseFormRegister
+} from 'react-hook-form';
 import Application from '@model/Application';
 import useEditApp from '@api/management/useEditApp';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
@@ -27,6 +33,7 @@ const ApplicationInfo = ({ application }: ApplicationInfoProps) => {
 	const { mutate, isLoading, isError, isSuccess, error, reset: apiReset } = useEditApp();
 	const {
 		register,
+		getValues,
 		handleSubmit,
 		reset,
 		control,
@@ -123,6 +130,9 @@ const ApplicationInfo = ({ application }: ApplicationInfoProps) => {
 											control={control as unknown as Control<GeneralInfoForm>}
 											errors={errors as FieldErrors<GeneralInfoForm>}
 											register={register as unknown as UseFormRegister<GeneralInfoForm>}
+											getValues={
+												getValues as unknown as UseFormGetValues<GeneralInfoForm>
+											}
 										/>
 									</FullWidthColumn>
 								</Grid>

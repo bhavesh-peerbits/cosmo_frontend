@@ -9,5 +9,6 @@
 	"description": "Description",
 	"confirmed": "Confirmé",
 	"confirm": "Confirmer",
-	"name-exists": "Ce nom existe déjà"
+	"name-exists": "Ce nom existe déjà",
+	"code-exists": "Ce code existe déjà"
 }

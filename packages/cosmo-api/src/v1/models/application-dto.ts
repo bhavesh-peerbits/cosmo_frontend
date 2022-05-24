@@ -91,5 +91,5 @@ export interface ApplicationDto {
 	 * @type {boolean}
 	 * @memberof ApplicationDto
 	 */
-	allowModifyOwner: boolean;
+	allowModifyOwner?: boolean;
 }

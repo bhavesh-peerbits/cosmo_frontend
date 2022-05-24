@@ -92,5 +92,5 @@ export interface ProcedureAppInstanceDto {
 	 * @type {boolean}
 	 * @memberof ProcedureAppInstanceDto
 	 */
-	allowModifyOwner: boolean;
+	allowModifyOwner?: boolean;
 }

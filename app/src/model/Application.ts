@@ -14,7 +14,7 @@ interface Application {
 	icon: keyof typeof icons;
 	applicationData: Record<string, string | undefined> | undefined;
 	dueDate?: Date;
-	allowModifyOwner: boolean;
+	allowModifyOwner?: boolean;
 }
 
 export const fromApplicationApi = (applicationApi: ApplicationApi): Application => ({
