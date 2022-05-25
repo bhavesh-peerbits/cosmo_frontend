@@ -54,7 +54,7 @@ const ReviewDetail = () => {
 						<FullWidthColumn className='pt-4'>
 							<div className='space-y-7'>
 								{application.allowModifyOwner && (
-									<Tile className='bg-background pb-7'>
+									<Tile className='bg-background'>
 										<Grid>
 											<FullWidthColumn className='flex justify-between'>
 												<p
@@ -84,7 +84,7 @@ const ReviewDetail = () => {
 								{procedureList.map(
 									procedure =>
 										procedure.allowModifyOwner && (
-											<Tile className='w-full bg-background pb-7'>
+											<Tile className='w-full bg-background'>
 												<Grid>
 													<FullWidthColumn className='flex justify-between'>
 														<p

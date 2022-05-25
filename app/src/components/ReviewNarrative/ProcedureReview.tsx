@@ -144,7 +144,7 @@ const ProcedureReview = ({ procedure }: ProcedureReviewProps) => {
 								/>
 							</div>
 						</FullWidthColumn>
-						<FullWidthColumn className='flex justify-end'>
+						<FullWidthColumn className='mt-5 flex justify-end'>
 							<div className='flex w-full flex-1 items-center justify-end space-x-5'>
 								<Button
 									type='reset'
