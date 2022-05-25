@@ -5,5 +5,18 @@
 	"cancel": "Annulla",
 	"delete": "Elimina",
 	"confirm-delete": "Conferma eliminazione",
-	"delete-procedure": "Sei sicuro di voler eliminare questa procedura?"
+	"delete-procedure": "Sei sicuro di voler eliminare questa procedura?",
+	"fill-field": "Per favore, compila i campi e clicca",
+	"send-email": "Invia Email",
+	"procedures-selected": "Numero totale di procedure selezionate per la revisione",
+	"applications-selected": "Numero totale di applicazioni selezionate per la revisione",
+	"description": "Descrizione",
+	"procedure-review": "Revisione Procedura",
+	"application-review": "Revisione Applicazione",
+	"select-date": "Seleziona una data",
+	"expiry-date": "Data di scadenza della revisone",
+	"helper-email": "La richiesta di revisione verrà inviata a questo indirizzo email",
+	"label-email": "Indirizzo email",
+	"helper-user": "La richiesta di revisione verrà inviata a questo utente",
+	"reviewer": "Rivalidatore"
 }

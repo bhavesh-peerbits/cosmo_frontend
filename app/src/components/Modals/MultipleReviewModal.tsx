@@ -12,6 +12,7 @@ import {
 	TextArea
 } from '@carbon/react';
 import Application from '@model/Application';
+import { useTranslation } from 'react-i18next';
 
 type MultipleReviewModalProps = {
 	isOpen: boolean;
@@ -26,6 +27,7 @@ const MultipleReviewModal = ({
 	type,
 	applications
 }: MultipleReviewModalProps) => {
+	const { t } = useTranslation('modals');
 	const current = new Date();
 	const date = `${current.getMonth() + 1}/${current.getDate()}/${current.getFullYear()}`;
 	return (
@@ -34,8 +36,12 @@ const MultipleReviewModal = ({
 				<ComposedModal open={isOpen} onClose={() => setIsOpen(false)}>
 					<Column>
 						<ModalHeader
-							title={type === 'procedure' ? 'Procedure Review' : 'Application Review'}
-							label='Please fill in the fields above, then press Send Email.'
+							title={
+								type === 'procedure'
+									? `${t('procedure-review')}`
+									: `${t('application-review')}`
+							}
+							label={`${t('fill-field')} "${t('send-email')}".`}
 							closeModal={() => setIsOpen(false)}
 						/>
 					</Column>
@@ -49,8 +55,10 @@ const MultipleReviewModal = ({
 						>
 							<div className='flex space-x-3'>
 								<div className='text-productive-heading-2'>
-									Total {type === 'procedure' ? 'procedures' : 'applications'} selected to
-									review:
+									{type === 'procedure'
+										? `${t('procedures-selected')}`
+										: `${t('applications-selected')}`}
+									:
 								</div>
 								<div className='text-productive-heading-2'>{applications.length}</div>
 							</div>
@@ -58,19 +66,19 @@ const MultipleReviewModal = ({
 								<DatePicker datePickerType='single' allowInput minDate={date}>
 									<DatePickerInput
 										id='expiry-date'
-										labelText='Expiry Date of the Review'
+										labelText={t('expiry-date')}
 										placeholder='mm/dd/yyyy'
 									/>
 								</DatePicker>
-								<TextArea labelText='Description' />
+								<TextArea labelText={t('description')} />
 							</div>
 						</Column>
 					</ModalBody>
 					<ModalFooter>
 						<Button kind='secondary' onClick={() => setIsOpen(false)}>
-							Cancel
+							{t('cancel')}
 						</Button>
-						<Button>Send Email</Button>
+						<Button>{t('send-email')}</Button>
 					</ModalFooter>
 				</ComposedModal>
 			</Grid>
