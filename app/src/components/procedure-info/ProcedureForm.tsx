@@ -41,7 +41,7 @@ interface ProcedureFormProps {
 const ProcedureForm = ({ procedure, isNew, appId, onDelete }: ProcedureFormProps) => {
 	const { data: procedures = [] } = useGetProcedures();
 	const procedureNameList = procedures
-		.filter(procedureName => procedureName.name !== procedure.procedure.name)
+		.filter(proc => proc.name !== procedure.procedure.name)
 		.map(proc => proc.name.toLowerCase());
 	const { t } = useTranslation('procedureInfo');
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -158,7 +158,8 @@ const ProcedureForm = ({ procedure, isNew, appId, onDelete }: ProcedureFormProps
 											message: `${t('procedure-required')}`
 										},
 										validate: name =>
-											!procedureNameList.includes(name) || `${t('name-exists')}`
+											!procedureNameList.includes(name.toLowerCase()) ||
+											`${t('name-exists')}`
 									})}
 								/>
 							</Column>

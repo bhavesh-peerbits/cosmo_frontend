@@ -17,6 +17,10 @@ const ReviewDetail = () => {
 			id: 'id1',
 			name: 'Procedure Name 1',
 			description: 'Description',
+			procedure: {
+				name: 'procedure name',
+				id: 'id1'
+			},
 			lastModify: new Date(),
 			lastReview: new Date(),
 			allowModifyOwner: true
@@ -25,6 +29,10 @@ const ReviewDetail = () => {
 			id: 'id2',
 			name: 'Procedure Name 2',
 			description: 'Description',
+			procedure: {
+				name: 'procedure name',
+				id: 'id1'
+			},
 			lastModify: new Date(),
 			lastReview: new Date(),
 			allowModifyOwner: false

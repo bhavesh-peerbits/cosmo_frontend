@@ -10,6 +10,7 @@ import User from '@model/User';
 import { useController, useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import useGetProcedures from '@api/procedures/useGetProcedures';
 
 interface ProcedureData {
 	name: string;
@@ -23,11 +24,18 @@ interface ProcedureData {
 }
 
 interface ProcedureReviewProps {
-	procedure: Partial<ProcedureAppInstance>;
+	procedure: Partial<ProcedureAppInstance> & {
+		procedure: ProcedureAppInstance['procedure'];
+		id: string;
+	};
 }
 
 const ProcedureReview = ({ procedure }: ProcedureReviewProps) => {
 	const { t } = useTranslation('procedureInfo');
+	const { data: procedures = [] } = useGetProcedures();
+	const procedureNameList = procedures
+		.filter(proc => proc.name !== procedure.procedure.name)
+		.map(proc => proc.name.toLowerCase());
 	const [isConfirmed, setIsConfirmed] = useState(false);
 	const {
 		control,
@@ -75,7 +83,10 @@ const ProcedureReview = ({ procedure }: ProcedureReviewProps) => {
 									required: {
 										value: true,
 										message: `${t('procedure-required')}`
-									}
+									},
+									validate: name =>
+										!procedureNameList.includes(name.toLowerCase()) ||
+										`${t('name-exists')}`
 								})}
 							/>
 						</Column>
