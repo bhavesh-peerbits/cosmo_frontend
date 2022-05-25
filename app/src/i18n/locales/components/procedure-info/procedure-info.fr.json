@@ -12,5 +12,7 @@
 	"last-reviewer": "Dernière revalidateur",
 	"reviewer-required": "Sélectionner le dernier revalidateur",
 	"save": "Enregistrer",
-	"name-exists": "Ce nom existe déjà"
+	"name-exists": "Ce nom existe déjà",
+	"confirmed": "Confirmé",
+	"confirm": "Confirmer"
 }

@@ -11,6 +11,5 @@
 	"start-date": "Date de début",
 	"last-review": "Date de la dernière révision",
 	"last-reviewer": "Dernière revalidateur",
-	"general-info": "Informations générales",
-	"technical-info": "Informations techniques"
+	"application-info": "Informations Générales et Techniques"
 }

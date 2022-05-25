@@ -2,10 +2,10 @@ import { icons } from '@components/IconPicker';
 import { UserDisplayRole } from '@model/UserRole';
 
 const admin: UserDisplayRole = 'Admin';
-const webIcon: keyof typeof icons = 'web';
+const webIcon: keyof typeof icons = icons.web.component;
 const useGetAppReview = () => {
 	return {
-		id: 'id1',
+		id: '1',
 		name: 'App Name 1',
 		codeName: 'Code Name',
 		description: '',

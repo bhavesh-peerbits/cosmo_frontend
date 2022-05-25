@@ -12,5 +12,7 @@
 	"last-reviewer": "Last reviewer",
 	"reviewer-required": "Please select a last reviewer",
 	"save": "Save",
-	"name-exists": "This name already exists"
+	"name-exists": "This name already exists",
+	"confirmed": "Confirmed",
+	"confirm": "Confirm"
 }

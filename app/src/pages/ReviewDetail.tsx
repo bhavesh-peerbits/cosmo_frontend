@@ -1,14 +1,13 @@
 import { useRef } from 'react';
 import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
 import PageHeader from '@components/PageHeader';
-import GeneralInfoReview from '@components/ReviewNarrative/GeneralInfoReview';
 import { Grid, Tile } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import TableOfContents from '@components/TableOfContents';
-import TechnicalInfoReview from '@components/ReviewNarrative/TechnicalInfoReview';
 import ProcedureReview from '@components/ReviewNarrative/ProcedureReview';
 import useGetAppReview from '@api/review/useGetAppReview';
 import { useTranslation } from 'react-i18next';
+import ApplicationInfoReview from '@components/ReviewNarrative/ApplicationInfoReview';
 
 const ReviewDetail = () => {
 	const { t } = useTranslation('reviewNarrative');
@@ -47,58 +46,31 @@ const ReviewDetail = () => {
 						<FullWidthColumn className='pt-4'>
 							<div className='space-y-7'>
 								{application.allowModifyOwner && (
-									<div className='space-y-7'>
-										<Tile className='w-full bg-background pb-7'>
-											<Grid>
-												<FullWidthColumn className='flex justify-between'>
-													<p
-														data-toc-id='general-info'
-														className='text-productive-heading-3'
-													>
-														{t('general-info')}
+									<Tile className='bg-background pb-7'>
+										<Grid>
+											<FullWidthColumn className='flex justify-between'>
+												<p
+													data-toc-id={`procedure-container-${application.id}`}
+													className='text-productive-heading-3'
+												>
+													{t('application-info')}
+												</p>
+												<div>
+													<p className='text-text-secondary text-body-compact-1'>
+														{`${t(
+															'last-review'
+														)}: ${application.lastReview.toLocaleString()}`}
 													</p>
-													<div>
-														<p className='text-text-secondary text-body-compact-1'>
-															{`${t(
-																'last-review'
-															)}: ${application.lastReview.toLocaleString()}`}
-														</p>
-														<p className=' text-text-secondary text-body-compact-1'>
-															{`${t('last-reviewer')}:`}
-														</p>
-													</div>
-												</FullWidthColumn>
-												<FullWidthColumn>
-													<GeneralInfoReview application={application} />
-												</FullWidthColumn>
-											</Grid>
-										</Tile>
-										<Tile className='w-full bg-background pb-7'>
-											<Grid>
-												<FullWidthColumn className='flex justify-between'>
-													<p
-														data-toc-id='technical-info'
-														className='text-productive-heading-3'
-													>
-														{t('technical-info')}
+													<p className=' text-text-secondary text-body-compact-1'>
+														{`${t('last-reviewer')}:`}
 													</p>
-													<div>
-														<p className='text-text-secondary text-body-compact-1'>
-															{`${t(
-																'last-review'
-															)}: ${application.lastReview.toLocaleString()}`}
-														</p>
-														<p className=' text-text-secondary text-body-compact-1'>
-															{`${t('last-reviewer')}:`}
-														</p>
-													</div>
-												</FullWidthColumn>
-												<FullWidthColumn>
-													<TechnicalInfoReview application={application} />
-												</FullWidthColumn>
-											</Grid>
-										</Tile>
-									</div>
+												</div>
+											</FullWidthColumn>
+											<FullWidthColumn>
+												<ApplicationInfoReview application={application} />
+											</FullWidthColumn>
+										</Grid>
+									</Tile>
 								)}
 
 								{procedureList.map(

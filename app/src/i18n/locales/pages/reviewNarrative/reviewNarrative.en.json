@@ -11,6 +11,5 @@
 	"start-date": "Start date",
 	"last-review": "Last review date",
 	"last-reviewer": "Last reviewer",
-	"general-info": "General Info",
-	"technical-info": "Technical Info"
+	"application-info": "General and Technical Information"
 }
