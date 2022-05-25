@@ -14,8 +14,8 @@ import IconPicker, { icons } from '@components/IconPicker';
 import TiptapEditor from '@components/tiptap/TiptapEditor';
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
-import useManagementApps from '@hooks/management/useManagementApps';
-import React from 'react';
+import { useEffect, useState } from 'react';
+import useGetApps from '@api/management/useGetApps';
 
 export interface GeneralInfoForm {
 	generalInfo: {
@@ -38,26 +38,31 @@ type GeneralInfoProps = {
 };
 
 const GeneralInfo = ({ register, errors, control, getValues }: GeneralInfoProps) => {
-	const { apps } = useManagementApps();
-	const appNameList = React.useMemo(
-		() =>
+	const { data: apps = [] } = useGetApps();
+	const [appNameList, setAppNameList] = useState<string[]>([]);
+	const [appCodeList, setAppCodeList] = useState<string[]>([]);
+	useEffect(() => {
+		setAppNameList(
 			getValues
 				? apps
-						.filter(app => app.name !== getValues('generalInfo.name'))
+						.filter(app => app.name !== getValues('generalInfo.name').toLowerCase())
 						.map(app => app.name.toLowerCase())
-				: apps.map(app => app.name.toLowerCase()),
-		[getValues, apps]
-	);
+				: apps.map(app => app.name.toLowerCase())
+		);
+	}, [apps, getValues]);
 
-	const appCodeList = React.useMemo(
-		() =>
+	useEffect(() => {
+		setAppCodeList(
 			getValues
 				? apps
-						.filter(app => app.codeName !== getValues('generalInfo.codeName'))
+						.filter(
+							app => app.codeName !== getValues('generalInfo.codeName').toLowerCase()
+						)
 						.map(app => app.codeName.toLowerCase())
-				: apps.map(app => app.codeName.toLowerCase()),
-		[getValues, apps]
-	);
+				: apps.map(app => app.codeName.toLowerCase())
+		);
+	}, [apps, getValues]);
+
 	const { t } = useTranslation('applicationInfo');
 	const {
 		field: { onChange, value, ref, onBlur }

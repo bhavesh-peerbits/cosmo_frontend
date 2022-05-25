@@ -40,7 +40,9 @@ interface ProcedureFormProps {
 
 const ProcedureForm = ({ procedure, isNew, appId, onDelete }: ProcedureFormProps) => {
 	const { data: procedures = [] } = useGetProcedures();
-	const procedureNameList = procedures.map(proc => proc.name);
+	const procedureNameList = procedures
+		.filter(procedureName => procedureName.name !== procedure.procedure.name)
+		.map(proc => proc.name.toLowerCase());
 	const { t } = useTranslation('procedureInfo');
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 	const {
