@@ -10,5 +10,9 @@
 	"confirmed": "Confirmé",
 	"confirm": "Confirmer",
 	"name-exists": "Ce nom existe déjà",
-	"code-exists": "Ce code existe déjà"
+	"code-exists": "Ce code existe déjà",
+	"general-info": "Informations Générales",
+	"technical-info": "Informations Techniques",
+	"discard": "Restaurer",
+	"save": "Enregistrer"
 }

@@ -18,6 +18,7 @@ import Application from '@model/Application';
 import useEditApp from '@api/management/useEditApp';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';
+import { useTranslation } from 'react-i18next';
 
 type ApplicationForm = GeneralInfoForm & TechnicalInfoForm;
 
@@ -26,6 +27,7 @@ interface ApplicationInfoProps {
 }
 
 const ApplicationInfo = ({ application }: ApplicationInfoProps) => {
+	const { t } = useTranslation('applicationInfo');
 	const { applicationData } = application;
 	const { breadcrumbSize } = useBreadcrumbSize();
 	const buttonRef = useRef<HTMLDivElement>(null);
@@ -98,7 +100,7 @@ const ApplicationInfo = ({ application }: ApplicationInfoProps) => {
 								size='md'
 								className='md:max-w-auto w-full max-w-full md:w-auto'
 							>
-								Save Changes
+								{t('save')}
 							</Button>
 							<Button
 								kind='secondary'
@@ -110,7 +112,7 @@ const ApplicationInfo = ({ application }: ApplicationInfoProps) => {
 								size='md'
 								disabled={!isDirty}
 							>
-								Discard Changes
+								{t('discard')}
 							</Button>
 							<InlineLoadingStatus
 								{...{ isLoading, isSuccess, isError, error: error as ApiError }}
@@ -123,7 +125,7 @@ const ApplicationInfo = ({ application }: ApplicationInfoProps) => {
 										data-toc-id='general-info'
 										className='text-productive-heading-3'
 									>
-										General Information
+										{t('general-info')}
 									</FullWidthColumn>
 									<FullWidthColumn>
 										<GeneralInfo
@@ -143,7 +145,7 @@ const ApplicationInfo = ({ application }: ApplicationInfoProps) => {
 										data-toc-id='technical-info'
 										className='text-fluid-heading-3'
 									>
-										Technical Information
+										{t('technical-info')}
 									</FullWidthColumn>
 									<FullWidthColumn>
 										<TechnicalInfo

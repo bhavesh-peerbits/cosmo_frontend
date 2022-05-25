@@ -14,5 +14,6 @@
 	"save": "Salva",
 	"name-exists": "Questo nome è già esistente",
 	"confirmed": "Confermato",
-	"confirm": "Conferma"
+	"confirm": "Conferma",
+	"discard": "Ripristina"
 }

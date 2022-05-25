@@ -14,5 +14,6 @@
 	"save": "Save",
 	"name-exists": "This name already exists",
 	"confirmed": "Confirmed",
-	"confirm": "Confirm"
+	"confirm": "Confirm",
+	"discard": "Discard Changes"
 }

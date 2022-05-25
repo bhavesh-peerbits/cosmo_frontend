@@ -95,7 +95,7 @@ const ApplicationInfoReview = ({ application }: ApplicationInfoReviewProps) => {
 						disabled={!isDirty || isConfirmed}
 						onClick={() => reset()}
 					>
-						Discard Changes
+						{t('discard')}
 					</Button>
 					{isConfirmed ? (
 						<div className='flex h-8 items-center space-x-2 text-link-primary'>

@@ -14,5 +14,6 @@
 	"save": "Enregistrer",
 	"name-exists": "Ce nom existe déjà",
 	"confirmed": "Confirmé",
-	"confirm": "Confirmer"
+	"confirm": "Confirmer",
+	"discard": "Restaurer"
 }
