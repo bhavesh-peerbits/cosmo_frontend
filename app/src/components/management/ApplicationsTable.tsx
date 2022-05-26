@@ -128,7 +128,7 @@ const ApplicationsTable = () => {
 						type='application'
 						isOpen={isModalOpen}
 						setIsOpen={setIsModalOpen}
-						applications={rowSelected}
+						items={rowSelected}
 					/>
 				);
 			case 'Generate':
