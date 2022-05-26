@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import { ProcedureAppInstanceApi } from 'cosmo-api/src';
 import Procedure, { fromProcedureApi, toProcedureApi } from '@model/Procedure';
 import User, { fromUserApi, toUserApi } from '@model/User';
@@ -5,6 +7,7 @@ import User, { fromUserApi, toUserApi } from '@model/User';
 interface ProcedureAppInstance {
 	id: string;
 	name: string;
+	applicationId?: string;
 	description?: string;
 	procedure: Procedure;
 	lastReview?: Date;
@@ -23,6 +26,7 @@ export const fromProcedureAppInstanceApi = (
 	return {
 		id: `${procedureApi.id}`,
 		name: procedureApi.name || '',
+		applicationId: `${procedureApi.application.id}` || '',
 		description: procedureApi.description,
 		procedure: fromProcedureApi(procedureApi.procedure),
 		delegated: procedureApi.delegatedProcedureApp.map(fromUserApi),

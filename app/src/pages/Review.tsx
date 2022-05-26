@@ -2,60 +2,56 @@ import PageHeader from '@components/PageHeader';
 import GroupableCosmoTable, {
 	HeaderFunction
 } from '@components/table/GroupableCosmoTable';
+import { useCallback, useMemo } from 'react';
+import ProcedureAppInstance from '@model/ProcedureAppInstance';
+import { formatDate } from '@i18n';
 import ApplicationReview from '@model/ApplicationReview';
-import { useCallback, useEffect, useState } from 'react';
-import useManagementApps from '@hooks/management/useManagementApps';
-import useGetProcedureByApp from '@api/procedures/useGetProcedureByApp';
+import { useTranslation } from 'react-i18next';
+import Application from '@model/Application';
+import useGetApps from '@api/management/useGetApps';
+import { useGetProceduresByApps } from '@api/procedures/useGetProcedureByApp';
 
 const Review = () => {
-	const [proceduresList, setProceduresList] = useState<ApplicationReview[]>();
-	const [data, setData] = useState<ApplicationReview[]>();
-	const { apps } = useManagementApps();
+	const { data: appsData = [] } = useGetApps();
+	const results = useGetProceduresByApps(appsData);
 
-	function ReviewList() {
-		const GetProceduresByAppId = (id: string) => {
-			const { data: procedures = [] } = useGetProcedureByApp(id);
-
-			return procedures.filter(procedure => procedure.dueDate !== undefined);
-		};
-
-		useEffect(() => {
-			setProceduresList(
-				apps
-					.map(app =>
-						GetProceduresByAppId(app.id).map(procedure => {
-							return {
-								id: procedure.id,
-								appName: app.name,
-								procedure: procedure.name,
-								owner: procedure.owner,
-								status: procedure.allowModifyOwner ? 'Ongoing' : 'Closed',
-								expireDate: procedure.dueDate
-							};
-						})
-					)
-					.flat()
+	const { t } = useTranslation('reviewNarrative');
+	const reviews: ApplicationReview[] = useMemo(() => {
+		const appMap = new Map(appsData.map(app => [app.id, app]));
+		const apps = results
+			.flatMap(r => r.data || [])
+			.filter(r => r.applicationId)
+			.reduce(
+				(acc, curr) => ({
+					...acc,
+					[curr.applicationId as string]: {
+						app: appMap.get(curr.applicationId as string) as Application,
+						procedures: [...(acc[curr.applicationId as string]?.procedures || []), curr]
+					}
+				}),
+				{} as Record<string, { app: Application; procedures: ProcedureAppInstance[] }>
 			);
-		}, []);
-		return proceduresList;
-	}
-	useEffect(() => {
-		const appInfoList = apps
-			.filter(app => app.dueDate !== undefined)
-			.map(app => {
-				return {
-					id: app.id,
-					appName: app.name,
-					procedure: 'General Info and Technical Info',
-					owner: app.owner,
-					status: app.allowModifyOwner ? 'Ongoing' : 'Closed',
-					expireDate: app.dueDate
-				};
-			});
-		if (proceduresList) {
-			setData([...proceduresList, ...appInfoList]);
-		}
-	}, [apps, proceduresList]);
+		return Object.values(apps)
+			.map(a => [
+				{
+					id: a.app.id,
+					appName: a.app.name,
+					owner: a.app.owner,
+					expireDate: a.app.dueDate,
+					procedure: t('application-info'),
+					status: a.app.allowModifyOwner ? 'Ongoing' : 'Closed'
+				},
+				...a.procedures.map(p => ({
+					id: p.id,
+					appName: a.app.name,
+					owner: p.owner,
+					expireDate: p.dueDate,
+					procedure: p.procedure.name,
+					status: p.allowModifyOwner ? 'Ongoing' : 'Closed'
+				}))
+			])
+			.flat();
+	}, [appsData, results, t]);
 
 	const columns: HeaderFunction<ApplicationReview> = useCallback(
 		table => [
@@ -79,7 +75,10 @@ const Review = () => {
 			table.createDataColumn(row => row.expireDate, {
 				id: 'due-date',
 				header: 'Due Date',
-				cell: info => info.getValue()?.toLocaleDateString()
+				cell: info => {
+					const date = info.getValue();
+					return date ? formatDate(date) : '-';
+				}
 			}),
 			table.createDataColumn(row => row.status, {
 				id: 'Status',
@@ -94,7 +93,7 @@ const Review = () => {
 			<PageHeader pageTitle='Review'>
 				<div className='h-full p-container-1'>
 					<GroupableCosmoTable
-						data={(ReviewList() && data) || []}
+						data={reviews}
 						createHeaders={columns}
 						noDataMessage='No data'
 					/>

@@ -87,7 +87,7 @@ const applyFilters = (
 };
 
 const filteredApplications = selector({
-	key: 'filteredApplications',
+	key: 'filteredReview',
 	get: ({ get }) => {
 		const filters = get(reviewFilters);
 		const apps = get(reviewApps);
