@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+import { ApplicationDto } from './application-dto';
 import { ProcedureDto } from './procedure-dto';
 import { UserDto } from './user-dto';
 
@@ -33,6 +34,12 @@ export interface ProcedureAppInstanceDto {
 	 * @memberof ProcedureAppInstanceDto
 	 */
 	procedure: ProcedureDto;
+	/**
+	 *
+	 * @type {ApplicationDto}
+	 * @memberof ProcedureAppInstanceDto
+	 */
+	application: ApplicationDto;
 	/**
 	 * Procedure name
 	 * @type {string}
@@ -81,16 +88,4 @@ export interface ProcedureAppInstanceDto {
 	 * @memberof ProcedureAppInstanceDto
 	 */
 	lastModifier: UserDto;
-  /**
-	 *
-	 * @type {string}
-	 * @memberof ProcedureAppInstanceDto
-	 */
-	dueDate?: string;
-  /**
-	 *
-	 * @type {boolean}
-	 * @memberof ProcedureAppInstanceDto
-	 */
-	allowModifyOwner?: boolean;
 }

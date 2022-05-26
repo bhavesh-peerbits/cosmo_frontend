@@ -23,6 +23,7 @@ const useGetAppsReview = () => {
 				surname: 'surname1',
 				principalRole: admin
 			},
+			startDate: new Date(),
 			delegates: [],
 			icon: webIcon,
 			applicationData: {

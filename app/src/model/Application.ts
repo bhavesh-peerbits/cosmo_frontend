@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import { ApplicationApi } from 'cosmo-api';
 import { icons } from '@components/IconPicker';
 import User, { fromUserApi, toUserApi } from '@model/User';
