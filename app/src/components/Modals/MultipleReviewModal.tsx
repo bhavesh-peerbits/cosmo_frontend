@@ -11,9 +11,10 @@ import {
 	TextInput
 } from '@carbon/react';
 import DatePickerWrapper from '@components/DatePickerWrapper';
+import SingleUserSelect from '@components/SingleUserSelect';
 import Application from '@model/Application';
 import ProcedureAppInstance from '@model/ProcedureAppInstance';
-import { User } from '@sentry/react';
+import User from '@model/User';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -50,6 +51,11 @@ const MultipleReviewModal = ({
 		resetForm();
 		setIsOpen(false);
 	};
+
+	const uniqueOwners = [
+		...new Map(items.map(item => item.owner).map(owner => [owner.id, owner])).values()
+	];
+
 	return (
 		<Form>
 			<Grid fullWidth narrow>
@@ -78,17 +84,24 @@ const MultipleReviewModal = ({
 									</div>
 									<div className='text-productive-heading-2'>{items?.length}</div>
 								</div>
-								{items.map(item => {
+
+								{uniqueOwners.map(owner => {
 									return (
 										<Grid>
-											{' '}
 											<Column lg={8} md={4} sm={4} className='mb-5'>
-												<TextInput
+												<SingleUserSelect
+													level={2}
+													label={t('reviewer')}
+													name='reviewer'
+													defaultValue={owner}
+													rules={{
+														required: {
+															value: true,
+															message: 'A owner is required'
+														}
+													}}
 													readOnly
-													id='email-address'
-													labelText={t('reviewer')}
-													value={item.owner.displayName || ''}
-													className='w-full grow-0'
+													control={control}
 												/>
 											</Column>
 											<Column lg={8} md={4} sm={4} className='mb-5'>
@@ -97,37 +110,18 @@ const MultipleReviewModal = ({
 													id='email-address'
 													placeholder='example@email.com'
 													labelText={t('label-email')}
-													value={item.owner.email || ''}
-													className='w-full grow-0'
-												/>
-											</Column>
-											<Column lg={8} md={4} sm={4} className='mb-5'>
-												<TextInput
-													readOnly
-													id='email-address'
-													labelText={t('reviewer')}
-													value={item.owner.displayName || ''}
-													className='w-full grow-0'
-												/>
-											</Column>
-											<Column lg={8} md={4} sm={4} className='mb-5'>
-												<TextInput
-													readOnly
-													id='email-address'
-													placeholder='example@email.com'
-													labelText={t('label-email')}
-													value={item.owner.email || ''}
+													value={owner.email || ''}
 													className='w-full grow-0'
 												/>
 											</Column>
 										</Grid>
 									);
 								})}
-								<div className='pt-5'>
+								<div className='mb-4 mt-5'>
 									<DatePickerWrapper
 										control={control}
 										name='reviewDate'
-										label={t('expiry-date')}
+										label={`${t('expiry-date')} *`}
 										rules={{
 											required: {
 												value: true,
@@ -136,8 +130,8 @@ const MultipleReviewModal = ({
 										}}
 										minDate={new Date()}
 									/>
-									<TextArea labelText={t('description')} {...register('description')} />
 								</div>
+								<TextArea labelText={t('description')} {...register('description')} />
 							</Column>
 						</Grid>
 					</ModalBody>
