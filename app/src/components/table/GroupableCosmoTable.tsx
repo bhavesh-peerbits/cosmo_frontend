@@ -173,15 +173,15 @@ const GroupableCosmoTable = <D extends object>({
 													{header.column.getCanGroup() && (
 														<OverflowMenu
 															ariaLabel='Overflow Menu'
-															iconDescription='action'
+															iconDescription='Menu'
 														>
 															<OverflowMenuItem
 																itemText={
 																	(header.column.getIsSorted() === 'desc' &&
-																		'Original sort') ||
+																		t('sort-ascending')) ||
 																	(header.column.getIsSorted() === 'asc' &&
-																		'Sord Descending') ||
-																	'Sord Ascending'
+																		t('original-sort')) ||
+																	t('sort-descending')
 																}
 																onClick={header.column.getToggleSortingHandler()}
 															/>
@@ -190,8 +190,8 @@ const GroupableCosmoTable = <D extends object>({
 																hasDivider
 																itemText={
 																	header.column.getIsGrouped()
-																		? 'Remove Group'
-																		: 'Group by'
+																		? t('remove-group')
+																		: t('group-by')
 																}
 																onClick={header.column.getToggleGroupingHandler()}
 															/>

@@ -13,5 +13,10 @@
 	"download-current": "Scarica vista corrente",
 	"download-pdf": "Scarica formato PDF",
 	"download-csv": "Scarica formato CSV",
-	"download-xlsx": "Scarica formato XLSX"
+	"download-xlsx": "Scarica formato XLSX",
+	"sort-ascending": "Ordine crescente",
+	"sort-descending": "Ordine decrescente",
+	"original-sort": "Ordine originale",
+	"group-by": "Raggruppa",
+	"remove-group": "Rimuovi raggruppamento"
 }

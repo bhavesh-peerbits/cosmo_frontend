@@ -13,5 +13,10 @@
 	"download-current": "Download current view",
 	"download-pdf": "Download as PDF",
 	"download-csv": "Download as CSV",
-	"download-xlsx": "Download as XLSX"
+	"download-xlsx": "Download as XLSX",
+	"sort-ascending": "Ascending order",
+	"sort-descending": "Descending order",
+	"original-sort": "Original order",
+	"group-by": "Group by",
+	"remove-group": "Remove group"
 }

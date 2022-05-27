@@ -13,5 +13,10 @@
 	"download-current": "Télécharger la vue actuelle",
 	"download-pdf": "Télécharger format PDF",
 	"download-csv": "Télécharger format CSV",
-	"download-xlsx": "Télécharger format XLSX"
+	"download-xlsx": "Télécharger format XLSX",
+	"sort-ascending": "Tri ascendant",
+	"sort-descending": "Tri descendant",
+	"original-sort": "Tri d'origine",
+	"group-by": "Regrouper",
+	"remove-group": "Supprimer le groupement"
 }

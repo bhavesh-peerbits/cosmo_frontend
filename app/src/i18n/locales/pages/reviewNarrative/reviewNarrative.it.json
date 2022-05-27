@@ -11,5 +11,7 @@
 	"start-date": "Data di inizio",
 	"last-review": "Data ultima revisione",
 	"last-reviewer": "Ultimo rivalidatore",
-	"application-info": "Informazioni Generali e Tecniche"
+	"application-info": "Informazioni Generali e Tecniche",
+	"application": "Applicazione",
+	"procedure": "Procedura"
 }
