@@ -83,7 +83,8 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 	toolbarBatchActions,
 	toolbarContent,
 	onExportClick,
-	disableExport
+	disableExport,
+	excludeCurrentView
 }: CosmoTableToolbarProps<T>) => {
 	const { t } = useTranslation('table');
 	const actions = useMemo(
@@ -142,7 +143,7 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 		[onExportClick]
 	);
 
-	return onCancel && selectionIds && toolbarBatchActions && toolbarContent ? (
+	return onCancel && selectionIds && toolbarBatchActions ? (
 		<TableToolbar>
 			<TableBatchActions
 				onCancel={onCancel}
@@ -190,15 +191,41 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 		</TableToolbar>
 	) : (
 		<TableToolbarContent>
-			{actions.map(
-				action =>
-					action.id === 'export-all' && (
+			{excludeCurrentView ? (
+				actions.map(
+					action =>
+						action.id === 'export-all' && (
+							<TableToolbarMenu
+								key={action.id}
+								iconDescription={action.menuLabel}
+								renderIcon={() => action.menuIcon}
+								ariaLabel={action.menuLabel}
+								disabled={disableExport}
+							>
+								{action.actions.map(subAction => (
+									<TableToolbarAction
+										key={subAction.id}
+										onClick={subAction.onClick}
+										itemText={
+											<div className='flex items-center justify-between space-x-5'>
+												<div>{subAction.icon}</div>
+												<span>{subAction.label}</span>
+											</div>
+										}
+									/>
+								))}
+							</TableToolbarMenu>
+						)
+				)
+			) : (
+				<TableToolbarContent>
+					{toolbarContent}
+					{actions.map(action => (
 						<TableToolbarMenu
 							key={action.id}
 							iconDescription={action.menuLabel}
 							renderIcon={() => action.menuIcon}
 							ariaLabel={action.menuLabel}
-							disabled={disableExport}
 						>
 							{action.actions.map(subAction => (
 								<TableToolbarAction
@@ -213,7 +240,8 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 								/>
 							))}
 						</TableToolbarMenu>
-					)
+					))}
+				</TableToolbarContent>
 			)}
 		</TableToolbarContent>
 	);
