@@ -8,8 +8,8 @@
 	"delete-procedure": "Êtes-vous sûr de vouloir supprimer cette procédure?",
 	"fill-field": "Merci de remplir les champs et de cliquer sur",
 	"send-email": "Envoyer Email",
-	"procedures-selected": "Nombre total de procédures sélectionnées pour examen",
-	"applications-selected": "Nombre total de applications sélectionnées pour examen",
+	"total-procedures": "Nombre total de procédures sélectionnées pour examen",
+	"total-applications": "Nombre total de applications sélectionnées pour examen",
 	"description": "Description",
 	"procedure-review": "Revue de Procédure",
 	"application-review": "Revue d'Application",
@@ -18,5 +18,7 @@
 	"helper-email": "La demande de révision sera envoyée à cette adresse e-mail",
 	"label-email": "Adresse Email",
 	"helper-user": "La demande de révision sera envoyée à cet utilisateur",
-	"reviewer": "Revalidateur"
+	"reviewer": "Revalidateur",
+	"procedures-selected": "Procédures sélectionnées",
+	"application-selected": "Applications sélectionnées"
 }

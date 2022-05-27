@@ -1,4 +1,6 @@
 import {
+	Accordion,
+	AccordionItem,
 	Button,
 	Column,
 	ComposedModal,
@@ -52,99 +54,104 @@ const MultipleReviewModal = ({
 		setIsOpen(false);
 	};
 
-	const uniqueOwners = [
-		...new Map(items.map(item => item.owner).map(owner => [owner.id, owner])).values()
-	];
-
 	return (
 		<Form>
-			<Grid fullWidth narrow>
-				<ComposedModal open={isOpen} onClose={() => setIsOpen(false)}>
-					<Column>
-						<ModalHeader
-							title={
-								type === 'procedure'
-									? `${t('procedure-review')}`
-									: `${t('application-review')}`
-							}
-							label={`${t('fill-field')} "${t('send-email')}".`}
-							closeModal={() => setIsOpen(false)}
-						/>
-					</Column>
+			<ComposedModal open={isOpen} onClose={() => cleanUp()}>
+				<ModalHeader
+					title={
+						type === 'procedure'
+							? `${t('procedure-review')}`
+							: `${t('application-review')}`
+					}
+					label={`${t('fill-field')} "${t('send-email')}".`}
+					closeModal={() => cleanUp()}
+				/>
 
-					<ModalBody>
-						<Grid>
-							<Column lg={16} md={8} sm={4}>
-								<div className='mb-5 flex space-x-3'>
-									<div className='text-productive-heading-2'>
-										{type === 'procedure'
+				<ModalBody>
+					<Grid>
+						<Column lg={16} md={8} sm={4}>
+							<div className='mb-5 flex space-x-3'>
+								<div className='text-productive-heading-2'>
+									{type === 'procedure'
+										? `${t('total-procedures')}`
+										: `${t('total-applications')}`}
+									:
+								</div>
+								<div className='text-productive-heading-2'>{items?.length}</div>
+							</div>
+							<Accordion className='w-full'>
+								<AccordionItem
+									title={
+										type === 'procedure'
 											? `${t('procedures-selected')}`
-											: `${t('applications-selected')}`}
-										:
-									</div>
-									<div className='text-productive-heading-2'>{items?.length}</div>
-								</div>
-
-								{uniqueOwners.map(owner => {
-									return (
-										<Grid>
-											<Column lg={8} md={4} sm={4} className='mb-5'>
-												<SingleUserSelect
-													level={2}
-													label={t('reviewer')}
-													name='reviewer'
-													defaultValue={owner}
-													rules={{
-														required: {
-															value: true,
-															message: 'A owner is required'
-														}
-													}}
-													readOnly
-													control={control}
-												/>
-											</Column>
-											<Column lg={8} md={4} sm={4} className='mb-5'>
-												<TextInput
-													readOnly
-													id='email-address'
-													placeholder='example@email.com'
-													labelText={t('label-email')}
-													value={owner.email || ''}
-													className='w-full grow-0'
-												/>
-											</Column>
-										</Grid>
-									);
-								})}
-								<div className='mb-4 mt-5'>
-									<DatePickerWrapper
-										control={control}
-										name='reviewDate'
-										label={`${t('expiry-date')} *`}
-										rules={{
-											required: {
-												value: true,
-												message: `${t('select-date')}`
-											}
-										}}
-										minDate={new Date()}
-									/>
-								</div>
-								<TextArea labelText={t('description')} {...register('description')} />
-							</Column>
-						</Grid>
-					</ModalBody>
-					<ModalFooter>
-						<Button kind='secondary' onClick={() => cleanUp()}>
-							{t('cancel')}
-						</Button>
-						<Button type='submit' disabled={!isValid}>
-							{t('send-email')}
-						</Button>
-					</ModalFooter>
-				</ComposedModal>
-			</Grid>
+											: `${t('application-selected')}`
+									}
+									className='flex flex-col items-stretch'
+								>
+									{items.map(item => {
+										return (
+											<div className='mb-4 flex-col space-y-2'>
+												<p className='text-heading-1'>{item.name}</p>
+												<Grid>
+													<Column lg={8} md={4} sm={4} className='mb-5'>
+														<SingleUserSelect
+															level={2}
+															label={t('reviewer')}
+															name='reviewer'
+															defaultValue={item.owner}
+															rules={{
+																required: {
+																	value: true,
+																	message: 'A owner is required'
+																}
+															}}
+															readOnly
+															control={control}
+														/>
+													</Column>
+													<Column lg={8} md={4} sm={4} className='mb-5'>
+														<TextInput
+															readOnly
+															id='email-address'
+															placeholder='example@email.com'
+															labelText={t('label-email')}
+															value={item.owner.email || ''}
+															className='w-full grow-0'
+														/>
+													</Column>
+												</Grid>
+											</div>
+										);
+									})}
+								</AccordionItem>
+							</Accordion>
+							<div className='mb-4 mt-5'>
+								<DatePickerWrapper
+									control={control}
+									name='reviewDate'
+									label={`${t('expiry-date')} *`}
+									rules={{
+										required: {
+											value: true,
+											message: `${t('select-date')}`
+										}
+									}}
+									minDate={new Date()}
+								/>
+							</div>
+							<TextArea labelText={t('description')} {...register('description')} />
+						</Column>
+					</Grid>
+				</ModalBody>
+				<ModalFooter>
+					<Button kind='secondary' onClick={() => cleanUp()}>
+						{t('cancel')}
+					</Button>
+					<Button type='submit' disabled={!isValid}>
+						{t('send-email')}
+					</Button>
+				</ModalFooter>
+			</ComposedModal>
 		</Form>
 	);
 };
