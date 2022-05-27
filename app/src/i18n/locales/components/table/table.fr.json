@@ -8,5 +8,10 @@
 	"items-per-page": "Éléments par page",
 	"item-range": "{{min}}-{{max}} sur {{total}}",
 	"page-range": "sur {{total}} page",
-	"page-range-plural": "sur {{total}} pages"
+	"page-range-plural": "sur {{total}} pages",
+	"download-all": "Télécharger toutes les données",
+	"download-current": "Télécharger la vue actuelle",
+	"download-pdf": "Télécharger format PDF",
+	"download-csv": "Télécharger format CSV",
+	"download-xlsx": "Télécharger format XLSX"
 }

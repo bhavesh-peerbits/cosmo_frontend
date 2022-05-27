@@ -91,24 +91,24 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 		() => [
 			{
 				id: 'export-all',
-				menuLabel: 'Download all data',
+				menuLabel: t('download-all'),
 				menuIcon: <TableBuilt />,
 				actions: [
 					{
 						id: 'export-all-pdf',
-						label: 'Download as PDF',
+						label: t('download-pdf'),
 						icon: <DocumentPdf />,
 						onClick: () => onExportClick('pdf', true)
 					},
 					{
 						id: 'export-all-xls',
-						label: 'Download as XLSX',
+						label: t('download-xlsx'),
 						icon: <Xls />,
 						onClick: () => onExportClick('xlsx', true)
 					},
 					{
 						id: 'export-all-csv',
-						label: 'Download as CSV',
+						label: t('download-csv'),
 						icon: <Csv />,
 						onClick: () => onExportClick('csv', true)
 					}
@@ -116,31 +116,31 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 			},
 			{
 				id: 'export-current',
-				menuLabel: 'Download current view',
+				menuLabel: t('download-current'),
 				menuIcon: <TableSplit />,
 				actions: [
 					{
 						id: 'export-current-pdf',
-						label: 'Download as PDF',
+						label: t('download-pdf'),
 						icon: <DocumentPdf />,
 						onClick: () => onExportClick('pdf')
 					},
 					{
 						id: 'export-current-xls',
-						label: 'Download as XLSX',
+						label: t('download-xlsx'),
 						icon: <Xls />,
 						onClick: () => onExportClick('xlsx')
 					},
 					{
 						id: 'export-current-csv',
-						label: 'Download as CSV',
+						label: t('download-csv'),
 						icon: <Csv />,
 						onClick: () => onExportClick('csv')
 					}
 				]
 			}
 		],
-		[onExportClick]
+		[onExportClick, t]
 	);
 
 	return onCancel && selectionIds && toolbarBatchActions ? (
