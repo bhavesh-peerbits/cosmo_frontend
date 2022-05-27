@@ -26,7 +26,10 @@ const ApplicationChangesTable = ({ appId }: ApplicationChangesTableProps) => {
 		table.createDataColumn(row => row.userWhoChanged, {
 			id: 'user',
 			header: 'User',
-			cell: row => row.getValue().displayName
+			cell: info => info.getValue()?.displayName || '-',
+			meta: {
+				exportableFn: (info: { displayName: string }) => info.displayName
+			}
 		}),
 		table.createDataColumn(row => row.date, {
 			id: 'modify-date',
