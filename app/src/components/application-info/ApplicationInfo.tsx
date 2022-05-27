@@ -41,7 +41,7 @@ const ApplicationInfo = ({ application }: ApplicationInfoProps) => {
 		control,
 		formState: { errors, isDirty }
 	} = useForm<ApplicationForm>({
-		mode: 'onSubmit',
+		mode: 'onChange',
 		defaultValues: {
 			generalInfo: {
 				name: application.name,

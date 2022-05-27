@@ -14,5 +14,15 @@
 	"general-info": "General Information",
 	"technical-info": "Technical Information",
 	"discard": "Discard Changes",
-	"save": "Save Changes"
+	"save": "Save Changes",
+	"app-maintenance": "Application maintenance supplier",
+	"operation-supplier": "Operation supplier",
+	"app-servers": "Application servers",
+	"app-servers-os": "Application servers OS",
+	"app-code-path": "Application code path",
+	"technical-code": "Technical code",
+	"db-servers": "Database servers",
+	"db-servers-os": "Database servers OS",
+	"db-service": "Database service",
+	"db-instance": "Database instance"
 }

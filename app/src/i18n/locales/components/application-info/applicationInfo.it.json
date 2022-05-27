@@ -14,5 +14,15 @@
 	"general-info": "Informazioni Generali",
 	"technical-info": "Informazioni Tecniche",
 	"discard": "Ripristina",
-	"save": "Salva Modifiche"
+	"save": "Salva Modifiche",
+	"app-maintenance": "Fornitore manutenzione dell'applicazione",
+	"operation-supplier": "Fornitore delle operazioni",
+	"app-servers": "Servers dell'applicazione",
+	"app-servers-os": "SO Servers dell'applicazione",
+	"app-code-path": "Percorso dell'applicazione",
+	"technical-code": "Codice tecnico",
+	"db-servers": "Servers database",
+	"db-servers-os": "SO Servers database",
+	"db-service": "Servizio database",
+	"db-instance": "Istanza database"
 }

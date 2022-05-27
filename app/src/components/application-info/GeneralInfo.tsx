@@ -103,8 +103,8 @@ const GeneralInfo = ({ register, errors, control, getValues }: GeneralInfoProps)
 					id='name'
 					invalidText={errors.generalInfo?.name?.message}
 					labelText={`${t('name')} *`}
-					placeholder={`${t('name')} *`}
-					helperText={`${t('application-name')} *`}
+					placeholder={`${t('name')}`}
+					helperText={`${t('application-name')}`}
 					invalid={Boolean(errors.generalInfo?.name)}
 					{...register('generalInfo.name', {
 						required: {
@@ -122,7 +122,7 @@ const GeneralInfo = ({ register, errors, control, getValues }: GeneralInfoProps)
 					id='code'
 					invalidText={errors.generalInfo?.codeName?.message}
 					labelText={`${t('code')} *`}
-					placeholder={`${t('code')} *`}
+					placeholder={`${t('code')}`}
 					helperText={`${t('application-acronym')}`}
 					invalid={Boolean(errors.generalInfo?.codeName)}
 					{...register('generalInfo.codeName', {
@@ -157,8 +157,8 @@ const GeneralInfo = ({ register, errors, control, getValues }: GeneralInfoProps)
 				<TextInput
 					className='w-full'
 					id='application-maintenance-supplier'
-					labelText='Application Maintenance Supplier'
-					placeholder='Application maintenance supplier'
+					labelText={t('app-maintenance')}
+					placeholder={t('app-maintenance')}
 					{...register('generalInfo.appMaintenance')}
 				/>
 			</Column>
@@ -166,8 +166,8 @@ const GeneralInfo = ({ register, errors, control, getValues }: GeneralInfoProps)
 				<TextInput
 					className='w-full'
 					id='operation-supplier'
-					labelText='Operation Supplier'
-					placeholder='Operation supplier'
+					labelText={t('operation-supplier')}
+					placeholder={t('operation-supplier')}
 					{...register('generalInfo.operationSupplier')}
 				/>
 			</Column>

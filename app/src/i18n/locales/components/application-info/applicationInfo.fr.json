@@ -14,5 +14,15 @@
 	"general-info": "Informations Générales",
 	"technical-info": "Informations Techniques",
 	"discard": "Restaurer",
-	"save": "Enregistrer"
+	"save": "Enregistrer",
+	"app-maintenance": "Fournisseur de maintenance application",
+	"operation-supplier": "Fournisseur d'opérations",
+	"app-servers": "Serveurs d'applications",
+	"app-servers-os": "SO Serveurs d'applications",
+	"app-code-path": "Chemin d'application",
+	"technical-code": "Code technique",
+	"db-servers": "Serveurs database",
+	"db-servers-os": "SO Serveurs database",
+	"db-service": "Service database",
+	"db-instance": "Instance database"
 }
