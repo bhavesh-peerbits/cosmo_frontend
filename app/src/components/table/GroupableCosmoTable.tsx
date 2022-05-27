@@ -92,11 +92,7 @@ const GroupableCosmoTable = <D extends object>({
 		getPaginationRowModel: getPaginationRowModel()
 	});
 	const { getRowModel, getHeaderGroups, setPageIndex, setPageSize } = instance;
-	const { exportData } = useExportTablePlugin(
-		instance,
-		exportFileName,
-		disableExport || grouping.length > 0
-	);
+	const { exportData } = useExportTablePlugin(instance, exportFileName, disableExport);
 	const renderBody = () => {
 		const { rows } = getRowModel();
 		return rows.length ? (
@@ -149,7 +145,7 @@ const GroupableCosmoTable = <D extends object>({
 		<TableContainer>
 			<CosmoTableToolbar<D>
 				onExportClick={exportData}
-				disableExport={grouping.length > 0}
+				disableExport={grouping.length > 0 || data.length === 0}
 			/>
 			<Layer level={1}>
 				<Table>

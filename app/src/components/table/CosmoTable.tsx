@@ -150,6 +150,7 @@ const CosmoTable = <D extends object>({
 				toolbarBatchActions={toolbar?.toolbarBatchActions}
 				toolbarContent={toolbar?.toolbarContent}
 				excludeCurrentView={excludeCurrentView}
+				disableExport={data.length === 0}
 			/>
 
 			<Layer level={1}>

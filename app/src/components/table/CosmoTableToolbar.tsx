@@ -171,6 +171,7 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 							iconDescription={action.menuLabel}
 							renderIcon={() => action.menuIcon}
 							ariaLabel={action.menuLabel}
+							disabled={disableExport}
 						>
 							{action.actions.map(subAction => (
 								<TableToolbarAction
@@ -226,6 +227,7 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 							iconDescription={action.menuLabel}
 							renderIcon={() => action.menuIcon}
 							ariaLabel={action.menuLabel}
+							disabled={disableExport}
 						>
 							{action.actions.map(subAction => (
 								<TableToolbarAction
