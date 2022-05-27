@@ -17,12 +17,12 @@ import {
 	applicationInfoIt
 } from '@i18n/locales/components/application-info';
 import { modalsEn, modalsFr, modalsIt } from '@i18n/locales/components/modals';
+import { changesEn, changesFr, changesIt } from '@i18n/locales/components/changes';
 import {
 	reviewNarrativeEn,
 	reviewNarrativeFr,
 	reviewNarrativeIt
 } from './pages/reviewNarrative';
-
 import { homeEn, homeIt } from './pages/home';
 import { testEn, testIt } from './pages/test';
 import {
@@ -40,6 +40,7 @@ export default {
 		httpError: httpErrorEn,
 		management: managementEn,
 		reviewNarrative: reviewNarrativeEn,
+		changes: changesEn,
 		table: tableEn,
 		applicationInfo: applicationInfoEn,
 		procedureInfo: procedureInfoEn,
@@ -53,6 +54,7 @@ export default {
 		httpError: httpErrorIt,
 		management: managementIt,
 		reviewNarrative: reviewNarrativeIt,
+		changes: changesIt,
 		table: tableIt,
 		applicationInfo: applicationInfoIt,
 		procedureInfo: procedureInfoIt,
@@ -64,6 +66,7 @@ export default {
 		httpError: httpErrorFr,
 		management: managementFr,
 		reviewNarrative: reviewNarrativeFr,
+		changes: changesFr,
 		table: tableFr,
 		applicationInfo: applicationInfoFr,
 		procedureInfo: procedureInfoFr,
