@@ -8,7 +8,6 @@ import {
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
-	TextArea,
 	TextInput
 } from '@carbon/react';
 import { useForm } from 'react-hook-form';
@@ -20,6 +19,7 @@ import useReviewApp from '@api/management/useReviewApp';
 import ApiError from '@api/ApiError';
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
+import useGetApp from '@api/management/useGetApp';
 
 type AppReviewModalProps = {
 	appId: string;
@@ -31,7 +31,7 @@ type AppReviewModalProps = {
 type FormData = {
 	reviewer: User;
 	reviewDate: Date;
-	description: string;
+	// description: string;
 	owner: User;
 };
 
@@ -43,10 +43,10 @@ const ApplicationReviewModal = ({
 }: AppReviewModalProps) => {
 	const { t } = useTranslation('modals');
 	const { mutate, error, isError, isLoading, reset } = useReviewApp(appId);
+	const { data: application } = useGetApp(appId);
 	const {
 		control,
 		reset: resetForm,
-		register,
 		handleSubmit,
 		formState: { isValid }
 	} = useForm<FormData>({
@@ -60,16 +60,15 @@ const ApplicationReviewModal = ({
 	};
 
 	const sendMail = (data: FormData) => {
-		mutate(
-			{
-				reviewer: data.reviewer,
-				expireDate: data.reviewDate,
-				description: data.description
-			},
-			{
-				onSuccess: cleanUp
-			}
-		);
+		application &&
+			mutate(
+				{
+					endDate: data.reviewDate
+				},
+				{
+					onSuccess: cleanUp
+				}
+			);
 	};
 
 	return (
@@ -111,7 +110,7 @@ const ApplicationReviewModal = ({
 							/>
 						</Column>
 
-						<FullWidthColumn className='mb-6'>
+						<FullWidthColumn>
 							<DatePickerWrapper
 								control={control}
 								name='reviewDate'
@@ -125,9 +124,9 @@ const ApplicationReviewModal = ({
 								minDate={new Date()}
 							/>
 						</FullWidthColumn>
-						<FullWidthColumn className='mb-6'>
+						{/* <FullWidthColumn className='mb-6'>
 							<TextArea labelText={t('description')} {...register('description')} />
-						</FullWidthColumn>
+						</FullWidthColumn> */}
 						<FullWidthColumn>
 							<div
 								className={cx(

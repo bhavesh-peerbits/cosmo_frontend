@@ -41,6 +41,8 @@ import { ApiErrorResponse } from '../models';
 // @ts-ignore
 import { ApplicationDto } from '../models';
 // @ts-ignore
+import { NarrativeReviewBody } from '../models';
+// @ts-ignore
 import { ProcedureAppInstanceDto } from '../models';
 /**
  * NarrativeReviewControllerApi - axios parameter creator
@@ -130,25 +132,25 @@ export const NarrativeReviewControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} id
-		 * @param {string} endDate
-		 * @param {ApplicationDto} applicationDto
+		 * @param {NarrativeReviewBody} narrativeReviewBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		startReviewOfAnApplication: async (
 			id: number,
-			endDate: string,
-			applicationDto: ApplicationDto,
+			narrativeReviewBody: NarrativeReviewBody,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists('startReviewOfAnApplication', 'id', id);
-			// verify required parameter 'endDate' is not null or undefined
-			assertParamExists('startReviewOfAnApplication', 'endDate', endDate);
-			// verify required parameter 'applicationDto' is not null or undefined
-			assertParamExists('startReviewOfAnApplication', 'applicationDto', applicationDto);
+			// verify required parameter 'narrativeReviewBody' is not null or undefined
+			assertParamExists(
+				'startReviewOfAnApplication',
+				'narrativeReviewBody',
+				narrativeReviewBody
+			);
 			const localVarPath = `/api/narrativeReview/application/{id}`.replace(
 				`{${'id'}}`,
 				encodeURIComponent(String(id))
@@ -167,11 +169,6 @@ export const NarrativeReviewControllerApiAxiosParamCreator = function (
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
 
-			if (endDate !== undefined) {
-				localVarQueryParameter['endDate'] =
-					(endDate as any) instanceof Date ? (endDate as any).toISOString() : endDate;
-			}
-
 			if (acceptLanguage !== undefined && acceptLanguage !== null) {
 				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
 			}
@@ -187,7 +184,7 @@ export const NarrativeReviewControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				applicationDto,
+				narrativeReviewBody,
 				localVarRequestOptions,
 				configuration
 			);
@@ -384,16 +381,14 @@ export const NarrativeReviewControllerApiFp = function (configuration?: Configur
 		/**
 		 *
 		 * @param {number} id
-		 * @param {string} endDate
-		 * @param {ApplicationDto} applicationDto
+		 * @param {NarrativeReviewBody} narrativeReviewBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async startReviewOfAnApplication(
 			id: number,
-			endDate: string,
-			applicationDto: ApplicationDto,
+			narrativeReviewBody: NarrativeReviewBody,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
@@ -402,8 +397,7 @@ export const NarrativeReviewControllerApiFp = function (configuration?: Configur
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.startReviewOfAnApplication(
 					id,
-					endDate,
-					applicationDto,
+					narrativeReviewBody,
 					acceptLanguage,
 					options
 				);
@@ -524,21 +518,19 @@ export const NarrativeReviewControllerApiFactory = function (
 		/**
 		 *
 		 * @param {number} id
-		 * @param {string} endDate
-		 * @param {ApplicationDto} applicationDto
+		 * @param {NarrativeReviewBody} narrativeReviewBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		startReviewOfAnApplication(
 			id: number,
-			endDate: string,
-			applicationDto: ApplicationDto,
+			narrativeReviewBody: NarrativeReviewBody,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<ApplicationDto> {
 			return localVarFp
-				.startReviewOfAnApplication(id, endDate, applicationDto, acceptLanguage, options)
+				.startReviewOfAnApplication(id, narrativeReviewBody, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -645,17 +637,10 @@ export interface NarrativeReviewControllerApiStartReviewOfAnApplicationRequest {
 
 	/**
 	 *
-	 * @type {string}
+	 * @type {NarrativeReviewBody}
 	 * @memberof NarrativeReviewControllerApiStartReviewOfAnApplication
 	 */
-	readonly endDate: string;
-
-	/**
-	 *
-	 * @type {ApplicationDto}
-	 * @memberof NarrativeReviewControllerApiStartReviewOfAnApplication
-	 */
-	readonly applicationDto: ApplicationDto;
+	readonly narrativeReviewBody: NarrativeReviewBody;
 
 	/**
 	 *
@@ -772,8 +757,7 @@ export class NarrativeReviewControllerApi extends BaseAPI {
 		return NarrativeReviewControllerApiFp(this.configuration)
 			.startReviewOfAnApplication(
 				requestParameters.id,
-				requestParameters.endDate,
-				requestParameters.applicationDto,
+				requestParameters.narrativeReviewBody,
 				requestParameters.acceptLanguage,
 				options
 			)
