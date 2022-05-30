@@ -9,14 +9,14 @@ import {
 	SelectSkeleton,
 	Toggle
 } from '@carbon/react';
-import { Dispatch, SetStateAction, Suspense, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, Suspense, useEffect, useMemo, useState } from 'react';
 import useGetApps from '@api/management/useGetApps';
 import { useParams } from 'react-router-dom';
-import useGetProcedureByApp from '@api/procedures/useGetProcedureByApp';
 import { useUnmount } from 'ahooks';
 import Procedure from '@model/Procedure';
 import ProcedureAppInstance from '@model/ProcedureAppInstance';
 import useGetProcedures from '@api/procedures/useGetProcedures';
+import useGetProcedureByApp from '@api/app-procedures/useGetProcedureByApp';
 
 interface ProcedureSelection {
 	isCopySelected: boolean;
@@ -25,6 +25,7 @@ interface ProcedureSelection {
 }
 
 type NewProcedureModalProps = {
+	procedureApps: ProcedureAppInstance[];
 	isOpen: boolean;
 	setIsOpen: (value: boolean) => void;
 	onSuccess: (
@@ -33,7 +34,8 @@ type NewProcedureModalProps = {
 	) => void;
 };
 
-interface ApplicationProcedureSelectProps extends ProcedureBodyProps {
+interface ApplicationProcedureSelectProps
+	extends Omit<ProcedureBodyProps, 'procedureApps'> {
 	appId: string | undefined;
 }
 
@@ -42,17 +44,20 @@ const ApplicationProcedureSelect = ({
 	procedureSelection,
 	setProcedureSelection
 }: ApplicationProcedureSelectProps) => {
-	const { data: procedures = [] } = useGetProcedureByApp(appId);
+	const { data: proceduresApp = new Map<string, ProcedureAppInstance>() } =
+		useGetProcedureByApp(appId);
+	const { data: procedures = new Map<string, Procedure>() } = useGetProcedures();
+
 	return (
 		<Select
 			id='select-app'
 			labelText='Select application'
 			defaultValue='placeholder-item'
-			disabled={procedures.length === 0}
+			disabled={proceduresApp.size === 0}
 			onChange={e =>
 				setProcedureSelection(old => ({
 					...old,
-					procedureFrom: procedures.find(({ id }) => id === e.target.value)
+					procedureFrom: proceduresApp.get(e.target.value)
 				}))
 			}
 		>
@@ -60,11 +65,11 @@ const ApplicationProcedureSelect = ({
 				disabled
 				hidden
 				value={procedureSelection.procedureFrom || 'placeholder-item'}
-				text={procedures.length === 0 ? 'No procedures available' : 'Select procedure'}
+				text={proceduresApp.size === 0 ? 'No procedures available' : 'Select procedure'}
 			/>
-			{procedures.map(proc => (
+			{[...proceduresApp.values()].map(proc => (
 				<SelectItem
-					text={`${proc.procedure.name}: ${proc.name}`}
+					text={`${procedures.get(proc.procedureId)?.name}: ${proc.name}`}
 					value={proc.id}
 					key={proc.id}
 				/>
@@ -75,16 +80,17 @@ const ApplicationProcedureSelect = ({
 
 const ApplicationSelect = ({
 	procedureSelection,
-	setProcedureSelection
+	setProcedureSelection,
+	procedureApps
 }: ProcedureBodyProps) => {
 	const { appId } = useParams();
-	const { data: allApplications = [] } = useGetApps();
+	const { data: allApplications = new Map() } = useGetApps();
 	const [application, setApplication] = useState<string>();
 	useUnmount(() => {
 		setProcedureSelection(old => ({ ...old, procedureFrom: undefined }));
 	});
 
-	const applications = allApplications.filter(app => app.id !== appId);
+	const applications = [...allApplications.values()].filter(app => app.id !== appId);
 	return (
 		<div className='space-y-7'>
 			<Select
@@ -110,7 +116,7 @@ const ApplicationSelect = ({
 			<Suspense fallback={<SelectSkeleton />}>
 				<ApplicationProcedureSelect
 					appId={application}
-					{...{ procedureSelection, setProcedureSelection }}
+					{...{ procedureSelection, setProcedureSelection, procedureApps }}
 				/>
 			</Suspense>
 		</div>
@@ -120,14 +126,23 @@ const ApplicationSelect = ({
 interface ProcedureBodyProps {
 	procedureSelection: ProcedureSelection;
 	setProcedureSelection: Dispatch<SetStateAction<ProcedureSelection>>;
+	procedureApps: ProcedureAppInstance[];
 }
 
 const ProcedureBody = ({
 	procedureSelection,
-	setProcedureSelection
+	setProcedureSelection,
+	procedureApps
 }: ProcedureBodyProps) => {
-	const { data: procedures = [] } = useGetProcedures();
+	const { data: procedures = new Map<string, Procedure>() } = useGetProcedures();
 	const { isCopySelected } = procedureSelection;
+	const procFiltered = useMemo(
+		() =>
+			[...procedures.values()].filter(
+				p => procedureApps.findIndex(pa => pa.procedureId === p.id) === -1
+			),
+		[procedureApps, procedures]
+	);
 
 	return (
 		<div className='flex flex-col space-y-7'>
@@ -154,7 +169,9 @@ const ProcedureBody = ({
 						</div>
 					}
 				>
-					<ApplicationSelect {...{ procedureSelection, setProcedureSelection }} />
+					<ApplicationSelect
+						{...{ procedureSelection, setProcedureSelection, procedureApps }}
+					/>
 				</Suspense>
 			)}
 
@@ -162,11 +179,11 @@ const ProcedureBody = ({
 				id='select-procedure'
 				defaultValue='placeholder-item'
 				labelText='Select procedure to add'
-				disabled={procedures.length === 0}
+				disabled={procFiltered.length === 0}
 				onChange={e =>
 					setProcedureSelection(old => ({
 						...old,
-						procedure: procedures.find(({ id }) => id === e.target.value)
+						procedure: procedures.get(e.target.value)
 					}))
 				}
 			>
@@ -174,9 +191,11 @@ const ProcedureBody = ({
 					disabled
 					hidden
 					value='placeholder-item'
-					text={procedures.length === 0 ? 'No procedures available' : 'Select procedure'}
+					text={
+						procFiltered.length === 0 ? 'No procedures available' : 'Select procedure'
+					}
 				/>
-				{procedures.map(proc => (
+				{procFiltered.map(proc => (
 					<SelectItem key={proc.id} text={proc.name} value={proc.id} />
 				))}
 			</Select>
@@ -201,7 +220,12 @@ const ProcedureBodyLoading = () => {
 	);
 };
 
-const NewProcedureModal = ({ isOpen, setIsOpen, onSuccess }: NewProcedureModalProps) => {
+const NewProcedureModal = ({
+	procedureApps,
+	isOpen,
+	setIsOpen,
+	onSuccess
+}: NewProcedureModalProps) => {
 	const [procedureSelection, setProcedureSelection] = useState<ProcedureSelection>({
 		isCopySelected: false,
 		procedureFrom: undefined,
@@ -232,11 +256,15 @@ const NewProcedureModal = ({ isOpen, setIsOpen, onSuccess }: NewProcedureModalPr
 	return (
 		<ComposedModal open={isOpen} onClose={() => setIsOpen(false)}>
 			<ModalHeader title='Add Procedure' closeModal={() => setIsOpen(false)} />
-			<ModalBody>
-				<Suspense fallback={<ProcedureBodyLoading />}>
-					<ProcedureBody {...{ procedureSelection, setProcedureSelection }} />
-				</Suspense>
-			</ModalBody>
+			{isOpen && (
+				<ModalBody>
+					<Suspense fallback={<ProcedureBodyLoading />}>
+						<ProcedureBody
+							{...{ procedureSelection, setProcedureSelection, procedureApps }}
+						/>
+					</Suspense>
+				</ModalBody>
+			)}
 			<ModalFooter>
 				<Button kind='secondary' onClick={() => setIsOpen(false)}>
 					Cancel

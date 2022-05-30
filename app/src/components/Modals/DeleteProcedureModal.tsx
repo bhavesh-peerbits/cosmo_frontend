@@ -7,8 +7,8 @@ import {
 	ModalHeader
 } from '@carbon/react';
 import ApiError from '@api/ApiError';
-import useDeleteProcedureApp from '@api/procedures/useDeleteProcedureApp';
 import { useTranslation } from 'react-i18next';
+import useDeleteProcedureApp from '@api/app-procedures/useDeleteProcedureApp';
 
 type DeleteProcedureModalProps = {
 	isOpen: boolean;

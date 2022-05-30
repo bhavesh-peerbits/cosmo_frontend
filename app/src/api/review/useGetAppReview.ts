@@ -3,9 +3,9 @@ import { UserDisplayRole } from '@model/UserRole';
 
 const admin: UserDisplayRole = 'Admin';
 const webIcon: keyof typeof icons = icons.web.component;
-const useGetAppReview = () => {
+const useGetAppReview = (appId: string) => {
 	return {
-		id: '1',
+		id: appId,
 		name: 'App Name 1',
 		codeName: 'Code Name',
 		description: '',
@@ -36,4 +36,4 @@ const useGetAppReview = () => {
 	};
 };
 
-export default () => useGetAppReview();
+export default (appId: string) => useGetAppReview(appId);

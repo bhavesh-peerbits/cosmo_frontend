@@ -23,7 +23,7 @@ const useReviewApps = () => {
 	const [filters, setFilters] = useRecoilState(reviewFilters);
 	const setApps = useSetRecoilState(reviewApps);
 	const { apps, owner, startDate, dueDate } = useRecoilValue(filteredApplications);
-	const { data = [] } = useGetApps();
+	const { data = [] } = useGetApps(); // TODO change with review apps
 
 	useEffect(() => {
 		setApps(data);

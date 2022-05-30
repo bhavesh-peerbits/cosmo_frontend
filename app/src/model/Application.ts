@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import { ApplicationApi } from 'cosmo-api';
 import { icons } from '@components/IconPicker';
 import User, { fromUserApi, toUserApi } from '@model/User';
@@ -30,7 +28,9 @@ export const fromApplicationApi = (applicationApi: ApplicationApi): Application 
 	delegates: applicationApi.delegates?.map(fromUserApi) ?? [],
 	icon: (applicationApi.icon as keyof typeof icons) || 'web',
 	applicationData: applicationApi.applicationData,
-	dueDate: applicationApi.dueDate ? new Date(applicationApi.dueDate) : undefined,
+	dueDate: applicationApi.endNarrativeReview
+		? new Date(applicationApi.endNarrativeReview)
+		: undefined,
 	allowModifyOwner: applicationApi.allowModifyOwner
 });
 
@@ -45,7 +45,7 @@ export const toApplicationApi = (application: Application): ApplicationApi => ({
 	delegates: application.delegates?.map(toUserApi),
 	icon: application.icon,
 	applicationData: application.applicationData,
-	dueDate: application.dueDate?.toISOString(),
+	endNarrativeReview: application.dueDate?.toISOString(),
 	allowModifyOwner: application.allowModifyOwner
 });
 

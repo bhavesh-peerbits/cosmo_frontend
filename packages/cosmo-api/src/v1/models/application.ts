@@ -52,6 +52,12 @@ export interface Application {
 	 * @type {boolean}
 	 * @memberof Application
 	 */
+	inReview?: boolean;
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof Application
+	 */
 	allowModifyOwner?: boolean;
 	/**
 	 *
@@ -113,6 +119,18 @@ export interface Application {
 	 * @memberof Application
 	 */
 	creationDate?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Application
+	 */
+	appReviewStartDate?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Application
+	 */
+	appReviewEndDate?: string;
 	/**
 	 *
 	 * @type {Tenant}

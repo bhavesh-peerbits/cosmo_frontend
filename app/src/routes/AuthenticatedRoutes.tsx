@@ -5,14 +5,14 @@ import '@style/loading.scss';
 import Header from '@components/Header';
 import ErrorBoundary from '@error/components/ErrorBoundary';
 import PageSkeleton from '@components/PageSkeleton';
-import Review from '@pages/Review';
-import ReviewDetail from '@pages/ReviewDetail';
 
 const Home = React.lazy(() => import('@pages/Home'));
 const Test = React.lazy(() => import('@pages/Test'));
 const Management = React.lazy(() => import('@pages/Management'));
 const ApplicationDetail = React.lazy(() => import('@pages/ApplicationDetail'));
 const ReviewNarrative = React.lazy(() => import('@pages/ReviewNarrative'));
+const Review = React.lazy(() => import('@pages/Review'));
+const ReviewDetail = React.lazy(() => import('@pages/ReviewDetail'));
 
 const AuthenticatedRoutes = () => {
 	return (
@@ -23,15 +23,19 @@ const AuthenticatedRoutes = () => {
 					<Suspense fallback={<PageSkeleton />}>
 						<Routes>
 							<Route path='home' element={<Home />} />
+
 							<Route path='management'>
 								<Route index element={<Management />} />
 								<Route path=':appId' element={<ApplicationDetail />} />
 							</Route>
+
 							<Route path='review' element={<Review />} />
+
 							<Route path='review-narrative'>
 								<Route index element={<ReviewNarrative />} />
-								<Route path=':reviewId' element={<ReviewDetail />} />
+								<Route path=':appId' element={<ReviewDetail />} />
 							</Route>
+
 							<Route path='test' element={<Test />} />
 							<Route path='*' element={<Navigate replace to='/404' />} />
 						</Routes>
