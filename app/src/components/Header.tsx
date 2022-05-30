@@ -1,13 +1,9 @@
 import {
-	Accordion,
-	AccordionItem,
-	Button,
 	Header as CarbonHeader,
 	HeaderGlobalAction,
 	HeaderGlobalBar,
 	HeaderMenuButton,
 	HeaderName,
-	HeaderPanel,
 	SideNav,
 	SideNavItems,
 	SideNavLink,
@@ -29,7 +25,8 @@ import routes from '@routes/routes-const';
 import usePolicyStore from '@hooks/usePolicyStore';
 import UserProfileImage from '@components/UserProfileImage';
 import useLoginStore from '@hooks/auth/useLoginStore';
-import { mapUserRoleToDisplayRole } from '@model/UserRole';
+import UserPanel from '@components/UserPanel';
+import { useRef } from 'react';
 
 type HeaderProps = {
 	isSideNavExpanded: boolean;
@@ -41,7 +38,9 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 	const { setTheme } = useUiStore();
 	const navigate = useNavigate();
 	const { md, lg } = useResponsive();
-	const [userExpanded, { toggle: toggleUser }] = useBoolean(false);
+	const userButtonRef = useRef<HTMLButtonElement>(null);
+	const [userExpanded, { toggle: toggleUser, setFalse: setCloseUser }] =
+		useBoolean(false);
 
 	useMount(() => {
 		document.body.classList.add('fix-height');
@@ -78,6 +77,7 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 				</HeaderGlobalAction>
 
 				<HeaderGlobalAction
+					ref={userButtonRef}
 					aria-label={auth?.user?.displayName}
 					isActive={userExpanded}
 					onClick={() => toggleUser()}
@@ -135,67 +135,15 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 					</SideNavLink>
 				</SideNavItems>
 			</SideNav>
-
-			<HeaderPanel
-				aria-label='User Panel'
-				className='h-fit border-t-[0] border-r-[0] border-b-[1px] border-solid border-border-subtle-1'
+			<UserPanel
 				expanded={userExpanded}
-			>
-				<section className='flex flex-nowrap items-center space-x-5 p-5'>
-					<UserProfileImage
-						backgroundColor='light-gray'
-						initials={auth?.user?.displayName}
-						imageDescription={auth?.user?.username}
-						size='xlg'
-					/>
-					<div>
-						<span className='break-words hyphens-auto text-productive-heading-3'>
-							{auth?.user?.displayName}
-						</span>
-						<span className='block break-all text-caption-1'>{auth?.user?.email}</span>
-					</div>
-				</section>
-				<section>
-					<Accordion className='py-2'>
-						<AccordionItem
-							className='relative border-[0]'
-							title={
-								<>
-									<div className='text-caption-1'>
-										Roles: {auth?.user?.roles?.length ?? 0}
-									</div>
-									<div className='w-13 overflow-hidden text-ellipsis whitespace-nowrap text-left text-body-short-2'>
-										{auth?.user?.principalRole}
-									</div>
-								</>
-							}
-						>
-							<ul className='space-y-3'>
-								{auth?.user?.roles?.map(role => (
-									<li className='w-full'>
-										<div className='w-full border-b-[1px] border-solid border-border-subtle-1 px-5 py-3 text-body-short-1'>
-											{mapUserRoleToDisplayRole(role)}
-										</div>
-									</li>
-								))}
-							</ul>
-						</AccordionItem>
-					</Accordion>
-				</section>
-				<section className='flex items-center justify-between border-t-[1px] border-solid border-border-subtle-1 py-2 px-2 text-body-short-1'>
-					<Button kind='ghost' size='sm' className='flex flex-1 justify-start'>
-						Edit Profile
-					</Button>
-					<Button
-						kind='ghost'
-						size='sm'
-						className='flex flex-1 justify-end'
-						onClick={() => navigate(routes.LOGOUT, { replace: true })}
-					>
-						Sign out
-					</Button>
-				</section>
-			</HeaderPanel>
+				user={auth?.user}
+				onClickOutside={e =>
+					e.target !== userButtonRef.current &&
+					!userButtonRef.current?.contains(e.target as Node) &&
+					setCloseUser()
+				}
+			/>
 		</CarbonHeader>
 	);
 };
