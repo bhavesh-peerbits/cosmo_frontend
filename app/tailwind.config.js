@@ -73,6 +73,7 @@ module.exports = {
 	},
 	plugins: [
 		require('@tailwindcss/line-clamp'),
+		require('tailwindcss-hyphens'),
 		plugin(function ({ addUtilities }) {
 			addUtilities(carbonFonts);
 		})

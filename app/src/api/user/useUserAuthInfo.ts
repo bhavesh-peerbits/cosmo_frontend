@@ -1,8 +1,9 @@
 import { useQuery } from 'react-query';
 import api from '@api/index';
+import { fromUserApi } from '@model/User';
 
 export async function getAuthInfo() {
-	return (await api.userApi.getAuthInfo()).data;
+	return api.userApi.getAuthInfo().then(({ data }) => fromUserApi(data));
 }
 
 export default () => useQuery(['autInfo'], () => getAuthInfo());

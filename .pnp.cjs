@@ -13366,6 +13366,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["sass", "npm:1.51.0"],\
             ["sass-pnp-importer", "npm:0.3.0"],\
             ["tailwindcss", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:3.0.24"],\
+            ["tailwindcss-hyphens", "npm:0.1.0"],\
             ["tiny-cookie", "npm:2.3.2"],\
             ["translation-check", "npm:1.0.2"],\
             ["validator", "npm:13.7.0"],\
@@ -13461,6 +13462,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["sass", "npm:1.51.0"],\
             ["sass-pnp-importer", "npm:0.3.0"],\
             ["tailwindcss", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:3.0.24"],\
+            ["tailwindcss-hyphens", "npm:0.1.0"],\
             ["tiny-cookie", "npm:2.3.2"],\
             ["translation-check", "npm:1.0.2"],\
             ["validator", "npm:13.7.0"],\
@@ -32029,6 +32031,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packagePeers": [\
             "@types/postcss",\
             "postcss"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["tailwindcss-hyphens", [\
+        ["npm:0.1.0", {\
+          "packageLocation": "./.yarn/cache/tailwindcss-hyphens-npm-0.1.0-0f0f5483fd-6c76f04e05.zip/node_modules/tailwindcss-hyphens/",\
+          "packageDependencies": [\
+            ["tailwindcss-hyphens", "npm:0.1.0"]\
           ],\
           "linkType": "HARD"\
         }]\
