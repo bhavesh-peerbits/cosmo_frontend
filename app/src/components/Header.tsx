@@ -27,12 +27,15 @@ import { useState } from 'react';
 import { useMount, useUnmount } from 'ahooks';
 import useResponsive from '@hooks/useResponsive';
 import useUiStore from '@hooks/useUiStore';
+import routes from '@routes/routes-const';
+import usePolicyStore from '@hooks/usePolicyStore';
 
 type HeaderProps = {
 	isSideNavExpanded: boolean;
 	onClickSideNavExpand: () => void;
 };
 const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
+	const { canReview, canReviewNarrative, canSeeNarrativeManagement } = usePolicyStore();
 	const { setTheme } = useUiStore();
 	const navigate = useNavigate();
 	const { md, lg } = useResponsive();
@@ -53,7 +56,7 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 			<HeaderName
 				as='div'
 				className='cursor-pointer'
-				onClick={() => navigate('/home')}
+				onClick={() => navigate(routes.HOME)}
 				prefix='Cosmo'
 			>
 				[Dashboard]
@@ -85,37 +88,39 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 				isRail={md && !lg}
 			>
 				<SideNavItems>
-					<SideNavMenu
-						renderIcon={AlignBoxMiddleCenter}
-						title='Narrative'
-						className='transition-all'
-					>
-						<SideNavMenuItem element={Link} to='/management'>
-							Management Dashboard
-						</SideNavMenuItem>
-
-						<SideNavMenuItem element={Link} to='/review'>
-							Review
-						</SideNavMenuItem>
-					</SideNavMenu>
-					<SideNavMenu
-						renderIcon={RequestQuote}
-						title='Review'
-						className='transition-all'
-					>
-						<SideNavMenuItem element={Link} to='/review-narrative'>
-							Narrative
-						</SideNavMenuItem>
-					</SideNavMenu>
-					<SideNavLink renderIcon={Fade} element={Link} to='/test'>
-						Test Error
-					</SideNavLink>
+					{canSeeNarrativeManagement && (
+						<SideNavMenu
+							renderIcon={AlignBoxMiddleCenter}
+							title='Narrative'
+							className='transition-all'
+						>
+							<SideNavMenuItem element={Link} to={routes.MANAGEMENT}>
+								Management Dashboard
+							</SideNavMenuItem>
+							{canReviewNarrative && (
+								<SideNavMenuItem element={Link} to={routes.REVIEW}>
+									Review
+								</SideNavMenuItem>
+							)}
+						</SideNavMenu>
+					)}
+					{canReview && (
+						<SideNavMenu
+							renderIcon={RequestQuote}
+							title='Review'
+							className='transition-all'
+						>
+							<SideNavMenuItem element={Link} to={routes.REVIEW_NARRATIVE}>
+								Narrative
+							</SideNavMenuItem>
+						</SideNavMenu>
+					)}
 					{import.meta.env.DEV && (
 						<SideNavLink renderIcon={Fade} href='/translation?showtranslations'>
 							[TEST ONLY] Show translations
 						</SideNavLink>
 					)}
-					<SideNavLink renderIcon={Logout} href='/logout'>
+					<SideNavLink renderIcon={Logout} href={routes.LOGOUT}>
 						Logout
 					</SideNavLink>
 				</SideNavItems>
