@@ -42,7 +42,7 @@ async function errorManager(response: AxiosResponse) {
 								...originalConfig.headers,
 								Authorization: `Bearer ${token}`
 							};
-							return await axios(originalConfig);
+							return axios(originalConfig);
 						}
 					} catch (e) {
 						// ignore error, continue with logout

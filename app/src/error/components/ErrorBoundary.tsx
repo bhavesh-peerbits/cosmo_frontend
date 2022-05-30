@@ -1,4 +1,4 @@
-import { memo, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { ErrorBoundary as ReactErrorBoundary, FallbackProps } from 'react-error-boundary';
 import { useRecoilValue } from 'recoil';
 import errorIdAtom from '@store/error-boundary/errorIdAtom';
@@ -11,19 +11,21 @@ interface Props {
 	children: ReactNode;
 }
 
-const ErrorBoundary = ({ children }: Props) => {
+const ErrorFallbackComponent = ({ error, resetErrorBoundary }: FallbackProps) => {
 	const errorId = useRecoilValue(errorIdAtom);
-	const ErrorFallbackComponent = memo(({ error, resetErrorBoundary }: FallbackProps) =>
-		error instanceof ApiError ? (
-			<ApiErrorFallback resetErrorBoundary={resetErrorBoundary} error={error} />
-		) : (
-			<ErrorModalFallback
-				error={error}
-				resetErrorBoundary={resetErrorBoundary}
-				errorId={errorId}
-			/>
-		)
+
+	return error instanceof ApiError ? (
+		<ApiErrorFallback resetErrorBoundary={resetErrorBoundary} error={error} />
+	) : (
+		<ErrorModalFallback
+			error={error}
+			resetErrorBoundary={resetErrorBoundary}
+			errorId={errorId}
+		/>
 	);
+};
+
+const ErrorBoundary = ({ children }: Props) => {
 	return (
 		<QueryErrorResetBoundary>
 			{({ reset }) => (
