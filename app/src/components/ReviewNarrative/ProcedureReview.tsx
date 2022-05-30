@@ -1,4 +1,4 @@
-import { Form, Grid, Button, TextInput, Column } from '@carbon/react';
+import { Button, Column, Form, Grid, TextInput } from '@carbon/react';
 import DatePickerWrapper from '@components/DatePickerWrapper';
 import FullWidthColumn from '@components/FullWidthColumn';
 import MultipleUserSelect from '@components/MultipleUserSelect';
@@ -8,9 +8,8 @@ import { Checkmark } from '@carbon/react/icons';
 import ProcedureAppInstance from '@model/ProcedureAppInstance';
 import User from '@model/User';
 import { useController, useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import useGetProcedures from '@api/procedures/useGetProcedures';
 
 interface ProcedureData {
 	name: string;
@@ -24,18 +23,20 @@ interface ProcedureData {
 }
 
 interface ProcedureReviewProps {
-	procedure: Partial<ProcedureAppInstance> & {
-		procedure: ProcedureAppInstance['procedure'];
-		id: string;
-	};
+	appProcedures: ProcedureAppInstance[];
+	procedureApp: ProcedureAppInstance;
 }
 
-const ProcedureReview = ({ procedure }: ProcedureReviewProps) => {
+const ProcedureReview = ({ appProcedures, procedureApp }: ProcedureReviewProps) => {
 	const { t } = useTranslation('procedureInfo');
-	const { data: procedures = [] } = useGetProcedures();
-	const procedureNameList = procedures
-		.filter(proc => proc.name !== procedure.procedure.name)
-		.map(proc => proc.name.toLowerCase());
+	const procedureNameList = useMemo(
+		() =>
+			appProcedures
+				.filter(proc => proc.name !== procedureApp.name)
+				.map(proc => proc.name.toLowerCase()),
+		[appProcedures, procedureApp.name]
+	);
+
 	const [isConfirmed, setIsConfirmed] = useState(false);
 	const {
 		control,
@@ -45,14 +46,14 @@ const ProcedureReview = ({ procedure }: ProcedureReviewProps) => {
 	} = useForm<ProcedureData>({
 		mode: 'onChange',
 		defaultValues: {
-			name: procedure.name,
-			owner: procedure.owner,
-			delegated: procedure.delegated,
-			description: procedure.description,
-			lastModify: procedure.lastModify,
-			lastModifier: procedure.lastModifier,
-			lastReview: procedure.lastReview,
-			lastReviewer: procedure.lastReviewer
+			name: procedureApp.name,
+			owner: procedureApp.owner,
+			delegated: procedureApp.delegated,
+			description: procedureApp.description,
+			lastModify: procedureApp.lastModify,
+			lastModifier: procedureApp.lastModifier,
+			lastReview: procedureApp.lastReview,
+			lastReviewer: procedureApp.lastReviewer
 		}
 	});
 	const {

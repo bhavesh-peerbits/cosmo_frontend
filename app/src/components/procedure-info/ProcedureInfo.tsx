@@ -1,27 +1,27 @@
 import { Button, Grid } from '@carbon/react';
 import { Add, Email } from '@carbon/react/icons';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import TableOfContents from '@components/TableOfContents';
 import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
 import FullWidthColumn from '@components/FullWidthColumn';
-import useGetProcedureByApp from '@api/procedures/useGetProcedureByApp';
 import { useParams } from 'react-router-dom';
 import ProcedureForm from '@components/procedure-info/ProcedureForm';
 import NoDataMessage from '@components/NoDataMessage';
 import ProcedureAppInstance from '@model/ProcedureAppInstance';
+import useGetProcedureByApp from '@api/app-procedures/useGetProcedureByApp';
 import NewProcedureModal from '../Modals/NewProcedureModal';
 
 type ProcedureState = Partial<ProcedureAppInstance> & {
-	procedure: ProcedureAppInstance['procedure'];
 	id: string;
+	procedureId: string;
 	isNew?: boolean;
 };
 
 const ProcedureInfo = () => {
 	const { appId } = useParams();
-	const { data: serverProcs = [] } = useGetProcedureByApp(appId);
+	const { data = new Map<string, ProcedureAppInstance>() } = useGetProcedureByApp(appId);
 	const { breadcrumbSize } = useBreadcrumbSize();
-
+	const serverProcs = useMemo(() => [...data.values()], [data]);
 	const [procedureList, setProcedureList] = useState<ProcedureState[]>(serverProcs);
 	const [isNewProcedureOpen, setIsNewProcedureOpen] = useState(false);
 	const [isCheckboxView, setIsCheckboxView] = useState(false);
@@ -68,6 +68,7 @@ const ProcedureInfo = () => {
 							<NewProcedureModal
 								isOpen={isNewProcedureOpen}
 								setIsOpen={setIsNewProcedureOpen}
+								procedureApps={[...data.values()]}
 								onSuccess={(prc, appProc) =>
 									setProcedureList(old => [
 										...old,
@@ -75,7 +76,7 @@ const ProcedureInfo = () => {
 											...appProc,
 											id: `${Math.random() * 10000}`,
 											title: prc.name,
-											procedure: prc,
+											procedureId: prc.id,
 											name: appProc?.name || '',
 											isNew: true
 										}
@@ -136,7 +137,7 @@ const ProcedureInfo = () => {
 							{procedureList.map(procedure => (
 								<ProcedureForm
 									key={procedure.id}
-									procedure={procedure}
+									procedureApp={procedure}
 									isNew={procedure.isNew}
 									appId={appId as string}
 									onDelete={() =>

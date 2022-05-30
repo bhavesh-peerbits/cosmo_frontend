@@ -8099,7 +8099,7 @@ __metadata:
     react-error-boundary: ^3.1.4
     react-hook-form: ^7.31.1
     react-i18next: ^11.16.9
-    react-query: ^4.0.0-beta.10
+    react-query: ^4.0.0-beta.15
     react-router-dom: ^6.3.0
     react-select: ^5.3.2
     recoil: ^0.7.2
@@ -21206,15 +21206,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-query@npm:^4.0.0-beta.10":
-  version: 4.0.0-beta.10
-  resolution: "react-query@npm:4.0.0-beta.10"
+"react-query@npm:^4.0.0-beta.15":
+  version: 4.0.0-beta.15
+  resolution: "react-query@npm:4.0.0-beta.15"
   dependencies:
     "@babel/runtime": ^7.17.9
     "@types/use-sync-external-store": ^0.0.3
     broadcast-channel: ^3.4.1
     match-sorter: ^6.0.2
-    use-sync-external-store: ^1.0.0
+    use-sync-external-store: ^1.1.0
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
   peerDependenciesMeta:
@@ -21222,7 +21222,7 @@ __metadata:
       optional: true
     react-native:
       optional: true
-  checksum: 1c473be171196e6cffee393801c6263671e5ce941419600614efd65ede2e11548849a4d6117a4dfe1fb52d807fbb133ddcb144adfe13b93c6843ccd5cec3fb05
+  checksum: 09d5afcea07b333c9769d6f3520ae107aa2672915f581f649cdf0e232db9e1000acbb2f88f1135e77bb269c2fb5959d559f63131b7f4b8812de1af0fcbbaa3fa
   languageName: node
   linkType: hard
 
@@ -25067,12 +25067,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-sync-external-store@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "use-sync-external-store@npm:1.0.0"
+"use-sync-external-store@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "use-sync-external-store@npm:1.1.0"
   peerDependencies:
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0-rc
-  checksum: f3df10af62625169d6a8cd8d4f38942dc6817aa27398fa7f474421fd574b0c4c83679b9d15f983f482c396ee1183416eb146814c81f44241e1480acd701ef018
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: 8993a0b642f91d7fcdbb02b7b3ac984bd3af4769686f38291fe7fcfe73dfb73d6c64d20dfb7e5e7fbf5a6da8f5392d6f8e5b00c243a04975595946e82c02b883
   languageName: node
   linkType: hard
 

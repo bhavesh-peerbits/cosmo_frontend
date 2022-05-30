@@ -14,7 +14,7 @@ import IconPicker, { icons } from '@components/IconPicker';
 import TiptapEditor from '@components/tiptap/TiptapEditor';
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import useGetApps from '@api/management/useGetApps';
 
 export interface GeneralInfoForm {
@@ -38,9 +38,12 @@ type GeneralInfoProps = {
 };
 
 const GeneralInfo = ({ register, errors, control, getValues }: GeneralInfoProps) => {
-	const { data: apps = [] } = useGetApps();
+	const { data = new Map() } = useGetApps();
+	const apps = useMemo(() => [...data.values()] || [], [data]);
+
 	const [appNameList, setAppNameList] = useState<string[]>([]);
 	const [appCodeList, setAppCodeList] = useState<string[]>([]);
+
 	useEffect(() => {
 		setAppNameList(
 			getValues

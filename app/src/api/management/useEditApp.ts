@@ -21,7 +21,7 @@ const useEditApp = () => {
 	return useMutation(editApp, {
 		onSuccess: (data, variables) => {
 			queryClient.setQueriesData(['managementApps'], old =>
-				Array.isArray(old) ? old.map(a => (a.id !== variables.appId ? a : data)) : data
+				old instanceof Map ? new Map(old.set(variables.appId, data)) : data
 			);
 		}
 	});

@@ -8,10 +8,13 @@ import ProcedureReview from '@components/ReviewNarrative/ProcedureReview';
 import useGetAppReview from '@api/review/useGetAppReview';
 import { useTranslation } from 'react-i18next';
 import ApplicationInfoReview from '@components/ReviewNarrative/ApplicationInfoReview';
+import { useParams } from 'react-router-dom';
+import ProcedureAppInstance from '@model/ProcedureAppInstance';
 
 const ReviewDetail = () => {
 	const { t } = useTranslation('reviewNarrative');
-	const application = useGetAppReview();
+	const { appId = '' } = useParams<{ appId: string }>();
+	const application = useGetAppReview(appId);
 	const procedureList = [
 		{
 			id: 'id1',
@@ -37,7 +40,8 @@ const ReviewDetail = () => {
 			lastReview: new Date(),
 			allowModifyOwner: false
 		}
-	];
+	]; // TODO wait BE for response
+
 	const { breadcrumbSize } = useBreadcrumbSize();
 	const buttonRef = useRef<HTMLDivElement>(null);
 	return (
@@ -105,7 +109,12 @@ const ReviewDetail = () => {
 														</div>
 													</FullWidthColumn>
 													<FullWidthColumn>
-														<ProcedureReview procedure={procedure} />
+														<ProcedureReview
+															procedureApp={procedure as unknown as ProcedureAppInstance}
+															appProcedures={
+																procedureList as unknown as ProcedureAppInstance[]
+															}
+														/>
 													</FullWidthColumn>
 												</Grid>
 											</Tile>

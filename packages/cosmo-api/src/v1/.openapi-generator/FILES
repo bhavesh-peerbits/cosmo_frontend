@@ -8,8 +8,10 @@ api/config-element-module-controller-api.ts
 api/control-controller-api.ts
 api/frequency-controller-api.ts
 api/module-controller-api.ts
+api/narrative-review-controller-api.ts
 api/procedure-controller-api.ts
 api/profile-controller-api.ts
+api/reviewer-controller-api.ts
 api/send-mail-controller-api.ts
 api/template-controller-api.ts
 api/tenant-controller-api.ts

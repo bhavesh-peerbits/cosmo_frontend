@@ -17,7 +17,7 @@ const useEditApp = () => {
 	return useMutation(createApp, {
 		onSuccess: data => {
 			queryClient.setQueriesData(['managementApps'], old =>
-				Array.isArray(old) ? [...old, data] : data
+				old instanceof Map ? new Map(old.set(data.id, data)) : data
 			);
 		}
 	});

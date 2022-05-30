@@ -23,7 +23,7 @@ import { UserDto } from './user-dto';
  */
 export interface ProcedureAppInstanceDto {
 	/**
-	 * Application instance id
+	 * Application-Procedure instance id
 	 * @type {number}
 	 * @memberof ProcedureAppInstanceDto
 	 */

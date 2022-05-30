@@ -9,29 +9,40 @@ import ApplicationReview from '@model/ApplicationReview';
 import { useTranslation } from 'react-i18next';
 import Application from '@model/Application';
 import useGetApps from '@api/management/useGetApps';
-import { useGetProceduresByApps } from '@api/procedures/useGetProcedureByApp';
+import useGetProcedureApps from '@api/app-procedures/useGetProcedureApps';
+import useGetProcedures from '@api/procedures/useGetProcedures';
 
 const Review = () => {
-	const { data: appsData = [] } = useGetApps();
-	const results = useGetProceduresByApps(appsData);
+	const { data: appsData = new Map<string, Application>() } = useGetApps();
+	const { data: procedureAppsData = new Map<string, ProcedureAppInstance>() } =
+		useGetProcedureApps();
+	const { data: procedures = new Map() } = useGetProcedures();
+	const appsCopy = useMemo(() => new Map(appsData), [appsData]);
 
 	const { t } = useTranslation('reviewNarrative');
 	const reviews: ApplicationReview[] = useMemo(() => {
-		const appMap = new Map(appsData.map(app => [app.id, app]));
-		const apps = results
-			.flatMap(r => r.data || [])
-			.filter(r => r.applicationId)
-			.reduce(
-				(acc, curr) => ({
-					...acc,
-					[curr.applicationId as string]: {
-						app: appMap.get(curr.applicationId as string) as Application,
-						procedures: [...(acc[curr.applicationId as string]?.procedures || []), curr]
-					}
-				}),
-				{} as Record<string, { app: Application; procedures: ProcedureAppInstance[] }>
-			);
-		return Object.values(apps)
+		const apps = new Map<
+			string,
+			{ app: Application; procedures: ProcedureAppInstance[] }
+		>();
+
+		procedureAppsData.forEach(pa => {
+			if (pa.applicationId) {
+				apps.set(pa.applicationId, {
+					app: appsData.get(pa.applicationId) as Application,
+					procedures: [...(apps.get(pa.applicationId)?.procedures || []), pa]
+				});
+				appsCopy.delete(pa.applicationId);
+			}
+		});
+		appsCopy.forEach(app => {
+			apps.set(app.id, {
+				app,
+				procedures: []
+			});
+		});
+
+		return [...apps.values()]
 			.map(a => [
 				{
 					id: a.app.id,
@@ -46,12 +57,12 @@ const Review = () => {
 					appName: a.app.name,
 					owner: p.owner,
 					expireDate: p.dueDate,
-					procedure: p.procedure.name,
+					procedure: procedures.get(p.procedureId)?.name,
 					status: p.allowModifyOwner ? 'Ongoing' : 'Closed'
 				}))
 			])
 			.flat();
-	}, [appsData, results, t]);
+	}, [appsCopy, appsData, procedureAppsData, procedures, t]);
 
 	const columns: HeaderFunction<ApplicationReview> = useCallback(
 		table => [
