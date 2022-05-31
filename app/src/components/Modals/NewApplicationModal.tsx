@@ -1,6 +1,6 @@
 import { Checkbox, InlineNotification, Stack } from '@carbon/react';
 import { CreateTearsheet } from '@components/CreateTearsheet';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { useForm } from 'react-hook-form';
 import CreateTearsheetStep from '@components/CreateTearsheet/CreateTearsheepStep';
@@ -59,7 +59,7 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 		resetTechnicalInfo();
 	};
 
-	const generateGeneralInfo = () => {
+	const generateGeneralInfo = useCallback(() => {
 		return (
 			<CreateTearsheetStep
 				title='General Information'
@@ -67,7 +67,7 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 				hasFieldset={false}
 				subtitle='That are the basic information about the application'
 				description='You can also provide additional information about the application checking the technical information flag'
-				key='topic'
+				keyValue='topic'
 			>
 				<Stack gap={5}>
 					<Checkbox
@@ -99,45 +99,62 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 				<GeneralInfo control={control} errors={errors} register={register} />
 			</CreateTearsheetStep>
 		);
-	};
+	}, [
+		control,
+		createError,
+		errors,
+		isDirty,
+		isValid,
+		register,
+		shouldIncludeTechnicalInfo
+	]);
 
-	const generateTechnicalInfo = () => (
-		<CreateTearsheetStep
-			key='technical-info'
-			title='Technical Information'
-			subtitle='That are the technical information about the application'
-			description='You can also provide additional information about the application checking the technical information flag'
-			disableSubmit={!technicalIsDirty}
-			fieldsetLegendText='Technical Info'
-			includeStep={shouldIncludeTechnicalInfo}
-		>
-			<div className='mb-5'>
-				<div>
-					{Object.keys(technicalError).length > 0 && technicalIsDirty && (
-						<InlineNotification
-							kind='error'
-							title='Error'
-							hideCloseButton
-							subtitle='Resolve errors to continue'
-						/>
-					)}
+	const generateTechnicalInfo = useCallback(
+		() => (
+			<CreateTearsheetStep
+				keyValue='technical-info'
+				title='Technical Information'
+				subtitle='That are the technical information about the application'
+				description='You can also provide additional information about the application checking the technical information flag'
+				disableSubmit={!technicalIsDirty}
+				fieldsetLegendText='Technical Info'
+				includeStep={shouldIncludeTechnicalInfo}
+			>
+				<div className='mb-5'>
+					<div>
+						{Object.keys(technicalError).length > 0 && technicalIsDirty && (
+							<InlineNotification
+								kind='error'
+								title='Error'
+								hideCloseButton
+								subtitle='Resolve errors to continue'
+							/>
+						)}
+					</div>
+					<div>
+						{Boolean(createError) && (
+							<InlineNotification
+								kind='error'
+								title='Error'
+								hideCloseButton
+								subtitle={
+									(createError as ApiError)?.message ||
+									'An error has occurred, please try again later'
+								}
+							/>
+						)}
+					</div>
 				</div>
-				<div>
-					{Boolean(createError) && (
-						<InlineNotification
-							kind='error'
-							title='Error'
-							hideCloseButton
-							subtitle={
-								(createError as ApiError)?.message ||
-								'An error has occurred, please try again later'
-							}
-						/>
-					)}
-				</div>
-			</div>
-			<TechnicalInfo errors={technicalError} register={technicalRegister} />
-		</CreateTearsheetStep>
+				<TechnicalInfo errors={technicalError} register={technicalRegister} />
+			</CreateTearsheetStep>
+		),
+		[
+			createError,
+			shouldIncludeTechnicalInfo,
+			technicalError,
+			technicalIsDirty,
+			technicalRegister
+		]
 	);
 
 	return (

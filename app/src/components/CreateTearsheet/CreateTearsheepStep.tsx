@@ -7,7 +7,7 @@ import useRetrieveStepData from '@hooks/create-tearsheet/useRetrieveStepData';
 const CreateTearsheetStep = forwardRef<HTMLDivElement, CreateTearsheetStepProps>(
 	(
 		{
-			key,
+			keyValue,
 			children,
 			className,
 			description,
@@ -30,7 +30,7 @@ const CreateTearsheetStep = forwardRef<HTMLDivElement, CreateTearsheetStepProps>
 		const stepNumber = useContext(StepNumberContext);
 
 		const { currentStep, setState } = useRetrieveStepData({
-			key,
+			key: keyValue,
 			stepNumber,
 			introStep,
 			includeStep,
@@ -93,7 +93,7 @@ const CreateTearsheetStep = forwardRef<HTMLDivElement, CreateTearsheetStepProps>
 );
 
 interface CreateTearsheetStepProps {
-	key: string;
+	keyValue: string;
 
 	/**
 	 * Content that shows in the tearsheet step
