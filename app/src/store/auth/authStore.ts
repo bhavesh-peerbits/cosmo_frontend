@@ -3,16 +3,10 @@ import { getCookie, removeCookie, setCookie } from 'tiny-cookie';
 import { getAuthInfo } from '@api/user/useUserAuthInfo';
 import ApiError from '@api/ApiError';
 import { UserRole } from '@model/UserRole';
+import User from '@model/User';
 
 const ACCESS_TOKEN_KEY = 'accessToken';
 const REFRESH_TOKEN_KEY = 'refreshToken';
-
-type User = {
-	username: string;
-	name?: string;
-	surname?: string;
-	email?: string;
-};
 
 type AuthData = {
 	user: User | null;
@@ -55,12 +49,7 @@ const retrieveUserInfo = async () => {
 		try {
 			const info = await getAuthInfo();
 			return {
-				user: {
-					username: info.username,
-					name: info.name,
-					surname: info.surname,
-					email: info.email
-				},
+				user: info,
 				policies: info.roles || []
 			};
 		} catch (e) {

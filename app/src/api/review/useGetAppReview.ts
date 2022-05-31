@@ -1,8 +1,6 @@
-import { icons } from '@components/IconPicker';
 import { UserDisplayRole } from '@model/UserRole';
 
 const admin: UserDisplayRole = 'Admin';
-const webIcon: keyof typeof icons = icons.web.component;
 const useGetAppReview = (appId: string) => {
 	return {
 		id: appId,
@@ -22,7 +20,7 @@ const useGetAppReview = (appId: string) => {
 			principalRole: admin
 		},
 		delegates: [],
-		icon: webIcon,
+		icon: 'web' as const,
 		applicationData: {
 			appMaintenance: 'appMaintenance',
 			operationSupplier: 'operationSupplier',

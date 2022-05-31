@@ -5,26 +5,15 @@ import { languageOptions, languages } from '@i18n/languageOptions';
 import detectLanguage from '@i18n/detectLanguage';
 import useUiStore from '@hooks/useUiStore';
 
-const LanguagePrompt = () => {
-	const { languagePromptDismissed, language, setLanguagePromptDismissed, setLanguage } =
-		useUiStore();
-	const { theme } = useTheme();
-	if (languagePromptDismissed) {
-		return null;
-	}
+interface ButtonGroupProps {
+	small?: boolean;
+	systemLanguage: typeof languages[number];
+	option: typeof languageOptions[number]['label'] | '';
+}
 
-	const systemLanguage = detectLanguage() as typeof language;
-	if (systemLanguage === 'en_US' || systemLanguage === language) {
-		return null;
-	}
-
-	if (!languages.includes(systemLanguage)) {
-		return null;
-	}
-
-	const option = languageOptions.find(o => o.value === systemLanguage)?.label ?? '';
-
-	const ButtonGroup = memo(({ small }: { small?: boolean }) => (
+const ButtonGroup = memo(({ small, systemLanguage, option }: ButtonGroupProps) => {
+	const { setLanguagePromptDismissed, setLanguage } = useUiStore();
+	return (
 		<ButtonSet stacked={small} className='h-full items-end justify-end'>
 			<Button
 				className={`${small ? '' : 'h-full'}`}
@@ -44,7 +33,26 @@ const LanguagePrompt = () => {
 				Change to {option}
 			</Button>
 		</ButtonSet>
-	));
+	);
+});
+
+const LanguagePrompt = () => {
+	const { languagePromptDismissed, language } = useUiStore();
+	const { theme } = useTheme();
+	if (languagePromptDismissed) {
+		return null;
+	}
+
+	const systemLanguage = detectLanguage() as typeof language;
+	if (systemLanguage === 'en_US' || systemLanguage === language) {
+		return null;
+	}
+
+	if (!languages.includes(systemLanguage)) {
+		return null;
+	}
+
+	const option = languageOptions.find(o => o.value === systemLanguage)?.label ?? '';
 
 	return (
 		<Layer level={theme === 'g100' ? 2 : 1}>
@@ -60,10 +68,10 @@ const LanguagePrompt = () => {
 						</p>
 					</Column>
 					<Column sm={4} md={0} lg={0}>
-						<ButtonGroup small />
+						<ButtonGroup small {...{ systemLanguage, option }} />
 					</Column>
 					<Column sm={0} md={8} lg={16}>
-						<ButtonGroup />
+						<ButtonGroup {...{ systemLanguage, option }} />
 					</Column>
 				</Grid>
 			</Tile>

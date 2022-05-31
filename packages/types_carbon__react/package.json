@@ -4,8 +4,8 @@
 	"version": "1.0.1",
 	"types": "index.d.ts",
 	"devDependencies": {
-		"@types/react": "^18.0.0",
-		"@types/react-dom": "^18.0.0",
+		"@types/react": "^18.0.9",
+		"@types/react-dom": "^18.0.5",
 		"@types/react-router-dom": "^5.3.3"
 	},
 	"peerDependencies": {

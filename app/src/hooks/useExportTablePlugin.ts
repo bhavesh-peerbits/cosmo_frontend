@@ -20,7 +20,7 @@ const defaultGetExportFileName = ({
 
 // To get column name while exporting
 const defaultGetColumnExportValue = <T>(col: Column<T>) => {
-	let name = col.header;
+	let name = col.columnDef.header;
 	if (typeof name === 'object' || typeof name === 'function' || !name) {
 		name = col.id;
 	}
@@ -113,7 +113,7 @@ const useExportTablePlugin = <T extends { ColumnMeta: ExportProperties }>(
 								exportLabel = defaultGetColumnExportValue,
 								exportableFn
 							} = {}
-						} = column;
+						} = column.columnDef;
 						const columnExportValue = exportLabel(column);
 						return {
 							id,
