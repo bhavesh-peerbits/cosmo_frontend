@@ -10,6 +10,7 @@ import NoDataMessage from '@components/NoDataMessage';
 import ProcedureAppInstance from '@model/ProcedureAppInstance';
 import useGetProcedureByApp from '@api/app-procedures/useGetProcedureByApp';
 import MultipleReviewModal from '@components/Modals/MultipleReviewModal';
+import ProcedureReviewModal from '@components/Modals/ProcedureReviewModal';
 import NewProcedureModal from '../Modals/NewProcedureModal';
 
 type ProcedureState = Partial<ProcedureAppInstance> & {
@@ -116,21 +117,33 @@ const ProcedureInfo = () => {
 								</Button>
 							)}
 						</div>
-						{showProcedureModal && (
-							<MultipleReviewModal
-								appId={appId || ''}
-								items={procedureChecked
-									.map(procedure =>
+						{showProcedureModal &&
+							(procedureChecked.length === 1 ? (
+								<ProcedureReviewModal
+									appId={appId || ''}
+									isOpen={showProcedureModal}
+									setIsOpen={setShowProcedureModal}
+									procedure={
 										serverProcs.filter(
-											proc => `procedure-container-${proc.id}` === procedure
+											proc => `procedure-container-${proc.id}` === procedureChecked[0]
+										)[0]
+									}
+								/>
+							) : (
+								<MultipleReviewModal
+									appId={appId || ''}
+									items={procedureChecked
+										.map(procedure =>
+											serverProcs.filter(
+												proc => `procedure-container-${proc.id}` === procedure
+											)
 										)
-									)
-									.flat()}
-								isOpen={showProcedureModal}
-								setIsOpen={setShowProcedureModal}
-								type='procedure'
-							/>
-						)}
+										.flat()}
+									isOpen={showProcedureModal}
+									setIsOpen={setShowProcedureModal}
+									type='procedure'
+								/>
+							))}
 						<div className='space-y-7'>
 							{procedureList.length === 0 && (
 								<div>
