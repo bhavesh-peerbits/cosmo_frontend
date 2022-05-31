@@ -50,20 +50,20 @@ const ReviewDetail = () => {
 		>
 			<div className='md:p-container-1'>
 				<TableOfContents stickyOffset={30} tocStickyOffset={breadcrumbSize + 10}>
-					<Grid fullWidth className='h-full pb-4'>
-						<FullWidthColumn className='pt-4'>
+					<Grid fullWidth className='h-full p-5'>
+						<FullWidthColumn>
 							<div className='space-y-7'>
 								{application.allowModifyOwner && (
 									<Tile className='bg-background'>
 										<Grid>
-											<FullWidthColumn className='flex justify-between'>
+											<FullWidthColumn className='flex justify-between space-x-1'>
 												<p
 													data-toc-id={`application-container-${application.id}`}
-													className='text-productive-heading-3'
+													className='flex-1 text-productive-heading-3'
 												>
 													{t('application-info')}
 												</p>
-												<div>
+												<div className='flex-1'>
 													<p className='text-text-secondary text-body-compact-1'>
 														{`${t(
 															'last-review'
@@ -86,14 +86,14 @@ const ReviewDetail = () => {
 										procedure.allowModifyOwner && (
 											<Tile className='w-full bg-background' key={procedure.id}>
 												<Grid>
-													<FullWidthColumn className='flex justify-between'>
+													<FullWidthColumn className='flex justify-between space-x-1'>
 														<p
 															data-toc-id={`procedure-container-${procedure.id}`}
-															className='text-productive-heading-3'
+															className='flex-1 text-productive-heading-3'
 														>
 															{procedure.name}
 														</p>
-														<div>
+														<div className='flex-1'>
 															<p className='text-text-secondary text-body-compact-1'>
 																{`${t(
 																	'last-review'

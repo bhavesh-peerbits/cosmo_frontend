@@ -73,7 +73,7 @@ const SelectWithCheckbox = ({
 					<select className={cx(className, 'w-full font-bold')}>
 						<option>{options.find(o => o.id === value)?.title}</option>
 					</select>
-					<div className='absolute left-0 right-0 top-0 bottom-0' />
+					<div className='absolute left-0 right-0 top-0 bottom-0 shadow shadow-shadow' />
 				</div>
 				{expanded && (
 					<div
@@ -162,7 +162,7 @@ const TOCMobile = ({
 	};
 
 	return (
-		<div className='w-full shadow shadow-md shadow-background'>
+		<div className='-ml-[1%] w-[102%] shadow shadow-md shadow-background'>
 			<div className='relative flex rounded bg-field-2 hover:bg-field-hover-2'>
 				<SelectWithCheckbox
 					options={menuItems}

@@ -91,12 +91,20 @@ const TableOfContents = ({
 	const getElemIdInView = useCallback(() => {
 		const items = [...(tocRef.current?.querySelectorAll('*[data-toc-id]') || [])];
 		return (
-			items.find(elem => {
-				const rect = elem.getBoundingClientRect();
-				return rect.top - containerStickyOffset + 10 > 0;
-			}) || items.at(-1)
-		)?.getAttribute('data-toc-id');
-	}, [containerStickyOffset]);
+			items
+				.find(elem => {
+					const rect = elem.getBoundingClientRect();
+					const isInViewport =
+						rect.top >= 0 &&
+						rect.left >= 0 &&
+						rect.bottom <=
+							(window.innerHeight || document.documentElement.clientHeight) &&
+						rect.right <= (window.innerWidth || document.documentElement.clientWidth);
+					return isInViewport;
+				})
+				?.getAttribute('data-toc-id') || null
+		);
+	}, []);
 
 	/**
 	 * Set selected id & title
@@ -170,7 +178,7 @@ const TableOfContents = ({
 					{md ? <TOCDesktop {...props} /> : <TOCMobile {...props} />}
 				</div>
 			</div>
-			<div className='w-full px-5 md:block md:max-w-[75%] md:flex-[0_0_75%]'>
+			<div className='w-full md:block md:max-w-[75%] md:flex-[0_0_75%] md:px-5'>
 				<div>{children}</div>
 			</div>
 		</div>
