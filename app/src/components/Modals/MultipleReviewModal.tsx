@@ -1,3 +1,4 @@
+import ApiError from '@api/ApiError';
 import {
 	Accordion,
 	AccordionItem,
@@ -6,54 +7,97 @@ import {
 	ComposedModal,
 	Form,
 	Grid,
+	InlineNotification,
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
-	TextArea,
 	TextInput
 } from '@carbon/react';
 import DatePickerWrapper from '@components/DatePickerWrapper';
+import FullWidthColumn from '@components/FullWidthColumn';
 import SingleUserSelect from '@components/SingleUserSelect';
+import useReviewApps from '@api/management/useReviewApps';
 import Application from '@model/Application';
 import ProcedureAppInstance from '@model/ProcedureAppInstance';
 import User from '@model/User';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import cx from 'classnames';
+import useReviewProcedures from '@api/management/useReviewProcedures';
 
 type FormData = {
 	reviewer: User;
 	reviewDate: Date;
-	description: string;
 	owner: User;
 };
 
 type MultipleReviewModalProps = {
 	isOpen: boolean;
 	setIsOpen: (value: boolean) => void;
-	type: string;
+	type: 'procedure' | 'application';
 	items: Application[] | ProcedureAppInstance[];
+	appId?: string;
 };
 
 const MultipleReviewModal = ({
 	isOpen,
 	setIsOpen,
 	type,
-	items
+	items,
+	appId
 }: MultipleReviewModalProps) => {
+	const itemsIds = items.map(item => +item.id);
 	const { t } = useTranslation('modals');
+	const {
+		mutate: mutateApp,
+		error: errorApp,
+		isError: isErrorApp,
+		isLoading: isLoadingApp,
+		reset: resetApp
+	} = useReviewApps();
+
+	const {
+		mutate: mutateProc,
+		error: errorProc,
+		isError: isErrorProc,
+		isLoading: isLoadingProc,
+		reset: resetProc
+	} = useReviewProcedures(appId || '');
+
 	const {
 		control,
 		reset: resetForm,
-		register,
+		handleSubmit,
 		formState: { isValid }
 	} = useForm<FormData>({
 		mode: 'onChange'
 	});
+
 	const cleanUp = () => {
+		resetApp();
+		resetProc();
 		resetForm();
 		setIsOpen(false);
 	};
 
+	const sendMail = (data: FormData) => {
+		type === 'application'
+			? mutateApp(
+					{
+						endDate: data.reviewDate,
+						elementIds: itemsIds
+					},
+					{
+						onSuccess: cleanUp
+					}
+			  )
+			: mutateProc(
+					{ elementIds: itemsIds, endDate: data.reviewDate },
+					{
+						onSuccess: cleanUp
+					}
+			  );
+	};
 	return (
 		<Form>
 			<ComposedModal open={isOpen} onClose={() => cleanUp()}>
@@ -139,7 +183,27 @@ const MultipleReviewModal = ({
 									minDate={new Date()}
 								/>
 							</div>
-							<TextArea labelText={t('description')} {...register('description')} />
+							<FullWidthColumn>
+								<div
+									className={cx(
+										'flex items-center justify-center transition-all duration-fast-2 ease-entrance-expressive',
+										{
+											'opacity-0': !(isErrorProc || isErrorApp)
+										}
+									)}
+								>
+									<InlineNotification
+										kind='error'
+										title='Error'
+										hideCloseButton
+										subtitle={
+											(errorApp as ApiError)?.message ||
+											(errorProc as ApiError)?.message ||
+											'An error has occurred, please try again later'
+										}
+									/>
+								</div>
+							</FullWidthColumn>
 						</Column>
 					</Grid>
 				</ModalBody>
@@ -147,7 +211,11 @@ const MultipleReviewModal = ({
 					<Button kind='secondary' onClick={() => cleanUp()}>
 						{t('cancel')}
 					</Button>
-					<Button type='submit' disabled={!isValid}>
+					<Button
+						type='submit'
+						disabled={!isValid || isLoadingApp || isLoadingProc}
+						onClick={handleSubmit(sendMail)}
+					>
 						{t('send-email')}
 					</Button>
 				</ModalFooter>

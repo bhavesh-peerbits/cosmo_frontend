@@ -1,20 +1,31 @@
-import { useMutation } from 'react-query';
-import User from '@model/User';
+import api from '@api';
+import { fromApplicationApi } from '@model/Application';
+import { useMutation, useQueryClient } from 'react-query';
 
 interface ReviewAppParams {
-	reviewer: User;
-	expireDate: Date;
-	description: string;
+	appId: string;
+	endDate: Date;
 }
 
-const reviewApp = ({ reviewer, expireDate, description }: ReviewAppParams) => {
-	return new Promise(resolve => {
-		setTimeout(() => resolve({ reviewer, expireDate, description }), 1000);
-	});
+const reviewApp = ({ appId, endDate }: ReviewAppParams) => {
+	return api.narrativeReview
+		.startReviewOfAnApplication({
+			id: +appId,
+			narrativeReviewBody: { endDate: endDate.toISOString() }
+		})
+		.then(({ data }) => fromApplicationApi(data));
 };
 
 const useReviewApp = (appId: string) => {
-	return useMutation(['reviewApp', appId], reviewApp);
+	const queryClient = useQueryClient();
+	return useMutation(({ endDate }: { endDate: Date }) => reviewApp({ appId, endDate }), {
+		onSuccess: data => {
+			queryClient.setQueriesData(['managementApps'], old =>
+				old instanceof Map ? new Map(old.set(appId, data)) : data
+			);
+			queryClient.invalidateQueries(['app-procedures']);
+		}
+	});
 };
 
 export default useReviewApp;
