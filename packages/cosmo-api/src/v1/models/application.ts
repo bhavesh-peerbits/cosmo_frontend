@@ -13,6 +13,7 @@
  */
 
 import { ApplicationProfile } from './application-profile';
+import { ProcedureAppInstance } from './procedure-app-instance';
 import { Tenant } from './tenant';
 import { User } from './user';
 
@@ -46,6 +47,12 @@ export interface Application {
 	 * @memberof Application
 	 */
 	description?: string;
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof Application
+	 */
+	inReview?: boolean;
 	/**
 	 *
 	 * @type {boolean}
@@ -114,6 +121,18 @@ export interface Application {
 	creationDate?: string;
 	/**
 	 *
+	 * @type {string}
+	 * @memberof Application
+	 */
+	appReviewStartDate?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Application
+	 */
+	appReviewEndDate?: string;
+	/**
+	 *
 	 * @type {Tenant}
 	 * @memberof Application
 	 */
@@ -130,4 +149,10 @@ export interface Application {
 	 * @memberof Application
 	 */
 	disable?: boolean;
+	/**
+	 *
+	 * @type {Array<ProcedureAppInstance>}
+	 * @memberof Application
+	 */
+	procedures?: Array<ProcedureAppInstance>;
 }

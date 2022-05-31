@@ -6,6 +6,7 @@ import Centered from '@components/Centered';
 import ApplicationsTileContainer from '@components/management/ApplicationsTileContainer';
 import useManagementApps from '@hooks/management/useManagementApps';
 import { useTranslation } from 'react-i18next';
+import NoDataMessage from '@components/NoDataMessage';
 
 const SearchBar = () => {
 	const { filters, setFilters } = useManagementApps();
@@ -32,7 +33,7 @@ const ManagementTileView = () => {
 		<Fade>
 			<Grid fullWidth narrow className='h-full'>
 				<Column sm={4} md={2} lg={3}>
-					<div className='ml-5 md:ml-0'>
+					<div className='pl-5 md:ml-0'>
 						<ApplicationsFilters />
 					</div>
 				</Column>
@@ -60,9 +61,7 @@ const ManagementTileView = () => {
 							{apps.length === 0 ? (
 								<Fade>
 									<Centered>
-										<p className='pt-5 text-productive-heading-3'>
-											{t('no-applications')}
-										</p>
+										<NoDataMessage title={t('no-applications')} />
 									</Centered>
 								</Fade>
 							) : (

@@ -1,0 +1,19 @@
+{
+	"procedure-name": "Procedure name",
+	"procedure-required": "Procedure is required",
+	"procedure-owner": "Procedure owner",
+	"owner-required": "Please select a procedure owner",
+	"owner-delegates": "Owner delegates",
+	"last-modify": "Last modify date",
+	"last-modifier": "Last modifier",
+	"modifier-required": "Please select a last modifier",
+	"description": "Description",
+	"last-review": "Last review date",
+	"last-reviewer": "Last reviewer",
+	"reviewer-required": "Please select a last reviewer",
+	"save": "Save",
+	"name-exists": "This name already exists",
+	"confirmed": "Confirmed",
+	"confirm": "Confirm",
+	"discard": "Discard Changes"
+}

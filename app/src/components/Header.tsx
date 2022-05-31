@@ -2,52 +2,54 @@ import {
 	Header as CarbonHeader,
 	HeaderGlobalAction,
 	HeaderGlobalBar,
-	HeaderMenu,
 	HeaderMenuButton,
-	HeaderMenuItem,
 	HeaderName,
-	HeaderNavigation,
-	HeaderPanel,
 	SideNav,
 	SideNavItems,
 	SideNavLink,
 	SideNavMenu,
-	SideNavMenuItem,
-	Switcher,
-	SwitcherDivider,
-	SwitcherItem
+	SideNavMenuItem
 } from '@carbon/react';
 import {
 	AlignBoxMiddleCenter,
 	Fade,
 	Logout,
 	Moon,
-	Notification,
-	RequestQuote,
-	Search,
-	Switcher as SwitcherIcon
+	RequestQuote
 } from '@carbon/react/icons';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { useMount, useUnmount } from 'ahooks';
+import { useBoolean, useMount, useUnmount } from 'ahooks';
 import useResponsive from '@hooks/useResponsive';
 import useUiStore from '@hooks/useUiStore';
+import routes from '@routes/routes-const';
+import usePolicyStore from '@hooks/usePolicyStore';
+import UserProfileImage from '@components/UserProfileImage';
+import useLoginStore from '@hooks/auth/useLoginStore';
+import UserPanel from '@components/UserPanel';
+import { useRef } from 'react';
 
 type HeaderProps = {
 	isSideNavExpanded: boolean;
 	onClickSideNavExpand: () => void;
 };
 const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
+	const { canReview, canReviewNarrative, canSeeNarrativeManagement } = usePolicyStore();
+	const { auth } = useLoginStore();
 	const { setTheme } = useUiStore();
 	const navigate = useNavigate();
 	const { md, lg } = useResponsive();
-	const [appExpanded, setAppExpanded] = useState(false);
+	const userButtonRef = useRef<HTMLButtonElement>(null);
+	const [userExpanded, { toggle: toggleUser, setFalse: setCloseUser }] =
+		useBoolean(false);
+
 	useMount(() => {
 		document.body.classList.add('fix-height');
 	});
+
 	useUnmount(() => {
 		document.body.classList.remove('fix-height');
 	});
+
 	return (
 		<CarbonHeader aria-label='Cosmo'>
 			<HeaderMenuButton
@@ -58,22 +60,13 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 			<HeaderName
 				as='div'
 				className='cursor-pointer'
-				onClick={() => navigate('/home')}
+				onClick={() => navigate(routes.HOME)}
 				prefix='Cosmo'
 			>
 				[Dashboard]
 			</HeaderName>
-			<HeaderNavigation aria-label='IBM [Platform]'>
-				<HeaderMenuItem href='#'>Link 1</HeaderMenuItem>
-				<HeaderMenu aria-label='Link 2' menuLinkName='Link 2'>
-					<HeaderMenuItem href='#one'>Sub-link 1</HeaderMenuItem>
-				</HeaderMenu>
-			</HeaderNavigation>
 
 			<HeaderGlobalBar>
-				<HeaderGlobalAction aria-label='Search' className='' onClick={() => {}}>
-					<Search />
-				</HeaderGlobalAction>
 				<HeaderGlobalAction
 					aria-label='Theme'
 					onClick={() => {
@@ -82,16 +75,20 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 				>
 					<Moon />
 				</HeaderGlobalAction>
-				<HeaderGlobalAction aria-label='Notifications' onClick={() => {}}>
-					<Notification />
-				</HeaderGlobalAction>
+
 				<HeaderGlobalAction
-					aria-label='App Switcher'
-					isActive={appExpanded}
-					onClick={() => setAppExpanded(v => !v)}
+					ref={userButtonRef}
+					aria-label={auth?.user?.displayName}
+					isActive={userExpanded}
+					onClick={() => toggleUser()}
 					tooltipAlignment='end'
 				>
-					<SwitcherIcon />
+					<UserProfileImage
+						backgroundColor='light-gray'
+						initials={auth?.user?.displayName}
+						imageDescription={auth?.user?.username}
+						size='md'
+					/>
 				</HeaderGlobalAction>
 			</HeaderGlobalBar>
 			<SideNav
@@ -101,62 +98,52 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 				isRail={md && !lg}
 			>
 				<SideNavItems>
-					<SideNavMenu
-						renderIcon={AlignBoxMiddleCenter}
-						title='Narrative'
-						className='transition-all'
-					>
-						<SideNavMenuItem element={Link} to='/management'>
-							Management Dashboard
-						</SideNavMenuItem>
-
-						<SideNavMenuItem element={Link} to='/review'>
-							Review
-						</SideNavMenuItem>
-					</SideNavMenu>
-					<SideNavMenu
-						renderIcon={RequestQuote}
-						title='Review'
-						className='transition-all'
-					>
-						<SideNavMenuItem element={Link} to='/review-narrative'>
-							Narrative
-						</SideNavMenuItem>
-					</SideNavMenu>
-					<SideNavMenu
-						isSideNavExpanded={isSideNavExpanded}
-						renderIcon={Fade}
-						title='Revalidation'
-					>
-						<SideNavMenuItem href='/home'>SUID</SideNavMenuItem>
-						<SideNavMenuItem href='/home'>Firecall</SideNavMenuItem>
-						<SideNavMenuItem href='/home'>User Access</SideNavMenuItem>
-					</SideNavMenu>
-					<SideNavLink renderIcon={Fade} element={Link} to='/test'>
-						Test Error
-					</SideNavLink>
+					{canSeeNarrativeManagement && (
+						<SideNavMenu
+							renderIcon={AlignBoxMiddleCenter}
+							title='Narrative'
+							className='transition-all'
+						>
+							<SideNavMenuItem element={Link} to={routes.MANAGEMENT}>
+								Management Dashboard
+							</SideNavMenuItem>
+							{canReviewNarrative && (
+								<SideNavMenuItem element={Link} to={routes.REVIEW}>
+									Review
+								</SideNavMenuItem>
+							)}
+						</SideNavMenu>
+					)}
+					{canReview && (
+						<SideNavMenu
+							renderIcon={RequestQuote}
+							title='Review'
+							className='transition-all'
+						>
+							<SideNavMenuItem element={Link} to={routes.REVIEW_NARRATIVE}>
+								Narrative
+							</SideNavMenuItem>
+						</SideNavMenu>
+					)}
 					{import.meta.env.DEV && (
 						<SideNavLink renderIcon={Fade} href='/translation?showtranslations'>
 							[TEST ONLY] Show translations
 						</SideNavLink>
 					)}
-					<SideNavLink renderIcon={Logout} href='/logout'>
+					<SideNavLink renderIcon={Logout} href={routes.LOGOUT}>
 						Logout
 					</SideNavLink>
 				</SideNavItems>
 			</SideNav>
-
-			<HeaderPanel aria-label='Header Panel' expanded={appExpanded}>
-				<Switcher aria-label='Switcher Container'>
-					<SwitcherItem isSelected aria-label='Link 1' href='#'>
-						Link 1
-					</SwitcherItem>
-					<SwitcherDivider />
-					<SwitcherItem href='#' aria-label='Link 2'>
-						Link 2
-					</SwitcherItem>
-				</Switcher>
-			</HeaderPanel>
+			<UserPanel
+				expanded={userExpanded}
+				user={auth?.user}
+				onClickOutside={e =>
+					e.target !== userButtonRef.current &&
+					!userButtonRef.current?.contains(e.target as Node) &&
+					setCloseUser()
+				}
+			/>
 		</CarbonHeader>
 	);
 };

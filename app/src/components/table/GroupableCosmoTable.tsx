@@ -24,43 +24,38 @@ import {
 	getGroupedRowModel,
 	getPaginationRowModel,
 	getSortedRowModel,
-	Overwrite,
 	PaginationState,
-	Render,
 	Table as TableType,
 	useTableInstance
 } from '@tanstack/react-table';
-import { ReactNode, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CellProperties } from '@components/table/types';
+import {
+	AvailableFileType,
+	CellProperties,
+	ExportProperties,
+	TB
+} from '@components/table/types';
+import useExportTablePlugin from '@hooks/useExportTablePlugin';
+import CosmoTableToolbar from './CosmoTableToolbar';
 
-type HeaderFunction<T extends object> = ApplicationsTableProps<T>['createHeaders'];
+type HeaderFunction<T extends object> = GroupableTableProps<T>['createHeaders'];
 
-interface ApplicationsTableProps<D extends object> {
-	createHeaders: (
-		table: TableType<
-			Overwrite<
-				{ Renderer: Render; Rendered: ReactNode | JSX.Element; Row: unknown },
-				{ Row: D }
-			>
-		>
-	) => Array<
-		ColumnDef<
-			Overwrite<
-				{ Renderer: Render; Rendered: ReactNode | JSX.Element; Row: unknown },
-				{ Row: D }
-			>
-		>
-	>;
+interface GroupableTableProps<D extends object> {
+	createHeaders: (table: TableType<TB<D>>) => Array<ColumnDef<TB<D>>>;
 	data: D[];
 	noDataMessage?: string;
+	exportFileName?: (param: { fileType: AvailableFileType }) => string;
+	disableExport?: boolean;
 }
 
 const GroupableCosmoTable = <D extends object>({
 	createHeaders,
 	data,
-	noDataMessage
-}: ApplicationsTableProps<D>) => {
+	noDataMessage,
+	exportFileName,
+	disableExport
+}: GroupableTableProps<D>) => {
 	const { t } = useTranslation('table');
 	const [expanded, setExpanded] = useState<ExpandedState>({});
 	const [grouping, setGrouping] = useState<string[]>([]);
@@ -72,35 +67,36 @@ const GroupableCosmoTable = <D extends object>({
 		pageSize: 10,
 		pageCount: undefined // allows the table to calculate the page count for us via instance.getPageCount()
 	});
-
-	const table = createTable().setRowType<D>();
+	const table = createTable().setColumnMetaType<ExportProperties>().setRowType<D>();
 	const columns = useMemo(() => createHeaders(table), [createHeaders, table]);
-	const { getRowModel, getHeaderGroups, setPageIndex, setPageSize } = useTableInstance(
-		table,
-		{
-			data,
-			columns,
-			autoResetPageIndex: false,
-			state: {
-				pagination,
-				sorting,
-				grouping,
-				rowSelection,
-				expanded
-			},
-			onPaginationChange: setPagination,
-			onSortingChange: setSorting,
-			onGroupingChange: setGrouping,
-			onRowSelectionChange: setRowSelection,
-			onExpandedChange: setExpanded,
-			getCoreRowModel: getCoreRowModel(),
-			getExpandedRowModel: getExpandedRowModel(),
-			getSortedRowModel: getSortedRowModel(),
-			getGroupedRowModel: getGroupedRowModel(),
-			getPaginationRowModel: getPaginationRowModel()
-		}
+	const instance = useTableInstance(table, {
+		data,
+		columns,
+		autoResetPageIndex: false,
+		state: {
+			pagination,
+			sorting,
+			grouping,
+			rowSelection,
+			expanded
+		},
+		onPaginationChange: setPagination,
+		onSortingChange: setSorting,
+		onGroupingChange: setGrouping,
+		onRowSelectionChange: setRowSelection,
+		onExpandedChange: setExpanded,
+		getCoreRowModel: getCoreRowModel(),
+		getExpandedRowModel: getExpandedRowModel(),
+		getSortedRowModel: getSortedRowModel(),
+		getGroupedRowModel: getGroupedRowModel(),
+		getPaginationRowModel: getPaginationRowModel()
+	});
+	const { getRowModel, getHeaderGroups, setPageIndex, setPageSize } = instance;
+	const { exportData } = useExportTablePlugin(
+		instance,
+		exportFileName,
+		disableExport || grouping.length > 0
 	);
-
 	const renderBody = () => {
 		const { rows } = getRowModel();
 		return rows.length ? (
@@ -151,6 +147,10 @@ const GroupableCosmoTable = <D extends object>({
 
 	return (
 		<TableContainer>
+			<CosmoTableToolbar<D>
+				onExportClick={exportData}
+				disableExport={grouping.length > 0}
+			/>
 			<Layer level={1}>
 				<Table>
 					<TableHead>

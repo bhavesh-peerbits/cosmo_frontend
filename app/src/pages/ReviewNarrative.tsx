@@ -1,46 +1,40 @@
 import { Grid, Column, Search, Layer } from '@carbon/react';
+import Centered from '@components/Centered';
 import Fade from '@components/Fade';
+import NoDataMessage from '@components/NoDataMessage';
 import PageHeader from '@components/PageHeader';
-import NarrativesFilters from '@components/ReviewNarrative/NarrativesFilters';
-import NarrativeTileContainer from '@components/ReviewNarrative/NarrativesTileContainer';
+import ReviewsFilters from '@components/ReviewNarrative/ReviewsFilters';
+import ReviewsTileContainer from '@components/ReviewNarrative/ReviewsTileContainer';
+import useReviewApps from '@hooks/review/useReviewApps';
+import { useTranslation } from 'react-i18next';
 
 const SearchBar = () => {
+	const { filters, setFilters } = useReviewApps();
+	const { t } = useTranslation('reviewNarrative');
+
 	return (
-		<Search
-			size='lg'
-			light
-			placeholder='Search by Application Name'
-			labelText='Search by Application Name'
-		/>
+		<Layer className='w-full' level={1}>
+			<Search
+				size='lg'
+				labelText={t('search-placeholder')}
+				placeholder={t('search-placeholder')}
+				value={filters.query ?? ''}
+				onChange={e => setFilters(old => ({ ...old, q: e.currentTarget?.value }))}
+			/>
+		</Layer>
 	);
 };
 const ReviewNarrative = () => {
-	const narratives = [
-		{
-			id: 'Narrative1',
-			name: 'Narrative 1',
-			applicationName: 'Application1',
-			analyst: 'Name Surname',
-			startDate: new Date(2022, 4, 7),
-			dueDate: new Date(2022, 7, 7)
-		},
-		{
-			id: 'Narrative2',
-			name: 'Narrative 2',
-			applicationName: 'Application2',
-			analyst: 'Name Surname',
-			startDate: new Date(2022, 5, 7),
-			dueDate: new Date(2022, 6, 7)
-		}
-	];
+	const { apps } = useReviewApps();
+	const { t } = useTranslation('reviewNarrative');
 	return (
 		<PageHeader pageTitle='Review'>
 			<div className='h-full p-container-1'>
 				<Fade>
 					<Grid fullWidth narrow className='h-full'>
 						<Column sm={4} md={2} lg={3}>
-							<div className='ml-5 md:ml-0'>
-								<NarrativesFilters />
+							<div className='pl-5 md:ml-0'>
+								<ReviewsFilters />
 							</div>
 						</Column>
 						<Column sm={4} md={6} lg={13}>
@@ -50,11 +44,23 @@ const ReviewNarrative = () => {
 										<SearchBar />
 									</Layer>
 									<div className='flex w-full items-center justify-between space-x-5 md:w-auto md:justify-end'>
-										<div className='whitespace-nowrap'>{`${narratives.length} Narratives to Review `}</div>
+										<div className='whitespace-nowrap'>{`${apps.length} ${t(
+											'applications-to-review'
+										)}`}</div>
 									</div>
 								</div>
 								<div>
-									<NarrativeTileContainer narratives={narratives} />
+									{apps.length === 0 ? (
+										<Fade>
+											<Centered>
+												<div className='flex flex-col'>
+													<NoDataMessage title={t('no-applications-review')} />
+												</div>
+											</Centered>
+										</Fade>
+									) : (
+										<ReviewsTileContainer />
+									)}
 								</div>
 							</div>
 						</Column>

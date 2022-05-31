@@ -1,0 +1,18 @@
+{
+	"required": "Obligatoire",
+	"name": "Nom",
+	"application-name": "Nom de l'application",
+	"code": "Code",
+	"application-acronym": "Acronyme du nom de l'application",
+	"owner": "Propriétaire",
+	"owner-delegates": "Délégués du propriétaire",
+	"description": "Description",
+	"confirmed": "Confirmé",
+	"confirm": "Confirmer",
+	"name-exists": "Ce nom existe déjà",
+	"code-exists": "Ce code existe déjà",
+	"general-info": "Informations Générales",
+	"technical-info": "Informations Techniques",
+	"discard": "Restaurer",
+	"save": "Enregistrer"
+}

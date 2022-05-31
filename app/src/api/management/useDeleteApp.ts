@@ -14,7 +14,7 @@ const useDeleteApp = () => {
 	return useMutation(deleteApp, {
 		onSuccess: (_data, params) => {
 			queryClient.setQueriesData(['managementApps'], old =>
-				Array.isArray(old) ? [...old.filter(({ id }) => id !== params.appId)] : undefined
+				old instanceof Map ? old.delete(params.appId) && new Map(old) : undefined
 			);
 			queryClient.removeQueries(['managementApps', params.appId]);
 		}

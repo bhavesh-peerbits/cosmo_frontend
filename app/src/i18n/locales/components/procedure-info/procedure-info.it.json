@@ -1,0 +1,19 @@
+{
+	"procedure-name": "Nome della procedura",
+	"procedure-required": "La procedura è obbligatoria",
+	"procedure-owner": "Proprietario della procedura",
+	"owner-required": "Selezionare il proprietario della procedura",
+	"owner-delegates": "Delegati del proprietario",
+	"last-modify": "Data ultima modifica",
+	"last-modifier": "Ultima modifica effettuata da",
+	"modifier-required": "Selezionare utente",
+	"description": "Descrizione",
+	"last-review": "Data ultima revisione",
+	"last-reviewer": "Ultimo rivalidatore",
+	"reviewer-required": "Selezionare ultimo rivalidatore",
+	"save": "Salva",
+	"name-exists": "Questo nome è già esistente",
+	"confirmed": "Confermato",
+	"confirm": "Conferma",
+	"discard": "Ripristina"
+}

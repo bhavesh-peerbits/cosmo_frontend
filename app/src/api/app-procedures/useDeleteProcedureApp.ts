@@ -24,9 +24,10 @@ const useEditProcedureApp = () => {
 	const queryClient = useQueryClient();
 	return useMutation(deleteProcedureApp, {
 		onSuccess: (data, variables) => {
-			queryClient.setQueriesData(['procedures', variables.appId], old =>
-				(old as ProcedureAppInstance[]).filter(a => a.id !== variables.procedureAppId)
-			);
+			queryClient.setQueriesData(['app-procedures'], old => {
+				(old as Map<string, ProcedureAppInstance>).delete(variables.procedureAppId);
+				return new Map(old as Map<string, ProcedureAppInstance>);
+			});
 		}
 	});
 };

@@ -54,7 +54,7 @@ const TOCDesktop = ({
 		);
 
 	return (
-		<div className='flex[0_0_75%] mt-7 max-w-[75%] pt-7'>
+		<div className='flex[0_0_75%] mt-5 max-w-[75%] '>
 			<ul>
 				{menuItems
 					?.filter(item => item.id !== 'menuLabel')

@@ -4,8 +4,25 @@ import {
 	httpErrorFr,
 	httpErrorIt
 } from '@i18n/locales/components/http-error';
+import {
+	procedureInfoEn,
+	procedureInfoFr,
+	procedureInfoIt
+} from '@i18n/locales/components/procedure-info';
 import { managementEn, managementFr, managementIt } from '@i18n/locales/pages/management';
 import { tableEn, tableFr, tableIt } from '@i18n/locales/components/table';
+import {
+	applicationInfoEn,
+	applicationInfoFr,
+	applicationInfoIt
+} from '@i18n/locales/components/application-info';
+import { modalsEn, modalsFr, modalsIt } from '@i18n/locales/components/modals';
+import {
+	reviewNarrativeEn,
+	reviewNarrativeFr,
+	reviewNarrativeIt
+} from './pages/reviewNarrative';
+
 import { homeEn, homeIt } from './pages/home';
 import { testEn, testIt } from './pages/test';
 import {
@@ -22,7 +39,11 @@ export default {
 		login: loginEn,
 		httpError: httpErrorEn,
 		management: managementEn,
-		table: tableEn
+		reviewNarrative: reviewNarrativeEn,
+		table: tableEn,
+		applicationInfo: applicationInfoEn,
+		procedureInfo: procedureInfoEn,
+		modals: modalsEn
 	},
 	it_IT: {
 		home: homeIt,
@@ -31,13 +52,21 @@ export default {
 		login: loginIt,
 		httpError: httpErrorIt,
 		management: managementIt,
-		table: tableIt
+		reviewNarrative: reviewNarrativeIt,
+		table: tableIt,
+		applicationInfo: applicationInfoIt,
+		procedureInfo: procedureInfoIt,
+		modals: modalsIt
 	},
 	fr_FR: {
 		errorBoundary: errorBoundaryFr,
 		login: loginFr,
 		httpError: httpErrorFr,
 		management: managementFr,
-		table: tableFr
+		reviewNarrative: reviewNarrativeFr,
+		table: tableFr,
+		applicationInfo: applicationInfoFr,
+		procedureInfo: procedureInfoFr,
+		modals: modalsFr
 	}
 } as const;

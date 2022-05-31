@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+import { ApplicationDto } from './application-dto';
 import { ProcedureDto } from './procedure-dto';
 import { UserDto } from './user-dto';
 
@@ -22,7 +23,7 @@ import { UserDto } from './user-dto';
  */
 export interface ProcedureAppInstanceDto {
 	/**
-	 * Application instance id
+	 * Application-Procedure instance id
 	 * @type {number}
 	 * @memberof ProcedureAppInstanceDto
 	 */
@@ -33,6 +34,12 @@ export interface ProcedureAppInstanceDto {
 	 * @memberof ProcedureAppInstanceDto
 	 */
 	procedure: ProcedureDto;
+	/**
+	 *
+	 * @type {ApplicationDto}
+	 * @memberof ProcedureAppInstanceDto
+	 */
+	application: ApplicationDto;
 	/**
 	 * Procedure name
 	 * @type {string}

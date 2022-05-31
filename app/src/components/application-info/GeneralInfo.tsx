@@ -1,12 +1,21 @@
 import { Column, Grid, TextInput } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
-import { Control, FieldErrors, useController, UseFormRegister } from 'react-hook-form';
+import {
+	Control,
+	FieldErrors,
+	useController,
+	UseFormGetValues,
+	UseFormRegister
+} from 'react-hook-form';
 import User from '@model/User';
 import SingleUserSelect from '@components/SingleUserSelect';
 import MultipleUserSelect from '@components/MultipleUserSelect';
 import IconPicker, { icons } from '@components/IconPicker';
 import TiptapEditor from '@components/tiptap/TiptapEditor';
 import cx from 'classnames';
+import { useTranslation } from 'react-i18next';
+import { useEffect, useMemo, useState } from 'react';
+import useGetApps from '@api/management/useGetApps';
 
 export interface GeneralInfoForm {
 	generalInfo: {
@@ -25,9 +34,39 @@ type GeneralInfoProps = {
 	register: UseFormRegister<GeneralInfoForm>;
 	errors: FieldErrors<GeneralInfoForm>;
 	control: Control<GeneralInfoForm>;
+	getValues?: UseFormGetValues<GeneralInfoForm>;
 };
 
-const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
+const GeneralInfo = ({ register, errors, control, getValues }: GeneralInfoProps) => {
+	const { data = new Map() } = useGetApps();
+	const apps = useMemo(() => [...data.values()] || [], [data]);
+
+	const [appNameList, setAppNameList] = useState<string[]>([]);
+	const [appCodeList, setAppCodeList] = useState<string[]>([]);
+
+	useEffect(() => {
+		setAppNameList(
+			getValues
+				? apps
+						.filter(app => app.name !== getValues('generalInfo.name').toLowerCase())
+						.map(app => app.name.toLowerCase())
+				: apps.map(app => app.name.toLowerCase())
+		);
+	}, [apps, getValues]);
+
+	useEffect(() => {
+		setAppCodeList(
+			getValues
+				? apps
+						.filter(
+							app => app.codeName !== getValues('generalInfo.codeName').toLowerCase()
+						)
+						.map(app => app.codeName.toLowerCase())
+				: apps.map(app => app.codeName.toLowerCase())
+		);
+	}, [apps, getValues]);
+
+	const { t } = useTranslation('applicationInfo');
 	const {
 		field: { onChange, value, ref, onBlur }
 	} = useController({
@@ -37,7 +76,6 @@ const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
 			required: true
 		}
 	});
-
 	const {
 		field: {
 			onChange: onChangeDescription,
@@ -67,15 +105,17 @@ const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
 					className='w-full'
 					id='name'
 					invalidText={errors.generalInfo?.name?.message}
-					labelText='Name *'
-					placeholder='Name'
-					helperText='Application name'
+					labelText={`${t('name')} *`}
+					placeholder={`${t('name')} *`}
+					helperText={`${t('application-name')} *`}
 					invalid={Boolean(errors.generalInfo?.name)}
 					{...register('generalInfo.name', {
 						required: {
 							value: true,
-							message: 'Required'
-						}
+							message: `${t('required')}`
+						},
+						validate: name =>
+							!appNameList.includes(name.toLowerCase()) || `${t('name-exists')}`
 					})}
 				/>
 			</Column>
@@ -84,22 +124,25 @@ const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
 					className='w-full'
 					id='code'
 					invalidText={errors.generalInfo?.codeName?.message}
-					labelText='Code *'
-					placeholder='Code'
-					helperText='Acronym for the application name'
+					labelText={`${t('code')} *`}
+					placeholder={`${t('code')} *`}
+					helperText={`${t('application-acronym')}`}
 					invalid={Boolean(errors.generalInfo?.codeName)}
 					{...register('generalInfo.codeName', {
 						required: {
 							value: true,
-							message: 'Required'
-						}
+							message: `${t('required')}`
+						},
+
+						validate: code =>
+							!appCodeList.includes(code.toLowerCase()) || `${t('code-exists')}`
 					})}
 				/>
 			</Column>
 			<FullWidthColumn className='mb-5'>
 				<SingleUserSelect
 					control={control}
-					label='Owner *'
+					label={`${t('owner')} *`}
 					name='generalInfo.owner'
 					rules={{
 						required: true
@@ -109,7 +152,7 @@ const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
 			<FullWidthColumn className='mb-5'>
 				<MultipleUserSelect
 					control={control}
-					label='Owner Delegates'
+					label={`${t('owner-delegates')}`}
 					name='generalInfo.delegates'
 				/>
 			</FullWidthColumn>
@@ -133,7 +176,7 @@ const GeneralInfo = ({ register, errors, control }: GeneralInfoProps) => {
 			</Column>
 			<FullWidthColumn>
 				<div>
-					<p className='mb-3 text-text-secondary text-label-1'> Description </p>
+					<p className='mb-3 text-text-secondary text-label-1'> {t('description')} </p>
 					<TiptapEditor
 						content={descriptionValue}
 						onChange={onChangeDescription}

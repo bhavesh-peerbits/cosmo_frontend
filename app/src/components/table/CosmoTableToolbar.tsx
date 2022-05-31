@@ -82,7 +82,8 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 	onCancel,
 	toolbarBatchActions,
 	toolbarContent,
-	onExportClick
+	onExportClick,
+	disableExport
 }: CosmoTableToolbarProps<T>) => {
 	const { t } = useTranslation('table');
 	const actions = useMemo(
@@ -141,7 +142,7 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 		[onExportClick]
 	);
 
-	return (
+	return onCancel && selectionIds && toolbarBatchActions && toolbarContent ? (
 		<TableToolbar>
 			<TableBatchActions
 				onCancel={onCancel}
@@ -174,19 +175,47 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 								<TableToolbarAction
 									key={subAction.id}
 									onClick={subAction.onClick}
-									itemText=''
-								>
-									<div className='flex items-center justify-between space-x-5'>
-										<div>{subAction.icon}</div>
-										<span>{subAction.label}</span>
-									</div>
-								</TableToolbarAction>
+									itemText={
+										<div className='flex items-center justify-between space-x-5'>
+											<div>{subAction.icon}</div>
+											<span>{subAction.label}</span>
+										</div>
+									}
+								/>
 							))}
 						</TableToolbarMenu>
 					))}
 				</TableToolbarContent>
 			)}
 		</TableToolbar>
+	) : (
+		<TableToolbarContent>
+			{actions.map(
+				action =>
+					action.id === 'export-all' && (
+						<TableToolbarMenu
+							key={action.id}
+							iconDescription={action.menuLabel}
+							renderIcon={() => action.menuIcon}
+							ariaLabel={action.menuLabel}
+							disabled={disableExport}
+						>
+							{action.actions.map(subAction => (
+								<TableToolbarAction
+									key={subAction.id}
+									onClick={subAction.onClick}
+									itemText={
+										<div className='flex items-center justify-between space-x-5'>
+											<div>{subAction.icon}</div>
+											<span>{subAction.label}</span>
+										</div>
+									}
+								/>
+							))}
+						</TableToolbarMenu>
+					)
+			)}
+		</TableToolbarContent>
 	);
 };
 

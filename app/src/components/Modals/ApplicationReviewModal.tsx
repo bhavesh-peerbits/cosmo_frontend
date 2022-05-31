@@ -19,6 +19,7 @@ import DatePickerWrapper from '@components/DatePickerWrapper';
 import useReviewApp from '@api/management/useReviewApp';
 import ApiError from '@api/ApiError';
 import cx from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 type AppReviewModalProps = {
 	appId: string;
@@ -40,6 +41,7 @@ const ApplicationReviewModal = ({
 	setIsOpen,
 	owner
 }: AppReviewModalProps) => {
+	const { t } = useTranslation('modals');
 	const { mutate, error, isError, isLoading, reset } = useReviewApp(appId);
 	const {
 		control,
@@ -74,8 +76,8 @@ const ApplicationReviewModal = ({
 		<Form>
 			<ComposedModal preventCloseOnClickOutside open={isOpen} onClose={() => cleanUp()}>
 				<ModalHeader
-					title='Application Review'
-					label='Please enter the fields above, then press Send Email.'
+					title={t('application-review')}
+					label={`${t('fill-field')} "${t('send-email')}".`}
 					closeModal={() => cleanUp()}
 				/>
 				<ModalBody>
@@ -83,8 +85,8 @@ const ApplicationReviewModal = ({
 						<Column lg={8} md={4} sm={4} className='mb-5'>
 							<SingleUserSelect
 								level={2}
-								helperText='The review request will be sent to this user'
-								label='Reviewer'
+								helperText={t('helper-user')}
+								label={t('reviewer')}
 								name='reviewer'
 								defaultValue={owner}
 								rules={{
@@ -101,10 +103,10 @@ const ApplicationReviewModal = ({
 							<TextInput
 								readOnly
 								id='email-address'
-								placeholder="User's email address"
-								labelText='Email Address'
+								placeholder='example@email.com'
+								labelText={t('label-email')}
 								value={owner.email || ''}
-								helperText='The review request will be sent to this email address'
+								helperText={t('helper-email')}
 								className='w-full grow-0'
 							/>
 						</Column>
@@ -113,18 +115,18 @@ const ApplicationReviewModal = ({
 							<DatePickerWrapper
 								control={control}
 								name='reviewDate'
-								label='Expiry Date of the Review'
+								label={t('expiry-date')}
 								rules={{
 									required: {
 										value: true,
-										message: 'Please select a date'
+										message: `${t('select-date')}`
 									}
 								}}
 								minDate={new Date()}
 							/>
 						</FullWidthColumn>
 						<FullWidthColumn className='mb-6'>
-							<TextArea labelText='Description' {...register('description')} />
+							<TextArea labelText={t('description')} {...register('description')} />
 						</FullWidthColumn>
 						<FullWidthColumn>
 							<div
@@ -150,14 +152,14 @@ const ApplicationReviewModal = ({
 				</ModalBody>
 				<ModalFooter>
 					<Button kind='secondary' onClick={() => cleanUp()}>
-						Cancel
+						{t('cancel')}
 					</Button>
 					<Button
 						type='submit'
 						disabled={!isValid || isLoading}
 						onClick={handleSubmit(sendMail)}
 					>
-						Send Email
+						{t('send-email')}
 					</Button>
 				</ModalFooter>
 			</ComposedModal>

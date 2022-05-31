@@ -1,0 +1,22 @@
+{
+	"delete-apps": "Are you sure you want to delete ",
+	"applications": "applications",
+	"delete-app": "Are you sure you want to delete this application?",
+	"cancel": "Cancel",
+	"delete": "Delete",
+	"confirm-delete": "Confirm delete",
+	"delete-procedure": "Are you sure you want to delete this procedure?",
+	"fill-field": "Please fill out the fields below, then press",
+	"send-email": "Send Email",
+	"procedures-selected": "Total number of procedures selected to review",
+	"applications-selected": "Total number of applications selected to review",
+	"description": "Description",
+	"procedure-review": "Procedure Review",
+	"application-review": "Application Review",
+	"select-date": "Please select a date",
+	"expiry-date": "Expiry Date of the Review",
+	"helper-email": "The review request will be sent to this email address",
+	"label-email": "Email Address",
+	"helper-user": "The review request will be sent to this user",
+	"reviewer": "Reviewer"
+}

@@ -15,7 +15,7 @@
 import { UserDto } from './user-dto';
 
 /**
- *
+ * Application
  * @export
  * @interface ApplicationDto
  */
@@ -69,6 +69,18 @@ export interface ApplicationDto {
 	 */
 	lastModify?: string;
 	/**
+	 * Settled date for end of narrative review
+	 * @type {string}
+	 * @memberof ApplicationDto
+	 */
+	endNarrativeReview?: string;
+	/**
+	 * Settled date for start of narrative review
+	 * @type {string}
+	 * @memberof ApplicationDto
+	 */
+	startNarrativeReview?: string;
+	/**
 	 *
 	 * @type {UserDto}
 	 * @memberof ApplicationDto
@@ -80,4 +92,10 @@ export interface ApplicationDto {
 	 * @memberof ApplicationDto
 	 */
 	applicationData?: { [key: string]: string | undefined };
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof ApplicationDto
+	 */
+	allowModifyOwner?: boolean;
 }

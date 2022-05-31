@@ -1,0 +1,15 @@
+{
+	"search-placeholder": "Rechercher par nom d'application",
+	"applications-to-review": "Applications à examiner",
+	"due-date": "Date d'expiration",
+	"status": "État",
+	"owner": "Propriétaire",
+	"all": "Toutes",
+	"in-progress": "En cours",
+	"not-started": "Pas commencé",
+	"no-applications-review": "Aucune application à examiner",
+	"start-date": "Date de début",
+	"last-review": "Date de la dernière révision",
+	"last-reviewer": "Dernière revalidateur",
+	"application-info": "Informations Générales et Techniques"
+}

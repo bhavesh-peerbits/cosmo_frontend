@@ -25,10 +25,10 @@ const useManagementApps = () => {
 	const [filters, setFilters] = useRecoilState(managementFilters);
 	const setApps = useSetRecoilState(managementApps);
 	const { apps, lastReview, lastModify, owner } = useRecoilValue(filteredApplications);
-	const { data = [] } = useGetApps();
+	const { data = new Map() } = useGetApps();
 
 	useEffect(() => {
-		setApps(data);
+		setApps([...data.values()]);
 	}, [data, setApps]);
 
 	useEffect(() => {

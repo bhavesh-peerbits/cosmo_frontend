@@ -2,43 +2,109 @@ import PageHeader from '@components/PageHeader';
 import GroupableCosmoTable, {
 	HeaderFunction
 } from '@components/table/GroupableCosmoTable';
-import useGetReview from '@api/review/useGetReview';
-import ApplicationReview from '@model/ApplicationReview';
+import { useCallback, useMemo } from 'react';
+import ProcedureAppInstance from '@model/ProcedureAppInstance';
 import { formatDate } from '@i18n';
+import ApplicationReview from '@model/ApplicationReview';
+import { useTranslation } from 'react-i18next';
+import Application from '@model/Application';
+import useGetApps from '@api/management/useGetApps';
+import useGetProcedureApps from '@api/app-procedures/useGetProcedureApps';
+import useGetProcedures from '@api/procedures/useGetProcedures';
 
 const Review = () => {
-	const { data = [] } = useGetReview();
-	const columns: HeaderFunction<ApplicationReview> = table => [
-		table.createDataColumn(row => row.appName, {
-			id: 'application-name',
-			header: 'Application Name',
-			sortUndefined: 1
-		}),
-		table.createDataColumn(row => row.procedure, {
-			id: 'procedure',
-			header: 'Procedure'
-		}),
-		table.createDataColumn(row => row.owner, {
-			id: 'owner',
-			header: 'Owner',
-			cell: info => info.getValue().displayName
-		}),
-		table.createDataColumn(row => row.expireDate, {
-			id: 'due-date',
-			header: 'Due Date',
-			cell: info => formatDate(info.getValue())
-		}),
-		table.createDataColumn(row => row.status, {
-			id: 'Status',
-			header: 'Status'
-		})
-	];
+	const { data: appsData = new Map<string, Application>() } = useGetApps();
+	const { data: procedureAppsData = new Map<string, ProcedureAppInstance>() } =
+		useGetProcedureApps();
+	const { data: procedures = new Map() } = useGetProcedures();
+	const appsCopy = useMemo(() => new Map(appsData), [appsData]);
+
+	const { t } = useTranslation('reviewNarrative');
+	const reviews: ApplicationReview[] = useMemo(() => {
+		const apps = new Map<
+			string,
+			{ app: Application; procedures: ProcedureAppInstance[] }
+		>();
+
+		procedureAppsData.forEach(pa => {
+			if (pa.applicationId) {
+				apps.set(pa.applicationId, {
+					app: appsData.get(pa.applicationId) as Application,
+					procedures: [...(apps.get(pa.applicationId)?.procedures || []), pa]
+				});
+				appsCopy.delete(pa.applicationId);
+			}
+		});
+		appsCopy.forEach(app => {
+			apps.set(app.id, {
+				app,
+				procedures: []
+			});
+		});
+
+		return [...apps.values()]
+			.map(a => [
+				{
+					id: a.app.id,
+					appName: a.app.name,
+					owner: a.app.owner,
+					expireDate: a.app.dueDate,
+					procedure: t('application-info'),
+					status: a.app.allowModifyOwner ? 'Ongoing' : 'Closed'
+				},
+				...a.procedures.map(p => ({
+					id: p.id,
+					appName: a.app.name,
+					owner: p.owner,
+					expireDate: p.dueDate,
+					procedure: procedures.get(p.procedureId)?.name,
+					status: p.allowModifyOwner ? 'Ongoing' : 'Closed'
+				}))
+			])
+			.flat();
+	}, [appsCopy, appsData, procedureAppsData, procedures, t]);
+
+	const columns: HeaderFunction<ApplicationReview> = useCallback(
+		table => [
+			table.createDataColumn(row => row.appName, {
+				id: 'application-name',
+				header: 'Application Name',
+				sortUndefined: 1
+			}),
+			table.createDataColumn(row => row.procedure, {
+				id: 'procedure',
+				header: 'Procedure'
+			}),
+			table.createDataColumn(row => row.owner, {
+				id: 'owner',
+				header: 'Owner',
+				cell: info => info.getValue()?.displayName || '-',
+				meta: {
+					exportableFn: (info: { displayName: string }) => info.displayName
+				}
+			}),
+			table.createDataColumn(row => row.expireDate, {
+				id: 'due-date',
+				header: 'Due Date',
+				cell: info => {
+					const date = info.getValue();
+					return date ? formatDate(date) : '-';
+				}
+			}),
+			table.createDataColumn(row => row.status, {
+				id: 'Status',
+				header: 'Status'
+			})
+		],
+		[]
+	);
+
 	return (
 		<div>
 			<PageHeader pageTitle='Review'>
 				<div className='h-full p-container-1'>
 					<GroupableCosmoTable
-						data={data}
+						data={reviews}
 						createHeaders={columns}
 						noDataMessage='No data'
 					/>

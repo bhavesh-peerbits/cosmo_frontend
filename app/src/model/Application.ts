@@ -13,6 +13,8 @@ interface Application {
 	delegates: User[];
 	icon: keyof typeof icons;
 	applicationData: Record<string, string | undefined> | undefined;
+	dueDate?: Date;
+	allowModifyOwner?: boolean;
 }
 
 export const fromApplicationApi = (applicationApi: ApplicationApi): Application => ({
@@ -25,7 +27,11 @@ export const fromApplicationApi = (applicationApi: ApplicationApi): Application 
 	owner: fromUserApi(applicationApi.owner),
 	delegates: applicationApi.delegates?.map(fromUserApi) ?? [],
 	icon: (applicationApi.icon as keyof typeof icons) || 'web',
-	applicationData: applicationApi.applicationData
+	applicationData: applicationApi.applicationData,
+	dueDate: applicationApi.endNarrativeReview
+		? new Date(applicationApi.endNarrativeReview)
+		: undefined,
+	allowModifyOwner: applicationApi.allowModifyOwner
 });
 
 export const toApplicationApi = (application: Application): ApplicationApi => ({
@@ -38,7 +44,9 @@ export const toApplicationApi = (application: Application): ApplicationApi => ({
 	owner: toUserApi(application.owner),
 	delegates: application.delegates?.map(toUserApi),
 	icon: application.icon,
-	applicationData: application.applicationData
+	applicationData: application.applicationData,
+	endNarrativeReview: application.dueDate?.toISOString(),
+	allowModifyOwner: application.allowModifyOwner
 });
 
 export default Application;

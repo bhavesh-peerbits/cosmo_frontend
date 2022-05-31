@@ -28,9 +28,9 @@ export type CellProperties<D extends object, V> = Parameters<
 >[0];
 
 export interface CosmoTableToolbarProps<T extends object> {
-	selectionIds: T[];
-	onCancel: () => void;
-	toolbarBatchActions: Array<{
+	selectionIds?: T[];
+	onCancel?: () => void;
+	toolbarBatchActions?: Array<{
 		id: string;
 		icon: (() => ReactElement) | ReactElement;
 		label: string;
@@ -38,4 +38,5 @@ export interface CosmoTableToolbarProps<T extends object> {
 	}>;
 	onExportClick: (fileType: AvailableFileType, all?: boolean | 'selection') => void;
 	toolbarContent?: ReactNode;
+	disableExport?: boolean;
 }

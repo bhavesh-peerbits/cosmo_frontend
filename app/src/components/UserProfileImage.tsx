@@ -1,6 +1,6 @@
 import { Group, User } from '@carbon/react/icons';
 import { Tooltip } from '@carbon/react';
-import { forwardRef, memo, useEffect, useMemo, useState } from 'react';
+import { forwardRef, memo, useCallback, useEffect, useMemo, useState } from 'react';
 import cx from 'classnames';
 import useUiStore from '@hooks/useUiStore';
 import { colors as carbonColors } from '@carbon/colors';
@@ -31,6 +31,72 @@ const getRandomColor = () => {
 	return colors[Math.floor(Math.random() * colors.length)];
 };
 
+const FillItem = memo(
+	({
+		image,
+		imageDescription,
+		initials: initialsParams,
+		kind,
+		size,
+		icon
+	}: Omit<UserProfileImageProps, 'backgroundColor' | 'tooltipText'>) => {
+		const icons = useMemo(
+			() => ({
+				user: {
+					xs: <User size={12} />,
+					sm: <User size={16} />,
+					md: <User size={20} />,
+					lg: <User size={24} />,
+					xlg: <User size={32} />
+				},
+				group: {
+					xs: <Group size={12} />,
+					sm: <Group size={16} />,
+					md: <Group size={20} />,
+					lg: <Group size={24} />,
+					xlg: <Group size={32} />
+				}
+			}),
+			[]
+		);
+
+		const formatInitials = useCallback((initials: string) => {
+			if (initials.length === 2) {
+				return initials;
+			}
+			// RegEx takes in the display name and returns the first and last initials. Thomas Watson and Thomas J. Watson
+			// both return JW.
+			return (
+				initials
+					.match(/(^\S\S?|\b\S)?/g)
+					?.join('')
+					?.match(/(^\S|\S$)?/g)
+					?.join('')
+					?.toUpperCase() || initials.substring(0, 2)
+			);
+		}, []);
+
+		if (image) {
+			return (
+				<img
+					alt={imageDescription}
+					src={image}
+					className={cx(['w-full rounded-full', sizeClass[size]])}
+				/>
+			);
+		}
+		if (initialsParams) {
+			return (
+				<span className='pointer-events-none'>{formatInitials(initialsParams)}</span>
+			);
+		}
+		if (kind && size) {
+			return icons[kind][size];
+		}
+		return icon || <div />;
+	}
+);
+
 const UserProfileImage = forwardRef<HTMLDivElement, UserProfileImageProps>(
 	(
 		{
@@ -51,26 +117,6 @@ const UserProfileImage = forwardRef<HTMLDivElement, UserProfileImageProps>(
 		useEffect(() => {
 			setBackgroundColor(propsBackground || getRandomColor());
 		}, [propsBackground]);
-
-		const icons = useMemo(
-			() => ({
-				user: {
-					xs: <User size={12} />,
-					sm: <User size={16} />,
-					md: <User size={20} />,
-					lg: <User size={24} />,
-					xlg: <User size={32} />
-				},
-				group: {
-					xs: <Group size={12} />,
-					sm: <Group size={16} />,
-					md: <Group size={20} />,
-					lg: <Group size={24} />,
-					xlg: <Group size={32} />
-				}
-			}),
-			[]
-		);
 
 		const themeConf: Record<typeof theme, { light: 60 | 50; dark: 80 | 30 }> = useMemo(
 			() => ({
@@ -94,41 +140,6 @@ const UserProfileImage = forwardRef<HTMLDivElement, UserProfileImageProps>(
 			[]
 		);
 
-		const formatInitials = () => {
-			if (initials.length === 2) {
-				return initials;
-			}
-			// RegEx takes in the display name and returns the first and last initials. Thomas Watson and Thomas J. Watson
-			// both return JW.
-			return (
-				initials
-					.match(/(^\S\S?|\b\S)?/g)
-					?.join('')
-					?.match(/(^\S|\S$)?/g)
-					?.join('')
-					?.toUpperCase() || initials.substring(0, 2)
-			);
-		};
-
-		const FillItem = memo(() => {
-			if (image) {
-				return (
-					<img
-						alt={imageDescription}
-						src={image}
-						className={cx(['w-full rounded-full', sizeClass[size]])}
-					/>
-				);
-			}
-			if (initials) {
-				return <span className='pointer-events-none'>{formatInitials()}</span>;
-			}
-			if (kind && size) {
-				return icons[kind][size];
-			}
-			return icon || <div />;
-		});
-
 		const getImageBackgroundColor = () => {
 			const bg = backgroundColor || getRandomColor();
 			const [variant, color] = bg.split('-');
@@ -148,7 +159,7 @@ const UserProfileImage = forwardRef<HTMLDivElement, UserProfileImageProps>(
 					sizeClass[size]
 				])}
 			>
-				<FillItem />
+				<FillItem {...{ image, imageDescription, initials, kind, size, icon }} />
 			</div>
 		);
 

@@ -24,11 +24,11 @@ const addProcedureApp = ({ appId, procedureId, procedure }: AddProcedureParams) 
 const useAddProcedureApp = () => {
 	const queryClient = useQueryClient();
 	return useMutation(addProcedureApp, {
-		onSuccess: (data, variables) => {
-			queryClient.setQueriesData(['procedures', variables.appId], old => [
-				...(old as ProcedureAppInstance[]),
-				data
-			]);
+		onSuccess: data => {
+			queryClient.setQueriesData(
+				['app-procedures'],
+				old => new Map((old as Map<string, ProcedureAppInstance>).set(data.id, data))
+			);
 		}
 	});
 };

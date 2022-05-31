@@ -249,7 +249,7 @@ const MenuBar = ({ editor }: EditorType) => {
 };
 
 const TipTapEditor = forwardRef<PureEditorContent, TipTapEditorProps>(
-	({ content, onChange, onBlur }, ref) => {
+	({ content, onChange, onBlur, readOnly }, ref) => {
 		const editor = useEditor({
 			extensions: [
 				StarterKit,
@@ -266,6 +266,7 @@ const TipTapEditor = forwardRef<PureEditorContent, TipTapEditorProps>(
 				onChange(e.getHTML());
 			}
 		});
+		editor?.setEditable(!readOnly);
 
 		return (
 			<div className='divide-y-[1px] divide-solid divide-border-subtle-0 border-[1px] border-solid border-border-strong-3'>
@@ -282,6 +283,7 @@ interface TipTapEditorProps {
 	content: string | undefined;
 	onChange: (content: string) => void;
 	onBlur?: () => void;
+	readOnly?: boolean;
 }
 
 export default TipTapEditor;

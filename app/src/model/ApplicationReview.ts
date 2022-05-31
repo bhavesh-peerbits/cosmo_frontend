@@ -6,7 +6,7 @@ interface ApplicationReview {
 	appName: string;
 	procedure: string;
 	owner: User;
-	expireDate: Date;
+	expireDate?: Date;
 	status: string;
 }
 

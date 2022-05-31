@@ -1,0 +1,15 @@
+{
+	"search-placeholder": "Cerca per nome applicazione",
+	"applications-to-review": "Applicazioni da revisionare",
+	"due-date": "Data di scadenza",
+	"status": "Stato",
+	"owner": "Proprietario",
+	"all": "Tutti",
+	"in-progress": "In corso",
+	"not-started": "Non iniziato",
+	"no-applications-review": "Nessun applicazione da revisionare",
+	"start-date": "Data di inizio",
+	"last-review": "Data ultima revisione",
+	"last-reviewer": "Ultimo rivalidatore",
+	"application-info": "Informazioni Generali e Tecniche"
+}
