@@ -19,7 +19,6 @@ import useReviewApp from '@api/management/useReviewApp';
 import ApiError from '@api/ApiError';
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
-import useGetApp from '@api/management/useGetApp';
 
 type AppReviewModalProps = {
 	appId: string;
@@ -31,7 +30,6 @@ type AppReviewModalProps = {
 type FormData = {
 	reviewer: User;
 	reviewDate: Date;
-	// description: string;
 	owner: User;
 };
 
@@ -43,7 +41,6 @@ const ApplicationReviewModal = ({
 }: AppReviewModalProps) => {
 	const { t } = useTranslation('modals');
 	const { mutate, error, isError, isLoading, reset } = useReviewApp(appId);
-	const { data: application } = useGetApp(appId);
 	const {
 		control,
 		reset: resetForm,
@@ -60,15 +57,14 @@ const ApplicationReviewModal = ({
 	};
 
 	const sendMail = (data: FormData) => {
-		application &&
-			mutate(
-				{
-					endDate: data.reviewDate
-				},
-				{
-					onSuccess: cleanUp
-				}
-			);
+		mutate(
+			{
+				endDate: data.reviewDate
+			},
+			{
+				onSuccess: cleanUp
+			}
+		);
 	};
 
 	return (
@@ -124,9 +120,6 @@ const ApplicationReviewModal = ({
 								minDate={new Date()}
 							/>
 						</FullWidthColumn>
-						{/* <FullWidthColumn className='mb-6'>
-							<TextArea labelText={t('description')} {...register('description')} />
-						</FullWidthColumn> */}
 						<FullWidthColumn>
 							<div
 								className={cx(

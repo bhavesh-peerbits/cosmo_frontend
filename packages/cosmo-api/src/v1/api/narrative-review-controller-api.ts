@@ -41,6 +41,8 @@ import { ApiErrorResponse } from '../models';
 // @ts-ignore
 import { ApplicationDto } from '../models';
 // @ts-ignore
+import { MultipleNarrativeReviewBody } from '../models';
+// @ts-ignore
 import { NarrativeReviewBody } from '../models';
 // @ts-ignore
 import { ProcedureAppInstanceDto } from '../models';
@@ -56,8 +58,7 @@ export const NarrativeReviewControllerApiAxiosParamCreator = function (
 		 *
 		 * @param {number} appId
 		 * @param {number} procId
-		 * @param {string} endDate
-		 * @param {ProcedureAppInstanceDto} procedureAppInstanceDto
+		 * @param {NarrativeReviewBody} narrativeReviewBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
@@ -65,8 +66,7 @@ export const NarrativeReviewControllerApiAxiosParamCreator = function (
 		startReviewOfAProcedure: async (
 			appId: number,
 			procId: number,
-			endDate: string,
-			procedureAppInstanceDto: ProcedureAppInstanceDto,
+			narrativeReviewBody: NarrativeReviewBody,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
@@ -74,13 +74,11 @@ export const NarrativeReviewControllerApiAxiosParamCreator = function (
 			assertParamExists('startReviewOfAProcedure', 'appId', appId);
 			// verify required parameter 'procId' is not null or undefined
 			assertParamExists('startReviewOfAProcedure', 'procId', procId);
-			// verify required parameter 'endDate' is not null or undefined
-			assertParamExists('startReviewOfAProcedure', 'endDate', endDate);
-			// verify required parameter 'procedureAppInstanceDto' is not null or undefined
+			// verify required parameter 'narrativeReviewBody' is not null or undefined
 			assertParamExists(
 				'startReviewOfAProcedure',
-				'procedureAppInstanceDto',
-				procedureAppInstanceDto
+				'narrativeReviewBody',
+				narrativeReviewBody
 			);
 			const localVarPath = `/api/narrativeReview/application/{appId}/procedure/{procId}`
 				.replace(`{${'appId'}}`, encodeURIComponent(String(appId)))
@@ -99,11 +97,6 @@ export const NarrativeReviewControllerApiAxiosParamCreator = function (
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
 
-			if (endDate !== undefined) {
-				localVarQueryParameter['endDate'] =
-					(endDate as any) instanceof Date ? (endDate as any).toISOString() : endDate;
-			}
-
 			if (acceptLanguage !== undefined && acceptLanguage !== null) {
 				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
 			}
@@ -119,7 +112,7 @@ export const NarrativeReviewControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				procedureAppInstanceDto,
+				narrativeReviewBody,
 				localVarRequestOptions,
 				configuration
 			);
@@ -196,22 +189,22 @@ export const NarrativeReviewControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {string} endDate
-		 * @param {Array<ApplicationDto>} applicationDto
+		 * @param {MultipleNarrativeReviewBody} multipleNarrativeReviewBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		startReviewOfApplications: async (
-			endDate: string,
-			applicationDto: Array<ApplicationDto>,
+			multipleNarrativeReviewBody: MultipleNarrativeReviewBody,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'endDate' is not null or undefined
-			assertParamExists('startReviewOfApplications', 'endDate', endDate);
-			// verify required parameter 'applicationDto' is not null or undefined
-			assertParamExists('startReviewOfApplications', 'applicationDto', applicationDto);
+			// verify required parameter 'multipleNarrativeReviewBody' is not null or undefined
+			assertParamExists(
+				'startReviewOfApplications',
+				'multipleNarrativeReviewBody',
+				multipleNarrativeReviewBody
+			);
 			const localVarPath = `/api/narrativeReview/applications`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -226,11 +219,6 @@ export const NarrativeReviewControllerApiAxiosParamCreator = function (
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (endDate !== undefined) {
-				localVarQueryParameter['endDate'] =
-					(endDate as any) instanceof Date ? (endDate as any).toISOString() : endDate;
-			}
 
 			if (acceptLanguage !== undefined && acceptLanguage !== null) {
 				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
@@ -247,7 +235,7 @@ export const NarrativeReviewControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				applicationDto,
+				multipleNarrativeReviewBody,
 				localVarRequestOptions,
 				configuration
 			);
@@ -260,28 +248,24 @@ export const NarrativeReviewControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} appId
-		 * @param {string} endDate
-		 * @param {Array<ProcedureAppInstanceDto>} procedureAppInstanceDto
+		 * @param {MultipleNarrativeReviewBody} multipleNarrativeReviewBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		startReviewOfProcedures: async (
 			appId: number,
-			endDate: string,
-			procedureAppInstanceDto: Array<ProcedureAppInstanceDto>,
+			multipleNarrativeReviewBody: MultipleNarrativeReviewBody,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'appId' is not null or undefined
 			assertParamExists('startReviewOfProcedures', 'appId', appId);
-			// verify required parameter 'endDate' is not null or undefined
-			assertParamExists('startReviewOfProcedures', 'endDate', endDate);
-			// verify required parameter 'procedureAppInstanceDto' is not null or undefined
+			// verify required parameter 'multipleNarrativeReviewBody' is not null or undefined
 			assertParamExists(
 				'startReviewOfProcedures',
-				'procedureAppInstanceDto',
-				procedureAppInstanceDto
+				'multipleNarrativeReviewBody',
+				multipleNarrativeReviewBody
 			);
 			const localVarPath =
 				`/api/narrativeReview/application/{appId}/allProcedures`.replace(
@@ -302,11 +286,6 @@ export const NarrativeReviewControllerApiAxiosParamCreator = function (
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
 
-			if (endDate !== undefined) {
-				localVarQueryParameter['endDate'] =
-					(endDate as any) instanceof Date ? (endDate as any).toISOString() : endDate;
-			}
-
 			if (acceptLanguage !== undefined && acceptLanguage !== null) {
 				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
 			}
@@ -322,7 +301,7 @@ export const NarrativeReviewControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				procedureAppInstanceDto,
+				multipleNarrativeReviewBody,
 				localVarRequestOptions,
 				configuration
 			);
@@ -347,8 +326,7 @@ export const NarrativeReviewControllerApiFp = function (configuration?: Configur
 		 *
 		 * @param {number} appId
 		 * @param {number} procId
-		 * @param {string} endDate
-		 * @param {ProcedureAppInstanceDto} procedureAppInstanceDto
+		 * @param {NarrativeReviewBody} narrativeReviewBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
@@ -356,8 +334,7 @@ export const NarrativeReviewControllerApiFp = function (configuration?: Configur
 		async startReviewOfAProcedure(
 			appId: number,
 			procId: number,
-			endDate: string,
-			procedureAppInstanceDto: ProcedureAppInstanceDto,
+			narrativeReviewBody: NarrativeReviewBody,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
@@ -366,8 +343,7 @@ export const NarrativeReviewControllerApiFp = function (configuration?: Configur
 			const localVarAxiosArgs = await localVarAxiosParamCreator.startReviewOfAProcedure(
 				appId,
 				procId,
-				endDate,
-				procedureAppInstanceDto,
+				narrativeReviewBody,
 				acceptLanguage,
 				options
 			);
@@ -410,23 +386,20 @@ export const NarrativeReviewControllerApiFp = function (configuration?: Configur
 		},
 		/**
 		 *
-		 * @param {string} endDate
-		 * @param {Array<ApplicationDto>} applicationDto
+		 * @param {MultipleNarrativeReviewBody} multipleNarrativeReviewBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async startReviewOfApplications(
-			endDate: string,
-			applicationDto: Array<ApplicationDto>,
+			multipleNarrativeReviewBody: MultipleNarrativeReviewBody,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApplicationDto>>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.startReviewOfApplications(
-				endDate,
-				applicationDto,
+				multipleNarrativeReviewBody,
 				acceptLanguage,
 				options
 			);
@@ -440,16 +413,14 @@ export const NarrativeReviewControllerApiFp = function (configuration?: Configur
 		/**
 		 *
 		 * @param {number} appId
-		 * @param {string} endDate
-		 * @param {Array<ProcedureAppInstanceDto>} procedureAppInstanceDto
+		 * @param {MultipleNarrativeReviewBody} multipleNarrativeReviewBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async startReviewOfProcedures(
 			appId: number,
-			endDate: string,
-			procedureAppInstanceDto: Array<ProcedureAppInstanceDto>,
+			multipleNarrativeReviewBody: MultipleNarrativeReviewBody,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
@@ -460,8 +431,7 @@ export const NarrativeReviewControllerApiFp = function (configuration?: Configur
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.startReviewOfProcedures(
 				appId,
-				endDate,
-				procedureAppInstanceDto,
+				multipleNarrativeReviewBody,
 				acceptLanguage,
 				options
 			);
@@ -490,8 +460,7 @@ export const NarrativeReviewControllerApiFactory = function (
 		 *
 		 * @param {number} appId
 		 * @param {number} procId
-		 * @param {string} endDate
-		 * @param {ProcedureAppInstanceDto} procedureAppInstanceDto
+		 * @param {NarrativeReviewBody} narrativeReviewBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
@@ -499,8 +468,7 @@ export const NarrativeReviewControllerApiFactory = function (
 		startReviewOfAProcedure(
 			appId: number,
 			procId: number,
-			endDate: string,
-			procedureAppInstanceDto: ProcedureAppInstanceDto,
+			narrativeReviewBody: NarrativeReviewBody,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<ProcedureAppInstanceDto> {
@@ -508,8 +476,7 @@ export const NarrativeReviewControllerApiFactory = function (
 				.startReviewOfAProcedure(
 					appId,
 					procId,
-					endDate,
-					procedureAppInstanceDto,
+					narrativeReviewBody,
 					acceptLanguage,
 					options
 				)
@@ -535,43 +502,38 @@ export const NarrativeReviewControllerApiFactory = function (
 		},
 		/**
 		 *
-		 * @param {string} endDate
-		 * @param {Array<ApplicationDto>} applicationDto
+		 * @param {MultipleNarrativeReviewBody} multipleNarrativeReviewBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		startReviewOfApplications(
-			endDate: string,
-			applicationDto: Array<ApplicationDto>,
+			multipleNarrativeReviewBody: MultipleNarrativeReviewBody,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Array<ApplicationDto>> {
 			return localVarFp
-				.startReviewOfApplications(endDate, applicationDto, acceptLanguage, options)
+				.startReviewOfApplications(multipleNarrativeReviewBody, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {number} appId
-		 * @param {string} endDate
-		 * @param {Array<ProcedureAppInstanceDto>} procedureAppInstanceDto
+		 * @param {MultipleNarrativeReviewBody} multipleNarrativeReviewBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		startReviewOfProcedures(
 			appId: number,
-			endDate: string,
-			procedureAppInstanceDto: Array<ProcedureAppInstanceDto>,
+			multipleNarrativeReviewBody: MultipleNarrativeReviewBody,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Array<ProcedureAppInstanceDto>> {
 			return localVarFp
 				.startReviewOfProcedures(
 					appId,
-					endDate,
-					procedureAppInstanceDto,
+					multipleNarrativeReviewBody,
 					acceptLanguage,
 					options
 				)
@@ -602,17 +564,10 @@ export interface NarrativeReviewControllerApiStartReviewOfAProcedureRequest {
 
 	/**
 	 *
-	 * @type {string}
+	 * @type {NarrativeReviewBody}
 	 * @memberof NarrativeReviewControllerApiStartReviewOfAProcedure
 	 */
-	readonly endDate: string;
-
-	/**
-	 *
-	 * @type {ProcedureAppInstanceDto}
-	 * @memberof NarrativeReviewControllerApiStartReviewOfAProcedure
-	 */
-	readonly procedureAppInstanceDto: ProcedureAppInstanceDto;
+	readonly narrativeReviewBody: NarrativeReviewBody;
 
 	/**
 	 *
@@ -658,17 +613,10 @@ export interface NarrativeReviewControllerApiStartReviewOfAnApplicationRequest {
 export interface NarrativeReviewControllerApiStartReviewOfApplicationsRequest {
 	/**
 	 *
-	 * @type {string}
+	 * @type {MultipleNarrativeReviewBody}
 	 * @memberof NarrativeReviewControllerApiStartReviewOfApplications
 	 */
-	readonly endDate: string;
-
-	/**
-	 *
-	 * @type {Array<ApplicationDto>}
-	 * @memberof NarrativeReviewControllerApiStartReviewOfApplications
-	 */
-	readonly applicationDto: Array<ApplicationDto>;
+	readonly multipleNarrativeReviewBody: MultipleNarrativeReviewBody;
 
 	/**
 	 *
@@ -693,17 +641,10 @@ export interface NarrativeReviewControllerApiStartReviewOfProceduresRequest {
 
 	/**
 	 *
-	 * @type {string}
+	 * @type {MultipleNarrativeReviewBody}
 	 * @memberof NarrativeReviewControllerApiStartReviewOfProcedures
 	 */
-	readonly endDate: string;
-
-	/**
-	 *
-	 * @type {Array<ProcedureAppInstanceDto>}
-	 * @memberof NarrativeReviewControllerApiStartReviewOfProcedures
-	 */
-	readonly procedureAppInstanceDto: Array<ProcedureAppInstanceDto>;
+	readonly multipleNarrativeReviewBody: MultipleNarrativeReviewBody;
 
 	/**
 	 *
@@ -735,8 +676,7 @@ export class NarrativeReviewControllerApi extends BaseAPI {
 			.startReviewOfAProcedure(
 				requestParameters.appId,
 				requestParameters.procId,
-				requestParameters.endDate,
-				requestParameters.procedureAppInstanceDto,
+				requestParameters.narrativeReviewBody,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -777,8 +717,7 @@ export class NarrativeReviewControllerApi extends BaseAPI {
 	) {
 		return NarrativeReviewControllerApiFp(this.configuration)
 			.startReviewOfApplications(
-				requestParameters.endDate,
-				requestParameters.applicationDto,
+				requestParameters.multipleNarrativeReviewBody,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -799,8 +738,7 @@ export class NarrativeReviewControllerApi extends BaseAPI {
 		return NarrativeReviewControllerApiFp(this.configuration)
 			.startReviewOfProcedures(
 				requestParameters.appId,
-				requestParameters.endDate,
-				requestParameters.procedureAppInstanceDto,
+				requestParameters.multipleNarrativeReviewBody,
 				requestParameters.acceptLanguage,
 				options
 			)

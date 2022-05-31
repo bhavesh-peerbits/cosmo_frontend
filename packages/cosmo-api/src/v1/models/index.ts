@@ -14,6 +14,7 @@ export * from './email';
 export * from './frequency';
 export * from './mail-template-dto';
 export * from './module';
+export * from './multiple-narrative-review-body';
 export * from './narrative-review-body';
 export * from './procedure';
 export * from './procedure-app-instance';

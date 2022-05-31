@@ -39,6 +39,7 @@ models/frequency.ts
 models/index.ts
 models/mail-template-dto.ts
 models/module.ts
+models/multiple-narrative-review-body.ts
 models/narrative-review-body.ts
 models/procedure-app-instance-dto.ts
 models/procedure-app-instance.ts
