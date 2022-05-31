@@ -1,7 +1,6 @@
 import api from '@api';
 import { fromApplicationApi } from '@model/Application';
 import { useMutation, useQueryClient } from 'react-query';
-import { toMap } from '@model/util';
 
 interface ReviewAppsParams {
 	endDate: Date;
@@ -16,8 +15,7 @@ const reviewApps = ({ endDate, elementIds }: ReviewAppsParams) => {
 				elementIds
 			}
 		})
-		.then(({ data }) => (data ? data.map(fromApplicationApi) : []))
-		.then(toMap);
+		.then(({ data }) => (data ? data.map(fromApplicationApi) : []));
 };
 
 const useReviewApps = () => {

@@ -23,6 +23,7 @@ import User from '@model/User';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
+import useReviewProcedures from '@api/management/useReviewProcedures';
 
 type FormData = {
 	reviewer: User;
@@ -33,15 +34,17 @@ type FormData = {
 type MultipleReviewModalProps = {
 	isOpen: boolean;
 	setIsOpen: (value: boolean) => void;
-	type: string;
+	type: 'procedure' | 'application';
 	items: Application[] | ProcedureAppInstance[];
+	appId?: string;
 };
 
 const MultipleReviewModal = ({
 	isOpen,
 	setIsOpen,
 	type,
-	items
+	items,
+	appId
 }: MultipleReviewModalProps) => {
 	const itemsIds = items.map(item => +item.id);
 	const { t } = useTranslation('modals');
@@ -52,6 +55,15 @@ const MultipleReviewModal = ({
 		isLoading: isLoadingApp,
 		reset: resetApp
 	} = useReviewApps();
+
+	const {
+		mutate: mutateProc,
+		error: errorProc,
+		isError: isErrorProc,
+		isLoading: isLoadingProc,
+		reset: resetProc
+	} = useReviewProcedures(appId || '');
+
 	const {
 		control,
 		reset: resetForm,
@@ -60,22 +72,31 @@ const MultipleReviewModal = ({
 	} = useForm<FormData>({
 		mode: 'onChange'
 	});
+
 	const cleanUp = () => {
 		resetApp();
+		resetProc();
 		resetForm();
 		setIsOpen(false);
 	};
 
 	const sendMail = (data: FormData) => {
-		mutateApp(
-			{
-				endDate: data.reviewDate,
-				elementIds: itemsIds
-			},
-			{
-				onSuccess: cleanUp
-			}
-		);
+		type === 'application'
+			? mutateApp(
+					{
+						endDate: data.reviewDate,
+						elementIds: itemsIds
+					},
+					{
+						onSuccess: cleanUp
+					}
+			  )
+			: mutateProc(
+					{ elementIds: itemsIds, endDate: data.reviewDate },
+					{
+						onSuccess: cleanUp
+					}
+			  );
 	};
 	return (
 		<Form>
@@ -167,7 +188,7 @@ const MultipleReviewModal = ({
 									className={cx(
 										'flex items-center justify-center transition-all duration-fast-2 ease-entrance-expressive',
 										{
-											'opacity-0': !isErrorApp
+											'opacity-0': !(isErrorProc || isErrorApp)
 										}
 									)}
 								>
@@ -177,6 +198,7 @@ const MultipleReviewModal = ({
 										hideCloseButton
 										subtitle={
 											(errorApp as ApiError)?.message ||
+											(errorProc as ApiError)?.message ||
 											'An error has occurred, please try again later'
 										}
 									/>
@@ -191,7 +213,7 @@ const MultipleReviewModal = ({
 					</Button>
 					<Button
 						type='submit'
-						disabled={!isValid || isLoadingApp}
+						disabled={!isValid || isLoadingApp || isLoadingProc}
 						onClick={handleSubmit(sendMail)}
 					>
 						{t('send-email')}

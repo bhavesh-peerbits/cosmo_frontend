@@ -9,6 +9,7 @@ import ProcedureForm from '@components/procedure-info/ProcedureForm';
 import NoDataMessage from '@components/NoDataMessage';
 import ProcedureAppInstance from '@model/ProcedureAppInstance';
 import useGetProcedureByApp from '@api/app-procedures/useGetProcedureByApp';
+import MultipleReviewModal from '@components/Modals/MultipleReviewModal';
 import NewProcedureModal from '../Modals/NewProcedureModal';
 
 type ProcedureState = Partial<ProcedureAppInstance> & {
@@ -116,13 +117,19 @@ const ProcedureInfo = () => {
 							)}
 						</div>
 						{showProcedureModal && (
-							<div />
-
-							// <MultipleReviewModal
-							// 	isOpen={showProcedureModal}
-							// 	setIsOpen={setShowProcedureModal}
-							// 	type='procedure'
-							// /> // TODO fix modal for procedure type
+							<MultipleReviewModal
+								appId={appId || ''}
+								items={procedureChecked
+									.map(procedure =>
+										serverProcs.filter(
+											proc => `procedure-container-${proc.id}` === procedure
+										)
+									)
+									.flat()}
+								isOpen={showProcedureModal}
+								setIsOpen={setShowProcedureModal}
+								type='procedure'
+							/>
 						)}
 						<div className='space-y-7'>
 							{procedureList.length === 0 && (
