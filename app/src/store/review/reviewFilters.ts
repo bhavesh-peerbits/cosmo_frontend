@@ -1,12 +1,12 @@
 /* eslint-disable no-nested-ternary */
 import { atom, selector } from 'recoil';
-import Review from '@model/Review';
+import Application from '@model/Application';
 import { GetRecoilType } from '@store/util';
 
 type Filters = {
 	query: string | undefined;
 	owner: string[];
-	startDate: string | undefined;
+	startNarrativeReview: string | undefined;
 	dueDate: number | undefined;
 };
 
@@ -15,12 +15,12 @@ const reviewFilters = atom<Filters>({
 	default: {
 		query: '',
 		owner: [],
-		startDate: undefined,
+		startNarrativeReview: undefined,
 		dueDate: undefined
 	}
 });
 
-const reviewApps = atom<Review[]>({
+const reviewApps = atom<Application[]>({
 	key: 'reviewApps',
 	default: []
 });
@@ -28,7 +28,7 @@ const reviewApps = atom<Review[]>({
 const prepareDateFilter = (
 	apps: GetRecoilType<typeof reviewApps>,
 	filters: GetRecoilType<typeof reviewFilters>,
-	filterName: 'startDate' | 'dueDate'
+	filterName: 'startNarrativeReview' | 'dueDate'
 ) => {
 	return (
 		(apps.map(app => app[filterName]).filter(l => !!l) as Date[])
@@ -69,10 +69,10 @@ const applyFilters = (
 		)
 		// filter by start date
 		.filter(app =>
-			filters.startDate
-				? filters.startDate === 'never'
-					? app.startDate === undefined
-					: app.startDate
+			filters.startNarrativeReview
+				? filters.startNarrativeReview === 'never'
+					? app.startNarrativeReview === undefined
+					: app.startNarrativeReview
 				: true
 		)
 		// filter due date
@@ -93,7 +93,7 @@ const filteredApplications = selector({
 		const apps = get(reviewApps);
 		return {
 			apps: applyFilters(apps, filters),
-			startDate: prepareDateFilter(apps, filters, 'startDate'),
+			startNarrativeReview: prepareDateFilter(apps, filters, 'startNarrativeReview'),
 			dueDate: prepareDateFilter(apps, filters, 'dueDate'),
 			owner: [
 				...new Set(apps.map(app => app.owner.name).filter(o => !!o) as string[])

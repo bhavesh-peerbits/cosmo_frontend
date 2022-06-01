@@ -1,31 +1,35 @@
 import { Layer, ClickableTile } from '@carbon/react';
 import { formatDate } from '@i18n';
-import Review from '@model/Review';
+import Application from '@model/Application';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 type ReviewTileProps = {
-	review: Review;
+	application: Application;
 };
 
-const ReviewTile = ({ review }: ReviewTileProps) => {
+const ReviewTile = ({ application }: ReviewTileProps) => {
 	const { t } = useTranslation('reviewNarrative');
 	const navigate = useNavigate();
 	return (
 		<Layer level={1}>
-			<ClickableTile onClick={() => navigate(review.id ?? '')} className='mb-5'>
+			<ClickableTile onClick={() => navigate(application.id ?? '')} className='mb-5'>
 				<div className='flex flex-col justify-between'>
 					<div className='flex flex-col'>
 						<div className='mb-3 flex min-h-[2.5rem] justify-between'>
-							{review.icon}
+							{application.icon}
 							<div className='text-right text-text-secondary'>
 								<div className='font-bold'>{t('start-date')}</div>
-								<div>{review.startDate ? formatDate(review.startDate) : 'Never'}</div>
+								<div>
+									{application.startNarrativeReview
+										? formatDate(application.startNarrativeReview)
+										: 'Never'}
+								</div>
 							</div>
 						</div>
 						<div className='mb-5'>
-							<p className='text-heading-1'>{review.name}</p>
-							<p className='text-label-1'>{review.narrativeName}</p>
+							<p className='text-heading-1'>{application.name}</p>
+							<p className='text-label-1'>{application.codeName}</p>
 						</div>
 					</div>
 					<div className='flex min-h-[7rem] flex-col justify-between'>
@@ -33,15 +37,15 @@ const ReviewTile = ({ review }: ReviewTileProps) => {
 							<div className='box-content max-h-[60px] overflow-hidden line-clamp-3'>
 								<div className='mb-5 flex max-w-[40rem] text-ellipsis text-body-1'>
 									<p className='text-body-short-1'>{`${t('owner')}: ${
-										review.owner.name
+										application.owner.name
 									}`}</p>
 								</div>
 							</div>
 						</div>
-						{review.dueDate && (
+						{application.dueDate && (
 							<div className='text-right text-text-secondary'>
 								<div className='font-bold'>{t('due-date')}</div>
-								<div>{formatDate(review.dueDate)}</div>
+								<div>{formatDate(application.dueDate)}</div>
 							</div>
 						)}
 					</div>

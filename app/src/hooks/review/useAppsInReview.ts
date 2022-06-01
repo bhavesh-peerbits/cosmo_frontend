@@ -5,46 +5,47 @@ import {
 	reviewFilters
 } from '@store/review/reviewFilters';
 import { useEffect } from 'react';
-import useGetApps from '@api/review/useGetAppsReview';
+import useGetAppsInReview from '@api/review/useGetAppsInReview';
 import useUrlState from '@hooks/useUrlState';
 
-const useReviewApps = () => {
+const useAppsInReview = () => {
 	const [urlFilters, setUrlFilters] = useUrlState<{
 		q: string | undefined;
 		owner: string[];
-		startDate: undefined | string;
 		dueDate: number | undefined;
+		startNarrativeReview: string | undefined;
 	}>({
 		q: undefined,
 		owner: [],
-		startDate: undefined,
-		dueDate: undefined
+		dueDate: undefined,
+		startNarrativeReview: undefined
 	});
 	const [filters, setFilters] = useRecoilState(reviewFilters);
 	const setApps = useSetRecoilState(reviewApps);
-	const { apps, owner, startDate, dueDate } = useRecoilValue(filteredApplications);
-	const { data = [] } = useGetApps(); // TODO change with review apps
+	const { apps, owner, dueDate, startNarrativeReview } =
+		useRecoilValue(filteredApplications);
+	const { data = new Map() } = useGetAppsInReview();
 
 	useEffect(() => {
-		setApps(data);
+		setApps([...data.values()]);
 	}, [data, setApps]);
 
 	useEffect(() => {
 		setFilters({
 			query: urlFilters.q,
 			owner: urlFilters.owner ?? [],
-			startDate: urlFilters.startDate,
-			dueDate: urlFilters.dueDate
+			dueDate: urlFilters.dueDate,
+			startNarrativeReview: urlFilters.startNarrativeReview
 		});
 	}, [urlFilters, setFilters]);
 
 	const filtersAvailable = {
 		owner,
-		startDate,
-		dueDate
+		dueDate,
+		startNarrativeReview
 	};
 
 	return { apps, filtersAvailable, filters, setFilters: setUrlFilters };
 };
 
-export default useReviewApps;
+export default useAppsInReview;

@@ -5,18 +5,18 @@ import {
 	RadioButton,
 	RadioButtonGroup
 } from '@carbon/react';
-import useReviewApps from '@hooks/review/useReviewApps';
+import useAppsInReview from '@hooks/review/useAppsInReview';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface FilterRadioGroupProps {
-	filterName: 'startDate' | 'dueDate';
+	filterName: 'startNarrativeReview' | 'dueDate';
 	withNever?: boolean;
 }
 
 const FilterRadioGroup = ({ filterName, withNever }: FilterRadioGroupProps) => {
 	const { t } = useTranslation('reviewNarrative');
-	const { setFilters, filtersAvailable, filters } = useReviewApps();
+	const { setFilters, filtersAvailable, filters } = useAppsInReview();
 	const filterOption = filtersAvailable[filterName];
 	const [selectedValue, setSelectedValue] = useState<
 		'never' | 'in-progress' | '' | number
@@ -42,7 +42,7 @@ const FilterRadioGroup = ({ filterName, withNever }: FilterRadioGroupProps) => {
 			onChange={(value, group) => setFilters({ [group]: value || undefined })}
 		>
 			<RadioButton labelText={t('all')} value='' id={`${filterName}-all`} />
-			{filterName === 'startDate' ? (
+			{filterName === 'startNarrativeReview' ? (
 				<RadioButton
 					labelText={t('in-progress')}
 					value='in-progress'
@@ -79,7 +79,7 @@ const FilterRadioGroup = ({ filterName, withNever }: FilterRadioGroupProps) => {
 
 const ReviewsFilters = () => {
 	const { t } = useTranslation('reviewNarrative');
-	const { filtersAvailable, setFilters } = useReviewApps();
+	const { filtersAvailable, setFilters } = useAppsInReview();
 	const handleCheckFilter = (filter: string, action: 'add' | 'remove') => {
 		setFilters(old => ({
 			owner:
@@ -115,7 +115,7 @@ const ReviewsFilters = () => {
 					))}
 				</AccordionItem>
 				<AccordionItem title={t('status')} className='border-0 '>
-					<FilterRadioGroup filterName='startDate' withNever />
+					<FilterRadioGroup filterName='startNarrativeReview' withNever />
 				</AccordionItem>
 				<AccordionItem title={t('due-date')} className='border-0 '>
 					<FilterRadioGroup filterName='dueDate' />

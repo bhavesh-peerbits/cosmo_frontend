@@ -5,11 +5,11 @@ import NoDataMessage from '@components/NoDataMessage';
 import PageHeader from '@components/PageHeader';
 import ReviewsFilters from '@components/ReviewNarrative/ReviewsFilters';
 import ReviewsTileContainer from '@components/ReviewNarrative/ReviewsTileContainer';
-import useReviewApps from '@hooks/review/useReviewApps';
+import useAppsInReview from '@hooks/review/useAppsInReview';
 import { useTranslation } from 'react-i18next';
 
 const SearchBar = () => {
-	const { filters, setFilters } = useReviewApps();
+	const { filters, setFilters } = useAppsInReview();
 	const { t } = useTranslation('reviewNarrative');
 
 	return (
@@ -25,7 +25,7 @@ const SearchBar = () => {
 	);
 };
 const ReviewNarrative = () => {
-	const { apps } = useReviewApps();
+	const { apps } = useAppsInReview();
 	const { t } = useTranslation('reviewNarrative');
 	return (
 		<PageHeader pageTitle='Review'>

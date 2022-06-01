@@ -1,16 +1,16 @@
 import { Grid, Column } from '@carbon/react';
-import useReviewApps from '@hooks/review/useReviewApps';
+import useAppsInReview from '@hooks/review/useAppsInReview';
 import ReviewTile from './ReviewTile';
 
 const ReviewsTileContainer = () => {
-	const { apps } = useReviewApps();
+	const { apps } = useAppsInReview();
 	return (
 		<Grid fullWidth narrow>
 			<Column sm={4} md={6} lg={16} xlg={15} max={16}>
 				<Grid fullWidth>
 					{apps.map(el => (
 						<Column key={el.id} sm={4} md={3} lg={8} xlg={5} max={4}>
-							<ReviewTile review={el} />
+							<ReviewTile application={el} />
 						</Column>
 					))}
 				</Grid>
