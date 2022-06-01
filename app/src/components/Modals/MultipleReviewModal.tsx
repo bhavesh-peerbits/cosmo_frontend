@@ -26,9 +26,8 @@ import cx from 'classnames';
 import useReviewProcedures from '@api/management/useReviewProcedures';
 
 type FormData = {
-	reviewer: User;
+	reviewer: User[];
 	reviewDate: Date;
-	owner: User;
 };
 
 type MultipleReviewModalProps = {
@@ -132,16 +131,16 @@ const MultipleReviewModal = ({
 									}
 									className='flex flex-col items-stretch'
 								>
-									{items.map(item => {
+									{items.map((item, index) => {
 										return (
-											<div className='mb-4 flex-col space-y-2'>
+											<div className='mb-4 flex-col space-y-2' key={item.id}>
 												<p className='text-heading-1'>{item.name}</p>
 												<Grid>
 													<Column lg={8} md={4} sm={4} className='mb-5'>
 														<SingleUserSelect
 															level={2}
 															label={t('reviewer')}
-															name='reviewer'
+															name={`reviewer.${index}`}
 															defaultValue={item.owner}
 															rules={{
 																required: {
@@ -156,7 +155,7 @@ const MultipleReviewModal = ({
 													<Column lg={8} md={4} sm={4} className='mb-5'>
 														<TextInput
 															readOnly
-															id='email-address'
+															id={`review-email-${item.id}`}
 															placeholder='example@email.com'
 															labelText={t('label-email')}
 															value={item.owner.email || ''}
