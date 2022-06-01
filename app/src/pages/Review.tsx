@@ -50,15 +50,15 @@ const Review = () => {
 					owner: a.app.owner,
 					expireDate: a.app.dueDate,
 					procedure: t('application-info'),
-					status: a.app.allowModifyOwner ? 'Ongoing' : 'Closed'
+					status: a.app.inReview ? 'Ongoing' : 'Closed'
 				},
 				...a.procedures.map(p => ({
 					id: p.id,
 					appName: a.app.name,
 					owner: p.owner,
-					expireDate: p.dueDate,
+					expireDate: a.app.dueDate,
 					procedure: procedures.get(p.procedureId)?.name,
-					status: p.allowModifyOwner ? 'Ongoing' : 'Closed'
+					status: p.inReview ? 'Ongoing' : 'Closed'
 				}))
 			])
 			.flat();
