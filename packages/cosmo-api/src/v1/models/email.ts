@@ -20,10 +20,10 @@
 export interface Email {
 	/**
 	 *
-	 * @type {string}
+	 * @type {Array<string>}
 	 * @memberof Email
 	 */
-	to?: string;
+	to?: Array<string>;
 	/**
 	 *
 	 * @type {string}
@@ -32,16 +32,16 @@ export interface Email {
 	from?: string;
 	/**
 	 *
-	 * @type {string}
+	 * @type {Array<string>}
 	 * @memberof Email
 	 */
-	cc?: string;
+	cc?: Array<string>;
 	/**
 	 *
-	 * @type {string}
+	 * @type {Array<string>}
 	 * @memberof Email
 	 */
-	bcc?: string;
+	bcc?: Array<string>;
 	/**
 	 *
 	 * @type {string}

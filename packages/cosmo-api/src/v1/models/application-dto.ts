@@ -93,9 +93,15 @@ export interface ApplicationDto {
 	 */
 	applicationData?: { [key: string]: string | undefined };
 	/**
+	 * At least one procedure in review state
+	 * @type {boolean}
+	 * @memberof ApplicationDto
+	 */
+	hasProcedureInReview?: boolean;
+	/**
 	 *
 	 * @type {boolean}
 	 * @memberof ApplicationDto
 	 */
-	allowModifyOwner?: boolean;
+	inReview?: boolean;
 }

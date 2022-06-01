@@ -83,31 +83,32 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 	toolbarBatchActions,
 	toolbarContent,
 	onExportClick,
-	disableExport
+	disableExport,
+	excludeCurrentView
 }: CosmoTableToolbarProps<T>) => {
 	const { t } = useTranslation('table');
 	const actions = useMemo(
 		() => [
 			{
 				id: 'export-all',
-				menuLabel: 'Download all data',
+				menuLabel: t('download-all'),
 				menuIcon: <TableBuilt />,
 				actions: [
 					{
 						id: 'export-all-pdf',
-						label: 'Download as PDF',
+						label: t('download-pdf'),
 						icon: <DocumentPdf />,
 						onClick: () => onExportClick('pdf', true)
 					},
 					{
 						id: 'export-all-xls',
-						label: 'Download as XLSX',
+						label: t('download-xlsx'),
 						icon: <Xls />,
 						onClick: () => onExportClick('xlsx', true)
 					},
 					{
 						id: 'export-all-csv',
-						label: 'Download as CSV',
+						label: t('download-csv'),
 						icon: <Csv />,
 						onClick: () => onExportClick('csv', true)
 					}
@@ -115,34 +116,34 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 			},
 			{
 				id: 'export-current',
-				menuLabel: 'Download current view',
+				menuLabel: t('download-current'),
 				menuIcon: <TableSplit />,
 				actions: [
 					{
 						id: 'export-current-pdf',
-						label: 'Download as PDF',
+						label: t('download-pdf'),
 						icon: <DocumentPdf />,
 						onClick: () => onExportClick('pdf')
 					},
 					{
 						id: 'export-current-xls',
-						label: 'Download as XLSX',
+						label: t('download-xlsx'),
 						icon: <Xls />,
 						onClick: () => onExportClick('xlsx')
 					},
 					{
 						id: 'export-current-csv',
-						label: 'Download as CSV',
+						label: t('download-csv'),
 						icon: <Csv />,
 						onClick: () => onExportClick('csv')
 					}
 				]
 			}
 		],
-		[onExportClick]
+		[onExportClick, t]
 	);
 
-	return onCancel && selectionIds && toolbarBatchActions && toolbarContent ? (
+	return onCancel && selectionIds && toolbarBatchActions ? (
 		<TableToolbar>
 			<TableBatchActions
 				onCancel={onCancel}
@@ -170,6 +171,7 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 							iconDescription={action.menuLabel}
 							renderIcon={() => action.menuIcon}
 							ariaLabel={action.menuLabel}
+							disabled={disableExport}
 						>
 							{action.actions.map(subAction => (
 								<TableToolbarAction
@@ -190,9 +192,36 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 		</TableToolbar>
 	) : (
 		<TableToolbarContent>
-			{actions.map(
-				action =>
-					action.id === 'export-all' && (
+			{excludeCurrentView ? (
+				actions.map(
+					action =>
+						action.id === 'export-all' && (
+							<TableToolbarMenu
+								key={action.id}
+								iconDescription={action.menuLabel}
+								renderIcon={() => action.menuIcon}
+								ariaLabel={action.menuLabel}
+								disabled={disableExport}
+							>
+								{action.actions.map(subAction => (
+									<TableToolbarAction
+										key={subAction.id}
+										onClick={subAction.onClick}
+										itemText={
+											<div className='flex items-center justify-between space-x-5'>
+												<div>{subAction.icon}</div>
+												<span>{subAction.label}</span>
+											</div>
+										}
+									/>
+								))}
+							</TableToolbarMenu>
+						)
+				)
+			) : (
+				<TableToolbarContent>
+					{toolbarContent}
+					{actions.map(action => (
 						<TableToolbarMenu
 							key={action.id}
 							iconDescription={action.menuLabel}
@@ -213,7 +242,8 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 								/>
 							))}
 						</TableToolbarMenu>
-					)
+					))}
+				</TableToolbarContent>
 			)}
 		</TableToolbarContent>
 	);

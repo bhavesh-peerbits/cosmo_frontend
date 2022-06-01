@@ -15,32 +15,35 @@ import SingleUserSelect from '@components/SingleUserSelect';
 import FullWidthColumn from '@components/FullWidthColumn';
 import User from '@model/User';
 import DatePickerWrapper from '@components/DatePickerWrapper';
-import useReviewApp from '@api/management/useReviewApp';
 import ApiError from '@api/ApiError';
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
+import useReviewProcedure from '@api/management/useReviewProcedure';
+import ProcedureAppInstance from '@model/ProcedureAppInstance';
 
-type AppReviewModalProps = {
+type ProcedureReviewModalProps = {
 	appId: string;
 	isOpen: boolean;
 	setIsOpen: (value: boolean) => void;
-	owner: User;
+	procedure: ProcedureAppInstance;
 };
 
 type FormData = {
 	reviewer: User;
 	reviewDate: Date;
-	owner: User;
 };
 
-const ApplicationReviewModal = ({
+const ProcedureReviewModal = ({
 	appId,
 	isOpen,
 	setIsOpen,
-	owner
-}: AppReviewModalProps) => {
+	procedure
+}: ProcedureReviewModalProps) => {
 	const { t } = useTranslation('modals');
-	const { mutate, error, isError, isLoading, reset } = useReviewApp(appId);
+	const { mutate, error, isError, isLoading, reset } = useReviewProcedure(
+		appId,
+		procedure.id
+	);
 	const {
 		control,
 		reset: resetForm,
@@ -66,12 +69,11 @@ const ApplicationReviewModal = ({
 			}
 		);
 	};
-
 	return (
 		<Form>
 			<ComposedModal preventCloseOnClickOutside open={isOpen} onClose={() => cleanUp()}>
 				<ModalHeader
-					title={t('application-review')}
+					title={t('procedure-review')}
 					label={`${t('fill-field')} "${t('send-email')}".`}
 					closeModal={() => cleanUp()}
 				/>
@@ -83,7 +85,7 @@ const ApplicationReviewModal = ({
 								helperText={t('helper-user')}
 								label={t('reviewer')}
 								name='reviewer'
-								defaultValue={owner}
+								defaultValue={procedure.owner}
 								rules={{
 									required: {
 										value: true,
@@ -100,7 +102,7 @@ const ApplicationReviewModal = ({
 								id='email-address'
 								placeholder='example@email.com'
 								labelText={t('label-email')}
-								value={owner.email || ''}
+								value={procedure.owner.email || ''}
 								helperText={t('helper-email')}
 								className='w-full grow-0'
 							/>
@@ -158,4 +160,4 @@ const ApplicationReviewModal = ({
 		</Form>
 	);
 };
-export default ApplicationReviewModal;
+export default ProcedureReviewModal;

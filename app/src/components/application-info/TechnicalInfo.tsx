@@ -1,6 +1,7 @@
 import { Column, Grid, TextInput } from '@carbon/react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import FullWidthColumn from '@components/FullWidthColumn';
+import { useTranslation } from 'react-i18next';
 
 export interface TechnicalInfoForm {
 	technicalInfo: {
@@ -21,14 +22,15 @@ interface TechnicalInfoProps {
 }
 
 const TechnicalInfo = ({ register }: TechnicalInfoProps) => {
+	const { t } = useTranslation('applicationInfo');
 	return (
 		<Grid fullWidth>
 			<Column sm={4} md={8} lg={8} className='mb-5'>
 				<TextInput
 					className='w-full'
 					id='application-servers'
-					labelText='Application Servers'
-					placeholder='Application servers'
+					labelText={t('app-servers')}
+					placeholder={t('app-servers')}
 					{...register('technicalInfo.appServers')}
 				/>
 			</Column>
@@ -36,8 +38,8 @@ const TechnicalInfo = ({ register }: TechnicalInfoProps) => {
 				<TextInput
 					className='w-full'
 					id='application-servers-os'
-					labelText='Application Servers OS'
-					placeholder='Application servers OS'
+					labelText={t('app-servers-os')}
+					placeholder={t('app-servers-os')}
 					{...register('technicalInfo.appServersOS')}
 				/>
 			</Column>
@@ -45,8 +47,8 @@ const TechnicalInfo = ({ register }: TechnicalInfoProps) => {
 				<TextInput
 					className='w-full self-stretch'
 					id='application-code-path'
-					labelText='Application Code Path'
-					placeholder='Application code path'
+					labelText={t('app-code-path')}
+					placeholder={t('app-code-path')}
 					{...register('technicalInfo.appCodePath')}
 				/>
 			</FullWidthColumn>
@@ -54,8 +56,8 @@ const TechnicalInfo = ({ register }: TechnicalInfoProps) => {
 				<TextInput
 					className='w-full self-stretch'
 					id='technical-code'
-					labelText='Technical Code'
-					placeholder='Technical code'
+					labelText={t('technical-code')}
+					placeholder={t('technical-code')}
 					{...register('technicalInfo.technicalCode')}
 				/>
 			</FullWidthColumn>
@@ -63,8 +65,8 @@ const TechnicalInfo = ({ register }: TechnicalInfoProps) => {
 				<TextInput
 					className='w-full'
 					id='db-servers'
-					labelText='DB Servers'
-					placeholder='DB servers'
+					labelText={t('db-servers')}
+					placeholder={t('db-servers')}
 					{...register('technicalInfo.dbServers')}
 				/>
 			</Column>
@@ -72,8 +74,8 @@ const TechnicalInfo = ({ register }: TechnicalInfoProps) => {
 				<TextInput
 					className='w-full'
 					id='db-servers-os'
-					labelText='DB Servers OS'
-					placeholder='DB servers OS'
+					labelText={t('db-servers-os')}
+					placeholder={t('db-servers-os')}
 					{...register('technicalInfo.dbServersOS')}
 				/>
 			</Column>
@@ -81,8 +83,8 @@ const TechnicalInfo = ({ register }: TechnicalInfoProps) => {
 				<TextInput
 					className='w-full'
 					id='database-service'
-					labelText='Database Service'
-					placeholder='Database service'
+					labelText={t('db-service')}
+					placeholder={t('db-service')}
 					{...register('technicalInfo.dbService')}
 				/>
 			</Column>
@@ -90,8 +92,8 @@ const TechnicalInfo = ({ register }: TechnicalInfoProps) => {
 				<TextInput
 					className='w-full'
 					id='database-instance'
-					labelText='Database Instance'
-					placeholder='Database instance'
+					labelText={t('db-instance')}
+					placeholder={t('db-instance')}
 					{...register('technicalInfo.dbInstance')}
 				/>
 			</Column>

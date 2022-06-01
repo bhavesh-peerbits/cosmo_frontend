@@ -92,11 +92,7 @@ const GroupableCosmoTable = <D extends object>({
 		getPaginationRowModel: getPaginationRowModel()
 	});
 	const { getRowModel, getHeaderGroups, setPageIndex, setPageSize } = instance;
-	const { exportData } = useExportTablePlugin(
-		instance,
-		exportFileName,
-		disableExport || grouping.length > 0
-	);
+	const { exportData } = useExportTablePlugin(instance, exportFileName, disableExport);
 	const renderBody = () => {
 		const { rows } = getRowModel();
 		return rows.length ? (
@@ -149,7 +145,7 @@ const GroupableCosmoTable = <D extends object>({
 		<TableContainer>
 			<CosmoTableToolbar<D>
 				onExportClick={exportData}
-				disableExport={grouping.length > 0}
+				disableExport={grouping.length > 0 || data.length === 0}
 			/>
 			<Layer level={1}>
 				<Table>
@@ -177,15 +173,15 @@ const GroupableCosmoTable = <D extends object>({
 													{header.column.getCanGroup() && (
 														<OverflowMenu
 															ariaLabel='Overflow Menu'
-															iconDescription='action'
+															iconDescription='Menu'
 														>
 															<OverflowMenuItem
 																itemText={
 																	(header.column.getIsSorted() === 'desc' &&
-																		'Original sort') ||
+																		t('sort-ascending')) ||
 																	(header.column.getIsSorted() === 'asc' &&
-																		'Sord Descending') ||
-																	'Sord Ascending'
+																		t('original-sort')) ||
+																	t('sort-descending')
 																}
 																onClick={header.column.getToggleSortingHandler()}
 															/>
@@ -194,8 +190,8 @@ const GroupableCosmoTable = <D extends object>({
 																hasDivider
 																itemText={
 																	header.column.getIsGrouped()
-																		? 'Remove Group'
-																		: 'Group by'
+																		? t('remove-group')
+																		: t('group-by')
 																}
 																onClick={header.column.getToggleGroupingHandler()}
 															/>

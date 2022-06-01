@@ -98,8 +98,8 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 	});
 
 	const saveForm = (dataProc: ProcedureFormData) => {
-		const onSuccess = () => {
-			reset();
+		const onSuccess = (newData: ProcedureAppInstance) => {
+			reset(newData);
 			resetNew();
 			resetEdit();
 		};
@@ -114,7 +114,7 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 		if (isNew) {
 			addMutate(commonParams, { onSuccess });
 		} else {
-			editMutate({ ...commonParams, procedureAppId: procedure.id }, { onSuccess });
+			editMutate({ ...commonParams, procedureAppId: procedureApp.id }, { onSuccess });
 		}
 	};
 

@@ -1,6 +1,6 @@
 {
 	"delete-apps": "Sei sicuro di voler eliminare ",
-	"applications": "applicationi",
+	"applications": "applicazioni",
 	"delete-app": "Sei sicuro di voler eliminare questa applicazione?",
 	"cancel": "Annulla",
 	"delete": "Elimina",
@@ -8,8 +8,8 @@
 	"delete-procedure": "Sei sicuro di voler eliminare questa procedura?",
 	"fill-field": "Per favore, compila i campi e clicca",
 	"send-email": "Invia Email",
-	"procedures-selected": "Numero totale di procedure selezionate per la revisione",
-	"applications-selected": "Numero totale di applicazioni selezionate per la revisione",
+	"total-procedures": "Numero totale di procedure selezionate per la revisione",
+	"total-applications": "Numero totale di applicazioni selezionate per la revisione",
 	"description": "Descrizione",
 	"procedure-review": "Revisione Procedura",
 	"application-review": "Revisione Applicazione",
@@ -18,5 +18,7 @@
 	"helper-email": "La richiesta di revisione verrà inviata a questo indirizzo email",
 	"label-email": "Indirizzo email",
 	"helper-user": "La richiesta di revisione verrà inviata a questo utente",
-	"reviewer": "Rivalidatore"
+	"reviewer": "Rivalidatore",
+	"procedures-selected": "Procedure selezionate",
+	"application-selected": "Applicazioni selezionate"
 }

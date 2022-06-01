@@ -54,7 +54,7 @@ const UserPanel = ({ expanded, user, onClickOutside }: UserPanelProps) => {
 					>
 						<ul className='space-y-3'>
 							{user?.roles?.map(role => (
-								<li className='w-full'>
+								<li className='w-full' key={role}>
 									<div className='w-full border-b-[1px] border-solid border-border-subtle-1 px-5 py-3 text-body-short-1'>
 										{mapUserRoleToDisplayRole(role)}
 									</div>

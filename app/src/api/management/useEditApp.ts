@@ -23,6 +23,7 @@ const useEditApp = () => {
 			queryClient.setQueriesData(['managementApps'], old =>
 				old instanceof Map ? new Map(old.set(variables.appId, data)) : data
 			);
+			queryClient.invalidateQueries(['appChanges', variables.appId]);
 		}
 	});
 };

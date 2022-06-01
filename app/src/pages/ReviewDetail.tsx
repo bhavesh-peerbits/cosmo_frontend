@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
 import PageHeader from '@components/PageHeader';
 import { Grid, Tile } from '@carbon/react';
@@ -10,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import ApplicationInfoReview from '@components/ReviewNarrative/ApplicationInfoReview';
 import { useParams } from 'react-router-dom';
 import ProcedureAppInstance from '@model/ProcedureAppInstance';
+import routes from '@routes/routes-const';
 
 const ReviewDetail = () => {
 	const { t } = useTranslation('reviewNarrative');
@@ -43,31 +43,27 @@ const ReviewDetail = () => {
 	]; // TODO wait BE for response
 
 	const { breadcrumbSize } = useBreadcrumbSize();
-	const buttonRef = useRef<HTMLDivElement>(null);
 	return (
 		<PageHeader
 			pageTitle={application.name}
-			intermediateRoutes={[{ name: 'Review', to: '/review-narrative' }]}
+			intermediateRoutes={[{ name: 'Review', to: routes.REVIEW_NARRATIVE }]}
 		>
-			<div className='p-container-1'>
-				<TableOfContents
-					stickyOffset={buttonRef.current?.getBoundingClientRect()?.height || 0}
-					tocStickyOffset={breadcrumbSize * 2}
-				>
-					<Grid fullWidth className='h-full pb-4'>
-						<FullWidthColumn className='pt-4'>
+			<div className='md:p-container-1'>
+				<TableOfContents stickyOffset={30} tocStickyOffset={breadcrumbSize + 10}>
+					<Grid fullWidth className='h-full p-5'>
+						<FullWidthColumn>
 							<div className='space-y-7'>
 								{application.allowModifyOwner && (
 									<Tile className='bg-background'>
 										<Grid>
-											<FullWidthColumn className='flex justify-between'>
+											<FullWidthColumn className='flex justify-between space-x-1'>
 												<p
-													data-toc-id={`procedure-container-${application.id}`}
-													className='text-productive-heading-3'
+													data-toc-id={`application-container-${application.id}`}
+													className='flex-1 text-productive-heading-3'
 												>
 													{t('application-info')}
 												</p>
-												<div>
+												<div className='flex-1'>
 													<p className='text-text-secondary text-body-compact-1'>
 														{`${t(
 															'last-review'
@@ -88,16 +84,16 @@ const ReviewDetail = () => {
 								{procedureList.map(
 									procedure =>
 										procedure.allowModifyOwner && (
-											<Tile className='w-full bg-background'>
+											<Tile className='w-full bg-background' key={procedure.id}>
 												<Grid>
-													<FullWidthColumn className='flex justify-between'>
+													<FullWidthColumn className='flex justify-between space-x-1'>
 														<p
 															data-toc-id={`procedure-container-${procedure.id}`}
-															className='text-productive-heading-3'
+															className='flex-1 text-productive-heading-3'
 														>
 															{procedure.name}
 														</p>
-														<div>
+														<div className='flex-1'>
 															<p className='text-text-secondary text-body-compact-1'>
 																{`${t(
 																	'last-review'

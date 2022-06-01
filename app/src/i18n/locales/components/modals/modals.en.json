@@ -8,8 +8,8 @@
 	"delete-procedure": "Are you sure you want to delete this procedure?",
 	"fill-field": "Please fill out the fields below, then press",
 	"send-email": "Send Email",
-	"procedures-selected": "Total number of procedures selected to review",
-	"applications-selected": "Total number of applications selected to review",
+	"total-procedures": "Total number of procedures selected to review",
+	"total-applications": "Total number of applications selected to review",
 	"description": "Description",
 	"procedure-review": "Procedure Review",
 	"application-review": "Application Review",
@@ -18,5 +18,7 @@
 	"helper-email": "The review request will be sent to this email address",
 	"label-email": "Email Address",
 	"helper-user": "The review request will be sent to this user",
-	"reviewer": "Reviewer"
+	"reviewer": "Reviewer",
+	"procedures-selected": "Procedures selected",
+	"application-selected": "Application selected"
 }

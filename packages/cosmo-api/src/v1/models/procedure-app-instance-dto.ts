@@ -88,4 +88,10 @@ export interface ProcedureAppInstanceDto {
 	 * @memberof ProcedureAppInstanceDto
 	 */
 	lastModifier: UserDto;
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof ProcedureAppInstanceDto
+	 */
+	inReview?: boolean;
 }

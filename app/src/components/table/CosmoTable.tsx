@@ -50,6 +50,7 @@ interface CosmoTableProps<D extends object> {
 		all: boolean | 'selection';
 	}) => string;
 	disableExport?: boolean;
+	excludeCurrentView?: boolean;
 }
 
 const CosmoTable = <D extends object>({
@@ -59,7 +60,8 @@ const CosmoTable = <D extends object>({
 	noDataMessage,
 	isSelectable,
 	exportFileName,
-	disableExport
+	disableExport,
+	excludeCurrentView
 }: CosmoTableProps<D>) => {
 	const { t } = useTranslation('table');
 	const [rowSelection, setRowSelection] = useState({});
@@ -137,19 +139,20 @@ const CosmoTable = <D extends object>({
 
 	return (
 		<TableContainer>
-			{toolbar && (
-				<CosmoTableToolbar<D>
-					onExportClick={exportData}
-					selectionIds={
-						getSelectedRowModel()
-							.flatRows.map(row => row.original)
-							.filter(r => r) as D[]
-					}
-					onCancel={() => toggleAllRowsSelected(false)}
-					toolbarBatchActions={toolbar.toolbarBatchActions}
-					toolbarContent={toolbar.toolbarContent}
-				/>
-			)}
+			<CosmoTableToolbar<D>
+				onExportClick={exportData}
+				selectionIds={
+					getSelectedRowModel()
+						.flatRows.map(row => row.original)
+						.filter(r => r) as D[]
+				}
+				onCancel={() => toggleAllRowsSelected(false)}
+				toolbarBatchActions={toolbar?.toolbarBatchActions}
+				toolbarContent={toolbar?.toolbarContent}
+				excludeCurrentView={excludeCurrentView}
+				disableExport={data.length === 0}
+			/>
+
 			<Layer level={1}>
 				<Table>
 					<TableHead>
@@ -196,7 +199,6 @@ const CosmoTable = <D extends object>({
 					<TableBody>{renderBody()}</TableBody>
 				</Table>
 			</Layer>
-
 			<Pagination
 				backwardText={t('previous-page')}
 				forwardText={t('next-page')}
