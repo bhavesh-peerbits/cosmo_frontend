@@ -17,6 +17,7 @@ const useDeleteApp = () => {
 				old instanceof Map ? old.delete(params.appId) && new Map(old) : undefined
 			);
 			queryClient.removeQueries(['managementApps', params.appId]);
+			queryClient.removeQueries(['appChanges', params.appId]);
 		}
 	});
 };

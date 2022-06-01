@@ -20,7 +20,7 @@ const deleteProcedureApp = ({
 	});
 };
 
-const useEditProcedureApp = () => {
+const useDeleteProcedureApp = () => {
 	const queryClient = useQueryClient();
 	return useMutation(deleteProcedureApp, {
 		onSuccess: (data, variables) => {
@@ -28,8 +28,9 @@ const useEditProcedureApp = () => {
 				(old as Map<string, ProcedureAppInstance>).delete(variables.procedureAppId);
 				return new Map(old as Map<string, ProcedureAppInstance>);
 			});
+			queryClient.invalidateQueries(['appChanges', variables.appId]);
 		}
 	});
 };
 
-export default useEditProcedureApp;
+export default useDeleteProcedureApp;

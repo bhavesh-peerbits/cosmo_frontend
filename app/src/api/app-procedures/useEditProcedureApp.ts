@@ -39,6 +39,7 @@ const useEditProcedureApp = () => {
 						(old as Map<string, ProcedureAppInstance>).set(variables.procedureAppId, data)
 					)
 			);
+			queryClient.invalidateQueries(['appChanges', variables.appId]);
 		}
 	});
 };
