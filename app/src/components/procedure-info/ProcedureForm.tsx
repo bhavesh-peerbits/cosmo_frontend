@@ -98,8 +98,8 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 	});
 
 	const saveForm = (dataProc: ProcedureFormData) => {
-		const onSuccess = () => {
-			reset();
+		const onSuccess = (newData: ProcedureAppInstance) => {
+			reset(newData);
 			resetNew();
 			resetEdit();
 		};
