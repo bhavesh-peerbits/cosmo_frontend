@@ -1,6 +1,9 @@
 import api from '@api';
 import { useMutation, useQueryClient } from 'react-query';
-import { fromProcedureApi } from '@model/Procedure';
+import ProcedureAppInstance, {
+	fromProcedureAppInstanceApi
+} from '@model/ProcedureAppInstance';
+import { toMap } from '@model/util';
 
 interface ReviewProceduresParams {
 	appId: string;
@@ -17,7 +20,8 @@ const reviewProcedures = ({ appId, endDate, elementIds }: ReviewProceduresParams
 				elementIds
 			}
 		})
-		.then(({ data }) => (data ? data.map(fromProcedureApi) : []));
+		.then(({ data }) => (data ? data.map(fromProcedureAppInstanceApi) : []))
+		.then(toMap);
 };
 
 const useReviewProcedures = (appId: string) => {
@@ -27,10 +31,11 @@ const useReviewProcedures = (appId: string) => {
 			reviewProcedures({ appId, endDate, elementIds }),
 		{
 			onSuccess: data => {
-				queryClient.setQueriesData(['managementApps'], old =>
-					old instanceof Map ? new Map(old.set(appId, data)) : data
+				queryClient.setQueriesData(
+					['app-procedures', appId],
+					old => new Map([...(old as Map<string, ProcedureAppInstance>), ...data])
 				);
-				queryClient.invalidateQueries(['app-procedures']);
+				queryClient.invalidateQueries(['managementApps']);
 			}
 		}
 	);

@@ -267,11 +267,10 @@ export const NarrativeReviewControllerApiAxiosParamCreator = function (
 				'multipleNarrativeReviewBody',
 				multipleNarrativeReviewBody
 			);
-			const localVarPath =
-				`/api/narrativeReview/application/{appId}/allProcedures`.replace(
-					`{${'appId'}}`,
-					encodeURIComponent(String(appId))
-				);
+			const localVarPath = `/api/narrativeReview/application/{appId}/procedures`.replace(
+				`{${'appId'}}`,
+				encodeURIComponent(String(appId))
+			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;

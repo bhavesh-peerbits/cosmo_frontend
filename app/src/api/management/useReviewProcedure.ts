@@ -1,5 +1,5 @@
 import api from '@api';
-import { fromProcedureApi } from '@model/Procedure';
+import { fromProcedureAppInstanceApi } from '@model/ProcedureAppInstance';
 import { useMutation, useQueryClient } from 'react-query';
 
 interface ReviewProcedureParams {
@@ -15,7 +15,7 @@ const reviewProcedure = ({ appId, endDate, procId }: ReviewProcedureParams) => {
 			procId: +procId,
 			narrativeReviewBody: { endDate: endDate.toISOString() }
 		})
-		.then(({ data }) => fromProcedureApi(data));
+		.then(({ data }) => fromProcedureAppInstanceApi(data));
 };
 
 const useReviewProcedure = (appId: string, procId: string) => {
@@ -24,10 +24,10 @@ const useReviewProcedure = (appId: string, procId: string) => {
 		({ endDate }: { endDate: Date }) => reviewProcedure({ appId, procId, endDate }),
 		{
 			onSuccess: data => {
-				queryClient.setQueriesData(['managementApps'], old =>
+				queryClient.setQueriesData(['app-procedures', procId], old =>
 					old instanceof Map ? new Map(old.set(appId, data)) : data
 				);
-				queryClient.invalidateQueries(['app-procedures']);
+				queryClient.invalidateQueries(['managementApps', appId]);
 			}
 		}
 	);

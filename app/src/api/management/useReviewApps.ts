@@ -1,5 +1,5 @@
 import api from '@api';
-import { fromApplicationApi } from '@model/Application';
+import Application, { fromApplicationApi } from '@model/Application';
 import { useMutation, useQueryClient } from 'react-query';
 
 interface ReviewAppsParams {
@@ -25,8 +25,10 @@ const useReviewApps = () => {
 			reviewApps({ endDate, elementIds }),
 		{
 			onSuccess: (data, variables) => {
-				queryClient.setQueriesData(['managementApps'], old =>
-					old instanceof Map ? new Map(old.set(variables, data)) : data
+				variables.elementIds.forEach(id =>
+					queryClient.setQueriesData(['managementApps', id], old =>
+						(old as Map<string, Application>).get(id.toString())
+					)
 				);
 				queryClient.invalidateQueries(['app-procedures']);
 			}

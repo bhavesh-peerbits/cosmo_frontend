@@ -14,7 +14,8 @@ interface Application {
 	icon: keyof typeof icons;
 	applicationData: Record<string, string | undefined> | undefined;
 	dueDate?: Date;
-	allowModifyOwner?: boolean;
+	inReview?: boolean;
+	hasProcedureInReview?: boolean;
 }
 
 export const fromApplicationApi = (applicationApi: ApplicationApi): Application => ({
@@ -31,7 +32,8 @@ export const fromApplicationApi = (applicationApi: ApplicationApi): Application 
 	dueDate: applicationApi.endNarrativeReview
 		? new Date(applicationApi.endNarrativeReview)
 		: undefined,
-	allowModifyOwner: applicationApi.allowModifyOwner
+	inReview: applicationApi.inReview,
+	hasProcedureInReview: applicationApi.hasProcedureInReview
 });
 
 export const toApplicationApi = (application: Application): ApplicationApi => ({
@@ -46,7 +48,8 @@ export const toApplicationApi = (application: Application): ApplicationApi => ({
 	icon: application.icon,
 	applicationData: application.applicationData,
 	endNarrativeReview: application.dueDate?.toISOString(),
-	allowModifyOwner: application.allowModifyOwner
+	inReview: application.inReview,
+	hasProcedureInReview: application.hasProcedureInReview
 });
 
 export default Application;
