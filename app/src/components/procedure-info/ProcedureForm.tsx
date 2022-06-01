@@ -114,7 +114,7 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 		if (isNew) {
 			addMutate(commonParams, { onSuccess });
 		} else {
-			editMutate({ ...commonParams, procedureAppId: procedure.id }, { onSuccess });
+			editMutate({ ...commonParams, procedureAppId: procedureApp.id }, { onSuccess });
 		}
 	};
 

@@ -32,7 +32,7 @@ const useEditProcedureApp = () => {
 	const queryClient = useQueryClient();
 	return useMutation(editProcedureApp, {
 		onSuccess: (data, variables) => {
-			queryClient.setQueryData(
+			queryClient.setQueriesData(
 				['app-procedures'],
 				old =>
 					new Map(
