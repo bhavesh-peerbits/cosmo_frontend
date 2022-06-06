@@ -4,48 +4,46 @@ import { Grid, Tile } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import TableOfContents from '@components/TableOfContents';
 import ProcedureReview from '@components/ReviewNarrative/ProcedureReview';
-import useGetAppReview from '@api/review/useGetAppReview';
 import { useTranslation } from 'react-i18next';
 import ApplicationInfoReview from '@components/ReviewNarrative/ApplicationInfoReview';
 import { useParams } from 'react-router-dom';
 import ProcedureAppInstance from '@model/ProcedureAppInstance';
 import routes from '@routes/routes-const';
+import useGetApp from '@api/management/useGetApp';
+import useGetProcedureForReview from '@api/review/useGetProcedureForReview';
+import { useMemo, useState, useEffect } from 'react';
+
+type ProcedureState = Partial<ProcedureAppInstance> & {
+	id: string;
+	procedureId: string;
+	isNew?: boolean;
+};
 
 const ReviewDetail = () => {
 	const { t } = useTranslation('reviewNarrative');
 	const { appId = '' } = useParams<{ appId: string }>();
-	const application = useGetAppReview(appId);
-	const procedureList = [
-		{
-			id: 'id1',
-			name: 'Procedure Name 1',
-			description: 'Description',
-			procedure: {
-				name: 'procedure name',
-				id: 'id1'
-			},
-			lastModify: new Date(),
-			lastReview: new Date(),
-			allowModifyOwner: true
-		},
-		{
-			id: 'id2',
-			name: 'Procedure Name 2',
-			description: 'Description',
-			procedure: {
-				name: 'procedure name',
-				id: 'id1'
-			},
-			lastModify: new Date(),
-			lastReview: new Date(),
-			allowModifyOwner: false
-		}
-	]; // TODO wait BE for response
-
+	const { data } = useGetApp(appId);
+	const { data: procedures = new Map<string, ProcedureAppInstance>() } =
+		useGetProcedureForReview(appId);
+	const serverProcs = useMemo(() => [...procedures.values()], [procedures]);
+	const [procedureList, setProcedureList] = useState<ProcedureState[]>(serverProcs);
 	const { breadcrumbSize } = useBreadcrumbSize();
+	useEffect(() => {
+		setProcedureList(old => {
+			const p = old.findIndex(proc => proc.isNew);
+			if (p !== -1) {
+				return old.splice(p, 1, serverProcs[p]);
+			}
+			return serverProcs;
+		});
+	}, [serverProcs]);
+
+	if (!data) {
+		return null;
+	}
 	return (
 		<PageHeader
-			pageTitle={application.name}
+			pageTitle={data.name}
 			intermediateRoutes={[{ name: 'Review', to: routes.REVIEW_NARRATIVE }]}
 		>
 			<div className='md:p-container-1'>
@@ -53,21 +51,19 @@ const ReviewDetail = () => {
 					<Grid fullWidth className='h-full p-5'>
 						<FullWidthColumn>
 							<div className='space-y-7'>
-								{application.allowModifyOwner && (
+								{data.inReview && (
 									<Tile className='bg-background'>
 										<Grid>
 											<FullWidthColumn className='flex justify-between space-x-1'>
 												<p
-													data-toc-id={`application-container-${application.id}`}
+													data-toc-id={`application-container-${data.id}`}
 													className='flex-1 text-productive-heading-3'
 												>
 													{t('application-info')}
 												</p>
 												<div className='flex-1'>
 													<p className='text-text-secondary text-body-compact-1'>
-														{`${t(
-															'last-review'
-														)}: ${application.lastReview.toLocaleString()}`}
+														{`${t('last-review')}: ${data.lastReview?.toLocaleString()}`}
 													</p>
 													<p className=' text-text-secondary text-body-compact-1'>
 														{`${t('last-reviewer')}:`}
@@ -75,7 +71,7 @@ const ReviewDetail = () => {
 												</div>
 											</FullWidthColumn>
 											<FullWidthColumn>
-												<ApplicationInfoReview application={application} />
+												<ApplicationInfoReview application={data} />
 											</FullWidthColumn>
 										</Grid>
 									</Tile>
@@ -83,7 +79,7 @@ const ReviewDetail = () => {
 
 								{procedureList.map(
 									procedure =>
-										procedure.allowModifyOwner && (
+										procedure.inReview && (
 											<Tile className='w-full bg-background' key={procedure.id}>
 												<Grid>
 													<FullWidthColumn className='flex justify-between space-x-1'>
@@ -97,7 +93,7 @@ const ReviewDetail = () => {
 															<p className='text-text-secondary text-body-compact-1'>
 																{`${t(
 																	'last-review'
-																)}: ${procedure.lastReview.toLocaleString()}`}
+																)}: ${procedure.lastReview?.toLocaleString()}`}
 															</p>
 															<p className=' text-text-secondary text-body-compact-1'>
 																{`${t('last-reviewer')}:`}
