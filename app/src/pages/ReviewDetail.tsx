@@ -28,6 +28,7 @@ const ReviewDetail = () => {
 	const serverProcs = useMemo(() => [...procedures.values()], [procedures]);
 	const [procedureList, setProcedureList] = useState<ProcedureState[]>(serverProcs);
 	const { breadcrumbSize } = useBreadcrumbSize();
+
 	useEffect(() => {
 		setProcedureList(old => {
 			const p = old.findIndex(proc => proc.isNew);

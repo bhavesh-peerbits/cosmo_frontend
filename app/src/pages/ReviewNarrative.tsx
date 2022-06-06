@@ -25,7 +25,8 @@ const SearchBar = () => {
 	);
 };
 const ReviewNarrative = () => {
-	const { apps } = useAppsInReview();
+	const { apps: data } = useAppsInReview();
+	const apps = data.filter(app => app.startNarrativeReview);
 	const { t } = useTranslation('reviewNarrative');
 	return (
 		<PageHeader pageTitle='Review'>

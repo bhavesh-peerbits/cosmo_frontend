@@ -3,7 +3,8 @@ import useAppsInReview from '@hooks/review/useAppsInReview';
 import ReviewTile from './ReviewTile';
 
 const ReviewsTileContainer = () => {
-	const { apps } = useAppsInReview();
+	const { apps: data } = useAppsInReview();
+	const apps = data.filter(app => app.startNarrativeReview);
 	return (
 		<Grid fullWidth narrow>
 			<Column sm={4} md={6} lg={16} xlg={15} max={16}>

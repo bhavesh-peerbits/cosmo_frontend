@@ -13,10 +13,11 @@ import {
 } from 'react-hook-form';
 import Application from '@model/Application';
 import { Grid, Form, Button } from '@carbon/react';
-import { isValid } from 'date-fns';
 import { Checkmark } from '@carbon/react/icons';
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import useEditApp from '@api/management/useEditApp';
+import ApiError from '@api/ApiError';
+import InlineLoadingStatus from '@components/InlineLoadingStatus';
 
 type ApplicationForm = GeneralInfoForm & TechnicalInfoForm;
 
@@ -27,13 +28,15 @@ interface ApplicationInfoReviewProps {
 const ApplicationInfoReview = ({ application }: ApplicationInfoReviewProps) => {
 	const { t } = useTranslation('applicationInfo');
 	const { applicationData } = application;
-	const [isConfirmed, setIsConfirmed] = useState(false);
+	const { mutate, isLoading, isError, isSuccess, error, reset: apiReset } = useEditApp();
+
 	const {
 		register,
 		getValues,
+		handleSubmit,
 		control,
 		reset,
-		formState: { errors, isDirty }
+		formState: { errors, isDirty, isValid }
 	} = useForm<ApplicationForm>({
 		mode: 'onChange',
 		defaultValues: {
@@ -60,10 +63,25 @@ const ApplicationInfoReview = ({ application }: ApplicationInfoReviewProps) => {
 		}
 	});
 
+	const sendData = (data: ApplicationForm) => {
+		const { appMaintenance, operationSupplier, ...rest } = data.generalInfo;
+		return mutate({
+			appId: application.id,
+			appData: {
+				...application,
+				...rest,
+				applicationData: {
+					appMaintenance,
+					operationSupplier,
+					...data.technicalInfo
+				}
+			}
+		});
+	};
 	return (
 		<Grid fullWidth className='h-full'>
 			<FullWidthColumn className='pt-4'>
-				<Form className='space-y-4'>
+				<Form className='space-y-4' onSubmit={handleSubmit(sendData)}>
 					<div className='space-y-7'>
 						<Grid fullWidth className='space-y-7'>
 							<FullWidthColumn>
@@ -75,7 +93,6 @@ const ApplicationInfoReview = ({ application }: ApplicationInfoReviewProps) => {
 								/>
 							</FullWidthColumn>
 						</Grid>
-
 						<Grid fullWidth className='space-y-7'>
 							<FullWidthColumn>
 								<TechnicalInfo
@@ -85,33 +102,34 @@ const ApplicationInfoReview = ({ application }: ApplicationInfoReviewProps) => {
 							</FullWidthColumn>
 						</Grid>
 					</div>
-				</Form>
-			</FullWidthColumn>
-			<FullWidthColumn className='mt-5 flex justify-end'>
-				<div className='flex w-full flex-1 items-center justify-end space-x-5'>
-					<Button
-						type='reset'
-						kind='tertiary'
-						disabled={!isDirty || isConfirmed}
-						onClick={() => reset()}
-					>
-						{t('discard')}
-					</Button>
-					{isConfirmed ? (
-						<div className='flex h-8 items-center space-x-2 text-link-primary'>
-							<p className='text-body-short-2'>{t('confirmed')}</p>
-							<Checkmark />
-						</div>
-					) : (
+					<div className='flex w-full flex-1 items-center justify-end space-x-5'>
 						<Button
-							type='submit'
-							onClick={() => setIsConfirmed(true)}
-							disabled={!isValid}
+							type='reset'
+							kind='tertiary'
+							disabled={!isDirty || isSuccess}
+							onClick={() => {
+								reset();
+								apiReset();
+							}}
 						>
-							{t('confirm')}
+							{t('discard')}
 						</Button>
-					)}
-				</div>
+						{isSuccess ? (
+							<div className='flex h-8 items-center space-x-2 text-link-primary'>
+								<p className='text-body-short-2'>{t('confirmed')}</p>
+								<Checkmark />
+							</div>
+						) : (
+							<Button type='submit' disabled={!isValid || isLoading}>
+								{t('confirm')}
+							</Button>
+						)}
+						<InlineLoadingStatus
+							isSuccess={false}
+							{...{ isLoading, isError, error: error as ApiError }}
+						/>
+					</div>
+				</Form>
 			</FullWidthColumn>
 		</Grid>
 	);
