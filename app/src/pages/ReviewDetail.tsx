@@ -61,13 +61,19 @@ const ReviewDetail = () => {
 												>
 													{t('application-info')}
 												</p>
-												<div className='flex-1'>
+												<div className='justify-end'>
 													<p className='text-text-secondary text-body-compact-1'>
-														{`${t('last-review')}: ${data.lastReview?.toLocaleString()}`}
+														{`${t('last-review')}: ${
+															data.lastReview
+																? data.lastReview.toLocaleString()
+																: t('never')
+														}`}
 													</p>
-													<p className=' text-text-secondary text-body-compact-1'>
-														{`${t('last-reviewer')}:`}
-													</p>
+													{data.lastReview && (
+														<p className='text-text-secondary text-body-compact-1'>
+															{`${t('last-reviewer')}:`}
+														</p>
+													)}
 												</div>
 											</FullWidthColumn>
 											<FullWidthColumn>
