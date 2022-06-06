@@ -16,5 +16,17 @@
 	"description": "Description",
 	"email": "Email",
 	"download": "Download",
-	"delete": "Supprimer"
+	"delete": "Supprimer",
+	"new-application": "Nouvelle Application",
+	"create-new": "Créer une nouvelle application",
+	"back": "Retour",
+	"cancel": "Annuler",
+	"next": "Suivant",
+	"create": "Créer Application",
+	"general-info": "Informations Générales",
+	"technical-info": "Informations Techniques",
+	"basic-info": "Ce sont les informations de base sur l'application",
+	"flag-technical": "Vous pouvez également fournir des informations supplémentaires sur l'application en vérifiant le drapeau d'informations techniques",
+	"include-technical": "inclure des informations techniques",
+	"subtitle-technical": "Ce sont les informations techniques sur l'application"
 }

@@ -10,6 +10,7 @@ import TechnicalInfo, {
 } from '@components/application-info/TechnicalInfo';
 import useCreateApp from '@api/management/useCreateApp';
 import ApiError from '@api/ApiError';
+import { useTranslation } from 'react-i18next';
 
 type NewApplicationProps = {
 	isOpen: boolean;
@@ -19,6 +20,7 @@ type NewApplicationProps = {
 const emptyFunc = (f: (data: undefined) => void) => () => f(undefined);
 
 const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
+	const { t } = useTranslation('management');
 	const [shouldIncludeTechnicalInfo, setShouldIncludeTechnicalInfo] = useState(true);
 	const { mutateAsync, error: createError, reset: resetApi } = useCreateApp();
 	const {
@@ -62,16 +64,16 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 	const generateGeneralInfo = useCallback(() => {
 		return (
 			<CreateTearsheetStep
-				title='General Information'
+				title={t('general-info')}
 				disableSubmit={!isValid}
 				hasFieldset={false}
-				subtitle='That are the basic information about the application'
-				description='You can also provide additional information about the application checking the technical information flag'
+				subtitle={t('basic-info')}
+				description={t('flag-technical')}
 				keyValue='topic'
 			>
 				<Stack gap={5}>
 					<Checkbox
-						labelText='Include technical information'
+						labelText={t('include-technical')}
 						id='include-technical-info'
 						onChange={(e, { checked }) => setShouldIncludeTechnicalInfo(checked)}
 						checked={shouldIncludeTechnicalInfo}
@@ -106,18 +108,17 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 		isDirty,
 		isValid,
 		register,
-		shouldIncludeTechnicalInfo
+		shouldIncludeTechnicalInfo,
+		t
 	]);
 
 	const generateTechnicalInfo = useCallback(
 		() => (
 			<CreateTearsheetStep
 				keyValue='technical-info'
-				title='Technical Information'
-				subtitle='That are the technical information about the application'
-				description='You can also provide additional information about the application checking the technical information flag'
+				title={t('technical-info')}
+				subtitle={t('subtitle-techincal')}
 				disableSubmit={!technicalIsDirty}
-				fieldsetLegendText='Technical Info'
 				includeStep={shouldIncludeTechnicalInfo}
 			>
 				<div className='mb-5'>
@@ -153,19 +154,20 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 			shouldIncludeTechnicalInfo,
 			technicalError,
 			technicalIsDirty,
-			technicalRegister
+			technicalRegister,
+			t
 		]
 	);
 
 	return (
 		<CreateTearsheet
 			influencerWidth='narrow'
-			submitButtonText='Create Application'
-			cancelButtonText='Cancel'
-			backButtonText='Back'
-			nextButtonText='Next'
-			description='Create a new application'
-			title='New Application'
+			submitButtonText={t('create')}
+			cancelButtonText={t('cancel')}
+			backButtonText={t('back')}
+			nextButtonText={t('next')}
+			description={t('create-new')}
+			title={t('new-application')}
 			open={isOpen}
 			onClose={() => {
 				clearData();

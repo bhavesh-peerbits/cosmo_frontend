@@ -16,5 +16,17 @@
 	"description": "Description",
 	"email": "Email",
 	"download": "Download",
-	"delete": "Delete"
+	"delete": "Delete",
+	"new-application": "New Application",
+	"create-new": "Create a new application",
+	"back": "Back",
+	"cancel": "Cancel",
+	"next": "Next",
+	"create": "Create Application",
+	"general-info": "General Information",
+	"technical-info": "Technical Information",
+	"basic-info": "That are the basic information about the application",
+	"flag-technical": "You can also provide additional information about the application checking the technical information flag",
+	"include-technical": "Include technical information",
+	"subtitle-techincal": "That are the technical information about the application"
 }
