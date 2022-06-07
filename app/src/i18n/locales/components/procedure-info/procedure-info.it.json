@@ -15,5 +15,11 @@
 	"name-exists": "Questo nome è già esistente",
 	"confirmed": "Confermato",
 	"confirm": "Conferma",
-	"discard": "Ripristina"
+	"discard": "Ripristina",
+	"cancel": "Annulla",
+	"new-procedure": "Nuova Procedura",
+	"review": "Revisione",
+	"relative-button": "Aggiungi una nuova procedura tramite il relativo pulsante",
+	"no-procedures": "Nessuna Procedura",
+	"delete-procedure": "Rimuovi Procedura"
 }

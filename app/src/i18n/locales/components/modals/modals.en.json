@@ -20,5 +20,6 @@
 	"helper-user": "The review request will be sent to this user",
 	"reviewer": "Reviewer",
 	"procedures-selected": "Procedures selected",
-	"application-selected": "Application selected"
+	"application-selected": "Application selected",
+	"generate-narrative": "Generate Narrative"
 }

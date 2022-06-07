@@ -20,5 +20,6 @@
 	"helper-user": "La richiesta di revisione verrà inviata a questo utente",
 	"reviewer": "Rivalidatore",
 	"procedures-selected": "Procedure selezionate",
-	"application-selected": "Applicazioni selezionate"
+	"application-selected": "Applicazioni selezionate",
+	"generate-narrative": "Generazione Narrative"
 }
