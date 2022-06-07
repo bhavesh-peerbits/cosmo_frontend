@@ -21,5 +21,11 @@
 	"reviewer": "Revalidateur",
 	"procedures-selected": "Procédures sélectionnées",
 	"application-selected": "Applications sélectionnées",
-	"generate-narrative": "Générer Narrative"
+	"generate-narrative": "Générer Narrative",
+	"select-application": "Sélectionner l'application",
+	"select-procedure": "Sélectionner la procédure",
+	"no-procedures": "Aucune procédure disponible",
+	"no-application": "Aucune application disponible",
+	"copy-procedure": "Copier la procédure",
+	"add-procedure": "Ajouter Procédure"
 }

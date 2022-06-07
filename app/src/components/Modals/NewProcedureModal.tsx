@@ -17,6 +17,7 @@ import Procedure from '@model/Procedure';
 import ProcedureAppInstance from '@model/ProcedureAppInstance';
 import useGetProcedures from '@api/procedures/useGetProcedures';
 import useGetProcedureByApp from '@api/app-procedures/useGetProcedureByApp';
+import { useTranslation } from 'react-i18next';
 
 interface ProcedureSelection {
 	isCopySelected: boolean;
@@ -47,11 +48,12 @@ const ApplicationProcedureSelect = ({
 	const { data: proceduresApp = new Map<string, ProcedureAppInstance>() } =
 		useGetProcedureByApp(appId);
 	const { data: procedures = new Map<string, Procedure>() } = useGetProcedures();
+	const { t } = useTranslation('modals');
 
 	return (
 		<Select
 			id='select-app'
-			labelText='Select application'
+			labelText={t('select-application')}
 			defaultValue='placeholder-item'
 			disabled={proceduresApp.size === 0}
 			onChange={e =>
@@ -65,7 +67,7 @@ const ApplicationProcedureSelect = ({
 				disabled
 				hidden
 				value={procedureSelection.procedureFrom || 'placeholder-item'}
-				text={proceduresApp.size === 0 ? 'No procedures available' : 'Select procedure'}
+				text={proceduresApp.size === 0 ? t('no-procedures') : t('select-procedure')}
 			/>
 			{[...proceduresApp.values()].map(proc => (
 				<SelectItem
@@ -83,6 +85,7 @@ const ApplicationSelect = ({
 	setProcedureSelection,
 	procedureApps
 }: ProcedureBodyProps) => {
+	const { t } = useTranslation('modals');
 	const { appId } = useParams();
 	const { data: allApplications = new Map() } = useGetApps();
 	const [application, setApplication] = useState<string>();
@@ -95,7 +98,7 @@ const ApplicationSelect = ({
 		<div className='space-y-7'>
 			<Select
 				id='select-app'
-				labelText='Select application'
+				labelText={t('select-application')}
 				defaultValue='placeholder-item'
 				disabled={applications.length === 0}
 				onChange={e => setApplication(e.target.value)}
@@ -105,7 +108,7 @@ const ApplicationSelect = ({
 					hidden
 					value='placeholder-item'
 					text={
-						applications.length === 0 ? 'No applications available' : 'Select application'
+						applications.length === 0 ? t('no-applications') : t('select-application')
 					}
 				/>
 				{applications.map(app => (
@@ -134,6 +137,7 @@ const ProcedureBody = ({
 	setProcedureSelection,
 	procedureApps
 }: ProcedureBodyProps) => {
+	const { t } = useTranslation('modals');
 	const { data: procedures = new Map<string, Procedure>() } = useGetProcedures();
 	const { isCopySelected } = procedureSelection;
 	const procFiltered = useMemo(
@@ -148,7 +152,7 @@ const ProcedureBody = ({
 		<div className='flex flex-col space-y-7'>
 			<Toggle
 				aria-label='Toggle Copy Procedure'
-				labelText='Copy procedure'
+				labelText={t('copy-procedure')}
 				labelA=''
 				labelB='Copy'
 				id='toggle-1'
@@ -191,9 +195,7 @@ const ProcedureBody = ({
 					disabled
 					hidden
 					value='placeholder-item'
-					text={
-						procFiltered.length === 0 ? 'No procedures available' : 'Select procedure'
-					}
+					text={procFiltered.length === 0 ? t('no-procedures') : t('select-procedure')}
 				/>
 				{procFiltered.map(proc => (
 					<SelectItem key={proc.id} text={proc.name} value={proc.id} />
@@ -226,6 +228,7 @@ const NewProcedureModal = ({
 	setIsOpen,
 	onSuccess
 }: NewProcedureModalProps) => {
+	const { t } = useTranslation('modals');
 	const [procedureSelection, setProcedureSelection] = useState<ProcedureSelection>({
 		isCopySelected: false,
 		procedureFrom: undefined,
@@ -267,7 +270,7 @@ const NewProcedureModal = ({
 			)}
 			<ModalFooter>
 				<Button kind='secondary' onClick={() => setIsOpen(false)}>
-					Cancel
+					{t('cancel')}
 				</Button>
 				<Button
 					disabled={!isValid}
@@ -277,7 +280,7 @@ const NewProcedureModal = ({
 						setIsOpen(false);
 					}}
 				>
-					Add Procedure
+					{t('add-procedure')}
 				</Button>
 			</ModalFooter>
 		</ComposedModal>

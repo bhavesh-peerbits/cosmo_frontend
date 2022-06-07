@@ -21,5 +21,11 @@
 	"reviewer": "Reviewer",
 	"procedures-selected": "Procedures selected",
 	"application-selected": "Application selected",
-	"generate-narrative": "Generate Narrative"
+	"generate-narrative": "Generate Narrative",
+	"select-application": "Select application",
+	"select-procedure": "Select procedure",
+	"no-procedures": "No procedures available",
+	"no-applications": "No applications available",
+	"copy-procedure": "Copy procedure",
+	"add-procedure": "Add Procedure"
 }
