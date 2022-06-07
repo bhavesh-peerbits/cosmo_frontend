@@ -17,5 +17,8 @@
 	"filters": "Filters",
 	"cancel": "Cancel",
 	"add-user": "Add user",
-	"remove": "Remove"
+	"remove": "Remove",
+	"select-users": "Select one or more users from the list",
+	"users-selected": "Users selected",
+	"name": "Name"
 }

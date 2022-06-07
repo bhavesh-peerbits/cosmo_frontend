@@ -17,5 +17,8 @@
 	"filters": "Filtri",
 	"cancel": "Annulla",
 	"add-user": "Aggiungi utente",
-	"remove": "Rimuovi"
+	"remove": "Rimuovi",
+	"select-users": "Seleziona uno o più utenti dalla lista",
+	"users-selected": "Utenti selezionati",
+	"name": "Nome"
 }

@@ -14,6 +14,7 @@ import {
 } from 'react-hook-form';
 import useGetUsers from '@api/user/useGetUsers';
 import cx from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 type MultipleUserSelectProps<
 	T extends FieldValues,
@@ -41,6 +42,7 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 	readOnly,
 	defaultValue
 }: MultipleUserSelectProps<T, TName>) => {
+	const { t } = useTranslation('userSelect');
 	const [openSearch, setOpenSearch] = useState(false);
 	const {
 		field: { onChange, onBlur, value: formValue, ref },
@@ -90,7 +92,7 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 											renderIcon={() => <UserFollow size={20} />}
 											size='sm'
 											hasIconOnly
-											iconDescription='add user'
+											iconDescription={t('add-user')}
 											onClick={() => setOpenSearch(true)}
 										/>
 									)}
@@ -114,7 +116,7 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 														size='sm'
 														renderIcon={Close}
 														hasIconOnly
-														iconDescription='remove'
+														iconDescription={t('remove')}
 														onClick={() =>
 															onChange(selectUsers.filter(uu => uu.id !== u.id))
 														}
@@ -124,7 +126,7 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 										</div>
 									) : (
 										<span className='text-text-placeholder text-body-compact-1'>
-											Select a user
+											{t('select-user')}
 										</span>
 									)}
 								</div>
@@ -144,36 +146,36 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 				</div>
 			</div>
 			<MultiAddSelect
-				itemsLabel='Users'
-				noResultsTitle='No results'
-				noResultsDescription='Try with different keywords'
-				onCloseButtonText='Close'
+				itemsLabel={t('users')}
+				noResultsTitle={t('no-results')}
+				noResultsDescription={t('different-keywords')}
+				onCloseButtonText={t('cancel')}
 				onSubmit={id => {
 					onChange(users.filter(user => id.includes(user.id)));
 					setOpenSearch(false);
 				}}
 				onClose={() => setOpenSearch(false)}
-				onSubmitButtonText='Select'
-				searchResultsLabel='Search results'
-				title='Select User'
-				description='Select a single user from the list'
-				globalSearchLabel='Username or email'
-				globalSearchPlaceholder='Find user'
+				onSubmitButtonText={t('select')}
+				searchResultsLabel={t('search-results')}
+				title={t('select-user')}
+				description={t('select-users')}
+				globalSearchLabel={t('username-email')}
+				globalSearchPlaceholder={t('find-user')}
 				open={openSearch}
-				influencerTitle='Users selected'
-				influencerItemTitle='Name'
+				influencerTitle={t('users-selected')}
+				influencerItemTitle={t('name')}
 				influencerItemSubtitle='email'
 				globalFilters={[
 					{
 						id: 'role',
-						label: 'Role'
+						label: t('role')
 					}
 				]}
-				globalFiltersIconDescription='Filters'
-				globalFiltersPlaceholderText='Choose an option'
-				globalFiltersPrimaryButtonText='Apply'
-				globalFiltersSecondaryButtonText='Reset'
-				clearFiltersText='Clear filters'
+				globalFiltersIconDescription={t('filters')}
+				globalFiltersPlaceholderText={t('choose-option')}
+				globalFiltersPrimaryButtonText={t('choose-option')}
+				globalFiltersSecondaryButtonText={t('reset')}
+				clearFiltersText={t('clear-filters')}
 				items={{
 					entries: users
 						.filter(u => !selectUsers?.some(s => s.id === u.id))
@@ -181,7 +183,7 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 							id: u.id,
 							title: u.displayName,
 							tagInfo: u.principalRole,
-							subtitle: u.email || 'No email provided',
+							subtitle: u.email || t('no-email'),
 							role: u.principalRole,
 							avatar: {
 								imageDescription: u.username,
