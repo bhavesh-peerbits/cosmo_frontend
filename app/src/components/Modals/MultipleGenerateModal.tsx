@@ -9,6 +9,7 @@ import {
 } from '@carbon/react';
 import Application from '@model/Application';
 import FullWidthColumn from '@components/FullWidthColumn';
+import { useTranslation } from 'react-i18next';
 
 type MultipleGenerateModalProps = {
 	isOpen: boolean;
@@ -21,11 +22,15 @@ const MultipleGenerateModal = ({
 	setIsOpen,
 	applications
 }: MultipleGenerateModalProps) => {
+	const { t } = useTranslation('modals');
 	return (
 		<Grid fullWidth narrow>
 			<ComposedModal open={isOpen} onClose={() => setIsOpen(false)}>
 				<Column>
-					<ModalHeader title='Generate Narratives' closeModal={() => setIsOpen(false)} />
+					<ModalHeader
+						title={t('generate-narrative')}
+						closeModal={() => setIsOpen(false)}
+					/>
 				</Column>
 				<ModalBody>
 					<FullWidthColumn>
@@ -33,11 +38,11 @@ const MultipleGenerateModal = ({
 							{applications.map(app => (
 								<div className='flex space-x-5 py-5'>
 									<div className='flex w-1/2 space-x-3'>
-										<div className='text-heading-compact-1'>Application:</div>
+										<div className='text-heading-compact-1'>{t('application')}:</div>
 										<div>{app.name}</div>
 									</div>
 									<div className='flex w-1/2 space-x-3'>
-										<div className='text-heading-compact-1'>Narrative Name:</div>
+										<div className='text-heading-compact-1'>{t('narrative-name')}:</div>
 										<div>NarrativeName</div>
 									</div>
 								</div>
@@ -47,9 +52,9 @@ const MultipleGenerateModal = ({
 				</ModalBody>
 				<ModalFooter>
 					<Button kind='secondary' onClick={() => setIsOpen(false)}>
-						Cancel
+						{t('cancel')}
 					</Button>
-					<Button>Generate Narrative</Button>
+					<Button>{t('generate-narrative')}</Button>
 				</ModalFooter>
 			</ComposedModal>
 		</Grid>

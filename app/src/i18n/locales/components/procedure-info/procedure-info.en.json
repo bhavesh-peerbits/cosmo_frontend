@@ -15,5 +15,11 @@
 	"name-exists": "This name already exists",
 	"confirmed": "Confirmed",
 	"confirm": "Confirm",
-	"discard": "Discard Changes"
+	"discard": "Discard Changes",
+	"cancel": "Cancel",
+	"new-procedure": "New Procedure",
+	"review": "Review",
+	"relative-button": "Add a new one using the relative button",
+	"no-procedures": "No Procedures",
+	"delete-procedure": "Delete Procedure"
 }

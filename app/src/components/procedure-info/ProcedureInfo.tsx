@@ -11,6 +11,7 @@ import ProcedureAppInstance from '@model/ProcedureAppInstance';
 import useGetProcedureByApp from '@api/app-procedures/useGetProcedureByApp';
 import MultipleReviewModal from '@components/Modals/MultipleReviewModal';
 import ProcedureReviewModal from '@components/Modals/ProcedureReviewModal';
+import { useTranslation } from 'react-i18next';
 import NewProcedureModal from '../Modals/NewProcedureModal';
 
 type ProcedureState = Partial<ProcedureAppInstance> & {
@@ -20,6 +21,7 @@ type ProcedureState = Partial<ProcedureAppInstance> & {
 };
 
 const ProcedureInfo = () => {
+	const { t } = useTranslation('procedureInfo');
 	const { appId } = useParams();
 	const { data = new Map<string, ProcedureAppInstance>() } = useGetProcedureByApp(appId);
 	const { breadcrumbSize } = useBreadcrumbSize();
@@ -65,7 +67,7 @@ const ProcedureInfo = () => {
 								onClick={() => setIsNewProcedureOpen(true)}
 								disabled={isCheckboxView || somethingNew}
 							>
-								New Procedure
+								{t('new-procedure')}
 							</Button>
 							<NewProcedureModal
 								isOpen={isNewProcedureOpen}
@@ -101,7 +103,7 @@ const ProcedureInfo = () => {
 										: () => setIsCheckboxView(true)
 								}
 							>
-								Review
+								{t('review')}
 							</Button>
 							{isCheckboxView && (
 								<Button
@@ -113,7 +115,7 @@ const ProcedureInfo = () => {
 										setProcedureChecked([]);
 									}}
 								>
-									Cancel
+									{t('cancel')}
 								</Button>
 							)}
 						</div>
@@ -149,8 +151,8 @@ const ProcedureInfo = () => {
 								<div>
 									<NoDataMessage
 										className='mt-10 p-5'
-										title='No Procedures'
-										subtitle='Add a new one using the relative button'
+										title={t('no-procedures')}
+										subtitle={t('relative-button')}
 									/>
 								</div>
 							)}

@@ -85,7 +85,7 @@ const ApplicationsTable = () => {
 				setActionSelected('Review');
 				setIsModalOpen(true);
 			},
-			label: t('email')
+			label: t('review')
 		},
 		{
 			id: 'cloud',
@@ -95,7 +95,7 @@ const ApplicationsTable = () => {
 				setActionSelected('Generate');
 				setIsModalOpen(true);
 			},
-			label: t('download')
+			label: 'Narrative'
 		},
 		{
 			id: 'trash',

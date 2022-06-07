@@ -20,5 +20,14 @@
 	"helper-user": "The review request will be sent to this user",
 	"reviewer": "Reviewer",
 	"procedures-selected": "Procedures selected",
-	"application-selected": "Application selected"
+	"application-selected": "Application selected",
+	"generate-narrative": "Generate Narrative",
+	"select-application": "Select application",
+	"select-procedure": "Select procedure",
+	"no-procedures": "No procedures available",
+	"no-applications": "No applications available",
+	"copy-procedure": "Copy procedure",
+	"add-procedure": "Add Procedure",
+	"application": "Application",
+	"narrative-name": "Narrative Name"
 }

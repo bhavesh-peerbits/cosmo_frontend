@@ -133,7 +133,7 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 							kind='ghost'
 							renderIcon={TrashCan}
 							tooltipPosition='bottom'
-							iconDescription='Delete Procedure'
+							iconDescription={t('delete-procedure')}
 							onClick={() => setIsDeleteModalOpen(true)}
 						/>
 					</FullWidthColumn>
@@ -259,7 +259,7 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 											disabled={!isDirty}
 											onClick={() => reset()}
 										>
-											Cancel
+											{t('cancel')}
 										</Button>
 										<Button
 											type='submit'

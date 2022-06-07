@@ -14,6 +14,7 @@ import useGenerateNarrative from '@api/management/useGenerateNarrative';
 import FullWidthColumn from '@components/FullWidthColumn';
 import ApiError from '@api/ApiError';
 import cx from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 type GenerateModalProps = {
 	isOpen: boolean;
@@ -22,6 +23,8 @@ type GenerateModalProps = {
 };
 
 const GenerateModal = ({ isOpen, setIsOpen, application }: GenerateModalProps) => {
+	const { t } = useTranslation('applicationInfo');
+	const { t: tModals } = useTranslation('modals');
 	const { mutate, isLoading, isError, error, reset } = useGenerateNarrative(
 		application.id
 	);
@@ -30,61 +33,61 @@ const GenerateModal = ({ isOpen, setIsOpen, application }: GenerateModalProps) =
 		() => [
 			{
 				key: 'name',
-				label: 'Application Name',
+				label: t('application-name'),
 				value: application.name
 			},
 			{
 				key: 'owner',
-				label: 'Owner',
+				label: t('owner'),
 				value: application.owner.displayName
 			},
 			{
 				key: 'supplier',
-				label: 'Application Maintenance Supplier',
+				label: t('app-maintenance'),
 				value: application.applicationData?.appMaintenance
 			},
 			{
 				key: 'supplierContact',
-				label: 'Operation Supplier',
+				label: t('operation-supplier'),
 				value: application.applicationData?.operationSupplier
 			},
 			{
 				key: 'applicationServer',
-				label: 'Application Server',
+				label: t('app-servers'),
 				value: application.applicationData?.appServers
 			},
 			{
 				key: 'applicationServerOs',
-				label: 'Application Server OS',
+				label: t('app-servers-os'),
 				value: application.applicationData?.appServersOS
 			},
 			{
 				key: 'applicationPath',
-				label: 'Application Code Path',
+				label: t('app-code-path'),
 				value: application.applicationData?.appCodePath
 			},
 			{
 				key: 'dbServers',
-				label: 'DB Servers',
+				label: t('db-servers'),
 				value: application.applicationData?.dbServers
 			},
 			{
 				key: 'dbServersOs',
-				label: 'DB Servers OS',
+				label: t('db-servers-os'),
 				value: application.applicationData?.dbServersOS
 			},
 			{
 				key: 'dbService',
-				label: 'Database Service',
+				label: t('db-service'),
 				value: application.applicationData?.dbService
 			},
 			{
 				key: 'dbInstance',
-				label: 'Database Instance',
+				label: t('db-instance'),
 				value: application.applicationData?.dbInstance
 			}
 		],
-		[application]
+		[application, t]
 	);
 
 	const cleanUp = () => {
@@ -104,7 +107,7 @@ const GenerateModal = ({ isOpen, setIsOpen, application }: GenerateModalProps) =
 		<ComposedModal open={isOpen} onClose={() => cleanUp()}>
 			<ModalHeader
 				title='Narrative Name'
-				label='Generate Narrative'
+				label={tModals('generate-narrative')}
 				closeModal={() => cleanUp()}
 			/>
 
@@ -153,10 +156,10 @@ const GenerateModal = ({ isOpen, setIsOpen, application }: GenerateModalProps) =
 			</ModalBody>
 			<ModalFooter>
 				<Button kind='secondary' onClick={() => cleanUp()}>
-					Cancel
+					{tModals('cancel')}
 				</Button>
 				<Button type='submit' disabled={isLoading} onClick={generateNarrative}>
-					Generate Narrative
+					{tModals('generate-narrative')}
 				</Button>
 			</ModalFooter>
 		</ComposedModal>

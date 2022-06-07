@@ -62,4 +62,16 @@ export interface User {
 	 * @memberof User
 	 */
 	active?: boolean;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof User
+	 */
+	deletedAt?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof User
+	 */
+	image?: string;
 }

@@ -1,4 +1,5 @@
 import { Layer, ClickableTile } from '@carbon/react';
+import IconResolver from '@components/IconResolver';
 import { formatDate } from '@i18n';
 import Application from '@model/Application';
 import { useTranslation } from 'react-i18next';
@@ -17,7 +18,7 @@ const ReviewTile = ({ application }: ReviewTileProps) => {
 				<div className='flex flex-col justify-between'>
 					<div className='flex flex-col'>
 						<div className='mb-3 flex min-h-[2.5rem] justify-between'>
-							{application.icon}
+							<IconResolver icon={application.icon} size={24} />
 							<div className='text-right text-text-secondary'>
 								<div className='font-bold'>{t('start-date')}</div>
 								<div>
