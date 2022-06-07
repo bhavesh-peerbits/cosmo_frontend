@@ -1,4 +1,4 @@
-@use "sass:map";
+@use 'sass:map';
 
 $cyan-300: #67e8f9;
 $cyan-400: #22d3ee;
@@ -12,29 +12,29 @@ $neutral-200: #e5e5e5;
 $neutral-300: #d4d4d4;
 $neutral-900: #171717;
 $theme-cosmo-common: (
-  background-brand: $cyan-600 !important,
-  button-primary: $cyan-600 !important,
-  button-primary-active: $cyan-900 !important,
-  button-primary-hover: $cyan-900 !important,
-  interactive: $cyan-600 !important,
-  link-primary: $cyan-700 !important,
-  link-secondary: $cyan-800 !important,
-  button-tertiary: $cyan-700 !important,
-  button-tertiary-hover: $cyan-800 !important,
-  border-interactive: $cyan-600 !important,
+	background-brand: $cyan-600 !important,
+	button-primary: $cyan-600 !important,
+	button-primary-active: $cyan-900 !important,
+	button-primary-hover: $cyan-900 !important,
+	interactive: $cyan-600 !important,
+	link-primary: $cyan-700 !important,
+	link-secondary: $cyan-800 !important,
+	button-tertiary: $cyan-700 !important,
+	button-tertiary-hover: $cyan-800 !important,
+	border-interactive: $cyan-600 !important
 );
 $theme-cosmo-dark: (
-  // override here default tokens
-  button-disabled: #525252 !important
+	// override here default tokens
+	button-disabled: #525252 !important
 );
 $theme-cosmo-white: (
-  layer-01: $neutral-100 !important,
-  background-selected: $neutral-200 !important,
-  layer-accent: $neutral-300 !important,
-  background-selected-hover: $neutral-300 !important,
-  background-active: $neutral-300 !important,
-  field-01: $neutral-100 !important,
-  layer-selected-inverse: $neutral-900 !important,
+	layer-01: $neutral-100 !important,
+	background-selected: $neutral-200 !important,
+	layer-accent: $neutral-300 !important,
+	background-selected-hover: $neutral-300 !important,
+	background-active: $neutral-300 !important,
+	field-01: $neutral-100 !important,
+	layer-selected-inverse: $neutral-900 !important
 );
 $theme-cosmo-white: map.merge($theme-cosmo-common, $theme-cosmo-white);
 $theme-cosmo-dark: map.merge($theme-cosmo-common, $theme-cosmo-dark);
