@@ -27,5 +27,7 @@
 	"no-procedures": "Nessuna procedura disponibile",
 	"no-applications": "Nessuna applicazione disponibile",
 	"copy-procedure": "Copia procedura",
-	"add-procedure": "Aggiungi Procedura"
+	"add-procedure": "Aggiungi Procedura",
+	"application": "Applicazione",
+	"narrative-name": "Nome del Narrative"
 }

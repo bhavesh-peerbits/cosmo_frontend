@@ -27,5 +27,7 @@
 	"no-procedures": "Aucune procédure disponible",
 	"no-application": "Aucune application disponible",
 	"copy-procedure": "Copier la procédure",
-	"add-procedure": "Ajouter Procédure"
+	"add-procedure": "Ajouter Procédure",
+	"application": "Application",
+	"narrative-name": "Nom du Narrative"
 }
