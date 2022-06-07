@@ -18,6 +18,7 @@ import {
 } from '@i18n/locales/components/application-info';
 import { modalsEn, modalsFr, modalsIt } from '@i18n/locales/components/modals';
 import { changesEn, changesFr, changesIt } from '@i18n/locales/components/changes';
+import { userSelectEn, userSelectFr, userSelectIt } from './components/user-select';
 import {
 	reviewNarrativeEn,
 	reviewNarrativeFr,
@@ -41,6 +42,7 @@ export default {
 		management: managementEn,
 		reviewNarrative: reviewNarrativeEn,
 		changes: changesEn,
+		userSelect: userSelectEn,
 		table: tableEn,
 		applicationInfo: applicationInfoEn,
 		procedureInfo: procedureInfoEn,
@@ -55,6 +57,7 @@ export default {
 		management: managementIt,
 		reviewNarrative: reviewNarrativeIt,
 		changes: changesIt,
+		userSelect: userSelectIt,
 		table: tableIt,
 		applicationInfo: applicationInfoIt,
 		procedureInfo: procedureInfoIt,
@@ -67,6 +70,7 @@ export default {
 		management: managementFr,
 		reviewNarrative: reviewNarrativeFr,
 		changes: changesFr,
+		userSelect: userSelectFr,
 		table: tableFr,
 		applicationInfo: applicationInfoFr,
 		procedureInfo: procedureInfoFr,

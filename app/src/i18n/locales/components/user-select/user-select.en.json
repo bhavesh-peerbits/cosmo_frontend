@@ -1,0 +1,21 @@
+{
+	"find-user": "Find user",
+	"select-single": "Select a single user from the list",
+	"select-user": "Select user",
+	"select": "Select",
+	"users": "Users",
+	"no-results": "No results",
+	"different-keywords": "Try with different keywords",
+	"search-results": "Search results",
+	"username-email": "Username or email",
+	"role": "Role",
+	"apply": "Apply",
+	"choose-option": "Choose an option",
+	"reset": "Reset",
+	"no-email": "No email provided",
+	"clear-filters": "Clear filters",
+	"filters": "Filters",
+	"cancel": "Cancel",
+	"add-user": "Add user",
+	"remove": "Remove"
+}
