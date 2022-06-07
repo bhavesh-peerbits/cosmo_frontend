@@ -83,7 +83,7 @@ const applyFilters = (
 				.filter(app =>
 					filters.owner.length
 						? filters.owner.some(
-								owner => app.owner.name?.toLowerCase() === owner.toLowerCase()
+								owner => app.owner.displayName?.toLowerCase() === owner.toLowerCase()
 						  )
 						: true
 				)
@@ -102,7 +102,7 @@ const filteredApplications = selector({
 			lastModify: prepareDateFilter(apps, filters, 'lastModify'),
 			lastReview: prepareDateFilter(apps, filters, 'lastReview'),
 			owner: [
-				...new Set(apps.map(app => app.owner.name).filter(o => !!o) as string[])
+				...new Set(apps.map(app => app.owner.displayName).filter(o => !!o) as string[])
 			].map(owner => ({
 				owner,
 				enabled: filters.owner.includes(owner ?? '')
