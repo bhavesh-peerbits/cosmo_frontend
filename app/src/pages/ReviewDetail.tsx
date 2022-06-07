@@ -96,7 +96,7 @@ const ReviewDetail = () => {
 														>
 															{procedure.name}
 														</p>
-														<div className='flex-1'>
+														<div className='justify-end'>
 															<p className='text-text-secondary text-body-compact-1'>
 																{`${t(
 																	'last-review'

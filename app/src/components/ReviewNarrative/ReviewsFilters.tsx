@@ -114,9 +114,6 @@ const ReviewsFilters = () => {
 						/>
 					))}
 				</AccordionItem>
-				<AccordionItem title={t('status')} className='border-0 '>
-					<FilterRadioGroup filterName='startNarrativeReview' withNever />
-				</AccordionItem>
 				<AccordionItem title={t('due-date')} className='border-0 '>
 					<FilterRadioGroup filterName='dueDate' />
 				</AccordionItem>
