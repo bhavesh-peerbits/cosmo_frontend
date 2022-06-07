@@ -28,5 +28,10 @@
 	"basic-info": "Queste sono le informazioni di base sull'applicazione",
 	"flag-technical": "È inoltre possibile fornire ulteriori informazioni sull'applicazione selezionando il flag delle informazioni tecniche",
 	"include-technical": "Includi informazioni tecniche",
-	"subtitle-technical": "Queste sono le informazioni tecniche sull'applicazione"
+	"subtitle-technical": "Queste sono le informazioni tecniche sull'applicazione",
+	"review": "Revisione",
+	"application-review": "Revisione Applicazione",
+	"application-info": "Info Applicazione",
+	"procedure-info": "Info Procedure",
+	"changes": "Modifiche"
 }

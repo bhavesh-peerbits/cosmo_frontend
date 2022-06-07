@@ -11,8 +11,10 @@ import { useParams } from 'react-router-dom';
 import StickyTabs from '@components/StickyTabs';
 import useGetApp from '@api/management/useGetApp';
 import DeleteAppModal from '@components/Modals/DeleteAppModal';
+import { useTranslation } from 'react-i18next';
 
 const ApplicationDetail = () => {
+	const { t } = useTranslation('management');
 	const { appId = '' } = useParams<'appId'>();
 	const { data } = useGetApp(appId);
 
@@ -30,21 +32,21 @@ const ApplicationDetail = () => {
 			intermediateRoutes={[{ name: 'Management', to: '/management' }]}
 			actions={[
 				{
-					name: 'Application Review',
+					name: t('application-review'),
 					icon: Email,
 					onClick: () => {
 						setIsReviewModalOpen(true);
 					}
 				},
 				{
-					name: 'Generate',
+					name: 'Narrative',
 					icon: CloudDownload,
 					onClick: () => {
 						setIsGenerateModalOpen(true);
 					}
 				},
 				{
-					name: 'Delete',
+					name: t('delete'),
 					icon: TrashCan,
 					onClick: () => {
 						setIsDeleteModalOpen(true);
@@ -59,9 +61,9 @@ const ApplicationDetail = () => {
 						contained
 						aria-label='List of tabs'
 					>
-						<Tab>Application Info</Tab>
-						<Tab>Procedure Info</Tab>
-						<Tab>Changes</Tab>
+						<Tab>{t('application-info')}</Tab>
+						<Tab>{t('procedure-info')}</Tab>
+						<Tab>{t('changes')}</Tab>
 					</TabList>
 					<TabPanels>
 						<TabPanel>
