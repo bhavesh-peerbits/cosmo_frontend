@@ -15,9 +15,9 @@ import Application from '@model/Application';
 import { Grid, Form, Button } from '@carbon/react';
 import { Checkmark } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
-import useEditApp from '@api/management/useEditApp';
 import ApiError from '@api/ApiError';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
+import useReviewApplication from '@api/review/useReviewApplication';
 
 type ApplicationForm = GeneralInfoForm & TechnicalInfoForm;
 
@@ -28,7 +28,14 @@ interface ApplicationInfoReviewProps {
 const ApplicationInfoReview = ({ application }: ApplicationInfoReviewProps) => {
 	const { t } = useTranslation('applicationInfo');
 	const { applicationData } = application;
-	const { mutate, isLoading, isError, isSuccess, error, reset: apiReset } = useEditApp();
+	const {
+		mutate,
+		isLoading,
+		isError,
+		isSuccess,
+		error,
+		reset: apiReset
+	} = useReviewApplication();
 
 	const {
 		register,
@@ -67,7 +74,7 @@ const ApplicationInfoReview = ({ application }: ApplicationInfoReviewProps) => {
 		const { appMaintenance, operationSupplier, ...rest } = data.generalInfo;
 		return mutate({
 			appId: application.id,
-			appData: {
+			application: {
 				...application,
 				...rest,
 				applicationData: {
@@ -75,7 +82,8 @@ const ApplicationInfoReview = ({ application }: ApplicationInfoReviewProps) => {
 					operationSupplier,
 					...data.technicalInfo
 				}
-			}
+			},
+			isModified: isDirty
 		});
 	};
 	return (
@@ -125,8 +133,7 @@ const ApplicationInfoReview = ({ application }: ApplicationInfoReviewProps) => {
 							</Button>
 						)}
 						<InlineLoadingStatus
-							isSuccess={false}
-							{...{ isLoading, isError, error: error as ApiError }}
+							{...{ isLoading, isSuccess, isError, error: error as ApiError }}
 						/>
 					</div>
 				</Form>

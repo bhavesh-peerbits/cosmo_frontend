@@ -9,9 +9,9 @@ import ApplicationInfoReview from '@components/ReviewNarrative/ApplicationInfoRe
 import { useParams } from 'react-router-dom';
 import ProcedureAppInstance from '@model/ProcedureAppInstance';
 import routes from '@routes/routes-const';
-import useGetApp from '@api/management/useGetApp';
 import useGetProcedureForReview from '@api/review/useGetProcedureForReview';
 import { useMemo, useState, useEffect } from 'react';
+import useGetAppsInReview from '@api/review/useGetAppsInReview';
 
 type ProcedureState = Partial<ProcedureAppInstance> & {
 	id: string;
@@ -22,12 +22,13 @@ type ProcedureState = Partial<ProcedureAppInstance> & {
 const ReviewDetail = () => {
 	const { t } = useTranslation('reviewNarrative');
 	const { appId = '' } = useParams<{ appId: string }>();
-	const { data } = useGetApp(appId);
+	const { data: apps } = useGetAppsInReview();
 	const { data: procedures = new Map<string, ProcedureAppInstance>() } =
 		useGetProcedureForReview(appId);
 	const serverProcs = useMemo(() => [...procedures.values()], [procedures]);
 	const [procedureList, setProcedureList] = useState<ProcedureState[]>(serverProcs);
 	const { breadcrumbSize } = useBreadcrumbSize();
+	const data = apps?.get(appId);
 
 	useEffect(() => {
 		setProcedureList(old => {
@@ -98,9 +99,11 @@ const ReviewDetail = () => {
 														</p>
 														<div className='justify-end'>
 															<p className='text-text-secondary text-body-compact-1'>
-																{`${t(
-																	'last-review'
-																)}: ${procedure.lastReview?.toLocaleString()}`}
+																{`${t('last-review')}: ${
+																	procedure.lastReview
+																		? procedure.lastReview.toLocaleString()
+																		: t('never')
+																}`}
 															</p>
 															<p className=' text-text-secondary text-body-compact-1'>
 																{`${t('last-reviewer')}:`}
@@ -113,6 +116,7 @@ const ReviewDetail = () => {
 															appProcedures={
 																procedureList as unknown as ProcedureAppInstance[]
 															}
+															appId={appId}
 														/>
 													</FullWidthColumn>
 												</Grid>

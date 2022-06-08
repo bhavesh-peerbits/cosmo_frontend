@@ -22,6 +22,12 @@ import { Tenant } from './tenant';
 export interface User {
 	/**
 	 *
+	 * @type {Tenant}
+	 * @memberof User
+	 */
+	tenant?: Tenant;
+	/**
+	 *
 	 * @type {string}
 	 * @memberof User
 	 */
@@ -50,12 +56,6 @@ export interface User {
 	 * @memberof User
 	 */
 	email?: string;
-	/**
-	 *
-	 * @type {Tenant}
-	 * @memberof User
-	 */
-	tenant?: Tenant;
 	/**
 	 *
 	 * @type {boolean}

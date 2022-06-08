@@ -25,6 +25,12 @@ import { User } from './user';
 export interface Application {
 	/**
 	 *
+	 * @type {Tenant}
+	 * @memberof Application
+	 */
+	tenant?: Tenant;
+	/**
+	 *
 	 * @type {number}
 	 * @memberof Application
 	 */
@@ -131,12 +137,6 @@ export interface Application {
 	 * @memberof Application
 	 */
 	appReviewEndDate?: string;
-	/**
-	 *
-	 * @type {Tenant}
-	 * @memberof Application
-	 */
-	tenant?: Tenant;
 	/**
 	 *
 	 * @type {string}

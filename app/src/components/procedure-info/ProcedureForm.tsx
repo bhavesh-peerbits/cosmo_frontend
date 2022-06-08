@@ -45,7 +45,7 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 	const procedures = useMemo(() => [...data.values()], [data]);
 
 	const procedureNameList = procedures
-		.filter(proc => proc.name !== procedure?.name)
+		.filter(proc => proc.name.toLowerCase() !== procedure?.name.toLowerCase())
 		.map(proc => proc.name.toLowerCase());
 	const { t } = useTranslation('procedureInfo');
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);

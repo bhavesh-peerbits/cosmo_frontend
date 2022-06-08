@@ -1,9 +1,9 @@
 import { atom } from 'recoil';
 import { getCookie, removeCookie, setCookie } from 'tiny-cookie';
 import { getAuthInfo } from '@api/user/useUserAuthInfo';
-import ApiError from '@api/ApiError';
 import { UserRole } from '@model/UserRole';
 import User from '@model/User';
+import { logoutApp } from '@hooks/auth/useLogout';
 
 const ACCESS_TOKEN_KEY = 'accessToken';
 const REFRESH_TOKEN_KEY = 'refreshToken';
@@ -53,12 +53,14 @@ const retrieveUserInfo = async () => {
 				policies: info.roles || []
 			};
 		} catch (e) {
-			const apiError = e as ApiError | undefined;
-			throw new ApiError(
-				apiError?.status ?? 500,
-				apiError?.message ?? 'Generic Error',
-				true
-			);
+			// const apiError = e as ApiError | undefined;
+			// throw new ApiError(
+			// 	apiError?.status ?? 500,
+			// 	apiError?.message ?? 'Generic Error',
+			// 	true
+			// );
+			logoutApp(true);
+			window.location.replace('/');
 		}
 	}
 	return undefined;

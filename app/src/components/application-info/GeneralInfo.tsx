@@ -48,7 +48,10 @@ const GeneralInfo = ({ register, errors, control, getValues }: GeneralInfoProps)
 		setAppNameList(
 			getValues
 				? apps
-						.filter(app => app.name !== getValues('generalInfo.name').toLowerCase())
+						.filter(
+							app =>
+								app.name.toLowerCase() !== getValues('generalInfo.name').toLowerCase()
+						)
 						.map(app => app.name.toLowerCase())
 				: apps.map(app => app.name.toLowerCase())
 		);
@@ -59,7 +62,9 @@ const GeneralInfo = ({ register, errors, control, getValues }: GeneralInfoProps)
 			getValues
 				? apps
 						.filter(
-							app => app.codeName !== getValues('generalInfo.codeName').toLowerCase()
+							app =>
+								app.codeName.toLowerCase() !==
+								getValues('generalInfo.codeName').toLowerCase()
 						)
 						.map(app => app.codeName.toLowerCase())
 				: apps.map(app => app.codeName.toLowerCase())
