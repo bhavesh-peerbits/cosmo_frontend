@@ -14548,6 +14548,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["translation-check", "npm:1.0.2"],\
             ["validator", "npm:13.7.0"],\
             ["vite", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.9.10"],\
+            ["vite-plugin-istanbul", "npm:2.7.3"],\
             ["vite-plugin-pwa", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:0.12.0"],\
             ["vite-plugin-svgr", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.1.0"],\
             ["vite-tsconfig-paths", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:3.5.0"],\
@@ -14644,6 +14645,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["translation-check", "npm:1.0.2"],\
             ["validator", "npm:13.7.0"],\
             ["vite", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.9.10"],\
+            ["vite-plugin-istanbul", "npm:2.7.3"],\
             ["vite-plugin-pwa", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:0.12.0"],\
             ["vite-plugin-svgr", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:2.1.0"],\
             ["vite-tsconfig-paths", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:3.5.0"],\
@@ -34846,6 +34848,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "less",\
             "sass",\
             "stylus"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["vite-plugin-istanbul", [\
+        ["npm:2.7.3", {\
+          "packageLocation": "./.yarn/cache/vite-plugin-istanbul-npm-2.7.3-13b8c85c93-eda98bea4d.zip/node_modules/vite-plugin-istanbul/",\
+          "packageDependencies": [\
+            ["vite-plugin-istanbul", "npm:2.7.3"],\
+            ["istanbul-lib-instrument", "npm:5.1.0"],\
+            ["picocolors", "npm:1.0.0"],\
+            ["test-exclude", "npm:6.0.0"]\
           ],\
           "linkType": "HARD"\
         }]\

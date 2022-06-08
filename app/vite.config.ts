@@ -7,8 +7,10 @@ import react from '@vitejs/plugin-react';
 import eslintPlugin from '@nabla/vite-plugin-eslint';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import svgrPlugin from 'vite-plugin-svgr';
+import istanbul from 'vite-plugin-istanbul';
 import manifest from './manifest.json';
 import { dependencies } from './package.json';
+
 // Packages we want in the vendor aka the deps needed in the entire app.
 const globalVendorPackages = ['react', 'react-dom', 'react-router-dom', '@carbon/react'];
 
@@ -63,6 +65,12 @@ export default defineConfig(({ mode }) => ({
 			: {},
 	plugins: [
 		...(mode === 'production' ? [] : [react()]),
+		istanbul({
+			include: 'src/*',
+			exclude: ['node_modules', 'src/test/*', 'src/**/__tests__/*'],
+			extension: ['.ts', '.tsx'],
+			cypress: true
+		}),
 		tsconfigPaths(),
 		legacy({
 			targets: ['defaults', 'not IE 11']

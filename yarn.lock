@@ -8760,6 +8760,7 @@ __metadata:
     translation-check: ^1.0.2
     validator: ^13.7.0
     vite: ^2.9.10
+    vite-plugin-istanbul: ^2.7.3
     vite-plugin-pwa: ^0.12.0
     vite-plugin-svgr: ^2.1.0
     vite-tsconfig-paths: ^3.5.0
@@ -25733,6 +25734,17 @@ __metadata:
     unist-util-stringify-position: ^2.0.0
     vfile-message: ^2.0.0
   checksum: ee5726e10d170472cde778fc22e0f7499caa096eb85babea5d0ce0941455b721037ee1c9e6ae506ca2803250acd313d0f464328ead0b55cfe7cb6315f1b462d6
+  languageName: node
+  linkType: hard
+
+"vite-plugin-istanbul@npm:^2.7.3":
+  version: 2.7.3
+  resolution: "vite-plugin-istanbul@npm:2.7.3"
+  dependencies:
+    istanbul-lib-instrument: ^5.1.0
+    picocolors: ^1.0.0
+    test-exclude: ^6.0.0
+  checksum: eda98bea4dd5df8b021f63351e4860356ef8a549211c2bf47e32bea45390714e0dd2f24cd9d989e3555df496325ff05a7ce0f7ccc86feda6e1e6b4170c58ff43
   languageName: node
   linkType: hard
 
