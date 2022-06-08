@@ -41,11 +41,11 @@ import { ApiErrorResponse } from '../models';
 // @ts-ignore
 import { ApplicationDto } from '../models';
 // @ts-ignore
-import { InlineObject } from '../models';
-// @ts-ignore
-import { InlineObject1 } from '../models';
-// @ts-ignore
 import { ProcedureAppInstanceDto } from '../models';
+// @ts-ignore
+import { ReviewApplicationDto } from '../models';
+// @ts-ignore
+import { ReviewProcedureDto } from '../models';
 /**
  * ReviewerControllerApi - axios parameter creator
  * @export
@@ -193,21 +193,25 @@ export const ReviewerControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} applicationId
-		 * @param {InlineObject} inlineObject
+		 * @param {ReviewApplicationDto} reviewApplicationDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		reviewApplication: async (
 			applicationId: number,
-			inlineObject: InlineObject,
+			reviewApplicationDto: ReviewApplicationDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'applicationId' is not null or undefined
 			assertParamExists('reviewApplication', 'applicationId', applicationId);
-			// verify required parameter 'inlineObject' is not null or undefined
-			assertParamExists('reviewApplication', 'inlineObject', inlineObject);
+			// verify required parameter 'reviewApplicationDto' is not null or undefined
+			assertParamExists(
+				'reviewApplication',
+				'reviewApplicationDto',
+				reviewApplicationDto
+			);
 			const localVarPath = `/api/reviewer/application/{applicationId}`.replace(
 				`{${'applicationId'}}`,
 				encodeURIComponent(String(applicationId))
@@ -241,7 +245,7 @@ export const ReviewerControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				inlineObject,
+				reviewApplicationDto,
 				localVarRequestOptions,
 				configuration
 			);
@@ -256,7 +260,7 @@ export const ReviewerControllerApiAxiosParamCreator = function (
 		 * @param {number} applicationId
 		 * @param {number} procedureId
 		 * @param {number} procedureAppInstanceId
-		 * @param {InlineObject1} inlineObject1
+		 * @param {ReviewProcedureDto} reviewProcedureDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
@@ -265,7 +269,7 @@ export const ReviewerControllerApiAxiosParamCreator = function (
 			applicationId: number,
 			procedureId: number,
 			procedureAppInstanceId: number,
-			inlineObject1: InlineObject1,
+			reviewProcedureDto: ReviewProcedureDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
@@ -279,8 +283,8 @@ export const ReviewerControllerApiAxiosParamCreator = function (
 				'procedureAppInstanceId',
 				procedureAppInstanceId
 			);
-			// verify required parameter 'inlineObject1' is not null or undefined
-			assertParamExists('reviewProcedure', 'inlineObject1', inlineObject1);
+			// verify required parameter 'reviewProcedureDto' is not null or undefined
+			assertParamExists('reviewProcedure', 'reviewProcedureDto', reviewProcedureDto);
 			const localVarPath =
 				`/api/reviewer/application/{applicationId}/procedure/{procedureId}/{procedureAppInstanceId}`
 					.replace(`{${'applicationId'}}`, encodeURIComponent(String(applicationId)))
@@ -318,7 +322,7 @@ export const ReviewerControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				inlineObject1,
+				reviewProcedureDto,
 				localVarRequestOptions,
 				configuration
 			);
@@ -417,14 +421,14 @@ export const ReviewerControllerApiFp = function (configuration?: Configuration) 
 		/**
 		 *
 		 * @param {number} applicationId
-		 * @param {InlineObject} inlineObject
+		 * @param {ReviewApplicationDto} reviewApplicationDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async reviewApplication(
 			applicationId: number,
-			inlineObject: InlineObject,
+			reviewApplicationDto: ReviewApplicationDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
@@ -432,7 +436,7 @@ export const ReviewerControllerApiFp = function (configuration?: Configuration) 
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.reviewApplication(
 				applicationId,
-				inlineObject,
+				reviewApplicationDto,
 				acceptLanguage,
 				options
 			);
@@ -448,7 +452,7 @@ export const ReviewerControllerApiFp = function (configuration?: Configuration) 
 		 * @param {number} applicationId
 		 * @param {number} procedureId
 		 * @param {number} procedureAppInstanceId
-		 * @param {InlineObject1} inlineObject1
+		 * @param {ReviewProcedureDto} reviewProcedureDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
@@ -457,7 +461,7 @@ export const ReviewerControllerApiFp = function (configuration?: Configuration) 
 			applicationId: number,
 			procedureId: number,
 			procedureAppInstanceId: number,
-			inlineObject1: InlineObject1,
+			reviewProcedureDto: ReviewProcedureDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
@@ -467,7 +471,7 @@ export const ReviewerControllerApiFp = function (configuration?: Configuration) 
 				applicationId,
 				procedureId,
 				procedureAppInstanceId,
-				inlineObject1,
+				reviewProcedureDto,
 				acceptLanguage,
 				options
 			);
@@ -539,19 +543,19 @@ export const ReviewerControllerApiFactory = function (
 		/**
 		 *
 		 * @param {number} applicationId
-		 * @param {InlineObject} inlineObject
+		 * @param {ReviewApplicationDto} reviewApplicationDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		reviewApplication(
 			applicationId: number,
-			inlineObject: InlineObject,
+			reviewApplicationDto: ReviewApplicationDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<ApplicationDto> {
 			return localVarFp
-				.reviewApplication(applicationId, inlineObject, acceptLanguage, options)
+				.reviewApplication(applicationId, reviewApplicationDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -559,7 +563,7 @@ export const ReviewerControllerApiFactory = function (
 		 * @param {number} applicationId
 		 * @param {number} procedureId
 		 * @param {number} procedureAppInstanceId
-		 * @param {InlineObject1} inlineObject1
+		 * @param {ReviewProcedureDto} reviewProcedureDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
@@ -568,7 +572,7 @@ export const ReviewerControllerApiFactory = function (
 			applicationId: number,
 			procedureId: number,
 			procedureAppInstanceId: number,
-			inlineObject1: InlineObject1,
+			reviewProcedureDto: ReviewProcedureDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<ProcedureAppInstanceDto> {
@@ -577,7 +581,7 @@ export const ReviewerControllerApiFactory = function (
 					applicationId,
 					procedureId,
 					procedureAppInstanceId,
-					inlineObject1,
+					reviewProcedureDto,
 					acceptLanguage,
 					options
 				)
@@ -650,10 +654,10 @@ export interface ReviewerControllerApiReviewApplicationRequest {
 
 	/**
 	 *
-	 * @type {InlineObject}
+	 * @type {ReviewApplicationDto}
 	 * @memberof ReviewerControllerApiReviewApplication
 	 */
-	readonly inlineObject: InlineObject;
+	readonly reviewApplicationDto: ReviewApplicationDto;
 
 	/**
 	 *
@@ -692,10 +696,10 @@ export interface ReviewerControllerApiReviewProcedureRequest {
 
 	/**
 	 *
-	 * @type {InlineObject1}
+	 * @type {ReviewProcedureDto}
 	 * @memberof ReviewerControllerApiReviewProcedure
 	 */
-	readonly inlineObject1: InlineObject1;
+	readonly reviewProcedureDto: ReviewProcedureDto;
 
 	/**
 	 *
@@ -781,7 +785,7 @@ export class ReviewerControllerApi extends BaseAPI {
 		return ReviewerControllerApiFp(this.configuration)
 			.reviewApplication(
 				requestParameters.applicationId,
-				requestParameters.inlineObject,
+				requestParameters.reviewApplicationDto,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -804,7 +808,7 @@ export class ReviewerControllerApi extends BaseAPI {
 				requestParameters.applicationId,
 				requestParameters.procedureId,
 				requestParameters.procedureAppInstanceId,
-				requestParameters.inlineObject1,
+				requestParameters.reviewProcedureDto,
 				requestParameters.acceptLanguage,
 				options
 			)

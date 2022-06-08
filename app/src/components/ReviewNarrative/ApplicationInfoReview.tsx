@@ -83,7 +83,7 @@ const ApplicationInfoReview = ({ application }: ApplicationInfoReviewProps) => {
 					...data.technicalInfo
 				}
 			},
-			isModified: isDirty
+			modified: isDirty
 		});
 	};
 	return (
