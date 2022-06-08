@@ -4,7 +4,6 @@ import React, {
 	MutableRefObject,
 	ReactElement,
 	ReactNode,
-	useCallback,
 	useEffect,
 	useRef,
 	useState
@@ -174,13 +173,13 @@ const TearsheetShell = React.forwardRef<HTMLDivElement, TearsheetShellProps>(
 			};
 		}, [open]);
 
-		const handleFocus = useCallback(() => {
-			// If something within us is receiving focus but we are not the topmost
-			// stacked tearsheet, transfer focus to the topmost tearsheet instead
-			if (position < depth) {
-				stack.open[stack.open.length - 1].claimFocus();
-			}
-		}, [depth, position]);
+		// const handleFocus = useCallback(() => {
+		// 	// If something within us is receiving focus but we are not the topmost
+		// 	// stacked tearsheet, transfer focus to the topmost tearsheet instead
+		// 	if (position < depth) {
+		// 		stack.open[stack.open.length - 1].claimFocus();
+		// 	}
+		// }, [depth, position]);
 
 		if (position <= depth) {
 			// Include a modal header if and only if one or more of these is given.
@@ -224,7 +223,7 @@ const TearsheetShell = React.forwardRef<HTMLDivElement, TearsheetShellProps>(
 						[`--${bc}-stacking-scale-factor-double`]: (width - 64) / width
 					}}
 					containerClassName={cx(`${bc}__container top-auto h-full`)}
-					onFocus={handleFocus}
+					// onFocus={handleFocus}
 					preventCloseOnClickOutside={!isPassive}
 					ref={modalRef as unknown as MutableRefObject<HTMLDivElement>}
 					selectorsFloatingMenus={[

@@ -69,7 +69,8 @@ export default defineConfig(({ mode }) => ({
 			include: 'src/*',
 			exclude: ['node_modules', 'src/test/*', 'src/**/__tests__/*'],
 			extension: ['.ts', '.tsx'],
-			cypress: true
+			cypress: true,
+			requireEnv: true
 		}),
 		tsconfigPaths(),
 		legacy({

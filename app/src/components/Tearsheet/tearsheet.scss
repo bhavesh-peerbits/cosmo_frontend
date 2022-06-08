@@ -108,11 +108,11 @@ $motion-duration: $duration-moderate-02;
 
 		&--stacked-1-of-2.is-visible &__container,
 		&--stacked-2-of-3.is-visible &__container {
-			transform: scale(var(--tearsheet-stacking-scale-factor-single));
+			transform: scaleX(var(--tearsheet-stacking-scale-factor-single));
 		}
 
 		&--stacked-1-of-3.is-visible &__container {
-			transform: scale(var(--tearsheet-stacking-scale-factor-double));
+			transform: scaleX(var(--tearsheet-stacking-scale-factor-double));
 		}
 
 		&--wide &__header {
