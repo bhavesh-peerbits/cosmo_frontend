@@ -18,7 +18,7 @@ const Unauthorized = () => {
 			errorDescription={t('errorMessage401')}
 			errorImage={<UnauthorizedImg className='bottom-0 h-full w-full' />}
 			link={
-				<NavLink to='/' replace>
+				<NavLink onClick={() => window.location.replace('/')} to='#'>
 					{t('goToLoginPage')}
 				</NavLink>
 			}

@@ -3,7 +3,6 @@ import UserProfileImage from '@components/UserProfileImage';
 import { mapUserRoleToDisplayRole } from '@model/UserRole';
 import routes from '@routes/routes-const';
 import User from '@model/User';
-import { useNavigate } from 'react-router-dom';
 import { useClickAway } from 'ahooks';
 import { useRef } from 'react';
 
@@ -14,7 +13,6 @@ interface UserPanelProps {
 }
 
 const UserPanel = ({ expanded, user, onClickOutside }: UserPanelProps) => {
-	const navigate = useNavigate();
 	const panelRef = useRef(null);
 	useClickAway(e => onClickOutside(e), panelRef);
 
@@ -72,7 +70,7 @@ const UserPanel = ({ expanded, user, onClickOutside }: UserPanelProps) => {
 					kind='ghost'
 					size='sm'
 					className='flex flex-1 justify-end'
-					onClick={() => navigate(routes.LOGOUT, { replace: true })}
+					onClick={() => window.location.replace(routes.LOGOUT)}
 				>
 					Sign out
 				</Button>

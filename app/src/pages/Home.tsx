@@ -36,7 +36,7 @@ const Home = () => {
 												</Button>
 											)
 										)}
-										<Button kind='secondary' as={Link} to={routes.LOGOUT}>
+										<Button kind='secondary' href={routes.LOGOUT}>
 											Logout
 										</Button>
 									</ButtonSet>
