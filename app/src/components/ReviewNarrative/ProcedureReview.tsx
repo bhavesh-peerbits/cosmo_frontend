@@ -97,7 +97,7 @@ const ProcedureReview = ({
 					...dataProc
 				},
 				procedureId: procedureApp.procedureId,
-				isModified: isDirty
+				modified: isDirty
 			},
 			{ onSuccess }
 		);

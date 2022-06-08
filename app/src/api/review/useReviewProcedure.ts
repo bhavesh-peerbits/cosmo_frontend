@@ -10,7 +10,7 @@ interface ReviewProcedureParams {
 	procedureId: string;
 	procedureAppId: string;
 	procedure: ProcedureAppInstance;
-	isModified: boolean;
+	modified: boolean;
 }
 
 const reviewProcedure = ({
@@ -18,15 +18,15 @@ const reviewProcedure = ({
 	procedureId,
 	procedureAppId,
 	procedure,
-	isModified
+	modified
 }: ReviewProcedureParams) => {
 	return api.reviewerApi
 		.reviewProcedure({
 			applicationId: +appId,
 			procedureId: +procedureId,
 			procedureAppInstanceId: +procedureAppId,
-			inlineObject1: {
-				isModified,
+			reviewProcedureDto: {
+				modified,
 				procedureAppInstanceDto: toProcedureAppInstanceApi(procedure)
 			}
 		})
