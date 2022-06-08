@@ -14,8 +14,8 @@ interface ProcedureAppInstance {
 	lastModify?: Date;
 	owner: User;
 	delegated?: User[];
-	lastReviewer: User;
-	lastModifier: User;
+	lastReviewer?: User;
+	lastModifier?: User;
 	inReview?: boolean;
 }
 
@@ -29,10 +29,14 @@ export const fromProcedureAppInstanceApi = (
 		description: procedureApi.description,
 		procedureId: `${procedureApi.procedure.id}`,
 		delegated: procedureApi.delegatedProcedureApp.map(fromUserApi),
-		lastModifier: fromUserApi(procedureApi.lastModifier),
+		lastModifier: procedureApi.lastModifier
+			? fromUserApi(procedureApi.lastModifier)
+			: undefined,
 		lastModify: procedureApi.lastModify ? new Date(procedureApi.lastModify) : undefined,
 		lastReview: procedureApi.lastReview ? new Date(procedureApi.lastReview) : undefined,
-		lastReviewer: fromUserApi(procedureApi.lastReviewer),
+		lastReviewer: procedureApi.lastReviewer
+			? fromUserApi(procedureApi.lastReviewer)
+			: undefined,
 		owner: fromUserApi(procedureApi.owner),
 		inReview: procedureApi.inReview
 	};

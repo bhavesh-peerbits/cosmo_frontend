@@ -26,7 +26,7 @@ const useLoginStore = () => {
 		}
 		const redirect = getCookie(REDIRECT_PATH_COOKIE);
 		removeCookie(REDIRECT_PATH_COOKIE);
-		window.location.href = redirect ?? '/home';
+		window.location.replace(redirect ?? '/home');
 	};
 
 	return {
