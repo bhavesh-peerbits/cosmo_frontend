@@ -5,14 +5,14 @@ import Application, { fromApplicationApi, toApplicationApi } from '@model/Applic
 interface ReviewAppParams {
 	appId: string;
 	application: Application;
-	isModified: boolean;
+	modified: boolean;
 }
 
-const reviewApplication = ({ appId, application, isModified }: ReviewAppParams) => {
+const reviewApplication = ({ appId, application, modified }: ReviewAppParams) => {
 	return api.reviewerApi
 		.reviewApplication({
 			applicationId: +appId,
-			inlineObject: { application: toApplicationApi(application), isModified }
+			reviewApplicationDto: { application: toApplicationApi(application), modified }
 		})
 		.then(({ data }) => fromApplicationApi(data));
 };

@@ -78,6 +78,18 @@ export interface ProcedureAppInstance {
 	lastModify?: string;
 	/**
 	 *
+	 * @type {string}
+	 * @memberof ProcedureAppInstance
+	 */
+	startReviewDate?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof ProcedureAppInstance
+	 */
+	endReviewDate?: string;
+	/**
+	 *
 	 * @type {User}
 	 * @memberof ProcedureAppInstance
 	 */

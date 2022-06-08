@@ -65,6 +65,18 @@ export interface ProcedureAppInstanceDto {
 	 */
 	lastModify?: string;
 	/**
+	 * Settled date for end of narrative review
+	 * @type {string}
+	 * @memberof ProcedureAppInstanceDto
+	 */
+	endNarrativeReview?: string;
+	/**
+	 * Settled date for start of narrative review
+	 * @type {string}
+	 * @memberof ProcedureAppInstanceDto
+	 */
+	startNarrativeReview?: string;
+	/**
 	 *
 	 * @type {UserDto}
 	 * @memberof ProcedureAppInstanceDto

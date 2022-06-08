@@ -43,6 +43,7 @@ const Review = () => {
 		});
 
 		return [...apps.values()]
+			.filter(a => a.app.dueDate)
 			.map(a => [
 				{
 					id: a.app.id,
@@ -52,14 +53,16 @@ const Review = () => {
 					procedure: t('application-info'),
 					status: a.app.inReview ? 'Ongoing' : 'Closed'
 				},
-				...a.procedures.map(p => ({
-					id: p.id,
-					appName: a.app.name,
-					owner: p.owner,
-					expireDate: a.app.dueDate,
-					procedure: procedures.get(p.procedureId)?.name,
-					status: p.inReview ? 'Ongoing' : 'Closed'
-				}))
+				...a.procedures
+					.filter(p => p.endNarrativeReview)
+					.map(p => ({
+						id: p.id,
+						appName: a.app.name,
+						owner: p.owner,
+						expireDate: p.endNarrativeReview,
+						procedure: procedures.get(p.procedureId)?.name,
+						status: p.inReview ? 'Ongoing' : 'Closed'
+					}))
 			])
 			.flat();
 	}, [appsCopy, appsData, procedureAppsData, procedures, t]);
