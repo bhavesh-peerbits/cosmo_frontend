@@ -68,8 +68,7 @@ const CosmoTable = <D extends object>({
 	const [sorting, setSorting] = useState<ColumnSort[]>([]);
 	const [pagination, setPagination] = useState<PaginationState>({
 		pageIndex: 0,
-		pageSize: 10,
-		pageCount: undefined //  allows the table to calculate the page count for us via instance.getPageCount()
+		pageSize: 10
 	});
 
 	const table = createTable().setColumnMetaType<ExportProperties>().setRowType<D>();

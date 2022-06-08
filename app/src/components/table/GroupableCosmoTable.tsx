@@ -64,8 +64,7 @@ const GroupableCosmoTable = <D extends object>({
 
 	const [pagination, setPagination] = useState<PaginationState>({
 		pageIndex: 0,
-		pageSize: 10,
-		pageCount: undefined // allows the table to calculate the page count for us via instance.getPageCount()
+		pageSize: 10
 	});
 	const table = createTable().setColumnMetaType<ExportProperties>().setRowType<D>();
 	const columns = useMemo(() => createHeaders(table), [createHeaders, table]);
