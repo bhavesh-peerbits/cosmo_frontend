@@ -37,6 +37,8 @@ models/control.ts
 models/email.ts
 models/frequency.ts
 models/index.ts
+models/inline-object.ts
+models/inline-object1.ts
 models/mail-template-dto.ts
 models/module.ts
 models/multiple-narrative-review-body.ts

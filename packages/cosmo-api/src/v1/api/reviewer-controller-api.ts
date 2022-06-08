@@ -41,6 +41,10 @@ import { ApiErrorResponse } from '../models';
 // @ts-ignore
 import { ApplicationDto } from '../models';
 // @ts-ignore
+import { InlineObject } from '../models';
+// @ts-ignore
+import { InlineObject1 } from '../models';
+// @ts-ignore
 import { ProcedureAppInstanceDto } from '../models';
 /**
  * ReviewerControllerApi - axios parameter creator
@@ -185,6 +189,144 @@ export const ReviewerControllerApiAxiosParamCreator = function (
 				url: toPathString(localVarUrlObj),
 				options: localVarRequestOptions
 			};
+		},
+		/**
+		 *
+		 * @param {number} applicationId
+		 * @param {InlineObject} inlineObject
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		reviewApplication: async (
+			applicationId: number,
+			inlineObject: InlineObject,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'applicationId' is not null or undefined
+			assertParamExists('reviewApplication', 'applicationId', applicationId);
+			// verify required parameter 'inlineObject' is not null or undefined
+			assertParamExists('reviewApplication', 'inlineObject', inlineObject);
+			const localVarPath = `/api/reviewer/application/{applicationId}`.replace(
+				`{${'applicationId'}}`,
+				encodeURIComponent(String(applicationId))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				inlineObject,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} applicationId
+		 * @param {number} procedureId
+		 * @param {number} procedureAppInstanceId
+		 * @param {InlineObject1} inlineObject1
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		reviewProcedure: async (
+			applicationId: number,
+			procedureId: number,
+			procedureAppInstanceId: number,
+			inlineObject1: InlineObject1,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'applicationId' is not null or undefined
+			assertParamExists('reviewProcedure', 'applicationId', applicationId);
+			// verify required parameter 'procedureId' is not null or undefined
+			assertParamExists('reviewProcedure', 'procedureId', procedureId);
+			// verify required parameter 'procedureAppInstanceId' is not null or undefined
+			assertParamExists(
+				'reviewProcedure',
+				'procedureAppInstanceId',
+				procedureAppInstanceId
+			);
+			// verify required parameter 'inlineObject1' is not null or undefined
+			assertParamExists('reviewProcedure', 'inlineObject1', inlineObject1);
+			const localVarPath =
+				`/api/reviewer/application/{applicationId}/procedure/{procedureId}/{procedureAppInstanceId}`
+					.replace(`{${'applicationId'}}`, encodeURIComponent(String(applicationId)))
+					.replace(`{${'procedureId'}}`, encodeURIComponent(String(procedureId)))
+					.replace(
+						`{${'procedureAppInstanceId'}}`,
+						encodeURIComponent(String(procedureAppInstanceId))
+					);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				inlineObject1,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
 		}
 	};
 };
@@ -271,6 +413,70 @@ export const ReviewerControllerApiFp = function (configuration?: Configuration) 
 				BASE_PATH,
 				configuration
 			);
+		},
+		/**
+		 *
+		 * @param {number} applicationId
+		 * @param {InlineObject} inlineObject
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async reviewApplication(
+			applicationId: number,
+			inlineObject: InlineObject,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApplicationDto>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.reviewApplication(
+				applicationId,
+				inlineObject,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} applicationId
+		 * @param {number} procedureId
+		 * @param {number} procedureAppInstanceId
+		 * @param {InlineObject1} inlineObject1
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async reviewProcedure(
+			applicationId: number,
+			procedureId: number,
+			procedureAppInstanceId: number,
+			inlineObject1: InlineObject1,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProcedureAppInstanceDto>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.reviewProcedure(
+				applicationId,
+				procedureId,
+				procedureAppInstanceId,
+				inlineObject1,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
 		}
 	};
 };
@@ -329,6 +535,53 @@ export const ReviewerControllerApiFactory = function (
 			return localVarFp
 				.getProcedureForReview(applicationId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} applicationId
+		 * @param {InlineObject} inlineObject
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		reviewApplication(
+			applicationId: number,
+			inlineObject: InlineObject,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<ApplicationDto> {
+			return localVarFp
+				.reviewApplication(applicationId, inlineObject, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} applicationId
+		 * @param {number} procedureId
+		 * @param {number} procedureAppInstanceId
+		 * @param {InlineObject1} inlineObject1
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		reviewProcedure(
+			applicationId: number,
+			procedureId: number,
+			procedureAppInstanceId: number,
+			inlineObject1: InlineObject1,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<ProcedureAppInstanceDto> {
+			return localVarFp
+				.reviewProcedure(
+					applicationId,
+					procedureId,
+					procedureAppInstanceId,
+					inlineObject1,
+					acceptLanguage,
+					options
+				)
+				.then(request => request(axios, basePath));
 		}
 	};
 };
@@ -378,6 +631,76 @@ export interface ReviewerControllerApiGetProcedureForReviewRequest {
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
 	 * @memberof ReviewerControllerApiGetProcedureForReview
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for reviewApplication operation in ReviewerControllerApi.
+ * @export
+ * @interface ReviewerControllerApiReviewApplicationRequest
+ */
+export interface ReviewerControllerApiReviewApplicationRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof ReviewerControllerApiReviewApplication
+	 */
+	readonly applicationId: number;
+
+	/**
+	 *
+	 * @type {InlineObject}
+	 * @memberof ReviewerControllerApiReviewApplication
+	 */
+	readonly inlineObject: InlineObject;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ReviewerControllerApiReviewApplication
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for reviewProcedure operation in ReviewerControllerApi.
+ * @export
+ * @interface ReviewerControllerApiReviewProcedureRequest
+ */
+export interface ReviewerControllerApiReviewProcedureRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof ReviewerControllerApiReviewProcedure
+	 */
+	readonly applicationId: number;
+
+	/**
+	 *
+	 * @type {number}
+	 * @memberof ReviewerControllerApiReviewProcedure
+	 */
+	readonly procedureId: number;
+
+	/**
+	 *
+	 * @type {number}
+	 * @memberof ReviewerControllerApiReviewProcedure
+	 */
+	readonly procedureAppInstanceId: number;
+
+	/**
+	 *
+	 * @type {InlineObject1}
+	 * @memberof ReviewerControllerApiReviewProcedure
+	 */
+	readonly inlineObject1: InlineObject1;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ReviewerControllerApiReviewProcedure
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
@@ -438,6 +761,50 @@ export class ReviewerControllerApi extends BaseAPI {
 		return ReviewerControllerApiFp(this.configuration)
 			.getProcedureForReview(
 				requestParameters.applicationId,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {ReviewerControllerApiReviewApplicationRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof ReviewerControllerApi
+	 */
+	public reviewApplication(
+		requestParameters: ReviewerControllerApiReviewApplicationRequest,
+		options?: AxiosRequestConfig
+	) {
+		return ReviewerControllerApiFp(this.configuration)
+			.reviewApplication(
+				requestParameters.applicationId,
+				requestParameters.inlineObject,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {ReviewerControllerApiReviewProcedureRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof ReviewerControllerApi
+	 */
+	public reviewProcedure(
+		requestParameters: ReviewerControllerApiReviewProcedureRequest,
+		options?: AxiosRequestConfig
+	) {
+		return ReviewerControllerApiFp(this.configuration)
+			.reviewProcedure(
+				requestParameters.applicationId,
+				requestParameters.procedureId,
+				requestParameters.procedureAppInstanceId,
+				requestParameters.inlineObject1,
 				requestParameters.acceptLanguage,
 				options
 			)
