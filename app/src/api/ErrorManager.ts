@@ -50,11 +50,7 @@ async function errorManager(response: AxiosResponse) {
 				}
 			}
 			cleanSession();
-			// eslint-disable-next-line no-console
-			console.log(
-				`login URL: ${await loginUrl}, originalConfig: ${await originalConfig.url}`
-			);
-			if (originalConfig.url !== (await loginUrl)) {
+			if (!originalConfig.url?.endsWith(await loginUrl)) {
 				logoutApp(true);
 				window.location.replace('/unauthorized');
 				return Promise.resolve();
