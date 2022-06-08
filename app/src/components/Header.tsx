@@ -3,41 +3,27 @@ import {
 	HeaderGlobalAction,
 	HeaderGlobalBar,
 	HeaderMenuButton,
-	HeaderName,
-	SideNav,
-	SideNavItems,
-	SideNavLink,
-	SideNavMenu,
-	SideNavMenuItem
+	HeaderName
 } from '@carbon/react';
-import {
-	AlignBoxMiddleCenter,
-	Fade,
-	Logout,
-	Moon,
-	RequestQuote
-} from '@carbon/react/icons';
-import { Link, useNavigate } from 'react-router-dom';
+import { Moon } from '@carbon/react/icons';
+import { useNavigate } from 'react-router-dom';
 import { useBoolean, useMount, useUnmount } from 'ahooks';
-import useResponsive from '@hooks/useResponsive';
 import useUiStore from '@hooks/useUiStore';
 import routes from '@routes/routes-const';
-import usePolicyStore from '@hooks/usePolicyStore';
 import UserProfileImage from '@components/UserProfileImage';
 import useLoginStore from '@hooks/auth/useLoginStore';
 import UserPanel from '@components/UserPanel';
 import { useRef } from 'react';
+import CosmoSideNav from '@components/CosmoSideNav';
 
 type HeaderProps = {
 	isSideNavExpanded: boolean;
 	onClickSideNavExpand: () => void;
 };
 const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
-	const { canReview, canReviewNarrative, canSeeNarrativeManagement } = usePolicyStore();
 	const { auth } = useLoginStore();
 	const { setTheme } = useUiStore();
 	const navigate = useNavigate();
-	const { md, lg } = useResponsive();
 	const userButtonRef = useRef<HTMLButtonElement>(null);
 	const [userExpanded, { toggle: toggleUser, setFalse: setCloseUser }] =
 		useBoolean(false);
@@ -51,7 +37,7 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 	});
 
 	return (
-		<CarbonHeader aria-label='Cosmo'>
+		<CarbonHeader aria-label='Cosmo' className='cds--g100'>
 			<HeaderMenuButton
 				aria-label='Open menu'
 				onClick={onClickSideNavExpand}
@@ -91,50 +77,7 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 					/>
 				</HeaderGlobalAction>
 			</HeaderGlobalBar>
-			<SideNav
-				onOverlayClick={onClickSideNavExpand}
-				aria-label='Side navigation'
-				expanded={isSideNavExpanded}
-				isRail={md && !lg}
-			>
-				<SideNavItems>
-					{canSeeNarrativeManagement && (
-						<SideNavMenu
-							renderIcon={AlignBoxMiddleCenter}
-							title='Narrative'
-							className='transition-all'
-						>
-							<SideNavMenuItem element={Link} to={routes.MANAGEMENT}>
-								Management Dashboard
-							</SideNavMenuItem>
-							{canReviewNarrative && (
-								<SideNavMenuItem element={Link} to={routes.REVIEW}>
-									Review
-								</SideNavMenuItem>
-							)}
-						</SideNavMenu>
-					)}
-					{canReview && (
-						<SideNavMenu
-							renderIcon={RequestQuote}
-							title='Review'
-							className='transition-all'
-						>
-							<SideNavMenuItem element={Link} to={routes.REVIEW_NARRATIVE}>
-								Narrative
-							</SideNavMenuItem>
-						</SideNavMenu>
-					)}
-					{import.meta.env.DEV && (
-						<SideNavLink renderIcon={Fade} href='/translation?showtranslations'>
-							[TEST ONLY] Show translations
-						</SideNavLink>
-					)}
-					<SideNavLink renderIcon={Logout} href={routes.LOGOUT}>
-						Logout
-					</SideNavLink>
-				</SideNavItems>
-			</SideNav>
+			<CosmoSideNav {...{ onClickSideNavExpand, isSideNavExpanded }} />
 			<UserPanel
 				expanded={userExpanded}
 				user={auth?.user}

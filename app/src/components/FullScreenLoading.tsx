@@ -10,12 +10,39 @@ import {
 	SideNavItems,
 	SideNavLink,
 	SkeletonIcon,
-	SkeletonText
+	SkeletonText,
+	Theme
 } from '@carbon/react';
 import useResponsive from '@hooks/useResponsive';
 import { useMount, useUnmount } from 'ahooks';
 import { useMemo } from 'react';
 import PageSkeleton from '@components/PageSkeleton';
+import useUiStore from '@hooks/useUiStore';
+
+type LoadingSideNavProps = {
+	fakeLink: { id: number }[];
+};
+
+const LoadingSideNav = ({ fakeLink }: LoadingSideNavProps) => {
+	const { lg } = useResponsive();
+	const { theme } = useUiStore();
+
+	return (
+		<Theme theme={theme}>
+			<SideNav aria-label='Side navigation' isRail={!lg} expanded={lg}>
+				<SideNavItems>
+					{fakeLink.map(({ id }) => (
+						<SideNavLink key={id} renderIcon={SkeletonIcon}>
+							<div className='w-13'>
+								<SkeletonText className='m-0' />
+							</div>
+						</SideNavLink>
+					))}
+				</SideNavItems>
+			</SideNav>
+		</Theme>
+	);
+};
 
 const FullScreenLoading = () => {
 	useMount(() => {
@@ -24,12 +51,11 @@ const FullScreenLoading = () => {
 	useUnmount(() => {
 		document.body.classList.remove('fix-height');
 	});
-	const { lg } = useResponsive();
 	const fakeLink = useMemo(() => [...Array(12)].map((_, i) => ({ id: i })), []);
 
 	return (
 		<>
-			<CarbonHeader aria-label='Cosmo'>
+			<CarbonHeader aria-label='Cosmo' className='cds--g100'>
 				<HeaderMenuButton
 					aria-label='Open menu'
 					className='pointer-events-none'
@@ -59,17 +85,7 @@ const FullScreenLoading = () => {
 						</HeaderGlobalAction>
 					))}
 				</HeaderGlobalBar>
-				<SideNav aria-label='Side navigation' isRail={!lg} expanded={lg}>
-					<SideNavItems>
-						{fakeLink.map(({ id }) => (
-							<SideNavLink key={id} renderIcon={SkeletonIcon}>
-								<div className='w-13'>
-									<SkeletonText className='m-0' />
-								</div>
-							</SideNavLink>
-						))}
-					</SideNavItems>
-				</SideNav>
+				<LoadingSideNav fakeLink={fakeLink} />
 			</CarbonHeader>
 			<Content className='container-w-sidenav ml-6 h-full space-y-8 overflow-auto bg-layer-1 p-9 lg:ml-[calc(32*0.5rem)]'>
 				<PageSkeleton />
