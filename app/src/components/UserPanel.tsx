@@ -65,9 +65,9 @@ const UserPanel = ({ expanded, user, onClickOutside }: UserPanelProps) => {
 				</Accordion>
 			</section>
 			<section className='flex items-center justify-between border-t-[1px] border-solid border-border-subtle-1 py-2 px-2 text-body-short-1'>
-				<Button kind='ghost' size='sm' className='flex flex-1 justify-start'>
+				{/* <Button kind='ghost' size='sm' className='flex flex-1 justify-start'>
 					Edit Profile
-				</Button>
+				</Button> */}
 				<Button
 					kind='ghost'
 					size='sm'
