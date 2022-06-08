@@ -17,6 +17,8 @@ interface ProcedureAppInstance {
 	lastReviewer?: User;
 	lastModifier?: User;
 	inReview?: boolean;
+	startNarrativeReview?: Date;
+	endNarrativeReview?: Date;
 }
 
 export const fromProcedureAppInstanceApi = (
@@ -38,7 +40,13 @@ export const fromProcedureAppInstanceApi = (
 			? fromUserApi(procedureApi.lastReviewer)
 			: undefined,
 		owner: fromUserApi(procedureApi.owner),
-		inReview: procedureApi.inReview
+		inReview: procedureApi.inReview,
+		startNarrativeReview: procedureApi.startNarrativeReview
+			? new Date(procedureApi.startNarrativeReview)
+			: undefined,
+		endNarrativeReview: procedureApi.endNarrativeReview
+			? new Date(procedureApi.endNarrativeReview)
+			: undefined
 	};
 };
 
@@ -58,7 +66,9 @@ export const toProcedureAppInstanceApi = (
 		lastReview: procedure.lastReview?.toISOString(),
 		lastReviewer: toUserApi(procedure.lastReviewer),
 		owner: toUserApi(procedure.owner),
-		inReview: procedure.inReview
+		inReview: procedure.inReview,
+		startNarrativeReview: procedure.startNarrativeReview?.toISOString(),
+		endNarrativeReview: procedure.endNarrativeReview?.toISOString()
 	};
 };
 
