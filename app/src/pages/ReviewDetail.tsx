@@ -73,7 +73,7 @@ const ReviewDetail = () => {
 													</p>
 													{data.lastReview && (
 														<p className='text-text-secondary text-body-compact-1'>
-															{`${t('last-reviewer')}:`}
+															{`${t('last-reviewer')}: ${data.lastReviewer?.displayName}`}
 														</p>
 													)}
 												</div>
@@ -105,9 +105,13 @@ const ReviewDetail = () => {
 																		: t('never')
 																}`}
 															</p>
-															<p className=' text-text-secondary text-body-compact-1'>
-																{`${t('last-reviewer')}:`}
-															</p>
+															{procedure.lastReviewer && (
+																<p className=' text-text-secondary text-body-compact-1'>
+																	{`${t('last-reviewer')}: ${
+																		procedure.lastReviewer?.displayName
+																	}`}
+																</p>
+															)}
 														</div>
 													</FullWidthColumn>
 													<FullWidthColumn>

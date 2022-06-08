@@ -13,7 +13,7 @@
  */
 
 /**
- *
+ * Last person who modified
  * @export
  * @interface UserDto
  */

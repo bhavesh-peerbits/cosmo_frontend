@@ -63,7 +63,7 @@ export interface ApplicationDto {
 	 */
 	delegates: Array<UserDto>;
 	/**
-	 *
+	 * Last Modify Date
 	 * @type {string}
 	 * @memberof ApplicationDto
 	 */
@@ -86,6 +86,18 @@ export interface ApplicationDto {
 	 * @memberof ApplicationDto
 	 */
 	owner: UserDto;
+	/**
+	 *
+	 * @type {UserDto}
+	 * @memberof ApplicationDto
+	 */
+	lastReviewer?: UserDto;
+	/**
+	 *
+	 * @type {UserDto}
+	 * @memberof ApplicationDto
+	 */
+	lastModifier?: UserDto;
 	/**
 	 *
 	 * @type {{ [key: string]: string | undefined; }}
