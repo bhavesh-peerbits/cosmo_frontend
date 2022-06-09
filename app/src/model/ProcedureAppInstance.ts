@@ -64,7 +64,7 @@ export const toProcedureAppInstanceApi = (
 		lastModifier: toUserApi(procedure.lastModifier),
 		lastModify: procedure.lastModify?.toISOString(),
 		lastReview: procedure.lastReview?.toISOString(),
-		lastReviewer: toUserApi(procedure.lastReviewer),
+		lastReviewer: procedure.lastReview ? toUserApi(procedure.lastReviewer) : undefined,
 		owner: toUserApi(procedure.owner),
 		inReview: procedure.inReview,
 		startNarrativeReview: procedure.startNarrativeReview?.toISOString(),
