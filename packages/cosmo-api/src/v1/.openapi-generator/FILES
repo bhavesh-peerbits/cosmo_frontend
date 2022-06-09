@@ -7,6 +7,7 @@ api/config-element-controller-api.ts
 api/config-element-module-controller-api.ts
 api/control-controller-api.ts
 api/frequency-controller-api.ts
+api/generate-report-controller-api.ts
 api/module-controller-api.ts
 api/narrative-review-controller-api.ts
 api/procedure-controller-api.ts

@@ -5,6 +5,7 @@ import {
 	ApplicationControllerApi,
 	ApplicationDto,
 	Configuration,
+	GenerateReportControllerApi,
 	NarrativeReviewControllerApi,
 	ProcedureAppInstanceDto,
 	ProcedureControllerApi,
@@ -22,7 +23,8 @@ export default function configureApi(config: Configuration) {
 		applicationApi: new ApplicationControllerApi(config),
 		procedureApi: new ProcedureControllerApi(config),
 		narrativeReview: new NarrativeReviewControllerApi(config),
-		reviewerApi: new ReviewerControllerApi(config)
+		reviewerApi: new ReviewerControllerApi(config),
+		generateReportApi: new GenerateReportControllerApi(config)
 	};
 }
 export type ApplicationApi = ApplicationDto;

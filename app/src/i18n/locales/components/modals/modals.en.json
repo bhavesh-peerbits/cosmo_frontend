@@ -30,5 +30,6 @@
 	"add-procedure": "Add Procedure",
 	"application": "Application",
 	"narrative-name": "Narrative Name",
-	"total-apps-narrative": "Total number of applications selected"
+	"total-apps-narrative": "Total number of applications selected",
+	"total-procedures-narrative": "Total procedures"
 }

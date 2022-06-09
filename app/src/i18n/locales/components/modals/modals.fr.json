@@ -30,5 +30,6 @@
 	"add-procedure": "Ajouter Procédure",
 	"application": "Application",
 	"narrative-name": "Nom du Narrative",
-	"total-apps-narrative": "Nombre total de applications sélectionnées"
+	"total-apps-narrative": "Nombre total de applications sélectionnées",
+	"total-procedures-narrative": "Nombre total de procédures"
 }
