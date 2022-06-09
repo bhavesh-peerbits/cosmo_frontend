@@ -1,5 +1,4 @@
 import { Button, Column, Form, Grid, TextInput } from '@carbon/react';
-import DatePickerWrapper from '@components/DatePickerWrapper';
 import FullWidthColumn from '@components/FullWidthColumn';
 import MultipleUserSelect from '@components/MultipleUserSelect';
 import SingleUserSelect from '@components/SingleUserSelect';
@@ -147,24 +146,19 @@ const ProcedureReview = ({
 							/>
 						</FullWidthColumn>
 						<Column sm={4} md={8} lg={8} className='mb-5'>
-							<DatePickerWrapper
-								control={control}
-								label={`${t('last-modify')}`}
-								name='lastModify'
-								minDate={new Date()}
+							<TextInput
+								id={`last-modify-${procedureApp.id}`}
+								labelText={`${t('last-modify')}`}
+								value={procedureApp.lastModify?.toLocaleString()}
+								readOnly
 							/>
 						</Column>
 						<Column sm={4} md={8} lg={8} className='mb-5'>
-							<SingleUserSelect
-								control={control}
-								label={`${t('last-modifier')} *`}
-								name='lastModifier'
-								rules={{
-									required: {
-										value: true,
-										message: `${t('modifier-required')}`
-									}
-								}}
+							<TextInput
+								id={`last-modifier-${procedureApp.id}`}
+								labelText={`${t('last-modifier')}`}
+								value={procedureApp.lastModifier?.displayName}
+								readOnly
 							/>
 						</Column>
 						<FullWidthColumn className='mb-5'>

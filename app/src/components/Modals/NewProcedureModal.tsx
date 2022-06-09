@@ -257,7 +257,7 @@ const NewProcedureModal = ({
 	}, [isOpen]);
 
 	return (
-		<ComposedModal open={isOpen} onClose={() => setIsOpen(false)}>
+		<ComposedModal open={isOpen} onClose={() => setIsOpen(false)} className='z-[99999]'>
 			<ModalHeader title='Add Procedure' closeModal={() => setIsOpen(false)} />
 			{isOpen && (
 				<ModalBody>

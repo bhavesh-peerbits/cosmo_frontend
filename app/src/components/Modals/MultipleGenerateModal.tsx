@@ -1,4 +1,6 @@
 import {
+	Accordion,
+	AccordionItem,
 	Button,
 	Column,
 	ComposedModal,
@@ -34,20 +36,31 @@ const MultipleGenerateModal = ({
 				</Column>
 				<ModalBody>
 					<FullWidthColumn>
-						<div>
-							{applications.map(app => (
-								<div className='flex space-x-5 py-5'>
-									<div className='flex w-1/2 space-x-3'>
-										<div className='text-heading-compact-1'>{t('application')}:</div>
-										<div>{app.name}</div>
-									</div>
-									<div className='flex w-1/2 space-x-3'>
-										<div className='text-heading-compact-1'>{t('narrative-name')}:</div>
-										<div>NarrativeName</div>
-									</div>
-								</div>
-							))}
+						<div className='mb-5 flex space-x-3'>
+							<div className='text-productive-heading-2'>
+								{t('total-apps-narrative')} :
+							</div>
+							<div className='text-productive-heading-2'>{applications?.length}</div>
 						</div>
+						<Accordion className='w-full'>
+							<AccordionItem
+								title={t('application-selected')}
+								className='flex flex-col items-stretch'
+							>
+								{applications.map(app => (
+									<div className='flex space-x-5 py-5'>
+										<div className='flex w-1/2 space-x-3'>
+											<div className='text-heading-compact-1'>{t('application')}:</div>
+											<div>{app.name}</div>
+										</div>
+										<div className='flex w-1/2 space-x-3'>
+											<div className='text-heading-compact-1'>{t('narrative-name')}:</div>
+											<div>NarrativeName</div>
+										</div>
+									</div>
+								))}
+							</AccordionItem>
+						</Accordion>
 					</FullWidthColumn>
 				</ModalBody>
 				<ModalFooter>

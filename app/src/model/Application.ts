@@ -17,6 +17,8 @@ interface Application {
 	inReview?: boolean;
 	hasProcedureInReview?: boolean;
 	startNarrativeReview?: Date;
+	lastReviewer?: User;
+	lastModifier?: User;
 }
 
 export const fromApplicationApi = (applicationApi: ApplicationApi): Application => ({
@@ -37,6 +39,12 @@ export const fromApplicationApi = (applicationApi: ApplicationApi): Application 
 	hasProcedureInReview: applicationApi.hasProcedureInReview,
 	startNarrativeReview: applicationApi.startNarrativeReview
 		? new Date(applicationApi.startNarrativeReview)
+		: undefined,
+	lastReviewer: applicationApi.lastReviewer
+		? fromUserApi(applicationApi.lastReviewer)
+		: undefined,
+	lastModifier: applicationApi.lastModifier
+		? fromUserApi(applicationApi.lastModifier)
 		: undefined
 });
 
@@ -54,7 +62,11 @@ export const toApplicationApi = (application: Application): ApplicationApi => ({
 	endNarrativeReview: application.dueDate?.toISOString(),
 	inReview: application.inReview,
 	hasProcedureInReview: application.hasProcedureInReview,
-	startNarrativeReview: application.startNarrativeReview?.toISOString()
+	startNarrativeReview: application.startNarrativeReview?.toISOString(),
+	lastReviewer: application.lastReviewer
+		? toUserApi(application.lastReviewer)
+		: undefined,
+	lastModifier: application.lastModifier ? toUserApi(application.lastModifier) : undefined
 });
 
 export default Application;

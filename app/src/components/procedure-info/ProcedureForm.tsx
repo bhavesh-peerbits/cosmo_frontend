@@ -4,7 +4,6 @@ import { useMemo, useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
 import FullWidthColumn from '@components/FullWidthColumn';
 import MultipleUserSelect from '@components/MultipleUserSelect';
-import DatePickerWrapper from '@components/DatePickerWrapper';
 import SingleUserSelect from '@components/SingleUserSelect';
 import ProcedureAppInstance from '@model/ProcedureAppInstance';
 import User from '@model/User';
@@ -188,45 +187,36 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 								/>
 							</FullWidthColumn>
 							<Column sm={4} md={8} lg={8} className='mb-5'>
-								<DatePickerWrapper
-									control={control}
-									label={`${t('last-modify')}`}
-									name='lastModify'
-									minDate={new Date()}
+								<TextInput
+									id={`last-modify-${procedureApp.id}`}
+									labelText={`${t('last-modify')}`}
+									value={procedureApp.lastModify?.toLocaleString()}
+									readOnly
 								/>
 							</Column>
 							<Column sm={4} md={8} lg={8} className='mb-5'>
-								<SingleUserSelect
-									control={control}
-									label={`${t('last-modifier')} *`}
-									name='lastModifier'
-									rules={{
-										required: {
-											value: true,
-											message: `${t('modifier-required')}`
-										}
-									}}
+								<TextInput
+									id={`last-modifier-${procedureApp.id}`}
+									labelText={`${t('last-modifier')}`}
+									value={procedureApp.lastModifier?.displayName}
+									readOnly
+								/>
+							</Column>
+
+							<Column sm={4} md={8} lg={8} className='mb-5'>
+								<TextInput
+									id={`last-review-${procedureApp.id}`}
+									labelText={`${t('last-review')}`}
+									value={procedureApp.lastReview?.toLocaleString()}
+									readOnly
 								/>
 							</Column>
 							<Column sm={4} md={8} lg={8} className='mb-5'>
-								<DatePickerWrapper
-									label={`${t('last-review')}`}
-									control={control}
-									name='lastReview'
-									minDate={new Date()}
-								/>
-							</Column>
-							<Column sm={4} md={8} lg={8} className='mb-5'>
-								<SingleUserSelect
-									control={control}
-									label={`${t('last-reviewer')} *`}
-									name='lastReviewer'
-									rules={{
-										required: {
-											value: true,
-											message: `${t('reviewer-required')}`
-										}
-									}}
+								<TextInput
+									id={`last-reviewer-${procedureApp.id}`}
+									labelText={`${t('last-reviewer')}`}
+									value={procedureApp.lastReviewer?.displayName}
+									readOnly
 								/>
 							</Column>
 							<FullWidthColumn>

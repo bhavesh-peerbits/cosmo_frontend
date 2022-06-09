@@ -29,5 +29,6 @@
 	"copy-procedure": "Copia procedura",
 	"add-procedure": "Aggiungi Procedura",
 	"application": "Applicazione",
-	"narrative-name": "Nome del Narrative"
+	"narrative-name": "Nome del Narrative",
+	"total-apps-narrative": "Numero totale di applicazioni selezionate"
 }
