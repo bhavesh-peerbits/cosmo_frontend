@@ -98,22 +98,18 @@ export const GenerateReportControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {Array<number>} applicationIds
+		 * @param {Array<number>} requestBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getSomeApplicationReportNarrative: async (
-			applicationIds: Array<number>,
+			requestBody: Array<number>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'applicationIds' is not null or undefined
-			assertParamExists(
-				'getSomeApplicationReportNarrative',
-				'applicationIds',
-				applicationIds
-			);
+			// verify required parameter 'requestBody' is not null or undefined
+			assertParamExists('getSomeApplicationReportNarrative', 'requestBody', requestBody);
 			const localVarPath = `/api/generateReport/applications`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -122,20 +118,18 @@ export const GenerateReportControllerApiAxiosParamCreator = function (
 				baseOptions = configuration.baseOptions;
 			}
 
-			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
 			const localVarHeaderParameter = {} as any;
 			const localVarQueryParameter = {} as any;
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
 
-			if (applicationIds) {
-				localVarQueryParameter['applicationIds'] = applicationIds;
-			}
-
 			if (acceptLanguage !== undefined && acceptLanguage !== null) {
 				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
 			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
@@ -145,6 +139,11 @@ export const GenerateReportControllerApiAxiosParamCreator = function (
 				...headersFromBaseOptions,
 				...options.headers
 			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				requestBody,
+				localVarRequestOptions,
+				configuration
+			);
 
 			return {
 				url: toPathString(localVarUrlObj),
@@ -191,13 +190,13 @@ export const GenerateReportControllerApiFp = function (configuration?: Configura
 		},
 		/**
 		 *
-		 * @param {Array<number>} applicationIds
+		 * @param {Array<number>} requestBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getSomeApplicationReportNarrative(
-			applicationIds: Array<number>,
+			requestBody: Array<number>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
@@ -205,7 +204,7 @@ export const GenerateReportControllerApiFp = function (configuration?: Configura
 		> {
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.getSomeApplicationReportNarrative(
-					applicationIds,
+					requestBody,
 					acceptLanguage,
 					options
 				);
@@ -248,18 +247,18 @@ export const GenerateReportControllerApiFactory = function (
 		},
 		/**
 		 *
-		 * @param {Array<number>} applicationIds
+		 * @param {Array<number>} requestBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getSomeApplicationReportNarrative(
-			applicationIds: Array<number>,
+			requestBody: Array<number>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Array<string>> {
 			return localVarFp
-				.getSomeApplicationReportNarrative(applicationIds, acceptLanguage, options)
+				.getSomeApplicationReportNarrative(requestBody, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		}
 	};
@@ -297,7 +296,7 @@ export interface GenerateReportControllerApiGetSomeApplicationReportNarrativeReq
 	 * @type {Array<number>}
 	 * @memberof GenerateReportControllerApiGetSomeApplicationReportNarrative
 	 */
-	readonly applicationIds: Array<number>;
+	readonly requestBody: Array<number>;
 
 	/**
 	 *
@@ -347,7 +346,7 @@ export class GenerateReportControllerApi extends BaseAPI {
 	) {
 		return GenerateReportControllerApiFp(this.configuration)
 			.getSomeApplicationReportNarrative(
-				requestParameters.applicationIds,
+				requestParameters.requestBody,
 				requestParameters.acceptLanguage,
 				options
 			)

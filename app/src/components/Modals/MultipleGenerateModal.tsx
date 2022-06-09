@@ -12,6 +12,7 @@ import {
 import Application from '@model/Application';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
+import useGetAppsNarrative from '@api/management/useGetAppsNarrative';
 
 type MultipleGenerateModalProps = {
 	isOpen: boolean;
@@ -25,6 +26,25 @@ const MultipleGenerateModal = ({
 	applications
 }: MultipleGenerateModalProps) => {
 	const { t } = useTranslation('modals');
+	const { t: tInfo } = useTranslation('applicationInfo');
+	const cleanUp = () => {
+		setIsOpen(false);
+	};
+
+	const useGenerateNarratives = () => {
+		const applicationIds = applications.map(app => +app.id);
+		useGetAppsNarrative(applicationIds).then(({ data }) => {
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-ignore
+			const fileBlob = new Blob([data]);
+			const dataUrl = URL.createObjectURL(fileBlob);
+			const link = document.createElement('a');
+			link.download = `applications_narratives.zip`;
+			link.href = dataUrl;
+			link.click();
+		});
+		cleanUp();
+	};
 	return (
 		<Grid fullWidth narrow>
 			<ComposedModal open={isOpen} onClose={() => setIsOpen(false)}>
@@ -54,8 +74,8 @@ const MultipleGenerateModal = ({
 											<div>{app.name}</div>
 										</div>
 										<div className='flex w-1/2 space-x-3'>
-											<div className='text-heading-compact-1'>{t('narrative-name')}:</div>
-											<div>NarrativeName</div>
+											<div className='text-heading-compact-1'>{tInfo('owner')}:</div>
+											<div>{app.owner.displayName}</div>
 										</div>
 									</div>
 								))}
@@ -67,7 +87,9 @@ const MultipleGenerateModal = ({
 					<Button kind='secondary' onClick={() => setIsOpen(false)}>
 						{t('cancel')}
 					</Button>
-					<Button>{t('generate-narrative')}</Button>
+					<Button type='submit' onClick={useGenerateNarratives}>
+						{t('generate-narrative')}
+					</Button>
 				</ModalFooter>
 			</ComposedModal>
 		</Grid>

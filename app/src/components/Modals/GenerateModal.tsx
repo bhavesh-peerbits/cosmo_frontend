@@ -98,7 +98,7 @@ const GenerateModal = ({ isOpen, setIsOpen, application }: GenerateModalProps) =
 			const fileBlob = new Blob([data]);
 			const dataUrl = URL.createObjectURL(fileBlob);
 			const link = document.createElement('a');
-			link.download = `${application.name}_narrative.pdf`;
+			link.download = `${application.name}.pdf`;
 			link.href = dataUrl;
 			link.click();
 		});
