@@ -33,13 +33,14 @@ const MultipleGenerateModal = ({
 
 	const useGenerateNarratives = () => {
 		const applicationIds = applications.map(app => +app.id);
-		useGetAppsNarrative(applicationIds).then(({ data }) => {
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore
-			const fileBlob = new Blob([data]);
+		useGetAppsNarrative(applicationIds).then(({ data, headers }) => {
+			const fileName =
+				headers['content-disposition']?.split('filename=')[1] ||
+				'applications_narratives.zip';
+			const fileBlob = new Blob([data as unknown as BlobPart]);
 			const dataUrl = URL.createObjectURL(fileBlob);
 			const link = document.createElement('a');
-			link.download = `applications_narratives.zip`;
+			link.download = fileName;
 			link.href = dataUrl;
 			link.click();
 		});

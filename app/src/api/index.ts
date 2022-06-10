@@ -9,7 +9,7 @@ import i18n from '@i18n';
 const underscoreToDash = (text: string) => text.replace('_', '-');
 
 const DEFAULT_CONFIG = new ApiConfiguration({
-	basePath: import.meta.env.COSMO_API_URL
+	basePath: import.meta.env.COSMO_API_URL || window.location.origin
 });
 
 axios.interceptors.response.use(

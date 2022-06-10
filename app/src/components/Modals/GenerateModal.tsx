@@ -92,13 +92,14 @@ const GenerateModal = ({ isOpen, setIsOpen, application }: GenerateModalProps) =
 	};
 
 	const useGenerateNarrative = () => {
-		useGetAppNarrative(application.id).then(({ data }) => {
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore
-			const fileBlob = new Blob([data]);
+		useGetAppNarrative(application.id).then(({ data, headers }) => {
+			const fileName =
+				headers['content-disposition']?.split('filename=')[1] ||
+				`${application.name}.pdf`;
+			const fileBlob = new Blob([data as unknown as BlobPart]);
 			const dataUrl = URL.createObjectURL(fileBlob);
 			const link = document.createElement('a');
-			link.download = `${application.name}.pdf`;
+			link.download = fileName;
 			link.href = dataUrl;
 			link.click();
 		});
