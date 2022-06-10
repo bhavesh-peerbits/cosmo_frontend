@@ -61,7 +61,7 @@ export const toProcedureAppInstanceApi = (
 		},
 		description: procedure.description,
 		delegatedProcedureApp: procedure.delegated?.map(toUserApi) || [],
-		lastModifier: toUserApi(procedure.lastModifier),
+		lastModifier: procedure.lastModifier ? toUserApi(procedure.lastModifier) : undefined,
 		lastModify: procedure.lastModify?.toISOString(),
 		lastReview: procedure.lastReview?.toISOString(),
 		lastReviewer: procedure.lastReview ? toUserApi(procedure.lastReviewer) : undefined,
