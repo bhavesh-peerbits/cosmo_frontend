@@ -12,6 +12,7 @@ import routes from '@routes/routes-const';
 import useGetProcedureForReview from '@api/review/useGetProcedureForReview';
 import { useMemo, useState, useEffect } from 'react';
 import useGetAppsInReview from '@api/review/useGetAppsInReview';
+import Application from '@model/Application';
 
 type ProcedureState = Partial<ProcedureAppInstance> & {
 	id: string;
@@ -29,6 +30,7 @@ const ReviewDetail = () => {
 	const [procedureList, setProcedureList] = useState<ProcedureState[]>(serverProcs);
 	const { breadcrumbSize } = useBreadcrumbSize();
 	const data = apps?.get(appId);
+	const [dataApp] = useState<Application | undefined>(data);
 
 	useEffect(() => {
 		setProcedureList(old => {
@@ -53,7 +55,7 @@ const ReviewDetail = () => {
 					<Grid fullWidth className='h-full p-5'>
 						<FullWidthColumn>
 							<div className='space-y-7'>
-								{data.inReview && (
+								{dataApp?.inReview && (
 									<Tile className='bg-background'>
 										<Grid>
 											<FullWidthColumn className='flex justify-between space-x-1'>
