@@ -3,18 +3,16 @@ import {
 	Column,
 	ComposedModal,
 	Grid,
-	InlineNotification,
 	ModalBody,
 	ModalFooter,
 	ModalHeader
 } from '@carbon/react';
 import Application from '@model/Application';
 import { useMemo } from 'react';
-import useGenerateNarrative from '@api/management/useGenerateNarrative';
-import FullWidthColumn from '@components/FullWidthColumn';
-import ApiError from '@api/ApiError';
-import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
+import useGetAppNarrative from '@api/management/useGetAppNarrative';
+import useGetProcedureByApp from '@api/app-procedures/useGetProcedureByApp';
+import ProcedureAppInstance from '@model/ProcedureAppInstance';
 
 type GenerateModalProps = {
 	isOpen: boolean;
@@ -25,9 +23,8 @@ type GenerateModalProps = {
 const GenerateModal = ({ isOpen, setIsOpen, application }: GenerateModalProps) => {
 	const { t } = useTranslation('applicationInfo');
 	const { t: tModals } = useTranslation('modals');
-	const { mutate, isLoading, isError, error, reset } = useGenerateNarrative(
-		application.id
-	);
+	const { data: proceduresApp = new Map<string, ProcedureAppInstance>() } =
+		useGetProcedureByApp(application.id);
 
 	const applicationProperties = useMemo(
 		() => [
@@ -91,16 +88,21 @@ const GenerateModal = ({ isOpen, setIsOpen, application }: GenerateModalProps) =
 	);
 
 	const cleanUp = () => {
-		reset();
 		setIsOpen(false);
 	};
 
-	const generateNarrative = () => {
-		mutate(undefined, {
-			onSuccess: () => {
-				cleanUp();
-			}
+	const useGenerateNarrative = () => {
+		useGetAppNarrative(application.id).then(({ data }) => {
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-ignore
+			const fileBlob = new Blob([data]);
+			const dataUrl = URL.createObjectURL(fileBlob);
+			const link = document.createElement('a');
+			link.download = `${application.name}.pdf`;
+			link.href = dataUrl;
+			link.click();
 		});
+		cleanUp();
 	};
 
 	return (
@@ -113,52 +115,33 @@ const GenerateModal = ({ isOpen, setIsOpen, application }: GenerateModalProps) =
 
 			<ModalBody className='mt-5'>
 				<Grid fullWidth>
-					{applicationProperties.map(property => (
-						<Column key={property.key} lg={8} md={4} sm={4} className='mb-8 px-4'>
-							<div className='flex w-full justify-between space-x-4'>
-								<span className='text-heading-compact-1 first-letter:uppercase'>
-									{property.label}:
-								</span>
-								<span className='text-right'>
-									{property.value || <span className='italic'>{'<No value>'}</span>}
-								</span>
-							</div>
-						</Column>
-					))}
-
+					{applicationProperties.map(
+						property =>
+							property.value && (
+								<Column key={property.key} lg={8} md={4} sm={4} className='mb-8 px-4'>
+									<div className='flex w-full space-x-4'>
+										<span className='text-heading-compact-1 first-letter:uppercase'>
+											{property.label}:
+										</span>
+										<span className='text-right'>{property.value}</span>
+									</div>
+								</Column>
+							)
+					)}
 					<Column lg={16} md={8} sm={4} className='px-4'>
 						<div className='pt-5'>
-							<p className='flex w-full text-heading-compact-2'>Total Procedures:</p>
+							<p className='flex w-full text-heading-compact-2'>{`${tModals(
+								'total-procedures-narrative'
+							)}: ${proceduresApp.values.length}`}</p>
 						</div>
 					</Column>
-
-					<FullWidthColumn className='pt-5'>
-						<div
-							className={cx(
-								'flex items-center justify-center transition-all duration-fast-2 ease-entrance-expressive',
-								{
-									'opacity-0': !isError
-								}
-							)}
-						>
-							<InlineNotification
-								kind='error'
-								title='Error'
-								hideCloseButton
-								subtitle={
-									(error as ApiError)?.message ||
-									'An error has occurred, please try again'
-								}
-							/>
-						</div>
-					</FullWidthColumn>
 				</Grid>
 			</ModalBody>
 			<ModalFooter>
 				<Button kind='secondary' onClick={() => cleanUp()}>
 					{tModals('cancel')}
 				</Button>
-				<Button type='submit' disabled={isLoading} onClick={generateNarrative}>
+				<Button type='submit' onClick={useGenerateNarrative}>
 					{tModals('generate-narrative')}
 				</Button>
 			</ModalFooter>

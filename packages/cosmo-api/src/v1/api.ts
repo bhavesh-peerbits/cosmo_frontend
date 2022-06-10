@@ -18,6 +18,7 @@ export * from './api/config-element-controller-api';
 export * from './api/config-element-module-controller-api';
 export * from './api/control-controller-api';
 export * from './api/frequency-controller-api';
+export * from './api/generate-report-controller-api';
 export * from './api/module-controller-api';
 export * from './api/narrative-review-controller-api';
 export * from './api/procedure-controller-api';

@@ -38,7 +38,7 @@ const ReviewTile = ({ application }: ReviewTileProps) => {
 							<div className='box-content max-h-[60px] overflow-hidden line-clamp-3'>
 								<div className='mb-5 flex max-w-[40rem] text-ellipsis text-body-1'>
 									<p className='text-body-short-1'>{`${t('owner')}: ${
-										application.owner.name
+										application.owner.displayName
 									}`}</p>
 								</div>
 							</div>
