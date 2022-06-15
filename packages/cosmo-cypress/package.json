@@ -4,7 +4,7 @@
 	"version": "1.0.0",
 	"scripts": {
 		"test:e2e": "cypress open --config baseUrl='http://localhost:3000'",
-		"atest:ci": "start-server-and-test 'yarn workspace app preview' http://localhost:4173 'cypress run'",
+		"test:ci": "start-server-and-test 'yarn workspace app preview' http://localhost:4173 'cypress run'",
 		"comm:tsc": "yarn run -T tsc"
 	},
 	"dependencies": {

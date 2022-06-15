@@ -7,7 +7,7 @@
 		"build": "yarn comm:tsc && vite build",
 		"preview": "vite preview",
 		"test:unit": "echo n | vitest --ui",
-		"test:ci": "vitest run",
+		"atest:ci": "vitest run",
 		"validate": "yarn lint && yarn test:ci",
 		"comm:tsc": "yarn run -T tsc"
 	},
