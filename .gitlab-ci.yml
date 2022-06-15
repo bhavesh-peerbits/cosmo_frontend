@@ -36,6 +36,11 @@ build:
   before_script:
     - yarn install
   script: yarn build
+  cache:
+    key: frontend-cache
+    paths:
+      - .yarn
+    policy: pull-push
   artifacts:
     expire_in: 1 day
     paths:
@@ -78,6 +83,12 @@ test:
     - yarn
   script:
     - yarn test
+  cache:
+    key: frontend-cache
+    paths:
+      - .yarn
+    policy: pull
+
 tag:
   image: aramis-nexus.aizoon.it:5000/esra/docker:20.10.8
   stage: tag 🔖
