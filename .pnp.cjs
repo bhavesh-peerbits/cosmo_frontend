@@ -11899,17 +11899,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/carbon__react", [\
-        ["npm:1.0.1", {\
-          "packageLocation": "./.yarn/cache/@types-carbon__react-npm-1.0.1-83183528cb-75778c6938.zip/node_modules/@types/carbon__react/",\
+        ["https://aramis-nexus.aizoon.it/repository/aramis-npm-private/@types/carbon__react/-/carbon__react-1.0.1.tgz", {\
+          "packageLocation": "./.yarn/cache/@types-carbon__react-https-1f3f54b2f7-afef0ab3a2.zip/node_modules/@types/carbon__react/",\
           "packageDependencies": [\
-            ["@types/carbon__react", "npm:1.0.1"]\
+            ["@types/carbon__react", "https://aramis-nexus.aizoon.it/repository/aramis-npm-private/@types/carbon__react/-/carbon__react-1.0.1.tgz"]\
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.1", {\
-          "packageLocation": "./.yarn/__virtual__/@types-carbon__react-virtual-8edbe19bb1/0/cache/@types-carbon__react-npm-1.0.1-83183528cb-75778c6938.zip/node_modules/@types/carbon__react/",\
+        ["virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#https://aramis-nexus.aizoon.it/repository/aramis-npm-private/@types/carbon__react/-/carbon__react-1.0.1.tgz", {\
+          "packageLocation": "./.yarn/__virtual__/@types-carbon__react-virtual-86782fe054/0/cache/@types-carbon__react-https-1f3f54b2f7-afef0ab3a2.zip/node_modules/@types/carbon__react/",\
           "packageDependencies": [\
-            ["@types/carbon__react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.1"],\
+            ["@types/carbon__react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#https://aramis-nexus.aizoon.it/repository/aramis-npm-private/@types/carbon__react/-/carbon__react-1.0.1.tgz"],\
             ["@types/react", "npm:18.0.12"],\
             ["@types/react-dom", "npm:18.0.5"],\
             ["@types/react-router-dom", null],\
@@ -14458,7 +14458,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/c8", null],\
             ["@types/carbon__colors", "npm:10.31.0"],\
             ["@types/carbon__layout", "npm:0.0.1"],\
-            ["@types/carbon__react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.1"],\
+            ["@types/carbon__react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#https://aramis-nexus.aizoon.it/repository/aramis-npm-private/@types/carbon__react/-/carbon__react-1.0.1.tgz"],\
             ["@types/css-mediaquery", "npm:0.1.1"],\
             ["@types/eslint", null],\
             ["@types/papaparse", "npm:5.3.2"],\
@@ -14560,7 +14560,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@tiptap/starter-kit", "npm:2.0.0-beta.185"],\
             ["@types/carbon__colors", "npm:10.31.0"],\
             ["@types/carbon__layout", "npm:0.0.1"],\
-            ["@types/carbon__react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.1"],\
+            ["@types/carbon__react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#https://aramis-nexus.aizoon.it/repository/aramis-npm-private/@types/carbon__react/-/carbon__react-1.0.1.tgz"],\
             ["@types/css-mediaquery", "npm:0.1.1"],\
             ["@types/papaparse", "npm:5.3.2"],\
             ["@types/react", "npm:18.0.12"],\
