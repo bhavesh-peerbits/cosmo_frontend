@@ -6542,14 +6542,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/carbon__react@https://aramis-nexus.aizoon.it/repository/aramis-npm-private/@types/carbon__react/-/carbon__react-1.0.1.tgz":
+"@types/carbon__react@npm:^1.0.1":
   version: 1.0.1
-  resolution: "@types/carbon__react@https://aramis-nexus.aizoon.it/repository/aramis-npm-private/@types/carbon__react/-/carbon__react-1.0.1.tgz"
+  resolution: "@types/carbon__react@npm:1.0.1"
   peerDependencies:
     react: ^18.2.0
     react-dom: ^18.2.0
     react-router-dom: ^6.3.0
-  checksum: afef0ab3a2799039effdeac2078052c28eec44fe0c942ea729559bafa99424fb3e7163a065685d2a3d8ccb18869674ef2b7cfeb6c3d9dfb34c672b021492a1ba
+  checksum: 75778c69384e56db355449502ddc41c5229653fa4888f63a4f1c9fa85c847d35dfa14a02943ff12e0dce5ec6353a3fa3f0872b351b401653ce74f43646d2a379
   languageName: node
   linkType: hard
 
@@ -8683,7 +8683,7 @@ __metadata:
     "@tiptap/starter-kit": ^2.0.0-beta.185
     "@types/carbon__colors": ^10.31.0
     "@types/carbon__layout": ^0.0.1
-    "@types/carbon__react": "https://aramis-nexus.aizoon.it/repository/aramis-npm-private/@types/carbon__react/-/carbon__react-1.0.1.tgz"
+    "@types/carbon__react": ^1.0.1
     "@types/css-mediaquery": ^0.1.1
     "@types/papaparse": ^5.3.2
     "@types/react": ^18.0.12
