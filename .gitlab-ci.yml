@@ -34,7 +34,7 @@ build:
     https_proxy: http://srvprx01.aizoon.it:3128
     no_proxy: localhost,127.0.0.1,*.aizoon.it
   before_script:
-    - yarn install
+    - YARN_CHECKSUM_BEHAVIOR=update yarn install
   script: yarn build
   cache:
     key: frontend-cache
