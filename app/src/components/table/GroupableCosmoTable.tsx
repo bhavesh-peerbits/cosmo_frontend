@@ -177,10 +177,10 @@ const GroupableCosmoTable = <D extends object>({
 															<OverflowMenuItem
 																itemText={
 																	(header.column.getIsSorted() === 'desc' &&
-																		t('sort-ascending')) ||
-																	(header.column.getIsSorted() === 'asc' &&
 																		t('original-sort')) ||
-																	t('sort-descending')
+																	(header.column.getIsSorted() === 'asc' &&
+																		t('sort-descending')) ||
+																	t('sort-ascending')
 																}
 																onClick={header.column.getToggleSortingHandler()}
 															/>
