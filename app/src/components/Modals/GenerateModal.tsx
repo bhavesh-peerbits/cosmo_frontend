@@ -94,8 +94,10 @@ const GenerateModal = ({ isOpen, setIsOpen, application }: GenerateModalProps) =
 	const useGenerateNarrative = () => {
 		useGetAppNarrative(application.id).then(({ data, headers }) => {
 			const fileName =
-				headers['content-disposition']?.split('filename=')?.[1]?.replace('"', '') ||
-				`${application.name}.pdf`;
+				headers['content-disposition']
+					?.split('filename=')?.[1]
+					?.replace(/^"/, '')
+					?.replace(/"$/, '') || `${application.name}.pdf`;
 			const fileBlob = new Blob([data as unknown as BlobPart]);
 			const dataUrl = URL.createObjectURL(fileBlob);
 			const link = document.createElement('a');
