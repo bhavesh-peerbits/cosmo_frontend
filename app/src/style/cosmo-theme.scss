@@ -13,21 +13,23 @@ $neutral-300: #d4d4d4;
 $neutral-900: #171717;
 
 $aqua: #0D74AD;
+$aqua-hover: #086391;
 $aqua-secondary: #033C53;
+$aqua-secondary-hover: #185167;
 $aqua-danger: #AD0D33;
 
 $theme-cosmo-common: (
 	background-brand: $aqua !important,
 	button-primary: $aqua !important,
 	button-primary-active: $aqua !important,
-	button-primary-hover: $aqua-secondary !important,
+	button-primary-hover: $aqua-hover !important,
 	interactive: $aqua !important,
 	link-primary: $aqua !important,
 	link-secondary: $aqua-secondary !important,
 	button-tertiary: $aqua !important,
   button-secondary: $aqua-secondary !important,
-  button-secondary-hover: $aqua !important,
-	button-tertiary-hover: $aqua-secondary !important,
+  button-secondary-hover: $aqua-secondary-hover !important,
+	button-tertiary-hover: $aqua-secondary-hover !important,
 	border-interactive: $aqua !important,
   button-danger-primary: $aqua-danger !important
 );
