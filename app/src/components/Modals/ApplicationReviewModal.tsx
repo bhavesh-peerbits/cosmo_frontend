@@ -19,6 +19,7 @@ import useReviewApp from '@api/management/useReviewApp';
 import ApiError from '@api/ApiError';
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
+import { startOfTomorrow } from 'date-fns';
 
 type AppReviewModalProps = {
 	appId: string;
@@ -117,7 +118,7 @@ const ApplicationReviewModal = ({
 										message: `${t('select-date')}`
 									}
 								}}
-								minDate={new Date()}
+								minDate={startOfTomorrow()}
 							/>
 						</FullWidthColumn>
 						<FullWidthColumn>

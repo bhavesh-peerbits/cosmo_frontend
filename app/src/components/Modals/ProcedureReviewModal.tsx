@@ -20,6 +20,7 @@ import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
 import useReviewProcedure from '@api/management/useReviewProcedure';
 import ProcedureAppInstance from '@model/ProcedureAppInstance';
+import { startOfTomorrow } from 'date-fns';
 
 type ProcedureReviewModalProps = {
 	appId: string;
@@ -119,7 +120,7 @@ const ProcedureReviewModal = ({
 										message: `${t('select-date')}`
 									}
 								}}
-								minDate={new Date()}
+								minDate={startOfTomorrow()}
 							/>
 						</FullWidthColumn>
 						<FullWidthColumn>

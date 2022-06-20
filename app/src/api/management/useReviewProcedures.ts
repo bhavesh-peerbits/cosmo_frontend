@@ -4,6 +4,7 @@ import ProcedureAppInstance, {
 	fromProcedureAppInstanceApi
 } from '@model/ProcedureAppInstance';
 import { toMap } from '@model/util';
+import formatIso from 'date-fns/formatISO';
 
 interface ReviewProceduresParams {
 	appId: string;
@@ -16,7 +17,7 @@ const reviewProcedures = ({ appId, endDate, elementIds }: ReviewProceduresParams
 		.startReviewOfProcedures({
 			appId: +appId,
 			multipleNarrativeReviewBody: {
-				endDate: endDate.toISOString(),
+				endDate: formatIso(endDate, { representation: 'date' }),
 				elementIds
 			}
 		})

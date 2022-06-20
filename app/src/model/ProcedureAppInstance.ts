@@ -3,6 +3,7 @@
 // TODO wait BE
 import { ProcedureAppInstanceApi } from 'cosmo-api/src';
 import User, { fromUserApi, toUserApi } from '@model/User';
+import formatIso from 'date-fns/formatISO';
 
 interface ProcedureAppInstance {
 	id: string;
@@ -49,7 +50,6 @@ export const fromProcedureAppInstanceApi = (
 			: undefined
 	};
 };
-
 export const toProcedureAppInstanceApi = (
 	procedure: ProcedureAppInstance
 ): ProcedureAppInstanceApi => {
@@ -67,8 +67,12 @@ export const toProcedureAppInstanceApi = (
 		lastReviewer: procedure.lastReview ? toUserApi(procedure.lastReviewer) : undefined,
 		owner: toUserApi(procedure.owner),
 		inReview: procedure.inReview,
-		startNarrativeReview: procedure.startNarrativeReview?.toISOString(),
-		endNarrativeReview: procedure.endNarrativeReview?.toISOString()
+		startNarrativeReview: procedure.startNarrativeReview
+			? formatIso(procedure.startNarrativeReview, { representation: 'date' })
+			: undefined,
+		endNarrativeReview: procedure.endNarrativeReview
+			? formatIso(procedure.endNarrativeReview, { representation: 'date' })
+			: undefined
 	};
 };
 

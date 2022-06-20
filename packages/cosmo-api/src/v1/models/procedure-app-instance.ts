@@ -24,6 +24,30 @@ import { User } from './user';
 export interface ProcedureAppInstance {
 	/**
 	 *
+	 * @type {string}
+	 * @memberof ProcedureAppInstance
+	 */
+	creationDate?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof ProcedureAppInstance
+	 */
+	lastModify?: string;
+	/**
+	 *
+	 * @type {User}
+	 * @memberof ProcedureAppInstance
+	 */
+	createdBy?: User;
+	/**
+	 *
+	 * @type {User}
+	 * @memberof ProcedureAppInstance
+	 */
+	lastModifier?: User;
+	/**
+	 *
 	 * @type {number}
 	 * @memberof ProcedureAppInstance
 	 */
@@ -63,19 +87,7 @@ export interface ProcedureAppInstance {
 	 * @type {string}
 	 * @memberof ProcedureAppInstance
 	 */
-	creationDate?: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof ProcedureAppInstance
-	 */
 	lastReview?: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof ProcedureAppInstance
-	 */
-	lastModify?: string;
 	/**
 	 *
 	 * @type {string}
@@ -106,16 +118,4 @@ export interface ProcedureAppInstance {
 	 * @memberof ProcedureAppInstance
 	 */
 	lastReviewer?: User;
-	/**
-	 *
-	 * @type {User}
-	 * @memberof ProcedureAppInstance
-	 */
-	lastModifier?: User;
-	/**
-	 *
-	 * @type {User}
-	 * @memberof ProcedureAppInstance
-	 */
-	creationUser?: User;
 }

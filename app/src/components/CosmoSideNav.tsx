@@ -26,6 +26,7 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 	return (
 		<Theme theme={theme}>
 			<SideNav
+				className='border-r-[1px] border-solid border-border-subtle-1'
 				onOverlayClick={onClickSideNavExpand}
 				aria-label='Side navigation'
 				expanded={isSideNavExpanded}

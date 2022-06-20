@@ -1,6 +1,7 @@
 import { ApplicationApi } from 'cosmo-api';
 import { icons } from '@components/IconPicker';
 import User, { fromUserApi, toUserApi } from '@model/User';
+import formatIso from 'date-fns/formatISO';
 
 interface Application {
 	id: string;
@@ -59,10 +60,14 @@ export const toApplicationApi = (application: Application): ApplicationApi => ({
 	delegates: application.delegates?.map(toUserApi),
 	icon: application.icon,
 	applicationData: application.applicationData,
-	endNarrativeReview: application.dueDate?.toISOString(),
+	endNarrativeReview: application.dueDate
+		? formatIso(application.dueDate, { representation: 'date' })
+		: undefined,
 	inReview: application.inReview,
 	hasProcedureInReview: application.hasProcedureInReview,
-	startNarrativeReview: application.startNarrativeReview?.toISOString(),
+	startNarrativeReview: application.startNarrativeReview
+		? formatIso(application.startNarrativeReview, { representation: 'date' })
+		: undefined,
 	lastReviewer: application.lastReviewer
 		? toUserApi(application.lastReviewer)
 		: undefined,
