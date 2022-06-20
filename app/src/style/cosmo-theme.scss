@@ -11,17 +11,25 @@ $neutral-100: #f5f5f5;
 $neutral-200: #e5e5e5;
 $neutral-300: #d4d4d4;
 $neutral-900: #171717;
+
+$aqua: #0D74AD;
+$aqua-secondary: #033C53;
+$aqua-danger: #AD0D33;
+
 $theme-cosmo-common: (
-	background-brand: $cyan-600 !important,
-	button-primary: $cyan-600 !important,
-	button-primary-active: $cyan-900 !important,
-	button-primary-hover: $cyan-900 !important,
-	interactive: $cyan-600 !important,
-	link-primary: $cyan-700 !important,
-	link-secondary: $cyan-800 !important,
-	button-tertiary: $cyan-700 !important,
-	button-tertiary-hover: $cyan-800 !important,
-	border-interactive: $cyan-600 !important
+	background-brand: $aqua !important,
+	button-primary: $aqua !important,
+	button-primary-active: $aqua !important,
+	button-primary-hover: $aqua-secondary !important,
+	interactive: $aqua !important,
+	link-primary: $aqua !important,
+	link-secondary: $aqua-secondary !important,
+	button-tertiary: $aqua !important,
+  button-secondary: $aqua-secondary !important,
+  button-secondary-hover: $aqua !important,
+	button-tertiary-hover: $aqua-secondary !important,
+	border-interactive: $aqua !important,
+  button-danger-primary: $aqua-danger !important
 );
 $theme-cosmo-dark: (
 	// override here default tokens
