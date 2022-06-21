@@ -91,36 +91,6 @@ const MenuBar = ({ editor }: EditorType) => {
 				onClick={() => editor.chain().focus().setParagraph().run()}
 			/>
 			<Button
-				className='text-text-primary'
-				size='sm'
-				hasIconOnly
-				iconDescription='Heading 1'
-				kind={editor.isActive('heading', { level: 1 }) ? 'primary' : 'ghost'}
-				onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-			>
-				h1
-			</Button>
-			<Button
-				className='text-text-primary'
-				size='sm'
-				hasIconOnly
-				iconDescription='Heading 2'
-				kind={editor.isActive('heading', { level: 2 }) ? 'primary' : 'ghost'}
-				onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-			>
-				h2
-			</Button>
-			<Button
-				className='text-text-primary'
-				size='sm'
-				hasIconOnly
-				iconDescription='Heading 3'
-				kind={editor.isActive('heading', { level: 3 }) ? 'primary' : 'ghost'}
-				onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-			>
-				h3
-			</Button>
-			<Button
 				size='sm'
 				hasIconOnly
 				renderIcon={ListBulleted}
