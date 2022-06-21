@@ -183,8 +183,9 @@ const ProcedureReview = ({
 									error={error as ApiError}
 								/>
 							</div>
-							<div className='flex w-full flex-1 items-center justify-end space-x-5'>
+							<div className='flex w-full flex-1 items-center justify-end'>
 								<Button
+									className='mr-5'
 									type='reset'
 									kind='tertiary'
 									disabled={!isDirty || isSuccess}
