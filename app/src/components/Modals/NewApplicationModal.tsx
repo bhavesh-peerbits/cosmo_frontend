@@ -118,7 +118,6 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 				keyValue='technical-info'
 				title={t('technical-info')}
 				subtitle={t('subtitle-techincal')}
-				disableSubmit={!technicalIsDirty}
 				includeStep={shouldIncludeTechnicalInfo}
 			>
 				<div className='mb-5'>
