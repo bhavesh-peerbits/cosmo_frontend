@@ -24,5 +24,6 @@
 	"db-servers": "Servers database",
 	"db-servers-os": "SO Servers database",
 	"db-service": "Servizio database",
-	"db-instance": "Istanza database"
+	"db-instance": "Istanza database",
+	"icon": "Icona"
 }

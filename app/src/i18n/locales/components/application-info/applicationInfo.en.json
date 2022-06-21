@@ -24,5 +24,6 @@
 	"db-servers": "Database servers",
 	"db-servers-os": "Database servers OS",
 	"db-service": "Database service",
-	"db-instance": "Database instance"
+	"db-instance": "Database instance",
+	"icon": "Icon"
 }
