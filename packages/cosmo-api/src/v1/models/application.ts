@@ -25,6 +25,30 @@ import { User } from './user';
 export interface Application {
 	/**
 	 *
+	 * @type {string}
+	 * @memberof Application
+	 */
+	creationDate?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Application
+	 */
+	lastModify?: string;
+	/**
+	 *
+	 * @type {User}
+	 * @memberof Application
+	 */
+	createdBy?: User;
+	/**
+	 *
+	 * @type {User}
+	 * @memberof Application
+	 */
+	lastModifier?: User;
+	/**
+	 *
 	 * @type {Tenant}
 	 * @memberof Application
 	 */
@@ -85,12 +109,6 @@ export interface Application {
 	lastReview?: string;
 	/**
 	 *
-	 * @type {string}
-	 * @memberof Application
-	 */
-	lastModify?: string;
-	/**
-	 *
 	 * @type {User}
 	 * @memberof Application
 	 */
@@ -106,25 +124,7 @@ export interface Application {
 	 * @type {User}
 	 * @memberof Application
 	 */
-	creatorUser?: User;
-	/**
-	 *
-	 * @type {User}
-	 * @memberof Application
-	 */
 	lastReviewer?: User;
-	/**
-	 *
-	 * @type {User}
-	 * @memberof Application
-	 */
-	lastModifier?: User;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof Application
-	 */
-	creationDate?: string;
 	/**
 	 *
 	 * @type {string}

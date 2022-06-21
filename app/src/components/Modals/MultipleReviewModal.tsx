@@ -24,6 +24,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 import useReviewProcedures from '@api/management/useReviewProcedures';
+import { startOfTomorrow } from 'date-fns';
 
 type FormData = {
 	reviewer: User[];
@@ -179,7 +180,7 @@ const MultipleReviewModal = ({
 											message: `${t('select-date')}`
 										}
 									}}
-									minDate={new Date()}
+									minDate={startOfTomorrow()}
 								/>
 							</div>
 							<FullWidthColumn>

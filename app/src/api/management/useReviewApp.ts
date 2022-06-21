@@ -1,6 +1,7 @@
 import api from '@api';
 import { fromApplicationApi } from '@model/Application';
 import { useMutation, useQueryClient } from 'react-query';
+import formatIso from 'date-fns/formatISO';
 
 interface ReviewAppParams {
 	appId: string;
@@ -11,7 +12,7 @@ const reviewApp = ({ appId, endDate }: ReviewAppParams) => {
 	return api.narrativeReview
 		.startReviewOfAnApplication({
 			id: +appId,
-			narrativeReviewBody: { endDate: endDate.toISOString() }
+			narrativeReviewBody: { endDate: formatIso(endDate, { representation: 'date' }) }
 		})
 		.then(({ data }) => fromApplicationApi(data));
 };

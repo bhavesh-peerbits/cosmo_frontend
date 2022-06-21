@@ -70,8 +70,8 @@ export interface User {
 	deletedAt?: string;
 	/**
 	 *
-	 * @type {string}
+	 * @type {Array<string>}
 	 * @memberof User
 	 */
-	image?: string;
+	image?: Array<string>;
 }

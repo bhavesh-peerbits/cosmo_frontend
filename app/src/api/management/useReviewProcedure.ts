@@ -1,6 +1,7 @@
 import api from '@api';
 import { fromProcedureAppInstanceApi } from '@model/ProcedureAppInstance';
 import { useMutation, useQueryClient } from 'react-query';
+import formatIso from 'date-fns/formatISO';
 
 interface ReviewProcedureParams {
 	appId: string;
@@ -13,7 +14,7 @@ const reviewProcedure = ({ appId, endDate, procId }: ReviewProcedureParams) => {
 		.startReviewOfAProcedure({
 			appId: +appId,
 			procId: +procId,
-			narrativeReviewBody: { endDate: endDate.toISOString() }
+			narrativeReviewBody: { endDate: formatIso(endDate, { representation: 'date' }) }
 		})
 		.then(({ data }) => fromProcedureAppInstanceApi(data));
 };

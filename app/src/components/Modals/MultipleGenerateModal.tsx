@@ -35,8 +35,10 @@ const MultipleGenerateModal = ({
 		const applicationIds = applications.map(app => +app.id);
 		useGetAppsNarrative(applicationIds).then(({ data, headers }) => {
 			const fileName =
-				headers['content-disposition']?.split('filename=')[1] ||
-				'applications_narratives.zip';
+				headers['content-disposition']
+					?.split('filename=')?.[1]
+					?.replace(/^"/, '')
+					?.replace(/"$/, '') || 'applications_narratives.zip';
 			const fileBlob = new Blob([data as unknown as BlobPart]);
 			const dataUrl = URL.createObjectURL(fileBlob);
 			const link = document.createElement('a');
