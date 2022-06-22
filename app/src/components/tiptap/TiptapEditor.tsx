@@ -78,7 +78,7 @@ const MenuBar = ({ editor }: EditorType) => {
 				size='sm'
 				hasIconOnly
 				renderIcon={TextStrikethrough}
-				iconDescription='Strike'
+				iconDescription='Strikethrough'
 				kind={editor.isActive('strike') ? 'primary' : 'ghost'}
 				onClick={() => editor.chain().focus().toggleStrike().run()}
 			/>
