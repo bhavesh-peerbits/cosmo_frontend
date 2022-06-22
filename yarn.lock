@@ -8700,6 +8700,7 @@ __metadata:
     cosmo-api: "workspace:^"
     css-mediaquery: ^0.1.2
     date-fns: ^2.28.0
+    eslint-plugin-i18next: next
     eslint-plugin-testing-library: ^5.5.1
     framer-motion: ^6.3.11
     i18next: ^21.8.9
@@ -13571,6 +13572,15 @@ __metadata:
   peerDependencies:
     eslint: ">= 3.2.1"
   checksum: 1f1c36e149304e9a6f58e2292a761abad58274da33b3a48b24ad55ad20cbce3ac7467321f2b6fcb052f9563c89f67004de4766eba2e2bdbcb010a6a0666989cf
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-i18next@npm:next":
+  version: 6.0.0-2
+  resolution: "eslint-plugin-i18next@npm:6.0.0-2"
+  dependencies:
+    requireindex: ~1.1.0
+  checksum: 920d7bd1c2e98a3b7c43ca46a5f7400a16360f1920f7d695caf4f04c95a85005300900f5d0d4a44b3625cd8da8b6ef3903188bf1f9e3a74262c7da48dbd11e56
   languageName: node
   linkType: hard
 
@@ -18540,7 +18550,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:4.17.21, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.20, lodash@npm:^4.17.21":
+"lodash@npm:*, lodash@npm:4.17.21, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.20, lodash@npm:^4.17.21":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7
@@ -22304,6 +22314,13 @@ __metadata:
   version: 2.0.0
   resolution: "require-main-filename@npm:2.0.0"
   checksum: e9e294695fea08b076457e9ddff854e81bffbe248ed34c1eec348b7abbd22a0d02e8d75506559e2265e96978f3c4720bd77a6dad84755de8162b357eb6c778c7
+  languageName: node
+  linkType: hard
+
+"requireindex@npm:~1.1.0":
+  version: 1.1.0
+  resolution: "requireindex@npm:1.1.0"
+  checksum: 397057d97d7f753a3851abf0d6db94c295bd8254536f71f622b896ba08ea8c0d3e3771c8b009a557e6ce602f4245c0588836cdf59c4ce588fff721a7b855d323
   languageName: node
   linkType: hard
 

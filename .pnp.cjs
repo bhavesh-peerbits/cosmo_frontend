@@ -14479,6 +14479,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["css-mediaquery", "npm:0.1.2"],\
             ["date-fns", "npm:2.28.0"],\
             ["eslint", null],\
+            ["eslint-plugin-i18next", "npm:6.0.0-2"],\
             ["eslint-plugin-testing-library", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:5.5.1"],\
             ["framer-motion", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:6.3.11"],\
             ["i18next", "npm:21.8.9"],\
@@ -14577,6 +14578,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["cosmo-api", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#workspace:packages/cosmo-api"],\
             ["css-mediaquery", "npm:0.1.2"],\
             ["date-fns", "npm:2.28.0"],\
+            ["eslint-plugin-i18next", "npm:6.0.0-2"],\
             ["eslint-plugin-testing-library", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:5.5.1"],\
             ["framer-motion", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:6.3.11"],\
             ["i18next", "npm:21.8.9"],\
@@ -20416,6 +20418,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packagePeers": [\
             "@types/eslint",\
             "eslint"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["eslint-plugin-i18next", [\
+        ["npm:6.0.0-2", {\
+          "packageLocation": "./.yarn/cache/eslint-plugin-i18next-npm-6.0.0-2-b2ec39ca44-920d7bd1c2.zip/node_modules/eslint-plugin-i18next/",\
+          "packageDependencies": [\
+            ["eslint-plugin-i18next", "npm:6.0.0-2"],\
+            ["lodash", "npm:4.17.21"],\
+            ["requireindex", "npm:1.1.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -30663,6 +30676,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/require-main-filename-npm-2.0.0-03eef65c84-e9e294695f.zip/node_modules/require-main-filename/",\
           "packageDependencies": [\
             ["require-main-filename", "npm:2.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["requireindex", [\
+        ["npm:1.1.0", {\
+          "packageLocation": "./.yarn/cache/requireindex-npm-1.1.0-445c011741-397057d97d.zip/node_modules/requireindex/",\
+          "packageDependencies": [\
+            ["requireindex", "npm:1.1.0"]\
           ],\
           "linkType": "HARD"\
         }]\
