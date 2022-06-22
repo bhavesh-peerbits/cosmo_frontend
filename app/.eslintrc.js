@@ -2,9 +2,19 @@ const { resolve } = require('path');
 
 module.exports = {
 	root: false,
-  plugins: ["i18next"],
-  extends: ["plugin:i18next/recommended"],
-  overrides: [
+	plugins: ['i18next'],
+	extends: ['plugin:i18next/recommended'],
+	rules: {
+		'i18next/no-literal-string': [
+			0,
+			{
+				words: {
+					exclude: [':']
+				}
+			}
+		]
+	},
+	overrides: [
 		{
 			files: ['vite.config.ts'],
 			parserOptions: {

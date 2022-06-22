@@ -117,7 +117,7 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 			<CreateTearsheetStep
 				keyValue='technical-info'
 				title={t('technical-info')}
-				subtitle={t('subtitle-techincal')}
+				subtitle={t('subtitle-technical')}
 				includeStep={shouldIncludeTechnicalInfo}
 			>
 				<div className='mb-5'>

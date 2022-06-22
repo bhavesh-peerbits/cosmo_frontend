@@ -124,7 +124,8 @@ const GenerateModal = ({ isOpen, setIsOpen, application }: GenerateModalProps) =
 								<Column key={property.key} lg={8} md={4} sm={4} className='mb-8 px-4'>
 									<div className='flex w-full space-x-4'>
 										<span className='text-heading-compact-1 first-letter:uppercase'>
-											{property.label}:
+											{property.label}
+											<span>:</span>
 										</span>
 										<span className='text-right'>{property.value}</span>
 									</div>
