@@ -18,5 +18,6 @@
 	"sort-descending": "Descending order",
 	"original-sort": "Original order",
 	"group-by": "Group by",
-	"remove-group": "Remove group"
+	"remove-group": "Remove group",
+	"export": "Export"
 }

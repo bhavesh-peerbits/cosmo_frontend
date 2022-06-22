@@ -4,6 +4,7 @@ import { ArrowRight, Translate } from '@carbon/react/icons';
 import { languageOptions, languages } from '@i18n/languageOptions';
 import detectLanguage from '@i18n/detectLanguage';
 import useUiStore from '@hooks/useUiStore';
+import { useTranslation } from 'react-i18next';
 
 interface ButtonGroupProps {
 	small?: boolean;
@@ -12,6 +13,7 @@ interface ButtonGroupProps {
 }
 
 const ButtonGroup = memo(({ small, systemLanguage, option }: ButtonGroupProps) => {
+	const { t } = useTranslation('home');
 	const { setLanguagePromptDismissed, setLanguage } = useUiStore();
 	return (
 		<ButtonSet stacked={small} className='h-full items-end justify-end'>
@@ -21,7 +23,7 @@ const ButtonGroup = memo(({ small, systemLanguage, option }: ButtonGroupProps) =
 				isExpressive={small}
 				onClick={() => setLanguagePromptDismissed(true)}
 			>
-				Dismiss
+				{t('dismiss')}
 			</Button>
 			<Button
 				className={`${small ? '' : 'h-full'}`}
@@ -30,7 +32,7 @@ const ButtonGroup = memo(({ small, systemLanguage, option }: ButtonGroupProps) =
 				iconDescription='Change language'
 				onClick={() => setLanguage(systemLanguage)}
 			>
-				Change to {option}
+				{t('change-to')} {option}
 			</Button>
 		</ButtonSet>
 	);

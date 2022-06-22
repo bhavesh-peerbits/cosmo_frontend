@@ -26,6 +26,7 @@ import {
 } from '@carbon/react/icons';
 import '@style/tiptap.scss';
 import { forwardRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 type EditorType = {
 	editor?: Editor | null;
@@ -52,6 +53,7 @@ const CustomTableCell = TableCell.extend({
 });
 
 const MenuBar = ({ editor }: EditorType) => {
+	const { t } = useTranslation('tiptapEditor');
 	if (!editor) {
 		return null;
 	}
@@ -62,7 +64,7 @@ const MenuBar = ({ editor }: EditorType) => {
 				size='sm'
 				hasIconOnly
 				renderIcon={TextBold}
-				iconDescription='Bold'
+				iconDescription={t('bold')}
 				kind={editor.isActive('bold') ? 'primary' : 'ghost'}
 				onClick={() => editor.chain().focus().toggleBold().run()}
 			/>
@@ -70,7 +72,7 @@ const MenuBar = ({ editor }: EditorType) => {
 				size='sm'
 				hasIconOnly
 				renderIcon={TextItalic}
-				iconDescription='Italic'
+				iconDescription={t('italic')}
 				kind={editor.isActive('italic') ? 'primary' : 'ghost'}
 				onClick={() => editor.chain().focus().toggleItalic().run()}
 			/>
@@ -78,7 +80,7 @@ const MenuBar = ({ editor }: EditorType) => {
 				size='sm'
 				hasIconOnly
 				renderIcon={TextStrikethrough}
-				iconDescription='Strikethrough'
+				iconDescription={t('strike')}
 				kind={editor.isActive('strike') ? 'primary' : 'ghost'}
 				onClick={() => editor.chain().focus().toggleStrike().run()}
 			/>
@@ -86,7 +88,7 @@ const MenuBar = ({ editor }: EditorType) => {
 				size='sm'
 				hasIconOnly
 				renderIcon={Paragraph}
-				iconDescription='Paragraph'
+				iconDescription={t('parapgraph')}
 				kind={editor.isActive('paragraph') ? 'primary' : 'ghost'}
 				onClick={() => editor.chain().focus().setParagraph().run()}
 			/>
@@ -94,7 +96,7 @@ const MenuBar = ({ editor }: EditorType) => {
 				size='sm'
 				hasIconOnly
 				renderIcon={ListBulleted}
-				iconDescription='Bullet List'
+				iconDescription={t('bullet')}
 				kind={editor.isActive('bulletList') ? 'primary' : 'ghost'}
 				onClick={() => editor.chain().focus().toggleBulletList().run()}
 			/>
@@ -102,7 +104,7 @@ const MenuBar = ({ editor }: EditorType) => {
 				size='sm'
 				hasIconOnly
 				renderIcon={ListNumbered}
-				iconDescription='Ordered List'
+				iconDescription={t('ordered')}
 				kind={editor.isActive('orderedList') ? 'primary' : 'ghost'}
 				onClick={() => editor.chain().focus().toggleOrderedList().run()}
 			/>
@@ -110,7 +112,7 @@ const MenuBar = ({ editor }: EditorType) => {
 				size='sm'
 				hasIconOnly
 				renderIcon={Quotes}
-				iconDescription='Quotes'
+				iconDescription={t('quotes')}
 				kind={editor.isActive('blockquote') ? 'primary' : 'ghost'}
 				onClick={() => editor.chain().focus().toggleBlockquote().run()}
 			/>
@@ -118,7 +120,7 @@ const MenuBar = ({ editor }: EditorType) => {
 				size='sm'
 				hasIconOnly
 				renderIcon={Row}
-				iconDescription='Horizontal Rule'
+				iconDescription={t('rule')}
 				kind={editor.isActive('Horizontal') ? 'primary' : 'ghost'}
 				onClick={() => editor.chain().focus().setHorizontalRule().run()}
 			/>
@@ -126,7 +128,7 @@ const MenuBar = ({ editor }: EditorType) => {
 				size='sm'
 				hasIconOnly
 				renderIcon={Undo}
-				iconDescription='Undo'
+				iconDescription={t('undo')}
 				kind='ghost'
 				onClick={() => editor.chain().focus().undo().run()}
 			/>
@@ -134,7 +136,7 @@ const MenuBar = ({ editor }: EditorType) => {
 				size='sm'
 				hasIconOnly
 				renderIcon={Redo}
-				iconDescription='Redo'
+				iconDescription={t('redo')}
 				kind='ghost'
 				onClick={() => editor.chain().focus().redo().run()}
 			/>
@@ -142,7 +144,7 @@ const MenuBar = ({ editor }: EditorType) => {
 				size='sm'
 				hasIconOnly
 				renderIcon={TableIcon}
-				iconDescription='Insert Table'
+				iconDescription={t('insert-table')}
 				kind='ghost'
 				onClick={() =>
 					editor
@@ -157,15 +159,15 @@ const MenuBar = ({ editor }: EditorType) => {
 				className='h-[32px] w-[32px] flex-none'
 				ariaLabel='overflow-menu'
 				renderIcon={ColumnInsert}
-				iconDescription='Add Column'
+				iconDescription={t('add-column')}
 			>
 				<OverflowMenuItem
-					itemText='Add Column Before'
+					itemText={t('column-before')}
 					onClick={() => editor.chain().focus().addColumnBefore().run()}
 					disabled={!editor.can().addColumnBefore()}
 				/>
 				<OverflowMenuItem
-					itemText='Add Column After'
+					itemText={t('column-after')}
 					onClick={() => editor.chain().focus().addColumnAfter().run()}
 					disabled={!editor.can().addColumnAfter()}
 				/>
@@ -174,7 +176,7 @@ const MenuBar = ({ editor }: EditorType) => {
 				size='sm'
 				hasIconOnly
 				renderIcon={ColumnDelete}
-				iconDescription='Delete Column'
+				iconDescription={t('delete-column')}
 				kind='ghost'
 				onClick={() => editor.chain().focus().deleteColumn().run()}
 				disabled={!editor.can().deleteColumn()}
@@ -183,15 +185,15 @@ const MenuBar = ({ editor }: EditorType) => {
 				className='h-[32px] w-[32px] flex-none'
 				ariaLabel='overflow-menu'
 				renderIcon={RowInsert}
-				iconDescription='Add Row'
+				iconDescription={t('add-row')}
 			>
 				<OverflowMenuItem
-					itemText='Add Row Before'
+					itemText={t('row-before')}
 					onClick={() => editor.chain().focus().addRowBefore().run()}
 					disabled={!editor.can().addRowBefore()}
 				/>
 				<OverflowMenuItem
-					itemText='Add Row After'
+					itemText={t('row-after')}
 					onClick={() => editor.chain().focus().addRowAfter().run()}
 					disabled={!editor.can().addRowAfter()}
 				/>
@@ -200,7 +202,7 @@ const MenuBar = ({ editor }: EditorType) => {
 				size='sm'
 				hasIconOnly
 				renderIcon={RowDelete}
-				iconDescription='Delete Row'
+				iconDescription={t('delete-row')}
 				kind='ghost'
 				onClick={() => editor.chain().focus().deleteRow().run()}
 				disabled={!editor.can().deleteRow()}
@@ -209,7 +211,7 @@ const MenuBar = ({ editor }: EditorType) => {
 				size='sm'
 				hasIconOnly
 				renderIcon={TrashCan}
-				iconDescription='Delete Table'
+				iconDescription={t('delete-table')}
 				kind='ghost'
 				onClick={() => editor.chain().focus().deleteTable().run()}
 				disabled={!editor.can().deleteTable()}

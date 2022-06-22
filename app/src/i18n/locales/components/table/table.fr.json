@@ -18,5 +18,6 @@
 	"sort-descending": "Tri descendant",
 	"original-sort": "Tri d'origine",
 	"group-by": "Regrouper",
-	"remove-group": "Supprimer le groupement"
+	"remove-group": "Supprimer le groupement",
+	"export": "Exporter"
 }

@@ -25,6 +25,7 @@ import {
 } from '@carbon/react';
 import Wrap from '@components/Tearsheet/Wrap';
 import useResponsive from '@hooks/useResponsive';
+import { useTranslation } from 'react-i18next';
 
 type HandlerType = {
 	(newDepth: number, newPosition: number): void;
@@ -79,6 +80,7 @@ const TearsheetShell = React.forwardRef<HTMLDivElement, TearsheetShellProps>(
 		// node the modal tearsheet is hosted in
 		const [open, setOpen] = useState(propOpen);
 		const { md } = useResponsive();
+		const { t } = useTranslation('modals');
 
 		useEffect(() => {
 			setOpen(propOpen);
@@ -325,7 +327,7 @@ const TearsheetShell = React.forwardRef<HTMLDivElement, TearsheetShellProps>(
 												size='2xl'
 												className='flex-[1_1_50%] pl-7'
 											>
-												Cancel
+												{t('cancel')}
 											</Button>
 										)}
 										{actions?.map(({ loading, disabled, ...btProps }) => (

@@ -5,6 +5,7 @@ import routes from '@routes/routes-const';
 import User from '@model/User';
 import { useClickAway } from 'ahooks';
 import { useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface UserPanelProps {
 	expanded: boolean;
@@ -13,6 +14,7 @@ interface UserPanelProps {
 }
 
 const UserPanel = ({ expanded, user, onClickOutside }: UserPanelProps) => {
+	const { t } = useTranslation('home');
 	const panelRef = useRef(null);
 	useClickAway(e => onClickOutside(e), panelRef);
 
@@ -43,7 +45,9 @@ const UserPanel = ({ expanded, user, onClickOutside }: UserPanelProps) => {
 						className='relative border-[0]'
 						title={
 							<>
-								<div className='text-caption-1'>Roles: {user?.roles?.length ?? 0}</div>
+								<div className='text-caption-1'>
+									{t('roles')}: {user?.roles?.length ?? 0}
+								</div>
 								<div className='w-13 overflow-hidden text-ellipsis whitespace-nowrap text-left text-body-short-2'>
 									{user?.principalRole}
 								</div>
@@ -72,7 +76,7 @@ const UserPanel = ({ expanded, user, onClickOutside }: UserPanelProps) => {
 					className='flex flex-1 justify-end'
 					onClick={() => window.location.replace(routes.LOGOUT)}
 				>
-					Sign out
+					Logout
 				</Button>
 			</section>
 		</HeaderPanel>
