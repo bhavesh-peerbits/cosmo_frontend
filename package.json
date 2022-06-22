@@ -17,7 +17,8 @@
 		"lint:stylelint": "stylelint --cache --fix --ignore-path .gitignore '**/*.[s]css'",
 		"lint:fix": "yarn lint:stylelint && yarn eslint --cache --fix --ignore-path .gitignore --ext .ts,.tsx .",
 		"lint:format": "prettier -uw . ",
-		"test": "yarn workspaces foreach -pt run test:ci"
+		"test": "yarn workspaces foreach -pt run test:ci",
+		"postinstall": "husky install"
 	},
 	"devDependencies": {
 		"@types/node": "^17.0.41",
