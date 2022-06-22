@@ -25,7 +25,7 @@
 	"select-application": "Sélectionner l'application",
 	"select-procedure": "Sélectionner la procédure",
 	"no-procedures": "Aucune procédure disponible",
-	"no-application": "Aucune application disponible",
+	"no-applications": "Aucune application disponible",
 	"copy-procedure": "Copier la procédure",
 	"add-procedure": "Ajouter Procédure",
 	"application": "Application",
