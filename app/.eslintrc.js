@@ -9,7 +9,19 @@ module.exports = {
 			0,
 			{
 				words: {
-					exclude: [':']
+					exclude: [
+						':',
+						'Review Narrative',
+						'Home',
+						'Management Dashboard',
+						'Review',
+						'Narrative',
+						'Home',
+						'Logout',
+						'CoSMo',
+						'by aizoOn',
+						'Copyright © aizoOn 2022.'
+					]
 				}
 			}
 		]
