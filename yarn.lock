@@ -6549,7 +6549,7 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     react-router-dom: ^6.3.0
-  checksum: 75778c69384e56db355449502ddc41c5229653fa4888f63a4f1c9fa85c847d35dfa14a02943ff12e0dce5ec6353a3fa3f0872b351b401653ce74f43646d2a379
+  checksum: afef0ab3a2799039effdeac2078052c28eec44fe0c942ea729559bafa99424fb3e7163a065685d2a3d8ccb18869674ef2b7cfeb6c3d9dfb34c672b021492a1ba
   languageName: node
   linkType: hard
 
