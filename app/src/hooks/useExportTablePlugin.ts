@@ -62,7 +62,7 @@ function getExportFileBlob({
 		return false;
 	}
 	if (fileType === 'pdf') {
-		const doc = new JsPDF();
+		const doc = new JsPDF('landscape');
 		autoTable(doc, {
 			head: [columns],
 			body: data as string[][],
@@ -71,7 +71,8 @@ function getExportFileBlob({
 				minCellHeight: 9,
 				halign: 'left',
 				valign: 'middle',
-				fontSize: 11
+				fontSize: 11,
+				minCellWidth: 25
 			}
 		});
 		doc.save(`${fileName}.pdf`);
