@@ -1,0 +1,22 @@
+{
+	"bold": "Bold",
+	"italic": "Italic",
+	"strike": "Strikethrough",
+	"parapgraph": "Paragraph",
+	"bullet": "Bullet List",
+	"ordered": "Ordered List",
+	"quotes": "Quotes",
+	"rule": "Horizontal Rule",
+	"undo": "Undo",
+	"redo": "Redo",
+	"insert-table": "Insert table",
+	"add-column": "Add Column",
+	"column-before": "Before",
+	"column-after": "After",
+	"delete-column": "Delete Column",
+	"add-row": "Add Row",
+	"row-before": "Before",
+	"row-after": "After",
+	"delete-row": "Delete Row",
+	"delete-table": "Delete Table"
+}

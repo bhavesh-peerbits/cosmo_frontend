@@ -1,0 +1,22 @@
+{
+	"bold": "Grassetto",
+	"italic": "Corsivo",
+	"strike": "Barrato",
+	"parapgraph": "Paragrafo",
+	"bullet": "Elenco Puntato",
+	"ordered": "Elenco Numerato",
+	"quotes": "Citazione",
+	"rule": "Linea Orizzontale",
+	"undo": "Annulla",
+	"redo": "Ripeti",
+	"insert-table": "Inserisci Tabella",
+	"add-column": "Aggiungi Colonna",
+	"column-before": "A Sinistra",
+	"column-after": "A Destra",
+	"delete-column": "Rimuovi Colonna",
+	"add-row": "Aggiungi Riga",
+	"row-before": "Sopra",
+	"row-after": "Sotto",
+	"delete-row": "Rimuovi Riga",
+	"delete-table": "Rimuovi Tabella"
+}
