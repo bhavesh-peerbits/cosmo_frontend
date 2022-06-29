@@ -1,4 +1,4 @@
-import { Button, ButtonSet, Column, Grid, Layer, Tile, useTheme } from '@carbon/react';
+import { Button, ButtonSet, Column, Grid, Layer, Tile } from '@carbon/react';
 import { memo } from 'react';
 import { ArrowRight, Translate } from '@carbon/react/icons';
 import { languageOptions, languages } from '@i18n/languageOptions';
@@ -38,7 +38,6 @@ const ButtonGroup = memo(({ small, systemLanguage, option }: ButtonGroupProps) =
 
 const LanguagePrompt = () => {
 	const { languagePromptDismissed, language } = useUiStore();
-	const { theme } = useTheme();
 	if (languagePromptDismissed) {
 		return null;
 	}
@@ -55,7 +54,7 @@ const LanguagePrompt = () => {
 	const option = languageOptions.find(o => o.value === systemLanguage)?.label ?? '';
 
 	return (
-		<Layer level={theme === 'g100' ? 2 : 1}>
+		<Layer level={2} className='p-5'>
 			<Tile>
 				<Grid className='space-y-4'>
 					<Column sm={4} md={8} lg={16}>
