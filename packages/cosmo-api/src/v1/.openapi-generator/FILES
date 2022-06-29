@@ -3,6 +3,7 @@
 api.ts
 api/access-controller-api.ts
 api/application-controller-api.ts
+api/auth-controller-api.ts
 api/config-element-controller-api.ts
 api/config-element-module-controller-api.ts
 api/control-controller-api.ts
@@ -37,6 +38,7 @@ models/control-app-instance.ts
 models/control.ts
 models/email.ts
 models/frequency.ts
+models/identity-provider-dto.ts
 models/index.ts
 models/mail-template-dto.ts
 models/module.ts

@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { getCookie, removeCookie, setCookie } from 'tiny-cookie';
+import { getAllCookies, getCookie, removeCookie, setCookie } from 'tiny-cookie';
 import { getAuthInfo } from '@api/user/useUserAuthInfo';
 import { UserRole } from '@model/UserRole';
 import User from '@model/User';
@@ -38,9 +38,13 @@ const setSession = (token: string, refreshToken: string, useCookie: boolean) => 
 
 const cleanSession = () => {
 	sessionStorage.removeItem(ACCESS_TOKEN_KEY);
-	removeCookie(ACCESS_TOKEN_KEY);
+	// removeCookie(ACCESS_TOKEN_KEY);
 	sessionStorage.removeItem(REFRESH_TOKEN_KEY);
-	removeCookie(REFRESH_TOKEN_KEY);
+	// removeCookie(REFRESH_TOKEN_KEY);
+	const cookies = getAllCookies();
+	Object.keys(cookies).forEach(cookie => {
+		removeCookie(cookie);
+	});
 };
 
 const retrieveUserInfo = async () => {

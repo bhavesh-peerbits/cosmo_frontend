@@ -4,8 +4,10 @@ import {
 	ApplicationAuditDtoAuditActionTypesEnum,
 	ApplicationControllerApi,
 	ApplicationDto,
+	AuthControllerApi,
 	Configuration,
 	GenerateReportControllerApi,
+	IdentityProviderDto,
 	NarrativeReviewControllerApi,
 	ProcedureAppInstanceDto,
 	ProcedureControllerApi,
@@ -24,7 +26,8 @@ export default function configureApi(config: Configuration) {
 		procedureApi: new ProcedureControllerApi(config),
 		narrativeReview: new NarrativeReviewControllerApi(config),
 		reviewerApi: new ReviewerControllerApi(config),
-		generateReportApi: new GenerateReportControllerApi(config)
+		generateReportApi: new GenerateReportControllerApi(config),
+		authApi: new AuthControllerApi(config)
 	};
 }
 export type ApplicationApi = ApplicationDto;
@@ -33,3 +36,4 @@ export type ProcedureApi = ProcedureDto;
 export type ProcedureAppInstanceApi = ProcedureAppInstanceDto;
 export type ApplicationAuditApi = ApplicationAuditDto;
 export type ApplicationAuditActionTypeApi = ApplicationAuditDtoAuditActionTypesEnum;
+export type IdentityProviderApi = IdentityProviderDto;

@@ -14,6 +14,7 @@
 
 export * from './api/access-controller-api';
 export * from './api/application-controller-api';
+export * from './api/auth-controller-api';
 export * from './api/config-element-controller-api';
 export * from './api/config-element-module-controller-api';
 export * from './api/control-controller-api';

@@ -20,6 +20,9 @@ import {
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import useLoginStore from '@hooks/auth/useLoginStore';
+import removeLoadingScreen from '@hooks/removeLoadingScreen';
+import useLoginConfig from '@api/providers/useLoginConfig';
+import { useEffect, useMemo, useRef } from 'react';
 
 interface LoginForm {
 	username: string;
@@ -32,6 +35,26 @@ const errorCodes = ['error-login', 'authentication-needed'] as const;
 type ErrorCode = typeof errorCodes[number];
 
 const Login = () => {
+	const tenants = useMemo(
+		() => [
+			{
+				id: 'cosmo',
+				name: 'Cosmo'
+			},
+			{ id: 'aizoOn', name: 'AizoOn' }
+		],
+		[]
+	);
+
+	const { removeLoading, showErrorDuringLoading } = removeLoadingScreen();
+	const {
+		data: providersData = [],
+		isLoading,
+		error: configError
+	} = useLoginConfig(tenants[0].id);
+
+	const loginRef = useRef<HTMLDivElement>(null);
+
 	const { t } = useTranslation('login');
 	const navigate = useNavigate();
 	const {
@@ -42,6 +65,15 @@ const Login = () => {
 	const { auth, login } = useLoginStore();
 	const [params] = useSearchParams();
 	const error = params.get('error') as ErrorCode | undefined;
+
+	useEffect(() => {
+		if (!isLoading && !configError) {
+			removeLoading();
+		} else if (configError) {
+			loginRef.current?.remove();
+			showErrorDuringLoading();
+		}
+	}, [configError, isLoading, removeLoading, showErrorDuringLoading]);
 
 	if (auth.authenticated) {
 		return <Navigate replace to='/home' />;
@@ -77,6 +109,7 @@ const Login = () => {
 		custom-login-theme h-full'
 		>
 			<div
+				ref={loginRef}
 				id='login'
 				style={{ backgroundImage: `url('${loginUrl}')` }}
 				className='h-full w-full bg-cover bg-center bg-no-repeat'
@@ -94,6 +127,33 @@ const Login = () => {
 									<span className='text-heading-7'>CoSMo</span>
 									<span className='text-body-2'>by aizoOn</span>
 								</div>
+								{providersData.length > 0 && (
+									<>
+										<div className='flex justify-center'>
+											<p>Use SSO service</p>
+										</div>
+										<div className='flex flex-col'>
+											{providersData.map(p => (
+												<Button
+													kind='secondary'
+													className='mt-5 w-full max-w-full justify-center p-0 shadow-md shadow-shadow'
+													key={p.id}
+													href={p.url}
+												>
+													{p.name}
+												</Button>
+											))}
+										</div>
+										<div className='flex items-center'>
+											<hr className='w-full' />
+											<p className='px-5'>or</p>
+											<hr className='w-full' />
+										</div>
+										<div className='flex justify-center'>
+											<p>Login with username and password</p>
+										</div>
+									</>
+								)}
 								<TextInput
 									id='username'
 									invalidText={errors.username?.message}
@@ -134,7 +194,6 @@ const Login = () => {
 									<SelectItem value='cosmo' text='Cosmo' />
 									<SelectItem value='aizoOn' text='AizoOn' />
 								</Select>
-
 								<Button
 									disabled={isSubmitting}
 									type='submit'
