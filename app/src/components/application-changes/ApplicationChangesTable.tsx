@@ -41,7 +41,11 @@ const ApplicationChangesTable = ({ appId }: ApplicationChangesTableProps) => {
 	];
 
 	return (
-		<CosmoTable data={data} createHeaders={columns} noDataMessage={t('no-changes')} />
+		<CosmoTable
+			data={data.filter(audit => audit.action === 'MODIFY')}
+			createHeaders={columns}
+			noDataMessage={t('no-changes')}
+		/>
 	);
 };
 export default ApplicationChangesTable;
