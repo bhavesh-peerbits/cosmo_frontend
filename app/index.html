@@ -2,9 +2,19 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="apple-touch-icon" href="/images/pwa/icon-192x192.png" />
-		<script src="/vendor/lottie.min.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Cosmo</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/images/pwa/icon-192x192.png" />
+    <meta name="theme-color" content="#5A0FC8">
+    <script type="module">
+      import { registerSW } from "virtual:pwa-register";
+
+      if ("serviceWorker" in navigator) {
+        registerSW();
+      }
+    </script>
+    <script src="/vendor/lottie.min.js"></script>
 		<link
 			rel="preload"
 			as="fetch"
@@ -160,14 +170,6 @@
 				}
 			}
 		</style>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Cosmo</title>
-		<script type="module">
-			// Register Service Worker using Vite Plugin PWA
-			import { registerSW } from 'virtual:pwa-register';
-
-			registerSW();
-		</script>
 	</head>
 	<body>
 		<noscript>You need to enable JavaScript to run this app.</noscript>

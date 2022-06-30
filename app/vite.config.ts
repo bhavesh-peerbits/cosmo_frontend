@@ -83,10 +83,18 @@ export default defineConfig(({ mode }) => ({
 		}),
 		eslintPlugin(),
 		pwa({
-			strategies: 'injectManifest',
-			srcDir: '',
-			filename: 'service-worker.js',
-			manifest
+      includeAssets: ['favicon.svg', 'apple-touch-icon.png', 'masked-icon.svg'],
+      registerType: 'autoUpdate',
+      strategies: 'injectManifest',
+      srcDir: "src",
+      base: "/",
+      filename:"service-worker.ts",
+      manifest,
+      devOptions: {
+        enabled: true,
+        type: "module",
+        navigateFallback: "index.html"
+      }
 		})
 	],
 	build: {
