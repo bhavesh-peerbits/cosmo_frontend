@@ -23,6 +23,7 @@ import useLoginStore from '@hooks/auth/useLoginStore';
 import removeLoadingScreen from '@hooks/removeLoadingScreen';
 import useLoginConfig from '@api/providers/useLoginConfig';
 import { useEffect, useMemo, useRef } from 'react';
+import useCleanSession from '@api/user/useCleanSession';
 
 interface LoginForm {
 	username: string;
@@ -52,6 +53,11 @@ const Login = () => {
 		isLoading,
 		error: configError
 	} = useLoginConfig(tenants[0].id);
+	const {
+		mutate: performCleanup,
+		isLoading: isCleanupLoading,
+		error: cleanupError
+	} = useCleanSession();
 
 	const loginRef = useRef<HTMLDivElement>(null);
 
@@ -65,17 +71,31 @@ const Login = () => {
 	const { auth, login } = useLoginStore();
 	const [params] = useSearchParams();
 	const error = params.get('error') as ErrorCode | undefined;
+	const isAuthenticated = auth.authenticated;
 
 	useEffect(() => {
-		if (!isLoading && !configError) {
+		if (!(isLoading || isCleanupLoading) && !(configError || cleanupError)) {
 			removeLoading();
-		} else if (configError) {
+		} else if (configError || cleanupError) {
 			loginRef.current?.remove();
 			showErrorDuringLoading();
 		}
-	}, [configError, isLoading, removeLoading, showErrorDuringLoading]);
+	}, [
+		cleanupError,
+		configError,
+		isCleanupLoading,
+		isLoading,
+		removeLoading,
+		showErrorDuringLoading
+	]);
 
-	if (auth.authenticated) {
+	useEffect(() => {
+		if (!isAuthenticated) {
+			performCleanup({ tenant: tenants[0].id });
+		}
+	}, [isAuthenticated, performCleanup, tenants]);
+
+	if (isAuthenticated) {
 		return <Navigate replace to='/home' />;
 	}
 	const rememberMe = localStorage.getItem('rememberMe') === 'true';

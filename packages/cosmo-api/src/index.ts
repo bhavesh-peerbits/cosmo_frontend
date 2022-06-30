@@ -12,6 +12,7 @@ import {
 	ProcedureAppInstanceDto,
 	ProcedureControllerApi,
 	ProcedureDto,
+	RealmControllerApi,
 	ReviewerControllerApi,
 	UserControllerApi,
 	UserDto
@@ -27,7 +28,8 @@ export default function configureApi(config: Configuration) {
 		narrativeReview: new NarrativeReviewControllerApi(config),
 		reviewerApi: new ReviewerControllerApi(config),
 		generateReportApi: new GenerateReportControllerApi(config),
-		authApi: new AuthControllerApi(config)
+		authApi: new AuthControllerApi(config),
+		realmApi: new RealmControllerApi(config)
 	};
 }
 export type ApplicationApi = ApplicationDto;
