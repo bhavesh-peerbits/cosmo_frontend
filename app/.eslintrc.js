@@ -4,8 +4,8 @@ module.exports = {
 	root: false,
 	plugins: ['i18next'],
 	extends: ['plugin:i18next/recommended'],
-  ignorePatterns: ["vite.config.ts", "service-worker.ts"],
-  rules: {
+	ignorePatterns: ['vite.config.ts', 'service-worker.ts'],
+	rules: {
 		'i18next/no-literal-string': [
 			0,
 			{

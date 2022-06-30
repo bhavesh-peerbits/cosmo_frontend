@@ -72,7 +72,7 @@ setDefaultHandler(new NetworkOnly());
 // fallback to app-shell for document request
 setCatchHandler(({ event }): Promise<Response> => {
 	// @ts-ignore
-  switch (event.request.destination) {
+	switch (event.request.destination) {
 		case 'document':
 			return caches.match(fallback).then(r => {
 				return r ? Promise.resolve(r) : Promise.resolve(Response.error());
