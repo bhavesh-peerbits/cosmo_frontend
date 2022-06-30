@@ -64,6 +64,7 @@ const CosmoTable = <D extends object>({
 	excludeCurrentView
 }: CosmoTableProps<D>) => {
 	const { t } = useTranslation('table');
+	const [showMore, setShowMore] = useState('');
 	const [rowSelection, setRowSelection] = useState({});
 	const [sorting, setSorting] = useState<ColumnSort[]>([]);
 	const [pagination, setPagination] = useState<PaginationState>({
@@ -119,9 +120,39 @@ const CosmoTable = <D extends object>({
 								onChange={undefined}
 							/>
 						)}
-						{row.getVisibleCells().map(cell => (
-							<TableCell key={cell.id}>{cell.renderCell()}</TableCell>
-						))}
+
+						{row.getVisibleCells().map(cell =>
+							((cell.getValue() as string) !== undefined && (cell.getValue() as string))
+								.toString()
+								.includes('<p>') ? (
+								<TableCell
+									key={cell.id}
+									onClick={() =>
+										showMore === row.id ? setShowMore('') : setShowMore(row.id)
+									}
+								>
+									<p
+										className={`cursor-pointer ${
+											showMore === row.id
+												? 'max-h-fit overflow-visible whitespace-normal break-words sm:max-w-[300px] lg:max-w-[600px]'
+												: 'max-h-[48px] truncate sm:max-w-[300px] lg:max-w-[600px]'
+										}`}
+										dangerouslySetInnerHTML={{ __html: cell.getValue() as string }}
+									/>
+								</TableCell>
+							) : (
+								<TableCell
+									key={cell.id}
+									className={`min-w-[200px] whitespace-normal break-words sm:max-w-[300px] lg:max-w-[600px] ${
+										showMore === row.id
+											? 'max-h-fit overflow-visible whitespace-normal break-words sm:max-w-[300px] lg:max-w-[600px]'
+											: 'max-h-[48px]'
+									}`}
+								>
+									{cell.renderCell()}
+								</TableCell>
+							)
+						)}
 					</TableRow>
 				);
 			})
