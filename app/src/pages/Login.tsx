@@ -22,7 +22,7 @@ import { useTranslation } from 'react-i18next';
 import useLoginStore from '@hooks/auth/useLoginStore';
 import removeLoadingScreen from '@hooks/removeLoadingScreen';
 import useLoginConfig from '@api/providers/useLoginConfig';
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import useCleanSession from '@api/user/useCleanSession';
 
 interface LoginForm {
@@ -34,25 +34,15 @@ interface LoginForm {
 
 const errorCodes = ['error-login', 'authentication-needed'] as const;
 type ErrorCode = typeof errorCodes[number];
+const tenants = import.meta.env.COSMO_TENANTS.split(', ');
 
 const Login = () => {
-	const tenants = useMemo(
-		() => [
-			{
-				id: 'cosmo',
-				name: 'Cosmo'
-			},
-			{ id: 'aizoOn', name: 'AizoOn' }
-		],
-		[]
-	);
-
 	const { removeLoading, showErrorDuringLoading } = removeLoadingScreen();
 	const {
 		data: providersData = [],
 		isLoading,
 		error: configError
-	} = useLoginConfig(tenants[0].id);
+	} = useLoginConfig(tenants[0]);
 	const {
 		mutate: performCleanup,
 		isLoading: isCleanupLoading,
@@ -91,9 +81,9 @@ const Login = () => {
 
 	useEffect(() => {
 		if (!isAuthenticated) {
-			performCleanup({ tenant: tenants[0].id });
+			performCleanup({ tenant: tenants[0] });
 		}
-	}, [isAuthenticated, performCleanup, tenants]);
+	}, [isAuthenticated, performCleanup]);
 
 	if (isAuthenticated) {
 		return <Navigate replace to='/home' />;
@@ -142,7 +132,7 @@ const Login = () => {
 									{t(error)}
 								</div>
 							)}
-							<Stack gap={6}>
+							<Stack gap={5}>
 								<div className='flex items-end space-x-5'>
 									<span className='text-heading-7'>CoSMo</span>
 									<span className='text-body-2'>by aizoOn</span>
@@ -205,20 +195,28 @@ const Login = () => {
 										}
 									})}
 								/>
-								<Select
-									id='tenant'
-									defaultValue='cosmo'
-									labelText='Tenant'
-									{...register('tenant', { required: true })}
-								>
-									<SelectItem value='cosmo' text='Cosmo' />
-									<SelectItem value='aizoOn' text='AizoOn' />
-								</Select>
+								{tenants.length > 0 && (
+									<Select
+										id='tenant'
+										defaultValue='cosmo'
+										labelText='Tenant'
+										{...register('tenant', { required: true })}
+									>
+										{tenants.map(tenant => (
+											<SelectItem
+												className='capitalize'
+												key={tenant}
+												value={tenant}
+												text={tenant}
+											/>
+										))}
+									</Select>
+								)}
 								<Button
 									disabled={isSubmitting}
 									type='submit'
 									kind='secondary'
-									className='w-full max-w-full'
+									className='mt-8 w-full max-w-full'
 								>
 									{isSubmitting ? <InlineLoading description='Logging in...' /> : 'Login'}
 								</Button>
