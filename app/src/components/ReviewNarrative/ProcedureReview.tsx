@@ -84,23 +84,18 @@ const ProcedureReview = ({
 	});
 
 	const sendData = (dataProc: ProcedureFormData) => {
-		const onSuccess = () => {
-			reset();
-		};
-		return mutate(
-			{
-				appId,
-				procedureAppId: procedureApp.id,
-				procedure: {
-					...procedureApp,
-					...dataProc
-				},
-				procedureId: procedureApp.procedureId,
-				modified: isDirty
+		return mutate({
+			appId,
+			procedureAppId: procedureApp.id,
+			procedure: {
+				...procedureApp,
+				...dataProc
 			},
-			{ onSuccess }
-		);
+			procedureId: procedureApp.procedureId,
+			modified: isDirty
+		});
 	};
+
 	return (
 		<Grid fullWidth className='h-full'>
 			<FullWidthColumn className='pt-4'>

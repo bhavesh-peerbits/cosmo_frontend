@@ -21,10 +21,19 @@ const useReviewApplication = () => {
 	const queryClient = useQueryClient();
 	return useMutation(reviewApplication, {
 		onSuccess: (data, variables) => {
-			queryClient.setQueriesData(['reviewApps'], old =>
-				old instanceof Map ? new Map(old.set(variables.appId, data)) : data
-			);
+			queryClient.setQueriesData(['reviewApps'], old => {
+				if (old instanceof Map) {
+					if (data.hasProcedureInReview) {
+						old.set(variables.appId, data);
+					} else {
+						old.delete(variables.appId);
+					}
+					return new Map(old);
+				}
+				return data.hasProcedureInReview ? data : undefined;
+			});
 			queryClient.invalidateQueries(['appChanges', variables.appId]);
+			queryClient.refetchQueries(['reviewApps']);
 		}
 	});
 };

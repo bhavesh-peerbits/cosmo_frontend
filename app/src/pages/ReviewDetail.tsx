@@ -6,19 +6,12 @@ import TableOfContents from '@components/TableOfContents';
 import ProcedureReview from '@components/ReviewNarrative/ProcedureReview';
 import { useTranslation } from 'react-i18next';
 import ApplicationInfoReview from '@components/ReviewNarrative/ApplicationInfoReview';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ProcedureAppInstance from '@model/ProcedureAppInstance';
 import routes from '@routes/routes-const';
 import useGetProcedureForReview from '@api/review/useGetProcedureForReview';
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useEffect } from 'react';
 import useGetAppsInReview from '@api/review/useGetAppsInReview';
-import Application from '@model/Application';
-
-type ProcedureState = Partial<ProcedureAppInstance> & {
-	id: string;
-	procedureId: string;
-	isNew?: boolean;
-};
 
 const ReviewDetail = () => {
 	const { t } = useTranslation('reviewNarrative');
@@ -26,22 +19,16 @@ const ReviewDetail = () => {
 	const { data: apps } = useGetAppsInReview();
 	const { data: procedures = new Map<string, ProcedureAppInstance>() } =
 		useGetProcedureForReview(appId);
-	const serverProcs = useMemo(() => [...procedures.values()], [procedures]);
-	const [procedureList, setProcedureList] = useState<ProcedureState[]>(serverProcs);
+	const procedureList = useMemo(() => [...procedures.values()], [procedures]);
 	const { breadcrumbSize } = useBreadcrumbSize();
 	const data = apps?.get(appId);
-	const [dataApp] = useState<Application | undefined>(data);
+	const navigate = useNavigate();
 
 	useEffect(() => {
-		setProcedureList(old => {
-			const p = old.findIndex(proc => proc.isNew);
-			if (p !== -1) {
-				return old.splice(p, 1, serverProcs[p]);
-			}
-			return serverProcs;
-		});
-	}, [serverProcs]);
-
+		if (!data) {
+			navigate(routes.REVIEW_NARRATIVE, { replace: true });
+		}
+	}, [data, navigate]);
 	if (!data) {
 		return null;
 	}
@@ -55,7 +42,7 @@ const ReviewDetail = () => {
 					<Grid fullWidth className='h-full p-5'>
 						<FullWidthColumn>
 							<div className='space-y-7'>
-								{dataApp?.inReview && (
+								{data.inReview && (
 									<Tile className='bg-background'>
 										<Grid>
 											<FullWidthColumn className='flex justify-between space-x-1'>
