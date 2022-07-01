@@ -1,6 +1,6 @@
 /* Basic editor styles */
 .ProseMirror {
-	@apply py-4 px-2;
+	@apply min-w-full max-w-fit py-4 px-2;
 
 	min-height: 100px;
 

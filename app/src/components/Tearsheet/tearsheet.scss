@@ -89,11 +89,11 @@ $motion-duration: $duration-moderate-02;
 
 		&--stacked-1-of-2 &__container,
 		&--stacked-2-of-3 &__container {
-			max-height: calc(100% - (#{$spacing-09} + #{$spacing-08}) + #{$spacing-05});
+			max-height: calc(100% - (#{$spacing-09} + #{$spacing-08}) + #{$spacing-07});
 		}
 
 		&--stacked-1-of-3 &__container {
-			max-height: calc(100% - (#{$spacing-09} + #{$spacing-08}) + (2 * #{$spacing-05}));
+			max-height: calc(100% - (#{$spacing-09} + #{$spacing-08}) + (2 * #{$spacing-07}));
 		}
 
 		&--wide &__container {
@@ -103,16 +103,17 @@ $motion-duration: $duration-moderate-02;
 		@include breakpoint(md) {
 			&--wide &__container {
 				width: calc(100% - (2 * #{$spacing-10}));
+				max-width: 950px;
 			}
 		}
 
 		&--stacked-1-of-2.is-visible &__container,
 		&--stacked-2-of-3.is-visible &__container {
-			transform: scaleX(var(--tearsheet-stacking-scale-factor-single));
+			transform: scaleX(var(--tearsheet-stacking-scale-factor-single)) translateY(1rem);
 		}
 
 		&--stacked-1-of-3.is-visible &__container {
-			transform: scaleX(var(--tearsheet-stacking-scale-factor-double));
+			transform: scaleX(var(--tearsheet-stacking-scale-factor-double)) translateY(1rem);
 		}
 
 		&--wide &__header {

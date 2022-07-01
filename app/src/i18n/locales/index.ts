@@ -18,13 +18,18 @@ import {
 } from '@i18n/locales/components/application-info';
 import { modalsEn, modalsFr, modalsIt } from '@i18n/locales/components/modals';
 import { changesEn, changesFr, changesIt } from '@i18n/locales/components/changes';
+import {
+	tiptapEditorEn,
+	tiptapEditorFr,
+	tiptapEditorIt
+} from '@i18n/locales/components/tiptap-editor';
 import { userSelectEn, userSelectFr, userSelectIt } from './components/user-select';
 import {
 	reviewNarrativeEn,
 	reviewNarrativeFr,
 	reviewNarrativeIt
 } from './pages/reviewNarrative';
-import { homeEn, homeIt } from './pages/home';
+import { homeEn, homeIt, homeFr } from './pages/home';
 import { testEn, testIt } from './pages/test';
 import {
 	errorBoundaryEn,
@@ -43,6 +48,7 @@ export default {
 		reviewNarrative: reviewNarrativeEn,
 		changes: changesEn,
 		userSelect: userSelectEn,
+		tiptapEditor: tiptapEditorEn,
 		table: tableEn,
 		applicationInfo: applicationInfoEn,
 		procedureInfo: procedureInfoEn,
@@ -58,12 +64,14 @@ export default {
 		reviewNarrative: reviewNarrativeIt,
 		changes: changesIt,
 		userSelect: userSelectIt,
+		tiptapEditor: tiptapEditorIt,
 		table: tableIt,
 		applicationInfo: applicationInfoIt,
 		procedureInfo: procedureInfoIt,
 		modals: modalsIt
 	},
 	fr_FR: {
+		home: homeFr,
 		errorBoundary: errorBoundaryFr,
 		login: loginFr,
 		httpError: httpErrorFr,
@@ -71,6 +79,7 @@ export default {
 		reviewNarrative: reviewNarrativeFr,
 		changes: changesFr,
 		userSelect: userSelectFr,
+		tiptapEditor: tiptapEditorFr,
 		table: tableFr,
 		applicationInfo: applicationInfoFr,
 		procedureInfo: procedureInfoFr,

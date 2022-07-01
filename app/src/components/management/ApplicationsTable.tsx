@@ -42,11 +42,11 @@ const ApplicationsTable = () => {
 				id: 'code',
 				header: t('code')
 			}),
-			table.createDataColumn(row => row.description || '-', {
-				id: 'description',
-				sortUndefined: 1,
-				header: t('description')
-			}),
+			// table.createDataColumn(row => row.description?.replace(/<[^>]+>/g, '') || '-', {
+			// 	id: 'description',
+			// 	sortUndefined: 1,
+			// 	header: t('description')
+			// }),
 			table.createDataColumn(row => row.owner, {
 				id: 'owner',
 				header: t('owner'),

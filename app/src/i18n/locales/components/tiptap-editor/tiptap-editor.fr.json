@@ -1,0 +1,22 @@
+{
+	"bold": "Gras",
+	"italic": "Italique",
+	"strike": "Barré",
+	"parapgraph": "Paragraphe",
+	"bullet": "Liste à Puces",
+	"ordered": "Liste Numérotée",
+	"quotes": "Citation",
+	"rule": "Ligne horizontale",
+	"undo": "Annuler",
+	"redo": "Répéter",
+	"insert-table": "Insérer Tableau",
+	"add-column": "Ajouter Colonne",
+	"column-before": "Avant",
+	"column-after": "Après",
+	"delete-column": "Supprimer la Colonne",
+	"add-row": "Ajouter Ligne",
+	"row-before": "Avant",
+	"row-after": "Après",
+	"delete-row": "Supprimer la Ligne",
+	"delete-table": "Supprimer le Tableau"
+}

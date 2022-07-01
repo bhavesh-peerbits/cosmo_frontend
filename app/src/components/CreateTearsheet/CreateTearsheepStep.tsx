@@ -3,6 +3,7 @@ import cx from 'classnames';
 import { Column, FormGroup, Grid } from '@carbon/react';
 import { StepNumberContext } from '@components/CreateTearsheet/index';
 import useRetrieveStepData from '@hooks/create-tearsheet/useRetrieveStepData';
+import FullWidthColumn from '@components/FullWidthColumn';
 
 const CreateTearsheetStep = forwardRef<HTMLDivElement, CreateTearsheetStepProps>(
 	(
@@ -74,16 +75,12 @@ const CreateTearsheetStep = forwardRef<HTMLDivElement, CreateTearsheetStepProps>
 							className='mb-0'
 						>
 							<Grid>
-								<Column max={5} lg={8} md={8} sm={4}>
-									{children}
-								</Column>
+								<FullWidthColumn>{children}</FullWidthColumn>
 							</Grid>
 						</FormGroup>
 					) : (
 						<Grid>
-							<Column max={5} lg={8} md={8} sm={4}>
-								{children}
-							</Column>
+							<FullWidthColumn>{children}</FullWidthColumn>
 						</Grid>
 					)}
 				</Column>

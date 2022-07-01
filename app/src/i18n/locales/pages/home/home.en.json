@@ -1,3 +1,9 @@
 {
-	"purpose": "Purpose and function of the application"
+	"purpose": "Purpose and function of the application",
+	"dismiss": "Dismiss",
+	"change-to": "Change to",
+	"roles": "Roles",
+	"welcome": "Welcome in",
+	"no-role-message": "You do not have any role, contact an administrator",
+	"navigate-to-start": "Navigate in the following section to start"
 }

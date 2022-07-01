@@ -2,6 +2,30 @@ const { resolve } = require('path');
 
 module.exports = {
 	root: false,
+	plugins: ['i18next'],
+	extends: ['plugin:i18next/recommended'],
+	rules: {
+		'i18next/no-literal-string': [
+			0,
+			{
+				words: {
+					exclude: [
+						':',
+						'Review Narrative',
+						'Home',
+						'Management Dashboard',
+						'Review',
+						'Narrative',
+						'Home',
+						'Logout',
+						'CoSMo',
+						'by aizoOn',
+						'Copyright © aizoOn 2022.'
+					]
+				}
+			}
+		]
+	},
 	overrides: [
 		{
 			files: ['vite.config.ts'],
