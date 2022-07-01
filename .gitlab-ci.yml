@@ -80,7 +80,7 @@ test:
   variables:
     NODE_ENV: 'CI'
   before_script:
-    - yarn
+    - YARN_CHECKSUM_BEHAVIOR=update yarn install
   script:
     - yarn test
   cache:

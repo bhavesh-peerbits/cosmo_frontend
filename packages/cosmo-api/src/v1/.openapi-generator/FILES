@@ -3,15 +3,18 @@
 api.ts
 api/access-controller-api.ts
 api/application-controller-api.ts
+api/auth-controller-api.ts
 api/config-element-controller-api.ts
 api/config-element-module-controller-api.ts
 api/control-controller-api.ts
+api/dev-home-redirect-controller-api.ts
 api/frequency-controller-api.ts
 api/generate-report-controller-api.ts
 api/module-controller-api.ts
 api/narrative-review-controller-api.ts
 api/procedure-controller-api.ts
 api/profile-controller-api.ts
+api/realm-controller-api.ts
 api/reviewer-controller-api.ts
 api/send-mail-controller-api.ts
 api/template-controller-api.ts
@@ -37,6 +40,7 @@ models/control-app-instance.ts
 models/control.ts
 models/email.ts
 models/frequency.ts
+models/identity-provider-dto.ts
 models/index.ts
 models/mail-template-dto.ts
 models/module.ts

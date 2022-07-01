@@ -4,7 +4,6 @@
 	"description": "Cosmo Web App",
 	"background_color": "#5a0fc8",
 	"theme_color": "#5A0FC8",
-	"display": "standalone",
 	"icons": [
 		{
 			"src": "/images/pwa/icon-maskable.png",

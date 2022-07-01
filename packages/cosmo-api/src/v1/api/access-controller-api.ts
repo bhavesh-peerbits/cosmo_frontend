@@ -41,6 +41,8 @@ import { AccessLoginDto } from '../models';
 // @ts-ignore
 import { ApiErrorResponse } from '../models';
 // @ts-ignore
+import { IdentityProviderDto } from '../models';
+// @ts-ignore
 import { RefreshTokenDto } from '../models';
 /**
  * AccessControllerApi - axios parameter creator
@@ -50,6 +52,57 @@ export const AccessControllerApiAxiosParamCreator = function (
 	configuration?: Configuration
 ) {
 	return {
+		/**
+		 *
+		 * @param {string} tenant
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getProviders: async (
+			tenant: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'tenant' is not null or undefined
+			assertParamExists('getProviders', 'tenant', tenant);
+			const localVarPath = `/api/public/providers`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (tenant !== undefined) {
+				localVarQueryParameter['tenant'] = tenant;
+			}
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
 		/**
 		 *
 		 * @param {string} user
@@ -103,6 +156,62 @@ export const AccessControllerApiAxiosParamCreator = function (
 
 			if (tenant !== undefined) {
 				localVarFormParams.append('tenant', tenant as any);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = localVarFormParams;
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {string} refreshToken
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		logout: async (
+			refreshToken: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'refreshToken' is not null or undefined
+			assertParamExists('logout', 'refreshToken', refreshToken);
+			const localVarPath = `/api/public/logout`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+			const localVarFormParams = new ((configuration && configuration.formDataCtor) ||
+				FormData)();
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			if (refreshToken !== undefined) {
+				localVarFormParams.append('refresh-token', refreshToken as any);
 			}
 
 			localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
@@ -190,6 +299,35 @@ export const AccessControllerApiFp = function (configuration?: Configuration) {
 	return {
 		/**
 		 *
+		 * @param {string} tenant
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getProviders(
+			tenant: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(
+				axios?: AxiosInstance,
+				basePath?: string
+			) => AxiosPromise<Array<IdentityProviderDto>>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getProviders(
+				tenant,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
 		 * @param {string} user
 		 * @param {string} password
 		 * @param {string} tenant
@@ -210,6 +348,30 @@ export const AccessControllerApiFp = function (configuration?: Configuration) {
 				user,
 				password,
 				tenant,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {string} refreshToken
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async logout(
+			refreshToken: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.logout(
+				refreshToken,
 				acceptLanguage,
 				options
 			);
@@ -262,6 +424,22 @@ export const AccessControllerApiFactory = function (
 	return {
 		/**
 		 *
+		 * @param {string} tenant
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getProviders(
+			tenant: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<IdentityProviderDto>> {
+			return localVarFp
+				.getProviders(tenant, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
 		 * @param {string} user
 		 * @param {string} password
 		 * @param {string} tenant
@@ -287,6 +465,22 @@ export const AccessControllerApiFactory = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
+		logout(
+			refreshToken: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<void> {
+			return localVarFp
+				.logout(refreshToken, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {string} refreshToken
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
 		refreshToken(
 			refreshToken: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
@@ -298,6 +492,27 @@ export const AccessControllerApiFactory = function (
 		}
 	};
 };
+
+/**
+ * Request parameters for getProviders operation in AccessControllerApi.
+ * @export
+ * @interface AccessControllerApiGetProvidersRequest
+ */
+export interface AccessControllerApiGetProvidersRequest {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AccessControllerApiGetProviders
+	 */
+	readonly tenant: string;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AccessControllerApiGetProviders
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
 
 /**
  * Request parameters for login operation in AccessControllerApi.
@@ -335,6 +550,27 @@ export interface AccessControllerApiLoginRequest {
 }
 
 /**
+ * Request parameters for logout operation in AccessControllerApi.
+ * @export
+ * @interface AccessControllerApiLogoutRequest
+ */
+export interface AccessControllerApiLogoutRequest {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AccessControllerApiLogout
+	 */
+	readonly refreshToken: string;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AccessControllerApiLogout
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
  * Request parameters for refreshToken operation in AccessControllerApi.
  * @export
  * @interface AccessControllerApiRefreshTokenRequest
@@ -364,6 +600,22 @@ export interface AccessControllerApiRefreshTokenRequest {
 export class AccessControllerApi extends BaseAPI {
 	/**
 	 *
+	 * @param {AccessControllerApiGetProvidersRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AccessControllerApi
+	 */
+	public getProviders(
+		requestParameters: AccessControllerApiGetProvidersRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AccessControllerApiFp(this.configuration)
+			.getProviders(requestParameters.tenant, requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
 	 * @param {AccessControllerApiLoginRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
@@ -381,6 +633,22 @@ export class AccessControllerApi extends BaseAPI {
 				requestParameters.acceptLanguage,
 				options
 			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AccessControllerApiLogoutRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AccessControllerApi
+	 */
+	public logout(
+		requestParameters: AccessControllerApiLogoutRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AccessControllerApiFp(this.configuration)
+			.logout(requestParameters.refreshToken, requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 

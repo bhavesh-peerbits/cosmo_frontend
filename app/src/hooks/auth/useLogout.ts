@@ -1,5 +1,6 @@
-import { cleanSession } from '@store/auth/authStore';
+import { cleanSession, retrieveRefreshToken } from '@store/auth/authStore';
 import { setCookie } from 'tiny-cookie';
+import { logoutApi } from '@api/providers/useLogout';
 
 const REDIRECT_PATH_COOKIE = 'postLoginRedirectPath';
 
@@ -14,8 +15,13 @@ const NO_REDIRECT_PATHS = [
 ];
 
 export const logoutApp = (savePath = false) => {
+	logoutApi(retrieveRefreshToken())?.catch(() => {});
+
+	cleanSession();
+
 	// if this logout was forced from an authenticated route then
 	// save the current path, so we can go back there once signed in
+
 	if (savePath) {
 		const pathName = window.location.pathname;
 
@@ -23,8 +29,6 @@ export const logoutApp = (savePath = false) => {
 			setCookie(REDIRECT_PATH_COOKIE, pathName);
 		}
 	}
-
-	cleanSession();
 };
 
 const useLogout = () => {
