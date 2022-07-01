@@ -7,6 +7,7 @@ import { FormLabel, OverflowMenu, OverflowMenuItem } from '@carbon/react';
 import IconResolver from '@components/IconResolver';
 import { FocusEventHandler, forwardRef } from 'react';
 import cx from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 export const icons = {
 	mobile: {
@@ -32,9 +33,10 @@ interface IconPickerProps {
 
 const IconPicker = forwardRef<HTMLDivElement, IconPickerProps>(
 	({ icon, onChange, onBlur, className }, ref) => {
+		const { t } = useTranslation('applicationInfo');
 		return (
 			<div className={cx([className, 'mb-3 flex space-x-5'])} ref={ref} onBlur={onBlur}>
-				<FormLabel className='flex items-center'>Icon</FormLabel>
+				<FormLabel className='flex items-center'>{t('icon')}</FormLabel>
 				<OverflowMenu
 					size='lg'
 					renderIcon={() => <IconResolver size={24} icon={icon} />}

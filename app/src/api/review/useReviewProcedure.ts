@@ -44,7 +44,12 @@ const useReviewProcedureApp = () => {
 						(old as Map<string, ProcedureAppInstance>).set(variables.procedureAppId, data)
 					)
 			);
+			queryClient.setQueriesData(['review-procedures', variables.appId], old => {
+				(old as Map<string, ProcedureAppInstance>).delete(variables.procedureAppId);
+				return new Map(old as Map<string, ProcedureAppInstance>);
+			});
 			queryClient.invalidateQueries(['appChanges', variables.appId]);
+			queryClient.refetchQueries(['reviewApps']);
 		}
 	});
 };

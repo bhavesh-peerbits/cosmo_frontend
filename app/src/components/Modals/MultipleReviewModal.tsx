@@ -100,7 +100,7 @@ const MultipleReviewModal = ({
 	};
 	return (
 		<Form>
-			<ComposedModal open={isOpen} onClose={() => cleanUp()}>
+			<ComposedModal open={isOpen} onClose={() => cleanUp()} className='z-[99999]'>
 				<ModalHeader
 					title={
 						type === 'procedure'

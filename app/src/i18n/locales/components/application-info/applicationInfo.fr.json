@@ -24,5 +24,6 @@
 	"db-servers": "Serveurs database",
 	"db-servers-os": "SO Serveurs database",
 	"db-service": "Service database",
-	"db-instance": "Instance database"
+	"db-instance": "Instance database",
+	"icon": "Icône"
 }

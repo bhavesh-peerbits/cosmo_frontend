@@ -53,7 +53,7 @@ const ApplicationProcedureSelect = ({
 	return (
 		<Select
 			id='select-app'
-			labelText={t('select-application')}
+			labelText={t('select-procedure')}
 			defaultValue='placeholder-item'
 			disabled={proceduresApp.size === 0}
 			onChange={e =>
@@ -154,7 +154,7 @@ const ProcedureBody = ({
 				aria-label='Toggle Copy Procedure'
 				labelText={t('copy-procedure')}
 				labelA=''
-				labelB='Copy'
+				labelB={t('copy')}
 				id='toggle-1'
 				toggled={isCopySelected}
 				onToggle={() =>
@@ -182,7 +182,7 @@ const ProcedureBody = ({
 			<Select
 				id='select-procedure'
 				defaultValue='placeholder-item'
-				labelText='Select procedure to add'
+				labelText={t('select-to-add')}
 				disabled={procFiltered.length === 0}
 				onChange={e =>
 					setProcedureSelection(old => ({
@@ -206,14 +206,15 @@ const ProcedureBody = ({
 };
 
 const ProcedureBodyLoading = () => {
+	const { t } = useTranslation('modals');
 	return (
 		<div className='flex flex-col space-y-7'>
 			<Toggle
 				disabled
 				aria-label='Toggle Copy Procedure'
-				labelText='Copy procedure'
+				labelText={t('copy-procedure')}
 				labelA=''
-				labelB='Copy'
+				labelB={t('copy')}
 				id='toggle-1'
 			/>
 
@@ -258,7 +259,7 @@ const NewProcedureModal = ({
 
 	return (
 		<ComposedModal open={isOpen} onClose={() => setIsOpen(false)} className='z-[99999]'>
-			<ModalHeader title='Add Procedure' closeModal={() => setIsOpen(false)} />
+			<ModalHeader title={t('add-procedure')} closeModal={() => setIsOpen(false)} />
 			{isOpen && (
 				<ModalBody>
 					<Suspense fallback={<ProcedureBodyLoading />}>

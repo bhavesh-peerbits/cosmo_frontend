@@ -37,6 +37,8 @@ const useReviewProcedures = (appId: string) => {
 					old => new Map([...(old as Map<string, ProcedureAppInstance>), ...data])
 				);
 				queryClient.invalidateQueries(['managementApps']);
+				queryClient.invalidateQueries(['reviewApps']);
+				queryClient.invalidateQueries(['review-procedures']);
 			}
 		}
 	);

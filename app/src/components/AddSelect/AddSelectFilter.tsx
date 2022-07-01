@@ -2,6 +2,7 @@ import { Button, ButtonSet, Dropdown, Tag, TextInput } from '@carbon/react';
 import { Filter } from '@carbon/react/icons';
 import { FormEvent, useState } from 'react';
 import { GlobalFilter } from '@components/AddSelect/utilities';
+import { useTranslation } from 'react-i18next';
 
 const AddSelectFilter = ({
 	appliedFilters,
@@ -18,6 +19,7 @@ const AddSelectFilter = ({
 	searchTerm,
 	secondaryButtonText
 }: AddSelectFilterProps) => {
+	const { t } = useTranslation('userSelect');
 	const [filters, setFilters] = useState<
 		Record<string, { value: string; label: string }>
 	>({});
@@ -96,7 +98,7 @@ const AddSelectFilter = ({
 				{open && (
 					<div className='absolute right-0 z-[6000] w-full max-w-[40rem] translate-y-full bg-field-1 shadow shadow-md shadow-background'>
 						<div className='p-5'>
-							<p>Filters</p>
+							<p>{t('filters')}</p>
 							<div className='grid grid-cols-2 gap-y-5 gap-x-7'>
 								{filterOpts?.map(ops => (
 									<Dropdown

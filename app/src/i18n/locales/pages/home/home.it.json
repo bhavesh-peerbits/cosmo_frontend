@@ -1,3 +1,9 @@
 {
-	"purpose": "Motivazione e scopo del sito"
+	"purpose": "Motivazione e scopo del sito",
+	"dismiss": "Rifiuta",
+	"change-to": "Cambia in",
+	"roles": "Ruoli",
+	"welcome": "Benvenuto in",
+	"no-role-message": "Non hai nessun ruolo. contatta un amministratore",
+	"navigate-to-start": "Naviga nella seguente sezione per iniziare"
 }

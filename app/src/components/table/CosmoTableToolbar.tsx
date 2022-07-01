@@ -20,6 +20,7 @@ const ExportSelectionAction = ({
 	exportFn: (fileType: AvailableFileType, all: 'selection') => void;
 }) => {
 	const [val, { setTrue, setFalse }] = useBoolean(false);
+	const { t } = useTranslation('table');
 	const actions = [
 		{
 			id: 'pdf',
@@ -51,7 +52,7 @@ const ExportSelectionAction = ({
 	];
 	return (
 		<TableBatchAction renderIcon={TableSplit} onClick={() => setTimeout(() => setTrue())}>
-			Export
+			{t('export')}
 			<OverflowMenu
 				menuOffsetFlip={{ top: 20, left: -50 }}
 				open={val}

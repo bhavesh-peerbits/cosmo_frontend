@@ -1,7 +1,8 @@
 import { Content, Stack } from '@carbon/react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import removeLoadingScreen from '@hooks/removeLoadingScreen';
 
 interface HTTPErrorProps {
 	errorCode: string;
@@ -18,8 +19,13 @@ const HTTPError = ({
 	errorImage,
 	link
 }: HTTPErrorProps) => {
+	const { removeLoading } = removeLoadingScreen();
 	const navigate = useNavigate();
 	const { t } = useTranslation('httpError');
+
+	useEffect(() => {
+		removeLoading();
+	}, [removeLoading]);
 
 	return (
 		<Content className='relative h-full w-full bg-background'>

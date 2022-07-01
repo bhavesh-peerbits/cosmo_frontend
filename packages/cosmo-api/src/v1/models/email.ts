@@ -26,12 +26,6 @@ export interface Email {
 	to?: Array<string>;
 	/**
 	 *
-	 * @type {string}
-	 * @memberof Email
-	 */
-	from?: string;
-	/**
-	 *
 	 * @type {Array<string>}
 	 * @memberof Email
 	 */

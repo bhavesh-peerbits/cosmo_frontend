@@ -21,10 +21,6 @@ const ApplicationChangesTable = ({ appId }: ApplicationChangesTableProps) => {
 			id: 'field-modified',
 			header: t('field-modified')
 		}),
-		table.createDataColumn(row => row.change, {
-			id: 'change',
-			header: t('change')
-		}),
 		table.createDataColumn(row => row.userWhoChanged, {
 			id: 'user',
 			header: t('user'),
@@ -37,11 +33,19 @@ const ApplicationChangesTable = ({ appId }: ApplicationChangesTableProps) => {
 			id: 'modify-date',
 			header: t('date'),
 			cell: info => formatDate(info.getValue())
+		}),
+		table.createDataColumn(row => row.change, {
+			id: 'change',
+			header: t('change')
 		})
 	];
 
 	return (
-		<CosmoTable data={data} createHeaders={columns} noDataMessage={t('no-changes')} />
+		<CosmoTable
+			data={data.filter(audit => audit.action === 'MODIFY')}
+			createHeaders={columns}
+			noDataMessage={t('no-changes')}
+		/>
 	);
 };
 export default ApplicationChangesTable;

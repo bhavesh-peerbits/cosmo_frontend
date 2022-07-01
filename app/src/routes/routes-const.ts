@@ -4,7 +4,8 @@ const routes = {
 	REVIEW: '/review',
 	REVIEW_NARRATIVE: '/review-narrative',
 	LOGOUT: '/logout',
-	FORBIDDEN: '/forbidden'
+	FORBIDDEN: '/forbidden',
+	NOTFOUND: '/404'
 };
 
 export default routes;

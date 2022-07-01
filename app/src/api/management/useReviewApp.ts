@@ -25,6 +25,8 @@ const useReviewApp = (appId: string) => {
 				old instanceof Map ? new Map(old.set(appId, data)) : data
 			);
 			queryClient.invalidateQueries(['app-procedures']);
+			queryClient.invalidateQueries(['reviewApps']);
+			queryClient.invalidateQueries(['review-procedures']);
 		}
 	});
 };
