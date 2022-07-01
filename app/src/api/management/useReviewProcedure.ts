@@ -29,6 +29,8 @@ const useReviewProcedure = (appId: string, procId: string) => {
 					old instanceof Map ? new Map(old.set(appId, data)) : data
 				);
 				queryClient.invalidateQueries(['managementApps', appId]);
+				queryClient.invalidateQueries(['reviewApps']);
+				queryClient.invalidateQueries(['review-procedures']);
 			}
 		}
 	);

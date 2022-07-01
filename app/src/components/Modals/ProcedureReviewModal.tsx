@@ -72,7 +72,12 @@ const ProcedureReviewModal = ({
 	};
 	return (
 		<Form>
-			<ComposedModal preventCloseOnClickOutside open={isOpen} onClose={() => cleanUp()}>
+			<ComposedModal
+				preventCloseOnClickOutside
+				open={isOpen}
+				onClose={() => cleanUp()}
+				className='z-[99999]'
+			>
 				<ModalHeader
 					title={t('procedure-review')}
 					label={`${t('fill-field')} "${t('send-email')}".`}

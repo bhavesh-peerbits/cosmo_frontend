@@ -13,8 +13,10 @@ $neutral-300: #d4d4d4;
 $neutral-900: #171717;
 $aqua: #0d74ad;
 $aqua-hover: #086391;
+$aqua-active: #06537a;
 $aqua-secondary: #033c53;
-$aqua-secondary-hover: #185167;
+$aqua-secondary-hover: rgb(25 81 103); // HEX value not working
+$aqua-secondary-active: #255d74;
 $aqua-danger: #ad0d33;
 $theme-cosmo-common: (
 	background-brand: $aqua !important,
@@ -27,9 +29,12 @@ $theme-cosmo-common: (
 	button-tertiary: $aqua !important,
 	button-secondary: $aqua-secondary !important,
 	button-secondary-hover: $aqua-secondary-hover !important,
-	button-tertiary-hover: $aqua-secondary-hover !important,
+	button-secondary-active: $aqua-secondary-active !important,
+	button-tertiary-hover: $aqua-hover !important,
+	button-tertiary-active: $aqua !important,
 	border-interactive: $aqua !important,
-	button-danger-primary: $aqua-danger !important
+	button-danger-primary: $aqua-danger !important,
+	focus: $aqua !important
 );
 $theme-cosmo-dark: (
 	// override here default tokens
