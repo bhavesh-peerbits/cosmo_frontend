@@ -204,10 +204,12 @@ const Login = () => {
 									>
 										{tenants.map(tenant => (
 											<SelectItem
-												className='capitalize'
 												key={tenant}
 												value={tenant}
-												text={tenant}
+												text={tenant.replace(
+													/^(\w)(.+)/,
+													(match, p1, p2) => p1.toUpperCase() + p2
+												)}
 											/>
 										))}
 									</Select>

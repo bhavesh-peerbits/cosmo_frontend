@@ -14519,7 +14519,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["workbox-build", "npm:6.5.3"],\
             ["workbox-core", "npm:6.5.3"],\
             ["workbox-precaching", "npm:6.5.3"],\
-            ["workbox-recipes", "npm:6.5.3"],\
             ["workbox-routing", "npm:6.5.3"],\
             ["workbox-strategies", "npm:6.5.3"],\
             ["workbox-window", "npm:6.5.3"],\
@@ -14619,7 +14618,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["workbox-build", "npm:6.5.3"],\
             ["workbox-core", "npm:6.5.3"],\
             ["workbox-precaching", "npm:6.5.3"],\
-            ["workbox-recipes", "npm:6.5.3"],\
             ["workbox-routing", "npm:6.5.3"],\
             ["workbox-strategies", "npm:6.5.3"],\
             ["workbox-window", "npm:6.5.3"],\
