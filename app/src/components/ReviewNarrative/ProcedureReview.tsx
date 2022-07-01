@@ -170,37 +170,39 @@ const ProcedureReview = ({
 							</div>
 						</FullWidthColumn>
 						<FullWidthColumn className='mt-5 flex justify-end'>
-							<div className='flex-1'>
-								<InlineLoadingStatus
-									isLoading={isLoading}
-									isSuccess={isSuccess}
-									isError={isError}
-									error={error as ApiError}
-								/>
-							</div>
-							<div className='flex w-full flex-1 items-center justify-end'>
-								<Button
-									className='mr-5'
-									type='reset'
-									kind='tertiary'
-									disabled={!isDirty || isSuccess}
-									onClick={() => {
-										reset();
-										apiReset();
-									}}
-								>
-									{t('discard')}
-								</Button>
-								{isSuccess ? (
-									<div className='flex h-8 items-center space-x-2 text-link-primary'>
-										<p className='text-body-short-2'>{t('confirmed')}</p>
-										<Checkmark />
-									</div>
-								) : (
-									<Button type='submit' disabled={!isValid}>
-										{t('confirm')}
+							<div className='flex flex-wrap justify-between space-x-2'>
+								<div className='flex-1'>
+									<InlineLoadingStatus
+										isLoading={isLoading}
+										isSuccess={isSuccess}
+										isError={isError}
+										error={error as ApiError}
+									/>
+								</div>
+								<div className='flex w-full flex-1 items-center justify-end'>
+									<Button
+										className='mr-5'
+										type='reset'
+										kind='tertiary'
+										disabled={!isDirty || isSuccess}
+										onClick={() => {
+											reset();
+											apiReset();
+										}}
+									>
+										{t('discard')}
 									</Button>
-								)}
+									{isSuccess ? (
+										<div className='flex h-8 items-center space-x-2 text-link-primary'>
+											<p className='text-body-short-2'>{t('confirmed')}</p>
+											<Checkmark />
+										</div>
+									) : (
+										<Button type='submit' disabled={!isValid}>
+											{t('confirm')}
+										</Button>
+									)}
+								</div>
 							</div>
 						</FullWidthColumn>
 					</Grid>
