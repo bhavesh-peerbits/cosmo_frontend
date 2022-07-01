@@ -60,7 +60,7 @@ export const RealmControllerApiAxiosParamCreator = function (
 		): Promise<RequestArgs> => {
 			// verify required parameter 'tenant' is not null or undefined
 			assertParamExists('clearSession', 'tenant', tenant);
-			const localVarPath = `/realms/{tenant}/logout`.replace(
+			const localVarPath = `/realms/{tenant}/clearSession`.replace(
 				`{${'tenant'}}`,
 				encodeURIComponent(String(tenant))
 			);
