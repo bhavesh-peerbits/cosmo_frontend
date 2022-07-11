@@ -1,0 +1,8 @@
+{
+	"user-admin-description": "Vous pouvez ajouter des utilisateurs, modifier des rôles ou modifier la visibilité des applications",
+	"role-assignment": "Attribution de Rôle",
+	"app-visibility": "Visibilité des Applications",
+	"user-admin": "Administration des Utilisateurs",
+	"role-assignment-description": "Dans cette section, vous pouvez bloquer des utilisateurs, ajouter de nouveaux utilisateurs et vous pouvez également ajouter ou supprimer les rôles des utilisateurs existants",
+	"app-visibility-description": "Dans cette section, pour chaque application existante, vous pouvez ajouter ou supprimer des utilisateurs qui y ont une visibilité"
+}
