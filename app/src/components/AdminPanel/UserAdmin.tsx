@@ -14,12 +14,14 @@ const UserAdmin = () => {
 			</Column>
 			<Column sm={4} md={3} lg={4}>
 				<AdminTile
+					path='role-assignment'
 					title={t('role-assignment')}
 					description={t('role-assignment-description')}
 				/>
 			</Column>
 			<Column sm={4} md={3} lg={4}>
 				<AdminTile
+					path='applications-visibility'
 					title={t('app-visibility')}
 					description={t('app-visibility-description')}
 				/>

@@ -4,5 +4,12 @@
 	"app-visibility": "Visibilità Applicazioni",
 	"user-admin": "Amministrazione Utenti",
 	"role-assignment-description": "In questa sezione puoi bloccare utenti, aggiungere nuovi utenti e puoi anche aggiungere o rimuovere i ruoli degli utenti esistenti.",
-	"app-visibility-description": "In questa sezione, per ogni applicazione esistente, puoi aggiungere o rimuovere gli utenti che hanno la visibilità su di essa."
+	"app-visibility-description": "In questa sezione, per ogni applicazione esistente, puoi aggiungere o rimuovere gli utenti che hanno la visibilità su di essa.",
+	"name": "Nome",
+	"surname": "Cognome",
+	"role": "Ruolo",
+	"search-placeholder": "Ricerca tramite nome o cognome dell'utente",
+	"edit": "Modifica",
+	"block": "Blocca utente",
+	"actions": "Azioni"
 }

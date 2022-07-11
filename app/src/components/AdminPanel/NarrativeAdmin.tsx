@@ -13,10 +13,14 @@ const NarrativeAdmin = () => {
 				</Column>
 			</Column>
 			<Column sm={4} md={3} lg={4}>
-				<AdminTile title={t('procedures')} description={t('procedures-description')} />
+				<AdminTile
+					path=''
+					title={t('procedures')}
+					description={t('procedures-description')}
+				/>
 			</Column>
 			<Column sm={4} md={3} lg={4}>
-				<AdminTile title='Review Email' description={t('email-description')} />
+				<AdminTile path='' title='Review Email' description={t('email-description')} />
 			</Column>
 		</Grid>
 	);
