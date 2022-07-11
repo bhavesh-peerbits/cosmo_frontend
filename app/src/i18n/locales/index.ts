@@ -23,6 +23,11 @@ import {
 	tiptapEditorFr,
 	tiptapEditorIt
 } from '@i18n/locales/components/tiptap-editor';
+import {
+	narrativeAdminEn,
+	narrativeAdminFr,
+	narrativeAdminIt
+} from './components/narrative-admin';
 import { userAdminEn, userAdminFr, userAdminIt } from './components/user-admin';
 import { userSelectEn, userSelectFr, userSelectIt } from './components/user-select';
 import {
@@ -46,6 +51,7 @@ export default {
 		login: loginEn,
 		httpError: httpErrorEn,
 		management: managementEn,
+		narrativeAdmin: narrativeAdminEn,
 		reviewNarrative: reviewNarrativeEn,
 		changes: changesEn,
 		userAdmin: userAdminEn,
@@ -63,6 +69,7 @@ export default {
 		login: loginIt,
 		httpError: httpErrorIt,
 		management: managementIt,
+		narrativeAdmin: narrativeAdminIt,
 		reviewNarrative: reviewNarrativeIt,
 		changes: changesIt,
 		userAdmin: userAdminIt,
@@ -79,6 +86,7 @@ export default {
 		login: loginFr,
 		httpError: httpErrorFr,
 		management: managementFr,
+		narrativeAdmin: narrativeAdminFr,
 		reviewNarrative: reviewNarrativeFr,
 		changes: changesFr,
 		userAdmin: userAdminFr,

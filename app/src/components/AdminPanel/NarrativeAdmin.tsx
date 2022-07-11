@@ -1,22 +1,22 @@
 import { Grid, Column } from '@carbon/react';
+import { useTranslation } from 'react-i18next';
 import AdminTile from './AdminTile';
 
 const NarrativeAdmin = () => {
+	const { t } = useTranslation('narrativeAdmin');
 	return (
-		<Grid fullWidth narrow className='mb-7 h-full px-5 pt-7'>
+		<Grid fullWidth narrow className='mb-7 h-full px-5 pt-7 sm:space-y-5 md:space-y-0'>
 			<Column sm={4} md={2} lg={4}>
-				<p className='text-productive-heading-3'>Narrative Administration</p>
+				<p className='text-productive-heading-2'>{t('narrative-admin')}</p>
 				<Column>
-					<p className='mt-5 text-body-long-1'>
-						You can edit Procedures or edit email template.
-					</p>
+					<p className='mt-5 text-body-long-2'>{t('narrative-admin-description')}</p>
 				</Column>
 			</Column>
 			<Column sm={4} md={3} lg={4}>
-				<AdminTile title='Procedures' description='description' />
+				<AdminTile title={t('procedures')} description={t('procedures-description')} />
 			</Column>
 			<Column sm={4} md={3} lg={4}>
-				<AdminTile title='Email Template' description='description' />
+				<AdminTile title='Review Email' description={t('email-description')} />
 			</Column>
 		</Grid>
 	);

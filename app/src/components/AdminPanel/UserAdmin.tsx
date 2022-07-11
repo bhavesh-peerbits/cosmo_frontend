@@ -5,9 +5,9 @@ import AdminTile from './AdminTile';
 const UserAdmin = () => {
 	const { t } = useTranslation('userAdmin');
 	return (
-		<Grid fullWidth narrow className='mt-7 mb-7 h-full px-5'>
+		<Grid fullWidth narrow className='mt-7 mb-7 h-full px-5 sm:space-y-5 md:space-y-0'>
 			<Column sm={4} md={2} lg={4}>
-				<p className='font-bold text-productive-heading-3'>{t('user-admin')}</p>
+				<p className='font-bold text-productive-heading-2'>{t('user-admin')}</p>
 				<Column>
 					<p className='mt-5 text-body-long-2'>{t('user-admin-description')}</p>
 				</Column>
