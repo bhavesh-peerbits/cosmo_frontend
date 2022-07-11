@@ -6,7 +6,13 @@ import {
 	SideNavMenuItem,
 	Theme
 } from '@carbon/react';
-import { AlignBoxMiddleCenter, Logout, RequestQuote, Fade } from '@carbon/react/icons';
+import {
+	AlignBoxMiddleCenter,
+	Logout,
+	RequestQuote,
+	Fade,
+	UserAdmin
+} from '@carbon/react/icons';
 import routes from '@routes/routes-const';
 import useUiStore from '@hooks/useUiStore';
 import { Link } from 'react-router-dom';
@@ -65,6 +71,9 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 							[TEST ONLY] Show translations
 						</SideNavLink>
 					)}
+					<SideNavLink renderIcon={UserAdmin} href={routes.ADMIN}>
+						Admin
+					</SideNavLink>
 					<SideNavLink renderIcon={Logout} href={routes.LOGOUT}>
 						Logout
 					</SideNavLink>

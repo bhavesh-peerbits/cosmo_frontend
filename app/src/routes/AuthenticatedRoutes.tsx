@@ -7,6 +7,7 @@ import ErrorBoundary from '@error/components/ErrorBoundary';
 import PageSkeleton from '@components/PageSkeleton';
 import usePolicyStore from '@hooks/usePolicyStore';
 import ProtectRoute from '@routes/ProtectRoute';
+import AdminPanel from '@pages/AdminPanel';
 
 const Home = React.lazy(() => import('@pages/Home'));
 const Test = React.lazy(() => import('@pages/Test'));
@@ -73,7 +74,7 @@ const AuthenticatedRoutes = () => {
 									}
 								/>
 							</Route>
-
+							<Route path='admin' element={<AdminPanel />} />
 							<Route path='test' element={<Test />} />
 							<Route path='*' element={<Navigate replace to='/404' />} />
 						</Routes>

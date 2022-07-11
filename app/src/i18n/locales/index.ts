@@ -23,6 +23,7 @@ import {
 	tiptapEditorFr,
 	tiptapEditorIt
 } from '@i18n/locales/components/tiptap-editor';
+import { userAdminEn, userAdminFr, userAdminIt } from './components/user-admin';
 import { userSelectEn, userSelectFr, userSelectIt } from './components/user-select';
 import {
 	reviewNarrativeEn,
@@ -47,6 +48,7 @@ export default {
 		management: managementEn,
 		reviewNarrative: reviewNarrativeEn,
 		changes: changesEn,
+		userAdmin: userAdminEn,
 		userSelect: userSelectEn,
 		tiptapEditor: tiptapEditorEn,
 		table: tableEn,
@@ -63,6 +65,7 @@ export default {
 		management: managementIt,
 		reviewNarrative: reviewNarrativeIt,
 		changes: changesIt,
+		userAdmin: userAdminIt,
 		userSelect: userSelectIt,
 		tiptapEditor: tiptapEditorIt,
 		table: tableIt,
@@ -78,6 +81,7 @@ export default {
 		management: managementFr,
 		reviewNarrative: reviewNarrativeFr,
 		changes: changesFr,
+		userAdmin: userAdminFr,
 		userSelect: userSelectFr,
 		tiptapEditor: tiptapEditorFr,
 		table: tableFr,
