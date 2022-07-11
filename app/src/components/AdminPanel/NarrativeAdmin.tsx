@@ -5,7 +5,7 @@ import AdminTile from './AdminTile';
 const NarrativeAdmin = () => {
 	const { t } = useTranslation('narrativeAdmin');
 	return (
-		<Grid fullWidth narrow className='mb-7 h-full px-5 pt-7 sm:space-y-5 md:space-y-0'>
+		<Grid fullWidth narrow className='mb-7 h-full space-y-5 px-5 pt-7 md:space-y-0'>
 			<Column sm={4} md={2} lg={4}>
 				<p className='text-productive-heading-2'>{t('narrative-admin')}</p>
 				<Column>
