@@ -8,9 +8,9 @@ const RoleAssignment = () => {
 	const { t } = useTranslation('userAdmin');
 	return (
 		<PageHeader pageTitle={t('role-assignment')}>
-			<Grid fullWidth className='mr-5 h-full'>
+			<Grid fullWidth className='h-full p-container-1'>
 				<Column sm={4} md={2} lg={3}>
-					<div className='pl-5 md:ml-0'>
+					<div className='md:ml-0'>
 						<RoleAssignmentFilters />
 					</div>
 				</Column>

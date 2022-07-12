@@ -1,8 +1,10 @@
 import { Accordion, AccordionItem, Checkbox } from '@carbon/react';
 import useResponsive from '@hooks/useResponsive';
 import useRoleAssignmentUsers from '@hooks/admin-panel/useRoleAssignmentUsers';
+import { useTranslation } from 'react-i18next';
 
 const RoleAssignmentFilters = () => {
+	const { t } = useTranslation('userAdmin');
 	const { filtersAvailable, setFilters } = useRoleAssignmentUsers();
 	const { md } = useResponsive();
 
@@ -17,18 +19,8 @@ const RoleAssignmentFilters = () => {
 
 	return (
 		<div className='flex flex-col'>
-			<Accordion className='divide-y'>
-				<AccordionItem title='Role' className='border-0' open={md}>
-					<Checkbox
-						labelText='All'
-						id='role-all'
-						checked={filtersAvailable.role.every(f => f.enabled)}
-						onChange={(_, { checked }) =>
-							setFilters({
-								role: checked ? filtersAvailable.role.map(({ role }) => role) : []
-							})
-						}
-					/>
+			<Accordion>
+				<AccordionItem title={t('role')} className='border-0' open={md}>
 					{filtersAvailable.role.map(filter => (
 						<Checkbox
 							key={filter.role}

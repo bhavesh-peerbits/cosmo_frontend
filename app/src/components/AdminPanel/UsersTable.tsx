@@ -17,19 +17,20 @@ const ActionsCell = () => {
 };
 
 const UsersTable = () => {
-	const { t } = useTranslation('userAdmin');
-	const { users } = useRoleAssignmentUsers();
+	const { t: tUserAdmin } = useTranslation('userAdmin');
+	const { t: tTable } = useTranslation('table');
+	const { users, filters, setFilters } = useRoleAssignmentUsers();
 
 	const columns: HeaderFunction<User> = useCallback(
 		table => [
 			table.createDataColumn(row => row.name, {
 				id: 'name',
-				header: t('name'),
+				header: tUserAdmin('name'),
 				sortUndefined: 1
 			}),
 			table.createDataColumn(row => row.surname, {
 				id: 'surname',
-				header: t('surname')
+				header: tUserAdmin('surname')
 			}),
 			table.createDataColumn(row => row.email, {
 				id: 'email',
@@ -37,18 +38,20 @@ const UsersTable = () => {
 			}),
 			table.createDataColumn(row => row.principalRole, {
 				id: 'role',
-				header: t('role')
+				header: tUserAdmin('role')
 			})
 		],
-		[t]
+		[tUserAdmin]
 	);
 
 	const toolbarContent = (
 		<TableToolbarSearch
 			size='lg'
 			persistent
-			placeholder={t('search-placeholder')}
+			placeholder={tUserAdmin('search-placeholder')}
 			id='search'
+			value={filters.query ?? ''}
+			onChange={e => setFilters({ q: e.currentTarget?.value })}
 		/>
 	);
 
@@ -56,7 +59,7 @@ const UsersTable = () => {
 		<CosmoTableInlineAction
 			data={users}
 			createHeaders={columns}
-			noDataMessage='No Data'
+			noDataMessage={tTable('no-data')}
 			toolbar={{ toolbarContent }}
 			exportFileName={({ all }) => (all ? 'users-all' : 'users-selection')}
 			inlineAction={<ActionsCell />}
