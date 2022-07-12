@@ -199,7 +199,7 @@ const Login = () => {
 										}
 									})}
 								/>
-								{tenants.length > 0 && (
+								{tenants.length > 1 && (
 									<Select
 										id='tenant'
 										defaultValue='cosmo'
