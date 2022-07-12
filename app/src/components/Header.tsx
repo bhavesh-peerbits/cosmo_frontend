@@ -15,6 +15,7 @@ import useLoginStore from '@hooks/auth/useLoginStore';
 import UserPanel from '@components/UserPanel';
 import { useRef } from 'react';
 import CosmoSideNav from '@components/CosmoSideNav';
+import { ReactComponent as CosmoLogo } from '@images/cosmo-logo-horizontal.svg';
 
 type HeaderProps = {
 	isSideNavExpanded: boolean;
@@ -37,7 +38,7 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 	});
 
 	return (
-		<CarbonHeader aria-label='Cosmo' className='cds--g100'>
+		<CarbonHeader aria-label='Cosmo' className='bg-background'>
 			<HeaderMenuButton
 				aria-label='Open menu'
 				onClick={onClickSideNavExpand}
@@ -47,9 +48,9 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 				as='div'
 				className='cursor-pointer'
 				onClick={() => navigate(routes.HOME)}
-				prefix='Cosmo'
+				prefix=''
 			>
-				[Dashboard]
+				<CosmoLogo width={50} className='h-[36px] w-full' />
 			</HeaderName>
 
 			<HeaderGlobalBar>
