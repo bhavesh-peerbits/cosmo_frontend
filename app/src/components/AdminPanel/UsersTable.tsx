@@ -1,25 +1,22 @@
 import { useTranslation } from 'react-i18next';
 import User from '@model/User';
 import { OverflowMenu, OverflowMenuItem, TableToolbarSearch } from '@carbon/react';
-import CosmoTable, { HeaderFunction } from '@components/table/CosmoTable';
+import { HeaderFunction } from '@components/table/CosmoTable';
 import { useCallback } from 'react';
 import useGetUsers from '@api/user/useGetUsers';
+import CosmoTableInlineAction from '@components/table/CosmoTableInlineAction';
 
 const ActionsCell = () => {
 	const { t } = useTranslation('userAdmin');
 	return (
-		<div className='flex items-center space-x-3'>
-			<div>
-				<OverflowMenu ariaLabel='Actions' iconDescription={t('actions')}>
-					<OverflowMenuItem itemText={t('edit')} />
-					<OverflowMenuItem isDelete itemText={t('block')} />
-				</OverflowMenu>
-			</div>
-		</div>
+		<OverflowMenu ariaLabel='Actions' iconDescription={t('actions')}>
+			<OverflowMenuItem itemText={t('edit')} />
+			<OverflowMenuItem isDelete itemText={t('block')} />
+		</OverflowMenu>
 	);
 };
 
-const ApplicationsTable = () => {
+const UsersTable = () => {
 	const { t } = useTranslation('userAdmin');
 	const { data: users = [] } = useGetUsers();
 
@@ -28,7 +25,7 @@ const ApplicationsTable = () => {
 			table.createDataColumn(row => row.name, {
 				id: 'name',
 				header: t('name'),
-				cell: info => info.getValue()
+				sortUndefined: 1
 			}),
 			table.createDataColumn(row => row.surname, {
 				id: 'surname',
@@ -40,19 +37,8 @@ const ApplicationsTable = () => {
 			}),
 			table.createDataColumn(row => row.principalRole, {
 				id: 'role',
-				header: t('role'),
-				sortUndefined: 1
-			}),
-			table.createDataColumn(
-				() => {
-					('');
-				},
-				{
-					id: 'actions',
-					cell: ActionsCell,
-					header: ''
-				}
-			)
+				header: t('role')
+			})
 		],
 		[t]
 	);
@@ -67,16 +53,15 @@ const ApplicationsTable = () => {
 	);
 
 	return (
-		<div>
-			<CosmoTable
-				data={users}
-				createHeaders={columns}
-				noDataMessage='No Data'
-				toolbar={{ toolbarContent }}
-				exportFileName={({ all }) => (all ? 'users-all' : 'users-selection')}
-			/>
-		</div>
+		<CosmoTableInlineAction
+			data={users}
+			createHeaders={columns}
+			noDataMessage='No Data'
+			toolbar={{ toolbarContent }}
+			exportFileName={({ all }) => (all ? 'users-all' : 'users-selection')}
+			inlineAction={<ActionsCell />}
+		/>
 	);
 };
 
-export default ApplicationsTable;
+export default UsersTable;
