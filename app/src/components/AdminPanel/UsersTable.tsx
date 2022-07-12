@@ -3,8 +3,8 @@ import User from '@model/User';
 import { OverflowMenu, OverflowMenuItem, TableToolbarSearch } from '@carbon/react';
 import { HeaderFunction } from '@components/table/CosmoTable';
 import { useCallback } from 'react';
-import useGetUsers from '@api/user/useGetUsers';
 import CosmoTableInlineAction from '@components/table/CosmoTableInlineAction';
+import useRoleAssignmentUsers from '@hooks/admin-panel/useRoleAssignmentUsers';
 
 const ActionsCell = () => {
 	const { t } = useTranslation('userAdmin');
@@ -18,7 +18,7 @@ const ActionsCell = () => {
 
 const UsersTable = () => {
 	const { t } = useTranslation('userAdmin');
-	const { data: users = [] } = useGetUsers();
+	const { users } = useRoleAssignmentUsers();
 
 	const columns: HeaderFunction<User> = useCallback(
 		table => [
