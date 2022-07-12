@@ -144,7 +144,7 @@ const Login = () => {
 								{providersData.length > 0 && (
 									<>
 										<div className='flex justify-center'>
-											<p>Use SSO service</p>
+											<p>{t('use-sso')}</p>
 										</div>
 										<div className='flex flex-col'>
 											{providersData.map(p => (
@@ -160,11 +160,11 @@ const Login = () => {
 										</div>
 										<div className='flex items-center'>
 											<hr className='w-full' />
-											<p className='px-5'>or</p>
+											<p className='px-5'>{t('or')}</p>
 											<hr className='w-full' />
 										</div>
 										<div className='flex justify-center'>
-											<p>Login with username and password</p>
+											<p>{t('login')}</p>
 										</div>
 									</>
 								)}
@@ -224,7 +224,11 @@ const Login = () => {
 									kind='secondary'
 									className='mt-8 w-full max-w-full'
 								>
-									{isSubmitting ? <InlineLoading description='Logging in...' /> : 'Login'}
+									{isSubmitting ? (
+										<InlineLoading description={`${t('logging-in')}...`} />
+									) : (
+										'Login'
+									)}
 								</Button>
 								<Checkbox
 									id='rememberMe'

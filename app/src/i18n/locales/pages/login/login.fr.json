@@ -1,8 +1,12 @@
 {
+	"use-sso": "Utiliser le service SSO",
+	"or": "ou",
+	"login": "Connectez-vous avec nom d'utilisateur et mot de passe",
 	"usernameRequired": "Le nom d'utilisateur est requis",
 	"passwordRequired": "Le mot de passe est requis",
 	"usernameAtLeast": "Le nom d'utilisateur doit contenir au moins {{chars}} caractères",
 	"rememberMe": "Souviens-toi de moi",
 	"error-login": "Erreur de connexion, vérifiez vos identifiants et réessayez",
-	"authentication-needed": "Authentification requise"
+	"authentication-needed": "Authentification requise",
+	"logging-in": "Login en cours"
 }
