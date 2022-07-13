@@ -52,6 +52,7 @@ interface CosmoTableProps<D extends object> {
 	disableExport?: boolean;
 	excludeCurrentView?: boolean;
 	inlineAction: ReactNode;
+	setRowSelected: (val: string[] | unknown) => void;
 }
 
 const CosmoTableInlineAction = <D extends object>({
@@ -63,7 +64,8 @@ const CosmoTableInlineAction = <D extends object>({
 	exportFileName,
 	disableExport,
 	excludeCurrentView,
-	inlineAction
+	inlineAction,
+	setRowSelected
 }: CosmoTableProps<D>) => {
 	const { t } = useTranslation('table');
 	const [showMore, setShowMore] = useState('');
@@ -158,7 +160,13 @@ const CosmoTableInlineAction = <D extends object>({
 								</TableCell>
 							)
 						)}
-						<TableCell>{inlineAction}</TableCell>
+						<TableCell
+							onClickCapture={() =>
+								setRowSelected(row.getVisibleCells().map(cell => cell.getValue()))
+							}
+						>
+							{inlineAction}
+						</TableCell>
 					</TableRow>
 				);
 			})

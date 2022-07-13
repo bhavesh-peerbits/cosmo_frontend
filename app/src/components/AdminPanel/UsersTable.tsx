@@ -30,6 +30,7 @@ const UsersTable = () => {
 	const { t: tTable } = useTranslation('table');
 	const { users, filters, setFilters } = useRoleAssignmentUsers();
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [userSelected, setUserSelected] = useState<string[] | unknown>([]);
 
 	const columns: HeaderFunction<User> = useCallback(
 		table => [
@@ -68,7 +69,7 @@ const UsersTable = () => {
 	return (
 		<div>
 			<BlockUserModal
-				user='name surname'
+				user={userSelected}
 				isOpen={isModalOpen}
 				setIsOpen={setIsModalOpen}
 			/>
@@ -79,6 +80,7 @@ const UsersTable = () => {
 				toolbar={{ toolbarContent }}
 				exportFileName={({ all }) => (all ? 'users-all' : 'users-selection')}
 				inlineAction={<ActionsCell setIsModalOpen={setIsModalOpen} />}
+				setRowSelected={setUserSelected}
 			/>
 		</div>
 	);

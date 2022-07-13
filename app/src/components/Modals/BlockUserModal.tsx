@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 type BlockUserModalProps = {
 	isOpen: boolean;
 	setIsOpen: (value: boolean) => void;
-	user: string;
+	user: string[] | unknown;
 };
 
 const BlockUserModal = ({ isOpen, setIsOpen, user }: BlockUserModalProps) => {
@@ -18,11 +18,11 @@ const BlockUserModal = ({ isOpen, setIsOpen, user }: BlockUserModalProps) => {
 	const cleanUp = () => {
 		setIsOpen(false);
 	};
-	return (
-		<ComposedModal open={isOpen} onClose={cleanUp}>
+	return Array.isArray(user) ? (
+		<ComposedModal size='sm' open={isOpen} onClose={cleanUp}>
 			<ModalHeader title={t('block-user')} closeModal={cleanUp} />
 			<ModalBody>
-				<span>{t('body-block', { user })}</span>
+				<span>{t('body-block', { user: `${user[0]} ${user[1]}` })}</span>
 			</ModalBody>
 			<ModalFooter>
 				<Button kind='secondary' onClick={cleanUp}>
@@ -31,6 +31,6 @@ const BlockUserModal = ({ isOpen, setIsOpen, user }: BlockUserModalProps) => {
 				<Button kind='danger'>{t('block')}</Button>
 			</ModalFooter>
 		</ComposedModal>
-	);
+	) : null;
 };
 export default BlockUserModal;
