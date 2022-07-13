@@ -33,5 +33,8 @@
 	"total-apps-narrative": "Numero totale di applicazioni selezionate",
 	"total-procedures-narrative": "Numero totale di procedure",
 	"copy": "Copia",
-	"select-to-add": "Seleziona la procedura da aggiungere"
+	"select-to-add": "Seleziona la procedura da aggiungere",
+	"body-block": "Sei sicuro di voler bloccare {{user}}?",
+	"block-user": "Blocca Utente",
+	"block": "Blocca"
 }

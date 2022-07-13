@@ -67,7 +67,11 @@ const UsersTable = () => {
 
 	return (
 		<div>
-			<BlockUserModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
+			<BlockUserModal
+				user='name surname'
+				isOpen={isModalOpen}
+				setIsOpen={setIsModalOpen}
+			/>
 			<CosmoTableInlineAction
 				data={users}
 				createHeaders={columns}
