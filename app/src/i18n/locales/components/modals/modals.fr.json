@@ -36,5 +36,9 @@
 	"select-to-add": "Sélectionner la procédure à ajouter",
 	"body-block": "Êtes-vous sûr de vouloir bloquer {{user}}?",
 	"block-user": "Bloquer l'Utilisateur",
-	"block": "Bloquer"
+	"block": "Bloquer",
+	"edit-user": "Modifier l'Utilisateur",
+	"edit": "Modifier",
+	"body-edit": "Ajoutez ou supprimez des rôles en cliquant sur le menu déroulant.",
+	"user": "Utilisateur"
 }

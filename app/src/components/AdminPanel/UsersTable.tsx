@@ -6,20 +6,31 @@ import { useCallback, useState } from 'react';
 import CosmoTableInlineAction from '@components/table/CosmoTableInlineAction';
 import useRoleAssignmentUsers from '@hooks/admin-panel/useRoleAssignmentUsers';
 import BlockUserModal from '@components/Modals/BlockUserModal';
+import EditUserModal from '@components/Modals/EditUserModal';
 
 type ActionCellProps = {
 	setIsModalOpen: (val: boolean) => void;
+	setActionSelected: (val: string) => void;
 };
 
-const ActionsCell = ({ setIsModalOpen }: ActionCellProps) => {
+const ActionsCell = ({ setIsModalOpen, setActionSelected }: ActionCellProps) => {
 	const { t } = useTranslation('userAdmin');
 	return (
 		<OverflowMenu ariaLabel='Actions' iconDescription={t('actions')}>
-			<OverflowMenuItem itemText={t('edit')} />
+			<OverflowMenuItem
+				itemText={t('edit')}
+				onClick={() => {
+					setIsModalOpen(true);
+					setActionSelected('edit');
+				}}
+			/>
 			<OverflowMenuItem
 				isDelete
 				itemText={t('block')}
-				onClick={() => setIsModalOpen(true)}
+				onClick={() => {
+					setIsModalOpen(true);
+					setActionSelected('Block');
+				}}
 			/>
 		</OverflowMenu>
 	);
@@ -30,7 +41,29 @@ const UsersTable = () => {
 	const { t: tTable } = useTranslation('table');
 	const { users, filters, setFilters } = useRoleAssignmentUsers();
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [userSelected, setUserSelected] = useState<string[] | unknown>([]);
+	const [userSelected, setUserSelected] = useState<string[]>([]);
+	const [actionSelected, setActionSelected] = useState('');
+
+	const modalToOpen = () => {
+		switch (actionSelected) {
+			case 'Block':
+				return (
+					<BlockUserModal
+						user={userSelected}
+						isOpen={isModalOpen}
+						setIsOpen={setIsModalOpen}
+					/>
+				);
+			default:
+				return (
+					<EditUserModal
+						user={userSelected}
+						isOpen={isModalOpen}
+						setIsOpen={setIsModalOpen}
+					/>
+				);
+		}
+	};
 
 	const columns: HeaderFunction<User> = useCallback(
 		table => [
@@ -67,22 +100,23 @@ const UsersTable = () => {
 	);
 
 	return (
-		<div>
-			<BlockUserModal
-				user={userSelected}
-				isOpen={isModalOpen}
-				setIsOpen={setIsModalOpen}
-			/>
+		<>
+			{isModalOpen && modalToOpen()}
 			<CosmoTableInlineAction
 				data={users}
 				createHeaders={columns}
 				noDataMessage={tTable('no-data')}
 				toolbar={{ toolbarContent }}
 				exportFileName={({ all }) => (all ? 'users-all' : 'users-selection')}
-				inlineAction={<ActionsCell setIsModalOpen={setIsModalOpen} />}
+				inlineAction={
+					<ActionsCell
+						setActionSelected={setActionSelected}
+						setIsModalOpen={setIsModalOpen}
+					/>
+				}
 				setRowSelected={setUserSelected}
 			/>
-		</div>
+		</>
 	);
 };
 

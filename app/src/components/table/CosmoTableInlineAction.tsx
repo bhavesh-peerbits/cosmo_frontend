@@ -52,7 +52,7 @@ interface CosmoTableProps<D extends object> {
 	disableExport?: boolean;
 	excludeCurrentView?: boolean;
 	inlineAction: ReactNode;
-	setRowSelected: (val: string[] | unknown) => void;
+	setRowSelected: (val: string[]) => void;
 }
 
 const CosmoTableInlineAction = <D extends object>({
@@ -162,7 +162,9 @@ const CosmoTableInlineAction = <D extends object>({
 						)}
 						<TableCell
 							onClickCapture={() =>
-								setRowSelected(row.getVisibleCells().map(cell => cell.getValue()))
+								setRowSelected(
+									row.getVisibleCells().map(cell => cell.getValue() as string)
+								)
 							}
 						>
 							{inlineAction}

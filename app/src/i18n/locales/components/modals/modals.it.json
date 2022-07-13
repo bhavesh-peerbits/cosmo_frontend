@@ -36,5 +36,9 @@
 	"select-to-add": "Seleziona la procedura da aggiungere",
 	"body-block": "Sei sicuro di voler bloccare {{user}}?",
 	"block-user": "Blocca Utente",
-	"block": "Blocca"
+	"block": "Blocca",
+	"edit-user": "Modifica Utente",
+	"edit": "Modifica",
+	"body-edit": "Aggiungi o rimuovi ruoli cliccando sul menu a tendina.",
+	"user": "Utente"
 }
