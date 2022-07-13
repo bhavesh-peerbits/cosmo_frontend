@@ -1,8 +1,12 @@
 {
+	"use-sso": "Utilizza servizio SSO",
+	"or": "oppure",
+	"login": "Accedi tramite username e password",
 	"usernameRequired": "Il campo username è obbligatorio",
 	"passwordRequired": "Il campo password è obbligatorio",
 	"usernameAtLeast": "Il campo username deve contenere almeno {{chars}} caratteri",
 	"rememberMe": "Ricorda utente",
 	"error-login": "Errore durante il login, controlla le tue credenziali e riprova",
-	"authentication-needed": "Autenticazione richiesta"
+	"authentication-needed": "Autenticazione richiesta",
+	"logging-in": "Login in corso"
 }

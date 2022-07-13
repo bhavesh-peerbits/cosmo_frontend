@@ -11,9 +11,9 @@ $neutral-100: #f5f5f5;
 $neutral-200: #e5e5e5;
 $neutral-300: #d4d4d4;
 $neutral-900: #171717;
-$aqua: #0d74ad;
-$aqua-hover: #086391;
-$aqua-active: #06537a;
+$aqua: #0b96c3;
+$aqua-hover: #1089b1;
+$aqua-active: #107090;
 $aqua-secondary: #033c53;
 $aqua-secondary-hover: rgb(25 81 103); // HEX value not working
 $aqua-secondary-active: #255d74;
@@ -21,7 +21,7 @@ $aqua-danger: #ad0d33;
 $theme-cosmo-common: (
 	background-brand: $aqua !important,
 	button-primary: $aqua !important,
-	button-primary-active: $aqua !important,
+	button-primary-active: $aqua-active !important,
 	button-primary-hover: $aqua-hover !important,
 	interactive: $aqua !important,
 	link-primary: $aqua !important,

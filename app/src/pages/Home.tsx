@@ -17,7 +17,7 @@ const Home = () => {
 			<Fade>
 				<Centered>
 					<div className='m-auto flex flex-col justify-around space-y-container-2 bg-layer-1 p-container-5'>
-						<h2 className='text-productive-heading-5'>{t('welcome')} Cosmo</h2>
+						<h2 className='text-productive-heading-5'>{t('welcome')} COSMO</h2>
 						{hasNoRole ? (
 							<div>{t('no-role-message')}</div>
 						) : (

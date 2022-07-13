@@ -1,8 +1,12 @@
 {
+	"use-sso": "Use SSO service",
+	"or": "or",
+	"login": "Login with username and password",
 	"usernameRequired": "Username is required",
 	"passwordRequired": "Password is required",
 	"usernameAtLeast": "Username must be at least {{chars}} characters",
 	"rememberMe": "Remember me",
 	"error-login": "Login error, check your credentials and try again",
-	"authentication-needed": "Authentication required"
+	"authentication-needed": "Authentication required",
+	"logging-in": "Logging in"
 }

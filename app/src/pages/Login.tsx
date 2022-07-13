@@ -24,6 +24,7 @@ import removeLoadingScreen from '@hooks/removeLoadingScreen';
 import useLoginConfig from '@api/providers/useLoginConfig';
 import { useEffect, useRef } from 'react';
 import useCleanSession from '@api/user/useCleanSession';
+import { ReactComponent as CosmoLogo } from '@images/cosmo-logo.svg';
 
 interface LoginForm {
 	username: string;
@@ -133,14 +134,17 @@ const Login = () => {
 								</div>
 							)}
 							<Stack gap={5}>
-								<div className='flex items-end space-x-5'>
-									<span className='text-heading-7'>CoSMo</span>
-									<span className='text-body-2'>by aizoOn</span>
+								<div className='mt-5 flex items-start'>
+									<CosmoLogo
+										width={96}
+										className='flex h-[156px] w-full items-start justify-start'
+									/>
 								</div>
+
 								{providersData.length > 0 && (
 									<>
 										<div className='flex justify-center'>
-											<p>Use SSO service</p>
+											<p>{t('use-sso')}</p>
 										</div>
 										<div className='flex flex-col'>
 											{providersData.map(p => (
@@ -156,11 +160,11 @@ const Login = () => {
 										</div>
 										<div className='flex items-center'>
 											<hr className='w-full' />
-											<p className='px-5'>or</p>
+											<p className='px-5'>{t('or')}</p>
 											<hr className='w-full' />
 										</div>
 										<div className='flex justify-center'>
-											<p>Login with username and password</p>
+											<p>{t('login')}</p>
 										</div>
 									</>
 								)}
@@ -220,7 +224,11 @@ const Login = () => {
 									kind='secondary'
 									className='mt-8 w-full max-w-full'
 								>
-									{isSubmitting ? <InlineLoading description='Logging in...' /> : 'Login'}
+									{isSubmitting ? (
+										<InlineLoading description={`${t('logging-in')}...`} />
+									) : (
+										'Login'
+									)}
 								</Button>
 								<Checkbox
 									id='rememberMe'
