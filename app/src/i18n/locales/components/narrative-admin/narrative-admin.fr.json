@@ -1,0 +1,7 @@
+{
+	"narrative-admin": "Administration Narrative",
+	"narrative-admin-description": "Gérez toutes les procédures et le modèle d'e-mail de révision.",
+	"procedures": "Procédures",
+	"procedures-description": "Dans cette section, vous pouvez ajouter, supprimer ou modifier (nom, objectifs de contrôle et description) procédures.",
+	"email-description": "Dans cette section, vous pouvez modifier le modèle utilisé pour les révisions des narratives."
+}

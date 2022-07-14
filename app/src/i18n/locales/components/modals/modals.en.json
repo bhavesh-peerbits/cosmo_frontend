@@ -33,5 +33,14 @@
 	"total-apps-narrative": "Total number of applications selected",
 	"total-procedures-narrative": "Total procedures",
 	"copy": "Copy",
-	"select-to-add": "Select procedure to add"
+	"select-to-add": "Select procedure to add",
+	"body-block": "Are you sure you want to block {{user}}?",
+	"block-user": "Block User",
+	"block": "Block",
+	"edit-user": "Edit User",
+	"edit": "Edit",
+	"body-edit": "Add or remove roles by clicking on the dropdown menu.",
+	"user": "User",
+	"add-user": "Add user",
+	"body-add": "Please fill in all required fields, then click on {{action}}"
 }

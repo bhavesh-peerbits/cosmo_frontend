@@ -1,0 +1,7 @@
+{
+	"narrative-admin": "Narrative Administration",
+	"narrative-admin-description": "Manage all procedures and the review email template.",
+	"procedures": "Procedures",
+	"procedures-description": "In this section you can add, remove or edit (name, control objectives and description) procedures.",
+	"email-description": "In this section you can edit the template used for narratives reviews."
+}

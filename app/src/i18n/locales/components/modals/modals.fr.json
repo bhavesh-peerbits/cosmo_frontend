@@ -33,5 +33,14 @@
 	"total-apps-narrative": "Nombre total de applications sélectionnées",
 	"total-procedures-narrative": "Nombre total de procédures",
 	"copy": "Copier",
-	"select-to-add": "Sélectionner la procédure à ajouter"
+	"select-to-add": "Sélectionner la procédure à ajouter",
+	"body-block": "Êtes-vous sûr de vouloir bloquer {{user}}?",
+	"block-user": "Bloquer l'Utilisateur",
+	"block": "Bloquer",
+	"edit-user": "Modifier l'Utilisateur",
+	"edit": "Modifier",
+	"body-edit": "Ajoutez ou supprimez des rôles en cliquant sur le menu déroulant.",
+	"user": "Utilisateur",
+	"add-user": "Ajouter utilisateur",
+	"body-add": "Veuillez remplir tous les champs obligatoires, puis cliquez sur {{action}}"
 }
