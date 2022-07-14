@@ -40,5 +40,6 @@
 	"edit-user": "Modifier l'Utilisateur",
 	"edit": "Modifier",
 	"body-edit": "Ajoutez ou supprimez des rôles en cliquant sur le menu déroulant.",
-	"user": "Utilisateur"
+	"user": "Utilisateur",
+	"add-user": "Ajouter utilisateur"
 }
