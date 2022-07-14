@@ -1,3 +1,4 @@
+import useGetUsers from '@api/user/useGetUsers';
 import {
 	ComposedModal,
 	ModalHeader,
@@ -15,6 +16,11 @@ type BlockUserModalProps = {
 
 const BlockUserModal = ({ isOpen, setIsOpen, user }: BlockUserModalProps) => {
 	const { t } = useTranslation('modals');
+	const { data } = useGetUsers();
+	const emailIndex = user.indexOf(
+		user.filter(attribute => attribute.includes('@')).toString()
+	);
+	const userToEdit = data?.filter(u => u.email === user[emailIndex]).flat();
 	const cleanUp = () => {
 		setIsOpen(false);
 	};
@@ -22,7 +28,13 @@ const BlockUserModal = ({ isOpen, setIsOpen, user }: BlockUserModalProps) => {
 		<ComposedModal size='sm' open={isOpen} onClose={cleanUp}>
 			<ModalHeader title={t('block-user')} closeModal={cleanUp} />
 			<ModalBody>
-				<span>{t('body-block', { user: `${user[0]} ${user[1]}` })}</span>
+				<span>
+					{t('body-block', {
+						user: `${userToEdit && userToEdit[0].name} ${
+							userToEdit && userToEdit[0].surname
+						}`
+					})}
+				</span>
 			</ModalBody>
 			<ModalFooter>
 				<Button kind='secondary' onClick={cleanUp}>

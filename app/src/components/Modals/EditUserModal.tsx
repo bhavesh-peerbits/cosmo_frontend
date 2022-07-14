@@ -23,7 +23,10 @@ const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 	const { t } = useTranslation('modals');
 	const { t: tHome } = useTranslation('home');
 	const { data } = useGetUsers();
-	const userToEdit = data?.filter(u => u.email === user[2]).flat();
+	const emailIndex = user.indexOf(
+		user.filter(attribute => attribute.includes('@')).toString()
+	);
+	const userToEdit = data?.filter(u => u.email === user[emailIndex]).flat();
 
 	const cleanUp = () => {
 		setIsOpen(false);
@@ -56,12 +59,9 @@ const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 					</Column>
 					<Column lg={6} md={4} sm={4}>
 						<Select id='roles' labelText={tHome('roles')}>
-							{userToEdit && <SelectItem value='' text={userToEdit[0].principalRole} /> &&
+							{userToEdit &&
 								userToEdit[0].roles.map(role => (
-									<SelectItem
-										value={role}
-										text={userToEdit[0].principalRole.toString()}
-									/> // TODO check BE for roles
+									<SelectItem value={role} text={role.toString()} /> // TODO check BE for roles
 								))}
 						</Select>
 					</Column>

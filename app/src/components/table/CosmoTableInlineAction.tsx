@@ -1,21 +1,26 @@
 import {
 	Layer,
+	OverflowMenu,
+	OverflowMenuItem,
 	Pagination,
 	Table,
 	TableBody,
 	TableCell,
 	TableContainer,
+	TableExpandHeader,
+	TableExpandRow,
 	TableHead,
 	TableHeader,
-	TableRow,
-	TableSelectAll,
-	TableSelectRow
+	TableRow
 } from '@carbon/react';
 import {
 	ColumnDef,
 	ColumnSort,
 	createTable,
+	ExpandedState,
 	getCoreRowModel,
+	getExpandedRowModel,
+	getGroupedRowModel,
 	getPaginationRowModel,
 	getSortedRowModel,
 	PaginationState,
@@ -27,30 +32,26 @@ import { useTranslation } from 'react-i18next';
 import {
 	AvailableFileType,
 	CellProperties,
-	CosmoTableToolbarProps,
 	ExportProperties,
-	TB
+	TB,
+	CosmoTableToolbarProps
 } from '@components/table/types';
-import NoDataMessage from '@components/NoDataMessage';
-import Centered from '@components/Centered';
 import useExportTablePlugin from '@hooks/useExportTablePlugin';
 import CosmoTableToolbar from './CosmoTableToolbar';
 
-type HeaderFunction<T extends object> = CosmoTableProps<T>['createHeaders'];
-interface CosmoTableProps<D extends object> {
+type HeaderFunction<T extends object> = TableInlineActionProps<T>['createHeaders'];
+interface TableInlineActionProps<D extends object> {
 	createHeaders: (table: TableType<TB<D>>) => Array<ColumnDef<TB<D>>>;
 	data: D[];
 	toolbar?:
 		| Pick<CosmoTableToolbarProps<D>, 'toolbarContent' | 'toolbarBatchActions'>
 		| undefined;
 	noDataMessage?: string;
-	isSelectable?: boolean;
 	exportFileName?: (param: {
 		fileType: AvailableFileType;
 		all: boolean | 'selection';
 	}) => string;
 	disableExport?: boolean;
-	excludeCurrentView?: boolean;
 	inlineAction: ReactNode;
 	setRowSelected: (val: string[]) => void;
 }
@@ -58,24 +59,22 @@ interface CosmoTableProps<D extends object> {
 const CosmoTableInlineAction = <D extends object>({
 	createHeaders,
 	data,
-	toolbar,
 	noDataMessage,
-	isSelectable,
 	exportFileName,
 	disableExport,
-	excludeCurrentView,
 	inlineAction,
-	setRowSelected
-}: CosmoTableProps<D>) => {
+	setRowSelected,
+	toolbar
+}: TableInlineActionProps<D>) => {
 	const { t } = useTranslation('table');
-	const [showMore, setShowMore] = useState('');
-	const [rowSelection, setRowSelection] = useState({});
+	const [expanded, setExpanded] = useState<ExpandedState>({});
+	const [grouping, setGrouping] = useState<string[]>([]);
 	const [sorting, setSorting] = useState<ColumnSort[]>([]);
+
 	const [pagination, setPagination] = useState<PaginationState>({
 		pageIndex: 0,
 		pageSize: 10
 	});
-
 	const table = createTable().setColumnMetaType<ExportProperties>().setRowType<D>();
 	const columns = useMemo(() => createHeaders(table), [createHeaders, table]);
 	const instance = useTableInstance(table, {
@@ -85,81 +84,59 @@ const CosmoTableInlineAction = <D extends object>({
 		state: {
 			pagination,
 			sorting,
-			rowSelection
+			grouping,
+
+			expanded
 		},
 		onPaginationChange: setPagination,
 		onSortingChange: setSorting,
-		onRowSelectionChange: setRowSelection,
+		onGroupingChange: setGrouping,
+		onExpandedChange: setExpanded,
 		getCoreRowModel: getCoreRowModel(),
+		getExpandedRowModel: getExpandedRowModel(),
 		getSortedRowModel: getSortedRowModel(),
+		getGroupedRowModel: getGroupedRowModel(),
 		getPaginationRowModel: getPaginationRowModel()
 	});
-	const {
-		toggleAllRowsSelected,
-		getSelectedRowModel,
-		getIsAllRowsSelected,
-		getIsSomeRowsSelected,
-		getToggleAllRowsSelectedHandler,
-		getRowModel,
-		getHeaderGroups,
-		setPageIndex,
-		setPageSize
-	} = instance;
-
+	const { getRowModel, getHeaderGroups, setPageIndex, setPageSize } = instance;
 	const { exportData } = useExportTablePlugin(instance, exportFileName, disableExport);
-
 	const renderBody = () => {
 		const { rows } = getRowModel();
 		return rows.length ? (
 			rows.map(row => {
-				return (
-					<TableRow key={row.id}>
-						{isSelectable && (
-							<TableSelectRow
-								checked={row.getIsSelected()}
-								ariaLabel='Select'
-								id={row.id}
-								name={row.id}
-								onSelect={row.getToggleSelectedHandler()}
-								onChange={undefined}
-							/>
-						)}
-
-						{row.getVisibleCells().map(cell =>
-							(
-								(cell.getValue() as string) !== (undefined || null) &&
-								(cell.getValue() as string)
-							)
-								.toString()
-								.includes('<p>') ? (
-								<TableCell
-									key={cell.id}
-									onClick={() =>
-										showMore === row.id ? setShowMore('') : setShowMore(row.id)
-									}
-								>
-									<p
-										className={`cursor-pointer ${
-											showMore === row.id
-												? 'max-h-fit overflow-visible whitespace-normal break-words sm:max-w-[300px] lg:max-w-[600px]'
-												: 'max-h-[48px] truncate sm:max-w-[300px] lg:max-w-[600px]'
-										}`}
-										dangerouslySetInnerHTML={{ __html: cell.getValue() as string }}
-									/>
-								</TableCell>
-							) : (
-								<TableCell
-									key={cell.id}
-									className={`min-w-[200px] whitespace-normal break-words sm:max-w-[300px] lg:max-w-[600px] ${
-										showMore === row.id
-											? 'max-h-fit overflow-visible whitespace-normal break-words sm:max-w-[300px] lg:max-w-[600px]'
-											: 'max-h-[48px]'
-									}`}
-								>
-									{cell.renderCell()}
-								</TableCell>
-							)
-						)}
+				return row.getCanExpand() ? (
+					<TableExpandRow
+						key={row.id}
+						isExpanded={row.getIsExpanded()}
+						ariaLabel=''
+						onClick={row.getToggleExpandedHandler()}
+						onExpand={() => null}
+					>
+						{row.getVisibleCells().map(cell => (
+							<TableCell key={cell.id}>
+								{cell.getIsGrouped() && (
+									<>
+										{cell.renderCell()} ({row.subRows.length})
+									</>
+								)}
+							</TableCell>
+						))}
+						<TableCell />
+					</TableExpandRow>
+				) : (
+					<TableRow className='w-full'>
+						<TableCell />
+						{row.getVisibleCells().map(cell => (
+							<TableCell key={cell.id}>
+								{(cell.getIsGrouped() && (
+									<>
+										{cell.renderCell()} ({row.subRows.length})
+									</>
+								)) ||
+									(cell.getIsAggregated() && cell.renderAggregatedCell()) ||
+									(!cell.getIsPlaceholder() && cell.renderCell())}
+							</TableCell>
+						))}
 						<TableCell
 							onClickCapture={() =>
 								setRowSelected(
@@ -175,9 +152,7 @@ const CosmoTableInlineAction = <D extends object>({
 		) : (
 			<TableRow>
 				<TableCell colSpan={columns.length + 1}>
-					<Centered>
-						<NoDataMessage className='p-5' title={noDataMessage} />
-					</Centered>
+					<p className='flex justify-center'>{noDataMessage || t('no-data')}</p>
 				</TableCell>
 			</TableRow>
 		);
@@ -187,38 +162,16 @@ const CosmoTableInlineAction = <D extends object>({
 		<TableContainer>
 			<CosmoTableToolbar<D>
 				onExportClick={exportData}
-				selectionIds={
-					getSelectedRowModel()
-						.flatRows.map(row => row.original)
-						.filter(r => r) as D[]
-				}
-				onCancel={() => toggleAllRowsSelected(false)}
-				toolbarBatchActions={toolbar?.toolbarBatchActions}
+				disableExport={grouping.length > 0 || data.length === 0}
 				toolbarContent={toolbar?.toolbarContent}
-				excludeCurrentView={excludeCurrentView}
-				disableExport={data.length === 0}
 			/>
-
 			<Layer level={1}>
 				<Table>
 					<TableHead>
 						{getHeaderGroups().map(headerGroup => {
 							return (
 								<TableRow key={headerGroup.id}>
-									{isSelectable && (
-										<th className='relative'>
-											<TableSelectAll
-												ariaLabel='SelectAll'
-												id='selectAll'
-												className='absolute top-1/2 left-0 -translate-y-1/2'
-												name='selectAll'
-												checked={getIsAllRowsSelected()}
-												indeterminate={getIsSomeRowsSelected()}
-												onSelect={getToggleAllRowsSelectedHandler()}
-												onChange={undefined}
-											/>
-										</th>
-									)}
+									<TableExpandHeader />
 									{headerGroup.headers.map(header => {
 										return (
 											<TableHeader
@@ -227,14 +180,42 @@ const CosmoTableInlineAction = <D extends object>({
 												sortDirection={
 													header.column.getIsSorted() === 'desc' ? 'DESC' : 'ASC'
 												}
-												onClick={header.column.getToggleSortingHandler()}
 												scope=''
 												isSortable
 												isSortHeader={
 													header.column.getCanSort() && !!header.column.getIsSorted()
 												}
 											>
-												{!header.isPlaceholder && header.renderHeader()}
+												<div className='flex items-center justify-between'>
+													{!header.isPlaceholder && header.renderHeader()}
+													{header.column.getCanGroup() && (
+														<OverflowMenu
+															ariaLabel='Overflow Menu'
+															iconDescription='Menu'
+														>
+															<OverflowMenuItem
+																itemText={
+																	(header.column.getIsSorted() === 'desc' &&
+																		t('original-sort')) ||
+																	(header.column.getIsSorted() === 'asc' &&
+																		t('sort-descending')) ||
+																	t('sort-ascending')
+																}
+																onClick={header.column.getToggleSortingHandler()}
+															/>
+
+															<OverflowMenuItem
+																hasDivider
+																itemText={
+																	header.column.getIsGrouped()
+																		? t('remove-group')
+																		: t('group-by')
+																}
+																onClick={header.column.getToggleGroupingHandler()}
+															/>
+														</OverflowMenu>
+													)}
+												</div>
 											</TableHeader>
 										);
 									})}
@@ -246,6 +227,7 @@ const CosmoTableInlineAction = <D extends object>({
 					<TableBody>{renderBody()}</TableBody>
 				</Table>
 			</Layer>
+
 			<Pagination
 				backwardText={t('previous-page')}
 				forwardText={t('next-page')}
