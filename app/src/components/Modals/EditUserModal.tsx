@@ -5,11 +5,10 @@ import {
 	ModalBody,
 	ModalFooter,
 	Button,
-	Select,
 	Column,
 	Grid,
 	TextInput,
-	SelectItem
+	MultiSelect
 } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 
@@ -22,12 +21,13 @@ type EditUserModalProps = {
 const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 	const { t } = useTranslation('modals');
 	const { t: tHome } = useTranslation('home');
+	const { t: tUser } = useTranslation('userAdmin');
 	const { data } = useGetUsers();
 	const emailIndex = user.indexOf(
 		user.filter(attribute => attribute.includes('@')).toString()
 	);
 	const userToEdit = data?.filter(u => u.email === user[emailIndex]).flat();
-
+	const roles = userToEdit ? userToEdit[0]?.roles.map(role => role.toString()) : [''];
 	const cleanUp = () => {
 		setIsOpen(false);
 	};
@@ -44,7 +44,7 @@ const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 							readOnly
 							id='name'
 							labelText={`${t('user')}`}
-							value={userToEdit ? userToEdit[0].name : ''}
+							value={userToEdit ? userToEdit[0].displayName : ''}
 							className='w-full'
 						/>
 					</Column>
@@ -58,12 +58,13 @@ const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 						/>
 					</Column>
 					<Column lg={6} md={4} sm={4}>
-						<Select id='roles' labelText={tHome('roles')}>
-							{userToEdit &&
-								userToEdit[0].roles.map(role => (
-									<SelectItem value={role} text={role.toString()} /> // TODO check BE for roles
-								))}
-						</Select>
+						<MultiSelect
+							id='roles'
+							titleText={tHome('roles')}
+							label={tUser('select-roles')}
+							items={roles}
+							itemToString={item => item} // TODO fix layout
+						/>
 					</Column>
 				</Grid>
 			</ModalBody>
