@@ -5,11 +5,14 @@
 	"user-admin": "Administration des Utilisateurs",
 	"role-assignment-description": "Dans cette section, vous pouvez bloquer des utilisateurs, ajouter de nouveaux utilisateurs et vous pouvez également ajouter ou supprimer les rôles des utilisateurs existants.",
 	"app-visibility-description": "Dans cette section, pour chaque application existante, vous pouvez ajouter ou supprimer des utilisateurs qui y ont une visibilité.",
-	"name": "Nom",
-	"surname": "Prénom",
+	"name": "Prénom",
+	"surname": "Nom",
 	"Role": "Rôle",
 	"search-placeholder": "Rechercher par nom ou prénom d'utilisateur",
 	"edit": "Modifier",
 	"block": "Bloquer l'utilisateur",
-	"actions": "Actions"
+	"actions": "Actions",
+	"select-roles": "Sélectionner les rôles",
+	"placeholder-name": "Prénom de l'utilisateur",
+	"placeholder-surname": "Nom de l'utilisateur"
 }

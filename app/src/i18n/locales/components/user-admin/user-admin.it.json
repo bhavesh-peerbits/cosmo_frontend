@@ -11,5 +11,8 @@
 	"search-placeholder": "Ricerca tramite nome o cognome dell'utente",
 	"edit": "Modifica",
 	"block": "Blocca utente",
-	"actions": "Azioni"
+	"actions": "Azioni",
+	"select-roles": "Selezionare ruoli",
+	"placeholder-name": "Nome dell'utente",
+	"placeholder-surname": "Cognome dell'utente"
 }

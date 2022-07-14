@@ -41,5 +41,6 @@
 	"edit": "Modifica",
 	"body-edit": "Aggiungi o rimuovi ruoli cliccando sul menu a tendina.",
 	"user": "Utente",
-	"add-user": "Aggiungi utente"
+	"add-user": "Aggiungi utente",
+	"body-add": "Compila tutti i campi obbligatori, poi clicca su {{action}}"
 }
