@@ -25,7 +25,7 @@ const NoDataEmptyState = forwardRef<HTMLDivElement, NoDataEmptyStateProps>(
 					// Pass through any other property values as HTML attributes.
 					...rest
 				}
-				className={className}
+				className={`${className} flex flex-col place-items-center`}
 				ref={ref}
 			>
 				<NoDataIllustration size={size} />

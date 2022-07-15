@@ -20,8 +20,13 @@ const useEditApp = () => {
 	const queryClient = useQueryClient();
 	return useMutation(editApp, {
 		onSuccess: (data, variables) => {
-			queryClient.setQueriesData(['managementApps'], old =>
-				old instanceof Map ? new Map(old.set(variables.appId, data)) : data
+			queryClient.setQueriesData(
+				{
+					predicate: ({ queryKey }) =>
+						(queryKey.length === 1 && queryKey[0] === 'managementApps') ||
+						(queryKey[0] === 'managementApps' && queryKey[1] === variables.appId)
+				},
+				old => (old instanceof Map ? new Map(old.set(variables.appId, data)) : data)
 			);
 			queryClient.invalidateQueries(['appChanges', variables.appId]);
 		}
