@@ -26,7 +26,11 @@ const useAddProcedureApp = () => {
 	return useMutation(addProcedureApp, {
 		onSuccess: (data, variables) => {
 			queryClient.setQueriesData(
-				['app-procedures'],
+				{
+					predicate: ({ queryKey }) =>
+						(queryKey.length === 1 && queryKey[0] === 'app-procedures') ||
+						(queryKey[0] === 'app-procedures' && queryKey[1] === variables.appId)
+				},
 				old => new Map((old as Map<string, ProcedureAppInstance>).set(data.id, data))
 			);
 			queryClient.invalidateQueries(['appChanges', variables.appId]);

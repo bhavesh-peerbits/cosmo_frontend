@@ -99,7 +99,7 @@ const useExportTablePlugin = <T extends { ColumnMeta: ExportProperties }>(
 	getExportFileName = defaultGetExportFileName,
 	globalDisableExport = false
 ) => {
-	const { getFlatHeaders, getRowModel, getSelectedRowModel } = instance;
+	const { getFlatHeaders, getRowModel, getCoreRowModel, getSelectedRowModel } = instance;
 
 	// This method will enable export of data on `instance` object
 	const exportData = useCallback(
@@ -125,8 +125,12 @@ const useExportTablePlugin = <T extends { ColumnMeta: ExportProperties }>(
 					})
 					.filter(col => col.canExport);
 
-				const rowModel = all === 'selection' ? getSelectedRowModel() : getRowModel();
-				const rows = all ? rowModel.flatRows : rowModel.rows;
+				const rowModel =
+					(all === 'selection' && getSelectedRowModel()) || all
+						? getCoreRowModel()
+						: getRowModel();
+
+				const { rows } = rowModel;
 				const data = rows.map(row =>
 					columns.map(col => {
 						const v = row.getValue(col.id);
@@ -162,6 +166,7 @@ const useExportTablePlugin = <T extends { ColumnMeta: ExportProperties }>(
 			getFlatHeaders,
 			getSelectedRowModel,
 			getRowModel,
+			getCoreRowModel,
 			getExportFileName
 		]
 	);
