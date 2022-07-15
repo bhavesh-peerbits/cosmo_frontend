@@ -127,13 +127,16 @@ const PageHeader = ({
 			<div className='h-full bg-background md:pt-10'>
 				<Grid className='items-end space-y-4 pb-7 md:space-y-10'>
 					<FullWidthColumn>
-						<Grid>
-							<Column sm={4} md={5} lg={7} xlg={11}>
-								<h2 ref={pageTitleRef} className='text-productive-heading-5'>
+						<Grid fullWidth>
+							<Column sm={4} md={5} lg={6} xlg={8}>
+								<h2
+									ref={pageTitleRef}
+									className='flex flex-wrap text-productive-heading-5 '
+								>
 									{pageTitle}
 								</h2>
 							</Column>
-							<Column sm={4} md={3} lg={9} xlg={5}>
+							<Column sm={4} md={3} lg={10} xlg={8}>
 								{actions?.length === 1 ? (
 									<div className='mt-4 flex justify-end md:mt-0'>
 										<Button

@@ -58,7 +58,12 @@ const Login = () => {
 		register,
 		handleSubmit,
 		formState: { isSubmitting, errors }
-	} = useForm<LoginForm>({ mode: 'onBlur' });
+	} = useForm<LoginForm>({
+		mode: 'onBlur',
+		defaultValues: {
+			tenant: tenants[0]
+		}
+	});
 	const { auth, login } = useLoginStore();
 	const [params] = useSearchParams();
 	const error = params.get('error') as ErrorCode | undefined;
