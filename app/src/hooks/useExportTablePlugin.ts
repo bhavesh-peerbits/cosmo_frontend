@@ -1,4 +1,4 @@
-import { Column, TableInstance } from '@tanstack/react-table';
+import { Column, RowModel, TableInstance } from '@tanstack/react-table';
 import Papa from 'papaparse';
 import { utils, writeFile } from 'xlsx';
 import JsPDF from 'jspdf';
@@ -125,10 +125,17 @@ const useExportTablePlugin = <T extends { ColumnMeta: ExportProperties }>(
 					})
 					.filter(col => col.canExport);
 
-				const rowModel =
-					(all === 'selection' && getSelectedRowModel()) || all
-						? getCoreRowModel()
-						: getRowModel();
+				let rowModel: RowModel<T>;
+				switch (all) {
+					case 'selection':
+						rowModel = getSelectedRowModel();
+						break;
+					case true:
+						rowModel = getCoreRowModel();
+						break;
+					default:
+						rowModel = getRowModel();
+				}
 
 				const { rows } = rowModel;
 				const data = rows.map(row =>

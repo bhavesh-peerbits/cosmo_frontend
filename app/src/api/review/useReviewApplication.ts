@@ -32,6 +32,7 @@ const useReviewApplication = () => {
 				}
 				return data.hasProcedureInReview ? data : undefined;
 			});
+			queryClient.invalidateQueries(['managementApps', variables.appId]);
 			queryClient.invalidateQueries(['appChanges', variables.appId]);
 			queryClient.refetchQueries(['reviewApps']);
 		}
