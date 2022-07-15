@@ -21,8 +21,13 @@ const useReviewApp = (appId: string) => {
 	const queryClient = useQueryClient();
 	return useMutation(({ endDate }: { endDate: Date }) => reviewApp({ appId, endDate }), {
 		onSuccess: data => {
-			queryClient.setQueriesData(['managementApps'], old =>
-				old instanceof Map ? new Map(old.set(appId, data)) : data
+			queryClient.setQueriesData(
+				{
+					predicate: ({ queryKey }) =>
+						(queryKey.length === 1 && queryKey[0] === 'managementApps') ||
+						(queryKey[0] === 'managementApps' && queryKey[1] === appId)
+				},
+				old => (old instanceof Map ? new Map(old.set(appId, data)) : data)
 			);
 			queryClient.invalidateQueries(['app-procedures']);
 			queryClient.invalidateQueries(['reviewApps']);
