@@ -58,7 +58,10 @@ const applyFilters = (
 		// filter by query term string
 		.filter(app =>
 			filters.query
-				? app.name?.toLowerCase()?.trim()?.includes(filters.query.toLowerCase().trim())
+				? app.name
+						?.toLowerCase()
+						?.trim()
+						?.includes(filters.query.toString().toLowerCase().trim())
 				: true
 		);
 
