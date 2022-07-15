@@ -115,6 +115,7 @@ const UsersTable = () => {
 					/>
 				}
 				setRowSelected={setUserSelected}
+				isGroupable
 			/>
 		</>
 	);
