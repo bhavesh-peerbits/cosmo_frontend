@@ -9,6 +9,7 @@ import usePolicyStore from '@hooks/usePolicyStore';
 import ProtectRoute from '@routes/ProtectRoute';
 import AdminPanel from '@pages/AdminPanel';
 import RoleAssignment from '@pages/RoleAssignment';
+import ApplicationsVisibility from '@pages/ApplicationsVisibility';
 
 const Home = React.lazy(() => import('@pages/Home'));
 const Test = React.lazy(() => import('@pages/Test'));
@@ -78,6 +79,10 @@ const AuthenticatedRoutes = () => {
 							<Route path='admin'>
 								<Route index element={<AdminPanel />} />
 								<Route path='role-assignment' element={<RoleAssignment />} />
+								<Route
+									path='applications-visibility'
+									element={<ApplicationsVisibility />}
+								/>
 							</Route>
 
 							<Route path='test' element={<Test />} />
