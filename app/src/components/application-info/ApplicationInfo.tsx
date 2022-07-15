@@ -1,5 +1,5 @@
 import { Button, Form, Grid, Tile } from '@carbon/react';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
 import FullWidthColumn from '@components/FullWidthColumn';
 import TableOfContents from '@components/TableOfContents';
@@ -65,6 +65,33 @@ const ApplicationInfo = ({ application }: ApplicationInfoProps) => {
 			}
 		}
 	});
+
+	useEffect(
+		() =>
+			reset({
+				generalInfo: {
+					name: application.name,
+					codeName: application.codeName,
+					icon: application.icon,
+					owner: application.owner,
+					description: application.description,
+					delegates: application.delegates,
+					appMaintenance: applicationData?.appMaintenance,
+					operationSupplier: applicationData?.operationSupplier
+				},
+				technicalInfo: {
+					appServers: applicationData?.appServers,
+					appServersOS: applicationData?.appServersOS,
+					appCodePath: applicationData?.appCodePath,
+					technicalCode: applicationData?.technicalCode,
+					dbServers: applicationData?.dbServers,
+					dbServersOS: applicationData?.dbServersOS,
+					dbService: applicationData?.dbService,
+					dbInstance: applicationData?.dbInstance
+				}
+			}),
+		[application, applicationData, reset]
+	);
 
 	const sendData = (data: ApplicationForm) => {
 		const { appMaintenance, operationSupplier, ...rest } = data.generalInfo;
