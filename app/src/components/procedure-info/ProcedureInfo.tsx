@@ -37,9 +37,10 @@ const ProcedureInfo = () => {
 		setProcedureList(old => {
 			const p = old.findIndex(proc => proc.isNew);
 			if (p !== -1) {
-				return old.splice(p, 1, serverProcs[p]);
+				old.splice(p, 1, serverProcs[p]);
+				return [...old];
 			}
-			return serverProcs;
+			return [...serverProcs];
 		});
 	}, [serverProcs]);
 
