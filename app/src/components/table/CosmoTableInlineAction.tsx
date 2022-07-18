@@ -126,7 +126,7 @@ const CosmoTableInlineAction = <D extends object>({
 					</TableExpandRow>
 				) : (
 					<TableRow className='w-full'>
-						<TableCell />
+						{isGroupable && <TableCell />}
 						{row.getVisibleCells().map(cell => (
 							<TableCell key={cell.id}>
 								{(cell.getIsGrouped() && (
@@ -172,7 +172,7 @@ const CosmoTableInlineAction = <D extends object>({
 						{getHeaderGroups().map(headerGroup => {
 							return (
 								<TableRow key={headerGroup.id}>
-									<TableExpandHeader />
+									{isGroupable && <TableExpandHeader />}
 									{headerGroup.headers.map(header => {
 										return (
 											<TableHeader

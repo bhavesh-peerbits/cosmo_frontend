@@ -173,7 +173,7 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 				]}
 				globalFiltersIconDescription={t('filters')}
 				globalFiltersPlaceholderText={t('choose-option')}
-				globalFiltersPrimaryButtonText={t('choose-option')}
+				globalFiltersPrimaryButtonText={t('apply')}
 				globalFiltersSecondaryButtonText={t('reset')}
 				clearFiltersText={t('clear-filters')}
 				items={{

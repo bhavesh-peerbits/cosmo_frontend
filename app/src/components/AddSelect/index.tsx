@@ -53,6 +53,7 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 			removeIconDescription,
 			searchResultsLabel,
 			title,
+			selectedItems = { entries: [] as ItemType[] },
 
 			// Collect any other property values passed in.
 			...rest
@@ -75,16 +76,17 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 		>({});
 
 		useEffect(() => {
-			if (!open) {
+			if (!open && selectedItems.entries.length === 0) {
 				setSingleSelection('');
 				setMultiSelection([]);
 			}
-		}, [open]);
+		}, [open, selectedItems]);
 
 		useEffect(() => {
 			const { entries } = items;
 			// flatItems is just a single array of all entries including children
 			const flattenedItems = flatten(entries);
+
 			if (globalFilters?.length) {
 				const globalFilterValues = getGlobalFilterValues(globalFilters, flattenedItems);
 				setGlobalFilterOpts(globalFilterValues);
@@ -221,7 +223,9 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 					label: onSubmitButtonText,
 					kind: 'primary' as const,
 					onClick: submitHandler,
-					disabled: multi ? multiSelection.length === 0 : !singleSelection
+					disabled: multi
+						? multiSelection.length === 0 && selectedItems.entries.length === 0
+						: !singleSelection
 				}
 			],
 			portalTarget
@@ -381,6 +385,7 @@ interface AddSelectProps {
 	removeIconDescription?: string;
 	searchResultsLabel?: string;
 	title?: string;
+	selectedItems?: ItemElement;
 }
 
 export default AddSelect;

@@ -44,7 +44,6 @@ const AddSelectSidebar = ({
 			/>
 		</div>
 	);
-
 	return (
 		<div>
 			<div className='flex border-b-[1px] border-solid border-border-subtle-0 px-5 pt-6 pb-3'>
