@@ -1,5 +1,7 @@
 import api from '@api';
-import { fromProcedureAppInstanceApi } from '@model/ProcedureAppInstance';
+import ProcedureAppInstance, {
+	fromProcedureAppInstanceApi
+} from '@model/ProcedureAppInstance';
 import { useMutation, useQueryClient } from 'react-query';
 import formatIso from 'date-fns/formatISO';
 
@@ -25,8 +27,9 @@ const useReviewProcedure = (appId: string, procId: string) => {
 		({ endDate }: { endDate: Date }) => reviewProcedure({ appId, procId, endDate }),
 		{
 			onSuccess: data => {
-				queryClient.setQueriesData(['app-procedures', procId], old =>
-					old instanceof Map ? new Map(old.set(appId, data)) : data
+				queryClient.setQueriesData(
+					['app-procedures', appId],
+					old => new Map((old as Map<string, ProcedureAppInstance>).set(procId, data))
 				);
 				queryClient.invalidateQueries(['managementApps', appId]);
 				queryClient.invalidateQueries(['reviewApps']);

@@ -24,10 +24,17 @@ const useDeleteProcedureApp = () => {
 	const queryClient = useQueryClient();
 	return useMutation(deleteProcedureApp, {
 		onSuccess: (data, variables) => {
-			queryClient.setQueriesData(['app-procedures'], old => {
-				(old as Map<string, ProcedureAppInstance>).delete(variables.procedureAppId);
-				return new Map(old as Map<string, ProcedureAppInstance>);
-			});
+			queryClient.setQueriesData(
+				{
+					predicate: ({ queryKey }) =>
+						(queryKey.length === 1 && queryKey[0] === 'app-procedures') ||
+						(queryKey[0] === 'app-procedures' && queryKey[1] === variables.appId)
+				},
+				old => {
+					(old as Map<string, ProcedureAppInstance>).delete(variables.procedureAppId);
+					return new Map(old as Map<string, ProcedureAppInstance>);
+				}
+			);
 			queryClient.invalidateQueries(['appChanges', variables.appId]);
 		}
 	});
