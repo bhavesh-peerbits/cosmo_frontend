@@ -42,5 +42,6 @@
 	"body-edit": "Ajoutez ou supprimez des rôles en cliquant sur le menu déroulant.",
 	"user": "Utilisateur",
 	"add-user": "Ajouter utilisateur",
-	"body-add": "Veuillez remplir tous les champs obligatoires, puis cliquez sur {{action}}"
+	"body-add": "Veuillez remplir tous les champs obligatoires, puis cliquez sur {{action}}",
+	"exists": "{{value}} existe déjà."
 }

@@ -80,7 +80,7 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 				setSingleSelection('');
 				setMultiSelection([]);
 			}
-		}, [open, selectedItems]);
+		}, [open, selectedItems.entries.length]);
 
 		useEffect(() => {
 			const { entries } = items;

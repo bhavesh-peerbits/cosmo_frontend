@@ -42,5 +42,6 @@
 	"body-edit": "Add or remove roles by clicking on the dropdown menu.",
 	"user": "User",
 	"add-user": "Add user",
-	"body-add": "Please fill in all required fields, then click on {{action}}"
+	"body-add": "Please fill in all required fields, then click on {{action}}",
+	"exists": "{{value}} already exists."
 }
