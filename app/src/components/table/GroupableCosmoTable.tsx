@@ -115,7 +115,7 @@ const GroupableCosmoTable = <D extends object>({
 						))}
 					</TableExpandRow>
 				) : (
-					<TableRow className='w-full'>
+					<TableRow className='w-full' key={row.id}>
 						<TableCell />
 						{row.getVisibleCells().map(cell => (
 							<TableCell key={cell.id}>

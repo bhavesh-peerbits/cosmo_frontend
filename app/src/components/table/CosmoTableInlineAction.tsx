@@ -125,7 +125,7 @@ const CosmoTableInlineAction = <D extends object>({
 						<TableCell />
 					</TableExpandRow>
 				) : (
-					<TableRow className='w-full'>
+					<TableRow className='w-full' key={row.id}>
 						{isGroupable && <TableCell />}
 						{row.getVisibleCells().map(cell => (
 							<TableCell key={cell.id}>
