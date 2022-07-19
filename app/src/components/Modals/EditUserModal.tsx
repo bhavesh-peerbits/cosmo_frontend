@@ -19,6 +19,14 @@ type EditUserModalProps = {
 };
 
 const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
+	const roles = [
+		'Admin',
+		'Guest',
+		'Narrative Analyst',
+		'Reviewer',
+		'Reviewer Collaborator',
+		'User Admin'
+	];
 	const { t } = useTranslation('modals');
 	const { t: tHome } = useTranslation('home');
 	const { t: tUser } = useTranslation('userAdmin');
@@ -27,7 +35,19 @@ const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 		user.filter(attribute => attribute.includes('@')).toString()
 	);
 	const userToEdit = data?.filter(u => u.email === user[emailIndex]).flat();
-	const roles = userToEdit ? userToEdit[0]?.roles.map(role => role.toString()) : [''];
+	const toStartCase = (r: string) => {
+		return r === 'USER_UNKNOWN'
+			? 'Guest'
+			: r
+					.replace('_', ' ')
+					.toLowerCase()
+					.split(' ')
+					.map(word => word.charAt(0).toUpperCase() + word.slice(1))
+					.join(' ');
+	};
+	const assignedRoles = userToEdit
+		? userToEdit[0]?.roles.map(role => toStartCase(role))
+		: [''];
 	const cleanUp = () => {
 		setIsOpen(false);
 	};
@@ -57,12 +77,13 @@ const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 							className='w-full grow-0'
 						/>
 					</Column>
-					<Column lg={6} md={4} sm={4}>
+					<Column lg={6} md={4} sm={4} className='mb-5 h-full'>
 						<MultiSelect
 							id='roles'
 							titleText={tHome('roles')}
 							label={tUser('select-roles')}
 							items={roles}
+							initialSelectedItems={assignedRoles}
 							itemToString={item => item} // TODO fix layout
 						/>
 					</Column>
