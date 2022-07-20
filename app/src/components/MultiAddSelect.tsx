@@ -124,6 +124,10 @@ interface MultiAddSelectProps {
 	 * header text
 	 */
 	title?: string;
+	/**
+	 * Previously selected items
+	 */
+	selectedItems?: ItemElement;
 }
 
 export default MultiAddSelect;
