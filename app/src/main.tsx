@@ -13,7 +13,7 @@ const MAX_RETRIES = 3;
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
-			staleTime: Number.POSITIVE_INFINITY,
+			staleTime: 1000 * 60 * 5, // 5 minutes
 			retry: MAX_RETRIES,
 			suspense: true
 		}
