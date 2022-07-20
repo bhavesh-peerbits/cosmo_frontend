@@ -10,6 +10,7 @@ import ProtectRoute from '@routes/ProtectRoute';
 import AdminPanel from '@pages/AdminPanel';
 import RoleAssignment from '@pages/RoleAssignment';
 import ApplicationsVisibility from '@pages/ApplicationsVisibility';
+import NewRevalidation from '@pages/NewRevalidation';
 
 const Home = React.lazy(() => import('@pages/Home'));
 const Test = React.lazy(() => import('@pages/Test'));
@@ -75,6 +76,9 @@ const AuthenticatedRoutes = () => {
 										</ProtectRoute>
 									}
 								/>
+							</Route>
+							<Route path='new-revalidation'>
+								<Route index element={<NewRevalidation />} />
 							</Route>
 							<Route path='admin'>
 								<Route index element={<AdminPanel />} />
