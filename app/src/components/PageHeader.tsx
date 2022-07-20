@@ -2,7 +2,6 @@ import { Breadcrumb, BreadcrumbItem, Button, Column, Grid } from '@carbon/react'
 import { useNavigate } from 'react-router-dom';
 import FullWidthColumn from '@components/FullWidthColumn';
 import useResponsive from '@hooks/useResponsive';
-import { Email } from '@carbon/react/icons';
 import { ReactElement, useEffect, useRef } from 'react';
 import { useInViewport } from 'ahooks';
 import classNames from 'classnames';
@@ -149,14 +148,14 @@ const PageHeader = ({
 										</Button>
 									</div>
 								) : (
-									actions?.length === 3 && (
+									(actions?.length === 3 && (
 										<div className='mt-4 flex flex-col justify-end space-y-2 md:mt-0 lg:flex-row lg:space-y-0'>
 											<Button
 												key={actions[0].name}
 												kind='tertiary'
 												className='min-w-full lg:min-w-fit'
 												size='md'
-												renderIcon={Email}
+												renderIcon={actions[0].icon}
 												onClick={actions[0].onClick}
 											>
 												{actions[0].name}
@@ -184,7 +183,31 @@ const PageHeader = ({
 												</Button>
 											</div>
 										</div>
-									)
+									)) ||
+									(actions.length === 2 && (
+										<div className='mt-4 flex flex-col justify-end space-y-2 space-x-4 md:mt-0 lg:flex-row lg:space-y-0'>
+											<Button
+												kind='tertiary'
+												key={actions[0].name}
+												className='min-w-full lg:min-w-fit'
+												size='md'
+												renderIcon={actions[0].icon}
+												onClick={actions[0].onClick}
+											>
+												{actions[0].name}
+											</Button>
+											<div className='flex lg:space-x-3'>
+												<Button
+													key={actions[1].name}
+													size='md'
+													onClick={actions[1].onClick}
+													renderIcon={actions[1].icon}
+												>
+													{actions[1].name}
+												</Button>
+											</div>
+										</div>
+									))
 								)}
 							</Column>
 						</Grid>
