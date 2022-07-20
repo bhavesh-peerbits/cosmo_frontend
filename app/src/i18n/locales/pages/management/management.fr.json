@@ -33,5 +33,6 @@
 	"application-review": "Revue d'Application",
 	"application-info": "Info Application",
 	"procedure-info": "Info Procédures",
-	"changes": "Changements"
+	"changes": "Changements",
+	"created-by": "Créé par"
 }

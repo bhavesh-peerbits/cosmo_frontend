@@ -14,6 +14,7 @@ const RoleAssignment = () => {
 	return (
 		<PageHeader
 			pageTitle={t('role-assignment')}
+			intermediateRoutes={[{ name: 'Admin Panel', to: '/admin' }]}
 			actions={[
 				{
 					name: 'Add User',

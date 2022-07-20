@@ -54,6 +54,7 @@ interface TableInlineActionProps<D extends object> {
 	disableExport?: boolean;
 	inlineAction: ReactNode;
 	setRowSelected: (val: string[]) => void;
+	isGroupable?: boolean;
 }
 
 const CosmoTableInlineAction = <D extends object>({
@@ -64,7 +65,8 @@ const CosmoTableInlineAction = <D extends object>({
 	disableExport,
 	inlineAction,
 	setRowSelected,
-	toolbar
+	toolbar,
+	isGroupable
 }: TableInlineActionProps<D>) => {
 	const { t } = useTranslation('table');
 	const [expanded, setExpanded] = useState<ExpandedState>({});
@@ -85,7 +87,6 @@ const CosmoTableInlineAction = <D extends object>({
 			pagination,
 			sorting,
 			grouping,
-
 			expanded
 		},
 		onPaginationChange: setPagination,
@@ -124,8 +125,8 @@ const CosmoTableInlineAction = <D extends object>({
 						<TableCell />
 					</TableExpandRow>
 				) : (
-					<TableRow className='w-full'>
-						<TableCell />
+					<TableRow className='w-full' key={row.id}>
+						{isGroupable && <TableCell />}
 						{row.getVisibleCells().map(cell => (
 							<TableCell key={cell.id}>
 								{(cell.getIsGrouped() && (
@@ -171,7 +172,7 @@ const CosmoTableInlineAction = <D extends object>({
 						{getHeaderGroups().map(headerGroup => {
 							return (
 								<TableRow key={headerGroup.id}>
-									<TableExpandHeader />
+									{isGroupable && <TableExpandHeader />}
 									{headerGroup.headers.map(header => {
 										return (
 											<TableHeader
@@ -185,37 +186,46 @@ const CosmoTableInlineAction = <D extends object>({
 												isSortHeader={
 													header.column.getCanSort() && !!header.column.getIsSorted()
 												}
+												onClick={
+													!isGroupable
+														? header.column.getToggleSortingHandler()
+														: undefined
+												}
 											>
-												<div className='flex items-center justify-between'>
-													{!header.isPlaceholder && header.renderHeader()}
-													{header.column.getCanGroup() && (
-														<OverflowMenu
-															ariaLabel='Overflow Menu'
-															iconDescription='Menu'
-														>
-															<OverflowMenuItem
-																itemText={
-																	(header.column.getIsSorted() === 'desc' &&
-																		t('original-sort')) ||
-																	(header.column.getIsSorted() === 'asc' &&
-																		t('sort-descending')) ||
-																	t('sort-ascending')
-																}
-																onClick={header.column.getToggleSortingHandler()}
-															/>
+												{isGroupable ? (
+													<div className='flex items-center justify-between'>
+														{!header.isPlaceholder && header.renderHeader()}
+														{header.column.getCanGroup() && (
+															<OverflowMenu
+																ariaLabel='Overflow Menu'
+																iconDescription='Menu'
+															>
+																<OverflowMenuItem
+																	itemText={
+																		(header.column.getIsSorted() === 'desc' &&
+																			t('original-sort')) ||
+																		(header.column.getIsSorted() === 'asc' &&
+																			t('sort-descending')) ||
+																		t('sort-ascending')
+																	}
+																	onClick={header.column.getToggleSortingHandler()}
+																/>
 
-															<OverflowMenuItem
-																hasDivider
-																itemText={
-																	header.column.getIsGrouped()
-																		? t('remove-group')
-																		: t('group-by')
-																}
-																onClick={header.column.getToggleGroupingHandler()}
-															/>
-														</OverflowMenu>
-													)}
-												</div>
+																<OverflowMenuItem
+																	hasDivider
+																	itemText={
+																		header.column.getIsGrouped()
+																			? t('remove-group')
+																			: t('group-by')
+																	}
+																	onClick={header.column.getToggleGroupingHandler()}
+																/>
+															</OverflowMenu>
+														)}
+													</div>
+												) : (
+													!header.isPlaceholder && header.renderHeader()
+												)}
 											</TableHeader>
 										);
 									})}

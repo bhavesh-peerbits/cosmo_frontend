@@ -5,11 +5,10 @@ import {
 	ModalBody,
 	ModalFooter,
 	Button,
-	Column,
-	Grid,
 	TextInput,
-	MultiSelect
+	Checkbox
 } from '@carbon/react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 type EditUserModalProps = {
@@ -19,27 +18,47 @@ type EditUserModalProps = {
 };
 
 const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
+	const roles = [
+		'Admin',
+		'Guest',
+		'Narrative Analyst',
+		'Reviewer',
+		'Reviewer Collaborator',
+		'User Admin'
+	];
+	const toStartCase = (r: string) => {
+		return r === 'USER_UNKNOWN'
+			? 'Guest'
+			: r
+					.replace('_', ' ')
+					.toLowerCase()
+					.split(' ')
+					.map(word => word.charAt(0).toUpperCase() + word.slice(1))
+					.join(' ');
+	};
 	const { t } = useTranslation('modals');
 	const { t: tHome } = useTranslation('home');
-	const { t: tUser } = useTranslation('userAdmin');
 	const { data } = useGetUsers();
 	const emailIndex = user.indexOf(
 		user.filter(attribute => attribute.includes('@')).toString()
 	);
 	const userToEdit = data?.filter(u => u.email === user[emailIndex]).flat();
-	const roles = userToEdit ? userToEdit[0]?.roles.map(role => role.toString()) : [''];
+	const assignedRoles = userToEdit
+		? userToEdit[0]?.roles.map(role => toStartCase(role))
+		: [''];
+	const [selectedRoles, setSelectedRoles] = useState<string[]>(assignedRoles);
+
 	const cleanUp = () => {
 		setIsOpen(false);
 	};
-
 	return (
 		<ComposedModal open={isOpen} onClose={cleanUp}>
 			<ModalHeader title={t('edit-user')} closeModal={cleanUp}>
 				<span className='text-text-secondary text-body-1'>{t('body-edit')}</span>
 			</ModalHeader>
 			<ModalBody>
-				<Grid fullWidth>
-					<Column lg={6} md={4} sm={4} className='mb-5'>
+				<div className='h-full w-full space-y-5'>
+					<div className='flex space-x-5'>
 						<TextInput
 							readOnly
 							id='name'
@@ -47,8 +66,7 @@ const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 							value={userToEdit ? userToEdit[0].displayName : ''}
 							className='w-full'
 						/>
-					</Column>
-					<Column lg={6} md={4} sm={4} className='mb-5'>
+
 						<TextInput
 							readOnly
 							id='email-address'
@@ -56,23 +74,36 @@ const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 							value={userToEdit ? userToEdit[0].email : ''}
 							className='w-full grow-0'
 						/>
-					</Column>
-					<Column lg={6} md={4} sm={4}>
-						<MultiSelect
-							id='roles'
-							titleText={tHome('roles')}
-							label={tUser('select-roles')}
-							items={roles}
-							itemToString={item => item} // TODO fix layout
-						/>
-					</Column>
-				</Grid>
+					</div>
+					<div className='w-1/2'>
+						<p className='mb-3 text-text-secondary text-label-1'>{tHome('roles')} *</p>
+						{roles.map(role => (
+							<Checkbox
+								labelText={role}
+								id={`${role}-edit`}
+								defaultChecked={assignedRoles.includes(role)}
+								onChange={(e, { checked }) =>
+									!checked
+										? setSelectedRoles(selectedRoles.filter(r => r !== role))
+										: setSelectedRoles(old => [...old, role])
+								}
+							/>
+						))}
+					</div>
+				</div>
 			</ModalBody>
 			<ModalFooter>
 				<Button kind='secondary' onClick={cleanUp}>
 					{t('cancel')}
 				</Button>
-				<Button kind='primary'>{t('edit')}</Button>
+				<Button
+					kind='primary'
+					disabled={
+						selectedRoles.length === 0 || selectedRoles.join() === assignedRoles.join()
+					}
+				>
+					{t('edit')}
+				</Button>
 			</ModalFooter>
 		</ComposedModal>
 	);

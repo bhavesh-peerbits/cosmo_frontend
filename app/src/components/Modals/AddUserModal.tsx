@@ -3,14 +3,13 @@ import {
 	ComposedModal,
 	ModalHeader,
 	ModalBody,
-	Grid,
 	ModalFooter,
 	Button,
-	Column,
 	TextInput,
-	MultiSelect,
-	Form
+	Form,
+	Checkbox
 } from '@carbon/react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -33,6 +32,7 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 	const { t: tUser } = useTranslation('userAdmin');
 	const existingUsername = users.map(user => user.username);
 	const existingEmail = users.map(user => user.email?.toLocaleLowerCase());
+	const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
 
 	const roles = [
 		'Admin',
@@ -60,20 +60,19 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 	const cleanUp = () => {
 		setIsOpen(false);
 		reset();
+		setSelectedRoles([]);
 	};
-
 	return (
-		<ComposedModal open={isOpen} onClose={cleanUp}>
+		<ComposedModal size='sm' open={isOpen} onClose={cleanUp}>
 			<ModalHeader title={t('add-user')} closeModal={cleanUp}>
 				<span className='text-text-secondary text-body-1'>
 					{t('body-add', { action: `"${t('add-user')}"` })}
 				</span>
 			</ModalHeader>
-
 			<ModalBody hasForm>
 				<Form>
-					<Grid fullWidth className='h-full'>
-						<Column lg={8} md={4} sm={4} className='mb-5'>
+					<div className='flex space-x-5'>
+						<div className='w-1/2 space-y-5'>
 							<TextInput
 								id='user-name'
 								placeholder={tUser('placeholder-name')}
@@ -85,8 +84,6 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 									}
 								})}
 							/>
-						</Column>
-						<Column lg={8} md={4} sm={4} className='mb-5'>
 							<TextInput
 								id='user-surname'
 								placeholder={tUser('placeholder-surname')}
@@ -98,8 +95,6 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 									}
 								})}
 							/>
-						</Column>
-						<Column lg={8} md={4} sm={4} className='mb-5'>
 							<TextInput
 								id='username'
 								labelText='Username *'
@@ -112,11 +107,10 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 										message: `required`
 									},
 									validate: username =>
-										!existingUsername.includes(username.toLowerCase()) || 'exists'
+										!existingUsername.includes(username.toLowerCase()) ||
+										t('exists', { value: 'Username' })
 								})}
 							/>
-						</Column>
-						<Column lg={8} md={4} sm={4} className='mb-5'>
 							<TextInput
 								id='email'
 								labelText='Email *'
@@ -129,20 +123,26 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 										message: `required`
 									},
 									validate: email =>
-										!existingEmail.includes(email.toLowerCase()) || 'exist'
+										!existingEmail.includes(email.toLowerCase()) ||
+										t('exists', { value: 'Email' })
 								})}
 							/>
-						</Column>
-						<Column lg={8} md={4} sm={4} className='mb-5 h-full'>
-							<MultiSelect
-								id='roles'
-								titleText={tHome('roles')}
-								label={tUser('select-roles')}
-								items={roles}
-								itemToString={item => item} // TODO fix layout
-							/>
-						</Column>
-					</Grid>
+						</div>
+						<div className='w-1/2'>
+							<p className='mb-3 text-text-secondary text-label-1'>{tHome('roles')} *</p>
+							{roles.map(role => (
+								<Checkbox
+									labelText={role}
+									id={`${role}-add`}
+									onChange={(e, { id, checked }) =>
+										!checked
+											? setSelectedRoles(selectedRoles.filter(r => r !== id))
+											: setSelectedRoles(old => [...old, id])
+									}
+								/>
+							))}
+						</div>
+					</div>
 				</Form>
 			</ModalBody>
 			<ModalFooter>
