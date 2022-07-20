@@ -185,7 +185,7 @@ const PageHeader = ({
 										</div>
 									)) ||
 									(actions.length === 2 && (
-										<div className='mt-4 flex flex-col justify-end space-y-2 space-x-4 md:mt-0 lg:flex-row lg:space-y-0'>
+										<div className='mt-4 flex flex-col justify-end space-y-2 md:mt-0 lg:flex-row lg:space-x-4 lg:space-y-0'>
 											<Button
 												kind='tertiary'
 												key={actions[0].name}
@@ -202,6 +202,7 @@ const PageHeader = ({
 													size='md'
 													onClick={actions[1].onClick}
 													renderIcon={actions[1].icon}
+													className='min-w-full lg:min-w-fit'
 												>
 													{actions[1].name}
 												</Button>
