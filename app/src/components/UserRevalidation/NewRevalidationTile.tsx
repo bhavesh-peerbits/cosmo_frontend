@@ -24,7 +24,7 @@ const NewRevalidationTile = ({ campaign }: NewRevalidationTileProps) => {
 							{t('revalidation-type')}: {campaign.type}
 						</div>
 						<div>
-							{t('layer')}: {campaign.layer}{' '}
+							{t('layer')}: {campaign.layer}
 						</div>
 						<div>N {tModals('applications')}</div>
 					</div>

@@ -4,6 +4,8 @@ import NewRevalidationTileContainer from '@components/UserRevalidation/NewRevali
 import { Grid, Column, Layer, Search } from '@carbon/react';
 import Fade from '@components/Fade';
 import { useTranslation } from 'react-i18next';
+import DownloadTemplateModal from '@components/Modals/DownloadTemplateModal';
+import { useState } from 'react';
 
 const SearchBar = () => {
 	const { t } = useTranslation('userRevalidation');
@@ -16,6 +18,7 @@ const SearchBar = () => {
 
 const NewRevalidation = () => {
 	const { t } = useTranslation('userRevalidation');
+	const [isDownloadOpen, setIsDownloadOpen] = useState(false);
 	const campaigns = [
 		{
 			id: 'id1',
@@ -30,7 +33,9 @@ const NewRevalidation = () => {
 				{
 					name: 'Download template',
 					icon: Download,
-					onClick: () => {}
+					onClick: () => {
+						setIsDownloadOpen(true);
+					}
 				},
 				{
 					name: t('new-campaign'),
@@ -67,6 +72,10 @@ const NewRevalidation = () => {
 								) : (
 									<NewRevalidationTileContainer />
 								)} */}
+								<DownloadTemplateModal
+									isOpen={isDownloadOpen}
+									setIsOpen={setIsDownloadOpen}
+								/>
 								<NewRevalidationTileContainer />
 							</div>
 						</div>
