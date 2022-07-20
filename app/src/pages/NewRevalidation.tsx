@@ -3,27 +3,37 @@ import { Add, Download } from '@carbon/react/icons';
 import NewRevalidationTileContainer from '@components/UserRevalidation/NewRevalidationTileContainer';
 import { Grid, Column, Layer, Search } from '@carbon/react';
 import Fade from '@components/Fade';
+import { useTranslation } from 'react-i18next';
 
 const SearchBar = () => {
+	const { t } = useTranslation('userRevalidation');
 	return (
 		<Layer className='ml-5 w-full'>
-			<Search size='lg' labelText='Search' placeholder='Placeholder' />
+			<Search size='lg' labelText='' placeholder={t('search-placeholder')} />
 		</Layer>
 	);
 };
 
 const NewRevalidation = () => {
+	const { t } = useTranslation('userRevalidation');
+	const campaigns = [
+		{
+			id: 'id1',
+			type: 'SUID',
+			layer: 'OS'
+		}
+	];
 	return (
 		<PageHeader
 			pageTitle='New Revalidation'
 			actions={[
 				{
-					name: 'Download Template',
+					name: 'Download template',
 					icon: Download,
 					onClick: () => {}
 				},
 				{
-					name: 'New Campaign',
+					name: t('new-campaign'),
 					icon: Add,
 					onClick: () => {}
 				}
@@ -39,7 +49,12 @@ const NewRevalidation = () => {
 							<div className='flex w-full flex-wrap justify-between space-x-5 space-y-5 md:flex-nowrap md:space-y-0'>
 								<SearchBar />
 								<div className='flex w-full items-center justify-between space-x-5 md:w-auto md:justify-end'>
-									<div className='whitespace-nowrap'>Length</div>
+									<div className='whitespace-nowrap'>
+										{`${campaigns.length}  ${
+											campaigns.length === 1 ? t('campaign') : t('campaigns')
+										}`}
+									</div>
+									{/* // TODO fix text for single or multiple campaigns */}
 								</div>
 							</div>
 							<div>
