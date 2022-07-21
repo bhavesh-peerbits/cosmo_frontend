@@ -7,10 +7,6 @@ import ErrorBoundary from '@error/components/ErrorBoundary';
 import PageSkeleton from '@components/PageSkeleton';
 import usePolicyStore from '@hooks/usePolicyStore';
 import ProtectRoute from '@routes/ProtectRoute';
-import AdminPanel from '@pages/AdminPanel';
-import RoleAssignment from '@pages/RoleAssignment';
-import ApplicationsVisibility from '@pages/ApplicationsVisibility';
-import NewRevalidation from '@pages/NewRevalidation';
 
 const Home = React.lazy(() => import('@pages/Home'));
 const Test = React.lazy(() => import('@pages/Test'));
@@ -19,6 +15,10 @@ const ApplicationDetail = React.lazy(() => import('@pages/ApplicationDetail'));
 const ReviewNarrative = React.lazy(() => import('@pages/ReviewNarrative'));
 const Review = React.lazy(() => import('@pages/Review'));
 const ReviewDetail = React.lazy(() => import('@pages/ReviewDetail'));
+const AdminPanel = React.lazy(() => import('@pages/AdminPanel'));
+const RoleAssignment = React.lazy(() => import('@pages/RoleAssignment'));
+const ApplicationsVisibility = React.lazy(() => import('@pages/ApplicationsVisibility'));
+const NewRevalidation = React.lazy(() => import('@pages/NewRevalidation'));
 
 const AuthenticatedRoutes = () => {
 	const { canSeeNarrativeManagement, canReviewNarrative, canReview } = usePolicyStore();

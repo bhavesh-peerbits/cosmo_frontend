@@ -34,6 +34,18 @@ const useRevalidations = () => {
 				name: 'Campaign Name',
 				type: 'User Access Review',
 				layer: 'DB'
+			},
+			{
+				id: 'id3',
+				name: 'Very Very Very Very Very long Name',
+				type: 'User Access Review',
+				layer: 'OS'
+			},
+			{
+				id: 'id4',
+				name: 'Campaign Name',
+				type: 'Firefight',
+				layer: 'Software'
 			}
 		];
 		setRevalidations([...data.values()]);
