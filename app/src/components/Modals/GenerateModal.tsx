@@ -110,11 +110,7 @@ const GenerateModal = ({ isOpen, setIsOpen, application }: GenerateModalProps) =
 
 	return (
 		<ComposedModal open={isOpen} onClose={() => cleanUp()}>
-			<ModalHeader
-				title='Narrative Name'
-				label={tModals('generate-narrative')}
-				closeModal={() => cleanUp()}
-			/>
+			<ModalHeader title={tModals('generate-narrative')} closeModal={() => cleanUp()} />
 
 			<ModalBody className='mt-5'>
 				<Grid fullWidth>
