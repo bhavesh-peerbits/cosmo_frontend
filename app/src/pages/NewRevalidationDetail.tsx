@@ -1,10 +1,15 @@
 import PageHeader from '@components/PageHeader';
 import { Email, TrashCan } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
+import SendRevalidationModal from '@components/Modals/SendRevalidationModal';
+import DeleteCampaignModal from '@components/Modals/DeleteCampaignModal';
 
 const NewRevalidationDetail = () => {
 	const { t } = useTranslation('userRevalidation');
-	const { t: tSelect } = useTranslation('userSelect');
+	const { t: tModals } = useTranslation('modals');
+	const [isSendModalOpen, setIsSendModalOpen] = useState(false);
+	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 	return (
 		<PageHeader
 			pageTitle='Campagna'
@@ -14,17 +19,28 @@ const NewRevalidationDetail = () => {
 					name: t('send-revalidation'),
 					icon: Email,
 					kind: 'primary',
-					onClick: () => {}
+					onClick: () => {
+						setIsSendModalOpen(true);
+					}
 				},
 				{
-					name: tSelect('remove'),
+					name: tModals('delete'),
 					icon: TrashCan,
 					kind: 'danger',
-					onClick: () => {}
+					onClick: () => {
+						setIsDeleteModalOpen(true);
+					}
 				}
 			]}
 		>
-			<div>Content</div>
+			<>
+				<SendRevalidationModal isOpen={isSendModalOpen} setIsOpen={setIsSendModalOpen} />
+				<DeleteCampaignModal
+					isOpen={isDeleteModalOpen}
+					setIsOpen={setIsDeleteModalOpen}
+				/>
+				<div>Content</div>
+			</>
 		</PageHeader>
 	);
 };
