@@ -7,12 +7,23 @@ import { useTranslation } from 'react-i18next';
 import DownloadTemplateModal from '@components/Modals/DownloadTemplateModal';
 import { useState } from 'react';
 import NewCampaignModal from '@components/Modals/NewCampaignModal';
+import RevalidationsFilters from '@components/UserRevalidation/RevalidationsFilters';
+import useRevalidations from '@hooks/user-revalidation.ts/useRevalidations';
+import Centered from '@components/Centered';
+import NoDataMessage from '@components/NoDataMessage';
 
 const SearchBar = () => {
+	const { filters, setFilters } = useRevalidations();
 	const { t } = useTranslation('userRevalidation');
 	return (
 		<Layer className='ml-5 w-full'>
-			<Search size='lg' labelText='' placeholder={t('search-placeholder')} />
+			<Search
+				size='lg'
+				labelText=''
+				placeholder={t('search-placeholder')}
+				value={filters.query ?? ''}
+				onChange={e => setFilters(old => ({ ...old, q: e.currentTarget?.value }))}
+			/>
 		</Layer>
 	);
 };
@@ -21,13 +32,7 @@ const NewRevalidation = () => {
 	const { t } = useTranslation('userRevalidation');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [actionSelected, setActionSelected] = useState('');
-	const campaigns = [
-		{
-			id: 'id1',
-			type: 'SUID',
-			layer: 'OS'
-		}
-	];
+	const { revalidations } = useRevalidations();
 	const modalToOpen = () => {
 		switch (actionSelected) {
 			case 'Download':
@@ -61,7 +66,9 @@ const NewRevalidation = () => {
 			<Fade>
 				<Grid fullWidth narrow className='h-full p-container-1'>
 					<Column sm={4} md={2} lg={3}>
-						<div className='pl-5 md:ml-0'>Filters</div>
+						<div className='pl-5 md:ml-0'>
+							<RevalidationsFilters />
+						</div>
 					</Column>
 					<Column sm={4} md={6} lg={13}>
 						<div className='flex flex-col space-y-7'>
@@ -69,25 +76,24 @@ const NewRevalidation = () => {
 								<SearchBar />
 								<div className='flex w-full items-center justify-between space-x-5 md:w-auto md:justify-end'>
 									<div className='whitespace-nowrap'>
-										{`${campaigns.length}  ${
-											campaigns.length === 1 ? t('campaign') : t('campaigns')
+										{`${revalidations.length}  ${
+											revalidations.length === 1 ? t('campaign') : t('campaigns')
 										}`}
 									</div>
 									{/* // TODO fix text for single or multiple campaigns */}
 								</div>
 							</div>
 							<div>
-								{/* {false ? (
+								{revalidations.length === 0 ? (
 									<Fade>
 										<Centered>
-											<NoDataMessage title='No Data' />
+											<NoDataMessage title={`${t('no-campaigns')}`} />
 										</Centered>
 									</Fade>
 								) : (
 									<NewRevalidationTileContainer />
-								)} */}
+								)}
 								{isModalOpen && modalToOpen()}
-								<NewRevalidationTileContainer />
 							</div>
 						</div>
 					</Column>

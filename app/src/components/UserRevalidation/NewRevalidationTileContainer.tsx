@@ -1,22 +1,16 @@
 import { Grid, Column } from '@carbon/react';
+import useRevalidations from '@hooks/user-revalidation.ts/useRevalidations';
 import NewRevalidationTile from './NewRevalidationTile';
 
 const NewRevalidationTileContainer = () => {
-	const campaigns = [
-		{
-			id: 'id1',
-			name: 'Very Very Very Very Very long Name',
-			type: 'SUID',
-			layer: 'OS'
-		}
-	];
+	const { revalidations } = useRevalidations();
 	return (
 		<Grid fullWidth narrow>
 			<Column sm={4} md={6} lg={16} xlg={15} max={16}>
 				<Grid fullWidth>
-					{campaigns.map(campaign => (
-						<Column key={campaign.id} sm={4} md={3} lg={8} xlg={5} max={4}>
-							<NewRevalidationTile campaign={campaign} />
+					{revalidations.map(revalidation => (
+						<Column key={revalidation.id} sm={4} md={3} lg={8} xlg={5} max={4}>
+							<NewRevalidationTile revalidation={revalidation} />
 						</Column>
 					))}
 				</Grid>

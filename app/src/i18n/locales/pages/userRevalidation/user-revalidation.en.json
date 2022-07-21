@@ -8,6 +8,7 @@
 	"campaign-name": "Campaign name",
 	"create-new": "New revalidation campaign",
 	"create-campaign": "Create campaign",
-	"download-modal-body": "Select a revalidation type to download the CSV file.",
-	"name-placeholder": "Enter campaign name"
+	"download-modal-body": "Select a revalidation type to download the CSV file",
+	"name-placeholder": "Enter campaign name",
+	"no-campaigns": "No campaigns"
 }

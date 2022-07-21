@@ -28,7 +28,7 @@ const DownloadTemplateModal = ({ isOpen, setIsOpen }: DownloadTemplateModalProps
 			<ModalHeader title='Download file' closeModal={cleanUp} />
 			<ModalBody className='m-0 pb-9'>
 				<div className='space-y-5'>
-					<p>{tRevalidation('download-modal-body')}</p>
+					<p>{`${tRevalidation('download-modal-body')}.`}</p>
 					<RadioButtonGroup
 						orientation='vertical'
 						name='revalidation-types'
