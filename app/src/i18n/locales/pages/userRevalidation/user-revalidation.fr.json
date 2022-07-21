@@ -3,5 +3,10 @@
 	"search-placeholder": "Rechercher par nom de campagne",
 	"campaigns": "Campagnes",
 	"campaign": "Campagne",
-	"layer": "Niveau"
+	"layer": "Niveau",
+	"campaign-name": "Nom de campagne",
+	"create-new": "Nouvelle campagne de revalidation",
+	"create-campaign": "Créer campagne",
+	"download-modal-body": "Sélectionnez un type de revalidation pour télécharger le fichier CSV.",
+	"name-placeholder": "Entrez le nom de la campagne"
 }

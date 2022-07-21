@@ -6,6 +6,7 @@ import Fade from '@components/Fade';
 import { useTranslation } from 'react-i18next';
 import DownloadTemplateModal from '@components/Modals/DownloadTemplateModal';
 import { useState } from 'react';
+import NewCampaignModal from '@components/Modals/NewCampaignModal';
 
 const SearchBar = () => {
 	const { t } = useTranslation('userRevalidation');
@@ -18,7 +19,8 @@ const SearchBar = () => {
 
 const NewRevalidation = () => {
 	const { t } = useTranslation('userRevalidation');
-	const [isDownloadOpen, setIsDownloadOpen] = useState(false);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [actionSelected, setActionSelected] = useState('');
 	const campaigns = [
 		{
 			id: 'id1',
@@ -26,6 +28,14 @@ const NewRevalidation = () => {
 			layer: 'OS'
 		}
 	];
+	const modalToOpen = () => {
+		switch (actionSelected) {
+			case 'Download':
+				return <DownloadTemplateModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />;
+			default:
+				return <NewCampaignModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />;
+		}
+	};
 	return (
 		<PageHeader
 			pageTitle='New Revalidation'
@@ -34,13 +44,17 @@ const NewRevalidation = () => {
 					name: 'Download template',
 					icon: Download,
 					onClick: () => {
-						setIsDownloadOpen(true);
+						setIsModalOpen(true);
+						setActionSelected('Download');
 					}
 				},
 				{
 					name: t('new-campaign'),
 					icon: Add,
-					onClick: () => {}
+					onClick: () => {
+						setIsModalOpen(true);
+						setActionSelected('New Campaign');
+					}
 				}
 			]}
 		>
@@ -72,10 +86,7 @@ const NewRevalidation = () => {
 								) : (
 									<NewRevalidationTileContainer />
 								)} */}
-								<DownloadTemplateModal
-									isOpen={isDownloadOpen}
-									setIsOpen={setIsDownloadOpen}
-								/>
+								{isModalOpen && modalToOpen()}
 								<NewRevalidationTileContainer />
 							</div>
 						</div>

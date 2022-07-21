@@ -4,5 +4,10 @@
 	"campaigns": "Campagne",
 	"campaign": "Campagna",
 	"revalidation-type": "Tipo rivalidazione",
-	"layer": "Livello"
+	"layer": "Livello",
+	"campaign-name": "Nome della campagna",
+	"create-new": "Nuova campagna di rivalidazione",
+	"create-campaign": "Crea campagna",
+	"download-modal-body": "Selezionare il tipo di rivalidazione per scaricare il file CSV.",
+	"name-placeholder": "Inserisci nome della campagna"
 }
