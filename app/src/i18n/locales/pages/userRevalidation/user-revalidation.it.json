@@ -15,5 +15,7 @@
 	"send-request": "Invia richiesta di rivalidazione",
 	"collaborators": "Collaboratori",
 	"mandatory-name": "Il nome è obbligatorio",
-	"confirm-delete": "Sei sicuro di voler eliminare {{campaign}}?"
+	"confirm-delete": "Sei sicuro di voler eliminare {{campaign}}?",
+	"no-upload": "Nessun file caricato",
+	"click-to-upload": "Per effettuare il caricamento utilizzare l'apposito pulsante"
 }

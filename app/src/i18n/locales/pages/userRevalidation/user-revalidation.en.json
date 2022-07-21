@@ -15,5 +15,7 @@
 	"send-request": "Send revalidation request",
 	"collaborators": "Collaborators",
 	"mandatory-name": "The name is required",
-	"confirm-delete": "Are you sure you want to delete {{campaign}}?"
+	"confirm-delete": "Are you sure you want to delete {{campaign}}?",
+	"no-upload": "No file uploaded",
+	"click-to-upload": "To upload, use the appropriate button"
 }
