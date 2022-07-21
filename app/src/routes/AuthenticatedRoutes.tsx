@@ -19,6 +19,7 @@ const AdminPanel = React.lazy(() => import('@pages/AdminPanel'));
 const RoleAssignment = React.lazy(() => import('@pages/RoleAssignment'));
 const ApplicationsVisibility = React.lazy(() => import('@pages/ApplicationsVisibility'));
 const NewRevalidation = React.lazy(() => import('@pages/NewRevalidation'));
+const NewRevalidationDetail = React.lazy(() => import('@pages/NewRevalidationDetail'));
 
 const AuthenticatedRoutes = () => {
 	const { canSeeNarrativeManagement, canReviewNarrative, canReview } = usePolicyStore();
@@ -79,6 +80,7 @@ const AuthenticatedRoutes = () => {
 							</Route>
 							<Route path='new-revalidation'>
 								<Route index element={<NewRevalidation />} />
+								<Route path=':campaignId' element={<NewRevalidationDetail />} />
 							</Route>
 							<Route path='admin'>
 								<Route index element={<AdminPanel />} />

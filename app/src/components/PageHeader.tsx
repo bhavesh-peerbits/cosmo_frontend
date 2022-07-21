@@ -8,6 +8,7 @@ import classNames from 'classnames';
 import Fade from '@components/Fade';
 import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
 import Centered from '@components/Centered';
+import ButtonKinds from '@carbon/react/lib/components/Button/ButtonKinds';
 
 interface PageHeaderProps {
 	pageTitle: string;
@@ -19,6 +20,7 @@ interface PageHeaderProps {
 		name: string;
 		icon?: (() => ReactElement) | ReactElement;
 		onClick: () => void;
+		kind?: ButtonKinds;
 	}>;
 	children: ReactElement;
 }
@@ -187,7 +189,7 @@ const PageHeader = ({
 									(actions.length === 2 && (
 										<div className='mt-4 flex flex-col justify-end space-y-2 md:mt-0 lg:flex-row lg:space-x-4 lg:space-y-0'>
 											<Button
-												kind='tertiary'
+												kind={actions[0].kind || 'tertiary'}
 												key={actions[0].name}
 												className='min-w-full lg:min-w-fit'
 												size='md'
@@ -199,6 +201,7 @@ const PageHeader = ({
 											<div className='flex lg:space-x-3'>
 												<Button
 													key={actions[1].name}
+													kind={actions[1].kind || 'primary'}
 													size='md'
 													onClick={actions[1].onClick}
 													renderIcon={actions[1].icon}

@@ -10,5 +10,6 @@
 	"create-campaign": "Create campaign",
 	"download-modal-body": "Select a revalidation type to download the CSV file",
 	"name-placeholder": "Enter campaign name",
-	"no-campaigns": "No campaigns"
+	"no-campaigns": "No campaigns",
+	"send-revalidation": "Send revalidation"
 }
