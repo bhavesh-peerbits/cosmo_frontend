@@ -1,3 +1,4 @@
+import { FileUploaderDropContainer, FileUploaderItem, TextInput } from '@carbon/react';
 import { CreateTearsheet } from '@components/CreateTearsheet';
 import CreateTearsheetStep from '@components/CreateTearsheet/CreateTearsheepStep';
 import { useCallback } from 'react';
@@ -19,7 +20,23 @@ const UploadFileModal = ({ isOpen, setIsOpen }: UploadFileModalProps) => {
 				description='Either drag and drop file to the upload box or choose the file from your devide by clicking in the box.'
 				keyValue='upload'
 			>
-				body
+				<div className='space-y-7'>
+					<div className='space-y-5'>
+						<div>
+							<p className='font-bold'>Revalidation file</p>
+							<p className='text-label-2'>Only .csv files.</p>
+						</div>
+						<div>
+							<FileUploaderDropContainer
+								labelText='Drag and drop files here or upload'
+								accept={['.csv']}
+								className='w-full'
+							/>
+							<FileUploaderItem name='File Name' status='complete' />
+						</div>
+					</div>
+					<TextInput id='application' labelText='Applications' />
+				</div>
 			</CreateTearsheetStep>
 		);
 	}, []);
