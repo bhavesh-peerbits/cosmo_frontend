@@ -21,6 +21,7 @@ const UploadFileModal = ({ isOpen, setIsOpen }: UploadFileModalProps) => {
 	const { t: tRevalidation } = useTranslation('newRevalidation');
 	const {
 		control,
+		reset,
 		formState: { isValid }
 	} = useForm<FormData>({
 		mode: 'onChange'
@@ -104,11 +105,11 @@ const UploadFileModal = ({ isOpen, setIsOpen }: UploadFileModalProps) => {
 			cancelButtonText={t('cancel')}
 			backButtonText={t('back')}
 			nextButtonText={t('next')}
-			description='description'
 			title='Upload File'
 			open={isOpen}
 			onClose={() => {
 				setIsOpen(false);
+				reset();
 			}}
 			onRequestSubmit={() => setIsOpen(false)}
 		>

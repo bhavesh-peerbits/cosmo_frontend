@@ -4,12 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { useRef, useState } from 'react';
 import SendRevalidationModal from '@components/Modals/SendRevalidationModal';
 import DeleteCampaignModal from '@components/Modals/DeleteCampaignModal';
-import NoDataMessage from '@components/NoDataMessage';
-import { Grid, Button } from '@carbon/react';
+import { Grid, Button, Tile } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import TableOfContents from '@components/TableOfContents';
 import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
 import UploadFileModal from '@components/Modals/UploadFileModal';
+import UploadResultsTile from '@components/UserRevalidation/UploadResultsTile';
 
 const NewRevalidationDetail = () => {
 	const { t } = useTranslation('newRevalidation');
@@ -54,42 +54,47 @@ const NewRevalidationDetail = () => {
 				}
 			]}
 		>
-			<TableOfContents
-				stickyOffset={buttonRef.current?.getBoundingClientRect()?.height || 0}
-				tocStickyOffset={breadcrumbSize * 2}
-			>
-				<Grid fullWidth className='h-full'>
-					<FullWidthColumn className='pt-4'>
-						<div className='space-y-4'>
-							<div
-								className='flex w-full flex-wrap items-center md:space-x-4'
-								ref={buttonRef}
-							>
-								<Button
-									size='md'
-									kind='tertiary'
-									renderIcon={Upload}
-									className='md:max-w-auto w-full max-w-full md:w-auto'
-									onClick={() => {
-										setIsModalOpen(true);
-										setActionSelected('Upload');
-									}}
+			<div className='pl-5'>
+				<TableOfContents
+					stickyOffset={buttonRef.current?.getBoundingClientRect()?.height || 0}
+					tocStickyOffset={breadcrumbSize * 2}
+				>
+					<Grid fullWidth className='h-full'>
+						<FullWidthColumn className='pt-4'>
+							<div className='space-y-4'>
+								<div
+									className='flex w-full flex-wrap items-center md:space-x-4'
+									ref={buttonRef}
 								>
-									Upload file
-								</Button>
-							</div>
-							<div className='space-y-7'>
-								<NoDataMessage
+									<Button
+										size='md'
+										kind='tertiary'
+										renderIcon={Upload}
+										className='md:max-w-auto w-full max-w-full md:w-auto'
+										onClick={() => {
+											setIsModalOpen(true);
+											setActionSelected('Upload');
+										}}
+									>
+										Upload file
+									</Button>
+								</div>
+								<div className=' pb-7'>
+									{/* <NoDataMessage
 									className='mt-10 p-5'
 									title={`${t('no-upload')}`}
 									subtitle={`${t('click-to-upload')}.`}
-								/>
+								/> */}
+									<Tile className='bg-background'>
+										<UploadResultsTile />
+									</Tile>
+								</div>
+								{isModalOpen && modalToOpen()}
 							</div>
-							{isModalOpen && modalToOpen()}
-						</div>
-					</FullWidthColumn>
-				</Grid>
-			</TableOfContents>
+						</FullWidthColumn>
+					</Grid>
+				</TableOfContents>
+			</div>
 		</PageHeader>
 	);
 };
