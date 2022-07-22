@@ -24,6 +24,11 @@ import {
 	tiptapEditorIt
 } from '@i18n/locales/components/tiptap-editor';
 import {
+	applicationSelectEn,
+	applicationSelectFr,
+	applicationSelectIt
+} from './components/application-select';
+import {
 	narrativeAdminEn,
 	narrativeAdminFr,
 	narrativeAdminIt
@@ -37,10 +42,10 @@ import {
 } from './pages/reviewNarrative';
 import { homeEn, homeIt, homeFr } from './pages/home';
 import {
-	userRevalidationEn,
-	userRevalidationFr,
-	userRevalidationIt
-} from './pages/userRevalidation';
+	newRevalidationEn,
+	newRevalidationFr,
+	newRevalidationIt
+} from './pages/newRevalidation';
 import { testEn, testIt } from './pages/test';
 import {
 	errorBoundaryEn,
@@ -58,10 +63,11 @@ export default {
 		management: managementEn,
 		narrativeAdmin: narrativeAdminEn,
 		reviewNarrative: reviewNarrativeEn,
-		userRevalidation: userRevalidationEn,
+		newRevalidation: newRevalidationEn,
 		changes: changesEn,
 		userAdmin: userAdminEn,
 		userSelect: userSelectEn,
+		applicationSelect: applicationSelectEn,
 		tiptapEditor: tiptapEditorEn,
 		table: tableEn,
 		applicationInfo: applicationInfoEn,
@@ -77,10 +83,11 @@ export default {
 		management: managementIt,
 		narrativeAdmin: narrativeAdminIt,
 		reviewNarrative: reviewNarrativeIt,
-		userRevalidation: userRevalidationIt,
+		newRevalidation: newRevalidationIt,
 		changes: changesIt,
 		userAdmin: userAdminIt,
 		userSelect: userSelectIt,
+		applicationSelect: applicationSelectIt,
 		tiptapEditor: tiptapEditorIt,
 		table: tableIt,
 		applicationInfo: applicationInfoIt,
@@ -95,10 +102,11 @@ export default {
 		management: managementFr,
 		narrativeAdmin: narrativeAdminFr,
 		reviewNarrative: reviewNarrativeFr,
-		userRevalidation: userRevalidationFr,
+		newRevalidation: newRevalidationFr,
 		changes: changesFr,
 		userAdmin: userAdminFr,
 		userSelect: userSelectFr,
+		applicationSelect: applicationSelectFr,
 		tiptapEditor: tiptapEditorFr,
 		table: tableFr,
 		applicationInfo: applicationInfoFr,

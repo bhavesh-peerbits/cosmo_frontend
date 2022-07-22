@@ -12,7 +12,7 @@ import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
 import UploadFileModal from '@components/Modals/UploadFileModal';
 
 const NewRevalidationDetail = () => {
-	const { t } = useTranslation('userRevalidation');
+	const { t } = useTranslation('newRevalidation');
 	const { t: tModals } = useTranslation('modals');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [actionSelected, setActionSelected] = useState('');

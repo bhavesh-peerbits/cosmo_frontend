@@ -1,7 +1,7 @@
 import { Accordion, AccordionItem, Checkbox } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import useResponsive from '@hooks/useResponsive';
-import useRevalidations from '@hooks/user-revalidation.ts/useRevalidations';
+import useRevalidations from '@hooks/user-revalidation/useRevalidations';
 
 const RevalidationsFilters = () => {
 	const { t } = useTranslation('management');

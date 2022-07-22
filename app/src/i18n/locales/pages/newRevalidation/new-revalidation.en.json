@@ -17,5 +17,7 @@
 	"mandatory-name": "The name is required",
 	"confirm-delete": "Are you sure you want to delete {{campaign}}?",
 	"no-upload": "No file uploaded",
-	"click-to-upload": "To upload, use the appropriate button"
+	"click-to-upload": "To upload, use the appropriate button",
+	"upload-file": "Upload revalidation file",
+	"upload-instructions": "Either drag and drop file to the upload box or choose the file from your device by clicking in the box"
 }

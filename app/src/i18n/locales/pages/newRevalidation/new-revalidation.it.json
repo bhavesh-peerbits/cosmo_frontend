@@ -17,5 +17,7 @@
 	"mandatory-name": "Il nome è obbligatorio",
 	"confirm-delete": "Sei sicuro di voler eliminare {{campaign}}?",
 	"no-upload": "Nessun file caricato",
-	"click-to-upload": "Per effettuare il caricamento utilizzare l'apposito pulsante"
+	"click-to-upload": "Per effettuare il caricamento utilizzare l'apposito pulsante",
+	"upload-file": "Carica il file di rivalidazione",
+	"upload-instructions": "Trascina e rilascia il file nel riquadro di caricamento o scegli il file dal tuo dispositivo facendo clic nella nel riquadro"
 }

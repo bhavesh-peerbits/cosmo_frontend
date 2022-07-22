@@ -17,7 +17,7 @@ type DownloadTemplateModalProps = {
 
 const DownloadTemplateModal = ({ isOpen, setIsOpen }: DownloadTemplateModalProps) => {
 	const { t } = useTranslation('modals');
-	const { t: tRevalidation } = useTranslation('userRevalidation');
+	const { t: tRevalidation } = useTranslation('newRevalidation');
 	const [, setTypeSelected] = useState('');
 	const cleanUp = () => {
 		setIsOpen(false);

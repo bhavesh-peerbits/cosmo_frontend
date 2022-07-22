@@ -1,0 +1,14 @@
+{
+	"remove": "Supprimer",
+	"add-application": "Ajouter une application",
+	"select-application": "Sélectionner l'application",
+	"applications": "Applications",
+	"no-results": "Aucun résultat",
+	"different-keywords": "Essayez avec différents mots-clés",
+	"select": "Sélectionner",
+	"search-results": "Résultats de recherche",
+	"select-single": "Sélectionnez une seule application dans la liste",
+	"search-label": "Search application",
+	"search-placeholder": "Rechercher par nom d'application",
+	"cancel": "Annuler"
+}

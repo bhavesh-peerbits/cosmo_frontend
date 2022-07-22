@@ -14,7 +14,7 @@ type DeleteModalProps = {
 
 const DeleteCampaignModal = ({ isOpen, setIsOpen }: DeleteModalProps) => {
 	const { t } = useTranslation('modals');
-	const { t: tUser } = useTranslation('userRevalidation');
+	const { t: tUser } = useTranslation('newRevalidation');
 
 	const cleanUp = () => {
 		setIsOpen(false);

@@ -8,13 +8,13 @@ import DownloadTemplateModal from '@components/Modals/DownloadTemplateModal';
 import { useState } from 'react';
 import NewCampaignModal from '@components/Modals/NewCampaignModal';
 import RevalidationsFilters from '@components/UserRevalidation/RevalidationsFilters';
-import useRevalidations from '@hooks/user-revalidation.ts/useRevalidations';
+import useRevalidations from '@hooks/user-revalidation/useRevalidations';
 import Centered from '@components/Centered';
 import NoDataMessage from '@components/NoDataMessage';
 
 const SearchBar = () => {
 	const { filters, setFilters } = useRevalidations();
-	const { t } = useTranslation('userRevalidation');
+	const { t } = useTranslation('newRevalidation');
 	return (
 		<Layer className='ml-5 w-full'>
 			<Search
@@ -29,7 +29,7 @@ const SearchBar = () => {
 };
 
 const NewRevalidation = () => {
-	const { t } = useTranslation('userRevalidation');
+	const { t } = useTranslation('newRevalidation');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [actionSelected, setActionSelected] = useState('');
 	const { revalidations } = useRevalidations();

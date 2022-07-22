@@ -30,7 +30,7 @@ type FormData = {
 
 const SendCampaignModal = ({ isOpen, setIsOpen }: DeleteModalProps) => {
 	const { t } = useTranslation('modals');
-	const { t: tUser } = useTranslation('userRevalidation');
+	const { t: tUser } = useTranslation('newRevalidation');
 	const { t: tReview } = useTranslation('reviewNarrative');
 	const {
 		control,

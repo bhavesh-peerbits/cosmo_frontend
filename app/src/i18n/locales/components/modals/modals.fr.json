@@ -43,5 +43,7 @@
 	"user": "Utilisateur",
 	"add-user": "Ajouter utilisateur",
 	"body-add": "Veuillez remplir tous les champs obligatoires, puis cliquez sur {{action}}",
-	"exists": "{{value}} existe déjà."
+	"exists": "{{value}} existe déjà.",
+	"back": "Retour",
+	"next": "Suivant"
 }

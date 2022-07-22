@@ -17,5 +17,7 @@
 	"mandatory-name": "Le nom est obligatoire",
 	"confirm-delete": "Etes-vous sûr que vous voulez supprimer {{campaign}}?",
 	"no-upload": "Aucun fichier uploadé",
-	"click-to-upload": "Pour télécharger, utilisez le bouton approprié"
+	"click-to-upload": "Pour télécharger, utilisez le bouton approprié",
+	"upload-file": "Télécharger le fichier de revalidation",
+	"upload-instructions": "Faites glisser et déposez le fichier dans la boîte de téléchargement ou choisissez le fichier de votre appareil en cliquant dans la boîte"
 }

@@ -1,30 +1,39 @@
-import { FileUploaderDropContainer, FileUploaderItem, TextInput } from '@carbon/react';
+import { FileUploaderDropContainer, FileUploaderItem } from '@carbon/react';
 import { CreateTearsheet } from '@components/CreateTearsheet';
 import CreateTearsheetStep from '@components/CreateTearsheet/CreateTearsheepStep';
+import SingleApplicationSelect from '@components/SingleApplicationSelect';
+import Application from '@model/Application';
 import { useCallback } from 'react';
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 type UploadFileModalProps = {
 	isOpen: boolean;
 	setIsOpen: (value: boolean) => void;
 };
+type FormData = {
+	application: Application;
+};
 
 const UploadFileModal = ({ isOpen, setIsOpen }: UploadFileModalProps) => {
 	const { t } = useTranslation('modals');
-	const { t: tManagement } = useTranslation('management');
+	const { t: tRevalidation } = useTranslation('newRevalidation');
+	const { control } = useForm<FormData>({
+		mode: 'onChange'
+	});
 	const uploadStep = useCallback(() => {
 		return (
 			<CreateTearsheetStep
-				title='Upload Revalidation File'
+				title={tRevalidation('upload-file')}
 				hasFieldset={false}
-				description='Either drag and drop file to the upload box or choose the file from your devide by clicking in the box.'
+				description={`${tRevalidation('upload-instructions')}.`}
 				keyValue='upload'
 			>
 				<div className='space-y-7'>
 					<div className='space-y-5'>
 						<div>
-							<p className='font-bold'>Revalidation file</p>
-							<p className='text-label-2'>Only .csv files.</p>
+							<p className='font-bold'>Revalidation</p>
+							<p className='text-label-2'>Sono consentiti ammessi solo file .csv</p>
 						</div>
 						<div>
 							<FileUploaderDropContainer
@@ -35,11 +44,22 @@ const UploadFileModal = ({ isOpen, setIsOpen }: UploadFileModalProps) => {
 							<FileUploaderItem name='File Name' status='complete' />
 						</div>
 					</div>
-					<TextInput id='application' labelText='Applications' />
+					<SingleApplicationSelect
+						level={2}
+						label='Application related to this revalidation'
+						name='application.name'
+						rules={{
+							required: {
+								value: true,
+								message: 'Application required'
+							}
+						}}
+						control={control}
+					/>
 				</div>
 			</CreateTearsheetStep>
 		);
-	}, []);
+	}, [control, tRevalidation]);
 
 	const confirmStep = useCallback(() => {
 		return (
@@ -60,8 +80,8 @@ const UploadFileModal = ({ isOpen, setIsOpen }: UploadFileModalProps) => {
 			influencerWidth='narrow'
 			submitButtonText='Upload File'
 			cancelButtonText={t('cancel')}
-			backButtonText={tManagement('back')}
-			nextButtonText={tManagement('next')}
+			backButtonText={t('back')}
+			nextButtonText={t('next')}
 			description='description'
 			title='Upload File'
 			open={isOpen}
