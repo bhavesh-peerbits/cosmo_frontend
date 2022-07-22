@@ -25,5 +25,8 @@
 	"type-supported": "Seuls les fichiers .{{type}} sont acceptés",
 	"upload-box-description": "Faites glisser et déposez les fichiers ici ou cliquez pour télécharger",
 	"app-related": "Application liée à la revalidation",
-	"app-required": "L'application est obligatoire"
+	"app-required": "L'application est obligatoire",
+	"results": "Résultats",
+	"revalidators": "Revalidateurs",
+	"users-to-revalidate": "Utilisateurs à revalider"
 }

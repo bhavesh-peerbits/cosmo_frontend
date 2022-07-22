@@ -25,5 +25,8 @@
 	"type-supported": "Sono supportati solo file .{{type}}",
 	"upload-box-description": "Trascina i file qui o fai clic per caricarli",
 	"app-related": "Applicazione relativa alla rivalidazione",
-	"app-required": "L'applicazione è obbligatoria"
+	"app-required": "L'applicazione è obbligatoria",
+	"results": "Risultati",
+	"revalidators": "Rivalidatori",
+	"users-to-revalidate": "Utenti da rivalidare"
 }

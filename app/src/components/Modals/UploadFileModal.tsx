@@ -1,6 +1,7 @@
-import { FileUploaderDropContainer, FileUploaderItem } from '@carbon/react';
+import { FileUploaderDropContainer, FileUploaderItem, Grid } from '@carbon/react';
 import { CreateTearsheet } from '@components/CreateTearsheet';
 import CreateTearsheetStep from '@components/CreateTearsheet/CreateTearsheepStep';
+import FullWidthColumn from '@components/FullWidthColumn';
 import SingleApplicationSelect from '@components/SingleApplicationSelect';
 import Application from '@model/Application';
 import { useCallback } from 'react';
@@ -71,16 +72,30 @@ const UploadFileModal = ({ isOpen, setIsOpen }: UploadFileModalProps) => {
 	const confirmStep = useCallback(() => {
 		return (
 			<CreateTearsheetStep
-				title='Confirm'
+				title={tRevalidation('results')}
 				hasFieldset={false}
-				subtitle='subtitle'
-				description='description'
 				keyValue='confirm'
 			>
-				body
+				<Grid className='space-y-3 divide-y-[1px] divide-solid divide-border-subtle-0'>
+					<FullWidthColumn className='flex space-x-9'>
+						<div className='flex-col'>
+							<p className='text-text-secondary text-helper-text-1'>
+								{tRevalidation('revalidators')}
+							</p>
+							<p className='text-heading-4'>8</p>
+						</div>
+						<div className='w-full flex-col'>
+							<p className='text-text-secondary text-helper-text-1'>
+								{tRevalidation('users-to-revalidate')}
+							</p>
+							<p className='text-heading-4'>8</p>
+						</div>
+					</FullWidthColumn>
+					<FullWidthColumn>Table goes here</FullWidthColumn>
+				</Grid>
 			</CreateTearsheetStep>
 		);
-	}, []);
+	}, [tRevalidation]);
 
 	return (
 		<CreateTearsheet

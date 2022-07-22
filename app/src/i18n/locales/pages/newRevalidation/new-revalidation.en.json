@@ -25,5 +25,8 @@
 	"type-supported": "Only .{{type}} files are supported",
 	"upload-box-description": "Drag and drop files here or click to upload",
 	"app-related": "Application related to revalidation",
-	"app-required": "Application is required"
+	"app-required": "Application is required",
+	"results": "Results",
+	"revalidators": "Revalidators",
+	"users-to-revalidate": "Users to revalidate"
 }
