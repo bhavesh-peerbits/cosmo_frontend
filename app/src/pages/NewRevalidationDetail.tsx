@@ -9,14 +9,26 @@ import { Grid, Button } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import TableOfContents from '@components/TableOfContents';
 import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
+import UploadFileModal from '@components/Modals/UploadFileModal';
 
 const NewRevalidationDetail = () => {
 	const { t } = useTranslation('userRevalidation');
 	const { t: tModals } = useTranslation('modals');
-	const [isSendModalOpen, setIsSendModalOpen] = useState(false);
-	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [actionSelected, setActionSelected] = useState('');
 	const buttonRef = useRef<HTMLDivElement>(null);
 	const { breadcrumbSize } = useBreadcrumbSize();
+
+	const modalToOpen = () => {
+		switch (actionSelected) {
+			case 'Send':
+				return <SendRevalidationModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />;
+			case 'Delete':
+				return <DeleteCampaignModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />;
+			default:
+				return <UploadFileModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />;
+		}
+	};
 	return (
 		<PageHeader
 			pageTitle='Campagna'
@@ -27,7 +39,8 @@ const NewRevalidationDetail = () => {
 					icon: Email,
 					kind: 'primary',
 					onClick: () => {
-						setIsSendModalOpen(true);
+						setIsModalOpen(true);
+						setActionSelected('Send');
 					}
 				},
 				{
@@ -35,49 +48,48 @@ const NewRevalidationDetail = () => {
 					icon: TrashCan,
 					kind: 'danger',
 					onClick: () => {
-						setIsDeleteModalOpen(true);
+						setIsModalOpen(true);
+						setActionSelected('Delete');
 					}
 				}
 			]}
 		>
-			<>
-				<SendRevalidationModal isOpen={isSendModalOpen} setIsOpen={setIsSendModalOpen} />
-				<DeleteCampaignModal
-					isOpen={isDeleteModalOpen}
-					setIsOpen={setIsDeleteModalOpen}
-				/>
-				<TableOfContents
-					stickyOffset={buttonRef.current?.getBoundingClientRect()?.height || 0}
-					tocStickyOffset={breadcrumbSize * 2}
-				>
-					<Grid fullWidth className='h-full'>
-						<FullWidthColumn className='pt-4'>
-							<div className='space-y-4'>
-								<div
-									className='flex w-full flex-wrap items-center md:space-x-4'
-									ref={buttonRef}
+			<TableOfContents
+				stickyOffset={buttonRef.current?.getBoundingClientRect()?.height || 0}
+				tocStickyOffset={breadcrumbSize * 2}
+			>
+				<Grid fullWidth className='h-full'>
+					<FullWidthColumn className='pt-4'>
+						<div className='space-y-4'>
+							<div
+								className='flex w-full flex-wrap items-center md:space-x-4'
+								ref={buttonRef}
+							>
+								<Button
+									size='md'
+									kind='tertiary'
+									renderIcon={Upload}
+									className='md:max-w-auto w-full max-w-full md:w-auto'
+									onClick={() => {
+										setIsModalOpen(true);
+										setActionSelected('Upload');
+									}}
 								>
-									<Button
-										size='md'
-										kind='tertiary'
-										renderIcon={Upload}
-										className='md:max-w-auto w-full max-w-full md:w-auto'
-									>
-										Upload file
-									</Button>
-								</div>
-								<div className='space-y-7'>
-									<NoDataMessage
-										className='mt-10 p-5'
-										title={t('no-upload')}
-										subtitle={t('click-to-upload')}
-									/>
-								</div>
+									Upload file
+								</Button>
 							</div>
-						</FullWidthColumn>
-					</Grid>
-				</TableOfContents>
-			</>
+							<div className='space-y-7'>
+								<NoDataMessage
+									className='mt-10 p-5'
+									title={`${t('no-upload')}`}
+									subtitle={`${t('click-to-upload')}.`}
+								/>
+							</div>
+							{isModalOpen && modalToOpen()}
+						</div>
+					</FullWidthColumn>
+				</Grid>
+			</TableOfContents>
 		</PageHeader>
 	);
 };
