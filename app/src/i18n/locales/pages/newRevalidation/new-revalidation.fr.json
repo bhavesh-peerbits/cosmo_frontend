@@ -19,5 +19,11 @@
 	"no-upload": "Aucun fichier uploadé",
 	"click-to-upload": "Pour télécharger, utilisez le bouton approprié",
 	"upload-file": "Télécharger le fichier de revalidation",
-	"upload-instructions": "Faites glisser et déposez le fichier dans la boîte de téléchargement ou choisissez le fichier de votre appareil en cliquant dans la boîte"
+	"upload-instructions": "Faites glisser et déposez le fichier dans la boîte de téléchargement ou choisissez le fichier de votre appareil en cliquant dans la boîte",
+	"due-date": "Date d'expiration",
+	"revalidation-file": "Fichier de revalidation",
+	"type-supported": "Seuls les fichiers .{{type}} sont acceptés",
+	"upload-box-description": "Faites glisser et déposez les fichiers ici ou cliquez pour télécharger",
+	"app-related": "Application liée à la revalidation",
+	"app-required": "L'application est obligatoire"
 }

@@ -30,8 +30,7 @@ type FormData = {
 
 const SendCampaignModal = ({ isOpen, setIsOpen }: DeleteModalProps) => {
 	const { t } = useTranslation('modals');
-	const { t: tUser } = useTranslation('newRevalidation');
-	const { t: tReview } = useTranslation('reviewNarrative');
+	const { t: tRevalidation } = useTranslation('newRevalidation');
 	const {
 		control,
 		register,
@@ -48,21 +47,21 @@ const SendCampaignModal = ({ isOpen, setIsOpen }: DeleteModalProps) => {
 
 	return (
 		<ComposedModal preventCloseOnClickOutside open={isOpen} onClose={cleanUp}>
-			<ModalHeader title={tUser('send-request')} closeModal={cleanUp} />
+			<ModalHeader title={tRevalidation('send-request')} closeModal={cleanUp} />
 			<ModalBody hasForm>
-				{t('body-add', { action: `"${tUser('send-revalidation')}".` })}
+				{t('body-add', { action: `"${tRevalidation('send-revalidation')}".` })}
 				<Grid className='mt-5'>
 					<Column lg={8} md={4} sm={4} className='mb-5'>
 						<TextInput
 							id='campaign-name'
-							labelText={`${tUser('campaign-name')} *`}
+							labelText={`${tRevalidation('campaign-name')} *`}
 							invalid={Boolean(errors.campaignName)}
 							invalidText={errors.campaignName?.message}
 							className='w-full grow-0'
 							{...register('campaignName', {
 								required: {
 									value: true,
-									message: `${tUser('mandatory-name')}.`
+									message: `${tRevalidation('mandatory-name')}.`
 								}
 							})}
 							// TODO fix campaign name as default value
@@ -71,7 +70,7 @@ const SendCampaignModal = ({ isOpen, setIsOpen }: DeleteModalProps) => {
 					<Column lg={8} md={4} sm={4} className='mb-5'>
 						<MultipleUserSelect
 							control={control}
-							label={tUser('collaborators')}
+							label={tRevalidation('collaborators')}
 							name='collaborators'
 							level={2}
 							tooltipPosition='left'
@@ -81,7 +80,7 @@ const SendCampaignModal = ({ isOpen, setIsOpen }: DeleteModalProps) => {
 						<DatePickerWrapper
 							control={control}
 							name='dueDate'
-							label={`${tReview('due-date')} *`}
+							label={`${tRevalidation('due-date')} *`}
 							rules={{
 								required: {
 									value: true,
@@ -97,7 +96,7 @@ const SendCampaignModal = ({ isOpen, setIsOpen }: DeleteModalProps) => {
 				<Button kind='secondary' onClick={cleanUp}>
 					{t('cancel')}
 				</Button>
-				<Button disabled={!isValid}>{tUser('send-revalidation')}</Button>
+				<Button disabled={!isValid}>{tRevalidation('send-revalidation')}</Button>
 			</ModalFooter>
 		</ComposedModal>
 	);

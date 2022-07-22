@@ -19,5 +19,11 @@
 	"no-upload": "No file uploaded",
 	"click-to-upload": "To upload, use the appropriate button",
 	"upload-file": "Upload revalidation file",
-	"upload-instructions": "Either drag and drop file to the upload box or choose the file from your device by clicking in the box"
+	"upload-instructions": "Either drag and drop file to the upload box or choose the file from your device by clicking in the box",
+	"due-date": "Due date",
+	"revalidation-file": "Revalidation file",
+	"type-supported": "Only .{{type}} files are supported",
+	"upload-box-description": "Drag and drop files here or click to upload",
+	"app-related": "Application related to revalidation",
+	"app-required": "Application is required"
 }

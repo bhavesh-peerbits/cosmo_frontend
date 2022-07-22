@@ -4,7 +4,7 @@ import useResponsive from '@hooks/useResponsive';
 import useRevalidations from '@hooks/user-revalidation/useRevalidations';
 
 const RevalidationsFilters = () => {
-	const { t } = useTranslation('management');
+	const { t } = useTranslation('newRevalidation');
 	const { filtersAvailable, setFilters } = useRevalidations();
 	const { md } = useResponsive();
 
@@ -28,17 +28,7 @@ const RevalidationsFilters = () => {
 	return (
 		<div className='flex flex-col'>
 			<Accordion className='divide-y'>
-				<AccordionItem title='Revalidation type' className='border-0' open={md}>
-					<Checkbox
-						labelText={t('all')}
-						id='type-all'
-						checked={filtersAvailable.type.every(f => f.enabled)}
-						onChange={(_, { checked }) =>
-							setFilters({
-								type: checked ? filtersAvailable.type.map(({ type }) => type) : []
-							})
-						}
-					/>
+				<AccordionItem title={t('revalidation-type')} className='border-0' open={md}>
 					{filtersAvailable.type.map(filter => (
 						<Checkbox
 							key={filter.type}
@@ -51,17 +41,7 @@ const RevalidationsFilters = () => {
 						/>
 					))}
 				</AccordionItem>
-				<AccordionItem title='Revalidation Layer' className='border-0' open={md}>
-					<Checkbox
-						labelText={t('all')}
-						id='layer-all'
-						checked={filtersAvailable.layer.every(f => f.enabled)}
-						onChange={(_, { checked }) =>
-							setFilters({
-								layer: checked ? filtersAvailable.layer.map(({ layer }) => layer) : []
-							})
-						}
-					/>
+				<AccordionItem title={t('layer')} className='border-0' open={md}>
 					{filtersAvailable.layer.map(filter => (
 						<Checkbox
 							key={filter.layer}

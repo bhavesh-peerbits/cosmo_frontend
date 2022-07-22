@@ -1,7 +1,7 @@
 {
 	"remove": "Supprimer",
 	"add-application": "Ajouter une application",
-	"select-application": "Sélectionner l'application",
+	"select-app": "Sélectionner l'application",
 	"applications": "Applications",
 	"no-results": "Aucun résultat",
 	"different-keywords": "Essayez avec différents mots-clés",
