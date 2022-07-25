@@ -7,6 +7,7 @@ import { useState } from 'react';
 import CloseCampaignModal from '@components/Modals/CloseCampaignModal';
 import useGetUsers from '@api/user/useGetUsers';
 import MultiAddSelect from '@components/MultiAddSelect';
+import CampaignDetailsContainer from '@components/UserRevalidation/CampaignDetailsContainer';
 
 const CampaignDetail = () => {
 	const { t } = useTranslation('userRevalidation');
@@ -55,13 +56,19 @@ const CampaignDetail = () => {
 					</TabList>
 					<TabPanels>
 						<TabPanel>
-							<div>ciao</div>
+							<div>
+								<CampaignDetailsContainer />
+							</div>
 						</TabPanel>
 						<TabPanel>
-							<div>ciao</div>
+							<div>
+								<CampaignDetailsContainer />
+							</div>
 						</TabPanel>
 						<TabPanel>
-							<div>ciao3</div>
+							<div>
+								<CampaignDetailsContainer />
+							</div>
 						</TabPanel>
 					</TabPanels>
 				</StickyTabs>

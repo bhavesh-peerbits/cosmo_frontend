@@ -51,6 +51,7 @@ interface CosmoTableProps<D extends object> {
 	}) => string;
 	disableExport?: boolean;
 	excludeCurrentView?: boolean;
+	level?: 0 | 1 | 2;
 }
 
 const CosmoTable = <D extends object>({
@@ -61,7 +62,8 @@ const CosmoTable = <D extends object>({
 	isSelectable,
 	exportFileName,
 	disableExport,
-	excludeCurrentView
+	excludeCurrentView,
+	level
 }: CosmoTableProps<D>) => {
 	const { t } = useTranslation('table');
 	const [showMore, setShowMore] = useState('');
@@ -183,7 +185,7 @@ const CosmoTable = <D extends object>({
 				disableExport={data.length === 0}
 			/>
 
-			<Layer level={1}>
+			<Layer level={level || 1}>
 				<Table>
 					<TableHead>
 						{getHeaderGroups().map(headerGroup => {
