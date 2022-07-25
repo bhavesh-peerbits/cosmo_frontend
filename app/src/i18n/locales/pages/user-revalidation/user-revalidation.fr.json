@@ -28,5 +28,7 @@
 	"app-required": "L'application est obligatoire",
 	"results": "Résultats",
 	"revalidators": "Revalidateurs",
-	"users-to-revalidate": "Utilisateurs à revalider"
+	"users-to-revalidate": "Utilisateurs à revalider",
+	"status": "État",
+	"application": "Application"
 }

@@ -28,5 +28,7 @@
 	"app-required": "Application is required",
 	"results": "Results",
 	"revalidators": "Revalidators",
-	"users-to-revalidate": "Users to revalidate"
+	"users-to-revalidate": "Users to revalidate",
+	"status": "Status",
+	"application": "Application"
 }

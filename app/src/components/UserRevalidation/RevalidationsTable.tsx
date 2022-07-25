@@ -1,4 +1,6 @@
-import CosmoTable, { HeaderFunction } from '@components/table/CosmoTable';
+import { TableToolbarSearch } from '@carbon/react';
+import { HeaderFunction } from '@components/table/CosmoTable';
+import GroupedCosmoTable from '@components/table/GroupedCosmoTable';
 import { formatDate } from '@i18n';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -23,7 +25,7 @@ const RevalidationsTable = () => {
 			layer: 'OS',
 			dueDate: new Date(),
 			startDate: new Date(),
-			status: 'ongoing',
+			status: 'Ongoing',
 			application: 'Application Name'
 		},
 		{
@@ -33,28 +35,28 @@ const RevalidationsTable = () => {
 			layer: 'DB',
 			dueDate: new Date(),
 			startDate: new Date(),
-			status: 'ongoing',
+			status: 'Ongoing',
 			application: 'Application Very Very Very Very Very Very Very Very Very Very Name'
 		},
 		{
 			id: 'id3',
-			name: 'Very Very Very Very Very long Name',
+			name: 'Campaign Name1',
 			type: 'User Access Review',
 			layer: 'OS',
 			dueDate: new Date(),
 			startDate: new Date(),
-			status: 'ongoing',
-			application: 'Application Name'
+			status: 'Ongoing',
+			application: 'Application Name1'
 		},
 		{
 			id: 'id4',
-			name: 'Campaign Name',
+			name: 'Campaign Name1',
 			type: 'Firefight',
 			layer: 'Software',
 			dueDate: new Date(),
 			startDate: new Date(),
-			status: 'ongoing',
-			application: 'Application Name'
+			status: 'Ongoing',
+			application: 'Application Name2'
 		}
 	];
 	const columns: HeaderFunction<Campaign> = useCallback(
@@ -66,7 +68,7 @@ const RevalidationsTable = () => {
 			}),
 			table.createDataColumn(row => row.dueDate, {
 				id: 'due-date',
-				header: 'Due Date',
+				header: t('due-date'),
 				cell: info => {
 					const date = info.getValue();
 					return date ? formatDate(date, 'short') : '-';
@@ -82,15 +84,29 @@ const RevalidationsTable = () => {
 			}),
 			table.createDataColumn(row => row.application, {
 				id: 'application',
-				header: 'app'
+				header: t('application')
 			}),
 			table.createDataColumn(row => row.status, {
-				id: 'role',
-				header: 'status'
+				id: 'status',
+				header: t('status')
 			})
 		],
 		[t]
 	);
-	return <CosmoTable data={campaigns} createHeaders={columns} />;
+	const toolbarContent = (
+		<TableToolbarSearch
+			size='lg'
+			persistent
+			placeholder={t('search-placeholder')}
+			id='search'
+		/>
+	);
+	return (
+		<GroupedCosmoTable
+			data={campaigns}
+			createHeaders={columns}
+			toolbar={{ toolbarContent }}
+		/>
+	);
 };
 export default RevalidationsTable;
