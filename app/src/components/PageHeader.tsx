@@ -128,7 +128,7 @@ const PageHeader = ({
 			<div className='h-full bg-background md:pt-10'>
 				<Grid className='items-end space-y-4 pb-7 md:space-y-10'>
 					<FullWidthColumn>
-						<Grid fullWidth>
+						<Grid fullWidth className='xlg:flex xlg:justify-between'>
 							<Column sm={4} md={5} lg={6} xlg={8}>
 								<h2
 									ref={pageTitleRef}
@@ -166,7 +166,7 @@ const PageHeader = ({
 												<Button
 													key={actions[1].name}
 													size='md'
-													className='w-1/2'
+													className='w-1/2 xlg:w-fit'
 													onClick={actions[1].onClick}
 													renderIcon={actions[1].icon}
 												>
@@ -177,7 +177,7 @@ const PageHeader = ({
 													key={actions[2].name}
 													size='md'
 													kind='danger'
-													className='w-1/2'
+													className='w-1/2 xlg:w-fit'
 													renderIcon={actions[2].icon}
 													onClick={actions[2].onClick}
 												>
