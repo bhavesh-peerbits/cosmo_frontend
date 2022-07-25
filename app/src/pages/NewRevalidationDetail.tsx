@@ -12,7 +12,7 @@ import UploadFileModal from '@components/Modals/UploadFileModal';
 import UploadResultsTile from '@components/UserRevalidation/UploadResultsTile';
 
 const NewRevalidationDetail = () => {
-	const { t } = useTranslation('newRevalidation');
+	const { t } = useTranslation('userRevalidation');
 	const { t: tModals } = useTranslation('modals');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [actionSelected, setActionSelected] = useState('');

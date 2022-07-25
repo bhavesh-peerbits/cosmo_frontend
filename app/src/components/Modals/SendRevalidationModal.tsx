@@ -29,7 +29,7 @@ type FormData = {
 
 const SendCampaignModal = ({ isOpen, setIsOpen }: DeleteModalProps) => {
 	const { t } = useTranslation('modals');
-	const { t: tRevalidation } = useTranslation('newRevalidation');
+	const { t: tRevalidation } = useTranslation('userRevalidation');
 	const {
 		control,
 		register,

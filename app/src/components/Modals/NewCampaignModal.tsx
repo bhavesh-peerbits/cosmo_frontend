@@ -20,7 +20,7 @@ type NewCampaignModalProps = {
 
 const NewCampaignModal = ({ isOpen, setIsOpen }: NewCampaignModalProps) => {
 	const { t } = useTranslation('modals');
-	const { t: tRevalidation } = useTranslation('newRevalidation');
+	const { t: tRevalidation } = useTranslation('userRevalidation');
 	const [, setTypeSelected] = useState('');
 	const [, setLayerSelected] = useState('');
 	const cleanUp = () => {

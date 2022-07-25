@@ -11,7 +11,7 @@ type NewRevalidationTileProps = {
 	};
 };
 const NewRevalidationTile = ({ revalidation }: NewRevalidationTileProps) => {
-	const { t } = useTranslation('newRevalidation');
+	const { t } = useTranslation('userRevalidation');
 	const { t: tModals } = useTranslation('modals');
 	const navigate = useNavigate();
 	return (

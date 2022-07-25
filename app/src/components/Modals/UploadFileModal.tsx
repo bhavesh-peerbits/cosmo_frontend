@@ -18,7 +18,7 @@ type FormData = {
 
 const UploadFileModal = ({ isOpen, setIsOpen }: UploadFileModalProps) => {
 	const { t } = useTranslation('modals');
-	const { t: tRevalidation } = useTranslation('newRevalidation');
+	const { t: tRevalidation } = useTranslation('userRevalidation');
 	const {
 		control,
 		reset,

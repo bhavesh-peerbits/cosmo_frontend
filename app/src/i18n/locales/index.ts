@@ -42,10 +42,10 @@ import {
 } from './pages/reviewNarrative';
 import { homeEn, homeIt, homeFr } from './pages/home';
 import {
-	newRevalidationEn,
-	newRevalidationFr,
-	newRevalidationIt
-} from './pages/newRevalidation';
+	userRevalidationEn,
+	userRevalidationFr,
+	userRevalidationIt
+} from './pages/user-revalidation';
 import { testEn, testIt } from './pages/test';
 import {
 	errorBoundaryEn,
@@ -63,7 +63,7 @@ export default {
 		management: managementEn,
 		narrativeAdmin: narrativeAdminEn,
 		reviewNarrative: reviewNarrativeEn,
-		newRevalidation: newRevalidationEn,
+		userRevalidation: userRevalidationEn,
 		changes: changesEn,
 		userAdmin: userAdminEn,
 		userSelect: userSelectEn,
@@ -83,7 +83,7 @@ export default {
 		management: managementIt,
 		narrativeAdmin: narrativeAdminIt,
 		reviewNarrative: reviewNarrativeIt,
-		newRevalidation: newRevalidationIt,
+		userRevalidation: userRevalidationIt,
 		changes: changesIt,
 		userAdmin: userAdminIt,
 		userSelect: userSelectIt,
@@ -102,7 +102,7 @@ export default {
 		management: managementFr,
 		narrativeAdmin: narrativeAdminFr,
 		reviewNarrative: reviewNarrativeFr,
-		newRevalidation: newRevalidationFr,
+		userRevalidation: userRevalidationFr,
 		changes: changesFr,
 		userAdmin: userAdminFr,
 		userSelect: userSelectFr,

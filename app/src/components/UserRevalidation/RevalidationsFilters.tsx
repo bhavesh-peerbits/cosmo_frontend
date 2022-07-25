@@ -4,7 +4,7 @@ import useResponsive from '@hooks/useResponsive';
 import useRevalidations from '@hooks/user-revalidation/useRevalidations';
 
 const RevalidationsFilters = () => {
-	const { t } = useTranslation('newRevalidation');
+	const { t } = useTranslation('userRevalidation');
 	const { filtersAvailable, setFilters } = useRevalidations();
 	const { md } = useResponsive();
 

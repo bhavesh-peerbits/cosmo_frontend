@@ -14,7 +14,7 @@ import NoDataMessage from '@components/NoDataMessage';
 
 const SearchBar = () => {
 	const { filters, setFilters } = useRevalidations();
-	const { t } = useTranslation('newRevalidation');
+	const { t } = useTranslation('userRevalidation');
 	return (
 		<Layer className='ml-5 w-full'>
 			<Search
@@ -29,7 +29,7 @@ const SearchBar = () => {
 };
 
 const NewRevalidation = () => {
-	const { t } = useTranslation('newRevalidation');
+	const { t } = useTranslation('userRevalidation');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [actionSelected, setActionSelected] = useState('');
 	const { revalidations } = useRevalidations();
