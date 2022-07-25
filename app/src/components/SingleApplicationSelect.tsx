@@ -15,16 +15,21 @@ import { useTranslation } from 'react-i18next';
 import Application from '@model/Application';
 import useGetApps from '@api/management/useGetApps';
 
-type SingleApplicationSelectProps<T extends FieldValues, TName extends FieldPath<T>> = {
-	label: string;
-	name: TName;
-	control: UseControllerProps<T, TName>['control'];
-	rules?: UseControllerProps<T, TName>['rules'];
-	level?: number;
-	helperText?: string;
-	readOnly?: boolean;
-	defaultValue?: Application;
-};
+type SingleApplicationSelectProps<
+	T extends FieldValues,
+	TName extends FieldPath<T>
+> = UnpackNestedValue<PathValue<T, TName>> extends Application
+	? {
+			label: string;
+			name: TName;
+			control: UseControllerProps<T, TName>['control'];
+			rules?: UseControllerProps<T, TName>['rules'];
+			level?: number;
+			helperText?: string;
+			readOnly?: boolean;
+			defaultValue?: Application;
+	  }
+	: never;
 
 const SingleApplicationSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 	label,

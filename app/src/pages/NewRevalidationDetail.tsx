@@ -31,7 +31,7 @@ const NewRevalidationDetail = () => {
 	};
 	return (
 		<PageHeader
-			pageTitle='Campagna'
+			pageTitle='Campagna' // TODO fix with campaign name
 			intermediateRoutes={[{ name: 'New Revalidation', to: '/new-revalidation' }]}
 			actions={[
 				{

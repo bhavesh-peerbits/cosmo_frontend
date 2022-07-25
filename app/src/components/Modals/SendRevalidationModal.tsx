@@ -25,7 +25,6 @@ type FormData = {
 	campaignName: string;
 	dueDate: Date;
 	collaborators: User[];
-	description?: string;
 };
 
 const SendCampaignModal = ({ isOpen, setIsOpen }: DeleteModalProps) => {
@@ -37,7 +36,12 @@ const SendCampaignModal = ({ isOpen, setIsOpen }: DeleteModalProps) => {
 		reset,
 		formState: { isValid, errors }
 	} = useForm<FormData>({
-		mode: 'onChange'
+		mode: 'onBlur',
+		defaultValues: {
+			campaignName: 'Nome', // TODO fix campaign name as default value
+			dueDate: undefined,
+			collaborators: undefined
+		}
 	});
 
 	const cleanUp = () => {
@@ -64,7 +68,6 @@ const SendCampaignModal = ({ isOpen, setIsOpen }: DeleteModalProps) => {
 									message: `${tRevalidation('mandatory-name')}.`
 								}
 							})}
-							// TODO fix campaign name as default value
 						/>
 					</Column>
 					<Column lg={8} md={4} sm={4} className='mb-5'>

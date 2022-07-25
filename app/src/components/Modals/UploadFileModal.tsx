@@ -26,11 +26,11 @@ const UploadFileModal = ({ isOpen, setIsOpen }: UploadFileModalProps) => {
 	} = useForm<FormData>({
 		mode: 'onChange'
 	});
-	const uploadStep = useCallback(() => {
+
+	const generateUploadStep = useCallback(() => {
 		return (
 			<CreateTearsheetStep
 				title={tRevalidation('upload-file')}
-				hasFieldset={false}
 				description={`${tRevalidation('upload-instructions')}.`}
 				keyValue='upload'
 				disableSubmit={!isValid}
@@ -56,7 +56,7 @@ const UploadFileModal = ({ isOpen, setIsOpen }: UploadFileModalProps) => {
 					<SingleApplicationSelect
 						level={2}
 						label={`${tRevalidation('app-related')} *`}
-						name='application.name'
+						name='application'
 						rules={{
 							required: {
 								value: true,
@@ -70,13 +70,9 @@ const UploadFileModal = ({ isOpen, setIsOpen }: UploadFileModalProps) => {
 		);
 	}, [control, isValid, tRevalidation]);
 
-	const confirmStep = useCallback(() => {
-		return (
-			<CreateTearsheetStep
-				title={tRevalidation('results')}
-				hasFieldset={false}
-				keyValue='confirm'
-			>
+	const generateConfirmStep = useCallback(
+		() => (
+			<CreateTearsheetStep title={tRevalidation('results')} keyValue='confirm'>
 				<Grid className='space-y-3 divide-y-[1px] divide-solid divide-border-subtle-0'>
 					<FullWidthColumn className='flex space-x-9'>
 						<div className='flex-col'>
@@ -95,8 +91,9 @@ const UploadFileModal = ({ isOpen, setIsOpen }: UploadFileModalProps) => {
 					<FullWidthColumn>Table goes here</FullWidthColumn>
 				</Grid>
 			</CreateTearsheetStep>
-		);
-	}, [tRevalidation]);
+		),
+		[tRevalidation]
+	);
 
 	return (
 		<CreateTearsheet
@@ -113,8 +110,8 @@ const UploadFileModal = ({ isOpen, setIsOpen }: UploadFileModalProps) => {
 			}}
 			onRequestSubmit={() => setIsOpen(false)}
 		>
-			{uploadStep()}
-			{confirmStep()}
+			{generateUploadStep()}
+			{generateConfirmStep()}
 		</CreateTearsheet>
 	);
 };
