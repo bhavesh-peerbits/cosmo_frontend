@@ -45,5 +45,6 @@
 	"body-add": "Please fill in all required fields, then click on {{action}}",
 	"exists": "{{value}} already exists.",
 	"back": "Back",
-	"next": "Next"
+	"next": "Next",
+	"save": "Save"
 }

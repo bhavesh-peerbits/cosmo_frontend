@@ -45,5 +45,6 @@
 	"body-add": "Veuillez remplir tous les champs obligatoires, puis cliquez sur {{action}}",
 	"exists": "{{value}} existe déjà.",
 	"back": "Retour",
-	"next": "Suivant"
+	"next": "Suivant",
+	"save": "Enregistrer"
 }

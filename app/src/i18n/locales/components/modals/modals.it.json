@@ -45,5 +45,6 @@
 	"body-add": "Compila tutti i campi obbligatori, poi clicca su {{action}}",
 	"exists": "{{value}} già esistente.",
 	"back": "Indietro",
-	"next": "Avanti"
+	"next": "Avanti",
+	"save": "Salva"
 }

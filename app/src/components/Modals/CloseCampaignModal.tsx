@@ -7,12 +7,12 @@ import {
 } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 
-type DeleteModalProps = {
+type CloseModalProps = {
 	isOpen: boolean;
 	setIsOpen: (value: boolean) => void;
 };
 
-const DeleteCampaignModal = ({ isOpen, setIsOpen }: DeleteModalProps) => {
+const CloseCampaignModal = ({ isOpen, setIsOpen }: CloseModalProps) => {
 	const { t } = useTranslation('modals');
 	const { t: tUser } = useTranslation('userRevalidation');
 
@@ -22,18 +22,18 @@ const DeleteCampaignModal = ({ isOpen, setIsOpen }: DeleteModalProps) => {
 
 	return (
 		<ComposedModal size='sm' open={isOpen} onClose={cleanUp}>
-			<ModalHeader title={t('confirm-delete')} closeModal={cleanUp} />
+			<ModalHeader title={tUser('close-campaign')} closeModal={cleanUp} />
 			<ModalBody>
-				<span>{tUser('confirm-delete', { campaign: 'Campaign name' })}</span>
+				<span>{tUser('confirm-close', { campaign: 'Campaign name' })}</span>
 				{/* //TODO fix campaign name */}
 			</ModalBody>
 			<ModalFooter>
 				<Button kind='secondary' onClick={cleanUp}>
 					{t('cancel')}
 				</Button>
-				<Button kind='danger'>{t('delete')}</Button>
+				<Button kind='danger'>{tUser('close')}</Button>
 			</ModalFooter>
 		</ComposedModal>
 	);
 };
-export default DeleteCampaignModal;
+export default CloseCampaignModal;

@@ -30,5 +30,8 @@
 	"revalidators": "Revalidateurs",
 	"users-to-revalidate": "Utilisateurs à revalider",
 	"status": "État",
-	"application": "Application"
+	"application": "Application",
+	"close-campaign": "Fermer campagne",
+	"confirm-close": "Êtes-vous sûr de vouloir fermer {{campaign}}?",
+	"close": "Fermer"
 }
