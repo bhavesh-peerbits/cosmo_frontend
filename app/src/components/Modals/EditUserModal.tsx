@@ -1,3 +1,5 @@
+import ApiError from '@api/ApiError';
+import useSetRolesForUser from '@api/user-admin/useSetRolesForUser';
 import useGetUsers from '@api/user/useGetUsers';
 import {
 	ComposedModal,
@@ -6,8 +8,10 @@ import {
 	ModalFooter,
 	Button,
 	TextInput,
-	Checkbox
+	Checkbox,
+	InlineNotification
 } from '@carbon/react';
+import { UserDtoRolesEnum } from 'cosmo-api/src/v1/models';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -19,12 +23,13 @@ type EditUserModalProps = {
 
 const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 	const roles = [
-		'Admin',
-		'Guest',
-		'Narrative Analyst',
-		'Reviewer',
-		'Reviewer Collaborator',
-		'User Admin'
+		'USER_ADMIN',
+		'NARRATIVE_ADMIN',
+		'NARRATIVE_ANALYST',
+		'REVALIDATION_ANALYST',
+		'REVIEWER',
+		'REVIEWER_COLLABORATOR',
+		'USER_UNKNOWN'
 	];
 	const toStartCase = (r: string) => {
 		return r === 'USER_UNKNOWN'
@@ -38,18 +43,44 @@ const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 	};
 	const { t } = useTranslation('modals');
 	const { t: tHome } = useTranslation('home');
+	const { mutate, isLoading, isError, error, reset } = useSetRolesForUser();
 	const { data } = useGetUsers();
 	const emailIndex = user.indexOf(
 		user.filter(attribute => attribute.includes('@')).toString()
 	);
 	const userToEdit = data?.filter(u => u.email === user[emailIndex]).flat();
-	const assignedRoles = userToEdit
-		? userToEdit[0]?.roles.map(role => toStartCase(role))
-		: [''];
+	const assignedRoles = userToEdit ? userToEdit[0]?.roles.map(role => role) : [''];
 	const [selectedRoles, setSelectedRoles] = useState<string[]>(assignedRoles);
 
 	const cleanUp = () => {
 		setIsOpen(false);
+		reset();
+	};
+	const editUser = () => {
+		return (
+			userToEdit &&
+			mutate(
+				{
+					userId: userToEdit[0].id,
+					userData: {
+						id: userToEdit[0].id,
+						username: userToEdit[0].username,
+						name: userToEdit[0].name,
+						surname: userToEdit[0].surname,
+						displayName: userToEdit[0].displayName,
+						email: userToEdit[0].email,
+						inactive: userToEdit[0].inactive,
+						principalRole: userToEdit[0].principalRole,
+						roles: selectedRoles as UserDtoRolesEnum[]
+					}
+				},
+				{
+					onSuccess: () => {
+						cleanUp();
+					}
+				}
+			)
+		);
 	};
 	return (
 		<ComposedModal open={isOpen} onClose={cleanUp}>
@@ -58,6 +89,19 @@ const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 			</ModalHeader>
 			<ModalBody>
 				<div className='h-full w-full space-y-5'>
+					{isError && (
+						<div className='mt-5 flex items-center justify-center'>
+							<InlineNotification
+								kind='error'
+								title='Error'
+								hideCloseButton
+								subtitle={
+									(error as ApiError)?.message ||
+									'An error has occurred, please try again later'
+								}
+							/>
+						</div>
+					)}
 					<div className='flex space-x-5'>
 						<TextInput
 							readOnly
@@ -79,7 +123,7 @@ const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 						<p className='mb-3 text-text-secondary text-label-1'>{tHome('roles')} *</p>
 						{roles.map(role => (
 							<Checkbox
-								labelText={role}
+								labelText={toStartCase(role)}
 								id={`${role}-edit`}
 								defaultChecked={assignedRoles.includes(role)}
 								onChange={(e, { checked }) =>
@@ -99,8 +143,11 @@ const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 				<Button
 					kind='primary'
 					disabled={
-						selectedRoles.length === 0 || selectedRoles.join() === assignedRoles.join()
+						selectedRoles.length === 0 ||
+						selectedRoles.join() === assignedRoles.join() ||
+						isLoading
 					}
+					onClick={editUser}
 				>
 					{t('edit')}
 				</Button>
