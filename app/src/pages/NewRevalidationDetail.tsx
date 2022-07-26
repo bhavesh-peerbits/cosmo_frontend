@@ -14,21 +14,12 @@ import UploadResultsTile from '@components/UserRevalidation/UploadResultsTile';
 const NewRevalidationDetail = () => {
 	const { t } = useTranslation('userRevalidation');
 	const { t: tModals } = useTranslation('modals');
-	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [actionSelected, setActionSelected] = useState('');
+	const [isSendModalOpen, setIsSendModalOpen] = useState(false);
+	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+	const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
 	const buttonRef = useRef<HTMLDivElement>(null);
 	const { breadcrumbSize } = useBreadcrumbSize();
 
-	const modalToOpen = () => {
-		switch (actionSelected) {
-			case 'Send':
-				return <SendRevalidationModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />;
-			case 'Delete':
-				return <DeleteCampaignModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />;
-			default:
-				return <UploadFileModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />;
-		}
-	};
 	return (
 		<PageHeader
 			pageTitle='Campagna' // TODO fix with campaign name
@@ -39,8 +30,7 @@ const NewRevalidationDetail = () => {
 					icon: Email,
 					kind: 'primary',
 					onClick: () => {
-						setIsModalOpen(true);
-						setActionSelected('Send');
+						setIsSendModalOpen(true);
 					}
 				},
 				{
@@ -48,13 +38,18 @@ const NewRevalidationDetail = () => {
 					icon: TrashCan,
 					kind: 'danger',
 					onClick: () => {
-						setIsModalOpen(true);
-						setActionSelected('Delete');
+						setIsDeleteModalOpen(true);
 					}
 				}
 			]}
 		>
 			<div className='pl-5'>
+				<SendRevalidationModal isOpen={isSendModalOpen} setIsOpen={setIsSendModalOpen} />
+				<DeleteCampaignModal
+					isOpen={isDeleteModalOpen}
+					setIsOpen={setIsDeleteModalOpen}
+				/>
+				<UploadFileModal isOpen={isUploadModalOpen} setIsOpen={setIsUploadModalOpen} />
 				<TableOfContents
 					stickyOffset={buttonRef.current?.getBoundingClientRect()?.height || 0}
 					tocStickyOffset={breadcrumbSize * 2}
@@ -72,8 +67,7 @@ const NewRevalidationDetail = () => {
 										renderIcon={Upload}
 										className='md:max-w-auto w-full max-w-full md:w-auto'
 										onClick={() => {
-											setIsModalOpen(true);
-											setActionSelected('Upload');
+											setIsUploadModalOpen(true);
 										}}
 									>
 										Upload file
@@ -89,7 +83,6 @@ const NewRevalidationDetail = () => {
 										<UploadResultsTile />
 									</Tile>
 								</div>
-								{isModalOpen && modalToOpen()}
 							</div>
 						</FullWidthColumn>
 					</Grid>
