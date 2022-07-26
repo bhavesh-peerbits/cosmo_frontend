@@ -20,8 +20,8 @@ const editProcedureApp = ({
 }: EditProcedureAppParams) => {
 	return api.procedureApi
 		.modifyApplicationToProcedure({
-			applicationId: +appId,
-			procedureId: +procedureId,
+			appId: +appId,
+			procId: +procedureId,
 			procedureAppInstanceId: +procedureAppId,
 			procedureAppInstanceDto: toProcedureAppInstanceApi(procedure)
 		})

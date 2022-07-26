@@ -41,30 +41,44 @@ import { ApiErrorResponse } from '../models';
 // @ts-ignore
 import { ApplicationDto } from '../models';
 // @ts-ignore
+import { InlineObject3 } from '../models';
+// @ts-ignore
+import { InlineObject4 } from '../models';
+// @ts-ignore
+import { InlineObject5 } from '../models';
+// @ts-ignore
+import { InlineObject6 } from '../models';
+// @ts-ignore
+import { InlineObject7 } from '../models';
+// @ts-ignore
 import { ProcedureAppInstanceDto } from '../models';
 // @ts-ignore
-import { ReviewApplicationDto } from '../models';
+import { ProcedureDto } from '../models';
 // @ts-ignore
-import { ReviewProcedureDto } from '../models';
+import { UserDto } from '../models';
 /**
- * ReviewerControllerApi - axios parameter creator
+ * CsvReaderControllerApi - axios parameter creator
  * @export
  */
-export const ReviewerControllerApiAxiosParamCreator = function (
+export const CsvReaderControllerApiAxiosParamCreator = function (
 	configuration?: Configuration
 ) {
 	return {
 		/**
 		 *
+		 * @param {InlineObject7} inlineObject7
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllApplicationWhereAProcedureIsDelegatedOrOwner: async (
+		addApplicationDetailsFromCSV: async (
+			inlineObject7: InlineObject7,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			const localVarPath = `/api/reviewer/applicationsInReview`;
+			// verify required parameter 'inlineObject7' is not null or undefined
+			assertParamExists('addApplicationDetailsFromCSV', 'inlineObject7', inlineObject7);
+			const localVarPath = `/api/importcsv/applicationsDetInfo`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -72,158 +86,7 @@ export const ReviewerControllerApiAxiosParamCreator = function (
 				baseOptions = configuration.baseOptions;
 			}
 
-			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		getApplicationsForReview: async (
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			const localVarPath = `/api/reviewer/onlyApplicationInReview`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {number} appId
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		getProcedureForReview: async (
-			appId: number,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'appId' is not null or undefined
-			assertParamExists('getProcedureForReview', 'appId', appId);
-			const localVarPath = `/api/reviewer/application/{appId}`.replace(
-				`{${'appId'}}`,
-				encodeURIComponent(String(appId))
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {number} appId
-		 * @param {ReviewApplicationDto} reviewApplicationDto
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		reviewApplication: async (
-			appId: number,
-			reviewApplicationDto: ReviewApplicationDto,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'appId' is not null or undefined
-			assertParamExists('reviewApplication', 'appId', appId);
-			// verify required parameter 'reviewApplicationDto' is not null or undefined
-			assertParamExists(
-				'reviewApplication',
-				'reviewApplicationDto',
-				reviewApplicationDto
-			);
-			const localVarPath = `/api/reviewer/application/{appId}`.replace(
-				`{${'appId'}}`,
-				encodeURIComponent(String(appId))
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
 			const localVarHeaderParameter = {} as any;
 			const localVarQueryParameter = {} as any;
 
@@ -245,7 +108,7 @@ export const ReviewerControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				reviewApplicationDto,
+				inlineObject7,
 				localVarRequestOptions,
 				configuration
 			);
@@ -257,42 +120,19 @@ export const ReviewerControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {number} appId
-		 * @param {number} procId
-		 * @param {number} procedureAppInstanceId
-		 * @param {ReviewProcedureDto} reviewProcedureDto
+		 * @param {InlineObject6} inlineObject6
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		reviewProcedure: async (
-			appId: number,
-			procId: number,
-			procedureAppInstanceId: number,
-			reviewProcedureDto: ReviewProcedureDto,
+		addApplicationFromCSV: async (
+			inlineObject6: InlineObject6,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'appId' is not null or undefined
-			assertParamExists('reviewProcedure', 'appId', appId);
-			// verify required parameter 'procId' is not null or undefined
-			assertParamExists('reviewProcedure', 'procId', procId);
-			// verify required parameter 'procedureAppInstanceId' is not null or undefined
-			assertParamExists(
-				'reviewProcedure',
-				'procedureAppInstanceId',
-				procedureAppInstanceId
-			);
-			// verify required parameter 'reviewProcedureDto' is not null or undefined
-			assertParamExists('reviewProcedure', 'reviewProcedureDto', reviewProcedureDto);
-			const localVarPath =
-				`/api/reviewer/application/{appId}/procedure/{procId}/{procedureAppInstanceId}`
-					.replace(`{${'appId'}}`, encodeURIComponent(String(appId)))
-					.replace(`{${'procId'}}`, encodeURIComponent(String(procId)))
-					.replace(
-						`{${'procedureAppInstanceId'}}`,
-						encodeURIComponent(String(procedureAppInstanceId))
-					);
+			// verify required parameter 'inlineObject6' is not null or undefined
+			assertParamExists('addApplicationFromCSV', 'inlineObject6', inlineObject6);
+			const localVarPath = `/api/importcsv/applications`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -300,7 +140,7 @@ export const ReviewerControllerApiAxiosParamCreator = function (
 				baseOptions = configuration.baseOptions;
 			}
 
-			const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
 			const localVarHeaderParameter = {} as any;
 			const localVarQueryParameter = {} as any;
 
@@ -322,7 +162,173 @@ export const ReviewerControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				reviewProcedureDto,
+				inlineObject6,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {InlineObject5} inlineObject5
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		addProcedureAppInstancesFromCSV: async (
+			inlineObject5: InlineObject5,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'inlineObject5' is not null or undefined
+			assertParamExists(
+				'addProcedureAppInstancesFromCSV',
+				'inlineObject5',
+				inlineObject5
+			);
+			const localVarPath = `/api/importcsv/procedureAppInstances`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				inlineObject5,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {InlineObject4} inlineObject4
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		addProceduresFromCSV: async (
+			inlineObject4: InlineObject4,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'inlineObject4' is not null or undefined
+			assertParamExists('addProceduresFromCSV', 'inlineObject4', inlineObject4);
+			const localVarPath = `/api/importcsv/procedures`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				inlineObject4,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {InlineObject3} inlineObject3
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		addUsersFromCSV: async (
+			inlineObject3: InlineObject3,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'inlineObject3' is not null or undefined
+			assertParamExists('addUsersFromCSV', 'inlineObject3', inlineObject3);
+			const localVarPath = `/api/importcsv/users`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				inlineObject3,
 				localVarRequestOptions,
 				configuration
 			);
@@ -336,26 +342,30 @@ export const ReviewerControllerApiAxiosParamCreator = function (
 };
 
 /**
- * ReviewerControllerApi - functional programming interface
+ * CsvReaderControllerApi - functional programming interface
  * @export
  */
-export const ReviewerControllerApiFp = function (configuration?: Configuration) {
-	const localVarAxiosParamCreator = ReviewerControllerApiAxiosParamCreator(configuration);
+export const CsvReaderControllerApiFp = function (configuration?: Configuration) {
+	const localVarAxiosParamCreator =
+		CsvReaderControllerApiAxiosParamCreator(configuration);
 	return {
 		/**
 		 *
+		 * @param {InlineObject7} inlineObject7
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async getAllApplicationWhereAProcedureIsDelegatedOrOwner(
+		async addApplicationDetailsFromCSV(
+			inlineObject7: InlineObject7,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApplicationDto>>
 		> {
 			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.getAllApplicationWhereAProcedureIsDelegatedOrOwner(
+				await localVarAxiosParamCreator.addApplicationDetailsFromCSV(
+					inlineObject7,
 					acceptLanguage,
 					options
 				);
@@ -368,17 +378,20 @@ export const ReviewerControllerApiFp = function (configuration?: Configuration) 
 		},
 		/**
 		 *
+		 * @param {InlineObject6} inlineObject6
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async getApplicationsForReview(
+		async addApplicationFromCSV(
+			inlineObject6: InlineObject6,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApplicationDto>>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getApplicationsForReview(
+			const localVarAxiosArgs = await localVarAxiosParamCreator.addApplicationFromCSV(
+				inlineObject6,
 				acceptLanguage,
 				options
 			);
@@ -391,13 +404,13 @@ export const ReviewerControllerApiFp = function (configuration?: Configuration) 
 		},
 		/**
 		 *
-		 * @param {number} appId
+		 * @param {InlineObject5} inlineObject5
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async getProcedureForReview(
-			appId: number,
+		async addProcedureAppInstancesFromCSV(
+			inlineObject5: InlineObject5,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
@@ -406,8 +419,35 @@ export const ReviewerControllerApiFp = function (configuration?: Configuration) 
 				basePath?: string
 			) => AxiosPromise<Array<ProcedureAppInstanceDto>>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getProcedureForReview(
-				appId,
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.addProcedureAppInstancesFromCSV(
+					inlineObject5,
+					acceptLanguage,
+					options
+				);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {InlineObject4} inlineObject4
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async addProceduresFromCSV(
+			inlineObject4: InlineObject4,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ProcedureDto>>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.addProceduresFromCSV(
+				inlineObject4,
 				acceptLanguage,
 				options
 			);
@@ -420,58 +460,20 @@ export const ReviewerControllerApiFp = function (configuration?: Configuration) 
 		},
 		/**
 		 *
-		 * @param {number} appId
-		 * @param {ReviewApplicationDto} reviewApplicationDto
+		 * @param {InlineObject3} inlineObject3
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async reviewApplication(
-			appId: number,
-			reviewApplicationDto: ReviewApplicationDto,
+		async addUsersFromCSV(
+			inlineObject3: InlineObject3,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApplicationDto>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserDto>>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.reviewApplication(
-				appId,
-				reviewApplicationDto,
-				acceptLanguage,
-				options
-			);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {number} appId
-		 * @param {number} procId
-		 * @param {number} procedureAppInstanceId
-		 * @param {ReviewProcedureDto} reviewProcedureDto
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async reviewProcedure(
-			appId: number,
-			procId: number,
-			procedureAppInstanceId: number,
-			reviewProcedureDto: ReviewProcedureDto,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProcedureAppInstanceDto>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.reviewProcedure(
-				appId,
-				procId,
-				procedureAppInstanceId,
-				reviewProcedureDto,
+			const localVarAxiosArgs = await localVarAxiosParamCreator.addUsersFromCSV(
+				inlineObject3,
 				acceptLanguage,
 				options
 			);
@@ -486,249 +488,225 @@ export const ReviewerControllerApiFp = function (configuration?: Configuration) 
 };
 
 /**
- * ReviewerControllerApi - factory interface
+ * CsvReaderControllerApi - factory interface
  * @export
  */
-export const ReviewerControllerApiFactory = function (
+export const CsvReaderControllerApiFactory = function (
 	configuration?: Configuration,
 	basePath?: string,
 	axios?: AxiosInstance
 ) {
-	const localVarFp = ReviewerControllerApiFp(configuration);
+	const localVarFp = CsvReaderControllerApiFp(configuration);
 	return {
 		/**
 		 *
+		 * @param {InlineObject7} inlineObject7
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllApplicationWhereAProcedureIsDelegatedOrOwner(
+		addApplicationDetailsFromCSV(
+			inlineObject7: InlineObject7,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Array<ApplicationDto>> {
 			return localVarFp
-				.getAllApplicationWhereAProcedureIsDelegatedOrOwner(acceptLanguage, options)
+				.addApplicationDetailsFromCSV(inlineObject7, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
+		 * @param {InlineObject6} inlineObject6
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getApplicationsForReview(
+		addApplicationFromCSV(
+			inlineObject6: InlineObject6,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Array<ApplicationDto>> {
 			return localVarFp
-				.getApplicationsForReview(acceptLanguage, options)
+				.addApplicationFromCSV(inlineObject6, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {number} appId
+		 * @param {InlineObject5} inlineObject5
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getProcedureForReview(
-			appId: number,
+		addProcedureAppInstancesFromCSV(
+			inlineObject5: InlineObject5,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Array<ProcedureAppInstanceDto>> {
 			return localVarFp
-				.getProcedureForReview(appId, acceptLanguage, options)
+				.addProcedureAppInstancesFromCSV(inlineObject5, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {number} appId
-		 * @param {ReviewApplicationDto} reviewApplicationDto
+		 * @param {InlineObject4} inlineObject4
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		reviewApplication(
-			appId: number,
-			reviewApplicationDto: ReviewApplicationDto,
+		addProceduresFromCSV(
+			inlineObject4: InlineObject4,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<ApplicationDto> {
+		): AxiosPromise<Array<ProcedureDto>> {
 			return localVarFp
-				.reviewApplication(appId, reviewApplicationDto, acceptLanguage, options)
+				.addProceduresFromCSV(inlineObject4, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {number} appId
-		 * @param {number} procId
-		 * @param {number} procedureAppInstanceId
-		 * @param {ReviewProcedureDto} reviewProcedureDto
+		 * @param {InlineObject3} inlineObject3
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		reviewProcedure(
-			appId: number,
-			procId: number,
-			procedureAppInstanceId: number,
-			reviewProcedureDto: ReviewProcedureDto,
+		addUsersFromCSV(
+			inlineObject3: InlineObject3,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<ProcedureAppInstanceDto> {
+		): AxiosPromise<Array<UserDto>> {
 			return localVarFp
-				.reviewProcedure(
-					appId,
-					procId,
-					procedureAppInstanceId,
-					reviewProcedureDto,
-					acceptLanguage,
-					options
-				)
+				.addUsersFromCSV(inlineObject3, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		}
 	};
 };
 
 /**
- * Request parameters for getAllApplicationWhereAProcedureIsDelegatedOrOwner operation in ReviewerControllerApi.
+ * Request parameters for addApplicationDetailsFromCSV operation in CsvReaderControllerApi.
  * @export
- * @interface ReviewerControllerApiGetAllApplicationWhereAProcedureIsDelegatedOrOwnerRequest
+ * @interface CsvReaderControllerApiAddApplicationDetailsFromCSVRequest
  */
-export interface ReviewerControllerApiGetAllApplicationWhereAProcedureIsDelegatedOrOwnerRequest {
+export interface CsvReaderControllerApiAddApplicationDetailsFromCSVRequest {
+	/**
+	 *
+	 * @type {InlineObject7}
+	 * @memberof CsvReaderControllerApiAddApplicationDetailsFromCSV
+	 */
+	readonly inlineObject7: InlineObject7;
+
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ReviewerControllerApiGetAllApplicationWhereAProcedureIsDelegatedOrOwner
+	 * @memberof CsvReaderControllerApiAddApplicationDetailsFromCSV
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for getApplicationsForReview operation in ReviewerControllerApi.
+ * Request parameters for addApplicationFromCSV operation in CsvReaderControllerApi.
  * @export
- * @interface ReviewerControllerApiGetApplicationsForReviewRequest
+ * @interface CsvReaderControllerApiAddApplicationFromCSVRequest
  */
-export interface ReviewerControllerApiGetApplicationsForReviewRequest {
+export interface CsvReaderControllerApiAddApplicationFromCSVRequest {
+	/**
+	 *
+	 * @type {InlineObject6}
+	 * @memberof CsvReaderControllerApiAddApplicationFromCSV
+	 */
+	readonly inlineObject6: InlineObject6;
+
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ReviewerControllerApiGetApplicationsForReview
+	 * @memberof CsvReaderControllerApiAddApplicationFromCSV
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for getProcedureForReview operation in ReviewerControllerApi.
+ * Request parameters for addProcedureAppInstancesFromCSV operation in CsvReaderControllerApi.
  * @export
- * @interface ReviewerControllerApiGetProcedureForReviewRequest
+ * @interface CsvReaderControllerApiAddProcedureAppInstancesFromCSVRequest
  */
-export interface ReviewerControllerApiGetProcedureForReviewRequest {
+export interface CsvReaderControllerApiAddProcedureAppInstancesFromCSVRequest {
 	/**
 	 *
-	 * @type {number}
-	 * @memberof ReviewerControllerApiGetProcedureForReview
+	 * @type {InlineObject5}
+	 * @memberof CsvReaderControllerApiAddProcedureAppInstancesFromCSV
 	 */
-	readonly appId: number;
+	readonly inlineObject5: InlineObject5;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ReviewerControllerApiGetProcedureForReview
+	 * @memberof CsvReaderControllerApiAddProcedureAppInstancesFromCSV
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for reviewApplication operation in ReviewerControllerApi.
+ * Request parameters for addProceduresFromCSV operation in CsvReaderControllerApi.
  * @export
- * @interface ReviewerControllerApiReviewApplicationRequest
+ * @interface CsvReaderControllerApiAddProceduresFromCSVRequest
  */
-export interface ReviewerControllerApiReviewApplicationRequest {
+export interface CsvReaderControllerApiAddProceduresFromCSVRequest {
 	/**
 	 *
-	 * @type {number}
-	 * @memberof ReviewerControllerApiReviewApplication
+	 * @type {InlineObject4}
+	 * @memberof CsvReaderControllerApiAddProceduresFromCSV
 	 */
-	readonly appId: number;
-
-	/**
-	 *
-	 * @type {ReviewApplicationDto}
-	 * @memberof ReviewerControllerApiReviewApplication
-	 */
-	readonly reviewApplicationDto: ReviewApplicationDto;
+	readonly inlineObject4: InlineObject4;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ReviewerControllerApiReviewApplication
+	 * @memberof CsvReaderControllerApiAddProceduresFromCSV
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for reviewProcedure operation in ReviewerControllerApi.
+ * Request parameters for addUsersFromCSV operation in CsvReaderControllerApi.
  * @export
- * @interface ReviewerControllerApiReviewProcedureRequest
+ * @interface CsvReaderControllerApiAddUsersFromCSVRequest
  */
-export interface ReviewerControllerApiReviewProcedureRequest {
+export interface CsvReaderControllerApiAddUsersFromCSVRequest {
 	/**
 	 *
-	 * @type {number}
-	 * @memberof ReviewerControllerApiReviewProcedure
+	 * @type {InlineObject3}
+	 * @memberof CsvReaderControllerApiAddUsersFromCSV
 	 */
-	readonly appId: number;
-
-	/**
-	 *
-	 * @type {number}
-	 * @memberof ReviewerControllerApiReviewProcedure
-	 */
-	readonly procId: number;
-
-	/**
-	 *
-	 * @type {number}
-	 * @memberof ReviewerControllerApiReviewProcedure
-	 */
-	readonly procedureAppInstanceId: number;
-
-	/**
-	 *
-	 * @type {ReviewProcedureDto}
-	 * @memberof ReviewerControllerApiReviewProcedure
-	 */
-	readonly reviewProcedureDto: ReviewProcedureDto;
+	readonly inlineObject3: InlineObject3;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ReviewerControllerApiReviewProcedure
+	 * @memberof CsvReaderControllerApiAddUsersFromCSV
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * ReviewerControllerApi - object-oriented interface
+ * CsvReaderControllerApi - object-oriented interface
  * @export
- * @class ReviewerControllerApi
+ * @class CsvReaderControllerApi
  * @extends {BaseAPI}
  */
-export class ReviewerControllerApi extends BaseAPI {
+export class CsvReaderControllerApi extends BaseAPI {
 	/**
 	 *
-	 * @param {ReviewerControllerApiGetAllApplicationWhereAProcedureIsDelegatedOrOwnerRequest} requestParameters Request parameters.
+	 * @param {CsvReaderControllerApiAddApplicationDetailsFromCSVRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof ReviewerControllerApi
+	 * @memberof CsvReaderControllerApi
 	 */
-	public getAllApplicationWhereAProcedureIsDelegatedOrOwner(
-		requestParameters: ReviewerControllerApiGetAllApplicationWhereAProcedureIsDelegatedOrOwnerRequest = {},
+	public addApplicationDetailsFromCSV(
+		requestParameters: CsvReaderControllerApiAddApplicationDetailsFromCSVRequest,
 		options?: AxiosRequestConfig
 	) {
-		return ReviewerControllerApiFp(this.configuration)
-			.getAllApplicationWhereAProcedureIsDelegatedOrOwner(
+		return CsvReaderControllerApiFp(this.configuration)
+			.addApplicationDetailsFromCSV(
+				requestParameters.inlineObject7,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -737,34 +715,18 @@ export class ReviewerControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {ReviewerControllerApiGetApplicationsForReviewRequest} requestParameters Request parameters.
+	 * @param {CsvReaderControllerApiAddApplicationFromCSVRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof ReviewerControllerApi
+	 * @memberof CsvReaderControllerApi
 	 */
-	public getApplicationsForReview(
-		requestParameters: ReviewerControllerApiGetApplicationsForReviewRequest = {},
+	public addApplicationFromCSV(
+		requestParameters: CsvReaderControllerApiAddApplicationFromCSVRequest,
 		options?: AxiosRequestConfig
 	) {
-		return ReviewerControllerApiFp(this.configuration)
-			.getApplicationsForReview(requestParameters.acceptLanguage, options)
-			.then(request => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @param {ReviewerControllerApiGetProcedureForReviewRequest} requestParameters Request parameters.
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof ReviewerControllerApi
-	 */
-	public getProcedureForReview(
-		requestParameters: ReviewerControllerApiGetProcedureForReviewRequest,
-		options?: AxiosRequestConfig
-	) {
-		return ReviewerControllerApiFp(this.configuration)
-			.getProcedureForReview(
-				requestParameters.appId,
+		return CsvReaderControllerApiFp(this.configuration)
+			.addApplicationFromCSV(
+				requestParameters.inlineObject6,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -773,19 +735,18 @@ export class ReviewerControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {ReviewerControllerApiReviewApplicationRequest} requestParameters Request parameters.
+	 * @param {CsvReaderControllerApiAddProcedureAppInstancesFromCSVRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof ReviewerControllerApi
+	 * @memberof CsvReaderControllerApi
 	 */
-	public reviewApplication(
-		requestParameters: ReviewerControllerApiReviewApplicationRequest,
+	public addProcedureAppInstancesFromCSV(
+		requestParameters: CsvReaderControllerApiAddProcedureAppInstancesFromCSVRequest,
 		options?: AxiosRequestConfig
 	) {
-		return ReviewerControllerApiFp(this.configuration)
-			.reviewApplication(
-				requestParameters.appId,
-				requestParameters.reviewApplicationDto,
+		return CsvReaderControllerApiFp(this.configuration)
+			.addProcedureAppInstancesFromCSV(
+				requestParameters.inlineObject5,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -794,21 +755,38 @@ export class ReviewerControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {ReviewerControllerApiReviewProcedureRequest} requestParameters Request parameters.
+	 * @param {CsvReaderControllerApiAddProceduresFromCSVRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof ReviewerControllerApi
+	 * @memberof CsvReaderControllerApi
 	 */
-	public reviewProcedure(
-		requestParameters: ReviewerControllerApiReviewProcedureRequest,
+	public addProceduresFromCSV(
+		requestParameters: CsvReaderControllerApiAddProceduresFromCSVRequest,
 		options?: AxiosRequestConfig
 	) {
-		return ReviewerControllerApiFp(this.configuration)
-			.reviewProcedure(
-				requestParameters.appId,
-				requestParameters.procId,
-				requestParameters.procedureAppInstanceId,
-				requestParameters.reviewProcedureDto,
+		return CsvReaderControllerApiFp(this.configuration)
+			.addProceduresFromCSV(
+				requestParameters.inlineObject4,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {CsvReaderControllerApiAddUsersFromCSVRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof CsvReaderControllerApi
+	 */
+	public addUsersFromCSV(
+		requestParameters: CsvReaderControllerApiAddUsersFromCSVRequest,
+		options?: AxiosRequestConfig
+	) {
+		return CsvReaderControllerApiFp(this.configuration)
+			.addUsersFromCSV(
+				requestParameters.inlineObject3,
 				requestParameters.acceptLanguage,
 				options
 			)

@@ -13,33 +13,31 @@
  */
 
 /**
- * Procedure
+ *
  * @export
- * @interface ProcedureDto
+ * @interface ResponseDto
  */
-export interface ProcedureDto {
+export interface ResponseDto {
 	/**
-	 * Procedure id
-	 * @type {number}
-	 * @memberof ProcedureDto
-	 */
-	id: number;
-	/**
-	 * Procedure name
+	 * Answer type
 	 * @type {string}
-	 * @memberof ProcedureDto
+	 * @memberof ResponseDto
 	 */
-	name: string;
+	answerType?: ResponseDtoAnswerTypeEnum;
 	/**
-	 * Procedure description
+	 * Additional note about this user review
 	 * @type {string}
-	 * @memberof ProcedureDto
+	 * @memberof ResponseDto
 	 */
-	description?: string;
-	/**
-	 * Major procedure
-	 * @type {string}
-	 * @memberof ProcedureDto
-	 */
-	majorProcedure?: string;
+	note?: string;
 }
+
+export const ResponseDtoAnswerTypeEnum = {
+	Modify: 'MODIFY',
+	ReportError: 'REPORT_ERROR',
+	Lock: 'LOCK',
+	Ok: 'OK'
+} as const;
+
+export type ResponseDtoAnswerTypeEnum =
+	typeof ResponseDtoAnswerTypeEnum[keyof typeof ResponseDtoAnswerTypeEnum];

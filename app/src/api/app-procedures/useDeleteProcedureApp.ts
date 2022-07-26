@@ -14,8 +14,8 @@ const deleteProcedureApp = ({
 	procedureAppId
 }: DeleteProcedureApp) => {
 	return api.procedureApi.deleteProcedureApplicationAssociation({
-		applicationId: +appId,
-		procedureId: +procedureId,
+		appId: +appId,
+		procId: +procedureId,
 		procedureAppInstanceId: +procedureAppId
 	});
 };

@@ -10,7 +10,7 @@ interface EditAppParams {
 const editApp = ({ appId, appData }: EditAppParams) => {
 	return api.applicationApi
 		.updateApplication({
-			id: +appId,
+			appId: +appId,
 			applicationDto: toApplicationApi(appData)
 		})
 		.then(({ data }) => fromApplicationApi(data));

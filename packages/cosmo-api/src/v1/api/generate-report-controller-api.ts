@@ -48,21 +48,21 @@ export const GenerateReportControllerApiAxiosParamCreator = function (
 	return {
 		/**
 		 *
-		 * @param {number} id
+		 * @param {number} appId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getApplicationReportNarrative: async (
-			id: number,
+			appId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'id' is not null or undefined
-			assertParamExists('getApplicationReportNarrative', 'id', id);
-			const localVarPath = `/api/generateReport/application/{id}`.replace(
-				`{${'id'}}`,
-				encodeURIComponent(String(id))
+			// verify required parameter 'appId' is not null or undefined
+			assertParamExists('getApplicationReportNarrative', 'appId', appId);
+			const localVarPath = `/api/generateReport/application/{appId}`.replace(
+				`{${'appId'}}`,
+				encodeURIComponent(String(appId))
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -163,13 +163,13 @@ export const GenerateReportControllerApiFp = function (configuration?: Configura
 	return {
 		/**
 		 *
-		 * @param {number} id
+		 * @param {number} appId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getApplicationReportNarrative(
-			id: number,
+			appId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
@@ -177,7 +177,7 @@ export const GenerateReportControllerApiFp = function (configuration?: Configura
 		> {
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.getApplicationReportNarrative(
-					id,
+					appId,
 					acceptLanguage,
 					options
 				);
@@ -231,18 +231,18 @@ export const GenerateReportControllerApiFactory = function (
 	return {
 		/**
 		 *
-		 * @param {number} id
+		 * @param {number} appId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getApplicationReportNarrative(
-			id: number,
+			appId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Array<string>> {
 			return localVarFp
-				.getApplicationReportNarrative(id, acceptLanguage, options)
+				.getApplicationReportNarrative(appId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -275,7 +275,7 @@ export interface GenerateReportControllerApiGetApplicationReportNarrativeRequest
 	 * @type {number}
 	 * @memberof GenerateReportControllerApiGetApplicationReportNarrative
 	 */
-	readonly id: number;
+	readonly appId: number;
 
 	/**
 	 *
@@ -326,7 +326,7 @@ export class GenerateReportControllerApi extends BaseAPI {
 	) {
 		return GenerateReportControllerApiFp(this.configuration)
 			.getApplicationReportNarrative(
-				requestParameters.id,
+				requestParameters.appId,
 				requestParameters.acceptLanguage,
 				options
 			)

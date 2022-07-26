@@ -6,7 +6,7 @@ interface DeleteAppParams {
 }
 
 const deleteApp = ({ appId }: DeleteAppParams) => {
-	return api.applicationApi.deleteApplication({ id: +appId });
+	return api.applicationApi.deleteApplication({ appId: +appId });
 };
 
 const useDeleteApp = () => {

@@ -4,7 +4,7 @@ import { fromApplicationApi } from '@model/Application';
 
 const useGetApp = (appId: string) => {
 	return api.applicationApi
-		.getApplicationById({ id: +appId })
+		.getApplicationById({ appId: +appId })
 		.then(({ data }) => fromApplicationApi(data));
 };
 

@@ -42,8 +42,6 @@ import { ApiErrorResponse } from '../models';
 import { Application } from '../models';
 // @ts-ignore
 import { Tenant } from '../models';
-// @ts-ignore
-import { User } from '../models';
 /**
  * TenantControllerApi - axios parameter creator
  * @export
@@ -57,6 +55,7 @@ export const TenantControllerApiAxiosParamCreator = function (
 		 * @param {Tenant} tenant
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		createTenant: async (
@@ -111,6 +110,7 @@ export const TenantControllerApiAxiosParamCreator = function (
 		 * @param {number} body
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		deleteTenant: async (
@@ -208,6 +208,7 @@ export const TenantControllerApiAxiosParamCreator = function (
 		 * @param {number} tenantId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		getTenantApplications: async (
@@ -307,61 +308,11 @@ export const TenantControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {number} tenantId
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		getTenantUsers: async (
-			tenantId: number,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'tenantId' is not null or undefined
-			assertParamExists('getTenantUsers', 'tenantId', tenantId);
-			const localVarPath = `/api/tenants/{tenantId}/users`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (tenantId !== undefined) {
-				localVarQueryParameter['tenantId'] = tenantId;
-			}
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
 		 * @param {number} id
 		 * @param {Tenant} tenant
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		modifyTenant: async (
@@ -433,6 +384,7 @@ export const TenantControllerApiFp = function (configuration?: Configuration) {
 		 * @param {Tenant} tenant
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		async createTenant(
@@ -457,6 +409,7 @@ export const TenantControllerApiFp = function (configuration?: Configuration) {
 		 * @param {number} body
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		async deleteTenant(
@@ -504,6 +457,7 @@ export const TenantControllerApiFp = function (configuration?: Configuration) {
 		 * @param {number} tenantId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		async getTenantApplications(
@@ -551,34 +505,11 @@ export const TenantControllerApiFp = function (configuration?: Configuration) {
 		},
 		/**
 		 *
-		 * @param {number} tenantId
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async getTenantUsers(
-			tenantId: number,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<User>>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getTenantUsers(
-				tenantId,
-				acceptLanguage,
-				options
-			);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
 		 * @param {number} id
 		 * @param {Tenant} tenant
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		async modifyTenant(
@@ -619,6 +550,7 @@ export const TenantControllerApiFactory = function (
 		 * @param {Tenant} tenant
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		createTenant(
@@ -635,6 +567,7 @@ export const TenantControllerApiFactory = function (
 		 * @param {number} body
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		deleteTenant(
@@ -665,6 +598,7 @@ export const TenantControllerApiFactory = function (
 		 * @param {number} tenantId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		getTenantApplications(
@@ -694,26 +628,11 @@ export const TenantControllerApiFactory = function (
 		},
 		/**
 		 *
-		 * @param {number} tenantId
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		getTenantUsers(
-			tenantId: number,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: any
-		): AxiosPromise<Array<User>> {
-			return localVarFp
-				.getTenantUsers(tenantId, acceptLanguage, options)
-				.then(request => request(axios, basePath));
-		},
-		/**
-		 *
 		 * @param {number} id
 		 * @param {Tenant} tenant
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		modifyTenant(
@@ -828,27 +747,6 @@ export interface TenantControllerApiGetTenantByIdRequest {
 }
 
 /**
- * Request parameters for getTenantUsers operation in TenantControllerApi.
- * @export
- * @interface TenantControllerApiGetTenantUsersRequest
- */
-export interface TenantControllerApiGetTenantUsersRequest {
-	/**
-	 *
-	 * @type {number}
-	 * @memberof TenantControllerApiGetTenantUsers
-	 */
-	readonly tenantId: number;
-
-	/**
-	 *
-	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof TenantControllerApiGetTenantUsers
-	 */
-	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
-}
-
-/**
  * Request parameters for modifyTenant operation in TenantControllerApi.
  * @export
  * @interface TenantControllerApiModifyTenantRequest
@@ -887,6 +785,7 @@ export class TenantControllerApi extends BaseAPI {
 	 *
 	 * @param {TenantControllerApiCreateTenantRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
+	 * @deprecated
 	 * @throws {RequiredError}
 	 * @memberof TenantControllerApi
 	 */
@@ -903,6 +802,7 @@ export class TenantControllerApi extends BaseAPI {
 	 *
 	 * @param {TenantControllerApiDeleteTenantRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
+	 * @deprecated
 	 * @throws {RequiredError}
 	 * @memberof TenantControllerApi
 	 */
@@ -935,6 +835,7 @@ export class TenantControllerApi extends BaseAPI {
 	 *
 	 * @param {TenantControllerApiGetTenantApplicationsRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
+	 * @deprecated
 	 * @throws {RequiredError}
 	 * @memberof TenantControllerApi
 	 */
@@ -969,28 +870,9 @@ export class TenantControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {TenantControllerApiGetTenantUsersRequest} requestParameters Request parameters.
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof TenantControllerApi
-	 */
-	public getTenantUsers(
-		requestParameters: TenantControllerApiGetTenantUsersRequest,
-		options?: AxiosRequestConfig
-	) {
-		return TenantControllerApiFp(this.configuration)
-			.getTenantUsers(
-				requestParameters.tenantId,
-				requestParameters.acceptLanguage,
-				options
-			)
-			.then(request => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
 	 * @param {TenantControllerApiModifyTenantRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
+	 * @deprecated
 	 * @throws {RequiredError}
 	 * @memberof TenantControllerApi
 	 */

@@ -55,6 +55,7 @@ export const ModuleControllerApiAxiosParamCreator = function (
 		 * @param {number} id
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		getAllConfigElementsForModule: async (
@@ -105,6 +106,7 @@ export const ModuleControllerApiAxiosParamCreator = function (
 		 *
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		getModules: async (
@@ -159,6 +161,7 @@ export const ModuleControllerApiFp = function (configuration?: Configuration) {
 		 * @param {number} id
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		async getAllConfigElementsForModule(
@@ -185,6 +188,7 @@ export const ModuleControllerApiFp = function (configuration?: Configuration) {
 		 *
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		async getModules(
@@ -223,6 +227,7 @@ export const ModuleControllerApiFactory = function (
 		 * @param {number} id
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		getAllConfigElementsForModule(
@@ -238,6 +243,7 @@ export const ModuleControllerApiFactory = function (
 		 *
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		getModules(
@@ -297,6 +303,7 @@ export class ModuleControllerApi extends BaseAPI {
 	 *
 	 * @param {ModuleControllerApiGetAllConfigElementsForModuleRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
+	 * @deprecated
 	 * @throws {RequiredError}
 	 * @memberof ModuleControllerApi
 	 */
@@ -317,6 +324,7 @@ export class ModuleControllerApi extends BaseAPI {
 	 *
 	 * @param {ModuleControllerApiGetModulesRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
+	 * @deprecated
 	 * @throws {RequiredError}
 	 * @memberof ModuleControllerApi
 	 */

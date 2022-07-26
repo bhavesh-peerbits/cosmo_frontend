@@ -124,29 +124,29 @@ export const NarrativeReviewControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {number} id
+		 * @param {number} appId
 		 * @param {NarrativeReviewBody} narrativeReviewBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		startReviewOfAnApplication: async (
-			id: number,
+			appId: number,
 			narrativeReviewBody: NarrativeReviewBody,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'id' is not null or undefined
-			assertParamExists('startReviewOfAnApplication', 'id', id);
+			// verify required parameter 'appId' is not null or undefined
+			assertParamExists('startReviewOfAnApplication', 'appId', appId);
 			// verify required parameter 'narrativeReviewBody' is not null or undefined
 			assertParamExists(
 				'startReviewOfAnApplication',
 				'narrativeReviewBody',
 				narrativeReviewBody
 			);
-			const localVarPath = `/api/narrativeReview/application/{id}`.replace(
-				`{${'id'}}`,
-				encodeURIComponent(String(id))
+			const localVarPath = `/api/narrativeReview/application/{appId}`.replace(
+				`{${'appId'}}`,
+				encodeURIComponent(String(appId))
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -355,14 +355,14 @@ export const NarrativeReviewControllerApiFp = function (configuration?: Configur
 		},
 		/**
 		 *
-		 * @param {number} id
+		 * @param {number} appId
 		 * @param {NarrativeReviewBody} narrativeReviewBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async startReviewOfAnApplication(
-			id: number,
+			appId: number,
 			narrativeReviewBody: NarrativeReviewBody,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
@@ -371,7 +371,7 @@ export const NarrativeReviewControllerApiFp = function (configuration?: Configur
 		> {
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.startReviewOfAnApplication(
-					id,
+					appId,
 					narrativeReviewBody,
 					acceptLanguage,
 					options
@@ -483,20 +483,20 @@ export const NarrativeReviewControllerApiFactory = function (
 		},
 		/**
 		 *
-		 * @param {number} id
+		 * @param {number} appId
 		 * @param {NarrativeReviewBody} narrativeReviewBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		startReviewOfAnApplication(
-			id: number,
+			appId: number,
 			narrativeReviewBody: NarrativeReviewBody,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<ApplicationDto> {
 			return localVarFp
-				.startReviewOfAnApplication(id, narrativeReviewBody, acceptLanguage, options)
+				.startReviewOfAnApplication(appId, narrativeReviewBody, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -587,7 +587,7 @@ export interface NarrativeReviewControllerApiStartReviewOfAnApplicationRequest {
 	 * @type {number}
 	 * @memberof NarrativeReviewControllerApiStartReviewOfAnApplication
 	 */
-	readonly id: number;
+	readonly appId: number;
 
 	/**
 	 *
@@ -695,7 +695,7 @@ export class NarrativeReviewControllerApi extends BaseAPI {
 	) {
 		return NarrativeReviewControllerApiFp(this.configuration)
 			.startReviewOfAnApplication(
-				requestParameters.id,
+				requestParameters.appId,
 				requestParameters.narrativeReviewBody,
 				requestParameters.acceptLanguage,
 				options

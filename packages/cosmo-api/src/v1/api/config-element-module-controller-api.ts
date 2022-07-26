@@ -56,6 +56,7 @@ export const ConfigElementModuleControllerApiAxiosParamCreator = function (
 		 * @param {number} moduleId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		createConfigForModule: async (
@@ -114,6 +115,7 @@ export const ConfigElementModuleControllerApiAxiosParamCreator = function (
 		 * @param {ConfigModuleKey} configModuleKey
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		deleteConfigModule: async (
@@ -164,6 +166,7 @@ export const ConfigElementModuleControllerApiAxiosParamCreator = function (
 		 *
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		getAllConfigModules: async (
@@ -208,6 +211,7 @@ export const ConfigElementModuleControllerApiAxiosParamCreator = function (
 		 * @param {ConfigModuleKey} configModuleKey
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		getConfigModule: async (
@@ -260,6 +264,7 @@ export const ConfigElementModuleControllerApiAxiosParamCreator = function (
 		 * @param {ConfigModule} configModule
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		modifyConfigModule: async (
@@ -335,6 +340,7 @@ export const ConfigElementModuleControllerApiFp = function (
 		 * @param {number} moduleId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		async createConfigForModule(
@@ -361,6 +367,7 @@ export const ConfigElementModuleControllerApiFp = function (
 		 * @param {ConfigModuleKey} configModuleKey
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		async deleteConfigModule(
@@ -384,6 +391,7 @@ export const ConfigElementModuleControllerApiFp = function (
 		 *
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		async getAllConfigModules(
@@ -408,6 +416,7 @@ export const ConfigElementModuleControllerApiFp = function (
 		 * @param {ConfigModuleKey} configModuleKey
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		async getConfigModule(
@@ -433,6 +442,7 @@ export const ConfigElementModuleControllerApiFp = function (
 		 * @param {ConfigModule} configModule
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		async modifyConfigModule(
@@ -474,6 +484,7 @@ export const ConfigElementModuleControllerApiFactory = function (
 		 * @param {number} moduleId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		createConfigForModule(
@@ -491,6 +502,7 @@ export const ConfigElementModuleControllerApiFactory = function (
 		 * @param {ConfigModuleKey} configModuleKey
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		deleteConfigModule(
@@ -506,6 +518,7 @@ export const ConfigElementModuleControllerApiFactory = function (
 		 *
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		getAllConfigModules(
@@ -521,6 +534,7 @@ export const ConfigElementModuleControllerApiFactory = function (
 		 * @param {ConfigModuleKey} configModuleKey
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		getConfigModule(
@@ -538,6 +552,7 @@ export const ConfigElementModuleControllerApiFactory = function (
 		 * @param {ConfigModule} configModule
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		modifyConfigModule(
@@ -676,6 +691,7 @@ export class ConfigElementModuleControllerApi extends BaseAPI {
 	 *
 	 * @param {ConfigElementModuleControllerApiCreateConfigForModuleRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
+	 * @deprecated
 	 * @throws {RequiredError}
 	 * @memberof ConfigElementModuleControllerApi
 	 */
@@ -697,6 +713,7 @@ export class ConfigElementModuleControllerApi extends BaseAPI {
 	 *
 	 * @param {ConfigElementModuleControllerApiDeleteConfigModuleRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
+	 * @deprecated
 	 * @throws {RequiredError}
 	 * @memberof ConfigElementModuleControllerApi
 	 */
@@ -717,6 +734,7 @@ export class ConfigElementModuleControllerApi extends BaseAPI {
 	 *
 	 * @param {ConfigElementModuleControllerApiGetAllConfigModulesRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
+	 * @deprecated
 	 * @throws {RequiredError}
 	 * @memberof ConfigElementModuleControllerApi
 	 */
@@ -733,6 +751,7 @@ export class ConfigElementModuleControllerApi extends BaseAPI {
 	 *
 	 * @param {ConfigElementModuleControllerApiGetConfigModuleRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
+	 * @deprecated
 	 * @throws {RequiredError}
 	 * @memberof ConfigElementModuleControllerApi
 	 */
@@ -753,6 +772,7 @@ export class ConfigElementModuleControllerApi extends BaseAPI {
 	 *
 	 * @param {ConfigElementModuleControllerApiModifyConfigModuleRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
+	 * @deprecated
 	 * @throws {RequiredError}
 	 * @memberof ConfigElementModuleControllerApi
 	 */

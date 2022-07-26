@@ -11,10 +11,11 @@ interface User {
 	username: string;
 	name: string | undefined;
 	surname: string | undefined;
-	email: string | undefined;
+	email: string;
 	displayName: string;
 	roles: UserRole[];
 	principalRole: UserDisplayRole;
+	inactive: boolean;
 }
 
 export const fromUserApi = (userApi: UserApi): User => {
@@ -31,7 +32,8 @@ export const fromUserApi = (userApi: UserApi): User => {
 		displayName:
 			!userApi.name && !userApi.surname
 				? userApi.username
-				: `${userApi.name || ''} ${userApi.surname || ''}`
+				: `${userApi.name || ''} ${userApi.surname || ''}`,
+		inactive: userApi.inactive
 	};
 };
 export const toUserApi = (user: User): UserApi => {
@@ -40,7 +42,8 @@ export const toUserApi = (user: User): UserApi => {
 		username: user.username,
 		name: user.name,
 		email: user.email,
-		surname: user.surname
+		surname: user.surname,
+		inactive: user.inactive
 	};
 };
 

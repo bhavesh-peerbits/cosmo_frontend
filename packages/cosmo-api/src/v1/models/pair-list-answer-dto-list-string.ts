@@ -12,34 +12,24 @@
  * Do not edit the class manually.
  */
 
+import { AnswerDto } from './answer-dto';
+
 /**
- * Procedure
+ * response from csv parsing
  * @export
- * @interface ProcedureDto
+ * @interface PairListAnswerDtoListString
  */
-export interface ProcedureDto {
+export interface PairListAnswerDtoListString {
 	/**
-	 * Procedure id
-	 * @type {number}
-	 * @memberof ProcedureDto
+	 *
+	 * @type {Array<AnswerDto>}
+	 * @memberof PairListAnswerDtoListString
 	 */
-	id: number;
+	first?: Array<AnswerDto>;
 	/**
-	 * Procedure name
-	 * @type {string}
-	 * @memberof ProcedureDto
+	 *
+	 * @type {Array<string>}
+	 * @memberof PairListAnswerDtoListString
 	 */
-	name: string;
-	/**
-	 * Procedure description
-	 * @type {string}
-	 * @memberof ProcedureDto
-	 */
-	description?: string;
-	/**
-	 * Major procedure
-	 * @type {string}
-	 * @memberof ProcedureDto
-	 */
-	majorProcedure?: string;
+	second?: Array<string>;
 }

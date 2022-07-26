@@ -22,8 +22,8 @@ const reviewProcedure = ({
 }: ReviewProcedureParams) => {
 	return api.reviewerApi
 		.reviewProcedure({
-			applicationId: +appId,
-			procedureId: +procedureId,
+			appId: +appId,
+			procId: +procedureId,
 			procedureAppInstanceId: +procedureAppId,
 			reviewProcedureDto: {
 				modified,

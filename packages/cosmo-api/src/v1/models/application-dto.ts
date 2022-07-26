@@ -15,7 +15,7 @@
 import { UserDto } from './user-dto';
 
 /**
- *
+ * The application who has all the user attached
  * @export
  * @interface ApplicationDto
  */

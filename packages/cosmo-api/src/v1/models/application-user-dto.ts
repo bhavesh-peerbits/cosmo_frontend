@@ -12,34 +12,25 @@
  * Do not edit the class manually.
  */
 
+import { ApplicationDto } from './application-dto';
+import { UserDto } from './user-dto';
+
 /**
- * Procedure
+ *
  * @export
- * @interface ProcedureDto
+ * @interface ApplicationUserDto
  */
-export interface ProcedureDto {
+export interface ApplicationUserDto {
 	/**
-	 * Procedure id
-	 * @type {number}
-	 * @memberof ProcedureDto
+	 *
+	 * @type {ApplicationDto}
+	 * @memberof ApplicationUserDto
 	 */
-	id: number;
+	application: ApplicationDto;
 	/**
-	 * Procedure name
-	 * @type {string}
-	 * @memberof ProcedureDto
+	 * The user who can access application, if analysts
+	 * @type {Array<UserDto>}
+	 * @memberof ApplicationUserDto
 	 */
-	name: string;
-	/**
-	 * Procedure description
-	 * @type {string}
-	 * @memberof ProcedureDto
-	 */
-	description?: string;
-	/**
-	 * Major procedure
-	 * @type {string}
-	 * @memberof ProcedureDto
-	 */
-	majorProcedure?: string;
+	users?: Array<UserDto>;
 }

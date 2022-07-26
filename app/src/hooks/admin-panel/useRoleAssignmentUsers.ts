@@ -45,7 +45,8 @@ const useRoleAssignmentUsers = () => {
 							email: user.email,
 							displayName: user.displayName,
 							roles: user.roles,
-							principalRole: toStartCase(r.toString()) as UserDisplayRole
+							principalRole: toStartCase(r.toString()) as UserDisplayRole,
+							inactive: user.inactive
 						};
 					})
 				)
