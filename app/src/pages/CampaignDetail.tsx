@@ -51,20 +51,8 @@ const CampaignDetail = () => {
 						aria-label='List of tabs'
 					>
 						<Tab>Application 1</Tab>
-						<Tab>Application 2</Tab>
-						<Tab>Application 3</Tab>
 					</TabList>
 					<TabPanels>
-						<TabPanel>
-							<div>
-								<CampaignDetailsContainer />
-							</div>
-						</TabPanel>
-						<TabPanel>
-							<div>
-								<CampaignDetailsContainer />
-							</div>
-						</TabPanel>
 						<TabPanel>
 							<div>
 								<CampaignDetailsContainer />

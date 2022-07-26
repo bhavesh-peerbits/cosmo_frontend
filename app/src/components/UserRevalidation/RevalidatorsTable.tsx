@@ -10,6 +10,7 @@ type Revalidator = {
 };
 const RevalidatorsTable = () => {
 	const { t } = useTranslation('userRevalidation');
+	const { t: tAdmin } = useTranslation('userAdmin');
 	const revalidators = [
 		{
 			name: 'Name',
@@ -46,7 +47,7 @@ const RevalidatorsTable = () => {
 		<TableToolbarSearch
 			size='lg'
 			persistent
-			placeholder={t('search-placeholder')}
+			placeholder={tAdmin('search-placeholder')}
 			id='search'
 		/>
 	);

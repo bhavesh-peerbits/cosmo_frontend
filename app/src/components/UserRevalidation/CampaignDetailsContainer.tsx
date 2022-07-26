@@ -12,8 +12,9 @@ const CampaignDetailsContainer = () => {
 					<RevalidatorsTable />
 				</Tile>
 			</Column>
-			<Column lg={5} md={8} sm={4}>
-				<Tile className='bg-background'>Contenuto</Tile>
+			<Column lg={5} md={8} sm={4} className='h-full space-y-5 pb-5'>
+				<Tile className='h-1/2 bg-background'>Contenuto</Tile>
+				<Tile className='h-1/2 bg-background'>Contenuto</Tile>
 			</Column>
 		</Grid>
 	);
