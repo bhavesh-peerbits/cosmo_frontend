@@ -37,7 +37,7 @@ export default function configureApi(config: Configuration) {
 }
 export type ApplicationApi = ApplicationDto;
 export type UserApi = UserDto;
-export type UserAdminApi = UserBase;
+export type UserBaseApi = UserBase;
 export type ProcedureApi = ProcedureDto;
 export type ProcedureAppInstanceApi = ProcedureAppInstanceDto;
 export type ApplicationAuditApi = ApplicationAuditDto;

@@ -11,6 +11,7 @@
 	"search-placeholder": "Rechercher par nom ou prénom d'utilisateur",
 	"edit": "Modifier",
 	"block": "Bloquer l'utilisateur",
+	"unblock": "Débloquer l'utilisateur",
 	"actions": "Actions",
 	"select-roles": "Sélectionner les rôles",
 	"placeholder-name": "Prénom de l'utilisateur",

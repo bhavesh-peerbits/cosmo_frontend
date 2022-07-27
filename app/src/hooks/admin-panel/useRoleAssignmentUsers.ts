@@ -32,11 +32,63 @@ const useRoleAssignmentUsers = () => {
 					.map(word => word.charAt(0).toUpperCase() + word.slice(1))
 					.join(' ');
 	};
+	// const data = useMemo(
+	// 	() =>
+	// 		list
+	// 			?.map(user =>
+
+	// 				user.roles.length !== 0
+	// 					? user.roles.map(r => {
+	// 							return {
+	// 								id: user.id,
+	// 								username: user.username,
+	// 								name: user.name,
+	// 								surname: user.surname,
+	// 								email: user.email,
+	// 								displayName: user.displayName,
+	// 								roles: user.roles,
+	// 								principalRole: toStartCase(r.toString()) as UserDisplayRole,
+	// 								inactive: user.inactive
+	// 							};
+	// 					  })
+	// 					: user.inactive
+	// 					? {
+	// 							id: user.id,
+	// 							username: user.username,
+	// 							name: user.name,
+	// 							surname: user.surname,
+	// 							email: user.email,
+	// 							displayName: user.displayName,
+	// 							roles: user.roles,
+	// 							principalRole: 'Blocked' as UserDisplayRole,
+	// 							inactive: user.inactive
+	// 					  }
+	// 					: user
+	// 			)
+	// 			.flat(),
+	// 	[list]
+	// );
 	const data = useMemo(
 		() =>
+			list &&
 			list
-				?.map(user =>
-					user.roles.map(r => {
+				?.map(user => {
+					if (user.roles.length !== 0) {
+						return user.roles.map(r => {
+							return {
+								id: user.id,
+								username: user.username,
+								name: user.name,
+								surname: user.surname,
+								email: user.email,
+								displayName: user.displayName,
+								roles: user.roles,
+								principalRole: toStartCase(r.toString()) as UserDisplayRole,
+								inactive: user.inactive
+							};
+						});
+					}
+					if (user.inactive) {
 						return {
 							id: user.id,
 							username: user.username,
@@ -45,11 +97,12 @@ const useRoleAssignmentUsers = () => {
 							email: user.email,
 							displayName: user.displayName,
 							roles: user.roles,
-							principalRole: toStartCase(r.toString()) as UserDisplayRole,
+							principalRole: 'Blocked' as UserDisplayRole,
 							inactive: user.inactive
 						};
-					})
-				)
+					}
+					return user;
+				})
 				.flat(),
 		[list]
 	);

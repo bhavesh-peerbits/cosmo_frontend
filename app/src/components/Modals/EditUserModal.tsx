@@ -1,6 +1,5 @@
 import ApiError from '@api/ApiError';
 import useSetRolesForUser from '@api/user-admin/useSetRolesForUser';
-import useGetUsers from '@api/user/useGetUsers';
 import {
 	ComposedModal,
 	ModalHeader,
@@ -11,6 +10,7 @@ import {
 	Checkbox,
 	InlineNotification
 } from '@carbon/react';
+import User from '@model/User';
 import { UserDtoRolesEnum } from 'cosmo-api/src/v1/models';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -18,7 +18,7 @@ import { useTranslation } from 'react-i18next';
 type EditUserModalProps = {
 	isOpen: boolean;
 	setIsOpen: (value: boolean) => void;
-	user: string[];
+	user: User | undefined;
 };
 
 const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
@@ -44,12 +44,9 @@ const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 	const { t } = useTranslation('modals');
 	const { t: tHome } = useTranslation('home');
 	const { mutate, isLoading, isError, error, reset } = useSetRolesForUser();
-	const { data } = useGetUsers();
-	const emailIndex = user.indexOf(
-		user.filter(attribute => attribute.includes('@')).toString()
-	);
-	const userToEdit = data?.filter(u => u.email === user[emailIndex]).flat();
-	const assignedRoles = userToEdit ? userToEdit[0]?.roles.map(role => role) : [''];
+	const assignedRoles = user?.roles.length
+		? user.roles.map(role => role)
+		: ['USER_UNKNOWN'];
 	const [selectedRoles, setSelectedRoles] = useState<string[]>(assignedRoles);
 
 	const cleanUp = () => {
@@ -58,21 +55,11 @@ const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 	};
 	const editUser = () => {
 		return (
-			userToEdit &&
+			user &&
 			mutate(
 				{
-					userId: userToEdit[0].id,
-					userData: {
-						id: userToEdit[0].id,
-						username: userToEdit[0].username,
-						name: userToEdit[0].name,
-						surname: userToEdit[0].surname,
-						displayName: userToEdit[0].displayName,
-						email: userToEdit[0].email,
-						inactive: userToEdit[0].inactive,
-						principalRole: userToEdit[0].principalRole,
-						roles: selectedRoles as UserDtoRolesEnum[]
-					}
+					userId: user.id,
+					userData: { ...user, roles: selectedRoles as UserDtoRolesEnum[] }
 				},
 				{
 					onSuccess: () => {
@@ -107,7 +94,7 @@ const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 							readOnly
 							id='name'
 							labelText={`${t('user')}`}
-							value={userToEdit ? userToEdit[0].displayName : ''}
+							value={user ? user.displayName : ''}
 							className='w-full'
 						/>
 
@@ -115,7 +102,7 @@ const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 							readOnly
 							id='email-address'
 							labelText={t('label-email')}
-							value={userToEdit ? userToEdit[0].email : ''}
+							value={user ? user.email : ''}
 							className='w-full grow-0'
 						/>
 					</div>

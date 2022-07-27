@@ -5,15 +5,17 @@ import { HeaderFunction } from '@components/table/CosmoTable';
 import { useCallback, useState } from 'react';
 import CosmoTableInlineAction from '@components/table/CosmoTableInlineAction';
 import useRoleAssignmentUsers from '@hooks/admin-panel/useRoleAssignmentUsers';
-import BlockUserModal from '@components/Modals/BlockUserModal';
+import SetUserStatusModal from '@components/Modals/SetUserStatusModal';
 import EditUserModal from '@components/Modals/EditUserModal';
+import useGetUsers from '@api/user/useGetUsers';
 
 type ActionCellProps = {
 	setIsModalOpen: (val: boolean) => void;
 	setActionSelected: (val: string) => void;
+	user: User | undefined;
 };
 
-const ActionsCell = ({ setIsModalOpen, setActionSelected }: ActionCellProps) => {
+const ActionsCell = ({ setIsModalOpen, setActionSelected, user }: ActionCellProps) => {
 	const { t } = useTranslation('userAdmin');
 	return (
 		<OverflowMenu ariaLabel='Actions' iconDescription={t('actions')}>
@@ -23,10 +25,11 @@ const ActionsCell = ({ setIsModalOpen, setActionSelected }: ActionCellProps) => 
 					setIsModalOpen(true);
 					setActionSelected('edit');
 				}}
+				disabled={user?.inactive}
 			/>
 			<OverflowMenuItem
-				isDelete
-				itemText={t('block')}
+				isDelete={!user?.inactive}
+				itemText={t(user?.inactive ? 'unblock' : 'block')}
 				onClick={() => {
 					setIsModalOpen(true);
 					setActionSelected('Block');
@@ -43,24 +46,25 @@ const UsersTable = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [userSelected, setUserSelected] = useState<string[]>([]);
 	const [actionSelected, setActionSelected] = useState('');
+	const { data } = useGetUsers();
+	const emailIndex = userSelected.indexOf(
+		userSelected.filter(attribute => attribute.includes('@')).toString()
+	);
+	const user = data?.filter(u => u.email === userSelected[emailIndex]).flat()[0];
 
 	const modalToOpen = () => {
 		switch (actionSelected) {
 			case 'Block':
 				return (
-					<BlockUserModal
-						user={userSelected}
+					<SetUserStatusModal
+						user={user}
 						isOpen={isModalOpen}
 						setIsOpen={setIsModalOpen}
 					/>
 				);
 			default:
 				return (
-					<EditUserModal
-						user={userSelected}
-						isOpen={isModalOpen}
-						setIsOpen={setIsModalOpen}
-					/>
+					<EditUserModal user={user} isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
 				);
 		}
 	};
@@ -112,6 +116,7 @@ const UsersTable = () => {
 					<ActionsCell
 						setActionSelected={setActionSelected}
 						setIsModalOpen={setIsModalOpen}
+						user={user}
 					/>
 				}
 				setRowSelected={setUserSelected}

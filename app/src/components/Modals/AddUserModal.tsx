@@ -1,3 +1,4 @@
+import useAddUser from '@api/user-admin/useAddUser';
 import useGetUsers from '@api/user/useGetUsers';
 import {
 	ComposedModal,
@@ -9,6 +10,7 @@ import {
 	Form,
 	Checkbox
 } from '@carbon/react';
+import { UserDtoRolesEnum } from 'cosmo-api/src/v1';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -33,18 +35,11 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 	const existingUsername = users.map(user => user.username);
 	const existingEmail = users.map(user => user.email?.toLocaleLowerCase());
 	const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
-
-	const roles = [
-		'Admin',
-		'Guest',
-		'Narrative Analyst',
-		'Reviewer',
-		'Reviewer Collaborator',
-		'User Admin'
-	];
+	const { mutate } = useAddUser();
 	const {
 		register,
 		reset,
+		handleSubmit,
 		formState: { isValid, errors }
 	} = useForm<AddUserFormData>({
 		mode: 'onChange',
@@ -57,20 +52,60 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 		}
 	});
 
+	const roles = [
+		'USER_ADMIN',
+		'NARRATIVE_ADMIN',
+		'NARRATIVE_ANALYST',
+		'REVALIDATION_ANALYST',
+		'REVIEWER',
+		'REVIEWER_COLLABORATOR',
+		'USER_UNKNOWN'
+	];
+	const toStartCase = (r: string) => {
+		return r === 'USER_UNKNOWN'
+			? 'Guest'
+			: r
+					.replace('_', ' ')
+					.toLowerCase()
+					.split(' ')
+					.map(word => word.charAt(0).toUpperCase() + word.slice(1))
+					.join(' ');
+	};
+
 	const cleanUp = () => {
 		setIsOpen(false);
 		reset();
 		setSelectedRoles([]);
 	};
+
+	const addUser = (data: AddUserFormData) => {
+		return mutate(
+			{
+				userData: {
+					username: data.username,
+					name: data.name,
+					surname: data.surname,
+					email: data.email,
+					inactive: false,
+					roles: selectedRoles as UserDtoRolesEnum[]
+				}
+			},
+			{
+				onSuccess: () => {
+					cleanUp();
+				}
+			}
+		);
+	};
 	return (
 		<ComposedModal size='sm' open={isOpen} onClose={cleanUp}>
-			<ModalHeader title={t('add-user')} closeModal={cleanUp}>
-				<span className='text-text-secondary text-body-1'>
-					{t('body-add', { action: `"${t('add-user')}"` })}
-				</span>
-			</ModalHeader>
-			<ModalBody hasForm>
-				<Form>
+			<Form onSubmit={handleSubmit(addUser)}>
+				<ModalHeader title={t('add-user')} closeModal={cleanUp}>
+					<span className='text-text-secondary text-body-1'>
+						{t('body-add', { action: `"${t('add-user')}"` })}
+					</span>
+				</ModalHeader>
+				<ModalBody hasForm>
 					<div className='flex space-x-5'>
 						<div className='w-1/2 space-y-5'>
 							<TextInput
@@ -132,8 +167,8 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 							<p className='mb-3 text-text-secondary text-label-1'>{tHome('roles')} *</p>
 							{roles.map(role => (
 								<Checkbox
-									labelText={role}
-									id={`${role}-add`}
+									labelText={toStartCase(role)}
+									id={`${role}`}
 									onChange={(e, { id, checked }) =>
 										!checked
 											? setSelectedRoles(selectedRoles.filter(r => r !== id))
@@ -143,16 +178,20 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 							))}
 						</div>
 					</div>
-				</Form>
-			</ModalBody>
-			<ModalFooter>
-				<Button kind='secondary' onClick={cleanUp}>
-					{t('cancel')}
-				</Button>
-				<Button kind='primary' disabled={!isValid}>
-					{t('add-user')}
-				</Button>
-			</ModalFooter>
+				</ModalBody>
+				<ModalFooter>
+					<Button kind='secondary' onClick={cleanUp}>
+						{t('cancel')}
+					</Button>
+					<Button
+						kind='primary'
+						type='submit'
+						disabled={!isValid || selectedRoles.length === 0}
+					>
+						{t('add-user')}
+					</Button>
+				</ModalFooter>
+			</Form>
 		</ComposedModal>
 	);
 };
