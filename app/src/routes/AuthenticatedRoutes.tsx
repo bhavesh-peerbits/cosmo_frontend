@@ -20,7 +20,13 @@ const Review = React.lazy(() => import('@pages/Review'));
 const ReviewDetail = React.lazy(() => import('@pages/ReviewDetail'));
 
 const AuthenticatedRoutes = () => {
-	const { canSeeNarrativeManagement, canReviewNarrative, canReview } = usePolicyStore();
+	const {
+		canSeeNarrativeManagement,
+		canReviewNarrative,
+		canReview,
+		canAdmin,
+		canUserAdmin
+	} = usePolicyStore();
 	return (
 		<>
 			<HeaderContainer render={Header} />
@@ -77,11 +83,29 @@ const AuthenticatedRoutes = () => {
 								/>
 							</Route>
 							<Route path='admin'>
-								<Route index element={<AdminPanel />} />
-								<Route path='role-assignment' element={<RoleAssignment />} />
+								<Route
+									index
+									element={
+										<ProtectRoute canNavigate={canAdmin}>
+											<AdminPanel />
+										</ProtectRoute>
+									}
+								/>
+								<Route
+									path='role-assignment'
+									element={
+										<ProtectRoute canNavigate={canUserAdmin}>
+											<RoleAssignment />
+										</ProtectRoute>
+									}
+								/>
 								<Route
 									path='applications-visibility'
-									element={<ApplicationsVisibility />}
+									element={
+										<ProtectRoute canNavigate={canUserAdmin}>
+											<ApplicationsVisibility />
+										</ProtectRoute>
+									}
 								/>
 							</Route>
 

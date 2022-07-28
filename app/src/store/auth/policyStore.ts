@@ -7,6 +7,8 @@ type Policies = {
 	canSeeNarrativeManagement: boolean;
 	canReviewNarrative: boolean;
 	canReview: boolean;
+	canAdmin: boolean;
+	canUserAdmin: boolean;
 };
 
 const policyStore = selector<Policies>({
@@ -19,15 +21,30 @@ const policyStore = selector<Policies>({
 		return {
 			hasNoRole,
 			canSeeNarrativeManagement: Boolean(
-				!hasNoRole && policies?.includes(UserRoleEnum.NarrativeAnalyst)
+				!hasNoRole &&
+					(policies?.includes(UserRoleEnum.NarrativeAnalyst) ||
+						policies?.includes(UserRoleEnum.NarrativeAdmin))
 			),
 			canReviewNarrative: Boolean(
-				!hasNoRole && policies?.includes(UserRoleEnum.NarrativeAnalyst)
+				!hasNoRole &&
+					(policies?.includes(UserRoleEnum.NarrativeAnalyst) ||
+						policies?.includes(UserRoleEnum.NarrativeAdmin))
 			),
 			canReview: Boolean(
 				!hasNoRole &&
 					(policies?.includes(UserRoleEnum.Reviewer) ||
 						policies?.includes(UserRoleEnum.ReviewerCollaborator))
+			),
+			canAdmin: Boolean(
+				!hasNoRole &&
+					(policies?.includes(UserRoleEnum.UserAdmin) ||
+						policies?.includes(UserRoleEnum.SysAdmin) ||
+						policies?.includes(UserRoleEnum.NarrativeAdmin))
+			),
+			canUserAdmin: Boolean(
+				!hasNoRole &&
+					(policies?.includes(UserRoleEnum.UserAdmin) ||
+						policies?.includes(UserRoleEnum.SysAdmin))
 			)
 		};
 	}
