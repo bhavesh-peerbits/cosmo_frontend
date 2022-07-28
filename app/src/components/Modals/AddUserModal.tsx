@@ -115,7 +115,7 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 								{...register('name', {
 									required: {
 										value: true,
-										message: 'required'
+										message: t('field-required')
 									}
 								})}
 							/>
@@ -126,7 +126,7 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 								{...register('surname', {
 									required: {
 										value: true,
-										message: 'required'
+										message: t('field-required')
 									}
 								})}
 							/>
@@ -139,7 +139,7 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 								{...register('username', {
 									required: {
 										value: true,
-										message: `required`
+										message: t('field-required')
 									},
 									validate: username =>
 										!existingUsername.includes(username.toLowerCase()) ||
@@ -155,7 +155,7 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 								{...register('email', {
 									required: {
 										value: true,
-										message: `required`
+										message: t('field-required')
 									},
 									validate: email =>
 										!existingEmail.includes(email.toLowerCase()) ||
