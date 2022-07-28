@@ -136,7 +136,7 @@ const GenerateModal = ({ isOpen, setIsOpen, application }: GenerateModalProps) =
 						<div className='pt-5'>
 							<p className='flex w-full text-heading-compact-2'>{`${tModals(
 								'total-procedures-narrative'
-							)}: ${proceduresApp.values.length}`}</p>
+							)}: ${proceduresApp.size}`}</p>
 						</div>
 					</Column>
 				</Grid>
