@@ -4,6 +4,7 @@ import {
 	ApplicationAuditDtoAuditActionTypesEnum,
 	ApplicationControllerApi,
 	ApplicationDto,
+	ApplicationUserDto,
 	AuthControllerApi,
 	Configuration,
 	GenerateReportControllerApi,
@@ -36,6 +37,7 @@ export default function configureApi(config: Configuration) {
 	};
 }
 export type ApplicationApi = ApplicationDto;
+export type ApplicationUserApi = ApplicationUserDto;
 export type UserApi = UserDto;
 export type UserBaseApi = UserBase;
 export type ProcedureApi = ProcedureDto;

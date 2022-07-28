@@ -18,6 +18,7 @@ const useSetRolesForUser = () => {
 	return useMutation(setRolesForUser, {
 		onSuccess: () => {
 			queryClient.invalidateQueries(['users']);
+			queryClient.invalidateQueries(['applicationUsers']);
 		}
 	});
 };
