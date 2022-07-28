@@ -26,9 +26,16 @@ export const fromUserApi = (userApi: UserApi): User => {
 		email: userApi.email,
 		surname: userApi.surname,
 		roles: userApi.roles || [],
-		principalRole: mapUserRoleToDisplayRole(
-			userApi.roles?.[0] || UserRoleEnum.UserUnknown
-		),
+		principalRole:
+			userApi.roles?.length === 0 ||
+			(userApi.roles?.length === 1 && userApi.roles[0] === 'USER_UNKNOWN') ||
+			(userApi &&
+				userApi.roles &&
+				userApi.roles?.length >= 1 &&
+				userApi.roles?.[0] !== 'USER_UNKNOWN')
+				? mapUserRoleToDisplayRole(userApi.roles?.[0] || UserRoleEnum.UserUnknown)
+				: mapUserRoleToDisplayRole(userApi.roles?.[1] || UserRoleEnum.UserUnknown),
+
 		displayName:
 			!userApi.name && !userApi.surname
 				? userApi.username
