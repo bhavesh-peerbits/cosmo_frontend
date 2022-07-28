@@ -41,5 +41,17 @@ export interface Tenant {
 	 * @type {string}
 	 * @memberof Tenant
 	 */
+	linkToProduction?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Tenant
+	 */
+	logoImagePosition?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Tenant
+	 */
 	jsonTenantData?: string;
 }

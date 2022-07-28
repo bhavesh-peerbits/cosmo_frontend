@@ -51,6 +51,8 @@ import { InlineObject6 } from '../models';
 // @ts-ignore
 import { InlineObject7 } from '../models';
 // @ts-ignore
+import { InlineObject8 } from '../models';
+// @ts-ignore
 import { ProcedureAppInstanceDto } from '../models';
 // @ts-ignore
 import { ProcedureDto } from '../models';
@@ -66,18 +68,18 @@ export const CsvReaderControllerApiAxiosParamCreator = function (
 	return {
 		/**
 		 *
-		 * @param {InlineObject7} inlineObject7
+		 * @param {InlineObject8} inlineObject8
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		addApplicationDetailsFromCSV: async (
-			inlineObject7: InlineObject7,
+			inlineObject8: InlineObject8,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'inlineObject7' is not null or undefined
-			assertParamExists('addApplicationDetailsFromCSV', 'inlineObject7', inlineObject7);
+			// verify required parameter 'inlineObject8' is not null or undefined
+			assertParamExists('addApplicationDetailsFromCSV', 'inlineObject8', inlineObject8);
 			const localVarPath = `/api/importcsv/applicationsDetInfo`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -108,7 +110,7 @@ export const CsvReaderControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				inlineObject7,
+				inlineObject8,
 				localVarRequestOptions,
 				configuration
 			);
@@ -120,18 +122,18 @@ export const CsvReaderControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {InlineObject6} inlineObject6
+		 * @param {InlineObject7} inlineObject7
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		addApplicationFromCSV: async (
-			inlineObject6: InlineObject6,
+			inlineObject7: InlineObject7,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'inlineObject6' is not null or undefined
-			assertParamExists('addApplicationFromCSV', 'inlineObject6', inlineObject6);
+			// verify required parameter 'inlineObject7' is not null or undefined
+			assertParamExists('addApplicationFromCSV', 'inlineObject7', inlineObject7);
 			const localVarPath = `/api/importcsv/applications`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -162,7 +164,7 @@ export const CsvReaderControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				inlineObject6,
+				inlineObject7,
 				localVarRequestOptions,
 				configuration
 			);
@@ -337,6 +339,60 @@ export const CsvReaderControllerApiAxiosParamCreator = function (
 				url: toPathString(localVarUrlObj),
 				options: localVarRequestOptions
 			};
+		},
+		/**
+		 *
+		 * @param {InlineObject6} inlineObject6
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		addUsersWithoutProfilesFromCSV: async (
+			inlineObject6: InlineObject6,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'inlineObject6' is not null or undefined
+			assertParamExists('addUsersWithoutProfilesFromCSV', 'inlineObject6', inlineObject6);
+			const localVarPath = `/api/importcsv/onlyUsers`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				inlineObject6,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
 		}
 	};
 };
@@ -351,13 +407,13 @@ export const CsvReaderControllerApiFp = function (configuration?: Configuration)
 	return {
 		/**
 		 *
-		 * @param {InlineObject7} inlineObject7
+		 * @param {InlineObject8} inlineObject8
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async addApplicationDetailsFromCSV(
-			inlineObject7: InlineObject7,
+			inlineObject8: InlineObject8,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
@@ -365,7 +421,7 @@ export const CsvReaderControllerApiFp = function (configuration?: Configuration)
 		> {
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.addApplicationDetailsFromCSV(
-					inlineObject7,
+					inlineObject8,
 					acceptLanguage,
 					options
 				);
@@ -378,20 +434,20 @@ export const CsvReaderControllerApiFp = function (configuration?: Configuration)
 		},
 		/**
 		 *
-		 * @param {InlineObject6} inlineObject6
+		 * @param {InlineObject7} inlineObject7
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async addApplicationFromCSV(
-			inlineObject6: InlineObject6,
+			inlineObject7: InlineObject7,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApplicationDto>>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.addApplicationFromCSV(
-				inlineObject6,
+				inlineObject7,
 				acceptLanguage,
 				options
 			);
@@ -483,6 +539,33 @@ export const CsvReaderControllerApiFp = function (configuration?: Configuration)
 				BASE_PATH,
 				configuration
 			);
+		},
+		/**
+		 *
+		 * @param {InlineObject6} inlineObject6
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async addUsersWithoutProfilesFromCSV(
+			inlineObject6: InlineObject6,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserDto>>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.addUsersWithoutProfilesFromCSV(
+					inlineObject6,
+					acceptLanguage,
+					options
+				);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
 		}
 	};
 };
@@ -500,34 +583,34 @@ export const CsvReaderControllerApiFactory = function (
 	return {
 		/**
 		 *
-		 * @param {InlineObject7} inlineObject7
+		 * @param {InlineObject8} inlineObject8
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		addApplicationDetailsFromCSV(
-			inlineObject7: InlineObject7,
+			inlineObject8: InlineObject8,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Array<ApplicationDto>> {
 			return localVarFp
-				.addApplicationDetailsFromCSV(inlineObject7, acceptLanguage, options)
+				.addApplicationDetailsFromCSV(inlineObject8, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {InlineObject6} inlineObject6
+		 * @param {InlineObject7} inlineObject7
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		addApplicationFromCSV(
-			inlineObject6: InlineObject6,
+			inlineObject7: InlineObject7,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Array<ApplicationDto>> {
 			return localVarFp
-				.addApplicationFromCSV(inlineObject6, acceptLanguage, options)
+				.addApplicationFromCSV(inlineObject7, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -577,6 +660,22 @@ export const CsvReaderControllerApiFactory = function (
 			return localVarFp
 				.addUsersFromCSV(inlineObject3, acceptLanguage, options)
 				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {InlineObject6} inlineObject6
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		addUsersWithoutProfilesFromCSV(
+			inlineObject6: InlineObject6,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<UserDto>> {
+			return localVarFp
+				.addUsersWithoutProfilesFromCSV(inlineObject6, acceptLanguage, options)
+				.then(request => request(axios, basePath));
 		}
 	};
 };
@@ -589,10 +688,10 @@ export const CsvReaderControllerApiFactory = function (
 export interface CsvReaderControllerApiAddApplicationDetailsFromCSVRequest {
 	/**
 	 *
-	 * @type {InlineObject7}
+	 * @type {InlineObject8}
 	 * @memberof CsvReaderControllerApiAddApplicationDetailsFromCSV
 	 */
-	readonly inlineObject7: InlineObject7;
+	readonly inlineObject8: InlineObject8;
 
 	/**
 	 *
@@ -610,10 +709,10 @@ export interface CsvReaderControllerApiAddApplicationDetailsFromCSVRequest {
 export interface CsvReaderControllerApiAddApplicationFromCSVRequest {
 	/**
 	 *
-	 * @type {InlineObject6}
+	 * @type {InlineObject7}
 	 * @memberof CsvReaderControllerApiAddApplicationFromCSV
 	 */
-	readonly inlineObject6: InlineObject6;
+	readonly inlineObject7: InlineObject7;
 
 	/**
 	 *
@@ -687,6 +786,27 @@ export interface CsvReaderControllerApiAddUsersFromCSVRequest {
 }
 
 /**
+ * Request parameters for addUsersWithoutProfilesFromCSV operation in CsvReaderControllerApi.
+ * @export
+ * @interface CsvReaderControllerApiAddUsersWithoutProfilesFromCSVRequest
+ */
+export interface CsvReaderControllerApiAddUsersWithoutProfilesFromCSVRequest {
+	/**
+	 *
+	 * @type {InlineObject6}
+	 * @memberof CsvReaderControllerApiAddUsersWithoutProfilesFromCSV
+	 */
+	readonly inlineObject6: InlineObject6;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof CsvReaderControllerApiAddUsersWithoutProfilesFromCSV
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
  * CsvReaderControllerApi - object-oriented interface
  * @export
  * @class CsvReaderControllerApi
@@ -706,7 +826,7 @@ export class CsvReaderControllerApi extends BaseAPI {
 	) {
 		return CsvReaderControllerApiFp(this.configuration)
 			.addApplicationDetailsFromCSV(
-				requestParameters.inlineObject7,
+				requestParameters.inlineObject8,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -726,7 +846,7 @@ export class CsvReaderControllerApi extends BaseAPI {
 	) {
 		return CsvReaderControllerApiFp(this.configuration)
 			.addApplicationFromCSV(
-				requestParameters.inlineObject6,
+				requestParameters.inlineObject7,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -787,6 +907,26 @@ export class CsvReaderControllerApi extends BaseAPI {
 		return CsvReaderControllerApiFp(this.configuration)
 			.addUsersFromCSV(
 				requestParameters.inlineObject3,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {CsvReaderControllerApiAddUsersWithoutProfilesFromCSVRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof CsvReaderControllerApi
+	 */
+	public addUsersWithoutProfilesFromCSV(
+		requestParameters: CsvReaderControllerApiAddUsersWithoutProfilesFromCSVRequest,
+		options?: AxiosRequestConfig
+	) {
+		return CsvReaderControllerApiFp(this.configuration)
+			.addUsersWithoutProfilesFromCSV(
+				requestParameters.inlineObject6,
 				requestParameters.acceptLanguage,
 				options
 			)

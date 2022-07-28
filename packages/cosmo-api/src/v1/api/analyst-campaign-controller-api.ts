@@ -47,7 +47,7 @@ import { CampaignDto } from '../models';
 // @ts-ignore
 import { CsvAnswerParsingDto } from '../models';
 // @ts-ignore
-import { InlineObject8 } from '../models';
+import { InlineObject9 } from '../models';
 // @ts-ignore
 import { ReviewDto } from '../models';
 // @ts-ignore
@@ -63,21 +63,21 @@ export const AnalystCampaignControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} reviewId
-		 * @param {InlineObject8} inlineObject8
+		 * @param {InlineObject9} inlineObject9
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		addAnswerToGivenReview: async (
 			reviewId: number,
-			inlineObject8: InlineObject8,
+			inlineObject9: InlineObject9,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'reviewId' is not null or undefined
 			assertParamExists('addAnswerToGivenReview', 'reviewId', reviewId);
-			// verify required parameter 'inlineObject8' is not null or undefined
-			assertParamExists('addAnswerToGivenReview', 'inlineObject8', inlineObject8);
+			// verify required parameter 'inlineObject9' is not null or undefined
+			assertParamExists('addAnswerToGivenReview', 'inlineObject9', inlineObject9);
 			const localVarPath = `/api/analyst/campaign/answer/{reviewId}`.replace(
 				`{${'reviewId'}}`,
 				encodeURIComponent(String(reviewId))
@@ -111,7 +111,7 @@ export const AnalystCampaignControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				inlineObject8,
+				inlineObject9,
 				localVarRequestOptions,
 				configuration
 			);
@@ -944,14 +944,14 @@ export const AnalystCampaignControllerApiFp = function (configuration?: Configur
 		/**
 		 *
 		 * @param {number} reviewId
-		 * @param {InlineObject8} inlineObject8
+		 * @param {InlineObject9} inlineObject9
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async addAnswerToGivenReview(
 			reviewId: number,
-			inlineObject8: InlineObject8,
+			inlineObject9: InlineObject9,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
@@ -959,7 +959,7 @@ export const AnalystCampaignControllerApiFp = function (configuration?: Configur
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.addAnswerToGivenReview(
 				reviewId,
-				inlineObject8,
+				inlineObject9,
 				acceptLanguage,
 				options
 			);
@@ -1369,19 +1369,19 @@ export const AnalystCampaignControllerApiFactory = function (
 		/**
 		 *
 		 * @param {number} reviewId
-		 * @param {InlineObject8} inlineObject8
+		 * @param {InlineObject9} inlineObject9
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		addAnswerToGivenReview(
 			reviewId: number,
-			inlineObject8: InlineObject8,
+			inlineObject9: InlineObject9,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<CsvAnswerParsingDto> {
 			return localVarFp
-				.addAnswerToGivenReview(reviewId, inlineObject8, acceptLanguage, options)
+				.addAnswerToGivenReview(reviewId, inlineObject9, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -1650,10 +1650,10 @@ export interface AnalystCampaignControllerApiAddAnswerToGivenReviewRequest {
 
 	/**
 	 *
-	 * @type {InlineObject8}
+	 * @type {InlineObject9}
 	 * @memberof AnalystCampaignControllerApiAddAnswerToGivenReview
 	 */
-	readonly inlineObject8: InlineObject8;
+	readonly inlineObject9: InlineObject9;
 
 	/**
 	 *
@@ -2027,7 +2027,7 @@ export class AnalystCampaignControllerApi extends BaseAPI {
 		return AnalystCampaignControllerApiFp(this.configuration)
 			.addAnswerToGivenReview(
 				requestParameters.reviewId,
-				requestParameters.inlineObject8,
+				requestParameters.inlineObject9,
 				requestParameters.acceptLanguage,
 				options
 			)

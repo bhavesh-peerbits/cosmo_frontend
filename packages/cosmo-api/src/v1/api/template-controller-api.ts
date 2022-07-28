@@ -50,15 +50,231 @@ export const TemplateControllerApiAxiosParamCreator = function (
 	return {
 		/**
 		 *
+		 * @param {MailTemplateDto} mailTemplateDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllMailTemplates: async (
+		createMailTemplateNarrative: async (
+			mailTemplateDto: MailTemplateDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			const localVarPath = `/api/templates`;
+			// verify required parameter 'mailTemplateDto' is not null or undefined
+			assertParamExists(
+				'createMailTemplateNarrative',
+				'mailTemplateDto',
+				mailTemplateDto
+			);
+			const localVarPath = `/api/templates/narrative`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				mailTemplateDto,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {MailTemplateDto} mailTemplateDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		createMailTemplateRevalidation: async (
+			mailTemplateDto: MailTemplateDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'mailTemplateDto' is not null or undefined
+			assertParamExists(
+				'createMailTemplateRevalidation',
+				'mailTemplateDto',
+				mailTemplateDto
+			);
+			const localVarPath = `/api/templates/revalidation`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				mailTemplateDto,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {string} templateName
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		deleteMailTemplateNarrative: async (
+			templateName: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'templateName' is not null or undefined
+			assertParamExists('deleteMailTemplateNarrative', 'templateName', templateName);
+			const localVarPath = `/api/templates/narrative/{templateName}`.replace(
+				`{${'templateName'}}`,
+				encodeURIComponent(String(templateName))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {string} templateName
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		deleteMailTemplateRevalidation: async (
+			templateName: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'templateName' is not null or undefined
+			assertParamExists('deleteMailTemplateRevalidation', 'templateName', templateName);
+			const localVarPath = `/api/templates/revalidation/{templateName}`.replace(
+				`{${'templateName'}}`,
+				encodeURIComponent(String(templateName))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllNarrativeMailTemplates: async (
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/templates/narrative`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -90,6 +306,269 @@ export const TemplateControllerApiAxiosParamCreator = function (
 				url: toPathString(localVarUrlObj),
 				options: localVarRequestOptions
 			};
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllRevalidationMailTemplates: async (
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/templates/revalidation`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {string} templateName
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getNarrativeMailTemplateByName: async (
+			templateName: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'templateName' is not null or undefined
+			assertParamExists('getNarrativeMailTemplateByName', 'templateName', templateName);
+			const localVarPath = `/api/templates/narrative/{templateName}`.replace(
+				`{${'templateName'}}`,
+				encodeURIComponent(String(templateName))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {string} templateName
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getRevalidationMailTemplateByName: async (
+			templateName: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'templateName' is not null or undefined
+			assertParamExists(
+				'getRevalidationMailTemplateByName',
+				'templateName',
+				templateName
+			);
+			const localVarPath = `/api/templates/revalidation/{templateName}`.replace(
+				`{${'templateName'}}`,
+				encodeURIComponent(String(templateName))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {MailTemplateDto} mailTemplateDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		updateMailTemplateNarrative: async (
+			mailTemplateDto: MailTemplateDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'mailTemplateDto' is not null or undefined
+			assertParamExists(
+				'updateMailTemplateNarrative',
+				'mailTemplateDto',
+				mailTemplateDto
+			);
+			const localVarPath = `/api/templates/narrative`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				mailTemplateDto,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {MailTemplateDto} mailTemplateDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		updateMailTemplateRevalidation: async (
+			mailTemplateDto: MailTemplateDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'mailTemplateDto' is not null or undefined
+			assertParamExists(
+				'updateMailTemplateRevalidation',
+				'mailTemplateDto',
+				mailTemplateDto
+			);
+			const localVarPath = `/api/templates/revalidation`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				mailTemplateDto,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
 		}
 	};
 };
@@ -103,20 +582,249 @@ export const TemplateControllerApiFp = function (configuration?: Configuration) 
 	return {
 		/**
 		 *
+		 * @param {MailTemplateDto} mailTemplateDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async getAllMailTemplates(
+		async createMailTemplateNarrative(
+			mailTemplateDto: MailTemplateDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.createMailTemplateNarrative(
+					mailTemplateDto,
+					acceptLanguage,
+					options
+				);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {MailTemplateDto} mailTemplateDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async createMailTemplateRevalidation(
+			mailTemplateDto: MailTemplateDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.createMailTemplateRevalidation(
+					mailTemplateDto,
+					acceptLanguage,
+					options
+				);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {string} templateName
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async deleteMailTemplateNarrative(
+			templateName: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.deleteMailTemplateNarrative(
+					templateName,
+					acceptLanguage,
+					options
+				);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {string} templateName
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async deleteMailTemplateRevalidation(
+			templateName: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.deleteMailTemplateRevalidation(
+					templateName,
+					acceptLanguage,
+					options
+				);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getAllNarrativeMailTemplates(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<MailTemplateDto>>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllMailTemplates(
-				acceptLanguage,
-				options
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.getAllNarrativeMailTemplates(
+					acceptLanguage,
+					options
+				);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
 			);
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getAllRevalidationMailTemplates(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<MailTemplateDto>>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.getAllRevalidationMailTemplates(
+					acceptLanguage,
+					options
+				);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {string} templateName
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getNarrativeMailTemplateByName(
+			templateName: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<MailTemplateDto>>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.getNarrativeMailTemplateByName(
+					templateName,
+					acceptLanguage,
+					options
+				);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {string} templateName
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getRevalidationMailTemplateByName(
+			templateName: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<MailTemplateDto>>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.getRevalidationMailTemplateByName(
+					templateName,
+					acceptLanguage,
+					options
+				);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {MailTemplateDto} mailTemplateDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async updateMailTemplateNarrative(
+			mailTemplateDto: MailTemplateDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.updateMailTemplateNarrative(
+					mailTemplateDto,
+					acceptLanguage,
+					options
+				);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {MailTemplateDto} mailTemplateDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async updateMailTemplateRevalidation(
+			mailTemplateDto: MailTemplateDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.updateMailTemplateRevalidation(
+					mailTemplateDto,
+					acceptLanguage,
+					options
+				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
@@ -140,31 +848,355 @@ export const TemplateControllerApiFactory = function (
 	return {
 		/**
 		 *
+		 * @param {MailTemplateDto} mailTemplateDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllMailTemplates(
+		createMailTemplateNarrative(
+			mailTemplateDto: MailTemplateDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<void> {
+			return localVarFp
+				.createMailTemplateNarrative(mailTemplateDto, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {MailTemplateDto} mailTemplateDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		createMailTemplateRevalidation(
+			mailTemplateDto: MailTemplateDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<void> {
+			return localVarFp
+				.createMailTemplateRevalidation(mailTemplateDto, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {string} templateName
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		deleteMailTemplateNarrative(
+			templateName: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<void> {
+			return localVarFp
+				.deleteMailTemplateNarrative(templateName, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {string} templateName
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		deleteMailTemplateRevalidation(
+			templateName: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<void> {
+			return localVarFp
+				.deleteMailTemplateRevalidation(templateName, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllNarrativeMailTemplates(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Array<MailTemplateDto>> {
 			return localVarFp
-				.getAllMailTemplates(acceptLanguage, options)
+				.getAllNarrativeMailTemplates(acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllRevalidationMailTemplates(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<MailTemplateDto>> {
+			return localVarFp
+				.getAllRevalidationMailTemplates(acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {string} templateName
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getNarrativeMailTemplateByName(
+			templateName: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<MailTemplateDto>> {
+			return localVarFp
+				.getNarrativeMailTemplateByName(templateName, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {string} templateName
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getRevalidationMailTemplateByName(
+			templateName: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<MailTemplateDto>> {
+			return localVarFp
+				.getRevalidationMailTemplateByName(templateName, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {MailTemplateDto} mailTemplateDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		updateMailTemplateNarrative(
+			mailTemplateDto: MailTemplateDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<void> {
+			return localVarFp
+				.updateMailTemplateNarrative(mailTemplateDto, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {MailTemplateDto} mailTemplateDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		updateMailTemplateRevalidation(
+			mailTemplateDto: MailTemplateDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<void> {
+			return localVarFp
+				.updateMailTemplateRevalidation(mailTemplateDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		}
 	};
 };
 
 /**
- * Request parameters for getAllMailTemplates operation in TemplateControllerApi.
+ * Request parameters for createMailTemplateNarrative operation in TemplateControllerApi.
  * @export
- * @interface TemplateControllerApiGetAllMailTemplatesRequest
+ * @interface TemplateControllerApiCreateMailTemplateNarrativeRequest
  */
-export interface TemplateControllerApiGetAllMailTemplatesRequest {
+export interface TemplateControllerApiCreateMailTemplateNarrativeRequest {
+	/**
+	 *
+	 * @type {MailTemplateDto}
+	 * @memberof TemplateControllerApiCreateMailTemplateNarrative
+	 */
+	readonly mailTemplateDto: MailTemplateDto;
+
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof TemplateControllerApiGetAllMailTemplates
+	 * @memberof TemplateControllerApiCreateMailTemplateNarrative
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for createMailTemplateRevalidation operation in TemplateControllerApi.
+ * @export
+ * @interface TemplateControllerApiCreateMailTemplateRevalidationRequest
+ */
+export interface TemplateControllerApiCreateMailTemplateRevalidationRequest {
+	/**
+	 *
+	 * @type {MailTemplateDto}
+	 * @memberof TemplateControllerApiCreateMailTemplateRevalidation
+	 */
+	readonly mailTemplateDto: MailTemplateDto;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof TemplateControllerApiCreateMailTemplateRevalidation
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for deleteMailTemplateNarrative operation in TemplateControllerApi.
+ * @export
+ * @interface TemplateControllerApiDeleteMailTemplateNarrativeRequest
+ */
+export interface TemplateControllerApiDeleteMailTemplateNarrativeRequest {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof TemplateControllerApiDeleteMailTemplateNarrative
+	 */
+	readonly templateName: string;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof TemplateControllerApiDeleteMailTemplateNarrative
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for deleteMailTemplateRevalidation operation in TemplateControllerApi.
+ * @export
+ * @interface TemplateControllerApiDeleteMailTemplateRevalidationRequest
+ */
+export interface TemplateControllerApiDeleteMailTemplateRevalidationRequest {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof TemplateControllerApiDeleteMailTemplateRevalidation
+	 */
+	readonly templateName: string;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof TemplateControllerApiDeleteMailTemplateRevalidation
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getAllNarrativeMailTemplates operation in TemplateControllerApi.
+ * @export
+ * @interface TemplateControllerApiGetAllNarrativeMailTemplatesRequest
+ */
+export interface TemplateControllerApiGetAllNarrativeMailTemplatesRequest {
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof TemplateControllerApiGetAllNarrativeMailTemplates
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getAllRevalidationMailTemplates operation in TemplateControllerApi.
+ * @export
+ * @interface TemplateControllerApiGetAllRevalidationMailTemplatesRequest
+ */
+export interface TemplateControllerApiGetAllRevalidationMailTemplatesRequest {
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof TemplateControllerApiGetAllRevalidationMailTemplates
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getNarrativeMailTemplateByName operation in TemplateControllerApi.
+ * @export
+ * @interface TemplateControllerApiGetNarrativeMailTemplateByNameRequest
+ */
+export interface TemplateControllerApiGetNarrativeMailTemplateByNameRequest {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof TemplateControllerApiGetNarrativeMailTemplateByName
+	 */
+	readonly templateName: string;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof TemplateControllerApiGetNarrativeMailTemplateByName
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getRevalidationMailTemplateByName operation in TemplateControllerApi.
+ * @export
+ * @interface TemplateControllerApiGetRevalidationMailTemplateByNameRequest
+ */
+export interface TemplateControllerApiGetRevalidationMailTemplateByNameRequest {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof TemplateControllerApiGetRevalidationMailTemplateByName
+	 */
+	readonly templateName: string;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof TemplateControllerApiGetRevalidationMailTemplateByName
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for updateMailTemplateNarrative operation in TemplateControllerApi.
+ * @export
+ * @interface TemplateControllerApiUpdateMailTemplateNarrativeRequest
+ */
+export interface TemplateControllerApiUpdateMailTemplateNarrativeRequest {
+	/**
+	 *
+	 * @type {MailTemplateDto}
+	 * @memberof TemplateControllerApiUpdateMailTemplateNarrative
+	 */
+	readonly mailTemplateDto: MailTemplateDto;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof TemplateControllerApiUpdateMailTemplateNarrative
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for updateMailTemplateRevalidation operation in TemplateControllerApi.
+ * @export
+ * @interface TemplateControllerApiUpdateMailTemplateRevalidationRequest
+ */
+export interface TemplateControllerApiUpdateMailTemplateRevalidationRequest {
+	/**
+	 *
+	 * @type {MailTemplateDto}
+	 * @memberof TemplateControllerApiUpdateMailTemplateRevalidation
+	 */
+	readonly mailTemplateDto: MailTemplateDto;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof TemplateControllerApiUpdateMailTemplateRevalidation
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
@@ -178,17 +1210,193 @@ export interface TemplateControllerApiGetAllMailTemplatesRequest {
 export class TemplateControllerApi extends BaseAPI {
 	/**
 	 *
-	 * @param {TemplateControllerApiGetAllMailTemplatesRequest} requestParameters Request parameters.
+	 * @param {TemplateControllerApiCreateMailTemplateNarrativeRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
 	 * @memberof TemplateControllerApi
 	 */
-	public getAllMailTemplates(
-		requestParameters: TemplateControllerApiGetAllMailTemplatesRequest = {},
+	public createMailTemplateNarrative(
+		requestParameters: TemplateControllerApiCreateMailTemplateNarrativeRequest,
 		options?: AxiosRequestConfig
 	) {
 		return TemplateControllerApiFp(this.configuration)
-			.getAllMailTemplates(requestParameters.acceptLanguage, options)
+			.createMailTemplateNarrative(
+				requestParameters.mailTemplateDto,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {TemplateControllerApiCreateMailTemplateRevalidationRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof TemplateControllerApi
+	 */
+	public createMailTemplateRevalidation(
+		requestParameters: TemplateControllerApiCreateMailTemplateRevalidationRequest,
+		options?: AxiosRequestConfig
+	) {
+		return TemplateControllerApiFp(this.configuration)
+			.createMailTemplateRevalidation(
+				requestParameters.mailTemplateDto,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {TemplateControllerApiDeleteMailTemplateNarrativeRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof TemplateControllerApi
+	 */
+	public deleteMailTemplateNarrative(
+		requestParameters: TemplateControllerApiDeleteMailTemplateNarrativeRequest,
+		options?: AxiosRequestConfig
+	) {
+		return TemplateControllerApiFp(this.configuration)
+			.deleteMailTemplateNarrative(
+				requestParameters.templateName,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {TemplateControllerApiDeleteMailTemplateRevalidationRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof TemplateControllerApi
+	 */
+	public deleteMailTemplateRevalidation(
+		requestParameters: TemplateControllerApiDeleteMailTemplateRevalidationRequest,
+		options?: AxiosRequestConfig
+	) {
+		return TemplateControllerApiFp(this.configuration)
+			.deleteMailTemplateRevalidation(
+				requestParameters.templateName,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {TemplateControllerApiGetAllNarrativeMailTemplatesRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof TemplateControllerApi
+	 */
+	public getAllNarrativeMailTemplates(
+		requestParameters: TemplateControllerApiGetAllNarrativeMailTemplatesRequest = {},
+		options?: AxiosRequestConfig
+	) {
+		return TemplateControllerApiFp(this.configuration)
+			.getAllNarrativeMailTemplates(requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {TemplateControllerApiGetAllRevalidationMailTemplatesRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof TemplateControllerApi
+	 */
+	public getAllRevalidationMailTemplates(
+		requestParameters: TemplateControllerApiGetAllRevalidationMailTemplatesRequest = {},
+		options?: AxiosRequestConfig
+	) {
+		return TemplateControllerApiFp(this.configuration)
+			.getAllRevalidationMailTemplates(requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {TemplateControllerApiGetNarrativeMailTemplateByNameRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof TemplateControllerApi
+	 */
+	public getNarrativeMailTemplateByName(
+		requestParameters: TemplateControllerApiGetNarrativeMailTemplateByNameRequest,
+		options?: AxiosRequestConfig
+	) {
+		return TemplateControllerApiFp(this.configuration)
+			.getNarrativeMailTemplateByName(
+				requestParameters.templateName,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {TemplateControllerApiGetRevalidationMailTemplateByNameRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof TemplateControllerApi
+	 */
+	public getRevalidationMailTemplateByName(
+		requestParameters: TemplateControllerApiGetRevalidationMailTemplateByNameRequest,
+		options?: AxiosRequestConfig
+	) {
+		return TemplateControllerApiFp(this.configuration)
+			.getRevalidationMailTemplateByName(
+				requestParameters.templateName,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {TemplateControllerApiUpdateMailTemplateNarrativeRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof TemplateControllerApi
+	 */
+	public updateMailTemplateNarrative(
+		requestParameters: TemplateControllerApiUpdateMailTemplateNarrativeRequest,
+		options?: AxiosRequestConfig
+	) {
+		return TemplateControllerApiFp(this.configuration)
+			.updateMailTemplateNarrative(
+				requestParameters.mailTemplateDto,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {TemplateControllerApiUpdateMailTemplateRevalidationRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof TemplateControllerApi
+	 */
+	public updateMailTemplateRevalidation(
+		requestParameters: TemplateControllerApiUpdateMailTemplateRevalidationRequest,
+		options?: AxiosRequestConfig
+	) {
+		return TemplateControllerApiFp(this.configuration)
+			.updateMailTemplateRevalidation(
+				requestParameters.mailTemplateDto,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 }

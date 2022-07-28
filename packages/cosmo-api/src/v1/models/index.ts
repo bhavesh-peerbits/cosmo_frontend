@@ -23,6 +23,7 @@ export * from './inline-object5';
 export * from './inline-object6';
 export * from './inline-object7';
 export * from './inline-object8';
+export * from './inline-object9';
 export * from './mail-template-dto';
 export * from './module';
 export * from './multiple-narrative-review-body';
