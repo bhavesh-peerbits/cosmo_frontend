@@ -1,3 +1,4 @@
+import ApiError from '@api/ApiError';
 import useAddUser from '@api/user-admin/useAddUser';
 import useGetUsers from '@api/user/useGetUsers';
 import {
@@ -8,7 +9,8 @@ import {
 	Button,
 	TextInput,
 	Form,
-	Checkbox
+	Checkbox,
+	InlineNotification
 } from '@carbon/react';
 import { UserDtoRolesEnum } from 'cosmo-api/src/v1';
 import { useState } from 'react';
@@ -35,7 +37,7 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 	const existingUsername = users.map(user => user.username);
 	const existingEmail = users.map(user => user.email?.toLocaleLowerCase());
 	const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
-	const { mutate } = useAddUser();
+	const { mutate, isError, error } = useAddUser();
 	const {
 		register,
 		reset,
@@ -178,7 +180,21 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 							))}
 						</div>
 					</div>
+					{isError && (
+						<div className='mt-5 flex items-center justify-center'>
+							<InlineNotification
+								kind='error'
+								title='Error'
+								hideCloseButton
+								subtitle={
+									(error as ApiError)?.message ||
+									'An error has occurred, please try again later'
+								}
+							/>
+						</div>
+					)}
 				</ModalBody>
+
 				<ModalFooter>
 					<Button kind='secondary' onClick={cleanUp}>
 						{t('cancel')}

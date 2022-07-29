@@ -1,3 +1,4 @@
+import ApiError from '@api/ApiError';
 import useSetUserActive from '@api/user-admin/useSetUserActive';
 import useSetUserInactive from '@api/user-admin/useSetUserInactive';
 import {
@@ -5,7 +6,8 @@ import {
 	ModalHeader,
 	ModalBody,
 	ModalFooter,
-	Button
+	Button,
+	InlineNotification
 } from '@carbon/react';
 import User from '@model/User';
 import { useTranslation } from 'react-i18next';
@@ -18,8 +20,16 @@ type SetUserStatusModalProps = {
 
 const SetUserStatusModal = ({ isOpen, setIsOpen, user }: SetUserStatusModalProps) => {
 	const { t } = useTranslation('modals');
-	const { mutate: mutateBlock } = useSetUserInactive();
-	const { mutate: mutateUnblock } = useSetUserActive();
+	const {
+		mutate: mutateBlock,
+		isError: isErrorBlock,
+		error: errorBlock
+	} = useSetUserInactive();
+	const {
+		mutate: mutateUnblock,
+		isError: isErrorUnblock,
+		error: errorUnblock
+	} = useSetUserActive();
 
 	const cleanUp = () => {
 		setIsOpen(false);
@@ -60,6 +70,20 @@ const SetUserStatusModal = ({ isOpen, setIsOpen, user }: SetUserStatusModalProps
 						user: `${user?.name} ${user?.surname}`
 					})}
 				</span>
+				{(isErrorBlock || isErrorUnblock) && (
+					<div className='mt-5 flex items-center justify-center'>
+						<InlineNotification
+							kind='error'
+							title='Error'
+							hideCloseButton
+							subtitle={
+								(errorBlock as ApiError)?.message ||
+								(errorUnblock as ApiError)?.message ||
+								'An error has occurred, please try again later'
+							}
+						/>
+					</div>
+				)}
 			</ModalBody>
 			<ModalFooter>
 				<Button kind='secondary' onClick={cleanUp}>
