@@ -9,4 +9,6 @@ const useGetApplicationUser = (appId: string) => {
 };
 
 export default (appId: string) =>
-	useQuery(['applicationUsers', appId], () => useGetApplicationUser(appId));
+	useQuery(['applicationUsers', appId], () => useGetApplicationUser(appId), {
+		_defaulted: true
+	});
