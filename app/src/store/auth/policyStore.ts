@@ -9,6 +9,7 @@ type Policies = {
 	canReview: boolean;
 	canAdmin: boolean;
 	canUserAdmin: boolean;
+	canNarrativeAdmin: boolean;
 };
 
 const policyStore = selector<Policies>({
@@ -44,6 +45,11 @@ const policyStore = selector<Policies>({
 			canUserAdmin: Boolean(
 				!hasNoRole &&
 					(policies?.includes(UserRoleEnum.UserAdmin) ||
+						policies?.includes(UserRoleEnum.SysAdmin))
+			),
+			canNarrativeAdmin: Boolean(
+				!hasNoRole &&
+					(policies?.includes(UserRoleEnum.NarrativeAdmin) ||
 						policies?.includes(UserRoleEnum.SysAdmin))
 			)
 		};

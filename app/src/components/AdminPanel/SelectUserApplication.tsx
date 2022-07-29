@@ -108,7 +108,5 @@ const SelectUserApplication = ({
 			}}
 		/>
 	);
-	// }
-	// return <div>ciao</div>;
 };
 export default SelectUserApplication;

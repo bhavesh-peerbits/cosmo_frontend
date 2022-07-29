@@ -11,6 +11,7 @@ import {
 	InlineNotification
 } from '@carbon/react';
 import User from '@model/User';
+import { mapUserRoleToDisplayRole } from '@model/UserRole';
 import { UserDtoRolesEnum } from 'cosmo-api/src/v1/models';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -23,6 +24,7 @@ type EditUserModalProps = {
 
 const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 	const roles = [
+		'SYS_ADMIN',
 		'USER_ADMIN',
 		'NARRATIVE_ADMIN',
 		'NARRATIVE_ANALYST',
@@ -31,16 +33,7 @@ const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 		'REVIEWER_COLLABORATOR',
 		'USER_UNKNOWN'
 	];
-	const toStartCase = (r: string) => {
-		return r === 'USER_UNKNOWN'
-			? 'Guest'
-			: r
-					.replace('_', ' ')
-					.toLowerCase()
-					.split(' ')
-					.map(word => word.charAt(0).toUpperCase() + word.slice(1))
-					.join(' ');
-	};
+
 	const { t } = useTranslation('modals');
 	const { t: tHome } = useTranslation('home');
 	const { mutate, isLoading, isError, error, reset } = useSetRolesForUser();
@@ -110,7 +103,7 @@ const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 						<p className='mb-3 text-text-secondary text-label-1'>{tHome('roles')} *</p>
 						{roles.map(role => (
 							<Checkbox
-								labelText={toStartCase(role)}
+								labelText={mapUserRoleToDisplayRole(role as UserDtoRolesEnum)}
 								id={`${role}-edit`}
 								defaultChecked={assignedRoles.includes(role)}
 								onChange={(e, { checked }) =>

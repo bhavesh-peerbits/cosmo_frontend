@@ -12,6 +12,7 @@ import {
 	Checkbox,
 	InlineNotification
 } from '@carbon/react';
+import { mapUserRoleToDisplayRole } from '@model/UserRole';
 import { UserDtoRolesEnum } from 'cosmo-api/src/v1';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -55,6 +56,7 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 	});
 
 	const roles = [
+		'SYS_ADMIN',
 		'USER_ADMIN',
 		'NARRATIVE_ADMIN',
 		'NARRATIVE_ANALYST',
@@ -63,16 +65,6 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 		'REVIEWER_COLLABORATOR',
 		'USER_UNKNOWN'
 	];
-	const toStartCase = (r: string) => {
-		return r === 'USER_UNKNOWN'
-			? 'Guest'
-			: r
-					.replace('_', ' ')
-					.toLowerCase()
-					.split(' ')
-					.map(word => word.charAt(0).toUpperCase() + word.slice(1))
-					.join(' ');
-	};
 
 	const cleanUp = () => {
 		setIsOpen(false);
@@ -169,7 +161,7 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 							<p className='mb-3 text-text-secondary text-label-1'>{tHome('roles')} *</p>
 							{roles.map(role => (
 								<Checkbox
-									labelText={toStartCase(role)}
+									labelText={mapUserRoleToDisplayRole(role as UserDtoRolesEnum)}
 									id={`${role}`}
 									onChange={(e, { id, checked }) =>
 										!checked
