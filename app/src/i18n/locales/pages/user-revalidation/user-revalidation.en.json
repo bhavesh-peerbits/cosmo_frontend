@@ -33,5 +33,6 @@
 	"application": "Application",
 	"close-campaign": "Close campaign",
 	"confirm-close": "Are you sure you want to close {{campaign}}?",
-	"close": "Close"
+	"close": "Close",
+	"confirm-delete-upload": "Are you sure you want to delete the upload of {{application}}?"
 }

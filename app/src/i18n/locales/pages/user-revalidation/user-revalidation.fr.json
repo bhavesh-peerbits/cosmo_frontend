@@ -33,5 +33,6 @@
 	"application": "Application",
 	"close-campaign": "Fermer campagne",
 	"confirm-close": "Êtes-vous sûr de vouloir fermer {{campaign}}?",
-	"close": "Fermer"
+	"close": "Fermer",
+	"confirm-delete-upload": "Êtes-vous sûr de vouloir supprimer le téléchargement de {{application}}?"
 }

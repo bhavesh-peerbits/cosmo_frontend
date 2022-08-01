@@ -32,6 +32,7 @@ const NewRevalidationDetail = () => {
 					onClick: () => {
 						setIsSendModalOpen(true);
 					}
+					// TODO disable button if there are no uploads
 				},
 				{
 					name: tModals('delete'),

@@ -14,6 +14,7 @@ type DeleteUploadModalProps = {
 
 const DeleteUploadModal = ({ isOpen, setIsOpen }: DeleteUploadModalProps) => {
 	const { t } = useTranslation('modals');
+	const { t: tUser } = useTranslation('userRevalidation');
 	const cleanUp = () => {
 		setIsOpen(false);
 	};
@@ -21,20 +22,9 @@ const DeleteUploadModal = ({ isOpen, setIsOpen }: DeleteUploadModalProps) => {
 		<ComposedModal size='sm' open={isOpen} onClose={cleanUp}>
 			<ModalHeader title={t('confirm-delete')} closeModal={cleanUp} />
 			<ModalBody>
-				<span>Are you sure you want to delete this upload?</span>
-				{/* {isError && (
-				<div className='mt-5 flex items-center justify-center'>
-					<InlineNotification
-						kind='error'
-						title='Error'
-						hideCloseButton
-						subtitle={
-							(error as ApiError)?.message ||
-							'An error has occurred, please try again later'
-						}
-					/>
-				</div>
-			)} */}
+				<span>
+					{tUser('confirm-delete-upload', { application: 'NOME APPLICAZIONE' })}
+				</span>
 				{/* // TODO Add errors message */}
 			</ModalBody>
 			<ModalFooter>
