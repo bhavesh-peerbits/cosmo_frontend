@@ -100,6 +100,12 @@ export interface ApplicationDto {
 	lastModifier?: UserDto;
 	/**
 	 *
+	 * @type {UserDto}
+	 * @memberof ApplicationDto
+	 */
+	createdBy?: UserDto;
+	/**
+	 *
 	 * @type {{ [key: string]: string | undefined; }}
 	 * @memberof ApplicationDto
 	 */

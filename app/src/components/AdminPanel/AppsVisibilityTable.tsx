@@ -56,7 +56,7 @@ const AppsVisibilityTable = ({ apps, filters, setFilters }: AppsTableProps) => {
 				id: 'code',
 				header: t('code')
 			}),
-			table.createDataColumn(row => row.owner, {
+			table.createDataColumn(row => row.createdBy, {
 				id: 'created-by',
 				header: t('created-by'),
 				cell: info => info.getValue()?.displayName || '-',
