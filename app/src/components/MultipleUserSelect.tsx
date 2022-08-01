@@ -179,6 +179,7 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 				items={{
 					entries: users
 						.filter(u => !selectUsers?.some(s => s.id === u.id))
+						.filter(u => !u.inactive)
 						.map(u => ({
 							id: u.id,
 							title: u.displayName,
