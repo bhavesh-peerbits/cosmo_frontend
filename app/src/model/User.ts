@@ -1,10 +1,5 @@
 import { UserApi } from 'cosmo-api/src';
-import {
-	mapUserRoleToDisplayRole,
-	UserDisplayRole,
-	UserRole,
-	UserRoleEnum
-} from '@model/UserRole';
+import { mapUserRoleToDisplayRole, UserDisplayRole, UserRole } from '@model/UserRole';
 
 interface User {
 	id: string;
@@ -14,10 +9,33 @@ interface User {
 	email: string;
 	displayName: string;
 	roles: UserRole[];
-	principalRole: UserDisplayRole;
+	principalRole?: UserDisplayRole;
 	inactive: boolean;
 }
 
+const getPrincipalRole = (userApi: UserApi) => {
+	if (userApi.roles?.length === 0 && !userApi.inactive) {
+		return mapUserRoleToDisplayRole('USER_UNKNOWN');
+	}
+	if (
+		userApi &&
+		userApi.roles &&
+		userApi.roles?.length > 0 &&
+		userApi.roles[0] === 'USER_UNKNOWN'
+	) {
+		return mapUserRoleToDisplayRole(userApi.roles[1]);
+	}
+	if (
+		(userApi.roles?.length === 1 && userApi.roles[0] === 'USER_UNKNOWN') ||
+		(userApi &&
+			userApi.roles &&
+			userApi.roles?.length > 0 &&
+			userApi.roles[0] !== 'USER_UNKNOWN')
+	) {
+		return mapUserRoleToDisplayRole(userApi.roles[0]);
+	}
+	return undefined;
+};
 export const fromUserApi = (userApi: UserApi): User => {
 	return {
 		id: userApi.id,
@@ -26,16 +44,7 @@ export const fromUserApi = (userApi: UserApi): User => {
 		email: userApi.email,
 		surname: userApi.surname,
 		roles: userApi.roles || [],
-		principalRole:
-			userApi.roles?.length === 0 ||
-			(userApi.roles?.length === 1 && userApi.roles[0] === 'USER_UNKNOWN') ||
-			(userApi &&
-				userApi.roles &&
-				userApi.roles?.length >= 1 &&
-				userApi.roles?.[0] !== 'USER_UNKNOWN')
-				? mapUserRoleToDisplayRole(userApi.roles?.[0] || UserRoleEnum.UserUnknown)
-				: mapUserRoleToDisplayRole(userApi.roles?.[1] || UserRoleEnum.UserUnknown),
-
+		principalRole: getPrincipalRole(userApi),
 		displayName:
 			!userApi.name && !userApi.surname
 				? userApi.username

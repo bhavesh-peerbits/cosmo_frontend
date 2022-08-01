@@ -45,19 +45,6 @@ const useRoleAssignmentUsers = () => {
 							};
 						});
 					}
-					if (user.inactive) {
-						return {
-							id: user.id,
-							username: user.username,
-							name: user.name,
-							surname: user.surname,
-							email: user.email,
-							displayName: user.displayName,
-							roles: user.roles,
-							principalRole: 'Blocked' as UserDisplayRole,
-							inactive: user.inactive
-						};
-					}
 					return user;
 				})
 				.flat(),

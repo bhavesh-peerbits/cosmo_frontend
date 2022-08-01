@@ -15,5 +15,8 @@
 	"actions": "Azioni",
 	"select-roles": "Selezionare ruoli",
 	"placeholder-name": "Nome dell'utente",
-	"placeholder-surname": "Cognome dell'utente"
+	"placeholder-surname": "Cognome dell'utente",
+	"status": "Stato",
+	"active": "Attivo",
+	"blocked": "Bloccato"
 }

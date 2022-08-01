@@ -15,5 +15,8 @@
 	"actions": "Actions",
 	"select-roles": "Select roles",
 	"placeholder-name": "User's first name",
-	"placeholder-surname": "User's surname"
+	"placeholder-surname": "User's surname",
+	"status": "Status",
+	"active": "Active",
+	"blocked": "Blocked"
 }

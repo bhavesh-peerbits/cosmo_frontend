@@ -141,7 +141,13 @@ const CosmoTableInlineAction = <D extends object>({
 						<TableCell
 							onClickCapture={() =>
 								setRowSelected(
-									row.getVisibleCells().map(cell => cell.getValue() as string)
+									row
+										.getVisibleCells()
+										.map(cell =>
+											cell.getValue() !== undefined
+												? (cell.getValue() as string).toString()
+												: ''
+										)
 								)
 							}
 						>
