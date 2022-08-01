@@ -19,6 +19,7 @@ const useSetRolesForUser = () => {
 		onSuccess: () => {
 			queryClient.invalidateQueries(['users']);
 			queryClient.invalidateQueries(['applicationUsers']);
+			queryClient.invalidateQueries(['analystUsers']);
 		}
 	});
 };
