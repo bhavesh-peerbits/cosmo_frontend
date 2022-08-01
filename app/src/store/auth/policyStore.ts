@@ -24,17 +24,20 @@ const policyStore = selector<Policies>({
 			canSeeNarrativeManagement: Boolean(
 				!hasNoRole &&
 					(policies?.includes(UserRoleEnum.NarrativeAnalyst) ||
-						policies?.includes(UserRoleEnum.NarrativeAdmin))
+						policies?.includes(UserRoleEnum.NarrativeAdmin) ||
+						policies?.includes(UserRoleEnum.SysAdmin))
 			),
 			canReviewNarrative: Boolean(
 				!hasNoRole &&
 					(policies?.includes(UserRoleEnum.NarrativeAnalyst) ||
-						policies?.includes(UserRoleEnum.NarrativeAdmin))
+						policies?.includes(UserRoleEnum.NarrativeAdmin) ||
+						policies?.includes(UserRoleEnum.SysAdmin))
 			),
 			canReview: Boolean(
 				!hasNoRole &&
 					(policies?.includes(UserRoleEnum.Reviewer) ||
-						policies?.includes(UserRoleEnum.ReviewerCollaborator))
+						policies?.includes(UserRoleEnum.ReviewerCollaborator) ||
+						policies?.includes(UserRoleEnum.SysAdmin))
 			),
 			canAdmin: Boolean(
 				!hasNoRole &&
