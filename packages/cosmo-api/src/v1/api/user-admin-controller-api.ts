@@ -39,584 +39,36 @@ import {
 // @ts-ignore
 import { ApiErrorResponse } from '../models';
 // @ts-ignore
-import { Control } from '../models';
+import { ApplicationUserDto } from '../models';
 // @ts-ignore
-import { ControlAppInstance } from '../models';
+import { Profile } from '../models';
 // @ts-ignore
-import { ControlAppInstanceKey } from '../models';
+import { UserBase } from '../models';
+// @ts-ignore
+import { UserDto } from '../models';
 /**
- * ControlControllerApi - axios parameter creator
+ * UserAdminControllerApi - axios parameter creator
  * @export
  */
-export const ControlControllerApiAxiosParamCreator = function (
+export const UserAdminControllerApiAxiosParamCreator = function (
 	configuration?: Configuration
 ) {
 	return {
 		/**
 		 *
-		 * @param {number} controlId
-		 * @param {number} applicationId
+		 * @param {UserBase} userBase
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
-		 * @deprecated
 		 * @throws {RequiredError}
 		 */
-		addApplicationToControl: async (
-			controlId: number,
-			applicationId: number,
+		addUser: async (
+			userBase: UserBase,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'controlId' is not null or undefined
-			assertParamExists('addApplicationToControl', 'controlId', controlId);
-			// verify required parameter 'applicationId' is not null or undefined
-			assertParamExists('addApplicationToControl', 'applicationId', applicationId);
-			const localVarPath = `/api/controls/{controlId}/applications}`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (controlId !== undefined) {
-				localVarQueryParameter['controlId'] = controlId;
-			}
-
-			if (applicationId !== undefined) {
-				localVarQueryParameter['applicationId'] = applicationId;
-			}
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {number} id
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @deprecated
-		 * @throws {RequiredError}
-		 */
-		deleteControl: async (
-			id: number,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'id' is not null or undefined
-			assertParamExists('deleteControl', 'id', id);
-			const localVarPath = `/api/controls/{id}`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (id !== undefined) {
-				localVarQueryParameter['id'] = id;
-			}
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {number} controlId
-		 * @param {number} applicationId
-		 * @param {ControlAppInstanceKey} controlAppInstanceKey
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @deprecated
-		 * @throws {RequiredError}
-		 */
-		deleteControlApplicationAssociation: async (
-			controlId: number,
-			applicationId: number,
-			controlAppInstanceKey: ControlAppInstanceKey,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'controlId' is not null or undefined
-			assertParamExists('deleteControlApplicationAssociation', 'controlId', controlId);
-			// verify required parameter 'applicationId' is not null or undefined
-			assertParamExists(
-				'deleteControlApplicationAssociation',
-				'applicationId',
-				applicationId
-			);
-			// verify required parameter 'controlAppInstanceKey' is not null or undefined
-			assertParamExists(
-				'deleteControlApplicationAssociation',
-				'controlAppInstanceKey',
-				controlAppInstanceKey
-			);
-			const localVarPath = `/api/controls/{controlId}/applications/{applicationId}`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (controlId !== undefined) {
-				localVarQueryParameter['controlId'] = controlId;
-			}
-
-			if (applicationId !== undefined) {
-				localVarQueryParameter['applicationId'] = applicationId;
-			}
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			localVarHeaderParameter['Content-Type'] = 'application/json';
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				controlAppInstanceKey,
-				localVarRequestOptions,
-				configuration
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {number} controlId
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @deprecated
-		 * @throws {RequiredError}
-		 */
-		getAllApplicationForControl: async (
-			controlId: number,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'controlId' is not null or undefined
-			assertParamExists('getAllApplicationForControl', 'controlId', controlId);
-			const localVarPath = `/api/controls/{controlId}/applications`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (controlId !== undefined) {
-				localVarQueryParameter['controlId'] = controlId;
-			}
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @deprecated
-		 * @throws {RequiredError}
-		 */
-		getAllControls: async (
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			const localVarPath = `/api/controls`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {number} id
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @deprecated
-		 * @throws {RequiredError}
-		 */
-		getControlById: async (
-			id: number,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'id' is not null or undefined
-			assertParamExists('getControlById', 'id', id);
-			const localVarPath = `/api/controls/{id}`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (id !== undefined) {
-				localVarQueryParameter['id'] = id;
-			}
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {number} controlId
-		 * @param {number} applicationId
-		 * @param {ControlAppInstanceKey} controlAppInstanceKey
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @deprecated
-		 * @throws {RequiredError}
-		 */
-		getSpecificControlAppInstance: async (
-			controlId: number,
-			applicationId: number,
-			controlAppInstanceKey: ControlAppInstanceKey,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'controlId' is not null or undefined
-			assertParamExists('getSpecificControlAppInstance', 'controlId', controlId);
-			// verify required parameter 'applicationId' is not null or undefined
-			assertParamExists('getSpecificControlAppInstance', 'applicationId', applicationId);
-			// verify required parameter 'controlAppInstanceKey' is not null or undefined
-			assertParamExists(
-				'getSpecificControlAppInstance',
-				'controlAppInstanceKey',
-				controlAppInstanceKey
-			);
-			const localVarPath = `/api/controls/{controlId}/applications/{applicationId}`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (controlId !== undefined) {
-				localVarQueryParameter['controlId'] = controlId;
-			}
-
-			if (applicationId !== undefined) {
-				localVarQueryParameter['applicationId'] = applicationId;
-			}
-
-			if (controlAppInstanceKey !== undefined) {
-				localVarQueryParameter['controlAppInstanceKey'] = controlAppInstanceKey;
-			}
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {number} controlId
-		 * @param {number} applicationId
-		 * @param {ControlAppInstance} controlAppInstance
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @deprecated
-		 * @throws {RequiredError}
-		 */
-		modifyApplicationToControl: async (
-			controlId: number,
-			applicationId: number,
-			controlAppInstance: ControlAppInstance,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'controlId' is not null or undefined
-			assertParamExists('modifyApplicationToControl', 'controlId', controlId);
-			// verify required parameter 'applicationId' is not null or undefined
-			assertParamExists('modifyApplicationToControl', 'applicationId', applicationId);
-			// verify required parameter 'controlAppInstance' is not null or undefined
-			assertParamExists(
-				'modifyApplicationToControl',
-				'controlAppInstance',
-				controlAppInstance
-			);
-			const localVarPath = `/api/controls/{controlId}/applications/{applicationId}`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (controlId !== undefined) {
-				localVarQueryParameter['controlId'] = controlId;
-			}
-
-			if (applicationId !== undefined) {
-				localVarQueryParameter['applicationId'] = applicationId;
-			}
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			localVarHeaderParameter['Content-Type'] = 'application/json';
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				controlAppInstance,
-				localVarRequestOptions,
-				configuration
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {number} id
-		 * @param {Control} control
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @deprecated
-		 * @throws {RequiredError}
-		 */
-		modifyControl: async (
-			id: number,
-			control: Control,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'id' is not null or undefined
-			assertParamExists('modifyControl', 'id', id);
-			// verify required parameter 'control' is not null or undefined
-			assertParamExists('modifyControl', 'control', control);
-			const localVarPath = `/api/controls/{id}`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (id !== undefined) {
-				localVarQueryParameter['id'] = id;
-			}
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			localVarHeaderParameter['Content-Type'] = 'application/json';
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				control,
-				localVarRequestOptions,
-				configuration
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {Control} control
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @deprecated
-		 * @throws {RequiredError}
-		 */
-		newControl: async (
-			control: Control,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'control' is not null or undefined
-			assertParamExists('newControl', 'control', control);
-			const localVarPath = `/api/controls`;
+			// verify required parameter 'userBase' is not null or undefined
+			assertParamExists('addUser', 'userBase', userBase);
+			const localVarPath = `/api/users/admin`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -646,10 +98,522 @@ export const ControlControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				control,
+				userBase,
 				localVarRequestOptions,
 				configuration
 			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllAnalystUsers: async (
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/users/admin/allAnalysts`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllProfiles: async (
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/users/admin/allProfiles`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllUsers1: async (
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/users/admin/allUsers`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} appId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getApplicationUser: async (
+			appId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'appId' is not null or undefined
+			assertParamExists('getApplicationUser', 'appId', appId);
+			const localVarPath = `/api/users/admin/applications/{appId}`.replace(
+				`{${'appId'}}`,
+				encodeURIComponent(String(appId))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {string} userId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getUser: async (
+			userId: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'userId' is not null or undefined
+			assertParamExists('getUser', 'userId', userId);
+			const localVarPath = `/api/users/admin/{userId}`.replace(
+				`{${'userId'}}`,
+				encodeURIComponent(String(userId))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {string} userId
+		 * @param {UserDto} userDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		modifyUserInfo: async (
+			userId: string,
+			userDto: UserDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'userId' is not null or undefined
+			assertParamExists('modifyUserInfo', 'userId', userId);
+			// verify required parameter 'userDto' is not null or undefined
+			assertParamExists('modifyUserInfo', 'userDto', userDto);
+			const localVarPath = `/api/users/admin/{userId}`.replace(
+				`{${'userId'}}`,
+				encodeURIComponent(String(userId))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				userDto,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} appId
+		 * @param {ApplicationUserDto} applicationUserDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		setApplicationUser: async (
+			appId: number,
+			applicationUserDto: ApplicationUserDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'appId' is not null or undefined
+			assertParamExists('setApplicationUser', 'appId', appId);
+			// verify required parameter 'applicationUserDto' is not null or undefined
+			assertParamExists('setApplicationUser', 'applicationUserDto', applicationUserDto);
+			const localVarPath = `/api/users/admin/applications/{appId}/setUsers`.replace(
+				`{${'appId'}}`,
+				encodeURIComponent(String(appId))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				applicationUserDto,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {string} userId
+		 * @param {UserDto} userDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		setRolesForUser: async (
+			userId: string,
+			userDto: UserDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'userId' is not null or undefined
+			assertParamExists('setRolesForUser', 'userId', userId);
+			// verify required parameter 'userDto' is not null or undefined
+			assertParamExists('setRolesForUser', 'userDto', userDto);
+			const localVarPath = `/api/users/admin/{userId}/setRoles`.replace(
+				`{${'userId'}}`,
+				encodeURIComponent(String(userId))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				userDto,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {string} userId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		setUserActive: async (
+			userId: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'userId' is not null or undefined
+			assertParamExists('setUserActive', 'userId', userId);
+			const localVarPath = `/api/users/admin/{userId}/setActive`.replace(
+				`{${'userId'}}`,
+				encodeURIComponent(String(userId))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {string} userId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		setUserInactive: async (
+			userId: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'userId' is not null or undefined
+			assertParamExists('setUserInactive', 'userId', userId);
+			const localVarPath = `/api/users/admin/{userId}/setInactive`.replace(
+				`{${'userId'}}`,
+				encodeURIComponent(String(userId))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
 
 			return {
 				url: toPathString(localVarUrlObj),
@@ -660,32 +624,27 @@ export const ControlControllerApiAxiosParamCreator = function (
 };
 
 /**
- * ControlControllerApi - functional programming interface
+ * UserAdminControllerApi - functional programming interface
  * @export
  */
-export const ControlControllerApiFp = function (configuration?: Configuration) {
-	const localVarAxiosParamCreator = ControlControllerApiAxiosParamCreator(configuration);
+export const UserAdminControllerApiFp = function (configuration?: Configuration) {
+	const localVarAxiosParamCreator =
+		UserAdminControllerApiAxiosParamCreator(configuration);
 	return {
 		/**
 		 *
-		 * @param {number} controlId
-		 * @param {number} applicationId
+		 * @param {UserBase} userBase
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
-		 * @deprecated
 		 * @throws {RequiredError}
 		 */
-		async addApplicationToControl(
-			controlId: number,
-			applicationId: number,
+		async addUser(
+			userBase: UserBase,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ControlAppInstance>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.addApplicationToControl(
-				controlId,
-				applicationId,
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserDto>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.addUser(
+				userBase,
 				acceptLanguage,
 				options
 			);
@@ -698,19 +657,17 @@ export const ControlControllerApiFp = function (configuration?: Configuration) {
 		},
 		/**
 		 *
-		 * @param {number} id
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
-		 * @deprecated
 		 * @throws {RequiredError}
 		 */
-		async deleteControl(
-			id: number,
+		async getAllAnalystUsers(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.deleteControl(
-				id,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserDto>>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllAnalystUsers(
 				acceptLanguage,
 				options
 			);
@@ -723,81 +680,17 @@ export const ControlControllerApiFp = function (configuration?: Configuration) {
 		},
 		/**
 		 *
-		 * @param {number} controlId
-		 * @param {number} applicationId
-		 * @param {ControlAppInstanceKey} controlAppInstanceKey
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
-		 * @deprecated
 		 * @throws {RequiredError}
 		 */
-		async deleteControlApplicationAssociation(
-			controlId: number,
-			applicationId: number,
-			controlAppInstanceKey: ControlAppInstanceKey,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.deleteControlApplicationAssociation(
-					controlId,
-					applicationId,
-					controlAppInstanceKey,
-					acceptLanguage,
-					options
-				);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {number} controlId
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @deprecated
-		 * @throws {RequiredError}
-		 */
-		async getAllApplicationForControl(
-			controlId: number,
+		async getAllProfiles(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(
-				axios?: AxiosInstance,
-				basePath?: string
-			) => AxiosPromise<Array<ControlAppInstance>>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Profile>>
 		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.getAllApplicationForControl(
-					controlId,
-					acceptLanguage,
-					options
-				);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @deprecated
-		 * @throws {RequiredError}
-		 */
-		async getAllControls(
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Control>>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllControls(
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllProfiles(
 				acceptLanguage,
 				options
 			);
@@ -810,19 +703,17 @@ export const ControlControllerApiFp = function (configuration?: Configuration) {
 		},
 		/**
 		 *
-		 * @param {number} id
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
-		 * @deprecated
 		 * @throws {RequiredError}
 		 */
-		async getControlById(
-			id: number,
+		async getAllUsers1(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Control>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getControlById(
-				id,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserDto>>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllUsers1(
 				acceptLanguage,
 				options
 			);
@@ -835,90 +726,20 @@ export const ControlControllerApiFp = function (configuration?: Configuration) {
 		},
 		/**
 		 *
-		 * @param {number} controlId
-		 * @param {number} applicationId
-		 * @param {ControlAppInstanceKey} controlAppInstanceKey
+		 * @param {number} appId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
-		 * @deprecated
 		 * @throws {RequiredError}
 		 */
-		async getSpecificControlAppInstance(
-			controlId: number,
-			applicationId: number,
-			controlAppInstanceKey: ControlAppInstanceKey,
+		async getApplicationUser(
+			appId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ControlAppInstance>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApplicationUserDto>
 		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.getSpecificControlAppInstance(
-					controlId,
-					applicationId,
-					controlAppInstanceKey,
-					acceptLanguage,
-					options
-				);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {number} controlId
-		 * @param {number} applicationId
-		 * @param {ControlAppInstance} controlAppInstance
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @deprecated
-		 * @throws {RequiredError}
-		 */
-		async modifyApplicationToControl(
-			controlId: number,
-			applicationId: number,
-			controlAppInstance: ControlAppInstance,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ControlAppInstance>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.modifyApplicationToControl(
-					controlId,
-					applicationId,
-					controlAppInstance,
-					acceptLanguage,
-					options
-				);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {number} id
-		 * @param {Control} control
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @deprecated
-		 * @throws {RequiredError}
-		 */
-		async modifyControl(
-			id: number,
-			control: Control,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Control>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.modifyControl(
-				id,
-				control,
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getApplicationUser(
+				appId,
 				acceptLanguage,
 				options
 			);
@@ -931,19 +752,149 @@ export const ControlControllerApiFp = function (configuration?: Configuration) {
 		},
 		/**
 		 *
-		 * @param {Control} control
+		 * @param {string} userId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
-		 * @deprecated
 		 * @throws {RequiredError}
 		 */
-		async newControl(
-			control: Control,
+		async getUser(
+			userId: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Control>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.newControl(
-				control,
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserDto>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getUser(
+				userId,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {string} userId
+		 * @param {UserDto} userDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async modifyUserInfo(
+			userId: string,
+			userDto: UserDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserDto>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.modifyUserInfo(
+				userId,
+				userDto,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} appId
+		 * @param {ApplicationUserDto} applicationUserDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async setApplicationUser(
+			appId: number,
+			applicationUserDto: ApplicationUserDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApplicationUserDto>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.setApplicationUser(
+				appId,
+				applicationUserDto,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {string} userId
+		 * @param {UserDto} userDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async setRolesForUser(
+			userId: string,
+			userDto: UserDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserDto>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.setRolesForUser(
+				userId,
+				userDto,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {string} userId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async setUserActive(
+			userId: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.setUserActive(
+				userId,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {string} userId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async setUserInactive(
+			userId: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.setUserInactive(
+				userId,
 				acceptLanguage,
 				options
 			);
@@ -958,503 +909,511 @@ export const ControlControllerApiFp = function (configuration?: Configuration) {
 };
 
 /**
- * ControlControllerApi - factory interface
+ * UserAdminControllerApi - factory interface
  * @export
  */
-export const ControlControllerApiFactory = function (
+export const UserAdminControllerApiFactory = function (
 	configuration?: Configuration,
 	basePath?: string,
 	axios?: AxiosInstance
 ) {
-	const localVarFp = ControlControllerApiFp(configuration);
+	const localVarFp = UserAdminControllerApiFp(configuration);
 	return {
 		/**
 		 *
-		 * @param {number} controlId
-		 * @param {number} applicationId
+		 * @param {UserBase} userBase
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
-		 * @deprecated
 		 * @throws {RequiredError}
 		 */
-		addApplicationToControl(
-			controlId: number,
-			applicationId: number,
+		addUser(
+			userBase: UserBase,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<ControlAppInstance> {
+		): AxiosPromise<UserDto> {
 			return localVarFp
-				.addApplicationToControl(controlId, applicationId, acceptLanguage, options)
-				.then(request => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @param {number} id
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @deprecated
-		 * @throws {RequiredError}
-		 */
-		deleteControl(
-			id: number,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: any
-		): AxiosPromise<string> {
-			return localVarFp
-				.deleteControl(id, acceptLanguage, options)
-				.then(request => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @param {number} controlId
-		 * @param {number} applicationId
-		 * @param {ControlAppInstanceKey} controlAppInstanceKey
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @deprecated
-		 * @throws {RequiredError}
-		 */
-		deleteControlApplicationAssociation(
-			controlId: number,
-			applicationId: number,
-			controlAppInstanceKey: ControlAppInstanceKey,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: any
-		): AxiosPromise<string> {
-			return localVarFp
-				.deleteControlApplicationAssociation(
-					controlId,
-					applicationId,
-					controlAppInstanceKey,
-					acceptLanguage,
-					options
-				)
-				.then(request => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @param {number} controlId
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @deprecated
-		 * @throws {RequiredError}
-		 */
-		getAllApplicationForControl(
-			controlId: number,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: any
-		): AxiosPromise<Array<ControlAppInstance>> {
-			return localVarFp
-				.getAllApplicationForControl(controlId, acceptLanguage, options)
+				.addUser(userBase, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
-		 * @deprecated
 		 * @throws {RequiredError}
 		 */
-		getAllControls(
+		getAllAnalystUsers(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Array<Control>> {
+		): AxiosPromise<Array<UserDto>> {
 			return localVarFp
-				.getAllControls(acceptLanguage, options)
+				.getAllAnalystUsers(acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {number} id
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
-		 * @deprecated
 		 * @throws {RequiredError}
 		 */
-		getControlById(
-			id: number,
+		getAllProfiles(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Control> {
+		): AxiosPromise<Array<Profile>> {
 			return localVarFp
-				.getControlById(id, acceptLanguage, options)
+				.getAllProfiles(acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {number} controlId
-		 * @param {number} applicationId
-		 * @param {ControlAppInstanceKey} controlAppInstanceKey
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
-		 * @deprecated
 		 * @throws {RequiredError}
 		 */
-		getSpecificControlAppInstance(
-			controlId: number,
-			applicationId: number,
-			controlAppInstanceKey: ControlAppInstanceKey,
+		getAllUsers1(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<ControlAppInstance> {
+		): AxiosPromise<Array<UserDto>> {
 			return localVarFp
-				.getSpecificControlAppInstance(
-					controlId,
-					applicationId,
-					controlAppInstanceKey,
-					acceptLanguage,
-					options
-				)
+				.getAllUsers1(acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {number} controlId
-		 * @param {number} applicationId
-		 * @param {ControlAppInstance} controlAppInstance
+		 * @param {number} appId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
-		 * @deprecated
 		 * @throws {RequiredError}
 		 */
-		modifyApplicationToControl(
-			controlId: number,
-			applicationId: number,
-			controlAppInstance: ControlAppInstance,
+		getApplicationUser(
+			appId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<ControlAppInstance> {
+		): AxiosPromise<ApplicationUserDto> {
 			return localVarFp
-				.modifyApplicationToControl(
-					controlId,
-					applicationId,
-					controlAppInstance,
-					acceptLanguage,
-					options
-				)
+				.getApplicationUser(appId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {number} id
-		 * @param {Control} control
+		 * @param {string} userId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
-		 * @deprecated
 		 * @throws {RequiredError}
 		 */
-		modifyControl(
-			id: number,
-			control: Control,
+		getUser(
+			userId: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Control> {
+		): AxiosPromise<UserDto> {
 			return localVarFp
-				.modifyControl(id, control, acceptLanguage, options)
+				.getUser(userId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {Control} control
+		 * @param {string} userId
+		 * @param {UserDto} userDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
-		 * @deprecated
 		 * @throws {RequiredError}
 		 */
-		newControl(
-			control: Control,
+		modifyUserInfo(
+			userId: string,
+			userDto: UserDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Control> {
+		): AxiosPromise<UserDto> {
 			return localVarFp
-				.newControl(control, acceptLanguage, options)
+				.modifyUserInfo(userId, userDto, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} appId
+		 * @param {ApplicationUserDto} applicationUserDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		setApplicationUser(
+			appId: number,
+			applicationUserDto: ApplicationUserDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<ApplicationUserDto> {
+			return localVarFp
+				.setApplicationUser(appId, applicationUserDto, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {string} userId
+		 * @param {UserDto} userDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		setRolesForUser(
+			userId: string,
+			userDto: UserDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<UserDto> {
+			return localVarFp
+				.setRolesForUser(userId, userDto, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {string} userId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		setUserActive(
+			userId: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<boolean> {
+			return localVarFp
+				.setUserActive(userId, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {string} userId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		setUserInactive(
+			userId: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<boolean> {
+			return localVarFp
+				.setUserInactive(userId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		}
 	};
 };
 
 /**
- * Request parameters for addApplicationToControl operation in ControlControllerApi.
+ * Request parameters for addUser operation in UserAdminControllerApi.
  * @export
- * @interface ControlControllerApiAddApplicationToControlRequest
+ * @interface UserAdminControllerApiAddUserRequest
  */
-export interface ControlControllerApiAddApplicationToControlRequest {
+export interface UserAdminControllerApiAddUserRequest {
 	/**
 	 *
-	 * @type {number}
-	 * @memberof ControlControllerApiAddApplicationToControl
+	 * @type {UserBase}
+	 * @memberof UserAdminControllerApiAddUser
 	 */
-	readonly controlId: number;
-
-	/**
-	 *
-	 * @type {number}
-	 * @memberof ControlControllerApiAddApplicationToControl
-	 */
-	readonly applicationId: number;
+	readonly userBase: UserBase;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ControlControllerApiAddApplicationToControl
+	 * @memberof UserAdminControllerApiAddUser
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for deleteControl operation in ControlControllerApi.
+ * Request parameters for getAllAnalystUsers operation in UserAdminControllerApi.
  * @export
- * @interface ControlControllerApiDeleteControlRequest
+ * @interface UserAdminControllerApiGetAllAnalystUsersRequest
  */
-export interface ControlControllerApiDeleteControlRequest {
-	/**
-	 *
-	 * @type {number}
-	 * @memberof ControlControllerApiDeleteControl
-	 */
-	readonly id: number;
-
+export interface UserAdminControllerApiGetAllAnalystUsersRequest {
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ControlControllerApiDeleteControl
+	 * @memberof UserAdminControllerApiGetAllAnalystUsers
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for deleteControlApplicationAssociation operation in ControlControllerApi.
+ * Request parameters for getAllProfiles operation in UserAdminControllerApi.
  * @export
- * @interface ControlControllerApiDeleteControlApplicationAssociationRequest
+ * @interface UserAdminControllerApiGetAllProfilesRequest
  */
-export interface ControlControllerApiDeleteControlApplicationAssociationRequest {
-	/**
-	 *
-	 * @type {number}
-	 * @memberof ControlControllerApiDeleteControlApplicationAssociation
-	 */
-	readonly controlId: number;
-
-	/**
-	 *
-	 * @type {number}
-	 * @memberof ControlControllerApiDeleteControlApplicationAssociation
-	 */
-	readonly applicationId: number;
-
-	/**
-	 *
-	 * @type {ControlAppInstanceKey}
-	 * @memberof ControlControllerApiDeleteControlApplicationAssociation
-	 */
-	readonly controlAppInstanceKey: ControlAppInstanceKey;
-
+export interface UserAdminControllerApiGetAllProfilesRequest {
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ControlControllerApiDeleteControlApplicationAssociation
+	 * @memberof UserAdminControllerApiGetAllProfiles
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for getAllApplicationForControl operation in ControlControllerApi.
+ * Request parameters for getAllUsers1 operation in UserAdminControllerApi.
  * @export
- * @interface ControlControllerApiGetAllApplicationForControlRequest
+ * @interface UserAdminControllerApiGetAllUsers1Request
  */
-export interface ControlControllerApiGetAllApplicationForControlRequest {
-	/**
-	 *
-	 * @type {number}
-	 * @memberof ControlControllerApiGetAllApplicationForControl
-	 */
-	readonly controlId: number;
-
+export interface UserAdminControllerApiGetAllUsers1Request {
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ControlControllerApiGetAllApplicationForControl
+	 * @memberof UserAdminControllerApiGetAllUsers1
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for getAllControls operation in ControlControllerApi.
+ * Request parameters for getApplicationUser operation in UserAdminControllerApi.
  * @export
- * @interface ControlControllerApiGetAllControlsRequest
+ * @interface UserAdminControllerApiGetApplicationUserRequest
  */
-export interface ControlControllerApiGetAllControlsRequest {
+export interface UserAdminControllerApiGetApplicationUserRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof UserAdminControllerApiGetApplicationUser
+	 */
+	readonly appId: number;
+
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ControlControllerApiGetAllControls
+	 * @memberof UserAdminControllerApiGetApplicationUser
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for getControlById operation in ControlControllerApi.
+ * Request parameters for getUser operation in UserAdminControllerApi.
  * @export
- * @interface ControlControllerApiGetControlByIdRequest
+ * @interface UserAdminControllerApiGetUserRequest
  */
-export interface ControlControllerApiGetControlByIdRequest {
+export interface UserAdminControllerApiGetUserRequest {
 	/**
 	 *
-	 * @type {number}
-	 * @memberof ControlControllerApiGetControlById
+	 * @type {string}
+	 * @memberof UserAdminControllerApiGetUser
 	 */
-	readonly id: number;
+	readonly userId: string;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ControlControllerApiGetControlById
+	 * @memberof UserAdminControllerApiGetUser
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for getSpecificControlAppInstance operation in ControlControllerApi.
+ * Request parameters for modifyUserInfo operation in UserAdminControllerApi.
  * @export
- * @interface ControlControllerApiGetSpecificControlAppInstanceRequest
+ * @interface UserAdminControllerApiModifyUserInfoRequest
  */
-export interface ControlControllerApiGetSpecificControlAppInstanceRequest {
+export interface UserAdminControllerApiModifyUserInfoRequest {
 	/**
 	 *
-	 * @type {number}
-	 * @memberof ControlControllerApiGetSpecificControlAppInstance
+	 * @type {string}
+	 * @memberof UserAdminControllerApiModifyUserInfo
 	 */
-	readonly controlId: number;
+	readonly userId: string;
 
 	/**
 	 *
-	 * @type {number}
-	 * @memberof ControlControllerApiGetSpecificControlAppInstance
+	 * @type {UserDto}
+	 * @memberof UserAdminControllerApiModifyUserInfo
 	 */
-	readonly applicationId: number;
-
-	/**
-	 *
-	 * @type {ControlAppInstanceKey}
-	 * @memberof ControlControllerApiGetSpecificControlAppInstance
-	 */
-	readonly controlAppInstanceKey: ControlAppInstanceKey;
+	readonly userDto: UserDto;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ControlControllerApiGetSpecificControlAppInstance
+	 * @memberof UserAdminControllerApiModifyUserInfo
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for modifyApplicationToControl operation in ControlControllerApi.
+ * Request parameters for setApplicationUser operation in UserAdminControllerApi.
  * @export
- * @interface ControlControllerApiModifyApplicationToControlRequest
+ * @interface UserAdminControllerApiSetApplicationUserRequest
  */
-export interface ControlControllerApiModifyApplicationToControlRequest {
+export interface UserAdminControllerApiSetApplicationUserRequest {
 	/**
 	 *
 	 * @type {number}
-	 * @memberof ControlControllerApiModifyApplicationToControl
+	 * @memberof UserAdminControllerApiSetApplicationUser
 	 */
-	readonly controlId: number;
+	readonly appId: number;
 
 	/**
 	 *
-	 * @type {number}
-	 * @memberof ControlControllerApiModifyApplicationToControl
+	 * @type {ApplicationUserDto}
+	 * @memberof UserAdminControllerApiSetApplicationUser
 	 */
-	readonly applicationId: number;
-
-	/**
-	 *
-	 * @type {ControlAppInstance}
-	 * @memberof ControlControllerApiModifyApplicationToControl
-	 */
-	readonly controlAppInstance: ControlAppInstance;
+	readonly applicationUserDto: ApplicationUserDto;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ControlControllerApiModifyApplicationToControl
+	 * @memberof UserAdminControllerApiSetApplicationUser
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for modifyControl operation in ControlControllerApi.
+ * Request parameters for setRolesForUser operation in UserAdminControllerApi.
  * @export
- * @interface ControlControllerApiModifyControlRequest
+ * @interface UserAdminControllerApiSetRolesForUserRequest
  */
-export interface ControlControllerApiModifyControlRequest {
+export interface UserAdminControllerApiSetRolesForUserRequest {
 	/**
 	 *
-	 * @type {number}
-	 * @memberof ControlControllerApiModifyControl
+	 * @type {string}
+	 * @memberof UserAdminControllerApiSetRolesForUser
 	 */
-	readonly id: number;
+	readonly userId: string;
 
 	/**
 	 *
-	 * @type {Control}
-	 * @memberof ControlControllerApiModifyControl
+	 * @type {UserDto}
+	 * @memberof UserAdminControllerApiSetRolesForUser
 	 */
-	readonly control: Control;
+	readonly userDto: UserDto;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ControlControllerApiModifyControl
+	 * @memberof UserAdminControllerApiSetRolesForUser
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for newControl operation in ControlControllerApi.
+ * Request parameters for setUserActive operation in UserAdminControllerApi.
  * @export
- * @interface ControlControllerApiNewControlRequest
+ * @interface UserAdminControllerApiSetUserActiveRequest
  */
-export interface ControlControllerApiNewControlRequest {
+export interface UserAdminControllerApiSetUserActiveRequest {
 	/**
 	 *
-	 * @type {Control}
-	 * @memberof ControlControllerApiNewControl
+	 * @type {string}
+	 * @memberof UserAdminControllerApiSetUserActive
 	 */
-	readonly control: Control;
+	readonly userId: string;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ControlControllerApiNewControl
+	 * @memberof UserAdminControllerApiSetUserActive
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * ControlControllerApi - object-oriented interface
+ * Request parameters for setUserInactive operation in UserAdminControllerApi.
  * @export
- * @class ControlControllerApi
+ * @interface UserAdminControllerApiSetUserInactiveRequest
+ */
+export interface UserAdminControllerApiSetUserInactiveRequest {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserAdminControllerApiSetUserInactive
+	 */
+	readonly userId: string;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserAdminControllerApiSetUserInactive
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * UserAdminControllerApi - object-oriented interface
+ * @export
+ * @class UserAdminControllerApi
  * @extends {BaseAPI}
  */
-export class ControlControllerApi extends BaseAPI {
+export class UserAdminControllerApi extends BaseAPI {
 	/**
 	 *
-	 * @param {ControlControllerApiAddApplicationToControlRequest} requestParameters Request parameters.
+	 * @param {UserAdminControllerApiAddUserRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
-	 * @deprecated
 	 * @throws {RequiredError}
-	 * @memberof ControlControllerApi
+	 * @memberof UserAdminControllerApi
 	 */
-	public addApplicationToControl(
-		requestParameters: ControlControllerApiAddApplicationToControlRequest,
+	public addUser(
+		requestParameters: UserAdminControllerApiAddUserRequest,
 		options?: AxiosRequestConfig
 	) {
-		return ControlControllerApiFp(this.configuration)
-			.addApplicationToControl(
-				requestParameters.controlId,
-				requestParameters.applicationId,
+		return UserAdminControllerApiFp(this.configuration)
+			.addUser(requestParameters.userBase, requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {UserAdminControllerApiGetAllAnalystUsersRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof UserAdminControllerApi
+	 */
+	public getAllAnalystUsers(
+		requestParameters: UserAdminControllerApiGetAllAnalystUsersRequest = {},
+		options?: AxiosRequestConfig
+	) {
+		return UserAdminControllerApiFp(this.configuration)
+			.getAllAnalystUsers(requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {UserAdminControllerApiGetAllProfilesRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof UserAdminControllerApi
+	 */
+	public getAllProfiles(
+		requestParameters: UserAdminControllerApiGetAllProfilesRequest = {},
+		options?: AxiosRequestConfig
+	) {
+		return UserAdminControllerApiFp(this.configuration)
+			.getAllProfiles(requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {UserAdminControllerApiGetAllUsers1Request} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof UserAdminControllerApi
+	 */
+	public getAllUsers1(
+		requestParameters: UserAdminControllerApiGetAllUsers1Request = {},
+		options?: AxiosRequestConfig
+	) {
+		return UserAdminControllerApiFp(this.configuration)
+			.getAllUsers1(requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {UserAdminControllerApiGetApplicationUserRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof UserAdminControllerApi
+	 */
+	public getApplicationUser(
+		requestParameters: UserAdminControllerApiGetApplicationUserRequest,
+		options?: AxiosRequestConfig
+	) {
+		return UserAdminControllerApiFp(this.configuration)
+			.getApplicationUser(
+				requestParameters.appId,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -1463,38 +1422,35 @@ export class ControlControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {ControlControllerApiDeleteControlRequest} requestParameters Request parameters.
+	 * @param {UserAdminControllerApiGetUserRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
-	 * @deprecated
 	 * @throws {RequiredError}
-	 * @memberof ControlControllerApi
+	 * @memberof UserAdminControllerApi
 	 */
-	public deleteControl(
-		requestParameters: ControlControllerApiDeleteControlRequest,
+	public getUser(
+		requestParameters: UserAdminControllerApiGetUserRequest,
 		options?: AxiosRequestConfig
 	) {
-		return ControlControllerApiFp(this.configuration)
-			.deleteControl(requestParameters.id, requestParameters.acceptLanguage, options)
+		return UserAdminControllerApiFp(this.configuration)
+			.getUser(requestParameters.userId, requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 
 	/**
 	 *
-	 * @param {ControlControllerApiDeleteControlApplicationAssociationRequest} requestParameters Request parameters.
+	 * @param {UserAdminControllerApiModifyUserInfoRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
-	 * @deprecated
 	 * @throws {RequiredError}
-	 * @memberof ControlControllerApi
+	 * @memberof UserAdminControllerApi
 	 */
-	public deleteControlApplicationAssociation(
-		requestParameters: ControlControllerApiDeleteControlApplicationAssociationRequest,
+	public modifyUserInfo(
+		requestParameters: UserAdminControllerApiModifyUserInfoRequest,
 		options?: AxiosRequestConfig
 	) {
-		return ControlControllerApiFp(this.configuration)
-			.deleteControlApplicationAssociation(
-				requestParameters.controlId,
-				requestParameters.applicationId,
-				requestParameters.controlAppInstanceKey,
+		return UserAdminControllerApiFp(this.configuration)
+			.modifyUserInfo(
+				requestParameters.userId,
+				requestParameters.userDto,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -1503,19 +1459,19 @@ export class ControlControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {ControlControllerApiGetAllApplicationForControlRequest} requestParameters Request parameters.
+	 * @param {UserAdminControllerApiSetApplicationUserRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
-	 * @deprecated
 	 * @throws {RequiredError}
-	 * @memberof ControlControllerApi
+	 * @memberof UserAdminControllerApi
 	 */
-	public getAllApplicationForControl(
-		requestParameters: ControlControllerApiGetAllApplicationForControlRequest,
+	public setApplicationUser(
+		requestParameters: UserAdminControllerApiSetApplicationUserRequest,
 		options?: AxiosRequestConfig
 	) {
-		return ControlControllerApiFp(this.configuration)
-			.getAllApplicationForControl(
-				requestParameters.controlId,
+		return UserAdminControllerApiFp(this.configuration)
+			.setApplicationUser(
+				requestParameters.appId,
+				requestParameters.applicationUserDto,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -1524,55 +1480,19 @@ export class ControlControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {ControlControllerApiGetAllControlsRequest} requestParameters Request parameters.
+	 * @param {UserAdminControllerApiSetRolesForUserRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
-	 * @deprecated
 	 * @throws {RequiredError}
-	 * @memberof ControlControllerApi
+	 * @memberof UserAdminControllerApi
 	 */
-	public getAllControls(
-		requestParameters: ControlControllerApiGetAllControlsRequest = {},
+	public setRolesForUser(
+		requestParameters: UserAdminControllerApiSetRolesForUserRequest,
 		options?: AxiosRequestConfig
 	) {
-		return ControlControllerApiFp(this.configuration)
-			.getAllControls(requestParameters.acceptLanguage, options)
-			.then(request => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @param {ControlControllerApiGetControlByIdRequest} requestParameters Request parameters.
-	 * @param {*} [options] Override http request option.
-	 * @deprecated
-	 * @throws {RequiredError}
-	 * @memberof ControlControllerApi
-	 */
-	public getControlById(
-		requestParameters: ControlControllerApiGetControlByIdRequest,
-		options?: AxiosRequestConfig
-	) {
-		return ControlControllerApiFp(this.configuration)
-			.getControlById(requestParameters.id, requestParameters.acceptLanguage, options)
-			.then(request => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @param {ControlControllerApiGetSpecificControlAppInstanceRequest} requestParameters Request parameters.
-	 * @param {*} [options] Override http request option.
-	 * @deprecated
-	 * @throws {RequiredError}
-	 * @memberof ControlControllerApi
-	 */
-	public getSpecificControlAppInstance(
-		requestParameters: ControlControllerApiGetSpecificControlAppInstanceRequest,
-		options?: AxiosRequestConfig
-	) {
-		return ControlControllerApiFp(this.configuration)
-			.getSpecificControlAppInstance(
-				requestParameters.controlId,
-				requestParameters.applicationId,
-				requestParameters.controlAppInstanceKey,
+		return UserAdminControllerApiFp(this.configuration)
+			.setRolesForUser(
+				requestParameters.userId,
+				requestParameters.userDto,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -1581,63 +1501,37 @@ export class ControlControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {ControlControllerApiModifyApplicationToControlRequest} requestParameters Request parameters.
+	 * @param {UserAdminControllerApiSetUserActiveRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
-	 * @deprecated
 	 * @throws {RequiredError}
-	 * @memberof ControlControllerApi
+	 * @memberof UserAdminControllerApi
 	 */
-	public modifyApplicationToControl(
-		requestParameters: ControlControllerApiModifyApplicationToControlRequest,
+	public setUserActive(
+		requestParameters: UserAdminControllerApiSetUserActiveRequest,
 		options?: AxiosRequestConfig
 	) {
-		return ControlControllerApiFp(this.configuration)
-			.modifyApplicationToControl(
-				requestParameters.controlId,
-				requestParameters.applicationId,
-				requestParameters.controlAppInstance,
-				requestParameters.acceptLanguage,
-				options
-			)
+		return UserAdminControllerApiFp(this.configuration)
+			.setUserActive(requestParameters.userId, requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 
 	/**
 	 *
-	 * @param {ControlControllerApiModifyControlRequest} requestParameters Request parameters.
+	 * @param {UserAdminControllerApiSetUserInactiveRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
-	 * @deprecated
 	 * @throws {RequiredError}
-	 * @memberof ControlControllerApi
+	 * @memberof UserAdminControllerApi
 	 */
-	public modifyControl(
-		requestParameters: ControlControllerApiModifyControlRequest,
+	public setUserInactive(
+		requestParameters: UserAdminControllerApiSetUserInactiveRequest,
 		options?: AxiosRequestConfig
 	) {
-		return ControlControllerApiFp(this.configuration)
-			.modifyControl(
-				requestParameters.id,
-				requestParameters.control,
+		return UserAdminControllerApiFp(this.configuration)
+			.setUserInactive(
+				requestParameters.userId,
 				requestParameters.acceptLanguage,
 				options
 			)
-			.then(request => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @param {ControlControllerApiNewControlRequest} requestParameters Request parameters.
-	 * @param {*} [options] Override http request option.
-	 * @deprecated
-	 * @throws {RequiredError}
-	 * @memberof ControlControllerApi
-	 */
-	public newControl(
-		requestParameters: ControlControllerApiNewControlRequest,
-		options?: AxiosRequestConfig
-	) {
-		return ControlControllerApiFp(this.configuration)
-			.newControl(requestParameters.control, requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 }

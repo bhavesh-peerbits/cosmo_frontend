@@ -15,6 +15,7 @@ interface User {
 	displayName: string;
 	roles: UserRole[];
 	principalRole: UserDisplayRole;
+	inactive: boolean;
 }
 
 export const fromUserApi = (userApi: UserApi): User => {
@@ -28,6 +29,7 @@ export const fromUserApi = (userApi: UserApi): User => {
 		principalRole: mapUserRoleToDisplayRole(
 			userApi.roles?.[0] || UserRoleEnum.UserUnknown
 		),
+		inactive: userApi.inactive,
 		displayName:
 			!userApi.name && !userApi.surname
 				? userApi.username
@@ -39,8 +41,9 @@ export const toUserApi = (user: User): UserApi => {
 		id: user.id,
 		username: user.username,
 		name: user.name,
-		email: user.email,
-		surname: user.surname
+		email: user.email || '',
+		surname: user.surname,
+		inactive: user.inactive
 	};
 };
 

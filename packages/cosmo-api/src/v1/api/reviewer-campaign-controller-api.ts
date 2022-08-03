@@ -37,20 +37,20 @@ import {
 	RequiredError
 } from '../base';
 // @ts-ignore
+import { AnswerDto } from '../models';
+// @ts-ignore
 import { ApiErrorResponse } from '../models';
 // @ts-ignore
-import { ApplicationDto } from '../models';
+import { CampaignDto } from '../models';
 // @ts-ignore
-import { ProcedureAppInstanceDto } from '../models';
+import { ResponseDto } from '../models';
 // @ts-ignore
-import { ReviewApplicationDto } from '../models';
-// @ts-ignore
-import { ReviewProcedureDto } from '../models';
+import { ReviewDto } from '../models';
 /**
- * ReviewerControllerApi - axios parameter creator
+ * ReviewerCampaignControllerApi - axios parameter creator
  * @export
  */
-export const ReviewerControllerApiAxiosParamCreator = function (
+export const ReviewerCampaignControllerApiAxiosParamCreator = function (
 	configuration?: Configuration
 ) {
 	return {
@@ -60,11 +60,11 @@ export const ReviewerControllerApiAxiosParamCreator = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllApplicationWhereAProcedureIsDelegatedOrOwner: async (
+		getAllCampaigns: async (
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			const localVarPath = `/api/reviewer/applicationsInReview`;
+			const localVarPath = `/api/reviewer/campaign/all`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -99,64 +99,21 @@ export const ReviewerControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
+		 * @param {number} reviewId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getApplicationsForReview: async (
+		getAnswersForGivenReview: async (
+			reviewId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			const localVarPath = `/api/reviewer/onlyApplicationInReview`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {number} appId
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		getProcedureForReview: async (
-			appId: number,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'appId' is not null or undefined
-			assertParamExists('getProcedureForReview', 'appId', appId);
-			const localVarPath = `/api/reviewer/application/{appId}`.replace(
-				`{${'appId'}}`,
-				encodeURIComponent(String(appId))
+			// verify required parameter 'reviewId' is not null or undefined
+			assertParamExists('getAnswersForGivenReview', 'reviewId', reviewId);
+			const localVarPath = `/api/reviewer/campaign/answer/{reviewId}`.replace(
+				`{${'reviewId'}}`,
+				encodeURIComponent(String(reviewId))
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -192,107 +149,23 @@ export const ReviewerControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {number} appId
-		 * @param {ReviewApplicationDto} reviewApplicationDto
+		 * @param {string} campaignName
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		reviewApplication: async (
-			appId: number,
-			reviewApplicationDto: ReviewApplicationDto,
+		getApplicationsOfCampaign: async (
+			campaignName: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'appId' is not null or undefined
-			assertParamExists('reviewApplication', 'appId', appId);
-			// verify required parameter 'reviewApplicationDto' is not null or undefined
-			assertParamExists(
-				'reviewApplication',
-				'reviewApplicationDto',
-				reviewApplicationDto
-			);
-			const localVarPath = `/api/reviewer/application/{appId}`.replace(
-				`{${'appId'}}`,
-				encodeURIComponent(String(appId))
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			localVarHeaderParameter['Content-Type'] = 'application/json';
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				reviewApplicationDto,
-				localVarRequestOptions,
-				configuration
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {number} appId
-		 * @param {number} procId
-		 * @param {number} procedureAppInstanceId
-		 * @param {ReviewProcedureDto} reviewProcedureDto
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		reviewProcedure: async (
-			appId: number,
-			procId: number,
-			procedureAppInstanceId: number,
-			reviewProcedureDto: ReviewProcedureDto,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'appId' is not null or undefined
-			assertParamExists('reviewProcedure', 'appId', appId);
-			// verify required parameter 'procId' is not null or undefined
-			assertParamExists('reviewProcedure', 'procId', procId);
-			// verify required parameter 'procedureAppInstanceId' is not null or undefined
-			assertParamExists(
-				'reviewProcedure',
-				'procedureAppInstanceId',
-				procedureAppInstanceId
-			);
-			// verify required parameter 'reviewProcedureDto' is not null or undefined
-			assertParamExists('reviewProcedure', 'reviewProcedureDto', reviewProcedureDto);
+			// verify required parameter 'campaignName' is not null or undefined
+			assertParamExists('getApplicationsOfCampaign', 'campaignName', campaignName);
 			const localVarPath =
-				`/api/reviewer/application/{appId}/procedure/{procId}/{procedureAppInstanceId}`
-					.replace(`{${'appId'}}`, encodeURIComponent(String(appId)))
-					.replace(`{${'procId'}}`, encodeURIComponent(String(procId)))
-					.replace(
-						`{${'procedureAppInstanceId'}}`,
-						encodeURIComponent(String(procedureAppInstanceId))
-					);
+				`/api/reviewer/campaign/name/{campaignName}/application`.replace(
+					`{${'campaignName'}}`,
+					encodeURIComponent(String(campaignName))
+				);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -300,7 +173,161 @@ export const ReviewerControllerApiAxiosParamCreator = function (
 				baseOptions = configuration.baseOptions;
 			}
 
-			const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} campaignId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getCampaignById: async (
+			campaignId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'campaignId' is not null or undefined
+			assertParamExists('getCampaignById', 'campaignId', campaignId);
+			const localVarPath = `/api/reviewer/campaign/{campaignId}`.replace(
+				`{${'campaignId'}}`,
+				encodeURIComponent(String(campaignId))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {string} campaignName
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getCampaignByName: async (
+			campaignName: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'campaignName' is not null or undefined
+			assertParamExists('getCampaignByName', 'campaignName', campaignName);
+			const localVarPath = `/api/reviewer/campaign/name/{campaignName}`.replace(
+				`{${'campaignName'}}`,
+				encodeURIComponent(String(campaignName))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} answerID
+		 * @param {ResponseDto} responseDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveResponseToGivenAnswer: async (
+			answerID: number,
+			responseDto: ResponseDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'answerID' is not null or undefined
+			assertParamExists('saveResponseToGivenAnswer', 'answerID', answerID);
+			// verify required parameter 'responseDto' is not null or undefined
+			assertParamExists('saveResponseToGivenAnswer', 'responseDto', responseDto);
+			const localVarPath = `/api/reviewer/campaign/answer/{answerID}`.replace(
+				`{${'answerID'}}`,
+				encodeURIComponent(String(answerID))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
 			const localVarHeaderParameter = {} as any;
 			const localVarQueryParameter = {} as any;
 
@@ -322,7 +349,7 @@ export const ReviewerControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				reviewProcedureDto,
+				responseDto,
 				localVarRequestOptions,
 				configuration
 			);
@@ -336,11 +363,12 @@ export const ReviewerControllerApiAxiosParamCreator = function (
 };
 
 /**
- * ReviewerControllerApi - functional programming interface
+ * ReviewerCampaignControllerApi - functional programming interface
  * @export
  */
-export const ReviewerControllerApiFp = function (configuration?: Configuration) {
-	const localVarAxiosParamCreator = ReviewerControllerApiAxiosParamCreator(configuration);
+export const ReviewerCampaignControllerApiFp = function (configuration?: Configuration) {
+	const localVarAxiosParamCreator =
+		ReviewerCampaignControllerApiAxiosParamCreator(configuration);
 	return {
 		/**
 		 *
@@ -348,37 +376,13 @@ export const ReviewerControllerApiFp = function (configuration?: Configuration) 
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async getAllApplicationWhereAProcedureIsDelegatedOrOwner(
+		async getAllCampaigns(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApplicationDto>>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CampaignDto>>
 		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.getAllApplicationWhereAProcedureIsDelegatedOrOwner(
-					acceptLanguage,
-					options
-				);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async getApplicationsForReview(
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApplicationDto>>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getApplicationsForReview(
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllCampaigns(
 				acceptLanguage,
 				options
 			);
@@ -391,23 +395,20 @@ export const ReviewerControllerApiFp = function (configuration?: Configuration) 
 		},
 		/**
 		 *
-		 * @param {number} appId
+		 * @param {number} reviewId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async getProcedureForReview(
-			appId: number,
+		async getAnswersForGivenReview(
+			reviewId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(
-				axios?: AxiosInstance,
-				basePath?: string
-			) => AxiosPromise<Array<ProcedureAppInstanceDto>>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<AnswerDto>>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getProcedureForReview(
-				appId,
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAnswersForGivenReview(
+				reviewId,
 				acceptLanguage,
 				options
 			);
@@ -420,23 +421,20 @@ export const ReviewerControllerApiFp = function (configuration?: Configuration) 
 		},
 		/**
 		 *
-		 * @param {number} appId
-		 * @param {ReviewApplicationDto} reviewApplicationDto
+		 * @param {string} campaignName
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async reviewApplication(
-			appId: number,
-			reviewApplicationDto: ReviewApplicationDto,
+		async getApplicationsOfCampaign(
+			campaignName: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApplicationDto>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ReviewDto>>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.reviewApplication(
-				appId,
-				reviewApplicationDto,
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getApplicationsOfCampaign(
+				campaignName,
 				acceptLanguage,
 				options
 			);
@@ -449,29 +447,69 @@ export const ReviewerControllerApiFp = function (configuration?: Configuration) 
 		},
 		/**
 		 *
-		 * @param {number} appId
-		 * @param {number} procId
-		 * @param {number} procedureAppInstanceId
-		 * @param {ReviewProcedureDto} reviewProcedureDto
+		 * @param {number} campaignId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async reviewProcedure(
-			appId: number,
-			procId: number,
-			procedureAppInstanceId: number,
-			reviewProcedureDto: ReviewProcedureDto,
+		async getCampaignById(
+			campaignId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProcedureAppInstanceDto>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.reviewProcedure(
-				appId,
-				procId,
-				procedureAppInstanceId,
-				reviewProcedureDto,
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CampaignDto>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getCampaignById(
+				campaignId,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {string} campaignName
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getCampaignByName(
+			campaignName: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CampaignDto>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getCampaignByName(
+				campaignName,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} answerID
+		 * @param {ResponseDto} responseDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async saveResponseToGivenAnswer(
+			answerID: number,
+			responseDto: ResponseDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.saveResponseToGivenAnswer(
+				answerID,
+				responseDto,
 				acceptLanguage,
 				options
 			);
@@ -486,15 +524,15 @@ export const ReviewerControllerApiFp = function (configuration?: Configuration) 
 };
 
 /**
- * ReviewerControllerApi - factory interface
+ * ReviewerCampaignControllerApi - factory interface
  * @export
  */
-export const ReviewerControllerApiFactory = function (
+export const ReviewerCampaignControllerApiFactory = function (
 	configuration?: Configuration,
 	basePath?: string,
 	axios?: AxiosInstance
 ) {
-	const localVarFp = ReviewerControllerApiFp(configuration);
+	const localVarFp = ReviewerCampaignControllerApiFp(configuration);
 	return {
 		/**
 		 *
@@ -502,233 +540,262 @@ export const ReviewerControllerApiFactory = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllApplicationWhereAProcedureIsDelegatedOrOwner(
+		getAllCampaigns(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Array<ApplicationDto>> {
+		): AxiosPromise<Array<CampaignDto>> {
 			return localVarFp
-				.getAllApplicationWhereAProcedureIsDelegatedOrOwner(acceptLanguage, options)
+				.getAllCampaigns(acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
+		 * @param {number} reviewId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getApplicationsForReview(
+		getAnswersForGivenReview(
+			reviewId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Array<ApplicationDto>> {
+		): AxiosPromise<Array<AnswerDto>> {
 			return localVarFp
-				.getApplicationsForReview(acceptLanguage, options)
+				.getAnswersForGivenReview(reviewId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {number} appId
+		 * @param {string} campaignName
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getProcedureForReview(
-			appId: number,
+		getApplicationsOfCampaign(
+			campaignName: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Array<ProcedureAppInstanceDto>> {
+		): AxiosPromise<Array<ReviewDto>> {
 			return localVarFp
-				.getProcedureForReview(appId, acceptLanguage, options)
+				.getApplicationsOfCampaign(campaignName, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {number} appId
-		 * @param {ReviewApplicationDto} reviewApplicationDto
+		 * @param {number} campaignId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		reviewApplication(
-			appId: number,
-			reviewApplicationDto: ReviewApplicationDto,
+		getCampaignById(
+			campaignId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<ApplicationDto> {
+		): AxiosPromise<CampaignDto> {
 			return localVarFp
-				.reviewApplication(appId, reviewApplicationDto, acceptLanguage, options)
+				.getCampaignById(campaignId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {number} appId
-		 * @param {number} procId
-		 * @param {number} procedureAppInstanceId
-		 * @param {ReviewProcedureDto} reviewProcedureDto
+		 * @param {string} campaignName
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		reviewProcedure(
-			appId: number,
-			procId: number,
-			procedureAppInstanceId: number,
-			reviewProcedureDto: ReviewProcedureDto,
+		getCampaignByName(
+			campaignName: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<ProcedureAppInstanceDto> {
+		): AxiosPromise<CampaignDto> {
 			return localVarFp
-				.reviewProcedure(
-					appId,
-					procId,
-					procedureAppInstanceId,
-					reviewProcedureDto,
-					acceptLanguage,
-					options
-				)
+				.getCampaignByName(campaignName, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} answerID
+		 * @param {ResponseDto} responseDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveResponseToGivenAnswer(
+			answerID: number,
+			responseDto: ResponseDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<void> {
+			return localVarFp
+				.saveResponseToGivenAnswer(answerID, responseDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		}
 	};
 };
 
 /**
- * Request parameters for getAllApplicationWhereAProcedureIsDelegatedOrOwner operation in ReviewerControllerApi.
+ * Request parameters for getAllCampaigns operation in ReviewerCampaignControllerApi.
  * @export
- * @interface ReviewerControllerApiGetAllApplicationWhereAProcedureIsDelegatedOrOwnerRequest
+ * @interface ReviewerCampaignControllerApiGetAllCampaignsRequest
  */
-export interface ReviewerControllerApiGetAllApplicationWhereAProcedureIsDelegatedOrOwnerRequest {
+export interface ReviewerCampaignControllerApiGetAllCampaignsRequest {
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ReviewerControllerApiGetAllApplicationWhereAProcedureIsDelegatedOrOwner
+	 * @memberof ReviewerCampaignControllerApiGetAllCampaigns
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for getApplicationsForReview operation in ReviewerControllerApi.
+ * Request parameters for getAnswersForGivenReview operation in ReviewerCampaignControllerApi.
  * @export
- * @interface ReviewerControllerApiGetApplicationsForReviewRequest
+ * @interface ReviewerCampaignControllerApiGetAnswersForGivenReviewRequest
  */
-export interface ReviewerControllerApiGetApplicationsForReviewRequest {
+export interface ReviewerCampaignControllerApiGetAnswersForGivenReviewRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof ReviewerCampaignControllerApiGetAnswersForGivenReview
+	 */
+	readonly reviewId: number;
+
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ReviewerControllerApiGetApplicationsForReview
+	 * @memberof ReviewerCampaignControllerApiGetAnswersForGivenReview
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for getProcedureForReview operation in ReviewerControllerApi.
+ * Request parameters for getApplicationsOfCampaign operation in ReviewerCampaignControllerApi.
  * @export
- * @interface ReviewerControllerApiGetProcedureForReviewRequest
+ * @interface ReviewerCampaignControllerApiGetApplicationsOfCampaignRequest
  */
-export interface ReviewerControllerApiGetProcedureForReviewRequest {
+export interface ReviewerCampaignControllerApiGetApplicationsOfCampaignRequest {
 	/**
 	 *
-	 * @type {number}
-	 * @memberof ReviewerControllerApiGetProcedureForReview
+	 * @type {string}
+	 * @memberof ReviewerCampaignControllerApiGetApplicationsOfCampaign
 	 */
-	readonly appId: number;
+	readonly campaignName: string;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ReviewerControllerApiGetProcedureForReview
+	 * @memberof ReviewerCampaignControllerApiGetApplicationsOfCampaign
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for reviewApplication operation in ReviewerControllerApi.
+ * Request parameters for getCampaignById operation in ReviewerCampaignControllerApi.
  * @export
- * @interface ReviewerControllerApiReviewApplicationRequest
+ * @interface ReviewerCampaignControllerApiGetCampaignByIdRequest
  */
-export interface ReviewerControllerApiReviewApplicationRequest {
+export interface ReviewerCampaignControllerApiGetCampaignByIdRequest {
 	/**
 	 *
 	 * @type {number}
-	 * @memberof ReviewerControllerApiReviewApplication
+	 * @memberof ReviewerCampaignControllerApiGetCampaignById
 	 */
-	readonly appId: number;
-
-	/**
-	 *
-	 * @type {ReviewApplicationDto}
-	 * @memberof ReviewerControllerApiReviewApplication
-	 */
-	readonly reviewApplicationDto: ReviewApplicationDto;
+	readonly campaignId: number;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ReviewerControllerApiReviewApplication
+	 * @memberof ReviewerCampaignControllerApiGetCampaignById
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for reviewProcedure operation in ReviewerControllerApi.
+ * Request parameters for getCampaignByName operation in ReviewerCampaignControllerApi.
  * @export
- * @interface ReviewerControllerApiReviewProcedureRequest
+ * @interface ReviewerCampaignControllerApiGetCampaignByNameRequest
  */
-export interface ReviewerControllerApiReviewProcedureRequest {
+export interface ReviewerCampaignControllerApiGetCampaignByNameRequest {
 	/**
 	 *
-	 * @type {number}
-	 * @memberof ReviewerControllerApiReviewProcedure
+	 * @type {string}
+	 * @memberof ReviewerCampaignControllerApiGetCampaignByName
 	 */
-	readonly appId: number;
-
-	/**
-	 *
-	 * @type {number}
-	 * @memberof ReviewerControllerApiReviewProcedure
-	 */
-	readonly procId: number;
-
-	/**
-	 *
-	 * @type {number}
-	 * @memberof ReviewerControllerApiReviewProcedure
-	 */
-	readonly procedureAppInstanceId: number;
-
-	/**
-	 *
-	 * @type {ReviewProcedureDto}
-	 * @memberof ReviewerControllerApiReviewProcedure
-	 */
-	readonly reviewProcedureDto: ReviewProcedureDto;
+	readonly campaignName: string;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ReviewerControllerApiReviewProcedure
+	 * @memberof ReviewerCampaignControllerApiGetCampaignByName
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * ReviewerControllerApi - object-oriented interface
+ * Request parameters for saveResponseToGivenAnswer operation in ReviewerCampaignControllerApi.
  * @export
- * @class ReviewerControllerApi
+ * @interface ReviewerCampaignControllerApiSaveResponseToGivenAnswerRequest
+ */
+export interface ReviewerCampaignControllerApiSaveResponseToGivenAnswerRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof ReviewerCampaignControllerApiSaveResponseToGivenAnswer
+	 */
+	readonly answerID: number;
+
+	/**
+	 *
+	 * @type {ResponseDto}
+	 * @memberof ReviewerCampaignControllerApiSaveResponseToGivenAnswer
+	 */
+	readonly responseDto: ResponseDto;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ReviewerCampaignControllerApiSaveResponseToGivenAnswer
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * ReviewerCampaignControllerApi - object-oriented interface
+ * @export
+ * @class ReviewerCampaignControllerApi
  * @extends {BaseAPI}
  */
-export class ReviewerControllerApi extends BaseAPI {
+export class ReviewerCampaignControllerApi extends BaseAPI {
 	/**
 	 *
-	 * @param {ReviewerControllerApiGetAllApplicationWhereAProcedureIsDelegatedOrOwnerRequest} requestParameters Request parameters.
+	 * @param {ReviewerCampaignControllerApiGetAllCampaignsRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof ReviewerControllerApi
+	 * @memberof ReviewerCampaignControllerApi
 	 */
-	public getAllApplicationWhereAProcedureIsDelegatedOrOwner(
-		requestParameters: ReviewerControllerApiGetAllApplicationWhereAProcedureIsDelegatedOrOwnerRequest = {},
+	public getAllCampaigns(
+		requestParameters: ReviewerCampaignControllerApiGetAllCampaignsRequest = {},
 		options?: AxiosRequestConfig
 	) {
-		return ReviewerControllerApiFp(this.configuration)
-			.getAllApplicationWhereAProcedureIsDelegatedOrOwner(
+		return ReviewerCampaignControllerApiFp(this.configuration)
+			.getAllCampaigns(requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {ReviewerCampaignControllerApiGetAnswersForGivenReviewRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof ReviewerCampaignControllerApi
+	 */
+	public getAnswersForGivenReview(
+		requestParameters: ReviewerCampaignControllerApiGetAnswersForGivenReviewRequest,
+		options?: AxiosRequestConfig
+	) {
+		return ReviewerCampaignControllerApiFp(this.configuration)
+			.getAnswersForGivenReview(
+				requestParameters.reviewId,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -737,34 +804,18 @@ export class ReviewerControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {ReviewerControllerApiGetApplicationsForReviewRequest} requestParameters Request parameters.
+	 * @param {ReviewerCampaignControllerApiGetApplicationsOfCampaignRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof ReviewerControllerApi
+	 * @memberof ReviewerCampaignControllerApi
 	 */
-	public getApplicationsForReview(
-		requestParameters: ReviewerControllerApiGetApplicationsForReviewRequest = {},
+	public getApplicationsOfCampaign(
+		requestParameters: ReviewerCampaignControllerApiGetApplicationsOfCampaignRequest,
 		options?: AxiosRequestConfig
 	) {
-		return ReviewerControllerApiFp(this.configuration)
-			.getApplicationsForReview(requestParameters.acceptLanguage, options)
-			.then(request => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @param {ReviewerControllerApiGetProcedureForReviewRequest} requestParameters Request parameters.
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof ReviewerControllerApi
-	 */
-	public getProcedureForReview(
-		requestParameters: ReviewerControllerApiGetProcedureForReviewRequest,
-		options?: AxiosRequestConfig
-	) {
-		return ReviewerControllerApiFp(this.configuration)
-			.getProcedureForReview(
-				requestParameters.appId,
+		return ReviewerCampaignControllerApiFp(this.configuration)
+			.getApplicationsOfCampaign(
+				requestParameters.campaignName,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -773,19 +824,18 @@ export class ReviewerControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {ReviewerControllerApiReviewApplicationRequest} requestParameters Request parameters.
+	 * @param {ReviewerCampaignControllerApiGetCampaignByIdRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof ReviewerControllerApi
+	 * @memberof ReviewerCampaignControllerApi
 	 */
-	public reviewApplication(
-		requestParameters: ReviewerControllerApiReviewApplicationRequest,
+	public getCampaignById(
+		requestParameters: ReviewerCampaignControllerApiGetCampaignByIdRequest,
 		options?: AxiosRequestConfig
 	) {
-		return ReviewerControllerApiFp(this.configuration)
-			.reviewApplication(
-				requestParameters.appId,
-				requestParameters.reviewApplicationDto,
+		return ReviewerCampaignControllerApiFp(this.configuration)
+			.getCampaignById(
+				requestParameters.campaignId,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -794,21 +844,39 @@ export class ReviewerControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {ReviewerControllerApiReviewProcedureRequest} requestParameters Request parameters.
+	 * @param {ReviewerCampaignControllerApiGetCampaignByNameRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof ReviewerControllerApi
+	 * @memberof ReviewerCampaignControllerApi
 	 */
-	public reviewProcedure(
-		requestParameters: ReviewerControllerApiReviewProcedureRequest,
+	public getCampaignByName(
+		requestParameters: ReviewerCampaignControllerApiGetCampaignByNameRequest,
 		options?: AxiosRequestConfig
 	) {
-		return ReviewerControllerApiFp(this.configuration)
-			.reviewProcedure(
-				requestParameters.appId,
-				requestParameters.procId,
-				requestParameters.procedureAppInstanceId,
-				requestParameters.reviewProcedureDto,
+		return ReviewerCampaignControllerApiFp(this.configuration)
+			.getCampaignByName(
+				requestParameters.campaignName,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {ReviewerCampaignControllerApiSaveResponseToGivenAnswerRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof ReviewerCampaignControllerApi
+	 */
+	public saveResponseToGivenAnswer(
+		requestParameters: ReviewerCampaignControllerApiSaveResponseToGivenAnswerRequest,
+		options?: AxiosRequestConfig
+	) {
+		return ReviewerCampaignControllerApiFp(this.configuration)
+			.saveResponseToGivenAnswer(
+				requestParameters.answerID,
+				requestParameters.responseDto,
 				requestParameters.acceptLanguage,
 				options
 			)

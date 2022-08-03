@@ -55,6 +55,7 @@ export const ProfileControllerApiAxiosParamCreator = function (
 		 * @param {number} profileId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		getAllUsersForAProfile: async (
@@ -105,6 +106,7 @@ export const ProfileControllerApiAxiosParamCreator = function (
 		 *
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		getProfiles: async (
@@ -159,6 +161,7 @@ export const ProfileControllerApiFp = function (configuration?: Configuration) {
 		 * @param {number} profileId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		async getAllUsersForAProfile(
@@ -184,6 +187,7 @@ export const ProfileControllerApiFp = function (configuration?: Configuration) {
 		 *
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		async getProfiles(
@@ -222,6 +226,7 @@ export const ProfileControllerApiFactory = function (
 		 * @param {number} profileId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		getAllUsersForAProfile(
@@ -237,6 +242,7 @@ export const ProfileControllerApiFactory = function (
 		 *
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		getProfiles(
@@ -296,6 +302,7 @@ export class ProfileControllerApi extends BaseAPI {
 	 *
 	 * @param {ProfileControllerApiGetAllUsersForAProfileRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
+	 * @deprecated
 	 * @throws {RequiredError}
 	 * @memberof ProfileControllerApi
 	 */
@@ -316,6 +323,7 @@ export class ProfileControllerApi extends BaseAPI {
 	 *
 	 * @param {ProfileControllerApiGetProfilesRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
+	 * @deprecated
 	 * @throws {RequiredError}
 	 * @memberof ProfileControllerApi
 	 */

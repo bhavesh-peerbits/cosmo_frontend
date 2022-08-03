@@ -12,12 +12,20 @@
  * Do not edit the class manually.
  */
 
+import { Tenant } from './tenant';
+
 /**
  *
  * @export
  * @interface Procedure
  */
 export interface Procedure {
+	/**
+	 *
+	 * @type {Tenant}
+	 * @memberof Procedure
+	 */
+	tenant?: Tenant;
 	/**
 	 *
 	 * @type {number}

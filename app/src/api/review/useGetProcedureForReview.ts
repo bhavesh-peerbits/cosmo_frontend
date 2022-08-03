@@ -5,7 +5,7 @@ import { useQuery } from 'react-query';
 
 const useGetProcedureForReview = (appId: string) => {
 	return api.reviewerApi
-		.getProcedureForReview({ applicationId: +appId })
+		.getProcedureForReview({ appId: +appId })
 		.then(({ data }) => data.map(fromProcedureAppInstanceApi))
 		.then(toMap);
 };

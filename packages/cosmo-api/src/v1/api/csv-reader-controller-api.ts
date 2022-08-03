@@ -39,33 +39,48 @@ import {
 // @ts-ignore
 import { ApiErrorResponse } from '../models';
 // @ts-ignore
-import { Application } from '../models';
+import { ApplicationDto } from '../models';
 // @ts-ignore
-import { Tenant } from '../models';
+import { InlineObject3 } from '../models';
+// @ts-ignore
+import { InlineObject4 } from '../models';
+// @ts-ignore
+import { InlineObject5 } from '../models';
+// @ts-ignore
+import { InlineObject6 } from '../models';
+// @ts-ignore
+import { InlineObject7 } from '../models';
+// @ts-ignore
+import { InlineObject8 } from '../models';
+// @ts-ignore
+import { ProcedureAppInstanceDto } from '../models';
+// @ts-ignore
+import { ProcedureDto } from '../models';
+// @ts-ignore
+import { UserDto } from '../models';
 /**
- * TenantControllerApi - axios parameter creator
+ * CsvReaderControllerApi - axios parameter creator
  * @export
  */
-export const TenantControllerApiAxiosParamCreator = function (
+export const CsvReaderControllerApiAxiosParamCreator = function (
 	configuration?: Configuration
 ) {
 	return {
 		/**
 		 *
-		 * @param {Tenant} tenant
+		 * @param {InlineObject8} inlineObject8
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
-		 * @deprecated
 		 * @throws {RequiredError}
 		 */
-		createTenant: async (
-			tenant: Tenant,
+		addApplicationDetailsFromCSV: async (
+			inlineObject8: InlineObject8,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'tenant' is not null or undefined
-			assertParamExists('createTenant', 'tenant', tenant);
-			const localVarPath = `/api/tenants`;
+			// verify required parameter 'inlineObject8' is not null or undefined
+			assertParamExists('addApplicationDetailsFromCSV', 'inlineObject8', inlineObject8);
+			const localVarPath = `/api/importcsv/applicationsDetInfo`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -95,7 +110,7 @@ export const TenantControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				tenant,
+				inlineObject8,
 				localVarRequestOptions,
 				configuration
 			);
@@ -107,20 +122,19 @@ export const TenantControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {number} body
+		 * @param {InlineObject7} inlineObject7
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
-		 * @deprecated
 		 * @throws {RequiredError}
 		 */
-		deleteTenant: async (
-			body: number,
+		addApplicationFromCSV: async (
+			inlineObject7: InlineObject7,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'body' is not null or undefined
-			assertParamExists('deleteTenant', 'body', body);
-			const localVarPath = `/api/tenants/{id}`;
+			// verify required parameter 'inlineObject7' is not null or undefined
+			assertParamExists('addApplicationFromCSV', 'inlineObject7', inlineObject7);
+			const localVarPath = `/api/importcsv/applications`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -128,7 +142,7 @@ export const TenantControllerApiAxiosParamCreator = function (
 				baseOptions = configuration.baseOptions;
 			}
 
-			const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
 			const localVarHeaderParameter = {} as any;
 			const localVarQueryParameter = {} as any;
 
@@ -150,7 +164,7 @@ export const TenantControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				body,
+				inlineObject7,
 				localVarRequestOptions,
 				configuration
 			);
@@ -162,15 +176,23 @@ export const TenantControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
+		 * @param {InlineObject5} inlineObject5
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllTenants: async (
+		addProcedureAppInstancesFromCSV: async (
+			inlineObject5: InlineObject5,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			const localVarPath = `/api/tenants`;
+			// verify required parameter 'inlineObject5' is not null or undefined
+			assertParamExists(
+				'addProcedureAppInstancesFromCSV',
+				'inlineObject5',
+				inlineObject5
+			);
+			const localVarPath = `/api/importcsv/procedureAppInstances`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -178,171 +200,12 @@ export const TenantControllerApiAxiosParamCreator = function (
 				baseOptions = configuration.baseOptions;
 			}
 
-			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
 			const localVarHeaderParameter = {} as any;
 			const localVarQueryParameter = {} as any;
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {number} tenantId
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @deprecated
-		 * @throws {RequiredError}
-		 */
-		getTenantApplications: async (
-			tenantId: number,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'tenantId' is not null or undefined
-			assertParamExists('getTenantApplications', 'tenantId', tenantId);
-			const localVarPath = `/api/tenants/{tenantId}/applications`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (tenantId !== undefined) {
-				localVarQueryParameter['tenantId'] = tenantId;
-			}
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {number} id
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		getTenantById: async (
-			id: number,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'id' is not null or undefined
-			assertParamExists('getTenantById', 'id', id);
-			const localVarPath = `/api/tenants/{id}`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (id !== undefined) {
-				localVarQueryParameter['id'] = id;
-			}
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {number} id
-		 * @param {Tenant} tenant
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @deprecated
-		 * @throws {RequiredError}
-		 */
-		modifyTenant: async (
-			id: number,
-			tenant: Tenant,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'id' is not null or undefined
-			assertParamExists('modifyTenant', 'id', id);
-			// verify required parameter 'tenant' is not null or undefined
-			assertParamExists('modifyTenant', 'tenant', tenant);
-			const localVarPath = `/api/tenants/{id}`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (id !== undefined) {
-				localVarQueryParameter['id'] = id;
-			}
 
 			if (acceptLanguage !== undefined && acceptLanguage !== null) {
 				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
@@ -359,7 +222,169 @@ export const TenantControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				tenant,
+				inlineObject5,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {InlineObject4} inlineObject4
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		addProceduresFromCSV: async (
+			inlineObject4: InlineObject4,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'inlineObject4' is not null or undefined
+			assertParamExists('addProceduresFromCSV', 'inlineObject4', inlineObject4);
+			const localVarPath = `/api/importcsv/procedures`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				inlineObject4,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {InlineObject3} inlineObject3
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		addUsersFromCSV: async (
+			inlineObject3: InlineObject3,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'inlineObject3' is not null or undefined
+			assertParamExists('addUsersFromCSV', 'inlineObject3', inlineObject3);
+			const localVarPath = `/api/importcsv/users`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				inlineObject3,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {InlineObject6} inlineObject6
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		addUsersWithoutProfilesFromCSV: async (
+			inlineObject6: InlineObject6,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'inlineObject6' is not null or undefined
+			assertParamExists('addUsersWithoutProfilesFromCSV', 'inlineObject6', inlineObject6);
+			const localVarPath = `/api/importcsv/onlyUsers`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				inlineObject6,
 				localVarRequestOptions,
 				configuration
 			);
@@ -373,78 +398,33 @@ export const TenantControllerApiAxiosParamCreator = function (
 };
 
 /**
- * TenantControllerApi - functional programming interface
+ * CsvReaderControllerApi - functional programming interface
  * @export
  */
-export const TenantControllerApiFp = function (configuration?: Configuration) {
-	const localVarAxiosParamCreator = TenantControllerApiAxiosParamCreator(configuration);
+export const CsvReaderControllerApiFp = function (configuration?: Configuration) {
+	const localVarAxiosParamCreator =
+		CsvReaderControllerApiAxiosParamCreator(configuration);
 	return {
 		/**
 		 *
-		 * @param {Tenant} tenant
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @deprecated
-		 * @throws {RequiredError}
-		 */
-		async createTenant(
-			tenant: Tenant,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Tenant>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.createTenant(
-				tenant,
-				acceptLanguage,
-				options
-			);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {number} body
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @deprecated
-		 * @throws {RequiredError}
-		 */
-		async deleteTenant(
-			body: number,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.deleteTenant(
-				body,
-				acceptLanguage,
-				options
-			);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
+		 * @param {InlineObject8} inlineObject8
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async getAllTenants(
+		async addApplicationDetailsFromCSV(
+			inlineObject8: InlineObject8,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Tenant>>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApplicationDto>>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllTenants(
-				acceptLanguage,
-				options
-			);
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.addApplicationDetailsFromCSV(
+					inlineObject8,
+					acceptLanguage,
+					options
+				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
@@ -454,21 +434,20 @@ export const TenantControllerApiFp = function (configuration?: Configuration) {
 		},
 		/**
 		 *
-		 * @param {number} tenantId
+		 * @param {InlineObject7} inlineObject7
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
-		 * @deprecated
 		 * @throws {RequiredError}
 		 */
-		async getTenantApplications(
-			tenantId: number,
+		async addApplicationFromCSV(
+			inlineObject7: InlineObject7,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Application>>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApplicationDto>>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getTenantApplications(
-				tenantId,
+			const localVarAxiosArgs = await localVarAxiosParamCreator.addApplicationFromCSV(
+				inlineObject7,
 				acceptLanguage,
 				options
 			);
@@ -481,18 +460,50 @@ export const TenantControllerApiFp = function (configuration?: Configuration) {
 		},
 		/**
 		 *
-		 * @param {number} id
+		 * @param {InlineObject5} inlineObject5
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async getTenantById(
-			id: number,
+		async addProcedureAppInstancesFromCSV(
+			inlineObject5: InlineObject5,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Tenant>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getTenantById(
-				id,
+		): Promise<
+			(
+				axios?: AxiosInstance,
+				basePath?: string
+			) => AxiosPromise<Array<ProcedureAppInstanceDto>>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.addProcedureAppInstancesFromCSV(
+					inlineObject5,
+					acceptLanguage,
+					options
+				);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {InlineObject4} inlineObject4
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async addProceduresFromCSV(
+			inlineObject4: InlineObject4,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ProcedureDto>>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.addProceduresFromCSV(
+				inlineObject4,
 				acceptLanguage,
 				options
 			);
@@ -505,25 +516,50 @@ export const TenantControllerApiFp = function (configuration?: Configuration) {
 		},
 		/**
 		 *
-		 * @param {number} id
-		 * @param {Tenant} tenant
+		 * @param {InlineObject3} inlineObject3
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
-		 * @deprecated
 		 * @throws {RequiredError}
 		 */
-		async modifyTenant(
-			id: number,
-			tenant: Tenant,
+		async addUsersFromCSV(
+			inlineObject3: InlineObject3,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Tenant>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.modifyTenant(
-				id,
-				tenant,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserDto>>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.addUsersFromCSV(
+				inlineObject3,
 				acceptLanguage,
 				options
 			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {InlineObject6} inlineObject6
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async addUsersWithoutProfilesFromCSV(
+			inlineObject6: InlineObject6,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserDto>>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.addUsersWithoutProfilesFromCSV(
+					inlineObject6,
+					acceptLanguage,
+					options
+				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
@@ -535,317 +571,262 @@ export const TenantControllerApiFp = function (configuration?: Configuration) {
 };
 
 /**
- * TenantControllerApi - factory interface
+ * CsvReaderControllerApi - factory interface
  * @export
  */
-export const TenantControllerApiFactory = function (
+export const CsvReaderControllerApiFactory = function (
 	configuration?: Configuration,
 	basePath?: string,
 	axios?: AxiosInstance
 ) {
-	const localVarFp = TenantControllerApiFp(configuration);
+	const localVarFp = CsvReaderControllerApiFp(configuration);
 	return {
 		/**
 		 *
-		 * @param {Tenant} tenant
+		 * @param {InlineObject8} inlineObject8
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
-		 * @deprecated
 		 * @throws {RequiredError}
 		 */
-		createTenant(
-			tenant: Tenant,
+		addApplicationDetailsFromCSV(
+			inlineObject8: InlineObject8,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Tenant> {
+		): AxiosPromise<Array<ApplicationDto>> {
 			return localVarFp
-				.createTenant(tenant, acceptLanguage, options)
+				.addApplicationDetailsFromCSV(inlineObject8, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {number} body
+		 * @param {InlineObject7} inlineObject7
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
-		 * @deprecated
 		 * @throws {RequiredError}
 		 */
-		deleteTenant(
-			body: number,
+		addApplicationFromCSV(
+			inlineObject7: InlineObject7,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<string> {
+		): AxiosPromise<Array<ApplicationDto>> {
 			return localVarFp
-				.deleteTenant(body, acceptLanguage, options)
+				.addApplicationFromCSV(inlineObject7, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
+		 * @param {InlineObject5} inlineObject5
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllTenants(
+		addProcedureAppInstancesFromCSV(
+			inlineObject5: InlineObject5,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Array<Tenant>> {
+		): AxiosPromise<Array<ProcedureAppInstanceDto>> {
 			return localVarFp
-				.getAllTenants(acceptLanguage, options)
+				.addProcedureAppInstancesFromCSV(inlineObject5, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {number} tenantId
+		 * @param {InlineObject4} inlineObject4
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
-		 * @deprecated
 		 * @throws {RequiredError}
 		 */
-		getTenantApplications(
-			tenantId: number,
+		addProceduresFromCSV(
+			inlineObject4: InlineObject4,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Array<Application>> {
+		): AxiosPromise<Array<ProcedureDto>> {
 			return localVarFp
-				.getTenantApplications(tenantId, acceptLanguage, options)
+				.addProceduresFromCSV(inlineObject4, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {number} id
+		 * @param {InlineObject3} inlineObject3
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getTenantById(
-			id: number,
+		addUsersFromCSV(
+			inlineObject3: InlineObject3,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Tenant> {
+		): AxiosPromise<Array<UserDto>> {
 			return localVarFp
-				.getTenantById(id, acceptLanguage, options)
+				.addUsersFromCSV(inlineObject3, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {number} id
-		 * @param {Tenant} tenant
+		 * @param {InlineObject6} inlineObject6
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
-		 * @deprecated
 		 * @throws {RequiredError}
 		 */
-		modifyTenant(
-			id: number,
-			tenant: Tenant,
+		addUsersWithoutProfilesFromCSV(
+			inlineObject6: InlineObject6,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Tenant> {
+		): AxiosPromise<Array<UserDto>> {
 			return localVarFp
-				.modifyTenant(id, tenant, acceptLanguage, options)
+				.addUsersWithoutProfilesFromCSV(inlineObject6, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		}
 	};
 };
 
 /**
- * Request parameters for createTenant operation in TenantControllerApi.
+ * Request parameters for addApplicationDetailsFromCSV operation in CsvReaderControllerApi.
  * @export
- * @interface TenantControllerApiCreateTenantRequest
+ * @interface CsvReaderControllerApiAddApplicationDetailsFromCSVRequest
  */
-export interface TenantControllerApiCreateTenantRequest {
+export interface CsvReaderControllerApiAddApplicationDetailsFromCSVRequest {
 	/**
 	 *
-	 * @type {Tenant}
-	 * @memberof TenantControllerApiCreateTenant
+	 * @type {InlineObject8}
+	 * @memberof CsvReaderControllerApiAddApplicationDetailsFromCSV
 	 */
-	readonly tenant: Tenant;
+	readonly inlineObject8: InlineObject8;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof TenantControllerApiCreateTenant
+	 * @memberof CsvReaderControllerApiAddApplicationDetailsFromCSV
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for deleteTenant operation in TenantControllerApi.
+ * Request parameters for addApplicationFromCSV operation in CsvReaderControllerApi.
  * @export
- * @interface TenantControllerApiDeleteTenantRequest
+ * @interface CsvReaderControllerApiAddApplicationFromCSVRequest
  */
-export interface TenantControllerApiDeleteTenantRequest {
+export interface CsvReaderControllerApiAddApplicationFromCSVRequest {
 	/**
 	 *
-	 * @type {number}
-	 * @memberof TenantControllerApiDeleteTenant
+	 * @type {InlineObject7}
+	 * @memberof CsvReaderControllerApiAddApplicationFromCSV
 	 */
-	readonly body: number;
+	readonly inlineObject7: InlineObject7;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof TenantControllerApiDeleteTenant
+	 * @memberof CsvReaderControllerApiAddApplicationFromCSV
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for getAllTenants operation in TenantControllerApi.
+ * Request parameters for addProcedureAppInstancesFromCSV operation in CsvReaderControllerApi.
  * @export
- * @interface TenantControllerApiGetAllTenantsRequest
+ * @interface CsvReaderControllerApiAddProcedureAppInstancesFromCSVRequest
  */
-export interface TenantControllerApiGetAllTenantsRequest {
+export interface CsvReaderControllerApiAddProcedureAppInstancesFromCSVRequest {
+	/**
+	 *
+	 * @type {InlineObject5}
+	 * @memberof CsvReaderControllerApiAddProcedureAppInstancesFromCSV
+	 */
+	readonly inlineObject5: InlineObject5;
+
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof TenantControllerApiGetAllTenants
+	 * @memberof CsvReaderControllerApiAddProcedureAppInstancesFromCSV
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for getTenantApplications operation in TenantControllerApi.
+ * Request parameters for addProceduresFromCSV operation in CsvReaderControllerApi.
  * @export
- * @interface TenantControllerApiGetTenantApplicationsRequest
+ * @interface CsvReaderControllerApiAddProceduresFromCSVRequest
  */
-export interface TenantControllerApiGetTenantApplicationsRequest {
+export interface CsvReaderControllerApiAddProceduresFromCSVRequest {
 	/**
 	 *
-	 * @type {number}
-	 * @memberof TenantControllerApiGetTenantApplications
+	 * @type {InlineObject4}
+	 * @memberof CsvReaderControllerApiAddProceduresFromCSV
 	 */
-	readonly tenantId: number;
+	readonly inlineObject4: InlineObject4;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof TenantControllerApiGetTenantApplications
+	 * @memberof CsvReaderControllerApiAddProceduresFromCSV
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for getTenantById operation in TenantControllerApi.
+ * Request parameters for addUsersFromCSV operation in CsvReaderControllerApi.
  * @export
- * @interface TenantControllerApiGetTenantByIdRequest
+ * @interface CsvReaderControllerApiAddUsersFromCSVRequest
  */
-export interface TenantControllerApiGetTenantByIdRequest {
+export interface CsvReaderControllerApiAddUsersFromCSVRequest {
 	/**
 	 *
-	 * @type {number}
-	 * @memberof TenantControllerApiGetTenantById
+	 * @type {InlineObject3}
+	 * @memberof CsvReaderControllerApiAddUsersFromCSV
 	 */
-	readonly id: number;
+	readonly inlineObject3: InlineObject3;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof TenantControllerApiGetTenantById
+	 * @memberof CsvReaderControllerApiAddUsersFromCSV
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for modifyTenant operation in TenantControllerApi.
+ * Request parameters for addUsersWithoutProfilesFromCSV operation in CsvReaderControllerApi.
  * @export
- * @interface TenantControllerApiModifyTenantRequest
+ * @interface CsvReaderControllerApiAddUsersWithoutProfilesFromCSVRequest
  */
-export interface TenantControllerApiModifyTenantRequest {
+export interface CsvReaderControllerApiAddUsersWithoutProfilesFromCSVRequest {
 	/**
 	 *
-	 * @type {number}
-	 * @memberof TenantControllerApiModifyTenant
+	 * @type {InlineObject6}
+	 * @memberof CsvReaderControllerApiAddUsersWithoutProfilesFromCSV
 	 */
-	readonly id: number;
-
-	/**
-	 *
-	 * @type {Tenant}
-	 * @memberof TenantControllerApiModifyTenant
-	 */
-	readonly tenant: Tenant;
+	readonly inlineObject6: InlineObject6;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof TenantControllerApiModifyTenant
+	 * @memberof CsvReaderControllerApiAddUsersWithoutProfilesFromCSV
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * TenantControllerApi - object-oriented interface
+ * CsvReaderControllerApi - object-oriented interface
  * @export
- * @class TenantControllerApi
+ * @class CsvReaderControllerApi
  * @extends {BaseAPI}
  */
-export class TenantControllerApi extends BaseAPI {
+export class CsvReaderControllerApi extends BaseAPI {
 	/**
 	 *
-	 * @param {TenantControllerApiCreateTenantRequest} requestParameters Request parameters.
-	 * @param {*} [options] Override http request option.
-	 * @deprecated
-	 * @throws {RequiredError}
-	 * @memberof TenantControllerApi
-	 */
-	public createTenant(
-		requestParameters: TenantControllerApiCreateTenantRequest,
-		options?: AxiosRequestConfig
-	) {
-		return TenantControllerApiFp(this.configuration)
-			.createTenant(requestParameters.tenant, requestParameters.acceptLanguage, options)
-			.then(request => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @param {TenantControllerApiDeleteTenantRequest} requestParameters Request parameters.
-	 * @param {*} [options] Override http request option.
-	 * @deprecated
-	 * @throws {RequiredError}
-	 * @memberof TenantControllerApi
-	 */
-	public deleteTenant(
-		requestParameters: TenantControllerApiDeleteTenantRequest,
-		options?: AxiosRequestConfig
-	) {
-		return TenantControllerApiFp(this.configuration)
-			.deleteTenant(requestParameters.body, requestParameters.acceptLanguage, options)
-			.then(request => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @param {TenantControllerApiGetAllTenantsRequest} requestParameters Request parameters.
+	 * @param {CsvReaderControllerApiAddApplicationDetailsFromCSVRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof TenantControllerApi
+	 * @memberof CsvReaderControllerApi
 	 */
-	public getAllTenants(
-		requestParameters: TenantControllerApiGetAllTenantsRequest = {},
+	public addApplicationDetailsFromCSV(
+		requestParameters: CsvReaderControllerApiAddApplicationDetailsFromCSVRequest,
 		options?: AxiosRequestConfig
 	) {
-		return TenantControllerApiFp(this.configuration)
-			.getAllTenants(requestParameters.acceptLanguage, options)
-			.then(request => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @param {TenantControllerApiGetTenantApplicationsRequest} requestParameters Request parameters.
-	 * @param {*} [options] Override http request option.
-	 * @deprecated
-	 * @throws {RequiredError}
-	 * @memberof TenantControllerApi
-	 */
-	public getTenantApplications(
-		requestParameters: TenantControllerApiGetTenantApplicationsRequest,
-		options?: AxiosRequestConfig
-	) {
-		return TenantControllerApiFp(this.configuration)
-			.getTenantApplications(
-				requestParameters.tenantId,
+		return CsvReaderControllerApiFp(this.configuration)
+			.addApplicationDetailsFromCSV(
+				requestParameters.inlineObject8,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -854,36 +835,98 @@ export class TenantControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {TenantControllerApiGetTenantByIdRequest} requestParameters Request parameters.
+	 * @param {CsvReaderControllerApiAddApplicationFromCSVRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof TenantControllerApi
+	 * @memberof CsvReaderControllerApi
 	 */
-	public getTenantById(
-		requestParameters: TenantControllerApiGetTenantByIdRequest,
+	public addApplicationFromCSV(
+		requestParameters: CsvReaderControllerApiAddApplicationFromCSVRequest,
 		options?: AxiosRequestConfig
 	) {
-		return TenantControllerApiFp(this.configuration)
-			.getTenantById(requestParameters.id, requestParameters.acceptLanguage, options)
+		return CsvReaderControllerApiFp(this.configuration)
+			.addApplicationFromCSV(
+				requestParameters.inlineObject7,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 
 	/**
 	 *
-	 * @param {TenantControllerApiModifyTenantRequest} requestParameters Request parameters.
+	 * @param {CsvReaderControllerApiAddProcedureAppInstancesFromCSVRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
-	 * @deprecated
 	 * @throws {RequiredError}
-	 * @memberof TenantControllerApi
+	 * @memberof CsvReaderControllerApi
 	 */
-	public modifyTenant(
-		requestParameters: TenantControllerApiModifyTenantRequest,
+	public addProcedureAppInstancesFromCSV(
+		requestParameters: CsvReaderControllerApiAddProcedureAppInstancesFromCSVRequest,
 		options?: AxiosRequestConfig
 	) {
-		return TenantControllerApiFp(this.configuration)
-			.modifyTenant(
-				requestParameters.id,
-				requestParameters.tenant,
+		return CsvReaderControllerApiFp(this.configuration)
+			.addProcedureAppInstancesFromCSV(
+				requestParameters.inlineObject5,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {CsvReaderControllerApiAddProceduresFromCSVRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof CsvReaderControllerApi
+	 */
+	public addProceduresFromCSV(
+		requestParameters: CsvReaderControllerApiAddProceduresFromCSVRequest,
+		options?: AxiosRequestConfig
+	) {
+		return CsvReaderControllerApiFp(this.configuration)
+			.addProceduresFromCSV(
+				requestParameters.inlineObject4,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {CsvReaderControllerApiAddUsersFromCSVRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof CsvReaderControllerApi
+	 */
+	public addUsersFromCSV(
+		requestParameters: CsvReaderControllerApiAddUsersFromCSVRequest,
+		options?: AxiosRequestConfig
+	) {
+		return CsvReaderControllerApiFp(this.configuration)
+			.addUsersFromCSV(
+				requestParameters.inlineObject3,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {CsvReaderControllerApiAddUsersWithoutProfilesFromCSVRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof CsvReaderControllerApi
+	 */
+	public addUsersWithoutProfilesFromCSV(
+		requestParameters: CsvReaderControllerApiAddUsersWithoutProfilesFromCSVRequest,
+		options?: AxiosRequestConfig
+	) {
+		return CsvReaderControllerApiFp(this.configuration)
+			.addUsersWithoutProfilesFromCSV(
+				requestParameters.inlineObject6,
 				requestParameters.acceptLanguage,
 				options
 			)

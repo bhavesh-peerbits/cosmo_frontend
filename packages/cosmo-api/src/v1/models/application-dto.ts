@@ -15,7 +15,7 @@
 import { UserDto } from './user-dto';
 
 /**
- *
+ * The application who has all the user attached
  * @export
  * @interface ApplicationDto
  */
@@ -98,6 +98,12 @@ export interface ApplicationDto {
 	 * @memberof ApplicationDto
 	 */
 	lastModifier?: UserDto;
+	/**
+	 *
+	 * @type {UserDto}
+	 * @memberof ApplicationDto
+	 */
+	createdBy?: UserDto;
 	/**
 	 *
 	 * @type {{ [key: string]: string | undefined; }}

@@ -5,7 +5,7 @@ import { toMap } from '@model/util';
 
 const getProcedureByApp = (appId: string) => {
 	return api.applicationApi
-		.getAllProcedureForApplication({ applicationid: +appId })
+		.getAllProcedureForApplication({ appId: +appId })
 		.then(({ data }) => data.map(fromProcedureAppInstanceApi))
 		.then(toMap);
 };

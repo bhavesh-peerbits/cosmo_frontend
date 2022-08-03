@@ -11,7 +11,7 @@ interface ReviewAppParams {
 const reviewApplication = ({ appId, application, modified }: ReviewAppParams) => {
 	return api.reviewerApi
 		.reviewApplication({
-			applicationId: +appId,
+			appId: +appId,
 			reviewApplicationDto: { application: toApplicationApi(application), modified }
 		})
 		.then(({ data }) => fromApplicationApi(data));

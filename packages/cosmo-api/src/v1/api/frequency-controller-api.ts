@@ -52,6 +52,7 @@ export const FrequencyControllerApiAxiosParamCreator = function (
 		 *
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		getAllFrequency: async (
@@ -106,6 +107,7 @@ export const FrequencyControllerApiFp = function (configuration?: Configuration)
 		 *
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		async getAllFrequency(
@@ -143,6 +145,7 @@ export const FrequencyControllerApiFactory = function (
 		 *
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		getAllFrequency(
@@ -181,6 +184,7 @@ export class FrequencyControllerApi extends BaseAPI {
 	 *
 	 * @param {FrequencyControllerApiGetAllFrequencyRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
+	 * @deprecated
 	 * @throws {RequiredError}
 	 * @memberof FrequencyControllerApi
 	 */

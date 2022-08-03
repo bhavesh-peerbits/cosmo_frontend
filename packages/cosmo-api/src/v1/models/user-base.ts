@@ -13,56 +13,50 @@
  */
 
 /**
- * The user who can access application, if analysts
+ *
  * @export
- * @interface UserDto
+ * @interface UserBase
  */
-export interface UserDto {
+export interface UserBase {
 	/**
 	 * The user username
 	 * @type {string}
-	 * @memberof UserDto
+	 * @memberof UserBase
 	 */
 	username: string;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof UserDto
+	 * @memberof UserBase
 	 */
 	name?: string;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof UserDto
+	 * @memberof UserBase
 	 */
 	surname?: string;
 	/**
 	 * The user email
 	 * @type {string}
-	 * @memberof UserDto
+	 * @memberof UserBase
 	 */
 	email: string;
 	/**
 	 * The user status: false for active, true for inactive
 	 * @type {boolean}
-	 * @memberof UserDto
+	 * @memberof UserBase
 	 */
 	inactive: boolean;
 	/**
 	 * The user roles
 	 * @type {Array<string>}
-	 * @memberof UserDto
+	 * @memberof UserBase
 	 */
-	roles?: Array<UserDtoRolesEnum>;
-	/**
-	 * The user id
-	 * @type {string}
-	 * @memberof UserDto
-	 */
-	id: string;
+	roles?: Array<UserBaseRolesEnum>;
 }
 
-export const UserDtoRolesEnum = {
+export const UserBaseRolesEnum = {
 	SysAdmin: 'SYS_ADMIN',
 	UserAdmin: 'USER_ADMIN',
 	NarrativeAdmin: 'NARRATIVE_ADMIN',
@@ -78,4 +72,4 @@ export const UserDtoRolesEnum = {
 	UserUnknown: 'USER_UNKNOWN'
 } as const;
 
-export type UserDtoRolesEnum = typeof UserDtoRolesEnum[keyof typeof UserDtoRolesEnum];
+export type UserBaseRolesEnum = typeof UserBaseRolesEnum[keyof typeof UserBaseRolesEnum];

@@ -53,6 +53,7 @@ export const SendMailControllerApiAxiosParamCreator = function (
 		 * @param {Email} email
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		sendEmail: async (
@@ -107,6 +108,7 @@ export const SendMailControllerApiAxiosParamCreator = function (
 		 * @param {Email} email
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		sendNarrativeEmail: async (
@@ -171,6 +173,7 @@ export const SendMailControllerApiFp = function (configuration?: Configuration) 
 		 * @param {Email} email
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		async sendEmail(
@@ -195,6 +198,7 @@ export const SendMailControllerApiFp = function (configuration?: Configuration) 
 		 * @param {Email} email
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		async sendNarrativeEmail(
@@ -233,6 +237,7 @@ export const SendMailControllerApiFactory = function (
 		 * @param {Email} email
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		sendEmail(
@@ -249,6 +254,7 @@ export const SendMailControllerApiFactory = function (
 		 * @param {Email} email
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		sendNarrativeEmail(
@@ -316,6 +322,7 @@ export class SendMailControllerApi extends BaseAPI {
 	 *
 	 * @param {SendMailControllerApiSendEmailRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
+	 * @deprecated
 	 * @throws {RequiredError}
 	 * @memberof SendMailControllerApi
 	 */
@@ -332,6 +339,7 @@ export class SendMailControllerApi extends BaseAPI {
 	 *
 	 * @param {SendMailControllerApiSendNarrativeEmailRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
+	 * @deprecated
 	 * @throws {RequiredError}
 	 * @memberof SendMailControllerApi
 	 */

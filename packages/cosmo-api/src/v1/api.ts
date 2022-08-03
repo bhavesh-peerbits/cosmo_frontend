@@ -13,12 +13,13 @@
  */
 
 export * from './api/access-controller-api';
+export * from './api/analyst-campaign-controller-api';
 export * from './api/application-controller-api';
 export * from './api/auth-controller-api';
 export * from './api/config-element-controller-api';
 export * from './api/config-element-module-controller-api';
 export * from './api/control-controller-api';
-export * from './api/dev-home-redirect-controller-api';
+export * from './api/csv-reader-controller-api';
 export * from './api/frequency-controller-api';
 export * from './api/generate-report-controller-api';
 export * from './api/module-controller-api';
@@ -26,9 +27,11 @@ export * from './api/narrative-review-controller-api';
 export * from './api/procedure-controller-api';
 export * from './api/profile-controller-api';
 export * from './api/realm-controller-api';
+export * from './api/reviewer-campaign-controller-api';
 export * from './api/reviewer-controller-api';
 export * from './api/send-mail-controller-api';
 export * from './api/template-controller-api';
 export * from './api/tenant-controller-api';
 export * from './api/test-tenant-api';
+export * from './api/user-admin-controller-api';
 export * from './api/user-controller-api';

@@ -11,7 +11,7 @@ interface ReviewAppParams {
 const reviewApp = ({ appId, endDate }: ReviewAppParams) => {
 	return api.narrativeReview
 		.startReviewOfAnApplication({
-			id: +appId,
+			appId: +appId,
 			narrativeReviewBody: { endDate: formatIso(endDate, { representation: 'date' }) }
 		})
 		.then(({ data }) => fromApplicationApi(data));

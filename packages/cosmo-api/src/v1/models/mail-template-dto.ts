@@ -31,15 +31,49 @@ export interface MailTemplateDto {
 	 */
 	name: string;
 	/**
-	 * Object of the mail
+	 * Subject of the mail
 	 * @type {string}
 	 * @memberof MailTemplateDto
 	 */
-	object?: string;
+	subject: string;
 	/**
 	 * Text of the mail
 	 * @type {string}
 	 * @memberof MailTemplateDto
 	 */
-	message?: string;
+	message: string;
+	/**
+	 * Type of the mail
+	 * @type {string}
+	 * @memberof MailTemplateDto
+	 */
+	type: MailTemplateDtoTypeEnum;
+	/**
+	 * Language of the mail
+	 * @type {string}
+	 * @memberof MailTemplateDto
+	 */
+	language: MailTemplateDtoLanguageEnum;
+	/**
+	 * Variables referenced in the mail template
+	 * @type {string}
+	 * @memberof MailTemplateDto
+	 */
+	variables?: string;
 }
+
+export const MailTemplateDtoTypeEnum = {
+	Narrative: 'NARRATIVE',
+	Revalidation: 'REVALIDATION'
+} as const;
+
+export type MailTemplateDtoTypeEnum =
+	typeof MailTemplateDtoTypeEnum[keyof typeof MailTemplateDtoTypeEnum];
+export const MailTemplateDtoLanguageEnum = {
+	Ita: 'ITA',
+	Eng: 'ENG',
+	Fra: 'FRA'
+} as const;
+
+export type MailTemplateDtoLanguageEnum =
+	typeof MailTemplateDtoLanguageEnum[keyof typeof MailTemplateDtoLanguageEnum];

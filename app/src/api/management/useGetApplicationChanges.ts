@@ -4,7 +4,7 @@ import { fromApplicationAuditApi } from '@model/ApplicationAudit';
 
 const getApplicationChanges = (appId: string) => {
 	return api.applicationApi
-		.getAllAuditForApplication({ applicationId: +appId })
+		.getAllAuditForApplication({ appId: +appId })
 		.then(({ data }) => data.map(fromApplicationAuditApi));
 };
 

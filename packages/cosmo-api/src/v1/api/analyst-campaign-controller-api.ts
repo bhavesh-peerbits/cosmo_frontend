@@ -37,48 +37,51 @@ import {
 	RequiredError
 } from '../base';
 // @ts-ignore
+import { AnswerDto } from '../models';
+// @ts-ignore
 import { ApiErrorResponse } from '../models';
 // @ts-ignore
-import { ProcedureAppInstanceDto } from '../models';
+import { ApplicationDto } from '../models';
 // @ts-ignore
-import { ProcedureDto } from '../models';
+import { CampaignDto } from '../models';
+// @ts-ignore
+import { CsvAnswerParsingDto } from '../models';
+// @ts-ignore
+import { InlineObject9 } from '../models';
+// @ts-ignore
+import { ReviewDto } from '../models';
+// @ts-ignore
+import { UserDto } from '../models';
 /**
- * ProcedureControllerApi - axios parameter creator
+ * AnalystCampaignControllerApi - axios parameter creator
  * @export
  */
-export const ProcedureControllerApiAxiosParamCreator = function (
+export const AnalystCampaignControllerApiAxiosParamCreator = function (
 	configuration?: Configuration
 ) {
 	return {
 		/**
 		 *
-		 * @param {number} procId
-		 * @param {number} appId
-		 * @param {ProcedureAppInstanceDto} procedureAppInstanceDto
+		 * @param {number} reviewId
+		 * @param {InlineObject9} inlineObject9
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		addApplicationToProcedure: async (
-			procId: number,
-			appId: number,
-			procedureAppInstanceDto: ProcedureAppInstanceDto,
+		addAnswerToGivenReview: async (
+			reviewId: number,
+			inlineObject9: InlineObject9,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'procId' is not null or undefined
-			assertParamExists('addApplicationToProcedure', 'procId', procId);
-			// verify required parameter 'appId' is not null or undefined
-			assertParamExists('addApplicationToProcedure', 'appId', appId);
-			// verify required parameter 'procedureAppInstanceDto' is not null or undefined
-			assertParamExists(
-				'addApplicationToProcedure',
-				'procedureAppInstanceDto',
-				procedureAppInstanceDto
+			// verify required parameter 'reviewId' is not null or undefined
+			assertParamExists('addAnswerToGivenReview', 'reviewId', reviewId);
+			// verify required parameter 'inlineObject9' is not null or undefined
+			assertParamExists('addAnswerToGivenReview', 'inlineObject9', inlineObject9);
+			const localVarPath = `/api/analyst/campaign/answer/{reviewId}`.replace(
+				`{${'reviewId'}}`,
+				encodeURIComponent(String(reviewId))
 			);
-			const localVarPath = `/api/procedure/{procId}/applications/{appId}`
-				.replace(`{${'procId'}}`, encodeURIComponent(String(procId)))
-				.replace(`{${'appId'}}`, encodeURIComponent(String(appId)));
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -108,7 +111,7 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				procedureAppInstanceDto,
+				inlineObject9,
 				localVarRequestOptions,
 				configuration
 			);
@@ -120,34 +123,27 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {number} procId
-		 * @param {number} appId
-		 * @param {ProcedureAppInstanceDto} procedureAppInstanceDto
+		 * @param {string} campaignName
+		 * @param {Array<ApplicationDto>} applicationDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		addApplicationToProcedureNew: async (
-			procId: number,
-			appId: number,
-			procedureAppInstanceDto: ProcedureAppInstanceDto,
+		addApplicationsToCampaign: async (
+			campaignName: string,
+			applicationDto: Array<ApplicationDto>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'procId' is not null or undefined
-			assertParamExists('addApplicationToProcedureNew', 'procId', procId);
-			// verify required parameter 'appId' is not null or undefined
-			assertParamExists('addApplicationToProcedureNew', 'appId', appId);
-			// verify required parameter 'procedureAppInstanceDto' is not null or undefined
-			assertParamExists(
-				'addApplicationToProcedureNew',
-				'procedureAppInstanceDto',
-				procedureAppInstanceDto
-			);
+			// verify required parameter 'campaignName' is not null or undefined
+			assertParamExists('addApplicationsToCampaign', 'campaignName', campaignName);
+			// verify required parameter 'applicationDto' is not null or undefined
+			assertParamExists('addApplicationsToCampaign', 'applicationDto', applicationDto);
 			const localVarPath =
-				`/api/procedure/procedure-applications/{procId}/applications/{appId}`
-					.replace(`{${'procId'}}`, encodeURIComponent(String(procId)))
-					.replace(`{${'appId'}}`, encodeURIComponent(String(appId)));
+				`/api/analyst/campaign/name/{campaignName}/application`.replace(
+					`{${'campaignName'}}`,
+					encodeURIComponent(String(campaignName))
+				);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -177,7 +173,7 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				procedureAppInstanceDto,
+				applicationDto,
 				localVarRequestOptions,
 				configuration
 			);
@@ -189,19 +185,27 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {ProcedureDto} procedureDto
+		 * @param {string} campaignName
+		 * @param {Array<UserDto>} userDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		createNewProcedure: async (
-			procedureDto: ProcedureDto,
+		addContributorsToCampaign: async (
+			campaignName: string,
+			userDto: Array<UserDto>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'procedureDto' is not null or undefined
-			assertParamExists('createNewProcedure', 'procedureDto', procedureDto);
-			const localVarPath = `/api/procedure/admin`;
+			// verify required parameter 'campaignName' is not null or undefined
+			assertParamExists('addContributorsToCampaign', 'campaignName', campaignName);
+			// verify required parameter 'userDto' is not null or undefined
+			assertParamExists('addContributorsToCampaign', 'userDto', userDto);
+			const localVarPath =
+				`/api/analyst/campaign/name/{campaignName}/contributor`.replace(
+					`{${'campaignName'}}`,
+					encodeURIComponent(String(campaignName))
+				);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -231,7 +235,7 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				procedureDto,
+				userDto,
 				localVarRequestOptions,
 				configuration
 			);
@@ -243,21 +247,249 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {number} procId
+		 * @param {string} campaignName
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		deleteProcedure: async (
-			procId: number,
+		archiveCampaign: async (
+			campaignName: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'procId' is not null or undefined
-			assertParamExists('deleteProcedure', 'procId', procId);
-			const localVarPath = `/api/procedure/admin/{procId}`.replace(
-				`{${'procId'}}`,
-				encodeURIComponent(String(procId))
+			// verify required parameter 'campaignName' is not null or undefined
+			assertParamExists('archiveCampaign', 'campaignName', campaignName);
+			const localVarPath =
+				`/api/analyst/campaign/admin/name/{campaignName}/archive`.replace(
+					`{${'campaignName'}}`,
+					encodeURIComponent(String(campaignName))
+				);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {string} campaignName
+		 * @param {string} body
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		changeCampaignName: async (
+			campaignName: string,
+			body: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'campaignName' is not null or undefined
+			assertParamExists('changeCampaignName', 'campaignName', campaignName);
+			// verify required parameter 'body' is not null or undefined
+			assertParamExists('changeCampaignName', 'body', body);
+			const localVarPath = `/api/analyst/campaign/name/{campaignName}/name`.replace(
+				`{${'campaignName'}}`,
+				encodeURIComponent(String(campaignName))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				body,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {string} campaignName
+		 * @param {string} body
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		changeCampaignStatus: async (
+			campaignName: string,
+			body: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'campaignName' is not null or undefined
+			assertParamExists('changeCampaignStatus', 'campaignName', campaignName);
+			// verify required parameter 'body' is not null or undefined
+			assertParamExists('changeCampaignStatus', 'body', body);
+			const localVarPath =
+				`/api/analyst/campaign/admin/name/{campaignName}/status`.replace(
+					`{${'campaignName'}}`,
+					encodeURIComponent(String(campaignName))
+				);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				body,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {CampaignDto} campaignDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		createNewCampaign: async (
+			campaignDto: CampaignDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'campaignDto' is not null or undefined
+			assertParamExists('createNewCampaign', 'campaignDto', campaignDto);
+			const localVarPath = `/api/analyst/campaign`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				campaignDto,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {string} campaignName
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		deleteCampaignByName: async (
+			campaignName: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'campaignName' is not null or undefined
+			assertParamExists('deleteCampaignByName', 'campaignName', campaignName);
+			const localVarPath = `/api/analyst/campaign/name/{campaignName}`.replace(
+				`{${'campaignName'}}`,
+				encodeURIComponent(String(campaignName))
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -293,38 +525,15 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {number} procedureAppInstanceId
-		 * @param {number} appId
-		 * @param {number} procId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		deleteProcedureApplicationAssociation: async (
-			procedureAppInstanceId: number,
-			appId: number,
-			procId: number,
+		getAllCampaigns1: async (
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'procedureAppInstanceId' is not null or undefined
-			assertParamExists(
-				'deleteProcedureApplicationAssociation',
-				'procedureAppInstanceId',
-				procedureAppInstanceId
-			);
-			// verify required parameter 'appId' is not null or undefined
-			assertParamExists('deleteProcedureApplicationAssociation', 'appId', appId);
-			// verify required parameter 'procId' is not null or undefined
-			assertParamExists('deleteProcedureApplicationAssociation', 'procId', procId);
-			const localVarPath =
-				`/api/procedure/{procId}/applications/{appId}/{procedureAppInstanceId}`
-					.replace(
-						`{${'procedureAppInstanceId'}}`,
-						encodeURIComponent(String(procedureAppInstanceId))
-					)
-					.replace(`{${'appId'}}`, encodeURIComponent(String(appId)))
-					.replace(`{${'procId'}}`, encodeURIComponent(String(procId)));
+			const localVarPath = `/api/analyst/campaign/all`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -332,7 +541,7 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 				baseOptions = configuration.baseOptions;
 			}
 
-			const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
 			const localVarHeaderParameter = {} as any;
 			const localVarQueryParameter = {} as any;
 
@@ -359,87 +568,21 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {number} procedureAppInstanceId
-		 * @param {number} appId
-		 * @param {number} procId
+		 * @param {number} reviewId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		deleteProcedureApplicationAssociationNew: async (
-			procedureAppInstanceId: number,
-			appId: number,
-			procId: number,
+		getAnswersForGivenReview1: async (
+			reviewId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'procedureAppInstanceId' is not null or undefined
-			assertParamExists(
-				'deleteProcedureApplicationAssociationNew',
-				'procedureAppInstanceId',
-				procedureAppInstanceId
-			);
-			// verify required parameter 'appId' is not null or undefined
-			assertParamExists('deleteProcedureApplicationAssociationNew', 'appId', appId);
-			// verify required parameter 'procId' is not null or undefined
-			assertParamExists('deleteProcedureApplicationAssociationNew', 'procId', procId);
-			const localVarPath =
-				`/api/procedure/procedure-applications/{procId}/applications/{appId}/{procedureAppInstanceId}`
-					.replace(
-						`{${'procedureAppInstanceId'}}`,
-						encodeURIComponent(String(procedureAppInstanceId))
-					)
-					.replace(`{${'appId'}}`, encodeURIComponent(String(appId)))
-					.replace(`{${'procId'}}`, encodeURIComponent(String(procId)));
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {number} procId
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		getAllApplicationForProcedure: async (
-			procId: number,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'procId' is not null or undefined
-			assertParamExists('getAllApplicationForProcedure', 'procId', procId);
-			const localVarPath = `/api/procedure/{procId}/applications`.replace(
-				`{${'procId'}}`,
-				encodeURIComponent(String(procId))
+			// verify required parameter 'reviewId' is not null or undefined
+			assertParamExists('getAnswersForGivenReview1', 'reviewId', reviewId);
+			const localVarPath = `/api/analyst/campaign/answer/{reviewId}`.replace(
+				`{${'reviewId'}}`,
+				encodeURIComponent(String(reviewId))
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -475,112 +618,22 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
+		 * @param {string} campaignName
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllProcedure: async (
+		getApplicationsOfCampaign1: async (
+			campaignName: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			const localVarPath = `/api/procedure`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		getAllProcedureApp: async (
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			const localVarPath = `/api/procedure/procedure-applications`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {string} procedureAppInstanceName
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		getProcedureAppInstance: async (
-			procedureAppInstanceName: string,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'procedureAppInstanceName' is not null or undefined
-			assertParamExists(
-				'getProcedureAppInstance',
-				'procedureAppInstanceName',
-				procedureAppInstanceName
-			);
+			// verify required parameter 'campaignName' is not null or undefined
+			assertParamExists('getApplicationsOfCampaign1', 'campaignName', campaignName);
 			const localVarPath =
-				`/api/procedure/procedure-applications/{procedureAppInstanceName}`.replace(
-					`{${'procedureAppInstanceName'}}`,
-					encodeURIComponent(String(procedureAppInstanceName))
+				`/api/analyst/campaign/name/{campaignName}/application`.replace(
+					`{${'campaignName'}}`,
+					encodeURIComponent(String(campaignName))
 				);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -616,21 +669,21 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {string} procName
+		 * @param {number} campaignId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getProcedureByName: async (
-			procName: string,
+		getCampaignById1: async (
+			campaignId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'procName' is not null or undefined
-			assertParamExists('getProcedureByName', 'procName', procName);
-			const localVarPath = `/api/procedure/name/{procName}`.replace(
-				`{${'procName'}}`,
-				encodeURIComponent(String(procName))
+			// verify required parameter 'campaignId' is not null or undefined
+			assertParamExists('getCampaignById1', 'campaignId', campaignId);
+			const localVarPath = `/api/analyst/campaign/{campaignId}`.replace(
+				`{${'campaignId'}}`,
+				encodeURIComponent(String(campaignId))
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -666,21 +719,21 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {number} procId
+		 * @param {string} campaignName
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getSingleProcedure: async (
-			procId: number,
+		getCampaignByName1: async (
+			campaignName: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'procId' is not null or undefined
-			assertParamExists('getSingleProcedure', 'procId', procId);
-			const localVarPath = `/api/procedure/{procId}`.replace(
-				`{${'procId'}}`,
-				encodeURIComponent(String(procId))
+			// verify required parameter 'campaignName' is not null or undefined
+			assertParamExists('getCampaignByName1', 'campaignName', campaignName);
+			const localVarPath = `/api/analyst/campaign/name/{campaignName}`.replace(
+				`{${'campaignName'}}`,
+				encodeURIComponent(String(campaignName))
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -716,46 +769,23 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {number} appId
-		 * @param {number} procId
-		 * @param {number} procedureAppInstanceId
-		 * @param {ProcedureAppInstanceDto} procedureAppInstanceDto
+		 * @param {string} campaignName
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		modifyApplicationToProcedure: async (
-			appId: number,
-			procId: number,
-			procedureAppInstanceId: number,
-			procedureAppInstanceDto: ProcedureAppInstanceDto,
+		getPossibleContributors: async (
+			campaignName: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'appId' is not null or undefined
-			assertParamExists('modifyApplicationToProcedure', 'appId', appId);
-			// verify required parameter 'procId' is not null or undefined
-			assertParamExists('modifyApplicationToProcedure', 'procId', procId);
-			// verify required parameter 'procedureAppInstanceId' is not null or undefined
-			assertParamExists(
-				'modifyApplicationToProcedure',
-				'procedureAppInstanceId',
-				procedureAppInstanceId
-			);
-			// verify required parameter 'procedureAppInstanceDto' is not null or undefined
-			assertParamExists(
-				'modifyApplicationToProcedure',
-				'procedureAppInstanceDto',
-				procedureAppInstanceDto
-			);
+			// verify required parameter 'campaignName' is not null or undefined
+			assertParamExists('getPossibleContributors', 'campaignName', campaignName);
 			const localVarPath =
-				`/api/procedure/{procId}/applications/{appId}/{procedureAppInstanceId}`
-					.replace(`{${'appId'}}`, encodeURIComponent(String(appId)))
-					.replace(`{${'procId'}}`, encodeURIComponent(String(procId)))
-					.replace(
-						`{${'procedureAppInstanceId'}}`,
-						encodeURIComponent(String(procedureAppInstanceId))
-					);
+				`/api/analyst/campaign/name/{campaignName}/possible-contributors`.replace(
+					`{${'campaignName'}}`,
+					encodeURIComponent(String(campaignName))
+				);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -763,7 +793,7 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 				baseOptions = configuration.baseOptions;
 			}
 
-			const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
 			const localVarHeaderParameter = {} as any;
 			const localVarQueryParameter = {} as any;
 
@@ -774,8 +804,6 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
 			}
 
-			localVarHeaderParameter['Content-Type'] = 'application/json';
-
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -784,11 +812,6 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 				...headersFromBaseOptions,
 				...options.headers
 			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				procedureAppInstanceDto,
-				localVarRequestOptions,
-				configuration
-			);
 
 			return {
 				url: toPathString(localVarUrlObj),
@@ -797,46 +820,23 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {number} appId
-		 * @param {number} procId
-		 * @param {number} procedureAppInstanceId
-		 * @param {ProcedureAppInstanceDto} procedureAppInstanceDto
+		 * @param {string} campaignName
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		modifyApplicationToProcedureNew: async (
-			appId: number,
-			procId: number,
-			procedureAppInstanceId: number,
-			procedureAppInstanceDto: ProcedureAppInstanceDto,
+		isCampaignNameNotAvailable: async (
+			campaignName: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'appId' is not null or undefined
-			assertParamExists('modifyApplicationToProcedureNew', 'appId', appId);
-			// verify required parameter 'procId' is not null or undefined
-			assertParamExists('modifyApplicationToProcedureNew', 'procId', procId);
-			// verify required parameter 'procedureAppInstanceId' is not null or undefined
-			assertParamExists(
-				'modifyApplicationToProcedureNew',
-				'procedureAppInstanceId',
-				procedureAppInstanceId
-			);
-			// verify required parameter 'procedureAppInstanceDto' is not null or undefined
-			assertParamExists(
-				'modifyApplicationToProcedureNew',
-				'procedureAppInstanceDto',
-				procedureAppInstanceDto
-			);
+			// verify required parameter 'campaignName' is not null or undefined
+			assertParamExists('isCampaignNameNotAvailable', 'campaignName', campaignName);
 			const localVarPath =
-				`/api/procedure/procedure-applications/{procId}/applications/{appId}/{procedureAppInstanceId}`
-					.replace(`{${'appId'}}`, encodeURIComponent(String(appId)))
-					.replace(`{${'procId'}}`, encodeURIComponent(String(procId)))
-					.replace(
-						`{${'procedureAppInstanceId'}}`,
-						encodeURIComponent(String(procedureAppInstanceId))
-					);
+				`/api/analyst/campaign/name/{campaignName}/is-not-available`.replace(
+					`{${'campaignName'}}`,
+					encodeURIComponent(String(campaignName))
+				);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -844,7 +844,7 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 				baseOptions = configuration.baseOptions;
 			}
 
-			const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
 			const localVarHeaderParameter = {} as any;
 			const localVarQueryParameter = {} as any;
 
@@ -855,8 +855,6 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
 			}
 
-			localVarHeaderParameter['Content-Type'] = 'application/json';
-
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -865,11 +863,6 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 				...headersFromBaseOptions,
 				...options.headers
 			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				procedureAppInstanceDto,
-				localVarRequestOptions,
-				configuration
-			);
 
 			return {
 				url: toPathString(localVarUrlObj),
@@ -878,19 +871,26 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {ProcedureDto} procedureDto
+		 * @param {string} campaignName
+		 * @param {string} body
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		modifyProcedure: async (
-			procedureDto: ProcedureDto,
+		setDueDateForCampaign: async (
+			campaignName: string,
+			body: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'procedureDto' is not null or undefined
-			assertParamExists('modifyProcedure', 'procedureDto', procedureDto);
-			const localVarPath = `/api/procedure/admin`;
+			// verify required parameter 'campaignName' is not null or undefined
+			assertParamExists('setDueDateForCampaign', 'campaignName', campaignName);
+			// verify required parameter 'body' is not null or undefined
+			assertParamExists('setDueDateForCampaign', 'body', body);
+			const localVarPath = `/api/analyst/campaign/name/{campaignName}/due-date`.replace(
+				`{${'campaignName'}}`,
+				encodeURIComponent(String(campaignName))
+			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -898,7 +898,7 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 				baseOptions = configuration.baseOptions;
 			}
 
-			const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
 			const localVarHeaderParameter = {} as any;
 			const localVarQueryParameter = {} as any;
 
@@ -920,7 +920,7 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				procedureDto,
+				body,
 				localVarRequestOptions,
 				configuration
 			);
@@ -934,35 +934,32 @@ export const ProcedureControllerApiAxiosParamCreator = function (
 };
 
 /**
- * ProcedureControllerApi - functional programming interface
+ * AnalystCampaignControllerApi - functional programming interface
  * @export
  */
-export const ProcedureControllerApiFp = function (configuration?: Configuration) {
+export const AnalystCampaignControllerApiFp = function (configuration?: Configuration) {
 	const localVarAxiosParamCreator =
-		ProcedureControllerApiAxiosParamCreator(configuration);
+		AnalystCampaignControllerApiAxiosParamCreator(configuration);
 	return {
 		/**
 		 *
-		 * @param {number} procId
-		 * @param {number} appId
-		 * @param {ProcedureAppInstanceDto} procedureAppInstanceDto
+		 * @param {number} reviewId
+		 * @param {InlineObject9} inlineObject9
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async addApplicationToProcedure(
-			procId: number,
-			appId: number,
-			procedureAppInstanceDto: ProcedureAppInstanceDto,
+		async addAnswerToGivenReview(
+			reviewId: number,
+			inlineObject9: InlineObject9,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProcedureAppInstanceDto>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CsvAnswerParsingDto>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.addApplicationToProcedure(
-				procId,
-				appId,
-				procedureAppInstanceDto,
+			const localVarAxiosArgs = await localVarAxiosParamCreator.addAnswerToGivenReview(
+				reviewId,
+				inlineObject9,
 				acceptLanguage,
 				options
 			);
@@ -975,75 +972,21 @@ export const ProcedureControllerApiFp = function (configuration?: Configuration)
 		},
 		/**
 		 *
-		 * @param {number} procId
-		 * @param {number} appId
-		 * @param {ProcedureAppInstanceDto} procedureAppInstanceDto
+		 * @param {string} campaignName
+		 * @param {Array<ApplicationDto>} applicationDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async addApplicationToProcedureNew(
-			procId: number,
-			appId: number,
-			procedureAppInstanceDto: ProcedureAppInstanceDto,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProcedureAppInstanceDto>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.addApplicationToProcedureNew(
-					procId,
-					appId,
-					procedureAppInstanceDto,
-					acceptLanguage,
-					options
-				);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {ProcedureDto} procedureDto
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async createNewProcedure(
-			procedureDto: ProcedureDto,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProcedureDto>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.createNewProcedure(
-				procedureDto,
-				acceptLanguage,
-				options
-			);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {number} procId
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async deleteProcedure(
-			procId: number,
+		async addApplicationsToCampaign(
+			campaignName: string,
+			applicationDto: Array<ApplicationDto>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.deleteProcedure(
-				procId,
+			const localVarAxiosArgs = await localVarAxiosParamCreator.addApplicationsToCampaign(
+				campaignName,
+				applicationDto,
 				acceptLanguage,
 				options
 			);
@@ -1056,28 +999,24 @@ export const ProcedureControllerApiFp = function (configuration?: Configuration)
 		},
 		/**
 		 *
-		 * @param {number} procedureAppInstanceId
-		 * @param {number} appId
-		 * @param {number} procId
+		 * @param {string} campaignName
+		 * @param {Array<UserDto>} userDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async deleteProcedureApplicationAssociation(
-			procedureAppInstanceId: number,
-			appId: number,
-			procId: number,
+		async addContributorsToCampaign(
+			campaignName: string,
+			userDto: Array<UserDto>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.deleteProcedureApplicationAssociation(
-					procedureAppInstanceId,
-					appId,
-					procId,
-					acceptLanguage,
-					options
-				);
+			const localVarAxiosArgs = await localVarAxiosParamCreator.addContributorsToCampaign(
+				campaignName,
+				userDto,
+				acceptLanguage,
+				options
+			);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
@@ -1087,25 +1026,196 @@ export const ProcedureControllerApiFp = function (configuration?: Configuration)
 		},
 		/**
 		 *
-		 * @param {number} procedureAppInstanceId
-		 * @param {number} appId
-		 * @param {number} procId
+		 * @param {string} campaignName
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async deleteProcedureApplicationAssociationNew(
-			procedureAppInstanceId: number,
-			appId: number,
-			procId: number,
+		async archiveCampaign(
+			campaignName: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.archiveCampaign(
+				campaignName,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {string} campaignName
+		 * @param {string} body
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async changeCampaignName(
+			campaignName: string,
+			body: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.changeCampaignName(
+				campaignName,
+				body,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {string} campaignName
+		 * @param {string} body
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async changeCampaignStatus(
+			campaignName: string,
+			body: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.changeCampaignStatus(
+				campaignName,
+				body,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {CampaignDto} campaignDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async createNewCampaign(
+			campaignDto: CampaignDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CampaignDto>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.createNewCampaign(
+				campaignDto,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {string} campaignName
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async deleteCampaignByName(
+			campaignName: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.deleteCampaignByName(
+				campaignName,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getAllCampaigns1(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CampaignDto>>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllCampaigns1(
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} reviewId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getAnswersForGivenReview1(
+			reviewId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<AnswerDto>>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAnswersForGivenReview1(
+				reviewId,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {string} campaignName
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getApplicationsOfCampaign1(
+			campaignName: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ReviewDto>>
+		> {
 			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.deleteProcedureApplicationAssociationNew(
-					procedureAppInstanceId,
-					appId,
-					procId,
+				await localVarAxiosParamCreator.getApplicationsOfCampaign1(
+					campaignName,
 					acceptLanguage,
 					options
 				);
@@ -1118,24 +1228,93 @@ export const ProcedureControllerApiFp = function (configuration?: Configuration)
 		},
 		/**
 		 *
-		 * @param {number} procId
+		 * @param {number} campaignId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async getAllApplicationForProcedure(
-			procId: number,
+		async getCampaignById1(
+			campaignId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CampaignDto>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getCampaignById1(
+				campaignId,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {string} campaignName
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getCampaignByName1(
+			campaignName: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CampaignDto>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getCampaignByName1(
+				campaignName,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {string} campaignName
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getPossibleContributors(
+			campaignName: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(
-				axios?: AxiosInstance,
-				basePath?: string
-			) => AxiosPromise<Array<ProcedureAppInstanceDto>>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserDto>>
 		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getPossibleContributors(
+				campaignName,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {string} campaignName
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async isCampaignNameNotAvailable(
+			campaignName: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>> {
 			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.getAllApplicationForProcedure(
-					procId,
+				await localVarAxiosParamCreator.isCampaignNameNotAvailable(
+					campaignName,
 					acceptLanguage,
 					options
 				);
@@ -1148,213 +1327,21 @@ export const ProcedureControllerApiFp = function (configuration?: Configuration)
 		},
 		/**
 		 *
+		 * @param {string} campaignName
+		 * @param {string} body
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async getAllProcedure(
+		async setDueDateForCampaign(
+			campaignName: string,
+			body: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ProcedureDto>>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllProcedure(
-				acceptLanguage,
-				options
-			);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async getAllProcedureApp(
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<
-			(
-				axios?: AxiosInstance,
-				basePath?: string
-			) => AxiosPromise<Array<ProcedureAppInstanceDto>>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllProcedureApp(
-				acceptLanguage,
-				options
-			);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {string} procedureAppInstanceName
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async getProcedureAppInstance(
-			procedureAppInstanceName: string,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProcedureAppInstanceDto>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getProcedureAppInstance(
-				procedureAppInstanceName,
-				acceptLanguage,
-				options
-			);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {string} procName
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async getProcedureByName(
-			procName: string,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProcedureDto>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getProcedureByName(
-				procName,
-				acceptLanguage,
-				options
-			);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {number} procId
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async getSingleProcedure(
-			procId: number,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProcedureDto>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getSingleProcedure(
-				procId,
-				acceptLanguage,
-				options
-			);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {number} appId
-		 * @param {number} procId
-		 * @param {number} procedureAppInstanceId
-		 * @param {ProcedureAppInstanceDto} procedureAppInstanceDto
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async modifyApplicationToProcedure(
-			appId: number,
-			procId: number,
-			procedureAppInstanceId: number,
-			procedureAppInstanceDto: ProcedureAppInstanceDto,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProcedureAppInstanceDto>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.modifyApplicationToProcedure(
-					appId,
-					procId,
-					procedureAppInstanceId,
-					procedureAppInstanceDto,
-					acceptLanguage,
-					options
-				);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {number} appId
-		 * @param {number} procId
-		 * @param {number} procedureAppInstanceId
-		 * @param {ProcedureAppInstanceDto} procedureAppInstanceDto
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async modifyApplicationToProcedureNew(
-			appId: number,
-			procId: number,
-			procedureAppInstanceId: number,
-			procedureAppInstanceDto: ProcedureAppInstanceDto,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProcedureAppInstanceDto>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.modifyApplicationToProcedureNew(
-					appId,
-					procId,
-					procedureAppInstanceId,
-					procedureAppInstanceDto,
-					acceptLanguage,
-					options
-				);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {ProcedureDto} procedureDto
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async modifyProcedure(
-			procedureDto: ProcedureDto,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProcedureDto>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.modifyProcedure(
-				procedureDto,
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.setDueDateForCampaign(
+				campaignName,
+				body,
 				acceptLanguage,
 				options
 			);
@@ -1369,166 +1356,152 @@ export const ProcedureControllerApiFp = function (configuration?: Configuration)
 };
 
 /**
- * ProcedureControllerApi - factory interface
+ * AnalystCampaignControllerApi - factory interface
  * @export
  */
-export const ProcedureControllerApiFactory = function (
+export const AnalystCampaignControllerApiFactory = function (
 	configuration?: Configuration,
 	basePath?: string,
 	axios?: AxiosInstance
 ) {
-	const localVarFp = ProcedureControllerApiFp(configuration);
+	const localVarFp = AnalystCampaignControllerApiFp(configuration);
 	return {
 		/**
 		 *
-		 * @param {number} procId
-		 * @param {number} appId
-		 * @param {ProcedureAppInstanceDto} procedureAppInstanceDto
+		 * @param {number} reviewId
+		 * @param {InlineObject9} inlineObject9
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		addApplicationToProcedure(
-			procId: number,
-			appId: number,
-			procedureAppInstanceDto: ProcedureAppInstanceDto,
+		addAnswerToGivenReview(
+			reviewId: number,
+			inlineObject9: InlineObject9,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<ProcedureAppInstanceDto> {
+		): AxiosPromise<CsvAnswerParsingDto> {
 			return localVarFp
-				.addApplicationToProcedure(
-					procId,
-					appId,
-					procedureAppInstanceDto,
-					acceptLanguage,
-					options
-				)
+				.addAnswerToGivenReview(reviewId, inlineObject9, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {number} procId
-		 * @param {number} appId
-		 * @param {ProcedureAppInstanceDto} procedureAppInstanceDto
+		 * @param {string} campaignName
+		 * @param {Array<ApplicationDto>} applicationDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		addApplicationToProcedureNew(
-			procId: number,
-			appId: number,
-			procedureAppInstanceDto: ProcedureAppInstanceDto,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: any
-		): AxiosPromise<ProcedureAppInstanceDto> {
-			return localVarFp
-				.addApplicationToProcedureNew(
-					procId,
-					appId,
-					procedureAppInstanceDto,
-					acceptLanguage,
-					options
-				)
-				.then(request => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @param {ProcedureDto} procedureDto
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		createNewProcedure(
-			procedureDto: ProcedureDto,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: any
-		): AxiosPromise<ProcedureDto> {
-			return localVarFp
-				.createNewProcedure(procedureDto, acceptLanguage, options)
-				.then(request => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @param {number} procId
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		deleteProcedure(
-			procId: number,
+		addApplicationsToCampaign(
+			campaignName: string,
+			applicationDto: Array<ApplicationDto>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<void> {
 			return localVarFp
-				.deleteProcedure(procId, acceptLanguage, options)
+				.addApplicationsToCampaign(campaignName, applicationDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {number} procedureAppInstanceId
-		 * @param {number} appId
-		 * @param {number} procId
+		 * @param {string} campaignName
+		 * @param {Array<UserDto>} userDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		deleteProcedureApplicationAssociation(
-			procedureAppInstanceId: number,
-			appId: number,
-			procId: number,
+		addContributorsToCampaign(
+			campaignName: string,
+			userDto: Array<UserDto>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<void> {
 			return localVarFp
-				.deleteProcedureApplicationAssociation(
-					procedureAppInstanceId,
-					appId,
-					procId,
-					acceptLanguage,
-					options
-				)
+				.addContributorsToCampaign(campaignName, userDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {number} procedureAppInstanceId
-		 * @param {number} appId
-		 * @param {number} procId
+		 * @param {string} campaignName
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		deleteProcedureApplicationAssociationNew(
-			procedureAppInstanceId: number,
-			appId: number,
-			procId: number,
+		archiveCampaign(
+			campaignName: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<void> {
 			return localVarFp
-				.deleteProcedureApplicationAssociationNew(
-					procedureAppInstanceId,
-					appId,
-					procId,
-					acceptLanguage,
-					options
-				)
+				.archiveCampaign(campaignName, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {number} procId
+		 * @param {string} campaignName
+		 * @param {string} body
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllApplicationForProcedure(
-			procId: number,
+		changeCampaignName(
+			campaignName: string,
+			body: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Array<ProcedureAppInstanceDto>> {
+		): AxiosPromise<void> {
 			return localVarFp
-				.getAllApplicationForProcedure(procId, acceptLanguage, options)
+				.changeCampaignName(campaignName, body, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {string} campaignName
+		 * @param {string} body
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		changeCampaignStatus(
+			campaignName: string,
+			body: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<void> {
+			return localVarFp
+				.changeCampaignStatus(campaignName, body, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {CampaignDto} campaignDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		createNewCampaign(
+			campaignDto: CampaignDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<CampaignDto> {
+			return localVarFp
+				.createNewCampaign(campaignDto, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {string} campaignName
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		deleteCampaignByName(
+			campaignName: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<void> {
+			return localVarFp
+				.deleteCampaignByName(campaignName, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -1537,575 +1510,524 @@ export const ProcedureControllerApiFactory = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllProcedure(
+		getAllCampaigns1(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Array<ProcedureDto>> {
+		): AxiosPromise<Array<CampaignDto>> {
 			return localVarFp
-				.getAllProcedure(acceptLanguage, options)
+				.getAllCampaigns1(acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
+		 * @param {number} reviewId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllProcedureApp(
+		getAnswersForGivenReview1(
+			reviewId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Array<ProcedureAppInstanceDto>> {
+		): AxiosPromise<Array<AnswerDto>> {
 			return localVarFp
-				.getAllProcedureApp(acceptLanguage, options)
+				.getAnswersForGivenReview1(reviewId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {string} procedureAppInstanceName
+		 * @param {string} campaignName
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getProcedureAppInstance(
-			procedureAppInstanceName: string,
+		getApplicationsOfCampaign1(
+			campaignName: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<ProcedureAppInstanceDto> {
+		): AxiosPromise<Array<ReviewDto>> {
 			return localVarFp
-				.getProcedureAppInstance(procedureAppInstanceName, acceptLanguage, options)
+				.getApplicationsOfCampaign1(campaignName, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {string} procName
+		 * @param {number} campaignId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getProcedureByName(
-			procName: string,
+		getCampaignById1(
+			campaignId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<ProcedureDto> {
+		): AxiosPromise<CampaignDto> {
 			return localVarFp
-				.getProcedureByName(procName, acceptLanguage, options)
+				.getCampaignById1(campaignId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {number} procId
+		 * @param {string} campaignName
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getSingleProcedure(
-			procId: number,
+		getCampaignByName1(
+			campaignName: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<ProcedureDto> {
+		): AxiosPromise<CampaignDto> {
 			return localVarFp
-				.getSingleProcedure(procId, acceptLanguage, options)
+				.getCampaignByName1(campaignName, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {number} appId
-		 * @param {number} procId
-		 * @param {number} procedureAppInstanceId
-		 * @param {ProcedureAppInstanceDto} procedureAppInstanceDto
+		 * @param {string} campaignName
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		modifyApplicationToProcedure(
-			appId: number,
-			procId: number,
-			procedureAppInstanceId: number,
-			procedureAppInstanceDto: ProcedureAppInstanceDto,
+		getPossibleContributors(
+			campaignName: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<ProcedureAppInstanceDto> {
+		): AxiosPromise<Array<UserDto>> {
 			return localVarFp
-				.modifyApplicationToProcedure(
-					appId,
-					procId,
-					procedureAppInstanceId,
-					procedureAppInstanceDto,
-					acceptLanguage,
-					options
-				)
+				.getPossibleContributors(campaignName, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {number} appId
-		 * @param {number} procId
-		 * @param {number} procedureAppInstanceId
-		 * @param {ProcedureAppInstanceDto} procedureAppInstanceDto
+		 * @param {string} campaignName
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		modifyApplicationToProcedureNew(
-			appId: number,
-			procId: number,
-			procedureAppInstanceId: number,
-			procedureAppInstanceDto: ProcedureAppInstanceDto,
+		isCampaignNameNotAvailable(
+			campaignName: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<ProcedureAppInstanceDto> {
+		): AxiosPromise<boolean> {
 			return localVarFp
-				.modifyApplicationToProcedureNew(
-					appId,
-					procId,
-					procedureAppInstanceId,
-					procedureAppInstanceDto,
-					acceptLanguage,
-					options
-				)
+				.isCampaignNameNotAvailable(campaignName, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {ProcedureDto} procedureDto
+		 * @param {string} campaignName
+		 * @param {string} body
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		modifyProcedure(
-			procedureDto: ProcedureDto,
+		setDueDateForCampaign(
+			campaignName: string,
+			body: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<ProcedureDto> {
+		): AxiosPromise<void> {
 			return localVarFp
-				.modifyProcedure(procedureDto, acceptLanguage, options)
+				.setDueDateForCampaign(campaignName, body, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		}
 	};
 };
 
 /**
- * Request parameters for addApplicationToProcedure operation in ProcedureControllerApi.
+ * Request parameters for addAnswerToGivenReview operation in AnalystCampaignControllerApi.
  * @export
- * @interface ProcedureControllerApiAddApplicationToProcedureRequest
+ * @interface AnalystCampaignControllerApiAddAnswerToGivenReviewRequest
  */
-export interface ProcedureControllerApiAddApplicationToProcedureRequest {
+export interface AnalystCampaignControllerApiAddAnswerToGivenReviewRequest {
 	/**
 	 *
 	 * @type {number}
-	 * @memberof ProcedureControllerApiAddApplicationToProcedure
+	 * @memberof AnalystCampaignControllerApiAddAnswerToGivenReview
 	 */
-	readonly procId: number;
+	readonly reviewId: number;
 
 	/**
 	 *
-	 * @type {number}
-	 * @memberof ProcedureControllerApiAddApplicationToProcedure
+	 * @type {InlineObject9}
+	 * @memberof AnalystCampaignControllerApiAddAnswerToGivenReview
 	 */
-	readonly appId: number;
-
-	/**
-	 *
-	 * @type {ProcedureAppInstanceDto}
-	 * @memberof ProcedureControllerApiAddApplicationToProcedure
-	 */
-	readonly procedureAppInstanceDto: ProcedureAppInstanceDto;
+	readonly inlineObject9: InlineObject9;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ProcedureControllerApiAddApplicationToProcedure
+	 * @memberof AnalystCampaignControllerApiAddAnswerToGivenReview
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for addApplicationToProcedureNew operation in ProcedureControllerApi.
+ * Request parameters for addApplicationsToCampaign operation in AnalystCampaignControllerApi.
  * @export
- * @interface ProcedureControllerApiAddApplicationToProcedureNewRequest
+ * @interface AnalystCampaignControllerApiAddApplicationsToCampaignRequest
  */
-export interface ProcedureControllerApiAddApplicationToProcedureNewRequest {
-	/**
-	 *
-	 * @type {number}
-	 * @memberof ProcedureControllerApiAddApplicationToProcedureNew
-	 */
-	readonly procId: number;
-
-	/**
-	 *
-	 * @type {number}
-	 * @memberof ProcedureControllerApiAddApplicationToProcedureNew
-	 */
-	readonly appId: number;
-
-	/**
-	 *
-	 * @type {ProcedureAppInstanceDto}
-	 * @memberof ProcedureControllerApiAddApplicationToProcedureNew
-	 */
-	readonly procedureAppInstanceDto: ProcedureAppInstanceDto;
-
-	/**
-	 *
-	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ProcedureControllerApiAddApplicationToProcedureNew
-	 */
-	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
-}
-
-/**
- * Request parameters for createNewProcedure operation in ProcedureControllerApi.
- * @export
- * @interface ProcedureControllerApiCreateNewProcedureRequest
- */
-export interface ProcedureControllerApiCreateNewProcedureRequest {
-	/**
-	 *
-	 * @type {ProcedureDto}
-	 * @memberof ProcedureControllerApiCreateNewProcedure
-	 */
-	readonly procedureDto: ProcedureDto;
-
-	/**
-	 *
-	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ProcedureControllerApiCreateNewProcedure
-	 */
-	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
-}
-
-/**
- * Request parameters for deleteProcedure operation in ProcedureControllerApi.
- * @export
- * @interface ProcedureControllerApiDeleteProcedureRequest
- */
-export interface ProcedureControllerApiDeleteProcedureRequest {
-	/**
-	 *
-	 * @type {number}
-	 * @memberof ProcedureControllerApiDeleteProcedure
-	 */
-	readonly procId: number;
-
-	/**
-	 *
-	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ProcedureControllerApiDeleteProcedure
-	 */
-	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
-}
-
-/**
- * Request parameters for deleteProcedureApplicationAssociation operation in ProcedureControllerApi.
- * @export
- * @interface ProcedureControllerApiDeleteProcedureApplicationAssociationRequest
- */
-export interface ProcedureControllerApiDeleteProcedureApplicationAssociationRequest {
-	/**
-	 *
-	 * @type {number}
-	 * @memberof ProcedureControllerApiDeleteProcedureApplicationAssociation
-	 */
-	readonly procedureAppInstanceId: number;
-
-	/**
-	 *
-	 * @type {number}
-	 * @memberof ProcedureControllerApiDeleteProcedureApplicationAssociation
-	 */
-	readonly appId: number;
-
-	/**
-	 *
-	 * @type {number}
-	 * @memberof ProcedureControllerApiDeleteProcedureApplicationAssociation
-	 */
-	readonly procId: number;
-
-	/**
-	 *
-	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ProcedureControllerApiDeleteProcedureApplicationAssociation
-	 */
-	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
-}
-
-/**
- * Request parameters for deleteProcedureApplicationAssociationNew operation in ProcedureControllerApi.
- * @export
- * @interface ProcedureControllerApiDeleteProcedureApplicationAssociationNewRequest
- */
-export interface ProcedureControllerApiDeleteProcedureApplicationAssociationNewRequest {
-	/**
-	 *
-	 * @type {number}
-	 * @memberof ProcedureControllerApiDeleteProcedureApplicationAssociationNew
-	 */
-	readonly procedureAppInstanceId: number;
-
-	/**
-	 *
-	 * @type {number}
-	 * @memberof ProcedureControllerApiDeleteProcedureApplicationAssociationNew
-	 */
-	readonly appId: number;
-
-	/**
-	 *
-	 * @type {number}
-	 * @memberof ProcedureControllerApiDeleteProcedureApplicationAssociationNew
-	 */
-	readonly procId: number;
-
-	/**
-	 *
-	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ProcedureControllerApiDeleteProcedureApplicationAssociationNew
-	 */
-	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
-}
-
-/**
- * Request parameters for getAllApplicationForProcedure operation in ProcedureControllerApi.
- * @export
- * @interface ProcedureControllerApiGetAllApplicationForProcedureRequest
- */
-export interface ProcedureControllerApiGetAllApplicationForProcedureRequest {
-	/**
-	 *
-	 * @type {number}
-	 * @memberof ProcedureControllerApiGetAllApplicationForProcedure
-	 */
-	readonly procId: number;
-
-	/**
-	 *
-	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ProcedureControllerApiGetAllApplicationForProcedure
-	 */
-	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
-}
-
-/**
- * Request parameters for getAllProcedure operation in ProcedureControllerApi.
- * @export
- * @interface ProcedureControllerApiGetAllProcedureRequest
- */
-export interface ProcedureControllerApiGetAllProcedureRequest {
-	/**
-	 *
-	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ProcedureControllerApiGetAllProcedure
-	 */
-	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
-}
-
-/**
- * Request parameters for getAllProcedureApp operation in ProcedureControllerApi.
- * @export
- * @interface ProcedureControllerApiGetAllProcedureAppRequest
- */
-export interface ProcedureControllerApiGetAllProcedureAppRequest {
-	/**
-	 *
-	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ProcedureControllerApiGetAllProcedureApp
-	 */
-	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
-}
-
-/**
- * Request parameters for getProcedureAppInstance operation in ProcedureControllerApi.
- * @export
- * @interface ProcedureControllerApiGetProcedureAppInstanceRequest
- */
-export interface ProcedureControllerApiGetProcedureAppInstanceRequest {
+export interface AnalystCampaignControllerApiAddApplicationsToCampaignRequest {
 	/**
 	 *
 	 * @type {string}
-	 * @memberof ProcedureControllerApiGetProcedureAppInstance
+	 * @memberof AnalystCampaignControllerApiAddApplicationsToCampaign
 	 */
-	readonly procedureAppInstanceName: string;
+	readonly campaignName: string;
+
+	/**
+	 *
+	 * @type {Array<ApplicationDto>}
+	 * @memberof AnalystCampaignControllerApiAddApplicationsToCampaign
+	 */
+	readonly applicationDto: Array<ApplicationDto>;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ProcedureControllerApiGetProcedureAppInstance
+	 * @memberof AnalystCampaignControllerApiAddApplicationsToCampaign
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for getProcedureByName operation in ProcedureControllerApi.
+ * Request parameters for addContributorsToCampaign operation in AnalystCampaignControllerApi.
  * @export
- * @interface ProcedureControllerApiGetProcedureByNameRequest
+ * @interface AnalystCampaignControllerApiAddContributorsToCampaignRequest
  */
-export interface ProcedureControllerApiGetProcedureByNameRequest {
+export interface AnalystCampaignControllerApiAddContributorsToCampaignRequest {
 	/**
 	 *
 	 * @type {string}
-	 * @memberof ProcedureControllerApiGetProcedureByName
+	 * @memberof AnalystCampaignControllerApiAddContributorsToCampaign
 	 */
-	readonly procName: string;
+	readonly campaignName: string;
+
+	/**
+	 *
+	 * @type {Array<UserDto>}
+	 * @memberof AnalystCampaignControllerApiAddContributorsToCampaign
+	 */
+	readonly userDto: Array<UserDto>;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ProcedureControllerApiGetProcedureByName
+	 * @memberof AnalystCampaignControllerApiAddContributorsToCampaign
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for getSingleProcedure operation in ProcedureControllerApi.
+ * Request parameters for archiveCampaign operation in AnalystCampaignControllerApi.
  * @export
- * @interface ProcedureControllerApiGetSingleProcedureRequest
+ * @interface AnalystCampaignControllerApiArchiveCampaignRequest
  */
-export interface ProcedureControllerApiGetSingleProcedureRequest {
+export interface AnalystCampaignControllerApiArchiveCampaignRequest {
 	/**
 	 *
-	 * @type {number}
-	 * @memberof ProcedureControllerApiGetSingleProcedure
+	 * @type {string}
+	 * @memberof AnalystCampaignControllerApiArchiveCampaign
 	 */
-	readonly procId: number;
+	readonly campaignName: string;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ProcedureControllerApiGetSingleProcedure
+	 * @memberof AnalystCampaignControllerApiArchiveCampaign
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for modifyApplicationToProcedure operation in ProcedureControllerApi.
+ * Request parameters for changeCampaignName operation in AnalystCampaignControllerApi.
  * @export
- * @interface ProcedureControllerApiModifyApplicationToProcedureRequest
+ * @interface AnalystCampaignControllerApiChangeCampaignNameRequest
  */
-export interface ProcedureControllerApiModifyApplicationToProcedureRequest {
+export interface AnalystCampaignControllerApiChangeCampaignNameRequest {
 	/**
 	 *
-	 * @type {number}
-	 * @memberof ProcedureControllerApiModifyApplicationToProcedure
+	 * @type {string}
+	 * @memberof AnalystCampaignControllerApiChangeCampaignName
 	 */
-	readonly appId: number;
+	readonly campaignName: string;
 
 	/**
 	 *
-	 * @type {number}
-	 * @memberof ProcedureControllerApiModifyApplicationToProcedure
+	 * @type {string}
+	 * @memberof AnalystCampaignControllerApiChangeCampaignName
 	 */
-	readonly procId: number;
-
-	/**
-	 *
-	 * @type {number}
-	 * @memberof ProcedureControllerApiModifyApplicationToProcedure
-	 */
-	readonly procedureAppInstanceId: number;
-
-	/**
-	 *
-	 * @type {ProcedureAppInstanceDto}
-	 * @memberof ProcedureControllerApiModifyApplicationToProcedure
-	 */
-	readonly procedureAppInstanceDto: ProcedureAppInstanceDto;
+	readonly body: string;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ProcedureControllerApiModifyApplicationToProcedure
+	 * @memberof AnalystCampaignControllerApiChangeCampaignName
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for modifyApplicationToProcedureNew operation in ProcedureControllerApi.
+ * Request parameters for changeCampaignStatus operation in AnalystCampaignControllerApi.
  * @export
- * @interface ProcedureControllerApiModifyApplicationToProcedureNewRequest
+ * @interface AnalystCampaignControllerApiChangeCampaignStatusRequest
  */
-export interface ProcedureControllerApiModifyApplicationToProcedureNewRequest {
+export interface AnalystCampaignControllerApiChangeCampaignStatusRequest {
 	/**
 	 *
-	 * @type {number}
-	 * @memberof ProcedureControllerApiModifyApplicationToProcedureNew
+	 * @type {string}
+	 * @memberof AnalystCampaignControllerApiChangeCampaignStatus
 	 */
-	readonly appId: number;
+	readonly campaignName: string;
 
 	/**
 	 *
-	 * @type {number}
-	 * @memberof ProcedureControllerApiModifyApplicationToProcedureNew
+	 * @type {string}
+	 * @memberof AnalystCampaignControllerApiChangeCampaignStatus
 	 */
-	readonly procId: number;
-
-	/**
-	 *
-	 * @type {number}
-	 * @memberof ProcedureControllerApiModifyApplicationToProcedureNew
-	 */
-	readonly procedureAppInstanceId: number;
-
-	/**
-	 *
-	 * @type {ProcedureAppInstanceDto}
-	 * @memberof ProcedureControllerApiModifyApplicationToProcedureNew
-	 */
-	readonly procedureAppInstanceDto: ProcedureAppInstanceDto;
+	readonly body: string;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ProcedureControllerApiModifyApplicationToProcedureNew
+	 * @memberof AnalystCampaignControllerApiChangeCampaignStatus
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for modifyProcedure operation in ProcedureControllerApi.
+ * Request parameters for createNewCampaign operation in AnalystCampaignControllerApi.
  * @export
- * @interface ProcedureControllerApiModifyProcedureRequest
+ * @interface AnalystCampaignControllerApiCreateNewCampaignRequest
  */
-export interface ProcedureControllerApiModifyProcedureRequest {
+export interface AnalystCampaignControllerApiCreateNewCampaignRequest {
 	/**
 	 *
-	 * @type {ProcedureDto}
-	 * @memberof ProcedureControllerApiModifyProcedure
+	 * @type {CampaignDto}
+	 * @memberof AnalystCampaignControllerApiCreateNewCampaign
 	 */
-	readonly procedureDto: ProcedureDto;
+	readonly campaignDto: CampaignDto;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ProcedureControllerApiModifyProcedure
+	 * @memberof AnalystCampaignControllerApiCreateNewCampaign
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * ProcedureControllerApi - object-oriented interface
+ * Request parameters for deleteCampaignByName operation in AnalystCampaignControllerApi.
  * @export
- * @class ProcedureControllerApi
+ * @interface AnalystCampaignControllerApiDeleteCampaignByNameRequest
+ */
+export interface AnalystCampaignControllerApiDeleteCampaignByNameRequest {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AnalystCampaignControllerApiDeleteCampaignByName
+	 */
+	readonly campaignName: string;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystCampaignControllerApiDeleteCampaignByName
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getAllCampaigns1 operation in AnalystCampaignControllerApi.
+ * @export
+ * @interface AnalystCampaignControllerApiGetAllCampaigns1Request
+ */
+export interface AnalystCampaignControllerApiGetAllCampaigns1Request {
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystCampaignControllerApiGetAllCampaigns1
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getAnswersForGivenReview1 operation in AnalystCampaignControllerApi.
+ * @export
+ * @interface AnalystCampaignControllerApiGetAnswersForGivenReview1Request
+ */
+export interface AnalystCampaignControllerApiGetAnswersForGivenReview1Request {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystCampaignControllerApiGetAnswersForGivenReview1
+	 */
+	readonly reviewId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystCampaignControllerApiGetAnswersForGivenReview1
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getApplicationsOfCampaign1 operation in AnalystCampaignControllerApi.
+ * @export
+ * @interface AnalystCampaignControllerApiGetApplicationsOfCampaign1Request
+ */
+export interface AnalystCampaignControllerApiGetApplicationsOfCampaign1Request {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AnalystCampaignControllerApiGetApplicationsOfCampaign1
+	 */
+	readonly campaignName: string;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystCampaignControllerApiGetApplicationsOfCampaign1
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getCampaignById1 operation in AnalystCampaignControllerApi.
+ * @export
+ * @interface AnalystCampaignControllerApiGetCampaignById1Request
+ */
+export interface AnalystCampaignControllerApiGetCampaignById1Request {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystCampaignControllerApiGetCampaignById1
+	 */
+	readonly campaignId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystCampaignControllerApiGetCampaignById1
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getCampaignByName1 operation in AnalystCampaignControllerApi.
+ * @export
+ * @interface AnalystCampaignControllerApiGetCampaignByName1Request
+ */
+export interface AnalystCampaignControllerApiGetCampaignByName1Request {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AnalystCampaignControllerApiGetCampaignByName1
+	 */
+	readonly campaignName: string;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystCampaignControllerApiGetCampaignByName1
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getPossibleContributors operation in AnalystCampaignControllerApi.
+ * @export
+ * @interface AnalystCampaignControllerApiGetPossibleContributorsRequest
+ */
+export interface AnalystCampaignControllerApiGetPossibleContributorsRequest {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AnalystCampaignControllerApiGetPossibleContributors
+	 */
+	readonly campaignName: string;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystCampaignControllerApiGetPossibleContributors
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for isCampaignNameNotAvailable operation in AnalystCampaignControllerApi.
+ * @export
+ * @interface AnalystCampaignControllerApiIsCampaignNameNotAvailableRequest
+ */
+export interface AnalystCampaignControllerApiIsCampaignNameNotAvailableRequest {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AnalystCampaignControllerApiIsCampaignNameNotAvailable
+	 */
+	readonly campaignName: string;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystCampaignControllerApiIsCampaignNameNotAvailable
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for setDueDateForCampaign operation in AnalystCampaignControllerApi.
+ * @export
+ * @interface AnalystCampaignControllerApiSetDueDateForCampaignRequest
+ */
+export interface AnalystCampaignControllerApiSetDueDateForCampaignRequest {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AnalystCampaignControllerApiSetDueDateForCampaign
+	 */
+	readonly campaignName: string;
+
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AnalystCampaignControllerApiSetDueDateForCampaign
+	 */
+	readonly body: string;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystCampaignControllerApiSetDueDateForCampaign
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * AnalystCampaignControllerApi - object-oriented interface
+ * @export
+ * @class AnalystCampaignControllerApi
  * @extends {BaseAPI}
  */
-export class ProcedureControllerApi extends BaseAPI {
+export class AnalystCampaignControllerApi extends BaseAPI {
 	/**
 	 *
-	 * @param {ProcedureControllerApiAddApplicationToProcedureRequest} requestParameters Request parameters.
+	 * @param {AnalystCampaignControllerApiAddAnswerToGivenReviewRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof ProcedureControllerApi
+	 * @memberof AnalystCampaignControllerApi
 	 */
-	public addApplicationToProcedure(
-		requestParameters: ProcedureControllerApiAddApplicationToProcedureRequest,
+	public addAnswerToGivenReview(
+		requestParameters: AnalystCampaignControllerApiAddAnswerToGivenReviewRequest,
 		options?: AxiosRequestConfig
 	) {
-		return ProcedureControllerApiFp(this.configuration)
-			.addApplicationToProcedure(
-				requestParameters.procId,
-				requestParameters.appId,
-				requestParameters.procedureAppInstanceDto,
+		return AnalystCampaignControllerApiFp(this.configuration)
+			.addAnswerToGivenReview(
+				requestParameters.reviewId,
+				requestParameters.inlineObject9,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -2114,20 +2036,19 @@ export class ProcedureControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {ProcedureControllerApiAddApplicationToProcedureNewRequest} requestParameters Request parameters.
+	 * @param {AnalystCampaignControllerApiAddApplicationsToCampaignRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof ProcedureControllerApi
+	 * @memberof AnalystCampaignControllerApi
 	 */
-	public addApplicationToProcedureNew(
-		requestParameters: ProcedureControllerApiAddApplicationToProcedureNewRequest,
+	public addApplicationsToCampaign(
+		requestParameters: AnalystCampaignControllerApiAddApplicationsToCampaignRequest,
 		options?: AxiosRequestConfig
 	) {
-		return ProcedureControllerApiFp(this.configuration)
-			.addApplicationToProcedureNew(
-				requestParameters.procId,
-				requestParameters.appId,
-				requestParameters.procedureAppInstanceDto,
+		return AnalystCampaignControllerApiFp(this.configuration)
+			.addApplicationsToCampaign(
+				requestParameters.campaignName,
+				requestParameters.applicationDto,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -2136,18 +2057,19 @@ export class ProcedureControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {ProcedureControllerApiCreateNewProcedureRequest} requestParameters Request parameters.
+	 * @param {AnalystCampaignControllerApiAddContributorsToCampaignRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof ProcedureControllerApi
+	 * @memberof AnalystCampaignControllerApi
 	 */
-	public createNewProcedure(
-		requestParameters: ProcedureControllerApiCreateNewProcedureRequest,
+	public addContributorsToCampaign(
+		requestParameters: AnalystCampaignControllerApiAddContributorsToCampaignRequest,
 		options?: AxiosRequestConfig
 	) {
-		return ProcedureControllerApiFp(this.configuration)
-			.createNewProcedure(
-				requestParameters.procedureDto,
+		return AnalystCampaignControllerApiFp(this.configuration)
+			.addContributorsToCampaign(
+				requestParameters.campaignName,
+				requestParameters.userDto,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -2156,18 +2078,18 @@ export class ProcedureControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {ProcedureControllerApiDeleteProcedureRequest} requestParameters Request parameters.
+	 * @param {AnalystCampaignControllerApiArchiveCampaignRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof ProcedureControllerApi
+	 * @memberof AnalystCampaignControllerApi
 	 */
-	public deleteProcedure(
-		requestParameters: ProcedureControllerApiDeleteProcedureRequest,
+	public archiveCampaign(
+		requestParameters: AnalystCampaignControllerApiArchiveCampaignRequest,
 		options?: AxiosRequestConfig
 	) {
-		return ProcedureControllerApiFp(this.configuration)
-			.deleteProcedure(
-				requestParameters.procId,
+		return AnalystCampaignControllerApiFp(this.configuration)
+			.archiveCampaign(
+				requestParameters.campaignName,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -2176,20 +2098,19 @@ export class ProcedureControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {ProcedureControllerApiDeleteProcedureApplicationAssociationRequest} requestParameters Request parameters.
+	 * @param {AnalystCampaignControllerApiChangeCampaignNameRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof ProcedureControllerApi
+	 * @memberof AnalystCampaignControllerApi
 	 */
-	public deleteProcedureApplicationAssociation(
-		requestParameters: ProcedureControllerApiDeleteProcedureApplicationAssociationRequest,
+	public changeCampaignName(
+		requestParameters: AnalystCampaignControllerApiChangeCampaignNameRequest,
 		options?: AxiosRequestConfig
 	) {
-		return ProcedureControllerApiFp(this.configuration)
-			.deleteProcedureApplicationAssociation(
-				requestParameters.procedureAppInstanceId,
-				requestParameters.appId,
-				requestParameters.procId,
+		return AnalystCampaignControllerApiFp(this.configuration)
+			.changeCampaignName(
+				requestParameters.campaignName,
+				requestParameters.body,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -2198,20 +2119,19 @@ export class ProcedureControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {ProcedureControllerApiDeleteProcedureApplicationAssociationNewRequest} requestParameters Request parameters.
+	 * @param {AnalystCampaignControllerApiChangeCampaignStatusRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof ProcedureControllerApi
+	 * @memberof AnalystCampaignControllerApi
 	 */
-	public deleteProcedureApplicationAssociationNew(
-		requestParameters: ProcedureControllerApiDeleteProcedureApplicationAssociationNewRequest,
+	public changeCampaignStatus(
+		requestParameters: AnalystCampaignControllerApiChangeCampaignStatusRequest,
 		options?: AxiosRequestConfig
 	) {
-		return ProcedureControllerApiFp(this.configuration)
-			.deleteProcedureApplicationAssociationNew(
-				requestParameters.procedureAppInstanceId,
-				requestParameters.appId,
-				requestParameters.procId,
+		return AnalystCampaignControllerApiFp(this.configuration)
+			.changeCampaignStatus(
+				requestParameters.campaignName,
+				requestParameters.body,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -2220,18 +2140,18 @@ export class ProcedureControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {ProcedureControllerApiGetAllApplicationForProcedureRequest} requestParameters Request parameters.
+	 * @param {AnalystCampaignControllerApiCreateNewCampaignRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof ProcedureControllerApi
+	 * @memberof AnalystCampaignControllerApi
 	 */
-	public getAllApplicationForProcedure(
-		requestParameters: ProcedureControllerApiGetAllApplicationForProcedureRequest,
+	public createNewCampaign(
+		requestParameters: AnalystCampaignControllerApiCreateNewCampaignRequest,
 		options?: AxiosRequestConfig
 	) {
-		return ProcedureControllerApiFp(this.configuration)
-			.getAllApplicationForProcedure(
-				requestParameters.procId,
+		return AnalystCampaignControllerApiFp(this.configuration)
+			.createNewCampaign(
+				requestParameters.campaignDto,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -2240,50 +2160,18 @@ export class ProcedureControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {ProcedureControllerApiGetAllProcedureRequest} requestParameters Request parameters.
+	 * @param {AnalystCampaignControllerApiDeleteCampaignByNameRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof ProcedureControllerApi
+	 * @memberof AnalystCampaignControllerApi
 	 */
-	public getAllProcedure(
-		requestParameters: ProcedureControllerApiGetAllProcedureRequest = {},
+	public deleteCampaignByName(
+		requestParameters: AnalystCampaignControllerApiDeleteCampaignByNameRequest,
 		options?: AxiosRequestConfig
 	) {
-		return ProcedureControllerApiFp(this.configuration)
-			.getAllProcedure(requestParameters.acceptLanguage, options)
-			.then(request => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @param {ProcedureControllerApiGetAllProcedureAppRequest} requestParameters Request parameters.
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof ProcedureControllerApi
-	 */
-	public getAllProcedureApp(
-		requestParameters: ProcedureControllerApiGetAllProcedureAppRequest = {},
-		options?: AxiosRequestConfig
-	) {
-		return ProcedureControllerApiFp(this.configuration)
-			.getAllProcedureApp(requestParameters.acceptLanguage, options)
-			.then(request => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @param {ProcedureControllerApiGetProcedureAppInstanceRequest} requestParameters Request parameters.
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof ProcedureControllerApi
-	 */
-	public getProcedureAppInstance(
-		requestParameters: ProcedureControllerApiGetProcedureAppInstanceRequest,
-		options?: AxiosRequestConfig
-	) {
-		return ProcedureControllerApiFp(this.configuration)
-			.getProcedureAppInstance(
-				requestParameters.procedureAppInstanceName,
+		return AnalystCampaignControllerApiFp(this.configuration)
+			.deleteCampaignByName(
+				requestParameters.campaignName,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -2292,18 +2180,34 @@ export class ProcedureControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {ProcedureControllerApiGetProcedureByNameRequest} requestParameters Request parameters.
+	 * @param {AnalystCampaignControllerApiGetAllCampaigns1Request} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof ProcedureControllerApi
+	 * @memberof AnalystCampaignControllerApi
 	 */
-	public getProcedureByName(
-		requestParameters: ProcedureControllerApiGetProcedureByNameRequest,
+	public getAllCampaigns1(
+		requestParameters: AnalystCampaignControllerApiGetAllCampaigns1Request = {},
 		options?: AxiosRequestConfig
 	) {
-		return ProcedureControllerApiFp(this.configuration)
-			.getProcedureByName(
-				requestParameters.procName,
+		return AnalystCampaignControllerApiFp(this.configuration)
+			.getAllCampaigns1(requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystCampaignControllerApiGetAnswersForGivenReview1Request} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystCampaignControllerApi
+	 */
+	public getAnswersForGivenReview1(
+		requestParameters: AnalystCampaignControllerApiGetAnswersForGivenReview1Request,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystCampaignControllerApiFp(this.configuration)
+			.getAnswersForGivenReview1(
+				requestParameters.reviewId,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -2312,18 +2216,18 @@ export class ProcedureControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {ProcedureControllerApiGetSingleProcedureRequest} requestParameters Request parameters.
+	 * @param {AnalystCampaignControllerApiGetApplicationsOfCampaign1Request} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof ProcedureControllerApi
+	 * @memberof AnalystCampaignControllerApi
 	 */
-	public getSingleProcedure(
-		requestParameters: ProcedureControllerApiGetSingleProcedureRequest,
+	public getApplicationsOfCampaign1(
+		requestParameters: AnalystCampaignControllerApiGetApplicationsOfCampaign1Request,
 		options?: AxiosRequestConfig
 	) {
-		return ProcedureControllerApiFp(this.configuration)
-			.getSingleProcedure(
-				requestParameters.procId,
+		return AnalystCampaignControllerApiFp(this.configuration)
+			.getApplicationsOfCampaign1(
+				requestParameters.campaignName,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -2332,21 +2236,18 @@ export class ProcedureControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {ProcedureControllerApiModifyApplicationToProcedureRequest} requestParameters Request parameters.
+	 * @param {AnalystCampaignControllerApiGetCampaignById1Request} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof ProcedureControllerApi
+	 * @memberof AnalystCampaignControllerApi
 	 */
-	public modifyApplicationToProcedure(
-		requestParameters: ProcedureControllerApiModifyApplicationToProcedureRequest,
+	public getCampaignById1(
+		requestParameters: AnalystCampaignControllerApiGetCampaignById1Request,
 		options?: AxiosRequestConfig
 	) {
-		return ProcedureControllerApiFp(this.configuration)
-			.modifyApplicationToProcedure(
-				requestParameters.appId,
-				requestParameters.procId,
-				requestParameters.procedureAppInstanceId,
-				requestParameters.procedureAppInstanceDto,
+		return AnalystCampaignControllerApiFp(this.configuration)
+			.getCampaignById1(
+				requestParameters.campaignId,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -2355,21 +2256,18 @@ export class ProcedureControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {ProcedureControllerApiModifyApplicationToProcedureNewRequest} requestParameters Request parameters.
+	 * @param {AnalystCampaignControllerApiGetCampaignByName1Request} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof ProcedureControllerApi
+	 * @memberof AnalystCampaignControllerApi
 	 */
-	public modifyApplicationToProcedureNew(
-		requestParameters: ProcedureControllerApiModifyApplicationToProcedureNewRequest,
+	public getCampaignByName1(
+		requestParameters: AnalystCampaignControllerApiGetCampaignByName1Request,
 		options?: AxiosRequestConfig
 	) {
-		return ProcedureControllerApiFp(this.configuration)
-			.modifyApplicationToProcedureNew(
-				requestParameters.appId,
-				requestParameters.procId,
-				requestParameters.procedureAppInstanceId,
-				requestParameters.procedureAppInstanceDto,
+		return AnalystCampaignControllerApiFp(this.configuration)
+			.getCampaignByName1(
+				requestParameters.campaignName,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -2378,18 +2276,59 @@ export class ProcedureControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {ProcedureControllerApiModifyProcedureRequest} requestParameters Request parameters.
+	 * @param {AnalystCampaignControllerApiGetPossibleContributorsRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof ProcedureControllerApi
+	 * @memberof AnalystCampaignControllerApi
 	 */
-	public modifyProcedure(
-		requestParameters: ProcedureControllerApiModifyProcedureRequest,
+	public getPossibleContributors(
+		requestParameters: AnalystCampaignControllerApiGetPossibleContributorsRequest,
 		options?: AxiosRequestConfig
 	) {
-		return ProcedureControllerApiFp(this.configuration)
-			.modifyProcedure(
-				requestParameters.procedureDto,
+		return AnalystCampaignControllerApiFp(this.configuration)
+			.getPossibleContributors(
+				requestParameters.campaignName,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystCampaignControllerApiIsCampaignNameNotAvailableRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystCampaignControllerApi
+	 */
+	public isCampaignNameNotAvailable(
+		requestParameters: AnalystCampaignControllerApiIsCampaignNameNotAvailableRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystCampaignControllerApiFp(this.configuration)
+			.isCampaignNameNotAvailable(
+				requestParameters.campaignName,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystCampaignControllerApiSetDueDateForCampaignRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystCampaignControllerApi
+	 */
+	public setDueDateForCampaign(
+		requestParameters: AnalystCampaignControllerApiSetDueDateForCampaignRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystCampaignControllerApiFp(this.configuration)
+			.setDueDateForCampaign(
+				requestParameters.campaignName,
+				requestParameters.body,
 				requestParameters.acceptLanguage,
 				options
 			)

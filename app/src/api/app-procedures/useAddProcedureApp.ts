@@ -14,8 +14,8 @@ interface AddProcedureParams {
 const addProcedureApp = ({ appId, procedureId, procedure }: AddProcedureParams) => {
 	return api.procedureApi
 		.addApplicationToProcedure({
-			applicationId: +appId,
-			procedureId: +procedureId,
+			appId: +appId,
+			procId: +procedureId,
 			procedureAppInstanceDto: toProcedureAppInstanceApi(procedure)
 		})
 		.then(({ data }) => fromProcedureAppInstanceApi(data));
