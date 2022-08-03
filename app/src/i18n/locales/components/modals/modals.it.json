@@ -45,5 +45,8 @@
 	"add-user": "Aggiungi utente",
 	"body-add": "Compila tutti i campi obbligatori, poi clicca su {{action}}",
 	"exists": "{{value}} già esistente.",
-	"field-required": "Questo campo è obbligatorio"
+	"field-required": "Questo campo è obbligatorio",
+	"back": "Indietro",
+	"next": "Avanti",
+	"save": "Salva"
 }

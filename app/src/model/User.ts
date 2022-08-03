@@ -57,7 +57,7 @@ export const toUserApi = (user: User): UserApi => {
 		id: user.id,
 		username: user.username,
 		name: user.name,
-		email: user.email,
+		email: user.email || '',
 		surname: user.surname,
 		inactive: user.inactive
 	};

@@ -45,5 +45,8 @@
 	"add-user": "Add user",
 	"body-add": "Please fill in all required fields, then click on {{action}}",
 	"exists": "{{value}} already exists.",
-	"field-required": "This field is required"
+	"field-required": "This field is required",
+	"back": "Back",
+	"next": "Next",
+	"save": "Save"
 }

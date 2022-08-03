@@ -2,13 +2,13 @@ import { Breadcrumb, BreadcrumbItem, Button, Column, Grid } from '@carbon/react'
 import { useNavigate } from 'react-router-dom';
 import FullWidthColumn from '@components/FullWidthColumn';
 import useResponsive from '@hooks/useResponsive';
-import { Email } from '@carbon/react/icons';
 import { ReactElement, useEffect, useRef } from 'react';
 import { useInViewport } from 'ahooks';
 import classNames from 'classnames';
 import Fade from '@components/Fade';
 import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
 import Centered from '@components/Centered';
+import ButtonKinds from '@carbon/react/lib/components/Button/ButtonKinds';
 
 interface PageHeaderProps {
 	pageTitle: string;
@@ -20,6 +20,7 @@ interface PageHeaderProps {
 		name: string;
 		icon?: (() => ReactElement) | ReactElement;
 		onClick: () => void;
+		kind?: ButtonKinds;
 	}>;
 	children: ReactElement;
 }
@@ -127,7 +128,7 @@ const PageHeader = ({
 			<div className='h-full bg-background md:pt-10'>
 				<Grid className='items-end space-y-4 pb-7 md:space-y-10'>
 					<FullWidthColumn>
-						<Grid fullWidth>
+						<Grid fullWidth className='xlg:flex xlg:justify-between'>
 							<Column sm={4} md={5} lg={6} xlg={8}>
 								<h2
 									ref={pageTitleRef}
@@ -149,14 +150,14 @@ const PageHeader = ({
 										</Button>
 									</div>
 								) : (
-									actions?.length === 3 && (
+									(actions?.length === 3 && (
 										<div className='mt-4 flex flex-col justify-end space-y-2 md:mt-0 lg:flex-row lg:space-y-0'>
 											<Button
 												key={actions[0].name}
 												kind='tertiary'
 												className='min-w-full lg:min-w-fit'
 												size='md'
-												renderIcon={Email}
+												renderIcon={actions[0].icon}
 												onClick={actions[0].onClick}
 											>
 												{actions[0].name}
@@ -165,7 +166,7 @@ const PageHeader = ({
 												<Button
 													key={actions[1].name}
 													size='md'
-													className='w-1/2'
+													className='w-1/2 xlg:w-fit'
 													onClick={actions[1].onClick}
 													renderIcon={actions[1].icon}
 												>
@@ -176,7 +177,7 @@ const PageHeader = ({
 													key={actions[2].name}
 													size='md'
 													kind='danger'
-													className='w-1/2'
+													className='w-1/2 xlg:w-fit'
 													renderIcon={actions[2].icon}
 													onClick={actions[2].onClick}
 												>
@@ -184,7 +185,33 @@ const PageHeader = ({
 												</Button>
 											</div>
 										</div>
-									)
+									)) ||
+									(actions.length === 2 && (
+										<div className='mt-4 flex flex-col justify-end space-y-2 md:mt-0 lg:flex-row lg:space-x-4 lg:space-y-0'>
+											<Button
+												kind={actions[0].kind || 'tertiary'}
+												key={actions[0].name}
+												className='min-w-full lg:min-w-fit'
+												size='md'
+												renderIcon={actions[0].icon}
+												onClick={actions[0].onClick}
+											>
+												{actions[0].name}
+											</Button>
+											<div className='flex lg:space-x-3'>
+												<Button
+													key={actions[1].name}
+													kind={actions[1].kind || 'primary'}
+													size='md'
+													onClick={actions[1].onClick}
+													renderIcon={actions[1].icon}
+													className='min-w-full lg:min-w-fit'
+												>
+													{actions[1].name}
+												</Button>
+											</div>
+										</div>
+									))
 								)}
 							</Column>
 						</Grid>

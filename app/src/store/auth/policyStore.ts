@@ -2,6 +2,17 @@ import { selector } from 'recoil';
 import authStore from '@store/auth/authStore';
 import { UserRoleEnum } from '@model/UserRole';
 
+declare global {
+	interface Array<T> {
+		includesMulti(...values: T[]): boolean;
+	}
+}
+function multi<T>(this: T[], ...values: T[]) {
+	return this.some(v => values.includes(v));
+}
+// eslint-disable-next-line no-extend-native
+Array.prototype.includesMulti = multi;
+
 type Policies = {
 	hasNoRole: boolean;
 	canSeeNarrativeManagement: boolean;
@@ -23,37 +34,36 @@ const policyStore = selector<Policies>({
 			hasNoRole,
 			canSeeNarrativeManagement: Boolean(
 				!hasNoRole &&
-					(policies?.includes(UserRoleEnum.NarrativeAnalyst) ||
-						policies?.includes(UserRoleEnum.NarrativeAdmin) ||
-						policies?.includes(UserRoleEnum.SysAdmin))
+					policies?.includesMulti(UserRoleEnum.SysAdmin, UserRoleEnum.NarrativeAnalyst)
 			),
 			canReviewNarrative: Boolean(
 				!hasNoRole &&
-					(policies?.includes(UserRoleEnum.NarrativeAnalyst) ||
-						policies?.includes(UserRoleEnum.NarrativeAdmin) ||
-						policies?.includes(UserRoleEnum.SysAdmin))
+					policies?.includesMulti(UserRoleEnum.SysAdmin, UserRoleEnum.NarrativeAnalyst)
 			),
 			canReview: Boolean(
 				!hasNoRole &&
-					(policies?.includes(UserRoleEnum.Reviewer) ||
-						policies?.includes(UserRoleEnum.ReviewerCollaborator) ||
-						policies?.includes(UserRoleEnum.SysAdmin))
+					policies?.includesMulti(
+						UserRoleEnum.SysAdmin,
+						UserRoleEnum.Reviewer,
+						UserRoleEnum.ReviewerCollaborator
+					)
 			),
 			canAdmin: Boolean(
 				!hasNoRole &&
-					(policies?.includes(UserRoleEnum.UserAdmin) ||
-						policies?.includes(UserRoleEnum.SysAdmin) ||
-						policies?.includes(UserRoleEnum.NarrativeAdmin))
+					policies?.includesMulti(
+						UserRoleEnum.SysAdmin,
+						UserRoleEnum.UserAdmin,
+						UserRoleEnum.NarrativeAdmin,
+						UserRoleEnum.RevalidationAdmin
+					)
 			),
 			canUserAdmin: Boolean(
 				!hasNoRole &&
-					(policies?.includes(UserRoleEnum.UserAdmin) ||
-						policies?.includes(UserRoleEnum.SysAdmin))
+					policies?.includesMulti(UserRoleEnum.SysAdmin, UserRoleEnum.UserAdmin)
 			),
 			canNarrativeAdmin: Boolean(
 				!hasNoRole &&
-					(policies?.includes(UserRoleEnum.NarrativeAdmin) ||
-						policies?.includes(UserRoleEnum.SysAdmin))
+					policies?.includesMulti(UserRoleEnum.SysAdmin, UserRoleEnum.NarrativeAdmin)
 			)
 		};
 	}

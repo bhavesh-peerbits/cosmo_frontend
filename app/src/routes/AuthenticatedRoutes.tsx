@@ -18,6 +18,10 @@ const ReviewDetail = React.lazy(() => import('@pages/ReviewDetail'));
 const AdminPanel = React.lazy(() => import('@pages/AdminPanel'));
 const RoleAssignment = React.lazy(() => import('@pages/RoleAssignment'));
 const ApplicationsVisibility = React.lazy(() => import('@pages/ApplicationsVisibility'));
+const NewRevalidation = React.lazy(() => import('@pages/NewRevalidation'));
+const NewRevalidationDetail = React.lazy(() => import('@pages/NewRevalidationDetail'));
+const RevalidationsOngoing = React.lazy(() => import('@pages/RevalidationsOngoing'));
+const CampaignDetail = React.lazy(() => import('@pages/CampaignDetail'));
 
 const AuthenticatedRoutes = () => {
 	const {
@@ -82,6 +86,17 @@ const AuthenticatedRoutes = () => {
 									}
 								/>
 							</Route>
+
+							<Route path='new-revalidation'>
+								<Route index element={<NewRevalidation />} />
+								<Route path=':campaignId' element={<NewRevalidationDetail />} />
+							</Route>
+
+							<Route path='revalidations-ongoing'>
+								<Route index element={<RevalidationsOngoing />} />
+							</Route>
+							<Route path='campaign-name' element={<CampaignDetail />} />
+
 							<Route path='admin'>
 								<Route
 									index

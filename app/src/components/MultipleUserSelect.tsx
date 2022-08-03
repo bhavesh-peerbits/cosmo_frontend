@@ -15,6 +15,7 @@ import {
 import useGetUsers from '@api/user/useGetUsers';
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
+import { TooltipPosition } from '@carbon/react/typings/shared';
 
 type MultipleUserSelectProps<
 	T extends FieldValues,
@@ -29,6 +30,7 @@ type MultipleUserSelectProps<
 			helperText?: string;
 			readOnly?: boolean;
 			defaultValue?: User[];
+			tooltipPosition?: TooltipPosition;
 	  }
 	: never;
 
@@ -40,7 +42,8 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 	level = 1,
 	helperText,
 	readOnly,
-	defaultValue
+	defaultValue,
+	tooltipPosition
 }: MultipleUserSelectProps<T, TName>) => {
 	const { t } = useTranslation('userSelect');
 	const [openSearch, setOpenSearch] = useState(false);
@@ -92,6 +95,7 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 											renderIcon={() => <UserFollow size={20} />}
 											size='sm'
 											hasIconOnly
+											tooltipPosition={tooltipPosition || undefined}
 											iconDescription={t('add-user')}
 											onClick={() => setOpenSearch(true)}
 										/>
