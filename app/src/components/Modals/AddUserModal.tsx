@@ -35,7 +35,7 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 	const { t } = useTranslation('modals');
 	const { t: tHome } = useTranslation('home');
 	const { t: tUser } = useTranslation('userAdmin');
-	const existingUsername = users.map(user => user.username);
+	const existingUsername = users.map(user => user.username.toLowerCase());
 	const existingEmail = users.map(user => user.email?.toLocaleLowerCase());
 	const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
 	const { mutate, isError, error } = useAddUser();
