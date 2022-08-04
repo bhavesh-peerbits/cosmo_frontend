@@ -44,13 +44,10 @@ const UsersTable = () => {
 	const { t: tTable } = useTranslation('table');
 	const { users, filters, setFilters } = useRoleAssignmentUsers();
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [userSelected, setUserSelected] = useState<string[]>([]);
+	const [userSelectedId, setUserSelectedId] = useState<string>();
 	const [actionSelected, setActionSelected] = useState('');
 	const { data } = useGetUsers();
-	const emailIndex = userSelected.indexOf(
-		userSelected.filter(attribute => attribute.includes('@')).toString()
-	);
-	const user = data?.filter(u => u.email === userSelected[emailIndex]).flat()[0];
+	const user = data?.filter(u => u.id === userSelectedId).flat()[0];
 
 	const modalToOpen = () => {
 		switch (actionSelected) {
@@ -125,7 +122,7 @@ const UsersTable = () => {
 						user={user}
 					/>
 				}
-				setRowSelected={setUserSelected}
+				setRowSelected={setUserSelectedId}
 				isGroupable
 			/>
 		</>

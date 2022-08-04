@@ -8,7 +8,7 @@ type SelectUserApplicationProps = {
 	appSelectedId: string;
 	setIsSelectOpen: (val: boolean) => void;
 	isSelectOpen: boolean;
-	setAppSelected: (val: []) => void;
+	setAppSelected: (val: string) => void;
 	analystUsers: User[];
 };
 const SelectUserApplication = ({
@@ -41,7 +41,7 @@ const SelectUserApplication = ({
 				{
 					onSuccess: () => {
 						cleanUp();
-						setAppSelected([]);
+						setAppSelected('');
 					}
 				}
 			);

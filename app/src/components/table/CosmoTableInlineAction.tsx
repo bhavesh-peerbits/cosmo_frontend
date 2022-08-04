@@ -53,7 +53,7 @@ interface TableInlineActionProps<D extends object> {
 	}) => string;
 	disableExport?: boolean;
 	inlineAction: ReactNode;
-	setRowSelected: (val: string[]) => void;
+	setRowSelected: (val: string) => void;
 	isGroupable?: boolean;
 }
 
@@ -140,15 +140,7 @@ const CosmoTableInlineAction = <D extends object>({
 						))}
 						<TableCell
 							onClickCapture={() =>
-								setRowSelected(
-									row
-										.getVisibleCells()
-										.map(cell =>
-											cell.getValue() !== undefined
-												? (cell.getValue() as string).toString()
-												: ''
-										)
-								)
+								row.original && setRowSelected(Object.values(row.original)[0] as string)
 							}
 						>
 							{inlineAction}

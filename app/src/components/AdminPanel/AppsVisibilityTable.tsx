@@ -42,7 +42,7 @@ const AppsVisibilityTable = ({ apps, filters, setFilters }: AppsTableProps) => {
 	const { t } = useTranslation('management');
 	const { t: tTable } = useTranslation('table');
 	const [isSelectOpen, setIsSelectOpen] = useState(false);
-	const [appSelected, setAppSelected] = useState<string[]>([]);
+	const [appSelectedId, setAppSelectedId] = useState<string>();
 	const { data: analystUsers = [] } = useGetAllAnalystUsers();
 
 	const columns: HeaderFunction<Application> = useCallback(
@@ -80,12 +80,12 @@ const AppsVisibilityTable = ({ apps, filters, setFilters }: AppsTableProps) => {
 
 	return (
 		<>
-			{appSelected.length > 0 ? (
+			{appSelectedId ? (
 				<SelectUserApplication
-					appSelectedId={apps.filter(app => app.name === appSelected[0])[0].id}
+					appSelectedId={appSelectedId}
 					setIsSelectOpen={setIsSelectOpen}
 					isSelectOpen={isSelectOpen}
-					setAppSelected={setAppSelected}
+					setAppSelected={setAppSelectedId}
 					analystUsers={analystUsers}
 				/>
 			) : null}
@@ -99,7 +99,7 @@ const AppsVisibilityTable = ({ apps, filters, setFilters }: AppsTableProps) => {
 					all ? 'applications-all' : 'applications-selection'
 				}
 				inlineAction={<ActionsCell setIsSelectOpen={setIsSelectOpen} />}
-				setRowSelected={setAppSelected}
+				setRowSelected={setAppSelectedId}
 			/>
 		</>
 	);
