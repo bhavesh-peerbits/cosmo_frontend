@@ -1,4 +1,3 @@
-/* eslint-disable cypress/no-unnecessary-waiting */
 /* eslint-disable cypress/require-data-selectors */
 /* eslint-disable cypress/no-force */
 describe('Role Assignment', () => {
@@ -6,10 +5,10 @@ describe('Role Assignment', () => {
 		cy.viewport('macbook-13');
 	});
 
-	const name = 'Name';
-	const surname = 'Surname';
-	const email = 'email@email.com';
-	const username = 'Username';
+	const name = 'prova';
+	const surname = 'prova';
+	const email = 'prova@email.com';
+	const username = 'prova';
 
 	it('Should render the role assignment page correctly', () => {
 		cy.visit('/');
@@ -28,12 +27,6 @@ describe('Role Assignment', () => {
 		cy.findAllByTitle('Close').click();
 		cy.get('#user-name').should('not.be.visible');
 	});
-
-	//  it(('Should order users name correctly'), () => {
-	//   // Get Header for 'Name'
-	//   cy.get('thead>tr').eq(0).get('tr>th').eq(1)
-	//     .click().children().should('have.text', 'order')
-	// }) // TODO fix
 
 	//  it('Should create new user correctly', () => {
 	//   if(cy.get("tbody").contains(email)){
@@ -76,7 +69,7 @@ describe('Role Assignment', () => {
 		cy.get('#Reviewer').uncheck({ force: true });
 	});
 
-	it('Should set user status correctly', () => {
+	it('Should active user correctly', () => {
 		// Get status of user
 		cy.get('tbody')
 			.contains(email)
@@ -93,51 +86,34 @@ describe('Role Assignment', () => {
 					// Click to open Actions
 					.eq(6)
 					.click()
-					.then(() =>
-						status === 'Active'
-							? // Open modal to block user
-							  cy
-									.contains('Block user')
-									.click()
-									.then(() =>
-										cy
-											.get('button[type=button]')
-											.contains('Block')
-											.click({ force: true })
-											// Check if user is blocked in data table
-											.then(() =>
-												cy
-													.wait(500)
-													.get('tbody')
-													.contains(email)
-													.closest('tr')
-													.find('td')
-													.eq(5)
-													.contains('Blocked')
-											)
-									)
-							: // Open modal to unblock user
-							  cy
-									.contains('Unblock user')
-									.click()
-									.then(() =>
-										cy
-											.get('button[type=button]')
-											.contains('Unblock')
-											.click({ force: true })
-											// Check if user is active in data table
-											.then(() =>
-												cy
-													.wait(500)
-													.get('tbody')
-													.contains(email)
-													.closest('tr')
-													.find('td')
-													.eq(5)
-													.contains('Active')
-											)
-									)
-					);
+					.then(() => {
+						if (status !== 'Active') {
+							// Open modal to unblock user
+							cy.contains('Unblock user')
+								.click()
+								.then(() =>
+									cy
+										.get('button[type=button]')
+										.contains('Unblock')
+										.click({ force: true })
+										.intercept('GET', 'https://172.17.0.46:3000/api/users')
+										.as('useGetUsers')
+										// Check if user is active in data table
+										.then(() =>
+											cy
+												.wait('@useGetUsers')
+												.its('response.statusCode')
+												.should('equal', 200)
+												.get('tbody')
+												.contains(email)
+												.closest('tr')
+												.find('td')
+												.eq(5)
+												.contains('Active')
+										)
+								);
+						}
+					});
 			});
 	});
 
@@ -175,8 +151,12 @@ describe('Role Assignment', () => {
 															.get('button[type=button]')
 															.contains('Edit')
 															.click({ force: true })
+															.intercept('GET', 'https://172.17.0.46:3000/api/users')
+															.as('useGetUsers')
 													);
-												cy.wait(500);
+												cy.wait('@useGetUsers')
+													.its('response.statusCode')
+													.should('equal', 200);
 												// Check if user doesn't have 'System Admin' role in the table
 												cy.get('tbody')
 													.findAllByText(email)
@@ -192,8 +172,12 @@ describe('Role Assignment', () => {
 															.get('button[type=button]')
 															.contains('Edit')
 															.click({ force: true })
+															.intercept('GET', 'https://172.17.0.46:3000/api/users')
+															.as('useGetUsers')
 													);
-												cy.wait(500);
+												cy.wait('@useGetUsers')
+													.its('response.statusCode')
+													.should('equal', 200);
 												// Check if user has 'System Admin' role in the table
 												cy.get('tbody')
 													.findAllByText(email)
@@ -212,6 +196,54 @@ describe('Role Assignment', () => {
 						.click()
 						.then(() => cy.contains('Edit').should('be.disabled'));
 				}
+			});
+	});
+
+	it('Should block user correctly', () => {
+		// Get status of user
+		cy.get('tbody')
+			.contains(email)
+			.closest('tr')
+			.find('td')
+			.eq(5)
+			.invoke('text')
+			.then(s => {
+				const status = s;
+				cy.get('tbody')
+					.contains(email)
+					.closest('tr')
+					.find('td')
+					// Click to open Actions
+					.eq(6)
+					.click()
+					.then(() => {
+						if (status === 'Active') {
+							// Open modal to block user
+							cy.contains('Block user')
+								.click()
+								.then(() =>
+									cy
+										.get('button[type=button]')
+										.contains('Block')
+										.click({ force: true })
+										.intercept('GET', 'https://172.17.0.46:3000/api/users')
+										.as('useGetUsers')
+										// Check if user is blocked in data table
+										.then(() =>
+											cy
+												.wait('@useGetUsers')
+												.its('response.statusCode')
+												.should('equal', 200)
+												.get('tbody')
+												.contains(email)
+												.closest('tr')
+												.find('td')
+												.eq(5)
+												.contains('Blocked')
+										)
+								);
+						}
+					});
 			});
 	});
 });
