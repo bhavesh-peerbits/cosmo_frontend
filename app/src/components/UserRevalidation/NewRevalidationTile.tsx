@@ -1,14 +1,10 @@
 import { Layer, ClickableTile } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import Campaign from '@model/Campaign';
 
 type NewRevalidationTileProps = {
-	revalidation: {
-		id: string;
-		name: string;
-		type?: string;
-		layer?: string;
-	};
+	revalidation: Campaign;
 };
 const NewRevalidationTile = ({ revalidation }: NewRevalidationTileProps) => {
 	const { t } = useTranslation('userRevalidation');
@@ -28,7 +24,12 @@ const NewRevalidationTile = ({ revalidation }: NewRevalidationTileProps) => {
 							{t('layer')}:
 							<p className='text-text-primary text-label-2'>{revalidation.layer}</p>
 						</div>
-						<div>N {tModals('applications')}</div>
+						<div>
+							N {tModals('applications')}:
+							<p className='text-text-primary text-label-2'>
+								{revalidation.applicationsCount}
+							</p>
+						</div>
 					</div>
 				</div>
 			</ClickableTile>

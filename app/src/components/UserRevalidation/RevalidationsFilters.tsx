@@ -1,11 +1,17 @@
-import { Accordion, AccordionItem, Checkbox } from '@carbon/react';
+import {
+	Accordion,
+	AccordionItem,
+	Checkbox,
+	RadioButton,
+	RadioButtonGroup
+} from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import useResponsive from '@hooks/useResponsive';
 import useRevalidations from '@hooks/user-revalidation/useRevalidations';
 
 const RevalidationsFilters = () => {
 	const { t } = useTranslation('userRevalidation');
-	const { filtersAvailable, setFilters } = useRevalidations();
+	const { filtersAvailable, setFilters, filters } = useRevalidations();
 	const { md } = useResponsive();
 
 	const handleCheckFilterType = (filter: string, action: 'add' | 'remove') => {
@@ -32,7 +38,7 @@ const RevalidationsFilters = () => {
 					{filtersAvailable.type.map(filter => (
 						<Checkbox
 							key={filter.type}
-							checked={filter.enabled}
+							checked={filter.enabled ?? false}
 							onChange={(_, { checked, id }) =>
 								handleCheckFilterType(id, checked ? 'add' : 'remove')
 							}
@@ -45,7 +51,7 @@ const RevalidationsFilters = () => {
 					{filtersAvailable.layer.map(filter => (
 						<Checkbox
 							key={filter.layer}
-							checked={filter.enabled}
+							checked={filter.enabled ?? false}
 							onChange={(_, { checked, id }) =>
 								handleCheckFilterLayer(id, checked ? 'add' : 'remove')
 							}
@@ -53,6 +59,24 @@ const RevalidationsFilters = () => {
 							labelText={filter.layer}
 						/>
 					))}
+				</AccordionItem>
+				<AccordionItem title={t('layer')} className='border-0' open={md}>
+					<RadioButtonGroup
+						name='application'
+						orientation='vertical'
+						valueSelected={filters.application || ''}
+						onChange={(value, group) => setFilters({ [group]: value || undefined })}
+					>
+						<RadioButton labelText={t('all')} value='' id='applications-all' />
+						{filtersAvailable.application.map(filter => (
+							<RadioButton
+								key={filter.appType}
+								labelText={t(filter.appType)}
+								value={filter.appType}
+								id={`applications-${filter.appType}`}
+							/>
+						))}
+					</RadioButtonGroup>
 				</AccordionItem>
 			</Accordion>
 		</div>

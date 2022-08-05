@@ -5,6 +5,7 @@ import {
 	ApplicationControllerApi,
 	ApplicationDto,
 	AuthControllerApi,
+	CampaignDto,
 	Configuration,
 	GenerateReportControllerApi,
 	IdentityProviderDto,
@@ -13,6 +14,7 @@ import {
 	ProcedureControllerApi,
 	ProcedureDto,
 	RealmControllerApi,
+	ReviewerCampaignControllerApi,
 	ReviewerControllerApi,
 	UserControllerApi,
 	UserDto
@@ -29,7 +31,8 @@ export default function configureApi(config: Configuration) {
 		reviewerApi: new ReviewerControllerApi(config),
 		generateReportApi: new GenerateReportControllerApi(config),
 		authApi: new AuthControllerApi(config),
-		realmApi: new RealmControllerApi(config)
+		realmApi: new RealmControllerApi(config),
+		revalidationApi: new ReviewerCampaignControllerApi(config)
 	};
 }
 export type ApplicationApi = ApplicationDto;
@@ -39,3 +42,4 @@ export type ProcedureAppInstanceApi = ProcedureAppInstanceDto;
 export type ApplicationAuditApi = ApplicationAuditDto;
 export type ApplicationAuditActionTypeApi = ApplicationAuditDtoAuditActionTypesEnum;
 export type IdentityProviderApi = IdentityProviderDto;
+export type CampaignApi = CampaignDto;

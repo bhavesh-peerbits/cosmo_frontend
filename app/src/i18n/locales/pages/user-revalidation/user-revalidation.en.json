@@ -34,5 +34,8 @@
 	"close-campaign": "Close campaign",
 	"confirm-close": "Are you sure you want to close {{campaign}}?",
 	"close": "Close",
-	"confirm-delete-upload": "Are you sure you want to delete the upload of {{application}}?"
+	"confirm-delete-upload": "Are you sure you want to delete the upload of {{application}}?",
+  "all": "All",
+  "multi": "Multi Applications",
+  "single": "Single Application"
 }
