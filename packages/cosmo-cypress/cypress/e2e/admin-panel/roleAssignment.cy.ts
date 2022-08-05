@@ -65,6 +65,12 @@ describe('Role Assignment', () => {
 	});
 
 	it('Should apply filters on users correctly', () => {
+		cy.contains('Items per page')
+			.parent()
+			.children()
+			.eq(1)
+			.find('.cds--select-input')
+			.select('50');
 		cy.get('#Reviewer').check({ force: true });
 		cy.get('#Admin').should('not.exist');
 		cy.get('#Reviewer').uncheck({ force: true });

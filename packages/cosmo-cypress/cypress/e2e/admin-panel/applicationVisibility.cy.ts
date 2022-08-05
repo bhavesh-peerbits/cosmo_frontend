@@ -1,5 +1,6 @@
-/* eslint-disable cypress/no-force */
+/* eslint-disable cypress/no-unnecessary-waiting */
 /* eslint-disable cypress/require-data-selectors */
+/* eslint-disable cypress/no-force */
 describe('Application Visibility', () => {
 	beforeEach(() => {
 		cy.viewport('macbook-13');
@@ -41,11 +42,6 @@ describe('Application Visibility', () => {
 	});
 
 	it('Should assign a user to an application correctly', () => {
-		cy.intercept('GET', 'https://172.17.0.46:3000/api/applications').as(
-			'useGetApplications'
-		);
-		cy.wait('@useGetApplications').its('response.statusCode').should('equal', 200);
-		// eslint-disable-next-line cypress/no-unnecessary-waiting
 		cy.get('tbody')
 			.find('tr')
 			.first()
