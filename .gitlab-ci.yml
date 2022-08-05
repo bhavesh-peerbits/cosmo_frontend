@@ -90,6 +90,7 @@ test:
     policy: pull
   artifacts:
     expire_in: 1 hour
+    when: on_failure
     paths:
       - packages/cosmo-cypress/cypress/screenshots/
       - packages/cosmo-cypress/cypress/videos/
