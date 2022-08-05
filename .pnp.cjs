@@ -17831,6 +17831,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@testing-library/cypress", "virtual:f371ff9a8d510b5d57fb31bc6335d4cbd4125aea3aa923dde69d15ea0d0e03b5a9207fe6c0005f6598d4c88e02e770cbb161cd185b538f5879d2ee60de04a598#npm:8.0.3"],\
             ["cypress", "npm:10.0.3"],\
             ["eslint-plugin-cypress", "virtual:f371ff9a8d510b5d57fb31bc6335d4cbd4125aea3aa923dde69d15ea0d0e03b5a9207fe6c0005f6598d4c88e02e770cbb161cd185b538f5879d2ee60de04a598#npm:2.12.1"],\
+            ["node-static", "npm:0.7.11"],\
             ["start-server-and-test", "npm:1.14.0"],\
             ["typescript", "patch:typescript@npm%3A4.6.4#~builtin<compat/typescript>::version=4.6.4&hash=bda367"]\
           ],\
@@ -26785,6 +26786,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["minimist", [\
+        ["npm:0.0.10", {\
+          "packageLocation": "./.yarn/cache/minimist-npm-0.0.10-df9c22163e-f7b2cb17af.zip/node_modules/minimist/",\
+          "packageDependencies": [\
+            ["minimist", "npm:0.0.10"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:1.2.6", {\
           "packageLocation": "./.yarn/cache/minimist-npm-1.2.6-f4cee4b4af-d15428cd1e.zip/node_modules/minimist/",\
           "packageDependencies": [\
@@ -27276,6 +27284,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["node-static", [\
+        ["npm:0.7.11", {\
+          "packageLocation": "./.yarn/cache/node-static-npm-0.7.11-dc4512af59-73c0163595.zip/node_modules/node-static/",\
+          "packageDependencies": [\
+            ["node-static", "npm:0.7.11"],\
+            ["colors", "npm:1.4.0"],\
+            ["mime", "npm:1.6.0"],\
+            ["optimist", "npm:0.6.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["nopt", [\
         ["npm:5.0.0", {\
           "packageLocation": "./.yarn/cache/nopt-npm-5.0.0-304b40fbfe-d35fdec187.zip/node_modules/nopt/",\
@@ -27707,6 +27727,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/opener-npm-1.5.2-7a1aa69f14-33b620c0d5.zip/node_modules/opener/",\
           "packageDependencies": [\
             ["opener", "npm:1.5.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["optimist", [\
+        ["npm:0.6.1", {\
+          "packageLocation": "./.yarn/cache/optimist-npm-0.6.1-b1b5ef4c06-191ab2b119.zip/node_modules/optimist/",\
+          "packageDependencies": [\
+            ["optimist", "npm:0.6.1"],\
+            ["minimist", "npm:0.0.10"],\
+            ["wordwrap", "npm:0.0.3"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -35653,6 +35684,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["wordwrap", [\
+        ["npm:0.0.3", {\
+          "packageLocation": "./.yarn/cache/wordwrap-npm-0.0.3-ab90803074-dfc2d3512e.zip/node_modules/wordwrap/",\
+          "packageDependencies": [\
+            ["wordwrap", "npm:0.0.3"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:1.0.0", {\
           "packageLocation": "./.yarn/cache/wordwrap-npm-1.0.0-ae57a645e8-2a44b27881.zip/node_modules/wordwrap/",\
           "packageDependencies": [\
