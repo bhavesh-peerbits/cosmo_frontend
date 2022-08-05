@@ -225,14 +225,11 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 					label: onSubmitButtonText,
 					kind: 'primary' as const,
 					onClick: submitHandler,
-					disabled: multi
-						? multiSelection.length === 0 && selectedItems.entries.length === 0
-						: !singleSelection
+					disabled: multi ? multiSelection.length === 0 : !singleSelection
 				}
 			],
 			portalTarget
 		};
-
 		const sidebarProps = {
 			influencerTitle,
 			influencerItemTitle,
@@ -312,7 +309,7 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 					<div>
 						{itemsToDisplay.length > 0 ? (
 							<AddSelectList
-								index={0}
+								index={-1}
 								shrink={false}
 								{...commonListProps}
 								filteredItems={itemsToDisplay as ItemNoChildren[]}
