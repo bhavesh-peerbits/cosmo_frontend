@@ -35,7 +35,7 @@
 	"confirm-close": "Êtes-vous sûr de vouloir fermer {{campaign}}?",
 	"close": "Fermer",
 	"confirm-delete-upload": "Êtes-vous sûr de vouloir supprimer le téléchargement de {{application}}?",
-  "all": "Tout",
-  "multi": "Multi Application",
-  "single": "Single Application"
+	"all": "Tout",
+	"multi": "Multi Application",
+	"single": "Single Application"
 }
