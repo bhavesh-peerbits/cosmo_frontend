@@ -88,6 +88,11 @@ test:
     paths:
       - .yarn
     policy: pull
+  artifacts:
+    expire_in: 1 hour
+    paths:
+      - packages/cosmo-cypress/cypress/screenshots/
+      - packages/cosmo-cypress/cypress/videos/
 
 tag:
   image: aramis-nexus.aizoon.it:5000/esra/docker:20.10.8
