@@ -1,3 +1,4 @@
+/* eslint-disable cypress/no-unnecessary-waiting */
 /* eslint-disable cypress/require-data-selectors */
 /* eslint-disable cypress/no-force */
 describe('Role Assignment', () => {
