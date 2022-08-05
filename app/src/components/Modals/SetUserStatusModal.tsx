@@ -61,7 +61,7 @@ const SetUserStatusModal = ({ isOpen, setIsOpen, user }: SetUserStatusModalProps
 	return (
 		<ComposedModal size='sm' open={isOpen} onClose={cleanUp}>
 			<ModalHeader
-				title={`${t(user?.inactive ? 'unblock' : 'block')} ${t('user')}`}
+				title={`${t(user?.inactive ? 'unblock' : 'block')} ${t('user').toLowerCase()}`}
 				closeModal={cleanUp}
 			/>
 			<ModalBody>
