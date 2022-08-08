@@ -79,6 +79,9 @@ test:
   stage: test ✅
   variables:
     NODE_ENV: 'CI'
+    http_proxy: http://srvprx01.aizoon.it:3128
+    https_proxy: http://srvprx01.aizoon.it:3128
+    no_proxy: localhost,127.0.0.1,*.aizoon.it
   before_script:
     - YARN_CHECKSUM_BEHAVIOR=update yarn install
   script:
