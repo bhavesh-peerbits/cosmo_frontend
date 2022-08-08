@@ -79,12 +79,13 @@ test:
   stage: test ✅
   variables:
     NODE_ENV: 'CI'
-    http_proxy: http://srvprx01.aizoon.it:3128
-    https_proxy: http://srvprx01.aizoon.it:3128
-    no_proxy: localhost,127.0.0.1,*.aizoon.it
   before_script:
+    - export HTTP_PROXY="http://srvprx01.aizoon.it:3128"
+    - export HTTPS_PROXY="http://srvprx01.aizoon.it:3128"
+    - export NO_PROXY="localhost,127.0.0.1,*.aizoon.it"
     - YARN_CHECKSUM_BEHAVIOR=update yarn install
   script:
+    - env | grep PROXY
     - yarn test
   cache:
     key: frontend-cache
