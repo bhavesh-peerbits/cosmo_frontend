@@ -217,6 +217,7 @@ describe('Role Assignment', () => {
 												cy.wait('@useGetUsers')
 													.its('response.statusCode')
 													.should('equal', 200);
+												cy.wait(5000);
 												// Check if user has 'System Admin' role in the table
 												cy.get('tbody')
 													.findAllByText(email)
