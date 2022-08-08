@@ -1,18 +1,29 @@
 import { useTranslation } from 'react-i18next';
 import { Button, TableToolbarSearch } from '@carbon/react';
 import { HeaderFunction } from '@components/table/CosmoTable';
-import { useCallback, useState } from 'react';
+import { SetStateAction, useCallback, useState } from 'react';
 import CosmoTableInlineAction from '@components/table/CosmoTableInlineAction';
 import Application from '@model/Application';
 import { UserFollow } from '@carbon/react/icons';
-import useVisibilityApps from '@hooks/admin-panel/useVisibilityApps';
-import MultiAddSelect from '@components/MultiAddSelect';
-import useGetUsers from '@api/user/useGetUsers';
-import User from '@model/User';
+import useGetAllAnalystUsers from '@api/user-admin/useGetAllAnalystUsers';
+import SelectUserApplication from './SelectUserApplication';
 
 type ActionCellProps = {
 	setIsSelectOpen: (val: boolean) => void;
 };
+
+type AppsTableProps = {
+	apps: Application[];
+	filters: { query: string | undefined };
+	setFilters: (
+		s: SetStateAction<
+			Partial<{
+				q: string | undefined;
+			}>
+		>
+	) => void;
+};
+
 const ActionsCell = ({ setIsSelectOpen }: ActionCellProps) => {
 	const { t } = useTranslation('userSelect');
 	return (
@@ -27,16 +38,12 @@ const ActionsCell = ({ setIsSelectOpen }: ActionCellProps) => {
 	);
 };
 
-const AppsVisibilityTable = () => {
+const AppsVisibilityTable = ({ apps, filters, setFilters }: AppsTableProps) => {
 	const { t } = useTranslation('management');
-	const { t: tSelect } = useTranslation('userSelect');
 	const { t: tTable } = useTranslation('table');
-	const { t: tProc } = useTranslation('procedureInfo');
 	const [isSelectOpen, setIsSelectOpen] = useState(false);
-	const [, setUserSelected] = useState<string[]>([]);
-	const { apps, filters, setFilters } = useVisibilityApps();
-	const { data: users = [] } = useGetUsers();
-	const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
+	const [appSelectedId, setAppSelectedId] = useState<string>();
+	const { data: analystUsers = [] } = useGetAllAnalystUsers();
 
 	const columns: HeaderFunction<Application> = useCallback(
 		table => [
@@ -49,7 +56,7 @@ const AppsVisibilityTable = () => {
 				id: 'code',
 				header: t('code')
 			}),
-			table.createDataColumn(row => row.owner, {
+			table.createDataColumn(row => row.createdBy, {
 				id: 'created-by',
 				header: t('created-by'),
 				cell: info => info.getValue()?.displayName || '-',
@@ -73,61 +80,15 @@ const AppsVisibilityTable = () => {
 
 	return (
 		<>
-			<MultiAddSelect
-				items={{
-					entries: users.map(u => ({
-						id: u.id,
-						title: u.displayName,
-						tagInfo: u.principalRole,
-						subtitle: u.email || tSelect('no-email'),
-						role: u.principalRole,
-						avatar: {
-							imageDescription: u.username,
-							initials: u.displayName
-						}
-					}))
-				}}
-				title={tSelect('select-user')}
-				description={tSelect('select-users')}
-				open={isSelectOpen}
-				onSubmitButtonText={tProc('save')}
-				onSubmit={id => {
-					setSelectedUsers(users.filter(user => id.includes(user.id)));
-					setIsSelectOpen(false);
-				}}
-				onCloseButtonText={t('cancel')}
-				onClose={() => setIsSelectOpen(false)}
-				globalSearchLabel={tSelect('username-email')}
-				globalSearchPlaceholder={tSelect('find-user')}
-				globalFilters={[
-					{
-						id: 'role',
-						label: tSelect('role')
-					}
-				]}
-				globalFiltersIconDescription={tSelect('filters')}
-				globalFiltersPlaceholderText={tSelect('choose-option')}
-				globalFiltersPrimaryButtonText={tSelect('apply')}
-				globalFiltersSecondaryButtonText={tSelect('reset')}
-				clearFiltersText={tSelect('clear-filters')}
-				influencerItemTitle={tSelect('name')}
-				influencerItemSubtitle='email'
-				noResultsTitle={tSelect('no-results')}
-				noResultsDescription={tSelect('different-keywords')}
-				selectedItems={{
-					entries: selectedUsers.map(u => ({
-						id: u.id,
-						title: u.displayName,
-						tagInfo: u.principalRole,
-						subtitle: u.email || tSelect('no-email'),
-						role: u.principalRole,
-						avatar: {
-							imageDescription: u.username,
-							initials: u.displayName
-						}
-					}))
-				}}
-			/>
+			{appSelectedId ? (
+				<SelectUserApplication
+					appSelectedId={appSelectedId}
+					setIsSelectOpen={setIsSelectOpen}
+					isSelectOpen={isSelectOpen}
+					setAppSelected={setAppSelectedId}
+					analystUsers={analystUsers}
+				/>
+			) : null}
 
 			<CosmoTableInlineAction
 				data={apps}
@@ -138,7 +99,7 @@ const AppsVisibilityTable = () => {
 					all ? 'applications-all' : 'applications-selection'
 				}
 				inlineAction={<ActionsCell setIsSelectOpen={setIsSelectOpen} />}
-				setRowSelected={setUserSelected}
+				setRowSelected={setAppSelectedId}
 			/>
 		</>
 	);

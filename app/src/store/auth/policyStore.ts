@@ -18,6 +18,9 @@ type Policies = {
 	canSeeNarrativeManagement: boolean;
 	canReviewNarrative: boolean;
 	canReview: boolean;
+	canAdmin: boolean;
+	canUserAdmin: boolean;
+	canNarrativeAdmin: boolean;
 };
 
 const policyStore = selector<Policies>({
@@ -44,6 +47,23 @@ const policyStore = selector<Policies>({
 						UserRoleEnum.Reviewer,
 						UserRoleEnum.ReviewerCollaborator
 					)
+			),
+			canAdmin: Boolean(
+				!hasNoRole &&
+					policies?.includesMulti(
+						UserRoleEnum.SysAdmin,
+						UserRoleEnum.UserAdmin,
+						UserRoleEnum.NarrativeAdmin,
+						UserRoleEnum.RevalidationAdmin
+					)
+			),
+			canUserAdmin: Boolean(
+				!hasNoRole &&
+					policies?.includesMulti(UserRoleEnum.SysAdmin, UserRoleEnum.UserAdmin)
+			),
+			canNarrativeAdmin: Boolean(
+				!hasNoRole &&
+					policies?.includesMulti(UserRoleEnum.SysAdmin, UserRoleEnum.NarrativeAdmin)
 			)
 		};
 	}

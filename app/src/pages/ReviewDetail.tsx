@@ -12,14 +12,17 @@ import routes from '@routes/routes-const';
 import useGetProcedureForReview from '@api/review/useGetProcedureForReview';
 import { useMemo, useEffect } from 'react';
 import useGetAppsInReview from '@api/review/useGetAppsInReview';
+import useGetProcedures from '@api/procedures/useGetProcedures';
+import { Procedure } from 'cosmo-api/src/v1';
 
 const ReviewDetail = () => {
 	const { t } = useTranslation('reviewNarrative');
 	const { appId = '' } = useParams<{ appId: string }>();
 	const { data: apps } = useGetAppsInReview();
-	const { data: procedures = new Map<string, ProcedureAppInstance>() } =
+	const { data: proceduresApp = new Map<string, ProcedureAppInstance>() } =
 		useGetProcedureForReview(appId);
-	const procedureList = useMemo(() => [...procedures.values()], [procedures]);
+	const procedureList = useMemo(() => [...proceduresApp.values()], [proceduresApp]);
+	const { data: procedures = new Map<string, Procedure>() } = useGetProcedures();
 	const { breadcrumbSize } = useBreadcrumbSize();
 	const data = apps?.get(appId);
 	const navigate = useNavigate();
@@ -84,7 +87,7 @@ const ReviewDetail = () => {
 															data-toc-id={`procedure-container-${procedure.id}`}
 															className='flex-1 text-productive-heading-3'
 														>
-															{procedure.name}
+															{(procedures.get(procedure.procedureId) as Procedure).name}
 														</p>
 														<div className='justify-end'>
 															<p className='text-text-secondary text-body-compact-1'>
