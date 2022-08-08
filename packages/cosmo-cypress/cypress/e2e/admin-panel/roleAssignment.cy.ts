@@ -1,9 +1,18 @@
 /* eslint-disable cypress/no-unnecessary-waiting */
 /* eslint-disable cypress/require-data-selectors */
 /* eslint-disable cypress/no-force */
+
 describe('Role Assignment', () => {
 	beforeEach(() => {
 		cy.viewport('macbook-13');
+		cy.login();
+		cy.visit('/admin/role-assignment');
+		cy.contains('Items per page')
+			.parent()
+			.children()
+			.eq(1)
+			.find('.cds--select-input')
+			.select('50');
 	});
 
 	const name = 'prova';
@@ -11,26 +20,14 @@ describe('Role Assignment', () => {
 	const email = 'prova@email.com';
 	const username = 'prova';
 
-	it('Should render the role assignment page correctly', () => {
-		cy.visit('/');
-		cy.contains('Admin').click();
-		cy.location('pathname').should('eq', `/admin`);
-		cy.contains('Role Assignment').click();
-		cy.location('pathname').should('eq', `/admin/role-assignment`);
-	});
-
-	it('Should open the Add User modal correctly', () => {
+	it('Should render the Add User modal correctly', () => {
 		cy.contains('Add').click({ force: true });
 		cy.get('#user-name').should('be.visible');
-	});
-
-	it('Should close the Add User modal correctly', () => {
 		cy.findAllByTitle('Close').click();
 		cy.get('#user-name').should('not.be.visible');
 	});
 
 	//  it('Should create new user correctly', () => {
-	//   if(cy.get("tbody").contains(email)){
 	//   cy.contains('Add').click({force: true})
 	//   .get('#user-name').type((name)).should('have.value',name)
 	//   .get('#user-surname').type(surname).should('have.value',surname)
@@ -39,7 +36,7 @@ describe('Role Assignment', () => {
 	//   .get('#USER_UNKNOWN').check({force: true})
 	//   .get('form').submit()
 	//   .get('#user-name')
-	//   .should('not.be.visible')}
+	//   .should('not.be.visible')
 	// })
 
 	it('Should not allow to enter existing username or email', () => {
@@ -65,15 +62,50 @@ describe('Role Assignment', () => {
 	});
 
 	it('Should apply filters on users correctly', () => {
-		cy.contains('Items per page')
+		cy.get('button[type=button]')
+			.get('.cds--accordion__heading')
 			.parent()
 			.children()
-			.eq(1)
-			.find('.cds--select-input')
-			.select('50');
-		cy.get('#Reviewer').check({ force: true });
-		cy.get('#Admin').should('not.exist');
-		cy.get('#Reviewer').uncheck({ force: true });
+			.eq(3)
+			.children()
+			.its('length')
+			.then(lenght => {
+				if (lenght > 1) {
+					cy.get('button[type=button]')
+						.get('.cds--accordion__heading')
+						.parent()
+						.children()
+						.eq(3)
+						.children()
+						.eq(0)
+						.children()
+						.eq(0)
+						.check({ force: true });
+					cy.get('button[type=button]')
+						.get('.cds--accordion__heading')
+						.parent()
+						.children()
+						.eq(3)
+						.children()
+						.eq(1)
+						.invoke('text')
+						.then(role =>
+							cy
+								.get('tbody')
+								.should('not.contain', role)
+								.get('button[type=button]')
+								.get('.cds--accordion__heading')
+								.parent()
+								.children()
+								.eq(3)
+								.children()
+								.eq(0)
+								.children()
+								.eq(0)
+								.uncheck({ force: true })
+						);
+				}
+			});
 	});
 
 	it('Should active user correctly', () => {

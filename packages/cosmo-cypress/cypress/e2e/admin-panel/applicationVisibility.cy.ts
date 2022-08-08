@@ -1,21 +1,28 @@
 /* eslint-disable cypress/no-unnecessary-waiting */
 /* eslint-disable cypress/require-data-selectors */
 /* eslint-disable cypress/no-force */
+
 describe('Application Visibility', () => {
 	beforeEach(() => {
 		cy.viewport('macbook-13');
-	});
-
-	it('Should render the application visibility page correctly', () => {
-		cy.visit('/');
-		cy.contains('Admin').click();
-		cy.location('pathname').should('eq', `/admin`);
-		cy.contains('Applications Visibility').click();
-		cy.location('pathname').should('eq', `/admin/applications-visibility`);
+		cy.login();
+		cy.visit('/admin/applications-visibility');
+		cy.contains('Items per page')
+			.parent()
+			.children()
+			.eq(1)
+			.find('.cds--select-input')
+			.select('50');
 	});
 
 	it('Should correctly search application by name', () => {
 		let totalApps = 0;
+		cy.contains('Items per page')
+			.parent()
+			.children()
+			.eq(1)
+			.find('.cds--select-input')
+			.select('50');
 		cy.get('tbody')
 			.find('tr')
 			.first()
@@ -42,67 +49,60 @@ describe('Application Visibility', () => {
 	});
 
 	it('Should assign a user to an application correctly', () => {
-		cy.get('tbody')
-			.find('tr')
-			.first()
-			.find('td')
-			.eq(3)
-			.click()
-			.wait(1000)
-			.then(() =>
-				cy
-					.get('.block>div>div>div>div>div>div')
-					.first()
-					.children()
-					.eq(1)
-					.children()
-					.eq(1)
-					.children()
-					.eq(1)
-					.invoke('text')
-					.then(text => {
-						const userEmail = text;
-						cy.get('.block>div>div>div>div>div>div>div>input')
-							.first()
-							.invoke('is', ':checked')
-							.then(checked => {
-								if (checked) {
-									// Uncheck
-									cy.get('.block>div>div>div>div>div>div>div>input')
-										.first()
-										.uncheck({ force: true })
-										.then(() => {
-											// Verify that the user is not present in the right panel
-											cy.get('.cds--accordion__item').should(
-												'not.include.text',
-												userEmail
-											);
-										});
-								} else {
-									// Check
-									cy.get('.block>div>div>div>div>div>div>div>input')
-										.first()
-										.check({ force: true })
-										.then(() => {
-											// Verify that the user is present in the right panel
-											cy.get('.cds--accordion__item').contains(userEmail);
-										});
-								}
-							});
-					})
-			);
-	});
+		const usersListModal = '.block>div>div>div>div>div>div';
+		const usersCheckbox = '.block>div>div>div>div>div>div>div>input';
 
-	it('Should submit application assignment correctly', () => {
-		cy.get('.cds--tag--gray')
+		cy.intercept('GET', 'https://172.17.0.46:3000/api/users/admin/applications/*').as(
+			'applicationUsers'
+		);
+		cy.get('tbody').find('tr').first().find('td').eq(3).find('button').click();
+		cy.wait('@applicationUsers').its('response.statusCode').should('equal', 200);
+		cy.get(usersListModal)
+			.first()
+			.children()
+			.eq(1)
+			.children()
+			.eq(1)
+			.children()
+			.eq(1)
 			.invoke('text')
-			.then(totalUsers => {
-				if (totalUsers === '0') {
-					cy.get('button[type=button]').contains('Save').should('be.disabled');
-					cy.get('button[type=button]').contains('Cancel').click({ force: true });
-				} else {
-					cy.get('button[type=button]').contains('Save').click({ force: true });
-				}
+			.then(text => {
+				const userEmail = text;
+				cy.get(usersCheckbox)
+					.first()
+					.invoke('is', ':checked')
+					.then(checked => {
+						if (checked) {
+							// Uncheck
+							cy.get(usersCheckbox)
+								.first()
+								.uncheck({ force: true })
+								.then(() => {
+									// Verify that the user is not present in the right panel
+									cy.get('.cds--accordion__item').should('not.include.text', userEmail);
+								});
+						} else {
+							// Check
+							cy.get(usersCheckbox)
+								.first()
+								.check({ force: true })
+								.then(() => {
+									// Verify that the user is present in the right panel
+									cy.get('.cds--accordion__item').contains(userEmail);
+								});
+						}
+					});
+				cy.get('.cds--tag--gray')
+					.invoke('text')
+					.then(totalUsers => {
+						if (totalUsers === '0') {
+							cy.get('button[type=button]').contains('Save').should('be.disabled');
+							cy.get('button[type=button]').contains('Cancel').click({ force: true });
+						} else {
+							cy.get('button[type=button]').contains('Save').click({ force: true });
+						}
+					});
+				cy.get('.block').should('not.be.visible');
 			});
 	});
 
