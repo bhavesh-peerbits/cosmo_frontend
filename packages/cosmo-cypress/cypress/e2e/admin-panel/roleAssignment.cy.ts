@@ -135,7 +135,7 @@ describe('Role Assignment', () => {
 										.get('button[type=button]')
 										.contains('Unblock')
 										.click({ force: true })
-										.intercept('GET', 'https://172.17.0.46:3000/api/users')
+										.intercept('GET', '/api/users')
 										.as('useGetUsers')
 										// Check if user is active in data table
 										.then(() =>
@@ -190,7 +190,7 @@ describe('Role Assignment', () => {
 															.get('button[type=button]')
 															.contains('Edit')
 															.click({ force: true })
-															.intercept('GET', 'https://172.17.0.46:3000/api/users')
+															.intercept('GET', '/api/users')
 															.as('useGetUsers')
 													);
 												cy.wait('@useGetUsers')
@@ -211,7 +211,7 @@ describe('Role Assignment', () => {
 															.get('button[type=button]')
 															.contains('Edit')
 															.click({ force: true })
-															.intercept('GET', 'https://172.17.0.46:3000/api/users')
+															.intercept('GET', '/api/users')
 															.as('useGetUsers')
 													);
 												cy.wait('@useGetUsers')
@@ -265,7 +265,7 @@ describe('Role Assignment', () => {
 										.get('button[type=button]')
 										.contains('Block')
 										.click({ force: true })
-										.intercept('GET', 'https://172.17.0.46:3000/api/users')
+										.intercept('GET', '/api/users')
 										.as('useGetUsers')
 										// Check if user is blocked in data table
 										.then(() =>

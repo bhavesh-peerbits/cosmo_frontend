@@ -52,9 +52,7 @@ describe('Application Visibility', () => {
 		const usersListModal = '.block>div>div>div>div>div>div';
 		const usersCheckbox = '.block>div>div>div>div>div>div>div>input';
 
-		cy.intercept('GET', 'https://172.17.0.46:3000/api/users/admin/applications/*').as(
-			'applicationUsers'
-		);
+		cy.intercept('GET', '/api/users/admin/applications/*').as('applicationUsers');
 		cy.get('tbody').find('tr').first().find('td').eq(3).find('button').click();
 		cy.wait('@applicationUsers').its('response.statusCode').should('equal', 200);
 		cy.get(usersListModal)
