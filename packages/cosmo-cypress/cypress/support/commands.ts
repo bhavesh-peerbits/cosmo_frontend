@@ -17,7 +17,7 @@ Cypress.Commands.add('login', () => {
 		body.append('tenant', 'cosmo');
 		cy.request({
 			method: 'POST',
-			url: 'https://172.17.0.46:3000/api/public/login',
+			url: 'https://172.17.0.46/api/public/login',
 			body,
 			headers: {
 				'content-type': 'multipart/form-data'
