@@ -18,7 +18,7 @@ http
 		if (req.url.startsWith('/api') || req.url.startsWith('/realms')) {
 			const options = {
 				host: '172.17.0.46',
-				port: 3000,
+				port: 443,
 				path: req.url,
 				method: req.method,
 				headers: req.headers,
