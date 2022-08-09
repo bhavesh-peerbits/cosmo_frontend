@@ -1,7 +1,10 @@
 import PageHeader from '@components/PageHeader';
 import { Add } from '@carbon/react/icons';
+import CreateProcedureModal from '@components/Modals/CreateProcedureModal';
+import { useState } from 'react';
 
 const Procedures = () => {
+	const [isNewProcModalOpen, setIsNewProcModalOpen] = useState(false);
 	return (
 		<PageHeader
 			pageTitle='Procedures'
@@ -10,11 +13,19 @@ const Procedures = () => {
 				{
 					name: 'New Procedure',
 					icon: Add,
-					onClick: () => {}
+					onClick: () => {
+						setIsNewProcModalOpen(true);
+					}
 				}
 			]}
 		>
-			<div>Contenuto</div>
+			<div>
+				Contenuto
+				<CreateProcedureModal
+					isOpen={isNewProcModalOpen}
+					setIsOpen={setIsNewProcModalOpen}
+				/>
+			</div>
 		</PageHeader>
 	);
 };
