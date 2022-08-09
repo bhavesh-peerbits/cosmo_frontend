@@ -25,7 +25,7 @@ type CreateProcedureModalProps = {
 	setIsOpen: (val: boolean) => void;
 };
 const CreateProcedureModal = ({ isOpen, setIsOpen }: CreateProcedureModalProps) => {
-	const { t } = useTranslation('modals');
+	const { t } = useTranslation(['modals', 'narrativeAdmin']);
 
 	const {
 		control,
@@ -55,29 +55,34 @@ const CreateProcedureModal = ({ isOpen, setIsOpen }: CreateProcedureModalProps) 
 
 	return (
 		<ComposedModal open={isOpen} onClose={cleanUp} preventCloseOnClickOutside>
-			<ModalHeader title='New Procedure' closeModal={cleanUp} />
+			<ModalHeader title={t('narrativeAdmin:create-procedure')} closeModal={cleanUp} />
 			<ModalBody>
 				<Form>
 					<Grid className='space-y-5'>
 						<FullWidthColumn>
 							<TextInput
 								id='procedure-name'
-								labelText='Procedure Name *'
+								labelText={`${t('narrativeAdmin:procedure-name')} *`}
 								invalid={Boolean(errors.name)}
 								invalidText={errors.name?.message}
 								{...register('name', {
 									required: {
 										value: true,
-										message: 'Required'
+										message: t('modals:field-required')
 									}
 								})}
 							/>
 						</FullWidthColumn>
 						<FullWidthColumn>
-							<TextInput id='control-objectives' labelText='Control Objectives' />
+							<TextInput
+								id='control-objectives'
+								labelText={t('narrativeAdmin:control-objectives')}
+							/>
 						</FullWidthColumn>
 						<FullWidthColumn>
-							<p className='mb-3 text-text-secondary text-label-1'>Description</p>
+							<p className='mb-3 text-text-secondary text-label-1'>
+								{t('modals:description')}
+							</p>
 							<Layer className='bg-background'>
 								<TiptapEditor
 									content={descriptionValue}
@@ -92,10 +97,10 @@ const CreateProcedureModal = ({ isOpen, setIsOpen }: CreateProcedureModalProps) 
 			</ModalBody>
 			<ModalFooter>
 				<Button kind='secondary' onClick={cleanUp}>
-					{t('cancel')}
+					{t('modals:cancel')}
 				</Button>
 				<Button kind='primary' type='submit' disabled={!isValid}>
-					{t('create')}
+					{t('modals:create')}
 				</Button>
 			</ModalFooter>
 		</ComposedModal>

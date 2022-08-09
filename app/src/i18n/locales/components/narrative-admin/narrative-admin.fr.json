@@ -3,5 +3,9 @@
 	"narrative-admin-description": "Gérez toutes les procédures et le modèle d'e-mail de révision.",
 	"procedures": "Procédures",
 	"procedures-description": "Dans cette section, vous pouvez ajouter, supprimer ou modifier (nom, objectifs de contrôle et description) procédures.",
-	"email-description": "Dans cette section, vous pouvez modifier le modèle utilisé pour les révisions des narratives."
+	"email-description": "Dans cette section, vous pouvez modifier le modèle utilisé pour les révisions des narratives.",
+	"create-procedure": "Créer nouvelle procédure",
+	"add-procedure": "Ajouter une procédure",
+	"procedure-name": "Nom de la procédure",
+	"control-objectives": "Objectifs de contrôle"
 }
