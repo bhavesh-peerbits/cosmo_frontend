@@ -5,28 +5,31 @@ import { HeaderFunction } from '@components/table/CosmoTable';
 import { useCallback, useState } from 'react';
 import CosmoTableInlineAction from '@components/table/CosmoTableInlineAction';
 import useRoleAssignmentUsers from '@hooks/admin-panel/useRoleAssignmentUsers';
-import BlockUserModal from '@components/Modals/BlockUserModal';
+import SetUserStatusModal from '@components/Modals/SetUserStatusModal';
 import EditUserModal from '@components/Modals/EditUserModal';
+import useGetUsers from '@api/user/useGetUsers';
 
 type ActionCellProps = {
 	setIsModalOpen: (val: boolean) => void;
 	setActionSelected: (val: string) => void;
+	user: User | undefined;
 };
 
-const ActionsCell = ({ setIsModalOpen, setActionSelected }: ActionCellProps) => {
+const ActionsCell = ({ setIsModalOpen, setActionSelected, user }: ActionCellProps) => {
 	const { t } = useTranslation('userAdmin');
 	return (
-		<OverflowMenu ariaLabel='Actions' iconDescription={t('actions')}>
+		<OverflowMenu ariaLabel='Actions' iconDescription={t('actions')} direction='top'>
 			<OverflowMenuItem
 				itemText={t('edit')}
 				onClick={() => {
 					setIsModalOpen(true);
 					setActionSelected('edit');
 				}}
+				disabled={user?.inactive}
 			/>
 			<OverflowMenuItem
-				isDelete
-				itemText={t('block')}
+				isDelete={!user?.inactive}
+				itemText={t(user?.inactive ? 'unblock' : 'block')}
 				onClick={() => {
 					setIsModalOpen(true);
 					setActionSelected('Block');
@@ -37,30 +40,28 @@ const ActionsCell = ({ setIsModalOpen, setActionSelected }: ActionCellProps) => 
 };
 
 const UsersTable = () => {
-	const { t: tUserAdmin } = useTranslation('userAdmin');
+	const { t } = useTranslation('userAdmin');
 	const { t: tTable } = useTranslation('table');
 	const { users, filters, setFilters } = useRoleAssignmentUsers();
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [userSelected, setUserSelected] = useState<string[]>([]);
+	const [userSelectedId, setUserSelectedId] = useState<string>();
 	const [actionSelected, setActionSelected] = useState('');
+	const { data } = useGetUsers();
+	const user = data?.filter(u => u.id === userSelectedId).flat()[0];
 
 	const modalToOpen = () => {
 		switch (actionSelected) {
 			case 'Block':
 				return (
-					<BlockUserModal
-						user={userSelected}
+					<SetUserStatusModal
+						user={user}
 						isOpen={isModalOpen}
 						setIsOpen={setIsModalOpen}
 					/>
 				);
 			default:
 				return (
-					<EditUserModal
-						user={userSelected}
-						isOpen={isModalOpen}
-						setIsOpen={setIsModalOpen}
-					/>
+					<EditUserModal user={user} isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
 				);
 		}
 	};
@@ -69,12 +70,12 @@ const UsersTable = () => {
 		table => [
 			table.createDataColumn(row => row.name, {
 				id: 'name',
-				header: tUserAdmin('name'),
+				header: t('name'),
 				sortUndefined: 1
 			}),
 			table.createDataColumn(row => row.surname, {
 				id: 'surname',
-				header: tUserAdmin('surname')
+				header: t('surname')
 			}),
 			table.createDataColumn(row => row.email, {
 				id: 'email',
@@ -82,17 +83,23 @@ const UsersTable = () => {
 			}),
 			table.createDataColumn(row => row.principalRole, {
 				id: 'role',
-				header: tUserAdmin('role')
+				header: t('role'),
+				cell: info => info.getValue() || '-'
+			}),
+			table.createDataColumn(row => row.inactive, {
+				id: 'status',
+				header: t('status'),
+				cell: info => (info.getValue() ? t('blocked') : t('active'))
 			})
 		],
-		[tUserAdmin]
+		[t]
 	);
 
 	const toolbarContent = (
 		<TableToolbarSearch
 			size='lg'
 			persistent
-			placeholder={tUserAdmin('search-placeholder')}
+			placeholder={t('search-placeholder')}
 			id='search'
 			value={filters.query ?? ''}
 			onChange={e => setFilters({ q: e.currentTarget?.value })}
@@ -112,9 +119,10 @@ const UsersTable = () => {
 					<ActionsCell
 						setActionSelected={setActionSelected}
 						setIsModalOpen={setIsModalOpen}
+						user={user}
 					/>
 				}
-				setRowSelected={setUserSelected}
+				setRowSelected={setUserSelectedId}
 				isGroupable
 			/>
 		</>

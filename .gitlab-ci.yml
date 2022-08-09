@@ -80,14 +80,24 @@ test:
   variables:
     NODE_ENV: 'CI'
   before_script:
+    - export HTTP_PROXY="http://srvprx01.aizoon.it:3128"
+    - export HTTPS_PROXY="http://srvprx01.aizoon.it:3128"
+    - export NO_PROXY="localhost,127.0.0.1,*.aizoon.it"
     - YARN_CHECKSUM_BEHAVIOR=update yarn install
   script:
+    - env | grep PROXY
     - yarn test
   cache:
     key: frontend-cache
     paths:
       - .yarn
     policy: pull
+  artifacts:
+    expire_in: 1 hour
+    when: on_failure
+    paths:
+      - packages/cosmo-cypress/cypress/screenshots/
+      - packages/cosmo-cypress/cypress/videos/
 
 tag:
   image: aramis-nexus.aizoon.it:5000/esra/docker:20.10.8
@@ -103,7 +113,7 @@ deploy develop:
   when: manual
   environment:
     name: develop
-    url: https://172.17.0.46:3000
+    url: https://172.17.0.46
   script:
     - cd ansible
     - chmod go-rwx .

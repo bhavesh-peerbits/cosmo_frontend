@@ -9,6 +9,8 @@ export default defineConfig({
 		baseUrl: 'http://localhost:4173/',
 		fileServerFolder: 'dist',
 		fixturesFolder: false,
+		defaultCommandTimeout: 30000,
+		experimentalSessionAndOrigin: true,
 		setupNodeEvents(on, config) {
 			void codeCoverageTask(on, config);
 			// include any other plugin code...

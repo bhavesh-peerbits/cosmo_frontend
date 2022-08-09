@@ -2,7 +2,7 @@
 	"compilerOptions": {
 		"allowSyntheticDefaultImports": true,
 		"forceConsistentCasingInFileNames": true,
-		"lib": ["ESNext"],
+		"lib": ["ESNext", "DOM"],
 		"esModuleInterop": true,
 		"module": "ESNext",
 		"moduleResolution": "Node",

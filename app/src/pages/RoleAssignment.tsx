@@ -9,6 +9,7 @@ import AddUserModal from '@components/Modals/AddUserModal';
 
 const RoleAssignment = () => {
 	const { t } = useTranslation('userAdmin');
+	const { t: tModals } = useTranslation('modals');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	return (
@@ -17,7 +18,7 @@ const RoleAssignment = () => {
 			intermediateRoutes={[{ name: 'Admin Panel', to: '/admin' }]}
 			actions={[
 				{
-					name: 'Add User',
+					name: tModals('add-user'),
 					icon: Add,
 					onClick: () => setIsModalOpen(true)
 				}

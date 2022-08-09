@@ -79,8 +79,10 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 			if (!open && selectedItems.entries.length === 0) {
 				setSingleSelection('');
 				setMultiSelection([]);
+			} else if (open && selectedItems.entries.length > 0) {
+				setMultiSelection(selectedItems.entries.map(entry => entry.id));
 			}
-		}, [open, selectedItems.entries.length]);
+		}, [open, selectedItems.entries, selectedItems.entries.length]);
 
 		useEffect(() => {
 			const { entries } = items;
@@ -223,14 +225,11 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 					label: onSubmitButtonText,
 					kind: 'primary' as const,
 					onClick: submitHandler,
-					disabled: multi
-						? multiSelection.length === 0 && selectedItems.entries.length === 0
-						: !singleSelection
+					disabled: multi ? multiSelection.length === 0 : !singleSelection
 				}
 			],
 			portalTarget
 		};
-
 		const sidebarProps = {
 			influencerTitle,
 			influencerItemTitle,
@@ -310,7 +309,7 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 					<div>
 						{itemsToDisplay.length > 0 ? (
 							<AddSelectList
-								index={0}
+								index={-1}
 								shrink={false}
 								{...commonListProps}
 								filteredItems={itemsToDisplay as ItemNoChildren[]}

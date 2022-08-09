@@ -7,7 +7,8 @@ import {
 	usersList
 } from '@store/admin-panel/roleAssignmentFilters';
 import useGetUsers from '@api/user/useGetUsers';
-import { UserDisplayRole } from '@model/UserRole';
+import { mapUserRoleToDisplayRole, UserDisplayRole } from '@model/UserRole';
+import { UserDtoRolesEnum } from 'cosmo-api/src/v1/models';
 
 const useRoleAssignmentUsers = () => {
 	const [urlFilters, setUrlFilters] = useUrlState<{
@@ -22,34 +23,30 @@ const useRoleAssignmentUsers = () => {
 	const { users, role } = useRecoilValue(filteredUsers);
 	const { data: list } = useGetUsers();
 
-	const toStartCase = (r: string) => {
-		return r === 'USER_UNKNOWN'
-			? 'Guest'
-			: r
-					.replace('_', ' ')
-					.toLowerCase()
-					.split(' ')
-					.map(word => word.charAt(0).toUpperCase() + word.slice(1))
-					.join(' ');
-	};
 	const data = useMemo(
 		() =>
+			list &&
 			list
-				?.map(user =>
-					user.roles.map(r => {
-						return {
-							id: user.id,
-							username: user.username,
-							name: user.name,
-							surname: user.surname,
-							email: user.email,
-							displayName: user.displayName,
-							roles: user.roles,
-							principalRole: toStartCase(r.toString()) as UserDisplayRole,
-							inactive: user.inactive
-						};
-					})
-				)
+				?.map(user => {
+					if (user.roles.length !== 0) {
+						return user.roles.map(r => {
+							return {
+								id: user.id,
+								username: user.username,
+								name: user.name,
+								surname: user.surname,
+								email: user.email,
+								displayName: user.displayName,
+								roles: user.roles,
+								principalRole: mapUserRoleToDisplayRole(
+									r.toString() as UserDtoRolesEnum
+								) as UserDisplayRole,
+								inactive: user.inactive
+							};
+						});
+					}
+					return user;
+				})
 				.flat(),
 		[list]
 	);

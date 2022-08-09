@@ -5,6 +5,7 @@ import {
 	ApplicationAuditDtoAuditActionTypesEnum,
 	ApplicationControllerApi,
 	ApplicationDto,
+	ApplicationUserDto,
 	AuthControllerApi,
 	CampaignDto,
 	CampaignDtoLayerEnum,
@@ -20,6 +21,8 @@ import {
 	RealmControllerApi,
 	ReviewerCampaignControllerApi,
 	ReviewerControllerApi,
+	UserAdminControllerApi,
+	UserBase,
 	UserControllerApi,
 	UserDto
 } from './v1';
@@ -29,6 +32,7 @@ export default function configureApi(config: Configuration) {
 	return {
 		accessApi: new AccessControllerApi(config),
 		userApi: new UserControllerApi(config),
+		userAdminApi: new UserAdminControllerApi(config),
 		applicationApi: new ApplicationControllerApi(config),
 		procedureApi: new ProcedureControllerApi(config),
 		narrativeReview: new NarrativeReviewControllerApi(config),
@@ -41,7 +45,9 @@ export default function configureApi(config: Configuration) {
 	};
 }
 export type ApplicationApi = ApplicationDto;
+export type ApplicationUserApi = ApplicationUserDto;
 export type UserApi = UserDto;
+export type UserBaseApi = UserBase;
 export type ProcedureApi = ProcedureDto;
 export type ProcedureAppInstanceApi = ProcedureAppInstanceDto;
 export type ApplicationAuditApi = ApplicationAuditDto;

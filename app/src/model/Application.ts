@@ -20,6 +20,7 @@ interface Application {
 	startNarrativeReview?: Date;
 	lastReviewer?: User;
 	lastModifier?: User;
+	createdBy?: User;
 }
 
 export const fromApplicationApi = (applicationApi: ApplicationApi): Application => ({
@@ -46,7 +47,8 @@ export const fromApplicationApi = (applicationApi: ApplicationApi): Application 
 		: undefined,
 	lastModifier: applicationApi.lastModifier
 		? fromUserApi(applicationApi.lastModifier)
-		: undefined
+		: undefined,
+	createdBy: applicationApi.createdBy ? fromUserApi(applicationApi.createdBy) : undefined
 });
 
 export const toApplicationApi = (application: Application): ApplicationApi => ({
@@ -71,7 +73,10 @@ export const toApplicationApi = (application: Application): ApplicationApi => ({
 	lastReviewer: application.lastReviewer
 		? toUserApi(application.lastReviewer)
 		: undefined,
-	lastModifier: application.lastModifier ? toUserApi(application.lastModifier) : undefined
+	lastModifier: application.lastModifier
+		? toUserApi(application.lastModifier)
+		: undefined,
+	createdBy: application.createdBy ? toUserApi(application.createdBy) : undefined
 });
 
 export default Application;
