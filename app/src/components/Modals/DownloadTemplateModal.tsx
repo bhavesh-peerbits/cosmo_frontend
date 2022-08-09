@@ -5,10 +5,16 @@ import {
 	ModalFooter,
 	Button,
 	RadioButton,
-	RadioButtonGroup
+	RadioButtonGroup,
+	InlineNotification
 } from '@carbon/react';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { CampaignDtoTypeApi, CampaignDtoTypeApiEnum } from 'cosmo-api/src';
+import useGetCampaignTemplate from '@api/user-revalidation/useGetCampaignTemplate';
+import ApiError from '@api/ApiError';
+import Papa from 'papaparse';
+import { downloadFileViaBlob } from '@components/util/fileUtil';
 
 type DownloadTemplateModalProps = {
 	isOpen: boolean;
@@ -17,34 +23,28 @@ type DownloadTemplateModalProps = {
 
 const DownloadTemplateModal = ({ isOpen, setIsOpen }: DownloadTemplateModalProps) => {
 	const { t } = useTranslation(['userRevalidation', 'modals']);
-	const [, setTypeSelected] = useState('');
+	const [typeSelected, setTypeSelected] = useState<CampaignDtoTypeApi>(
+		CampaignDtoTypeApiEnum.Firefight
+	);
+	const { mutate, isLoading, isError, error } = useGetCampaignTemplate();
 	const cleanUp = () => {
 		setIsOpen(false);
 	};
 
-	const revalidationTypes = useMemo(
-		() => [
-			{
-				id: 'user-access',
-				label: 'User Access Review'
-			},
-			{
-				id: 'suid',
-				label: 'SUID'
-			},
-			{ id: 'firefight', label: 'Firefight' }
-		],
-		[]
-	);
-
+	const revalidationTypes = Object.entries(CampaignDtoTypeApiEnum).sort();
 	const downloadTemplate = () => {
-		return new Promise<void>(resolve => {
-			setTimeout(() => {
-				resolve();
-			}, 1000);
-		});
+		mutate(
+			{ type: typeSelected },
+			{
+				onSuccess: data => {
+					const csvString = Papa.unparse([data]);
+					const fileBlob = new Blob([csvString], { type: 'text/csv' });
+					downloadFileViaBlob(fileBlob, `${typeSelected}-template`, 'csv');
+					cleanUp();
+				}
+			}
+		);
 	};
-	const isLoading = false;
 
 	return (
 		<ComposedModal size='xs' open={isOpen} onClose={cleanUp}>
@@ -56,13 +56,24 @@ const DownloadTemplateModal = ({ isOpen, setIsOpen }: DownloadTemplateModalProps
 						orientation='vertical'
 						name='revalidation-types'
 						legendText={`${t('userRevalidation:revalidation-type')} *`}
-						onChange={value => setTypeSelected(value.toString())}
-						defaultSelected={revalidationTypes[0].id}
+						onChange={value => setTypeSelected(value as CampaignDtoTypeApi)}
+						valueSelected={typeSelected}
 					>
-						{revalidationTypes.map(({ id, label }) => (
-							<RadioButton key={id} labelText={label} value={id} />
+						{revalidationTypes.map(([id, value]) => (
+							<RadioButton key={id} labelText={id} value={value} />
 						))}
 					</RadioButtonGroup>
+					{isError && (
+						<InlineNotification
+							kind='error'
+							title='Error'
+							hideCloseButton
+							subtitle={
+								(error as ApiError)?.message ||
+								'An error has occurred, please try again later'
+							}
+						/>
+					)}
 				</div>
 			</ModalBody>
 			<ModalFooter>
