@@ -3,6 +3,9 @@ import { Add } from '@carbon/react/icons';
 import CreateProcedureModal from '@components/Modals/CreateProcedureModal';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import ProceduresTileContainer from '@components/AdminPanel/ProceduresTileContainer';
+import { Grid } from '@carbon/react';
+import FullWidthColumn from '@components/FullWidthColumn';
 
 const Procedures = () => {
 	const [isNewProcModalOpen, setIsNewProcModalOpen] = useState(false);
@@ -22,13 +25,15 @@ const Procedures = () => {
 				}
 			]}
 		>
-			<div>
-				Contenuto
+			<Grid fullWidth narrow>
 				<CreateProcedureModal
 					isOpen={isNewProcModalOpen}
 					setIsOpen={setIsNewProcModalOpen}
 				/>
-			</div>
+				<FullWidthColumn className='p-container-1'>
+					<ProceduresTileContainer />
+				</FullWidthColumn>
+			</Grid>
 		</PageHeader>
 	);
 };
