@@ -1,16 +1,20 @@
 import { Layer, Tile, Button, UnorderedList, ListItem } from '@carbon/react';
 import { Maximize } from '@carbon/react/icons';
+import Procedure from '@model/Procedure';
 import { useTranslation } from 'react-i18next';
 
-const ProcedureTile = () => {
+type ProcedureTileProps = {
+	procedure: Procedure;
+};
+const ProcedureTile = ({ procedure }: ProcedureTileProps) => {
 	const { t } = useTranslation('narrativeAdmin');
 	return (
 		<Layer level={1}>
-			<Tile>
+			<Tile className='mb-5'>
 				<div className='flex flex-col justify-between'>
 					<div className='flex flex-col'>
 						<div className='mb-3 flex min-h-[2.5rem] justify-between'>
-							<p className='line-clamp-1 text-heading-1'>Nome</p>
+							<p className='line-clamp-1 text-heading-1'>{procedure.name}</p>
 							<Button
 								hasIconOnly
 								renderIcon={Maximize}

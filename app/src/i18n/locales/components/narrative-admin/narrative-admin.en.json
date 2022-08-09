@@ -7,5 +7,6 @@
 	"create-procedure": "Create new procedure",
 	"add-procedure": "Add procedure",
 	"procedure-name": "Procedure name",
-	"control-objectives": "Control objectives"
+	"control-objectives": "Control objectives",
+	"search-procedure": "Search by procedure name"
 }

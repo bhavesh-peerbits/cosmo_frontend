@@ -4,6 +4,7 @@ interface Procedure {
 	id: string;
 	name: string;
 	description?: string;
+	controlObjectives?: Set<string>;
 }
 
 export const fromProcedureApi = (procedureApi: ProcedureApi): Procedure => {
