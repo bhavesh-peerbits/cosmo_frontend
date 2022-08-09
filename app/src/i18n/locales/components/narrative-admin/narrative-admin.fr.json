@@ -8,5 +8,7 @@
 	"add-procedure": "Ajouter une procédure",
 	"procedure-name": "Nom de la procédure",
 	"control-objectives": "Objectifs de contrôle",
-	"search-procedure": "Rechercher par nom de procédure"
+	"search-procedure": "Rechercher par nom de procédure",
+	"procedure": "Procédure",
+	"no-procedures": "Pas de procédures"
 }

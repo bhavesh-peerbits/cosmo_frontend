@@ -8,5 +8,7 @@
 	"add-procedure": "Add procedure",
 	"procedure-name": "Procedure name",
 	"control-objectives": "Control objectives",
-	"search-procedure": "Search by procedure name"
+	"search-procedure": "Search by procedure name",
+	"procedure": "Procedura",
+	"no-procedures": "No procedures"
 }
