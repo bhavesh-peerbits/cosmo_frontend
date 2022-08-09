@@ -12,7 +12,7 @@ const ProcedureTile = ({ procedure }: ProcedureTileProps) => {
 	const [controlObjectives, setControlObjectives] = useState<string[]>([]);
 	useEffect(() => {
 		procedure.controlObjectives?.forEach(co => setControlObjectives(old => [...old, co]));
-	});
+	}, [procedure]);
 	return (
 		<Layer level={1}>
 			<Tile className='mb-5'>

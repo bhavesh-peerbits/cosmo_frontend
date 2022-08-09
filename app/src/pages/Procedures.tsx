@@ -34,7 +34,7 @@ const Procedures = () => {
 
 	return (
 		<PageHeader
-			pageTitle='Procedures'
+			pageTitle={t('procedures')}
 			intermediateRoutes={[{ name: 'Admin Panel', to: '/admin' }]}
 			actions={[
 				{

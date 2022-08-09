@@ -1,8 +1,12 @@
+import ApiError from '@api/ApiError';
+import useCreateNewProcedure from '@api/narrative-admin/useCreateNewProcedure';
+import useGetProcedures from '@api/procedures/useGetProcedures';
 import {
 	Button,
 	ComposedModal,
 	Form,
 	Grid,
+	InlineNotification,
 	Layer,
 	ModalBody,
 	ModalFooter,
@@ -11,12 +15,14 @@ import {
 } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import TiptapEditor from '@components/tiptap/TiptapEditor';
+import Procedure from '@model/Procedure';
+import { useMemo } from 'react';
 import { useController, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 export interface CreateProcedureForm {
 	name: string;
-	controlObjectives: Set<string>;
+	controlObjectives: string[];
 	description: string;
 }
 
@@ -25,15 +31,28 @@ type CreateProcedureModalProps = {
 	setIsOpen: (val: boolean) => void;
 };
 const CreateProcedureModal = ({ isOpen, setIsOpen }: CreateProcedureModalProps) => {
-	const { t } = useTranslation(['modals', 'narrativeAdmin']);
+	const { t } = useTranslation(['modals', 'narrativeAdmin', 'procedureInfo']);
+	const { mutate, isError, error } = useCreateNewProcedure();
+	const { data: procedures = new Map<string, Procedure>() } = useGetProcedures();
+	const proceduresExistingName = useMemo(
+		() => [...procedures.values()].map(procedure => procedure.name.toLowerCase()),
+		[procedures]
+	);
 
 	const {
 		control,
 		register,
 		reset,
+		handleSubmit,
+		getValues,
 		formState: { errors, isValid }
 	} = useForm<CreateProcedureForm>({
-		mode: 'onChange'
+		mode: 'onChange',
+		defaultValues: {
+			name: '',
+			description: '',
+			controlObjectives: []
+		}
 	});
 
 	const {
@@ -53,11 +72,35 @@ const CreateProcedureModal = ({ isOpen, setIsOpen }: CreateProcedureModalProps) 
 		reset();
 	};
 
+	const createProcedure = () => {
+		const data = getValues();
+		return mutate(
+			{
+				procedureData: {
+					id: '',
+					name: data.name,
+					controlObjectives: undefined, // TODO Fix
+					description: data.description
+				}
+			},
+			{
+				onSuccess: () => {
+					cleanUp();
+				}
+			}
+		);
+	};
+
 	return (
-		<ComposedModal open={isOpen} onClose={cleanUp} preventCloseOnClickOutside>
-			<ModalHeader title={t('narrativeAdmin:create-procedure')} closeModal={cleanUp} />
-			<ModalBody>
-				<Form>
+		<ComposedModal
+			open={isOpen}
+			onClose={cleanUp}
+			preventCloseOnClickOutside
+			className='z-[9999]'
+		>
+			<Form onSubmit={handleSubmit(createProcedure)}>
+				<ModalHeader title={t('narrativeAdmin:create-procedure')} closeModal={cleanUp} />
+				<ModalBody>
 					<Grid className='space-y-5'>
 						<FullWidthColumn>
 							<TextInput
@@ -69,7 +112,10 @@ const CreateProcedureModal = ({ isOpen, setIsOpen }: CreateProcedureModalProps) 
 									required: {
 										value: true,
 										message: t('modals:field-required')
-									}
+									},
+									validate: name =>
+										!proceduresExistingName.includes(name.toLowerCase()) ||
+										`${t('procedureInfo:name-exists')}`
 								})}
 							/>
 						</FullWidthColumn>
@@ -77,6 +123,7 @@ const CreateProcedureModal = ({ isOpen, setIsOpen }: CreateProcedureModalProps) 
 							<TextInput
 								id='control-objectives'
 								labelText={t('narrativeAdmin:control-objectives')}
+								{...register('controlObjectives')}
 							/>
 						</FullWidthColumn>
 						<FullWidthColumn>
@@ -93,16 +140,29 @@ const CreateProcedureModal = ({ isOpen, setIsOpen }: CreateProcedureModalProps) 
 							</Layer>
 						</FullWidthColumn>
 					</Grid>
-				</Form>
-			</ModalBody>
-			<ModalFooter>
-				<Button kind='secondary' onClick={cleanUp}>
-					{t('modals:cancel')}
-				</Button>
-				<Button kind='primary' type='submit' disabled={!isValid}>
-					{t('modals:create')}
-				</Button>
-			</ModalFooter>
+					{isError && (
+						<div className='mt-5 flex items-center justify-center'>
+							<InlineNotification
+								kind='error'
+								title='Error'
+								hideCloseButton
+								subtitle={
+									(error as ApiError)?.message ||
+									'An error has occurred, please try again later'
+								}
+							/>
+						</div>
+					)}
+				</ModalBody>
+				<ModalFooter>
+					<Button kind='secondary' onClick={cleanUp}>
+						{t('modals:cancel')}
+					</Button>
+					<Button kind='primary' type='submit' disabled={!isValid}>
+						{t('modals:create')}
+					</Button>
+				</ModalFooter>
+			</Form>
 		</ComposedModal>
 	);
 };
