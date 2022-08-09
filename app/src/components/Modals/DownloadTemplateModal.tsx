@@ -37,7 +37,7 @@ const DownloadTemplateModal = ({ isOpen, setIsOpen }: DownloadTemplateModalProps
 			{ type: typeSelected },
 			{
 				onSuccess: data => {
-					const csvString = Papa.unparse([data.fields]);
+					const csvString = Papa.unparse([data.fields], { delimiter: ';' });
 					const fileBlob = new Blob([csvString], { type: 'text/csv' });
 					downloadFileViaBlob(fileBlob, `${typeSelected}-template`, 'csv');
 					cleanUp();
