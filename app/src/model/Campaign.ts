@@ -1,23 +1,24 @@
-import { CampaignApi } from 'cosmo-api/src';
 import {
-	CampaignDtoLayerEnum,
-	CampaignDtoStatusEnum,
-	CampaignDtoTypeEnum
-} from 'cosmo-api/src/v1';
-import User, { fromUserApi } from '@model/User';
+	CampaignApi,
+	CampaignDtoLayerApi,
+	CampaignDtoStatusApi,
+	CampaignDtoTypeApi
+} from 'cosmo-api';
+import User, { fromUserApi, toUserApi } from '@model/User';
+import formatIso from 'date-fns/formatISO';
 
 interface Campaign {
 	id: string;
 	name: string | undefined | null;
 	applicationsCount: number;
-	dueDate: Date | undefined;
-	type: CampaignDtoTypeEnum;
-	status: CampaignDtoStatusEnum | undefined;
+	dueDate?: Date;
+	type: CampaignDtoTypeApi;
+	status?: CampaignDtoStatusApi;
 	archived: boolean;
-	completionDate: Date | undefined;
+	completionDate?: Date;
 	contributors: User[];
-	startDate: Date | undefined;
-	layer: CampaignDtoLayerEnum;
+	startDate?: Date;
+	layer: CampaignDtoLayerApi;
 }
 
 export const fromCampaignApi = (campaign: CampaignApi): Campaign => {
@@ -36,6 +37,28 @@ export const fromCampaignApi = (campaign: CampaignApi): Campaign => {
 			? [...campaign.contributors].map(user => fromUserApi(user))
 			: [],
 		startDate: campaign.startDate ? new Date(campaign.startDate) : undefined,
+		layer: campaign.layer
+	};
+};
+
+export const toCampaignApi = (campaign: Campaign): CampaignApi => {
+	return {
+		id: +campaign.id,
+		name: campaign.name,
+		applicationsCount: campaign.applicationsCount,
+		dueDate: campaign.dueDate
+			? formatIso(campaign.dueDate, { representation: 'date' })
+			: undefined,
+		type: campaign.type,
+		status: campaign.status,
+		archived: campaign.archived,
+		completionDate: campaign.completionDate
+			? formatIso(campaign.completionDate, { representation: 'date' })
+			: undefined,
+		contributors: new Set(campaign.contributors.map(toUserApi)),
+		startDate: campaign.startDate
+			? formatIso(campaign.startDate, { representation: 'date' })
+			: undefined,
 		layer: campaign.layer
 	};
 };

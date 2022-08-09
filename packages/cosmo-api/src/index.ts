@@ -1,11 +1,15 @@
 import {
 	AccessControllerApi,
+	AnalystCampaignControllerApi,
 	ApplicationAuditDto,
 	ApplicationAuditDtoAuditActionTypesEnum,
 	ApplicationControllerApi,
 	ApplicationDto,
 	AuthControllerApi,
 	CampaignDto,
+	CampaignDtoLayerEnum,
+	CampaignDtoStatusEnum,
+	CampaignDtoTypeEnum,
 	Configuration,
 	GenerateReportControllerApi,
 	IdentityProviderDto,
@@ -32,7 +36,8 @@ export default function configureApi(config: Configuration) {
 		generateReportApi: new GenerateReportControllerApi(config),
 		authApi: new AuthControllerApi(config),
 		realmApi: new RealmControllerApi(config),
-		revalidationApi: new ReviewerCampaignControllerApi(config)
+		revalidationApi: new ReviewerCampaignControllerApi(config),
+		analystCampaignApi: new AnalystCampaignControllerApi(config)
 	};
 }
 export type ApplicationApi = ApplicationDto;
@@ -43,3 +48,9 @@ export type ApplicationAuditApi = ApplicationAuditDto;
 export type ApplicationAuditActionTypeApi = ApplicationAuditDtoAuditActionTypesEnum;
 export type IdentityProviderApi = IdentityProviderDto;
 export type CampaignApi = CampaignDto;
+export const CampaignDtoTypeApiEnum = CampaignDtoTypeEnum;
+export type CampaignDtoTypeApi = CampaignDtoTypeEnum;
+export const CampaignDtoLayerApiEnum = CampaignDtoLayerEnum;
+export type CampaignDtoLayerApi = CampaignDtoLayerEnum;
+export const CampaignDtoStatusApiEnum = CampaignDtoStatusEnum;
+export type CampaignDtoStatusApi = CampaignDtoStatusEnum;

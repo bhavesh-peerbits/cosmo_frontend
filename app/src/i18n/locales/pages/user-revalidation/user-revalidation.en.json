@@ -37,5 +37,6 @@
 	"confirm-delete-upload": "Are you sure you want to delete the upload of {{application}}?",
 	"all": "All",
 	"multi": "Multi Applications",
-	"single": "Single Application"
+	"single": "Single Application",
+	"campaign-name-required": "Campaign name is required"
 }

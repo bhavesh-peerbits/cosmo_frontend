@@ -7,7 +7,7 @@ import {
 	RadioButton,
 	RadioButtonGroup
 } from '@carbon/react';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 type DownloadTemplateModalProps = {
@@ -16,37 +16,62 @@ type DownloadTemplateModalProps = {
 };
 
 const DownloadTemplateModal = ({ isOpen, setIsOpen }: DownloadTemplateModalProps) => {
-	const { t } = useTranslation('modals');
-	const { t: tRevalidation } = useTranslation('userRevalidation');
+	const { t } = useTranslation(['userRevalidation', 'modals']);
 	const [, setTypeSelected] = useState('');
 	const cleanUp = () => {
 		setIsOpen(false);
 	};
-	const revalidationTypes = ['User Access Review', 'SUID', 'Firefight'];
+
+	const revalidationTypes = useMemo(
+		() => [
+			{
+				id: 'user-access',
+				label: 'User Access Review'
+			},
+			{
+				id: 'suid',
+				label: 'SUID'
+			},
+			{ id: 'firefight', label: 'Firefight' }
+		],
+		[]
+	);
+
+	const downloadTemplate = () => {
+		return new Promise<void>(resolve => {
+			setTimeout(() => {
+				resolve();
+			}, 1000);
+		});
+	};
+	const isLoading = false;
+
 	return (
 		<ComposedModal size='xs' open={isOpen} onClose={cleanUp}>
 			<ModalHeader title='Download file' closeModal={cleanUp} />
 			<ModalBody className='m-0 pb-9'>
 				<div className='space-y-5'>
-					<p>{`${tRevalidation('download-modal-body')}.`}</p>
+					<p>{`${t('userRevalidation:download-modal-body')}.`}</p>
 					<RadioButtonGroup
 						orientation='vertical'
 						name='revalidation-types'
-						legendText={`${tRevalidation('revalidation-type')} *`}
+						legendText={`${t('userRevalidation:revalidation-type')} *`}
 						onChange={value => setTypeSelected(value.toString())}
-						defaultSelected={revalidationTypes[0]}
+						defaultSelected={revalidationTypes[0].id}
 					>
-						{revalidationTypes.map(type => (
-							<RadioButton labelText={type} value={type} />
+						{revalidationTypes.map(({ id, label }) => (
+							<RadioButton key={id} labelText={label} value={id} />
 						))}
 					</RadioButtonGroup>
 				</div>
 			</ModalBody>
 			<ModalFooter>
 				<Button kind='secondary' onClick={cleanUp}>
-					{t('cancel')}
+					{t('modals:cancel')}
 				</Button>
-				<Button>Download</Button>
+				<Button disabled={isLoading} onClick={downloadTemplate}>
+					Download
+				</Button>
 			</ModalFooter>
 		</ComposedModal>
 	);
