@@ -56,8 +56,9 @@ const Procedures = () => {
 						<SearchBar />
 						<div className='flex w-full items-center justify-between space-x-5 md:w-auto md:justify-end'>
 							<div className='whitespace-nowrap'>
-								{procedures.length}
-								{procedures.length === 1 ? t('procedure') : t('procedures')}
+								{`${procedures.length} ${
+									procedures.length === 1 ? t('procedure') : t('procedures')
+								}`}
 							</div>
 						</div>
 					</div>

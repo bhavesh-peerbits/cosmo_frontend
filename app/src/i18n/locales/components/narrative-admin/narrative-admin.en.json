@@ -10,5 +10,8 @@
 	"control-objectives": "Control objectives",
 	"search-procedure": "Search by procedure name",
 	"procedure": "Procedura",
-	"no-procedures": "No procedures"
+	"no-procedures": "No procedures",
+	"procedure-details": "Procedure details",
+	"no-description": "No description",
+	"no-control-objectives": "No control objectives"
 }

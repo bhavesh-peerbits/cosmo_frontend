@@ -10,5 +10,8 @@
 	"control-objectives": "Obiettivi di controllo",
 	"search-procedure": "Ricerca per nome procedura",
 	"procedure": "Procedura",
-	"no-procedures": "Nessuna procedura"
+	"no-procedures": "Nessuna procedura",
+	"procedure-details": "Dettagli procedura",
+	"no-description": "Nessuna descrizione",
+	"no-control-objectives": "Nessun obiettivo di controllo"
 }

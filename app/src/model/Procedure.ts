@@ -11,7 +11,8 @@ export const fromProcedureApi = (procedureApi: ProcedureApi): Procedure => {
 	return {
 		id: `${procedureApi.id}`,
 		name: procedureApi.name,
-		description: procedureApi.description
+		description: procedureApi.description,
+		controlObjectives: procedureApi.controlObjectives
 	};
 };
 
@@ -19,7 +20,8 @@ export const toProcedureApi = (procedure: Procedure): ProcedureApi => {
 	return {
 		id: +procedure.id,
 		name: procedure.name,
-		description: procedure.description
+		description: procedure.description,
+		controlObjectives: procedure.controlObjectives
 	};
 };
 
