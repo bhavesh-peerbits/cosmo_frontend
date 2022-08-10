@@ -16,7 +16,7 @@ import {
 import FullWidthColumn from '@components/FullWidthColumn';
 import TiptapEditor from '@components/tiptap/TiptapEditor';
 import Procedure from '@model/Procedure';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useController, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -24,6 +24,7 @@ export interface CreateProcedureForm {
 	name: string;
 	controlObjectives: string[];
 	description: string;
+	majorProcedure: string;
 }
 
 type CreateProcedureModalProps = {
@@ -32,7 +33,7 @@ type CreateProcedureModalProps = {
 };
 const CreateProcedureModal = ({ isOpen, setIsOpen }: CreateProcedureModalProps) => {
 	const { t } = useTranslation(['modals', 'narrativeAdmin', 'procedureInfo']);
-	const { mutate, isError, error } = useCreateNewProcedure();
+	const { mutate, isError, error, isLoading, reset: resetApi } = useCreateNewProcedure();
 	const { data: procedures = new Map<string, Procedure>() } = useGetProcedures();
 	const proceduresExistingName = useMemo(
 		() => [...procedures.values()].map(procedure => procedure.name.toLowerCase()),
@@ -51,7 +52,8 @@ const CreateProcedureModal = ({ isOpen, setIsOpen }: CreateProcedureModalProps) 
 		defaultValues: {
 			name: '',
 			description: '',
-			controlObjectives: []
+			controlObjectives: [],
+			majorProcedure: ''
 		}
 	});
 
@@ -70,7 +72,19 @@ const CreateProcedureModal = ({ isOpen, setIsOpen }: CreateProcedureModalProps) 
 	const cleanUp = () => {
 		setIsOpen(false);
 		reset();
+		resetApi();
 	};
+
+	useEffect(
+		() =>
+			reset({
+				name: '',
+				description: '',
+				controlObjectives: [],
+				majorProcedure: ''
+			}),
+		[reset]
+	);
 
 	const createProcedure = () => {
 		const data = getValues();
@@ -80,7 +94,8 @@ const CreateProcedureModal = ({ isOpen, setIsOpen }: CreateProcedureModalProps) 
 					id: '',
 					name: data.name,
 					controlObjectives: undefined, // TODO Fix
-					description: data.description
+					description: data.description,
+					majorProcedure: data.majorProcedure
 				}
 			},
 			{
@@ -127,6 +142,15 @@ const CreateProcedureModal = ({ isOpen, setIsOpen }: CreateProcedureModalProps) 
 							/>
 						</FullWidthColumn>
 						<FullWidthColumn>
+							<TextInput
+								id='major-procedure'
+								labelText={t('narrativeAdmin:major-procedure')}
+								invalid={Boolean(errors.name)}
+								invalidText={errors.name?.message}
+								{...register('majorProcedure')}
+							/>
+						</FullWidthColumn>
+						<FullWidthColumn>
 							<p className='mb-3 text-text-secondary text-label-1'>
 								{t('modals:description')}
 							</p>
@@ -158,7 +182,7 @@ const CreateProcedureModal = ({ isOpen, setIsOpen }: CreateProcedureModalProps) 
 					<Button kind='secondary' onClick={cleanUp}>
 						{t('modals:cancel')}
 					</Button>
-					<Button kind='primary' type='submit' disabled={!isValid}>
+					<Button kind='primary' type='submit' disabled={!isValid || isLoading}>
 						{t('modals:create')}
 					</Button>
 				</ModalFooter>

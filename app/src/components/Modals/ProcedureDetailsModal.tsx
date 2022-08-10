@@ -3,6 +3,7 @@ import {
 	ComposedModal,
 	Form,
 	Grid,
+	InlineNotification,
 	Layer,
 	ModalBody,
 	ModalFooter,
@@ -16,13 +17,16 @@ import FullWidthColumn from '@components/FullWidthColumn';
 import TiptapEditor from '@components/tiptap/TiptapEditor';
 import { useController, useForm } from 'react-hook-form';
 import useGetProcedures from '@api/procedures/useGetProcedures';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Edit } from '@carbon/react/icons';
+import useEditProcedure from '@api/narrative-admin/useEditProcedure';
+import ApiError from '@api/ApiError';
 
 interface ProcedureDetailsForm {
 	name: string;
 	description: string;
-	controlObjectives: Set<string>;
+	controlObjectives: string[];
+	majorProcedure: string;
 }
 
 type ProcedureDetailsModalProps = {
@@ -44,6 +48,7 @@ const ProcedureDetailsModal = ({
 	]);
 	const [isEditing, setIsEditing] = useState(false);
 	const { data: procedures = new Map<string, Procedure>() } = useGetProcedures();
+	const { mutate, isLoading, isError, error, reset } = useEditProcedure();
 	const proceduresExistingName = useMemo(
 		() => [...procedures.values()].map(proc => proc.name.toLowerCase()),
 		[procedures]
@@ -52,14 +57,16 @@ const ProcedureDetailsModal = ({
 	const {
 		control,
 		register,
-		reset,
+		handleSubmit,
+		reset: resetForm,
 		formState: { errors, isValid, isDirty }
 	} = useForm<ProcedureDetailsForm>({
 		mode: 'onChange',
 		defaultValues: {
 			name: procedure.name,
 			description: procedure.description,
-			controlObjectives: procedure.controlObjectives
+			controlObjectives: procedure.controlObjectives,
+			majorProcedure: procedure.majorProcedure
 		}
 	});
 
@@ -76,9 +83,40 @@ const ProcedureDetailsModal = ({
 	});
 
 	const cleanUp = () => {
+		resetForm();
 		reset();
 		setIsOpen(false);
 		setIsEditing(false);
+	};
+
+	useEffect(
+		() =>
+			resetForm({
+				name: procedure.name,
+				description: procedure.description,
+				controlObjectives: procedure.controlObjectives,
+				majorProcedure: procedure.majorProcedure
+			}),
+		[resetForm, procedure]
+	);
+
+	const editProcedure = (data: ProcedureDetailsForm) => {
+		return mutate(
+			{
+				procedure: {
+					id: procedure.id,
+					name: data.name,
+					controlObjectives: undefined,
+					description: data.description,
+					majorProcedure: data.majorProcedure
+				}
+			},
+			{
+				onSuccess: () => {
+					cleanUp();
+				}
+			}
+		);
 	};
 
 	return (
@@ -89,7 +127,7 @@ const ProcedureDetailsModal = ({
 				preventCloseOnClickOutside
 				className='z-[9999]'
 			>
-				<Form>
+				<Form onSubmit={handleSubmit(editProcedure)}>
 					<ModalHeader
 						title={t('narrativeAdmin:procedure-details')}
 						closeModal={cleanUp}
@@ -104,8 +142,8 @@ const ProcedureDetailsModal = ({
 										kind='secondary'
 										disabled={!isEditing || !isDirty}
 										onClick={() => {
+											resetForm();
 											reset();
-
 											setIsEditing(false);
 										}}
 									>
@@ -148,6 +186,19 @@ const ProcedureDetailsModal = ({
 									id='control-objectives'
 									labelText={t('narrativeAdmin:control-objectives')}
 									{...register('controlObjectives')}
+									placeholder={
+										isEditing ? 'Insert control objectives separated by virgola' : ''
+									}
+								/>
+							</FullWidthColumn>
+							<FullWidthColumn>
+								<TextInput
+									id='major-procedure'
+									readOnly={!isEditing}
+									labelText={t('narrativeAdmin:major-procedure')}
+									invalid={Boolean(errors.name)}
+									invalidText={errors.name?.message}
+									{...register('majorProcedure')}
 								/>
 							</FullWidthColumn>
 							<FullWidthColumn>
@@ -164,12 +215,30 @@ const ProcedureDetailsModal = ({
 								</Layer>
 							</FullWidthColumn>
 						</Grid>
+						{isError && (
+							<div className='mt-5 flex items-center justify-center'>
+								<InlineNotification
+									kind='error'
+									title='Error'
+									hideCloseButton
+									subtitle={
+										(error as ApiError)?.message ||
+										'An error has occurred, please try again later'
+									}
+								/>
+							</div>
+						)}
 					</ModalBody>
+
 					<ModalFooter>
 						<Button kind='secondary' onClick={cleanUp}>
 							{t('modals:cancel')}
 						</Button>
-						<Button kind='primary' type='submit' disabled={!isValid || !isDirty}>
+						<Button
+							kind='primary'
+							type='submit'
+							disabled={!isValid || !isDirty || isLoading}
+						>
 							{t('applicationInfo:save')}
 						</Button>
 					</ModalFooter>
