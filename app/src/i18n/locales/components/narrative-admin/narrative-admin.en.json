@@ -13,5 +13,6 @@
 	"no-procedures": "No procedures",
 	"procedure-details": "Procedure details",
 	"no-description": "No description",
-	"no-control-objectives": "No control objectives"
+	"no-control-objectives": "No control objectives",
+	"cannot-delete": "This procedure cannot be removed because it is used in one or more applications"
 }

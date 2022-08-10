@@ -1,18 +1,30 @@
 import { Layer, Tile, Button, UnorderedList, ListItem } from '@carbon/react';
-import { Maximize } from '@carbon/react/icons';
+import { Maximize, TrashCan } from '@carbon/react/icons';
+import DeleteProcedureModal from '@components/Modals/DeleteProcedureModal';
 import Procedure from '@model/Procedure';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import useGetProcedureApps from '@api/app-procedures/useGetProcedureApps';
 
 type ProcedureTileProps = {
 	procedure: Procedure;
 };
+
 const ProcedureTile = ({ procedure }: ProcedureTileProps) => {
-	const { t } = useTranslation(['narrativeAdmin', 'procedureInfo']);
+	const { t } = useTranslation(['narrativeAdmin', 'procedureInfo', 'modals']);
 	const [controlObjectives, setControlObjectives] = useState<string[]>([]);
+	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+	const [proceduresAppId, setProceduresAppId] = useState<string[]>([]);
+	const { data: procedures } = useGetProcedureApps();
+
+	useEffect(() => {
+		procedures?.forEach(proc => setProceduresAppId(old => [...old, proc.procedureId]));
+	}, [procedures]);
+
 	useEffect(() => {
 		procedure.controlObjectives?.forEach(co => setControlObjectives(old => [...old, co]));
 	}, [procedure]);
+
 	return (
 		<Layer level={1}>
 			<Tile className='mb-5'>
@@ -20,13 +32,31 @@ const ProcedureTile = ({ procedure }: ProcedureTileProps) => {
 					<div className='flex flex-col'>
 						<div className='flex min-h-[2.5rem] justify-between'>
 							<p className='line-clamp-1 text-heading-1'>{procedure.name}</p>
-							<Button
-								hasIconOnly
-								renderIcon={Maximize}
-								size='sm'
-								kind='ghost'
-								iconDescription={t('narrativeAdmin:procedure-details')}
-							/>
+							<div>
+								<Button
+									hasIconOnly
+									renderIcon={Maximize}
+									size='sm'
+									kind='ghost'
+									iconDescription={t('narrativeAdmin:procedure-details')}
+								/>
+								<Button
+									disabled={proceduresAppId.includes(procedure.id)}
+									title={
+										proceduresAppId.includes(procedure.id)
+											? t('narrativeAdmin:cannot-delete')
+											: ''
+									}
+									hasIconOnly
+									renderIcon={TrashCan}
+									size='sm'
+									kind='ghost'
+									iconDescription={
+										proceduresAppId.includes(procedure.id) ? '' : t('modals:delete')
+									}
+									onClick={() => setIsDeleteModalOpen(true)}
+								/>
+							</div>
 						</div>
 						<div className='h-[82px]'>
 							<p className='line-clamp-1 text-label-2'>
@@ -77,6 +107,11 @@ const ProcedureTile = ({ procedure }: ProcedureTileProps) => {
 					</div>
 				</div>
 			</Tile>
+			<DeleteProcedureModal
+				procedureId={procedure.id}
+				isOpen={isDeleteModalOpen}
+				setIsOpen={setIsDeleteModalOpen}
+			/>
 		</Layer>
 	);
 };

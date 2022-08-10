@@ -13,5 +13,6 @@
 	"no-procedures": "Nessuna procedura",
 	"procedure-details": "Dettagli procedura",
 	"no-description": "Nessuna descrizione",
-	"no-control-objectives": "Nessun obiettivo di controllo"
+	"no-control-objectives": "Nessun obiettivo di controllo",
+	"cannot-delete": "Questa procedura non può essere eliminata perchè utilizzata in una o più applicazioni"
 }
