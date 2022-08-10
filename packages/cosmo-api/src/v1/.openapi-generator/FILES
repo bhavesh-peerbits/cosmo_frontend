@@ -38,6 +38,7 @@ models/application-profile.ts
 models/application-user-dto.ts
 models/application.ts
 models/campaign-dto.ts
+models/campaign-template-dto.ts
 models/config-element.ts
 models/config-module-key.ts
 models/config-module.ts
