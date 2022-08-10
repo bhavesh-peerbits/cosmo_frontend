@@ -145,6 +145,7 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 								})}
 							/>
 							<TextInput
+								type='email'
 								id='email'
 								labelText='Email *'
 								placeholder='email@email.com'

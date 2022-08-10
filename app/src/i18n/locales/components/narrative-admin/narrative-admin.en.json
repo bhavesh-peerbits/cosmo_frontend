@@ -15,5 +15,6 @@
 	"no-description": "No description",
 	"no-control-objectives": "No control objectives",
 	"cannot-delete": "This procedure cannot be removed because it is used in one or more applications",
-	"details-subtitle": "Click the appropriate button to edit procedure details"
+	"details-subtitle": "Click the appropriate button to edit procedure details",
+	"major-procedure": "Major procedure"
 }

@@ -15,5 +15,6 @@
 	"no-description": "Pas de description",
 	"no-control-objectives": "Pas d'objectifs de contrôle",
 	"cannot-remove": "Cette procédure ne peut pas être éliminée car elle est utilisée dans une ou plusieurs applications",
-	"details-subtitle": "Cliquez sur le bouton approprié pour modifier"
+	"details-subtitle": "Cliquez sur le bouton approprié pour modifier",
+	"major-procedure": "Procédure majeure"
 }
