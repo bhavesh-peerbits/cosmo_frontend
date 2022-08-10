@@ -41,7 +41,7 @@ const DeleteProcedureModal = ({
 	};
 
 	return (
-		<ComposedModal size='sm' open={isOpen} onClose={cleanUp}>
+		<ComposedModal size='sm' open={isOpen} onClose={cleanUp} className='z-[9999]'>
 			<ModalHeader title={t('confirm-delete')} closeModal={cleanUp} />
 			<ModalBody>
 				<span>{t('delete-procedure')}</span>
