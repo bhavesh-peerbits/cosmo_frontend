@@ -5,6 +5,7 @@ import Procedure from '@model/Procedure';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import useGetProcedureApps from '@api/app-procedures/useGetProcedureApps';
+import ProcedureDetailsModal from '@components/Modals/ProcedureDetailsModal';
 
 type ProcedureTileProps = {
 	procedure: Procedure;
@@ -12,18 +13,15 @@ type ProcedureTileProps = {
 
 const ProcedureTile = ({ procedure }: ProcedureTileProps) => {
 	const { t } = useTranslation(['narrativeAdmin', 'procedureInfo', 'modals']);
-	const [controlObjectives, setControlObjectives] = useState<string[]>([]);
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+	const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
 	const [proceduresAppId, setProceduresAppId] = useState<string[]>([]);
 	const { data: procedures } = useGetProcedureApps();
+	const controlObjectives = Array.from(procedure.controlObjectives || []);
 
 	useEffect(() => {
 		procedures?.forEach(proc => setProceduresAppId(old => [...old, proc.procedureId]));
 	}, [procedures]);
-
-	useEffect(() => {
-		procedure.controlObjectives?.forEach(co => setControlObjectives(old => [...old, co]));
-	}, [procedure]);
 
 	return (
 		<Layer level={1}>
@@ -39,6 +37,7 @@ const ProcedureTile = ({ procedure }: ProcedureTileProps) => {
 									size='sm'
 									kind='ghost'
 									iconDescription={t('narrativeAdmin:procedure-details')}
+									onClick={() => setIsDetailsModalOpen(true)}
 								/>
 								<Button
 									disabled={proceduresAppId.includes(procedure.id)}
@@ -77,6 +76,23 @@ const ProcedureTile = ({ procedure }: ProcedureTileProps) => {
 									</div>
 								</div>
 							)}
+							{controlObjectives.length === 1 && (
+								<div className='space-y-4'>
+									<UnorderedList nested>
+										<ListItem className='text-text-secondary'>
+											{controlObjectives[0]}
+										</ListItem>
+									</UnorderedList>
+									<div className=''>
+										<p className='line-clamp-1 text-label-2'>
+											{t('procedureInfo:description')}:
+										</p>{' '}
+										<p className='text-text-secondary text-label-2'>
+											{procedure.description ? '...' : t('narrativeAdmin:no-description')}
+										</p>
+									</div>
+								</div>
+							)}
 							{controlObjectives.length > 1 && (
 								<UnorderedList nested>
 									<ListItem className='text-text-secondary'>
@@ -88,21 +104,6 @@ const ProcedureTile = ({ procedure }: ProcedureTileProps) => {
 									<p>...</p>
 								</UnorderedList>
 							)}
-							{controlObjectives.length === 1 && (
-								<UnorderedList nested>
-									<ListItem className='text-text-secondary'>
-										{controlObjectives[0]}
-									</ListItem>
-									<div className=''>
-										<p className='line-clamp-1 text-label-2'>
-											{t('procedureInfo:description')}:
-										</p>{' '}
-										<p className='text-text-secondary text-label-2'>
-											{procedure.description ? '...' : t('narrativeAdmin:no-description')}
-										</p>
-									</div>
-								</UnorderedList>
-							)}
 						</div>
 					</div>
 				</div>
@@ -111,6 +112,11 @@ const ProcedureTile = ({ procedure }: ProcedureTileProps) => {
 				procedureId={procedure.id}
 				isOpen={isDeleteModalOpen}
 				setIsOpen={setIsDeleteModalOpen}
+			/>
+			<ProcedureDetailsModal
+				procedure={procedure}
+				isOpen={isDetailsModalOpen}
+				setIsOpen={setIsDetailsModalOpen}
 			/>
 		</Layer>
 	);
