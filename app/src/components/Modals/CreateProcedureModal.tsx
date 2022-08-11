@@ -7,7 +7,6 @@ import {
 	Form,
 	Grid,
 	InlineNotification,
-	Layer,
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
@@ -15,10 +14,9 @@ import {
 	TextInput
 } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
-import TiptapEditor from '@components/tiptap/TiptapEditor';
 import Procedure from '@model/Procedure';
 import { useEffect, useMemo } from 'react';
-import { useController, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 export interface CreateProcedureForm {
@@ -42,7 +40,6 @@ const CreateProcedureModal = ({ isOpen, setIsOpen }: CreateProcedureModalProps) 
 	);
 
 	const {
-		control,
 		register,
 		reset,
 		handleSubmit,
@@ -55,18 +52,6 @@ const CreateProcedureModal = ({ isOpen, setIsOpen }: CreateProcedureModalProps) 
 			controlObjectives: '',
 			majorProcedure: ''
 		}
-	});
-
-	const {
-		field: {
-			onChange: onChangeDescription,
-			value: descriptionValue,
-			ref: descriptionRef,
-			onBlur: onBlurDescription
-		}
-	} = useController({
-		control,
-		name: 'description'
 	});
 
 	const cleanUp = () => {
@@ -116,7 +101,7 @@ const CreateProcedureModal = ({ isOpen, setIsOpen }: CreateProcedureModalProps) 
 		>
 			<Form onSubmit={handleSubmit(createProcedure)}>
 				<ModalHeader title={t('narrativeAdmin:create-procedure')} closeModal={cleanUp} />
-				<ModalBody>
+				<ModalBody className='max-h-[500px]'>
 					<Grid className='space-y-5'>
 						<FullWidthColumn>
 							<TextInput
@@ -137,7 +122,7 @@ const CreateProcedureModal = ({ isOpen, setIsOpen }: CreateProcedureModalProps) 
 						</FullWidthColumn>
 						<FullWidthColumn>
 							<TextArea
-								rows={1}
+								rows={2}
 								id='control-objectives'
 								labelText={t('narrativeAdmin:control-objectives')}
 								{...register('controlObjectives')}
@@ -154,17 +139,13 @@ const CreateProcedureModal = ({ isOpen, setIsOpen }: CreateProcedureModalProps) 
 							/>
 						</FullWidthColumn>
 						<FullWidthColumn>
-							<p className='mb-3 text-text-secondary text-label-1'>
-								{t('modals:description')}
-							</p>
-							<Layer className='bg-background'>
-								<TiptapEditor
-									content={descriptionValue}
-									onChange={onChangeDescription}
-									onBlur={onBlurDescription}
-									ref={descriptionRef}
-								/>
-							</Layer>
+							<TextArea
+								id='description'
+								labelText={t('procedureInfo:description')}
+								invalid={Boolean(errors.description)}
+								invalidText={errors.description?.message}
+								{...register('description')}
+							/>
 						</FullWidthColumn>
 					</Grid>
 					{isError && (

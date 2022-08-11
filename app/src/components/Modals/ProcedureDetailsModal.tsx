@@ -15,8 +15,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import Procedure from '@model/Procedure';
 import FullWidthColumn from '@components/FullWidthColumn';
-import TiptapEditor from '@components/tiptap/TiptapEditor';
-import { useController, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import useGetProcedures from '@api/procedures/useGetProcedures';
 import { useEffect, useMemo, useState } from 'react';
 import { Edit } from '@carbon/react/icons';
@@ -59,7 +58,6 @@ const ProcedureDetailsModal = ({
 	);
 
 	const {
-		control,
 		register,
 		handleSubmit,
 		reset: resetForm,
@@ -72,18 +70,6 @@ const ProcedureDetailsModal = ({
 			controlObjectives: procedure.controlObjectives?.toString(),
 			majorProcedure: procedure.majorProcedure
 		}
-	});
-
-	const {
-		field: {
-			onChange: onChangeDescription,
-			value: descriptionValue,
-			ref: descriptionRef,
-			onBlur: onBlurDescription
-		}
-	} = useController({
-		control,
-		name: 'description'
 	});
 
 	const cleanUp = () => {
@@ -198,7 +184,7 @@ const ProcedureDetailsModal = ({
 							</FullWidthColumn>
 							<FullWidthColumn>
 								<TextArea
-									rows={1}
+									rows={2}
 									readOnly={!isEditing}
 									id='control-objectives'
 									labelText={t('narrativeAdmin:control-objectives')}
@@ -219,18 +205,13 @@ const ProcedureDetailsModal = ({
 								/>
 							</FullWidthColumn>
 							<FullWidthColumn>
-								<p className='mb-3 text-text-secondary text-label-1'>
-									{t('modals:description')}
-								</p>
-								<Layer className='bg-background'>
-									<TiptapEditor
-										readOnly={!isEditing}
-										content={descriptionValue}
-										onChange={onChangeDescription}
-										onBlur={onBlurDescription}
-										ref={descriptionRef}
-									/>
-								</Layer>
+								<TextArea
+									id='description'
+									labelText={t('procedureInfo:description')}
+									invalid={Boolean(errors.description)}
+									invalidText={errors.description?.message}
+									{...register('description')}
+								/>
 							</FullWidthColumn>
 						</Grid>
 						{isError && (
