@@ -7,6 +7,7 @@ import ErrorBoundary from '@error/components/ErrorBoundary';
 import PageSkeleton from '@components/PageSkeleton';
 import usePolicyStore from '@hooks/usePolicyStore';
 import ProtectRoute from '@routes/ProtectRoute';
+import Procedures from '@pages/Procedures';
 
 const Home = React.lazy(() => import('@pages/Home'));
 const Test = React.lazy(() => import('@pages/Test'));
@@ -29,7 +30,8 @@ const AuthenticatedRoutes = () => {
 		canReviewNarrative,
 		canReview,
 		canAdmin,
-		canUserAdmin
+		canUserAdmin,
+		canNarrativeAdmin
 	} = usePolicyStore();
 	return (
 		<>
@@ -119,6 +121,14 @@ const AuthenticatedRoutes = () => {
 									element={
 										<ProtectRoute canNavigate={canUserAdmin}>
 											<ApplicationsVisibility />
+										</ProtectRoute>
+									}
+								/>
+								<Route
+									path='procedures'
+									element={
+										<ProtectRoute canNavigate={canNarrativeAdmin}>
+											<Procedures />
 										</ProtectRoute>
 									}
 								/>

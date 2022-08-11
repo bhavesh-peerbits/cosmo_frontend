@@ -42,4 +42,16 @@ export interface ProcedureDto {
 	 * @memberof ProcedureDto
 	 */
 	majorProcedure?: string;
+	/**
+	 * Set of control objectives
+	 * @type {Set<string>}
+	 * @memberof ProcedureDto
+	 */
+	controlObjectives?: Set<string>;
+	/**
+	 * Order number
+	 * @type {number}
+	 * @memberof ProcedureDto
+	 */
+	orderNumber?: number;
 }

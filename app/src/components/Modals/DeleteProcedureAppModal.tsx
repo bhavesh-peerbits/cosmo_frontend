@@ -8,20 +8,28 @@ import {
 } from '@carbon/react';
 import ApiError from '@api/ApiError';
 import { useTranslation } from 'react-i18next';
-import useDeleteProcedure from '@api/narrative-admin/useDeleteProcedure';
+import useDeleteProcedureApp from '@api/app-procedures/useDeleteProcedureApp';
 
 type DeleteProcedureModalProps = {
 	isOpen: boolean;
 	setIsOpen: (value: boolean) => void;
 	procedureId: string;
+	procedureAppId: string;
+	appId: string;
+	softDelete?: boolean;
+	onDelete: () => void;
 };
 
-const DeleteProcedureModal = ({
+const DeleteProcedureAppModal = ({
 	isOpen,
 	setIsOpen,
-	procedureId
+	procedureId,
+	procedureAppId,
+	appId,
+	softDelete,
+	onDelete
 }: DeleteProcedureModalProps) => {
-	const { mutate, isLoading, isError, error, reset } = useDeleteProcedure();
+	const { mutate, isLoading, isError, error, reset } = useDeleteProcedureApp();
 	const { t } = useTranslation('modals');
 
 	const cleanUp = () => {
@@ -29,19 +37,17 @@ const DeleteProcedureModal = ({
 		setIsOpen(false);
 	};
 
-	const deleteProcedure = () => {
-		return mutate(
-			{ procId: procedureId },
-			{
-				onSuccess: () => {
-					cleanUp();
-				}
-			}
-		);
+	const deleteElement = () => {
+		if (softDelete) {
+			onDelete();
+			cleanUp();
+		} else {
+			mutate({ appId, procedureAppId, procedureId }, { onSuccess: () => cleanUp() });
+		}
 	};
 
 	return (
-		<ComposedModal size='sm' open={isOpen} onClose={cleanUp} className='z-[9999]'>
+		<ComposedModal size='sm' open={isOpen} onClose={cleanUp}>
 			<ModalHeader title={t('confirm-delete')} closeModal={cleanUp} />
 			<ModalBody>
 				<span>{t('delete-procedure')}</span>
@@ -63,11 +69,11 @@ const DeleteProcedureModal = ({
 				<Button kind='secondary' onClick={cleanUp}>
 					{t('cancel')}
 				</Button>
-				<Button kind='danger' disabled={isLoading} onClick={deleteProcedure}>
+				<Button kind='danger' disabled={isLoading} onClick={deleteElement}>
 					{t('delete')}
 				</Button>
 			</ModalFooter>
 		</ComposedModal>
 	);
 };
-export default DeleteProcedureModal;
+export default DeleteProcedureAppModal;

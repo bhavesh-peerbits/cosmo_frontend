@@ -48,5 +48,6 @@
 	"field-required": "Ce champ est requis",
 	"back": "Retour",
 	"next": "Suivant",
-	"save": "Enregistrer"
+	"save": "Enregistrer",
+	"create": "Crée"
 }

@@ -7,6 +7,7 @@ export * from './application-dto';
 export * from './application-profile';
 export * from './application-user-dto';
 export * from './campaign-dto';
+export * from './campaign-template-dto';
 export * from './config-element';
 export * from './config-module';
 export * from './config-module-key';

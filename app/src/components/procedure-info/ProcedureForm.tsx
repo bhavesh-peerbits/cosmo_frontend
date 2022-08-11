@@ -9,7 +9,7 @@ import ProcedureAppInstance from '@model/ProcedureAppInstance';
 import User from '@model/User';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';
-import DeleteProcedureModal from '@components/Modals/DeleteProcedureModal';
+import DeleteProcedureAppModal from '@components/Modals/DeleteProcedureAppModal';
 import { useTranslation } from 'react-i18next';
 import useGetProcedures from '@api/procedures/useGetProcedures';
 import useAddProcedureApp from '@api/app-procedures/useAddProcedureApp';
@@ -136,7 +136,7 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 							onClick={() => setIsDeleteModalOpen(true)}
 						/>
 					</FullWidthColumn>
-					<DeleteProcedureModal
+					<DeleteProcedureAppModal
 						isOpen={isDeleteModalOpen}
 						setIsOpen={setIsDeleteModalOpen}
 						procedureId={procedure.id}

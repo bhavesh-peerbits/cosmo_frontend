@@ -106,6 +106,8 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 								id='user-name'
 								placeholder={tUser('placeholder-name')}
 								labelText={`${tUser('name')} *`}
+								invalid={Boolean(errors.name)}
+								invalidText={errors.name?.message}
 								{...register('name', {
 									required: {
 										value: true,
@@ -117,6 +119,8 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 								id='user-surname'
 								placeholder={tUser('placeholder-surname')}
 								labelText={`${tUser('surname')} *`}
+								invalid={Boolean(errors.surname)}
+								invalidText={errors.surname?.message}
 								{...register('surname', {
 									required: {
 										value: true,
@@ -141,6 +145,7 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 								})}
 							/>
 							<TextInput
+								type='email'
 								id='email'
 								labelText='Email *'
 								placeholder='email@email.com'

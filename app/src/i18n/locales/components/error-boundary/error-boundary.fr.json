@@ -6,7 +6,7 @@
 	"reload": "Recharger",
 	"error-message-detail": "<0>Désolé, une erreur irrécupérable s'est produite.</0><1>Veuillez essayer de recharger la page, il peut s'agir d'un problème temporaire.</1>",
 	"tell-us": "Si vous souhaitez aider, dites-nous ce qui s'est passé ci-dessous",
-	"send-data": "Le nom est requis",
+	"send-data": "Envoi de données...",
 	"name-required": "Le nom est requis",
 	"email-required": "L'adresse email est requise",
 	"email-not-valid": "L'adresse email n'est pas valide",

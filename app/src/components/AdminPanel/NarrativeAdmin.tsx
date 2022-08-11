@@ -14,7 +14,7 @@ const NarrativeAdmin = () => {
 			</Column>
 			<Column sm={4} md={3} lg={4}>
 				<AdminTile
-					path=''
+					path='procedures'
 					title={t('procedures')}
 					description={t('procedures-description')}
 				/>
