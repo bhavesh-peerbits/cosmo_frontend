@@ -6,6 +6,7 @@ interface Procedure {
 	description?: string;
 	controlObjectives?: string[];
 	majorProcedure?: string;
+	orderNumber?: number;
 }
 
 export const fromProcedureApi = (procedureApi: ProcedureApi): Procedure => {
@@ -16,7 +17,8 @@ export const fromProcedureApi = (procedureApi: ProcedureApi): Procedure => {
 		controlObjectives: procedureApi.controlObjectives
 			? Array.from(procedureApi.controlObjectives)
 			: undefined,
-		majorProcedure: procedureApi.majorProcedure ? procedureApi.majorProcedure : undefined
+		majorProcedure: procedureApi.majorProcedure ? procedureApi.majorProcedure : undefined,
+		orderNumber: procedureApi.orderNumber
 	};
 };
 
@@ -25,10 +27,11 @@ export const toProcedureApi = (procedure: Procedure): ProcedureApi => {
 		id: +procedure.id,
 		name: procedure.name,
 		description: procedure.description ? procedure.description : undefined,
-		controlObjectives: procedure.controlObjectives
-			? new Set(procedure.controlObjectives)
-			: undefined,
-		majorProcedure: procedure.majorProcedure ? procedure.majorProcedure : undefined
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
+		controlObjectives: procedure.controlObjectives,
+		majorProcedure: procedure.majorProcedure ? procedure.majorProcedure : undefined,
+		orderNumber: procedure.orderNumber
 	};
 };
 

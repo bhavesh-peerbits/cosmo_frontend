@@ -22,7 +22,7 @@ import { useTranslation } from 'react-i18next';
 
 export interface CreateProcedureForm {
 	name: string;
-	controlObjectives: string[];
+	controlObjectives: string;
 	description: string;
 	majorProcedure: string;
 }
@@ -45,14 +45,13 @@ const CreateProcedureModal = ({ isOpen, setIsOpen }: CreateProcedureModalProps) 
 		register,
 		reset,
 		handleSubmit,
-		getValues,
 		formState: { errors, isValid }
 	} = useForm<CreateProcedureForm>({
 		mode: 'onChange',
 		defaultValues: {
 			name: '',
 			description: '',
-			controlObjectives: [],
+			controlObjectives: '',
 			majorProcedure: ''
 		}
 	});
@@ -80,20 +79,19 @@ const CreateProcedureModal = ({ isOpen, setIsOpen }: CreateProcedureModalProps) 
 			reset({
 				name: '',
 				description: '',
-				controlObjectives: [],
+				controlObjectives: '',
 				majorProcedure: ''
 			}),
 		[reset]
 	);
 
-	const createProcedure = () => {
-		const data = getValues();
+	const createProcedure = (data: CreateProcedureForm) => {
 		return mutate(
 			{
 				procedureData: {
 					id: '',
 					name: data.name,
-					controlObjectives: undefined, // TODO Fix
+					controlObjectives: [...data.controlObjectives.split(',')],
 					description: data.description,
 					majorProcedure: data.majorProcedure
 				}

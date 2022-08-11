@@ -25,7 +25,7 @@ import ApiError from '@api/ApiError';
 interface ProcedureDetailsForm {
 	name: string;
 	description: string;
-	controlObjectives: string[];
+	controlObjectives: string;
 	majorProcedure: string;
 }
 
@@ -65,7 +65,7 @@ const ProcedureDetailsModal = ({
 		defaultValues: {
 			name: procedure.name,
 			description: procedure.description,
-			controlObjectives: procedure.controlObjectives,
+			controlObjectives: procedure.controlObjectives?.toString(),
 			majorProcedure: procedure.majorProcedure
 		}
 	});
@@ -94,7 +94,7 @@ const ProcedureDetailsModal = ({
 			resetForm({
 				name: procedure.name,
 				description: procedure.description,
-				controlObjectives: procedure.controlObjectives,
+				controlObjectives: procedure.controlObjectives?.toString(),
 				majorProcedure: procedure.majorProcedure
 			}),
 		[resetForm, procedure]
@@ -106,7 +106,7 @@ const ProcedureDetailsModal = ({
 				procedure: {
 					id: procedure.id,
 					name: data.name,
-					controlObjectives: undefined,
+					controlObjectives: [...data.controlObjectives.split(',')],
 					description: data.description,
 					majorProcedure: data.majorProcedure
 				}
