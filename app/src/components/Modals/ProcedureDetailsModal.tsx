@@ -51,8 +51,11 @@ const ProcedureDetailsModal = ({
 	const { data: procedures = new Map<string, Procedure>() } = useGetProcedures();
 	const { mutate, isLoading, isError, error, reset } = useEditProcedure();
 	const proceduresExistingName = useMemo(
-		() => [...procedures.values()].map(proc => proc.name.toLowerCase()),
-		[procedures]
+		() =>
+			[...procedures.values()]
+				.map(proc => proc.name.toLowerCase())
+				.filter(proc => proc.toLowerCase() !== procedure.name.toLowerCase()),
+		[procedures, procedure]
 	);
 
 	const {
@@ -107,7 +110,9 @@ const ProcedureDetailsModal = ({
 				procedure: {
 					id: procedure.id,
 					name: data.name,
-					controlObjectives: [...data.controlObjectives.split(',')],
+					controlObjectives: [...data.controlObjectives.split(',')].filter(
+						co => co.trim() !== ''
+					),
 					description: data.description,
 					majorProcedure: data.majorProcedure
 				}
@@ -208,8 +213,8 @@ const ProcedureDetailsModal = ({
 									id='major-procedure'
 									readOnly={!isEditing}
 									labelText={t('narrativeAdmin:major-procedure')}
-									invalid={Boolean(errors.name)}
-									invalidText={errors.name?.message}
+									invalid={Boolean(errors.majorProcedure)}
+									invalidText={errors.majorProcedure?.message}
 									{...register('majorProcedure')}
 								/>
 							</FullWidthColumn>

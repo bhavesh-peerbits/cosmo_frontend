@@ -17,5 +17,5 @@
 	"cannot-delete": "This procedure cannot be removed because it is used in one or more applications",
 	"details-subtitle": "Click the appropriate button to edit procedure details",
 	"major-procedure": "Major procedure",
-	"control-obj-placeholder": "Separate elements by commas (e.g. CO1, CO2, CO3)"
+	"control-obj-placeholder": "Separate elements by commas (e.g. CO1,CO2,CO3)"
 }

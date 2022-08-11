@@ -17,5 +17,5 @@
 	"cannot-delete": "Questa procedura non può essere eliminata perchè utilizzata in una o più applicazioni",
 	"details-subtitle": "Per editare i dettagli della procedura utilizzare l'apposito pulsante",
 	"major-procedure": "Procedura principale",
-	"control-obj-placeholder": "Separare gli elementi tramite virgola (es. CO1, CO2, CO3)"
+	"control-obj-placeholder": "Separare gli elementi tramite virgola (es. CO1,CO2,CO3)"
 }

@@ -17,5 +17,5 @@
 	"cannot-remove": "Cette procédure ne peut pas être éliminée car elle est utilisée dans une ou plusieurs applications",
 	"details-subtitle": "Cliquez sur le bouton approprié pour modifier",
 	"major-procedure": "Procédure majeure",
-	"control-obj-placeholder": "Séparer les éléments par des virgules (ex. CO1, CO2, CO3)"
+	"control-obj-placeholder": "Séparer les éléments par des virgules (ex. CO1,CO2,CO3)"
 }

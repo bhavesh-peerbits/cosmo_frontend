@@ -92,7 +92,9 @@ const CreateProcedureModal = ({ isOpen, setIsOpen }: CreateProcedureModalProps) 
 				procedureData: {
 					id: '',
 					name: data.name,
-					controlObjectives: [...data.controlObjectives.split(',')],
+					controlObjectives: [...data.controlObjectives.split(',')].filter(
+						co => co.trim() !== ''
+					),
 					description: data.description,
 					majorProcedure: data.majorProcedure
 				}
@@ -146,8 +148,8 @@ const CreateProcedureModal = ({ isOpen, setIsOpen }: CreateProcedureModalProps) 
 							<TextInput
 								id='major-procedure'
 								labelText={t('narrativeAdmin:major-procedure')}
-								invalid={Boolean(errors.name)}
-								invalidText={errors.name?.message}
+								invalid={Boolean(errors.majorProcedure)}
+								invalidText={errors.majorProcedure?.message}
 								{...register('majorProcedure')}
 							/>
 						</FullWidthColumn>
