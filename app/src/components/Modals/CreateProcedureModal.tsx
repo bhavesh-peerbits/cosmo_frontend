@@ -11,6 +11,7 @@ import {
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
+	TextArea,
 	TextInput
 } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
@@ -133,10 +134,12 @@ const CreateProcedureModal = ({ isOpen, setIsOpen }: CreateProcedureModalProps) 
 							/>
 						</FullWidthColumn>
 						<FullWidthColumn>
-							<TextInput
+							<TextArea
+								rows={1}
 								id='control-objectives'
 								labelText={t('narrativeAdmin:control-objectives')}
 								{...register('controlObjectives')}
+								placeholder={t('narrativeAdmin:control-obj-placeholder')}
 							/>
 						</FullWidthColumn>
 						<FullWidthColumn>

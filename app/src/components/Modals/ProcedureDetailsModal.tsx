@@ -1,5 +1,6 @@
 import {
 	Button,
+	Column,
 	ComposedModal,
 	Form,
 	Grid,
@@ -134,32 +135,43 @@ const ProcedureDetailsModal = ({
 					/>
 					<ModalBody>
 						<Grid className='space-y-5'>
-							<FullWidthColumn className='flex justify-between'>
-								<p>{`${t('narrativeAdmin:details-subtitle')}.`}</p>
-								<div className='space-x-5'>
-									<Button
-										size='sm'
-										kind='secondary'
-										disabled={!isEditing || !isDirty}
-										onClick={() => {
-											resetForm();
-											reset();
-											setIsEditing(false);
-										}}
+							<FullWidthColumn>
+								<Grid fullWidth narrow className=' px-5 sm:flex sm:justify-between'>
+									<Column sm={4} md={3} lg={6}>{`${t(
+										'narrativeAdmin:details-subtitle'
+									)}.`}</Column>
+									<Column
+										sm={4}
+										md={5}
+										lg={10}
+										className='flex flex-col items-center space-y-2 md:flex-row md:space-y-0 md:space-x-5'
 									>
-										{t('procedureInfo:discard')}
-									</Button>
+										<Button
+											size='sm'
+											kind='secondary'
+											className='min-w-full md:min-w-fit'
+											disabled={!isEditing || !isDirty}
+											onClick={() => {
+												resetForm();
+												reset();
+												setIsEditing(false);
+											}}
+										>
+											{t('procedureInfo:discard')}
+										</Button>
 
-									<Button
-										size='sm'
-										kind='tertiary'
-										renderIcon={Edit}
-										disabled={isEditing}
-										onClick={() => setIsEditing(true)}
-									>
-										{t('modals:edit')}
-									</Button>
-								</div>
+										<Button
+											size='sm'
+											kind='tertiary'
+											className='min-w-full md:min-w-fit'
+											renderIcon={Edit}
+											disabled={isEditing}
+											onClick={() => setIsEditing(true)}
+										>
+											{t('modals:edit')}
+										</Button>
+									</Column>
+								</Grid>
 							</FullWidthColumn>
 							<FullWidthColumn>
 								<TextInput
@@ -187,7 +199,7 @@ const ProcedureDetailsModal = ({
 									labelText={t('narrativeAdmin:control-objectives')}
 									{...register('controlObjectives')}
 									placeholder={
-										isEditing ? 'Insert control objectives separated by virgola' : ''
+										isEditing ? t('narrativeAdmin:control-obj-placeholder') : ''
 									}
 								/>
 							</FullWidthColumn>
@@ -207,6 +219,7 @@ const ProcedureDetailsModal = ({
 								</p>
 								<Layer className='bg-background'>
 									<TiptapEditor
+										readOnly={!isEditing}
 										content={descriptionValue}
 										onChange={onChangeDescription}
 										onBlur={onBlurDescription}
