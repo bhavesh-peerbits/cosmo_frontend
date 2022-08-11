@@ -5,5 +5,7 @@
 	"roles": "Rôles",
 	"welcome": "Bienvenue en",
 	"no-role-message": "Vous n'avez aucun rôle, contactez un administrateur",
-	"navigate-to-start": "Naviguez dans la section suivante pour commencer"
+	"navigate-to-start": "Naviguez dans la section suivante pour commencer",
+	"save-data": "Sauvegarde des données",
+	"saved": "Enregistré"
 }
