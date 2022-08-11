@@ -27,9 +27,9 @@ const ProcedureTile = ({ procedure }: ProcedureTileProps) => {
 		<Layer level={1}>
 			<Tile className='mb-5'>
 				<div className='flex flex-col justify-between'>
-					<div className='flex flex-col'>
-						<div className='flex max-h-[2.5rem] min-h-[2.5rem] justify-between space-x-4'>
-							<p className='max-h-[2.5rem] min-h-[2.5rem] truncate text-heading-1'>
+					<div className='flex flex-col space-y-3'>
+						<div className='flex max-h-[2rem] min-h-[2rem] justify-between space-x-4'>
+							<p className='self-center text-ellipsis line-clamp-2 text-heading-1'>
 								{procedure.name}
 							</p>
 							<div className='flex justify-end'>
@@ -64,14 +64,14 @@ const ProcedureTile = ({ procedure }: ProcedureTileProps) => {
 								{t('narrativeAdmin:control-objectives')}:
 							</p>
 							{controlObjectives.length === 0 && (
-								<div className='space-y-4'>
-									<p className='text-text-secondary text-label-2'>
+								<div>
+									<p className='h-[40px] text-text-secondary text-label-2'>
 										{t('narrativeAdmin:no-control-objectives')}
 									</p>
-									<div className=''>
+									<div>
 										<p className='line-clamp-1 text-label-2'>
 											{t('procedureInfo:description')}:
-										</p>{' '}
+										</p>
 										<p className='text-text-secondary text-label-2'>
 											{procedure.description ? '...' : t('narrativeAdmin:no-description')}
 										</p>
@@ -79,13 +79,13 @@ const ProcedureTile = ({ procedure }: ProcedureTileProps) => {
 								</div>
 							)}
 							{controlObjectives.length === 1 && (
-								<div className='space-y-4'>
-									<UnorderedList nested>
-										<ListItem className='text-text-secondary'>
+								<div>
+									<UnorderedList nested className='h-[40px] list-inside'>
+										<ListItem className='truncate text-text-secondary'>
 											{controlObjectives[0]}
 										</ListItem>
 									</UnorderedList>
-									<div className=''>
+									<div>
 										<p className='line-clamp-1 text-label-2'>
 											{t('procedureInfo:description')}:
 										</p>{' '}
@@ -96,15 +96,29 @@ const ProcedureTile = ({ procedure }: ProcedureTileProps) => {
 								</div>
 							)}
 							{controlObjectives.length > 1 && (
-								<UnorderedList nested>
-									<ListItem className='text-text-secondary'>
-										{controlObjectives[0]}
-									</ListItem>
-									<ListItem className='text-text-secondary'>
-										{controlObjectives[1]}
-									</ListItem>
-									<p>...</p>
-								</UnorderedList>
+								<>
+									<UnorderedList nested className='list-inside'>
+										<ListItem className='truncate text-text-secondary'>
+											{controlObjectives[0]}
+										</ListItem>
+										<ListItem className='truncate text-text-secondary'>
+											{controlObjectives[1]}
+										</ListItem>
+										{controlObjectives.length > 2 && <p>...</p>}
+									</UnorderedList>
+									{controlObjectives.length === 2 && (
+										<div>
+											<p className='line-clamp-1 text-label-2'>
+												{t('procedureInfo:description')}:
+											</p>{' '}
+											<p className='text-text-secondary text-label-2'>
+												{procedure.description
+													? '...'
+													: t('narrativeAdmin:no-description')}
+											</p>
+										</div>
+									)}
+								</>
 							)}
 						</div>
 					</div>
