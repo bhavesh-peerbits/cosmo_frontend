@@ -28,9 +28,11 @@ const ProcedureTile = ({ procedure }: ProcedureTileProps) => {
 			<Tile className='mb-5'>
 				<div className='flex flex-col justify-between'>
 					<div className='flex flex-col'>
-						<div className='flex min-h-[2.5rem] justify-between'>
-							<p className='line-clamp-1 text-heading-1'>{procedure.name}</p>
-							<div>
+						<div className='flex max-h-[2.5rem] min-h-[2.5rem] justify-between space-x-4'>
+							<p className='max-h-[2.5rem] min-h-[2.5rem] truncate text-heading-1'>
+								{procedure.name}
+							</p>
+							<div className='flex justify-end'>
 								<Button
 									hasIconOnly
 									renderIcon={Maximize}
