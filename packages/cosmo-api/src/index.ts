@@ -19,6 +19,8 @@ import {
 	ProcedureControllerApi,
 	ProcedureDto,
 	RealmControllerApi,
+	ReviewDto,
+	ReviewDtoStatusEnum,
 	ReviewerCampaignControllerApi,
 	ReviewerControllerApi,
 	UserAdminControllerApi,
@@ -60,3 +62,5 @@ export const CampaignDtoLayerApiEnum = CampaignDtoLayerEnum;
 export type CampaignDtoLayerApi = CampaignDtoLayerEnum;
 export const CampaignDtoStatusApiEnum = CampaignDtoStatusEnum;
 export type CampaignDtoStatusApi = CampaignDtoStatusEnum;
+export type CampaignApplicationApi = ReviewDto;
+export type CampaignApplicationStatusApi = ReviewDtoStatusEnum;

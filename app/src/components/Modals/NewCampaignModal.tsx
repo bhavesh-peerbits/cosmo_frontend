@@ -61,24 +61,29 @@ const NewCampaignModal = ({ isOpen, setIsOpen }: NewCampaignModalProps) => {
 	const layers = Object.entries(CampaignDtoLayerApiEnum);
 
 	const createNewCampaign = (data: CreateCampaignForm) => {
-		mutate({
-			campaign: {
-				id: '-1',
-				applicationsCount: 0,
-				name: data.campaignName,
-				type: data.revalidationType,
-				layer: data.revalidationLayer,
-				contributors: [],
-				archived: false
+		mutate(
+			{
+				campaign: {
+					id: '-1',
+					applicationsCount: 0,
+					name: data.campaignName,
+					type: data.revalidationType,
+					layer: data.revalidationLayer,
+					contributors: [],
+					archived: false
+				}
+			},
+			{
+				onSuccess: cleanUp
 			}
-		});
+		);
 	};
 
 	return (
 		<ComposedModal size='xs' open={isOpen} onClose={cleanUp}>
 			<ModalHeader title={t('userRevalidation:create-new')} closeModal={cleanUp} />
-			<Form onSubmit={handleSubmit(createNewCampaign)}>
-				<ModalBody className='m-0 space-y-4 pb-9'>
+			<ModalBody className='m-0 space-y-4 pb-9'>
+				<Form>
 					<TextInput
 						id='campaign-name'
 						labelText={`${t('userRevalidation:campaign-name')} *`}
@@ -116,27 +121,30 @@ const NewCampaignModal = ({ isOpen, setIsOpen }: NewCampaignModalProps) => {
 							<RadioButton className='uppercase' key={id} labelText={id} value={value} />
 						))}
 					</RadioButtonGroup>
-					{isApiError && (
-						<InlineNotification
-							kind='error'
-							title='Error'
-							hideCloseButton
-							subtitle={
-								(error as ApiError)?.message ||
-								'An error has occurred, please try again later'
-							}
-						/>
-					)}
-				</ModalBody>
-				<ModalFooter>
-					<Button kind='secondary' onClick={cleanUp}>
-						{t('modals:cancel')}
-					</Button>
-					<Button disabled={!isValid || isLoading} type='submit'>
-						{t('userRevalidation:create-campaign')}
-					</Button>
-				</ModalFooter>
-			</Form>
+				</Form>
+				{isApiError && (
+					<InlineNotification
+						kind='error'
+						title='Error'
+						hideCloseButton
+						subtitle={
+							(error as ApiError)?.message ||
+							'An error has occurred, please try again later'
+						}
+					/>
+				)}
+			</ModalBody>
+			<ModalFooter>
+				<Button kind='secondary' onClick={cleanUp}>
+					{t('modals:cancel')}
+				</Button>
+				<Button
+					disabled={!isValid || isLoading}
+					onClick={handleSubmit(createNewCampaign)}
+				>
+					{t('userRevalidation:create-campaign')}
+				</Button>
+			</ModalFooter>
 		</ComposedModal>
 	);
 };

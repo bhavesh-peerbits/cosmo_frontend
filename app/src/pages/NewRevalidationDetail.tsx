@@ -10,32 +10,76 @@ import TableOfContents from '@components/TableOfContents';
 import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
 import UploadFileModal from '@components/Modals/UploadFileModal';
 import UploadResultsTile from '@components/UserRevalidation/UploadResultsTile';
+import { useParams } from 'react-router-dom';
+import useGetCampaign from '@api/user-revalidation/useGetCampaign';
+import NoDataMessage from '@components/NoDataMessage';
+import useGetCampaignApplications from '@api/user-revalidation/useGetCampaignApplications';
+import CampaignApplication from '@model/CampaignApplication';
+
+const UploadResults = () => {
+	const { campaignId = '' } = useParams<'campaignId'>();
+	// TODO remove when BE is fixed
+	const { data: campaign } = useGetCampaign(campaignId);
+
+	const { data = new Map<string, CampaignApplication>() } = useGetCampaignApplications(
+		campaign?.name || ''
+	);
+	data.set('1', {
+		campaign: {
+			id: '1'
+		},
+		status: 'WIP',
+		id: '1',
+		application: {
+			id: '2',
+			name: 'Test Application'
+		}
+	} as CampaignApplication);
+
+	return (
+		<>
+			{[...data.values()].map(a => (
+				<div className='pb-7' key={a.id}>
+					<Tile className='bg-background'>
+						<UploadResultsTile application={a.application} />
+					</Tile>
+				</div>
+			))}
+		</>
+	);
+};
 
 const NewRevalidationDetail = () => {
-	const { t } = useTranslation('userRevalidation');
-	const { t: tModals } = useTranslation('modals');
+	const { t } = useTranslation(['userRevalidation', 'modals']);
+	const { campaignId = '' } = useParams<'campaignId'>();
+	const { data } = useGetCampaign(campaignId);
+
 	const [isSendModalOpen, setIsSendModalOpen] = useState(false);
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 	const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
 	const buttonRef = useRef<HTMLDivElement>(null);
 	const { breadcrumbSize } = useBreadcrumbSize();
 
+	if (!data) {
+		return null;
+	}
+
 	return (
 		<PageHeader
-			pageTitle='Campagna' // TODO fix with campaign name
+			pageTitle={data.name}
 			intermediateRoutes={[{ name: 'New Revalidation', to: '/new-revalidation' }]}
 			actions={[
 				{
-					name: t('send-revalidation'),
+					name: t('userRevalidation:send-revalidation'),
 					icon: Email,
 					kind: 'primary',
 					onClick: () => {
 						setIsSendModalOpen(true);
-					}
-					// TODO disable button if there are no uploads
+					},
+					disabled: data.applicationsCount === 0
 				},
 				{
-					name: tModals('delete'),
+					name: t('modals:delete'),
 					icon: TrashCan,
 					kind: 'danger',
 					onClick: () => {
@@ -74,16 +118,18 @@ const NewRevalidationDetail = () => {
 										Upload file
 									</Button>
 								</div>
-								<div className=' pb-7'>
-									{/* <NoDataMessage
-									className='mt-10 p-5'
-									title={`${t('no-upload')}`}
-									subtitle={`${t('click-to-upload')}.`}
-								/> */}
-									<Tile className='bg-background'>
-										<UploadResultsTile />
-									</Tile>
-								</div>
+								{
+									// TODO change to 1 when we are ready to show the upload results tile
+									data.applicationsCount < 0 ? (
+										<NoDataMessage
+											className='mt-10 p-5'
+											title={`${t('userRevalidation:no-upload')}`}
+											subtitle={`${t('userRevalidation:click-to-upload')}.`}
+										/>
+									) : (
+										<UploadResults />
+									)
+								}
 							</div>
 						</FullWidthColumn>
 					</Grid>

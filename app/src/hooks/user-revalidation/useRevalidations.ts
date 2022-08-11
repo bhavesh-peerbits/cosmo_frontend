@@ -6,8 +6,7 @@ import {
 } from '@store/user-revalidation/newRevalidationFilters';
 import { useEffect } from 'react';
 import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
-import useGetUserRevalidations from '@api/user-revalidation/useGetUserRevalidations';
-import Campaign from '@model/Campaign';
+import useGetUserRevalidations from '@api/user-revalidation/useGetAllCampaigns';
 
 const useRevalidations = () => {
 	const [urlFilters, setUrlFilters] = useUrlState<{
@@ -28,40 +27,7 @@ const useRevalidations = () => {
 	const { data = new Map() } = useGetUserRevalidations();
 
 	useEffect(() => {
-		// TODO remove
-		const local = (
-			[
-				{
-					id: 'id1',
-					name: 'Very Very Very Very Very long Name',
-					type: 'SUID',
-					layer: 'OS',
-					applicationsCount: 1
-				},
-				{
-					id: 'id2',
-					name: 'Campaign Name',
-					type: 'User Access Review',
-					layer: 'DB',
-					applicationsCount: 0
-				},
-				{
-					id: 'id3',
-					name: 'Very Very Very Very Very long Name',
-					type: 'User Access Review',
-					layer: 'OS',
-					applicationsCount: 4
-				},
-				{
-					id: 'id4',
-					name: 'Campaign Name',
-					type: 'Firefight',
-					layer: 'Software',
-					applicationsCount: 12
-				}
-			] as Campaign[]
-		).concat([...data.values()]);
-		setRevalidations([...local.values()]);
+		setRevalidations([...data.values()]);
 	}, [data, setRevalidations]);
 
 	useEffect(() => {

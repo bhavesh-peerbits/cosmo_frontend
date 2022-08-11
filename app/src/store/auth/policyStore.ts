@@ -21,6 +21,7 @@ type Policies = {
 	canAdmin: boolean;
 	canUserAdmin: boolean;
 	canNarrativeAdmin: boolean;
+	canRevalidateUser: boolean;
 };
 
 const policyStore = selector<Policies>({
@@ -64,6 +65,14 @@ const policyStore = selector<Policies>({
 			canNarrativeAdmin: Boolean(
 				!hasNoRole &&
 					policies?.includesMulti(UserRoleEnum.SysAdmin, UserRoleEnum.NarrativeAdmin)
+			),
+			canRevalidateUser: Boolean(
+				!hasNoRole &&
+					policies?.includesMulti(
+						UserRoleEnum.RevalidationAdmin,
+						UserRoleEnum.RevalidationAnalyst,
+						UserRoleEnum.SysAdmin
+					)
 			)
 		};
 	}

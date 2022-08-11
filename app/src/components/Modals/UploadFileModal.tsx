@@ -2,7 +2,6 @@ import { FileUploaderDropContainer, FileUploaderItem, Grid } from '@carbon/react
 import { CreateTearsheet } from '@components/CreateTearsheet';
 import CreateTearsheetStep from '@components/CreateTearsheet/CreateTearsheepStep';
 import FullWidthColumn from '@components/FullWidthColumn';
-import SingleApplicationSelect from '@components/SingleApplicationSelect';
 import Application from '@model/Application';
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
@@ -20,7 +19,7 @@ const UploadFileModal = ({ isOpen, setIsOpen }: UploadFileModalProps) => {
 	const { t } = useTranslation('modals');
 	const { t: tRevalidation } = useTranslation('userRevalidation');
 	const {
-		control,
+		// control,
 		reset,
 		formState: { isValid }
 	} = useForm<FormData>({
@@ -53,22 +52,22 @@ const UploadFileModal = ({ isOpen, setIsOpen }: UploadFileModalProps) => {
 							<FileUploaderItem name='File Name' status='complete' />
 						</div>
 					</div>
-					<SingleApplicationSelect
-						level={2}
-						label={`${tRevalidation('app-related')} *`}
-						name='application'
-						rules={{
-							required: {
-								value: true,
-								message: tRevalidation('app-required')
-							}
-						}}
-						control={control}
-					/>
+					{/* <SingleApplicationSelect */}
+					{/*	level={2} */}
+					{/*	label={`${tRevalidation('app-related')} *`} */}
+					{/*	name='application' */}
+					{/*	rules={{ */}
+					{/*		required: { */}
+					{/*			value: true, */}
+					{/*			message: tRevalidation('app-required') */}
+					{/*		} */}
+					{/*	}} */}
+					{/*	control={control} */}
+					{/* /> */}
 				</div>
 			</CreateTearsheetStep>
 		);
-	}, [control, isValid, tRevalidation]);
+	}, [isValid, tRevalidation]);
 
 	const generateConfirmStep = useCallback(
 		() => (

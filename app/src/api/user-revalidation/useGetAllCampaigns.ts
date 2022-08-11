@@ -3,11 +3,11 @@ import api from '@api';
 import { fromCampaignApi } from '@model/Campaign';
 import { toMap } from '@model/util';
 
-export function getUserRevalidations() {
-	return api.revalidationApi
-		.getAllCampaigns()
+export function getAllCampaigns() {
+	return api.analystCampaignApi
+		.getAllCampaigns1()
 		.then(({ data }) => data.map(fromCampaignApi))
 		.then(toMap);
 }
 
-export default () => useQuery(['userRevalidation'], () => getUserRevalidations());
+export default () => useQuery(['campaigns'], () => getAllCampaigns());

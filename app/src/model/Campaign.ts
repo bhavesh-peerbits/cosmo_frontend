@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
 	CampaignApi,
 	CampaignDtoLayerApi,
@@ -9,7 +10,7 @@ import formatIso from 'date-fns/formatISO';
 
 interface Campaign {
 	id: string;
-	name: string | undefined | null;
+	name: string;
 	applicationsCount: number;
 	dueDate?: Date;
 	type: CampaignDtoTypeApi;
@@ -24,7 +25,7 @@ interface Campaign {
 export const fromCampaignApi = (campaign: CampaignApi): Campaign => {
 	return {
 		id: `${campaign.id ?? 0}`,
-		name: campaign.name,
+		name: campaign.name || '',
 		applicationsCount: campaign.applicationsCount ?? 0,
 		dueDate: campaign.dueDate ? new Date(campaign.dueDate) : undefined,
 		type: campaign.type,
@@ -55,7 +56,8 @@ export const toCampaignApi = (campaign: Campaign): CampaignApi => {
 		completionDate: campaign.completionDate
 			? formatIso(campaign.completionDate, { representation: 'date' })
 			: undefined,
-		contributors: new Set(campaign.contributors.map(toUserApi)),
+		// @ts-ignore
+		contributors: campaign.contributors.map(toUserApi),
 		startDate: campaign.startDate
 			? formatIso(campaign.startDate, { representation: 'date' })
 			: undefined,
