@@ -64,14 +64,14 @@ const ProcedureTile = ({ procedure }: ProcedureTileProps) => {
 								{t('narrativeAdmin:control-objectives')}:
 							</p>
 							{controlObjectives.length === 0 && (
-								<div>
-									<p className='h-[40px] text-text-secondary text-label-2'>
+								<div className='space-y-4'>
+									<p className='text-text-secondary text-label-2'>
 										{t('narrativeAdmin:no-control-objectives')}
 									</p>
-									<div>
+									<div className=''>
 										<p className='line-clamp-1 text-label-2'>
 											{t('procedureInfo:description')}:
-										</p>
+										</p>{' '}
 										<p className='text-text-secondary text-label-2'>
 											{procedure.description ? '...' : t('narrativeAdmin:no-description')}
 										</p>
@@ -80,9 +80,9 @@ const ProcedureTile = ({ procedure }: ProcedureTileProps) => {
 							)}
 							{controlObjectives.length === 1 && (
 								<div>
-									<UnorderedList nested className='h-[40px] list-inside'>
-										<ListItem className='truncate text-text-secondary'>
-											{controlObjectives[0]}
+									<UnorderedList nested className='h-[40px]'>
+										<ListItem className='text-text-secondary'>
+											<span className='block truncate'>{controlObjectives[0]}</span>
 										</ListItem>
 									</UnorderedList>
 									<div>
@@ -97,12 +97,12 @@ const ProcedureTile = ({ procedure }: ProcedureTileProps) => {
 							)}
 							{controlObjectives.length > 1 && (
 								<>
-									<UnorderedList nested className='list-inside'>
-										<ListItem className='truncate text-text-secondary'>
-											{controlObjectives[0]}
+									<UnorderedList nested>
+										<ListItem className='text-text-secondary'>
+											<span className='block truncate'>{controlObjectives[0]}</span>
 										</ListItem>
-										<ListItem className='truncate text-text-secondary'>
-											{controlObjectives[1]}
+										<ListItem className='text-text-secondary'>
+											<span className='block truncate'>{controlObjectives[1]}</span>
 										</ListItem>
 										{controlObjectives.length > 2 && <p>...</p>}
 									</UnorderedList>

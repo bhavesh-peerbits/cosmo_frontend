@@ -61,7 +61,7 @@ const ProcedureDetailsModal = ({
 		register,
 		handleSubmit,
 		reset: resetForm,
-		formState: { errors, isValid, isDirty }
+		formState: { errors, isValid, dirtyFields }
 	} = useForm<ProcedureDetailsForm>({
 		mode: 'onChange',
 		defaultValues: {
@@ -141,7 +141,7 @@ const ProcedureDetailsModal = ({
 											size='sm'
 											kind='secondary'
 											className='min-w-full md:min-w-fit'
-											disabled={!isEditing || !isDirty}
+											disabled={!isEditing || Object.keys(dirtyFields).length === 0}
 											onClick={() => {
 												resetForm();
 												reset();
@@ -207,6 +207,7 @@ const ProcedureDetailsModal = ({
 							<FullWidthColumn>
 								<TextArea
 									id='description'
+									readOnly={!isEditing}
 									labelText={t('procedureInfo:description')}
 									invalid={Boolean(errors.description)}
 									invalidText={errors.description?.message}
@@ -236,7 +237,7 @@ const ProcedureDetailsModal = ({
 						<Button
 							kind='primary'
 							type='submit'
-							disabled={!isValid || !isDirty || isLoading}
+							disabled={!isValid || Object.keys(dirtyFields).length === 0 || isLoading}
 						>
 							{t('applicationInfo:save')}
 						</Button>
