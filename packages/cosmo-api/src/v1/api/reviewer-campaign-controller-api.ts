@@ -149,23 +149,22 @@ export const ReviewerCampaignControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {string} campaignName
+		 * @param {number} campaignId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getApplicationsOfCampaign: async (
-			campaignName: string,
+			campaignId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'campaignName' is not null or undefined
-			assertParamExists('getApplicationsOfCampaign', 'campaignName', campaignName);
-			const localVarPath =
-				`/api/reviewer/campaign/name/{campaignName}/application`.replace(
-					`{${'campaignName'}}`,
-					encodeURIComponent(String(campaignName))
-				);
+			// verify required parameter 'campaignId' is not null or undefined
+			assertParamExists('getApplicationsOfCampaign', 'campaignId', campaignId);
+			const localVarPath = `/api/reviewer/campaign/{campaignId}/application`.replace(
+				`{${'campaignId'}}`,
+				encodeURIComponent(String(campaignId))
+			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -421,20 +420,20 @@ export const ReviewerCampaignControllerApiFp = function (configuration?: Configu
 		},
 		/**
 		 *
-		 * @param {string} campaignName
+		 * @param {number} campaignId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getApplicationsOfCampaign(
-			campaignName: string,
+			campaignId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ReviewDto>>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getApplicationsOfCampaign(
-				campaignName,
+				campaignId,
 				acceptLanguage,
 				options
 			);
@@ -566,18 +565,18 @@ export const ReviewerCampaignControllerApiFactory = function (
 		},
 		/**
 		 *
-		 * @param {string} campaignName
+		 * @param {number} campaignId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getApplicationsOfCampaign(
-			campaignName: string,
+			campaignId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Array<ReviewDto>> {
 			return localVarFp
-				.getApplicationsOfCampaign(campaignName, acceptLanguage, options)
+				.getApplicationsOfCampaign(campaignId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -676,10 +675,10 @@ export interface ReviewerCampaignControllerApiGetAnswersForGivenReviewRequest {
 export interface ReviewerCampaignControllerApiGetApplicationsOfCampaignRequest {
 	/**
 	 *
-	 * @type {string}
+	 * @type {number}
 	 * @memberof ReviewerCampaignControllerApiGetApplicationsOfCampaign
 	 */
-	readonly campaignName: string;
+	readonly campaignId: number;
 
 	/**
 	 *
@@ -815,7 +814,7 @@ export class ReviewerCampaignControllerApi extends BaseAPI {
 	) {
 		return ReviewerCampaignControllerApiFp(this.configuration)
 			.getApplicationsOfCampaign(
-				requestParameters.campaignName,
+				requestParameters.campaignId,
 				requestParameters.acceptLanguage,
 				options
 			)

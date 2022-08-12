@@ -52,6 +52,12 @@ export interface Procedure {
 	description?: string;
 	/**
 	 *
+	 * @type {number}
+	 * @memberof Procedure
+	 */
+	orderNumber?: number;
+	/**
+	 *
 	 * @type {Set<string>}
 	 * @memberof Procedure
 	 */

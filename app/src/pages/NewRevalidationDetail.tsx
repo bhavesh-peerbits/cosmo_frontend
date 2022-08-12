@@ -22,7 +22,7 @@ const UploadResults = () => {
 	const { data: campaign } = useGetCampaign(campaignId);
 
 	const { data = new Map<string, CampaignApplication>() } = useGetCampaignApplications(
-		campaign?.name || ''
+		campaign?.id || ''
 	);
 	data.set('1', {
 		campaign: {
