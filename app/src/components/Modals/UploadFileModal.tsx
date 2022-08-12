@@ -1,7 +1,9 @@
+import useAddAppsToCampaign from '@api/user-revalidation/useAddAppsToCampaign';
 import { FileUploaderDropContainer, FileUploaderItem, Grid } from '@carbon/react';
 import { CreateTearsheet } from '@components/CreateTearsheet';
 import CreateTearsheetStep from '@components/CreateTearsheet/CreateTearsheepStep';
 import FullWidthColumn from '@components/FullWidthColumn';
+import SingleApplicationSelect from '@components/SingleApplicationSelect';
 import Application from '@model/Application';
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
@@ -10,21 +12,31 @@ import { useTranslation } from 'react-i18next';
 type UploadFileModalProps = {
 	isOpen: boolean;
 	setIsOpen: (value: boolean) => void;
+	campaignId: string;
 };
 type FormData = {
 	application: Application;
 };
 
-const UploadFileModal = ({ isOpen, setIsOpen }: UploadFileModalProps) => {
+const UploadFileModal = ({ isOpen, setIsOpen, campaignId }: UploadFileModalProps) => {
 	const { t } = useTranslation('modals');
 	const { t: tRevalidation } = useTranslation('userRevalidation');
+	const { mutate } = useAddAppsToCampaign();
 	const {
-		// control,
+		control,
 		reset,
+		getValues,
 		formState: { isValid }
 	} = useForm<FormData>({
 		mode: 'onChange'
 	});
+
+	const addApplication = () => {
+		return mutate({
+			campaignId,
+			applications: [getValues().application]
+		});
+	};
 
 	const generateUploadStep = useCallback(() => {
 		return (
@@ -52,22 +64,22 @@ const UploadFileModal = ({ isOpen, setIsOpen }: UploadFileModalProps) => {
 							<FileUploaderItem name='File Name' status='complete' />
 						</div>
 					</div>
-					{/* <SingleApplicationSelect */}
-					{/*	level={2} */}
-					{/*	label={`${tRevalidation('app-related')} *`} */}
-					{/*	name='application' */}
-					{/*	rules={{ */}
-					{/*		required: { */}
-					{/*			value: true, */}
-					{/*			message: tRevalidation('app-required') */}
-					{/*		} */}
-					{/*	}} */}
-					{/*	control={control} */}
-					{/* /> */}
+					<SingleApplicationSelect
+						level={2}
+						label={`${tRevalidation('app-related')} *`}
+						name='application'
+						rules={{
+							required: {
+								value: true,
+								message: tRevalidation('app-required')
+							}
+						}}
+						control={control}
+					/>
 				</div>
 			</CreateTearsheetStep>
 		);
-	}, [isValid, tRevalidation]);
+	}, [control, isValid, tRevalidation]);
 
 	const generateConfirmStep = useCallback(
 		() => (
@@ -107,7 +119,9 @@ const UploadFileModal = ({ isOpen, setIsOpen }: UploadFileModalProps) => {
 				setIsOpen(false);
 				reset();
 			}}
-			onRequestSubmit={() => setIsOpen(false)}
+			onRequestSubmit={() => {
+				addApplication();
+			}}
 		>
 			{generateUploadStep()}
 			{generateConfirmStep()}

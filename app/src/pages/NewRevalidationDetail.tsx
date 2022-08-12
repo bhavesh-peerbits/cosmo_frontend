@@ -24,17 +24,6 @@ const UploadResults = () => {
 	const { data = new Map<string, CampaignApplication>() } = useGetCampaignApplications(
 		campaign?.id || ''
 	);
-	data.set('1', {
-		campaign: {
-			id: '1'
-		},
-		status: 'WIP',
-		id: '1',
-		application: {
-			id: '2',
-			name: 'Test Application'
-		}
-	} as CampaignApplication);
 
 	return (
 		<>
@@ -94,7 +83,11 @@ const NewRevalidationDetail = () => {
 					isOpen={isDeleteModalOpen}
 					setIsOpen={setIsDeleteModalOpen}
 				/>
-				<UploadFileModal isOpen={isUploadModalOpen} setIsOpen={setIsUploadModalOpen} />
+				<UploadFileModal
+					isOpen={isUploadModalOpen}
+					setIsOpen={setIsUploadModalOpen}
+					campaignId={campaignId}
+				/>
 				<TableOfContents
 					stickyOffset={buttonRef.current?.getBoundingClientRect()?.height || 0}
 					tocStickyOffset={breadcrumbSize * 2}
