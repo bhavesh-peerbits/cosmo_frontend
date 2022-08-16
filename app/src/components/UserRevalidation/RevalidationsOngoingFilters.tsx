@@ -49,6 +49,30 @@ const RevalidationsOngoingFilters = () => {
 	const { filtersAvailable, setFilters } = useRevalidationsOngoing();
 	const { md } = useResponsive();
 
+	const toCapitalizeCase = (layer: string) => {
+		switch (layer) {
+			case 'USER_ACCESS_REVIEW':
+				return 'User Access Review';
+			case 'SUID':
+				return 'SUID';
+			default:
+				return 'Firefight';
+		}
+	};
+
+	const translateStatus = (status: string) => {
+		switch (status) {
+			case 'COMPLETED':
+				return t('completed');
+			case 'REVIEW_IN_PROGRESS':
+				return t('in-progress');
+			case 'COMPLETED_WITH_PARTIAL_ANSWERS':
+				return t('completed-partial');
+			default:
+				return t('annulled');
+		}
+	};
+
 	const handleCheckFilterType = (filter: string, action: 'add' | 'remove') => {
 		setFilters(old => ({
 			revalidationType:
@@ -89,7 +113,7 @@ const RevalidationsOngoingFilters = () => {
 								handleCheckFilterType(id, checked ? 'add' : 'remove')
 							}
 							id={filter.type}
-							labelText={filter.type}
+							labelText={toCapitalizeCase(filter.type)}
 						/>
 					))}
 				</AccordionItem>
@@ -115,7 +139,7 @@ const RevalidationsOngoingFilters = () => {
 								handleCheckFilterStatus(id, checked ? 'add' : 'remove')
 							}
 							id={filter.status}
-							labelText={filter.status}
+							labelText={translateStatus(filter.status)}
 						/>
 					))}
 				</AccordionItem>

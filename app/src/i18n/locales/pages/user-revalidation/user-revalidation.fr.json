@@ -38,5 +38,9 @@
 	"all": "Tout",
 	"multi": "Multi Application",
 	"single": "Single Application",
-	"campaign-name-required": "Le nom de la campagne est obligatoire"
+	"campaign-name-required": "Le nom de la campagne est obligatoire",
+	"completed": "Complété",
+	"completed-partial": "Complété avec des réponses partielles",
+	"in-progress": "Revalidation en cours",
+	"annulled": "Annulé"
 }

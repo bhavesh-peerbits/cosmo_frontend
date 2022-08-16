@@ -54,7 +54,7 @@ const useRevalidationsOngoing = () => {
 				layer: 'DB' as CampaignDtoLayerEnum,
 				dueDate: new Date(),
 				startDate: new Date(),
-				status: 'REVIEW_IN_PROGRESS' as CampaignDtoStatusEnum,
+				status: 'ANNULLED' as CampaignDtoStatusEnum,
 				applicationsCount: 5,
 				archived: false,
 				contributors: []
@@ -66,7 +66,7 @@ const useRevalidationsOngoing = () => {
 				layer: 'OS' as CampaignDtoLayerEnum,
 				dueDate: new Date(),
 				startDate: new Date(),
-				status: 'REVIEW_IN_PROGRESS' as CampaignDtoStatusEnum,
+				status: 'COMPLETED' as CampaignDtoStatusEnum,
 				applicationsCount: 5,
 				archived: false,
 				contributors: []
@@ -78,14 +78,14 @@ const useRevalidationsOngoing = () => {
 				layer: 'SW' as CampaignDtoLayerEnum,
 				dueDate: new Date(),
 				startDate: new Date(),
-				status: 'REVIEW_IN_PROGRESS' as CampaignDtoStatusEnum,
+				status: 'COMPLETED_WITH_PARTIAL_ANSWERS' as CampaignDtoStatusEnum,
 				applicationsCount: 5,
 				archived: false,
 				contributors: []
 			}
 		];
 		setRevalidations(data);
-	}, [setRevalidations]);
+	}, [setRevalidations]); // TODO Use real campaigns
 
 	useEffect(() => {
 		setFilters({

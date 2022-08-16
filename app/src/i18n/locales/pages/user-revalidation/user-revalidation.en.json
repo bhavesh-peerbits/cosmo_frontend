@@ -38,5 +38,9 @@
 	"all": "All",
 	"multi": "Multi Applications",
 	"single": "Single Application",
-	"campaign-name-required": "Campaign name is required"
+	"campaign-name-required": "Campaign name is required",
+	"completed": "Completed",
+	"completed-partial": "Completata with partial answers",
+	"in-progress": "Review in progress",
+	"annulled": "Annulled"
 }

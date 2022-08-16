@@ -11,6 +11,35 @@ const RevalidationsTable = () => {
 	const { t } = useTranslation(['userRevalidation', 'management']);
 	const { revalidations, filters, setFilters } = useRevalidationsOngoing();
 
+	const toCapitalizeCase = (layer: string) => {
+		switch (layer) {
+			case 'USER_ACCESS_REVIEW':
+				return 'User Access Review';
+			case 'SUID':
+				return 'SUID';
+			default:
+				return 'Firefight';
+		}
+	};
+
+	const translateStatus = useCallback(
+		(status: string) => {
+			switch (status) {
+				case 'COMPLETED':
+					return t('userRevalidation:completed');
+				case 'REVIEW_IN_PROGRESS':
+					return t('userRevalidation:in-progress');
+				case 'COMPLETED_WITH_PARTIAL_ANSWERS':
+					return t('userRevalidation:completed-partial');
+				case 'ANNULLED':
+					return t('userRevalidation:annulled');
+				default:
+					return '';
+			}
+		},
+		[t]
+	);
+
 	const columns: HeaderFunction<Campaign> = useCallback(
 		table => [
 			table.createDataColumn(row => row.name, {
@@ -32,7 +61,8 @@ const RevalidationsTable = () => {
 			}),
 			table.createDataColumn(row => row.type, {
 				id: 'type',
-				header: t('userRevalidation:revalidation-type')
+				header: t('userRevalidation:revalidation-type'),
+				cell: info => toCapitalizeCase(info.getValue())
 			}),
 			table.createDataColumn(row => row.applicationsCount, {
 				id: 'applications-count',
@@ -40,10 +70,11 @@ const RevalidationsTable = () => {
 			}),
 			table.createDataColumn(row => row.status, {
 				id: 'status',
-				header: t('userRevalidation:status')
+				header: t('userRevalidation:status'),
+				cell: info => translateStatus(info.getValue() || '')
 			})
 		],
-		[t]
+		[t, translateStatus]
 	);
 	const toolbarContent = (
 		<TableToolbarSearch
