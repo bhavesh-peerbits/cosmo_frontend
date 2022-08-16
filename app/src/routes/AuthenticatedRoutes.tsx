@@ -95,7 +95,7 @@ const AuthenticatedRoutes = () => {
 							<Route path='revalidations-ongoing'>
 								<Route index element={<RevalidationsOngoing />} />
 							</Route>
-							<Route path='campaign-name' element={<CampaignDetail />} />
+							<Route path=':campaignId' element={<CampaignDetail />} />
 
 							<Route path='admin'>
 								<Route
