@@ -36,6 +36,7 @@ import {
 	TB
 } from '@components/table/types';
 import useExportTablePlugin from '@hooks/useExportTablePlugin';
+import Campaign from '@model/Campaign';
 import CosmoTableToolbar from './CosmoTableToolbar';
 
 type HeaderFunction<T extends object> = GroupedTableProps<T>['createHeaders'];
@@ -103,7 +104,9 @@ const GroupedCosmoTable = <D extends object>({
 					<TableRow className='w-full' key={row.id}>
 						<TableCell />
 						<TableCell>
-							<Link href='/campaign-name'>{row.getVisibleCells()[0].renderCell()}</Link>
+							<Link href={`/${(row.original as Campaign).id}`}>
+								{row.getVisibleCells()[0].renderCell()}
+							</Link>
 						</TableCell>
 						{row
 							.getVisibleCells()
@@ -111,7 +114,7 @@ const GroupedCosmoTable = <D extends object>({
 							.map(cell => (
 								<TableCell key={cell.id}>
 									{(cell.getIsGrouped() && (
-										<Link href='/campaign-name'>{cell.id}</Link>
+										<Link href={`/${(row.original as Campaign).id}`}>{cell.id}</Link>
 									)) ||
 										(cell.getIsAggregated() && cell.renderAggregatedCell()) ||
 										(!cell.getIsPlaceholder() && cell.renderCell())}

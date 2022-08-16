@@ -22,6 +22,9 @@ const NewRevalidation = React.lazy(() => import('@pages/NewRevalidation'));
 const NewRevalidationDetail = React.lazy(() => import('@pages/NewRevalidationDetail'));
 const RevalidationsOngoing = React.lazy(() => import('@pages/RevalidationsOngoing'));
 const CampaignDetail = React.lazy(() => import('@pages/CampaignDetail'));
+const UserRealidationDashboard = React.lazy(
+	() => import('@pages/UserRevalidationDashboard')
+);
 
 const AuthenticatedRoutes = () => {
 	const {
@@ -29,7 +32,8 @@ const AuthenticatedRoutes = () => {
 		canReviewNarrative,
 		canReview,
 		canAdmin,
-		canUserAdmin
+		canUserAdmin,
+		canReviewUser
 	} = usePolicyStore();
 	return (
 		<>
@@ -85,6 +89,25 @@ const AuthenticatedRoutes = () => {
 										</ProtectRoute>
 									}
 								/>
+							</Route>
+
+							<Route path='user-revalidation'>
+								<Route
+									index
+									element={
+										<ProtectRoute canNavigate={canReviewUser}>
+											<UserRealidationDashboard />
+										</ProtectRoute>
+									}
+								/>
+								{/* <Route
+									path=':appId'
+									element={
+										<ProtectRoute canNavigate={canReview}>
+											<ReviewDetail />
+										</ProtectRoute>
+									}
+								/> */}
 							</Route>
 
 							<Route path='new-revalidation'>

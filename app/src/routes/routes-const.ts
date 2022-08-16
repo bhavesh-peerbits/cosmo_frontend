@@ -5,6 +5,7 @@ const routes = {
 	REVIEW_NARRATIVE: '/review-narrative',
 	NEW_REVALIDATION: '/new-revalidation',
 	REVALIDATIONS_ONGOING: '/revalidations-ongoing',
+	USER_REVALIDATION: '/user-revalidation',
 	ADMIN: '/admin',
 	LOGOUT: '/logout',
 	FORBIDDEN: '/forbidden',
