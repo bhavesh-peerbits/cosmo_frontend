@@ -138,7 +138,10 @@ const GeneralInfo = ({ register, errors, control, getValues }: GeneralInfoProps)
 							value: true,
 							message: `${t('required')}`
 						},
-
+						pattern: {
+							value: /^([a-zA-Z0-9\s._-]+)$/,
+							message: t('wrong-code-pattern')
+						},
 						validate: code =>
 							!appCodeList.includes(code.toLowerCase()) || `${t('code-exists')}`
 					})}

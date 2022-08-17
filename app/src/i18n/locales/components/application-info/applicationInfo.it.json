@@ -25,5 +25,6 @@
 	"db-servers-os": "SO Servers database",
 	"db-service": "Servizio database",
 	"db-instance": "Istanza database",
-	"icon": "Icona"
+	"icon": "Icona",
+	"wrong-code-pattern": "Codice non valido. Assicurarsi che rispetti il seguente pattern ^([a-zA-Z0-9s._-]+)$"
 }
