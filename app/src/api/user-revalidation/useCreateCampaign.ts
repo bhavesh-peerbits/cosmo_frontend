@@ -15,7 +15,9 @@ export default () => {
 	return useMutation(createCampaign, {
 		onSuccess: data => {
 			queryClient.setQueriesData(['campaigns'], old => {
-				return new Map((old as Map<string, Campaign>).set(data.id, data));
+				return old instanceof Map
+					? new Map((old as Map<string, Campaign>).set(data.id, data))
+					: data;
 			});
 		}
 	});

@@ -2,6 +2,8 @@ import { Layer, ClickableTile } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import Campaign from '@model/Campaign';
+import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
+import { CampaignDtoTypeEnum } from 'cosmo-api/src/v1';
 
 type NewRevalidationTileProps = {
 	revalidation: Campaign;
@@ -18,7 +20,11 @@ const NewRevalidationTile = ({ revalidation }: NewRevalidationTileProps) => {
 					<div className='space-y-3 break-normal text-text-secondary text-label-2'>
 						<div>
 							{t('revalidation-type')}:
-							<p className='text-text-primary text-label-2'>{revalidation.type}</p>
+							<p className='text-text-primary text-label-2'>
+								{mapCampaignTypeToCampaignDisplayType(
+									revalidation.type as CampaignDtoTypeEnum
+								)}
+							</p>
 						</div>
 						<div>
 							{t('layer')}:

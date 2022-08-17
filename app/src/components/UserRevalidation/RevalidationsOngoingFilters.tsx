@@ -6,7 +6,9 @@ import {
 	RadioButtonGroup
 } from '@carbon/react';
 import useRevalidationsOngoing from '@hooks/user-revalidation/useRevalidationsOngoing';
+import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
 import { useResponsive } from 'ahooks';
+import { CampaignDtoTypeEnum } from 'cosmo-api/src/v1';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -48,17 +50,6 @@ const RevalidationsOngoingFilters = () => {
 	const { t } = useTranslation('userRevalidation');
 	const { filtersAvailable, setFilters } = useRevalidationsOngoing();
 	const { md } = useResponsive();
-
-	const toCapitalizeCase = (layer: string) => {
-		switch (layer) {
-			case 'USER_ACCESS_REVIEW':
-				return 'User Access Review';
-			case 'SUID':
-				return 'SUID';
-			default:
-				return 'Firefight';
-		}
-	};
 
 	const translateStatus = (status: string) => {
 		switch (status) {
@@ -113,7 +104,9 @@ const RevalidationsOngoingFilters = () => {
 								handleCheckFilterType(id, checked ? 'add' : 'remove')
 							}
 							id={filter.type}
-							labelText={toCapitalizeCase(filter.type)}
+							labelText={mapCampaignTypeToCampaignDisplayType(
+								filter.type as CampaignDtoTypeEnum
+							)}
 						/>
 					))}
 				</AccordionItem>

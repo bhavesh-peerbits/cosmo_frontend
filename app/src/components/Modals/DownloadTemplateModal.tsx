@@ -15,6 +15,8 @@ import useGetCampaignTemplate from '@api/user-revalidation/useGetCampaignTemplat
 import ApiError from '@api/ApiError';
 import Papa from 'papaparse';
 import { downloadFileViaBlob } from '@components/util/fileUtil';
+import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
+import { CampaignDtoTypeEnum } from 'cosmo-api/src/v1';
 
 type DownloadTemplateModalProps = {
 	isOpen: boolean;
@@ -23,7 +25,7 @@ type DownloadTemplateModalProps = {
 
 const DownloadTemplateModal = ({ isOpen, setIsOpen }: DownloadTemplateModalProps) => {
 	const { t } = useTranslation(['userRevalidation', 'modals']);
-	const [typeSelected, setTypeSelected] = useState<CampaignDtoTypeApi>(
+	const [typeSelected, setTypeSelected] = useState<CampaignDtoTypeEnum>(
 		CampaignDtoTypeApiEnum.Firefight
 	);
 	const { mutate, isLoading, isError, error } = useGetCampaignTemplate();
@@ -64,7 +66,13 @@ const DownloadTemplateModal = ({ isOpen, setIsOpen }: DownloadTemplateModalProps
 						valueSelected={typeSelected}
 					>
 						{revalidationTypes.map(([id, value]) => (
-							<RadioButton key={id} labelText={id} value={value} />
+							<RadioButton
+								key={id}
+								labelText={mapCampaignTypeToCampaignDisplayType(
+									value as CampaignDtoTypeEnum
+								)}
+								value={value}
+							/>
 						))}
 					</RadioButtonGroup>
 					{isError && (

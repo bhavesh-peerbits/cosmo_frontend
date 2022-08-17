@@ -22,6 +22,10 @@ import {
 } from 'cosmo-api/src';
 import useCreateCampaign from '@api/user-revalidation/useCreateCampaign';
 import ApiError from '@api/ApiError';
+import { CampaignDtoLayerEnum, CampaignDtoTypeEnum } from 'cosmo-api/src/v1';
+import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
+import useGetAllCampaigns from '@api/user-revalidation/useGetAllCampaigns';
+import { useEffect, useMemo, useState } from 'react';
 
 type NewCampaignModalProps = {
 	isOpen: boolean;
@@ -35,7 +39,15 @@ interface CreateCampaignForm {
 }
 
 const NewCampaignModal = ({ isOpen, setIsOpen }: NewCampaignModalProps) => {
-	const { t } = useTranslation(['modals', 'userRevalidation']);
+	const { t } = useTranslation(['modals', 'userRevalidation', 'applicationInfo']);
+	const { data: campaignsList = new Map() } = useGetAllCampaigns();
+	const [campaignsName, setCampaignsName] = useState<string[]>([]);
+	const campaigns = useMemo(() => [...campaignsList.values()] || [], [campaignsList]);
+
+	useEffect(() => {
+		setCampaignsName(campaigns.map(campaign => campaign.name.toLowerCase()));
+	}, [campaigns]);
+
 	const { mutate, isLoading, error, isError: isApiError } = useCreateCampaign();
 	const {
 		handleSubmit,
@@ -57,8 +69,8 @@ const NewCampaignModal = ({ isOpen, setIsOpen }: NewCampaignModalProps) => {
 		setIsOpen(false);
 	};
 
-	const revalidationTypes = Object.entries(CampaignDtoTypeApiEnum);
-	const layers = Object.entries(CampaignDtoLayerApiEnum);
+	const revalidationTypes = Object.entries(CampaignDtoTypeEnum);
+	const layers = Object.entries(CampaignDtoLayerEnum);
 
 	const createNewCampaign = (data: CreateCampaignForm) => {
 		mutate(
@@ -83,18 +95,17 @@ const NewCampaignModal = ({ isOpen, setIsOpen }: NewCampaignModalProps) => {
 		<ComposedModal size='xs' open={isOpen} onClose={cleanUp}>
 			<ModalHeader title={t('userRevalidation:create-new')} closeModal={cleanUp} />
 			<ModalBody className='m-0 space-y-4 pb-9'>
-				<Form>
+				<Form className='space-y-6'>
 					<TextInput
 						id='campaign-name'
-						labelText={`${t('userRevalidation:campaign-name')} *`}
+						labelText={`${t('userRevalidation:campaign-name')}`}
 						placeholder={t('userRevalidation:name-placeholder')}
 						invalidText={errors.campaignName?.message}
 						invalid={Boolean(errors.campaignName)}
 						{...register('campaignName', {
-							required: {
-								value: true,
-								message: t('userRevalidation:campaign-name-required')
-							}
+							validate: name =>
+								!campaignsName.includes(name.toLowerCase()) ||
+								`${t('applicationInfo:name-exists')}`
 						})}
 					/>
 					<Select
@@ -105,7 +116,11 @@ const NewCampaignModal = ({ isOpen, setIsOpen }: NewCampaignModalProps) => {
 						})}
 					>
 						{revalidationTypes.map(([id, value]) => (
-							<SelectItem key={id} text={id} value={value} />
+							<SelectItem
+								key={id}
+								text={mapCampaignTypeToCampaignDisplayType(value as CampaignDtoTypeEnum)}
+								value={value}
+							/>
 						))}
 					</Select>
 					<RadioButtonGroup

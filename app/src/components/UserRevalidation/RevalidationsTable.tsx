@@ -4,23 +4,13 @@ import GroupedCosmoTable from '@components/table/GroupedCosmoTable';
 import useRevalidationsOngoing from '@hooks/user-revalidation/useRevalidationsOngoing';
 import { formatDate } from '@i18n';
 import Campaign from '@model/Campaign';
+import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const RevalidationsTable = () => {
 	const { t } = useTranslation(['userRevalidation', 'management']);
 	const { revalidations, filters, setFilters } = useRevalidationsOngoing();
-
-	const toCapitalizeCase = (layer: string) => {
-		switch (layer) {
-			case 'USER_ACCESS_REVIEW':
-				return 'User Access Review';
-			case 'SUID':
-				return 'SUID';
-			default:
-				return 'Firefight';
-		}
-	};
 
 	const translateStatus = useCallback(
 		(status: string) => {
@@ -62,7 +52,7 @@ const RevalidationsTable = () => {
 			table.createDataColumn(row => row.type, {
 				id: 'type',
 				header: t('userRevalidation:revalidation-type'),
-				cell: info => toCapitalizeCase(info.getValue())
+				cell: info => mapCampaignTypeToCampaignDisplayType(info.getValue())
 			}),
 			table.createDataColumn(row => row.applicationsCount, {
 				id: 'applications-count',
