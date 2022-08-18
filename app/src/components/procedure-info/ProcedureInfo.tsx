@@ -73,24 +73,6 @@ const ProcedureInfo = () => {
 							>
 								{t('new-procedure')}
 							</Button>
-							<NewProcedureModal
-								isOpen={isNewProcedureOpen}
-								setIsOpen={setIsNewProcedureOpen}
-								procedureApps={[...data.values()]}
-								onSuccess={(prc, appProc) =>
-									setProcedureList(old => [
-										...old,
-										{
-											...appProc,
-											id: `${Math.random() * 10000}`,
-											title: prc.name,
-											procedureId: prc.id,
-											name: appProc?.name || '',
-											isNew: true
-										}
-									])
-								}
-							/>
 							<Button
 								kind={isCheckboxView ? 'primary' : 'tertiary'}
 								size='md'
@@ -123,6 +105,24 @@ const ProcedureInfo = () => {
 								</Button>
 							)}
 						</div>
+						<NewProcedureModal
+							isOpen={isNewProcedureOpen}
+							setIsOpen={setIsNewProcedureOpen}
+							procedureApps={[...data.values()]}
+							onSuccess={(prc, appProc) =>
+								setProcedureList(old => [
+									...old,
+									{
+										...appProc,
+										id: `${Math.random() * 10000}`,
+										title: prc.name,
+										procedureId: prc.id,
+										name: appProc?.name || '',
+										isNew: true
+									}
+								])
+							}
+						/>
 						{showProcedureModal &&
 							(procedureChecked.length === 1 ? (
 								<ProcedureReviewModal
