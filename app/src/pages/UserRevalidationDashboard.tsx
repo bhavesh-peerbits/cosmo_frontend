@@ -1,7 +1,8 @@
 import { Column, Grid } from '@carbon/react';
 import PageHeader from '@components/PageHeader';
+import RevalidationReviewerTileContainer from '@components/UserRevalidation/RevalidationReviewerTileContainer';
 
-const UserRealidationDashboard = () => {
+const UserRevalidationDashboard = () => {
 	return (
 		<PageHeader pageTitle='User Revalidation'>
 			<Grid fullWidth narrow className='h-full'>
@@ -9,10 +10,10 @@ const UserRealidationDashboard = () => {
 					<div className='pl-5 md:ml-0'>Filters</div>
 				</Column>
 				<Column sm={4} md={6} lg={13}>
-					Contenuto
+					<RevalidationReviewerTileContainer />
 				</Column>
 			</Grid>
 		</PageHeader>
 	);
 };
-export default UserRealidationDashboard;
+export default UserRevalidationDashboard;
