@@ -12,6 +12,7 @@ import useGetProcedureByApp from '@api/app-procedures/useGetProcedureByApp';
 import MultipleReviewModal from '@components/Modals/MultipleReviewModal';
 import ProcedureReviewModal from '@components/Modals/ProcedureReviewModal';
 import { useTranslation } from 'react-i18next';
+import { useResponsive } from 'ahooks';
 import NewProcedureModal from '../Modals/NewProcedureModal';
 
 type ProcedureState = Partial<ProcedureAppInstance> & {
@@ -32,6 +33,7 @@ const ProcedureInfo = () => {
 	const [showProcedureModal, setShowProcedureModal] = useState(false);
 	const [procedureChecked, setProcedureChecked] = useState<string[]>([]);
 	const buttonRef = useRef<HTMLDivElement>(null);
+	const { md } = useResponsive();
 
 	useEffect(() => {
 		setProcedureList(old => {
@@ -51,7 +53,11 @@ const ProcedureInfo = () => {
 			isCheckView={isCheckboxView}
 			setChecked={setProcedureChecked}
 			checked={procedureChecked}
-			stickyOffset={buttonRef.current?.getBoundingClientRect()?.height || 0}
+			stickyOffset={
+				md && buttonRef.current && buttonRef.current.getBoundingClientRect()
+					? buttonRef.current.getBoundingClientRect().height + breadcrumbSize * 2 - 1
+					: buttonRef.current?.getBoundingClientRect()?.height || 0
+			}
 			tocStickyOffset={breadcrumbSize * 2 - 1}
 		>
 			<Grid fullWidth className='h-full'>
