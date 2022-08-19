@@ -40,7 +40,8 @@
 	"single": "Single Application",
 	"campaign-name-required": "Campaign name is required",
 	"completed": "Completed",
-	"completed-partial": "Completata with partial answers",
+	"completed-partial": "Completed with partial answers",
 	"in-progress": "Review in progress",
-	"annulled": "Annulled"
+	"annulled": "Annulled",
+	"not-completed": "Not completed"
 }

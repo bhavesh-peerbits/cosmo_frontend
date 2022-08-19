@@ -1,14 +1,13 @@
 /* eslint-disable no-nested-ternary */
 import { atom, selector } from 'recoil';
 import { GetRecoilType } from '@store/util';
-import Campaign from '@model/Campaign';
+import CampaignReview from '@model/CampaignReview';
 
 type Filters = {
 	query: string | undefined;
 	dueDate: number | undefined;
 	layer: string[];
 	revalidationType: string[];
-	status: string[];
 };
 
 const revalidationsOngoingFilters = atom<Filters>({
@@ -17,12 +16,11 @@ const revalidationsOngoingFilters = atom<Filters>({
 		query: '',
 		layer: [],
 		revalidationType: [],
-		status: [],
 		dueDate: undefined
 	}
 });
 
-const revalidationsOngoing = atom<Campaign[]>({
+const revalidationsOngoing = atom<CampaignReview[]>({
 	key: 'revalidationsOngoing',
 	default: []
 });
@@ -35,7 +33,7 @@ const prepareDateFilter = (
 	return (
 		(
 			revalidations
-				.map(revalidation => revalidation[filterName])
+				.map(revalidation => revalidation.campaign[filterName])
 				.filter(l => !!l) as Date[]
 		)
 			.map(date => ({ date, time: date.getMonth() / date.getFullYear() }))
@@ -61,7 +59,7 @@ const applyFilters = (
 		// filter by query term string
 		.filter(revalidation =>
 			filters.query
-				? revalidation.name
+				? revalidation.campaign.name
 						?.toLowerCase()
 						?.trim()
 						?.includes(filters.query.toLowerCase().trim())
@@ -71,7 +69,7 @@ const applyFilters = (
 		.filter(revalidation =>
 			filters.layer.length
 				? filters.layer.some(
-						layer => revalidation.layer.toLowerCase() === layer.toLowerCase()
+						layer => revalidation.campaign.layer.toLowerCase() === layer.toLowerCase()
 				  )
 				: true
 		)
@@ -80,23 +78,16 @@ const applyFilters = (
 			filters.revalidationType.length
 				? filters.revalidationType.some(
 						revalidationType =>
-							revalidation.type.toLowerCase() === revalidationType.toLowerCase()
-				  )
-				: true
-		)
-		// filter by status
-		.filter(revalidation =>
-			filters.status.length
-				? filters.status.some(
-						status => revalidation.status?.toLowerCase() === status.toLowerCase()
+							revalidation.campaign.type.toLowerCase() === revalidationType.toLowerCase()
 				  )
 				: true
 		)
 		// filter due date
 		.filter(revalidation =>
 			filters.dueDate
-				? revalidation.dueDate &&
-				  revalidation.dueDate.getMonth() / revalidation.dueDate.getFullYear() ===
+				? revalidation.campaign.dueDate &&
+				  revalidation.campaign.dueDate.getMonth() /
+						revalidation.campaign.dueDate.getFullYear() ===
 						filters.dueDate
 				: true
 		);
@@ -115,27 +106,17 @@ const filteredRevalidationsOngoing = selector({
 			layer: [
 				...new Set(
 					revalidations
-						.map(revalidation => revalidation.layer)
+						.map(revalidation => revalidation.campaign.layer)
 						.filter(o => !!o) as string[]
 				)
 			].map(layer => ({
 				layer,
 				enabled: filters.layer.includes(layer ?? '')
 			})),
-			status: [
-				...new Set(
-					revalidations
-						.map(revalidation => revalidation.status)
-						.filter(o => !!o) as string[]
-				)
-			].map(status => ({
-				status,
-				enabled: filters.status.includes(status ?? '')
-			})),
 			revalidationType: [
 				...new Set(
 					revalidations
-						.map(revalidation => revalidation.type)
+						.map(revalidation => revalidation.campaign.type)
 						.filter(o => !!o) as string[]
 				)
 			].map(type => ({

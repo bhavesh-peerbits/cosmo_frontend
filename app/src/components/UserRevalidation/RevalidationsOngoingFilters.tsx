@@ -51,19 +51,6 @@ const RevalidationsOngoingFilters = () => {
 	const { filtersAvailable, setFilters } = useRevalidationsOngoing();
 	const { md } = useResponsive();
 
-	const translateStatus = (status: string) => {
-		switch (status) {
-			case 'COMPLETED':
-				return t('completed');
-			case 'REVIEW_IN_PROGRESS':
-				return t('in-progress');
-			case 'COMPLETED_WITH_PARTIAL_ANSWERS':
-				return t('completed-partial');
-			default:
-				return t('annulled');
-		}
-	};
-
 	const handleCheckFilterType = (filter: string, action: 'add' | 'remove') => {
 		setFilters(old => ({
 			revalidationType:
@@ -78,14 +65,6 @@ const RevalidationsOngoingFilters = () => {
 				action === 'add'
 					? [...(old.layer ?? []), filter]
 					: (old.layer ?? []).filter((f: string) => f !== filter)
-		}));
-	};
-	const handleCheckFilterStatus = (filter: string, action: 'add' | 'remove') => {
-		setFilters(old => ({
-			status:
-				action === 'add'
-					? [...(old.status ?? []), filter]
-					: (old.status ?? []).filter((f: string) => f !== filter)
 		}));
 	};
 
@@ -120,19 +99,6 @@ const RevalidationsOngoingFilters = () => {
 							}
 							id={filter.layer}
 							labelText={filter.layer}
-						/>
-					))}
-				</AccordionItem>
-				<AccordionItem title={t('status')} className='border-0' open={md}>
-					{filtersAvailable.status.map(filter => (
-						<Checkbox
-							key={filter.status}
-							checked={filter.enabled ?? false}
-							onChange={(_, { checked, id }) =>
-								handleCheckFilterStatus(id, checked ? 'add' : 'remove')
-							}
-							id={filter.status}
-							labelText={translateStatus(filter.status)}
 						/>
 					))}
 				</AccordionItem>

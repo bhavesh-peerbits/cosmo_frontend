@@ -3,74 +3,55 @@ import { HeaderFunction } from '@components/table/CosmoTable';
 import GroupedCosmoTable from '@components/table/GroupedCosmoTable';
 import useRevalidationsOngoing from '@hooks/user-revalidation/useRevalidationsOngoing';
 import { formatDate } from '@i18n';
-import Campaign from '@model/Campaign';
+import CampaignReview from '@model/CampaignReview';
 import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const RevalidationsTable = () => {
-	const { t } = useTranslation(['userRevalidation', 'management']);
+	const { t } = useTranslation('userRevalidation');
 	const { revalidations, filters, setFilters } = useRevalidationsOngoing();
 
-	const translateStatus = useCallback(
-		(status: string) => {
-			switch (status) {
-				case 'COMPLETED':
-					return t('userRevalidation:completed');
-				case 'REVIEW_IN_PROGRESS':
-					return t('userRevalidation:in-progress');
-				case 'COMPLETED_WITH_PARTIAL_ANSWERS':
-					return t('userRevalidation:completed-partial');
-				case 'ANNULLED':
-					return t('userRevalidation:annulled');
-				default:
-					return '';
-			}
-		},
-		[t]
-	);
-
-	const columns: HeaderFunction<Campaign> = useCallback(
+	const columns: HeaderFunction<CampaignReview> = useCallback(
 		table => [
-			table.createDataColumn(row => row.name, {
+			table.createDataColumn(row => row.campaign.name, {
 				id: 'name',
-				header: t('userRevalidation:campaign-name'),
+				header: t('campaign-name'),
 				sortUndefined: 1
 			}),
-			table.createDataColumn(row => row.dueDate, {
+			table.createDataColumn(row => row.campaign.dueDate, {
 				id: 'due-date',
-				header: t('userRevalidation:due-date'),
+				header: t('due-date'),
 				cell: info => {
 					const date = info.getValue();
 					return date ? formatDate(date, 'short') : '-';
 				}
 			}),
-			table.createDataColumn(row => row.layer, {
+			table.createDataColumn(row => row.campaign.layer, {
 				id: 'layer',
-				header: t('userRevalidation:layer')
+				header: t('layer')
 			}),
-			table.createDataColumn(row => row.type, {
+			table.createDataColumn(row => row.campaign.type, {
 				id: 'type',
-				header: t('userRevalidation:revalidation-type'),
+				header: t('revalidation-type'),
 				cell: info => mapCampaignTypeToCampaignDisplayType(info.getValue())
 			}),
-			table.createDataColumn(row => row.applicationsCount, {
-				id: 'applications-count',
-				header: t('management:applications')
+			table.createDataColumn(() => '', {
+				id: 'application',
+				header: t('application')
 			}),
-			table.createDataColumn(row => row.status, {
+			table.createDataColumn(() => '', {
 				id: 'status',
-				header: t('userRevalidation:status'),
-				cell: info => translateStatus(info.getValue() || '')
+				header: t('status')
 			})
 		],
-		[t, translateStatus]
+		[t]
 	);
 	const toolbarContent = (
 		<TableToolbarSearch
 			size='lg'
 			persistent
-			placeholder={t('userRevalidation:search-placeholder')}
+			placeholder={t('search-placeholder')}
 			id='search'
 			value={filters.query ?? ''}
 			onChange={e => setFilters({ q: e.currentTarget?.value })}

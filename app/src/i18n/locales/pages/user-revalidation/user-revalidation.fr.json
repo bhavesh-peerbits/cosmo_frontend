@@ -42,5 +42,6 @@
 	"completed": "Complété",
 	"completed-partial": "Complété avec des réponses partielles",
 	"in-progress": "Revalidation en cours",
-	"annulled": "Annulé"
+	"annulled": "Annulé",
+	"not-completed": "Non complété"
 }
