@@ -22,8 +22,11 @@ const NewRevalidation = React.lazy(() => import('@pages/NewRevalidation'));
 const NewRevalidationDetail = React.lazy(() => import('@pages/NewRevalidationDetail'));
 const RevalidationsOngoing = React.lazy(() => import('@pages/RevalidationsOngoing'));
 const CampaignDetail = React.lazy(() => import('@pages/CampaignDetail'));
-const UserRealidationDashboard = React.lazy(
+const UserRevalidationDashboard = React.lazy(
 	() => import('@pages/UserRevalidationDashboard')
+);
+const UserRevalidationDetails = React.lazy(
+	() => import('@pages/UserRevalidationDetails')
 );
 
 const AuthenticatedRoutes = () => {
@@ -96,18 +99,18 @@ const AuthenticatedRoutes = () => {
 									index
 									element={
 										<ProtectRoute canNavigate={canReviewUser}>
-											<UserRealidationDashboard />
+											<UserRevalidationDashboard />
 										</ProtectRoute>
 									}
 								/>
-								{/* <Route
-									path=':appId'
+								<Route
+									path=':revalidationId'
 									element={
 										<ProtectRoute canNavigate={canReview}>
-											<ReviewDetail />
+											<UserRevalidationDetails />
 										</ProtectRoute>
 									}
-								/> */}
+								/>
 							</Route>
 
 							<Route path='new-revalidation'>
