@@ -17,9 +17,9 @@
 	"confirm": "Confirmer",
 	"discard": "Restaurer",
 	"cancel": "Annuler",
-	"new-procedure": "Nouvelle Procédure",
+	"new-procedure": "Nouvelle procédure",
 	"review": "Révision",
 	"relative-button": "Ajouter un nouveau en utilisant le bouton relatif",
-	"no-procedures": "Pas de Procédures",
-	"delete-procedure": "Supprimer la Procédure"
+	"no-procedures": "Pas de procédures",
+	"delete-procedure": "Supprimer la procédure"
 }
