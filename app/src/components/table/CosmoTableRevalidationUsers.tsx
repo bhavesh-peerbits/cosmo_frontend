@@ -38,6 +38,12 @@ import {
 import useExportTablePlugin from '@hooks/useExportTablePlugin';
 import NoDataMessage from '@components/NoDataMessage';
 import Centered from '@components/Centered';
+import {
+	CheckmarkOutline,
+	RequestQuote,
+	MisuseOutline,
+	Error
+} from '@carbon/react/icons';
 import CosmoTableToolbar from './CosmoTableToolbar';
 
 type HeaderFunction<T extends object> =
@@ -114,6 +120,22 @@ const CosmoTableRevalidationUsers = <D extends object>({
 		getToggleAllRowsSelectedHandler
 	} = instance;
 	const { exportData } = useExportTablePlugin(instance, exportFileName, disableExport);
+
+	const iconToRender = (answer?: string) => {
+		switch (answer) {
+			case 'OK':
+				return <CheckmarkOutline />;
+			case 'LOCK':
+				return <Error />;
+			case 'REPORT_ERROR':
+				return <MisuseOutline />;
+			case 'MODIFY':
+				return <RequestQuote />;
+			default:
+				return null;
+		}
+	};
+
 	const renderBody = () => {
 		const { rows } = getRowModel();
 		return rows.length ? (
@@ -130,7 +152,16 @@ const CosmoTableRevalidationUsers = <D extends object>({
 						/>
 						<TableCell />
 						{row.getVisibleCells().map(cell => (
-							<TableCell key={cell.id}>{cell.renderCell()}</TableCell>
+							<TableCell key={cell.id}>
+								{cell.column.id === 'answer' ? (
+									<div className='flex space-x-3'>
+										{iconToRender(cell.getValue() as string)}
+										<p className='text-heading-compact-1'>{cell.renderCell()}</p>
+									</div>
+								) : (
+									cell.renderCell()
+								)}
+							</TableCell>
 						))}
 						<TableCell
 							onClickCapture={() => row.original && setRowSelected(row.original)}

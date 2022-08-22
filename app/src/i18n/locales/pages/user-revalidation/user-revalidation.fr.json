@@ -52,5 +52,6 @@
 	"block": "Bloquer",
 	"send-change-request": "Envoyer demande",
 	"description-placeholder": "Veuillez fournir une description de la demande",
-	"enter-info": "Entrez les informations requises pour continuer"
+	"enter-info": "Entrez les informations requises pour continuer",
+	"reported-error": "Erreur signalée"
 }

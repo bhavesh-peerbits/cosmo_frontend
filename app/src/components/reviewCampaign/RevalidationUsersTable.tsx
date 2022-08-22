@@ -75,7 +75,12 @@ const ActionsCell = ({ setIsModalOpen, setActionSelected }: ActionCellProps) => 
 };
 const RevalidationUsersTable = () => {
 	const { data: users = [] } = useGetUsers();
-	const { t } = useTranslation(['userRevalidation', 'userAdmin', 'table']);
+	const { t } = useTranslation([
+		'userRevalidation',
+		'userAdmin',
+		'table',
+		'applicationInfo'
+	]);
 	const [, setAnswerSelected] = useState<User>();
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 	const [actionSelected, setActionSelected] = useState<string>('');
@@ -85,21 +90,50 @@ const RevalidationUsersTable = () => {
 			id: 'provaAnswer',
 			userToRevalidate: 'federica.bruno',
 			permissions: 'provPermission',
-			permissionDescription: 'prova permission description'
+			permissionDescription: 'prova permission description',
+			answerType: 'OK'
 		},
 		{
 			id: 'provaAnswer3',
 			userToRevalidate: 'federica.bruno',
 			permissions: 'provPermission2',
-			permissionDescription: 'prova permission description'
+			permissionDescription: 'prova permission description',
+			answerType: 'MODIFY'
 		},
 		{
 			id: 'provaAnswer2',
 			userToRevalidate: 'prova',
 			permissions: 'provPermission',
-			permissionDescription: 'prova permission description'
+			permissionDescription: 'prova permission description',
+			answerType: 'LOCK'
+		},
+		{
+			id: 'provaAnswer4',
+			userToRevalidate: 'prova',
+			permissions: 'provPermission',
+			permissionDescription: 'prova permission description',
+			answerType: 'REPORT_ERROR'
 		}
 	];
+
+	const translateAnswer = useCallback(
+		(answer?: string) => {
+			switch (answer) {
+				case 'OK':
+					return t('applicationInfo:confirmed');
+				case 'LOCK':
+					return t('userAdmin:blocked');
+				case 'REPORT_ERROR':
+					return t('userRevalidation:reported-error');
+				case 'MODIFY':
+					return t('userRevalidation:change-request');
+				default:
+					return null;
+			}
+		},
+		[t]
+	);
+
 	const columns: HeaderFunction<Answer> = useCallback(
 		table => [
 			table.createDataColumn(row => row.userToRevalidate, {
@@ -120,10 +154,11 @@ const RevalidationUsersTable = () => {
 			}),
 			table.createDataColumn(row => row.answerType, {
 				id: 'answer',
-				header: t('userRevalidation:answer')
+				header: t('userRevalidation:answer'),
+				cell: info => translateAnswer(info.getValue())
 			})
 		],
-		[users, t]
+		[users, t, translateAnswer]
 	);
 	const toolbarBatchActions = [
 		{

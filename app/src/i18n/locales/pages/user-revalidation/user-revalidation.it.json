@@ -52,5 +52,6 @@
 	"block": "Blocca",
 	"send-change-request": "Invia richiesta",
 	"description-placeholder": "Si prega di inserire una descrizione della richiesta",
-	"enter-info": "Inserire le informazioni richieste per proseguire"
+	"enter-info": "Inserire le informazioni richieste per proseguire",
+	"reported-error": "Errore segnalato"
 }
