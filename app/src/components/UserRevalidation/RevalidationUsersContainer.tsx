@@ -6,7 +6,7 @@ import RevalidationUsersTable from './RevalidationUsersTable';
 const RevalidationUsersContainer = () => {
 	const { t } = useTranslation(['modals', 'userSelect']);
 	return (
-		<Grid fullWidth className='h-full'>
+		<Grid fullWidth className='h-full space-y-5'>
 			<FullWidthColumn className='space-x-5'>
 				<Button size='md'>{t('modals:save')}</Button>
 				<Button size='md' kind='secondary'>

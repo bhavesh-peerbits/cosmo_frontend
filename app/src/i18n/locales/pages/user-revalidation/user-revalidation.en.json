@@ -43,5 +43,7 @@
 	"completed-partial": "Completed with partial answers",
 	"in-progress": "Review in progress",
 	"annulled": "Annulled",
-	"not-completed": "Not completed"
+	"not-completed": "Not completed",
+	"permission": "Permissions",
+	"answer": "Answer"
 }

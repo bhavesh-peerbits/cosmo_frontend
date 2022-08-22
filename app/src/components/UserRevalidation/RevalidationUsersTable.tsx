@@ -1,14 +1,42 @@
 import useGetUsers from '@api/user/useGetUsers';
-import CosmoTable, { HeaderFunction } from '@components/table/CosmoTable';
+import { HeaderFunction } from '@components/table/CosmoTable';
 import Answer from '@model/Answer';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
+import { CloudDownload, Email } from '@carbon/react/icons';
+import CosmoTableRevalidationUsers from '@components/table/CosmoTableRevalidationUsers';
+import { useTranslation } from 'react-i18next';
+import { OverflowMenu, OverflowMenuItem } from '@carbon/react';
+import { User } from '@sentry/react';
 
+const ActionsCell = () => {
+	const { t } = useTranslation('userAdmin');
+	return (
+		<OverflowMenu ariaLabel='Actions' iconDescription={t('actions')} direction='top'>
+			<OverflowMenuItem itemText='prova' />
+			<OverflowMenuItem itemText='prova2' />
+		</OverflowMenu>
+	);
+};
 const RevalidationUsersTable = () => {
 	const { data: users = [] } = useGetUsers();
+	const { t } = useTranslation('userRevalidation');
+	const [, setAnswerSelected] = useState<User>();
 	const fakeData: Answer[] = [
 		{
 			id: 'provaAnswer',
 			userToRevalidate: 'federica.bruno',
+			permissions: 'provPermission',
+			permissionDescription: 'prova permission description'
+		},
+		{
+			id: 'provaAnswer3',
+			userToRevalidate: 'federica.bruno',
+			permissions: 'provPermission2',
+			permissionDescription: 'prova permission description'
+		},
+		{
+			id: 'provaAnswer2',
+			userToRevalidate: 'prova',
 			permissions: 'provPermission',
 			permissionDescription: 'prova permission description'
 		}
@@ -21,13 +49,6 @@ const RevalidationUsersTable = () => {
 				sortUndefined: 1
 			}),
 			table.createDataColumn(
-				row => users.find(user => user.username === row.userToRevalidate)?.id,
-				{
-					id: 'userId',
-					header: 'Id'
-				}
-			),
-			table.createDataColumn(
 				row => users.find(user => user.username === row.userToRevalidate)?.displayName,
 				{
 					id: 'userDisplayName',
@@ -36,15 +57,40 @@ const RevalidationUsersTable = () => {
 			),
 			table.createDataColumn(row => row.permissions, {
 				id: 'permissions',
-				header: 'Permission'
+				header: t('permission')
 			}),
 			table.createDataColumn(row => row.answerType, {
 				id: 'answer',
-				header: 'Answer'
+				header: t('answer')
 			})
 		],
-		[users]
+		[users, t]
 	);
-	return <CosmoTable level={1} data={fakeData} createHeaders={columns} />;
+	const toolbarBatchActions = [
+		{
+			id: 'email',
+			icon: Email,
+			onClick: () => {},
+			label: 'prova'
+		},
+		{
+			id: 'cloud',
+			icon: CloudDownload,
+			onClick: () => {},
+			label: 'Narrative'
+		}
+	];
+
+	return (
+		<CosmoTableRevalidationUsers
+			data={fakeData}
+			createHeaders={columns}
+			noDataMessage='No data'
+			toolbar={{ toolbarBatchActions }}
+			exportFileName={({ all }) => (all ? 'users-all' : 'users-selection')}
+			inlineAction={<ActionsCell />}
+			setRowSelected={setAnswerSelected}
+		/>
+	);
 };
 export default RevalidationUsersTable;
