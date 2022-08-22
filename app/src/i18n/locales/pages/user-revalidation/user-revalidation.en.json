@@ -45,5 +45,12 @@
 	"annulled": "Annulled",
 	"not-completed": "Not completed",
 	"permission": "Permissions",
-	"answer": "Answer"
+	"answer": "Answer",
+	"confirm": "Confirm",
+	"change-request": "Change request",
+	"report-error": "Report error",
+	"block": "Block",
+	"send-change-request": "Send request",
+	"description-placeholder": "Please provide a description of the request",
+	"enter-info": "Enter the required information below to continue"
 }

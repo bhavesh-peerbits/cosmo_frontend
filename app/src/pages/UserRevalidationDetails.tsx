@@ -1,7 +1,7 @@
 import { Tab, TabList, TabPanel, TabPanels } from '@carbon/react';
 import PageHeader from '@components/PageHeader';
 import StickyTabs from '@components/StickyTabs';
-import RevalidationUsersContainer from '@components/UserRevalidation/RevalidationUsersContainer';
+import RevalidationUsersContainer from '@components/reviewCampaign/RevalidationUsersContainer';
 import { useTranslation } from 'react-i18next';
 
 const UserRevalidationDetails = () => {

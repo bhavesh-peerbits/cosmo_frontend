@@ -45,5 +45,12 @@
 	"annulled": "Annulé",
 	"not-completed": "Non complété",
 	"permission": "Autorisations",
-	"answer": "Réponse"
+	"answer": "Réponse",
+	"confirm": "Confirmer",
+	"change-request": "Demande de modification",
+	"report-error": "Signaler une erreur",
+	"block": "Bloquer",
+	"send-change-request": "Envoyer demande",
+	"description-placeholder": "Veuillez fournir une description de la demande",
+	"enter-info": "Entrez les informations requises pour continuer"
 }

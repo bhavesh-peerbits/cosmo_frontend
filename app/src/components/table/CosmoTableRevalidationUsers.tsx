@@ -9,6 +9,7 @@ import {
 	TableHead,
 	TableHeader,
 	TableRow,
+	TableSelectAll,
 	TableSelectRow
 } from '@carbon/react';
 import {
@@ -68,6 +69,7 @@ const CosmoTableRevalidationUsers = <D extends object>({
 	toolbar
 }: CosmoTableRevalidationUsersProps<D>) => {
 	const { t } = useTranslation('table');
+	const [rowSelection, setRowSelection] = useState({});
 	const [expanded, setExpanded] = useState<ExpandedState>({});
 	const [grouping, setGrouping] = useState<string[]>([]);
 	const [sorting, setSorting] = useState<ColumnSort[]>([]);
@@ -86,10 +88,12 @@ const CosmoTableRevalidationUsers = <D extends object>({
 			pagination,
 			sorting,
 			grouping,
-			expanded
+			expanded,
+			rowSelection
 		},
 		onPaginationChange: setPagination,
 		onSortingChange: setSorting,
+		onRowSelectionChange: setRowSelection,
 		onGroupingChange: setGrouping,
 		onExpandedChange: setExpanded,
 		getCoreRowModel: getCoreRowModel(),
@@ -98,7 +102,17 @@ const CosmoTableRevalidationUsers = <D extends object>({
 		getGroupedRowModel: getGroupedRowModel(),
 		getPaginationRowModel: getPaginationRowModel()
 	});
-	const { getRowModel, getHeaderGroups, setPageIndex, setPageSize } = instance;
+	const {
+		getRowModel,
+		getHeaderGroups,
+		setPageIndex,
+		setPageSize,
+		toggleAllRowsSelected,
+		getSelectedRowModel,
+		getIsAllRowsSelected,
+		getIsSomeRowsSelected,
+		getToggleAllRowsSelectedHandler
+	} = instance;
 	const { exportData } = useExportTablePlugin(instance, exportFileName, disableExport);
 	const renderBody = () => {
 		const { rows } = getRowModel();
@@ -140,9 +154,16 @@ const CosmoTableRevalidationUsers = <D extends object>({
 	return (
 		<TableContainer>
 			<CosmoTableToolbar<D>
+				selectionIds={
+					getSelectedRowModel()
+						.flatRows.map(row => row.original)
+						.filter(r => r) as D[]
+				}
+				onCancel={() => toggleAllRowsSelected(false)}
 				onExportClick={exportData}
 				disableExport={grouping.length > 0 || data.length === 0}
 				toolbarContent={toolbar?.toolbarContent}
+				toolbarBatchActions={toolbar?.toolbarBatchActions}
 			/>
 			<Layer level={1}>
 				<Table>
@@ -150,7 +171,18 @@ const CosmoTableRevalidationUsers = <D extends object>({
 						{getHeaderGroups().map(headerGroup => {
 							return (
 								<TableRow key={headerGroup.id}>
-									<TableExpandHeader className='w-[40px]' />
+									<th className='relative'>
+										<TableSelectAll
+											ariaLabel='SelectAll'
+											id='selectAll'
+											className='absolute top-1/2 left-0 -translate-y-1/2'
+											name='selectAll'
+											checked={getIsAllRowsSelected()}
+											indeterminate={getIsSomeRowsSelected()}
+											onSelect={getToggleAllRowsSelectedHandler()}
+											onChange={undefined}
+										/>
+									</th>
 									<TableExpandHeader className='w-[40px]' />
 									{headerGroup.headers.map(header => {
 										return (
