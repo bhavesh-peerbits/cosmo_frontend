@@ -18,12 +18,10 @@ import CampaignApplication from '@model/CampaignApplication';
 
 const UploadResults = () => {
 	const { campaignId = '' } = useParams<'campaignId'>();
-	// TODO remove when BE is fixed
-	const { data: campaign } = useGetCampaign(campaignId);
+	const { data = new Map<string, CampaignApplication>() } =
+		useGetCampaignApplications(campaignId);
 
-	const { data = new Map<string, CampaignApplication>() } = useGetCampaignApplications(
-		campaign?.name || ''
-	);
+	// TODO remove this when the API is fixed
 	data.set('1', {
 		campaign: {
 			id: '1'
@@ -91,6 +89,7 @@ const NewRevalidationDetail = () => {
 			<div className='pl-5'>
 				<SendRevalidationModal isOpen={isSendModalOpen} setIsOpen={setIsSendModalOpen} />
 				<DeleteCampaignModal
+					campaign={data}
 					isOpen={isDeleteModalOpen}
 					setIsOpen={setIsDeleteModalOpen}
 				/>

@@ -48,4 +48,10 @@ export interface ProcedureDto {
 	 * @memberof ProcedureDto
 	 */
 	controlObjectives?: Set<string>;
+	/**
+	 * Order number
+	 * @type {number}
+	 * @memberof ProcedureDto
+	 */
+	orderNumber?: number;
 }

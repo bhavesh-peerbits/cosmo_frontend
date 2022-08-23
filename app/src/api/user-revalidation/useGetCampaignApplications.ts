@@ -4,10 +4,9 @@ import { fromCampaignApplicationApi } from '@model/CampaignApplication';
 import { toMap } from '@model/util';
 
 export function getCampaignApplications(campaignId: string) {
-	// TODO change API parameters to use campaignId
 	return api.analystCampaignApi
 		.getApplicationsOfCampaign1({
-			campaignName: campaignId
+			campaignId: +campaignId
 		})
 		.then(({ data }) => data.map(fromCampaignApplicationApi))
 		.then(toMap);
