@@ -23,7 +23,6 @@ const ActionsCell = ({ setIsModalOpen, setActionSelected }: ActionCellProps) => 
 	const { t } = useTranslation(['userAdmin', 'userRevalidation']);
 	return (
 		<OverflowMenu
-			size='lg'
 			ariaLabel='Actions'
 			iconDescription={t('userAdmin:actions')}
 			direction='top'

@@ -53,5 +53,9 @@
 	"send-change-request": "Envoyer demande",
 	"description-placeholder": "Veuillez fournir une description de la demande",
 	"enter-info": "Entrez les informations requises pour continuer",
-	"reported-error": "Erreur signalée"
+	"reported-error": "Erreur signalée",
+	"revalidation-completed-toast": "Cette revalidation est terminée. Vous pouvez apporter des modifications jusqu'au {{date}}",
+	"revalidation-completed": "Revalidation terminée",
+	"campaigns-left": "{{number}} campagnes restantes",
+	"campaign-left-toast": "Pour {{application}}, il reste {{number}} campagnes. Utilisez le bouton ci-dessous pour naviguer vers la liste des applications"
 }
