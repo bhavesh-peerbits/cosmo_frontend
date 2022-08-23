@@ -14,11 +14,17 @@ export default () => {
 	const queryClient = useQueryClient();
 	return useMutation(createCampaign, {
 		onSuccess: data => {
-			queryClient.setQueriesData(['campaigns'], old => {
-				return old instanceof Map
-					? new Map((old as Map<string, Campaign>).set(data.id, data))
-					: data;
-			});
+			queryClient.setQueriesData(
+				{
+					predicate: ({ queryKey }) =>
+						queryKey.length === 1 && queryKey[0] === 'campaigns'
+				},
+				old => {
+					return old instanceof Map
+						? new Map((old as Map<string, Campaign>).set(data.id, data))
+						: data;
+				}
+			);
 		}
 	});
 };

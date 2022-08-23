@@ -19,12 +19,8 @@ import TestModal from '@components/Modals/TestModal';
 
 const UploadResults = () => {
 	const { campaignId = '' } = useParams<'campaignId'>();
-	// TODO remove when BE is fixed
-	const { data: campaign } = useGetCampaign(campaignId);
-
-	const { data = new Map<string, CampaignApplication>() } = useGetCampaignApplications(
-		campaign?.id || ''
-	);
+	const { data = new Map<string, CampaignApplication>() } =
+		useGetCampaignApplications(campaignId);
 
 	return (
 		<>
@@ -81,6 +77,7 @@ const NewRevalidationDetail = () => {
 			<div className='pl-5'>
 				<SendRevalidationModal isOpen={isSendModalOpen} setIsOpen={setIsSendModalOpen} />
 				<DeleteCampaignModal
+					campaign={data}
 					isOpen={isDeleteModalOpen}
 					setIsOpen={setIsDeleteModalOpen}
 				/>
