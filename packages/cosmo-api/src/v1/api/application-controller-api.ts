@@ -307,7 +307,7 @@ export const ApplicationControllerApiAxiosParamCreator = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllApplications: async (
+		getAllApplications1: async (
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
@@ -621,30 +621,31 @@ export const ApplicationControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} appId
-		 * @param {number} procedureid
+		 * @param {number} procId
 		 * @param {number} procedureAppInstanceId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		getSpecificProcedureAppInstance: async (
 			appId: number,
-			procedureid: number,
+			procId: number,
 			procedureAppInstanceId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'appId' is not null or undefined
 			assertParamExists('getSpecificProcedureAppInstance', 'appId', appId);
-			// verify required parameter 'procedureid' is not null or undefined
-			assertParamExists('getSpecificProcedureAppInstance', 'procedureid', procedureid);
+			// verify required parameter 'procId' is not null or undefined
+			assertParamExists('getSpecificProcedureAppInstance', 'procId', procId);
 			// verify required parameter 'procedureAppInstanceId' is not null or undefined
 			assertParamExists(
 				'getSpecificProcedureAppInstance',
 				'procedureAppInstanceId',
 				procedureAppInstanceId
 			);
-			const localVarPath = `/api/applications/{appId}/procedure/{procedureid}`;
+			const localVarPath = `/api/applications/{appId}/procedure/{procId}`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -663,8 +664,8 @@ export const ApplicationControllerApiAxiosParamCreator = function (
 				localVarQueryParameter['appId'] = appId;
 			}
 
-			if (procedureid !== undefined) {
-				localVarQueryParameter['procedureid'] = procedureid;
+			if (procId !== undefined) {
+				localVarQueryParameter['procId'] = procId;
 			}
 
 			if (procedureAppInstanceId !== undefined) {
@@ -954,13 +955,13 @@ export const ApplicationControllerApiFp = function (configuration?: Configuratio
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async getAllApplications(
+		async getAllApplications1(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApplicationDto>>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllApplications(
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllApplications1(
 				acceptLanguage,
 				options
 			);
@@ -1124,15 +1125,16 @@ export const ApplicationControllerApiFp = function (configuration?: Configuratio
 		/**
 		 *
 		 * @param {number} appId
-		 * @param {number} procedureid
+		 * @param {number} procId
 		 * @param {number} procedureAppInstanceId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		async getSpecificProcedureAppInstance(
 			appId: number,
-			procedureid: number,
+			procId: number,
 			procedureAppInstanceId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
@@ -1142,7 +1144,7 @@ export const ApplicationControllerApiFp = function (configuration?: Configuratio
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.getSpecificProcedureAppInstance(
 					appId,
-					procedureid,
+					procId,
 					procedureAppInstanceId,
 					acceptLanguage,
 					options
@@ -1315,12 +1317,12 @@ export const ApplicationControllerApiFactory = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllApplications(
+		getAllApplications1(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Array<ApplicationDto>> {
 			return localVarFp
-				.getAllApplications(acceptLanguage, options)
+				.getAllApplications1(acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -1418,15 +1420,16 @@ export const ApplicationControllerApiFactory = function (
 		/**
 		 *
 		 * @param {number} appId
-		 * @param {number} procedureid
+		 * @param {number} procId
 		 * @param {number} procedureAppInstanceId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		getSpecificProcedureAppInstance(
 			appId: number,
-			procedureid: number,
+			procId: number,
 			procedureAppInstanceId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
@@ -1434,7 +1437,7 @@ export const ApplicationControllerApiFactory = function (
 			return localVarFp
 				.getSpecificProcedureAppInstance(
 					appId,
-					procedureid,
+					procId,
 					procedureAppInstanceId,
 					acceptLanguage,
 					options
@@ -1595,15 +1598,15 @@ export interface ApplicationControllerApiDeleteControlApplicationAssociation1Req
 }
 
 /**
- * Request parameters for getAllApplications operation in ApplicationControllerApi.
+ * Request parameters for getAllApplications1 operation in ApplicationControllerApi.
  * @export
- * @interface ApplicationControllerApiGetAllApplicationsRequest
+ * @interface ApplicationControllerApiGetAllApplications1Request
  */
-export interface ApplicationControllerApiGetAllApplicationsRequest {
+export interface ApplicationControllerApiGetAllApplications1Request {
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof ApplicationControllerApiGetAllApplications
+	 * @memberof ApplicationControllerApiGetAllApplications1
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
@@ -1745,7 +1748,7 @@ export interface ApplicationControllerApiGetSpecificProcedureAppInstanceRequest 
 	 * @type {number}
 	 * @memberof ApplicationControllerApiGetSpecificProcedureAppInstance
 	 */
-	readonly procedureid: number;
+	readonly procId: number;
 
 	/**
 	 *
@@ -1919,17 +1922,17 @@ export class ApplicationControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {ApplicationControllerApiGetAllApplicationsRequest} requestParameters Request parameters.
+	 * @param {ApplicationControllerApiGetAllApplications1Request} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
 	 * @memberof ApplicationControllerApi
 	 */
-	public getAllApplications(
-		requestParameters: ApplicationControllerApiGetAllApplicationsRequest = {},
+	public getAllApplications1(
+		requestParameters: ApplicationControllerApiGetAllApplications1Request = {},
 		options?: AxiosRequestConfig
 	) {
 		return ApplicationControllerApiFp(this.configuration)
-			.getAllApplications(requestParameters.acceptLanguage, options)
+			.getAllApplications1(requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -2041,6 +2044,7 @@ export class ApplicationControllerApi extends BaseAPI {
 	 *
 	 * @param {ApplicationControllerApiGetSpecificProcedureAppInstanceRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
+	 * @deprecated
 	 * @throws {RequiredError}
 	 * @memberof ApplicationControllerApi
 	 */
@@ -2051,7 +2055,7 @@ export class ApplicationControllerApi extends BaseAPI {
 		return ApplicationControllerApiFp(this.configuration)
 			.getSpecificProcedureAppInstance(
 				requestParameters.appId,
-				requestParameters.procedureid,
+				requestParameters.procId,
 				requestParameters.procedureAppInstanceId,
 				requestParameters.acceptLanguage,
 				options

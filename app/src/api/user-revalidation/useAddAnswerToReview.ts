@@ -10,7 +10,7 @@ const addAnswerToReview = ({ reviewId, file }: AddAnswerToReviewParams) => {
 	return api.analystCampaignApi.addAnswerToGivenReview(
 		{
 			reviewId: +reviewId,
-			inlineObject9: { file }
+			inlineObject11: { file }
 		},
 		{
 			headers: { 'content-type': 'multipart/form-data' }

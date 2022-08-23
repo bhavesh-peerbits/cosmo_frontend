@@ -43,6 +43,8 @@ import { ApiErrorResponse } from '../models';
 // @ts-ignore
 import { CampaignDto } from '../models';
 // @ts-ignore
+import { InlineObject } from '../models';
+// @ts-ignore
 import { ResponseDto } from '../models';
 // @ts-ignore
 import { ReviewDto } from '../models';
@@ -299,6 +301,60 @@ export const ReviewerCampaignControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
+		 * @param {InlineObject} inlineObject
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveResponseToAllAnswers: async (
+			inlineObject: InlineObject,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'inlineObject' is not null or undefined
+			assertParamExists('saveResponseToAllAnswers', 'inlineObject', inlineObject);
+			const localVarPath = `/api/reviewer/campaign/answer`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				inlineObject,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
 		 * @param {number} answerID
 		 * @param {ResponseDto} responseDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
@@ -494,6 +550,30 @@ export const ReviewerCampaignControllerApiFp = function (configuration?: Configu
 		},
 		/**
 		 *
+		 * @param {InlineObject} inlineObject
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async saveResponseToAllAnswers(
+			inlineObject: InlineObject,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.saveResponseToAllAnswers(
+				inlineObject,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
 		 * @param {number} answerID
 		 * @param {ResponseDto} responseDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
@@ -613,6 +693,22 @@ export const ReviewerCampaignControllerApiFactory = function (
 		},
 		/**
 		 *
+		 * @param {InlineObject} inlineObject
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveResponseToAllAnswers(
+			inlineObject: InlineObject,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<void> {
+			return localVarFp
+				.saveResponseToAllAnswers(inlineObject, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
 		 * @param {number} answerID
 		 * @param {ResponseDto} responseDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
@@ -726,6 +822,27 @@ export interface ReviewerCampaignControllerApiGetCampaignByNameRequest {
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
 	 * @memberof ReviewerCampaignControllerApiGetCampaignByName
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for saveResponseToAllAnswers operation in ReviewerCampaignControllerApi.
+ * @export
+ * @interface ReviewerCampaignControllerApiSaveResponseToAllAnswersRequest
+ */
+export interface ReviewerCampaignControllerApiSaveResponseToAllAnswersRequest {
+	/**
+	 *
+	 * @type {InlineObject}
+	 * @memberof ReviewerCampaignControllerApiSaveResponseToAllAnswers
+	 */
+	readonly inlineObject: InlineObject;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ReviewerCampaignControllerApiSaveResponseToAllAnswers
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
@@ -855,6 +972,26 @@ export class ReviewerCampaignControllerApi extends BaseAPI {
 		return ReviewerCampaignControllerApiFp(this.configuration)
 			.getCampaignByName(
 				requestParameters.campaignName,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {ReviewerCampaignControllerApiSaveResponseToAllAnswersRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof ReviewerCampaignControllerApi
+	 */
+	public saveResponseToAllAnswers(
+		requestParameters: ReviewerCampaignControllerApiSaveResponseToAllAnswersRequest,
+		options?: AxiosRequestConfig
+	) {
+		return ReviewerCampaignControllerApiFp(this.configuration)
+			.saveResponseToAllAnswers(
+				requestParameters.inlineObject,
 				requestParameters.acceptLanguage,
 				options
 			)

@@ -12,24 +12,16 @@
  * Do not edit the class manually.
  */
 
-import { ResponseDto } from './response-dto';
-
 /**
  *
  * @export
- * @interface InlineObject
+ * @interface InlineObject11
  */
-export interface InlineObject {
+export interface InlineObject11 {
 	/**
 	 *
-	 * @type {Array<number>}
-	 * @memberof InlineObject
+	 * @type {any}
+	 * @memberof InlineObject11
 	 */
-	answersID?: Array<number>;
-	/**
-	 *
-	 * @type {ResponseDto}
-	 * @memberof InlineObject
-	 */
-	responseDto?: ResponseDto;
+	file?: any;
 }

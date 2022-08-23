@@ -12,24 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { ResponseDto } from './response-dto';
+import { CampaignDto } from './campaign-dto';
+import { ReviewDto } from './review-dto';
 
 /**
  *
  * @export
- * @interface InlineObject
+ * @interface CampaignReviewDto
  */
-export interface InlineObject {
+export interface CampaignReviewDto {
 	/**
 	 *
-	 * @type {Array<number>}
-	 * @memberof InlineObject
+	 * @type {CampaignDto}
+	 * @memberof CampaignReviewDto
 	 */
-	answersID?: Array<number>;
+	campaignDto?: CampaignDto;
 	/**
-	 *
-	 * @type {ResponseDto}
-	 * @memberof InlineObject
+	 * Reviews
+	 * @type {Array<ReviewDto>}
+	 * @memberof CampaignReviewDto
 	 */
-	responseDto?: ResponseDto;
+	reviewDtos?: Array<ReviewDto>;
 }

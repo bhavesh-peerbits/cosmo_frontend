@@ -38,6 +38,7 @@ models/application-profile.ts
 models/application-user-dto.ts
 models/application.ts
 models/campaign-dto.ts
+models/campaign-review-dto.ts
 models/campaign-template-dto.ts
 models/config-element.ts
 models/config-module-key.ts
@@ -50,7 +51,9 @@ models/email.ts
 models/frequency.ts
 models/identity-provider-dto.ts
 models/index.ts
-models/inline-object3.ts
+models/inline-object.ts
+models/inline-object10.ts
+models/inline-object11.ts
 models/inline-object4.ts
 models/inline-object5.ts
 models/inline-object6.ts

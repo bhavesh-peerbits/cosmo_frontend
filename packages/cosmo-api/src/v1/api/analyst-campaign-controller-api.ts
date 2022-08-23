@@ -45,11 +45,15 @@ import { ApplicationDto } from '../models';
 // @ts-ignore
 import { CampaignDto } from '../models';
 // @ts-ignore
+import { CampaignReviewDto } from '../models';
+// @ts-ignore
 import { CampaignTemplateDto } from '../models';
 // @ts-ignore
 import { CsvAnswerParsingDto } from '../models';
 // @ts-ignore
-import { InlineObject9 } from '../models';
+import { InlineObject10 } from '../models';
+// @ts-ignore
+import { InlineObject11 } from '../models';
 // @ts-ignore
 import { ReviewDto } from '../models';
 // @ts-ignore
@@ -65,21 +69,21 @@ export const AnalystCampaignControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} reviewId
-		 * @param {InlineObject9} inlineObject9
+		 * @param {InlineObject11} inlineObject11
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		addAnswerToGivenReview: async (
 			reviewId: number,
-			inlineObject9: InlineObject9,
+			inlineObject11: InlineObject11,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'reviewId' is not null or undefined
 			assertParamExists('addAnswerToGivenReview', 'reviewId', reviewId);
-			// verify required parameter 'inlineObject9' is not null or undefined
-			assertParamExists('addAnswerToGivenReview', 'inlineObject9', inlineObject9);
+			// verify required parameter 'inlineObject11' is not null or undefined
+			assertParamExists('addAnswerToGivenReview', 'inlineObject11', inlineObject11);
 			const localVarPath = `/api/analyst/campaign/answer/{reviewId}`.replace(
 				`{${'reviewId'}}`,
 				encodeURIComponent(String(reviewId))
@@ -113,7 +117,67 @@ export const AnalystCampaignControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				inlineObject9,
+				inlineObject11,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} campaignId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {InlineObject10} [inlineObject10]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		addApplicationsAndAnswersToCampaign: async (
+			campaignId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			inlineObject10?: InlineObject10,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'campaignId' is not null or undefined
+			assertParamExists('addApplicationsAndAnswersToCampaign', 'campaignId', campaignId);
+			const localVarPath =
+				`/api/analyst/campaign/{campaignId}/applicationWithAnswers`.replace(
+					`{${'campaignId'}}`,
+					encodeURIComponent(String(campaignId))
+				);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				inlineObject10,
 				localVarRequestOptions,
 				configuration
 			);
@@ -527,11 +591,97 @@ export const AnalystCampaignControllerApiAxiosParamCreator = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
+		getAllApplications2: async (
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/analyst/campaign/getApplications`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
 		getAllCampaigns1: async (
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			const localVarPath = `/api/analyst/campaign/all`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllCampaignsWithReviews: async (
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/analyst/campaign/allWithReviews`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -991,14 +1141,14 @@ export const AnalystCampaignControllerApiFp = function (configuration?: Configur
 		/**
 		 *
 		 * @param {number} reviewId
-		 * @param {InlineObject9} inlineObject9
+		 * @param {InlineObject11} inlineObject11
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async addAnswerToGivenReview(
 			reviewId: number,
-			inlineObject9: InlineObject9,
+			inlineObject11: InlineObject11,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
@@ -1006,10 +1156,40 @@ export const AnalystCampaignControllerApiFp = function (configuration?: Configur
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.addAnswerToGivenReview(
 				reviewId,
-				inlineObject9,
+				inlineObject11,
 				acceptLanguage,
 				options
 			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} campaignId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {InlineObject10} [inlineObject10]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async addApplicationsAndAnswersToCampaign(
+			campaignId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			inlineObject10?: InlineObject10,
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CsvAnswerParsingDto>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.addApplicationsAndAnswersToCampaign(
+					campaignId,
+					acceptLanguage,
+					inlineObject10,
+					options
+				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
@@ -1203,6 +1383,29 @@ export const AnalystCampaignControllerApiFp = function (configuration?: Configur
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
+		async getAllApplications2(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApplicationDto>>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllApplications2(
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
 		async getAllCampaigns1(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
@@ -1213,6 +1416,30 @@ export const AnalystCampaignControllerApiFp = function (configuration?: Configur
 				acceptLanguage,
 				options
 			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getAllCampaignsWithReviews(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CampaignReviewDto>>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.getAllCampaignsWithReviews(
+					acceptLanguage,
+					options
+				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
@@ -1442,19 +1669,42 @@ export const AnalystCampaignControllerApiFactory = function (
 		/**
 		 *
 		 * @param {number} reviewId
-		 * @param {InlineObject9} inlineObject9
+		 * @param {InlineObject11} inlineObject11
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		addAnswerToGivenReview(
 			reviewId: number,
-			inlineObject9: InlineObject9,
+			inlineObject11: InlineObject11,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<CsvAnswerParsingDto> {
 			return localVarFp
-				.addAnswerToGivenReview(reviewId, inlineObject9, acceptLanguage, options)
+				.addAnswerToGivenReview(reviewId, inlineObject11, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} campaignId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {InlineObject10} [inlineObject10]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		addApplicationsAndAnswersToCampaign(
+			campaignId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			inlineObject10?: InlineObject10,
+			options?: any
+		): AxiosPromise<CsvAnswerParsingDto> {
+			return localVarFp
+				.addApplicationsAndAnswersToCampaign(
+					campaignId,
+					acceptLanguage,
+					inlineObject10,
+					options
+				)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -1583,12 +1833,40 @@ export const AnalystCampaignControllerApiFactory = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
+		getAllApplications2(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<ApplicationDto>> {
+			return localVarFp
+				.getAllApplications2(acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
 		getAllCampaigns1(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Array<CampaignDto>> {
 			return localVarFp
 				.getAllCampaigns1(acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllCampaignsWithReviews(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<CampaignReviewDto>> {
+			return localVarFp
+				.getAllCampaignsWithReviews(acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -1739,10 +2017,10 @@ export interface AnalystCampaignControllerApiAddAnswerToGivenReviewRequest {
 
 	/**
 	 *
-	 * @type {InlineObject9}
+	 * @type {InlineObject11}
 	 * @memberof AnalystCampaignControllerApiAddAnswerToGivenReview
 	 */
-	readonly inlineObject9: InlineObject9;
+	readonly inlineObject11: InlineObject11;
 
 	/**
 	 *
@@ -1750,6 +2028,34 @@ export interface AnalystCampaignControllerApiAddAnswerToGivenReviewRequest {
 	 * @memberof AnalystCampaignControllerApiAddAnswerToGivenReview
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for addApplicationsAndAnswersToCampaign operation in AnalystCampaignControllerApi.
+ * @export
+ * @interface AnalystCampaignControllerApiAddApplicationsAndAnswersToCampaignRequest
+ */
+export interface AnalystCampaignControllerApiAddApplicationsAndAnswersToCampaignRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystCampaignControllerApiAddApplicationsAndAnswersToCampaign
+	 */
+	readonly campaignId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystCampaignControllerApiAddApplicationsAndAnswersToCampaign
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+
+	/**
+	 *
+	 * @type {InlineObject10}
+	 * @memberof AnalystCampaignControllerApiAddApplicationsAndAnswersToCampaign
+	 */
+	readonly inlineObject10?: InlineObject10;
 }
 
 /**
@@ -1928,6 +2234,20 @@ export interface AnalystCampaignControllerApiDeleteCampaignRequest {
 }
 
 /**
+ * Request parameters for getAllApplications2 operation in AnalystCampaignControllerApi.
+ * @export
+ * @interface AnalystCampaignControllerApiGetAllApplications2Request
+ */
+export interface AnalystCampaignControllerApiGetAllApplications2Request {
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystCampaignControllerApiGetAllApplications2
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
  * Request parameters for getAllCampaigns1 operation in AnalystCampaignControllerApi.
  * @export
  * @interface AnalystCampaignControllerApiGetAllCampaigns1Request
@@ -1937,6 +2257,20 @@ export interface AnalystCampaignControllerApiGetAllCampaigns1Request {
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
 	 * @memberof AnalystCampaignControllerApiGetAllCampaigns1
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getAllCampaignsWithReviews operation in AnalystCampaignControllerApi.
+ * @export
+ * @interface AnalystCampaignControllerApiGetAllCampaignsWithReviewsRequest
+ */
+export interface AnalystCampaignControllerApiGetAllCampaignsWithReviewsRequest {
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystCampaignControllerApiGetAllCampaignsWithReviews
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
@@ -2137,8 +2471,29 @@ export class AnalystCampaignControllerApi extends BaseAPI {
 		return AnalystCampaignControllerApiFp(this.configuration)
 			.addAnswerToGivenReview(
 				requestParameters.reviewId,
-				requestParameters.inlineObject9,
+				requestParameters.inlineObject11,
 				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystCampaignControllerApiAddApplicationsAndAnswersToCampaignRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystCampaignControllerApi
+	 */
+	public addApplicationsAndAnswersToCampaign(
+		requestParameters: AnalystCampaignControllerApiAddApplicationsAndAnswersToCampaignRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystCampaignControllerApiFp(this.configuration)
+			.addApplicationsAndAnswersToCampaign(
+				requestParameters.campaignId,
+				requestParameters.acceptLanguage,
+				requestParameters.inlineObject10,
 				options
 			)
 			.then(request => request(this.axios, this.basePath));
@@ -2290,6 +2645,22 @@ export class AnalystCampaignControllerApi extends BaseAPI {
 
 	/**
 	 *
+	 * @param {AnalystCampaignControllerApiGetAllApplications2Request} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystCampaignControllerApi
+	 */
+	public getAllApplications2(
+		requestParameters: AnalystCampaignControllerApiGetAllApplications2Request = {},
+		options?: AxiosRequestConfig
+	) {
+		return AnalystCampaignControllerApiFp(this.configuration)
+			.getAllApplications2(requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
 	 * @param {AnalystCampaignControllerApiGetAllCampaigns1Request} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
@@ -2301,6 +2672,22 @@ export class AnalystCampaignControllerApi extends BaseAPI {
 	) {
 		return AnalystCampaignControllerApiFp(this.configuration)
 			.getAllCampaigns1(requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystCampaignControllerApiGetAllCampaignsWithReviewsRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystCampaignControllerApi
+	 */
+	public getAllCampaignsWithReviews(
+		requestParameters: AnalystCampaignControllerApiGetAllCampaignsWithReviewsRequest = {},
+		options?: AxiosRequestConfig
+	) {
+		return AnalystCampaignControllerApiFp(this.configuration)
+			.getAllCampaignsWithReviews(requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 

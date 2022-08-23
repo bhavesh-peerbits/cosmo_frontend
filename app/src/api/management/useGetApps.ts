@@ -5,7 +5,7 @@ import { toMap } from '@model/util';
 
 const useGetApps = () => {
 	return api.applicationApi
-		.getAllApplications()
+		.getAllApplications1()
 		.then(({ data }) => (data ? data.map(fromApplicationApi) : []))
 		.then(toMap);
 };
