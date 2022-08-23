@@ -89,6 +89,7 @@ const useRevalidationsOngoing = () => {
 		[]
 	);
 	// TODO replace with real data
+	// TODO Dovresti usare getAllCampaignsWithReviews
 	const fakeData: CampaignReview[] = useMemo(
 		() => [
 			{

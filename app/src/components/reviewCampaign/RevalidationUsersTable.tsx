@@ -84,6 +84,7 @@ const RevalidationUsersTable = () => {
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 	const [actionSelected, setActionSelected] = useState<string>('');
 
+	// TODO rimuovere. Credo dovresti usare getAnswersForGivenReview
 	const fakeData: Answer[] = [
 		{
 			id: 'provaAnswer',
