@@ -66,6 +66,9 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 							<SideNavMenuItem element={Link} to={routes.REVIEW_NARRATIVE}>
 								Narrative
 							</SideNavMenuItem>
+							<SideNavMenuItem element={Link} to={routes.USER_REVALIDATION}>
+								User Revalidation
+							</SideNavMenuItem>
 						</SideNavMenu>
 					)}
 					{import.meta.env.DEV && (

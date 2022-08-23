@@ -6559,14 +6559,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/carbon__react@npm:^1.0.5":
-  version: 1.0.5
-  resolution: "@types/carbon__react@npm:1.0.5"
+"@types/carbon__react@npm:^1.0.11":
+  version: 1.0.11
+  resolution: "@types/carbon__react@npm:1.0.11"
   peerDependencies:
     react: ^18.2.0
     react-dom: ^18.2.0
     react-router-dom: ^6.3.0
-  checksum: d8dccd57312c08b87658c85146458821ce7b98aa33b1dfa37bf34a55ef52215f1e5196faa1befec2d6f9530f84203fac71f262da4e11fb7d95db755830c9e1de
+  checksum: 9545b8315b237f73e933bf6ed48a4a7e6bae9dd36f6751d10f60448193c39091a1fb626d96964fd0a0818bf5730eef6d135dd2b3fa1e24e5eb0c66eb23a42cb2
   languageName: node
   linkType: hard
 
@@ -8700,7 +8700,7 @@ __metadata:
     "@tiptap/starter-kit": ^2.0.0-beta.185
     "@types/carbon__colors": ^10.31.0
     "@types/carbon__layout": ^0.0.1
-    "@types/carbon__react": ^1.0.5
+    "@types/carbon__react": ^1.0.11
     "@types/css-mediaquery": ^0.1.1
     "@types/papaparse": ^5.3.2
     "@types/react": ^18.0.12
@@ -25460,7 +25460,7 @@ __metadata:
 
 "typescript@patch:typescript@4.6.4#~builtin<compat/typescript>":
   version: 4.6.4
-  resolution: "typescript@patch:typescript@npm%3A4.6.4#~builtin<compat/typescript>::version=4.6.4&hash=bda367"
+  resolution: "typescript@patch:typescript@npm%3A4.6.4#~builtin<compat/typescript>::version=4.6.4&hash=f456af"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver

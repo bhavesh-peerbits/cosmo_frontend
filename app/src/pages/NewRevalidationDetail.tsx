@@ -8,31 +8,19 @@ import { Grid, Button, Tile } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import TableOfContents from '@components/TableOfContents';
 import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
-import UploadFileModal from '@components/Modals/UploadFileModal';
+// import UploadFileModal from '@components/Modals/UploadFileModal';
 import UploadResultsTile from '@components/UserRevalidation/UploadResultsTile';
 import { useParams } from 'react-router-dom';
 import useGetCampaign from '@api/user-revalidation/useGetCampaign';
 import NoDataMessage from '@components/NoDataMessage';
 import useGetCampaignApplications from '@api/user-revalidation/useGetCampaignApplications';
 import CampaignApplication from '@model/CampaignApplication';
+import TestModal from '@components/Modals/TestModal';
 
 const UploadResults = () => {
 	const { campaignId = '' } = useParams<'campaignId'>();
 	const { data = new Map<string, CampaignApplication>() } =
 		useGetCampaignApplications(campaignId);
-
-	// TODO remove this when the API is fixed
-	data.set('1', {
-		campaign: {
-			id: '1'
-		},
-		status: 'WIP',
-		id: '1',
-		application: {
-			id: '2',
-			name: 'Test Application'
-		}
-	} as CampaignApplication);
 
 	return (
 		<>
@@ -93,7 +81,13 @@ const NewRevalidationDetail = () => {
 					isOpen={isDeleteModalOpen}
 					setIsOpen={setIsDeleteModalOpen}
 				/>
-				<UploadFileModal isOpen={isUploadModalOpen} setIsOpen={setIsUploadModalOpen} />
+				{/* <UploadFileModal
+					isOpen={isUploadModalOpen}
+					setIsOpen={setIsUploadModalOpen}
+					campaignId={campaignId}
+				/> */}
+
+				<TestModal isOpen={isUploadModalOpen} setIsOpen={setIsUploadModalOpen} />
 				<TableOfContents
 					stickyOffset={buttonRef.current?.getBoundingClientRect()?.height || 0}
 					tocStickyOffset={breadcrumbSize * 2}

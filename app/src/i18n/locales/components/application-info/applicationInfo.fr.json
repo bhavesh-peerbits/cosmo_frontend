@@ -25,5 +25,6 @@
 	"db-servers-os": "SO Serveurs database",
 	"db-service": "Service database",
 	"db-instance": "Instance database",
-	"icon": "Icône"
+	"icon": "Icône",
+	"wrong-code-pattern": "Code invalide. Assurez-vous que le code correspond au modèle ^([a-zA-Z0-9s._-]+)$"
 }

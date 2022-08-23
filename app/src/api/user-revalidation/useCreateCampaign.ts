@@ -20,7 +20,9 @@ export default () => {
 						queryKey.length === 1 && queryKey[0] === 'campaigns'
 				},
 				old => {
-					return new Map((old as Map<string, Campaign>).set(data.id, data));
+					return old instanceof Map
+						? new Map((old as Map<string, Campaign>).set(data.id, data))
+						: data;
 				}
 			);
 		}

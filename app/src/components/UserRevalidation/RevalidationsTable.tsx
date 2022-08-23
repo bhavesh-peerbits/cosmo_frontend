@@ -1,72 +1,25 @@
 import { TableToolbarSearch } from '@carbon/react';
 import { HeaderFunction } from '@components/table/CosmoTable';
 import GroupedCosmoTable from '@components/table/GroupedCosmoTable';
+import useRevalidationsOngoing from '@hooks/user-revalidation/useRevalidationsOngoing';
 import { formatDate } from '@i18n';
+import CampaignReview from '@model/CampaignReview';
+import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
-type Campaign = {
-	id: string;
-	name: string;
-	layer?: string;
-	type?: string;
-	dueDate?: Date;
-	startDate?: Date;
-	application?: string;
-	status?: string;
-};
 const RevalidationsTable = () => {
 	const { t } = useTranslation('userRevalidation');
-	const campaigns = [
-		{
-			id: 'id1',
-			name: 'Very Very Very Very Very long Name',
-			type: 'SUID',
-			layer: 'OS',
-			dueDate: new Date(),
-			startDate: new Date(),
-			status: 'Ongoing',
-			application: 'Application Name'
-		},
-		{
-			id: 'id2',
-			name: 'Campaign Name',
-			type: 'User Access Review',
-			layer: 'DB',
-			dueDate: new Date(),
-			startDate: new Date(),
-			status: 'Ongoing',
-			application: 'Application Very Very Very Very Very Very Very Very Very Very Name'
-		},
-		{
-			id: 'id3',
-			name: 'Campaign Name1',
-			type: 'User Access Review',
-			layer: 'OS',
-			dueDate: new Date(),
-			startDate: new Date(),
-			status: 'Ongoing',
-			application: 'Application Name1'
-		},
-		{
-			id: 'id4',
-			name: 'Campaign Name1',
-			type: 'Firefight',
-			layer: 'Software',
-			dueDate: new Date(),
-			startDate: new Date(),
-			status: 'Ongoing',
-			application: 'Application Name2'
-		}
-	];
-	const columns: HeaderFunction<Campaign> = useCallback(
+	const { revalidations, filters, setFilters } = useRevalidationsOngoing();
+
+	const columns: HeaderFunction<CampaignReview> = useCallback(
 		table => [
-			table.createDataColumn(row => row.name, {
+			table.createDataColumn(row => row.campaign.name, {
 				id: 'name',
 				header: t('campaign-name'),
 				sortUndefined: 1
 			}),
-			table.createDataColumn(row => row.dueDate, {
+			table.createDataColumn(row => row.campaign.dueDate, {
 				id: 'due-date',
 				header: t('due-date'),
 				cell: info => {
@@ -74,19 +27,20 @@ const RevalidationsTable = () => {
 					return date ? formatDate(date, 'short') : '-';
 				}
 			}),
-			table.createDataColumn(row => row.layer, {
+			table.createDataColumn(row => row.campaign.layer, {
 				id: 'layer',
 				header: t('layer')
 			}),
-			table.createDataColumn(row => row.type, {
+			table.createDataColumn(row => row.campaign.type, {
 				id: 'type',
-				header: t('revalidation-type')
+				header: t('revalidation-type'),
+				cell: info => mapCampaignTypeToCampaignDisplayType(info.getValue())
 			}),
-			table.createDataColumn(row => row.application, {
+			table.createDataColumn(() => '', {
 				id: 'application',
 				header: t('application')
 			}),
-			table.createDataColumn(row => row.status, {
+			table.createDataColumn(() => '', {
 				id: 'status',
 				header: t('status')
 			})
@@ -99,11 +53,13 @@ const RevalidationsTable = () => {
 			persistent
 			placeholder={t('search-placeholder')}
 			id='search'
+			value={filters.query ?? ''}
+			onChange={e => setFilters({ q: e.currentTarget?.value })}
 		/>
 	);
 	return (
 		<GroupedCosmoTable
-			data={campaigns}
+			data={revalidations}
 			createHeaders={columns}
 			toolbar={{ toolbarContent }}
 		/>

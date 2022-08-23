@@ -1,18 +1,17 @@
 import {
 	Layer,
-	Link,
 	Pagination,
 	Table,
 	TableBody,
 	TableCell,
 	TableContainer,
 	TableExpandHeader,
-	TableExpandRow,
 	TableHead,
 	TableHeader,
-	TableRow
+	TableRow,
+	TableSelectAll,
+	TableSelectRow
 } from '@carbon/react';
-
 import {
 	ColumnDef,
 	ColumnSort,
@@ -27,45 +26,58 @@ import {
 	Table as TableType,
 	useTableInstance
 } from '@tanstack/react-table';
-import { useCallback, useMemo, useState } from 'react';
+import { ReactNode, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
 	AvailableFileType,
 	CellProperties,
 	ExportProperties,
-	CosmoTableToolbarProps,
-	TB
+	TB,
+	CosmoTableToolbarProps
 } from '@components/table/types';
 import useExportTablePlugin from '@hooks/useExportTablePlugin';
-import Campaign from '@model/Campaign';
-import CampaignReview from '@model/CampaignReview';
+import NoDataMessage from '@components/NoDataMessage';
+import Centered from '@components/Centered';
+import {
+	CheckmarkOutline,
+	RequestQuote,
+	MisuseOutline,
+	Error
+} from '@carbon/react/icons';
 import CosmoTableToolbar from './CosmoTableToolbar';
 
-type HeaderFunction<T extends object> = GroupedTableProps<T>['createHeaders'];
-
-interface GroupedTableProps<D extends object> {
+type HeaderFunction<T extends object> =
+	CosmoTableRevalidationUsersProps<T>['createHeaders'];
+interface CosmoTableRevalidationUsersProps<D extends object> {
 	createHeaders: (table: TableType<TB<D>>) => Array<ColumnDef<TB<D>>>;
 	data: D[];
-	noDataMessage?: string;
-	exportFileName?: (param: { fileType: AvailableFileType }) => string;
-	disableExport?: boolean;
 	toolbar?:
 		| Pick<CosmoTableToolbarProps<D>, 'toolbarContent' | 'toolbarBatchActions'>
 		| undefined;
+	noDataMessage?: string;
+	exportFileName?: (param: {
+		fileType: AvailableFileType;
+		all: boolean | 'selection';
+	}) => string;
+	disableExport?: boolean;
+	inlineAction: ReactNode;
+	setRowSelected: (val: D) => void;
 }
 
-const GroupedCosmoTable = <D extends object>({
+const CosmoTableRevalidationUsers = <D extends object>({
 	createHeaders,
 	data,
 	noDataMessage,
 	exportFileName,
 	disableExport,
+	inlineAction,
+	setRowSelected,
 	toolbar
-}: GroupedTableProps<D>) => {
-	const { t } = useTranslation(['table', 'userRevalidation']);
+}: CosmoTableRevalidationUsersProps<D>) => {
+	const { t } = useTranslation('table');
+	const [rowSelection, setRowSelection] = useState({});
 	const [expanded, setExpanded] = useState<ExpandedState>({});
 	const [grouping, setGrouping] = useState<string[]>([]);
-	const [rowSelection, setRowSelection] = useState({});
 	const [sorting, setSorting] = useState<ColumnSort[]>([]);
 
 	const [pagination, setPagination] = useState<PaginationState>({
@@ -82,13 +94,13 @@ const GroupedCosmoTable = <D extends object>({
 			pagination,
 			sorting,
 			grouping,
-			rowSelection,
-			expanded
+			expanded,
+			rowSelection
 		},
 		onPaginationChange: setPagination,
 		onSortingChange: setSorting,
-		onGroupingChange: setGrouping,
 		onRowSelectionChange: setRowSelection,
+		onGroupingChange: setGrouping,
 		onExpandedChange: setExpanded,
 		getCoreRowModel: getCoreRowModel(),
 		getExpandedRowModel: getExpandedRowModel(),
@@ -96,75 +108,75 @@ const GroupedCosmoTable = <D extends object>({
 		getGroupedRowModel: getGroupedRowModel(),
 		getPaginationRowModel: getPaginationRowModel()
 	});
-	const { getRowModel, getHeaderGroups, setPageIndex, setPageSize } = instance;
+	const {
+		getRowModel,
+		getHeaderGroups,
+		setPageIndex,
+		setPageSize,
+		toggleAllRowsSelected,
+		getSelectedRowModel,
+		getIsAllRowsSelected,
+		getIsSomeRowsSelected,
+		getToggleAllRowsSelectedHandler
+	} = instance;
 	const { exportData } = useExportTablePlugin(instance, exportFileName, disableExport);
 
-	const translateStatus = useCallback(
-		(status: string) => {
-			switch (status) {
-				case 'WIP':
-					return t('userRevalidation:in-progress');
-				case 'COMPLETED':
-					return t('userRevalidation:completed');
-				case 'NOT_COMPLETED':
-					return t('userRevalidation:not-completed');
-				default:
-					return '';
-			}
-		},
-		[t]
-	);
+	const iconToRender = (answer?: string) => {
+		switch (answer) {
+			case 'OK':
+				return <CheckmarkOutline />;
+			case 'LOCK':
+				return <Error />;
+			case 'REPORT_ERROR':
+				return <MisuseOutline />;
+			case 'MODIFY':
+				return <RequestQuote />;
+			default:
+				return null;
+		}
+	};
+
 	const renderBody = () => {
 		const { rows } = getRowModel();
 		return rows.length ? (
 			rows.map(row => {
 				return (
-					<>
-						<TableExpandRow
-							className='w-full'
-							key={row.id}
-							isExpanded={row.getIsExpanded()}
-							ariaLabel=''
-							onClick={() => row.toggleExpanded()}
-							onExpand={() => null}
-						>
-							<TableCell>
-								<Link href={`/${(row.original as CampaignReview).campaign.id}`}>
-									{row.getVisibleCells()[0].renderCell()}
-								</Link>
+					<TableRow key={row.id}>
+						<TableSelectRow
+							checked={row.getIsSelected()}
+							ariaLabel='Select'
+							id={row.id}
+							name={row.id}
+							onSelect={row.getToggleSelectedHandler()}
+							onChange={undefined}
+						/>
+						<TableCell />
+						{row.getVisibleCells().map(cell => (
+							<TableCell key={cell.id}>
+								{cell.column.id === 'answer' ? (
+									<div className='flex space-x-3'>
+										{iconToRender(cell.getValue() as string)}
+										<p className='text-heading-compact-1'>{cell.renderCell()}</p>
+									</div>
+								) : (
+									cell.renderCell()
+								)}
 							</TableCell>
-							{row
-								.getVisibleCells()
-								.slice(1)
-								.map(cell => (
-									<TableCell key={cell.id}>
-										{(cell.getIsGrouped() && (
-											<Link href={`/${(row.original as Campaign).id}`}>{cell.id}</Link>
-										)) ||
-											(cell.getIsAggregated() && cell.renderAggregatedCell()) ||
-											(!cell.getIsPlaceholder() && cell.renderCell())}
-									</TableCell>
-								))}
-						</TableExpandRow>
-						{row.getIsExpanded() &&
-							(row.original as CampaignReview).reviews.map(review => (
-								<TableRow>
-									<TableCell />
-									<TableCell />
-									<TableCell />
-									<TableCell />
-									<TableCell />
-									<TableCell>{review.application.name}</TableCell>
-									<TableCell>{translateStatus(review.status)}</TableCell>
-								</TableRow>
-							))}
-					</>
+						))}
+						<TableCell
+							onClickCapture={() => row.original && setRowSelected(row.original)}
+						>
+							{inlineAction}
+						</TableCell>
+					</TableRow>
 				);
 			})
 		) : (
 			<TableRow>
 				<TableCell colSpan={columns.length + 1}>
-					<p className='flex justify-center'>{noDataMessage || t('table:no-data')}</p>
+					<Centered>
+						<NoDataMessage className='p-5' title={noDataMessage} />
+					</Centered>
 				</TableCell>
 			</TableRow>
 		);
@@ -173,9 +185,16 @@ const GroupedCosmoTable = <D extends object>({
 	return (
 		<TableContainer>
 			<CosmoTableToolbar<D>
+				selectionIds={
+					getSelectedRowModel()
+						.flatRows.map(row => row.original)
+						.filter(r => r) as D[]
+				}
+				onCancel={() => toggleAllRowsSelected(false)}
 				onExportClick={exportData}
 				disableExport={grouping.length > 0 || data.length === 0}
 				toolbarContent={toolbar?.toolbarContent}
+				toolbarBatchActions={toolbar?.toolbarBatchActions}
 			/>
 			<Layer level={1}>
 				<Table>
@@ -183,7 +202,19 @@ const GroupedCosmoTable = <D extends object>({
 						{getHeaderGroups().map(headerGroup => {
 							return (
 								<TableRow key={headerGroup.id}>
-									<TableExpandHeader />
+									<th className='relative'>
+										<TableSelectAll
+											ariaLabel='SelectAll'
+											id='selectAll'
+											className='absolute top-1/2 left-0 -translate-y-1/2'
+											name='selectAll'
+											checked={getIsAllRowsSelected()}
+											indeterminate={getIsSomeRowsSelected()}
+											onSelect={getToggleAllRowsSelectedHandler()}
+											onChange={undefined}
+										/>
+									</th>
+									<TableExpandHeader className='w-[40px]' />
 									{headerGroup.headers.map(header => {
 										return (
 											<TableHeader
@@ -203,6 +234,7 @@ const GroupedCosmoTable = <D extends object>({
 											</TableHeader>
 										);
 									})}
+									<TableRow />
 								</TableRow>
 							);
 						})}
@@ -212,15 +244,12 @@ const GroupedCosmoTable = <D extends object>({
 			</Layer>
 
 			<Pagination
-				backwardText={t('table:previous-page')}
-				forwardText={t('table:next-page')}
-				itemsPerPageText={t('table:items-per-page')}
-				itemRangeText={(min, max, total) => t('table:item-range', { min, max, total })}
+				backwardText={t('previous-page')}
+				forwardText={t('next-page')}
+				itemsPerPageText={t('items-per-page')}
+				itemRangeText={(min, max, total) => t('item-range', { min, max, total })}
 				pageRangeText={(current, total) =>
-					t(total > 1 ? 'table:page-range-plural' : 'table:page-range', {
-						current,
-						total
-					})
+					t(total > 1 ? 'page-range-plural' : 'page-range', { current, total })
 				}
 				page={1}
 				onChange={({ page, pageSize }) => {
@@ -237,4 +266,4 @@ const GroupedCosmoTable = <D extends object>({
 };
 
 export type { HeaderFunction, CellProperties };
-export default GroupedCosmoTable;
+export default CosmoTableRevalidationUsers;

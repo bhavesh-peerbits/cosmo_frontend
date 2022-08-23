@@ -1,8 +1,13 @@
-import { FileUploaderDropContainer, FileUploaderItem, Grid } from '@carbon/react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import useAddAnswerToReview from '@api/user-revalidation/useAddAnswerToReview';
+import useAddAppsToCampaign from '@api/user-revalidation/useAddAppsToCampaign';
+import { FileUploaderDropContainer, FileUploaderItem, Form, Grid } from '@carbon/react';
 import { CreateTearsheet } from '@components/CreateTearsheet';
 import CreateTearsheetStep from '@components/CreateTearsheet/CreateTearsheepStep';
 import FullWidthColumn from '@components/FullWidthColumn';
+import SingleApplicationSelect from '@components/SingleApplicationSelect';
 import Application from '@model/Application';
+import { InlineObject9 } from 'cosmo-api/src/v1';
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -10,21 +15,47 @@ import { useTranslation } from 'react-i18next';
 type UploadFileModalProps = {
 	isOpen: boolean;
 	setIsOpen: (value: boolean) => void;
+	campaignId: string;
 };
 type FormData = {
 	application: Application;
 };
 
-const UploadFileModal = ({ isOpen, setIsOpen }: UploadFileModalProps) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const UploadFileModal = ({ isOpen, setIsOpen, campaignId }: UploadFileModalProps) => {
 	const { t } = useTranslation('modals');
 	const { t: tRevalidation } = useTranslation('userRevalidation');
+	// const { mutate: mutateAddApps } = useAddAppsToCampaign();
+	const { mutate: mutateAddAnswer } = useAddAnswerToReview();
 	const {
-		// control,
+		control,
 		reset,
 		formState: { isValid }
 	} = useForm<FormData>({
 		mode: 'onChange'
 	});
+
+	const addAnswer = () => {
+		const file = document.getElementById('upload') as HTMLInputElement;
+		const formData = new FormData();
+		// formData.append('key', file?.files?.[0]);
+		return mutateAddAnswer({
+			reviewId: '1',
+			file: formData
+		});
+	};
+
+	// const addApplication = () => {
+	// 	mutateAddApps(
+	// 		{
+	// 			campaignId,
+	// 			applications: [getValues().application]
+	// 		},
+	// 		{
+	// 			onSuccess: addAnswer
+	// 		}
+	// 	);
+	// };
 
 	const generateUploadStep = useCallback(() => {
 		return (
@@ -43,31 +74,35 @@ const UploadFileModal = ({ isOpen, setIsOpen }: UploadFileModalProps) => {
 							})}.`}</p>
 						</div>
 						<div>
-							<FileUploaderDropContainer
-								labelText={tRevalidation('upload-box-description')}
-								accept={['.csv']}
-								className='w-full'
-							/>
+							<Form>
+								<FileUploaderDropContainer
+									labelText={tRevalidation('upload-box-description')}
+									accept={['.csv']}
+									className='w-full'
+									id='upload'
+								/>
+							</Form>
+
 							{/* //TODO fix with real upload */}
 							<FileUploaderItem name='File Name' status='complete' />
 						</div>
 					</div>
-					{/* <SingleApplicationSelect */}
-					{/*	level={2} */}
-					{/*	label={`${tRevalidation('app-related')} *`} */}
-					{/*	name='application' */}
-					{/*	rules={{ */}
-					{/*		required: { */}
-					{/*			value: true, */}
-					{/*			message: tRevalidation('app-required') */}
-					{/*		} */}
-					{/*	}} */}
-					{/*	control={control} */}
-					{/* /> */}
+					<SingleApplicationSelect
+						level={2}
+						label={`${tRevalidation('app-related')} *`}
+						name='application'
+						rules={{
+							required: {
+								value: true,
+								message: tRevalidation('app-required')
+							}
+						}}
+						control={control}
+					/>
 				</div>
 			</CreateTearsheetStep>
 		);
-	}, [isValid, tRevalidation]);
+	}, [control, isValid, tRevalidation]);
 
 	const generateConfirmStep = useCallback(
 		() => (
@@ -107,7 +142,9 @@ const UploadFileModal = ({ isOpen, setIsOpen }: UploadFileModalProps) => {
 				setIsOpen(false);
 				reset();
 			}}
-			onRequestSubmit={() => setIsOpen(false)}
+			onRequestSubmit={() => {
+				addAnswer();
+			}}
 		>
 			{generateUploadStep()}
 			{generateConfirmStep()}

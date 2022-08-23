@@ -38,5 +38,20 @@
 	"all": "Tout",
 	"multi": "Multi Application",
 	"single": "Single Application",
-	"campaign-name-required": "Le nom de la campagne est obligatoire"
+	"campaign-name-required": "Le nom de la campagne est obligatoire",
+	"completed": "Complété",
+	"completed-partial": "Complété avec des réponses partielles",
+	"in-progress": "Revalidation en cours",
+	"annulled": "Annulé",
+	"not-completed": "Non complété",
+	"permission": "Autorisations",
+	"answer": "Réponse",
+	"confirm": "Confirmer",
+	"change-request": "Demande de modification",
+	"report-error": "Signaler une erreur",
+	"block": "Bloquer",
+	"send-change-request": "Envoyer demande",
+	"description-placeholder": "Veuillez fournir une description de la demande",
+	"enter-info": "Entrez les informations requises pour continuer",
+	"reported-error": "Erreur signalée"
 }
