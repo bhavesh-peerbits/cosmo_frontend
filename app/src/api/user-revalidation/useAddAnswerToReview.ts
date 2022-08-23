@@ -7,15 +7,10 @@ interface AddAnswerToReviewParams {
 }
 
 const addAnswerToReview = ({ reviewId, file }: AddAnswerToReviewParams) => {
-	return api.analystCampaignApi.addAnswerToGivenReview(
-		{
-			reviewId: +reviewId,
-			inlineObject11: { file }
-		},
-		{
-			headers: { 'content-type': 'multipart/form-data' }
-		}
-	);
+	return api.analystCampaignApi.addAnswerToGivenReview({
+		reviewId: +reviewId,
+		file
+	});
 };
 
 const useAddAnswerToReview = () => {

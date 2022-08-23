@@ -53,8 +53,6 @@ import { CsvAnswerParsingDto } from '../models';
 // @ts-ignore
 import { InlineObject10 } from '../models';
 // @ts-ignore
-import { InlineObject11 } from '../models';
-// @ts-ignore
 import { ReviewDto } from '../models';
 // @ts-ignore
 import { UserDto } from '../models';
@@ -69,21 +67,21 @@ export const AnalystCampaignControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} reviewId
-		 * @param {InlineObject11} inlineObject11
+		 * @param {any} file
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		addAnswerToGivenReview: async (
 			reviewId: number,
-			inlineObject11: InlineObject11,
+			file: any,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'reviewId' is not null or undefined
 			assertParamExists('addAnswerToGivenReview', 'reviewId', reviewId);
-			// verify required parameter 'inlineObject11' is not null or undefined
-			assertParamExists('addAnswerToGivenReview', 'inlineObject11', inlineObject11);
+			// verify required parameter 'file' is not null or undefined
+			assertParamExists('addAnswerToGivenReview', 'file', file);
 			const localVarPath = `/api/analyst/campaign/answer/{reviewId}`.replace(
 				`{${'reviewId'}}`,
 				encodeURIComponent(String(reviewId))
@@ -98,6 +96,8 @@ export const AnalystCampaignControllerApiAxiosParamCreator = function (
 			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
 			const localVarHeaderParameter = {} as any;
 			const localVarQueryParameter = {} as any;
+			const localVarFormParams = new ((configuration && configuration.formDataCtor) ||
+				FormData)();
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
@@ -106,7 +106,11 @@ export const AnalystCampaignControllerApiAxiosParamCreator = function (
 				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
 			}
 
-			localVarHeaderParameter['Content-Type'] = 'application/json';
+			if (file !== undefined) {
+				localVarFormParams.append('file', file as any);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
@@ -116,11 +120,7 @@ export const AnalystCampaignControllerApiAxiosParamCreator = function (
 				...headersFromBaseOptions,
 				...options.headers
 			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				inlineObject11,
-				localVarRequestOptions,
-				configuration
-			);
+			localVarRequestOptions.data = localVarFormParams;
 
 			return {
 				url: toPathString(localVarUrlObj),
@@ -1141,14 +1141,14 @@ export const AnalystCampaignControllerApiFp = function (configuration?: Configur
 		/**
 		 *
 		 * @param {number} reviewId
-		 * @param {InlineObject11} inlineObject11
+		 * @param {any} file
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async addAnswerToGivenReview(
 			reviewId: number,
-			inlineObject11: InlineObject11,
+			file: any,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
@@ -1156,7 +1156,7 @@ export const AnalystCampaignControllerApiFp = function (configuration?: Configur
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.addAnswerToGivenReview(
 				reviewId,
-				inlineObject11,
+				file,
 				acceptLanguage,
 				options
 			);
@@ -1669,19 +1669,19 @@ export const AnalystCampaignControllerApiFactory = function (
 		/**
 		 *
 		 * @param {number} reviewId
-		 * @param {InlineObject11} inlineObject11
+		 * @param {any} file
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		addAnswerToGivenReview(
 			reviewId: number,
-			inlineObject11: InlineObject11,
+			file: any,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<CsvAnswerParsingDto> {
 			return localVarFp
-				.addAnswerToGivenReview(reviewId, inlineObject11, acceptLanguage, options)
+				.addAnswerToGivenReview(reviewId, file, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -2017,10 +2017,10 @@ export interface AnalystCampaignControllerApiAddAnswerToGivenReviewRequest {
 
 	/**
 	 *
-	 * @type {InlineObject11}
+	 * @type {any}
 	 * @memberof AnalystCampaignControllerApiAddAnswerToGivenReview
 	 */
-	readonly inlineObject11: InlineObject11;
+	readonly file: any;
 
 	/**
 	 *
@@ -2471,7 +2471,7 @@ export class AnalystCampaignControllerApi extends BaseAPI {
 		return AnalystCampaignControllerApiFp(this.configuration)
 			.addAnswerToGivenReview(
 				requestParameters.reviewId,
-				requestParameters.inlineObject11,
+				requestParameters.file,
 				requestParameters.acceptLanguage,
 				options
 			)

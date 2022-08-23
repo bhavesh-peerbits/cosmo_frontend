@@ -1,13 +1,12 @@
+/* eslint-disable react/no-unused-prop-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import useAddAnswerToReview from '@api/user-revalidation/useAddAnswerToReview';
-import useAddAppsToCampaign from '@api/user-revalidation/useAddAppsToCampaign';
 import { FileUploaderDropContainer, FileUploaderItem, Form, Grid } from '@carbon/react';
 import { CreateTearsheet } from '@components/CreateTearsheet';
 import CreateTearsheetStep from '@components/CreateTearsheet/CreateTearsheepStep';
 import FullWidthColumn from '@components/FullWidthColumn';
 import SingleApplicationSelect from '@components/SingleApplicationSelect';
 import Application from '@model/Application';
-import { InlineObject9 } from 'cosmo-api/src/v1';
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -21,8 +20,7 @@ type FormData = {
 	application: Application;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const UploadFileModal = ({ isOpen, setIsOpen, campaignId }: UploadFileModalProps) => {
+const UploadFileModal = ({ isOpen, setIsOpen }: UploadFileModalProps) => {
 	const { t } = useTranslation('modals');
 	const { t: tRevalidation } = useTranslation('userRevalidation');
 	// const { mutate: mutateAddApps } = useAddAppsToCampaign();
@@ -37,12 +35,11 @@ const UploadFileModal = ({ isOpen, setIsOpen, campaignId }: UploadFileModalProps
 
 	const addAnswer = () => {
 		const file = document.getElementById('upload') as HTMLInputElement;
-		const formData = new FormData();
-		// formData.append('key', file?.files?.[0]);
-		return mutateAddAnswer({
-			reviewId: '1',
-			file: formData
-		});
+		// TODO rimuovi questi commenti per la chiamata
+		// return mutateAddAnswer({
+		// 	reviewId: '1',
+		// 	file: file.files[0]
+		// });
 	};
 
 	// const addApplication = () => {
