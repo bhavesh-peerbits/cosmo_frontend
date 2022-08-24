@@ -3,5 +3,19 @@
 	"narrative-admin-description": "Gestisci tutte le procedure e il modello dell'email delle revisioni.",
 	"procedures": "Procedure",
 	"procedures-description": "In questa sezione puoi aggiungere, rimuovere o modificare (nome, obiettivi di controllo e descrizione) procedure.",
-	"email-description": "In questa sezione puoi modificare il modello dell'email utilizzata per la richiesta di revisione dei narrative."
+	"email-description": "In questa sezione puoi modificare il modello dell'email utilizzata per la richiesta di revisione dei narrative.",
+	"create-procedure": "Crea nuova procedura",
+	"add-procedure": "Aggiungi procedura",
+	"procedure-name": "Nome procedura",
+	"control-objectives": "Obiettivi di controllo",
+	"search-procedure": "Ricerca per nome procedura",
+	"procedure": "Procedura",
+	"no-procedures": "Nessuna procedura",
+	"procedure-details": "Dettagli procedura",
+	"no-description": "Nessuna descrizione",
+	"no-control-objectives": "Nessun obiettivo di controllo",
+	"cannot-delete": "Questa procedura non può essere eliminata perchè utilizzata in una o più applicazioni",
+	"details-subtitle": "Per editare i dettagli della procedura utilizzare l'apposito pulsante",
+	"major-procedure": "Procedura principale",
+	"control-obj-placeholder": "Separare gli elementi tramite virgola (es. CO1,CO2,CO3)"
 }

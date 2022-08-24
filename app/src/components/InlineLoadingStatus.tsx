@@ -1,6 +1,7 @@
 import Fade from '@components/Fade';
 import { InlineLoading } from '@carbon/react';
 import ApiError from '@api/ApiError';
+import { useTranslation } from 'react-i18next';
 
 interface InlineLoadingStatusProps {
 	isLoading: boolean;
@@ -15,6 +16,7 @@ const InlineLoadingStatus = ({
 	isSuccess,
 	error
 }: InlineLoadingStatusProps) => {
+	const { t } = useTranslation('home');
 	const getInlineLoadingStatus = () => {
 		if (isLoading) {
 			return 'active';
@@ -33,7 +35,9 @@ const InlineLoadingStatus = ({
 			{(isLoading || isError || isSuccess) && (
 				<Fade>
 					<InlineLoading
-						description={isLoading ? 'Save data...' : `${error?.message || 'Saved'}`}
+						description={
+							isLoading ? `${t('save-data')}...` : `${error?.message || t('saved')}`
+						}
 						status={getInlineLoadingStatus()}
 					/>
 				</Fade>

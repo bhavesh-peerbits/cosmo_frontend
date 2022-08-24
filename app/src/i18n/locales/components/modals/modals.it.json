@@ -48,5 +48,6 @@
 	"field-required": "Questo campo è obbligatorio",
 	"back": "Indietro",
 	"next": "Avanti",
-	"save": "Salva"
+	"save": "Salva",
+	"create": "Crea"
 }

@@ -3,5 +3,19 @@
 	"narrative-admin-description": "Manage all procedures and the review email template.",
 	"procedures": "Procedures",
 	"procedures-description": "In this section you can add, remove or edit (name, control objectives and description) procedures.",
-	"email-description": "In this section you can edit the template used for narratives reviews."
+	"email-description": "In this section you can edit the template used for narratives reviews.",
+	"create-procedure": "Create new procedure",
+	"add-procedure": "Add procedure",
+	"procedure-name": "Procedure name",
+	"control-objectives": "Control objectives",
+	"search-procedure": "Search by procedure name",
+	"procedure": "Procedura",
+	"no-procedures": "No procedures",
+	"procedure-details": "Procedure details",
+	"no-description": "No description",
+	"no-control-objectives": "No control objectives",
+	"cannot-delete": "This procedure cannot be removed because it is used in one or more applications",
+	"details-subtitle": "Click the appropriate button to edit procedure details",
+	"major-procedure": "Major procedure",
+	"control-obj-placeholder": "Separate elements by commas (e.g. CO1,CO2,CO3)"
 }
