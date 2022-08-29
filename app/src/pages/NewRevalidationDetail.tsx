@@ -32,7 +32,7 @@ const UploadResults = () => {
 			{[...data.values()].map(a => (
 				<div className='pb-7' key={a.id}>
 					<Tile className='bg-background'>
-						<UploadResultsTile application={a.application} />
+						<UploadResultsTile campaignApplication={a} />
 					</Tile>
 				</div>
 			))}

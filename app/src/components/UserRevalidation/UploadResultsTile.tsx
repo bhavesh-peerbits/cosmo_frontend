@@ -3,24 +3,28 @@ import FullWidthColumn from '@components/FullWidthColumn';
 import { TrashCan, Upload } from '@carbon/react/icons';
 import { useState } from 'react';
 import DeleteUploadModal from '@components/Modals/DeleteUploadModal';
-import Application from '@model/Application';
+import CampaignApplication from '@model/CampaignApplication';
 
 interface UploadResultsTileProps {
-	application: Application;
+	campaignApplication: CampaignApplication;
 }
 
-const UploadResultsTile = ({ application }: UploadResultsTileProps) => {
+const UploadResultsTile = ({ campaignApplication }: UploadResultsTileProps) => {
 	const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 	return (
 		<>
-			<DeleteUploadModal isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} />
+			<DeleteUploadModal
+				isOpen={isDeleteOpen}
+				setIsOpen={setIsDeleteOpen}
+				campaignApplication={campaignApplication}
+			/>
 			<Grid fullWidth className='space-y-5'>
 				<FullWidthColumn
-					data-toc-id={application.id}
-					data-toc-title={application.name}
+					data-toc-id={campaignApplication.id}
+					data-toc-title={campaignApplication.application.name}
 					className='flex items-center justify-between text-fluid-heading-3'
 				>
-					{application.name}
+					{campaignApplication.application.name}
 					<div>
 						<Button
 							kind='ghost'

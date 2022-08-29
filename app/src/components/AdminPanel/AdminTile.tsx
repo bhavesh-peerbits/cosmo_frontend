@@ -10,8 +10,8 @@ type AdminTileProps = {
 const AdminTile = ({ title, description, path }: AdminTileProps) => {
 	const navigate = useNavigate();
 	return (
-		<Layer level={1}>
-			<ClickableTile onClick={() => navigate(path)} className='space-y-7'>
+		<Layer level={1} className='h-full'>
+			<ClickableTile onClick={() => navigate(path)} className='h-full space-y-7'>
 				<div>
 					<div className='text-productive-heading-2 lg:min-h-[44px]'>{title}</div>
 					<div className='mt-5 text-text-secondary text-body-compact-2 sm:min-h-[164px] md:min-h-[196px] xlg:min-h-[96px]'>
