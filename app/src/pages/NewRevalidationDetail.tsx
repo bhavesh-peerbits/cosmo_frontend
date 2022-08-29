@@ -125,7 +125,11 @@ const NewRevalidationDetail = () => {
 			]}
 		>
 			<div className='pl-5'>
-				<SendRevalidationModal isOpen={isSendModalOpen} setIsOpen={setIsSendModalOpen} />
+				<SendRevalidationModal
+					campaign={data}
+					isOpen={isSendModalOpen}
+					setIsOpen={setIsSendModalOpen}
+				/>
 				<DeleteCampaignModal
 					campaign={data}
 					isOpen={isDeleteModalOpen}

@@ -3,6 +3,7 @@ import {
 	Column,
 	ComposedModal,
 	Grid,
+	InlineNotification,
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
@@ -15,10 +16,14 @@ import User from '@model/User';
 import { startOfTomorrow } from 'date-fns';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import Campaign from '@model/Campaign';
+import useSendCampaignRevalidationRequest from '@api/user-revalidation/useSendCampaignRevalidationRequest';
+import ApiError from '@api/ApiError';
 
 type DeleteModalProps = {
 	isOpen: boolean;
 	setIsOpen: (value: boolean) => void;
+	campaign: Campaign;
 };
 
 type FormData = {
@@ -27,18 +32,19 @@ type FormData = {
 	collaborators: User[];
 };
 
-const SendCampaignModal = ({ isOpen, setIsOpen }: DeleteModalProps) => {
-	const { t } = useTranslation('modals');
-	const { t: tRevalidation } = useTranslation('userRevalidation');
+const SendCampaignModal = ({ isOpen, setIsOpen, campaign }: DeleteModalProps) => {
+	const { t } = useTranslation(['modals', 'userRevalidation']);
+	const { mutate, isError, error } = useSendCampaignRevalidationRequest();
 	const {
 		control,
 		register,
 		reset,
+		handleSubmit,
 		formState: { isValid, errors }
 	} = useForm<FormData>({
-		mode: 'onBlur',
+		mode: 'onChange',
 		defaultValues: {
-			campaignName: 'Nome', // TODO fix campaign name as default value
+			campaignName: campaign.name,
 			dueDate: undefined,
 			collaborators: []
 		}
@@ -49,23 +55,39 @@ const SendCampaignModal = ({ isOpen, setIsOpen }: DeleteModalProps) => {
 		reset();
 	};
 
+	const sendRevalidation = (data: FormData) => {
+		mutate(
+			{
+				campaignId: campaign.id,
+				dueDate: data.dueDate,
+				collaborators: data.collaborators.map(({ id }) => id)
+			},
+			{
+				onSuccess: cleanUp
+			}
+		);
+	};
+
 	return (
 		<ComposedModal preventCloseOnClickOutside open={isOpen} onClose={cleanUp}>
-			<ModalHeader title={tRevalidation('send-request')} closeModal={cleanUp} />
+			<ModalHeader title={t('userRevalidation:send-request')} closeModal={cleanUp} />
 			<ModalBody hasForm>
-				{t('body-add', { action: `"${tRevalidation('send-revalidation')}".` })}
+				{t('modals:body-add', {
+					action: `"${t('userRevalidation:send-revalidation')}".`
+				})}
 				<Grid className='mt-5'>
 					<Column lg={8} md={4} sm={4} className='mb-5'>
 						<TextInput
 							id='campaign-name'
-							labelText={`${tRevalidation('campaign-name')} *`}
+							labelText={`${t('userRevalidation:campaign-name')} *`}
 							invalid={Boolean(errors.campaignName)}
 							invalidText={errors.campaignName?.message}
+							readOnly
 							className='w-full grow-0'
 							{...register('campaignName', {
 								required: {
 									value: true,
-									message: `${tRevalidation('mandatory-name')}.`
+									message: `${t('userRevalidation:mandatory-name')}.`
 								}
 							})}
 						/>
@@ -73,7 +95,7 @@ const SendCampaignModal = ({ isOpen, setIsOpen }: DeleteModalProps) => {
 					<Column lg={8} md={4} sm={4} className='mb-5'>
 						<MultipleUserSelect
 							control={control}
-							label={tRevalidation('collaborators')}
+							label={t('userRevalidation:collaborators')}
 							name='collaborators'
 							level={2}
 							tooltipPosition='left'
@@ -83,23 +105,39 @@ const SendCampaignModal = ({ isOpen, setIsOpen }: DeleteModalProps) => {
 						<DatePickerWrapper
 							control={control}
 							name='dueDate'
-							label={`${tRevalidation('due-date')} *`}
+							label={`${t('userRevalidation:due-date')} *`}
 							rules={{
 								required: {
 									value: true,
-									message: `${t('select-date')}`
+									message: `${t('modals:select-date')}`
 								}
 							}}
 							minDate={startOfTomorrow()}
 						/>
 					</FullWidthColumn>
+
+					<FullWidthColumn>
+						{isError && (
+							<InlineNotification
+								kind='error'
+								title='Error'
+								hideCloseButton
+								subtitle={
+									(error as ApiError)?.message ||
+									'An error has occurred, please try again later'
+								}
+							/>
+						)}
+					</FullWidthColumn>
 				</Grid>
 			</ModalBody>
 			<ModalFooter>
 				<Button kind='secondary' onClick={cleanUp}>
-					{t('cancel')}
+					{t('modals:cancel')}
 				</Button>
-				<Button disabled={!isValid}>{tRevalidation('send-revalidation')}</Button>
+				<Button onClick={handleSubmit(sendRevalidation)} disabled={!isValid}>
+					{t('userRevalidation:send-revalidation')}
+				</Button>
 			</ModalFooter>
 		</ComposedModal>
 	);
