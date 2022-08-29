@@ -40,7 +40,7 @@ const SendCampaignModal = ({ isOpen, setIsOpen }: DeleteModalProps) => {
 		defaultValues: {
 			campaignName: 'Nome', // TODO fix campaign name as default value
 			dueDate: undefined,
-			collaborators: undefined
+			collaborators: []
 		}
 	});
 

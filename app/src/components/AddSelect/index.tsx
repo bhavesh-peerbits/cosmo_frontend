@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import { forwardRef, ReactNode, useEffect, useState } from 'react';
+import { forwardRef, ReactNode, useEffect, useMemo, useState } from 'react';
 import Tearsheet from '@components/Tearsheet';
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
 import { Tag } from '@carbon/react';
@@ -53,7 +53,7 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 			removeIconDescription,
 			searchResultsLabel,
 			title,
-			selectedItems = { entries: [] as ItemType[] },
+			selectedItems: selectedItemsProp,
 
 			// Collect any other property values passed in.
 			...rest
@@ -61,6 +61,10 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 		ref
 	) => {
 		// hooks
+		const selectedItems = useMemo(
+			() => selectedItemsProp || { entries: [] as ItemType[] },
+			[selectedItemsProp]
+		);
 		const [path, setPath] = useState<{ id: string; title: string }[]>([]);
 		const [singleSelection, setSingleSelection] = useState('');
 		const [multiSelection, setMultiSelection] = useState<string[]>([]);

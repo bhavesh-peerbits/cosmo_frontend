@@ -111,8 +111,8 @@ const NewRevalidationDetail = () => {
 					kind: 'primary',
 					onClick: () => {
 						setIsSendModalOpen(true);
-					},
-					disabled: data.applicationsCount === 0
+					}
+					// disabled: data.applicationsCount === 0 TODO
 				},
 				{
 					name: t('modals:delete'),
@@ -134,7 +134,7 @@ const NewRevalidationDetail = () => {
 				<UploadFileModal
 					isOpen={isUploadModalOpen}
 					setIsOpen={setIsUploadModalOpen}
-					campaignId={campaignId}
+					// campaignId={campaignId}
 				/>
 
 				{data.applicationsCount > 0 ? (

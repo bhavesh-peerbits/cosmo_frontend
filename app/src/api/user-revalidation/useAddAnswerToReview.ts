@@ -3,7 +3,7 @@ import api from '@api';
 
 interface AddAnswerToReviewParams {
 	reviewId: string;
-	file: FormData;
+	file: File;
 }
 
 const addAnswerToReview = ({ reviewId, file }: AddAnswerToReviewParams) => {
