@@ -108,7 +108,7 @@ tag:
     - docker tag $IMAGE_COSMO $TAG_IMAGE && docker push $TAG_IMAGE
 
 deploy develop:
-  image: aramis-nexus.aizoon.it:5000/ansible
+  image: aramis-nexus.aizoon.it:5000/ansible:python
   stage: deploy 🚀
   when: manual
   environment:

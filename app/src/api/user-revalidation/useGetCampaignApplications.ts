@@ -12,7 +12,9 @@ export function getCampaignApplications(campaignId: string) {
 		.then(toMap);
 }
 
-export default (campaignId: string) =>
-	useQuery(['campaigns', campaignId, 'applications'], () =>
-		getCampaignApplications(campaignId)
+export default (campaignId: string, enabled = true) =>
+	useQuery(
+		['campaigns', campaignId, 'applications'],
+		() => getCampaignApplications(campaignId),
+		{ enabled }
 	);

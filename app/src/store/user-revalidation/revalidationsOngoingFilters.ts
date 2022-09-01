@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import { atom, selector } from 'recoil';
 import { GetRecoilType } from '@store/util';
-import CampaignReview from '@model/CampaignReview';
+import CampaignWithReview from '@model/CampaignWithReview';
 
 type Filters = {
 	query: string | undefined;
@@ -20,7 +20,7 @@ const revalidationsOngoingFilters = atom<Filters>({
 	}
 });
 
-const revalidationsOngoing = atom<CampaignReview[]>({
+const revalidationsOngoing = atom<CampaignWithReview[]>({
 	key: 'revalidationsOngoing',
 	default: []
 });

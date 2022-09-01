@@ -27,7 +27,7 @@ import {
 	Table as TableType,
 	useTableInstance
 } from '@tanstack/react-table';
-import { useCallback, useMemo, useState } from 'react';
+import { Fragment, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
 	AvailableFileType,
@@ -38,7 +38,7 @@ import {
 } from '@components/table/types';
 import useExportTablePlugin from '@hooks/useExportTablePlugin';
 import Campaign from '@model/Campaign';
-import CampaignReview from '@model/CampaignReview';
+import CampaignWithReview from '@model/CampaignWithReview';
 import CosmoTableToolbar from './CosmoTableToolbar';
 
 type HeaderFunction<T extends object> = GroupedTableProps<T>['createHeaders'];
@@ -119,7 +119,7 @@ const GroupedCosmoTable = <D extends object>({
 		return rows.length ? (
 			rows.map(row => {
 				return (
-					<>
+					<Fragment key={row.id}>
 						<TableExpandRow
 							className='w-full'
 							key={row.id}
@@ -129,7 +129,11 @@ const GroupedCosmoTable = <D extends object>({
 							onExpand={() => null}
 						>
 							<TableCell>
-								<Link href={`/${(row.original as CampaignReview).campaign.id}`}>
+								<Link
+									href={`/revalidations-ongoing/${
+										(row.original as CampaignWithReview).id
+									}`}
+								>
 									{row.getVisibleCells()[0].renderCell()}
 								</Link>
 							</TableCell>
@@ -147,8 +151,8 @@ const GroupedCosmoTable = <D extends object>({
 								))}
 						</TableExpandRow>
 						{row.getIsExpanded() &&
-							(row.original as CampaignReview).reviews.map(review => (
-								<TableRow>
+							(row.original as CampaignWithReview).campaignApplications.map(review => (
+								<TableRow key={review.id}>
 									<TableCell />
 									<TableCell />
 									<TableCell />
@@ -158,7 +162,7 @@ const GroupedCosmoTable = <D extends object>({
 									<TableCell>{translateStatus(review.status)}</TableCell>
 								</TableRow>
 							))}
-					</>
+					</Fragment>
 				);
 			})
 		) : (

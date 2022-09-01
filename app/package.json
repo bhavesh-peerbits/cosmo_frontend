@@ -12,6 +12,8 @@
 		"comm:tsc": "yarn run -T tsc"
 	},
 	"dependencies": {
+		"@carbon/charts": "^1.5.2",
+		"@carbon/charts-react": "^1.5.2",
 		"@carbon/colors": "^11.2.0",
 		"@carbon/layout": "^11.2.0",
 		"@carbon/react": "patch:@carbon/react@npm:1.4.0#../.yarn/patches/@carbon-react-npm-1.4.0-1854f2fa66.patch",
@@ -31,6 +33,7 @@
 		"axios": "^0.27.2",
 		"classnames": "^2.3.1",
 		"cosmo-api": "workspace:^",
+		"d3": "^7.6.1",
 		"date-fns": "^2.28.0",
 		"framer-motion": "^6.3.11",
 		"i18next": "^21.8.9",

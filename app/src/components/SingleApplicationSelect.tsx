@@ -28,6 +28,7 @@ type SingleApplicationSelectProps<
 			helperText?: string;
 			readOnly?: boolean;
 			defaultValue?: Application;
+			excludedApps?: string[];
 	  }
 	: never;
 
@@ -39,7 +40,8 @@ const SingleApplicationSelect = <T extends FieldValues, TName extends FieldPath<
 	level = 1,
 	helperText,
 	readOnly,
-	defaultValue
+	defaultValue,
+	excludedApps
 }: SingleApplicationSelectProps<T, TName>) => {
 	const { t } = useTranslation('applicationSelect');
 	const {
@@ -54,7 +56,13 @@ const SingleApplicationSelect = <T extends FieldValues, TName extends FieldPath<
 	const value = formValue as Application | undefined;
 	const [openSearch, setOpenSearch] = useState(false);
 	const { data = new Map() } = useGetApps();
-	const applications = useMemo(() => [...data.values()] || [], [data]);
+	const applications = useMemo(() => {
+		let apps = [...data.values()] || [];
+		if (excludedApps) {
+			apps = apps.filter(app => !excludedApps.includes(app.id));
+		}
+		return apps;
+	}, [data, excludedApps]);
 	const invalidText = error?.message;
 
 	return (

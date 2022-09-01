@@ -51,8 +51,6 @@ import { CampaignTemplateDto } from '../models';
 // @ts-ignore
 import { CsvAnswerParsingDto } from '../models';
 // @ts-ignore
-import { InlineObject10 } from '../models';
-// @ts-ignore
 import { ReviewDto } from '../models';
 // @ts-ignore
 import { UserDto } from '../models';
@@ -130,19 +128,29 @@ export const AnalystCampaignControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} campaignId
+		 * @param {number} applicationId
+		 * @param {any} file
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {InlineObject10} [inlineObject10]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		addApplicationsAndAnswersToCampaign: async (
 			campaignId: number,
+			applicationId: number,
+			file: any,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			inlineObject10?: InlineObject10,
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'campaignId' is not null or undefined
 			assertParamExists('addApplicationsAndAnswersToCampaign', 'campaignId', campaignId);
+			// verify required parameter 'applicationId' is not null or undefined
+			assertParamExists(
+				'addApplicationsAndAnswersToCampaign',
+				'applicationId',
+				applicationId
+			);
+			// verify required parameter 'file' is not null or undefined
+			assertParamExists('addApplicationsAndAnswersToCampaign', 'file', file);
 			const localVarPath =
 				`/api/analyst/campaign/{campaignId}/applicationWithAnswers`.replace(
 					`{${'campaignId'}}`,
@@ -158,15 +166,25 @@ export const AnalystCampaignControllerApiAxiosParamCreator = function (
 			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
 			const localVarHeaderParameter = {} as any;
 			const localVarQueryParameter = {} as any;
+			const localVarFormParams = new ((configuration && configuration.formDataCtor) ||
+				FormData)();
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (applicationId !== undefined) {
+				localVarQueryParameter['applicationId'] = applicationId;
+			}
 
 			if (acceptLanguage !== undefined && acceptLanguage !== null) {
 				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
 			}
 
-			localVarHeaderParameter['Content-Type'] = 'application/json';
+			if (file !== undefined) {
+				localVarFormParams.append('file', file as any);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
@@ -176,11 +194,7 @@ export const AnalystCampaignControllerApiAxiosParamCreator = function (
 				...headersFromBaseOptions,
 				...options.headers
 			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				inlineObject10,
-				localVarRequestOptions,
-				configuration
-			);
+			localVarRequestOptions.data = localVarFormParams;
 
 			return {
 				url: toPathString(localVarUrlObj),
@@ -1170,15 +1184,17 @@ export const AnalystCampaignControllerApiFp = function (configuration?: Configur
 		/**
 		 *
 		 * @param {number} campaignId
+		 * @param {number} applicationId
+		 * @param {any} file
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {InlineObject10} [inlineObject10]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async addApplicationsAndAnswersToCampaign(
 			campaignId: number,
+			applicationId: number,
+			file: any,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			inlineObject10?: InlineObject10,
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CsvAnswerParsingDto>
@@ -1186,8 +1202,9 @@ export const AnalystCampaignControllerApiFp = function (configuration?: Configur
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.addApplicationsAndAnswersToCampaign(
 					campaignId,
+					applicationId,
+					file,
 					acceptLanguage,
-					inlineObject10,
 					options
 				);
 			return createRequestFunction(
@@ -1687,22 +1704,25 @@ export const AnalystCampaignControllerApiFactory = function (
 		/**
 		 *
 		 * @param {number} campaignId
+		 * @param {number} applicationId
+		 * @param {any} file
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {InlineObject10} [inlineObject10]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		addApplicationsAndAnswersToCampaign(
 			campaignId: number,
+			applicationId: number,
+			file: any,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			inlineObject10?: InlineObject10,
 			options?: any
 		): AxiosPromise<CsvAnswerParsingDto> {
 			return localVarFp
 				.addApplicationsAndAnswersToCampaign(
 					campaignId,
+					applicationId,
+					file,
 					acceptLanguage,
-					inlineObject10,
 					options
 				)
 				.then(request => request(axios, basePath));
@@ -2045,17 +2065,24 @@ export interface AnalystCampaignControllerApiAddApplicationsAndAnswersToCampaign
 
 	/**
 	 *
+	 * @type {number}
+	 * @memberof AnalystCampaignControllerApiAddApplicationsAndAnswersToCampaign
+	 */
+	readonly applicationId: number;
+
+	/**
+	 *
+	 * @type {any}
+	 * @memberof AnalystCampaignControllerApiAddApplicationsAndAnswersToCampaign
+	 */
+	readonly file: any;
+
+	/**
+	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
 	 * @memberof AnalystCampaignControllerApiAddApplicationsAndAnswersToCampaign
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
-
-	/**
-	 *
-	 * @type {InlineObject10}
-	 * @memberof AnalystCampaignControllerApiAddApplicationsAndAnswersToCampaign
-	 */
-	readonly inlineObject10?: InlineObject10;
 }
 
 /**
@@ -2492,8 +2519,9 @@ export class AnalystCampaignControllerApi extends BaseAPI {
 		return AnalystCampaignControllerApiFp(this.configuration)
 			.addApplicationsAndAnswersToCampaign(
 				requestParameters.campaignId,
+				requestParameters.applicationId,
+				requestParameters.file,
 				requestParameters.acceptLanguage,
-				requestParameters.inlineObject10,
 				options
 			)
 			.then(request => request(this.axios, this.basePath));

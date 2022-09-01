@@ -8,23 +8,34 @@ import CloseCampaignModal from '@components/Modals/CloseCampaignModal';
 import useGetUsers from '@api/user/useGetUsers';
 import MultiAddSelect from '@components/MultiAddSelect';
 import CampaignDetailsContainer from '@components/UserRevalidation/CampaignDetailsContainer';
+import useGetCampaign from '@api/user-revalidation/useGetCampaign';
+import { useParams } from 'react-router-dom';
+import useGetCampaignApplications from '@api/user-revalidation/useGetCampaignApplications';
+import CampaignApplication from '@model/CampaignApplication';
 
 const CampaignDetail = () => {
-	const { t } = useTranslation('userRevalidation');
-	const { t: tSelect } = useTranslation('userSelect');
-	const { t: tModals } = useTranslation('modals');
+	const { t } = useTranslation(['modals', 'userRevalidation', 'userSelect']);
 	const { data: users = [] } = useGetUsers();
+	const { campaignId = '' } = useParams<'campaignId'>();
+	const { data: campaign } = useGetCampaign(campaignId);
+	const { data: applications = new Map<string, CampaignApplication>() } =
+		useGetCampaignApplications(campaignId);
 	const [isCloseModalOpen, setIsCloseModalOpen] = useState(false);
 	const [isCollaboratorsOpen, setIsCollaboratorsOpen] = useState(false);
+
+	if (!campaign) {
+		return null;
+	}
+
 	return (
 		<PageHeader
-			pageTitle='Campaign Name'
+			pageTitle={campaign.name}
 			intermediateRoutes={[
 				{ name: 'Revalidations Ongoing', to: '/revalidations-ongoing' }
 			]}
 			actions={[
 				{
-					name: t('collaborators'),
+					name: t('userRevalidation:collaborators'),
 					icon: UserFollow,
 					onClick: () => {
 						setIsCollaboratorsOpen(true);
@@ -36,7 +47,7 @@ const CampaignDetail = () => {
 					onClick: () => {}
 				},
 				{
-					name: t('close-campaign'),
+					name: t('userRevalidation:close-campaign'),
 					onClick: () => {
 						setIsCloseModalOpen(true);
 					}
@@ -50,14 +61,22 @@ const CampaignDetail = () => {
 						contained
 						aria-label='List of tabs'
 					>
-						<Tab>Application 1</Tab>
+						{[...applications.values()].map(application => (
+							<Tab key={application.id}>{application.application.name}</Tab>
+						))}
 					</TabList>
 					<TabPanels>
-						<TabPanel>
-							<div>
-								<CampaignDetailsContainer />
-							</div>
-						</TabPanel>
+						{[...applications.values()].map(application => (
+							<TabPanel key={application.id}>
+								<div>
+									<CampaignDetailsContainer
+										reviewId={application.id} // TODO fix parameter
+										application={application.application}
+										campaign={campaign}
+									/>
+								</div>
+							</TabPanel>
+						))}
 					</TabPanels>
 				</StickyTabs>
 				<CloseCampaignModal isOpen={isCloseModalOpen} setIsOpen={setIsCloseModalOpen} />
@@ -67,7 +86,7 @@ const CampaignDetail = () => {
 							id: u.id,
 							title: u.displayName,
 							tagInfo: u.principalRole,
-							subtitle: u.email || tSelect('no-email'),
+							subtitle: u.email || t('userSelect:no-email'),
 							role: u.principalRole,
 							avatar: {
 								imageDescription: u.username,
@@ -75,30 +94,30 @@ const CampaignDetail = () => {
 							}
 						}))
 					}}
-					title={tSelect('select-user')}
-					description={tSelect('select-users')}
+					title={t('userSelect:select-user')}
+					description={t('userSelect:select-users')}
 					open={isCollaboratorsOpen}
-					onSubmitButtonText={tModals('save')}
+					onSubmitButtonText={t('modals:save')}
 					onSubmit={() => setIsCollaboratorsOpen(false)}
-					onCloseButtonText={tModals('cancel')}
+					onCloseButtonText={t('modals:cancel')}
 					onClose={() => setIsCollaboratorsOpen(false)}
-					globalSearchLabel={tSelect('username-email')}
-					globalSearchPlaceholder={tSelect('find-user')}
+					globalSearchLabel={t('userSelect:username-email')}
+					globalSearchPlaceholder={t('userSelect:find-user')}
 					globalFilters={[
 						{
 							id: 'role',
-							label: tSelect('role')
+							label: t('userSelect:role')
 						}
 					]}
-					globalFiltersIconDescription={tSelect('filters')}
-					globalFiltersPlaceholderText={tSelect('choose-option')}
-					globalFiltersPrimaryButtonText={tSelect('apply')}
-					globalFiltersSecondaryButtonText={tSelect('reset')}
-					clearFiltersText={tSelect('clear-filters')}
-					influencerItemTitle={tSelect('name')}
+					globalFiltersIconDescription={t('userSelect:filters')}
+					globalFiltersPlaceholderText={t('userSelect:choose-option')}
+					globalFiltersPrimaryButtonText={t('userSelect:apply')}
+					globalFiltersSecondaryButtonText={t('userSelect:reset')}
+					clearFiltersText={t('userSelect:clear-filters')}
+					influencerItemTitle={t('userSelect:name')}
 					influencerItemSubtitle='email'
-					noResultsTitle={tSelect('no-results')}
-					noResultsDescription={tSelect('different-keywords')}
+					noResultsTitle={t('userSelect:no-results')}
+					noResultsDescription={t('userSelect:different-keywords')}
 					// TODO Add selected items
 				/>
 			</>

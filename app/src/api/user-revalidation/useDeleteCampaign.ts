@@ -13,7 +13,8 @@ export default () => {
 			queryClient.setQueriesData(
 				{
 					predicate: ({ queryKey }) =>
-						queryKey.length === 1 && queryKey[0] === 'campaigns'
+						(queryKey.length === 1 && queryKey[0] === 'campaigns') ||
+						(queryKey.length === 1 && queryKey[0] === 'campaigns-review')
 				},
 				old =>
 					(old as Map<string, Campaign>).delete(variables.campaignId) &&

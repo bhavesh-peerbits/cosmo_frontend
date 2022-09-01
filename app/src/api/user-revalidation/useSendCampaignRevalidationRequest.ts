@@ -1,4 +1,5 @@
 import { useMutation } from 'react-query';
+import api from '@api';
 
 interface SendCampaignRevalidationRequestParams {
 	campaignId: string;
@@ -11,15 +12,11 @@ const sendCampaignRevalidationRequest = ({
 	dueDate,
 	collaborators
 }: SendCampaignRevalidationRequestParams) => {
-	return new Promise(resolve => {
-		// TODO ask for endpoint
-		setTimeout(() => {
-			resolve({
-				campaignId,
-				dueDate,
-				collaborators
-			});
-		}, 1000);
+	collaborators.length;
+	// TODO wait for collaborators
+	return api.analystCampaignApi.setDueDateForCampaign({
+		campaignId: +campaignId,
+		body: dueDate.toISOString()
 	});
 };
 

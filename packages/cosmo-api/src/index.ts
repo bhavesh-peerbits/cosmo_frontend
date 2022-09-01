@@ -1,6 +1,8 @@
 import {
 	AccessControllerApi,
 	AnalystCampaignControllerApi,
+	AnswerDto,
+	AnswerDtoAnswerTypeEnum,
 	ApplicationAuditDto,
 	ApplicationAuditDtoAuditActionTypesEnum,
 	ApplicationControllerApi,
@@ -11,10 +13,12 @@ import {
 	CampaignDtoLayerEnum,
 	CampaignDtoStatusEnum,
 	CampaignDtoTypeEnum,
+	CampaignReviewDto,
 	Configuration,
 	GenerateReportControllerApi,
 	IdentityProviderDto,
 	NarrativeReviewControllerApi,
+	PairListAnswerDtoListString,
 	ProcedureAppInstanceDto,
 	ProcedureControllerApi,
 	ProcedureDto,
@@ -56,6 +60,7 @@ export type ApplicationAuditApi = ApplicationAuditDto;
 export type ApplicationAuditActionTypeApi = ApplicationAuditDtoAuditActionTypesEnum;
 export type IdentityProviderApi = IdentityProviderDto;
 export type CampaignApi = CampaignDto;
+export type CampaignWithReviewApi = CampaignReviewDto;
 export const CampaignDtoTypeApiEnum = CampaignDtoTypeEnum;
 export type CampaignDtoTypeApi = CampaignDtoTypeEnum;
 export const CampaignDtoLayerApiEnum = CampaignDtoLayerEnum;
@@ -64,3 +69,6 @@ export const CampaignDtoStatusApiEnum = CampaignDtoStatusEnum;
 export type CampaignDtoStatusApi = CampaignDtoStatusEnum;
 export type CampaignApplicationApi = ReviewDto;
 export type CampaignApplicationStatusApi = ReviewDtoStatusEnum;
+export type AnswerApi = AnswerDto;
+export type AnswerApiTypeEnum = AnswerDtoAnswerTypeEnum;
+export type FileAnswerStatusApi = PairListAnswerDtoListString;

@@ -2,42 +2,29 @@ import { TableToolbarSearch } from '@carbon/react';
 import CosmoTable, { HeaderFunction } from '@components/table/CosmoTable';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import User from '@model/User';
 
-type Revalidator = {
-	name: string;
-	email: string;
-	status: string;
-};
-const RevalidatorsTable = () => {
-	const { t } = useTranslation('userRevalidation');
-	const { t: tAdmin } = useTranslation('userAdmin');
-	const revalidators = [
-		{
-			name: 'Name',
-			email: 'email@email.com',
-			status: 'Due Date Exceeded'
-		},
-		{
-			name: 'Name',
-			email: 'email@email.com',
-			status: 'Due Date Exceeded'
-		}
-	];
+interface RevalidatorsTableProp {
+	revalidators: User[];
+}
 
-	const columns: HeaderFunction<Revalidator> = useCallback(
+const RevalidatorsTable = ({ revalidators }: RevalidatorsTableProp) => {
+	const { t } = useTranslation(['table', 'userRevalidation', 'userAdmin']);
+
+	const columns: HeaderFunction<User> = useCallback(
 		table => [
 			table.createDataColumn(row => row.name, {
 				id: 'name',
-				header: t('campaign-name'),
+				header: t('userRevalidation:campaign-name'),
 				sortUndefined: 1
 			}),
 			table.createDataColumn(row => row.email, {
 				id: 'email',
 				header: 'Email'
 			}),
-			table.createDataColumn(row => row.status, {
+			table.createDataColumn(row => row.inactive, {
 				id: 'status',
-				header: t('status')
+				header: t('userRevalidation:status')
 			})
 		],
 		[t]
@@ -47,7 +34,7 @@ const RevalidatorsTable = () => {
 		<TableToolbarSearch
 			size='lg'
 			persistent
-			placeholder={tAdmin('search-placeholder')}
+			placeholder={t('userAdmin:search-placeholder')}
 			id='search'
 		/>
 	);
@@ -57,6 +44,7 @@ const RevalidatorsTable = () => {
 			data={revalidators}
 			createHeaders={columns}
 			toolbar={{ toolbarContent }}
+			noDataMessage={t('table:no-data')}
 		/>
 	);
 };

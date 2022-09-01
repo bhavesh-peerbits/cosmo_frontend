@@ -37,6 +37,7 @@ import useExportTablePlugin from '@hooks/useExportTablePlugin';
 import CosmoTableToolbar from './CosmoTableToolbar';
 
 type HeaderFunction<T extends object> = CosmoTableProps<T>['createHeaders'];
+
 interface CosmoTableProps<D extends object> {
 	createHeaders: (table: TableType<TB<D>>) => Array<ColumnDef<TB<D>>>;
 	data: D[];
@@ -124,7 +125,11 @@ const CosmoTable = <D extends object>({
 						)}
 
 						{row.getVisibleCells().map(cell =>
-							((cell.getValue() as string) !== undefined && (cell.getValue() as string))
+							(
+								cell.getValue() !== undefined &&
+								cell.getValue() !== null &&
+								(cell.getValue() as string)
+							)
 								.toString()
 								.includes('<p>') ? (
 								<TableCell

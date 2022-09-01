@@ -20,7 +20,6 @@ export * from './email';
 export * from './frequency';
 export * from './identity-provider-dto';
 export * from './inline-object';
-export * from './inline-object10';
 export * from './inline-object4';
 export * from './inline-object5';
 export * from './inline-object6';

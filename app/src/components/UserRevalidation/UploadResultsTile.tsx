@@ -4,6 +4,10 @@ import { TrashCan, Upload } from '@carbon/react/icons';
 import { useState } from 'react';
 import DeleteUploadModal from '@components/Modals/DeleteUploadModal';
 import CampaignApplication from '@model/CampaignApplication';
+import useGetAnswersForReview from '@api/user-revalidation/useGetAnswersForReview';
+import AnswerTable from '@components/UserRevalidation/AnswerTable';
+import Answer from '@model/Answer';
+import UploadFileModal from '@components/Modals/UploadFileModal';
 
 interface UploadResultsTileProps {
 	campaignApplication: CampaignApplication;
@@ -11,12 +15,26 @@ interface UploadResultsTileProps {
 
 const UploadResultsTile = ({ campaignApplication }: UploadResultsTileProps) => {
 	const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+	const [isUpdateOpen, setIsUpdateOpen] = useState(false);
+
+	const { data = new Map<string, Answer>() } = useGetAnswersForReview(
+		campaignApplication.campaign.id,
+		campaignApplication.id
+	);
+
 	return (
 		<>
 			<DeleteUploadModal
 				isOpen={isDeleteOpen}
 				setIsOpen={setIsDeleteOpen}
 				campaignApplication={campaignApplication}
+			/>
+			<UploadFileModal
+				isOpen={isUpdateOpen}
+				setIsOpen={setIsUpdateOpen}
+				campaignId={campaignApplication.campaign.id}
+				application={campaignApplication.application}
+				isEmpty={false}
 			/>
 			<Grid fullWidth className='space-y-5'>
 				<FullWidthColumn
@@ -31,7 +49,7 @@ const UploadResultsTile = ({ campaignApplication }: UploadResultsTileProps) => {
 							iconDescription='Substitute upload'
 							hasIconOnly
 							renderIcon={Upload}
-							// TODO open upload modal and pass app id
+							onClick={() => setIsUpdateOpen(true)}
 						/>
 						<Button
 							kind='ghost'
@@ -42,7 +60,9 @@ const UploadResultsTile = ({ campaignApplication }: UploadResultsTileProps) => {
 						/>
 					</div>
 				</FullWidthColumn>
-				<FullWidthColumn>Table</FullWidthColumn>
+				<FullWidthColumn>
+					<AnswerTable answers={[...data.values()]} />
+				</FullWidthColumn>
 			</Grid>
 		</>
 	);

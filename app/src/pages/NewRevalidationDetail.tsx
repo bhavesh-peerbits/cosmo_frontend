@@ -67,18 +67,15 @@ const RevalidationContent = ({
 							Upload file
 						</Button>
 					</div>
-					{
-						// TODO change to 1 when we are ready to show the upload results tile
-						isEmpty ? (
-							<NoDataMessage
-								className='mt-10 p-5'
-								title={`${t('no-upload')}`}
-								subtitle={`${t('click-to-upload')}.`}
-							/>
-						) : (
-							<UploadResults />
-						)
-					}
+					{isEmpty ? (
+						<NoDataMessage
+							className='mt-10 p-5'
+							title={`${t('no-upload')}`}
+							subtitle={`${t('click-to-upload')}.`}
+						/>
+					) : (
+						<UploadResults />
+					)}
 				</div>
 			</FullWidthColumn>
 		</Grid>
@@ -138,7 +135,8 @@ const NewRevalidationDetail = () => {
 				<UploadFileModal
 					isOpen={isUploadModalOpen}
 					setIsOpen={setIsUploadModalOpen}
-					// campaignId={campaignId}
+					campaignId={campaignId}
+					isEmpty={data.applicationsCount < 1}
 				/>
 
 				{data.applicationsCount > 0 ? (

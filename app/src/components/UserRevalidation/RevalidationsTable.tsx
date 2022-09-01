@@ -3,16 +3,16 @@ import { HeaderFunction } from '@components/table/CosmoTable';
 import GroupedCosmoTable from '@components/table/GroupedCosmoTable';
 import useRevalidationsOngoing from '@hooks/user-revalidation/useRevalidationsOngoing';
 import { formatDate } from '@i18n';
-import CampaignReview from '@model/CampaignReview';
 import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import CampaignWithReview from '@model/CampaignWithReview';
 
 const RevalidationsTable = () => {
 	const { t } = useTranslation('userRevalidation');
 	const { revalidations, filters, setFilters } = useRevalidationsOngoing();
 
-	const columns: HeaderFunction<CampaignReview> = useCallback(
+	const columns: HeaderFunction<CampaignWithReview> = useCallback(
 		table => [
 			table.createDataColumn(row => row.campaign.name, {
 				id: 'name',
