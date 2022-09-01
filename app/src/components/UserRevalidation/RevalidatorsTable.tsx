@@ -2,32 +2,45 @@ import { TableToolbarSearch } from '@carbon/react';
 import CosmoTable, { HeaderFunction } from '@components/table/CosmoTable';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import User from '@model/User';
+import Answer from '@model/Answer';
+import isAfter from 'date-fns/isAfter';
 
 interface RevalidatorsTableProp {
-	revalidators: User[];
+	answers: Answer[];
+	dueDate: Date | undefined;
 }
 
-const RevalidatorsTable = ({ revalidators }: RevalidatorsTableProp) => {
+const RevalidatorsTable = ({ answers, dueDate }: RevalidatorsTableProp) => {
 	const { t } = useTranslation(['table', 'userRevalidation', 'userAdmin']);
 
-	const columns: HeaderFunction<User> = useCallback(
+	const columns: HeaderFunction<Answer> = useCallback(
 		table => [
-			table.createDataColumn(row => row.name, {
+			table.createDataColumn(row => row.revalidationUser, {
 				id: 'name',
 				header: t('userRevalidation:campaign-name'),
-				sortUndefined: 1
+				sortUndefined: 1,
+				cell: info => info.getValue()?.username || '-'
 			}),
-			table.createDataColumn(row => row.email, {
+			table.createDataColumn(row => row.revalidationUser, {
 				id: 'email',
-				header: 'Email'
+				header: 'Email',
+				cell: info => info.getValue()?.email || '-'
 			}),
-			table.createDataColumn(row => row.inactive, {
+			table.createDataColumn(row => row.answerType, {
 				id: 'status',
-				header: t('userRevalidation:status')
+				header: t('userRevalidation:status'),
+				cell: info => {
+					if (info.getValue()) {
+						return 'Completed';
+					}
+					if (dueDate && isAfter(new Date(), dueDate)) {
+						return 'Due date exceeded';
+					}
+					return 'Incomplete';
+				}
 			})
 		],
-		[t]
+		[dueDate, t]
 	);
 
 	const toolbarContent = (
@@ -41,7 +54,7 @@ const RevalidatorsTable = ({ revalidators }: RevalidatorsTableProp) => {
 	return (
 		<CosmoTable
 			level={2}
-			data={revalidators}
+			data={answers}
 			createHeaders={columns}
 			toolbar={{ toolbarContent }}
 			noDataMessage={t('table:no-data')}

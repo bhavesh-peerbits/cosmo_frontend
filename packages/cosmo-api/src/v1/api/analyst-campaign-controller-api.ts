@@ -265,21 +265,21 @@ export const AnalystCampaignControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} campaignId
-		 * @param {Array<UserDto>} userDto
+		 * @param {Array<string>} requestBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		addContributorsToCampaign: async (
 			campaignId: number,
-			userDto: Array<UserDto>,
+			requestBody: Array<string>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'campaignId' is not null or undefined
 			assertParamExists('addContributorsToCampaign', 'campaignId', campaignId);
-			// verify required parameter 'userDto' is not null or undefined
-			assertParamExists('addContributorsToCampaign', 'userDto', userDto);
+			// verify required parameter 'requestBody' is not null or undefined
+			assertParamExists('addContributorsToCampaign', 'requestBody', requestBody);
 			const localVarPath = `/api/analyst/campaign/{campaignId}/contributor`.replace(
 				`{${'campaignId'}}`,
 				encodeURIComponent(String(campaignId))
@@ -313,7 +313,7 @@ export const AnalystCampaignControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				userDto,
+				requestBody,
 				localVarRequestOptions,
 				configuration
 			);
@@ -930,6 +930,56 @@ export const AnalystCampaignControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
+		 * @param {number} campaignId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getCampaignStatus: async (
+			campaignId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'campaignId' is not null or undefined
+			assertParamExists('getCampaignStatus', 'campaignId', campaignId);
+			const localVarPath = `/api/analyst/campaign/{campaignId}/status`.replace(
+				`{${'campaignId'}}`,
+				encodeURIComponent(String(campaignId))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
 		 * @param {string} templateType
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
@@ -1244,20 +1294,20 @@ export const AnalystCampaignControllerApiFp = function (configuration?: Configur
 		/**
 		 *
 		 * @param {number} campaignId
-		 * @param {Array<UserDto>} userDto
+		 * @param {Array<string>} requestBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async addContributorsToCampaign(
 			campaignId: number,
-			userDto: Array<UserDto>,
+			requestBody: Array<string>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CampaignDto>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.addContributorsToCampaign(
 				campaignId,
-				userDto,
+				requestBody,
 				acceptLanguage,
 				options
 			);
@@ -1567,6 +1617,30 @@ export const AnalystCampaignControllerApiFp = function (configuration?: Configur
 		},
 		/**
 		 *
+		 * @param {number} campaignId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getCampaignStatus(
+			campaignId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<number>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getCampaignStatus(
+				campaignId,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
 		 * @param {string} templateType
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
@@ -1748,19 +1822,19 @@ export const AnalystCampaignControllerApiFactory = function (
 		/**
 		 *
 		 * @param {number} campaignId
-		 * @param {Array<UserDto>} userDto
+		 * @param {Array<string>} requestBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		addContributorsToCampaign(
 			campaignId: number,
-			userDto: Array<UserDto>,
+			requestBody: Array<string>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<void> {
+		): AxiosPromise<CampaignDto> {
 			return localVarFp
-				.addContributorsToCampaign(campaignId, userDto, acceptLanguage, options)
+				.addContributorsToCampaign(campaignId, requestBody, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -1955,6 +2029,22 @@ export const AnalystCampaignControllerApiFactory = function (
 		},
 		/**
 		 *
+		 * @param {number} campaignId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getCampaignStatus(
+			campaignId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<number> {
+			return localVarFp
+				.getCampaignStatus(campaignId, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
 		 * @param {string} templateType
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
@@ -2128,10 +2218,10 @@ export interface AnalystCampaignControllerApiAddContributorsToCampaignRequest {
 
 	/**
 	 *
-	 * @type {Array<UserDto>}
+	 * @type {Array<string>}
 	 * @memberof AnalystCampaignControllerApiAddContributorsToCampaign
 	 */
-	readonly userDto: Array<UserDto>;
+	readonly requestBody: Array<string>;
 
 	/**
 	 *
@@ -2387,6 +2477,27 @@ export interface AnalystCampaignControllerApiGetCampaignByName1Request {
 }
 
 /**
+ * Request parameters for getCampaignStatus operation in AnalystCampaignControllerApi.
+ * @export
+ * @interface AnalystCampaignControllerApiGetCampaignStatusRequest
+ */
+export interface AnalystCampaignControllerApiGetCampaignStatusRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystCampaignControllerApiGetCampaignStatus
+	 */
+	readonly campaignId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystCampaignControllerApiGetCampaignStatus
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
  * Request parameters for getCampaignTemplate operation in AnalystCampaignControllerApi.
  * @export
  * @interface AnalystCampaignControllerApiGetCampaignTemplateRequest
@@ -2562,7 +2673,7 @@ export class AnalystCampaignControllerApi extends BaseAPI {
 		return AnalystCampaignControllerApiFp(this.configuration)
 			.addContributorsToCampaign(
 				requestParameters.campaignId,
-				requestParameters.userDto,
+				requestParameters.requestBody,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -2793,6 +2904,26 @@ export class AnalystCampaignControllerApi extends BaseAPI {
 		return AnalystCampaignControllerApiFp(this.configuration)
 			.getCampaignByName1(
 				requestParameters.campaignName,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystCampaignControllerApiGetCampaignStatusRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystCampaignControllerApi
+	 */
+	public getCampaignStatus(
+		requestParameters: AnalystCampaignControllerApiGetCampaignStatusRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystCampaignControllerApiFp(this.configuration)
+			.getCampaignStatus(
+				requestParameters.campaignId,
 				requestParameters.acceptLanguage,
 				options
 			)

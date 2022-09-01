@@ -13,7 +13,7 @@
 	"no-campaigns": "Pas de campagnes",
 	"send-revalidation": "Envoyer revalidation",
 	"send-request": "Envoyer une demande de revalidation",
-	"collaborators": "Collaborateurs",
+	"collaborators": "Contributeurs",
 	"mandatory-name": "Le nom est obligatoire",
 	"confirm-delete": "Etes-vous sûr que vous voulez supprimer {{campaign}}?",
 	"no-upload": "Aucun fichier uploadé",
