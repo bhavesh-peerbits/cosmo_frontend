@@ -1,4 +1,5 @@
 import {
+	Button,
 	Layer,
 	Link,
 	Pagination,
@@ -39,6 +40,7 @@ import {
 import useExportTablePlugin from '@hooks/useExportTablePlugin';
 import Campaign from '@model/Campaign';
 import CampaignWithReview from '@model/CampaignWithReview';
+import { useNavigate } from 'react-router-dom';
 import CosmoTableToolbar from './CosmoTableToolbar';
 
 type HeaderFunction<T extends object> = GroupedTableProps<T>['createHeaders'];
@@ -67,6 +69,7 @@ const GroupedCosmoTable = <D extends object>({
 	const [grouping, setGrouping] = useState<string[]>([]);
 	const [rowSelection, setRowSelection] = useState({});
 	const [sorting, setSorting] = useState<ColumnSort[]>([]);
+	const navigate = useNavigate();
 
 	const [pagination, setPagination] = useState<PaginationState>({
 		pageIndex: 0,
@@ -129,13 +132,17 @@ const GroupedCosmoTable = <D extends object>({
 							onExpand={() => null}
 						>
 							<TableCell>
-								<Link
-									href={`/revalidations-ongoing/${
-										(row.original as CampaignWithReview).id
-									}`}
+								<Button
+									kind='ghost'
+									className='underline'
+									onClick={() =>
+										navigate(
+											`/revalidations-ongoing/${(row.original as CampaignWithReview).id}`
+										)
+									}
 								>
 									{row.getVisibleCells()[0].renderCell()}
-								</Link>
+								</Button>
 							</TableCell>
 							{row
 								.getVisibleCells()
