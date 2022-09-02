@@ -8522,9 +8522,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ahooks@npm:^3.4.1":
-  version: 3.4.1
-  resolution: "ahooks@npm:3.4.1"
+"ahooks@npm:^3.7.0":
+  version: 3.7.0
+  resolution: "ahooks@npm:3.7.0"
   dependencies:
     "@types/js-cookie": ^2.x.x
     ahooks-v3-count: ^1.0.0
@@ -8536,7 +8536,7 @@ __metadata:
     screenfull: ^5.0.0
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: bbc41172536df594377263c2e3afc901f6713e49978be51b32b616fcba1d7f6a36392068e0be1bb545271cc4e7abf55a0e3c30efc20f483185ab584f91ab1bf9
+  checksum: 9674934219bceace45762dfaaf666d75026b487b79fc86a85803a734d4ea0f0d1eabca215c6880d64c94d1f26d6ca027790c6f7fa274c5306d4b053f7200acc7
   languageName: node
   linkType: hard
 
@@ -8779,7 +8779,7 @@ __metadata:
     "@vitejs/plugin-legacy": ^1.8.2
     "@vitejs/plugin-react": ^1.3.2
     "@vitest/ui": ^0.14.1
-    ahooks: ^3.4.1
+    ahooks: ^3.7.0
     autoprefixer: ^10.4.7
     axios: ^0.27.2
     classnames: ^2.3.1

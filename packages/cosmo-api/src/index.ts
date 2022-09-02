@@ -5,6 +5,7 @@ import {
 	AnswerDtoAnswerTypeEnum,
 	ApplicationAuditDto,
 	ApplicationAuditDtoAuditActionTypesEnum,
+	ApplicationCampaignDto,
 	ApplicationControllerApi,
 	ApplicationDto,
 	ApplicationUserDto,
@@ -72,3 +73,4 @@ export type CampaignApplicationStatusApi = ReviewDtoStatusEnum;
 export type AnswerApi = AnswerDto;
 export type AnswerApiTypeEnum = AnswerDtoAnswerTypeEnum;
 export type FileAnswerStatusApi = PairListAnswerDtoListString;
+export type ApplicationCampaignApi = ApplicationCampaignDto;

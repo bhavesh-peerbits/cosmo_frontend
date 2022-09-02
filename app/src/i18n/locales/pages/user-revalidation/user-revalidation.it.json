@@ -31,6 +31,7 @@
 	"users-to-revalidate": "Utenti da rivalidare",
 	"status": "Stato",
 	"application": "Applicazione",
+	"applications": "Applicazioni",
 	"close-campaign": "Chiudi campagna",
 	"confirm-close": "Sei sicuro di voler chiudere {{campaign}}?",
 	"close": "Chiudi",

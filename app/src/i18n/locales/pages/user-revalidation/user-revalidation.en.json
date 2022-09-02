@@ -31,6 +31,7 @@
 	"users-to-revalidate": "Users to revalidate",
 	"status": "Status",
 	"application": "Application",
+	"applications": "Applications",
 	"close-campaign": "Close campaign",
 	"confirm-close": "Are you sure you want to close {{campaign}}?",
 	"close": "Close",

@@ -1,4 +1,3 @@
-import useGetApps from '@api/management/useGetApps';
 import {
 	Column,
 	ExpandableTile,
@@ -8,44 +7,46 @@ import {
 	TileBelowTheFoldContent
 } from '@carbon/react';
 import IconResolver from '@components/IconResolver';
-import Application from '@model/Application';
-import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import ApplicationWithCampaigns from '@model/ApplicationWithCampaigns';
 import ApplicationCampaignsContainer from './ApplicationCampaignsContainer';
 
-const RevalidationReviewerTile = () => {
+interface RevalidationReviewTileProps {
+	revalidation: ApplicationWithCampaigns;
+}
+
+const RevalidationReviewerTile = ({ revalidation }: RevalidationReviewTileProps) => {
 	const { t } = useTranslation(['userRevalidation', 'applicationInfo']);
-	// TODO remove these apps and use data from application-campaigns association
-	const { data = new Map() } = useGetApps();
-	const applications = useMemo(() => [...data.values()] || [], [data]) as Application[];
+	const { application, campaigns } = revalidation;
 
 	return (
 		<Layer>
 			<ExpandableTile>
-				<TileAboveTheFoldContent className='min-h-[84px]'>
+				<TileAboveTheFoldContent className='min-h-[84px] '>
 					<Grid fullWidth>
-						<Column sm={4} md={1} lg={1}>
-							<IconResolver icon={applications[0].icon} size={24} />
-						</Column>
-						<Column sm={4} md={5} lg={13}>
-							<div className='flex flex-col'>
-								<p className='text-heading-3'>
-									Application Very Very Very Very Very Very long name
-								</p>
-								<p className='text-text-secondary text-body-long-2'>
-									{`${t('applicationInfo:owner')}: Name Surname`}
-								</p>
+						<Column sm={2} md={5} lg={12}>
+							<div className='flex items-center space-x-5'>
+								<IconResolver icon={application.icon} size={24} />
+
+								<div className='flex flex-col'>
+									<p className='line-clamp-1 text-heading-3'>{application.name}</p>
+									<p className='text-text-secondary text-body-long-2'>
+										{`${t('applicationInfo:owner')}: ${application.owner.username}`}
+									</p>
+								</div>
 							</div>
 						</Column>
-						<Column sm={4} md={2} lg={2}>
-							<p className='text-text-secondary'>{`N ${t(
-								'userRevalidation:campaigns'
-							)}`}</p>
+						<Column sm={1} md={2} lg={3} className='flex items-center justify-end'>
+							<div className='max-w-full text-ellipsis whitespace-nowrap'>
+								<p className='text-text-secondary'>{`${campaigns.length} ${t(
+									'userRevalidation:campaigns'
+								)}`}</p>
+							</div>
 						</Column>
 					</Grid>
 				</TileAboveTheFoldContent>
 				<TileBelowTheFoldContent className='mt-6'>
-					<ApplicationCampaignsContainer />
+					<ApplicationCampaignsContainer campaigns={campaigns} />
 				</TileBelowTheFoldContent>
 			</ExpandableTile>
 		</Layer>

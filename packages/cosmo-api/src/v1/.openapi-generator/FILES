@@ -33,6 +33,7 @@ models/access-login-dto.ts
 models/answer-dto.ts
 models/api-error-response.ts
 models/application-audit-dto.ts
+models/application-campaign-dto.ts
 models/application-dto.ts
 models/application-profile.ts
 models/application-user-dto.ts

@@ -3,6 +3,7 @@ export * from './answer-dto';
 export * from './api-error-response';
 export * from './application';
 export * from './application-audit-dto';
+export * from './application-campaign-dto';
 export * from './application-dto';
 export * from './application-profile';
 export * from './application-user-dto';

@@ -14316,17 +14316,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["ahooks", [\
-        ["npm:3.4.1", {\
-          "packageLocation": "./.yarn/cache/ahooks-npm-3.4.1-427e06b7e1-bbc4117253.zip/node_modules/ahooks/",\
+        ["npm:3.7.0", {\
+          "packageLocation": "./.yarn/cache/ahooks-npm-3.7.0-94bfb5e465-9674934219.zip/node_modules/ahooks/",\
           "packageDependencies": [\
-            ["ahooks", "npm:3.4.1"]\
+            ["ahooks", "npm:3.7.0"]\
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:3.4.1", {\
-          "packageLocation": "./.yarn/__virtual__/ahooks-virtual-829bf59683/0/cache/ahooks-npm-3.4.1-427e06b7e1-bbc4117253.zip/node_modules/ahooks/",\
+        ["virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:3.7.0", {\
+          "packageLocation": "./.yarn/__virtual__/ahooks-virtual-bc3a8b4bc4/0/cache/ahooks-npm-3.7.0-94bfb5e465-9674934219.zip/node_modules/ahooks/",\
           "packageDependencies": [\
-            ["ahooks", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:3.4.1"],\
+            ["ahooks", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:3.7.0"],\
             ["@types/js-cookie", "npm:2.2.7"],\
             ["@types/react", "npm:18.0.12"],\
             ["ahooks-v3-count", "npm:1.0.0"],\
@@ -14622,7 +14622,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@vitejs/plugin-legacy", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.8.2"],\
             ["@vitejs/plugin-react", "npm:1.3.2"],\
             ["@vitest/ui", "npm:0.14.1"],\
-            ["ahooks", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:3.4.1"],\
+            ["ahooks", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:3.7.0"],\
             ["autoprefixer", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:10.4.7"],\
             ["axios", "npm:0.27.2"],\
             ["c8", null],\
@@ -14729,7 +14729,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@vitejs/plugin-legacy", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.8.2"],\
             ["@vitejs/plugin-react", "npm:1.3.2"],\
             ["@vitest/ui", "npm:0.14.1"],\
-            ["ahooks", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:3.4.1"],\
+            ["ahooks", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:3.7.0"],\
             ["autoprefixer", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:10.4.7"],\
             ["axios", "npm:0.27.2"],\
             ["classnames", "npm:2.3.1"],\

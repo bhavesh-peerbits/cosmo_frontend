@@ -1,17 +1,15 @@
-import { CampaignDtoTypeEnum } from 'cosmo-api/src/v1';
+import { CampaignDtoTypeApi, CampaignDtoTypeApiEnum } from 'cosmo-api/src';
 
-export type CampaignType = CampaignDtoTypeEnum;
-export const CampaignTypeEnum = CampaignDtoTypeEnum;
-
+export type CampaignType = CampaignDtoTypeApi;
 export type CampaignDisplayType = 'Firefight' | 'SUID' | 'User Access Review';
 
 export const mapCampaignTypeToCampaignDisplayType = (
-	campaignType: CampaignType
+	campaignType: CampaignDtoTypeApi
 ): CampaignDisplayType => {
 	switch (campaignType) {
-		case CampaignDtoTypeEnum.Firefight:
+		case CampaignDtoTypeApiEnum.Firefight:
 			return 'Firefight';
-		case CampaignDtoTypeEnum.Suid:
+		case CampaignDtoTypeApiEnum.Suid:
 			return 'SUID';
 		default:
 			return 'User Access Review';
