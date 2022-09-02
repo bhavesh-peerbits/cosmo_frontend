@@ -19,6 +19,7 @@ import { useTranslation } from 'react-i18next';
 import Campaign from '@model/Campaign';
 import useSendCampaignRevalidationRequest from '@api/user-revalidation/useSendCampaignRevalidationRequest';
 import ApiError from '@api/ApiError';
+import useGetPossibleContributors from '@api/user-revalidation/useGetPossibleContributors';
 
 type DeleteModalProps = {
 	isOpen: boolean;
@@ -99,6 +100,10 @@ const SendCampaignModal = ({ isOpen, setIsOpen, campaign }: DeleteModalProps) =>
 							name='collaborators'
 							level={2}
 							tooltipPosition='left'
+							getUserFn={() => {
+								// eslint-disable-next-line react-hooks/rules-of-hooks
+								return useGetPossibleContributors(campaign.id);
+							}}
 						/>
 					</Column>
 					<FullWidthColumn className='mb-5'>

@@ -13,10 +13,12 @@ const sendCampaignRevalidationRequest = ({
 	collaborators
 }: SendCampaignRevalidationRequestParams) => {
 	collaborators.length;
-	// TODO wait for collaborators
-	return api.analystCampaignApi.setDueDateForCampaign({
+	return api.analystCampaignApi.setDueDateAndContributorsForCampaign({
 		campaignId: +campaignId,
-		body: dueDate.toISOString()
+		startCampaignDto: {
+			collaborators,
+			dueDate: dueDate.toISOString()
+		}
 	});
 };
 

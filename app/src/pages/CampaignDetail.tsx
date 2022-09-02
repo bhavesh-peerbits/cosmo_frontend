@@ -18,10 +18,13 @@ import useGetCampaignStatus from '@api/user-revalidation/useGetCampaignStatus';
 import useGetPossibleContributors from '@api/user-revalidation/useGetPossibleContributors';
 import User from '@model/User';
 import useAddContributorsToCampaign from '@api/user-revalidation/useAddContributorsToCampaign';
+import useUiStore from '@hooks/useUiStore';
+import { interfaces } from '@carbon/charts';
 
 const CampaignStatus = memo(({ campaign }: { campaign: Campaign }) => {
 	const { id, type, layer, startDate, dueDate } = campaign;
 	const { data: status = 0 } = useGetCampaignStatus(id);
+	const { theme } = useUiStore();
 
 	const meterData = useMemo(
 		() => ({
@@ -44,10 +47,11 @@ const CampaignStatus = memo(({ campaign }: { campaign: Campaign }) => {
 					scale: {
 						'Percentage of completion campaign': 'blue'
 					}
-				}
+				},
+				theme: theme as interfaces.ChartTheme
 			}
 		}),
-		[status]
+		[status, theme]
 	);
 	const statusData = useMemo(
 		() => [
@@ -94,8 +98,7 @@ const CampaignDetail = () => {
 	const { t } = useTranslation(['modals', 'userRevalidation', 'userSelect']);
 	const { campaignId = '' } = useParams<'campaignId'>();
 	const { data: campaign } = useGetCampaign(campaignId);
-	const { data: users = new Map<string, User>() } =
-		useGetPossibleContributors(campaignId);
+	const { data: users = [] } = useGetPossibleContributors(campaignId);
 	const { data: applications = new Map<string, CampaignApplication>() } =
 		useGetCampaignApplications(campaignId);
 	const { mutateAsync: mutateContributors } = useAddContributorsToCampaign();
@@ -194,7 +197,7 @@ const CampaignDetail = () => {
 						entries: campaign.contributors.map(userMapper)
 					}}
 					items={{
-						entries: [...users.values()].map(userMapper)
+						entries: users.map(userMapper)
 					}}
 					title={t('userSelect:select-user')}
 					description={t('userSelect:select-users')}

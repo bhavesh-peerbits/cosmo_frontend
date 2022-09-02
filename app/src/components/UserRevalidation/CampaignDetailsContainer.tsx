@@ -7,7 +7,7 @@ import { interfaces } from '@carbon/charts';
 import useGetAnswersForReview from '@api/user-revalidation/useGetAnswersForReview';
 import Answer from '@model/Answer';
 import Campaign from '@model/Campaign';
-import { AnswerApiTypeEnum } from 'cosmo-api/src';
+import useUiStore from '@hooks/useUiStore';
 import RevalidatorsTable from './RevalidatorsTable';
 
 interface CampaignDetailsContainerProps {
@@ -24,22 +24,21 @@ const CampaignDetailsContainer = ({
 	children
 }: CampaignDetailsContainerProps) => {
 	const { t } = useTranslation('userRevalidation');
+	const { theme } = useUiStore();
 	const { data = new Map<string, Answer>() } = useGetAnswersForReview(
 		campaign.id,
 		reviewId
 	);
 
 	const chartsData = useMemo(() => {
-		const cData = [...data.values()]
-			.filter(val => Boolean(val.answerType))
-			.reduce(
-				(previousValue, currentValue) => ({
-					...previousValue,
-					[currentValue.answerType as AnswerApiTypeEnum]:
-						(previousValue[currentValue.answerType as AnswerApiTypeEnum] || 0) + 1
-				}),
-				{} as { [key: string]: number }
-			);
+		const cData = [...data.values()].reduce(
+			(previousValue, currentValue) => ({
+				...previousValue,
+				[currentValue.answerType || 'Not completed']:
+					(previousValue[currentValue.answerType || 'Not completed'] || 0) + 1
+			}),
+			{} as { [key: string]: number }
+		);
 		return Object.entries(cData).map(([key, value]) => ({
 			group: key,
 			value
@@ -63,10 +62,11 @@ const CampaignDetailsContainer = ({
 					},
 					alignment: interfaces.Alignments.CENTER
 				},
-				height: '300px'
+				height: '300px',
+				theme: theme as interfaces.ChartTheme
 			}
 		}),
-		[application.name, chartsData, data]
+		[theme, application.name, chartsData, data]
 	);
 
 	return (
