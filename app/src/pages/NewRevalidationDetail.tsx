@@ -108,8 +108,8 @@ const NewRevalidationDetail = () => {
 					kind: 'primary',
 					onClick: () => {
 						setIsSendModalOpen(true);
-					}
-					// disabled: data.applicationsCount === 0 TODO
+					},
+					disabled: data.applicationsCount === 0
 				},
 				{
 					name: t('modals:delete'),

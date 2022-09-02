@@ -67,8 +67,8 @@ const UploadFileModal = ({
 		[campaignId, mutateAddAnswer]
 	);
 
-	const fileSizeCheck = useCallback((file: File) => file.size < 20 * 1024 * 1024, []); // 20MB
-	const fileTypeCheck = useCallback((file: File) => file.type === 'text/csv', []);
+	const fileSizeCheck = useCallback((file: File) => file?.size < 20 * 1024 * 1024, []); // 20MB
+	const fileTypeCheck = useCallback((file: File) => file?.type === 'text/csv', []);
 
 	const generateUploadStep = useCallback(() => {
 		return (

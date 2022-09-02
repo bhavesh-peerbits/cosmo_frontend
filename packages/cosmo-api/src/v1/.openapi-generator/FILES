@@ -73,6 +73,7 @@ models/response-dto.ts
 models/review-application-dto.ts
 models/review-dto.ts
 models/review-procedure-dto.ts
+models/start-campaign-dto.ts
 models/tenant.ts
 models/test-dto.ts
 models/user-base.ts

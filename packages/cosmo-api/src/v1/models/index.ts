@@ -41,6 +41,7 @@ export * from './response-dto';
 export * from './review-application-dto';
 export * from './review-dto';
 export * from './review-procedure-dto';
+export * from './start-campaign-dto';
 export * from './tenant';
 export * from './test-dto';
 export * from './user';

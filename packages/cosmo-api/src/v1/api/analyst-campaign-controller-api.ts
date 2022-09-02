@@ -53,6 +53,8 @@ import { CsvAnswerParsingDto } from '../models';
 // @ts-ignore
 import { ReviewDto } from '../models';
 // @ts-ignore
+import { StartCampaignDto } from '../models';
+// @ts-ignore
 import { UserDto } from '../models';
 /**
  * AnalystCampaignControllerApi - axios parameter creator
@@ -543,6 +545,63 @@ export const AnalystCampaignControllerApiAxiosParamCreator = function (
 				localVarRequestOptions,
 				configuration
 			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} campaignId
+		 * @param {number} reviewId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		deleteAppAndRelatedAnswersFromCampaign: async (
+			campaignId: number,
+			reviewId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'campaignId' is not null or undefined
+			assertParamExists(
+				'deleteAppAndRelatedAnswersFromCampaign',
+				'campaignId',
+				campaignId
+			);
+			// verify required parameter 'reviewId' is not null or undefined
+			assertParamExists('deleteAppAndRelatedAnswersFromCampaign', 'reviewId', reviewId);
+			const localVarPath = `/api/analyst/campaign/{campaignId}/deleteApp/{reviewId}`
+				.replace(`{${'campaignId'}}`, encodeURIComponent(String(campaignId)))
+				.replace(`{${'reviewId'}}`, encodeURIComponent(String(reviewId)));
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
 
 			return {
 				url: toPathString(localVarUrlObj),
@@ -1133,6 +1192,72 @@ export const AnalystCampaignControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} campaignId
+		 * @param {StartCampaignDto} startCampaignDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		setDueDateAndContributorsForCampaign: async (
+			campaignId: number,
+			startCampaignDto: StartCampaignDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'campaignId' is not null or undefined
+			assertParamExists('setDueDateAndContributorsForCampaign', 'campaignId', campaignId);
+			// verify required parameter 'startCampaignDto' is not null or undefined
+			assertParamExists(
+				'setDueDateAndContributorsForCampaign',
+				'startCampaignDto',
+				startCampaignDto
+			);
+			const localVarPath =
+				`/api/analyst/campaign/{campaignId}/due-date-and-contributors`.replace(
+					`{${'campaignId'}}`,
+					encodeURIComponent(String(campaignId))
+				);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				startCampaignDto,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} campaignId
 		 * @param {string} body
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
@@ -1413,6 +1538,34 @@ export const AnalystCampaignControllerApiFp = function (configuration?: Configur
 				acceptLanguage,
 				options
 			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} campaignId
+		 * @param {number} reviewId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async deleteAppAndRelatedAnswersFromCampaign(
+			campaignId: number,
+			reviewId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.deleteAppAndRelatedAnswersFromCampaign(
+					campaignId,
+					reviewId,
+					acceptLanguage,
+					options
+				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
@@ -1719,6 +1872,34 @@ export const AnalystCampaignControllerApiFp = function (configuration?: Configur
 		/**
 		 *
 		 * @param {number} campaignId
+		 * @param {StartCampaignDto} startCampaignDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async setDueDateAndContributorsForCampaign(
+			campaignId: number,
+			startCampaignDto: StartCampaignDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.setDueDateAndContributorsForCampaign(
+					campaignId,
+					startCampaignDto,
+					acceptLanguage,
+					options
+				);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} campaignId
 		 * @param {string} body
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
@@ -1908,6 +2089,29 @@ export const AnalystCampaignControllerApiFactory = function (
 		/**
 		 *
 		 * @param {number} campaignId
+		 * @param {number} reviewId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		deleteAppAndRelatedAnswersFromCampaign(
+			campaignId: number,
+			reviewId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<boolean> {
+			return localVarFp
+				.deleteAppAndRelatedAnswersFromCampaign(
+					campaignId,
+					reviewId,
+					acceptLanguage,
+					options
+				)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} campaignId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
@@ -2089,6 +2293,29 @@ export const AnalystCampaignControllerApiFactory = function (
 		): AxiosPromise<boolean> {
 			return localVarFp
 				.isCampaignNameNotAvailable(campaignName, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} campaignId
+		 * @param {StartCampaignDto} startCampaignDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		setDueDateAndContributorsForCampaign(
+			campaignId: number,
+			startCampaignDto: StartCampaignDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<void> {
+			return localVarFp
+				.setDueDateAndContributorsForCampaign(
+					campaignId,
+					startCampaignDto,
+					acceptLanguage,
+					options
+				)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -2330,6 +2557,34 @@ export interface AnalystCampaignControllerApiCreateNewCampaignRequest {
 }
 
 /**
+ * Request parameters for deleteAppAndRelatedAnswersFromCampaign operation in AnalystCampaignControllerApi.
+ * @export
+ * @interface AnalystCampaignControllerApiDeleteAppAndRelatedAnswersFromCampaignRequest
+ */
+export interface AnalystCampaignControllerApiDeleteAppAndRelatedAnswersFromCampaignRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystCampaignControllerApiDeleteAppAndRelatedAnswersFromCampaign
+	 */
+	readonly campaignId: number;
+
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystCampaignControllerApiDeleteAppAndRelatedAnswersFromCampaign
+	 */
+	readonly reviewId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystCampaignControllerApiDeleteAppAndRelatedAnswersFromCampaign
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
  * Request parameters for deleteCampaign operation in AnalystCampaignControllerApi.
  * @export
  * @interface AnalystCampaignControllerApiDeleteCampaignRequest
@@ -2561,6 +2816,34 @@ export interface AnalystCampaignControllerApiIsCampaignNameNotAvailableRequest {
 }
 
 /**
+ * Request parameters for setDueDateAndContributorsForCampaign operation in AnalystCampaignControllerApi.
+ * @export
+ * @interface AnalystCampaignControllerApiSetDueDateAndContributorsForCampaignRequest
+ */
+export interface AnalystCampaignControllerApiSetDueDateAndContributorsForCampaignRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystCampaignControllerApiSetDueDateAndContributorsForCampaign
+	 */
+	readonly campaignId: number;
+
+	/**
+	 *
+	 * @type {StartCampaignDto}
+	 * @memberof AnalystCampaignControllerApiSetDueDateAndContributorsForCampaign
+	 */
+	readonly startCampaignDto: StartCampaignDto;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystCampaignControllerApiSetDueDateAndContributorsForCampaign
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
  * Request parameters for setDueDateForCampaign operation in AnalystCampaignControllerApi.
  * @export
  * @interface AnalystCampaignControllerApiSetDueDateForCampaignRequest
@@ -2756,6 +3039,27 @@ export class AnalystCampaignControllerApi extends BaseAPI {
 		return AnalystCampaignControllerApiFp(this.configuration)
 			.createNewCampaign(
 				requestParameters.campaignDto,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystCampaignControllerApiDeleteAppAndRelatedAnswersFromCampaignRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystCampaignControllerApi
+	 */
+	public deleteAppAndRelatedAnswersFromCampaign(
+		requestParameters: AnalystCampaignControllerApiDeleteAppAndRelatedAnswersFromCampaignRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystCampaignControllerApiFp(this.configuration)
+			.deleteAppAndRelatedAnswersFromCampaign(
+				requestParameters.campaignId,
+				requestParameters.reviewId,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -2984,6 +3288,27 @@ export class AnalystCampaignControllerApi extends BaseAPI {
 		return AnalystCampaignControllerApiFp(this.configuration)
 			.isCampaignNameNotAvailable(
 				requestParameters.campaignName,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystCampaignControllerApiSetDueDateAndContributorsForCampaignRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystCampaignControllerApi
+	 */
+	public setDueDateAndContributorsForCampaign(
+		requestParameters: AnalystCampaignControllerApiSetDueDateAndContributorsForCampaignRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystCampaignControllerApiFp(this.configuration)
+			.setDueDateAndContributorsForCampaign(
+				requestParameters.campaignId,
+				requestParameters.startCampaignDto,
 				requestParameters.acceptLanguage,
 				options
 			)

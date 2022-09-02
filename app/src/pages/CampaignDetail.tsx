@@ -1,5 +1,5 @@
 import PageHeader from '@components/PageHeader';
-import { UserFollow, Download } from '@carbon/react/icons';
+import { UserFollow, Exit } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { TabList, Tab, TabPanels, TabPanel, Stack } from '@carbon/react';
 import StickyTabs from '@components/StickyTabs';
@@ -142,14 +142,15 @@ const CampaignDetail = () => {
 						setIsCollaboratorsOpen(true);
 					}
 				},
-				{
-					name: 'Download',
-					icon: Download,
-					onClick: () => {}, // TODO complete later
-					disabled: true
-				},
+				// {
+				// 	name: 'Download',
+				// 	icon: Download,
+				// 	onClick: () => {}, // TODO complete later
+				// 	disabled: true
+				// },
 				{
 					name: t('userRevalidation:close-campaign'),
+					icon: Exit,
 					onClick: () => {
 						setIsCloseModalOpen(true);
 					}
@@ -183,7 +184,11 @@ const CampaignDetail = () => {
 						))}
 					</TabPanels>
 				</StickyTabs>
-				<CloseCampaignModal isOpen={isCloseModalOpen} setIsOpen={setIsCloseModalOpen} />
+				<CloseCampaignModal
+					campaign={campaign}
+					isOpen={isCloseModalOpen}
+					setIsOpen={setIsCloseModalOpen}
+				/>
 				<MultiAddSelect
 					selectedItems={{
 						entries: campaign.contributors.map(userMapper)

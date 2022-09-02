@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from 'react-query';
 import Application from '@model/Application';
 import Campaign from '@model/Campaign';
+import api from '@api';
 
 interface DeleteAppFromCampaignParams {
 	campaignId: string;
@@ -11,14 +12,9 @@ const deleteAppFromCampaign = ({
 	campaignId,
 	campaignApplicationId
 }: DeleteAppFromCampaignParams) => {
-	// return api.analystCampaignApi.deleteApplicationFromCampaign({
-	// 	campaignId: +campaignId,
-	// 	applicationId: +applicationId
-	// }); TODO create endpoint
-	return new Promise(resolve => {
-		setTimeout(() => {
-			resolve({ campaignId, campaignApplicationId });
-		}, 1000);
+	return api.analystCampaignApi.deleteAppAndRelatedAnswersFromCampaign({
+		campaignId: +campaignId,
+		reviewId: +campaignApplicationId
 	});
 };
 

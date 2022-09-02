@@ -12,7 +12,7 @@ const useGetProcedureForReview = (appId: string) => {
 
 export default (appId: string | undefined) =>
 	useQuery(
-		['review-procedures', appId], // TODO check query
+		['review-procedures', appId],
 		() => useGetProcedureForReview(appId as string),
 		{
 			enabled: !!appId
