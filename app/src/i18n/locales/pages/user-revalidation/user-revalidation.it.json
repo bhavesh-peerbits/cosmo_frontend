@@ -58,5 +58,6 @@
 	"revalidation-completed-toast": "Questa rivalidazione è completata. Puoi apportare modifiche entro il {{date}}",
 	"revalidation-completed": "Rivalidazione completata",
 	"campaigns-left": "{{number}} campagne rimanenti",
-	"campaign-left-toast": "Per {{application}} ci sono {{number}} campagne rimanenti. Utilizzare il pulsante qui sotto per tornare alla lista di applicazioni"
+	"campaign-left-toast": "Per {{application}} ci sono {{number}} campagne rimanenti. Utilizzare il pulsante qui sotto per tornare alla lista di applicazioni",
+	"saveAnswersError": "Errore salvataggio risposte"
 }

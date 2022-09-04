@@ -58,5 +58,6 @@
 	"revalidation-completed-toast": "This revalidation is now completed. You can make changes until {{date}}",
 	"revalidation-completed": "Revalidation completed",
 	"campaigns-left": "{{number}} campaigns left",
-	"campaign-left-toast": "For {{application}} there are {{number}} campaigns left. Click below to navigate to applications dashboard"
+	"campaign-left-toast": "For {{application}} there are {{number}} campaigns left. Click below to navigate to applications dashboard",
+	"saveAnswersError": "Error saving answers"
 }

@@ -15,24 +15,6 @@ const saveAnswersToReview = ({ reviewId, answers }: SaveAnswersToReviewParams) =
 			reviewId: +reviewId,
 			answerDto: answers.map(toAnswersApi)
 		})
-		.catch(() => ({
-			data: [
-				{
-					id: 2,
-					userToRevalidate: 'federica.bruno',
-					permissions: 'provPermission2',
-					permissionDescription: 'prova permission description',
-					answerType: 'OK' as const
-				},
-				{
-					id: 4,
-					userToRevalidate: 'prova',
-					permissions: 'provPermission',
-					permissionDescription: 'prova permission description',
-					answerType: 'OK' as const
-				}
-			]
-		})) // TODO REMOVE
 		.then(({ data }) => data.map(fromAnswersApi))
 		.then(toMap);
 };

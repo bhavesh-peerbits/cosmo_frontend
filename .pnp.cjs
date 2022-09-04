@@ -13083,6 +13083,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@types/uuid", [\
+        ["npm:8.3.4", {\
+          "packageLocation": "./.yarn/cache/@types-uuid-npm-8.3.4-7547f4402c-6f11f3ff70.zip/node_modules/@types/uuid/",\
+          "packageDependencies": [\
+            ["@types/uuid", "npm:8.3.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@types/validator", [\
         ["npm:13.7.3", {\
           "packageLocation": "./.yarn/cache/@types-validator-npm-13.7.3-ea3b1edcc6-15b6b5a7f6.zip/node_modules/@types/validator/",\
@@ -14708,6 +14717,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react", "npm:18.0.12"],\
             ["@types/react-dom", "npm:18.0.5"],\
             ["@types/testing-library__jest-dom", "npm:5.14.3"],\
+            ["@types/uuid", "npm:8.3.4"],\
             ["@types/validator", "npm:13.7.3"],\
             ["@vitejs/plugin-legacy", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.8.2"],\
             ["@vitejs/plugin-react", "npm:1.3.2"],\
@@ -14753,6 +14763,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["terser", "npm:5.14.2"],\
             ["tiny-cookie", "npm:2.3.2"],\
             ["translation-check", "npm:1.0.2"],\
+            ["uuid", "npm:8.3.2"],\
             ["validator", "npm:13.7.0"],\
             ["vite", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:3.0.9"],\
             ["vite-plugin-istanbul", "npm:2.7.3"],\
@@ -14815,6 +14826,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react", "npm:18.0.12"],\
             ["@types/react-dom", "npm:18.0.5"],\
             ["@types/testing-library__jest-dom", "npm:5.14.3"],\
+            ["@types/uuid", "npm:8.3.4"],\
             ["@types/validator", "npm:13.7.3"],\
             ["@vitejs/plugin-legacy", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.8.2"],\
             ["@vitejs/plugin-react", "npm:1.3.2"],\
@@ -14857,6 +14869,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["terser", "npm:5.14.2"],\
             ["tiny-cookie", "npm:2.3.2"],\
             ["translation-check", "npm:1.0.2"],\
+            ["uuid", "npm:8.3.2"],\
             ["validator", "npm:13.7.0"],\
             ["vite", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:3.0.9"],\
             ["vite-plugin-istanbul", "npm:2.7.3"],\
