@@ -4,7 +4,7 @@ import { fromCampaignApi } from '@model/Campaign';
 
 export function getCampaign(campaignId: string) {
 	return api.analystCampaignApi
-		.getCampaignById1({
+		.getCampaignById({
 			campaignId: +campaignId
 		})
 		.then(({ data }) => fromCampaignApi(data));

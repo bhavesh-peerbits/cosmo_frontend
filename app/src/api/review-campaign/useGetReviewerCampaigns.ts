@@ -32,7 +32,7 @@ const getAllReviewCampaigns = () => {
 			},
 			campaigns: [
 				{
-					id: 'id1',
+					id: '7',
 					name: 'Campagna di prova 1',
 					applicationsCount: 3,
 					dueDate: new Date(),
@@ -43,7 +43,7 @@ const getAllReviewCampaigns = () => {
 					layer: 'OS'
 				},
 				{
-					id: 'id2',
+					id: '2',
 					name: 'Campagna di prova 2',
 					applicationsCount: 3,
 					dueDate: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 7),
@@ -77,7 +77,7 @@ const getAllReviewCampaigns = () => {
 			},
 			campaigns: [
 				{
-					id: 'id1',
+					id: '4',
 					name: 'Campagna di prova 1',
 					applicationsCount: 3,
 					dueDate: new Date(),
@@ -88,7 +88,7 @@ const getAllReviewCampaigns = () => {
 					layer: 'OS'
 				},
 				{
-					id: 'id2',
+					id: '5',
 					name: 'Campagna di prova 2',
 					applicationsCount: 3,
 					dueDate: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 7),
@@ -103,4 +103,4 @@ const getAllReviewCampaigns = () => {
 	];
 };
 
-export default () => useQuery(['reviewer-campaigns'], getAllReviewCampaigns);
+export default () => useQuery(['campaigns-reviewer'], getAllReviewCampaigns);

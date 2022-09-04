@@ -14,20 +14,26 @@ interface RevalidationRequestForm {
 	description: string;
 }
 
-type UserRevalidationActionModalProps = {
+export interface UserRevalidationActionState {
 	isOpen: boolean;
-	setIsOpen: (val: boolean) => void;
-	actionSelected: string;
+	actionSelected: 'Error' | 'Change' | '';
+	onSuccess?: ({ description }: { description: string }) => void;
+}
+
+type UserRevalidationActionModalProps = {
+	isOpen: UserRevalidationActionState;
+	setIsOpen: (val: UserRevalidationActionState) => void;
 };
+
 const UserRevalidationActionModal = ({
 	isOpen,
-	setIsOpen,
-	actionSelected
+	setIsOpen
 }: UserRevalidationActionModalProps) => {
 	const { t } = useTranslation(['modals', 'userRevalidation']);
 	const {
 		register,
 		reset,
+		handleSubmit,
 		formState: { isValid, errors }
 	} = useForm<RevalidationRequestForm>({
 		mode: 'onChange',
@@ -37,16 +43,21 @@ const UserRevalidationActionModal = ({
 	});
 
 	const cleanUp = () => {
-		setIsOpen(false);
+		setIsOpen({ isOpen: false, actionSelected: '' });
 		reset();
 	};
 
+	const onSuccess = ({ description }: RevalidationRequestForm) => {
+		isOpen.onSuccess?.({ description });
+		cleanUp();
+	};
+
 	return (
-		<ComposedModal size='sm' open={isOpen} onClose={cleanUp}>
+		<ComposedModal size='sm' open={isOpen.isOpen} onClose={cleanUp}>
 			<Form>
 				<ModalHeader
 					title={
-						actionSelected === 'Error'
+						isOpen.actionSelected === 'Error'
 							? t('userRevalidation:report-error')
 							: t('userRevalidation:change-request')
 					}
@@ -70,27 +81,19 @@ const UserRevalidationActionModal = ({
 							}
 						})}
 					/>
-					{/* {isError && (
-						<div className='mt-5 flex items-center justify-center'>
-							<InlineNotification
-								kind='error'
-								title='Error'
-								hideCloseButton
-								subtitle={
-									(error as ApiError)?.message ||
-									'An error has occurred, please try again later'
-								}
-							/>
-						</div>
-					)} */}
 				</ModalBody>
 
 				<ModalFooter>
 					<Button kind='secondary' onClick={cleanUp}>
 						{t('modals:cancel')}
 					</Button>
-					<Button kind='primary' type='submit' disabled={!isValid}>
-						{actionSelected === 'Error'
+					<Button
+						onClick={handleSubmit(onSuccess)}
+						kind='primary'
+						type='submit'
+						disabled={!isValid}
+					>
+						{isOpen.actionSelected === 'Error'
 							? t('userRevalidation:report-error')
 							: t('userRevalidation:send-change-request')}
 					</Button>

@@ -52,13 +52,12 @@ models/email.ts
 models/frequency.ts
 models/identity-provider-dto.ts
 models/index.ts
-models/inline-object.ts
+models/inline-object3.ts
 models/inline-object4.ts
 models/inline-object5.ts
 models/inline-object6.ts
 models/inline-object7.ts
 models/inline-object8.ts
-models/inline-object9.ts
 models/mail-template-dto.ts
 models/module.ts
 models/multiple-narrative-review-body.ts

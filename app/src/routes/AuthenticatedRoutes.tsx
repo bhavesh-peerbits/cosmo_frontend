@@ -106,7 +106,7 @@ const AuthenticatedRoutes = () => {
 									}
 								/>
 								<Route
-									path=':revalidationId'
+									path=':campaignId'
 									element={
 										<ProtectRoute canNavigate={canReview}>
 											<UserRevalidationDetails />

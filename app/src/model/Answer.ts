@@ -1,5 +1,5 @@
 import { AnswerApi, AnswerApiTypeEnum } from 'cosmo-api';
-import User, { fromUserApi } from '@model/User';
+import User, { fromUserApi, toUserApi } from '@model/User';
 
 interface Answer {
 	id: string;
@@ -27,7 +27,22 @@ export const fromAnswersApi = (answerApi: AnswerApi): Answer => ({
 	firefighterID: answerApi.firefighterID,
 	answerType: answerApi.answerType,
 	note: answerApi.note,
-	delegated: answerApi.delegated ? answerApi.delegated.map(fromUserApi) : undefined
+	delegated: answerApi.delegated?.map(fromUserApi)
+});
+
+export const toAnswersApi = (answer: Answer): AnswerApi => ({
+	id: +answer.id,
+	revalidationUser: answer.revalidationUser
+		? toUserApi(answer.revalidationUser)
+		: undefined,
+	userToRevalidate: answer.userToRevalidate,
+	userDetails: answer.userDetails,
+	permissions: answer.permissions,
+	permissionDescription: answer.permissionDescription,
+	firefighterID: answer.firefighterID,
+	answerType: answer.answerType,
+	note: answer.note,
+	delegated: answer.delegated?.map(toUserApi)
 });
 
 export default Answer;
