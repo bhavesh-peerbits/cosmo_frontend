@@ -296,7 +296,10 @@ interface CosmoTableRevalidationUsersProps {
 }
 
 interface ActionCellProps {
-	info: CellProperties<Answer, AnswerApiTypeEnum | undefined>;
+	info: CellProperties<
+		Answer,
+		{ answerType: AnswerApiTypeEnum | undefined; note: string | undefined }
+	>;
 	onActionClick: (answerType: AnswerApiTypeEnum, note?: string) => void;
 	setIsModalOpen: (isOpen: UserRevalidationActionState) => void;
 }
@@ -307,7 +310,7 @@ const ActionsCell = ({ info, onActionClick, setIsModalOpen }: ActionCellProps) =
 
 	return (
 		<div className='flex items-center justify-between'>
-			<div>{translateAnswer(info.getValue())}</div>
+			<div>{translateAnswer(info.getValue().answerType)}</div>
 			<div>
 				<OverflowMenu
 					ariaLabel='Actions'
@@ -334,6 +337,7 @@ const ActionsCell = ({ info, onActionClick, setIsModalOpen }: ActionCellProps) =
 							setIsModalOpen({
 								isOpen: true,
 								actionSelected: 'Change',
+								note: info.getValue()?.note,
 								onSuccess: ({ description }) => onActionClick('MODIFY', description)
 							});
 						}}
@@ -349,6 +353,7 @@ const ActionsCell = ({ info, onActionClick, setIsModalOpen }: ActionCellProps) =
 							setIsModalOpen({
 								isOpen: true,
 								actionSelected: 'Error',
+								note: info.getValue()?.note,
 								onSuccess: ({ description }) => onActionClick('REPORT_ERROR', description)
 							});
 						}}
@@ -434,7 +439,12 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 	];
 
 	const ActionCellComponent = useCallback(
-		(info: CellProperties<Answer, AnswerApiTypeEnum | undefined>) => (
+		(
+			info: CellProperties<
+				Answer,
+				{ answerType: AnswerApiTypeEnum | undefined; note: string | undefined }
+			>
+		) => (
 			<ActionsCell
 				{...{
 					info,
@@ -463,11 +473,17 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 				id: `permissions${review.id}`,
 				header: t('userRevalidation:permission')
 			}),
-			table.createDataColumn(row => row.answerType, {
-				id: `answer${review.id}`,
-				header: t('userRevalidation:answer'),
-				cell: ActionCellComponent
-			})
+			table.createDataColumn(
+				row => ({
+					answerType: row.answerType,
+					note: row.note
+				}),
+				{
+					id: `answer${review.id}`,
+					header: t('userRevalidation:answer'),
+					cell: ActionCellComponent
+				}
+			)
 		],
 		[review.id, t, ActionCellComponent, users]
 	);

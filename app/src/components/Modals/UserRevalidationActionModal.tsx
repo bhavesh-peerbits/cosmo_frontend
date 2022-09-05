@@ -9,6 +9,7 @@ import {
 } from '@carbon/react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 
 interface RevalidationRequestForm {
 	description: string;
@@ -17,6 +18,7 @@ interface RevalidationRequestForm {
 export interface UserRevalidationActionState {
 	isOpen: boolean;
 	actionSelected: 'Error' | 'Change' | '';
+	note?: string;
 	onSuccess?: ({ description }: { description: string }) => void;
 }
 
@@ -31,6 +33,7 @@ const UserRevalidationActionModal = ({
 }: UserRevalidationActionModalProps) => {
 	const { t } = useTranslation(['modals', 'userRevalidation']);
 	const {
+		setValue,
 		register,
 		reset,
 		handleSubmit,
@@ -42,8 +45,12 @@ const UserRevalidationActionModal = ({
 		}
 	});
 
+	useEffect(() => {
+		setValue('description', isOpen.note || '');
+	}, [isOpen.note, setValue]);
+
 	const cleanUp = () => {
-		setIsOpen({ isOpen: false, actionSelected: '' });
+		setIsOpen({ isOpen: false, actionSelected: '', note: undefined });
 		reset();
 	};
 
