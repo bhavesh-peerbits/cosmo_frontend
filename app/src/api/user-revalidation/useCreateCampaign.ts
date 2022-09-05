@@ -43,6 +43,7 @@ export default () => {
 						: data;
 				}
 			);
+			queryClient.invalidateQueries([['campaigns-reviewer']]);
 		}
 	});
 };

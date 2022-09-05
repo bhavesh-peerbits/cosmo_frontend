@@ -35,6 +35,10 @@ export default () => {
 				]);
 				queryClient.invalidateQueries(['answers-review', variables.campaignId]);
 				queryClient.invalidateQueries(['campaigns-review']);
+				queryClient.invalidateQueries([
+					'answers-revalidation-review',
+					variables.campaignId
+				]);
 			}
 		}
 	});

@@ -1,5 +1,5 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@carbon/react';
-import { Group, InformationSquare } from '@carbon/react/icons';
+import { Group } from '@carbon/react/icons';
 import RevalidationUsersContainer from '@components/reviewCampaign/RevalidationUsersContainer';
 import { useTranslation } from 'react-i18next';
 import CampaignApplication from '@model/CampaignApplication';
@@ -29,18 +29,18 @@ const UserRevalidationTabContent = ({ review }: UserRevalidationTabContentProps)
 							<span>{t('userSelect:users')}</span>
 						</div>
 					</Tab>
-					<Tab>
-						<div className='flex items-center space-x-3'>
-							<InformationSquare size={20} />
-							<span>{t('management:application-info')}</span>
-						</div>
-					</Tab>
+					{/* <Tab> */}
+					{/*	<div className='flex items-center space-x-3'> */}
+					{/*		<InformationSquare size={20} /> */}
+					{/*		<span>{t('management:application-info')}</span> */}
+					{/*	</div> */}
+					{/* </Tab> */}
 				</TabList>
 				<TabPanels>
 					<TabPanel className='bg-layer-1'>
 						<RevalidationUsersContainer key={review.id} review={review} />
 					</TabPanel>
-					<TabPanel>info</TabPanel>
+					{/* <TabPanel>info</TabPanel> */}
 				</TabPanels>
 			</Tabs>
 		</div>

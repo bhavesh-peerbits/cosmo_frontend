@@ -43,6 +43,7 @@ const useDeleteAppFromCampaign = () => {
 					return new Map(oldValue as Map<string, Application>);
 				}
 			);
+			queryClient.invalidateQueries(['campaigns-reviewer']);
 		}
 	});
 };

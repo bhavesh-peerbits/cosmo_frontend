@@ -27,6 +27,11 @@ export default () => {
 				['answers-revalidation-review', variables.campaignId, variables.reviewId],
 				old => new Map([...(old as Map<string, Answer>), ...data])
 			);
+			queryClient.invalidateQueries([
+				'answers-review',
+				variables.campaignId,
+				variables.reviewId
+			]);
 		}
 	});
 };
