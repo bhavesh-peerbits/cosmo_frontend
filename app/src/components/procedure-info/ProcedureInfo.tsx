@@ -12,6 +12,7 @@ import useGetProcedureByApp from '@api/app-procedures/useGetProcedureByApp';
 import MultipleReviewModal from '@components/Modals/MultipleReviewModal';
 import ProcedureReviewModal from '@components/Modals/ProcedureReviewModal';
 import { useTranslation } from 'react-i18next';
+import { useResponsive } from 'ahooks';
 import NewProcedureModal from '../Modals/NewProcedureModal';
 
 type ProcedureState = Partial<ProcedureAppInstance> & {
@@ -32,6 +33,7 @@ const ProcedureInfo = () => {
 	const [showProcedureModal, setShowProcedureModal] = useState(false);
 	const [procedureChecked, setProcedureChecked] = useState<string[]>([]);
 	const buttonRef = useRef<HTMLDivElement>(null);
+	const { md } = useResponsive();
 
 	useEffect(() => {
 		setProcedureList(old => {
@@ -51,15 +53,22 @@ const ProcedureInfo = () => {
 			isCheckView={isCheckboxView}
 			setChecked={setProcedureChecked}
 			checked={procedureChecked}
-			stickyOffset={buttonRef.current?.getBoundingClientRect()?.height || 0}
-			tocStickyOffset={breadcrumbSize * 2}
+			stickyOffset={
+				md && buttonRef.current && buttonRef.current.getBoundingClientRect()
+					? buttonRef.current.getBoundingClientRect().height + breadcrumbSize * 2 - 1
+					: buttonRef.current?.getBoundingClientRect()?.height || 0
+			}
+			tocStickyOffset={breadcrumbSize * 2 - 1}
 		>
 			<Grid fullWidth className='h-full'>
 				<FullWidthColumn className='pt-4'>
-					<div className='space-y-4'>
+					<div className='flex flex-col space-y-4'>
 						<div
-							className='flex w-full flex-wrap items-center md:space-x-4'
+							className='flex w-full flex-wrap items-center bg-layer-1 md:sticky md:z-10  md:space-x-4'
 							ref={buttonRef}
+							style={{
+								top: breadcrumbSize * 2 - 1
+							}}
 						>
 							<Button
 								size='md'
@@ -70,24 +79,6 @@ const ProcedureInfo = () => {
 							>
 								{t('new-procedure')}
 							</Button>
-							<NewProcedureModal
-								isOpen={isNewProcedureOpen}
-								setIsOpen={setIsNewProcedureOpen}
-								procedureApps={[...data.values()]}
-								onSuccess={(prc, appProc) =>
-									setProcedureList(old => [
-										...old,
-										{
-											...appProc,
-											id: `${Math.random() * 10000}`,
-											title: prc.name,
-											procedureId: prc.id,
-											name: appProc?.name || '',
-											isNew: true
-										}
-									])
-								}
-							/>
 							<Button
 								kind={isCheckboxView ? 'primary' : 'tertiary'}
 								size='md'
@@ -120,6 +111,24 @@ const ProcedureInfo = () => {
 								</Button>
 							)}
 						</div>
+						<NewProcedureModal
+							isOpen={isNewProcedureOpen}
+							setIsOpen={setIsNewProcedureOpen}
+							procedureApps={[...data.values()]}
+							onSuccess={(prc, appProc) =>
+								setProcedureList(old => [
+									...old,
+									{
+										...appProc,
+										id: `${Math.random() * 10000}`,
+										title: prc.name,
+										procedureId: prc.id,
+										name: appProc?.name || '',
+										isNew: true
+									}
+								])
+							}
+						/>
 						{showProcedureModal &&
 							(procedureChecked.length === 1 ? (
 								<ProcedureReviewModal

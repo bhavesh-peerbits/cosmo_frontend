@@ -162,7 +162,7 @@ const TOCMobile = ({
 	};
 
 	return (
-		<div className='-ml-[1%] w-[102%] shadow shadow-md shadow-background'>
+		<div className='shadow shadow-md shadow-background'>
 			<div className='relative flex rounded bg-field-2 hover:bg-field-hover-2'>
 				<SelectWithCheckbox
 					options={menuItems}

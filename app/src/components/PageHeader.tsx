@@ -48,7 +48,7 @@ const PageHeader = ({
 		<div className='flex flex-col'>
 			<div
 				ref={breadcrumbRef}
-				className='sticky top-0 z-10 w-full space-y-5 bg-background'
+				className='sticky top-0 z-[11] w-full space-y-5 bg-background'
 			>
 				<Grid>
 					<FullWidthColumn

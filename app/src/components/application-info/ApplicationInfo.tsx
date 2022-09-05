@@ -112,14 +112,17 @@ const ApplicationInfo = ({ application }: ApplicationInfoProps) => {
 	return (
 		<TableOfContents
 			stickyOffset={buttonRef.current?.getBoundingClientRect()?.height || 0}
-			tocStickyOffset={breadcrumbSize * 2}
+			tocStickyOffset={breadcrumbSize * 2 - 1}
 		>
 			<Grid fullWidth className='h-full'>
 				<FullWidthColumn className='pt-4'>
-					<Form className='space-y-4' onSubmit={handleSubmit(sendData)}>
+					<Form className='flex flex-col space-y-4' onSubmit={handleSubmit(sendData)}>
 						<div
-							className='flex w-full flex-wrap items-center md:space-x-4'
+							className='flex w-full flex-wrap items-center bg-layer-1 md:sticky md:z-10 md:space-x-4'
 							ref={buttonRef}
+							style={{
+								top: breadcrumbSize * 2 - 1
+							}}
 						>
 							<Button
 								disabled={isLoading}

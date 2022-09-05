@@ -17,9 +17,9 @@
 	"confirm": "Confirm",
 	"discard": "Discard changes",
 	"cancel": "Cancel",
-	"new-procedure": "New Procedure",
+	"new-procedure": "New procedure",
 	"review": "Review",
 	"relative-button": "Add a new one using the relative button",
-	"no-procedures": "No Procedures",
-	"delete-procedure": "Delete Procedure"
+	"no-procedures": "No procedures",
+	"delete-procedure": "Delete procedure"
 }
