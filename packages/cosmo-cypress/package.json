@@ -1,23 +1,23 @@
 {
-  "name": "cosmo-cypress",
-  "private": true,
-  "version": "1.0.0",
-  "scripts": {
-    "test:e2e": "cypress open --config baseUrl='http://localhost:3000'",
-    "comm:tsc": "yarn run -T tsc"
-  },
-  "dependencies": {
-    "@cypress/code-coverage": "^3.10.0",
-    "@testing-library/cypress": "^8.0.3",
-    "cypress": "^10.0.3",
-    "node-static": "^0.7.11",
-    "start-server-and-test": "^1.14.0",
-    "typescript": "4.6.4"
-  },
-  "devDependencies": {
-    "eslint-plugin-cypress": "^2.12.1"
-  },
-  "peerDependencies": {
-    "eslint": "*"
-  }
+	"name": "cosmo-cypress",
+	"private": true,
+	"version": "1.0.0",
+	"scripts": {
+		"test:e2e": "cypress open --config baseUrl='http://localhost:3000'",
+		"comm:tsc": "yarn run -T tsc"
+	},
+	"dependencies": {
+		"@cypress/code-coverage": "^3.10.0",
+		"@testing-library/cypress": "^8.0.3",
+		"cypress": "^10.0.3",
+		"node-static": "^0.7.11",
+		"start-server-and-test": "^1.14.0",
+		"typescript": "4.6.4"
+	},
+	"devDependencies": {
+		"eslint-plugin-cypress": "^2.12.1"
+	},
+	"peerDependencies": {
+		"eslint": "*"
+	}
 }
