@@ -4,9 +4,10 @@ import { utils, writeFile } from 'xlsx';
 import JsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { useCallback } from 'react';
-import { AvailableFileType, ExportProperties } from '@components/table/types';
+import { ExportProperties } from '@components/table/types';
 import { isDate } from 'date-fns';
 import { formatDate } from '@i18n';
+import { AvailableFileType, downloadFileViaBlob } from '@components/util/fileUtil';
 
 // Get exported file name(do not specify extension here)
 const defaultGetExportFileName = ({
@@ -82,16 +83,6 @@ function getExportFileBlob({
 
 	// Other formats goes here
 	return false;
-}
-
-function downloadFileViaBlob(fileBlob: Blob, fileName: string, type: AvailableFileType) {
-	if (fileBlob) {
-		const dataUrl = URL.createObjectURL(fileBlob);
-		const link = document.createElement('a');
-		link.download = `${fileName}.${type}`;
-		link.href = dataUrl;
-		link.click();
-	}
 }
 
 const useExportTablePlugin = <T extends { ColumnMeta: ExportProperties }>(

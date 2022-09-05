@@ -16,7 +16,7 @@ if (import.meta.env?.DEV) {
 } else {
 	IS_PRODUCTION = process.env.NODE_ENV === 'production';
 	SERVER_PORT = process.env.SERVER_PORT ? +process.env.SERVER_PORT : undefined;
-	CURRENT_DIRNAME = () => __dirname;
+	CURRENT_DIRNAME = () => path.dirname(fileURLToPath(import.meta.url));
 	WEB_CONCURRENCY = process.env.SERVER_WEB_CONCURRENCY
 		? +process.env.SERVER_WEB_CONCURRENCY
 		: 10;

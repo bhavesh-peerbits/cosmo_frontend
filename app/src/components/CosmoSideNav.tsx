@@ -27,7 +27,8 @@ type CosmoSideNavProps = {
 
 const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavProps) => {
 	const { theme } = useUiStore();
-	const { canReview, canReviewNarrative, canSeeNarrativeManagement } = usePolicyStore();
+	const { canReview, canReviewNarrative, canSeeNarrativeManagement, canRevalidateUser } =
+		usePolicyStore();
 	const { md, lg } = useResponsive();
 
 	return (
@@ -65,6 +66,9 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 							<SideNavMenuItem element={Link} to={routes.REVIEW_NARRATIVE}>
 								Narrative
 							</SideNavMenuItem>
+							<SideNavMenuItem element={Link} to={routes.USER_REVALIDATION}>
+								User Revalidation
+							</SideNavMenuItem>
 						</SideNavMenu>
 					)}
 					{import.meta.env.DEV && (
@@ -72,18 +76,20 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 							[TEST ONLY] Show translations
 						</SideNavLink>
 					)}
-					<SideNavMenu
-						renderIcon={UserRole}
-						title='User Revalidation'
-						className='transition-all'
-					>
-						<SideNavMenuItem element={Link} to={routes.NEW_REVALIDATION}>
-							New Revalidation
-						</SideNavMenuItem>
-						<SideNavMenuItem element={Link} to={routes.REVALIDATIONS_ONGOING}>
-							Revalidations Ongoing
-						</SideNavMenuItem>
-					</SideNavMenu>
+					{canRevalidateUser && (
+						<SideNavMenu
+							renderIcon={UserRole}
+							title='User Revalidation'
+							className='transition-all'
+						>
+							<SideNavMenuItem element={Link} to={routes.NEW_REVALIDATION}>
+								New Revalidation
+							</SideNavMenuItem>
+							<SideNavMenuItem element={Link} to={routes.REVALIDATIONS_ONGOING}>
+								Revalidations Ongoing
+							</SideNavMenuItem>
+						</SideNavMenu>
+					)}
 					<SideNavLink renderIcon={UserAdmin} href={routes.ADMIN}>
 						Administration
 					</SideNavLink>

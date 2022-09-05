@@ -68,6 +68,11 @@ const UsersTable = () => {
 
 	const columns: HeaderFunction<User> = useCallback(
 		table => [
+			table.createDataColumn(row => row.username, {
+				id: 'username',
+				header: t('username'),
+				sortUndefined: 1
+			}),
 			table.createDataColumn(row => row.name, {
 				id: 'name',
 				header: t('name'),

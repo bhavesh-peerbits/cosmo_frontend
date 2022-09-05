@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ColumnDef, Overwrite, Render } from '@tanstack/react-table';
 import { ReactElement, ReactNode } from 'react';
+import { AvailableFileType as AvailableFileTypeUtil } from '@components/util/fileUtil';
 
-export type AvailableFileType = 'csv' | 'xlsx' | 'pdf';
-
+export type AvailableFileType = AvailableFileTypeUtil;
 export type ExportProperties = {
 	disableExport?: boolean;
 	exportableFn?: (info: any) => string;

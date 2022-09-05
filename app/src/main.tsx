@@ -1,4 +1,3 @@
-import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './style/index.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -25,14 +24,12 @@ const container = document.querySelector('#root') as HTMLElement;
 const root = createRoot(container);
 
 root.render(
-	<StrictMode>
-		<QueryClientProvider client={queryClient}>
-			<BrowserRouter>
-				<RecoilRoot>
-					<App />
-				</RecoilRoot>
-			</BrowserRouter>
-			<ReactQueryDevtools initialIsOpen={false} />
-		</QueryClientProvider>
-	</StrictMode>
+	<QueryClientProvider client={queryClient}>
+		<BrowserRouter>
+			<RecoilRoot>
+				<App />
+			</RecoilRoot>
+		</BrowserRouter>
+		<ReactQueryDevtools initialIsOpen={false} />
+	</QueryClientProvider>
 );

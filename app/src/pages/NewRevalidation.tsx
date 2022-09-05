@@ -80,7 +80,6 @@ const NewRevalidation = () => {
 											revalidations.length === 1 ? t('campaign') : t('campaigns')
 										}`}
 									</div>
-									{/* // TODO fix text for single or multiple campaigns */}
 								</div>
 							</div>
 							<div>

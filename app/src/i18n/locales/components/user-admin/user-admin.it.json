@@ -5,6 +5,7 @@
 	"user-admin": "Amministrazione Utenti",
 	"role-assignment-description": "In questa sezione puoi bloccare utenti, aggiungere nuovi utenti e puoi anche aggiungere o rimuovere i ruoli degli utenti esistenti.",
 	"app-visibility-description": "In questa sezione, per ogni applicazione esistente, puoi aggiungere o rimuovere gli utenti che hanno la visibilità su di essa.",
+	"username": "Nome Utente",
 	"name": "Nome",
 	"surname": "Cognome",
 	"role": "Ruolo",
