@@ -37,6 +37,7 @@ import useExportTablePlugin from '@hooks/useExportTablePlugin';
 import CosmoTableToolbar from './CosmoTableToolbar';
 
 type HeaderFunction<T extends object> = CosmoTableProps<T>['createHeaders'];
+
 interface CosmoTableProps<D extends object> {
 	createHeaders: (table: TableType<TB<D>>) => Array<ColumnDef<TB<D>>>;
 	data: D[];
@@ -52,6 +53,7 @@ interface CosmoTableProps<D extends object> {
 	disableExport?: boolean;
 	excludeCurrentView?: boolean;
 	level?: 0 | 1 | 2;
+	tableId?: string;
 }
 
 const CosmoTable = <D extends object>({
@@ -63,7 +65,8 @@ const CosmoTable = <D extends object>({
 	exportFileName,
 	disableExport,
 	excludeCurrentView,
-	level
+	level,
+	tableId = ''
 }: CosmoTableProps<D>) => {
 	const { t } = useTranslation('table');
 	const [showMore, setShowMore] = useState('');
@@ -111,31 +114,37 @@ const CosmoTable = <D extends object>({
 		return rows.length ? (
 			rows.map(row => {
 				return (
-					<TableRow key={row.id}>
+					<TableRow key={row.id + tableId}>
 						{isSelectable && (
 							<TableSelectRow
 								checked={row.getIsSelected()}
 								ariaLabel='Select'
-								id={row.id}
-								name={row.id}
+								id={row.id + tableId}
+								name={row.id + tableId}
 								onSelect={row.getToggleSelectedHandler()}
 								onChange={undefined}
 							/>
 						)}
 
 						{row.getVisibleCells().map(cell =>
-							((cell.getValue() as string) !== undefined && (cell.getValue() as string))
+							(
+								cell.getValue() !== undefined &&
+								cell.getValue() !== null &&
+								(cell.getValue() as string)
+							)
 								.toString()
 								.includes('<p>') ? (
 								<TableCell
 									key={cell.id}
 									onClick={() =>
-										showMore === row.id ? setShowMore('') : setShowMore(row.id)
+										showMore === row.id + tableId
+											? setShowMore('')
+											: setShowMore(row.id + tableId)
 									}
 								>
 									<p
 										className={`cursor-pointer ${
-											showMore === row.id
+											showMore === row.id + tableId
 												? 'max-h-fit overflow-visible whitespace-normal break-words sm:max-w-[300px] lg:max-w-[600px]'
 												: 'max-h-[48px] truncate sm:max-w-[300px] lg:max-w-[600px]'
 										}`}
@@ -146,7 +155,7 @@ const CosmoTable = <D extends object>({
 								<TableCell
 									key={cell.id}
 									className={`min-w-[200px] whitespace-normal break-words sm:max-w-[300px] lg:max-w-[600px] ${
-										showMore === row.id
+										showMore === row.id + tableId
 											? 'max-h-fit overflow-visible whitespace-normal break-words sm:max-w-[300px] lg:max-w-[600px]'
 											: 'max-h-[48px]'
 									}`}

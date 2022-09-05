@@ -16,6 +16,7 @@ import useGetUsers from '@api/user/useGetUsers';
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { TooltipPosition } from '@carbon/react/typings/shared';
+import { UseQueryResult } from 'react-query';
 
 type MultipleUserSelectProps<
 	T extends FieldValues,
@@ -31,6 +32,7 @@ type MultipleUserSelectProps<
 			readOnly?: boolean;
 			defaultValue?: User[];
 			tooltipPosition?: TooltipPosition;
+			getUserFn?: () => UseQueryResult<User[]>;
 	  }
 	: never;
 
@@ -43,7 +45,8 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 	helperText,
 	readOnly,
 	defaultValue,
-	tooltipPosition
+	tooltipPosition,
+	getUserFn = useGetUsers
 }: MultipleUserSelectProps<T, TName>) => {
 	const { t } = useTranslation('userSelect');
 	const [openSearch, setOpenSearch] = useState(false);
@@ -56,7 +59,7 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 		rules,
 		defaultValue: defaultValue as UnpackNestedValue<PathValue<T, TName>>
 	});
-	const { data: users = [] } = useGetUsers();
+	const { data: users = [] } = getUserFn();
 	const invalidText = error?.message;
 	const selectUsers = formValue as User[] | undefined;
 

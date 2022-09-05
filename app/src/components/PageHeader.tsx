@@ -21,6 +21,7 @@ interface PageHeaderProps {
 		icon?: (() => ReactElement) | ReactElement;
 		onClick: () => void;
 		kind?: ButtonKinds;
+		disabled?: boolean;
 	}>;
 	children: ReactElement;
 }
@@ -97,6 +98,7 @@ const PageHeader = ({
 														tooltipPosition='bottom'
 														iconDescription={action.name}
 														renderIcon={action.icon}
+														disabled={action.disabled}
 														kind={actions?.length > 1 ? 'tertiary' : 'primary'}
 													>
 														{action.name}
@@ -109,6 +111,7 @@ const PageHeader = ({
 															key={action.name}
 															kind={index === 0 ? 'primary' : 'danger'}
 															renderIcon={action.icon}
+															disabled={action.disabled}
 															iconDescription={action.name}
 															tooltipPosition='bottom'
 															hasIconOnly
@@ -145,6 +148,7 @@ const PageHeader = ({
 											size='md'
 											// ref={actionButtonRef}
 											onClick={actions[0].onClick}
+											disabled={actions[0].disabled}
 										>
 											{actions[0].name}
 										</Button>
@@ -159,6 +163,7 @@ const PageHeader = ({
 												size='md'
 												renderIcon={actions[0].icon}
 												onClick={actions[0].onClick}
+												disabled={actions[0].disabled}
 											>
 												{actions[0].name}
 											</Button>
@@ -169,6 +174,7 @@ const PageHeader = ({
 													className='w-1/2 xlg:w-fit'
 													onClick={actions[1].onClick}
 													renderIcon={actions[1].icon}
+													disabled={actions[1].disabled}
 												>
 													{actions[1].name}
 												</Button>
@@ -180,6 +186,7 @@ const PageHeader = ({
 													className='w-1/2 xlg:w-fit'
 													renderIcon={actions[2].icon}
 													onClick={actions[2].onClick}
+													disabled={actions[2].disabled}
 												>
 													{actions[2].name}
 												</Button>
@@ -195,6 +202,7 @@ const PageHeader = ({
 												size='md'
 												renderIcon={actions[0].icon}
 												onClick={actions[0].onClick}
+												disabled={actions[0].disabled}
 											>
 												{actions[0].name}
 											</Button>
@@ -205,6 +213,7 @@ const PageHeader = ({
 													size='md'
 													onClick={actions[1].onClick}
 													renderIcon={actions[1].icon}
+													disabled={actions[1].disabled}
 													className='min-w-full lg:min-w-fit'
 												>
 													{actions[1].name}

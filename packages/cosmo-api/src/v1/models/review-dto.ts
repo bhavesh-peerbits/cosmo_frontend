@@ -16,7 +16,7 @@ import { ApplicationDto } from './application-dto';
 import { CampaignDto } from './campaign-dto';
 
 /**
- *
+ * Reviews
  * @export
  * @interface ReviewDto
  */

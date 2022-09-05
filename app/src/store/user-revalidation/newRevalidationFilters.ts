@@ -1,29 +1,26 @@
 /* eslint-disable no-nested-ternary */
 import { atom, selector } from 'recoil';
 import { GetRecoilType } from '@store/util';
+import Campaign from '@model/Campaign';
 
 type Filters = {
+	application: 'multi' | 'single' | undefined;
 	type: string[] | undefined;
 	layer: string[] | undefined;
 	query: string | undefined;
-};
-type Revalidation = {
-	id: string;
-	name: string;
-	layer?: string;
-	type?: string;
 };
 
 const newRevalidationFilters = atom<Filters>({
 	key: 'newRevalidationFilters',
 	default: {
+		application: undefined,
 		type: [],
 		layer: [],
 		query: ''
 	}
 });
 
-const revalidationsList = atom<Revalidation[]>({
+const revalidationsList = atom<Campaign[]>({
 	key: 'revalidations',
 	default: []
 });
@@ -61,6 +58,13 @@ const applyFilters = (
 					  )
 					: true
 			)
+			.filter(revalidation =>
+				filters.application
+					? filters.application === 'multi'
+						? revalidation.applicationsCount > 1
+						: revalidation.applicationsCount <= 1
+					: true
+			)
 	);
 };
 
@@ -90,6 +94,10 @@ const filteredRevalidations = selector({
 			].map(layer => ({
 				layer,
 				enabled: filters.layer?.includes(layer ?? '')
+			})),
+			application: ['single' as const, 'multi' as const].map(appType => ({
+				appType,
+				enabled: filters.application === appType
 			}))
 		};
 	}

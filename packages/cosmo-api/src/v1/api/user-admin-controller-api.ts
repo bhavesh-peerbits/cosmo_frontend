@@ -39,6 +39,8 @@ import {
 // @ts-ignore
 import { ApiErrorResponse } from '../models';
 // @ts-ignore
+import { ApplicationDto } from '../models';
+// @ts-ignore
 import { ApplicationUserDto } from '../models';
 // @ts-ignore
 import { Profile } from '../models';
@@ -114,11 +116,183 @@ export const UserAdminControllerApiAxiosParamCreator = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
+		getAllActiveAndInactiveUsers: async (
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/users/admin/allActiveAndInactiveUsers`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllAnalystAndAdminUsers: async (
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/users/admin/allAnalystsAndAdmins`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
 		getAllAnalystUsers: async (
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			const localVarPath = `/api/users/admin/allAnalysts`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllApplications: async (
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/users/admin/getApplications`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllInactiveUsers: async (
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/users/admin/allInactiveUsers`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -661,6 +835,54 @@ export const UserAdminControllerApiFp = function (configuration?: Configuration)
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
+		async getAllActiveAndInactiveUsers(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserDto>>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.getAllActiveAndInactiveUsers(
+					acceptLanguage,
+					options
+				);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getAllAnalystAndAdminUsers(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserDto>>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.getAllAnalystAndAdminUsers(
+					acceptLanguage,
+					options
+				);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
 		async getAllAnalystUsers(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
@@ -668,6 +890,52 @@ export const UserAdminControllerApiFp = function (configuration?: Configuration)
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserDto>>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllAnalystUsers(
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getAllApplications(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApplicationDto>>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllApplications(
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getAllInactiveUsers(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserDto>>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllInactiveUsers(
 				acceptLanguage,
 				options
 			);
@@ -941,12 +1209,68 @@ export const UserAdminControllerApiFactory = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
+		getAllActiveAndInactiveUsers(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<UserDto>> {
+			return localVarFp
+				.getAllActiveAndInactiveUsers(acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllAnalystAndAdminUsers(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<UserDto>> {
+			return localVarFp
+				.getAllAnalystAndAdminUsers(acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
 		getAllAnalystUsers(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Array<UserDto>> {
 			return localVarFp
 				.getAllAnalystUsers(acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllApplications(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<ApplicationDto>> {
+			return localVarFp
+				.getAllApplications(acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllInactiveUsers(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<UserDto>> {
+			return localVarFp
+				.getAllInactiveUsers(acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -1120,6 +1444,34 @@ export interface UserAdminControllerApiAddUserRequest {
 }
 
 /**
+ * Request parameters for getAllActiveAndInactiveUsers operation in UserAdminControllerApi.
+ * @export
+ * @interface UserAdminControllerApiGetAllActiveAndInactiveUsersRequest
+ */
+export interface UserAdminControllerApiGetAllActiveAndInactiveUsersRequest {
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserAdminControllerApiGetAllActiveAndInactiveUsers
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getAllAnalystAndAdminUsers operation in UserAdminControllerApi.
+ * @export
+ * @interface UserAdminControllerApiGetAllAnalystAndAdminUsersRequest
+ */
+export interface UserAdminControllerApiGetAllAnalystAndAdminUsersRequest {
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserAdminControllerApiGetAllAnalystAndAdminUsers
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
  * Request parameters for getAllAnalystUsers operation in UserAdminControllerApi.
  * @export
  * @interface UserAdminControllerApiGetAllAnalystUsersRequest
@@ -1129,6 +1481,34 @@ export interface UserAdminControllerApiGetAllAnalystUsersRequest {
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
 	 * @memberof UserAdminControllerApiGetAllAnalystUsers
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getAllApplications operation in UserAdminControllerApi.
+ * @export
+ * @interface UserAdminControllerApiGetAllApplicationsRequest
+ */
+export interface UserAdminControllerApiGetAllApplicationsRequest {
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserAdminControllerApiGetAllApplications
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getAllInactiveUsers operation in UserAdminControllerApi.
+ * @export
+ * @interface UserAdminControllerApiGetAllInactiveUsersRequest
+ */
+export interface UserAdminControllerApiGetAllInactiveUsersRequest {
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserAdminControllerApiGetAllInactiveUsers
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
@@ -1354,6 +1734,38 @@ export class UserAdminControllerApi extends BaseAPI {
 
 	/**
 	 *
+	 * @param {UserAdminControllerApiGetAllActiveAndInactiveUsersRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof UserAdminControllerApi
+	 */
+	public getAllActiveAndInactiveUsers(
+		requestParameters: UserAdminControllerApiGetAllActiveAndInactiveUsersRequest = {},
+		options?: AxiosRequestConfig
+	) {
+		return UserAdminControllerApiFp(this.configuration)
+			.getAllActiveAndInactiveUsers(requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {UserAdminControllerApiGetAllAnalystAndAdminUsersRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof UserAdminControllerApi
+	 */
+	public getAllAnalystAndAdminUsers(
+		requestParameters: UserAdminControllerApiGetAllAnalystAndAdminUsersRequest = {},
+		options?: AxiosRequestConfig
+	) {
+		return UserAdminControllerApiFp(this.configuration)
+			.getAllAnalystAndAdminUsers(requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
 	 * @param {UserAdminControllerApiGetAllAnalystUsersRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
@@ -1365,6 +1777,38 @@ export class UserAdminControllerApi extends BaseAPI {
 	) {
 		return UserAdminControllerApiFp(this.configuration)
 			.getAllAnalystUsers(requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {UserAdminControllerApiGetAllApplicationsRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof UserAdminControllerApi
+	 */
+	public getAllApplications(
+		requestParameters: UserAdminControllerApiGetAllApplicationsRequest = {},
+		options?: AxiosRequestConfig
+	) {
+		return UserAdminControllerApiFp(this.configuration)
+			.getAllApplications(requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {UserAdminControllerApiGetAllInactiveUsersRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof UserAdminControllerApi
+	 */
+	public getAllInactiveUsers(
+		requestParameters: UserAdminControllerApiGetAllInactiveUsersRequest = {},
+		options?: AxiosRequestConfig
+	) {
+		return UserAdminControllerApiFp(this.configuration)
+			.getAllInactiveUsers(requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 

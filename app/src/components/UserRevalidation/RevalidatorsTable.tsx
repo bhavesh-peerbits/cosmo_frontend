@@ -2,61 +2,62 @@ import { TableToolbarSearch } from '@carbon/react';
 import CosmoTable, { HeaderFunction } from '@components/table/CosmoTable';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import Answer from '@model/Answer';
+import isAfter from 'date-fns/isAfter';
 
-type Revalidator = {
-	name: string;
-	email: string;
-	status: string;
-};
-const RevalidatorsTable = () => {
-	const { t } = useTranslation('userRevalidation');
-	const { t: tAdmin } = useTranslation('userAdmin');
-	const revalidators = [
-		{
-			name: 'Name',
-			email: 'email@email.com',
-			status: 'Due Date Exceeded'
-		},
-		{
-			name: 'Name',
-			email: 'email@email.com',
-			status: 'Due Date Exceeded'
-		}
-	];
+interface RevalidatorsTableProp {
+	answers: Answer[];
+	dueDate: Date | undefined;
+}
 
-	const columns: HeaderFunction<Revalidator> = useCallback(
+const RevalidatorsTable = ({ answers, dueDate }: RevalidatorsTableProp) => {
+	const { t } = useTranslation(['table', 'userRevalidation', 'userAdmin']);
+
+	const columns: HeaderFunction<Answer> = useCallback(
 		table => [
-			table.createDataColumn(row => row.name, {
+			table.createDataColumn(row => row.revalidationUser, {
 				id: 'name',
-				header: t('campaign-name'),
-				sortUndefined: 1
+				header: t('userRevalidation:campaign-name'),
+				sortUndefined: 1,
+				cell: info => info.getValue()?.username || '-'
 			}),
-			table.createDataColumn(row => row.email, {
+			table.createDataColumn(row => row.revalidationUser, {
 				id: 'email',
-				header: 'Email'
+				header: 'Email',
+				cell: info => info.getValue()?.email || '-'
 			}),
-			table.createDataColumn(row => row.status, {
+			table.createDataColumn(row => row.answerType, {
 				id: 'status',
-				header: t('status')
+				header: t('userRevalidation:status'),
+				cell: info => {
+					if (info.getValue()) {
+						return 'Completed';
+					}
+					if (dueDate && isAfter(new Date(), dueDate)) {
+						return 'Due date exceeded';
+					}
+					return 'Incomplete';
+				}
 			})
 		],
-		[t]
+		[dueDate, t]
 	);
 
 	const toolbarContent = (
 		<TableToolbarSearch
 			size='lg'
 			persistent
-			placeholder={tAdmin('search-placeholder')}
+			placeholder={t('userAdmin:search-placeholder')}
 			id='search'
 		/>
 	);
 	return (
 		<CosmoTable
 			level={2}
-			data={revalidators}
+			data={answers}
 			createHeaders={columns}
 			toolbar={{ toolbarContent }}
+			noDataMessage={t('table:no-data')}
 		/>
 	);
 };

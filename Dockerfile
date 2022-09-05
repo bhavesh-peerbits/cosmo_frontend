@@ -1,4 +1,4 @@
-FROM node:lts-alpine
+FROM node:16.17.0-slim
 ARG PROXY=http://srvprx01.aizoon.it:3128
 ################ Aizoon-Proxy start #################
 ENV http_proxy=${PROXY} \

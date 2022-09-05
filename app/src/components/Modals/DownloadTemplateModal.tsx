@@ -5,10 +5,18 @@ import {
 	ModalFooter,
 	Button,
 	RadioButton,
-	RadioButtonGroup
+	RadioButtonGroup,
+	InlineNotification
 } from '@carbon/react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { CampaignDtoTypeApi, CampaignDtoTypeApiEnum } from 'cosmo-api/src';
+import useGetCampaignTemplate from '@api/user-revalidation/useGetCampaignTemplate';
+import ApiError from '@api/ApiError';
+import Papa from 'papaparse';
+import { downloadFileViaBlob } from '@components/util/fileUtil';
+import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
+import { CampaignDtoTypeEnum } from 'cosmo-api/src/v1';
 
 type DownloadTemplateModalProps = {
 	isOpen: boolean;
@@ -16,37 +24,77 @@ type DownloadTemplateModalProps = {
 };
 
 const DownloadTemplateModal = ({ isOpen, setIsOpen }: DownloadTemplateModalProps) => {
-	const { t } = useTranslation('modals');
-	const { t: tRevalidation } = useTranslation('userRevalidation');
-	const [, setTypeSelected] = useState('');
+	const { t } = useTranslation(['userRevalidation', 'modals']);
+	const [typeSelected, setTypeSelected] = useState<CampaignDtoTypeEnum>(
+		CampaignDtoTypeApiEnum.Firefight
+	);
+	const { mutate, isLoading, isError, error } = useGetCampaignTemplate();
 	const cleanUp = () => {
 		setIsOpen(false);
 	};
-	const revalidationTypes = ['User Access Review', 'SUID', 'Firefight'];
+
+	const revalidationTypes = Object.entries(CampaignDtoTypeApiEnum).sort();
+	const downloadTemplate = () => {
+		mutate(
+			{ type: typeSelected },
+			{
+				onSuccess: data => {
+					const delimiter = ',';
+					const csvString = Papa.unparse([data.fields], {
+						delimiter,
+						quotes: value => typeof value === 'string'
+					});
+					const fileBlob = new Blob([csvString], { type: 'text/csv' });
+					downloadFileViaBlob(fileBlob, `${typeSelected}-template`, 'csv');
+					cleanUp();
+				}
+			}
+		);
+	};
+
 	return (
 		<ComposedModal size='xs' open={isOpen} onClose={cleanUp}>
 			<ModalHeader title='Download file' closeModal={cleanUp} />
 			<ModalBody className='m-0 pb-9'>
 				<div className='space-y-5'>
-					<p>{`${tRevalidation('download-modal-body')}.`}</p>
+					<p>{`${t('userRevalidation:download-modal-body')}.`}</p>
 					<RadioButtonGroup
 						orientation='vertical'
 						name='revalidation-types'
-						legendText={`${tRevalidation('revalidation-type')} *`}
-						onChange={value => setTypeSelected(value.toString())}
-						defaultSelected={revalidationTypes[0]}
+						legendText={`${t('userRevalidation:revalidation-type')} *`}
+						onChange={value => setTypeSelected(value as CampaignDtoTypeApi)}
+						valueSelected={typeSelected}
 					>
-						{revalidationTypes.map(type => (
-							<RadioButton labelText={type} value={type} />
+						{revalidationTypes.map(([id, value]) => (
+							<RadioButton
+								key={id}
+								labelText={mapCampaignTypeToCampaignDisplayType(
+									value as CampaignDtoTypeEnum
+								)}
+								value={value}
+							/>
 						))}
 					</RadioButtonGroup>
+					{isError && (
+						<InlineNotification
+							kind='error'
+							title='Error'
+							hideCloseButton
+							subtitle={
+								(error as ApiError)?.message ||
+								'An error has occurred, please try again later'
+							}
+						/>
+					)}
 				</div>
 			</ModalBody>
 			<ModalFooter>
 				<Button kind='secondary' onClick={cleanUp}>
-					{t('cancel')}
+					{t('modals:cancel')}
 				</Button>
-				<Button>Download</Button>
+				<Button disabled={isLoading} onClick={downloadTemplate}>
+					Download
+				</Button>
 			</ModalFooter>
 		</ComposedModal>
 	);

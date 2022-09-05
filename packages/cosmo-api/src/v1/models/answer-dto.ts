@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-import { User } from './user';
 import { UserDto } from './user-dto';
 
 /**
@@ -35,10 +34,10 @@ export interface AnswerDto {
 	jsonApplicationData?: string;
 	/**
 	 *
-	 * @type {User}
+	 * @type {UserDto}
 	 * @memberof AnswerDto
 	 */
-	revalidationUser?: User;
+	revalidationUser?: UserDto;
 	/**
 	 * User that needs to be reviewed
 	 * @type {string}

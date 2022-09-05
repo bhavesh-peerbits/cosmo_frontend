@@ -4,7 +4,7 @@
 	"description": "Cosmo Backend server",
 	"private": true,
 	"scripts": {
-		"start": "yarn node index.js",
+		"start": "yarn node index.mjs",
 		"dev": "vite",
 		"build": "yarn comm:tsc && vite build",
 		"test:ci": "jest --detectOpenHandles --runInBand --forceExit",
@@ -36,7 +36,7 @@
 		"supertest": "^6.2.3",
 		"ts-jest": "^28.0.4",
 		"ts-node": "^10.8.1",
-		"vite": "^2.9.10",
+		"vite": "^3.0.5",
 		"vite-plugin-node": "^1.0.0",
 		"vite-tsconfig-paths": "^3.5.0"
 	},

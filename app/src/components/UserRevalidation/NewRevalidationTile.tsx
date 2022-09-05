@@ -1,14 +1,12 @@
 import { Layer, ClickableTile } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import Campaign from '@model/Campaign';
+import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
+import { CampaignDtoTypeEnum } from 'cosmo-api/src/v1';
 
 type NewRevalidationTileProps = {
-	revalidation: {
-		id: string;
-		name: string;
-		type?: string;
-		layer?: string;
-	};
+	revalidation: Campaign;
 };
 const NewRevalidationTile = ({ revalidation }: NewRevalidationTileProps) => {
 	const { t } = useTranslation('userRevalidation');
@@ -22,13 +20,22 @@ const NewRevalidationTile = ({ revalidation }: NewRevalidationTileProps) => {
 					<div className='space-y-3 break-normal text-text-secondary text-label-2'>
 						<div>
 							{t('revalidation-type')}:
-							<p className='text-text-primary text-label-2'>{revalidation.type}</p>
+							<p className='text-text-primary text-label-2'>
+								{mapCampaignTypeToCampaignDisplayType(
+									revalidation.type as CampaignDtoTypeEnum
+								)}
+							</p>
 						</div>
 						<div>
 							{t('layer')}:
 							<p className='text-text-primary text-label-2'>{revalidation.layer}</p>
 						</div>
-						<div>N {tModals('applications')}</div>
+						<div>
+							N {tModals('applications')}:
+							<p className='text-text-primary text-label-2'>
+								{revalidation.applicationsCount}
+							</p>
+						</div>
 					</div>
 				</div>
 			</ClickableTile>

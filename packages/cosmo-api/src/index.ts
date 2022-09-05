@@ -1,19 +1,32 @@
 import {
 	AccessControllerApi,
+	AnalystCampaignControllerApi,
+	AnswerDto,
+	AnswerDtoAnswerTypeEnum,
 	ApplicationAuditDto,
 	ApplicationAuditDtoAuditActionTypesEnum,
+	ApplicationCampaignDto,
 	ApplicationControllerApi,
 	ApplicationDto,
 	ApplicationUserDto,
 	AuthControllerApi,
+	CampaignDto,
+	CampaignDtoLayerEnum,
+	CampaignDtoStatusEnum,
+	CampaignDtoTypeEnum,
+	CampaignReviewDto,
 	Configuration,
 	GenerateReportControllerApi,
 	IdentityProviderDto,
 	NarrativeReviewControllerApi,
+	PairListAnswerDtoListString,
 	ProcedureAppInstanceDto,
 	ProcedureControllerApi,
 	ProcedureDto,
 	RealmControllerApi,
+	ReviewDto,
+	ReviewDtoStatusEnum,
+	ReviewerCampaignControllerApi,
 	ReviewerControllerApi,
 	UserAdminControllerApi,
 	UserBase,
@@ -33,7 +46,9 @@ export default function configureApi(config: Configuration) {
 		reviewerApi: new ReviewerControllerApi(config),
 		generateReportApi: new GenerateReportControllerApi(config),
 		authApi: new AuthControllerApi(config),
-		realmApi: new RealmControllerApi(config)
+		realmApi: new RealmControllerApi(config),
+		revalidationApi: new ReviewerCampaignControllerApi(config),
+		analystCampaignApi: new AnalystCampaignControllerApi(config)
 	};
 }
 export type ApplicationApi = ApplicationDto;
@@ -45,3 +60,17 @@ export type ProcedureAppInstanceApi = ProcedureAppInstanceDto;
 export type ApplicationAuditApi = ApplicationAuditDto;
 export type ApplicationAuditActionTypeApi = ApplicationAuditDtoAuditActionTypesEnum;
 export type IdentityProviderApi = IdentityProviderDto;
+export type CampaignApi = CampaignDto;
+export type CampaignWithReviewApi = CampaignReviewDto;
+export const CampaignDtoTypeApiEnum = CampaignDtoTypeEnum;
+export type CampaignDtoTypeApi = CampaignDtoTypeEnum;
+export const CampaignDtoLayerApiEnum = CampaignDtoLayerEnum;
+export type CampaignDtoLayerApi = CampaignDtoLayerEnum;
+export const CampaignDtoStatusApiEnum = CampaignDtoStatusEnum;
+export type CampaignDtoStatusApi = CampaignDtoStatusEnum;
+export type CampaignApplicationApi = ReviewDto;
+export type CampaignApplicationStatusApi = ReviewDtoStatusEnum;
+export type AnswerApi = AnswerDto;
+export type AnswerApiTypeEnum = AnswerDtoAnswerTypeEnum;
+export type FileAnswerStatusApi = PairListAnswerDtoListString;
+export type ApplicationCampaignApi = ApplicationCampaignDto;

@@ -3,6 +3,38 @@ import ApiError from '@api/ApiError';
 import { cleanSession, retrieveRefreshToken, setSession } from '@store/auth/authStore';
 import api, { loginUrl, refreshTokenUrl } from '@api';
 import { logoutApp } from '@hooks/auth/useLogout';
+import mem from 'mem';
+
+const maxAge = 10000;
+
+export const memoizedRefreshToken = mem(
+	async () => {
+		const refreshToken = retrieveRefreshToken();
+		if (refreshToken) {
+			try {
+				cleanSession();
+				const resp = await api.accessApi.refreshToken({
+					refreshToken
+				});
+				const token = resp.data.accessToken;
+				if (token) {
+					setSession(
+						token,
+						resp.data.refreshToken ?? '',
+						localStorage.getItem('rememberMe') === 'true'
+					);
+					return token;
+				}
+			} catch (e) {
+				// ignore error, continue with logout
+			}
+		}
+		return null;
+	},
+	{
+		maxAge
+	}
+);
 
 async function errorManager(response: AxiosResponse) {
 	const errorMessage = response?.data?.message ?? 'Generic error';
@@ -24,29 +56,13 @@ async function errorManager(response: AxiosResponse) {
 				!originalConfig.retry
 			) {
 				originalConfig.retry = true;
-				const refreshToken = retrieveRefreshToken();
-				if (refreshToken) {
-					try {
-						cleanSession();
-						const resp = await api.accessApi.refreshToken({
-							refreshToken
-						});
-						const token = resp.data.accessToken;
-						if (token) {
-							setSession(
-								token,
-								resp.data.refreshToken ?? '',
-								localStorage.getItem('rememberMe') === 'true'
-							);
-							originalConfig.headers = {
-								...originalConfig.headers,
-								Authorization: `Bearer ${token}`
-							};
-							return await axios(originalConfig);
-						}
-					} catch (e) {
-						// ignore error, continue with logout
-					}
+				const token = await memoizedRefreshToken();
+				if (token) {
+					originalConfig.headers = {
+						...originalConfig.headers,
+						Authorization: `Bearer ${token}`
+					};
+					return axios(originalConfig);
 				}
 			}
 			cleanSession();

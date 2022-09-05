@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { ApplicationDto } from './application-dto';
+import { ResponseDto } from './response-dto';
 
 /**
  *
@@ -22,14 +22,14 @@ import { ApplicationDto } from './application-dto';
 export interface InlineObject {
 	/**
 	 *
-	 * @type {ApplicationDto}
+	 * @type {Array<number>}
 	 * @memberof InlineObject
 	 */
-	application?: ApplicationDto;
+	answersID?: Array<number>;
 	/**
 	 *
-	 * @type {boolean}
+	 * @type {ResponseDto}
 	 * @memberof InlineObject
 	 */
-	isModified?: boolean;
+	responseDto?: ResponseDto;
 }

@@ -1,4 +1,5 @@
 import {
+	Button,
 	Layer,
 	Link,
 	Pagination,
@@ -7,6 +8,7 @@ import {
 	TableCell,
 	TableContainer,
 	TableExpandHeader,
+	TableExpandRow,
 	TableHead,
 	TableHeader,
 	TableRow
@@ -26,7 +28,7 @@ import {
 	Table as TableType,
 	useTableInstance
 } from '@tanstack/react-table';
-import { useMemo, useState } from 'react';
+import { Fragment, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
 	AvailableFileType,
@@ -36,6 +38,9 @@ import {
 	TB
 } from '@components/table/types';
 import useExportTablePlugin from '@hooks/useExportTablePlugin';
+import Campaign from '@model/Campaign';
+import CampaignWithReview from '@model/CampaignWithReview';
+import { useNavigate } from 'react-router-dom';
 import CosmoTableToolbar from './CosmoTableToolbar';
 
 type HeaderFunction<T extends object> = GroupedTableProps<T>['createHeaders'];
@@ -59,11 +64,12 @@ const GroupedCosmoTable = <D extends object>({
 	disableExport,
 	toolbar
 }: GroupedTableProps<D>) => {
-	const { t } = useTranslation('table');
+	const { t } = useTranslation(['table', 'userRevalidation']);
 	const [expanded, setExpanded] = useState<ExpandedState>({});
 	const [grouping, setGrouping] = useState<string[]>([]);
 	const [rowSelection, setRowSelection] = useState({});
 	const [sorting, setSorting] = useState<ColumnSort[]>([]);
+	const navigate = useNavigate();
 
 	const [pagination, setPagination] = useState<PaginationState>({
 		pageIndex: 0,
@@ -95,35 +101,81 @@ const GroupedCosmoTable = <D extends object>({
 	});
 	const { getRowModel, getHeaderGroups, setPageIndex, setPageSize } = instance;
 	const { exportData } = useExportTablePlugin(instance, exportFileName, disableExport);
+
+	const translateStatus = useCallback(
+		(status: string) => {
+			switch (status) {
+				case 'WIP':
+					return t('userRevalidation:in-progress');
+				case 'COMPLETED':
+					return t('userRevalidation:completed');
+				case 'NOT_COMPLETED':
+					return t('userRevalidation:not-completed');
+				default:
+					return '';
+			}
+		},
+		[t]
+	);
 	const renderBody = () => {
 		const { rows } = getRowModel();
 		return rows.length ? (
 			rows.map(row => {
 				return (
-					<TableRow className='w-full' key={row.id}>
-						<TableCell />
-						<TableCell>
-							<Link href='/campaign-name'>{row.getVisibleCells()[0].renderCell()}</Link>
-						</TableCell>
-						{row
-							.getVisibleCells()
-							.slice(1)
-							.map(cell => (
-								<TableCell key={cell.id}>
-									{(cell.getIsGrouped() && (
-										<Link href='/campaign-name'>{cell.id}</Link>
-									)) ||
-										(cell.getIsAggregated() && cell.renderAggregatedCell()) ||
-										(!cell.getIsPlaceholder() && cell.renderCell())}
-								</TableCell>
+					<Fragment key={row.id}>
+						<TableExpandRow
+							className='w-full'
+							key={row.id}
+							isExpanded={row.getIsExpanded()}
+							ariaLabel=''
+							onClick={() => row.toggleExpanded()}
+							onExpand={() => null}
+						>
+							<TableCell>
+								<Button
+									kind='ghost'
+									className='underline'
+									onClick={() =>
+										navigate(
+											`/revalidations-ongoing/${(row.original as CampaignWithReview).id}`
+										)
+									}
+								>
+									{row.getVisibleCells()[0].renderCell()}
+								</Button>
+							</TableCell>
+							{row
+								.getVisibleCells()
+								.slice(1)
+								.map(cell => (
+									<TableCell key={cell.id}>
+										{(cell.getIsGrouped() && (
+											<Link href={`/${(row.original as Campaign).id}`}>{cell.id}</Link>
+										)) ||
+											(cell.getIsAggregated() && cell.renderAggregatedCell()) ||
+											(!cell.getIsPlaceholder() && cell.renderCell())}
+									</TableCell>
+								))}
+						</TableExpandRow>
+						{row.getIsExpanded() &&
+							(row.original as CampaignWithReview).campaignApplications.map(review => (
+								<TableRow key={review.id}>
+									<TableCell />
+									<TableCell />
+									<TableCell />
+									<TableCell />
+									<TableCell />
+									<TableCell>{review.application.name}</TableCell>
+									<TableCell>{translateStatus(review.status)}</TableCell>
+								</TableRow>
 							))}
-					</TableRow>
+					</Fragment>
 				);
 			})
 		) : (
 			<TableRow>
 				<TableCell colSpan={columns.length + 1}>
-					<p className='flex justify-center'>{noDataMessage || t('no-data')}</p>
+					<p className='flex justify-center'>{noDataMessage || t('table:no-data')}</p>
 				</TableCell>
 			</TableRow>
 		);
@@ -171,12 +223,15 @@ const GroupedCosmoTable = <D extends object>({
 			</Layer>
 
 			<Pagination
-				backwardText={t('previous-page')}
-				forwardText={t('next-page')}
-				itemsPerPageText={t('items-per-page')}
-				itemRangeText={(min, max, total) => t('item-range', { min, max, total })}
+				backwardText={t('table:previous-page')}
+				forwardText={t('table:next-page')}
+				itemsPerPageText={t('table:items-per-page')}
+				itemRangeText={(min, max, total) => t('table:item-range', { min, max, total })}
 				pageRangeText={(current, total) =>
-					t(total > 1 ? 'page-range-plural' : 'page-range', { current, total })
+					t(total > 1 ? 'table:page-range-plural' : 'table:page-range', {
+						current,
+						total
+					})
 				}
 				page={1}
 				onChange={({ page, pageSize }) => {
