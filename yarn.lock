@@ -3330,10 +3330,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ibm/plex@npm:^6.1.0":
-  version: 6.1.0
-  resolution: "@ibm/plex@npm:6.1.0"
-  checksum: 9a77fbb1f9d42cb64749e0a8ebb4c5c26a9f0a96d2d2449fb5b0c06d83a8abae520c9883df97f8decb5f9c5d3251ca08d99fc562c529557496615fd33959ce07
+"@ibm/plex@npm:6.0.2":
+  version: 6.0.2
+  resolution: "@ibm/plex@npm:6.0.2"
+  checksum: 5053d5958c8911d77b8959d0559cf2f1e9fae55e72d746925f96cee04fb23b98ec0277fe5de7282285c0e3e5d167db871d0e2ce76fd684315371663d1f6a5528
   languageName: node
   linkType: hard
 
@@ -8793,7 +8793,7 @@ __metadata:
     "@carbon/colors": ^11.4.0
     "@carbon/layout": ^11.5.0
     "@carbon/react": 1.12.0
-    "@ibm/plex": ^6.1.0
+    "@ibm/plex": 6.0.2
     "@nabla/vite-plugin-eslint": ^1.4.0
     "@sentry/core": ^6.19.7
     "@sentry/react": 6.19.7
