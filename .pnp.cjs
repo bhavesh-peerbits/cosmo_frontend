@@ -7218,10 +7218,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["npm:6.1.0", {\
-          "packageLocation": "./.yarn/cache/@ibm-plex-npm-6.1.0-a7a9647929-9a77fbb1f9.zip/node_modules/@ibm/plex/",\
+        ["npm:6.0.2", {\
+          "packageLocation": "./.yarn/cache/@ibm-plex-npm-6.0.2-3a1e016bce-5053d5958c.zip/node_modules/@ibm/plex/",\
           "packageDependencies": [\
-            ["@ibm/plex", "npm:6.1.0"]\
+            ["@ibm/plex", "npm:6.0.2"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -14687,7 +14687,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@carbon/colors", "npm:11.4.0"],\
             ["@carbon/layout", "npm:11.5.0"],\
             ["@carbon/react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.12.0"],\
-            ["@ibm/plex", "npm:6.1.0"],\
+            ["@ibm/plex", "npm:6.0.2"],\
             ["@nabla/vite-plugin-eslint", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.4.0"],\
             ["@sentry/core", "npm:6.19.7"],\
             ["@sentry/react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:6.19.7"],\
@@ -14799,7 +14799,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@carbon/colors", "npm:11.4.0"],\
             ["@carbon/layout", "npm:11.5.0"],\
             ["@carbon/react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.12.0"],\
-            ["@ibm/plex", "npm:6.1.0"],\
+            ["@ibm/plex", "npm:6.0.2"],\
             ["@nabla/vite-plugin-eslint", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.4.0"],\
             ["@sentry/core", "npm:6.19.7"],\
             ["@sentry/react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:6.19.7"],\
