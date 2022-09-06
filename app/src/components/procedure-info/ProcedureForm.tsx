@@ -1,4 +1,4 @@
-import { Button, Column, Form, Grid, TextInput, Tile } from '@carbon/react';
+import { Button, Column, Form, Grid, TextArea, TextInput, Tile } from '@carbon/react';
 import { TrashCan } from '@carbon/react/icons';
 import { useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
@@ -20,6 +20,7 @@ import TiptapEditor from '../tiptap/TiptapEditor';
 interface ProcedureFormData {
 	owner: User;
 	delegated: User[];
+	controlObjectives: string;
 	description: string;
 	lastModify: Date;
 	lastModifier: User;
@@ -40,7 +41,7 @@ interface ProcedureFormProps {
 const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormProps) => {
 	const { data = new Map<string, Procedure>() } = useGetProcedures();
 	const procedure = data.get(procedureApp.procedureId) as Procedure;
-	const { t } = useTranslation('procedureInfo');
+	const { t } = useTranslation(['procedureInfo', 'narrativeAdmin']);
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 	const {
 		mutate: addMutate,
@@ -63,12 +64,14 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 		control,
 		reset,
 		handleSubmit,
+		register,
 		formState: { isValid, isDirty }
 	} = useForm<ProcedureFormData>({
 		mode: 'onChange',
 		defaultValues: {
 			owner: procedureApp.owner,
 			delegated: procedureApp.delegated,
+			controlObjectives: procedure.controlObjectives?.toString(),
 			description: procedureApp.description,
 			lastModify: procedureApp.lastModify,
 			lastModifier: procedureApp.lastModifier,
@@ -124,7 +127,7 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 							kind='ghost'
 							renderIcon={TrashCan}
 							tooltipPosition='bottom'
-							iconDescription={t('delete-procedure')}
+							iconDescription={t('procedureInfo:delete-procedure')}
 							onClick={() => setIsDeleteModalOpen(true)}
 						/>
 					</FullWidthColumn>
@@ -142,12 +145,12 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 							<FullWidthColumn className='mb-5'>
 								<SingleUserSelect
 									control={control}
-									label={`${t('procedure-owner')} *`}
+									label={`${t('procedureInfo:procedure-owner')} *`}
 									name='owner'
 									rules={{
 										required: {
 											value: true,
-											message: `${t('procedure-required')}`
+											message: `${t('procedureInfo:procedure-required')}`
 										}
 									}}
 								/>
@@ -155,14 +158,28 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 							<FullWidthColumn className='mb-5'>
 								<MultipleUserSelect
 									control={control}
-									label={`${t('owner-delegates')}`}
+									label={`${t('procedureInfo:owner-delegates')}`}
 									name='delegated'
+								/>
+							</FullWidthColumn>
+							<FullWidthColumn className='mb-5'>
+								<TextArea
+									rows={2}
+									readOnly
+									id='control-objectives'
+									labelText={t('narrativeAdmin:control-objectives')}
+									placeholder={
+										procedure.controlObjectives?.length === 0
+											? 'No control objectives'
+											: ''
+									}
+									{...register('controlObjectives')}
 								/>
 							</FullWidthColumn>
 							<Column sm={4} md={8} lg={8} className='mb-5'>
 								<TextInput
 									id={`last-modify-${procedureApp.id}`}
-									labelText={`${t('last-modify')}`}
+									labelText={`${t('procedureInfo:last-modify')}`}
 									value={procedureApp.lastModify?.toLocaleString()}
 									readOnly
 								/>
@@ -170,7 +187,7 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 							<Column sm={4} md={8} lg={8} className='mb-5'>
 								<TextInput
 									id={`last-modifier-${procedureApp.id}`}
-									labelText={`${t('last-modifier')}`}
+									labelText={`${t('procedureInfo:last-modifier')}`}
 									value={procedureApp.lastModifier?.displayName}
 									readOnly
 								/>
@@ -179,7 +196,7 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 							<Column sm={4} md={8} lg={8} className='mb-5'>
 								<TextInput
 									id={`last-review-${procedureApp.id}`}
-									labelText={`${t('last-review')}`}
+									labelText={`${t('procedureInfo:last-review')}`}
 									value={procedureApp.lastReview?.toLocaleString()}
 									readOnly
 								/>
@@ -187,7 +204,7 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 							<Column sm={4} md={8} lg={8} className='mb-5'>
 								<TextInput
 									id={`last-reviewer-${procedureApp.id}`}
-									labelText={`${t('last-reviewer')}`}
+									labelText={`${t('procedureInfo:last-reviewer')}`}
 									value={procedureApp.lastReviewer?.displayName}
 									readOnly
 								/>
@@ -195,7 +212,7 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 							<FullWidthColumn>
 								<div>
 									<p className='mb-3 text-text-secondary text-label-1'>
-										{`${t('description')}`}
+										{`${t('procedureInfo:description')}`}
 									</p>
 									<TiptapEditor
 										content={descriptionValue}
@@ -222,14 +239,14 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 											disabled={!isDirty}
 											onClick={() => reset()}
 										>
-											{t('cancel')}
+											{t('procedureInfo:cancel')}
 										</Button>
 										<Button
 											type='submit'
 											onClick={handleSubmit(saveForm)}
 											disabled={!isValid || !isDirty}
 										>
-											{`${t('save')}`}
+											{`${t('procedureInfo:save')}`}
 										</Button>
 									</div>
 								</div>

@@ -1,4 +1,4 @@
-import { Button, Column, Form, Grid, TextInput } from '@carbon/react';
+import { Button, Column, Form, Grid, TextArea, TextInput } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import MultipleUserSelect from '@components/MultipleUserSelect';
 import SingleUserSelect from '@components/SingleUserSelect';
@@ -11,10 +11,13 @@ import { useTranslation } from 'react-i18next';
 import useReviewProcedure from '@api/review/useReviewProcedure';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';
+import useGetProcedures from '@api/procedures/useGetProcedures';
+import Procedure from '@model/Procedure';
 
 interface ProcedureFormData {
 	owner: User;
 	delegated: User[];
+	controlObjectives: string;
 	description: string;
 	lastModify: Date;
 	lastModifier: User;
@@ -28,7 +31,10 @@ interface ProcedureReviewProps {
 }
 
 const ProcedureReview = ({ procedureApp, appId }: ProcedureReviewProps) => {
-	const { t } = useTranslation('procedureInfo');
+	const { t } = useTranslation(['procedureInfo', 'narrativeAdmin']);
+	const { data = new Map<string, Procedure>() } = useGetProcedures();
+	const procedure = data.get(procedureApp.procedureId) as Procedure;
+
 	const {
 		mutate,
 		isLoading,
@@ -42,12 +48,14 @@ const ProcedureReview = ({ procedureApp, appId }: ProcedureReviewProps) => {
 		control,
 		reset,
 		handleSubmit,
+		register,
 		formState: { isDirty, isValid }
 	} = useForm<ProcedureFormData>({
 		mode: 'onChange',
 		defaultValues: {
 			owner: procedureApp.owner,
 			delegated: procedureApp.delegated,
+			controlObjectives: procedure.controlObjectives?.toString(),
 			description: procedureApp.description,
 			lastModify: procedureApp.lastModify,
 			lastModifier: procedureApp.lastModifier,
@@ -88,12 +96,12 @@ const ProcedureReview = ({ procedureApp, appId }: ProcedureReviewProps) => {
 						<FullWidthColumn className='mb-5'>
 							<SingleUserSelect
 								control={control}
-								label={`${t('procedure-owner')} *`}
+								label={`${t('procedureInfo:procedure-owner')} *`}
 								name='owner'
 								rules={{
 									required: {
 										value: true,
-										message: `${t('owner-required')}`
+										message: `${t('procedureInfo:owner-required')}`
 									}
 								}}
 							/>
@@ -101,14 +109,26 @@ const ProcedureReview = ({ procedureApp, appId }: ProcedureReviewProps) => {
 						<FullWidthColumn className='mb-5'>
 							<MultipleUserSelect
 								control={control}
-								label={`${t('owner-delegates')}`}
+								label={`${t('procedureInfo:owner-delegates')}`}
 								name='delegated'
+							/>
+						</FullWidthColumn>
+						<FullWidthColumn className='mb-5'>
+							<TextArea
+								rows={2}
+								readOnly
+								id='control-objectives'
+								labelText={t('narrativeAdmin:control-objectives')}
+								placeholder={
+									procedure.controlObjectives?.length === 0 ? 'No control objectives' : ''
+								}
+								{...register('controlObjectives')}
 							/>
 						</FullWidthColumn>
 						<Column sm={4} md={8} lg={8} className='mb-5'>
 							<TextInput
 								id={`last-modify-${procedureApp.id}`}
-								labelText={`${t('last-modify')}`}
+								labelText={`${t('procedureInfo:last-modify')}`}
 								value={procedureApp.lastModify?.toLocaleString()}
 								readOnly
 							/>
@@ -116,7 +136,7 @@ const ProcedureReview = ({ procedureApp, appId }: ProcedureReviewProps) => {
 						<Column sm={4} md={8} lg={8} className='mb-5'>
 							<TextInput
 								id={`last-modifier-${procedureApp.id}`}
-								labelText={`${t('last-modifier')}`}
+								labelText={`${t('procedureInfo:last-modifier')}`}
 								value={procedureApp.lastModifier?.displayName}
 								readOnly
 							/>
@@ -124,7 +144,7 @@ const ProcedureReview = ({ procedureApp, appId }: ProcedureReviewProps) => {
 						<FullWidthColumn className='mb-5'>
 							<div>
 								<p className='mb-3 text-text-secondary text-label-1'>
-									{`${t('description')}`}
+									{`${t('procedureInfo:description')}`}
 								</p>
 								<TiptapEditor
 									content={descriptionValue}
@@ -155,16 +175,16 @@ const ProcedureReview = ({ procedureApp, appId }: ProcedureReviewProps) => {
 											apiReset();
 										}}
 									>
-										{t('discard')}
+										{t('procedureInfo:discard')}
 									</Button>
 									{isSuccess ? (
 										<div className='flex h-8 items-center space-x-2 text-link-primary'>
-											<p className='text-body-short-2'>{t('confirmed')}</p>
+											<p className='text-body-short-2'>{t('procedureInfo:confirmed')}</p>
 											<Checkmark />
 										</div>
 									) : (
 										<Button type='submit' disabled={!isValid}>
-											{t('confirm')}
+											{t('procedureInfo:confirm')}
 										</Button>
 									)}
 								</div>
