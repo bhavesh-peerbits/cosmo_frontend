@@ -1,6 +1,6 @@
 import { Button, Column, Form, Grid, TextInput, Tile } from '@carbon/react';
 import { TrashCan } from '@carbon/react/icons';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
 import FullWidthColumn from '@components/FullWidthColumn';
 import MultipleUserSelect from '@components/MultipleUserSelect';
@@ -18,7 +18,6 @@ import Procedure from '@model/Procedure';
 import TiptapEditor from '../tiptap/TiptapEditor';
 
 interface ProcedureFormData {
-	name: string;
 	owner: User;
 	delegated: User[];
 	description: string;
@@ -41,11 +40,6 @@ interface ProcedureFormProps {
 const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormProps) => {
 	const { data = new Map<string, Procedure>() } = useGetProcedures();
 	const procedure = data.get(procedureApp.procedureId) as Procedure;
-	const procedures = useMemo(() => [...data.values()], [data]);
-
-	const procedureNameList = procedures
-		.filter(proc => proc.name.toLowerCase() !== procedure?.name.toLowerCase())
-		.map(proc => proc.name.toLowerCase());
 	const { t } = useTranslation('procedureInfo');
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 	const {
@@ -67,14 +61,12 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 
 	const {
 		control,
-		register,
 		reset,
 		handleSubmit,
-		formState: { errors, isValid, isDirty }
+		formState: { isValid, isDirty }
 	} = useForm<ProcedureFormData>({
 		mode: 'onChange',
 		defaultValues: {
-			name: procedureApp.name,
 			owner: procedureApp.owner,
 			delegated: procedureApp.delegated,
 			description: procedureApp.description,
@@ -147,26 +139,7 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 					/>
 					<FullWidthColumn>
 						<Grid fullWidth>
-							<Column sm={4} md={8} lg={8} className='mb-5'>
-								<TextInput
-									className='w-full'
-									id='procedure'
-									labelText={`${t('procedure-name')} *`}
-									placeholder={`${t('procedure-name')}`}
-									invalidText={errors.name?.message}
-									invalid={Boolean(errors.name)}
-									{...register('name', {
-										required: {
-											value: true,
-											message: `${t('procedure-required')}`
-										},
-										validate: name =>
-											!procedureNameList.includes(name.toLowerCase()) ||
-											`${t('name-exists')}`
-									})}
-								/>
-							</Column>
-							<Column sm={4} md={8} lg={8} className='mb-5'>
+							<FullWidthColumn className='mb-5'>
 								<SingleUserSelect
 									control={control}
 									label={`${t('procedure-owner')} *`}
@@ -178,7 +151,7 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 										}
 									}}
 								/>
-							</Column>
+							</FullWidthColumn>
 							<FullWidthColumn className='mb-5'>
 								<MultipleUserSelect
 									control={control}

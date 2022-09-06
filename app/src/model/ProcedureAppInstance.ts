@@ -7,7 +7,6 @@ import formatIso from 'date-fns/formatISO';
 
 interface ProcedureAppInstance {
 	id: string;
-	name: string;
 	applicationId?: string;
 	description?: string;
 	procedureId: string;
@@ -27,7 +26,6 @@ export const fromProcedureAppInstanceApi = (
 ): ProcedureAppInstance => {
 	return {
 		id: `${procedureApi.id}`,
-		name: procedureApi.name || '',
 		applicationId: `${procedureApi.application.id}`,
 		description: procedureApi.description,
 		procedureId: `${procedureApi.procedure.id}`,
@@ -55,7 +53,6 @@ export const toProcedureAppInstanceApi = (
 ): ProcedureAppInstanceApi => {
 	return {
 		id: +procedure.id,
-		name: procedure.name || '',
 		procedure: {
 			id: +procedure.procedureId
 		},

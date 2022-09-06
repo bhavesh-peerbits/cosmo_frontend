@@ -7,14 +7,12 @@ import { Checkmark } from '@carbon/react/icons';
 import ProcedureAppInstance from '@model/ProcedureAppInstance';
 import User from '@model/User';
 import { useController, useForm } from 'react-hook-form';
-import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import useReviewProcedure from '@api/review/useReviewProcedure';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';
 
 interface ProcedureFormData {
-	name: string;
 	owner: User;
 	delegated: User[];
 	description: string;
@@ -25,24 +23,12 @@ interface ProcedureFormData {
 }
 
 interface ProcedureReviewProps {
-	appProcedures: ProcedureAppInstance[];
 	procedureApp: ProcedureAppInstance;
 	appId: string;
 }
 
-const ProcedureReview = ({
-	appProcedures,
-	procedureApp,
-	appId
-}: ProcedureReviewProps) => {
+const ProcedureReview = ({ procedureApp, appId }: ProcedureReviewProps) => {
 	const { t } = useTranslation('procedureInfo');
-	const procedureNameList = useMemo(
-		() =>
-			appProcedures
-				.filter(proc => proc.name.toLowerCase() !== procedureApp.name.toLowerCase())
-				.map(proc => proc.name.toLowerCase()),
-		[appProcedures, procedureApp.name]
-	);
 	const {
 		mutate,
 		isLoading,
@@ -54,14 +40,12 @@ const ProcedureReview = ({
 
 	const {
 		control,
-		register,
 		reset,
 		handleSubmit,
-		formState: { errors, isDirty, isValid }
+		formState: { isDirty, isValid }
 	} = useForm<ProcedureFormData>({
 		mode: 'onChange',
 		defaultValues: {
-			name: procedureApp.name,
 			owner: procedureApp.owner,
 			delegated: procedureApp.delegated,
 			description: procedureApp.description,
@@ -101,26 +85,7 @@ const ProcedureReview = ({
 			<FullWidthColumn className='pt-4'>
 				<Form className='space-y-4' onSubmit={handleSubmit(sendData)}>
 					<Grid fullWidth>
-						<Column sm={4} md={8} lg={8} className='mb-5'>
-							<TextInput
-								className='w-full'
-								id='procedure'
-								labelText={`${t('procedure-name')} *`}
-								placeholder={`${t('procedure-name')}`}
-								invalidText={errors.name?.message}
-								invalid={Boolean(errors.name)}
-								{...register('name', {
-									required: {
-										value: true,
-										message: `${t('procedure-required')}`
-									},
-									validate: name =>
-										!procedureNameList.includes(name.toLowerCase()) ||
-										`${t('name-exists')}`
-								})}
-							/>
-						</Column>
-						<Column sm={4} md={8} lg={8} className='mb-5'>
+						<FullWidthColumn className='mb-5'>
 							<SingleUserSelect
 								control={control}
 								label={`${t('procedure-owner')} *`}
@@ -132,7 +97,7 @@ const ProcedureReview = ({
 									}
 								}}
 							/>
-						</Column>
+						</FullWidthColumn>
 						<FullWidthColumn className='mb-5'>
 							<MultipleUserSelect
 								control={control}

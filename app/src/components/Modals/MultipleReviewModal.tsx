@@ -25,6 +25,8 @@ import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 import useReviewProcedures from '@api/management/useReviewProcedures';
 import { startOfTomorrow } from 'date-fns';
+import useGetProcedures from '@api/procedures/useGetProcedures';
+import { Procedure } from 'cosmo-api/src/v1';
 
 type FormData = {
 	reviewer: User[];
@@ -46,8 +48,10 @@ const MultipleReviewModal = ({
 	items,
 	appId
 }: MultipleReviewModalProps) => {
-	const itemsIds = items.map(item => +item.id);
 	const { t } = useTranslation('modals');
+	const itemsIds = items.map(item => +item.id);
+	const { data: dataProcedures = new Map<string, Procedure>() } = useGetProcedures();
+
 	const {
 		mutate: mutateApp,
 		error: errorApp,
@@ -135,7 +139,13 @@ const MultipleReviewModal = ({
 									{items.map((item, index) => {
 										return (
 											<div className='mb-4 flex-col space-y-2' key={item.id}>
-												<p className='text-heading-1'>{item.name}</p>
+												<p className='text-heading-1'>
+													{type === 'application'
+														? (item as Application).name
+														: dataProcedures.get(
+																(item as ProcedureAppInstance).procedureId
+														  )?.name}
+												</p>
 												<Grid>
 													<Column lg={8} md={4} sm={4} className='mb-5'>
 														<SingleUserSelect
