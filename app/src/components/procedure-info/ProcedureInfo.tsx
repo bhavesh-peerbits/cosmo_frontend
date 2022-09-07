@@ -13,12 +13,15 @@ import MultipleReviewModal from '@components/Modals/MultipleReviewModal';
 import ProcedureReviewModal from '@components/Modals/ProcedureReviewModal';
 import { useTranslation } from 'react-i18next';
 import { useResponsive } from 'ahooks';
+import useGetProcedures from '@api/procedures/useGetProcedures';
+import Procedure from '@model/Procedure';
 import NewProcedureModal from '../Modals/NewProcedureModal';
 
 type ProcedureState = Partial<ProcedureAppInstance> & {
 	id: string;
 	procedureId: string;
 	isNew?: boolean;
+	title?: string;
 };
 
 const ProcedureInfo = () => {
@@ -34,6 +37,19 @@ const ProcedureInfo = () => {
 	const [procedureChecked, setProcedureChecked] = useState<string[]>([]);
 	const buttonRef = useRef<HTMLDivElement>(null);
 	const { md } = useResponsive();
+	const { data: proceduresData = new Map<string, Procedure>() } = useGetProcedures();
+	const [procedures, setProcedures] = useState<Procedure[]>();
+	useEffect(() => {
+		setProcedures([...proceduresData.values()]);
+	}, [proceduresData, setProcedures]);
+
+	const orderProcedures = (proceduresToOrder: ProcedureState[]) => {
+		return proceduresToOrder.sort(
+			(a, b) =>
+				(procedures?.find(proc => proc?.id === a?.procedureId)?.orderNumber || 0) -
+				(procedures?.find(proc => proc?.id === b.procedureId)?.orderNumber || 0)
+		);
+	};
 
 	useEffect(() => {
 		setProcedureList(old => {
@@ -116,16 +132,18 @@ const ProcedureInfo = () => {
 							setIsOpen={setIsNewProcedureOpen}
 							procedureApps={[...data.values()]}
 							onSuccess={(prc, appProc) =>
-								setProcedureList(old => [
-									...old,
-									{
-										...appProc,
-										id: `${Math.random() * 10000}`,
-										title: prc.name,
-										procedureId: prc.id,
-										isNew: true
-									}
-								])
+								setProcedureList(old =>
+									orderProcedures([
+										...old,
+										{
+											...appProc,
+											id: `${Math.random() * 10000}`,
+											title: prc.name,
+											procedureId: prc.id,
+											isNew: true
+										}
+									])
+								)
 							}
 						/>
 						{showProcedureModal &&
