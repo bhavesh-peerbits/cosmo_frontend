@@ -89,10 +89,7 @@ const TearsheetShell = React.forwardRef<HTMLDivElement, TearsheetShellProps>(
 		const portalTarget = portalTargetIn || document.body;
 
 		const localRef = useRef<HTMLDivElement>(null);
-		const modalRef = (ref || localRef) as unknown as MutableRefObject<{
-			innerModal: MutableRefObject<HTMLDivElement>;
-			startSentinel: MutableRefObject<HTMLDivElement>;
-		}>;
+		const modalRef = (ref || localRef) as MutableRefObject<HTMLDivElement>;
 
 		const refResize = useRef(null);
 		const resizer = useSize(refResize);
@@ -124,7 +121,7 @@ const TearsheetShell = React.forwardRef<HTMLDivElement, TearsheetShellProps>(
 			if (
 				position === depth &&
 				modalRef.current &&
-				!modalRef.current.innerModal.current.contains(document.activeElement)
+				!modalRef.current.contains(document.activeElement)
 			) {
 				handleStackChange.claimFocus();
 			}
@@ -133,8 +130,8 @@ const TearsheetShell = React.forwardRef<HTMLDivElement, TearsheetShellProps>(
 		// Callback to give the tearsheet the opportunity to claim focus
 		handleStackChange.claimFocus = () => {
 			const element = selectorPrimaryFocus
-				? modalRef.current.innerModal.current.querySelector(selectorPrimaryFocus)
-				: modalRef.current.startSentinel.current;
+				? modalRef.current.querySelector(selectorPrimaryFocus)
+				: modalRef.current;
 			setTimeout(() => (element as HTMLElement)?.focus(), 1);
 		};
 
