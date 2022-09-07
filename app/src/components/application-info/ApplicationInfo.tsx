@@ -77,7 +77,11 @@ const ApplicationInfo = ({ application }: ApplicationInfoProps) => {
 					description: application.description,
 					delegates: application.delegates,
 					appMaintenance: applicationData?.appMaintenance,
-					operationSupplier: applicationData?.operationSupplier
+					operationSupplier: applicationData?.operationSupplier,
+					lastModify: application.lastModify,
+					lastModifier: application.lastModifier,
+					lastReview: application.lastReview,
+					lastReviewer: application.lastReviewer
 				},
 				technicalInfo: {
 					appServers: applicationData?.appServers,

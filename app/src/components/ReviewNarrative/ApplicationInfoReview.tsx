@@ -54,7 +54,11 @@ const ApplicationInfoReview = ({ application }: ApplicationInfoReviewProps) => {
 				description: application.description,
 				delegates: application.delegates,
 				appMaintenance: applicationData?.appMaintenance,
-				operationSupplier: applicationData?.operationSupplier
+				operationSupplier: applicationData?.operationSupplier,
+				lastModify: application.lastModify,
+				lastModifier: application.lastModifier,
+				lastReview: application.lastReview,
+				lastReviewer: application.lastReviewer
 			},
 			technicalInfo: {
 				appServers: applicationData?.appServers,
@@ -97,6 +101,7 @@ const ApplicationInfoReview = ({ application }: ApplicationInfoReviewProps) => {
 									errors={errors as FieldErrors<GeneralInfoForm>}
 									register={register as unknown as UseFormRegister<GeneralInfoForm>}
 									getValues={getValues as unknown as UseFormGetValues<GeneralInfoForm>}
+									excludesLastReview
 								/>
 							</FullWidthColumn>
 						</Grid>

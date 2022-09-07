@@ -27,6 +27,10 @@ export interface GeneralInfoForm {
 		delegates: User[];
 		appMaintenance: string;
 		operationSupplier: string;
+		lastModify: Date;
+		lastModifier: User;
+		lastReview: Date;
+		lastReviewer: User;
 	};
 }
 
@@ -35,9 +39,16 @@ type GeneralInfoProps = {
 	errors: FieldErrors<GeneralInfoForm>;
 	control: Control<GeneralInfoForm>;
 	getValues?: UseFormGetValues<GeneralInfoForm>;
+	excludesLastReview?: boolean;
 };
 
-const GeneralInfo = ({ register, errors, control, getValues }: GeneralInfoProps) => {
+const GeneralInfo = ({
+	register,
+	errors,
+	control,
+	getValues,
+	excludesLastReview
+}: GeneralInfoProps) => {
 	const { data = new Map() } = useGetApps();
 	const apps = useMemo(() => [...data.values()] || [], [data]);
 
@@ -71,7 +82,7 @@ const GeneralInfo = ({ register, errors, control, getValues }: GeneralInfoProps)
 		);
 	}, [apps, getValues]);
 
-	const { t } = useTranslation('applicationInfo');
+	const { t } = useTranslation(['applicationInfo', 'procedureInfo']);
 	const {
 		field: { onChange, value, ref, onBlur }
 	} = useController({
@@ -110,17 +121,18 @@ const GeneralInfo = ({ register, errors, control, getValues }: GeneralInfoProps)
 					className='w-full'
 					id='name'
 					invalidText={errors.generalInfo?.name?.message}
-					labelText={`${t('name')} *`}
-					placeholder={`${t('name')}`}
-					helperText={`${t('application-name')}`}
+					labelText={`${t('applicationInfo:name')} *`}
+					placeholder={`${t('applicationInfo:name')}`}
+					helperText={`${t('applicationInfo:application-name')}`}
 					invalid={Boolean(errors.generalInfo?.name)}
 					{...register('generalInfo.name', {
 						required: {
 							value: true,
-							message: `${t('required')}`
+							message: `${t('applicationInfo:required')}`
 						},
 						validate: name =>
-							!appNameList.includes(name.toLowerCase()) || `${t('name-exists')}`
+							!appNameList.includes(name.toLowerCase()) ||
+							`${t('applicationInfo:name-exists')}`
 					})}
 				/>
 			</Column>
@@ -129,28 +141,29 @@ const GeneralInfo = ({ register, errors, control, getValues }: GeneralInfoProps)
 					className='w-full'
 					id='code'
 					invalidText={errors.generalInfo?.codeName?.message}
-					labelText={`${t('code')} *`}
-					placeholder={`${t('code')}`}
-					helperText={`${t('application-acronym')}`}
+					labelText={`${t('applicationInfo:code')} *`}
+					placeholder={`${t('applicationInfo:code')}`}
+					helperText={`${t('applicationInfo:application-acronym')}`}
 					invalid={Boolean(errors.generalInfo?.codeName)}
 					{...register('generalInfo.codeName', {
 						required: {
 							value: true,
-							message: `${t('required')}`
+							message: `${t('applicationInfo:required')}`
 						},
 						pattern: {
 							value: /^([a-zA-Z0-9\s._-]+)$/,
-							message: t('wrong-code-pattern')
+							message: t('applicationInfo:wrong-code-pattern')
 						},
 						validate: code =>
-							!appCodeList.includes(code.toLowerCase()) || `${t('code-exists')}`
+							!appCodeList.includes(code.toLowerCase()) ||
+							`${t('applicationInfo:code-exists')}`
 					})}
 				/>
 			</Column>
 			<FullWidthColumn className='mb-5'>
 				<SingleUserSelect
 					control={control}
-					label={`${t('owner')} *`}
+					label={`${t('applicationInfo:owner')} *`}
 					name='generalInfo.owner'
 					rules={{
 						required: true
@@ -160,7 +173,7 @@ const GeneralInfo = ({ register, errors, control, getValues }: GeneralInfoProps)
 			<FullWidthColumn className='mb-5'>
 				<MultipleUserSelect
 					control={control}
-					label={`${t('owner-delegates')}`}
+					label={`${t('applicationInfo:owner-delegates')}`}
 					name='generalInfo.delegates'
 				/>
 			</FullWidthColumn>
@@ -168,8 +181,8 @@ const GeneralInfo = ({ register, errors, control, getValues }: GeneralInfoProps)
 				<TextInput
 					className='w-full'
 					id='application-maintenance-supplier'
-					labelText={t('app-maintenance')}
-					placeholder={t('app-maintenance')}
+					labelText={t('applicationInfo:app-maintenance')}
+					placeholder={t('applicationInfo:app-maintenance')}
 					{...register('generalInfo.appMaintenance')}
 				/>
 			</Column>
@@ -177,14 +190,69 @@ const GeneralInfo = ({ register, errors, control, getValues }: GeneralInfoProps)
 				<TextInput
 					className='w-full'
 					id='operation-supplier'
-					labelText={t('operation-supplier')}
-					placeholder={t('operation-supplier')}
+					labelText={t('applicationInfo:operation-supplier')}
+					placeholder={t('applicationInfo:operation-supplier')}
 					{...register('generalInfo.operationSupplier')}
 				/>
 			</Column>
+			<Column sm={4} md={8} lg={8} className='mb-5'>
+				<TextInput
+					id='last-modifier'
+					labelText={`${t('procedureInfo:last-modifier')}`}
+					readOnly
+					value={
+						getValues && getValues('generalInfo.lastModifier')
+							? getValues('generalInfo.lastModifier.displayName')
+							: ''
+					}
+				/>
+			</Column>
+			<Column sm={4} md={8} lg={8} className='mb-5'>
+				<TextInput
+					id='last-modify'
+					labelText={`${t('procedureInfo:last-modify')}`}
+					readOnly
+					value={
+						getValues && getValues('generalInfo.lastModify')
+							? getValues('generalInfo.lastModify').toLocaleString()
+							: ''
+					}
+				/>
+			</Column>
+			{!excludesLastReview && (
+				<>
+					<Column sm={4} md={8} lg={8} className='mb-5'>
+						<TextInput
+							id='last-reviewer'
+							labelText={`${t('procedureInfo:last-reviewer')}`}
+							readOnly
+							value={
+								getValues && getValues('generalInfo.lastReviewer')
+									? getValues('generalInfo.lastReviewer.displayName')
+									: ''
+							}
+						/>
+					</Column>
+					<Column sm={4} md={8} lg={8} className='mb-5'>
+						<TextInput
+							id='last-review'
+							labelText={`${t('procedureInfo:last-review')}`}
+							readOnly
+							value={
+								getValues && getValues('generalInfo.lastReview')
+									? getValues('generalInfo.lastReview').toLocaleString()
+									: ''
+							}
+						/>
+					</Column>
+				</>
+			)}
+
 			<FullWidthColumn>
 				<div>
-					<p className='mb-3 text-text-secondary text-label-1'> {t('description')} </p>
+					<p className='mb-3 text-text-secondary text-label-1'>
+						{t('applicationInfo:description')}
+					</p>
 					<TiptapEditor
 						content={descriptionValue}
 						onChange={onChangeDescription}
