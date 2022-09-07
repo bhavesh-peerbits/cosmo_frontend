@@ -6,7 +6,7 @@ import {
 	appsVisibilityFilters,
 	filteredApplications
 } from '@store/admin-panel/appsVisibilityFilters';
-import useGetApps from '@api/management/useGetApps';
+import useGetAppsAdmin from '@api/user-admin/useGetAppsAdmin';
 
 const useVisibilityApps = () => {
 	const [urlFilters, setUrlFilters] = useUrlState<{
@@ -17,7 +17,7 @@ const useVisibilityApps = () => {
 	const [filters, setFilters] = useRecoilState(appsVisibilityFilters);
 	const setApps = useSetRecoilState(appsList);
 	const { apps } = useRecoilValue(filteredApplications);
-	const { data = new Map() } = useGetApps();
+	const { data = new Map() } = useGetAppsAdmin();
 
 	useEffect(() => {
 		setApps([...data.values()]);
