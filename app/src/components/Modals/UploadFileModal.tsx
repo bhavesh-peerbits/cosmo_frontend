@@ -114,7 +114,9 @@ const UploadFileModal = ({
 						level={2}
 						label={`${t('userRevalidation:app-related')} *`}
 						name='application'
-						excludedApps={[...applications.values()].map(app => app.id)}
+						excludedApps={[...applications.values()].map(
+							campaignApp => campaignApp.application.id
+						)}
 						rules={{
 							required: {
 								value: true,
