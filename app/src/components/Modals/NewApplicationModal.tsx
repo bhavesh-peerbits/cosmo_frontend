@@ -98,7 +98,13 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 						/>
 					)}
 				</Stack>
-				<GeneralInfo control={control} errors={errors} register={register} />
+				<GeneralInfo
+					control={control}
+					errors={errors}
+					register={register}
+					excludesLastModify
+					excludesLastReview
+				/>
 			</CreateTearsheetStep>
 		);
 	}, [

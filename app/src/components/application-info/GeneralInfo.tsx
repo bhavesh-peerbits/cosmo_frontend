@@ -40,6 +40,7 @@ type GeneralInfoProps = {
 	control: Control<GeneralInfoForm>;
 	getValues?: UseFormGetValues<GeneralInfoForm>;
 	excludesLastReview?: boolean;
+	excludesLastModify?: boolean;
 };
 
 const GeneralInfo = ({
@@ -47,7 +48,8 @@ const GeneralInfo = ({
 	errors,
 	control,
 	getValues,
-	excludesLastReview
+	excludesLastReview,
+	excludesLastModify
 }: GeneralInfoProps) => {
 	const { data = new Map() } = useGetApps();
 	const apps = useMemo(() => [...data.values()] || [], [data]);
@@ -195,30 +197,34 @@ const GeneralInfo = ({
 					{...register('generalInfo.operationSupplier')}
 				/>
 			</Column>
-			<Column sm={4} md={8} lg={8} className='mb-5'>
-				<TextInput
-					id='last-modifier'
-					labelText={`${t('procedureInfo:last-modifier')}`}
-					readOnly
-					value={
-						getValues && getValues('generalInfo.lastModifier')
-							? getValues('generalInfo.lastModifier.displayName')
-							: ''
-					}
-				/>
-			</Column>
-			<Column sm={4} md={8} lg={8} className='mb-5'>
-				<TextInput
-					id='last-modify'
-					labelText={`${t('procedureInfo:last-modify')}`}
-					readOnly
-					value={
-						getValues && getValues('generalInfo.lastModify')
-							? getValues('generalInfo.lastModify').toLocaleString()
-							: ''
-					}
-				/>
-			</Column>
+			{!excludesLastModify && (
+				<>
+					<Column sm={4} md={8} lg={8} className='mb-5'>
+						<TextInput
+							id='last-modifier'
+							labelText={`${t('procedureInfo:last-modifier')}`}
+							readOnly
+							value={
+								getValues && getValues('generalInfo.lastModifier')
+									? getValues('generalInfo.lastModifier.displayName')
+									: ''
+							}
+						/>
+					</Column>
+					<Column sm={4} md={8} lg={8} className='mb-5'>
+						<TextInput
+							id='last-modify'
+							labelText={`${t('procedureInfo:last-modify')}`}
+							readOnly
+							value={
+								getValues && getValues('generalInfo.lastModify')
+									? getValues('generalInfo.lastModify').toLocaleString()
+									: ''
+							}
+						/>
+					</Column>
+				</>
+			)}
 			{!excludesLastReview && (
 				<>
 					<Column sm={4} md={8} lg={8} className='mb-5'>
