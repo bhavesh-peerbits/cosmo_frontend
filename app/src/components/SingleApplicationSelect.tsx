@@ -13,7 +13,7 @@ import {
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
 import Application from '@model/Application';
-import useGetApps from '@api/management/useGetApps';
+import useGetRevalidationApps from '@api/user-revalidation/useGetRevalidationApps';
 
 type SingleApplicationSelectProps<
 	T extends FieldValues,
@@ -55,7 +55,7 @@ const SingleApplicationSelect = <T extends FieldValues, TName extends FieldPath<
 	});
 	const value = formValue as Application | undefined;
 	const [openSearch, setOpenSearch] = useState(false);
-	const { data = new Map() } = useGetApps();
+	const { data = new Map() } = useGetRevalidationApps();
 	const applications = useMemo(() => {
 		let apps = [...data.values()] || [];
 		if (excludedApps) {
