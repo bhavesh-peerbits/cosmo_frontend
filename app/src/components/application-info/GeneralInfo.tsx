@@ -5,7 +5,8 @@ import {
 	FieldErrors,
 	useController,
 	UseFormGetValues,
-	UseFormRegister
+	UseFormRegister,
+	UseFormWatch
 } from 'react-hook-form';
 import User from '@model/User';
 import SingleUserSelect from '@components/SingleUserSelect';
@@ -35,6 +36,7 @@ export interface GeneralInfoForm {
 }
 
 type GeneralInfoProps = {
+	watch?: UseFormWatch<GeneralInfoForm>;
 	register: UseFormRegister<GeneralInfoForm>;
 	errors: FieldErrors<GeneralInfoForm>;
 	control: Control<GeneralInfoForm>;
@@ -45,6 +47,7 @@ type GeneralInfoProps = {
 
 const GeneralInfo = ({
 	register,
+	watch,
 	errors,
 	control,
 	getValues,
@@ -56,6 +59,8 @@ const GeneralInfo = ({
 
 	const [appNameList, setAppNameList] = useState<string[]>([]);
 	const [appCodeList, setAppCodeList] = useState<string[]>([]);
+	const selectedOwner = watch ? watch('generalInfo.owner') : undefined;
+	const selectedDelegates = watch ? watch('generalInfo.delegates') : [];
 
 	useEffect(() => {
 		setAppNameList(
@@ -170,6 +175,7 @@ const GeneralInfo = ({
 					rules={{
 						required: true
 					}}
+					excludedUsers={selectedDelegates}
 				/>
 			</FullWidthColumn>
 			<FullWidthColumn className='mb-5'>
@@ -177,6 +183,7 @@ const GeneralInfo = ({
 					control={control}
 					label={`${t('applicationInfo:owner-delegates')}`}
 					name='generalInfo.delegates'
+					excludedUser={selectedOwner}
 				/>
 			</FullWidthColumn>
 			<Column sm={4} md={8} lg={8} className='mb-5'>

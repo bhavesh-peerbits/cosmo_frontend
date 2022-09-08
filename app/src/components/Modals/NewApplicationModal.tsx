@@ -27,6 +27,7 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 		register,
 		control,
 		getValues,
+		watch,
 		reset,
 		formState: { errors, isValid, isDirty }
 	} = useForm<GeneralInfoForm>({
@@ -102,6 +103,7 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 					control={control}
 					errors={errors}
 					register={register}
+					watch={watch}
 					excludesLastModify
 					excludesLastReview
 				/>
@@ -115,7 +117,8 @@ const NewApplicationModal = ({ isOpen, setIsOpen }: NewApplicationProps) => {
 		isValid,
 		register,
 		shouldIncludeTechnicalInfo,
-		t
+		t,
+		watch
 	]);
 
 	const generateTechnicalInfo = useCallback(
