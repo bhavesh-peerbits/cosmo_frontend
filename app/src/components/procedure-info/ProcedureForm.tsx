@@ -63,6 +63,7 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 	const {
 		control,
 		reset,
+		watch,
 		handleSubmit,
 		register,
 		formState: { isValid, isDirty }
@@ -79,6 +80,8 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 			lastReviewer: procedureApp.lastReviewer
 		}
 	});
+	const selectedOwner = watch('owner');
+	const selectedDelegates = watch('delegated');
 	const {
 		field: {
 			onChange: onChangeDescription,
@@ -153,6 +156,7 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 											message: `${t('procedureInfo:procedure-required')}`
 										}
 									}}
+									excludedUsers={selectedDelegates}
 								/>
 							</FullWidthColumn>
 							<FullWidthColumn className='mb-5'>
@@ -160,6 +164,7 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 									control={control}
 									label={`${t('procedureInfo:owner-delegates')}`}
 									name='delegated'
+									excludedUser={selectedOwner}
 								/>
 							</FullWidthColumn>
 							<FullWidthColumn className='mb-5'>

@@ -46,6 +46,7 @@ const ProcedureReview = ({ procedureApp, appId }: ProcedureReviewProps) => {
 
 	const {
 		control,
+		watch,
 		reset,
 		handleSubmit,
 		register,
@@ -63,6 +64,9 @@ const ProcedureReview = ({ procedureApp, appId }: ProcedureReviewProps) => {
 			lastReviewer: procedureApp.lastReviewer
 		}
 	});
+	const selectedOwner = watch('owner');
+	const selectedDelegates = watch('delegated');
+
 	const {
 		field: {
 			onChange: onChangeDescription,
@@ -104,6 +108,7 @@ const ProcedureReview = ({ procedureApp, appId }: ProcedureReviewProps) => {
 										message: `${t('procedureInfo:owner-required')}`
 									}
 								}}
+								excludedUsers={selectedDelegates}
 							/>
 						</FullWidthColumn>
 						<FullWidthColumn className='mb-5'>
@@ -111,6 +116,7 @@ const ProcedureReview = ({ procedureApp, appId }: ProcedureReviewProps) => {
 								control={control}
 								label={`${t('procedureInfo:owner-delegates')}`}
 								name='delegated'
+								excludedUser={selectedOwner}
 							/>
 						</FullWidthColumn>
 						<FullWidthColumn className='mb-5'>

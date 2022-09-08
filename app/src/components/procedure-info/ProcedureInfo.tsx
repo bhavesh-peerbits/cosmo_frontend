@@ -39,6 +39,7 @@ const ProcedureInfo = () => {
 	const { md } = useResponsive();
 	const { data: proceduresData = new Map<string, Procedure>() } = useGetProcedures();
 	const [procedures, setProcedures] = useState<Procedure[]>();
+
 	useEffect(() => {
 		setProcedures([...proceduresData.values()]);
 	}, [proceduresData, setProcedures]);
