@@ -6,44 +6,44 @@
 @use '@carbon/charts/styles.css';
 
 .container-w-sidenav {
-  @apply mr-0 p-0 md:ml-[3rem] lg:ml-[calc(32*0.5rem)];
+	@apply mr-0 p-0 md:ml-[3rem] lg:ml-[calc(32*0.5rem)];
 
-  // @include breakpoint.breakpoint-down('lg') {
-  //	margin-left: 0;
-  // }
+	// @include breakpoint.breakpoint-down('lg') {
+	//	margin-left: 0;
+	// }
 }
 
 // fix tab skeleton component
 .#{$prefix}--tabs--scrollable__nav {
-  @apply flex;
+	@apply flex;
 }
 
 // Remove outline from tab panel
 .#{$prefix}--tab-content,
 .#{$prefix}--tabs__nav-link {
-  outline: 0 !important;
+	outline: 0 !important;
 }
 
 .#{$prefix}--overflow-menu-options {
-  z-index: 9090 !important;
+	z-index: 9090 !important;
 }
 
 // fix datepicker width
 .#{$prefix}--date-picker.#{$prefix}--date-picker--single .#{$prefix}--date-picker__input {
-  width: 100%;
+	width: 100%;
 }
 
 .fix-height {
-  height: calc(100% - 3rem);
+	height: calc(100% - 3rem);
 }
 
 // include in the specific theme class or add to root component to override all
 .#{$prefix}--white {
-  @include theme.theme(cosmo_theme.$theme-cosmo-white);
+	@include theme.theme(cosmo_theme.$theme-cosmo-white);
 }
 
 .#{$prefix}--g100 {
-  @include theme.theme(cosmo_theme.$theme-cosmo-dark);
+	@include theme.theme(cosmo_theme.$theme-cosmo-dark);
 }
 
 // :root main {}
@@ -53,6 +53,6 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 50px #{theme.$field} inset !important;
-  -webkit-text-fill-color: #{theme.$text-primary} !important;
+	box-shadow: 0 0 0 50px #{theme.$field} inset !important;
+	-webkit-text-fill-color: #{theme.$text-primary} !important;
 }
