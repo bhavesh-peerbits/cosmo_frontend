@@ -6,9 +6,9 @@ import {
 	roleAssignmentFilters,
 	usersList
 } from '@store/admin-panel/roleAssignmentFilters';
-import useGetUsers from '@api/user/useGetUsers';
 import { mapUserRoleToDisplayRole, UserDisplayRole } from '@model/UserRole';
 import { UserDtoRolesEnum } from 'cosmo-api/src/v1/models';
+import useGetActiveAndInactiveUsers from '@api/user-admin/useGetActiveAndInactiveUsers';
 
 const useRoleAssignmentUsers = () => {
 	const [urlFilters, setUrlFilters] = useUrlState<{
@@ -21,7 +21,7 @@ const useRoleAssignmentUsers = () => {
 	const [filters, setFilters] = useRecoilState(roleAssignmentFilters);
 	const setUsers = useSetRecoilState(usersList);
 	const { users, role } = useRecoilValue(filteredUsers);
-	const { data: list } = useGetUsers();
+	const { data: list } = useGetActiveAndInactiveUsers();
 
 	const data = useMemo(
 		() =>
