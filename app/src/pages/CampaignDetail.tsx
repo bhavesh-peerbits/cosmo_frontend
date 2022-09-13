@@ -72,7 +72,7 @@ const CampaignStatus = memo(({ campaign }: { campaign: Campaign }) => {
 			{
 				id: 'due-date',
 				label: 'Due Date:',
-				value: dueDate
+				value: dueDate ? dueDate.toLocaleDateString('it-IT') : new Date()
 			}
 		],
 		[dueDate, layer, startDate, type]

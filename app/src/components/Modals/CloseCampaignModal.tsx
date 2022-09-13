@@ -33,7 +33,7 @@ const CloseCampaignModal = ({ isOpen, setIsOpen, campaign }: CloseModalProps) =>
 			},
 			{
 				onSuccess: () => {
-					cleanUp;
+					cleanUp();
 					navigate('/revalidations-ongoing');
 				}
 			}
