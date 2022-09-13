@@ -64,7 +64,9 @@ const SendCampaignModal = ({ isOpen, setIsOpen, campaign }: DeleteModalProps) =>
 				collaborators: data.collaborators.map(({ id }) => id)
 			},
 			{
-				onSuccess: cleanUp
+				onSuccess: () => {
+					cleanUp;
+				}
 			}
 		);
 	};
