@@ -65,7 +65,7 @@ const SendCampaignModal = ({ isOpen, setIsOpen, campaign }: DeleteModalProps) =>
 			},
 			{
 				onSuccess: () => {
-					cleanUp;
+					cleanUp();
 				}
 			}
 		);

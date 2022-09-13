@@ -25,13 +25,12 @@ const CampaignStatus = memo(({ campaign }: { campaign: Campaign }) => {
 	const { id, type, layer, startDate, dueDate } = campaign;
 	const { data: status = 0 } = useGetCampaignStatus(id);
 	const { theme } = useUiStore();
-
 	const meterData = useMemo(
 		() => ({
 			data: [
 				{
 					group: 'Percentage of completion campaign',
-					value: status.toFixed(2)
+					value: (status * 100).toFixed(2)
 				}
 			],
 			options: {
