@@ -64,10 +64,10 @@ export interface AnswerDto {
 	permissionDescription?: string;
 	/**
 	 * Firefighter id
-	 * @type {number}
+	 * @type {string}
 	 * @memberof AnswerDto
 	 */
-	firefighterID?: number;
+	firefighterID?: string;
 	/**
 	 * Answer for this user review
 	 * @type {string}

@@ -6,8 +6,8 @@ import {
 	revalidationsOngoing,
 	filteredRevalidationsOngoing
 } from '@store/user-revalidation/revalidationsOngoingFilters';
-import useGetAllCampaignsWithReviews from '@api/user-revalidation/useGetAllCampaignsWithReviews';
 import CampaignWithReview from '@model/CampaignWithReview';
+import useGetCampaignsOngoingAndCompleted from '@api/user-revalidation/useGetCampaignsOngoingAndCompleted';
 
 const useRevalidationsOngoing = () => {
 	const [urlFilters, setUrlFilters] = useUrlState<{
@@ -27,7 +27,7 @@ const useRevalidationsOngoing = () => {
 		filteredRevalidationsOngoing
 	);
 	const { data: campaigns = new Map<string, CampaignWithReview>() } =
-		useGetAllCampaignsWithReviews();
+		useGetCampaignsOngoingAndCompleted();
 
 	useEffect(() => {
 		setRevalidations([...campaigns.values()]);
