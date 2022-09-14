@@ -1,4 +1,4 @@
-import { Button, Column, Form, Grid, TextInput } from '@carbon/react';
+import { Button, Column, Form, Grid, TextArea, TextInput } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import MultipleUserSelect from '@components/MultipleUserSelect';
 import SingleUserSelect from '@components/SingleUserSelect';
@@ -7,16 +7,17 @@ import { Checkmark } from '@carbon/react/icons';
 import ProcedureAppInstance from '@model/ProcedureAppInstance';
 import User from '@model/User';
 import { useController, useForm } from 'react-hook-form';
-import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import useReviewProcedure from '@api/review/useReviewProcedure';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';
+import useGetProcedures from '@api/procedures/useGetProcedures';
+import Procedure from '@model/Procedure';
 
 interface ProcedureFormData {
-	name: string;
 	owner: User;
 	delegated: User[];
+	controlObjectives: string;
 	description: string;
 	lastModify: Date;
 	lastModifier: User;
@@ -25,24 +26,15 @@ interface ProcedureFormData {
 }
 
 interface ProcedureReviewProps {
-	appProcedures: ProcedureAppInstance[];
 	procedureApp: ProcedureAppInstance;
 	appId: string;
 }
 
-const ProcedureReview = ({
-	appProcedures,
-	procedureApp,
-	appId
-}: ProcedureReviewProps) => {
-	const { t } = useTranslation('procedureInfo');
-	const procedureNameList = useMemo(
-		() =>
-			appProcedures
-				.filter(proc => proc.name.toLowerCase() !== procedureApp.name.toLowerCase())
-				.map(proc => proc.name.toLowerCase()),
-		[appProcedures, procedureApp.name]
-	);
+const ProcedureReview = ({ procedureApp, appId }: ProcedureReviewProps) => {
+	const { t } = useTranslation(['procedureInfo', 'narrativeAdmin']);
+	const { data = new Map<string, Procedure>() } = useGetProcedures();
+	const procedure = data.get(procedureApp.procedureId) as Procedure;
+
 	const {
 		mutate,
 		isLoading,
@@ -54,16 +46,17 @@ const ProcedureReview = ({
 
 	const {
 		control,
-		register,
+		watch,
 		reset,
 		handleSubmit,
-		formState: { errors, isDirty, isValid }
+		register,
+		formState: { isDirty, isValid }
 	} = useForm<ProcedureFormData>({
 		mode: 'onChange',
 		defaultValues: {
-			name: procedureApp.name,
 			owner: procedureApp.owner,
 			delegated: procedureApp.delegated,
+			controlObjectives: procedure.controlObjectives?.toString(),
 			description: procedureApp.description,
 			lastModify: procedureApp.lastModify,
 			lastModifier: procedureApp.lastModifier,
@@ -71,6 +64,9 @@ const ProcedureReview = ({
 			lastReviewer: procedureApp.lastReviewer
 		}
 	});
+	const selectedOwner = watch('owner');
+	const selectedDelegates = watch('delegated');
+
 	const {
 		field: {
 			onChange: onChangeDescription,
@@ -101,49 +97,44 @@ const ProcedureReview = ({
 			<FullWidthColumn className='pt-4'>
 				<Form className='space-y-4' onSubmit={handleSubmit(sendData)}>
 					<Grid fullWidth>
-						<Column sm={4} md={8} lg={8} className='mb-5'>
-							<TextInput
-								className='w-full'
-								id='procedure'
-								labelText={`${t('procedure-name')} *`}
-								placeholder={`${t('procedure-name')}`}
-								invalidText={errors.name?.message}
-								invalid={Boolean(errors.name)}
-								{...register('name', {
-									required: {
-										value: true,
-										message: `${t('procedure-required')}`
-									},
-									validate: name =>
-										!procedureNameList.includes(name.toLowerCase()) ||
-										`${t('name-exists')}`
-								})}
-							/>
-						</Column>
-						<Column sm={4} md={8} lg={8} className='mb-5'>
+						<FullWidthColumn className='mb-5'>
 							<SingleUserSelect
 								control={control}
-								label={`${t('procedure-owner')} *`}
+								label={`${t('procedureInfo:procedure-owner')} *`}
 								name='owner'
 								rules={{
 									required: {
 										value: true,
-										message: `${t('owner-required')}`
+										message: `${t('procedureInfo:owner-required')}`
 									}
 								}}
+								excludedUsers={selectedDelegates}
 							/>
-						</Column>
+						</FullWidthColumn>
 						<FullWidthColumn className='mb-5'>
 							<MultipleUserSelect
 								control={control}
-								label={`${t('owner-delegates')}`}
+								label={`${t('procedureInfo:owner-delegates')}`}
 								name='delegated'
+								excludedUser={selectedOwner}
+							/>
+						</FullWidthColumn>
+						<FullWidthColumn className='mb-5'>
+							<TextArea
+								rows={2}
+								readOnly
+								id='control-objectives'
+								labelText={t('narrativeAdmin:control-objectives')}
+								placeholder={
+									procedure.controlObjectives?.length === 0 ? 'No control objectives' : ''
+								}
+								{...register('controlObjectives')}
 							/>
 						</FullWidthColumn>
 						<Column sm={4} md={8} lg={8} className='mb-5'>
 							<TextInput
 								id={`last-modify-${procedureApp.id}`}
-								labelText={`${t('last-modify')}`}
+								labelText={`${t('procedureInfo:last-modify')}`}
 								value={procedureApp.lastModify?.toLocaleString()}
 								readOnly
 							/>
@@ -151,7 +142,7 @@ const ProcedureReview = ({
 						<Column sm={4} md={8} lg={8} className='mb-5'>
 							<TextInput
 								id={`last-modifier-${procedureApp.id}`}
-								labelText={`${t('last-modifier')}`}
+								labelText={`${t('procedureInfo:last-modifier')}`}
 								value={procedureApp.lastModifier?.displayName}
 								readOnly
 							/>
@@ -159,7 +150,7 @@ const ProcedureReview = ({
 						<FullWidthColumn className='mb-5'>
 							<div>
 								<p className='mb-3 text-text-secondary text-label-1'>
-									{`${t('description')}`}
+									{`${t('procedureInfo:description')}`}
 								</p>
 								<TiptapEditor
 									content={descriptionValue}
@@ -190,16 +181,16 @@ const ProcedureReview = ({
 											apiReset();
 										}}
 									>
-										{t('discard')}
+										{t('procedureInfo:discard')}
 									</Button>
 									{isSuccess ? (
 										<div className='flex h-8 items-center space-x-2 text-link-primary'>
-											<p className='text-body-short-2'>{t('confirmed')}</p>
+											<p className='text-body-short-2'>{t('procedureInfo:confirmed')}</p>
 											<Checkmark />
 										</div>
 									) : (
 										<Button type='submit' disabled={!isValid}>
-											{t('confirm')}
+											{t('procedureInfo:confirm')}
 										</Button>
 									)}
 								</div>

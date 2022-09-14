@@ -59,7 +59,7 @@ const NewCampaignModal = ({ isOpen, setIsOpen }: NewCampaignModalProps) => {
 	} = useForm<CreateCampaignForm>({
 		defaultValues: {
 			campaignName: '',
-			revalidationType: CampaignDtoTypeApiEnum.Firefight,
+			revalidationType: CampaignDtoTypeApiEnum.Firefighter,
 			revalidationLayer: CampaignDtoLayerApiEnum.Os
 		},
 		mode: 'onChange'

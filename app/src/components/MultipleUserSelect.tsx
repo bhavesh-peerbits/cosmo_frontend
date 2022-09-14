@@ -33,6 +33,7 @@ type MultipleUserSelectProps<
 			defaultValue?: User[];
 			tooltipPosition?: TooltipPosition;
 			getUserFn?: () => UseQueryResult<User[]>;
+			excludedUser?: User;
 	  }
 	: never;
 
@@ -46,7 +47,8 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 	readOnly,
 	defaultValue,
 	tooltipPosition,
-	getUserFn = useGetUsers
+	getUserFn = useGetUsers,
+	excludedUser
 }: MultipleUserSelectProps<T, TName>) => {
 	const { t } = useTranslation('userSelect');
 	const [openSearch, setOpenSearch] = useState(false);
@@ -185,6 +187,7 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 				clearFiltersText={t('clear-filters')}
 				items={{
 					entries: users
+						.filter(u => u.id !== excludedUser?.id)
 						.filter(u => !selectUsers?.some(s => s.id === u.id))
 						.filter(u => !u.inactive)
 						.map(u => ({

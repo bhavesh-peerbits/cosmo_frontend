@@ -12,7 +12,8 @@ import {
 	FieldErrors,
 	useForm,
 	UseFormGetValues,
-	UseFormRegister
+	UseFormRegister,
+	UseFormWatch
 } from 'react-hook-form';
 import Application from '@model/Application';
 import useEditApp from '@api/management/useEditApp';
@@ -39,6 +40,7 @@ const ApplicationInfo = ({ application }: ApplicationInfoProps) => {
 		handleSubmit,
 		reset,
 		control,
+		watch,
 		formState: { errors, isDirty }
 	} = useForm<ApplicationForm>({
 		mode: 'onChange',
@@ -77,7 +79,11 @@ const ApplicationInfo = ({ application }: ApplicationInfoProps) => {
 					description: application.description,
 					delegates: application.delegates,
 					appMaintenance: applicationData?.appMaintenance,
-					operationSupplier: applicationData?.operationSupplier
+					operationSupplier: applicationData?.operationSupplier,
+					lastModify: application.lastModify,
+					lastModifier: application.lastModifier,
+					lastReview: application.lastReview,
+					lastReviewer: application.lastReviewer
 				},
 				technicalInfo: {
 					appServers: applicationData?.appServers,
@@ -165,6 +171,7 @@ const ApplicationInfo = ({ application }: ApplicationInfoProps) => {
 											getValues={
 												getValues as unknown as UseFormGetValues<GeneralInfoForm>
 											}
+											watch={watch as unknown as UseFormWatch<GeneralInfoForm>}
 										/>
 									</FullWidthColumn>
 								</Grid>

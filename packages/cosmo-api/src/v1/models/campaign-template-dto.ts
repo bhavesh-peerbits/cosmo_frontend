@@ -33,7 +33,7 @@ export interface CampaignTemplateDto {
 }
 
 export const CampaignTemplateDtoTypeEnum = {
-	Firefight: 'FIREFIGHT',
+	Firefighter: 'FIREFIGHTER',
 	Suid: 'SUID',
 	UserAccessReview: 'USER_ACCESS_REVIEW'
 } as const;
