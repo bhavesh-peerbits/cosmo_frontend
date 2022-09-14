@@ -14,7 +14,6 @@ import ApiError from '@api/ApiError';
 import AnswerTable from '@components/UserRevalidation/AnswerTable';
 import CampaignApplication from '@model/CampaignApplication';
 import useGetCampaignApplications from '@api/user-revalidation/useGetCampaignApplications';
-import { useQueryClient } from 'react-query';
 
 type UploadFileModalProps = {
 	isOpen: boolean;
@@ -73,7 +72,6 @@ const UploadFileModal = ({
 		},
 		[campaignId, mutateAddAnswer]
 	);
-	const queryClient = useQueryClient();
 	const fileSizeCheck = useCallback((file: File) => file?.size < 20 * 1024 * 1024, []); // 20MB
 	const fileTypeCheck = useCallback((file: File) => file?.type === 'text/csv', []);
 
@@ -215,9 +213,8 @@ const UploadFileModal = ({
 			title='Upload File'
 			open={isOpen}
 			onClose={() => {
-				queryClient.invalidateQueries(['campaigns', `${campaignId}`]);
+				cleanUp();
 				setIsOpen(false);
-				reset();
 			}}
 			onRequestSubmit={() => {}}
 		>
