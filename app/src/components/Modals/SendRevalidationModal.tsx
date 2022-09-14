@@ -7,7 +7,8 @@ import {
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
-	TextInput
+	TextInput,
+	InlineLoading
 } from '@carbon/react';
 import DatePickerWrapper from '@components/DatePickerWrapper';
 import FullWidthColumn from '@components/FullWidthColumn';
@@ -20,6 +21,7 @@ import Campaign from '@model/Campaign';
 import useSendCampaignRevalidationRequest from '@api/user-revalidation/useSendCampaignRevalidationRequest';
 import ApiError from '@api/ApiError';
 import useGetPossibleContributors from '@api/user-revalidation/useGetPossibleContributors';
+import { useNavigate } from 'react-router-dom';
 
 type DeleteModalProps = {
 	isOpen: boolean;
@@ -35,7 +37,8 @@ type FormData = {
 
 const SendCampaignModal = ({ isOpen, setIsOpen, campaign }: DeleteModalProps) => {
 	const { t } = useTranslation(['modals', 'userRevalidation']);
-	const { mutate, isError, error } = useSendCampaignRevalidationRequest();
+	const navigate = useNavigate();
+	const { mutate, isLoading, isError, error } = useSendCampaignRevalidationRequest();
 	const {
 		control,
 		register,
@@ -64,13 +67,21 @@ const SendCampaignModal = ({ isOpen, setIsOpen, campaign }: DeleteModalProps) =>
 				collaborators: data.collaborators.map(({ id }) => id)
 			},
 			{
-				onSuccess: cleanUp
+				onSuccess: () => {
+					cleanUp();
+					navigate('/revalidations-ongoing');
+				}
 			}
 		);
 	};
 
 	return (
-		<ComposedModal preventCloseOnClickOutside open={isOpen} onClose={cleanUp}>
+		<ComposedModal
+			preventCloseOnClickOutside
+			open={isOpen}
+			onClose={cleanUp}
+			className='z-[9999]'
+		>
 			<ModalHeader title={t('userRevalidation:send-request')} closeModal={cleanUp} />
 			<ModalBody hasForm>
 				{t('modals:body-add', {
@@ -140,8 +151,9 @@ const SendCampaignModal = ({ isOpen, setIsOpen, campaign }: DeleteModalProps) =>
 				<Button kind='secondary' onClick={cleanUp}>
 					{t('modals:cancel')}
 				</Button>
-				<Button onClick={handleSubmit(sendRevalidation)} disabled={!isValid}>
+				<Button onClick={handleSubmit(sendRevalidation)} disabled={!isValid || isLoading}>
 					{t('userRevalidation:send-revalidation')}
+					{isLoading ? <InlineLoading /> : ''}
 				</Button>
 			</ModalFooter>
 		</ComposedModal>

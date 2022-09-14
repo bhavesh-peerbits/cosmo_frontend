@@ -3,7 +3,6 @@ import PageHeader from '@components/PageHeader';
 import StickyTabs from '@components/StickyTabs';
 import { useParams } from 'react-router-dom';
 import useGetCampaignReview from '@api/review-campaign/useGetCampaignReview';
-import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
 import UserRevalidationTabContent from '@components/reviewCampaign/UserRevalidationTabContent';
 
 const UserRevalidationDetails = () => {
@@ -16,9 +15,7 @@ const UserRevalidationDetails = () => {
 
 	return (
 		<PageHeader
-			pageTitle={`Campaign Name (${mapCampaignTypeToCampaignDisplayType(
-				campaignWithReview.campaign.type || 'SUID'
-			)})`}
+			pageTitle={campaignWithReview.campaign.name}
 			intermediateRoutes={[{ name: 'User Revalidation', to: '/user-revalidation' }]}
 		>
 			<StickyTabs>

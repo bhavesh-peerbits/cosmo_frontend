@@ -20,18 +20,18 @@ import User from '@model/User';
 import useAddContributorsToCampaign from '@api/user-revalidation/useAddContributorsToCampaign';
 import useUiStore from '@hooks/useUiStore';
 import { interfaces } from '@carbon/charts';
+import { useQueryClient } from 'react-query';
 
 const CampaignStatus = memo(({ campaign }: { campaign: Campaign }) => {
 	const { id, type, layer, startDate, dueDate } = campaign;
 	const { data: status = 0 } = useGetCampaignStatus(id);
 	const { theme } = useUiStore();
-
 	const meterData = useMemo(
 		() => ({
 			data: [
 				{
 					group: 'Percentage of completion campaign',
-					value: status.toFixed(2)
+					value: (status * 100).toFixed(2)
 				}
 			],
 			options: {
@@ -68,12 +68,12 @@ const CampaignStatus = memo(({ campaign }: { campaign: Campaign }) => {
 			{
 				id: 'start-date',
 				label: 'Start Date:',
-				value: startDate
+				value: startDate ? startDate.toLocaleDateString('it-IT') : undefined
 			},
 			{
 				id: 'due-date',
 				label: 'Due Date:',
-				value: dueDate
+				value: dueDate ? dueDate.toLocaleDateString('it-IT') : undefined
 			}
 		],
 		[dueDate, layer, startDate, type]
@@ -104,6 +104,7 @@ const CampaignDetail = () => {
 	const { mutateAsync: mutateContributors } = useAddContributorsToCampaign();
 	const [isCloseModalOpen, setIsCloseModalOpen] = useState(false);
 	const [isCollaboratorsOpen, setIsCollaboratorsOpen] = useState(false);
+	const queryClient = useQueryClient();
 
 	const addContributors = useCallback(
 		(userSelected: string[]) => {
@@ -131,6 +132,11 @@ const CampaignDetail = () => {
 		}
 	});
 
+	const CLOSED_CAMPAIGN =
+		campaign.status === 'COMPLETED' ||
+		campaign.status === 'ANNULLED' ||
+		campaign.status === 'COMPLETED_WITH_PARTIAL_ANSWERS';
+
 	return (
 		<PageHeader
 			pageTitle={campaign.name}
@@ -141,6 +147,7 @@ const CampaignDetail = () => {
 				{
 					name: t('userRevalidation:collaborators'),
 					icon: UserFollow,
+					disabled: CLOSED_CAMPAIGN,
 					onClick: () => {
 						setIsCollaboratorsOpen(true);
 					}
@@ -154,7 +161,9 @@ const CampaignDetail = () => {
 				{
 					name: t('userRevalidation:close-campaign'),
 					icon: Exit,
+					disabled: CLOSED_CAMPAIGN,
 					onClick: () => {
+						queryClient.invalidateQueries(['campaigns', campaign.id]);
 						setIsCloseModalOpen(true);
 					}
 				}

@@ -44,7 +44,7 @@ const ApplicationCampaignStatus = ({ campaign }: ApplicationCampaignStatusProps)
 		<Grid className='pt-6'>
 			<FullWidthColumn>
 				<Button
-					className='m-0 flex justify-start p-0 underline text-heading-3'
+					className='m-0 flex max-w-[100%] justify-start truncate p-0 underline line-clamp-1 text-heading-3'
 					onClick={() => navigate(`/user-revalidation/${campaign.id}`)}
 					kind='ghost'
 				>

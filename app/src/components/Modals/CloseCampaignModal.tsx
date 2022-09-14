@@ -10,6 +10,7 @@ import Campaign from '@model/Campaign';
 import useCloseCampaign from '@api/user-revalidation/useCloseCampaign';
 import ModalError from '@components/Modals/ModalError';
 import ApiError from '@api/ApiError';
+import { useNavigate } from 'react-router-dom';
 
 type CloseModalProps = {
 	isOpen: boolean;
@@ -20,6 +21,7 @@ type CloseModalProps = {
 const CloseCampaignModal = ({ isOpen, setIsOpen, campaign }: CloseModalProps) => {
 	const { t } = useTranslation(['modals', 'userRevalidation']);
 	const { mutate: closeMutate, isError, error } = useCloseCampaign();
+	const navigate = useNavigate();
 	const cleanUp = () => {
 		setIsOpen(false);
 	};
@@ -30,7 +32,10 @@ const CloseCampaignModal = ({ isOpen, setIsOpen, campaign }: CloseModalProps) =>
 				campaignId: campaign.id
 			},
 			{
-				onSuccess: cleanUp
+				onSuccess: () => {
+					cleanUp();
+					navigate('/revalidations-ongoing');
+				}
 			}
 		);
 	};
