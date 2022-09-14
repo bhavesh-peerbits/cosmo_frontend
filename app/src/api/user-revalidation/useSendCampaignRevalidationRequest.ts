@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import api from '@api';
 
 interface SendCampaignRevalidationRequestParams {
@@ -22,4 +22,12 @@ const sendCampaignRevalidationRequest = ({
 	});
 };
 
-export default () => useMutation(sendCampaignRevalidationRequest);
+export default () => {
+	const queryClient = useQueryClient();
+	return useMutation(sendCampaignRevalidationRequest, {
+		onSuccess: () => {
+			queryClient.invalidateQueries(['campaigns-ongoing-completed']);
+			queryClient.invalidateQueries(['campaigns-not-started']);
+		}
+	});
+};
