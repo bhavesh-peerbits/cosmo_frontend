@@ -26,7 +26,7 @@ type DownloadTemplateModalProps = {
 const DownloadTemplateModal = ({ isOpen, setIsOpen }: DownloadTemplateModalProps) => {
 	const { t } = useTranslation(['userRevalidation', 'modals']);
 	const [typeSelected, setTypeSelected] = useState<CampaignDtoTypeEnum>(
-		CampaignDtoTypeApiEnum.Firefight
+		CampaignDtoTypeApiEnum.Firefighter
 	);
 	const { mutate, isLoading, isError, error } = useGetCampaignTemplate();
 	const cleanUp = () => {

@@ -21,6 +21,7 @@ export default () => {
 					new Map(old as Map<string, Campaign>)
 			);
 			queryClient.removeQueries(['campaigns', variables.campaignId]);
+			queryClient.invalidateQueries(['campaigns-not-started']);
 			queryClient.invalidateQueries(['campaigns-reviewer']);
 		}
 	});

@@ -109,9 +109,6 @@ const ReviewDetail = () => {
 													<FullWidthColumn>
 														<ProcedureReview
 															procedureApp={procedure as unknown as ProcedureAppInstance}
-															appProcedures={
-																procedureList as unknown as ProcedureAppInstance[]
-															}
 															appId={appId}
 														/>
 													</FullWidthColumn>

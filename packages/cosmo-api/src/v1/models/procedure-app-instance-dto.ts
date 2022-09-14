@@ -44,8 +44,9 @@ export interface ProcedureAppInstanceDto {
 	 * Procedure name
 	 * @type {string}
 	 * @memberof ProcedureAppInstanceDto
+	 * @deprecated
 	 */
-	name: string;
+	name?: string;
 	/**
 	 * Procedure description
 	 * @type {string}

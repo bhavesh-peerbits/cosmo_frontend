@@ -27,8 +27,13 @@ type CosmoSideNavProps = {
 
 const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavProps) => {
 	const { theme } = useUiStore();
-	const { canReview, canReviewNarrative, canSeeNarrativeManagement, canRevalidateUser } =
-		usePolicyStore();
+	const {
+		canAdmin,
+		canReview,
+		canReviewNarrative,
+		canSeeNarrativeManagement,
+		canRevalidateUser
+	} = usePolicyStore();
 	const { md, lg } = useResponsive();
 
 	return (
@@ -90,9 +95,11 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 							</SideNavMenuItem>
 						</SideNavMenu>
 					)}
-					<SideNavLink renderIcon={UserAdmin} href={routes.ADMIN}>
-						Administration
-					</SideNavLink>
+					{canAdmin && (
+						<SideNavLink renderIcon={UserAdmin} href={routes.ADMIN}>
+							Administration
+						</SideNavLink>
+					)}
 					<SideNavLink renderIcon={Logout} href={routes.LOGOUT}>
 						Logout
 					</SideNavLink>

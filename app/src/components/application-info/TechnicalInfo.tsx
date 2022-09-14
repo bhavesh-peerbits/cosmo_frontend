@@ -1,4 +1,4 @@
-import { Column, Grid, TextInput } from '@carbon/react';
+import { Column, Grid, TextArea, TextInput } from '@carbon/react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
@@ -25,16 +25,7 @@ const TechnicalInfo = ({ register }: TechnicalInfoProps) => {
 	const { t } = useTranslation('applicationInfo');
 	return (
 		<Grid fullWidth>
-			<Column sm={4} md={8} lg={8} className='mb-5'>
-				<TextInput
-					className='w-full'
-					id='application-servers'
-					labelText={t('app-servers')}
-					placeholder={t('app-servers')}
-					{...register('technicalInfo.appServers')}
-				/>
-			</Column>
-			<Column sm={4} md={8} lg={8} className='mb-5'>
+			<Column sm={4} md={8} lg={8} className='mb-5 '>
 				<TextInput
 					className='w-full'
 					id='application-servers-os'
@@ -43,6 +34,32 @@ const TechnicalInfo = ({ register }: TechnicalInfoProps) => {
 					{...register('technicalInfo.appServersOS')}
 				/>
 			</Column>
+			<Column sm={4} md={8} lg={8} className='mb-5'>
+				<TextInput
+					className='w-full'
+					id='db-servers-os'
+					labelText={t('db-servers-os')}
+					placeholder={t('db-servers-os')}
+					{...register('technicalInfo.dbServersOS')}
+				/>
+			</Column>
+			<FullWidthColumn className='mb-5'>
+				<TextArea
+					id='application-servers'
+					labelText={t('app-servers')}
+					placeholder={t('app-servers')}
+					{...register('technicalInfo.appServers')}
+				/>
+			</FullWidthColumn>
+			<FullWidthColumn className='mb-5'>
+				<TextArea
+					className='w-full'
+					id='db-servers'
+					labelText={t('db-servers')}
+					placeholder={t('db-servers')}
+					{...register('technicalInfo.dbServers')}
+				/>
+			</FullWidthColumn>
 			<FullWidthColumn className='mb-5'>
 				<TextInput
 					className='w-full self-stretch'
@@ -61,24 +78,6 @@ const TechnicalInfo = ({ register }: TechnicalInfoProps) => {
 					{...register('technicalInfo.technicalCode')}
 				/>
 			</FullWidthColumn>
-			<Column sm={4} md={8} lg={8} className='mb-5'>
-				<TextInput
-					className='w-full'
-					id='db-servers'
-					labelText={t('db-servers')}
-					placeholder={t('db-servers')}
-					{...register('technicalInfo.dbServers')}
-				/>
-			</Column>
-			<Column sm={4} md={8} lg={8} className='mb-5'>
-				<TextInput
-					className='w-full'
-					id='db-servers-os'
-					labelText={t('db-servers-os')}
-					placeholder={t('db-servers-os')}
-					{...register('technicalInfo.dbServersOS')}
-				/>
-			</Column>
 			<Column sm={4} md={8} lg={8} className='mb-5'>
 				<TextInput
 					className='w-full'

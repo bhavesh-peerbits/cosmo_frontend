@@ -29,6 +29,7 @@ type SingleUserSelectProps<
 			helperText?: string;
 			readOnly?: boolean;
 			defaultValue?: User;
+			excludedUsers?: User[];
 	  }
 	: never;
 
@@ -40,7 +41,8 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 	level = 1,
 	helperText,
 	readOnly,
-	defaultValue
+	defaultValue,
+	excludedUsers
 }: SingleUserSelectProps<T, TName>) => {
 	const { t } = useTranslation('userSelect');
 	const {
@@ -168,8 +170,8 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 				clearFiltersText={t('clear-filters')}
 				items={{
 					entries: users
+						.filter(u => !excludedUsers?.some(e => e.id === u.id))
 						.filter(u => u.id !== value?.id)
-						.filter(u => !u.inactive)
 						.map(u => ({
 							id: u.id,
 							title: u.displayName,

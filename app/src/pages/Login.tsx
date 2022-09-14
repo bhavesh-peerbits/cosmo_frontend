@@ -178,7 +178,7 @@ const Login = () => {
 									invalidText={errors.username?.message}
 									labelText='Username'
 									invalid={Boolean(errors.username)}
-									placeholder='mail@aizoongroup.com'
+									placeholder='name.surname'
 									{...register('username', {
 										minLength: {
 											value: 3,

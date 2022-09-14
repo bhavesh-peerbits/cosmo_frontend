@@ -19,6 +19,7 @@ type ProcedureState = Partial<ProcedureAppInstance> & {
 	id: string;
 	procedureId: string;
 	isNew?: boolean;
+	title?: string;
 };
 
 const ProcedureInfo = () => {
@@ -123,7 +124,6 @@ const ProcedureInfo = () => {
 										id: `${Math.random() * 10000}`,
 										title: prc.name,
 										procedureId: prc.id,
-										name: appProc?.name || '',
 										isNew: true
 									}
 								])

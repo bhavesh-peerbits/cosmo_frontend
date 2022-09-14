@@ -1,24 +1,58 @@
-import { TableToolbarSearch } from '@carbon/react';
-import { HeaderFunction } from '@components/table/CosmoTable';
-import GroupedCosmoTable from '@components/table/GroupedCosmoTable';
+import { Link, TableToolbarSearch } from '@carbon/react';
+import CosmoTable, { CellProperties, HeaderFunction } from '@components/table/CosmoTable';
 import useRevalidationsOngoing from '@hooks/user-revalidation/useRevalidationsOngoing';
 import { formatDate } from '@i18n';
 import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import CampaignWithReview from '@model/CampaignWithReview';
+import Campaign from '@model/Campaign';
 
 const RevalidationsTable = () => {
 	const { t } = useTranslation('userRevalidation');
 	const { revalidations, filters, setFilters } = useRevalidationsOngoing();
 
+	const translateStatus = useCallback(
+		(status: string | undefined) => {
+			switch (status) {
+				case 'REVIEW_IN_PROGRESS':
+					return t('in-progress');
+				case 'COMPLETED':
+					return t('completed');
+				case 'ANNULLED':
+					return t('annulled');
+				case 'COMPLETED_WITH_PARTIAL_ANSWERS':
+					return t('completed-partial');
+				default:
+					return '';
+			}
+		},
+		[t]
+	);
+	const CellLinkComponent = useCallback(
+		(info: CellProperties<CampaignWithReview, { campaign: Campaign }>) => (
+			<Link
+				href={`/revalidations-ongoing/${(info.row.original as CampaignWithReview).id}`}
+			>
+				{(info.row.original as CampaignWithReview).campaign.name}
+			</Link>
+		),
+		[]
+	);
+
 	const columns: HeaderFunction<CampaignWithReview> = useCallback(
 		table => [
-			table.createDataColumn(row => row.campaign.name, {
-				id: 'name',
-				header: t('campaign-name'),
-				sortUndefined: 1
-			}),
+			table.createDataColumn(
+				row => ({
+					campaign: row.campaign
+				}),
+				{
+					id: 'name',
+					header: t('campaign-name'),
+					sortUndefined: 1,
+					cell: CellLinkComponent
+				}
+			),
 			table.createDataColumn(row => row.campaign.dueDate, {
 				id: 'due-date',
 				header: t('due-date'),
@@ -36,16 +70,17 @@ const RevalidationsTable = () => {
 				header: t('revalidation-type'),
 				cell: info => mapCampaignTypeToCampaignDisplayType(info.getValue())
 			}),
-			table.createDataColumn(() => '', {
-				id: 'application',
-				header: t('application')
+			table.createDataColumn(row => row.campaign.applicationsCount, {
+				id: 'applicationsCount',
+				header: t('applications')
 			}),
-			table.createDataColumn(() => '', {
+			table.createDataColumn(row => row.campaign.status, {
 				id: 'status',
-				header: t('status')
+				header: t('status'),
+				cell: info => translateStatus(info.getValue())
 			})
 		],
-		[t]
+		[CellLinkComponent, t, translateStatus]
 	);
 	const toolbarContent = (
 		<TableToolbarSearch
@@ -58,7 +93,12 @@ const RevalidationsTable = () => {
 		/>
 	);
 	return (
-		<GroupedCosmoTable
+		// <GroupedCosmoTable
+		// 	data={revalidations}
+		// 	createHeaders={columns}
+		// 	toolbar={{ toolbarContent }}
+		// /> // TODO Fix to show both application status and campaign status
+		<CosmoTable
 			data={revalidations}
 			createHeaders={columns}
 			toolbar={{ toolbarContent }}

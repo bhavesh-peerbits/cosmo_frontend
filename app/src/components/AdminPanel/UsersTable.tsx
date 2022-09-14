@@ -7,7 +7,7 @@ import CosmoTableInlineAction from '@components/table/CosmoTableInlineAction';
 import useRoleAssignmentUsers from '@hooks/admin-panel/useRoleAssignmentUsers';
 import SetUserStatusModal from '@components/Modals/SetUserStatusModal';
 import EditUserModal from '@components/Modals/EditUserModal';
-import useGetUsers from '@api/user/useGetUsers';
+import useGetActiveAndInactiveUsers from '@api/user-admin/useGetActiveAndInactiveUsers';
 
 type ActionCellProps = {
 	setIsModalOpen: (val: boolean) => void;
@@ -46,7 +46,7 @@ const UsersTable = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [userSelectedId, setUserSelectedId] = useState<string>();
 	const [actionSelected, setActionSelected] = useState('');
-	const { data } = useGetUsers();
+	const { data } = useGetActiveAndInactiveUsers();
 	const user = data?.filter(u => u.id === userSelectedId).flat()[0];
 
 	const modalToOpen = () => {

@@ -278,11 +278,11 @@ import {
 	CheckmarkOutline,
 	RequestQuote,
 	MisuseOutline,
-	Error
+	Error,
+	Information
 } from '@carbon/react/icons';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import useGetUsers from '@api/user/useGetUsers';
-import { OverflowMenu, OverflowMenuItem } from '@carbon/react';
+import { OverflowMenu, OverflowMenuItem, Tooltip } from '@carbon/react';
 import { AnswerApiTypeEnum } from 'cosmo-api/src';
 import useMapAnswerType from '@hooks/user-revalidation-review/useMapAnswerType';
 import UserRevalidationActionModal, {
@@ -310,7 +310,25 @@ const ActionsCell = ({ info, onActionClick, setIsModalOpen }: ActionCellProps) =
 
 	return (
 		<div className='flex items-center justify-between'>
-			<div>{translateAnswer(info.getValue().answerType)}</div>
+			<div>
+				{info.getValue().answerType !== 'MODIFY' &&
+				info.getValue().answerType !== 'REPORT_ERROR' ? (
+					translateAnswer(info.getValue().answerType)
+				) : (
+					<div className='grid grid-cols-6'>
+						<span className='col-span-5'>
+							{translateAnswer(info.getValue().answerType)}
+						</span>
+						<span className='self-center text-right'>
+							<Tooltip description={info.getValue().note} align='top'>
+								<button type='button'>
+									<Information />
+								</button>
+							</Tooltip>
+						</span>
+					</div>
+				)}
+			</div>
 			<div>
 				<OverflowMenu
 					ariaLabel='Actions'
@@ -381,7 +399,6 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 	);
 	const { setDefaultAnswers } = useAnswerStore(review.id);
 	const { answers, modifyAnswer, resetAnswers } = useAnswerStore(review.id);
-	const { data: users = [] } = useGetUsers();
 	const answersList = useMemo(() => [...answers.values()], [answers]);
 	const [isModalOpen, setIsModalOpen] = useState<UserRevalidationActionState>({
 		isOpen: false,
@@ -457,6 +474,27 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 		[modifyAnswer]
 	);
 
+	const tooltipCell = useCallback(
+		(
+			info: CellProperties<
+				Answer,
+				{ title: string | undefined; data: string | undefined }
+			>
+		) => (
+			<div className='grid grid-cols-6'>
+				<span className='col-span-5'>{info.getValue().title}</span>
+				<span className='place-self-center'>
+					<Tooltip description={info.getValue().data} align='top'>
+						<button type='button' className='pt-1'>
+							<Information />
+						</button>
+					</Tooltip>
+				</span>
+			</div>
+		),
+		[]
+	);
+
 	const columns: HeaderFunction<Answer> = useCallback(
 		table => [
 			table.createDataColumn(row => row.userToRevalidate, {
@@ -464,15 +502,18 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 				header: 'Username',
 				sortUndefined: 1
 			}),
-			table.createDataColumn(row => row.userToRevalidate, {
+			table.createDataColumn(row => row.userDetails, {
 				id: `userDisplayName${review.id}`,
-				header: 'User',
-				cell: info => users.find(user => user.username === info.getValue())?.displayName
+				header: 'User'
 			}),
-			table.createDataColumn(row => row.permissions, {
-				id: `permissions${review.id}`,
-				header: t('userRevalidation:permission')
-			}),
+			table.createDataColumn(
+				row => ({ title: row.permissions, data: row.permissionDescription }),
+				{
+					id: `permissions${review.id}`,
+					header: t('userRevalidation:permission'),
+					cell: tooltipCell
+				}
+			),
 			table.createDataColumn(
 				row => ({
 					answerType: row.answerType,
@@ -485,7 +526,7 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 				}
 			)
 		],
-		[review.id, t, ActionCellComponent, users]
+		[review.id, t, ActionCellComponent, tooltipCell]
 	);
 
 	return (

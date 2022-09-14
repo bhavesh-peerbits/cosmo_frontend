@@ -9,7 +9,7 @@ interface Answer {
 	userDetails?: string;
 	permissions?: string;
 	permissionDescription?: string;
-	firefighterID?: number;
+	firefighterID?: string;
 	answerType?: AnswerApiTypeEnum;
 	note?: string;
 	delegated?: Array<User>;
