@@ -311,7 +311,25 @@ const ActionsCell = ({ info, onActionClick, setIsModalOpen }: ActionCellProps) =
 
 	return (
 		<div className='flex items-center justify-between'>
-			<div>{translateAnswer(info.getValue().answerType)}</div>
+			<div>
+				{info.getValue().answerType !== 'MODIFY' &&
+				info.getValue().answerType !== 'REPORT_ERROR' ? (
+					translateAnswer(info.getValue().answerType)
+				) : (
+					<div className='grid grid-cols-6'>
+						<span className='col-span-5'>
+							{translateAnswer(info.getValue().answerType)}
+						</span>
+						<span className='self-center text-right'>
+							<Tooltip description={info.getValue().note} align='top'>
+								<button type='button'>
+									<Information />
+								</button>
+							</Tooltip>
+						</span>
+					</div>
+				)}
+			</div>
 			<div>
 				<OverflowMenu
 					ariaLabel='Actions'
@@ -467,7 +485,7 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 		) => (
 			<div>
 				<span>{info.getValue().title}</span>
-				<span className='float-right flex'>
+				<span className=''>
 					<Tooltip description={info.getValue().data} align='top'>
 						<button type='button'>
 							<Information />

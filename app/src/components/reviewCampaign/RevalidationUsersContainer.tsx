@@ -45,7 +45,7 @@ const Actions = ({ review }: RevalidationUsersContainerProps) => {
 					showNotification({
 						title: t('userRevalidation:revalidation-completed'),
 						message: `${t('userRevalidation:revalidation-completed-toast', {
-							date: review.campaign.dueDate
+							date: review.campaign.dueDate?.toLocaleDateString('it-IT')
 						})}.`,
 						type: 'success'
 					});
