@@ -36,7 +36,8 @@ const UploadFileModal = ({
 	application
 }: UploadFileModalProps) => {
 	const { t } = useTranslation(['modals', 'userRevalidation']);
-	const { mutateAsync: mutateAddAnswer } = useAddApplicationsAndAnswersToCampaign();
+	const { mutateAsync: mutateAddAnswer, reset: resetApi } =
+		useAddApplicationsAndAnswersToCampaign();
 	const {
 		control,
 		reset,
@@ -49,6 +50,11 @@ const UploadFileModal = ({
 	const [responseState, setResponseState] = useState<FileAnswerStatus>();
 	const { data: applications = new Map<string, CampaignApplication>() } =
 		useGetCampaignApplications(campaignId, !isEmpty);
+
+	const cleanUp = () => {
+		resetApi();
+		reset();
+	};
 
 	const addAnswer = useCallback(
 		(data: FormData) => {

@@ -6,7 +6,7 @@ import {
 } from '@store/user-revalidation/newRevalidationFilters';
 import { useEffect } from 'react';
 import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
-import useGetUserRevalidations from '@api/user-revalidation/useGetAllCampaigns';
+import useGetNotStartedCampaigns from '@api/user-revalidation/useGetNotStartedCampaigns';
 
 const useRevalidations = () => {
 	const [urlFilters, setUrlFilters] = useUrlState<{
@@ -24,7 +24,7 @@ const useRevalidations = () => {
 	const setRevalidations = useSetRecoilState(revalidationsList);
 	const { revalidations, layer, type, application } =
 		useRecoilValue(filteredRevalidations);
-	const { data = new Map() } = useGetUserRevalidations();
+	const { data = new Map() } = useGetNotStartedCampaigns();
 
 	useEffect(() => {
 		setRevalidations([...data.values()]);

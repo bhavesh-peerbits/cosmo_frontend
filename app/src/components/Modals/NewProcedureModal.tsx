@@ -71,7 +71,7 @@ const ApplicationProcedureSelect = ({
 			/>
 			{[...proceduresApp.values()].map(proc => (
 				<SelectItem
-					text={`${procedures.get(proc.procedureId)?.name}: ${proc.name}`}
+					text={`${procedures.get(proc.procedureId)?.name}`}
 					value={proc.id}
 					key={proc.id}
 				/>
