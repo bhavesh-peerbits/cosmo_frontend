@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import api from '@api';
 
 export function closeCampaign({ campaignId }: { campaignId: string }) {
@@ -6,8 +6,11 @@ export function closeCampaign({ campaignId }: { campaignId: string }) {
 }
 
 export default () => {
-	// const queryClient = useQueryClient();
+	const queryClient = useQueryClient();
 	return useMutation(closeCampaign, {
+		onSuccess: (data, variables) => {
+			queryClient.invalidateQueries(['campaigns', variables.campaignId]);
+		}
 		// onSuccess: (data, variables) => {
 		// queryClient.setQueriesData(
 		// 	{
