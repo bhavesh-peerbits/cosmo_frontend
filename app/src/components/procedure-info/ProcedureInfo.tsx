@@ -13,6 +13,7 @@ import MultipleReviewModal from '@components/Modals/MultipleReviewModal';
 import ProcedureReviewModal from '@components/Modals/ProcedureReviewModal';
 import { useTranslation } from 'react-i18next';
 import { useResponsive } from 'ahooks';
+import { smoothScroll, triggerFocus } from '@components/TableOfContents/utils';
 import NewProcedureModal from '../Modals/NewProcedureModal';
 
 type ProcedureState = Partial<ProcedureAppInstance> & {
@@ -48,17 +49,19 @@ const ProcedureInfo = () => {
 	}, [serverProcs]);
 
 	const somethingNew = procedureList.some(p => p.isNew);
-
+	const STICKY_OFFSET = useMemo(
+		() =>
+			md && buttonRef.current && buttonRef.current.getBoundingClientRect()
+				? buttonRef.current.getBoundingClientRect().height + breadcrumbSize * 2 - 1
+				: buttonRef.current?.getBoundingClientRect()?.height || 0,
+		[breadcrumbSize, md]
+	);
 	return (
 		<TableOfContents
 			isCheckView={isCheckboxView}
 			setChecked={setProcedureChecked}
 			checked={procedureChecked}
-			stickyOffset={
-				md && buttonRef.current && buttonRef.current.getBoundingClientRect()
-					? buttonRef.current.getBoundingClientRect().height + breadcrumbSize * 2 - 1
-					: buttonRef.current?.getBoundingClientRect()?.height || 0
-			}
+			stickyOffset={STICKY_OFFSET}
 			tocStickyOffset={breadcrumbSize * 2 - 1}
 		>
 			<Grid fullWidth className='h-full'>
@@ -116,18 +119,24 @@ const ProcedureInfo = () => {
 							isOpen={isNewProcedureOpen}
 							setIsOpen={setIsNewProcedureOpen}
 							procedureApps={[...data.values()]}
-							onSuccess={(prc, appProc) =>
+							onSuccess={(prc, appProc) => {
+								const idtmp = Math.random() * 10000;
 								setProcedureList(old => [
 									...old,
 									{
 										...appProc,
-										id: `${Math.random() * 10000}`,
+										id: `${idtmp}`,
 										title: prc.name,
 										procedureId: prc.id,
 										isNew: true
 									}
-								])
-							}
+								]);
+								setTimeout(() => {
+									const selector = `*[data-toc-id="procedure-container-${idtmp}"]`;
+									smoothScroll(selector, 230);
+									triggerFocus(selector);
+								});
+							}}
 						/>
 						{showProcedureModal &&
 							(procedureChecked.length === 1 ? (
