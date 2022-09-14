@@ -19,9 +19,9 @@ const NarrativeAdmin = () => {
 					description={t('procedures-description')}
 				/>
 			</Column>
-			<Column sm={4} md={3} lg={4}>
+			{/* <Column sm={4} md={3} lg={4}>
 				<AdminTile path='' title='Review Email' description={t('email-description')} />
-			</Column>
+			</Column> */}
 		</Grid>
 	);
 };

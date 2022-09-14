@@ -8,12 +8,14 @@ import useGetAnswersForReview from '@api/user-revalidation/useGetAnswersForRevie
 import AnswerTable from '@components/UserRevalidation/AnswerTable';
 import Answer from '@model/Answer';
 import UploadFileModal from '@components/Modals/UploadFileModal';
+import { useTranslation } from 'react-i18next';
 
 interface UploadResultsTileProps {
 	campaignApplication: CampaignApplication;
 }
 
 const UploadResultsTile = ({ campaignApplication }: UploadResultsTileProps) => {
+	const { t } = useTranslation('userRevalidation');
 	const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 	const [isUpdateOpen, setIsUpdateOpen] = useState(false);
 
@@ -46,14 +48,14 @@ const UploadResultsTile = ({ campaignApplication }: UploadResultsTileProps) => {
 					<div>
 						<Button
 							kind='ghost'
-							iconDescription='Substitute upload'
+							iconDescription={t('replace-upload')}
 							hasIconOnly
 							renderIcon={Upload}
 							onClick={() => setIsUpdateOpen(true)}
 						/>
 						<Button
 							kind='ghost'
-							iconDescription='Remove upload'
+							iconDescription={t('remove-upload')}
 							hasIconOnly
 							renderIcon={TrashCan}
 							onClick={() => setIsDeleteOpen(true)}
