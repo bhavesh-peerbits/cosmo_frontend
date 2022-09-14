@@ -282,7 +282,6 @@ import {
 	Information
 } from '@carbon/react/icons';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import useGetUsers from '@api/user/useGetUsers';
 import { OverflowMenu, OverflowMenuItem, Tooltip } from '@carbon/react';
 import { AnswerApiTypeEnum } from 'cosmo-api/src';
 import useMapAnswerType from '@hooks/user-revalidation-review/useMapAnswerType';
@@ -400,7 +399,6 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 	);
 	const { setDefaultAnswers } = useAnswerStore(review.id);
 	const { answers, modifyAnswer, resetAnswers } = useAnswerStore(review.id);
-	const { data: users = [] } = useGetUsers();
 	const answersList = useMemo(() => [...answers.values()], [answers]);
 	const [isModalOpen, setIsModalOpen] = useState<UserRevalidationActionState>({
 		isOpen: false,
@@ -483,11 +481,11 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 				{ title: string | undefined; data: string | undefined }
 			>
 		) => (
-			<div>
-				<span>{info.getValue().title}</span>
-				<span className=''>
+			<div className='grid grid-cols-6'>
+				<span className='col-span-5'>{info.getValue().title}</span>
+				<span className='place-self-center'>
 					<Tooltip description={info.getValue().data} align='top'>
-						<button type='button'>
+						<button type='button' className='pt-1'>
 							<Information />
 						</button>
 					</Tooltip>
@@ -504,10 +502,9 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 				header: 'Username',
 				sortUndefined: 1
 			}),
-			table.createDataColumn(row => row.userToRevalidate, {
+			table.createDataColumn(row => row.userDetails, {
 				id: `userDisplayName${review.id}`,
-				header: 'User',
-				cell: info => users.find(user => user.username === info.getValue())?.displayName
+				header: 'User'
 			}),
 			table.createDataColumn(
 				row => ({ title: row.permissions, data: row.permissionDescription }),
@@ -529,7 +526,7 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 				}
 			)
 		],
-		[review.id, t, ActionCellComponent, tooltipCell, users]
+		[review.id, t, ActionCellComponent, tooltipCell]
 	);
 
 	return (

@@ -68,12 +68,12 @@ const CampaignStatus = memo(({ campaign }: { campaign: Campaign }) => {
 			{
 				id: 'start-date',
 				label: 'Start Date:',
-				value: startDate ? startDate.toLocaleDateString('it-IT') : new Date()
+				value: startDate ? startDate.toLocaleDateString('it-IT') : undefined
 			},
 			{
 				id: 'due-date',
 				label: 'Due Date:',
-				value: dueDate ? dueDate.toLocaleDateString('it-IT') : new Date()
+				value: dueDate ? dueDate.toLocaleDateString('it-IT') : undefined
 			}
 		],
 		[dueDate, layer, startDate, type]
