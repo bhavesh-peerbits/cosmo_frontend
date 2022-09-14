@@ -100,7 +100,7 @@ export const CampaignDtoStatusEnum = {
 export type CampaignDtoStatusEnum =
 	typeof CampaignDtoStatusEnum[keyof typeof CampaignDtoStatusEnum];
 export const CampaignDtoTypeEnum = {
-	Firefight: 'FIREFIGHT',
+	Firefighter: 'FIREFIGHTER',
 	Suid: 'SUID',
 	UserAccessReview: 'USER_ACCESS_REVIEW'
 } as const;

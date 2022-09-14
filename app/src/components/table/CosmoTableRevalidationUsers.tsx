@@ -278,11 +278,12 @@ import {
 	CheckmarkOutline,
 	RequestQuote,
 	MisuseOutline,
-	Error
+	Error,
+	Information
 } from '@carbon/react/icons';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import useGetUsers from '@api/user/useGetUsers';
-import { OverflowMenu, OverflowMenuItem } from '@carbon/react';
+import { OverflowMenu, OverflowMenuItem, Tooltip } from '@carbon/react';
 import { AnswerApiTypeEnum } from 'cosmo-api/src';
 import useMapAnswerType from '@hooks/user-revalidation-review/useMapAnswerType';
 import UserRevalidationActionModal, {
@@ -457,6 +458,27 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 		[modifyAnswer]
 	);
 
+	const tooltipCell = useCallback(
+		(
+			info: CellProperties<
+				Answer,
+				{ title: string | undefined; data: string | undefined }
+			>
+		) => (
+			<div>
+				<span>{info.getValue().title}</span>
+				<span className='float-right flex'>
+					<Tooltip description={info.getValue().data} align='top'>
+						<button type='button'>
+							<Information />
+						</button>
+					</Tooltip>
+				</span>
+			</div>
+		),
+		[]
+	);
+
 	const columns: HeaderFunction<Answer> = useCallback(
 		table => [
 			table.createDataColumn(row => row.userToRevalidate, {
@@ -469,10 +491,14 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 				header: 'User',
 				cell: info => users.find(user => user.username === info.getValue())?.displayName
 			}),
-			table.createDataColumn(row => row.permissions, {
-				id: `permissions${review.id}`,
-				header: t('userRevalidation:permission')
-			}),
+			table.createDataColumn(
+				row => ({ title: row.permissions, data: row.permissionDescription }),
+				{
+					id: `permissions${review.id}`,
+					header: t('userRevalidation:permission'),
+					cell: tooltipCell
+				}
+			),
 			table.createDataColumn(
 				row => ({
 					answerType: row.answerType,
@@ -485,7 +511,7 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 				}
 			)
 		],
-		[review.id, t, ActionCellComponent, users]
+		[review.id, t, ActionCellComponent, tooltipCell, users]
 	);
 
 	return (

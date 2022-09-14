@@ -7,7 +7,8 @@ import {
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
-	TextInput
+	TextInput,
+	Loading
 } from '@carbon/react';
 import DatePickerWrapper from '@components/DatePickerWrapper';
 import FullWidthColumn from '@components/FullWidthColumn';
@@ -35,7 +36,7 @@ type FormData = {
 
 const SendCampaignModal = ({ isOpen, setIsOpen, campaign }: DeleteModalProps) => {
 	const { t } = useTranslation(['modals', 'userRevalidation']);
-	const { mutate, isError, error } = useSendCampaignRevalidationRequest();
+	const { mutate, isLoading, isError, error } = useSendCampaignRevalidationRequest();
 	const {
 		control,
 		register,
@@ -70,7 +71,12 @@ const SendCampaignModal = ({ isOpen, setIsOpen, campaign }: DeleteModalProps) =>
 	};
 
 	return (
-		<ComposedModal preventCloseOnClickOutside open={isOpen} onClose={cleanUp}>
+		<ComposedModal
+			preventCloseOnClickOutside
+			open={isOpen}
+			onClose={cleanUp}
+			className='z-[9999]'
+		>
 			<ModalHeader title={t('userRevalidation:send-request')} closeModal={cleanUp} />
 			<ModalBody hasForm>
 				{t('modals:body-add', {
@@ -140,8 +146,9 @@ const SendCampaignModal = ({ isOpen, setIsOpen, campaign }: DeleteModalProps) =>
 				<Button kind='secondary' onClick={cleanUp}>
 					{t('modals:cancel')}
 				</Button>
-				<Button onClick={handleSubmit(sendRevalidation)} disabled={!isValid}>
+				<Button onClick={handleSubmit(sendRevalidation)} disabled={!isValid || isLoading}>
 					{t('userRevalidation:send-revalidation')}
+					{isLoading ? <Loading /> : ''}
 				</Button>
 			</ModalFooter>
 		</ComposedModal>
