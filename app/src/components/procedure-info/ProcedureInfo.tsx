@@ -71,7 +71,7 @@ const ProcedureInfo = () => {
 							className='flex w-full flex-wrap items-center bg-layer-1 md:sticky md:z-10  md:space-x-4'
 							ref={buttonRef}
 							style={{
-								top: breadcrumbSize * 2 - 1
+								top: breadcrumbSize + 48
 							}}
 						>
 							<Button

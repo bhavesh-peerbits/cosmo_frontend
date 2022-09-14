@@ -29,6 +29,7 @@ const useEditApp = () => {
 				old => (old instanceof Map ? new Map(old.set(variables.appId, data)) : data)
 			);
 			queryClient.invalidateQueries(['appChanges', variables.appId]);
+			queryClient.invalidateQueries(['reviewApps']);
 		}
 	});
 };

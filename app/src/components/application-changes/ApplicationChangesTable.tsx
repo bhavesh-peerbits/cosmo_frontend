@@ -42,7 +42,12 @@ const ApplicationChangesTable = ({ appId }: ApplicationChangesTableProps) => {
 
 	return (
 		<CosmoTable
-			data={data.filter(audit => audit.action === 'MODIFY')}
+			data={data.filter(
+				audit =>
+					audit.action === 'MODIFY' &&
+					audit.field !== 'Last Modifier' &&
+					audit.field !== 'Last Modify'
+			)}
 			createHeaders={columns}
 			noDataMessage={t('no-changes')}
 		/>
