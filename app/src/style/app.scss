@@ -47,3 +47,12 @@
 }
 
 // :root main {}
+
+/* fix colori autocomplete */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+	box-shadow: 0 0 0 50px #{theme.$field} inset !important;
+	-webkit-text-fill-color: #{theme.$text-primary} !important;
+}

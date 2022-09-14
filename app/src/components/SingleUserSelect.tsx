@@ -172,7 +172,6 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 					entries: users
 						.filter(u => !excludedUsers?.some(e => e.id === u.id))
 						.filter(u => u.id !== value?.id)
-						.filter(u => !u.inactive)
 						.map(u => ({
 							id: u.id,
 							title: u.displayName,

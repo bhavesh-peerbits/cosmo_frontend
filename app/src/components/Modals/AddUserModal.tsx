@@ -1,6 +1,6 @@
 import ApiError from '@api/ApiError';
 import useAddUser from '@api/user-admin/useAddUser';
-import useGetUsers from '@api/user/useGetUsers';
+import useGetActiveAndInactiveUsers from '@api/user-admin/useGetActiveAndInactiveUsers';
 import {
 	ComposedModal,
 	ModalHeader,
@@ -31,7 +31,7 @@ type AddUserModalProps = {
 	setIsOpen: (val: boolean) => void;
 };
 const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
-	const { data: users = [] } = useGetUsers();
+	const { data: users = [] } = useGetActiveAndInactiveUsers();
 	const { t } = useTranslation('modals');
 	const { t: tHome } = useTranslation('home');
 	const { t: tUser } = useTranslation('userAdmin');

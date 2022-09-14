@@ -9,7 +9,7 @@ const useSetUserActive = () => {
 	const queryClient = useQueryClient();
 	return useMutation(({ userId }: { userId: string }) => setUserActive(userId), {
 		onSuccess: () => {
-			queryClient.invalidateQueries(['users']);
+			queryClient.invalidateQueries(['allUsers']);
 			queryClient.invalidateQueries(['applicationUsers']);
 			queryClient.invalidateQueries(['analystUsers']);
 		}
