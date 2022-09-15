@@ -9,6 +9,7 @@ import ProcedureForm from '@components/procedure-info/ProcedureForm';
 import NoDataMessage from '@components/NoDataMessage';
 import ProcedureAppInstance from '@model/ProcedureAppInstance';
 import useGetProcedureByApp from '@api/app-procedures/useGetProcedureByApp';
+import useGetProcedures from '@api/procedures/useGetProcedures';
 import MultipleReviewModal from '@components/Modals/MultipleReviewModal';
 import ProcedureReviewModal from '@components/Modals/ProcedureReviewModal';
 import { useTranslation } from 'react-i18next';
@@ -36,6 +37,7 @@ const ProcedureInfo = () => {
 	const [procedureChecked, setProcedureChecked] = useState<string[]>([]);
 	const buttonRef = useRef<HTMLDivElement>(null);
 	const { md } = useResponsive();
+	const { data: procedures = new Map() } = useGetProcedures();
 
 	useEffect(() => {
 		setProcedureList(old => {
@@ -175,17 +177,23 @@ const ProcedureInfo = () => {
 									/>
 								</div>
 							)}
-							{procedureList.map(procedure => (
-								<ProcedureForm
-									key={procedure.id}
-									procedureApp={procedure}
-									isNew={procedure.isNew}
-									appId={appId as string}
-									onDelete={() =>
-										setProcedureList(old => old.filter(o => o.id !== procedure.id))
-									}
-								/>
-							))}
+							{procedureList
+								.sort(
+									(a, b) =>
+										procedures.get(a.procedureId).orderNumber -
+										procedures.get(b.procedureId).orderNumber
+								)
+								.map(procedure => (
+									<ProcedureForm
+										key={procedure.id}
+										procedureApp={procedure}
+										isNew={procedure.isNew}
+										appId={appId as string}
+										onDelete={() =>
+											setProcedureList(old => old.filter(o => o.id !== procedure.id))
+										}
+									/>
+								))}
 						</div>
 					</div>
 				</FullWidthColumn>
