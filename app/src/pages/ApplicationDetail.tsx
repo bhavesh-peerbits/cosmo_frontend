@@ -57,7 +57,7 @@ const ApplicationDetail = () => {
 			<>
 				<StickyTabs>
 					<TabList
-						className='sticky z-10 bg-background'
+						className='sticky z-[1000] bg-background'
 						contained
 						aria-label='List of tabs'
 					>
