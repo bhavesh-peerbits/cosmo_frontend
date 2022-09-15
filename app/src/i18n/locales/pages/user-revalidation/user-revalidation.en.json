@@ -61,5 +61,6 @@
 	"campaign-left-toast": "For {{application}} there are {{number}} campaigns left. Click below to navigate to applications dashboard",
 	"saveAnswersError": "Error saving answers",
 	"replace-upload": "Replace upload",
-	"remove-upload": "Remove upload"
+	"remove-upload": "Remove upload",
+	"delegates": "Delegates"
 }

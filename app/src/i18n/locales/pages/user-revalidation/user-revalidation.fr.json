@@ -61,5 +61,6 @@
 	"campaign-left-toast": "Pour {{application}}, il reste {{number}} campagnes. Utilisez le bouton ci-dessous pour naviguer vers la liste des applications",
 	"saveAnswersError": "Erreur de la sauvegarde des réponses",
 	"replace-upload": "Remplacer l'upload",
-	"remove-upload": "Supprimer l'upload"
+	"remove-upload": "Supprimer l'upload",
+	"delegates": "Délégués"
 }

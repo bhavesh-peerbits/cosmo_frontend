@@ -25,8 +25,8 @@ const AnswerTable = ({ answers }: AnswerTableProp) => {
 				cell: info => info.getValue()?.email || '-'
 			}),
 			table.createDataColumn(row => row.delegated, {
-				id: 'status',
-				header: t('userRevalidation:status'),
+				id: 'delegates',
+				header: t('userRevalidation:delegates'),
 				cell: info =>
 					info
 						.getValue()

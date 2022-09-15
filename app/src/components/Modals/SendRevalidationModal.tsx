@@ -80,7 +80,7 @@ const SendCampaignModal = ({ isOpen, setIsOpen, campaign }: DeleteModalProps) =>
 			preventCloseOnClickOutside
 			open={isOpen}
 			onClose={cleanUp}
-			className='z-[9999]'
+			className='z-[1000]'
 		>
 			<ModalHeader title={t('userRevalidation:send-request')} closeModal={cleanUp} />
 			<ModalBody hasForm>
