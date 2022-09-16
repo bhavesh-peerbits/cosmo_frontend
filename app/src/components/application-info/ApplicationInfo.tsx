@@ -118,7 +118,7 @@ const ApplicationInfo = ({ application }: ApplicationInfoProps) => {
 	return (
 		<TableOfContents
 			stickyOffset={buttonRef.current?.getBoundingClientRect()?.height || 0}
-			tocStickyOffset={breadcrumbSize * 2 - 1}
+			tocStickyOffset={breadcrumbSize + 48}
 		>
 			<Grid fullWidth className='h-full'>
 				<FullWidthColumn className='pt-4'>

@@ -64,7 +64,7 @@ const ProcedureInfo = () => {
 			setChecked={setProcedureChecked}
 			checked={procedureChecked}
 			stickyOffset={STICKY_OFFSET}
-			tocStickyOffset={breadcrumbSize * 2 - 1}
+			tocStickyOffset={breadcrumbSize + 48}
 		>
 			<Grid fullWidth className='h-full'>
 				<FullWidthColumn className='pt-4'>
