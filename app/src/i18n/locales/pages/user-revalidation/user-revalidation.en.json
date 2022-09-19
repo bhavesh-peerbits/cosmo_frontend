@@ -62,5 +62,7 @@
 	"saveAnswersError": "Error saving answers",
 	"replace-upload": "Replace upload",
 	"remove-upload": "Remove upload",
-	"delegates": "Delegates"
+	"delegates": "Delegates",
+	"answers-review": "Answers review",
+	"answers-review-description": "Enter the revalidation answer for each user"
 }

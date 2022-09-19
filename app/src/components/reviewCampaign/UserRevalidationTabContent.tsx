@@ -15,10 +15,10 @@ const UserRevalidationTabContent = ({ review }: UserRevalidationTabContentProps)
 		<div className='h-fit'>
 			<div className='mb-8 mt-3'>
 				<h2 className='flex h-full flex-wrap text-productive-heading-4'>
-					Answers Review
+					{t('userRevalidation:answers-review')}
 				</h2>
 				<p className='mt-2 w-1/2 text-text-secondary text-caption-2'>
-					Review all your answers and the relative application associated to them.
+					{`${t('userRevalidation:answers-review-description')}.`}
 				</p>
 			</div>
 			<Tabs>

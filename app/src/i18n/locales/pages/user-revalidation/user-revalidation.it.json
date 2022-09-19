@@ -62,5 +62,7 @@
 	"saveAnswersError": "Errore salvataggio risposte",
 	"replace-upload": "Sostituisci upload",
 	"remove-upload": "Rimuovi upload",
-	"delegates": "Delegati"
+	"delegates": "Delegati",
+	"answers-review": "Risposte rivalidazione",
+	"answers-review-description": "Inserire la risposta di rivalidazione per ogni utenza"
 }
