@@ -8,6 +8,7 @@ import PageSkeleton from '@components/PageSkeleton';
 import usePolicyStore from '@hooks/usePolicyStore';
 import ProtectRoute from '@routes/ProtectRoute';
 import Procedures from '@pages/Procedures';
+import EvidenceRequest from '@pages/EvidenceRequest';
 
 const Home = React.lazy(() => import('@pages/Home'));
 const Test = React.lazy(() => import('@pages/Test'));
@@ -158,6 +159,10 @@ const AuthenticatedRoutes = () => {
 										</ProtectRoute>
 									}
 								/>
+							</Route>
+
+							<Route path='evidence-request'>
+								<Route index element={<EvidenceRequest />} />
 							</Route>
 
 							<Route path='test' element={<Test />} />

@@ -12,7 +12,8 @@ import {
 	RequestQuote,
 	Fade,
 	UserAdmin,
-	UserRole
+	UserRole,
+	Archive
 } from '@carbon/react/icons';
 import routes from '@routes/routes-const';
 import useUiStore from '@hooks/useUiStore';
@@ -96,10 +97,13 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 						</SideNavMenu>
 					)}
 					{canAdmin && (
-						<SideNavLink renderIcon={UserAdmin} href={routes.ADMIN}>
+						<SideNavLink renderIcon={UserAdmin} element={Link} to={routes.ADMIN}>
 							Administration
 						</SideNavLink>
 					)}
+					<SideNavLink renderIcon={Archive} element={Link} to={routes.EVIDENCE_REQUEST}>
+						Evidence Request
+					</SideNavLink>
 					<SideNavLink renderIcon={Logout} href={routes.LOGOUT}>
 						Logout
 					</SideNavLink>
