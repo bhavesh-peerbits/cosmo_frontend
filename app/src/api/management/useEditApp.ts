@@ -30,6 +30,7 @@ const useEditApp = () => {
 			);
 			queryClient.invalidateQueries(['appChanges', variables.appId]);
 			queryClient.invalidateQueries(['reviewApps']);
+			queryClient.invalidateQueries(['reviewProcedures', variables.appId]);
 		}
 	});
 };
