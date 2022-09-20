@@ -11,7 +11,9 @@ import {
 	TableExpandRow,
 	TableHead,
 	TableHeader,
-	TableRow
+	TableRow,
+	TableSelectAll,
+	TableSelectRow
 } from '@carbon/react';
 
 import {
@@ -33,6 +35,7 @@ import { useTranslation } from 'react-i18next';
 import {
 	AvailableFileType,
 	CellProperties,
+	CosmoTableToolbarProps,
 	ExportProperties,
 	TB
 } from '@components/table/types';
@@ -45,7 +48,14 @@ interface GroupableTableProps<D extends object> {
 	createHeaders: (table: TableType<TB<D>>) => Array<ColumnDef<TB<D>>>;
 	data: D[];
 	noDataMessage?: string;
-	exportFileName?: (param: { fileType: AvailableFileType }) => string;
+	exportFileName?: (param: {
+		fileType: AvailableFileType;
+		all: boolean | 'selection';
+	}) => string;
+	toolbar?:
+		| Pick<CosmoTableToolbarProps<D>, 'toolbarContent' | 'toolbarBatchActions'>
+		| undefined;
+	isSelectable?: boolean;
 	disableExport?: boolean;
 }
 
@@ -54,7 +64,9 @@ const GroupableCosmoTable = <D extends object>({
 	data,
 	noDataMessage,
 	exportFileName,
-	disableExport
+	disableExport,
+	toolbar,
+	isSelectable
 }: GroupableTableProps<D>) => {
 	const { t } = useTranslation('table');
 	const [expanded, setExpanded] = useState<ExpandedState>({});
@@ -90,7 +102,17 @@ const GroupableCosmoTable = <D extends object>({
 		getGroupedRowModel: getGroupedRowModel(),
 		getPaginationRowModel: getPaginationRowModel()
 	});
-	const { getRowModel, getHeaderGroups, setPageIndex, setPageSize } = instance;
+	const {
+		getRowModel,
+		getHeaderGroups,
+		setPageIndex,
+		setPageSize,
+		getSelectedRowModel,
+		toggleAllRowsSelected,
+		getIsAllRowsSelected,
+		getIsSomeRowsSelected,
+		getToggleAllRowsSelectedHandler
+	} = instance;
 	const { exportData } = useExportTablePlugin(instance, exportFileName, disableExport);
 	const renderBody = () => {
 		const { rows } = getRowModel();
@@ -104,6 +126,16 @@ const GroupableCosmoTable = <D extends object>({
 						onClick={row.getToggleExpandedHandler()}
 						onExpand={() => null}
 					>
+						{isSelectable && (
+							<TableSelectRow
+								checked={row.getIsSelected()}
+								ariaLabel='Select'
+								id={row.id}
+								name={row.id}
+								onSelect={row.getToggleSelectedHandler()}
+								onChange={undefined}
+							/>
+						)}
 						{row.getVisibleCells().map(cell => (
 							<TableCell key={cell.id}>
 								{cell.getIsGrouped() && (
@@ -116,6 +148,16 @@ const GroupableCosmoTable = <D extends object>({
 					</TableExpandRow>
 				) : (
 					<TableRow className='w-full' key={row.id}>
+						{isSelectable && (
+							<TableSelectRow
+								checked={row.getIsSelected()}
+								ariaLabel='Select'
+								id={row.id}
+								name={row.id}
+								onSelect={row.getToggleSelectedHandler()}
+								onChange={undefined}
+							/>
+						)}
 						<TableCell />
 						{row.getVisibleCells().map(cell => (
 							<TableCell key={cell.id}>
@@ -142,16 +184,45 @@ const GroupableCosmoTable = <D extends object>({
 
 	return (
 		<TableContainer>
-			<CosmoTableToolbar<D>
-				onExportClick={exportData}
-				disableExport={grouping.length > 0 || data.length === 0}
-			/>
+			{toolbar ? (
+				<CosmoTableToolbar<D>
+					onExportClick={exportData}
+					selectionIds={
+						getSelectedRowModel()
+							.flatRows.map(row => row.original)
+							.filter(r => r) as D[]
+					}
+					onCancel={() => toggleAllRowsSelected(false)}
+					toolbarBatchActions={toolbar?.toolbarBatchActions}
+					toolbarContent={toolbar?.toolbarContent}
+					disableExport={data.length === 0}
+				/>
+			) : (
+				<CosmoTableToolbar<D>
+					onExportClick={exportData}
+					disableExport={grouping.length > 0 || data.length === 0}
+				/>
+			)}
 			<Layer level={1}>
 				<Table>
 					<TableHead>
 						{getHeaderGroups().map(headerGroup => {
 							return (
 								<TableRow key={headerGroup.id}>
+									{isSelectable && (
+										<th className='relative text-center'>
+											<TableSelectAll
+												ariaLabel='SelectAll'
+												id='selectAll'
+												className='absolute top-1/2 left-0 -translate-y-1/2'
+												name='selectAll'
+												checked={getIsAllRowsSelected()}
+												indeterminate={getIsSomeRowsSelected()}
+												onSelect={getToggleAllRowsSelectedHandler()}
+												onChange={undefined}
+											/>
+										</th>
+									)}
 									<TableExpandHeader />
 									{headerGroup.headers.map(header => {
 										return (

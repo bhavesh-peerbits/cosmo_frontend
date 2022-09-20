@@ -273,7 +273,7 @@ import CampaignApplication from '@model/CampaignApplication';
 import useAnswerStore from '@hooks/user-revalidation-review/useAnswerStore';
 import { useTranslation } from 'react-i18next';
 import Answer from '@model/Answer';
-import CosmoTable, { CellProperties, HeaderFunction } from '@components/table/CosmoTable';
+import { CellProperties, HeaderFunction } from '@components/table/CosmoTable';
 import {
 	CheckmarkOutline,
 	RequestQuote,
@@ -290,6 +290,7 @@ import UserRevalidationActionModal, {
 } from '@components/Modals/UserRevalidationActionModal';
 import useGetRevalidatorAnswers from '@api/review-campaign/useGetRevalidatorAnswers';
 import { useParams } from 'react-router-dom';
+import GroupableCosmoTable from './GroupableCosmoTable';
 
 interface CosmoTableRevalidationUsersProps {
 	review: CampaignApplication;
@@ -569,8 +570,7 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 	return (
 		<>
 			<UserRevalidationActionModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
-			<CosmoTable
-				tableId={review.id}
+			<GroupableCosmoTable
 				createHeaders={columns}
 				noDataMessage={t('table:no-data')}
 				toolbar={{ toolbarBatchActions }}
