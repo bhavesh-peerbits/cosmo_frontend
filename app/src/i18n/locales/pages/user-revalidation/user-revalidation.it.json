@@ -63,6 +63,9 @@
 	"replace-upload": "Sostituisci upload",
 	"remove-upload": "Rimuovi upload",
 	"delegates": "Delegati",
+	"answers-review": "Risposte rivalidazione",
+	"answers-review-description": "Inserire la risposta di rivalidazione per ogni utenza",
+	"due-date-exceeded": "Data di scadenza superata",
 	"permissions-description-null": "Descrizione Non Presente",
 	"fire-fighter": "Fire Fighter",
 	"risk": "Rischio"

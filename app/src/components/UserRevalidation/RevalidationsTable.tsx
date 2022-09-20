@@ -50,7 +50,10 @@ const RevalidationsTable = () => {
 					id: 'name',
 					header: t('campaign-name'),
 					sortUndefined: 1,
-					cell: CellLinkComponent
+					cell: CellLinkComponent,
+					meta: {
+						exportableFn: info => info.campaign.name || '-'
+					}
 				}
 			),
 			table.createDataColumn(row => row.campaign.dueDate, {
@@ -77,7 +80,10 @@ const RevalidationsTable = () => {
 			table.createDataColumn(row => row.campaign.status, {
 				id: 'status',
 				header: t('status'),
-				cell: info => translateStatus(info.getValue())
+				cell: info => translateStatus(info.getValue()),
+				meta: {
+					exportableFn: info => translateStatus(info)
+				}
 			})
 		],
 		[CellLinkComponent, t, translateStatus]

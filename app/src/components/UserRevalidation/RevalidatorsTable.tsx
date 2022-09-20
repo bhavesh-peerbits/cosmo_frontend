@@ -18,24 +18,41 @@ const RevalidatorsTable = ({ answers, dueDate }: RevalidatorsTableProp) => {
 				id: 'name',
 				header: t('userRevalidation:users-to-revalidate'),
 				sortUndefined: 1,
-				cell: info => info.getValue()?.username || '-'
+				cell: info => info.getValue()?.displayName || '-',
+				meta: {
+					exportableFn: info => info.displayName || '-'
+				}
 			}),
 			table.createDataColumn(row => row.revalidationUser, {
 				id: 'email',
 				header: 'Email',
-				cell: info => info.getValue()?.email || '-'
+				cell: info => info.getValue()?.email || '-',
+				meta: {
+					exportableFn: info => info.email || '-'
+				}
 			}),
 			table.createDataColumn(row => row.answerType, {
 				id: 'status',
 				header: t('userRevalidation:status'),
 				cell: info => {
 					if (info.getValue()) {
-						return 'Completed';
+						return t('userRevalidation:completed');
 					}
 					if (dueDate && isAfter(new Date(), dueDate)) {
-						return 'Due date exceeded';
+						return t('userRevalidation:due-date-exceeded');
 					}
-					return 'Incomplete';
+					return t('userRevalidation:not-completed');
+				},
+				meta: {
+					exportableFn: info => {
+						if (info) {
+							return t('userRevalidation:completed');
+						}
+						if (dueDate && isAfter(new Date(), dueDate)) {
+							return t('userRevalidation:due-date-exceeded');
+						}
+						return t('userRevalidation:not-completed');
+					}
 				}
 			})
 		],
@@ -57,6 +74,7 @@ const RevalidatorsTable = ({ answers, dueDate }: RevalidatorsTableProp) => {
 			createHeaders={columns}
 			toolbar={{ toolbarContent }}
 			noDataMessage={t('table:no-data')}
+			exportFileName={() => 'revalidators'}
 		/>
 	);
 };
