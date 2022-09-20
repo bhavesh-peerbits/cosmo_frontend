@@ -62,5 +62,8 @@
 	"saveAnswersError": "Errore salvataggio risposte",
 	"replace-upload": "Sostituisci upload",
 	"remove-upload": "Rimuovi upload",
-	"delegates": "Delegati"
+	"delegates": "Delegati",
+	"permissions-description-null": "Descrizione Non Presente",
+	"fire-fighter": "Fire Fighter",
+	"risk": "Rischio"
 }

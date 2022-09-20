@@ -62,5 +62,8 @@
 	"saveAnswersError": "Error saving answers",
 	"replace-upload": "Replace upload",
 	"remove-upload": "Remove upload",
-	"delegates": "Delegates"
+	"delegates": "Delegates",
+	"permissions-description-null": "Description Not Present",
+	"fire-fighter": "Fire Fighter",
+	"risk": "Risk"
 }

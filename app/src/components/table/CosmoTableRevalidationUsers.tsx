@@ -290,6 +290,7 @@ import UserRevalidationActionModal, {
 } from '@components/Modals/UserRevalidationActionModal';
 import useGetRevalidatorAnswers from '@api/review-campaign/useGetRevalidatorAnswers';
 import { useParams } from 'react-router-dom';
+import { createTable } from '@tiptap/extension-table';
 
 interface CosmoTableRevalidationUsersProps {
 	review: CampaignApplication;
@@ -484,7 +485,12 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 			<div className='grid grid-cols-6'>
 				<span className='col-span-5'>{info.getValue().title}</span>
 				<span className='place-self-center'>
-					<Tooltip description={info.getValue().data} align='top'>
+					<Tooltip
+						description={
+							info.getValue().data || t('userRevalidation:permissions-description-null')
+						}
+						align='top'
+					>
 						<button type='button' className='pt-1'>
 							<Information />
 						</button>
@@ -492,41 +498,73 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 				</span>
 			</div>
 		),
-		[]
+		[t]
 	);
 
+	const isFireFighter = review.campaign.type === 'FIREFIGHTER';
+	const isSuid = review.campaign.type === 'SUID';
 	const columns: HeaderFunction<Answer> = useCallback(
-		table => [
-			table.createDataColumn(row => row.userToRevalidate, {
-				id: `user${review.id}`,
-				header: 'Username',
-				sortUndefined: 1
-			}),
-			table.createDataColumn(row => row.userDetails, {
-				id: `userDisplayName${review.id}`,
-				header: 'User'
-			}),
-			table.createDataColumn(
-				row => ({ title: row.permissions, data: row.permissionDescription }),
-				{
-					id: `permissions${review.id}`,
-					header: t('userRevalidation:permission'),
-					cell: tooltipCell
-				}
-			),
-			table.createDataColumn(
-				row => ({
-					answerType: row.answerType,
-					note: row.note
+		table => {
+			const ArrayCol = [
+				table.createDataColumn(row => row.userToRevalidate, {
+					id: `user${review.id}`,
+					header: 'Username',
+					sortUndefined: 1
 				}),
-				{
-					id: `answer${review.id}`,
-					header: t('userRevalidation:answer'),
-					cell: ActionCellComponent
-				}
-			)
-		],
-		[review.id, t, ActionCellComponent, tooltipCell]
+				table.createDataColumn(row => row.userDetails, {
+					id: `userDisplayName${review.id}`,
+					header: 'User'
+				}),
+				table.createDataColumn(
+					row => ({ title: row.permissions, data: row.permissionDescription }),
+					{
+						id: `permissions${review.id}`,
+						header: t('userRevalidation:permission'),
+						cell: tooltipCell
+					}
+				),
+				table.createDataColumn(
+					row => ({
+						answerType: row.answerType,
+						note: row.note
+					}),
+					{
+						id: `answer${review.id}`,
+						header: t('userRevalidation:answer'),
+						cell: ActionCellComponent
+					}
+				)
+			];
+			if (isFireFighter) {
+				ArrayCol.splice(
+					3,
+					0,
+					table.createDataColumn(row => row.firefighterID, {
+						id: `fireFighter${review.id}`,
+						header: t('userRevalidation:fire-fighter')
+					})
+				);
+			}
+			if (isFireFighter || isSuid) {
+				ArrayCol.splice(
+					3,
+					0,
+					table.createDataColumn(
+						row => ({
+							title: row.jsonApplicationData?.get('risk'),
+							data: row.jsonApplicationData?.get('riskDescription')
+						}),
+						{
+							id: `risk${review.id}`,
+							header: t('userRevalidation:risk'),
+							cell: tooltipCell
+						}
+					)
+				);
+			}
+			return ArrayCol;
+		},
+		[review.id, t, ActionCellComponent, tooltipCell, isFireFighter, isSuid]
 	);
 
 	return (

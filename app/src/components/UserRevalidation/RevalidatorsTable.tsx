@@ -12,12 +12,11 @@ interface RevalidatorsTableProp {
 
 const RevalidatorsTable = ({ answers, dueDate }: RevalidatorsTableProp) => {
 	const { t } = useTranslation(['table', 'userRevalidation', 'userAdmin']);
-
 	const columns: HeaderFunction<Answer> = useCallback(
 		table => [
 			table.createDataColumn(row => row.revalidationUser, {
 				id: 'name',
-				header: t('userRevalidation:campaign-name'),
+				header: t('userRevalidation:users-to-revalidate'),
 				sortUndefined: 1,
 				cell: info => info.getValue()?.username || '-'
 			}),
