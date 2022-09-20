@@ -290,7 +290,6 @@ import UserRevalidationActionModal, {
 } from '@components/Modals/UserRevalidationActionModal';
 import useGetRevalidatorAnswers from '@api/review-campaign/useGetRevalidatorAnswers';
 import { useParams } from 'react-router-dom';
-import { createTable } from '@tiptap/extension-table';
 
 interface CosmoTableRevalidationUsersProps {
 	review: CampaignApplication;
