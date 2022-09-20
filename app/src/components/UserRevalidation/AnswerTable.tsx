@@ -17,12 +17,18 @@ const AnswerTable = ({ answers }: AnswerTableProp) => {
 				id: 'name',
 				header: t('userRevalidation:users-to-revalidate'),
 				sortUndefined: 1,
-				cell: info => info.getValue()?.username || '-'
+				cell: info => info.getValue()?.username || '-',
+				meta: {
+					exportableFn: info => info.displayName || '-'
+				}
 			}),
 			table.createDataColumn(row => row.revalidationUser, {
 				id: 'email',
 				header: 'Email',
-				cell: info => info.getValue()?.email || '-'
+				cell: info => info.getValue()?.email || '-',
+				meta: {
+					exportableFn: info => info.email || '-'
+				}
 			}),
 			table.createDataColumn(row => row.delegated, {
 				id: 'delegates',
