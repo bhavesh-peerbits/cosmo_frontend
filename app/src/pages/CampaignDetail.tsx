@@ -139,7 +139,7 @@ const CampaignDetail = () => {
 
 	return (
 		<PageHeader
-			pageTitle={campaign.name}
+			pageTitle={`${campaign.name} (${campaign.type})`}
 			intermediateRoutes={[
 				{ name: 'Revalidations Ongoing', to: '/revalidations-ongoing' }
 			]}
