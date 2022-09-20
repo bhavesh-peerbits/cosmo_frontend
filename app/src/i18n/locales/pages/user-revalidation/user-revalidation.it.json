@@ -64,5 +64,6 @@
 	"remove-upload": "Rimuovi upload",
 	"delegates": "Delegati",
 	"answers-review": "Risposte rivalidazione",
-	"answers-review-description": "Inserire la risposta di rivalidazione per ogni utenza"
+	"answers-review-description": "Inserire la risposta di rivalidazione per ogni utenza",
+	"due-date-exceeded": "Data di scadenza superata"
 }

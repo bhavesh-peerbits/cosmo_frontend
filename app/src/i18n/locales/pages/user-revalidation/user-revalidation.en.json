@@ -64,5 +64,6 @@
 	"remove-upload": "Remove upload",
 	"delegates": "Delegates",
 	"answers-review": "Answers review",
-	"answers-review-description": "Enter the revalidation answer for each user"
+	"answers-review-description": "Enter the revalidation answer for each user",
+	"due-date-exceeded": "Due date exceeded"
 }

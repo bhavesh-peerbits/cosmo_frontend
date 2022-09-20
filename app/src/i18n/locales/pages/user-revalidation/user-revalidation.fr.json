@@ -64,5 +64,6 @@
 	"remove-upload": "Supprimer l'upload",
 	"delegates": "Délégués",
 	"answers-review": "Réponses revalidation",
-	"answers-review-description": "Entrez la réponse de revalidation pour chaque utilisateur"
+	"answers-review-description": "Entrez la réponse de revalidation pour chaque utilisateur",
+	"due-date-exceeded": "Date d'expiration dépassée"
 }
