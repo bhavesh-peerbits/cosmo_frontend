@@ -479,7 +479,7 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 		(
 			info: CellProperties<
 				Answer,
-				{ title: string | undefined; data: string | undefined }
+				{ title: string | undefined; description: string | undefined }
 			>
 		) => (
 			<div className='grid grid-cols-6'>
@@ -487,7 +487,8 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 				<span className='place-self-center'>
 					<Tooltip
 						description={
-							info.getValue().data || t('userRevalidation:permissions-description-null')
+							info.getValue().description ||
+							t('userRevalidation:permissions-description-null')
 						}
 						align='top'
 					>
@@ -516,7 +517,7 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 					header: 'User'
 				}),
 				table.createDataColumn(
-					row => ({ title: row.permissions, data: row.permissionDescription }),
+					row => ({ title: row.permissions, description: row.permissionDescription }),
 					{
 						id: `permissions${review.id}`,
 						header: t('userRevalidation:permission'),
@@ -552,7 +553,7 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 					table.createDataColumn(
 						row => ({
 							title: row.jsonApplicationData?.get('risk'),
-							data: row.jsonApplicationData?.get('riskDescription')
+							description: row.jsonApplicationData?.get('riskDescription')
 						}),
 						{
 							id: `risk${review.id}`,

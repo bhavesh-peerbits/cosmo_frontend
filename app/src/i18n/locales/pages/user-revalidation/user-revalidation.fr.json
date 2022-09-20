@@ -66,7 +66,7 @@
 	"answers-review": "Réponses revalidation",
 	"answers-review-description": "Entrez la réponse de revalidation pour chaque utilisateur",
 	"due-date-exceeded": "Date d'expiration dépassée",
-	"permissions-description-null": "Description Not Present",
-	"fire-fighter": "Fire Fighter",
-	"risk": "Risk"
+	"permissions-description-null": "Description non présente",
+	"fire-fighter": "Firefighter",
+	"risk": "Risque"
 }
