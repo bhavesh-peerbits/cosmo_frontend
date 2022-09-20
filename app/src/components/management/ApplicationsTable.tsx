@@ -1,7 +1,7 @@
 import useManagementApps from '@hooks/management/useManagementApps';
 import { useTranslation } from 'react-i18next';
 import Application from '@model/Application';
-import { CloudDownload, Email, TrashCan } from '@carbon/react/icons';
+import { CloudDownload, Email } from '@carbon/react/icons';
 import { TableToolbarSearch } from '@carbon/react';
 import CosmoTable, { CellProperties, HeaderFunction } from '@components/table/CosmoTable';
 import IconResolver from '@components/IconResolver';
@@ -96,17 +96,17 @@ const ApplicationsTable = () => {
 				setIsModalOpen(true);
 			},
 			label: 'Narrative'
-		},
-		{
-			id: 'trash',
-			icon: TrashCan,
-			onClick: (selected: Application[]) => {
-				setRowSelected(selected);
-				setActionSelected('Delete');
-				setIsModalOpen(true);
-			},
-			label: t('delete')
 		}
+		// {
+		// 	id: 'trash',
+		// 	icon: TrashCan,
+		// 	onClick: (selected: Application[]) => {
+		// 		setRowSelected(selected);
+		// 		setActionSelected('Delete');
+		// 		setIsModalOpen(true);
+		// 	},
+		// 	label: t('delete')
+		// } // TODO Remove comments when endpoint will be fixed
 	];
 
 	const toolbarContent = (
