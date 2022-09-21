@@ -233,29 +233,27 @@ const GroupableCosmoTable = <D extends object>({
 													header.column.getIsSorted() === 'desc' ? 'DESC' : 'ASC'
 												}
 												scope=''
-												isSortable
+												isSortable={header.column.getCanSort()}
 												isSortHeader={
 													header.column.getCanSort() && !!header.column.getIsSorted()
 												}
 											>
 												<div className='flex items-center justify-between'>
 													{!header.isPlaceholder && header.renderHeader()}
-													{header.column.getCanGroup() && (
-														<OverflowMenu
-															ariaLabel='Overflow Menu'
-															iconDescription='Menu'
-														>
-															<OverflowMenuItem
-																itemText={
-																	(header.column.getIsSorted() === 'desc' &&
-																		t('original-sort')) ||
-																	(header.column.getIsSorted() === 'asc' &&
-																		t('sort-descending')) ||
-																	t('sort-ascending')
-																}
-																onClick={header.column.getToggleSortingHandler()}
-															/>
 
+													<OverflowMenu ariaLabel='Overflow Menu' iconDescription='Menu'>
+														<OverflowMenuItem
+															itemText={
+																(header.column.getNextSortingOrder() === 'desc' &&
+																	t('sort-descending')) ||
+																(header.column.getNextSortingOrder() === 'asc' &&
+																	t('sort-ascending')) ||
+																t('original-sort')
+															}
+															onClick={header.column.getToggleSortingHandler()}
+														/>
+
+														{header.column.getCanGroup() && (
 															<OverflowMenuItem
 																hasDivider
 																itemText={
@@ -265,8 +263,8 @@ const GroupableCosmoTable = <D extends object>({
 																}
 																onClick={header.column.getToggleGroupingHandler()}
 															/>
-														</OverflowMenu>
-													)}
+														)}
+													</OverflowMenu>
 												</div>
 											</TableHeader>
 										);

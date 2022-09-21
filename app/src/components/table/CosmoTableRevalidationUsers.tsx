@@ -529,7 +529,9 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 						answerType: row.answerType,
 						note: row.note
 					}),
+
 					{
+						enableGrouping: false,
 						id: `answer${review.id}`,
 						header: t('userRevalidation:answer'),
 						cell: ActionCellComponent
