@@ -574,6 +574,7 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 		<>
 			<UserRevalidationActionModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
 			<GroupableCosmoTable
+				tableId={review.id}
 				createHeaders={columns}
 				noDataMessage={t('table:no-data')}
 				toolbar={{ toolbarBatchActions }}

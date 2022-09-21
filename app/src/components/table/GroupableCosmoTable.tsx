@@ -45,6 +45,7 @@ import CosmoTableToolbar from './CosmoTableToolbar';
 type HeaderFunction<T extends object> = GroupableTableProps<T>['createHeaders'];
 
 interface GroupableTableProps<D extends object> {
+	tableId: string;
 	createHeaders: (table: TableType<TB<D>>) => Array<ColumnDef<TB<D>>>;
 	data: D[];
 	noDataMessage?: string;
@@ -60,6 +61,7 @@ interface GroupableTableProps<D extends object> {
 }
 
 const GroupableCosmoTable = <D extends object>({
+	tableId,
 	createHeaders,
 	data,
 	noDataMessage,
@@ -120,7 +122,7 @@ const GroupableCosmoTable = <D extends object>({
 			rows.map(row => {
 				return row.getCanExpand() ? (
 					<TableExpandRow
-						key={row.id}
+						key={row.id + tableId}
 						isExpanded={row.getIsExpanded()}
 						ariaLabel=''
 						onClick={row.getToggleExpandedHandler()}
@@ -130,8 +132,8 @@ const GroupableCosmoTable = <D extends object>({
 							<TableSelectRow
 								checked={row.getIsSelected()}
 								ariaLabel='Select'
-								id={row.id}
-								name={row.id}
+								id={row.id + tableId}
+								name={row.id + tableId}
 								onSelect={row.getToggleSelectedHandler()}
 								onChange={undefined}
 							/>
@@ -147,13 +149,13 @@ const GroupableCosmoTable = <D extends object>({
 						))}
 					</TableExpandRow>
 				) : (
-					<TableRow className='w-full' key={row.id}>
+					<TableRow className='w-full' key={row.id + tableId}>
 						{isSelectable && (
 							<TableSelectRow
 								checked={row.getIsSelected()}
 								ariaLabel='Select'
-								id={row.id}
-								name={row.id}
+								id={row.id + tableId}
+								name={row.id + tableId}
 								onSelect={row.getToggleSelectedHandler()}
 								onChange={undefined}
 							/>
@@ -213,9 +215,9 @@ const GroupableCosmoTable = <D extends object>({
 										<th className='relative text-center'>
 											<TableSelectAll
 												ariaLabel='SelectAll'
-												id='selectAll'
+												id={headerGroup.id + tableId}
+												name={headerGroup.id + tableId}
 												className='absolute top-1/2 left-0 -translate-y-1/2'
-												name='selectAll'
 												checked={getIsAllRowsSelected()}
 												indeterminate={getIsSomeRowsSelected()}
 												onSelect={getToggleAllRowsSelectedHandler()}
