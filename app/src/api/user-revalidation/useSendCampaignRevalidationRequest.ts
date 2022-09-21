@@ -28,6 +28,7 @@ export default () => {
 		onSuccess: () => {
 			queryClient.invalidateQueries(['campaigns-ongoing-completed']);
 			queryClient.invalidateQueries(['campaigns-not-started']);
+			queryClient.invalidateQueries(['campaigns-reviewer']);
 		}
 	});
 };

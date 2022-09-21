@@ -58,7 +58,6 @@ const CosmoFileUploader = <T extends FieldValues, TName extends FieldPath<T>>({
 				labelText={label}
 				accept={['.csv']}
 				className='w-full'
-				id='upload'
 				onBlur={onBlur}
 				multiple={multiple}
 				onAddFiles={(e, { addedFiles }) =>

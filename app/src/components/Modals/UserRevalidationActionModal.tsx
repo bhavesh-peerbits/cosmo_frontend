@@ -60,7 +60,7 @@ const UserRevalidationActionModal = ({
 	};
 
 	return (
-		<ComposedModal size='sm' open={isOpen.isOpen} onClose={cleanUp}>
+		<ComposedModal size='sm' open={isOpen.isOpen} onClose={cleanUp} className='z-[9999]'>
 			<Form>
 				<ModalHeader
 					title={

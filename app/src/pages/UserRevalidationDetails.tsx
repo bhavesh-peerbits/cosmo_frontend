@@ -15,7 +15,7 @@ const UserRevalidationDetails = () => {
 
 	return (
 		<PageHeader
-			pageTitle={campaignWithReview.campaign.name}
+			pageTitle={`${campaignWithReview.campaign.name} (${campaignWithReview.campaign.type})`}
 			intermediateRoutes={[{ name: 'User Revalidation', to: '/user-revalidation' }]}
 		>
 			<StickyTabs>

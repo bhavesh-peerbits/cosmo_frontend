@@ -99,7 +99,7 @@ const NewRevalidationDetail = () => {
 
 	return (
 		<PageHeader
-			pageTitle={data.name}
+			pageTitle={`${data.name} (${data.type})`}
 			intermediateRoutes={[{ name: 'New Revalidation', to: '/new-revalidation' }]}
 			actions={[
 				{

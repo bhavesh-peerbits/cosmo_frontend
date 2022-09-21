@@ -4,10 +4,9 @@ import Application from '@model/Application';
 import { DonutChart } from '@carbon/charts-react';
 import { ReactNode, useMemo } from 'react';
 import { interfaces } from '@carbon/charts';
-import useGetAnswersForReview from '@api/user-revalidation/useGetAnswersForReview';
-import Answer from '@model/Answer';
 import Campaign from '@model/Campaign';
 import useUiStore from '@hooks/useUiStore';
+import useAnswers from '@hooks/user-revalidation/useAnswers';
 import RevalidatorsTable from './RevalidatorsTable';
 
 interface CampaignDetailsContainerProps {
@@ -25,10 +24,11 @@ const CampaignDetailsContainer = ({
 }: CampaignDetailsContainerProps) => {
 	const { t } = useTranslation('userRevalidation');
 	const { theme } = useUiStore();
-	const { data = new Map<string, Answer>() } = useGetAnswersForReview(
-		campaign.id,
-		reviewId
-	);
+	const {
+		answers: data,
+		filters,
+		setFilters
+	} = useAnswers({ campaignId: campaign.id, reviewId });
 
 	const chartsData = useMemo(() => {
 		const cData = [...data.values()].reduce(
@@ -58,7 +58,7 @@ const CampaignDetailsContainer = ({
 					center: {
 						label: 'Completed',
 						number: [...data.values()].filter(val => Boolean(val.answerType)).length,
-						numberFormatter: (value: number) => `${value} / ${data.size}`
+						numberFormatter: (value: number) => `${value} / ${data.length}`
 					},
 					alignment: interfaces.Alignments.CENTER
 				},
@@ -77,7 +77,12 @@ const CampaignDetailsContainer = ({
 						{t('revalidators')} (
 						{[...data.values()].filter(d => Boolean(d.revalidationUser)).length})
 					</p>
-					<RevalidatorsTable answers={[...data.values()]} dueDate={campaign.dueDate} />
+					<RevalidatorsTable
+						answers={[...data.values()]}
+						dueDate={campaign.dueDate}
+						filters={filters}
+						setFilters={setFilters}
+					/>
 				</Tile>
 			</Column>
 			<Column lg={5} md={8} sm={4} className='h-full space-y-5 pb-5'>

@@ -36,6 +36,7 @@ const useDeleteProcedureApp = () => {
 				}
 			);
 			queryClient.invalidateQueries(['appChanges', variables.appId]);
+			queryClient.invalidateQueries(['review-procedures', variables.appId]);
 		}
 	});
 };

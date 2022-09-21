@@ -94,7 +94,10 @@ const UsersTable = () => {
 			table.createDataColumn(row => row.inactive, {
 				id: 'status',
 				header: t('status'),
-				cell: info => (info.getValue() ? t('blocked') : t('active'))
+				cell: info => (info.getValue() ? t('blocked') : t('active')),
+				meta: {
+					exportableFn: info => (info ? t('blocked') : t('active'))
+				}
 			})
 		],
 		[t]
