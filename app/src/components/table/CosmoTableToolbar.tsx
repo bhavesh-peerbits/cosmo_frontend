@@ -24,7 +24,7 @@ const ExportSelectionAction = ({
 	const actions = [
 		{
 			id: 'pdf',
-			label: 'Download as PDF',
+			label: t('download-pdf'),
 			onClick: () => {
 				exportFn('pdf', 'selection');
 				setFalse();
@@ -33,7 +33,7 @@ const ExportSelectionAction = ({
 		},
 		{
 			id: 'xlsx',
-			label: 'Download as XLSX',
+			label: t('download-xlsx'),
 			onClick: () => {
 				exportFn('xlsx', 'selection');
 				setFalse();
@@ -42,7 +42,7 @@ const ExportSelectionAction = ({
 		},
 		{
 			id: 'csv',
-			label: 'Download as CSV',
+			label: t('download-csv'),
 			onClick: () => {
 				exportFn('csv', 'selection');
 				setFalse();
@@ -163,33 +163,31 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 				))}
 				<ExportSelectionAction exportFn={onExportClick} />
 			</TableBatchActions>
-			{toolbarContent && (
-				<TableToolbarContent>
-					{toolbarContent}
-					{actions.map(action => (
-						<TableToolbarMenu
-							key={action.id}
-							iconDescription={action.menuLabel}
-							renderIcon={() => action.menuIcon}
-							ariaLabel={action.menuLabel}
-							disabled={disableExport}
-						>
-							{action.actions.map(subAction => (
-								<TableToolbarAction
-									key={subAction.id}
-									onClick={subAction.onClick}
-									itemText={
-										<div className='flex items-center justify-between space-x-5'>
-											<div>{subAction.icon}</div>
-											<span>{subAction.label}</span>
-										</div>
-									}
-								/>
-							))}
-						</TableToolbarMenu>
-					))}
-				</TableToolbarContent>
-			)}
+			<TableToolbarContent>
+				{toolbarContent}
+				{actions.map(action => (
+					<TableToolbarMenu
+						key={action.id}
+						iconDescription={action.menuLabel}
+						renderIcon={() => action.menuIcon}
+						ariaLabel={action.menuLabel}
+						disabled={disableExport}
+					>
+						{action.actions.map(subAction => (
+							<TableToolbarAction
+								key={subAction.id}
+								onClick={subAction.onClick}
+								itemText={
+									<div className='flex items-center justify-between space-x-5'>
+										<div>{subAction.icon}</div>
+										<span>{subAction.label}</span>
+									</div>
+								}
+							/>
+						))}
+					</TableToolbarMenu>
+				))}
+			</TableToolbarContent>
 		</TableToolbar>
 	) : (
 		<TableToolbarContent>

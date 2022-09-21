@@ -200,11 +200,11 @@ const CosmoTableInlineAction = <D extends object>({
 															>
 																<OverflowMenuItem
 																	itemText={
-																		(header.column.getIsSorted() === 'desc' &&
-																			t('original-sort')) ||
-																		(header.column.getIsSorted() === 'asc' &&
+																		(header.column.getNextSortingOrder() === 'desc' &&
 																			t('sort-descending')) ||
-																		t('sort-ascending')
+																		(header.column.getNextSortingOrder() === 'asc' &&
+																			t('sort-ascending')) ||
+																		t('original-sort')
 																	}
 																	onClick={header.column.getToggleSortingHandler()}
 																/>

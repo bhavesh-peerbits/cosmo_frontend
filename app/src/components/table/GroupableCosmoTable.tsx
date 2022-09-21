@@ -11,7 +11,9 @@ import {
 	TableExpandRow,
 	TableHead,
 	TableHeader,
-	TableRow
+	TableRow,
+	TableSelectAll,
+	TableSelectRow
 } from '@carbon/react';
 
 import {
@@ -33,6 +35,7 @@ import { useTranslation } from 'react-i18next';
 import {
 	AvailableFileType,
 	CellProperties,
+	CosmoTableToolbarProps,
 	ExportProperties,
 	TB
 } from '@components/table/types';
@@ -42,19 +45,30 @@ import CosmoTableToolbar from './CosmoTableToolbar';
 type HeaderFunction<T extends object> = GroupableTableProps<T>['createHeaders'];
 
 interface GroupableTableProps<D extends object> {
+	tableId: string;
 	createHeaders: (table: TableType<TB<D>>) => Array<ColumnDef<TB<D>>>;
 	data: D[];
 	noDataMessage?: string;
-	exportFileName?: (param: { fileType: AvailableFileType }) => string;
+	exportFileName?: (param: {
+		fileType: AvailableFileType;
+		all: boolean | 'selection';
+	}) => string;
+	toolbar?:
+		| Pick<CosmoTableToolbarProps<D>, 'toolbarContent' | 'toolbarBatchActions'>
+		| undefined;
+	isSelectable?: boolean;
 	disableExport?: boolean;
 }
 
 const GroupableCosmoTable = <D extends object>({
+	tableId,
 	createHeaders,
 	data,
 	noDataMessage,
 	exportFileName,
-	disableExport
+	disableExport,
+	toolbar,
+	isSelectable
 }: GroupableTableProps<D>) => {
 	const { t } = useTranslation('table');
 	const [expanded, setExpanded] = useState<ExpandedState>({});
@@ -90,7 +104,17 @@ const GroupableCosmoTable = <D extends object>({
 		getGroupedRowModel: getGroupedRowModel(),
 		getPaginationRowModel: getPaginationRowModel()
 	});
-	const { getRowModel, getHeaderGroups, setPageIndex, setPageSize } = instance;
+	const {
+		getRowModel,
+		getHeaderGroups,
+		setPageIndex,
+		setPageSize,
+		getSelectedRowModel,
+		toggleAllRowsSelected,
+		getIsAllRowsSelected,
+		getIsSomeRowsSelected,
+		getToggleAllRowsSelectedHandler
+	} = instance;
 	const { exportData } = useExportTablePlugin(instance, exportFileName, disableExport);
 	const renderBody = () => {
 		const { rows } = getRowModel();
@@ -98,12 +122,22 @@ const GroupableCosmoTable = <D extends object>({
 			rows.map(row => {
 				return row.getCanExpand() ? (
 					<TableExpandRow
-						key={row.id}
+						key={row.id + tableId}
 						isExpanded={row.getIsExpanded()}
 						ariaLabel=''
 						onClick={row.getToggleExpandedHandler()}
 						onExpand={() => null}
 					>
+						{isSelectable && (
+							<TableSelectRow
+								checked={row.getIsSelected()}
+								ariaLabel='Select'
+								id={row.id + tableId}
+								name={row.id + tableId}
+								onSelect={row.getToggleSelectedHandler()}
+								onChange={undefined}
+							/>
+						)}
 						{row.getVisibleCells().map(cell => (
 							<TableCell key={cell.id}>
 								{cell.getIsGrouped() && (
@@ -115,7 +149,17 @@ const GroupableCosmoTable = <D extends object>({
 						))}
 					</TableExpandRow>
 				) : (
-					<TableRow className='w-full' key={row.id}>
+					<TableRow className='w-full' key={row.id + tableId}>
+						{isSelectable && (
+							<TableSelectRow
+								checked={row.getIsSelected()}
+								ariaLabel='Select'
+								id={row.id + tableId}
+								name={row.id + tableId}
+								onSelect={row.getToggleSelectedHandler()}
+								onChange={undefined}
+							/>
+						)}
 						<TableCell />
 						{row.getVisibleCells().map(cell => (
 							<TableCell key={cell.id}>
@@ -142,16 +186,45 @@ const GroupableCosmoTable = <D extends object>({
 
 	return (
 		<TableContainer>
-			<CosmoTableToolbar<D>
-				onExportClick={exportData}
-				disableExport={grouping.length > 0 || data.length === 0}
-			/>
+			{toolbar ? (
+				<CosmoTableToolbar<D>
+					onExportClick={exportData}
+					selectionIds={
+						getSelectedRowModel()
+							.flatRows.map(row => row.original)
+							.filter(r => r) as D[]
+					}
+					onCancel={() => toggleAllRowsSelected(false)}
+					toolbarBatchActions={toolbar?.toolbarBatchActions}
+					toolbarContent={toolbar?.toolbarContent}
+					disableExport={data.length === 0}
+				/>
+			) : (
+				<CosmoTableToolbar<D>
+					onExportClick={exportData}
+					disableExport={grouping.length > 0 || data.length === 0}
+				/>
+			)}
 			<Layer level={1}>
 				<Table>
 					<TableHead>
 						{getHeaderGroups().map(headerGroup => {
 							return (
 								<TableRow key={headerGroup.id}>
+									{isSelectable && (
+										<th className='relative text-center'>
+											<TableSelectAll
+												ariaLabel='SelectAll'
+												id={headerGroup.id + tableId}
+												name={headerGroup.id + tableId}
+												className='absolute top-1/2 left-0 -translate-y-1/2'
+												checked={getIsAllRowsSelected()}
+												indeterminate={getIsSomeRowsSelected()}
+												onSelect={getToggleAllRowsSelectedHandler()}
+												onChange={undefined}
+											/>
+										</th>
+									)}
 									<TableExpandHeader />
 									{headerGroup.headers.map(header => {
 										return (
@@ -162,29 +235,27 @@ const GroupableCosmoTable = <D extends object>({
 													header.column.getIsSorted() === 'desc' ? 'DESC' : 'ASC'
 												}
 												scope=''
-												isSortable
+												isSortable={header.column.getCanSort()}
 												isSortHeader={
 													header.column.getCanSort() && !!header.column.getIsSorted()
 												}
 											>
 												<div className='flex items-center justify-between'>
 													{!header.isPlaceholder && header.renderHeader()}
-													{header.column.getCanGroup() && (
-														<OverflowMenu
-															ariaLabel='Overflow Menu'
-															iconDescription='Menu'
-														>
-															<OverflowMenuItem
-																itemText={
-																	(header.column.getIsSorted() === 'desc' &&
-																		t('original-sort')) ||
-																	(header.column.getIsSorted() === 'asc' &&
-																		t('sort-descending')) ||
-																	t('sort-ascending')
-																}
-																onClick={header.column.getToggleSortingHandler()}
-															/>
 
+													<OverflowMenu ariaLabel='Overflow Menu' iconDescription='Menu'>
+														<OverflowMenuItem
+															itemText={
+																(header.column.getNextSortingOrder() === 'desc' &&
+																	t('sort-descending')) ||
+																(header.column.getNextSortingOrder() === 'asc' &&
+																	t('sort-ascending')) ||
+																t('original-sort')
+															}
+															onClick={header.column.getToggleSortingHandler()}
+														/>
+
+														{header.column.getCanGroup() && (
 															<OverflowMenuItem
 																hasDivider
 																itemText={
@@ -194,8 +265,8 @@ const GroupableCosmoTable = <D extends object>({
 																}
 																onClick={header.column.getToggleGroupingHandler()}
 															/>
-														</OverflowMenu>
-													)}
+														)}
+													</OverflowMenu>
 												</div>
 											</TableHeader>
 										);

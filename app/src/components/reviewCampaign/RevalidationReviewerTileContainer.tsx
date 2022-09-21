@@ -26,7 +26,7 @@ const RevalidationReviewerTileContainer = () => {
 	const { revalidations } = useRevalidationReview();
 
 	return (
-		<div className='flex flex-col space-y-7'>
+		<div className='flex flex-col space-y-5'>
 			<div className='flex w-full flex-wrap justify-between space-x-5 space-y-5 md:flex-nowrap md:space-y-0'>
 				<SearchBar />
 				<div className='flex w-full items-center justify-between space-x-5 md:w-auto md:justify-end'>
@@ -38,7 +38,7 @@ const RevalidationReviewerTileContainer = () => {
 				</div>
 			</div>
 			<div>
-				<Grid fullWidth narrow className='p-container-1'>
+				<Grid fullWidth narrow>
 					<Column sm={4} md={6} lg={16} xlg={15} max={16}>
 						<Grid fullWidth className='h-full space-y-5'>
 							{revalidations.map(revalidation => (

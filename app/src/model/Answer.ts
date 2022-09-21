@@ -3,7 +3,7 @@ import User, { fromUserApi, toUserApi } from '@model/User';
 
 interface Answer {
 	id: string;
-	jsonApplicationData?: string;
+	jsonApplicationData?: Map<string, string>;
 	revalidationUser?: User;
 	userToRevalidate?: string;
 	userDetails?: string;
@@ -27,7 +27,10 @@ export const fromAnswersApi = (answerApi: AnswerApi): Answer => ({
 	firefighterID: answerApi.firefighterID,
 	answerType: answerApi.answerType,
 	note: answerApi.note,
-	delegated: answerApi.delegated?.map(fromUserApi)
+	delegated: answerApi.delegated?.map(fromUserApi),
+	jsonApplicationData: answerApi.jsonApplicationData
+		? new Map(Object.entries(JSON.parse(answerApi.jsonApplicationData)))
+		: undefined
 });
 
 export const toAnswersApi = (answer: Answer): AnswerApi => ({
@@ -42,6 +45,7 @@ export const toAnswersApi = (answer: Answer): AnswerApi => ({
 	firefighterID: answer.firefighterID,
 	answerType: answer.answerType,
 	note: answer.note,
+	jsonApplicationData: JSON.stringify(answer.jsonApplicationData),
 	delegated: answer.delegated?.map(toUserApi)
 });
 

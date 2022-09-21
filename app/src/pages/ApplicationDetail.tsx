@@ -1,7 +1,7 @@
 import ApplicationInfo from '@components/application-info/ApplicationInfo';
 import { Tab, TabList, TabPanel, TabPanels } from '@carbon/react';
 import PageHeader from '@components/PageHeader';
-import { CloudDownload, Email, TrashCan } from '@carbon/react/icons';
+import { CloudDownload, Email } from '@carbon/react/icons';
 import { useState } from 'react';
 import ProcedureInfo from '@components/procedure-info/ProcedureInfo';
 import ApplicationChangesContainer from '@components/application-changes/ApplicationChangesContainer';
@@ -44,20 +44,20 @@ const ApplicationDetail = () => {
 					onClick: () => {
 						setIsGenerateModalOpen(true);
 					}
-				},
-				{
-					name: t('delete'),
-					icon: TrashCan,
-					onClick: () => {
-						setIsDeleteModalOpen(true);
-					}
 				}
+				// {
+				// 	name: t('delete'),
+				// 	icon: TrashCan,
+				// 	onClick: () => {
+				// 		setIsDeleteModalOpen(true);
+				// 	}
+				// } // TODO Delete comments when endpoint will be fixed
 			]}
 		>
 			<>
 				<StickyTabs>
 					<TabList
-						className='sticky z-10 bg-background'
+						className='sticky z-[1000] bg-background'
 						contained
 						aria-label='List of tabs'
 					>
