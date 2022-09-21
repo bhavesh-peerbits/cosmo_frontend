@@ -68,5 +68,6 @@
 	"due-date-exceeded": "Date d'expiration dépassée",
 	"permissions-description-null": "Description non présente",
 	"fire-fighter": "Firefighter",
-	"risk": "Risque"
+	"risk": "Risque",
+	"percentage": "Pourcentage d'achèvement de la campagne"
 }

@@ -68,5 +68,6 @@
 	"due-date-exceeded": "Due date exceeded",
 	"permissions-description-null": "Description Not Present",
 	"fire-fighter": "Firefighter",
-	"risk": "Risk"
+	"risk": "Risk",
+	"percentage": "Percentage of completion campaign"
 }

@@ -5,18 +5,29 @@ import { useTranslation } from 'react-i18next';
 import Answer from '@model/Answer';
 import isAfter from 'date-fns/isAfter';
 
+type Filters = {
+	query: string | undefined;
+};
+
 interface RevalidatorsTableProp {
 	answers: Answer[];
+	filters: Filters;
+	setFilters: (s: React.SetStateAction<Partial<{ q: string | undefined }>>) => void;
 	dueDate: Date | undefined;
 }
 
-const RevalidatorsTable = ({ answers, dueDate }: RevalidatorsTableProp) => {
+const RevalidatorsTable = ({
+	answers,
+	dueDate,
+	filters,
+	setFilters
+}: RevalidatorsTableProp) => {
 	const { t } = useTranslation(['table', 'userRevalidation', 'userAdmin']);
 	const columns: HeaderFunction<Answer> = useCallback(
 		table => [
 			table.createDataColumn(row => row.revalidationUser, {
 				id: 'name',
-				header: t('userRevalidation:users-to-revalidate'),
+				header: t('userRevalidation:revalidators'),
 				sortUndefined: 1,
 				cell: info => info.getValue()?.displayName || '-',
 				meta: {
@@ -65,6 +76,8 @@ const RevalidatorsTable = ({ answers, dueDate }: RevalidatorsTableProp) => {
 			persistent
 			placeholder={t('userAdmin:search-placeholder')}
 			id='search'
+			value={filters.query ?? ''}
+			onChange={e => setFilters({ q: e.currentTarget?.value })}
 		/>
 	);
 	return (

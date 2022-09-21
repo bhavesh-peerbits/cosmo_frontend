@@ -25,12 +25,13 @@ import { useQueryClient } from 'react-query';
 const CampaignStatus = memo(({ campaign }: { campaign: Campaign }) => {
 	const { id, type, layer, startDate, dueDate } = campaign;
 	const { data: status = 0 } = useGetCampaignStatus(id);
+	const { t } = useTranslation(['userRevalidation', 'reviewNarrative']);
 	const { theme } = useUiStore();
 	const meterData = useMemo(
 		() => ({
 			data: [
 				{
-					group: 'Percentage of completion campaign',
+					group: t('userRevalidation:percentage'),
 					value: (status * 100).toFixed(2)
 				}
 			],
@@ -45,42 +46,42 @@ const CampaignStatus = memo(({ campaign }: { campaign: Campaign }) => {
 				height: '100px',
 				color: {
 					scale: {
-						'Percentage of completion campaign': 'blue'
+						[t('userRevalidation:percentage')]: 'blue'
 					}
 				},
 				theme: theme as interfaces.ChartTheme
 			}
 		}),
-		[status, theme]
+		[status, theme, t]
 	);
 	const statusData = useMemo(
 		() => [
 			{
 				id: 'revalidation',
-				label: 'Revalidation Type:',
+				label: `${t('userRevalidation:revalidation-type')}:`,
 				value: mapCampaignTypeToCampaignDisplayType(type)
 			},
 			{
 				id: 'layer',
-				label: 'Layer:',
+				label: `${t('userRevalidation:layer')}:`,
 				value: layer
 			},
 			{
 				id: 'start-date',
-				label: 'Start Date:',
+				label: `${t('reviewNarrative:start-date')}:`,
 				value: startDate ? startDate.toLocaleDateString('it-IT') : undefined
 			},
 			{
 				id: 'due-date',
-				label: 'Due Date:',
+				label: `${t('reviewNarrative:due-date')}:`,
 				value: dueDate ? dueDate.toLocaleDateString('it-IT') : undefined
 			}
 		],
-		[dueDate, layer, startDate, type]
+		[dueDate, layer, startDate, type, t]
 	);
 	return (
 		<>
-			<h2 className='text-heading-3'>Status</h2>
+			<h2 className='text-heading-3'>{t('userRevalidation:status')}</h2>
 			<MeterChart options={meterData.options} data={meterData.data} />
 			<Stack gap={5}>
 				{statusData.map(({ id: statusId, label, value }) => (
