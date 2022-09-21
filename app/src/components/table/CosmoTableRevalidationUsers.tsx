@@ -482,9 +482,9 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 				{ title: string | undefined; description: string | undefined }
 			>
 		) => (
-			<div className='grid grid-cols-6'>
-				<span className='col-span-5'>{info.getValue().title}</span>
-				<span className='place-self-center'>
+			<div className='flex items-center space-x-2'>
+				<span>{info.getValue().title}</span>
+				<span>
 					<Tooltip
 						description={
 							info.getValue().description ||
@@ -492,7 +492,7 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 						}
 						align='top'
 					>
-						<button type='button' className='pt-1'>
+						<button type='button'>
 							<Information />
 						</button>
 					</Tooltip>
