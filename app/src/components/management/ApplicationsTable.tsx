@@ -80,8 +80,8 @@ const ApplicationsTable = () => {
 		{
 			id: 'email',
 			icon: Email,
-			onClick: (selected: Application[]) => {
-				setRowSelected(selected);
+			onClick: ({ selectionIds }: { selectionIds: Application[] }) => {
+				setRowSelected(selectionIds);
 				setActionSelected('Review');
 				setIsModalOpen(true);
 			},
@@ -90,8 +90,8 @@ const ApplicationsTable = () => {
 		{
 			id: 'cloud',
 			icon: CloudDownload,
-			onClick: (selected: Application[]) => {
-				setRowSelected(selected);
+			onClick: ({ selectionIds }: { selectionIds: Application[] }) => {
+				setRowSelected(selectionIds);
 				setActionSelected('Generate');
 				setIsModalOpen(true);
 			},
