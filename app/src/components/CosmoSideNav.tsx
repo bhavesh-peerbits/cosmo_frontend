@@ -46,6 +46,20 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 				isRail={md && !lg}
 			>
 				<SideNavItems>
+					{canReview && (
+						<SideNavMenu
+							renderIcon={RequestQuote}
+							title='Inbox'
+							className='transition-all'
+						>
+							<SideNavMenuItem element={Link} to={routes.REVIEW_NARRATIVE}>
+								Narrative
+							</SideNavMenuItem>
+							<SideNavMenuItem element={Link} to={routes.USER_REVALIDATION}>
+								User Revalidation
+							</SideNavMenuItem>
+						</SideNavMenu>
+					)}
 					{canSeeNarrativeManagement && (
 						<SideNavMenu
 							renderIcon={AlignBoxMiddleCenter}
@@ -60,20 +74,6 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 									Review
 								</SideNavMenuItem>
 							)}
-						</SideNavMenu>
-					)}
-					{canReview && (
-						<SideNavMenu
-							renderIcon={RequestQuote}
-							title='Review'
-							className='transition-all'
-						>
-							<SideNavMenuItem element={Link} to={routes.REVIEW_NARRATIVE}>
-								Narrative
-							</SideNavMenuItem>
-							<SideNavMenuItem element={Link} to={routes.USER_REVALIDATION}>
-								User Revalidation
-							</SideNavMenuItem>
 						</SideNavMenu>
 					)}
 					{import.meta.env.DEV && (

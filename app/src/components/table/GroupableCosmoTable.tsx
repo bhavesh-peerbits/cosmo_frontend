@@ -113,7 +113,8 @@ const GroupableCosmoTable = <D extends object>({
 		toggleAllRowsSelected,
 		getIsAllRowsSelected,
 		getIsSomeRowsSelected,
-		getToggleAllRowsSelectedHandler
+		getToggleAllRowsSelectedHandler,
+		resetRowSelection
 	} = instance;
 	const { exportData } = useExportTablePlugin(instance, exportFileName, disableExport);
 	const renderBody = () => {
@@ -198,6 +199,7 @@ const GroupableCosmoTable = <D extends object>({
 					toolbarBatchActions={toolbar?.toolbarBatchActions}
 					toolbarContent={toolbar?.toolbarContent}
 					disableExport={data.length === 0}
+					onSuccess={resetRowSelection}
 				/>
 			) : (
 				<CosmoTableToolbar<D>
@@ -215,7 +217,7 @@ const GroupableCosmoTable = <D extends object>({
 										<th className='relative text-center'>
 											<TableSelectAll
 												ariaLabel='SelectAll'
-												id={headerGroup.id + tableId}
+												id={`${headerGroup.id}__${tableId}`}
 												name={headerGroup.id + tableId}
 												className='absolute top-1/2 left-0 -translate-y-1/2'
 												checked={getIsAllRowsSelected()}

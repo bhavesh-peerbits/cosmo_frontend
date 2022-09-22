@@ -422,36 +422,71 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 		{
 			id: 'confirm-selection',
 			icon: CheckmarkOutline,
-			onClick: (selected: Answer[]) => modifyAnswer(selected, 'OK'),
+			onClick: ({
+				selectionIds,
+				clean
+			}: {
+				selectionIds: Answer[];
+				clean?: () => void;
+			}) => {
+				modifyAnswer(selectionIds, 'OK');
+				clean && clean();
+			},
 			label: t('userRevalidation:confirm')
 		},
 		{
 			id: 'change-selection',
 			icon: RequestQuote,
-			onClick: (selected: Answer[]) =>
+			onClick: ({
+				selectionIds,
+				clean
+			}: {
+				selectionIds: Answer[];
+				clean?: () => void;
+			}) =>
 				setIsModalOpen({
 					isOpen: true,
 					actionSelected: 'Change',
-					onSuccess: ({ description }) => modifyAnswer(selected, 'MODIFY', description)
+					onSuccess: ({ description }) => {
+						modifyAnswer(selectionIds, 'MODIFY', description);
+						clean && clean();
+					}
 				}),
 			label: t('userRevalidation:change-request')
 		},
 		{
 			id: 'error-selection',
 			icon: MisuseOutline,
-			onClick: (selected: Answer[]) =>
+			onClick: ({
+				selectionIds,
+				clean
+			}: {
+				selectionIds: Answer[];
+				clean?: () => void;
+			}) =>
 				setIsModalOpen({
 					isOpen: true,
 					actionSelected: 'Change',
-					onSuccess: ({ description }) =>
-						modifyAnswer(selected, 'REPORT_ERROR', description)
+					onSuccess: ({ description }) => {
+						modifyAnswer(selectionIds, 'REPORT_ERROR', description);
+						clean && clean();
+					}
 				}),
 			label: t('userRevalidation:report-error')
 		},
 		{
 			id: 'block-selection',
 			icon: Error,
-			onClick: (selected: Answer[]) => modifyAnswer(selected, 'LOCK'),
+			onClick: ({
+				selectionIds,
+				clean
+			}: {
+				selectionIds: Answer[];
+				clean?: () => void;
+			}) => {
+				modifyAnswer(selectionIds, 'LOCK');
+				clean && clean();
+			},
 			label: t('userRevalidation:block')
 		}
 	];

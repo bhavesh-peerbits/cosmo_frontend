@@ -34,8 +34,9 @@ export interface CosmoTableToolbarProps<T extends object> {
 		id: string;
 		icon: (() => ReactElement) | ReactElement;
 		label: string;
-		onClick: (selectionIds: T[]) => void;
+		onClick: ({ selectionIds, clean }: { selectionIds: T[]; clean?: () => void }) => void;
 	}>;
+	onSuccess?: () => void;
 	onExportClick: (fileType: AvailableFileType, all?: boolean | 'selection') => void;
 	toolbarContent?: ReactNode;
 	disableExport?: boolean;
