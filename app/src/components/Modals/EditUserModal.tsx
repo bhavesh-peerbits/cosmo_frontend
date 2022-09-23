@@ -24,13 +24,11 @@ type EditUserModalProps = {
 
 const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 	const roles = [
-		'SYS_ADMIN',
 		'USER_ADMIN',
 		'NARRATIVE_ADMIN',
 		'NARRATIVE_ANALYST',
 		'REVALIDATION_ANALYST',
 		'REVIEWER',
-		'REVIEWER_COLLABORATOR',
 		'USER_UNKNOWN'
 	];
 
