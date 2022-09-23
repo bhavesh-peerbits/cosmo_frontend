@@ -46,6 +46,11 @@ import {
 	userRevalidationFr,
 	userRevalidationIt
 } from './pages/user-revalidation';
+import {
+	evidenceRequestEn,
+	evidenceRequestFr,
+	evidenceRequestIt
+} from './pages/evidence-request';
 import { testEn, testIt } from './pages/test';
 import {
 	errorBoundaryEn,
@@ -64,6 +69,7 @@ export default {
 		narrativeAdmin: narrativeAdminEn,
 		reviewNarrative: reviewNarrativeEn,
 		userRevalidation: userRevalidationEn,
+		evidenceRequest: evidenceRequestEn,
 		changes: changesEn,
 		userAdmin: userAdminEn,
 		userSelect: userSelectEn,
@@ -84,6 +90,7 @@ export default {
 		narrativeAdmin: narrativeAdminIt,
 		reviewNarrative: reviewNarrativeIt,
 		userRevalidation: userRevalidationIt,
+		evidenceRequest: evidenceRequestIt,
 		changes: changesIt,
 		userAdmin: userAdminIt,
 		userSelect: userSelectIt,
@@ -103,6 +110,7 @@ export default {
 		narrativeAdmin: narrativeAdminFr,
 		reviewNarrative: reviewNarrativeFr,
 		userRevalidation: userRevalidationFr,
+		evidenceRequest: evidenceRequestFr,
 		changes: changesFr,
 		userAdmin: userAdminFr,
 		userSelect: userSelectFr,

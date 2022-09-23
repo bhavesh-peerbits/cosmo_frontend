@@ -2,21 +2,20 @@ import { Column, Grid, Layer, Search } from '@carbon/react';
 import Fade from '@components/Fade';
 import Centered from '@components/Centered';
 import NoDataMessage from '@components/NoDataMessage';
+import { useTranslation } from 'react-i18next';
 import EvidenceRequestTileContainer from './EvidenceRequestTileContainer';
 
 const SearchBar = () => {
+	const { t } = useTranslation('evidenceRequest');
 	return (
 		<Layer className='ml-5 w-full'>
-			<Search
-				size='lg'
-				labelText='Search Request Name'
-				placeholder='Search Request Name'
-			/>
+			<Search size='lg' labelText='' placeholder={t('request-search-placeholder')} />
 		</Layer>
 	);
 };
 
 const EvidenceRequestTileView = () => {
+	const { t } = useTranslation('evidenceRequest');
 	const requests = [
 		{
 			id: 1,
@@ -63,7 +62,7 @@ const EvidenceRequestTileView = () => {
 						{requests.length === 0 ? (
 							<Fade>
 								<Centered>
-									<NoDataMessage title='No Requests' />
+									<NoDataMessage title={t('no-requests')} />
 								</Centered>
 							</Fade>
 						) : (
