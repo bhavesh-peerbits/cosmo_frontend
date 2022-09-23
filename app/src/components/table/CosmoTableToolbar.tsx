@@ -85,7 +85,8 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 	toolbarContent,
 	onExportClick,
 	disableExport,
-	excludeCurrentView
+	excludeCurrentView,
+	onSuccess
 }: CosmoTableToolbarProps<T>) => {
 	const { t } = useTranslation('table');
 	const actions = useMemo(
@@ -156,7 +157,11 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 					<TableBatchAction
 						key={action.id}
 						renderIcon={action.icon}
-						onClick={() => action.onClick(selectionIds)}
+						onClick={() => {
+							onSuccess
+								? action.onClick({ selectionIds, clean: onSuccess })
+								: action.onClick({ selectionIds });
+						}}
 					>
 						{action.label}
 					</TableBatchAction>
