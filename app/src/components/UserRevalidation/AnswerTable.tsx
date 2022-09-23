@@ -1,6 +1,6 @@
 import { TableToolbarSearch } from '@carbon/react';
 import CosmoTable, { HeaderFunction } from '@components/table/CosmoTable';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Answer from '@model/Answer';
 
@@ -10,23 +10,30 @@ interface AnswerTableProp {
 
 const AnswerTable = ({ answers }: AnswerTableProp) => {
 	const { t } = useTranslation(['table', 'userRevalidation', 'userAdmin']);
+	const [filters, setFilters] = useState('');
 
 	const columns: HeaderFunction<Answer> = useCallback(
 		table => [
 			table.createDataColumn(row => row.revalidationUser, {
 				id: 'name',
-				header: t('userRevalidation:users-to-revalidate'),
+				header: t('userRevalidation:revalidators'),
 				sortUndefined: 1,
-				cell: info => info.getValue()?.username || '-'
+				cell: info => info.getValue()?.username || '-',
+				meta: {
+					exportableFn: info => info.displayName || '-'
+				}
 			}),
 			table.createDataColumn(row => row.revalidationUser, {
 				id: 'email',
 				header: 'Email',
-				cell: info => info.getValue()?.email || '-'
+				cell: info => info.getValue()?.email || '-',
+				meta: {
+					exportableFn: info => info.email || '-'
+				}
 			}),
 			table.createDataColumn(row => row.delegated, {
-				id: 'status',
-				header: t('userRevalidation:status'),
+				id: 'delegates',
+				header: t('userRevalidation:delegates'),
 				cell: info =>
 					info
 						.getValue()
@@ -60,12 +67,21 @@ const AnswerTable = ({ answers }: AnswerTableProp) => {
 			persistent
 			placeholder={t('userAdmin:search-placeholder')}
 			id='search'
+			onChange={e => setFilters(e.currentTarget?.value)}
 		/>
 	);
 	return (
 		<CosmoTable
 			level={2}
-			data={answers}
+			data={
+				filters
+					? answers.filter(answer =>
+							answer.revalidationUser?.displayName
+								.toLowerCase()
+								.includes(filters.toLowerCase())
+					  )
+					: answers
+			}
 			createHeaders={columns}
 			toolbar={{ toolbarContent }}
 			noDataMessage={t('table:no-data')}

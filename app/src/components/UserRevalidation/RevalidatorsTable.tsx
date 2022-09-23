@@ -5,38 +5,65 @@ import { useTranslation } from 'react-i18next';
 import Answer from '@model/Answer';
 import isAfter from 'date-fns/isAfter';
 
+type Filters = {
+	query: string | undefined;
+};
+
 interface RevalidatorsTableProp {
 	answers: Answer[];
+	filters: Filters;
+	setFilters: (s: React.SetStateAction<Partial<{ q: string | undefined }>>) => void;
 	dueDate: Date | undefined;
 }
 
-const RevalidatorsTable = ({ answers, dueDate }: RevalidatorsTableProp) => {
+const RevalidatorsTable = ({
+	answers,
+	dueDate,
+	filters,
+	setFilters
+}: RevalidatorsTableProp) => {
 	const { t } = useTranslation(['table', 'userRevalidation', 'userAdmin']);
-
 	const columns: HeaderFunction<Answer> = useCallback(
 		table => [
 			table.createDataColumn(row => row.revalidationUser, {
 				id: 'name',
-				header: t('userRevalidation:campaign-name'),
+				header: t('userRevalidation:revalidators'),
 				sortUndefined: 1,
-				cell: info => info.getValue()?.username || '-'
+				cell: info => info.getValue()?.displayName || '-',
+				meta: {
+					exportableFn: info => info.displayName || '-'
+				}
 			}),
 			table.createDataColumn(row => row.revalidationUser, {
 				id: 'email',
 				header: 'Email',
-				cell: info => info.getValue()?.email || '-'
+				cell: info => info.getValue()?.email || '-',
+				meta: {
+					exportableFn: info => info.email || '-'
+				}
 			}),
 			table.createDataColumn(row => row.answerType, {
 				id: 'status',
 				header: t('userRevalidation:status'),
 				cell: info => {
 					if (info.getValue()) {
-						return 'Completed';
+						return t('userRevalidation:completed');
 					}
 					if (dueDate && isAfter(new Date(), dueDate)) {
-						return 'Due date exceeded';
+						return t('userRevalidation:due-date-exceeded');
 					}
-					return 'Incomplete';
+					return t('userRevalidation:not-completed');
+				},
+				meta: {
+					exportableFn: info => {
+						if (info) {
+							return t('userRevalidation:completed');
+						}
+						if (dueDate && isAfter(new Date(), dueDate)) {
+							return t('userRevalidation:due-date-exceeded');
+						}
+						return t('userRevalidation:not-completed');
+					}
 				}
 			})
 		],
@@ -49,6 +76,8 @@ const RevalidatorsTable = ({ answers, dueDate }: RevalidatorsTableProp) => {
 			persistent
 			placeholder={t('userAdmin:search-placeholder')}
 			id='search'
+			value={filters.query ?? ''}
+			onChange={e => setFilters({ q: e.currentTarget?.value })}
 		/>
 	);
 	return (
@@ -58,6 +87,7 @@ const RevalidatorsTable = ({ answers, dueDate }: RevalidatorsTableProp) => {
 			createHeaders={columns}
 			toolbar={{ toolbarContent }}
 			noDataMessage={t('table:no-data')}
+			exportFileName={() => 'revalidators'}
 		/>
 	);
 };

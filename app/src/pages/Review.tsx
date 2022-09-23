@@ -107,6 +107,7 @@ const Review = () => {
 			<PageHeader pageTitle='Review'>
 				<div className='h-full p-container-1'>
 					<GroupableCosmoTable
+						tableId='review'
 						data={reviews}
 						createHeaders={columns}
 						noDataMessage='No data'

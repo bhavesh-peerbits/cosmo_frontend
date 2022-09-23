@@ -61,5 +61,13 @@
 	"campaign-left-toast": "Pour {{application}}, il reste {{number}} campagnes. Utilisez le bouton ci-dessous pour naviguer vers la liste des applications",
 	"saveAnswersError": "Erreur de la sauvegarde des réponses",
 	"replace-upload": "Remplacer l'upload",
-	"remove-upload": "Supprimer l'upload"
+	"remove-upload": "Supprimer l'upload",
+	"delegates": "Délégués",
+	"answers-review": "Réponses revalidation",
+	"answers-review-description": "Entrez la réponse de revalidation pour chaque utilisateur",
+	"due-date-exceeded": "Date d'expiration dépassée",
+	"permissions-description-null": "Description non présente",
+	"fire-fighter": "Firefighter",
+	"risk": "Risque",
+	"percentage": "Pourcentage d'achèvement de la campagne"
 }

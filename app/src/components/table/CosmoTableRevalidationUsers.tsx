@@ -273,7 +273,7 @@ import CampaignApplication from '@model/CampaignApplication';
 import useAnswerStore from '@hooks/user-revalidation-review/useAnswerStore';
 import { useTranslation } from 'react-i18next';
 import Answer from '@model/Answer';
-import CosmoTable, { CellProperties, HeaderFunction } from '@components/table/CosmoTable';
+import { CellProperties, HeaderFunction } from '@components/table/CosmoTable';
 import {
 	CheckmarkOutline,
 	RequestQuote,
@@ -290,6 +290,7 @@ import UserRevalidationActionModal, {
 } from '@components/Modals/UserRevalidationActionModal';
 import useGetRevalidatorAnswers from '@api/review-campaign/useGetRevalidatorAnswers';
 import { useParams } from 'react-router-dom';
+import GroupableCosmoTable from './GroupableCosmoTable';
 
 interface CosmoTableRevalidationUsersProps {
 	review: CampaignApplication;
@@ -478,61 +479,101 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 		(
 			info: CellProperties<
 				Answer,
-				{ title: string | undefined; data: string | undefined }
+				{ title: string | undefined; description: string | undefined }
 			>
 		) => (
-			<div className='grid grid-cols-6'>
-				<span className='col-span-5'>{info.getValue().title}</span>
-				<span className='place-self-center'>
-					<Tooltip description={info.getValue().data} align='top'>
-						<button type='button' className='pt-1'>
+			<div className='flex items-center space-x-2'>
+				<span>{info.getValue().title}</span>
+				<span>
+					<Tooltip
+						description={
+							info.getValue().description ||
+							t('userRevalidation:permissions-description-null')
+						}
+						align='top'
+					>
+						<button type='button'>
 							<Information />
 						</button>
 					</Tooltip>
 				</span>
 			</div>
 		),
-		[]
+		[t]
 	);
 
+	const isFireFighter = review.campaign.type === 'FIREFIGHTER';
+	const isSuid = review.campaign.type === 'SUID';
 	const columns: HeaderFunction<Answer> = useCallback(
-		table => [
-			table.createDataColumn(row => row.userToRevalidate, {
-				id: `user${review.id}`,
-				header: 'Username',
-				sortUndefined: 1
-			}),
-			table.createDataColumn(row => row.userDetails, {
-				id: `userDisplayName${review.id}`,
-				header: 'User'
-			}),
-			table.createDataColumn(
-				row => ({ title: row.permissions, data: row.permissionDescription }),
-				{
-					id: `permissions${review.id}`,
-					header: t('userRevalidation:permission'),
-					cell: tooltipCell
-				}
-			),
-			table.createDataColumn(
-				row => ({
-					answerType: row.answerType,
-					note: row.note
+		table => {
+			const ArrayCol = [
+				table.createDataColumn(row => row.userToRevalidate, {
+					id: `user${review.id}`,
+					header: 'Username',
+					sortUndefined: 1
 				}),
-				{
-					id: `answer${review.id}`,
-					header: t('userRevalidation:answer'),
-					cell: ActionCellComponent
-				}
-			)
-		],
-		[review.id, t, ActionCellComponent, tooltipCell]
+				table.createDataColumn(row => row.userDetails, {
+					id: `userDisplayName${review.id}`,
+					header: 'User'
+				}),
+				table.createDataColumn(
+					row => ({ title: row.permissions, description: row.permissionDescription }),
+					{
+						id: `permissions${review.id}`,
+						header: t('userRevalidation:permission'),
+						cell: tooltipCell
+					}
+				),
+				table.createDataColumn(
+					row => ({
+						answerType: row.answerType,
+						note: row.note
+					}),
+
+					{
+						enableGrouping: false,
+						id: `answer${review.id}`,
+						header: t('userRevalidation:answer'),
+						cell: ActionCellComponent
+					}
+				)
+			];
+			if (isFireFighter) {
+				ArrayCol.splice(
+					3,
+					0,
+					table.createDataColumn(row => row.firefighterID, {
+						id: `fireFighter${review.id}`,
+						header: t('userRevalidation:fire-fighter')
+					})
+				);
+			}
+			if (isFireFighter || isSuid) {
+				ArrayCol.splice(
+					3,
+					0,
+					table.createDataColumn(
+						row => ({
+							title: row.jsonApplicationData?.get('risk'),
+							description: row.jsonApplicationData?.get('riskDescription')
+						}),
+						{
+							id: `risk${review.id}`,
+							header: t('userRevalidation:risk'),
+							cell: tooltipCell
+						}
+					)
+				);
+			}
+			return ArrayCol;
+		},
+		[review.id, t, ActionCellComponent, tooltipCell, isFireFighter, isSuid]
 	);
 
 	return (
 		<>
 			<UserRevalidationActionModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
-			<CosmoTable
+			<GroupableCosmoTable
 				tableId={review.id}
 				createHeaders={columns}
 				noDataMessage={t('table:no-data')}

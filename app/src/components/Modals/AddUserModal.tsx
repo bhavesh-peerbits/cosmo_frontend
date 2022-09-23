@@ -92,7 +92,7 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 		);
 	};
 	return (
-		<ComposedModal size='sm' open={isOpen} onClose={cleanUp}>
+		<ComposedModal size='sm' open={isOpen} onClose={cleanUp} className='z-[2000]'>
 			<Form onSubmit={handleSubmit(addUser)}>
 				<ModalHeader title={t('add-user')} closeModal={cleanUp}>
 					<span className='text-text-secondary text-body-1'>

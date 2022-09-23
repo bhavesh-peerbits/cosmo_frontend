@@ -8,9 +8,8 @@ import {
 import { useTranslation } from 'react-i18next';
 import useResponsive from '@hooks/useResponsive';
 import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
-import { CampaignDtoStatusEnum, CampaignDtoTypeEnum } from 'cosmo-api/src/v1';
+import { CampaignDtoTypeEnum } from 'cosmo-api/src/v1';
 import useRevalidationReview from '@hooks/user-revalidation-review/useRevalidationReview';
-import { mapCampaignStatusToCampaignDisplayStatus } from '@model/CampaignStatus';
 
 const RevalidationReviewerFilters = () => {
 	const { t } = useTranslation(['userRevalidation', 'management']);
@@ -25,14 +24,14 @@ const RevalidationReviewerFilters = () => {
 					: (old.type ?? []).filter((f: string) => f !== filter)
 		}));
 	};
-	const handleCheckFilterStatus = (filter: string, action: 'add' | 'remove') => {
-		setFilters(old => ({
-			status:
-				action === 'add'
-					? [...(old.status ?? []), filter]
-					: (old.status ?? []).filter((f: string) => f !== filter)
-		}));
-	};
+	// const handleCheckFilterStatus = (filter: string, action: 'add' | 'remove') => {
+	// 	setFilters(old => ({
+	// 		status:
+	// 			action === 'add'
+	// 				? [...(old.status ?? []), filter]
+	// 				: (old.status ?? []).filter((f: string) => f !== filter)
+	// 	}));
+	// }; //TODO Remove comments if needed
 
 	return (
 		<div className='flex flex-col'>
@@ -56,7 +55,8 @@ const RevalidationReviewerFilters = () => {
 						/>
 					))}
 				</AccordionItem>
-				<AccordionItem
+
+				{/* <AccordionItem
 					title={t('userRevalidation:status')}
 					className='border-0'
 					open={md}
@@ -74,7 +74,7 @@ const RevalidationReviewerFilters = () => {
 							)}
 						/>
 					))}
-				</AccordionItem>
+				</AccordionItem> */}
 				<AccordionItem
 					title={t('userRevalidation:due-date')}
 					className='border-0'
