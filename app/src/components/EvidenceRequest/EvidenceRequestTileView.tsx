@@ -1,18 +1,7 @@
-import {
-	Column,
-	Grid,
-	Layer,
-	Search,
-	Tab,
-	TabList,
-	TabPanel,
-	TabPanels,
-	Tabs
-} from '@carbon/react';
+import { Column, Grid, Layer, Search } from '@carbon/react';
 import Fade from '@components/Fade';
 import Centered from '@components/Centered';
 import NoDataMessage from '@components/NoDataMessage';
-import EvidenceRequest from '@model/EvidenceRequest';
 import EvidenceRequestTileContainer from './EvidenceRequestTileContainer';
 
 const SearchBar = () => {
@@ -24,38 +13,6 @@ const SearchBar = () => {
 				placeholder='Search Request Name'
 			/>
 		</Layer>
-	);
-};
-
-const RequestPanel = ({
-	status,
-	requests
-}: {
-	status: string;
-	requests: EvidenceRequest[];
-}) => {
-	const reqs = requests.filter(req => (status ? req.status === status : true));
-	return (
-		<Grid fullWidth narrow className='h-full'>
-			<Column sm={4} md={8} lg={16}>
-				<div className='flex flex-col space-y-7'>
-					<div className='flex w-full '>
-						<SearchBar />
-					</div>
-					<div>
-						{reqs.length === 0 ? (
-							<Fade>
-								<Centered>
-									<NoDataMessage title='No Requests' />
-								</Centered>
-							</Fade>
-						) : (
-							<EvidenceRequestTileContainer elements={reqs} />
-						)}
-					</div>
-				</div>
-			</Column>
-		</Grid>
 	);
 };
 
@@ -96,20 +53,26 @@ const EvidenceRequestTileView = () => {
 	];
 
 	return (
-		<Tabs>
-			<TabList aria-label='Filter Request' className='mb-5 '>
-				<Tab>All </Tab>
-				<Tab>Draft</Tab>
-				<Tab>Ongoing</Tab>
-				<Tab>Completed</Tab>
-			</TabList>
-			<TabPanels>
-				<TabPanel>{RequestPanel({ status: '', requests })}</TabPanel>
-				<TabPanel>{RequestPanel({ status: 'Draft', requests })}</TabPanel>
-				<TabPanel>{RequestPanel({ status: 'Ongoing', requests })}</TabPanel>
-				<TabPanel>{RequestPanel({ status: 'Completed', requests })}</TabPanel>
-			</TabPanels>
-		</Tabs>
+		<Grid fullWidth narrow className='h-full'>
+			<Column sm={4} md={8} lg={16}>
+				<div className='flex flex-col space-y-7'>
+					<div className='flex w-full '>
+						<SearchBar />
+					</div>
+					<div>
+						{requests.length === 0 ? (
+							<Fade>
+								<Centered>
+									<NoDataMessage title='No Requests' />
+								</Centered>
+							</Fade>
+						) : (
+							<EvidenceRequestTileContainer elements={requests} />
+						)}
+					</div>
+				</div>
+			</Column>
+		</Grid>
 	);
 };
 

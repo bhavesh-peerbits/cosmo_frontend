@@ -3,14 +3,14 @@ import { Add } from '@carbon/react/icons';
 import { useState } from 'react';
 import EvidenceRequestTileView from '@components/EvidenceRequest/EvidenceRequestTileView';
 
-const EvidenceRequest = () => {
+const NewEvidenceRequest = () => {
 	const [isNewRequestOpen, setIsNewRequestOpen] = useState(false);
 	return (
 		<>
 			{/* da rimuovere aggiunto solo per commit */}
 			{isNewRequestOpen}
 			<PageHeader
-				pageTitle='Evidence Request'
+				pageTitle='New Evidence Request'
 				actions={[
 					{
 						name: 'New Request',
@@ -28,4 +28,4 @@ const EvidenceRequest = () => {
 		</>
 	);
 };
-export default EvidenceRequest;
+export default NewEvidenceRequest;

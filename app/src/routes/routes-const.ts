@@ -6,7 +6,7 @@ const routes = {
 	NEW_REVALIDATION: '/new-revalidation',
 	REVALIDATIONS_ONGOING: '/revalidations-ongoing',
 	USER_REVALIDATION: '/user-revalidation',
-	EVIDENCE_REQUEST: '/evidence-request',
+	NEW_EVIDENCE_REQUEST: '/evidence-request',
 	ADMIN: '/admin',
 	LOGOUT: '/logout',
 	FORBIDDEN: '/forbidden',

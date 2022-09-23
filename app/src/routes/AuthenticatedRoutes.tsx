@@ -7,8 +7,6 @@ import ErrorBoundary from '@error/components/ErrorBoundary';
 import PageSkeleton from '@components/PageSkeleton';
 import usePolicyStore from '@hooks/usePolicyStore';
 import ProtectRoute from '@routes/ProtectRoute';
-import Procedures from '@pages/Procedures';
-import EvidenceRequest from '@pages/EvidenceRequest';
 
 const Home = React.lazy(() => import('@pages/Home'));
 const Test = React.lazy(() => import('@pages/Test'));
@@ -20,6 +18,7 @@ const ReviewDetail = React.lazy(() => import('@pages/ReviewDetail'));
 const AdminPanel = React.lazy(() => import('@pages/AdminPanel'));
 const RoleAssignment = React.lazy(() => import('@pages/RoleAssignment'));
 const ApplicationsVisibility = React.lazy(() => import('@pages/ApplicationsVisibility'));
+const Procedures = React.lazy(() => import('@pages/Procedures'));
 const NewRevalidation = React.lazy(() => import('@pages/NewRevalidation'));
 const NewRevalidationDetail = React.lazy(() => import('@pages/NewRevalidationDetail'));
 const RevalidationsOngoing = React.lazy(() => import('@pages/RevalidationsOngoing'));
@@ -30,6 +29,7 @@ const UserRevalidationDashboard = React.lazy(
 const UserRevalidationDetails = React.lazy(
 	() => import('@pages/UserRevalidationDetails')
 );
+const NewEvidenceRequest = React.lazy(() => import('@pages/NewEvidenceRequest'));
 
 const AuthenticatedRoutes = () => {
 	const {
@@ -162,7 +162,7 @@ const AuthenticatedRoutes = () => {
 							</Route>
 
 							<Route path='evidence-request'>
-								<Route index element={<EvidenceRequest />} />
+								<Route index element={<NewEvidenceRequest />} />
 							</Route>
 
 							<Route path='test' element={<Test />} />
