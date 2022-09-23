@@ -1,5 +1,9 @@
 {
 	"new-request": "New request",
 	"request-search-placeholder": "Search by request name",
-	"no-requests": "No requests"
+	"no-requests": "No requests",
+	"status": "Status",
+	"request-type": "Request type",
+	"workflow-type": "Workflow type",
+	"requests": "Requests"
 }

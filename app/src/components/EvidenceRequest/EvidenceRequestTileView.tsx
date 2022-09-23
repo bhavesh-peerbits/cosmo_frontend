@@ -16,6 +16,7 @@ const SearchBar = () => {
 
 const EvidenceRequestTileView = () => {
 	const { t } = useTranslation('evidenceRequest');
+
 	const requests = [
 		{
 			id: 1,
@@ -23,7 +24,7 @@ const EvidenceRequestTileView = () => {
 			type: 'type',
 			workflowtype: 'wftype',
 			applications: [{ name: 'ciao' }, { name: 'ciao2' }],
-			status: 'Completed'
+			status: 'Draft'
 		},
 		{
 			id: 2,
@@ -31,7 +32,7 @@ const EvidenceRequestTileView = () => {
 			type: 'type',
 			workflowtype: 'wftype',
 			applications: [{ name: 'ciao' }, { name: 'ciao2' }],
-			status: 'Ongoing'
+			status: 'Draft'
 		},
 		{
 			id: 3,
@@ -55,8 +56,11 @@ const EvidenceRequestTileView = () => {
 		<Grid fullWidth narrow className='h-full'>
 			<Column sm={4} md={8} lg={16}>
 				<div className='flex flex-col space-y-7'>
-					<div className='flex w-full '>
+					<div className='flex w-full items-center space-x-5'>
 						<SearchBar />
+						<p className='lg:whitespace-nowrap'>{`${requests.length} ${t(
+							'requests'
+						)}`}</p>
 					</div>
 					<div>
 						{requests.length === 0 ? (
@@ -66,7 +70,7 @@ const EvidenceRequestTileView = () => {
 								</Centered>
 							</Fade>
 						) : (
-							<EvidenceRequestTileContainer elements={requests} />
+							<EvidenceRequestTileContainer requests={requests} />
 						)}
 					</div>
 				</div>

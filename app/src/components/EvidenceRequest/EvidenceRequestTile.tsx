@@ -1,31 +1,41 @@
 import { ClickableTile, Layer } from '@carbon/react';
 import EvidenceRequest from '@model/EvidenceRequest';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 type EvidenceRequestTileProps = {
-	element: EvidenceRequest;
+	request: EvidenceRequest;
 };
 
-const EvidenceRequestTile = ({ element }: EvidenceRequestTileProps) => {
+const EvidenceRequestTile = ({ request }: EvidenceRequestTileProps) => {
 	const navigate = useNavigate();
+	const { t } = useTranslation(['evidenceRequest', 'management']);
 
 	return (
 		<Layer level={1}>
-			<ClickableTile onClick={() => navigate(element.id ?? '')} className='mb-5'>
-				<div className='mb-5'>
-					<p className=' line-clamp-1 text-heading-1'>{element.name}</p>
-					<p className='mt-2 italic line-clamp-1 text-body-short-1'>
-						Request Type: {element.type}
-					</p>
-					<p className='mt-5 italic line-clamp-1 text-body-short-1'>
-						WorkFlow Type: {element.workflowtype}
-					</p>
-					<p className='mt-5 italic line-clamp-1 text-body-short-1'>
-						Applications: {element.applications.length}
-					</p>
-					<p className='mt-1 italic line-clamp-1 text-body-short-1'>
-						Status: {element.status}
-					</p>
+			<ClickableTile onClick={() => navigate(request.id ?? '')}>
+				<div className='space-y-4'>
+					<p className='line-clamp-1 text-heading-2'>{request.name}</p>
+					<span className='mt-2 flex space-x-2 '>
+						<p className='text-text-secondary text-body-short-1 '>
+							{t('evidenceRequest:request-type')}:
+						</p>
+						<p className='text-body-short-1'>{request.type}</p>
+					</span>
+					<span className='mt-2 flex  space-x-2 '>
+						<p className='text-text-secondary text-body-short-1 '>
+							{t('evidenceRequest:workflow-type')}:
+						</p>
+						<p className='text-body-short-1'>{request.workflowtype}</p>
+					</span>
+					<div>
+						<span className='mt-2 flex  space-x-2 '>
+							<p className='text-text-secondary text-body-short-1 '>
+								{t('management:applications')}:
+							</p>
+							<p className='text-body-short-1'>{request.applications.length}</p>
+						</span>
+					</div>
 				</div>
 			</ClickableTile>
 		</Layer>

@@ -1,5 +1,9 @@
 {
 	"new-request": "Nuova richiesta",
 	"request-search-placeholder": "Ricerca tramite nome richiesta",
-	"no-requests": "Nessuna richiesta presente"
+	"no-requests": "Nessuna richiesta presente",
+	"status": "Stato",
+	"request-type": "Tipo richiesta",
+	"workflow-type": "Tipo workflow",
+	"requests": "Richieste"
 }

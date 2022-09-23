@@ -3,15 +3,15 @@ import EvidenceRequest from '@model/EvidenceRequest';
 import EvidenceRequestTile from './EvidenceRequestTile';
 
 type EvidenceRequestContainerProps = {
-	elements: EvidenceRequest[];
+	requests: EvidenceRequest[];
 };
 
-const EvidenceRequestTileContainer = ({ elements }: EvidenceRequestContainerProps) => {
+const EvidenceRequestTileContainer = ({ requests }: EvidenceRequestContainerProps) => {
 	return (
 		<Grid fullWidth narrow className='pl-5'>
-			{elements.map(el => (
+			{requests.map(el => (
 				<Column key={el.id} sm={4} md={4} lg={4} max={4}>
-					<EvidenceRequestTile element={el} />
+					<EvidenceRequestTile request={el} />
 				</Column>
 			))}
 		</Grid>
