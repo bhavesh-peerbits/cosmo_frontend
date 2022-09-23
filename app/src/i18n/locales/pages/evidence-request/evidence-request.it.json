@@ -5,5 +5,7 @@
 	"status": "Stato",
 	"request-type": "Tipo richiesta",
 	"workflow-type": "Tipo workflow",
-	"requests": "Richieste"
+	"requests": "Richieste",
+	"request-name": "Nome richiesta",
+	"create-new-request": "Crea una nuova richiesta"
 }

@@ -10,6 +10,7 @@ import {
 	Form
 } from '@carbon/react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 type NewEvidenceRequestModalProps = {
 	isOpen: boolean;
@@ -26,6 +27,7 @@ interface CreateRequestForm {
 }
 
 const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalProps) => {
+	const { t } = useTranslation(['evidenceRequest', 'modals']);
 	const {
 		register,
 		reset,
@@ -52,20 +54,20 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 
 	return (
 		<ComposedModal size='xs' open={isOpen} onClose={cleanUp}>
-			<ModalHeader title='New Request' closeModal={cleanUp} />
+			<ModalHeader title={t('evidenceRequest:create-new-request')} closeModal={cleanUp} />
 			<ModalBody className='m-0 space-y-4 pb-9'>
 				<Form className='space-y-6'>
 					<TextInput
 						id='request-name'
-						labelText='Request Name'
-						placeholder='Request Name'
+						labelText={t('evidenceRequest:request-name')}
+						placeholder={t('evidenceRequest:request-name')}
 						invalidText={errors.requestName?.message}
 						invalid={Boolean(errors.requestName)}
 						{...register('requestName', { required: true })}
 					/>
 					<Select
 						id='workflow-types'
-						labelText='Workflow Type'
+						labelText={`${t('evidenceRequest:workflow-type')} *`}
 						{...register('workflowType', {
 							required: true
 						})}
@@ -76,7 +78,7 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 					</Select>
 					<Select
 						id='request-types'
-						labelText='Request Type'
+						labelText={`${t('evidenceRequest:request-type')} *`}
 						{...register('requestType', {
 							required: true
 						})}
