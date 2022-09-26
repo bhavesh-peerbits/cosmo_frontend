@@ -8,6 +8,7 @@ import CosmoTableRevalidationUsers from '@components/table/CosmoTableRevalidatio
 import { useParams } from 'react-router-dom';
 import useNotification from '@hooks/useNotification';
 import ApiError from '@api/ApiError';
+import { useMemo } from 'react';
 
 type RevalidationUsersContainerProps = {
 	review: CampaignApplication;
@@ -19,7 +20,8 @@ const Actions = ({ review }: RevalidationUsersContainerProps) => {
 	const { modifiedAnswers, resetAnswers } = useAnswerStore(review.id);
 	const { mutate: saveAnswers } = useSaveAnswersToReview();
 	const { showNotification } = useNotification();
-	// const navigate = useNavigate();
+	const { answers } = useAnswerStore(review.id);
+	const answersList = useMemo(() => [...answers.values()], [answers]);
 
 	const saveAndContinue = () => {
 		saveAnswers(
@@ -42,13 +44,14 @@ const Actions = ({ review }: RevalidationUsersContainerProps) => {
 					});
 				},
 				onSuccess: () => {
-					showNotification({
-						title: t('userRevalidation:revalidation-completed'),
-						message: `${t('userRevalidation:revalidation-completed-toast', {
-							date: review.campaign.dueDate?.toLocaleDateString('it-IT')
-						})}.`,
-						type: 'success'
-					});
+					answersList.every(answer => answer.answerType) &&
+						showNotification({
+							title: t('userRevalidation:revalidation-completed'),
+							message: `${t('userRevalidation:revalidation-completed-toast', {
+								date: review.campaign.dueDate?.toLocaleDateString('it-IT')
+							})}.`,
+							type: 'success'
+						});
 					// showNotification({ TODO check feasibility
 					// 	message: `${t('userRevalidation:campaign-left-toast', {
 					// 		number: 'N',

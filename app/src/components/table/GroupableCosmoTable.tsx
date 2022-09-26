@@ -178,7 +178,7 @@ const GroupableCosmoTable = <D extends object>({
 			})
 		) : (
 			<TableRow>
-				<TableCell colSpan={columns.length + 1}>
+				<TableCell colSpan={columns.length + 2}>
 					<p className='flex justify-center'>{noDataMessage || t('no-data')}</p>
 				</TableCell>
 			</TableRow>
