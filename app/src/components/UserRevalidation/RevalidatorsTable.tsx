@@ -1,28 +1,18 @@
 import { TableToolbarSearch } from '@carbon/react';
 import CosmoTable, { HeaderFunction } from '@components/table/CosmoTable';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Answer from '@model/Answer';
 import isAfter from 'date-fns/isAfter';
 
-type Filters = {
-	query: string | undefined;
-};
-
 interface RevalidatorsTableProp {
 	answers: Answer[];
-	filters: Filters;
-	setFilters: (s: React.SetStateAction<Partial<{ q: string | undefined }>>) => void;
 	dueDate: Date | undefined;
 }
 
-const RevalidatorsTable = ({
-	answers,
-	dueDate,
-	filters,
-	setFilters
-}: RevalidatorsTableProp) => {
+const RevalidatorsTable = ({ answers, dueDate }: RevalidatorsTableProp) => {
 	const { t } = useTranslation(['table', 'userRevalidation', 'userAdmin']);
+	const [filters, setFilters] = useState('');
 	const columns: HeaderFunction<Answer> = useCallback(
 		table => [
 			table.createDataColumn(row => row.revalidationUser, {
@@ -76,14 +66,21 @@ const RevalidatorsTable = ({
 			persistent
 			placeholder={t('userAdmin:search-placeholder')}
 			id='search'
-			value={filters.query ?? ''}
-			onChange={e => setFilters({ q: e.currentTarget?.value })}
+			onChange={e => setFilters(e.currentTarget?.value)}
 		/>
 	);
 	return (
 		<CosmoTable
 			level={2}
-			data={answers}
+			data={
+				filters
+					? answers.filter(answer =>
+							answer.revalidationUser?.displayName
+								.toLowerCase()
+								.includes(filters.toLowerCase())
+					  )
+					: answers
+			}
 			createHeaders={columns}
 			toolbar={{ toolbarContent }}
 			noDataMessage={t('table:no-data')}

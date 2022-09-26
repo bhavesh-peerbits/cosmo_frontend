@@ -6,7 +6,8 @@ import { ReactNode, useMemo } from 'react';
 import { interfaces } from '@carbon/charts';
 import Campaign from '@model/Campaign';
 import useUiStore from '@hooks/useUiStore';
-import useAnswers from '@hooks/user-revalidation/useAnswers';
+import useGetAnswersForReview from '@api/user-revalidation/useGetAnswersForReview';
+import Answer from '@model/Answer';
 import RevalidatorsTable from './RevalidatorsTable';
 
 interface CampaignDetailsContainerProps {
@@ -24,11 +25,10 @@ const CampaignDetailsContainer = ({
 }: CampaignDetailsContainerProps) => {
 	const { t } = useTranslation('userRevalidation');
 	const { theme } = useUiStore();
-	const {
-		answers: data,
-		filters,
-		setFilters
-	} = useAnswers({ campaignId: campaign.id, reviewId });
+	const { data = new Map<string, Answer>() } = useGetAnswersForReview(
+		campaign.id,
+		reviewId
+	);
 
 	const chartsData = useMemo(() => {
 		const cData = [...data.values()].reduce(
@@ -58,7 +58,7 @@ const CampaignDetailsContainer = ({
 					center: {
 						label: 'Completed',
 						number: [...data.values()].filter(val => Boolean(val.answerType)).length,
-						numberFormatter: (value: number) => `${value} / ${data.length}`
+						numberFormatter: (value: number) => `${value} / ${data.size}`
 					},
 					alignment: interfaces.Alignments.CENTER
 				},
@@ -77,12 +77,7 @@ const CampaignDetailsContainer = ({
 						{t('revalidators')} (
 						{[...data.values()].filter(d => Boolean(d.revalidationUser)).length})
 					</p>
-					<RevalidatorsTable
-						answers={[...data.values()]}
-						dueDate={campaign.dueDate}
-						filters={filters}
-						setFilters={setFilters}
-					/>
+					<RevalidatorsTable answers={[...data.values()]} dueDate={campaign.dueDate} />
 				</Tile>
 			</Column>
 			<Column lg={5} md={8} sm={4} className='h-full space-y-5 pb-5'>

@@ -4,7 +4,7 @@
 	"application-name": "Nome dell'applicazione",
 	"code": "Codice",
 	"application-acronym": "Acronimo del nome dell'applicazione",
-	"owner": "Proprietario",
+	"owner": "Proprietario applicazione",
 	"owner-delegates": "Delegati del proprietario",
 	"description": "Descrizione",
 	"confirmed": "Confermato",

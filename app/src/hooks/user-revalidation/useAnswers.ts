@@ -1,5 +1,5 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import useUrlState from '@hooks/useUrlState';
 import {
 	answerList,
@@ -28,10 +28,9 @@ const useAnswers = ({ campaignId, reviewId }: UseAnswersProps) => {
 		reviewId
 	);
 
-	const data = useMemo(() => list, [list]);
 	useEffect(() => {
-		data ? setAnswer([...data.values()]) : null;
-	}, [data, setAnswer]);
+		list ? setAnswer([...list.values()]) : null;
+	}, [list, setAnswer]);
 
 	useEffect(() => {
 		setFilters({
