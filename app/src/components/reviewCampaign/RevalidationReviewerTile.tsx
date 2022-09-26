@@ -31,7 +31,7 @@ const RevalidationReviewerTile = ({ revalidation }: RevalidationReviewTileProps)
 								<div className='flex flex-col'>
 									<p className='line-clamp-1 text-heading-3'>{application.name}</p>
 									<p className='text-text-secondary text-body-long-2'>
-										{`${t('app-owner')}: ${application.owner.username}`}
+										{`${t('app-owner')}: ${application.owner.displayName}`}
 									</p>
 								</div>
 							</div>
