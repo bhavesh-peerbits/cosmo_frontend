@@ -49,14 +49,14 @@ const CampaignDetailsContainer = ({
 		() => ({
 			data: chartsData,
 			options: {
-				title: `Answers for ${application.name}`,
+				title: `${t('answers-for')} ${application.name}`,
 				resizable: true,
 				legend: {
 					alignment: interfaces.Alignments.CENTER
 				},
 				donut: {
 					center: {
-						label: 'Completed',
+						label: t('completed'),
 						number: [...data.values()].filter(val => Boolean(val.answerType)).length,
 						numberFormatter: (value: number) => `${value} / ${data.length}`
 					},
@@ -66,7 +66,7 @@ const CampaignDetailsContainer = ({
 				theme: theme as interfaces.ChartTheme
 			}
 		}),
-		[theme, application.name, chartsData, data]
+		[theme, application.name, chartsData, data, t]
 	);
 
 	return (

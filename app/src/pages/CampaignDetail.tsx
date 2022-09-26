@@ -1,7 +1,7 @@
 import PageHeader from '@components/PageHeader';
-import { UserFollow, Exit } from '@carbon/react/icons';
+import { UserFollow, Exit, Edit } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
-import { TabList, Tab, TabPanels, TabPanel, Stack } from '@carbon/react';
+import { TabList, Tab, TabPanels, TabPanel, Stack, Button } from '@carbon/react';
 import StickyTabs from '@components/StickyTabs';
 import { memo, useCallback, useMemo, useState } from 'react';
 import CloseCampaignModal from '@components/Modals/CloseCampaignModal';
@@ -21,12 +21,15 @@ import useAddContributorsToCampaign from '@api/user-revalidation/useAddContribut
 import useUiStore from '@hooks/useUiStore';
 import { interfaces } from '@carbon/charts';
 import { useQueryClient } from 'react-query';
+import SetDueDateCampaignModal from '@components/Modals/SetDueDateCampaignModal';
 
 const CampaignStatus = memo(({ campaign }: { campaign: Campaign }) => {
 	const { id, type, layer, startDate, dueDate } = campaign;
 	const { data: status = 0 } = useGetCampaignStatus(id);
-	const { t } = useTranslation(['userRevalidation', 'reviewNarrative']);
+	const { t } = useTranslation(['userRevalidation', 'reviewNarrative', 'modals']);
+	const [isDueDateModalOpen, setIsDueDateModalOpen] = useState(false);
 	const { theme } = useUiStore();
+
 	const meterData = useMemo(
 		() => ({
 			data: [
@@ -79,17 +82,44 @@ const CampaignStatus = memo(({ campaign }: { campaign: Campaign }) => {
 		],
 		[dueDate, layer, startDate, type, t]
 	);
+
 	return (
 		<>
+			{isDueDateModalOpen && (
+				<SetDueDateCampaignModal
+					isOpen={isDueDateModalOpen}
+					setIsOpen={setIsDueDateModalOpen}
+					campaignId={id}
+				/>
+			)}
 			<h2 className='text-heading-3'>{t('userRevalidation:status')}</h2>
 			<MeterChart options={meterData.options} data={meterData.data} />
 			<Stack gap={5}>
-				{statusData.map(({ id: statusId, label, value }) => (
-					<div key={statusId} className='flex w-full'>
-						<span className='mr-2 font-bold'>{label}</span>
-						<span>{value?.toString()}</span>
-					</div>
-				))}
+				{statusData.map(({ id: statusId, label, value }) =>
+					statusId === 'due-date' ? (
+						<div key={statusId} className='flex w-full items-center justify-between'>
+							<div>
+								<span className='mr-2 font-bold'>{label}</span>
+								<span>{value?.toString()}</span>
+							</div>
+							{campaign.status === 'REVIEW_IN_PROGRESS' && (
+								<Button
+									size='sm'
+									kind='ghost'
+									hasIconOnly
+									iconDescription={t('userRevalidation:change-due-date')}
+									renderIcon={Edit}
+									onClick={() => setIsDueDateModalOpen(true)}
+								/>
+							)}
+						</div>
+					) : (
+						<div key={statusId} className='flex w-full'>
+							<span className='mr-2 font-bold'>{label}</span>
+							<span>{value?.toString()}</span>
+						</div>
+					)
+				)}
 			</Stack>
 		</>
 	);

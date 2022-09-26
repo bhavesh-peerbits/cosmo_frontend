@@ -69,5 +69,8 @@
 	"permissions-description-null": "Descrizione Non Presente",
 	"fire-fighter": "Firefighter",
 	"risk": "Rischio",
-	"percentage": "Percentuale di completamento campagna"
+	"percentage": "Percentuale di completamento campagna",
+	"answers-for": "Risposte per",
+	"change-due-date": "Modifica data di scadenza",
+	"select-new-date": "Seleziona una nuova data di scadenza per la campagna"
 }
