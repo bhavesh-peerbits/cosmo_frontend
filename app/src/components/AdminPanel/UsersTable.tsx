@@ -34,6 +34,7 @@ const ActionsCell = ({ setIsModalOpen, setActionSelected, user }: ActionCellProp
 					setIsModalOpen(true);
 					setActionSelected('Block');
 				}}
+				disabled={user?.roles.includes('SYS_ADMIN')}
 			/>
 		</OverflowMenu>
 	);

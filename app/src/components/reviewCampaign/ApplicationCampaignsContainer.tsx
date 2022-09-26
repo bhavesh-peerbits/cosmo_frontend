@@ -4,10 +4,12 @@ import ApplicationCampaignStatus from './ApplicationCampaignStatus';
 
 interface ApplicationCampaignsContainerProps {
 	campaigns: Campaign[];
+	applicationId: string;
 }
 
 const ApplicationCampaignsContainer = ({
-	campaigns
+	campaigns,
+	applicationId
 }: ApplicationCampaignsContainerProps) => {
 	return (
 		<Grid fullWidth>
@@ -21,7 +23,10 @@ const ApplicationCampaignsContainer = ({
 							lg={5}
 							className='flex justify-center'
 						>
-							<ApplicationCampaignStatus campaign={campaign} />
+							<ApplicationCampaignStatus
+								applicationId={applicationId}
+								campaign={campaign}
+							/>
 						</Column>
 					))}
 				</Grid>

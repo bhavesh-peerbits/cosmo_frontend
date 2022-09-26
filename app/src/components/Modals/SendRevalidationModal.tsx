@@ -14,7 +14,7 @@ import DatePickerWrapper from '@components/DatePickerWrapper';
 import FullWidthColumn from '@components/FullWidthColumn';
 import MultipleUserSelect from '@components/MultipleUserSelect';
 import User from '@model/User';
-import { startOfTomorrow } from 'date-fns';
+import { addDays, startOfTomorrow } from 'date-fns';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import Campaign from '@model/Campaign';
@@ -128,7 +128,7 @@ const SendCampaignModal = ({ isOpen, setIsOpen, campaign }: DeleteModalProps) =>
 									message: `${t('modals:select-date')}`
 								}
 							}}
-							minDate={startOfTomorrow()}
+							minDate={addDays(startOfTomorrow(), 1)}
 						/>
 					</FullWidthColumn>
 

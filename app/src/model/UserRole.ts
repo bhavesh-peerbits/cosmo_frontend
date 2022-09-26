@@ -11,7 +11,8 @@ export type UserDisplayRole =
 	| 'Reviewer Collaborator'
 	| 'Narrative Analyst'
 	| 'Narrative Admin'
-	| 'Revalidation Analyst';
+	| 'Revalidation Analyst'
+	| 'Revalidation Admin';
 
 export const mapUserRoleToDisplayRole = (userRole: UserRole): UserDisplayRole => {
 	switch (userRole) {
@@ -25,6 +26,8 @@ export const mapUserRoleToDisplayRole = (userRole: UserRole): UserDisplayRole =>
 			return 'Narrative Analyst';
 		case UserDtoRolesEnum.RevalidationAnalyst:
 			return 'Revalidation Analyst';
+		case UserDtoRolesEnum.RevalidationAdmin:
+			return 'Revalidation Admin';
 		case UserDtoRolesEnum.Reviewer:
 			return 'Reviewer';
 		case UserDtoRolesEnum.ReviewerCollaborator:
