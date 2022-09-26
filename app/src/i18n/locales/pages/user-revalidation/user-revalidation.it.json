@@ -72,5 +72,7 @@
 	"percentage": "Percentuale di completamento campagna",
 	"answers-for": "Risposte per",
 	"change-due-date": "Modifica data di scadenza",
-	"select-new-date": "Seleziona una nuova data di scadenza per la campagna"
+	"select-new-date": "Seleziona una nuova data di scadenza per la campagna",
+	"note": "Note",
+	"app-owner": "Proprietario applicazione"
 }

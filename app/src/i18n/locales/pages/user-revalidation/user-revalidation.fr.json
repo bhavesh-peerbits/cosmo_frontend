@@ -72,5 +72,7 @@
 	"percentage": "Pourcentage d'achèvement de la campagne",
 	"answers-for": "Réponses pour",
 	"change-due-date": "Changer la date d'expiration",
-	"select-new-date": "Sélectionner une nouvelle date d'expiration de la campagne"
+	"select-new-date": "Sélectionner une nouvelle date d'expiration de la campagne",
+	"note": "Remarques",
+	"app-owner": "Propriétaire de l'application"
 }

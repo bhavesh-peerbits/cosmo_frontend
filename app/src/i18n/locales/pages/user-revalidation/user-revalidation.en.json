@@ -72,5 +72,7 @@
 	"percentage": "Percentage of completion campaign",
 	"answers-for": "Answers for",
 	"change-due-date": "Change due date",
-	"select-new-date": "Select a new campaign due date"
+	"select-new-date": "Select a new campaign due date",
+	"note": "Notes",
+	"app-owner": "Application owner"
 }

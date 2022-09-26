@@ -59,7 +59,9 @@ const ApplicationCampaignStatus = ({ campaign }: ApplicationCampaignStatusProps)
 			<FullWidthColumn>
 				<p className='text-text-secondary text-body-long-2'>{`${t(
 					'revalidation-type'
-				)}: ${mapCampaignTypeToCampaignDisplayType(campaign.type)}`}</p>
+				)}: ${mapCampaignTypeToCampaignDisplayType(campaign.type)} (${
+					campaign.layer
+				})`}</p>
 			</FullWidthColumn>
 			<FullWidthColumn>
 				{/* <MeterChart options={meterData.options} data={meterData.data} /> TODO */}
