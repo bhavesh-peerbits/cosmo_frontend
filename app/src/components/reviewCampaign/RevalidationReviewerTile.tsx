@@ -46,7 +46,10 @@ const RevalidationReviewerTile = ({ revalidation }: RevalidationReviewTileProps)
 					</Grid>
 				</TileAboveTheFoldContent>
 				<TileBelowTheFoldContent className='mt-6'>
-					<ApplicationCampaignsContainer campaigns={campaigns} />
+					<ApplicationCampaignsContainer
+						applicationId={application.id}
+						campaigns={campaigns}
+					/>
 				</TileBelowTheFoldContent>
 			</ExpandableTile>
 		</Layer>

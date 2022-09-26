@@ -5,14 +5,23 @@ import Campaign from '@model/Campaign';
 import { useNavigate } from 'react-router-dom';
 import { formatDate } from '@i18n';
 import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
+import useGetCampaignReview from '@api/review-campaign/useGetCampaignReview';
 
 interface ApplicationCampaignStatusProps {
 	campaign: Campaign;
+	applicationId: string;
 }
 
-const ApplicationCampaignStatus = ({ campaign }: ApplicationCampaignStatusProps) => {
+const ApplicationCampaignStatus = ({
+	campaign,
+	applicationId
+}: ApplicationCampaignStatusProps) => {
 	const { t } = useTranslation('userRevalidation');
 	const navigate = useNavigate();
+	const { data: campaignWithReview } = useGetCampaignReview(campaign.id);
+	const applicationTabIndex = campaignWithReview?.campaignApplications.findIndex(
+		app => app.application.id === applicationId
+	);
 	// const meterData = useMemo(
 	// 	() => ({
 	// 		data: [
@@ -45,7 +54,9 @@ const ApplicationCampaignStatus = ({ campaign }: ApplicationCampaignStatusProps)
 			<FullWidthColumn>
 				<Button
 					className='m-0 flex max-w-[100%] justify-start truncate p-0 underline line-clamp-1 text-heading-3'
-					onClick={() => navigate(`/user-revalidation/${campaign.id}`)}
+					onClick={() => {
+						navigate(`/user-revalidation/${campaign.id}?tab=${applicationTabIndex}`);
+					}}
 					kind='ghost'
 				>
 					{campaign.name}
