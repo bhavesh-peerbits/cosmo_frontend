@@ -69,5 +69,6 @@
 	"permissions-description-null": "Description Not Present",
 	"fire-fighter": "Firefighter",
 	"risk": "Risk",
-	"percentage": "Percentage of completion campaign"
+	"percentage": "Percentage of completion campaign",
+	"note": "Notes"
 }

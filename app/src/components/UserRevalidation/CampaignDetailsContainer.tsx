@@ -77,7 +77,12 @@ const CampaignDetailsContainer = ({
 						{t('revalidators')} (
 						{[...data.values()].filter(d => Boolean(d.revalidationUser)).length})
 					</p>
-					<RevalidatorsTable answers={[...data.values()]} dueDate={campaign.dueDate} />
+					<RevalidatorsTable
+						answers={[...data.values()]}
+						dueDate={campaign.dueDate}
+						campaignType={campaign.type}
+						reviewId={reviewId}
+					/>
 				</Tile>
 			</Column>
 			<Column lg={5} md={8} sm={4} className='h-full space-y-5 pb-5'>
