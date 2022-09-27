@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import SendRequestModal from '@components/Modals/SendRequestModal';
 import DeleteRequestModal from '@components/Modals/DeleteRequestModal';
-import NewEvidenceRequestContent from '@components/EvidenceRequest/NewEvidenceRequestContent';
+import NewEvidenceRequestContent from '@components/NewEvidenceRequest/NewEvidenceRequestContent';
 
 const NewEvidenceRequest = () => {
 	// const { requestId } = useParams<'requestId'>();

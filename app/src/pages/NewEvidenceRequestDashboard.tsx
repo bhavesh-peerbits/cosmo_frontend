@@ -1,7 +1,7 @@
 import PageHeader from '@components/PageHeader';
 import { Add } from '@carbon/react/icons';
 import { useState } from 'react';
-import EvidenceRequestTileView from '@components/EvidenceRequest/EvidenceRequestTileView';
+import EvidenceRequestTileView from '@components/NewEvidenceRequest/EvidenceRequestTileView';
 import { useTranslation } from 'react-i18next';
 import NewEvidenceRequestModal from '@components/Modals/NewEvidenceRequestModal';
 

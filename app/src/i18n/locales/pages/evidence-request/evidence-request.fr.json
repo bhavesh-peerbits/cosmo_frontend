@@ -11,5 +11,10 @@
 	"send-request": "Envoyer requête",
 	"delete-request": "Supprimer requête",
 	"send-description": "Sélectionnez une date d'expiration pour la demande avant de la soumettre",
-	"confirm-delete": "Êtes-vous sûr de vouloir supprimer cette requête?"
+	"confirm-delete": "Êtes-vous sûr de vouloir supprimer cette requête?",
+	"apps-selection": "Sélection d'applications",
+	"users-selection": "Sélection des utilisateurs",
+	"request-text": "Texte de la requête",
+	"additional-info": "Information additionnelle",
+	"attachments": "Pièces jointes"
 }

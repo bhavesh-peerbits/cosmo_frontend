@@ -11,5 +11,10 @@
 	"send-request": "Invia richiesta",
 	"delete-request": "Elimina richiesta",
 	"send-description": "Seleziona una data di scadenza per la richiesta prima di inviare",
-	"confirm-delete": "Sei sicuro di voler eliminare questa richiesta?"
+	"confirm-delete": "Sei sicuro di voler eliminare questa richiesta?",
+	"apps-selection": "Selezione applicazioni",
+	"users-selection": "Selezione utenti",
+	"request-text": "Testo richiesta",
+	"additional-info": "Informazioni aggiuntive",
+	"attachments": "Allegati"
 }

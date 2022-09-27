@@ -1,6 +1,7 @@
 import { Grid, Column } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
+import NewEvidenceRequestFlowContainer from './NewEvidenceRequestFlowContainer';
 
 const NewEvidenceRequestContent = () => {
 	const { t } = useTranslation('evidenceRequest');
@@ -18,7 +19,7 @@ const NewEvidenceRequestContent = () => {
 				</FullWidthColumn>
 			</Column>
 			<Column md={8} lg={13}>
-				Content
+				<NewEvidenceRequestFlowContainer />
 			</Column>
 		</Grid>
 	);
