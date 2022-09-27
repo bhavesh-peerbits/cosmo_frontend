@@ -6,7 +6,8 @@ import { ReactNode, useMemo } from 'react';
 import { interfaces } from '@carbon/charts';
 import Campaign from '@model/Campaign';
 import useUiStore from '@hooks/useUiStore';
-import useAnswers from '@hooks/user-revalidation/useAnswers';
+import useGetAnswersForReview from '@api/user-revalidation/useGetAnswersForReview';
+import Answer from '@model/Answer';
 import RevalidatorsTable from './RevalidatorsTable';
 
 interface CampaignDetailsContainerProps {
@@ -24,11 +25,10 @@ const CampaignDetailsContainer = ({
 }: CampaignDetailsContainerProps) => {
 	const { t } = useTranslation('userRevalidation');
 	const { theme } = useUiStore();
-	const {
-		answers: data,
-		filters,
-		setFilters
-	} = useAnswers({ campaignId: campaign.id, reviewId });
+	const { data = new Map<string, Answer>() } = useGetAnswersForReview(
+		campaign.id,
+		reviewId
+	);
 
 	const chartsData = useMemo(() => {
 		const cData = [...data.values()].reduce(
@@ -49,16 +49,16 @@ const CampaignDetailsContainer = ({
 		() => ({
 			data: chartsData,
 			options: {
-				title: `Answers for ${application.name}`,
+				title: `${t('answers-for')} ${application.name}`,
 				resizable: true,
 				legend: {
 					alignment: interfaces.Alignments.CENTER
 				},
 				donut: {
 					center: {
-						label: 'Completed',
+						label: t('completed'),
 						number: [...data.values()].filter(val => Boolean(val.answerType)).length,
-						numberFormatter: (value: number) => `${value} / ${data.length}`
+						numberFormatter: (value: number) => `${value} / ${data.size}`
 					},
 					alignment: interfaces.Alignments.CENTER
 				},
@@ -66,7 +66,7 @@ const CampaignDetailsContainer = ({
 				theme: theme as interfaces.ChartTheme
 			}
 		}),
-		[theme, application.name, chartsData, data]
+		[theme, application.name, chartsData, data, t]
 	);
 
 	return (
@@ -80,8 +80,8 @@ const CampaignDetailsContainer = ({
 					<RevalidatorsTable
 						answers={[...data.values()]}
 						dueDate={campaign.dueDate}
-						filters={filters}
-						setFilters={setFilters}
+						campaignType={campaign.type}
+						reviewId={reviewId}
 					/>
 				</Tile>
 			</Column>

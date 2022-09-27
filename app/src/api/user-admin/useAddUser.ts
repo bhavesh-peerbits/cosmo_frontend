@@ -17,7 +17,7 @@ const useAddUser = () => {
 	const queryClient = useQueryClient();
 	return useMutation(addUser, {
 		onSuccess: () => {
-			queryClient.invalidateQueries(['users']);
+			queryClient.invalidateQueries(['allUsers']);
 		}
 	});
 };

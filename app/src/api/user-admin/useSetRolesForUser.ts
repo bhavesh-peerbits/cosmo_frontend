@@ -17,7 +17,7 @@ const useSetRolesForUser = () => {
 	const queryClient = useQueryClient();
 	return useMutation(setRolesForUser, {
 		onSuccess: () => {
-			queryClient.invalidateQueries(['users']);
+			queryClient.invalidateQueries(['allUsers']);
 			queryClient.invalidateQueries(['applicationUsers']);
 			queryClient.invalidateQueries(['analystUsers']);
 		}

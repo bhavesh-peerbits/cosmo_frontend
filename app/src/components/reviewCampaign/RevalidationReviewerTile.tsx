@@ -16,7 +16,7 @@ interface RevalidationReviewTileProps {
 }
 
 const RevalidationReviewerTile = ({ revalidation }: RevalidationReviewTileProps) => {
-	const { t } = useTranslation(['userRevalidation', 'applicationInfo']);
+	const { t } = useTranslation('userRevalidation');
 	const { application, campaigns } = revalidation;
 
 	return (
@@ -31,7 +31,7 @@ const RevalidationReviewerTile = ({ revalidation }: RevalidationReviewTileProps)
 								<div className='flex flex-col'>
 									<p className='line-clamp-1 text-heading-3'>{application.name}</p>
 									<p className='text-text-secondary text-body-long-2'>
-										{`${t('applicationInfo:owner')}: ${application.owner.username}`}
+										{`${t('app-owner')}: ${application.owner.displayName}`}
 									</p>
 								</div>
 							</div>
@@ -39,14 +39,17 @@ const RevalidationReviewerTile = ({ revalidation }: RevalidationReviewTileProps)
 						<Column sm={1} md={2} lg={3} className='flex items-center justify-end'>
 							<div className='max-w-full text-ellipsis whitespace-nowrap'>
 								<p className='text-text-secondary'>{`${campaigns.length} ${t(
-									'userRevalidation:campaigns'
+									'campaigns'
 								)}`}</p>
 							</div>
 						</Column>
 					</Grid>
 				</TileAboveTheFoldContent>
 				<TileBelowTheFoldContent className='mt-6'>
-					<ApplicationCampaignsContainer campaigns={campaigns} />
+					<ApplicationCampaignsContainer
+						applicationId={application.id}
+						campaigns={campaigns}
+					/>
 				</TileBelowTheFoldContent>
 			</ExpandableTile>
 		</Layer>

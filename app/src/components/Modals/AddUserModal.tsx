@@ -56,13 +56,12 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 	});
 
 	const roles = [
-		'SYS_ADMIN',
 		'USER_ADMIN',
 		'NARRATIVE_ADMIN',
 		'NARRATIVE_ANALYST',
 		'REVALIDATION_ANALYST',
+		'REVALIDATION_ADMIN',
 		'REVIEWER',
-		'REVIEWER_COLLABORATOR',
 		'USER_UNKNOWN'
 	];
 
@@ -92,7 +91,7 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 		);
 	};
 	return (
-		<ComposedModal size='sm' open={isOpen} onClose={cleanUp} className='z-[2000]'>
+		<ComposedModal size='sm' open={isOpen} onClose={cleanUp}>
 			<Form onSubmit={handleSubmit(addUser)}>
 				<ModalHeader title={t('add-user')} closeModal={cleanUp}>
 					<span className='text-text-secondary text-body-1'>

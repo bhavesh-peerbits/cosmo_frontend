@@ -9,20 +9,20 @@ import CampaignWithReview from '@model/CampaignWithReview';
 import Campaign from '@model/Campaign';
 
 const RevalidationsTable = () => {
-	const { t } = useTranslation('userRevalidation');
+	const { t } = useTranslation(['userRevalidation', 'table']);
 	const { revalidations, filters, setFilters } = useRevalidationsOngoing();
 
 	const translateStatus = useCallback(
 		(status: string | undefined) => {
 			switch (status) {
 				case 'REVIEW_IN_PROGRESS':
-					return t('in-progress');
+					return t('userRevalidation:in-progress');
 				case 'COMPLETED':
-					return t('completed');
+					return t('userRevalidation:completed');
 				case 'ANNULLED':
-					return t('annulled');
+					return t('userRevalidation:annulled');
 				case 'COMPLETED_WITH_PARTIAL_ANSWERS':
-					return t('completed-partial');
+					return t('userRevalidation:completed-partial');
 				default:
 					return '';
 			}
@@ -48,7 +48,7 @@ const RevalidationsTable = () => {
 				}),
 				{
 					id: 'name',
-					header: t('campaign-name'),
+					header: t('userRevalidation:campaign-name'),
 					sortUndefined: 1,
 					cell: CellLinkComponent,
 					meta: {
@@ -58,7 +58,7 @@ const RevalidationsTable = () => {
 			),
 			table.createDataColumn(row => row.campaign.dueDate, {
 				id: 'due-date',
-				header: t('due-date'),
+				header: t('userRevalidation:due-date'),
 				cell: info => {
 					const date = info.getValue();
 					return date ? formatDate(date, 'short') : '-';
@@ -66,20 +66,20 @@ const RevalidationsTable = () => {
 			}),
 			table.createDataColumn(row => row.campaign.layer, {
 				id: 'layer',
-				header: t('layer')
+				header: t('userRevalidation:layer')
 			}),
 			table.createDataColumn(row => row.campaign.type, {
 				id: 'type',
-				header: t('revalidation-type'),
+				header: t('userRevalidation:revalidation-type'),
 				cell: info => mapCampaignTypeToCampaignDisplayType(info.getValue())
 			}),
 			table.createDataColumn(row => row.campaign.applicationsCount, {
 				id: 'applicationsCount',
-				header: t('applications')
+				header: t('userRevalidation:applications')
 			}),
 			table.createDataColumn(row => row.campaign.status, {
 				id: 'status',
-				header: t('status'),
+				header: t('userRevalidation:status'),
 				cell: info => translateStatus(info.getValue()),
 				meta: {
 					exportableFn: info => translateStatus(info)
@@ -92,7 +92,7 @@ const RevalidationsTable = () => {
 		<TableToolbarSearch
 			size='lg'
 			persistent
-			placeholder={t('search-placeholder')}
+			placeholder={t('userRevalidation:search-placeholder')}
 			id='search'
 			value={filters.query ?? ''}
 			onChange={e => setFilters({ q: e.currentTarget?.value })}
@@ -108,6 +108,7 @@ const RevalidationsTable = () => {
 			data={revalidations}
 			createHeaders={columns}
 			toolbar={{ toolbarContent }}
+			noDataMessage={t('table:no-data')}
 		/>
 	);
 };
