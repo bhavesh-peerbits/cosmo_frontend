@@ -851,6 +851,49 @@ export const AnalystCampaignControllerApiAxiosParamCreator = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
+		getAllCampaignsOngoingAndComplete: async (
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/analyst/campaign/allOngoingAndCompleteAndAnnulled`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
 		getAllCampaignsOngoingAndCompleteWithReviews: async (
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
@@ -1928,6 +1971,30 @@ export const AnalystCampaignControllerApiFp = function (configuration?: Configur
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
+		async getAllCampaignsOngoingAndComplete(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CampaignDto>>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.getAllCampaignsOngoingAndComplete(
+					acceptLanguage,
+					options
+				);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
 		async getAllCampaignsOngoingAndCompleteWithReviews(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
@@ -2541,6 +2608,20 @@ export const AnalystCampaignControllerApiFactory = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
+		getAllCampaignsOngoingAndComplete(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<CampaignDto>> {
+			return localVarFp
+				.getAllCampaignsOngoingAndComplete(acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
 		getAllCampaignsOngoingAndCompleteWithReviews(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
@@ -3095,6 +3176,20 @@ export interface AnalystCampaignControllerApiGetAllCampaigns1Request {
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
 	 * @memberof AnalystCampaignControllerApiGetAllCampaigns1
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getAllCampaignsOngoingAndComplete operation in AnalystCampaignControllerApi.
+ * @export
+ * @interface AnalystCampaignControllerApiGetAllCampaignsOngoingAndCompleteRequest
+ */
+export interface AnalystCampaignControllerApiGetAllCampaignsOngoingAndCompleteRequest {
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystCampaignControllerApiGetAllCampaignsOngoingAndComplete
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
@@ -3663,6 +3758,22 @@ export class AnalystCampaignControllerApi extends BaseAPI {
 	) {
 		return AnalystCampaignControllerApiFp(this.configuration)
 			.getAllCampaigns1(requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystCampaignControllerApiGetAllCampaignsOngoingAndCompleteRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystCampaignControllerApi
+	 */
+	public getAllCampaignsOngoingAndComplete(
+		requestParameters: AnalystCampaignControllerApiGetAllCampaignsOngoingAndCompleteRequest = {},
+		options?: AxiosRequestConfig
+	) {
+		return AnalystCampaignControllerApiFp(this.configuration)
+			.getAllCampaignsOngoingAndComplete(requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 
