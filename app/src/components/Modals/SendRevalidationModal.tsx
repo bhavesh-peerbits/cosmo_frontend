@@ -23,7 +23,7 @@ import ApiError from '@api/ApiError';
 import useGetPossibleContributors from '@api/user-revalidation/useGetPossibleContributors';
 import { useNavigate } from 'react-router-dom';
 
-type DeleteModalProps = {
+type SendCampaignModalProps = {
 	isOpen: boolean;
 	setIsOpen: (value: boolean) => void;
 	campaign: Campaign;
@@ -35,7 +35,7 @@ type FormData = {
 	collaborators: User[];
 };
 
-const SendCampaignModal = ({ isOpen, setIsOpen, campaign }: DeleteModalProps) => {
+const SendCampaignModal = ({ isOpen, setIsOpen, campaign }: SendCampaignModalProps) => {
 	const { t } = useTranslation(['modals', 'userRevalidation']);
 	const navigate = useNavigate();
 	const { mutate, isLoading, isError, error } = useSendCampaignRevalidationRequest();

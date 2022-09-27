@@ -9,5 +9,7 @@
 	"request-name": "Nom de la requête",
 	"create-new-request": "Créer une nouvelle requête",
 	"send-request": "Envoyer requête",
-	"delete-request": "Supprimer requête"
+	"delete-request": "Supprimer requête",
+	"send-description": "Sélectionnez une date d'expiration pour la demande avant de la soumettre",
+	"confirm-delete": "Êtes-vous sûr de vouloir supprimer cette requête?"
 }

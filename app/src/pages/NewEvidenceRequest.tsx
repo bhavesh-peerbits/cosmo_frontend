@@ -1,10 +1,16 @@
 import PageHeader from '@components/PageHeader';
 import { TrashCan, Send } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
+import SendRequestModal from '@components/Modals/SendRequestModal';
+import DeleteRequestModal from '@components/Modals/DeleteRequestModal';
 
 const NewEvidenceRequest = () => {
 	// const { requestId } = useParams<'requestId'>();
 	const { t } = useTranslation('evidenceRequest');
+	const [isSendModalOpen, setIsSendModalOpen] = useState(false);
+	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
 	return (
 		<PageHeader
 			pageTitle='Request name'
@@ -13,18 +19,33 @@ const NewEvidenceRequest = () => {
 				{
 					name: t('send-request'),
 					icon: Send,
-					onClick: () => {},
+					onClick: () => {
+						setIsSendModalOpen(true);
+					},
 					kind: 'primary'
 				},
 				{
 					name: t('delete-request'),
 					icon: TrashCan,
-					onClick: () => {},
+					onClick: () => {
+						setIsDeleteModalOpen(true);
+					},
 					kind: 'danger'
 				}
 			]}
 		>
-			<div>contenuto</div>
+			<>
+				{isSendModalOpen && (
+					<SendRequestModal isOpen={isSendModalOpen} setIsOpen={setIsSendModalOpen} />
+				)}
+				{isDeleteModalOpen && (
+					<DeleteRequestModal
+						isOpen={isDeleteModalOpen}
+						setIsOpen={setIsDeleteModalOpen}
+					/>
+				)}
+				<div>contenuto</div>
+			</>
 		</PageHeader>
 	);
 };

@@ -9,5 +9,7 @@
 	"request-name": "Nome richiesta",
 	"create-new-request": "Crea una nuova richiesta",
 	"send-request": "Invia richiesta",
-	"delete-request": "Elimina richiesta"
+	"delete-request": "Elimina richiesta",
+	"send-description": "Seleziona una data di scadenza per la richiesta prima di inviare",
+	"confirm-delete": "Sei sicuro di voler eliminare questa richiesta?"
 }
