@@ -28,7 +28,7 @@ const EvidenceRequestTileView = () => {
 		},
 		{
 			id: 2,
-			name: 'long long long Name',
+			name: 'Prova2',
 			type: 'type',
 			workflowtype: 'wftype',
 			applications: [{ name: 'ciao' }, { name: 'ciao2' }],
@@ -36,7 +36,7 @@ const EvidenceRequestTileView = () => {
 		},
 		{
 			id: 3,
-			name: 'long long long Name',
+			name: 'Prova3',
 			type: 'type',
 			workflowtype: 'wftype',
 			applications: [{ name: 'ciao' }, { name: 'ciao2' }],
@@ -44,7 +44,7 @@ const EvidenceRequestTileView = () => {
 		},
 		{
 			id: 4,
-			name: 'long long long Name',
+			name: 'Prova4',
 			type: 'type',
 			workflowtype: 'wftype',
 			applications: [{ name: 'ciao' }, { name: 'ciao2' }],

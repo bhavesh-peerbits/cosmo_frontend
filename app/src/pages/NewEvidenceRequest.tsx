@@ -1,35 +1,30 @@
 import PageHeader from '@components/PageHeader';
-import { Add } from '@carbon/react/icons';
-import { useState } from 'react';
-import EvidenceRequestTileView from '@components/EvidenceRequest/EvidenceRequestTileView';
+import { TrashCan, Send } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
-import NewEvidenceRequestModal from '@components/Modals/NewEvidenceRequestModal';
 
 const NewEvidenceRequest = () => {
-	const [isNewRequestOpen, setIsNewRequestOpen] = useState(false);
+	// const { requestId } = useParams<'requestId'>();
 	const { t } = useTranslation('evidenceRequest');
 	return (
 		<PageHeader
-			pageTitle='New Evidence Request'
+			pageTitle='Request name'
+			intermediateRoutes={[{ name: 'New evidence request', to: '/new-evidence-request' }]}
 			actions={[
 				{
-					name: t('new-request'),
-					icon: Add,
-					onClick: () => {
-						setIsNewRequestOpen(true);
-					}
+					name: t('send-request'),
+					icon: Send,
+					onClick: () => {},
+					kind: 'primary'
+				},
+				{
+					name: t('delete-request'),
+					icon: TrashCan,
+					onClick: () => {},
+					kind: 'danger'
 				}
 			]}
 		>
-			<div className='h-full p-container-1'>
-				{isNewRequestOpen && (
-					<NewEvidenceRequestModal
-						isOpen={isNewRequestOpen}
-						setIsOpen={setIsNewRequestOpen}
-					/>
-				)}
-				<EvidenceRequestTileView />
-			</div>
+			<div>contenuto</div>
 		</PageHeader>
 	);
 };

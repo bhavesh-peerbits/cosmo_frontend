@@ -7,5 +7,7 @@
 	"workflow-type": "Tipo workflow",
 	"requests": "Richieste",
 	"request-name": "Nome richiesta",
-	"create-new-request": "Crea una nuova richiesta"
+	"create-new-request": "Crea una nuova richiesta",
+	"send-request": "Invia richiesta",
+	"delete-request": "Elimina richiesta"
 }
