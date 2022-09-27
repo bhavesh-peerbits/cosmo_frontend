@@ -38,23 +38,25 @@ const NewEvidenceRequestFlowContainer = () => {
 			<FullWidthColumn>
 				<Layer level={1}>
 					<Tile>
-						<>
+						<div className='space-y-5'>
 							{contentToRender()}
-							{currentStep > 0 && (
-								<Button
-									size='md'
-									kind='secondary'
-									onClick={() => setCurrentStep(currentStep - 1)}
-								>
-									{t('modals:back')}
-								</Button>
-							)}
-							{currentStep !== 4 && (
-								<Button size='md' onClick={() => setCurrentStep(currentStep + 1)}>
-									{t('modals:next')}
-								</Button>
-							)}
-						</>
+							<div className='flex justify-end space-x-5 pt-5'>
+								{currentStep > 0 && (
+									<Button
+										size='md'
+										kind='secondary'
+										onClick={() => setCurrentStep(currentStep - 1)}
+									>
+										{t('modals:back')}
+									</Button>
+								)}
+								{currentStep !== 4 && (
+									<Button size='md' onClick={() => setCurrentStep(currentStep + 1)}>
+										{t('modals:next')}
+									</Button>
+								)}
+							</div>
+						</div>
 					</Tile>
 				</Layer>
 			</FullWidthColumn>
