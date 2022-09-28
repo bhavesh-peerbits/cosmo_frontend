@@ -9,6 +9,7 @@ api/config-element-controller-api.ts
 api/config-element-module-controller-api.ts
 api/control-controller-api.ts
 api/csv-reader-controller-api.ts
+api/evidence-request-controller-api.ts
 api/frequency-controller-api.ts
 api/generate-report-controller-api.ts
 api/module-controller-api.ts
@@ -48,7 +49,13 @@ models/control-app-instance-key.ts
 models/control-app-instance.ts
 models/control.ts
 models/csv-answer-parsing-dto.ts
+models/draft-request-dto.ts
 models/email.ts
+models/evidence-request-draft-request-dto.ts
+models/evidence-request-draft-response-dto.ts
+models/evidence-request-request-dto.ts
+models/evidence-request-response-dto.ts
+models/file-link-dto.ts
 models/frequency.ts
 models/identity-provider-dto.ts
 models/index.ts
@@ -74,6 +81,10 @@ models/review-application-dto.ts
 models/review-dto.ts
 models/review-procedure-dto.ts
 models/start-campaign-dto.ts
+models/step-draft-request-dto.ts
+models/step-draft-response-dto.ts
+models/step-request-dto.ts
+models/step-response-dto.ts
 models/tenant.ts
 models/test-dto.ts
 models/user-base.ts
