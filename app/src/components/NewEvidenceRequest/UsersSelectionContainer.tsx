@@ -29,7 +29,7 @@ const UsersSelectionContainer = ({
 				</FullWidthColumn>
 			</FullWidthColumn>
 			{steps.map(step => (
-				<FullWidthColumn className='space-y-2 pt-4'>
+				<FullWidthColumn className='space-y-2'>
 					<span className='text-body-long-2'>{step}</span>
 					<Layer level={2}>
 						<Accordion className='bg-layer-1'>

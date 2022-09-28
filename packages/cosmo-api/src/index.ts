@@ -16,6 +16,10 @@ import {
 	CampaignDtoTypeEnum,
 	CampaignReviewDto,
 	Configuration,
+	DraftRequestDto,
+	DraftRequestDtoTypeEnum,
+	EvidenceRequestControllerApi,
+	EvidenceRequestDraftRequestDto,
 	GenerateReportControllerApi,
 	IdentityProviderDto,
 	NarrativeReviewControllerApi,
@@ -28,6 +32,7 @@ import {
 	ReviewDtoStatusEnum,
 	ReviewerCampaignControllerApi,
 	ReviewerControllerApi,
+	StepDraftRequestDto,
 	UserAdminControllerApi,
 	UserBase,
 	UserControllerApi,
@@ -48,7 +53,8 @@ export default function configureApi(config: Configuration) {
 		authApi: new AuthControllerApi(config),
 		realmApi: new RealmControllerApi(config),
 		revalidationApi: new ReviewerCampaignControllerApi(config),
-		analystCampaignApi: new AnalystCampaignControllerApi(config)
+		analystCampaignApi: new AnalystCampaignControllerApi(config),
+		evidenceRequest: new EvidenceRequestControllerApi(config)
 	};
 }
 export type ApplicationApi = ApplicationDto;
@@ -74,3 +80,8 @@ export type AnswerApi = AnswerDto;
 export type AnswerApiTypeEnum = AnswerDtoAnswerTypeEnum;
 export type FileAnswerStatusApi = PairListAnswerDtoListString;
 export type ApplicationCampaignApi = ApplicationCampaignDto;
+export type ApplicationStepRequestApi = EvidenceRequestDraftRequestDto;
+export type EvidenceRequestDraftApi = DraftRequestDto;
+export type EvidenceRequestStepApi = StepDraftRequestDto;
+export const DraftRequestDtoTypeApiEnum = DraftRequestDtoTypeEnum;
+export type DraftRequestDtoTypeApi = DraftRequestDtoTypeEnum;
