@@ -7,6 +7,7 @@ import {
 	Button
 } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
+import useManagementApps from '@hooks/management/useManagementApps';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ApplicationsSelectionContainer from './ApplicationsSelectionContainer';
@@ -16,10 +17,17 @@ const NewEvidenceRequestFlowContainer = () => {
 	const { t } = useTranslation(['evidenceRequest', 'modals']);
 	const [currentStep, setCurrentStep] = useState(0);
 
+	const { apps } = useManagementApps(); // TODO remove
+
 	const contentToRender = () => {
 		switch (currentStep) {
 			case 1:
-				return <UsersSelectionContainer />;
+				return (
+					<UsersSelectionContainer
+						appsSelected={apps}
+						steps={['Step 1', 'Step 2', 'Step 3']}
+					/>
+				);
 			default:
 				return <ApplicationsSelectionContainer />;
 		}
