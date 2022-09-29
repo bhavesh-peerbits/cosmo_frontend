@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 type EvidenceRequestTileProps = {
-	request: EvidenceRequestDraft;
+	request?: EvidenceRequestDraft;
 };
 
 const EvidenceRequestTile = ({ request }: EvidenceRequestTileProps) => {
@@ -13,20 +13,20 @@ const EvidenceRequestTile = ({ request }: EvidenceRequestTileProps) => {
 
 	return (
 		<Layer level={1}>
-			<ClickableTile onClick={() => navigate(request.name ?? '')}>
+			<ClickableTile onClick={() => navigate(request?.name ?? '')}>
 				<div className='space-y-4'>
-					<p className='line-clamp-1 text-heading-2'>{request.name}</p>
+					<p className='line-clamp-1 text-heading-2'>{request?.name}</p>
 					<span className='mt-2 flex space-x-2 '>
 						<p className='text-text-secondary text-body-short-1 '>
 							{t('evidenceRequest:request-type')}:
 						</p>
-						<p className='text-body-short-1'>{request.type}</p>
+						<p className='text-body-short-1'>{request?.type}</p>
 					</span>
 					<span className='mt-2 flex  space-x-2 '>
 						<p className='text-text-secondary text-body-short-1 '>
 							{t('evidenceRequest:workflow-type')}:
 						</p>
-						<p className='text-body-short-1'>{request.workflowType}</p>
+						<p className='text-body-short-1'>{request?.workflowType}</p>
 					</span>
 					<div>
 						<span className='mt-2 flex  space-x-2 '>

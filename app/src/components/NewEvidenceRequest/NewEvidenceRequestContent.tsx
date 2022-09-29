@@ -1,9 +1,15 @@
 import { Grid, Column } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
+import { mapDraftRequestTypeToDraftRequestDisplayType } from '@model/DraftRequestType';
+import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
 import { useTranslation } from 'react-i18next';
 import NewEvidenceRequestFlowContainer from './NewEvidenceRequestFlowContainer';
 
-const NewEvidenceRequestContent = () => {
+type NewEvidenceRequestContentProps = {
+	request?: EvidenceRequestDraft;
+};
+
+const NewEvidenceRequestContent = ({ request }: NewEvidenceRequestContentProps) => {
 	const { t } = useTranslation('evidenceRequest');
 	return (
 		<Grid fullWidth narrow className='p-container-2'>
@@ -11,11 +17,17 @@ const NewEvidenceRequestContent = () => {
 				{/* // TODO Fix endpoint after creating the flow */}
 				<FullWidthColumn className='flex flex-col'>
 					<span className='text-heading-2'>{t('workflow-type')}</span>
-					<span className='text-text-secondary text-body-short-1'>Type</span>
+					<span className='text-text-secondary text-body-short-1'>
+						{request?.workflowType}
+					</span>
 				</FullWidthColumn>
 				<FullWidthColumn className='flex flex-col'>
 					<span className='text-heading-2'>{t('request-type')}</span>
-					<span className='text-text-secondary text-body-short-1'>Type</span>
+					<span className='text-text-secondary text-body-short-1'>
+						{request?.type
+							? mapDraftRequestTypeToDraftRequestDisplayType(request.type)
+							: ''}
+					</span>
 				</FullWidthColumn>
 			</Column>
 			<Column md={8} lg={13}>

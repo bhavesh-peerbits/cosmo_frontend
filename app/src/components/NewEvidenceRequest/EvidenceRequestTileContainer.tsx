@@ -1,3 +1,4 @@
+import useGetAllEvidenceRequestDraft from '@api/evidence-request/useGetAllEvidenceRequestDraft';
 import { Column, Grid } from '@carbon/react';
 import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
 import EvidenceRequestTile from './EvidenceRequestTile';
@@ -7,11 +8,12 @@ type EvidenceRequestContainerProps = {
 };
 
 const EvidenceRequestTileContainer = ({ requests }: EvidenceRequestContainerProps) => {
+	const { data: request } = useGetAllEvidenceRequestDraft();
 	return (
 		<Grid fullWidth narrow className='pl-5'>
 			{requests.map(el => (
 				<Column key={el.name} sm={4} md={4} lg={4} max={4}>
-					<EvidenceRequestTile request={el} />
+					<EvidenceRequestTile request={request} />
 				</Column>
 			))}
 		</Grid>

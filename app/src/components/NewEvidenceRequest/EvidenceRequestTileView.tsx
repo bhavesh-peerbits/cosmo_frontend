@@ -19,38 +19,11 @@ const EvidenceRequestTileView = () => {
 	const { t } = useTranslation('evidenceRequest');
 
 	const requests: EvidenceRequestDraft[] = [
-		// {
-		// 	id: 1,
-		// 	name: 'long long long Name',
-		// 	type: 'type',
-		// 	workflowtype: 'wftype',
-		// 	applications: [{ name: 'ciao' }, { name: 'ciao2' }],
-		// 	status: 'Draft'
-		// },
-		// {
-		// 	id: 2,
-		// 	name: 'Prova2',
-		// 	type: 'type',
-		// 	workflowtype: 'wftype',
-		// 	applications: [{ name: 'ciao' }, { name: 'ciao2' }],
-		// 	status: 'Draft'
-		// },
-		// {
-		// 	id: 3,
-		// 	name: 'Prova3',
-		// 	type: 'type',
-		// 	workflowtype: 'wftype',
-		// 	applications: [{ name: 'ciao' }, { name: 'ciao2' }],
-		// 	status: 'Draft'
-		// },
-		// {
-		// 	id: 4,
-		// 	name: 'Prova4',
-		// 	type: 'type',
-		// 	workflowtype: 'wftype',
-		// 	applications: [{ name: 'ciao' }, { name: 'ciao2' }],
-		// 	status: 'Draft'
-		// }
+		{
+			name: 'long long long Name',
+			type: 'TYPE1',
+			workflowType: 'wftype'
+		}
 	];
 
 	return (
