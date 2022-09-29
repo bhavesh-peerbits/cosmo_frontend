@@ -37,7 +37,7 @@ const RequestTextContainer = () => {
 					<span>Description to add</span>
 				</FullWidthColumn>
 			</FullWidthColumn>
-			<FullWidthColumn className='text-text-secondary text-body-long-1'>
+			<FullWidthColumn>
 				<Toggle
 					labelText={t('suggest-text')}
 					aria-label='Sugget text toggle'

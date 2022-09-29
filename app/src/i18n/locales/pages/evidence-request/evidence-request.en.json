@@ -19,5 +19,9 @@
 	"attachments": "Attachments",
 	"suggest-text": "Suggest text",
 	"yes": "Yes",
-	"no": "No"
+	"no": "No",
+	"public-comment": "Public comment",
+	"private-comment": "Private comment",
+	"public-comment-placeholder": "This is a public comment. Every user with access to this request can see it",
+	"private-comment-placeholder": "This a private comment. Only you can see it"
 }

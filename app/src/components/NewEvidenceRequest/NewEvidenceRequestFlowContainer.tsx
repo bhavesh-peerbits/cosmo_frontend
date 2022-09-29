@@ -10,6 +10,7 @@ import FullWidthColumn from '@components/FullWidthColumn';
 import useManagementApps from '@hooks/management/useManagementApps';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import AdditionalInfoContainer from './AdditionalInfoContainer';
 import ApplicationsSelectionContainer from './ApplicationsSelectionContainer';
 import RequestTextContainer from './RequestTextContainer';
 import UsersSelectionContainer from './UsersSelectionContainer';
@@ -31,6 +32,8 @@ const NewEvidenceRequestFlowContainer = () => {
 				);
 			case 2:
 				return <RequestTextContainer />;
+			case 3:
+				return <AdditionalInfoContainer />;
 			default:
 				return <ApplicationsSelectionContainer />;
 		}
