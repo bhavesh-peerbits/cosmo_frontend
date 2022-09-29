@@ -11,6 +11,7 @@ import useManagementApps from '@hooks/management/useManagementApps';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ApplicationsSelectionContainer from './ApplicationsSelectionContainer';
+import RequestTextContainer from './RequestTextContainer';
 import UsersSelectionContainer from './UsersSelectionContainer';
 
 const NewEvidenceRequestFlowContainer = () => {
@@ -28,6 +29,8 @@ const NewEvidenceRequestFlowContainer = () => {
 						steps={['Step 1', 'Step 2', 'Step 3']}
 					/>
 				);
+			case 2:
+				return <RequestTextContainer />;
 			default:
 				return <ApplicationsSelectionContainer />;
 		}

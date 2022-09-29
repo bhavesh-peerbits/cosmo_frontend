@@ -16,5 +16,8 @@
 	"users-selection": "Selezione utenti",
 	"request-text": "Testo richiesta",
 	"additional-info": "Informazioni aggiuntive",
-	"attachments": "Allegati"
+	"attachments": "Allegati",
+	"suggest-text": "Suggerisci testo",
+	"yes": "Si",
+	"no": "No"
 }

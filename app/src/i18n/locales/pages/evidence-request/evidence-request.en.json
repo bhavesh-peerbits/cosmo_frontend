@@ -16,5 +16,8 @@
 	"users-selection": "Users selection",
 	"request-text": "Request text",
 	"additional-info": "Additional information",
-	"attachments": "Attachments"
+	"attachments": "Attachments",
+	"suggest-text": "Suggest text",
+	"yes": "Yes",
+	"no": "No"
 }
