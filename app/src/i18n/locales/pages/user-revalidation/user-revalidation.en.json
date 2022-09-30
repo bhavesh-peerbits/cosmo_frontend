@@ -74,5 +74,6 @@
 	"change-due-date": "Change due date",
 	"select-new-date": "Select a new campaign due date",
 	"note": "Notes",
-	"app-owner": "Application owner"
+	"app-owner": "Application owner",
+	"user-details": "User Details"
 }

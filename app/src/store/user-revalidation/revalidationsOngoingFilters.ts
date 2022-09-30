@@ -59,10 +59,10 @@ const applyFilters = (
 		// filter by query term string
 		.filter(revalidation =>
 			filters.query
-				? revalidation.campaign.name
+				? `${revalidation.campaign.name}`
 						?.toLowerCase()
 						?.trim()
-						?.includes(filters.query.toLowerCase().trim())
+						?.includes(`${filters.query}`.toLowerCase().trim())
 				: true
 		)
 		// filter by layer

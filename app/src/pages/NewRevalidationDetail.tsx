@@ -135,6 +135,7 @@ const NewRevalidationDetail = () => {
 				<UploadFileModal
 					isOpen={isUploadModalOpen}
 					setIsOpen={setIsUploadModalOpen}
+					campaignType={data.type}
 					campaignId={campaignId}
 					isEmpty={data.applicationsCount < 1}
 				/>
