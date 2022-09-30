@@ -53,7 +53,7 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 							className='transition-all'
 						>
 							<SideNavMenuItem element={Link} to={routes.REVIEW_NARRATIVE}>
-								Narrative
+								Review Narrative
 							</SideNavMenuItem>
 							<SideNavMenuItem element={Link} to={routes.USER_REVALIDATION}>
 								User Revalidation
@@ -71,7 +71,7 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 							</SideNavMenuItem>
 							{canReviewNarrative && (
 								<SideNavMenuItem element={Link} to={routes.REVIEW}>
-									Review
+									Narrative History
 								</SideNavMenuItem>
 							)}
 						</SideNavMenu>

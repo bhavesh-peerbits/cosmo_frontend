@@ -22,6 +22,7 @@ type UploadFileModalProps = {
 	campaignId: string;
 	isEmpty: boolean;
 	application?: Application;
+	campaignType: string;
 };
 type FormData = {
 	application: Application;
@@ -33,7 +34,8 @@ const UploadFileModal = ({
 	setIsOpen,
 	campaignId,
 	isEmpty,
-	application
+	application,
+	campaignType
 }: UploadFileModalProps) => {
 	const { t } = useTranslation(['modals', 'userRevalidation']);
 	const { mutateAsync: mutateAddAnswer, reset: resetApi } =
@@ -196,12 +198,16 @@ const UploadFileModal = ({
 							</FullWidthColumn>
 						))}
 					<FullWidthColumn>
-						<AnswerTable answers={responseState?.answers || []} />
+						<AnswerTable
+							answers={responseState?.answers || []}
+							campaignType={campaignType}
+							reviewId={campaignId}
+						/>
 					</FullWidthColumn>
 				</Grid>
 			</CreateTearsheetStep>
 		),
-		[responseState?.answers, responseState?.errors, t]
+		[campaignId, campaignType, responseState?.answers, responseState?.errors, t]
 	);
 
 	return (
