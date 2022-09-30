@@ -1,10 +1,11 @@
 import { TableToolbarSearch, Tooltip } from '@carbon/react';
-import CosmoTable, { HeaderFunction, CellProperties } from '@components/table/CosmoTable';
+import { HeaderFunction, CellProperties } from '@components/table/CosmoTable';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Answer from '@model/Answer';
 import isAfter from 'date-fns/isAfter';
 import { Information } from '@carbon/react/icons';
+import GroupableCosmoTable from '@components/table/GroupableCosmoTable';
 
 interface RevalidatorsTableProp {
 	answers: Answer[];
@@ -90,7 +91,7 @@ const RevalidatorsTable = ({
 				}),
 				table.createDataColumn(row => row.userDetails, {
 					id: `userDisplayName${reviewId}`,
-					header: 'User'
+					header: t('userRevalidation:user-details')
 				}),
 				table.createDataColumn(
 					row => ({ title: row.permissions, description: row.permissionDescription }),
@@ -149,8 +150,8 @@ const RevalidatorsTable = ({
 		/>
 	);
 	return (
-		<CosmoTable
-			level={2}
+		<GroupableCosmoTable
+			tableId={reviewId}
 			data={
 				filters
 					? answers.filter(answer =>

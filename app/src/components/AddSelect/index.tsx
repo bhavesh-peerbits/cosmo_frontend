@@ -140,8 +140,8 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 
 		const performSearch = (item: ItemType | ItemNoChildren) => {
 			return (
-				item.title.toLowerCase().includes(searchTerm) ||
-				item.subtitle?.toLowerCase()?.includes(searchTerm)
+				item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+				item.subtitle?.toLowerCase()?.includes(searchTerm.toLowerCase())
 			);
 		};
 
