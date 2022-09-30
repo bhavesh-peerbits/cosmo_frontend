@@ -104,7 +104,7 @@ const Review = () => {
 
 	return (
 		<div>
-			<PageHeader pageTitle='Review'>
+			<PageHeader pageTitle='Narrative History'>
 				<div className='h-full p-container-1'>
 					<GroupableCosmoTable
 						tableId='review'

@@ -8,8 +8,52 @@ import routes from '@routes/routes-const';
 import { useTranslation } from 'react-i18next';
 
 const Home = () => {
-	const { canSeeNarrativeManagement, canReview, hasNoRole } = usePolicyStore();
 	const { t } = useTranslation('home');
+
+	const {
+		hasNoRole,
+		canSeeNarrativeManagement,
+		canReview,
+		canAdmin,
+		canNarrativeAdmin,
+		canUserAdmin,
+		canRevalidateUser
+	} = usePolicyStore();
+	const buttonToNavigate = () => {
+		if (canUserAdmin || canNarrativeAdmin || canAdmin) {
+			return (
+				<Button as={Link} to={routes.ADMIN}>
+					Admin
+				</Button>
+			);
+		}
+		if (canReview) {
+			return (
+				<Button as={Link} to={routes.USER_REVALIDATION}>
+					User Revalidation
+				</Button>
+			);
+		}
+		if (canSeeNarrativeManagement) {
+			return (
+				<Button as={Link} to={routes.MANAGEMENT}>
+					Management
+				</Button>
+			);
+		}
+		if (canRevalidateUser) {
+			return (
+				<Button as={Link} to={routes.REVALIDATIONS_ONGOING}>
+					Revalidations Ongoing
+				</Button>
+			);
+		}
+		return (
+			<Button as={Link} to={routes.REVIEW_NARRATIVE}>
+				Review Narrative
+			</Button>
+		);
+	};
 
 	return (
 		<div className='flex h-full flex-col'>
@@ -25,17 +69,7 @@ const Home = () => {
 								<p className='text-body-short-2'>{t('navigate-to-start')}</p>
 								<div className='w-1/2'>
 									<ButtonSet>
-										{canSeeNarrativeManagement ? (
-											<Button as={Link} to={routes.MANAGEMENT}>
-												Management
-											</Button>
-										) : (
-											canReview && (
-												<Button as={Link} to={routes.REVIEW_NARRATIVE}>
-													Review Narrative
-												</Button>
-											)
-										)}
+										{buttonToNavigate()}
 										<Button kind='secondary' href={routes.LOGOUT}>
 											Logout
 										</Button>
