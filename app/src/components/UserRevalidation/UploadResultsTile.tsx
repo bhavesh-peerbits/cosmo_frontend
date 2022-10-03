@@ -34,6 +34,7 @@ const UploadResultsTile = ({ campaignApplication }: UploadResultsTileProps) => {
 			<UploadFileModal
 				isOpen={isUpdateOpen}
 				setIsOpen={setIsUpdateOpen}
+				campaignType={campaignApplication.campaign.type}
 				campaignId={campaignApplication.campaign.id}
 				application={campaignApplication.application}
 				isEmpty={false}
@@ -63,7 +64,11 @@ const UploadResultsTile = ({ campaignApplication }: UploadResultsTileProps) => {
 					</div>
 				</FullWidthColumn>
 				<FullWidthColumn>
-					<AnswerTable answers={[...data.values()]} />
+					<AnswerTable
+						answers={[...data.values()]}
+						campaignType={campaignApplication.campaign.type}
+						reviewId={campaignApplication.id}
+					/>
 				</FullWidthColumn>
 			</Grid>
 		</>

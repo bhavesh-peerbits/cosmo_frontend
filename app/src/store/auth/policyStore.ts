@@ -55,8 +55,8 @@ const policyStore = selector<Policies>({
 					policies?.includesMulti(
 						UserRoleEnum.SysAdmin,
 						UserRoleEnum.UserAdmin,
-						UserRoleEnum.NarrativeAdmin,
-						UserRoleEnum.RevalidationAdmin
+						UserRoleEnum.NarrativeAdmin
+						// UserRoleEnum.RevalidationAdmin // TODO remove comment when admin panel for revalidation is ready
 					)
 			),
 			canUserAdmin: Boolean(
@@ -77,11 +77,7 @@ const policyStore = selector<Policies>({
 			),
 			canReviewUser: Boolean(
 				!hasNoRole &&
-					policies?.includesMulti(
-						UserRoleEnum.RevalidationAdmin,
-						UserRoleEnum.Reviewer,
-						UserRoleEnum.SysAdmin
-					)
+					policies?.includesMulti(UserRoleEnum.Reviewer, UserRoleEnum.SysAdmin)
 			)
 		};
 	}

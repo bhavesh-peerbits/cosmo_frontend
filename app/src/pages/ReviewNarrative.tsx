@@ -28,7 +28,7 @@ const ReviewNarrative = () => {
 	const { apps } = useAppsInReview();
 	const { t } = useTranslation('reviewNarrative');
 	return (
-		<PageHeader pageTitle='Review'>
+		<PageHeader pageTitle='Review Narrative'>
 			<div className='h-full p-container-1'>
 				<Fade>
 					<Grid fullWidth narrow className='h-full'>

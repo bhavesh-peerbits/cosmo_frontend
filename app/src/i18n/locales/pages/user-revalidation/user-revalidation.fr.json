@@ -74,5 +74,6 @@
 	"change-due-date": "Changer la date d'expiration",
 	"select-new-date": "Sélectionner une nouvelle date d'expiration de la campagne",
 	"note": "Remarques",
-	"app-owner": "Propriétaire de l'application"
+	"app-owner": "Propriétaire de l'application",
+	"user-details": "Détails de l'utilisateur"
 }
