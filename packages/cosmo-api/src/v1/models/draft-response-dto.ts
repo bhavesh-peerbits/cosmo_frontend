@@ -12,55 +12,61 @@
  * Do not edit the class manually.
  */
 
-import { EvidenceRequestDraftRequestDto } from './evidence-request-draft-request-dto';
+import { EvidenceRequestDraftResponseDto } from './evidence-request-draft-response-dto';
 import { UserDto } from './user-dto';
 
 /**
  *
  * @export
- * @interface DraftRequestDto
+ * @interface DraftResponseDto
  */
-export interface DraftRequestDto {
+export interface DraftResponseDto {
 	/**
 	 *
-	 * @type {Array<EvidenceRequestDraftRequestDto>}
-	 * @memberof DraftRequestDto
+	 * @type {Array<EvidenceRequestDraftResponseDto>}
+	 * @memberof DraftResponseDto
 	 */
-	requests?: Array<EvidenceRequestDraftRequestDto>;
+	requests?: Array<EvidenceRequestDraftResponseDto>;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof DraftRequestDto
+	 * @memberof DraftResponseDto
 	 */
-	suggestedText?: string;
+	text?: string;
 	/**
 	 *
 	 * @type {Array<UserDto>}
-	 * @memberof DraftRequestDto
+	 * @memberof DraftResponseDto
 	 */
 	collaborators?: Array<UserDto>;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof DraftRequestDto
+	 * @memberof DraftResponseDto
 	 */
-	workflowType?: string;
+	dueDate: string;
+	/**
+	 *
+	 * @type {Array<any>}
+	 * @memberof DraftResponseDto
+	 */
+	files?: Array<any>;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof DraftRequestDto
+	 * @memberof DraftResponseDto
+	 */
+	workflowType: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DraftResponseDto
 	 */
 	type?: string;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof DraftRequestDto
+	 * @memberof DraftResponseDto
 	 */
 	name?: string;
-	/**
-	 *
-	 * @type {number}
-	 * @memberof DraftRequestDto
-	 */
-	id?: number;
 }

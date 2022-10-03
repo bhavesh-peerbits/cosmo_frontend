@@ -46,6 +46,12 @@ export interface StepRequestDto {
 	delegates?: Set<UserDto>;
 	/**
 	 *
+	 * @type {string}
+	 * @memberof StepRequestDto
+	 */
+	text?: string;
+	/**
+	 *
 	 * @type {number}
 	 * @memberof StepRequestDto
 	 */

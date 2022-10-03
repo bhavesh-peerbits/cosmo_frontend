@@ -50,6 +50,7 @@ models/control-app-instance.ts
 models/control.ts
 models/csv-answer-parsing-dto.ts
 models/draft-request-dto.ts
+models/draft-response-dto.ts
 models/email.ts
 models/evidence-request-draft-request-dto.ts
 models/evidence-request-draft-response-dto.ts
@@ -80,6 +81,7 @@ models/response-dto.ts
 models/review-application-dto.ts
 models/review-dto.ts
 models/review-procedure-dto.ts
+models/set-up-draft-response-dto.ts
 models/start-campaign-dto.ts
 models/step-draft-request-dto.ts
 models/step-draft-response-dto.ts

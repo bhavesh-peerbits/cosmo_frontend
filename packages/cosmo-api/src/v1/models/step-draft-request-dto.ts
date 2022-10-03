@@ -44,6 +44,12 @@ export interface StepDraftRequestDto {
 	 * @memberof StepDraftRequestDto
 	 */
 	delegates?: Set<UserDto>;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof StepDraftRequestDto
+	 */
+	text?: string;
 }
 
 export const StepDraftRequestDtoTypeEnum = {

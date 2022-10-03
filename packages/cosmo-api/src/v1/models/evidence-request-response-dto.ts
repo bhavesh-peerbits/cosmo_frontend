@@ -46,7 +46,7 @@ export interface EvidenceRequestResponseDto {
 	 * @type {string}
 	 * @memberof EvidenceRequestResponseDto
 	 */
-	type?: EvidenceRequestResponseDtoTypeEnum;
+	type?: string;
 	/**
 	 *
 	 * @type {ApplicationDto}
@@ -109,18 +109,12 @@ export interface EvidenceRequestResponseDto {
 	contributors?: Set<UserDto>;
 }
 
-export const EvidenceRequestResponseDtoTypeEnum = {
-	Type1: 'TYPE1',
-	Type2: 'TYPE2',
-	Type3: 'TYPE3'
-} as const;
-
-export type EvidenceRequestResponseDtoTypeEnum =
-	typeof EvidenceRequestResponseDtoTypeEnum[keyof typeof EvidenceRequestResponseDtoTypeEnum];
 export const EvidenceRequestResponseDtoStatusEnum = {
 	Draft: 'DRAFT',
 	InProgress: 'IN_PROGRESS',
-	Closed: 'CLOSED'
+	Rejected: 'REJECTED',
+	Completed: 'COMPLETED',
+	Terminated: 'TERMINATED'
 } as const;
 
 export type EvidenceRequestResponseDtoStatusEnum =

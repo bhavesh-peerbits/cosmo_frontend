@@ -33,4 +33,16 @@ export interface EvidenceRequestDraftRequestDto {
 	 * @memberof EvidenceRequestDraftRequestDto
 	 */
 	steps?: Array<StepDraftRequestDto>;
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof EvidenceRequestDraftRequestDto
+	 */
+	selected?: boolean;
+	/**
+	 *
+	 * @type {number}
+	 * @memberof EvidenceRequestDraftRequestDto
+	 */
+	id?: number;
 }
