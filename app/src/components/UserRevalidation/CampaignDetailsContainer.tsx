@@ -81,7 +81,12 @@ const CampaignDetailsContainer = ({
 								.filter((x, i, s) => s.indexOf(x) === i).length
 						}
 						{' | '}
-						{t('users-to-revalidate')}: {[...data.values()].length}
+						{t('users-to-revalidate')}:{' '}
+						{
+							[...data.values()]
+								.map(y => y.userToRevalidate)
+								.filter((x, i, s) => s.indexOf(x) === i).length
+						}
 					</p>
 					<RevalidatorsTable
 						answers={[...data.values()]}
