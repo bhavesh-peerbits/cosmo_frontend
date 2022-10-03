@@ -3,7 +3,8 @@ import Fade from '@components/Fade';
 import Centered from '@components/Centered';
 import NoDataMessage from '@components/NoDataMessage';
 import { useTranslation } from 'react-i18next';
-import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
+import useGetAllEvidenceRequestDraft from '@api/evidence-request/useGetAllEvidenceRequestDraft';
+import { useMemo } from 'react';
 import EvidenceRequestTileContainer from './EvidenceRequestTileContainer';
 
 const SearchBar = () => {
@@ -17,14 +18,8 @@ const SearchBar = () => {
 
 const EvidenceRequestTileView = () => {
 	const { t } = useTranslation('evidenceRequest');
-
-	const requests: EvidenceRequestDraft[] = [
-		{
-			name: 'long long long Name',
-			type: 'TYPE1',
-			workflowType: 'wftype'
-		}
-	];
+	const { data } = useGetAllEvidenceRequestDraft();
+	const requests = useMemo(() => (data ? [...data.values()] : []), [data]);
 
 	return (
 		<Grid fullWidth narrow className='h-full'>

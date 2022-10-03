@@ -6,15 +6,12 @@ import SendRequestModal from '@components/Modals/SendRequestModal';
 import DeleteRequestModal from '@components/Modals/DeleteRequestModal';
 import NewEvidenceRequestContent from '@components/NewEvidenceRequest/NewEvidenceRequestContent';
 import { useParams } from 'react-router-dom';
-import useGetAllEvidenceRequestDraft from '@api/evidence-request/useGetAllEvidenceRequestDraft';
 
 const NewEvidenceRequest = () => {
 	const { requestName } = useParams<'requestName'>();
 	const { t } = useTranslation('evidenceRequest');
 	const [isSendModalOpen, setIsSendModalOpen] = useState(false);
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
-	const { data: request } = useGetAllEvidenceRequestDraft(); // TODO Remove and get request by url
 
 	return (
 		<PageHeader
@@ -49,7 +46,7 @@ const NewEvidenceRequest = () => {
 						setIsOpen={setIsDeleteModalOpen}
 					/>
 				)}
-				<NewEvidenceRequestContent request={request} />
+				<NewEvidenceRequestContent request={undefined} />
 			</>
 		</PageHeader>
 	);

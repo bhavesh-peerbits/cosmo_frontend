@@ -17,7 +17,6 @@ import {
 	CampaignReviewDto,
 	Configuration,
 	DraftRequestDto,
-	DraftRequestDtoTypeEnum,
 	EvidenceRequestControllerApi,
 	EvidenceRequestDraftRequestDto,
 	GenerateReportControllerApi,
@@ -83,5 +82,3 @@ export type ApplicationCampaignApi = ApplicationCampaignDto;
 export type ApplicationStepRequestApi = EvidenceRequestDraftRequestDto;
 export type EvidenceRequestDraftApi = DraftRequestDto;
 export type EvidenceRequestStepApi = StepDraftRequestDto;
-export const DraftRequestDtoTypeApiEnum = DraftRequestDtoTypeEnum;
-export type DraftRequestDtoTypeApi = DraftRequestDtoTypeEnum;

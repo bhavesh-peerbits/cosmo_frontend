@@ -1,16 +1,16 @@
 import { EvidenceRequestDraftApi } from 'cosmo-api';
-import { DraftRequestType } from './DraftRequestType';
 import User, { fromUserApi } from './User';
 import ApplicationStepRequest, {
 	fromApplicationStepRequestApi
 } from './ApplicationStepRequest';
 
 interface EvidenceRequestDraft {
+	id: string;
 	requests?: ApplicationStepRequest[];
 	suggestedText?: string;
 	collaborators?: User[];
 	workflowType?: string;
-	type?: DraftRequestType;
+	type?: string;
 	name?: string;
 }
 
@@ -18,6 +18,7 @@ export const fromEvidenceRequestDraftApi = (
 	evidenceRequestDraft: EvidenceRequestDraftApi
 ): EvidenceRequestDraft => {
 	return {
+		id: `${evidenceRequestDraft.id}`,
 		requests: evidenceRequestDraft.requests
 			? [...evidenceRequestDraft.requests].map(request =>
 					fromApplicationStepRequestApi(request)

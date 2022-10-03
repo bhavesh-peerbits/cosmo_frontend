@@ -18,7 +18,7 @@ type NewEvidenceRequestModalProps = {
 };
 
 type WorkflowType = 'type1' | 'type2' | 'type3';
-type RequestType = 'type1' | 'type2' | 'type3';
+type RequestType = 'Free';
 
 interface CreateRequestForm {
 	requestName: string;
@@ -36,7 +36,7 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 		defaultValues: {
 			requestName: '',
 			workflowType: 'type1',
-			requestType: 'type1'
+			requestType: 'Free'
 		},
 		mode: 'onChange'
 	});
@@ -46,11 +46,7 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 		setIsOpen(false);
 	};
 
-	const types = [
-		{ id: 1, value: 'type1' },
-		{ id: 2, value: 'type2' },
-		{ id: 3, value: 'type3' }
-	];
+	const types = [{ id: 1, value: 'Free' }];
 
 	return (
 		<ComposedModal size='xs' open={isOpen} onClose={cleanUp}>

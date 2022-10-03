@@ -33,7 +33,7 @@ const EvidenceRequestTile = ({ request }: EvidenceRequestTileProps) => {
 							<p className='text-text-secondary text-body-short-1 '>
 								{t('management:applications')}:
 							</p>
-							<p className='text-body-short-1'>applications lenght</p>
+							<p className='text-body-short-1'>{request?.requests?.length}</p>
 						</span>
 					</div>
 				</div>
