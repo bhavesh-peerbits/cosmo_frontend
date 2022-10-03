@@ -73,9 +73,15 @@ const CampaignDetailsContainer = ({
 		<Grid className='space-y-5 lg:space-y-0'>
 			<Column lg={11} md={8} sm={4}>
 				<Tile className='bg-background'>
-					<p className='text-heading-3'>
-						{t('revalidators')} (
-						{[...data.values()].filter(d => Boolean(d.revalidationUser)).length})
+					<p className='divide-x-[1px] divide-solid divide-border-subtle-0 text-heading-3'>
+						{t('revalidators')}:{' '}
+						{
+							[...data.values()]
+								.map(y => y.revalidationUser?.displayName)
+								.filter((x, i, s) => s.indexOf(x) === i).length
+						}
+						{' | '}
+						{t('users-to-revalidate')}: {[...data.values()].length}
 					</p>
 					<RevalidatorsTable
 						answers={[...data.values()]}
