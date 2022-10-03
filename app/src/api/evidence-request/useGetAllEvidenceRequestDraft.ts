@@ -10,4 +10,4 @@ const getAllEvidenceRequestDraft = () => {
 		.then(toMap);
 };
 
-export default () => useQuery(['evidence-request-draft'], getAllEvidenceRequestDraft);
+export default () => useQuery(['all-request-draft'], getAllEvidenceRequestDraft);

@@ -70,6 +70,7 @@ models/mail-template-dto.ts
 models/module.ts
 models/multiple-narrative-review-body.ts
 models/narrative-review-body.ts
+models/new-draft-request-dto.ts
 models/pair-list-answer-dto-list-string.ts
 models/procedure-app-instance-dto.ts
 models/procedure-app-instance.ts

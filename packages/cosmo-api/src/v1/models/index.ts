@@ -37,6 +37,7 @@ export * from './mail-template-dto';
 export * from './module';
 export * from './multiple-narrative-review-body';
 export * from './narrative-review-body';
+export * from './new-draft-request-dto';
 export * from './pair-list-answer-dto-list-string';
 export * from './procedure';
 export * from './procedure-app-instance';

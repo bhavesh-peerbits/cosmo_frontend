@@ -1,3 +1,6 @@
+import ApiError from '@api/ApiError';
+import useCreateDraft from '@api/evidence-request/useCreateDraft';
+import useGetNewDraftParameter from '@api/evidence-request/useGetNewDraftParameter';
 import {
 	ComposedModal,
 	ModalHeader,
@@ -7,7 +10,8 @@ import {
 	TextInput,
 	Select,
 	SelectItem,
-	Form
+	Form,
+	InlineNotification
 } from '@carbon/react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -17,26 +21,33 @@ type NewEvidenceRequestModalProps = {
 	setIsOpen: (value: boolean) => void;
 };
 
-type WorkflowType = 'type1' | 'type2' | 'type3';
-type RequestType = 'Free';
-
 interface CreateRequestForm {
 	requestName: string;
-	workflowType: WorkflowType;
-	requestType: RequestType;
+	workflowType: string;
+	requestType: string;
 }
 
 const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalProps) => {
-	const { t } = useTranslation(['evidenceRequest', 'modals']);
+	const { t } = useTranslation([
+		'evidenceRequest',
+		'modals',
+		'applicationInfo',
+		'userSelect'
+	]);
+	const existingRequestNames: string[] = []; // TODO da modificare con l'endpoint dei nomi univoci
+	const { mutate, isError, error } = useCreateDraft();
+	const { data: parameters } = useGetNewDraftParameter();
+
 	const {
 		register,
 		reset,
+		handleSubmit,
 		formState: { isValid, errors }
 	} = useForm<CreateRequestForm>({
 		defaultValues: {
 			requestName: '',
-			workflowType: 'type1',
-			requestType: 'Free'
+			workflowType: undefined,
+			requestType: undefined
 		},
 		mode: 'onChange'
 	});
@@ -46,20 +57,39 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 		setIsOpen(false);
 	};
 
-	const types = [{ id: 1, value: 'Free' }];
+	const createDraft = (data: CreateRequestForm) => {
+		return mutate(
+			{
+				draftData: {
+					name: data.requestName,
+					requestType: data.requestType,
+					workflowname: data.workflowType
+				}
+			},
+			{
+				onSuccess: () => {
+					cleanUp();
+				}
+			}
+		);
+	};
 
 	return (
 		<ComposedModal size='xs' open={isOpen} onClose={cleanUp}>
 			<ModalHeader title={t('evidenceRequest:create-new-request')} closeModal={cleanUp} />
-			<ModalBody className='m-0 space-y-4 pb-9'>
-				<Form className='space-y-6'>
+			<Form className='space-y-6' onSubmit={handleSubmit(createDraft)}>
+				<ModalBody className='m-0 space-y-4 pb-9'>
 					<TextInput
 						id='request-name'
 						labelText={t('evidenceRequest:request-name')}
 						placeholder={t('evidenceRequest:request-name')}
 						invalidText={errors.requestName?.message}
 						invalid={Boolean(errors.requestName)}
-						{...register('requestName', { required: true })}
+						{...register('requestName', {
+							validate: name =>
+								!existingRequestNames.includes(name.toLowerCase()) ||
+								t('applicationInfo:name-exists')
+						})}
 					/>
 					<Select
 						id='workflow-types'
@@ -68,8 +98,13 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 							required: true
 						})}
 					>
-						{types.map(type => (
-							<SelectItem key={type.id} text={type.value} value={type.value} />
+						<SelectItem
+							hidden
+							value='workflow-placeholder'
+							text={t('userSelect:choose-option')}
+						/>
+						{parameters?.workflowName.map(workflowName => (
+							<SelectItem text={workflowName} value={workflowName} key={workflowName} />
 						))}
 					</Select>
 					<Select
@@ -79,18 +114,39 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 							required: true
 						})}
 					>
-						{types.map(type => (
-							<SelectItem key={type.id} text={type.value} value={type.value} />
+						<SelectItem
+							hidden
+							value='request-types-placeholder'
+							text={t('userSelect:choose-option')}
+						/>
+						{parameters?.requestType.map(type => (
+							<SelectItem text={type} value={type} key={type} />
 						))}
 					</Select>
-				</Form>
-			</ModalBody>
-			<ModalFooter>
-				<Button kind='secondary' onClick={cleanUp}>
-					Cancel
-				</Button>
-				<Button disabled={!isValid}>Create Request</Button>
-			</ModalFooter>
+
+					{isError && (
+						<div className='mt-5 flex items-center justify-center'>
+							<InlineNotification
+								kind='error'
+								title='Error'
+								hideCloseButton
+								subtitle={
+									(error as ApiError)?.message ||
+									'An error has occurred, please try again later'
+								}
+							/>
+						</div>
+					)}
+				</ModalBody>
+				<ModalFooter>
+					<Button kind='secondary' onClick={cleanUp}>
+						{t('modals:cancel')}
+					</Button>
+					<Button type='submit' disabled={!isValid}>
+						{t('evidenceRequest:create-new-request')}
+					</Button>
+				</ModalFooter>
+			</Form>
 		</ComposedModal>
 	);
 };

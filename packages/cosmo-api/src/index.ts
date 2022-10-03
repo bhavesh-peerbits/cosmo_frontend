@@ -22,6 +22,7 @@ import {
 	GenerateReportControllerApi,
 	IdentityProviderDto,
 	NarrativeReviewControllerApi,
+	NewDraftRequestDto,
 	PairListAnswerDtoListString,
 	ProcedureAppInstanceDto,
 	ProcedureControllerApi,
@@ -82,3 +83,4 @@ export type ApplicationCampaignApi = ApplicationCampaignDto;
 export type ApplicationStepRequestApi = EvidenceRequestDraftRequestDto;
 export type EvidenceRequestDraftApi = DraftRequestDto;
 export type EvidenceRequestStepApi = StepDraftRequestDto;
+export type NewDraftParameterApi = NewDraftRequestDto;
