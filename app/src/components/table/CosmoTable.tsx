@@ -19,10 +19,11 @@ import {
 	getPaginationRowModel,
 	getSortedRowModel,
 	PaginationState,
+	RowSelectionState,
 	Table as TableType,
 	useTableInstance
 } from '@tanstack/react-table';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
 	AvailableFileType,
@@ -34,6 +35,7 @@ import {
 import NoDataMessage from '@components/NoDataMessage';
 import Centered from '@components/Centered';
 import useExportTablePlugin from '@hooks/useExportTablePlugin';
+import Application from '@model/Application';
 import CosmoTableToolbar from './CosmoTableToolbar';
 
 type HeaderFunction<T extends object> = CosmoTableProps<T>['createHeaders'];
@@ -54,6 +56,8 @@ interface CosmoTableProps<D extends object> {
 	excludeCurrentView?: boolean;
 	level?: 0 | 1 | 2;
 	tableId?: string;
+	setSelectedRows?: (val: Application[]) => void;
+	selectedRows?: RowSelectionState;
 }
 
 const CosmoTable = <D extends object>({
@@ -66,7 +70,9 @@ const CosmoTable = <D extends object>({
 	disableExport,
 	excludeCurrentView,
 	level,
-	tableId = ''
+	tableId = '',
+	setSelectedRows,
+	selectedRows
 }: CosmoTableProps<D>) => {
 	const { t } = useTranslation('table');
 	const [showMore, setShowMore] = useState('');
@@ -108,6 +114,14 @@ const CosmoTable = <D extends object>({
 	} = instance;
 
 	const { exportData } = useExportTablePlugin(instance, exportFileName, disableExport);
+
+	useEffect(
+		() =>
+			setSelectedRows &&
+			setSelectedRows(getSelectedRowModel().flatRows as unknown as Application[]),
+		[getSelectedRowModel, setSelectedRows, rowSelection]
+	);
+	useEffect(() => setRowSelection(selectedRows || {}), [selectedRows]);
 
 	const renderBody = () => {
 		const { rows } = getRowModel();

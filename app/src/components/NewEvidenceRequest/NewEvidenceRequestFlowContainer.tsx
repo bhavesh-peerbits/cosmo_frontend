@@ -8,6 +8,7 @@ import {
 } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import useManagementApps from '@hooks/management/useManagementApps';
+import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AdditionalInfoContainer from './AdditionalInfoContainer';
@@ -15,7 +16,12 @@ import ApplicationsSelectionContainer from './ApplicationsSelectionContainer';
 import RequestTextContainer from './RequestTextContainer';
 import UsersSelectionContainer from './UsersSelectionContainer';
 
-const NewEvidenceRequestFlowContainer = () => {
+type NewEvidenceRequestFlowContainerProps = {
+	request: EvidenceRequestDraft;
+};
+const NewEvidenceRequestFlowContainer = ({
+	request
+}: NewEvidenceRequestFlowContainerProps) => {
 	const { t } = useTranslation(['evidenceRequest', 'modals']);
 	const [currentStep, setCurrentStep] = useState(0);
 
@@ -35,7 +41,7 @@ const NewEvidenceRequestFlowContainer = () => {
 			case 3:
 				return <AdditionalInfoContainer />;
 			default:
-				return <ApplicationsSelectionContainer />;
+				return <ApplicationsSelectionContainer request={request} />;
 		}
 	};
 	return (

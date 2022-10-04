@@ -2,14 +2,31 @@ import { Grid, TableToolbarSearch } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import CosmoTable, { HeaderFunction } from '@components/table/CosmoTable';
 import useManagementApps from '@hooks/management/useManagementApps';
+import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
+import { RowSelectionState } from '@tanstack/react-table';
 import Application from 'model/Application';
-import { useCallback } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-const ApplicationsSelectionContainer = () => {
+type ApplicationsSelectionContainerProps = {
+	request: EvidenceRequestDraft;
+};
+const ApplicationsSelectionContainer = ({
+	request
+}: ApplicationsSelectionContainerProps) => {
 	const { t } = useTranslation(['evidenceRequest', 'management']);
 	const { apps } = useManagementApps();
 	const { filters, setFilters } = useManagementApps();
+	const [, setSelectedRows] = useState<(Application | undefined)[] | undefined>();
+
+	const selectedAppsIndex = useMemo(
+		() =>
+			request.requests?.reduce((prev, curr) => {
+				const index = apps.findIndex(app => app.id === curr?.application?.id);
+				return { ...prev, [index]: true };
+			}, {}),
+		[request.requests, apps]
+	);
 
 	const columns: HeaderFunction<Application> = useCallback(
 		table => [
@@ -58,6 +75,8 @@ const ApplicationsSelectionContainer = () => {
 					toolbar={{ toolbarContent }}
 					isSelectable
 					level={2}
+					setSelectedRows={setSelectedRows}
+					selectedRows={selectedAppsIndex as RowSelectionState}
 				/>
 			</FullWidthColumn>
 		</Grid>

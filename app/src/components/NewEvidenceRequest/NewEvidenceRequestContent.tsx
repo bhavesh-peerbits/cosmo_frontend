@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import NewEvidenceRequestFlowContainer from './NewEvidenceRequestFlowContainer';
 
 type NewEvidenceRequestContentProps = {
-	request?: EvidenceRequestDraft;
+	request: EvidenceRequestDraft;
 };
 
 const NewEvidenceRequestContent = ({ request }: NewEvidenceRequestContentProps) => {
@@ -26,7 +26,7 @@ const NewEvidenceRequestContent = ({ request }: NewEvidenceRequestContentProps) 
 				</FullWidthColumn>
 			</Column>
 			<Column md={8} lg={13}>
-				<NewEvidenceRequestFlowContainer />
+				<NewEvidenceRequestFlowContainer request={request} />
 			</Column>
 		</Grid>
 	);
