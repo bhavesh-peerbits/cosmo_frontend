@@ -2,11 +2,11 @@ import api from '@api';
 import { useQuery } from 'react-query';
 import { fromEvidenceRequestDraftApi } from '@model/EvidenceRequestDraft';
 
-const useGetDraftByName = (draftName: string) => {
+const useGetDraftById = (draftId: string) => {
 	return api.evidenceRequest
-		.getDraftByName({ name: draftName })
+		.getDraftById({ id: +draftId })
 		.then(({ data }) => fromEvidenceRequestDraftApi(data));
 };
 
-export default (draftName: string) =>
-	useQuery(['draft', draftName], () => useGetDraftByName(draftName));
+export default (draftId: string) =>
+	useQuery(['draft', draftId], () => useGetDraftById(draftId));

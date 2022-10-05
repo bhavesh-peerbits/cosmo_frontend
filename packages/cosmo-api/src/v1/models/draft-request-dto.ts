@@ -35,10 +35,10 @@ export interface DraftRequestDto {
 	suggestedText?: string;
 	/**
 	 *
-	 * @type {Array<UserDto>}
+	 * @type {Set<UserDto>}
 	 * @memberof DraftRequestDto
 	 */
-	collaborators?: Array<UserDto>;
+	collaborators?: Set<UserDto>;
 	/**
 	 *
 	 * @type {string}

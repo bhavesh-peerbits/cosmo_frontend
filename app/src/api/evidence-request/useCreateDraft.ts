@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from 'react-query';
 import api from '@api';
-import { fromEvidenceRequestDraftApi } from '@model/EvidenceRequestDraft';
 import { useNavigate } from 'react-router-dom';
 
 interface CreateDraftParams {
@@ -14,7 +13,7 @@ interface CreateDraftParams {
 const createDraft = ({ draftData }: CreateDraftParams) => {
 	return api.evidenceRequest
 		.createDraft({ setUpDraftResponseDto: draftData })
-		.then(({ data }) => fromEvidenceRequestDraftApi(data));
+		.then(({ data }) => data.valueOf());
 };
 
 const useCreateDraft = () => {
@@ -23,7 +22,7 @@ const useCreateDraft = () => {
 	return useMutation(createDraft, {
 		onSuccess: data => {
 			queryClient.invalidateQueries(['all-request-draft']);
-			navigate(`/new-evidence-request/${data.name}`);
+			navigate(`/new-evidence-request/${data}`);
 		}
 	});
 };

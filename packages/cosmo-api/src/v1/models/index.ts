@@ -51,8 +51,6 @@ export * from './review-dto';
 export * from './review-procedure-dto';
 export * from './set-up-draft-response-dto';
 export * from './start-campaign-dto';
-export * from './step-draft-request-dto';
-export * from './step-draft-response-dto';
 export * from './step-request-dto';
 export * from './step-response-dto';
 export * from './tenant';

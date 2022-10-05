@@ -13,7 +13,7 @@ const EvidenceRequestTile = ({ request }: EvidenceRequestTileProps) => {
 
 	return (
 		<Layer level={1}>
-			<ClickableTile onClick={() => navigate(request?.name ?? '')}>
+			<ClickableTile onClick={() => navigate(request?.id ?? '')}>
 				<div className='space-y-4'>
 					<p className='line-clamp-1 text-heading-2'>{request?.name}</p>
 					<span className='mt-2 flex space-x-2 '>

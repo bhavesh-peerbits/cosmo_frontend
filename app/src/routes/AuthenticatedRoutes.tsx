@@ -166,7 +166,7 @@ const AuthenticatedRoutes = () => {
 
 							<Route path='new-evidence-request'>
 								<Route index element={<NewEvidenceRequestDashboard />} />
-								<Route path=':requestName' element={<NewEvidenceRequest />} />
+								<Route path=':requestId' element={<NewEvidenceRequest />} />
 							</Route>
 
 							<Route path='test' element={<Test />} />

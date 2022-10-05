@@ -13,7 +13,7 @@
  */
 
 import { ApplicationDto } from './application-dto';
-import { StepDraftResponseDto } from './step-draft-response-dto';
+import { StepResponseDto } from './step-response-dto';
 
 /**
  *
@@ -29,10 +29,10 @@ export interface EvidenceRequestDraftResponseDto {
 	application?: ApplicationDto;
 	/**
 	 *
-	 * @type {Array<StepDraftResponseDto>}
+	 * @type {Array<StepResponseDto>}
 	 * @memberof EvidenceRequestDraftResponseDto
 	 */
-	steps?: Array<StepDraftResponseDto>;
+	steps?: Array<StepResponseDto>;
 	/**
 	 *
 	 * @type {number}

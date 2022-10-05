@@ -84,8 +84,6 @@ models/review-dto.ts
 models/review-procedure-dto.ts
 models/set-up-draft-response-dto.ts
 models/start-campaign-dto.ts
-models/step-draft-request-dto.ts
-models/step-draft-response-dto.ts
 models/step-request-dto.ts
 models/step-response-dto.ts
 models/tenant.ts

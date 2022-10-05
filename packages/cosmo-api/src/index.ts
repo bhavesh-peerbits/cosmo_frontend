@@ -32,7 +32,7 @@ import {
 	ReviewDtoStatusEnum,
 	ReviewerCampaignControllerApi,
 	ReviewerControllerApi,
-	StepDraftRequestDto,
+	StepRequestDto,
 	UserAdminControllerApi,
 	UserBase,
 	UserControllerApi,
@@ -82,5 +82,5 @@ export type FileAnswerStatusApi = PairListAnswerDtoListString;
 export type ApplicationCampaignApi = ApplicationCampaignDto;
 export type ApplicationStepRequestApi = EvidenceRequestDraftRequestDto;
 export type EvidenceRequestDraftApi = DraftRequestDto;
-export type EvidenceRequestStepApi = StepDraftRequestDto;
+export type EvidenceRequestStepApi = StepRequestDto;
 export type NewDraftParameterApi = NewDraftRequestDto;

@@ -13,7 +13,7 @@
  */
 
 import { ApplicationDto } from './application-dto';
-import { StepDraftRequestDto } from './step-draft-request-dto';
+import { StepRequestDto } from './step-request-dto';
 
 /**
  *
@@ -29,10 +29,10 @@ export interface EvidenceRequestDraftRequestDto {
 	application?: ApplicationDto;
 	/**
 	 *
-	 * @type {Array<StepDraftRequestDto>}
+	 * @type {Array<StepRequestDto>}
 	 * @memberof EvidenceRequestDraftRequestDto
 	 */
-	steps?: Array<StepDraftRequestDto>;
+	steps?: Array<StepRequestDto>;
 	/**
 	 *
 	 * @type {boolean}
