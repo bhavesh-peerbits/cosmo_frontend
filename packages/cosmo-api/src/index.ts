@@ -19,6 +19,7 @@ import {
 	DraftRequestDto,
 	EvidenceRequestControllerApi,
 	EvidenceRequestDraftRequestDto,
+	EvidenceRequestRequestDto,
 	GenerateReportControllerApi,
 	IdentityProviderDto,
 	NarrativeReviewControllerApi,
@@ -82,5 +83,6 @@ export type FileAnswerStatusApi = PairListAnswerDtoListString;
 export type ApplicationCampaignApi = ApplicationCampaignDto;
 export type ApplicationStepRequestApi = EvidenceRequestDraftRequestDto;
 export type EvidenceRequestDraftApi = DraftRequestDto;
+export type EvidenceRequestApi = EvidenceRequestRequestDto;
 export type EvidenceRequestStepApi = StepRequestDto;
 export type NewDraftParameterApi = NewDraftRequestDto;
