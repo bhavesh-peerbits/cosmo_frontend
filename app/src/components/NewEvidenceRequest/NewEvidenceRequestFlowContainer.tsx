@@ -24,6 +24,7 @@ const NewEvidenceRequestFlowContainer = ({
 }: NewEvidenceRequestFlowContainerProps) => {
 	const { t } = useTranslation(['evidenceRequest', 'modals']);
 	const [currentStep, setCurrentStep] = useState(0);
+	const [isNextActive, setIsNextActive] = useState(true);
 
 	const { apps } = useManagementApps(); // TODO remove
 
@@ -41,7 +42,12 @@ const NewEvidenceRequestFlowContainer = ({
 			case 3:
 				return <AdditionalInfoContainer />;
 			default:
-				return <ApplicationsSelectionContainer request={request} />;
+				return (
+					<ApplicationsSelectionContainer
+						request={request}
+						setIsNextActive={setIsNextActive}
+					/>
+				);
 		}
 	};
 	return (
@@ -71,7 +77,11 @@ const NewEvidenceRequestFlowContainer = ({
 									</Button>
 								)}
 								{currentStep !== 4 && (
-									<Button size='md' onClick={() => setCurrentStep(currentStep + 1)}>
+									<Button
+										size='md'
+										disabled={!isNextActive}
+										onClick={() => setCurrentStep(currentStep + 1)}
+									>
 										{t('modals:next')}
 									</Button>
 								)}

@@ -5,19 +5,23 @@ import useManagementApps from '@hooks/management/useManagementApps';
 import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
 import { RowSelectionState } from '@tanstack/react-table';
 import Application from 'model/Application';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 type ApplicationsSelectionContainerProps = {
 	request: EvidenceRequestDraft;
+	setIsNextActive: (val: boolean) => void;
 };
 const ApplicationsSelectionContainer = ({
-	request
+	request,
+	setIsNextActive
 }: ApplicationsSelectionContainerProps) => {
 	const { t } = useTranslation(['evidenceRequest', 'management']);
 	const { apps } = useManagementApps();
 	const { filters, setFilters } = useManagementApps();
-	const [, setSelectedRows] = useState<(Application | undefined)[] | undefined>();
+	const [selectedRows, setSelectedRows] = useState<
+		(Application | undefined)[] | undefined
+	>();
 
 	const selectedAppsIndex = useMemo(
 		() =>
@@ -27,6 +31,10 @@ const ApplicationsSelectionContainer = ({
 			}, {}),
 		[request.requests, apps]
 	);
+
+	useEffect(() => {
+		setIsNextActive((selectedRows && selectedRows.length > 0) || false);
+	}, [selectedRows, setIsNextActive]);
 
 	const columns: HeaderFunction<Application> = useCallback(
 		table => [
