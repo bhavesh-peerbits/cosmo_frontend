@@ -74,7 +74,7 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 		): Promise<RequestArgs> => {
 			// verify required parameter 'setUpDraftResponseDto' is not null or undefined
 			assertParamExists('createDraft', 'setUpDraftResponseDto', setUpDraftResponseDto);
-			const localVarPath = `/api/evidence-request/create-draft`;
+			const localVarPath = `/api/analyst/evidence-request/create-draft`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -128,7 +128,7 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists('deleteDraftById', 'id', id);
-			const localVarPath = `/api/evidence-request/draft/{id}`.replace(
+			const localVarPath = `/api/analyst/evidence-request/draft/{id}`.replace(
 				`{${'id'}}`,
 				encodeURIComponent(String(id))
 			);
@@ -174,7 +174,7 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			const localVarPath = `/api/evidence-request/get-all-drafts`;
+			const localVarPath = `/api/analyst/evidence-request/get-all-draft`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -221,7 +221,7 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists('getDraftById', 'id', id);
-			const localVarPath = `/api/evidence-request/draft/{id}`.replace(
+			const localVarPath = `/api/analyst/evidence-request/draft/{id}`.replace(
 				`{${'id'}}`,
 				encodeURIComponent(String(id))
 			);
@@ -267,7 +267,7 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			const localVarPath = `/api/evidence-request/create-data`;
+			const localVarPath = `/api/analyst/evidence-request/create-data`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -302,19 +302,19 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {DraftResponseDto} draftDto
+		 * @param {DraftResponseDto} draftResponseDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		saveCompletedDraft: async (
-			draftDto: DraftResponseDto,
+			draftResponseDto: DraftResponseDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'draftDto' is not null or undefined
-			assertParamExists('saveCompletedDraft', 'draftDto', draftDto);
-			const localVarPath = `/api/evidence-request/save-completed-draft`;
+			// verify required parameter 'draftResponseDto' is not null or undefined
+			assertParamExists('saveCompletedDraft', 'draftResponseDto', draftResponseDto);
+			const localVarPath = `/api/analyst/evidence-request/save-completed-draft`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -329,13 +329,11 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
 
-			if (draftDto !== undefined) {
-				localVarQueryParameter['draftDto'] = draftDto;
-			}
-
 			if (acceptLanguage !== undefined && acceptLanguage !== null) {
 				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
 			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
@@ -345,6 +343,11 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 				...headersFromBaseOptions,
 				...options.headers
 			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				draftResponseDto,
+				localVarRequestOptions,
+				configuration
+			);
 
 			return {
 				url: toPathString(localVarUrlObj),
@@ -353,19 +356,19 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {DraftResponseDto} draftDto
+		 * @param {DraftResponseDto} draftResponseDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		saveDraft: async (
-			draftDto: DraftResponseDto,
+			draftResponseDto: DraftResponseDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'draftDto' is not null or undefined
-			assertParamExists('saveDraft', 'draftDto', draftDto);
-			const localVarPath = `/api/evidence-request/save-draft`;
+			// verify required parameter 'draftResponseDto' is not null or undefined
+			assertParamExists('saveDraft', 'draftResponseDto', draftResponseDto);
+			const localVarPath = `/api/analyst/evidence-request/save-draft`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -380,13 +383,11 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
 
-			if (draftDto !== undefined) {
-				localVarQueryParameter['draftDto'] = draftDto;
-			}
-
 			if (acceptLanguage !== undefined && acceptLanguage !== null) {
 				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
 			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
@@ -396,6 +397,11 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 				...headersFromBaseOptions,
 				...options.headers
 			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				draftResponseDto,
+				localVarRequestOptions,
+				configuration
+			);
 
 			return {
 				url: toPathString(localVarUrlObj),
@@ -412,7 +418,7 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			const localVarPath = `/api/evidence-request/test-draft-dto`;
+			const localVarPath = `/api/analyst/evidence-request/test-draft-dto`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -455,7 +461,7 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			const localVarPath = `/api/evidence-request/test-request-dto`;
+			const localVarPath = `/api/analyst/evidence-request/test-request-dto`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -506,7 +512,7 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 				'evidenceRequestDraftResponseDto',
 				evidenceRequestDraftResponseDto
 			);
-			const localVarPath = `/api/evidence-request/test-send-draft`;
+			const localVarPath = `/api/analyst/evidence-request/test-send-draft`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -564,7 +570,7 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 				'evidenceRequestResponseDto',
 				evidenceRequestResponseDto
 			);
-			const localVarPath = `/api/evidence-request/test-send-evidence-request`;
+			const localVarPath = `/api/analyst/evidence-request/test-send-evidence-request`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -737,20 +743,20 @@ export const EvidenceRequestControllerApiFp = function (configuration?: Configur
 		},
 		/**
 		 *
-		 * @param {DraftResponseDto} draftDto
+		 * @param {DraftResponseDto} draftResponseDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async saveCompletedDraft(
-			draftDto: DraftResponseDto,
+			draftResponseDto: DraftResponseDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DraftRequestDto>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.saveCompletedDraft(
-				draftDto,
+				draftResponseDto,
 				acceptLanguage,
 				options
 			);
@@ -763,20 +769,20 @@ export const EvidenceRequestControllerApiFp = function (configuration?: Configur
 		},
 		/**
 		 *
-		 * @param {DraftResponseDto} draftDto
+		 * @param {DraftResponseDto} draftResponseDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async saveDraft(
-			draftDto: DraftResponseDto,
+			draftResponseDto: DraftResponseDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DraftRequestDto>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.saveDraft(
-				draftDto,
+				draftResponseDto,
 				acceptLanguage,
 				options
 			);
@@ -986,34 +992,34 @@ export const EvidenceRequestControllerApiFactory = function (
 		},
 		/**
 		 *
-		 * @param {DraftResponseDto} draftDto
+		 * @param {DraftResponseDto} draftResponseDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		saveCompletedDraft(
-			draftDto: DraftResponseDto,
+			draftResponseDto: DraftResponseDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<DraftRequestDto> {
 			return localVarFp
-				.saveCompletedDraft(draftDto, acceptLanguage, options)
+				.saveCompletedDraft(draftResponseDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {DraftResponseDto} draftDto
+		 * @param {DraftResponseDto} draftResponseDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		saveDraft(
-			draftDto: DraftResponseDto,
+			draftResponseDto: DraftResponseDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<DraftRequestDto> {
 			return localVarFp
-				.saveDraft(draftDto, acceptLanguage, options)
+				.saveDraft(draftResponseDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -1181,7 +1187,7 @@ export interface EvidenceRequestControllerApiSaveCompletedDraftRequest {
 	 * @type {DraftResponseDto}
 	 * @memberof EvidenceRequestControllerApiSaveCompletedDraft
 	 */
-	readonly draftDto: DraftResponseDto;
+	readonly draftResponseDto: DraftResponseDto;
 
 	/**
 	 *
@@ -1202,7 +1208,7 @@ export interface EvidenceRequestControllerApiSaveDraftRequest {
 	 * @type {DraftResponseDto}
 	 * @memberof EvidenceRequestControllerApiSaveDraft
 	 */
-	readonly draftDto: DraftResponseDto;
+	readonly draftResponseDto: DraftResponseDto;
 
 	/**
 	 *
@@ -1386,7 +1392,7 @@ export class EvidenceRequestControllerApi extends BaseAPI {
 	) {
 		return EvidenceRequestControllerApiFp(this.configuration)
 			.saveCompletedDraft(
-				requestParameters.draftDto,
+				requestParameters.draftResponseDto,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -1405,7 +1411,11 @@ export class EvidenceRequestControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return EvidenceRequestControllerApiFp(this.configuration)
-			.saveDraft(requestParameters.draftDto, requestParameters.acceptLanguage, options)
+			.saveDraft(
+				requestParameters.draftResponseDto,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 

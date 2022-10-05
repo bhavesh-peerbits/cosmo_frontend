@@ -7,7 +7,7 @@ export type UserDisplayRole =
 	| 'System Admin'
 	| 'User Admin'
 	| 'Guest'
-	| 'Reviewer'
+	| 'Focal Point'
 	| 'Reviewer Collaborator'
 	| 'Narrative Analyst'
 	| 'Narrative Admin'
@@ -28,8 +28,8 @@ export const mapUserRoleToDisplayRole = (userRole: UserRole): UserDisplayRole =>
 			return 'Revalidation Analyst';
 		case UserDtoRolesEnum.RevalidationAdmin:
 			return 'Revalidation Admin';
-		case UserDtoRolesEnum.Reviewer:
-			return 'Reviewer';
+		case UserDtoRolesEnum.FocalPoint:
+			return 'Focal Point';
 		case UserDtoRolesEnum.ReviewerCollaborator:
 			return 'Reviewer Collaborator';
 		default:
