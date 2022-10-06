@@ -5,32 +5,60 @@ import useManagementApps from '@hooks/management/useManagementApps';
 import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
 import { RowSelectionState } from '@tanstack/react-table';
 import Application from 'model/Application';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+	Dispatch,
+	SetStateAction,
+	useCallback,
+	useEffect,
+	useMemo,
+	useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
 
 type ApplicationsSelectionContainerProps = {
 	request: EvidenceRequestDraft;
 	setIsNextActive: (val: boolean) => void;
+	setRequestDraft: Dispatch<SetStateAction<EvidenceRequestDraft>>;
 };
 const ApplicationsSelectionContainer = ({
 	request,
-	setIsNextActive
+	setIsNextActive,
+	setRequestDraft
 }: ApplicationsSelectionContainerProps) => {
 	const { t } = useTranslation(['evidenceRequest', 'management']);
-	const { apps } = useManagementApps();
+	// const { apps } = useManagementApps();
 	const { filters, setFilters } = useManagementApps();
 	const [selectedRows, setSelectedRows] = useState<
 		(Application | undefined)[] | undefined
 	>();
+	const [apps, setApps] = useState<Application[] | undefined>([]);
+	useEffect(
+		() => setApps(request?.requests?.map(req => req.application as Application)),
+		[request?.requests]
+	); // TODO Remove when BE controls are ready
 
 	const selectedAppsIndex = useMemo(
 		() =>
-			request.requests?.reduce((prev, curr) => {
-				const index = apps.findIndex(app => app.id === curr?.application?.id);
-				return { ...prev, [index]: true };
-			}, {}),
+			request.requests
+				?.filter(req => req.selected)
+				.reduce((prev, curr) => {
+					const index = apps?.findIndex(app => app?.id === curr?.application?.id);
+					return { ...prev, [index as number]: true };
+				}, {}),
 		[request.requests, apps]
 	);
+	useEffect(() => {
+		const newRequests = request.requests?.map(req => {
+			if (selectedRows?.find(app => app?.id === req.application?.id)) {
+				return { ...req, selected: !req.selected };
+			}
+			return req;
+		});
+		setRequestDraft(old => ({
+			...old,
+			requests: newRequests
+		}));
+	}, [request.requests, selectedRows, setRequestDraft]);
 
 	useEffect(() => {
 		setIsNextActive((selectedRows && selectedRows.length > 0) || false);
@@ -77,7 +105,7 @@ const ApplicationsSelectionContainer = ({
 			</FullWidthColumn>
 			<FullWidthColumn>
 				<CosmoTable
-					data={apps}
+					data={apps || []}
 					createHeaders={columns}
 					noDataMessage={t('management:no-applications')}
 					toolbar={{ toolbarContent }}

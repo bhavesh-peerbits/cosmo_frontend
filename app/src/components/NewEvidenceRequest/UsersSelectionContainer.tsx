@@ -1,22 +1,20 @@
 import { Accordion, AccordionItem, Grid, Layer } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import Application from '@model/Application';
+import EvidenceRequestStep from '@model/EvidenceRequestStep';
 import { useTranslation } from 'react-i18next';
 import UsersSelectionForm from './UsersSelectionForm';
 
 type UsersSelectionContainerProps = {
 	appsSelected: Application[];
-	steps: string[];
+	steps: EvidenceRequestStep[];
 };
 const UsersSelectionContainer = ({
 	appsSelected,
 	steps
 }: UsersSelectionContainerProps) => {
 	const { t } = useTranslation('evidenceRequest');
-
-	const applicationNameTitle = (applicationName: string) => {
-		return <span className='text-productive-heading-1'>{applicationName}</span>;
-	};
+	// const [, setIsCompleted] = useState<{ [id: string]: boolean }>();
 
 	return (
 		<Grid fullWidth narrow className='space-y-5'>
@@ -30,12 +28,20 @@ const UsersSelectionContainer = ({
 			</FullWidthColumn>
 			{steps.map(step => (
 				<FullWidthColumn className='space-y-2'>
-					<span className='text-body-long-2'>{step}</span>
+					<span className='text-body-long-2'>{step.type}</span>
 					<Layer level={2}>
 						<Accordion className='bg-layer-1'>
-							{appsSelected.slice(0, 3).map(application => (
-								<AccordionItem title={applicationNameTitle(application.name)}>
-									<UsersSelectionForm application={application} step={step} />
+							{appsSelected.map(application => (
+								<AccordionItem
+									title={
+										<span className='text-productive-heading-1'>{application.name}</span>
+									}
+								>
+									<UsersSelectionForm
+										application={application}
+										step={step}
+										// setIsCompleted={setIsCompleted}
+									/>
 								</AccordionItem>
 							))}
 						</Accordion>

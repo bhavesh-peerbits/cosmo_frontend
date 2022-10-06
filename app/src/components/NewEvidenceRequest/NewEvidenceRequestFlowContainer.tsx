@@ -7,7 +7,7 @@ import {
 	Button
 } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
-import useManagementApps from '@hooks/management/useManagementApps';
+import Application from '@model/Application';
 import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -25,16 +25,19 @@ const NewEvidenceRequestFlowContainer = ({
 	const { t } = useTranslation(['evidenceRequest', 'modals']);
 	const [currentStep, setCurrentStep] = useState(0);
 	const [isNextActive, setIsNextActive] = useState(true);
-
-	const { apps } = useManagementApps(); // TODO remove
+	const [requestDraft, setRequestDraft] = useState(request);
 
 	const contentToRender = () => {
 		switch (currentStep) {
 			case 1:
 				return (
 					<UsersSelectionContainer
-						appsSelected={apps}
-						steps={['Step 1', 'Step 2', 'Step 3']}
+						appsSelected={
+							requestDraft.requests
+								?.filter(req => req.selected)
+								.map(req => req.application as Application) || []
+						} // TODO Fix when BE controls are ready.
+						steps={request?.requests?.[0].steps || []} // TODO Fix when BE controls are ready.
 					/>
 				);
 			case 2:
@@ -46,6 +49,7 @@ const NewEvidenceRequestFlowContainer = ({
 					<ApplicationsSelectionContainer
 						request={request}
 						setIsNextActive={setIsNextActive}
+						setRequestDraft={setRequestDraft}
 					/>
 				);
 		}

@@ -118,7 +118,9 @@ const CosmoTable = <D extends object>({
 	useEffect(
 		() =>
 			setSelectedRows &&
-			setSelectedRows(getSelectedRowModel().flatRows as unknown as Application[]),
+			setSelectedRows(
+				getSelectedRowModel().flatRows.map(el => el.original) as unknown as Application[]
+			),
 		[getSelectedRowModel, setSelectedRows, rowSelection]
 	);
 	useEffect(() => setRowSelection(selectedRows || {}), [selectedRows]);

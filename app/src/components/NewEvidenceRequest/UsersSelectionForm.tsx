@@ -1,5 +1,6 @@
 import { Grid, Column } from '@carbon/react';
 import MultipleUserSelect from '@components/MultipleUserSelect';
+import EvidenceRequestStep from '@model/EvidenceRequestStep';
 import User from '@model/User';
 import Application from 'model/Application';
 import { useForm } from 'react-hook-form';
@@ -11,11 +12,14 @@ interface UsersSelectionFormData {
 }
 type UsersSelectionFormProps = {
 	application: Application;
-	step: string;
+	step: EvidenceRequestStep;
 };
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const UsersSelectionForm = ({ application, step }: UsersSelectionFormProps) => {
-	const { control } = useForm<UsersSelectionFormData>({
+	const {
+		control
+		// formState: { isValid }
+	} = useForm<UsersSelectionFormData>({
 		mode: 'onChange',
 		defaultValues: {
 			referents: [],
