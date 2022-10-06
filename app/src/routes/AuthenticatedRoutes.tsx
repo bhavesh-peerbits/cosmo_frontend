@@ -42,7 +42,9 @@ const AuthenticatedRoutes = () => {
 		canAdmin,
 		canNarrativeAdmin,
 		canUserAdmin,
-		canReviewUser
+		canReviewUser,
+		canRevalidateUser,
+		canCreateRequest
 	} = usePolicyStore();
 	return (
 		<>
@@ -120,13 +122,41 @@ const AuthenticatedRoutes = () => {
 							</Route>
 
 							<Route path='new-revalidation'>
-								<Route index element={<NewRevalidation />} />
-								<Route path=':campaignId' element={<NewRevalidationDetail />} />
+								<Route
+									index
+									element={
+										<ProtectRoute canNavigate={canRevalidateUser}>
+											<NewRevalidation />
+										</ProtectRoute>
+									}
+								/>
+								<Route
+									path=':campaignId'
+									element={
+										<ProtectRoute canNavigate={canRevalidateUser}>
+											<NewRevalidationDetail />
+										</ProtectRoute>
+									}
+								/>
 							</Route>
 
 							<Route path='revalidations-ongoing'>
-								<Route index element={<RevalidationsOngoing />} />
-								<Route path=':campaignId' element={<CampaignDetail />} />
+								<Route
+									index
+									element={
+										<ProtectRoute canNavigate={canRevalidateUser}>
+											<RevalidationsOngoing />
+										</ProtectRoute>
+									}
+								/>
+								<Route
+									path=':campaignId'
+									element={
+										<ProtectRoute canNavigate={canRevalidateUser}>
+											<CampaignDetail />
+										</ProtectRoute>
+									}
+								/>
 							</Route>
 
 							<Route path='admin'>
@@ -165,8 +195,22 @@ const AuthenticatedRoutes = () => {
 							</Route>
 
 							<Route path='new-evidence-request'>
-								<Route index element={<NewEvidenceRequestDashboard />} />
-								<Route path=':requestId' element={<NewEvidenceRequest />} />
+								<Route
+									index
+									element={
+										<ProtectRoute canNavigate={canCreateRequest}>
+											<NewEvidenceRequestDashboard />
+										</ProtectRoute>
+									}
+								/>
+								<Route
+									path=':requestId'
+									element={
+										<ProtectRoute canNavigate={canCreateRequest}>
+											<NewEvidenceRequest />
+										</ProtectRoute>
+									}
+								/>
 							</Route>
 
 							<Route path='test' element={<Test />} />
