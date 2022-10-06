@@ -16,6 +16,17 @@ const UsersSelectionContainer = ({
 	const { t } = useTranslation('evidenceRequest');
 	// const [, setIsCompleted] = useState<{ [id: string]: boolean }>();
 
+	const translateStepType = (stepType: string | undefined) => {
+		switch (stepType) {
+			case 'APPROVAL':
+				return t('approval');
+			case 'UPLOAD':
+				return t('upload');
+			default:
+				return t('request');
+		}
+	}; // TODO Fix when BE controls are ready (remove '| undefined')
+
 	return (
 		<Grid fullWidth narrow className='space-y-5'>
 			<FullWidthColumn>
@@ -27,8 +38,8 @@ const UsersSelectionContainer = ({
 				</FullWidthColumn>
 			</FullWidthColumn>
 			{steps.map(step => (
-				<FullWidthColumn className='space-y-2'>
-					<span className='text-body-long-2'>{step.type}</span>
+				<FullWidthColumn className='space-y-3'>
+					<span className='text-body-long-2'>{translateStepType(step.type)}</span>
 					<Layer level={2}>
 						<Accordion className='bg-layer-1'>
 							{appsSelected.map(application => (

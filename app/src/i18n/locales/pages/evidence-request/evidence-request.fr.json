@@ -23,5 +23,10 @@
 	"public-comment": "Commentaire public",
 	"private-comment": "Commentaire privé",
 	"public-comment-placeholder": "Ceci est un commentaire public. Tout utilisateur ayant accès à cette requête peut le voir",
-	"private-comment-placeholder": "Ceci est un commentaire privé. Vous seul pouvez le voir"
+	"private-comment-placeholder": "Ceci est un commentaire privé. Vous seul pouvez le voir",
+	"approvers": "Approbateurs",
+	"focal-point-delegates": "Délégués du Focal Point",
+	"approval": "Approbation",
+	"upload": "Télécharger",
+	"request": "Requête"
 }

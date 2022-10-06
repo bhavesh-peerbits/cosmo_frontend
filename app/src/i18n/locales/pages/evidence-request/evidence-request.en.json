@@ -23,5 +23,10 @@
 	"public-comment": "Public comment",
 	"private-comment": "Private comment",
 	"public-comment-placeholder": "This is a public comment. Every user with access to this request can see it",
-	"private-comment-placeholder": "This a private comment. Only you can see it"
+	"private-comment-placeholder": "This a private comment. Only you can see it",
+	"approvers": "Approvers",
+	"focal-point-delegates": "Focal Point delegates",
+	"approval": "Approval",
+	"upload": "Upload",
+	"request": "Request"
 }
