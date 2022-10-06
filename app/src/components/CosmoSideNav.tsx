@@ -109,7 +109,9 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 						<SideNavMenuItem element={Link} to={routes.NEW_EVIDENCE_REQUEST}>
 							New Requests
 						</SideNavMenuItem>
-						{/* <SideNavMenuItem element={Link}>Started requests</SideNavMenuItem> */}
+						<SideNavMenuItem element={Link} to={routes.STARTED_EVIDENCE_REQUEST}>
+							Started Requests
+						</SideNavMenuItem>
 					</SideNavMenu>
 					<SideNavLink renderIcon={Logout} href={routes.LOGOUT}>
 						Logout

@@ -33,6 +33,9 @@ const NewEvidenceRequestDashboard = React.lazy(
 	() => import('@pages/NewEvidenceRequestDashboard')
 );
 const NewEvidenceRequest = React.lazy(() => import('@pages/NewEvidenceRequest'));
+const StartedEvidenceRequestDashboard = React.lazy(
+	() => import('@pages/StartedEvidenceRequestDashboard')
+);
 
 const AuthenticatedRoutes = () => {
 	const {
@@ -167,6 +170,10 @@ const AuthenticatedRoutes = () => {
 							<Route path='new-evidence-request'>
 								<Route index element={<NewEvidenceRequestDashboard />} />
 								<Route path=':requestId' element={<NewEvidenceRequest />} />
+							</Route>
+							<Route path='started-evidence-request'>
+								<Route index element={<StartedEvidenceRequestDashboard />} />
+								{/* <Route path=':requestId' element={<NewEvidenceRequest />} /> */}
 							</Route>
 
 							<Route path='test' element={<Test />} />
