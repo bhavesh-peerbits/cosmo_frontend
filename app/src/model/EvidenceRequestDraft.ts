@@ -6,6 +6,7 @@ import ApplicationStepRequest, {
 
 interface EvidenceRequestDraft {
 	id: string;
+	creator?: User;
 	requests?: ApplicationStepRequest[];
 	suggestedText?: string;
 	collaborators?: User[];
@@ -19,6 +20,9 @@ export const fromEvidenceRequestDraftApi = (
 ): EvidenceRequestDraft => {
 	return {
 		id: `${evidenceRequestDraft.id}`,
+		creator: evidenceRequestDraft.creator
+			? fromUserApi(evidenceRequestDraft.creator)
+			: undefined,
 		requests: evidenceRequestDraft.requests
 			? [...evidenceRequestDraft.requests].map(request =>
 					fromApplicationStepRequestApi(request)

@@ -91,6 +91,12 @@ export interface EvidenceRequestResponseDto {
 	startDate: string;
 	/**
 	 *
+	 * @type {string}
+	 * @memberof EvidenceRequestResponseDto
+	 */
+	completionDate?: string;
+	/**
+	 *
 	 * @type {Array<StepResponseDto>}
 	 * @memberof EvidenceRequestResponseDto
 	 */
@@ -107,6 +113,12 @@ export interface EvidenceRequestResponseDto {
 	 * @memberof EvidenceRequestResponseDto
 	 */
 	contributors?: Set<UserDto>;
+	/**
+	 *
+	 * @type {UserDto}
+	 * @memberof EvidenceRequestResponseDto
+	 */
+	creator?: UserDto;
 }
 
 export const EvidenceRequestResponseDtoStatusEnum = {

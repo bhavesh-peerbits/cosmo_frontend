@@ -41,6 +41,12 @@ export interface DraftResponseDto {
 	collaborators?: Array<UserDto>;
 	/**
 	 *
+	 * @type {UserDto}
+	 * @memberof DraftResponseDto
+	 */
+	creator?: UserDto;
+	/**
+	 *
 	 * @type {string}
 	 * @memberof DraftResponseDto
 	 */

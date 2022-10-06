@@ -41,6 +41,12 @@ export interface DraftRequestDto {
 	collaborators?: Set<UserDto>;
 	/**
 	 *
+	 * @type {UserDto}
+	 * @memberof DraftRequestDto
+	 */
+	creator?: UserDto;
+	/**
+	 *
 	 * @type {string}
 	 * @memberof DraftRequestDto
 	 */
