@@ -1,20 +1,24 @@
 import { Accordion, AccordionItem, Grid, Layer } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import Application from '@model/Application';
+import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
 import EvidenceRequestStep from '@model/EvidenceRequestStep';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import UsersSelectionForm from './UsersSelectionForm';
 
 type UsersSelectionContainerProps = {
 	appsSelected: Application[];
 	steps: EvidenceRequestStep[];
+	setRequestDraft: Dispatch<SetStateAction<EvidenceRequestDraft>>;
 };
 const UsersSelectionContainer = ({
 	appsSelected,
-	steps
+	steps,
+	setRequestDraft
 }: UsersSelectionContainerProps) => {
 	const { t } = useTranslation('evidenceRequest');
-	// const [, setIsCompleted] = useState<{ [id: string]: boolean }>();
+	const [, setIsCompleted] = useState<{ [id: string]: boolean }>();
 
 	const translateStepType = (stepType: string | undefined) => {
 		switch (stepType) {
@@ -51,7 +55,8 @@ const UsersSelectionContainer = ({
 									<UsersSelectionForm
 										application={application}
 										step={step}
-										// setIsCompleted={setIsCompleted}
+										setIsCompleted={setIsCompleted}
+										setRequestDraft={setRequestDraft}
 									/>
 								</AccordionItem>
 							))}

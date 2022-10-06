@@ -37,7 +37,8 @@ const NewEvidenceRequestFlowContainer = ({
 								?.filter(req => req.selected)
 								.map(req => req.application as Application) || []
 						} // TODO Fix when BE controls are ready.
-						steps={request?.requests?.[0].steps || []} // TODO Fix when BE controls are ready.
+						steps={request?.requests?.[0].steps?.slice(1) || []} // TODO Fix when BE controls are ready.
+						setRequestDraft={setRequestDraft}
 					/>
 				);
 			case 2:
