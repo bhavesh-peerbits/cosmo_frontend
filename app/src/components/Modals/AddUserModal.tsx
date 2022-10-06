@@ -61,7 +61,10 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 		'NARRATIVE_ANALYST',
 		'REVALIDATION_ANALYST',
 		'REVALIDATION_ADMIN',
-		'REVIEWER',
+		'FOCAL_POINT',
+		'REQUEST_ADMIN',
+		'REQUEST_ANALYST',
+		'WORKFLOW_APPROVER',
 		'USER_UNKNOWN'
 	];
 

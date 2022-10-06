@@ -46,7 +46,7 @@ const policyStore = selector<Policies>({
 				!hasNoRole &&
 					policies?.includesMulti(
 						UserRoleEnum.SysAdmin,
-						UserRoleEnum.Reviewer,
+						UserRoleEnum.FocalPoint,
 						UserRoleEnum.ReviewerCollaborator
 					)
 			),
@@ -77,7 +77,7 @@ const policyStore = selector<Policies>({
 			),
 			canReviewUser: Boolean(
 				!hasNoRole &&
-					policies?.includesMulti(UserRoleEnum.Reviewer, UserRoleEnum.SysAdmin)
+					policies?.includesMulti(UserRoleEnum.FocalPoint, UserRoleEnum.SysAdmin)
 			)
 		};
 	}
