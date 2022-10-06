@@ -33,7 +33,8 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 		canReview,
 		canReviewNarrative,
 		canSeeNarrativeManagement,
-		canRevalidateUser
+		canRevalidateUser,
+		canCreateRequest
 	} = usePolicyStore();
 	const { md, lg } = useResponsive();
 
@@ -101,18 +102,21 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 							Administration
 						</SideNavLink>
 					)}
-					<SideNavMenu
-						renderIcon={Archive}
-						title='Evidence Request'
-						className='transition-all'
-					>
-						<SideNavMenuItem element={Link} to={routes.NEW_EVIDENCE_REQUEST}>
-							New Requests
-						</SideNavMenuItem>
-						<SideNavMenuItem element={Link} to={routes.STARTED_EVIDENCE_REQUEST}>
-							Started Requests
-						</SideNavMenuItem>
-					</SideNavMenu>
+					{canCreateRequest && (
+						<SideNavMenu
+							renderIcon={Archive}
+							title='Evidence Request'
+							className='transition-all'
+						>
+							<SideNavMenuItem element={Link} to={routes.NEW_EVIDENCE_REQUEST}>
+								New Requests
+							</SideNavMenuItem>
+							<SideNavMenuItem element={Link} to={routes.STARTED_EVIDENCE_REQUEST}>
+								Started Requests
+							</SideNavMenuItem>
+						</SideNavMenu>
+					)}
+
 					<SideNavLink renderIcon={Logout} href={routes.LOGOUT}>
 						Logout
 					</SideNavLink>
