@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 
 interface UsersSelectionFormData {
 	focalPoint: User;
-	referentsDelegates: User[];
+	delegates: User[];
 	approvers: User[];
 }
 type UsersSelectionFormProps = {
@@ -28,10 +28,17 @@ const UsersSelectionForm = ({
 	setRequestDraft
 }: UsersSelectionFormProps) => {
 	const { t } = useTranslation('evidenceRequest');
-	const { control, getValues, watch } = useForm<UsersSelectionFormData>({
+	const {
+		control,
+		getValues,
+		watch,
+		formState: { isValid }
+	} = useForm<UsersSelectionFormData>({
 		mode: 'onChange'
 	});
-	const delegates = watch('referentsDelegates');
+	const delegates = watch('delegates');
+	const approver = watch('approvers');
+	const reviewer = watch('focalPoint');
 	useEffect(() => {
 		setRequestDraft(old => ({
 			...old,
@@ -40,12 +47,12 @@ const UsersSelectionForm = ({
 					return {
 						...req,
 						steps: req.steps?.map(el => {
-							if (el.type === step.type) {
+							if (el.id === step.id) {
 								return {
 									...el,
-									delegates: getValues('referentsDelegates'),
-									approver: getValues('approvers'),
-									reviewer: getValues('focalPoint')
+									delegates,
+									approver,
+									reviewer
 								};
 							}
 							return el;
@@ -55,18 +62,26 @@ const UsersSelectionForm = ({
 				return req;
 			})
 		}));
-	}, [application.id, getValues, setRequestDraft, step.type, delegates]);
+	}, [
+		application.id,
+		getValues,
+		setRequestDraft,
+		step.id,
+		delegates,
+		approver,
+		reviewer
+	]);
 
 	useEffect(() => {
-		setIsCompleted(old => ({ ...old, step: true }));
-	});
+		setIsCompleted(old => ({ ...old, [`${step.id}-${application.id}`]: isValid }));
+	}, [application.id, isValid, setIsCompleted, step.id]);
 
 	return (
 		<Grid fullWidth>
 			<Column sm={4} md={4} lg={8} className='mb-5'>
 				<SingleUserSelect
 					control={control}
-					label='Focal Point'
+					label='Focal Point *'
 					name='focalPoint'
 					level={2}
 					rules={{
@@ -78,17 +93,14 @@ const UsersSelectionForm = ({
 				<MultipleUserSelect
 					control={control}
 					label={t('focal-point-delegates')}
-					name='referentsDelegates'
+					name='delegates'
 					level={2}
-					rules={{
-						required: true
-					}}
 				/>
 			</Column>
 			<Column sm={4} md={4} lg={8}>
 				<MultipleUserSelect
 					control={control}
-					label={t('approvers')}
+					label={`${t('approvers')} *`}
 					name='approvers'
 					level={2}
 					rules={{

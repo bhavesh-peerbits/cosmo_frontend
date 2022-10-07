@@ -38,6 +38,7 @@ const NewEvidenceRequestFlowContainer = ({
 								.map(req => req.application as Application) || []
 						} // TODO Fix when BE controls are ready.
 						steps={request?.requests?.[0].steps?.slice(1) || []} // TODO Fix when BE controls are ready.
+						setIsNextActive={setIsNextActive}
 						setRequestDraft={setRequestDraft}
 					/>
 				);

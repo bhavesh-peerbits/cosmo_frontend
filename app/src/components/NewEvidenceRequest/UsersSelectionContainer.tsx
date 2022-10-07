@@ -3,22 +3,29 @@ import FullWidthColumn from '@components/FullWidthColumn';
 import Application from '@model/Application';
 import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
 import EvidenceRequestStep from '@model/EvidenceRequestStep';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import UsersSelectionForm from './UsersSelectionForm';
 
 type UsersSelectionContainerProps = {
 	appsSelected: Application[];
 	steps: EvidenceRequestStep[];
+	setIsNextActive: (val: boolean) => void;
 	setRequestDraft: Dispatch<SetStateAction<EvidenceRequestDraft>>;
 };
 const UsersSelectionContainer = ({
 	appsSelected,
 	steps,
+	setIsNextActive,
 	setRequestDraft
 }: UsersSelectionContainerProps) => {
 	const { t } = useTranslation('evidenceRequest');
-	const [, setIsCompleted] = useState<{ [id: string]: boolean }>();
+	const [isCompleted, setIsCompleted] = useState<{ [id: string]: boolean }>();
+
+	useEffect(() => {
+		isCompleted &&
+			setIsNextActive(Object.values(isCompleted).reduce((curr, prev) => curr && prev));
+	}, [isCompleted, setIsNextActive]);
 
 	const translateStepType = (stepType: string | undefined) => {
 		switch (stepType) {

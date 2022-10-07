@@ -3,6 +3,7 @@ import { EvidenceRequestStepApi } from 'cosmo-api';
 import { fromUserApi } from './User';
 
 interface EvidenceRequestStep {
+	id?: string;
 	approver?: User[];
 	reviewer?: User;
 	type?: 'REQUEST' | 'APPROVAL' | 'UPLOAD';
@@ -13,6 +14,7 @@ export const fromEvidenceRequestStepApi = (
 	evidenceRequestStep: EvidenceRequestStepApi
 ): EvidenceRequestStep => {
 	return {
+		id: `${evidenceRequestStep.id}`,
 		approver: evidenceRequestStep.approver
 			? [...evidenceRequestStep.approver].map(user => fromUserApi(user))
 			: [],
