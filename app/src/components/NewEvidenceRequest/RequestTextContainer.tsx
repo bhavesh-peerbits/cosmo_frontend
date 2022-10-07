@@ -1,32 +1,48 @@
-import { Grid, Toggle } from '@carbon/react';
+import { Button, Grid } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import TiptapEditor from '@components/tiptap/TiptapEditor';
+import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import { useController, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 interface RequestTextForm {
 	requestText: string;
 }
-
-const RequestTextContainer = () => {
+type RequestTextContainerProps = {
+	setIsNextActive: (val: boolean) => void;
+	setRequestDraft: Dispatch<SetStateAction<EvidenceRequestDraft>>;
+};
+const RequestTextContainer = ({
+	setIsNextActive,
+	setRequestDraft
+}: RequestTextContainerProps) => {
 	const { t } = useTranslation('evidenceRequest');
-	const { control } = useForm<RequestTextForm>({
+	const { control, watch } = useForm<RequestTextForm>({
 		mode: 'onChange',
 		defaultValues: {
 			requestText: ''
 		}
 	});
+	const requestText = watch('requestText');
 	const {
 		field: {
-			onChange: onChangeDescription,
-			value: descriptionValue,
-			ref: descriptionRef,
-			onBlur: onBlurDescription
+			onChange: onChangeRequestText,
+			value: requestTextValue,
+			ref: requestTextRef,
+			onBlur: onBlurRequestText
 		}
 	} = useController({
 		control,
 		name: 'requestText'
 	});
+
+	useEffect(() => {
+		setIsNextActive(requestText !== '<p></p>' && requestText !== null);
+	}, [requestText, setIsNextActive]);
+
+	useEffect(() => setRequestDraft(old => ({ ...old, suggestedText: requestText })));
+
 	return (
 		<Grid fullWidth narrow className='space-y-5'>
 			<FullWidthColumn>
@@ -38,20 +54,16 @@ const RequestTextContainer = () => {
 				</FullWidthColumn>
 			</FullWidthColumn>
 			<FullWidthColumn>
-				<Toggle
-					labelText={t('suggest-text')}
-					aria-label='Sugget text toggle'
-					id='suggest-toggle'
-					labelB={t('yes')}
-					labelA={t('no')}
-				/>
+				<Button disabled={requestText !== '<p></p>'} kind='tertiary' size='sm'>
+					Suggerisci text
+				</Button>
 			</FullWidthColumn>
 			<FullWidthColumn>
 				<TiptapEditor
-					content={descriptionValue}
-					onChange={onChangeDescription}
-					onBlur={onBlurDescription}
-					ref={descriptionRef}
+					content={requestTextValue}
+					onChange={onChangeRequestText}
+					onBlur={onBlurRequestText}
+					ref={requestTextRef}
 				/>
 			</FullWidthColumn>
 		</Grid>

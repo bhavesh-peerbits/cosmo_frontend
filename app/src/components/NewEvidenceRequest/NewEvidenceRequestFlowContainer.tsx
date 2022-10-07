@@ -43,7 +43,12 @@ const NewEvidenceRequestFlowContainer = ({
 					/>
 				);
 			case 2:
-				return <RequestTextContainer />;
+				return (
+					<RequestTextContainer
+						setIsNextActive={setIsNextActive}
+						setRequestDraft={setRequestDraft}
+					/>
+				);
 			case 3:
 				return <AdditionalInfoContainer />;
 			default:
@@ -56,6 +61,7 @@ const NewEvidenceRequestFlowContainer = ({
 				);
 		}
 	};
+
 	return (
 		<Grid fullWidth narrow className='space-y-5'>
 			<FullWidthColumn>
