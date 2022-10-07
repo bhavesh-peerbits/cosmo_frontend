@@ -3,7 +3,7 @@ import { TrashCan, Send } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import SendRequestModal from '@components/Modals/SendRequestModal';
-import DeleteRequestModal from '@components/Modals/DeleteRequestModal';
+import DeleteRequestDraftModal from '@components/Modals/DeleteRequestDraftModal';
 import NewEvidenceRequestContent from '@components/NewEvidenceRequest/NewEvidenceRequestContent';
 import { useParams } from 'react-router-dom';
 import useGetDraftById from '@api/evidence-request/useGetDraftById';
@@ -46,9 +46,10 @@ const NewEvidenceRequest = () => {
 					<SendRequestModal isOpen={isSendModalOpen} setIsOpen={setIsSendModalOpen} />
 				)}
 				{isDeleteModalOpen && (
-					<DeleteRequestModal
+					<DeleteRequestDraftModal
 						isOpen={isDeleteModalOpen}
 						setIsOpen={setIsDeleteModalOpen}
+						draftId={requestId}
 					/>
 				)}
 				<NewEvidenceRequestContent request={request} />
