@@ -186,21 +186,21 @@ export const UserControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {number} id
+		 * @param {string} role
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getUsersByRole: async (
-			id: number,
+			role: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'id' is not null or undefined
-			assertParamExists('getUsersByRole', 'id', id);
-			const localVarPath = `/api/users/all/{id}`.replace(
-				`{${'id'}}`,
-				encodeURIComponent(String(id))
+			// verify required parameter 'role' is not null or undefined
+			assertParamExists('getUsersByRole', 'role', role);
+			const localVarPath = `/api/users/all/{role}`.replace(
+				`{${'role'}}`,
+				encodeURIComponent(String(role))
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -236,25 +236,25 @@ export const UserControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {number} id1
-		 * @param {number} id2
+		 * @param {string} role1
+		 * @param {string} role2
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getUsersByRoles: async (
-			id1: number,
-			id2: number,
+			role1: string,
+			role2: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'id1' is not null or undefined
-			assertParamExists('getUsersByRoles', 'id1', id1);
-			// verify required parameter 'id2' is not null or undefined
-			assertParamExists('getUsersByRoles', 'id2', id2);
-			const localVarPath = `/api/users/all/{id1}/{id2}`
-				.replace(`{${'id1'}}`, encodeURIComponent(String(id1)))
-				.replace(`{${'id2'}}`, encodeURIComponent(String(id2)));
+			// verify required parameter 'role1' is not null or undefined
+			assertParamExists('getUsersByRoles', 'role1', role1);
+			// verify required parameter 'role2' is not null or undefined
+			assertParamExists('getUsersByRoles', 'role2', role2);
+			const localVarPath = `/api/users/all/{role1}/{role2}`
+				.replace(`{${'role1'}}`, encodeURIComponent(String(role1)))
+				.replace(`{${'role2'}}`, encodeURIComponent(String(role2)));
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -367,20 +367,20 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 		},
 		/**
 		 *
-		 * @param {number} id
+		 * @param {string} role
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getUsersByRole(
-			id: number,
+			role: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserDto>>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getUsersByRole(
-				id,
+				role,
 				acceptLanguage,
 				options
 			);
@@ -393,21 +393,21 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 		},
 		/**
 		 *
-		 * @param {number} id1
-		 * @param {number} id2
+		 * @param {string} role1
+		 * @param {string} role2
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getUsersByRoles(
-			id1: number,
-			id2: number,
+			role1: string,
+			role2: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<UserDto>>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getUsersByRoles(
-				id1,
-				id2,
+				role1,
+				role2,
 				acceptLanguage,
 				options
 			);
@@ -478,36 +478,36 @@ export const UserControllerApiFactory = function (
 		},
 		/**
 		 *
-		 * @param {number} id
+		 * @param {string} role
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getUsersByRole(
-			id: number,
+			role: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Array<UserDto>> {
 			return localVarFp
-				.getUsersByRole(id, acceptLanguage, options)
+				.getUsersByRole(role, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {number} id1
-		 * @param {number} id2
+		 * @param {string} role1
+		 * @param {string} role2
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getUsersByRoles(
-			id1: number,
-			id2: number,
+			role1: string,
+			role2: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Set<UserDto>> {
 			return localVarFp
-				.getUsersByRoles(id1, id2, acceptLanguage, options)
+				.getUsersByRoles(role1, role2, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		}
 	};
@@ -570,10 +570,10 @@ export interface UserControllerApiGetOneUsersRequest {
 export interface UserControllerApiGetUsersByRoleRequest {
 	/**
 	 *
-	 * @type {number}
+	 * @type {string}
 	 * @memberof UserControllerApiGetUsersByRole
 	 */
-	readonly id: number;
+	readonly role: string;
 
 	/**
 	 *
@@ -591,17 +591,17 @@ export interface UserControllerApiGetUsersByRoleRequest {
 export interface UserControllerApiGetUsersByRolesRequest {
 	/**
 	 *
-	 * @type {number}
+	 * @type {string}
 	 * @memberof UserControllerApiGetUsersByRoles
 	 */
-	readonly id1: number;
+	readonly role1: string;
 
 	/**
 	 *
-	 * @type {number}
+	 * @type {string}
 	 * @memberof UserControllerApiGetUsersByRoles
 	 */
-	readonly id2: number;
+	readonly role2: string;
 
 	/**
 	 *
@@ -678,7 +678,7 @@ export class UserControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return UserControllerApiFp(this.configuration)
-			.getUsersByRole(requestParameters.id, requestParameters.acceptLanguage, options)
+			.getUsersByRole(requestParameters.role, requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -695,8 +695,8 @@ export class UserControllerApi extends BaseAPI {
 	) {
 		return UserControllerApiFp(this.configuration)
 			.getUsersByRoles(
-				requestParameters.id1,
-				requestParameters.id2,
+				requestParameters.role1,
+				requestParameters.role2,
 				requestParameters.acceptLanguage,
 				options
 			)

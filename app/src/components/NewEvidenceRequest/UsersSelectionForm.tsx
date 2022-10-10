@@ -1,3 +1,4 @@
+import useGetUsersByRole from '@api/user/useGetUsersByRole';
 import { Grid, Column } from '@carbon/react';
 import MultipleUserSelect from '@components/MultipleUserSelect';
 import SingleUserSelect from '@components/SingleUserSelect';
@@ -87,6 +88,10 @@ const UsersSelectionForm = ({
 					rules={{
 						required: true
 					}}
+					getUserFn={() => {
+						// eslint-disable-next-line react-hooks/rules-of-hooks
+						return useGetUsersByRole('FOCAL_POINT');
+					}}
 				/>
 			</Column>
 			<Column sm={4} md={4} lg={8} className='mb-5'>
@@ -95,6 +100,10 @@ const UsersSelectionForm = ({
 					label={t('focal-point-delegates')}
 					name='delegates'
 					level={2}
+					getUserFn={() => {
+						// eslint-disable-next-line react-hooks/rules-of-hooks
+						return useGetUsersByRole('FOCAL_POINT');
+					}}
 				/>
 			</Column>
 			<Column sm={4} md={4} lg={8}>
@@ -105,6 +114,10 @@ const UsersSelectionForm = ({
 					level={2}
 					rules={{
 						required: true
+					}}
+					getUserFn={() => {
+						// eslint-disable-next-line react-hooks/rules-of-hooks
+						return useGetUsersByRole('WORKFLOW_APPROVER');
 					}}
 				/>
 			</Column>
