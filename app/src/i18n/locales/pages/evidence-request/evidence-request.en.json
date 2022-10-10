@@ -28,5 +28,6 @@
 	"focal-point-delegates": "Focal Point delegates",
 	"approval": "Approval",
 	"upload": "Upload",
-	"request": "Request"
+	"request": "Request",
+	"attachments-description": "In this section it is possible to upload files. Uploaded files will not be saved as a draft, so it is important to upload them immediately before submitting your request"
 }

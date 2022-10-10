@@ -28,5 +28,6 @@
 	"focal-point-delegates": "Délégués du Focal Point",
 	"approval": "Approbation",
 	"upload": "Télécharger",
-	"request": "Requête"
+	"request": "Requête",
+	"attachments-description": "Dans cette section, il est possible de télécharger des fichiers. Les fichiers téléchargés ne seront pas enregistrés en tant que brouillon, il est donc important de les télécharger immédiatement avant de soumettre votre demande"
 }
