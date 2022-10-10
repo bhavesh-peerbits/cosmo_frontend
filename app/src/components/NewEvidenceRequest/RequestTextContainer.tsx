@@ -18,11 +18,9 @@ const RequestTextContainer = ({
 	setRequestDraft
 }: RequestTextContainerProps) => {
 	const { t } = useTranslation('evidenceRequest');
+
 	const { control, watch } = useForm<RequestTextForm>({
-		mode: 'onChange',
-		defaultValues: {
-			requestText: ''
-		}
+		mode: 'onChange'
 	});
 	const requestText = watch('requestText');
 	const {
@@ -31,15 +29,17 @@ const RequestTextContainer = ({
 			value: requestTextValue,
 			ref: requestTextRef,
 			onBlur: onBlurRequestText
-		}
+		},
+		formState: { isValid }
 	} = useController({
 		control,
-		name: 'requestText'
+		name: 'requestText',
+		rules: { required: true }
 	});
 
 	useEffect(() => {
-		setIsNextActive(requestText !== '<p></p>' && requestText !== null);
-	}, [requestText, setIsNextActive]);
+		setIsNextActive((isValid && requestText !== '<p></p>') || false);
+	}, [isValid, requestText, setIsNextActive]);
 
 	useEffect(() => setRequestDraft(old => ({ ...old, suggestedText: requestText })));
 
@@ -54,8 +54,8 @@ const RequestTextContainer = ({
 				</FullWidthColumn>
 			</FullWidthColumn>
 			<FullWidthColumn>
-				<Button disabled={requestText !== '<p></p>'} kind='tertiary' size='sm'>
-					Suggerisci text
+				<Button disabled={isValid && requestText !== '<p></p>'} kind='tertiary' size='sm'>
+					{t('suggest-text')}
 				</Button>
 			</FullWidthColumn>
 			<FullWidthColumn>

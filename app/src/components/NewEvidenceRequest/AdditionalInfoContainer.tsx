@@ -1,5 +1,7 @@
 import { Grid, Layer, TextArea } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
+import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -8,11 +10,19 @@ interface AdditionalInfoForm {
 	privateComment: string;
 }
 
-const AdditionalInfoContainer = () => {
+type AdditionalInfoContainerProps = {
+	setIsNextActive: (val: boolean) => void;
+	setRequestDraft: Dispatch<SetStateAction<EvidenceRequestDraft>>;
+};
+const AdditionalInfoContainer = ({
+	setIsNextActive,
+	setRequestDraft
+}: AdditionalInfoContainerProps) => {
 	const { t } = useTranslation(['evidenceRequest', 'modals']);
 	const {
 		register,
-		formState: { errors }
+		watch,
+		formState: { errors, isValid }
 	} = useForm<AdditionalInfoForm>({
 		mode: 'onChange',
 		defaultValues: {
@@ -20,6 +30,22 @@ const AdditionalInfoContainer = () => {
 			privateComment: ''
 		}
 	});
+
+	useEffect(() => {
+		if (isValid) {
+			setRequestDraft(old => ({
+				...old,
+				stepInfo: {
+					privateComment: watch('privateComment'),
+					publicComment: watch('publicComment')
+				}
+			}));
+		}
+	});
+
+	useEffect(() => {
+		setIsNextActive(isValid || false);
+	}, [isValid, setIsNextActive]);
 
 	return (
 		<Grid fullWidth narrow className='space-y-5'>
@@ -35,7 +61,12 @@ const AdditionalInfoContainer = () => {
 				<Layer level={2}>
 					<TextArea
 						labelText={`${t('evidenceRequest:public-comment')} *`}
+						invalid={Boolean(errors.publicComment)}
+						invalidText={errors.publicComment?.message}
 						placeholder={`${t('evidenceRequest:public-comment-placeholder')}.`}
+						{...register('publicComment', {
+							required: { value: true, message: `${t('modals:field-required')}` }
+						})}
 					/>
 				</Layer>
 			</FullWidthColumn>

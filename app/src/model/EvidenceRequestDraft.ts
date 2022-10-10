@@ -13,6 +13,7 @@ interface EvidenceRequestDraft {
 	workflowType?: string;
 	type?: string;
 	name?: string;
+	stepInfo?: { publicComment: string; privateComment: string } | Map<string, string>;
 }
 
 export const fromEvidenceRequestDraftApi = (
@@ -36,7 +37,10 @@ export const fromEvidenceRequestDraftApi = (
 		suggestedText: evidenceRequestDraft.suggestedText || '',
 		workflowType: evidenceRequestDraft.workflowType || '',
 		type: evidenceRequestDraft.type,
-		name: evidenceRequestDraft.name
+		name: evidenceRequestDraft.name,
+		stepInfo: evidenceRequestDraft.stepInfo
+			? new Map(Object.entries(JSON.parse(evidenceRequestDraft.stepInfo)))
+			: undefined
 	};
 };
 

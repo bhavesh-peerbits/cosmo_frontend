@@ -50,7 +50,12 @@ const NewEvidenceRequestFlowContainer = ({
 					/>
 				);
 			case 3:
-				return <AdditionalInfoContainer />;
+				return (
+					<AdditionalInfoContainer
+						setIsNextActive={setIsNextActive}
+						setRequestDraft={setRequestDraft}
+					/>
+				);
 			default:
 				return (
 					<ApplicationsSelectionContainer
@@ -65,12 +70,25 @@ const NewEvidenceRequestFlowContainer = ({
 	return (
 		<Grid fullWidth narrow className='space-y-5'>
 			<FullWidthColumn>
-				<ProgressIndicator currentIndex={currentStep} className='w-full' spaceEqually>
-					<ProgressStep label={t('evidenceRequest:apps-selection')} />
-					<ProgressStep label={t('evidenceRequest:users-selection')} />
-					<ProgressStep label={t('evidenceRequest:request-text')} />
-					<ProgressStep label={t('evidenceRequest:additional-info')} />
-					<ProgressStep label={t('evidenceRequest:attachments')} />
+				<ProgressIndicator
+					currentIndex={currentStep}
+					spaceEqually
+					className=' overflow-hidden'
+				>
+					<ProgressStep
+						className='truncate'
+						label={t('evidenceRequest:apps-selection')}
+					/>
+					<ProgressStep
+						className='truncate'
+						label={t('evidenceRequest:users-selection')}
+					/>
+					<ProgressStep className='truncate' label={t('evidenceRequest:request-text')} />
+					<ProgressStep
+						className='truncate'
+						label={t('evidenceRequest:additional-info')}
+					/>
+					<ProgressStep className='truncate' label={t('evidenceRequest:attachments')} />
 				</ProgressIndicator>
 			</FullWidthColumn>
 			<FullWidthColumn>
