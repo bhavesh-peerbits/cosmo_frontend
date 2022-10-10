@@ -65,6 +65,12 @@ export interface DraftRequestDto {
 	name?: string;
 	/**
 	 *
+	 * @type {string}
+	 * @memberof DraftRequestDto
+	 */
+	stepInfo?: string;
+	/**
+	 *
 	 * @type {number}
 	 * @memberof DraftRequestDto
 	 */

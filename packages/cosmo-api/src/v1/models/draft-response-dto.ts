@@ -81,4 +81,10 @@ export interface DraftResponseDto {
 	 * @memberof DraftResponseDto
 	 */
 	id?: number;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DraftResponseDto
+	 */
+	stepInfo?: string;
 }
