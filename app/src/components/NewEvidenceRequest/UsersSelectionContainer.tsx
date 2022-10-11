@@ -1,54 +1,52 @@
-import { Accordion, AccordionItem, Grid, Layer } from '@carbon/react';
+import { Accordion, AccordionItem, Button, Grid, Layer } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import Application from '@model/Application';
 import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
-import EvidenceRequestStep from '@model/EvidenceRequestStep';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import UsersSelectionForm from './UsersSelectionForm';
 
 type UsersSelectionContainerProps = {
 	appsSelected: Application[];
-	steps: EvidenceRequestStep[];
-	setIsNextActive: (val: boolean) => void;
+	setCurrentStep: (val: number) => void;
 	setRequestDraft: Dispatch<SetStateAction<EvidenceRequestDraft>>;
+	requestDraft: EvidenceRequestDraft;
 };
 const UsersSelectionContainer = ({
 	appsSelected,
-	steps,
-	setIsNextActive,
-	setRequestDraft
+	setCurrentStep,
+	setRequestDraft,
+	requestDraft
 }: UsersSelectionContainerProps) => {
-	const { t } = useTranslation('evidenceRequest');
+	const { t } = useTranslation(['evidenceRequest', 'modals']);
 	const [isCompleted, setIsCompleted] = useState<{ [id: string]: boolean }>();
-
-	useEffect(() => {
-		isCompleted &&
-			setIsNextActive(Object.values(isCompleted).reduce((curr, prev) => curr && prev));
-	}, [isCompleted, setIsNextActive]);
 
 	const translateStepType = (stepType: string | undefined) => {
 		switch (stepType) {
 			case 'APPROVAL':
-				return t('approval');
+				return t('evidenceRequest:approval');
 			case 'UPLOAD':
-				return t('upload');
+				return t('evidenceRequest:upload');
 			default:
-				return t('request');
+				return t('evidenceRequest:request');
 		}
 	}; // TODO Fix when BE controls are ready (remove '| undefined')
+
+	const handleNext = () => {
+		setCurrentStep(2);
+	};
 
 	return (
 		<Grid fullWidth narrow className='space-y-5'>
 			<FullWidthColumn>
 				<FullWidthColumn className='text-heading-3'>
-					<span>{t('users-selection')}</span>
+					<span>{t('evidenceRequest:users-selection')}</span>
 				</FullWidthColumn>
 				<FullWidthColumn className='text-text-secondary text-body-long-1'>
 					<span>Description to add</span>
 				</FullWidthColumn>
 			</FullWidthColumn>
-			{steps.map(step => (
+			{requestDraft?.requests?.[0].steps?.slice(1).map(step => (
 				<FullWidthColumn className='space-y-3'>
 					<span className='text-body-long-2'>{translateStepType(step.type)}</span>
 					<Layer level={2}>
@@ -71,6 +69,23 @@ const UsersSelectionContainer = ({
 					</Layer>
 				</FullWidthColumn>
 			))}
+			<FullWidthColumn>
+				<FullWidthColumn className='flex justify-end space-x-5'>
+					<Button kind='secondary' size='md' onClick={() => setCurrentStep(0)}>
+						{t('modals:back')}
+					</Button>
+					<Button
+						size='md'
+						disabled={
+							isCompleted &&
+							!Object.values(isCompleted).reduce((curr, prev) => curr && prev)
+						}
+						onClick={handleNext}
+					>
+						{t('modals:next')}
+					</Button>
+				</FullWidthColumn>
+			</FullWidthColumn>
 		</Grid>
 	);
 };

@@ -21,7 +21,7 @@ type UsersSelectionFormProps = {
 	setIsCompleted: Dispatch<SetStateAction<{ [id: string]: boolean } | undefined>>;
 	setRequestDraft: Dispatch<SetStateAction<EvidenceRequestDraft>>;
 };
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 const UsersSelectionForm = ({
 	application,
 	step,
@@ -88,6 +88,7 @@ const UsersSelectionForm = ({
 					rules={{
 						required: true
 					}}
+					defaultValue={step.reviewer}
 					getUserFn={() => {
 						// eslint-disable-next-line react-hooks/rules-of-hooks
 						return useGetUsersByRole('FOCAL_POINT');
@@ -100,6 +101,7 @@ const UsersSelectionForm = ({
 					label={t('focal-point-delegates')}
 					name='delegates'
 					level={2}
+					defaultValue={step.delegates}
 					getUserFn={() => {
 						// eslint-disable-next-line react-hooks/rules-of-hooks
 						return useGetUsersByRole('FOCAL_POINT');
@@ -115,6 +117,7 @@ const UsersSelectionForm = ({
 					rules={{
 						required: true
 					}}
+					defaultValue={step.approver}
 					getUserFn={() => {
 						// eslint-disable-next-line react-hooks/rules-of-hooks
 						return useGetUsersByRole('WORKFLOW_APPROVER');

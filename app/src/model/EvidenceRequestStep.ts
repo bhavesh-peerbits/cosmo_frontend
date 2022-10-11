@@ -1,6 +1,5 @@
-import { User } from '@sentry/react';
 import { EvidenceRequestStepApi } from 'cosmo-api';
-import { fromUserApi } from './User';
+import User, { fromUserApi } from './User';
 
 interface EvidenceRequestStep {
 	id?: string;

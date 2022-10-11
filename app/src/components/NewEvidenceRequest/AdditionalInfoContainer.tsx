@@ -1,7 +1,7 @@
-import { Grid, Layer, TextArea } from '@carbon/react';
+import { Button, Grid, Layer, TextArea } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -11,12 +11,14 @@ interface AdditionalInfoForm {
 }
 
 type AdditionalInfoContainerProps = {
-	setIsNextActive: (val: boolean) => void;
+	setCurrentStep: (val: number) => void;
 	setRequestDraft: Dispatch<SetStateAction<EvidenceRequestDraft>>;
+	requestDraft: EvidenceRequestDraft;
 };
 const AdditionalInfoContainer = ({
-	setIsNextActive,
-	setRequestDraft
+	setCurrentStep,
+	setRequestDraft,
+	requestDraft
 }: AdditionalInfoContainerProps) => {
 	const { t } = useTranslation(['evidenceRequest', 'modals']);
 	const {
@@ -26,26 +28,21 @@ const AdditionalInfoContainer = ({
 	} = useForm<AdditionalInfoForm>({
 		mode: 'onChange',
 		defaultValues: {
-			publicComment: '',
-			privateComment: ''
+			publicComment: requestDraft.stepInfo?.publicComment,
+			privateComment: requestDraft.stepInfo?.privateComment
 		}
 	});
 
-	useEffect(() => {
-		if (isValid) {
-			setRequestDraft(old => ({
-				...old,
-				stepInfo: {
-					privateComment: watch('privateComment'),
-					publicComment: watch('publicComment')
-				}
-			}));
-		}
-	});
-
-	useEffect(() => {
-		setIsNextActive(isValid || false);
-	}, [isValid, setIsNextActive]);
+	const handleNext = () => {
+		setRequestDraft(old => ({
+			...old,
+			stepInfo: {
+				privateComment: watch('privateComment'),
+				publicComment: watch('publicComment')
+			}
+		}));
+		setCurrentStep(4);
+	};
 
 	return (
 		<Grid fullWidth narrow className='space-y-5'>
@@ -85,6 +82,14 @@ const AdditionalInfoContainer = ({
 						})}
 					/>
 				</Layer>
+			</FullWidthColumn>
+			<FullWidthColumn className='flex justify-end space-x-5'>
+				<Button kind='secondary' size='md' onClick={() => setCurrentStep(2)}>
+					{t('modals:back')}
+				</Button>
+				<Button size='md' disabled={!isValid} onClick={handleNext}>
+					{t('modals:next')}
+				</Button>
 			</FullWidthColumn>
 		</Grid>
 	);

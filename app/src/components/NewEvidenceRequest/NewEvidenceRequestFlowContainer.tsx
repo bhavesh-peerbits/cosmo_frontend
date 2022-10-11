@@ -1,11 +1,4 @@
-import {
-	Grid,
-	ProgressStep,
-	ProgressIndicator,
-	Layer,
-	Tile,
-	Button
-} from '@carbon/react';
+import { Grid, ProgressStep, ProgressIndicator, Layer, Tile } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import Application from '@model/Application';
 import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
@@ -13,6 +6,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AdditionalInfoContainer from './AdditionalInfoContainer';
 import ApplicationsSelectionContainer from './ApplicationsSelectionContainer';
+import AttachmentsContainer from './AttachmentsContainer';
 import RequestTextContainer from './RequestTextContainer';
 import UsersSelectionContainer from './UsersSelectionContainer';
 
@@ -24,7 +18,6 @@ const NewEvidenceRequestFlowContainer = ({
 }: NewEvidenceRequestFlowContainerProps) => {
 	const { t } = useTranslation(['evidenceRequest', 'modals']);
 	const [currentStep, setCurrentStep] = useState(0);
-	const [isNextActive, setIsNextActive] = useState(true);
 	const [requestDraft, setRequestDraft] = useState(request);
 
 	const contentToRender = () => {
@@ -37,39 +30,35 @@ const NewEvidenceRequestFlowContainer = ({
 								?.filter(req => req.selected)
 								.map(req => req.application as Application) || []
 						} // TODO Fix when BE controls are ready.
-						steps={request?.requests?.[0].steps?.slice(1) || []} // TODO Fix when BE controls are ready.
-						setIsNextActive={setIsNextActive}
+						setCurrentStep={setCurrentStep}
 						setRequestDraft={setRequestDraft}
+						requestDraft={requestDraft}
 					/>
 				);
 			case 2:
 				return (
 					<RequestTextContainer
-						setIsNextActive={setIsNextActive}
+						setCurrentStep={setCurrentStep}
 						setRequestDraft={setRequestDraft}
+						requestDraft={requestDraft}
 					/>
 				);
 			case 3:
 				return (
 					<AdditionalInfoContainer
-						setIsNextActive={setIsNextActive}
+						setCurrentStep={setCurrentStep}
 						setRequestDraft={setRequestDraft}
+						requestDraft={requestDraft}
 					/>
 				);
-			// case 4:
-			// 	return (
-			// 		<AttachmentsContainer
-			// 			setIsNextActive={setIsNextActive}
-			// 			setRequestDraft={setRequestDraft}
-			// 		/>
-			// 	); // TODO remove comments when BE logic is ready
+			case 4:
+				return <AttachmentsContainer setCurrentStep={setCurrentStep} />; // TODO Fix when BE logic is ready
 			default:
 				return (
 					<ApplicationsSelectionContainer
 						request={requestDraft}
-						setIsNextActive={setIsNextActive}
+						setCurrentStep={setCurrentStep}
 						setRequestDraft={setRequestDraft}
-						isNextActive={isNextActive}
 						apps={request?.requests?.map(req => req.application as Application) || []} // TODO remove controls when be controls are ready
 					/>
 				);
@@ -102,35 +91,7 @@ const NewEvidenceRequestFlowContainer = ({
 			</FullWidthColumn>
 			<FullWidthColumn>
 				<Layer level={1}>
-					<Tile>
-						<div className='space-y-5'>
-							{contentToRender()}
-							<div className='flex justify-end space-x-5 pt-5'>
-								{currentStep > 0 && (
-									<Button
-										size='md'
-										kind='secondary'
-										onClick={() => setCurrentStep(currentStep - 1)}
-									>
-										{t('modals:back')}
-									</Button>
-								)}
-								{currentStep !== 3 ? ( // TODO Change with 4
-									<Button
-										size='md'
-										disabled={!isNextActive}
-										onClick={() => setCurrentStep(currentStep + 1)}
-									>
-										{t('modals:next')}
-									</Button>
-								) : (
-									<Button size='md' disabled={!isNextActive}>
-										{t('modals:save')}
-									</Button>
-								)}
-							</div>
-						</div>
-					</Tile>
+					<Tile>{contentToRender()}</Tile>
 				</Layer>
 			</FullWidthColumn>
 		</Grid>
