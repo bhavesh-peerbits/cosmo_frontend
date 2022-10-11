@@ -56,12 +56,21 @@ const NewEvidenceRequestFlowContainer = ({
 						setRequestDraft={setRequestDraft}
 					/>
 				);
+			// case 4:
+			// 	return (
+			// 		<AttachmentsContainer
+			// 			setIsNextActive={setIsNextActive}
+			// 			setRequestDraft={setRequestDraft}
+			// 		/>
+			// 	); // TODO remove comments when BE logic is ready
 			default:
 				return (
 					<ApplicationsSelectionContainer
-						request={request}
+						request={requestDraft}
 						setIsNextActive={setIsNextActive}
 						setRequestDraft={setRequestDraft}
+						isNextActive={isNextActive}
+						apps={request?.requests?.map(req => req.application as Application) || []} // TODO remove controls when be controls are ready
 					/>
 				);
 		}
@@ -73,7 +82,7 @@ const NewEvidenceRequestFlowContainer = ({
 				<ProgressIndicator
 					currentIndex={currentStep}
 					spaceEqually
-					className=' overflow-hidden'
+					className='overflow-hidden'
 				>
 					<ProgressStep
 						className='truncate'
@@ -106,13 +115,17 @@ const NewEvidenceRequestFlowContainer = ({
 										{t('modals:back')}
 									</Button>
 								)}
-								{currentStep !== 4 && (
+								{currentStep !== 3 ? ( // TODO Change with 4
 									<Button
 										size='md'
 										disabled={!isNextActive}
 										onClick={() => setCurrentStep(currentStep + 1)}
 									>
 										{t('modals:next')}
+									</Button>
+								) : (
+									<Button size='md' disabled={!isNextActive}>
+										{t('modals:save')}
 									</Button>
 								)}
 							</div>

@@ -115,15 +115,15 @@ const CosmoTable = <D extends object>({
 
 	const { exportData } = useExportTablePlugin(instance, exportFileName, disableExport);
 
-	useEffect(
-		() =>
-			setSelectedRows &&
+	useEffect(() => {
+		setSelectedRows &&
 			setSelectedRows(
 				getSelectedRowModel().flatRows.map(el => el.original) as unknown as Application[]
-			),
-		[getSelectedRowModel, setSelectedRows, rowSelection]
-	);
-	useEffect(() => setRowSelection(selectedRows || {}), [selectedRows]);
+			);
+	}, [getSelectedRowModel, setSelectedRows, rowSelection]);
+	useEffect(() => {
+		setRowSelection(selectedRows || {});
+	}, [selectedRows]);
 
 	const renderBody = () => {
 		const { rows } = getRowModel();

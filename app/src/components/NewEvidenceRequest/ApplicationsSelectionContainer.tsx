@@ -19,23 +19,21 @@ type ApplicationsSelectionContainerProps = {
 	request: EvidenceRequestDraft;
 	setIsNextActive: (val: boolean) => void;
 	setRequestDraft: Dispatch<SetStateAction<EvidenceRequestDraft>>;
+	apps: Application[];
+	isNextActive?: boolean;
 };
 const ApplicationsSelectionContainer = ({
 	request,
 	setIsNextActive,
-	setRequestDraft
+	setRequestDraft,
+	apps,
+	isNextActive
 }: ApplicationsSelectionContainerProps) => {
 	const { t } = useTranslation(['evidenceRequest', 'management']);
-	// const { apps } = useManagementApps();
 	const { filters, setFilters } = useManagementApps();
 	const [selectedRows, setSelectedRows] = useState<
 		(Application | undefined)[] | undefined
 	>();
-	const [apps, setApps] = useState<Application[] | undefined>([]);
-	useEffect(
-		() => setApps(request?.requests?.map(req => req.application as Application)),
-		[request?.requests]
-	); // TODO Remove when BE controls are ready
 
 	const selectedAppsIndex = useMemo(
 		() =>
@@ -54,15 +52,27 @@ const ApplicationsSelectionContainer = ({
 			}
 			return req;
 		});
-		setRequestDraft(old => ({
-			...old,
-			requests: newRequests
-		}));
-	}, [request.requests, selectedRows, setRequestDraft]);
+		const differentElements = request.requests?.filter(
+			el =>
+				!newRequests?.find(element => element.application?.id === el.application?.id)
+					?.selected === el.selected
+		);
+
+		if (differentElements?.length) {
+			setRequestDraft(old => ({
+				...old,
+				requests: newRequests
+			}));
+		}
+	}, [isNextActive, request.requests, selectedRows, setIsNextActive, setRequestDraft]);
 
 	useEffect(() => {
-		setIsNextActive((selectedRows && selectedRows.length > 0) || false);
-	}, [selectedRows, setIsNextActive]);
+		if (selectedRows?.length && !isNextActive) {
+			setIsNextActive(true);
+		} else if (isNextActive && !selectedRows?.length) {
+			setIsNextActive(false);
+		}
+	}, [isNextActive, selectedRows, setIsNextActive]);
 
 	const columns: HeaderFunction<Application> = useCallback(
 		table => [
@@ -105,7 +115,7 @@ const ApplicationsSelectionContainer = ({
 			</FullWidthColumn>
 			<FullWidthColumn>
 				<CosmoTable
-					data={apps || []}
+					data={apps}
 					createHeaders={columns}
 					noDataMessage={t('management:no-applications')}
 					toolbar={{ toolbarContent }}
