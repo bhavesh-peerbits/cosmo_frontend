@@ -57,7 +57,7 @@ input:-webkit-autofill:active {
 	-webkit-text-fill-color: #{theme.$text-primary} !important;
 }
 
-//modify default browser scrollbar
+// modify default browser scrollbar
 ::-webkit-scrollbar {
 	width: 0.5rem;
 	height: 0.5rem;
@@ -70,7 +70,7 @@ input:-webkit-autofill:active {
 ::-webkit-scrollbar-thumb {
 	background: #aaa;
 	border-radius: 0.3rem;
-	border: 0.1rem solid rgba(0, 0, 0, 0);
+	border: 0.1rem solid rgb(0 0 0 / 0%);
 	background-clip: padding-box;
 }
 
