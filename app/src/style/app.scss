@@ -56,3 +56,24 @@ input:-webkit-autofill:active {
 	box-shadow: 0 0 0 50px #{theme.$field} inset !important;
 	-webkit-text-fill-color: #{theme.$text-primary} !important;
 }
+
+//modify default browser scrollbar
+::-webkit-scrollbar {
+	width: 0.5rem;
+	height: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #aaa;
+	border-radius: 0.3rem;
+	border: 0.1rem solid rgba(0, 0, 0, 0);
+	background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	border: none;
+}

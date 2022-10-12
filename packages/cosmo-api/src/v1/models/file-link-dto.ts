@@ -35,13 +35,23 @@ export interface FileLinkDto {
 	 * @type {string}
 	 * @memberof FileLinkDto
 	 */
-	type?: FileLinkDtoTypeEnum;
+	type?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof FileLinkDto
+	 */
+	name?: string;
+	/**
+	 *
+	 * @type {number}
+	 * @memberof FileLinkDto
+	 */
+	dimension?: number;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof FileLinkDto
+	 */
+	expirationTime?: string;
 }
-
-export const FileLinkDtoTypeEnum = {
-	Upload: 'UPLOAD',
-	Attachment: 'ATTACHMENT'
-} as const;
-
-export type FileLinkDtoTypeEnum =
-	typeof FileLinkDtoTypeEnum[keyof typeof FileLinkDtoTypeEnum];

@@ -2,23 +2,26 @@ import { EvidenceRequestApi } from 'cosmo-api';
 import Application, { fromApplicationApi } from './Application';
 import { EvidenceRequestStatus } from './EvidenceRequestStatus';
 import EvidenceRequestStep, { fromEvidenceRequestStepApi } from './EvidenceRequestStep';
-import User, { fromUserApi } from './User';
+import FileLink, { fromFileLinkApi } from './FileLink';
+import UserBase, { fromUserBaseApi } from './UserBase';
 
 interface EvidenceRequest {
 	id: string;
 	name?: string;
-	code?: string;
+	code: string;
 	type?: string;
 	application?: Application;
 	status?: EvidenceRequestStatus;
 	workflowName?: string;
 	workflowType?: string;
-	currentStep?: number;
-	dueDate?: Date;
+	currentStep: number;
+	completionDate?: Date;
+	dueDate: Date;
 	startDate?: Date;
-	steps?: EvidenceRequestStep[];
-	fileLinks?: string[];
-	contributors?: User[];
+	creator: UserBase;
+	steps: EvidenceRequestStep[];
+	fileLinks?: FileLink[];
+	contributors: UserBase[];
 }
 
 export const fromEvidenceRequestApi = (
@@ -27,7 +30,7 @@ export const fromEvidenceRequestApi = (
 	return {
 		id: `${evidenceRequest.id}`,
 		name: evidenceRequest.name,
-		code: evidenceRequest.code,
+		code: evidenceRequest.code || '',
 		type: evidenceRequest.type,
 		application: evidenceRequest.application
 			? fromApplicationApi(evidenceRequest.application)
@@ -35,8 +38,8 @@ export const fromEvidenceRequestApi = (
 		status: evidenceRequest.status,
 		workflowName: evidenceRequest.workflowName,
 		workflowType: evidenceRequest.workflowType,
-		currentStep: evidenceRequest.currentStep,
-		dueDate: evidenceRequest.dueDate ? new Date(evidenceRequest.dueDate) : undefined,
+		currentStep: evidenceRequest.currentStep ? evidenceRequest.currentStep : 1,
+		dueDate: evidenceRequest.dueDate ? new Date(evidenceRequest.dueDate) : new Date(),
 		startDate: evidenceRequest.startDate
 			? new Date(evidenceRequest.startDate)
 			: undefined,
@@ -44,7 +47,14 @@ export const fromEvidenceRequestApi = (
 			? [...evidenceRequest.steps].map(step => fromEvidenceRequestStepApi(step))
 			: [],
 		contributors: evidenceRequest.contributors
-			? [...evidenceRequest.contributors].map(contributor => fromUserApi(contributor))
+			? [...evidenceRequest.contributors].map(contributor => fromUserBaseApi(contributor))
+			: [],
+		creator: fromUserBaseApi(evidenceRequest.creator!),
+		completionDate: evidenceRequest.completionDate
+			? new Date(evidenceRequest.completionDate)
+			: undefined,
+		fileLinks: evidenceRequest.fileLinks
+			? [...evidenceRequest.fileLinks].map(fl => fromFileLinkApi(fl))
 			: []
 	};
 };

@@ -20,6 +20,7 @@ import {
 	EvidenceRequestControllerApi,
 	EvidenceRequestDraftRequestDto,
 	EvidenceRequestRequestDto,
+	FileLinkDto,
 	GenerateReportControllerApi,
 	IdentityProviderDto,
 	NarrativeReviewControllerApi,
@@ -33,7 +34,7 @@ import {
 	ReviewDtoStatusEnum,
 	ReviewerCampaignControllerApi,
 	ReviewerControllerApi,
-	StepRequestDto,
+	StepResponseDto,
 	UserAdminControllerApi,
 	UserBase,
 	UserControllerApi,
@@ -84,5 +85,6 @@ export type ApplicationCampaignApi = ApplicationCampaignDto;
 export type ApplicationStepRequestApi = EvidenceRequestDraftRequestDto;
 export type EvidenceRequestDraftApi = DraftRequestDto;
 export type EvidenceRequestApi = EvidenceRequestRequestDto;
-export type EvidenceRequestStepApi = StepRequestDto;
+export type EvidenceRequestStepApi = StepResponseDto;
 export type NewDraftParameterApi = NewDraftRequestDto;
+export type FileLinkApi = FileLinkDto;

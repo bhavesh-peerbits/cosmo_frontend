@@ -25,7 +25,7 @@ import {
 	Undo
 } from '@carbon/react/icons';
 import '@style/tiptap.scss';
-import { forwardRef } from 'react';
+import { forwardRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 type EditorType = {
@@ -221,7 +221,7 @@ const MenuBar = ({ editor }: EditorType) => {
 };
 
 const TipTapEditor = forwardRef<PureEditorContent, TipTapEditorProps>(
-	({ content, onChange, onBlur, readOnly }, ref) => {
+	({ content, onChange, onBlur, readOnly, onReset, className }, ref) => {
 		const editor = useEditor({
 			extensions: [
 				StarterKit,
@@ -240,12 +240,18 @@ const TipTapEditor = forwardRef<PureEditorContent, TipTapEditorProps>(
 		});
 		editor?.setEditable(!readOnly);
 
+		useEffect(() => {
+			editor?.commands.clearContent();
+			editor?.commands.setContent(content || '');
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+		}, [onReset]);
+
 		return (
 			<div className='divide-y-[1px] divide-solid divide-border-subtle-0 border-[1px] border-solid border-border-strong-3'>
 				<div className='bg-layer-1'>
 					<MenuBar editor={editor} />
 				</div>
-				<EditorContent ref={ref} editor={editor} />
+				<EditorContent ref={ref} editor={editor} className={className} />
 			</div>
 		);
 	}
@@ -256,6 +262,8 @@ interface TipTapEditorProps {
 	onChange: (content: string) => void;
 	onBlur?: () => void;
 	readOnly?: boolean;
+	onReset?: boolean;
+	className?: string;
 }
 
 export default TipTapEditor;

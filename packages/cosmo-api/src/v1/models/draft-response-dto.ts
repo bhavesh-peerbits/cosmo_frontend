@@ -41,6 +41,12 @@ export interface DraftResponseDto {
 	collaborators?: Array<UserDto>;
 	/**
 	 *
+	 * @type {UserDto}
+	 * @memberof DraftResponseDto
+	 */
+	creator?: UserDto;
+	/**
+	 *
 	 * @type {string}
 	 * @memberof DraftResponseDto
 	 */
@@ -75,4 +81,10 @@ export interface DraftResponseDto {
 	 * @memberof DraftResponseDto
 	 */
 	id?: number;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DraftResponseDto
+	 */
+	stepInfo?: string;
 }

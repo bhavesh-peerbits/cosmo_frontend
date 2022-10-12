@@ -25,7 +25,7 @@ export interface StepRequestDto {
 	 * @type {Set<UserDto>}
 	 * @memberof StepRequestDto
 	 */
-	approver?: Set<UserDto>;
+	approvers?: Set<UserDto>;
 	/**
 	 *
 	 * @type {UserDto}
@@ -49,7 +49,19 @@ export interface StepRequestDto {
 	 * @type {string}
 	 * @memberof StepRequestDto
 	 */
+	stepInfo?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof StepRequestDto
+	 */
 	text?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof StepRequestDto
+	 */
+	completionDate?: string;
 	/**
 	 *
 	 * @type {number}

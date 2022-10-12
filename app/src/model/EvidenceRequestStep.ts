@@ -1,28 +1,37 @@
-import { User } from '@sentry/react';
 import { EvidenceRequestStepApi } from 'cosmo-api';
-import { fromUserApi } from './User';
+import UserBase, { fromUserBaseApi } from './UserBase';
 
 interface EvidenceRequestStep {
-	approver?: User[];
-	reviewer?: User;
+	approvers?: UserBase[];
+	reviewer?: UserBase;
 	type?: 'REQUEST' | 'APPROVAL' | 'UPLOAD';
-	delegates?: User[];
+	delegates?: UserBase[];
+	text: string;
+	stepInfo?: string;
+	completionDate?: Date;
+	id: string;
 }
 
 export const fromEvidenceRequestStepApi = (
 	evidenceRequestStep: EvidenceRequestStepApi
 ): EvidenceRequestStep => {
 	return {
-		approver: evidenceRequestStep.approver
-			? [...evidenceRequestStep.approver].map(user => fromUserApi(user))
+		approvers: evidenceRequestStep.approvers
+			? [...evidenceRequestStep.approvers].map(user => fromUserBaseApi(user))
 			: [],
 		reviewer: evidenceRequestStep.reviewer
-			? fromUserApi(evidenceRequestStep.reviewer)
+			? fromUserBaseApi(evidenceRequestStep.reviewer)
 			: undefined,
 		type: evidenceRequestStep.type,
 		delegates: evidenceRequestStep.delegates
-			? [...evidenceRequestStep.delegates].map(user => fromUserApi(user))
-			: []
+			? [...evidenceRequestStep.delegates].map(user => fromUserBaseApi(user))
+			: [],
+		text: evidenceRequestStep.text || '',
+		completionDate: evidenceRequestStep.completionDate
+			? new Date(evidenceRequestStep.completionDate)
+			: undefined,
+		id: `${evidenceRequestStep.id}`,
+		stepInfo: evidenceRequestStep.stepInfo || ''
 	};
 };
 

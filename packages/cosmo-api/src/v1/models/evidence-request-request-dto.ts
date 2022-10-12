@@ -91,6 +91,12 @@ export interface EvidenceRequestRequestDto {
 	startDate?: string;
 	/**
 	 *
+	 * @type {string}
+	 * @memberof EvidenceRequestRequestDto
+	 */
+	completionDate?: string;
+	/**
+	 *
 	 * @type {Array<StepRequestDto>}
 	 * @memberof EvidenceRequestRequestDto
 	 */
@@ -101,6 +107,12 @@ export interface EvidenceRequestRequestDto {
 	 * @memberof EvidenceRequestRequestDto
 	 */
 	fileLinks?: Set<FileLinkDto>;
+	/**
+	 *
+	 * @type {UserDto}
+	 * @memberof EvidenceRequestRequestDto
+	 */
+	creator?: UserDto;
 	/**
 	 *
 	 * @type {Set<UserDto>}

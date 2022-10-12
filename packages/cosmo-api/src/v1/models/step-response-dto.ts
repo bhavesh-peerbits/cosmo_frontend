@@ -52,6 +52,18 @@ export interface StepResponseDto {
 	delegates?: Set<UserDto>;
 	/**
 	 *
+	 * @type {string}
+	 * @memberof StepResponseDto
+	 */
+	text?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof StepResponseDto
+	 */
+	completionDate?: string;
+	/**
+	 *
 	 * @type {number}
 	 * @memberof StepResponseDto
 	 */

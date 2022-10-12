@@ -7,6 +7,7 @@ import ErrorBoundary from '@error/components/ErrorBoundary';
 import PageSkeleton from '@components/PageSkeleton';
 import usePolicyStore from '@hooks/usePolicyStore';
 import ProtectRoute from '@routes/ProtectRoute';
+import StartedEvidenceRequest from '@pages/StartedEvidenceRequest';
 
 const Home = React.lazy(() => import('@pages/Home'));
 const Test = React.lazy(() => import('@pages/Test'));
@@ -217,7 +218,7 @@ const AuthenticatedRoutes = () => {
 							</Route>
 							<Route path='started-evidence-request'>
 								<Route index element={<StartedEvidenceRequestDashboard />} />
-								{/* <Route path=':requestId' element={<NewEvidenceRequest />} /> */}
+								<Route path=':requestId' element={<StartedEvidenceRequest />} />
 							</Route>
 
 							<Route path='test' element={<Test />} />
