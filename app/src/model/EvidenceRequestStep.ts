@@ -1,29 +1,47 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { EvidenceRequestStepApi } from 'cosmo-api';
-import User, { fromUserApi } from './User';
+import { StepDtoTypeEnum } from 'cosmo-api/src/v1';
+import User, { fromUserApi, toUserApi } from './User';
 
 interface EvidenceRequestStep {
-	id?: string;
+	id: string;
 	approvers?: User[];
 	reviewer?: User;
-	type?: 'REQUEST' | 'APPROVAL' | 'UPLOAD';
+	type: StepDtoTypeEnum;
 	delegates?: User[];
 }
 
 export const fromEvidenceRequestStepApi = (
-	evidenceRequestStep: EvidenceRequestStepApi
+	evidenceRequestStepApi: EvidenceRequestStepApi
 ): EvidenceRequestStep => {
 	return {
-		id: `${evidenceRequestStep.id}`,
-		approvers: evidenceRequestStep.approvers
-			? [...evidenceRequestStep.approvers].map(user => fromUserApi(user))
+		id: `${evidenceRequestStepApi.id}`,
+		approvers: evidenceRequestStepApi.approvers
+			? [...evidenceRequestStepApi.approvers].map(user => fromUserApi(user))
 			: [],
+		reviewer: evidenceRequestStepApi.reviewer
+			? fromUserApi(evidenceRequestStepApi.reviewer)
+			: undefined,
+		type: evidenceRequestStepApi.type,
+		delegates: evidenceRequestStepApi.delegates
+			? [...evidenceRequestStepApi.delegates].map(user => fromUserApi(user))
+			: []
+	};
+};
+
+export const toEvidenceRequestStepApi = (
+	evidenceRequestStep: EvidenceRequestStep
+): EvidenceRequestStepApi => {
+	return {
+		id: +evidenceRequestStep.id,
+		// @ts-ignore
+		approver: evidenceRequestStep.approver?.map(user => toUserApi(user)),
 		reviewer: evidenceRequestStep.reviewer
-			? fromUserApi(evidenceRequestStep.reviewer)
+			? toUserApi(evidenceRequestStep.reviewer)
 			: undefined,
 		type: evidenceRequestStep.type,
-		delegates: evidenceRequestStep.delegates
-			? [...evidenceRequestStep.delegates].map(user => fromUserApi(user))
-			: []
+		// @ts-ignore
+		delegates: evidenceRequestStep.delegates.map(user => toUserApi(user))
 	};
 };
 
