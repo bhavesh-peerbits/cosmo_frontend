@@ -28,8 +28,8 @@ const NewEvidenceRequestFlowContainer = ({
 						appsSelected={
 							requestDraft.requests
 								?.filter(req => req.selected)
-								.map(req => req.application as Application) || []
-						} // TODO Fix when BE controls are ready.
+								.map(req => req.application) || []
+						}
 						setCurrentStep={setCurrentStep}
 						setRequestDraft={setRequestDraft}
 						requestDraft={requestDraft}
@@ -52,7 +52,12 @@ const NewEvidenceRequestFlowContainer = ({
 					/>
 				);
 			case 4:
-				return <AttachmentsContainer setCurrentStep={setCurrentStep} />; // TODO Fix when BE logic is ready
+				return (
+					<AttachmentsContainer
+						requestDraft={requestDraft}
+						setCurrentStep={setCurrentStep}
+					/>
+				); // TODO Fix when BE logic is ready
 			default:
 				return (
 					<ApplicationsSelectionContainer

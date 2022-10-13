@@ -23,7 +23,6 @@ const RequestTextContainer = ({
 
 	const { control, watch } = useForm<RequestTextForm>({
 		mode: 'onChange',
-
 		defaultValues: {
 			requestText: requestDraft.text
 		}

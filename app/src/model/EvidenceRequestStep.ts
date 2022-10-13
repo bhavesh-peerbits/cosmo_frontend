@@ -9,6 +9,7 @@ interface EvidenceRequestStep {
 	reviewer?: User;
 	type: StepDtoTypeEnum;
 	delegates?: User[];
+	stepOrder: number;
 }
 
 export const fromEvidenceRequestStepApi = (
@@ -25,7 +26,8 @@ export const fromEvidenceRequestStepApi = (
 		type: evidenceRequestStepApi.type,
 		delegates: evidenceRequestStepApi.delegates
 			? [...evidenceRequestStepApi.delegates].map(user => fromUserApi(user))
-			: []
+			: [],
+		stepOrder: evidenceRequestStepApi.stepOrder
 	};
 };
 
@@ -41,7 +43,8 @@ export const toEvidenceRequestStepApi = (
 			: undefined,
 		type: evidenceRequestStep.type,
 		// @ts-ignore
-		delegates: evidenceRequestStep.delegates.map(user => toUserApi(user))
+		delegates: evidenceRequestStep.delegates.map(user => toUserApi(user)),
+		stepOrder: evidenceRequestStep.stepOrder
 	};
 };
 

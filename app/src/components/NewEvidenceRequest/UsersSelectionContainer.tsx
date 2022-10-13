@@ -2,6 +2,7 @@ import { Accordion, AccordionItem, Button, Grid, Layer } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import Application from '@model/Application';
 import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
+import { StepDtoTypeEnum } from 'cosmo-api/src/v1';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import UsersSelectionForm from './UsersSelectionForm';
@@ -21,7 +22,7 @@ const UsersSelectionContainer = ({
 	const { t } = useTranslation(['evidenceRequest', 'modals']);
 	const [isCompleted, setIsCompleted] = useState<{ [id: string]: boolean }>();
 
-	const translateStepType = (stepType: string | undefined) => {
+	const translateStepType = (stepType: StepDtoTypeEnum) => {
 		switch (stepType) {
 			case 'APPROVAL':
 				return t('evidenceRequest:approval');
@@ -30,7 +31,7 @@ const UsersSelectionContainer = ({
 			default:
 				return t('evidenceRequest:request');
 		}
-	}; // TODO Fix when BE controls are ready (remove '| undefined')
+	};
 
 	const handleNext = () => {
 		setCurrentStep(2);
