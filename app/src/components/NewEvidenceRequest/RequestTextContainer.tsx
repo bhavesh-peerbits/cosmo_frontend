@@ -25,7 +25,7 @@ const RequestTextContainer = ({
 		mode: 'onChange',
 
 		defaultValues: {
-			requestText: requestDraft.suggestedText
+			requestText: requestDraft.text
 		}
 	});
 	const requestText = watch('requestText');
@@ -44,7 +44,7 @@ const RequestTextContainer = ({
 	});
 
 	const handleNext = () => {
-		setRequestDraft(old => ({ ...old, suggestedText: requestText }));
+		setRequestDraft(old => ({ ...old, text: requestText }));
 		setCurrentStep(3);
 	};
 

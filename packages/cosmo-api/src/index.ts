@@ -16,13 +16,13 @@ import {
 	CampaignDtoTypeEnum,
 	CampaignReviewDto,
 	Configuration,
-	DraftRequestDto,
+	DraftDto,
 	EvidenceRequestControllerApi,
-	EvidenceRequestDraftRequestDto,
+	EvidenceRequestDraftDto,
 	GenerateReportControllerApi,
 	IdentityProviderDto,
 	NarrativeReviewControllerApi,
-	NewDraftRequestDto,
+	NewDraftDto,
 	PairListAnswerDtoListString,
 	ProcedureAppInstanceDto,
 	ProcedureControllerApi,
@@ -32,7 +32,7 @@ import {
 	ReviewDtoStatusEnum,
 	ReviewerCampaignControllerApi,
 	ReviewerControllerApi,
-	StepRequestDto,
+	StepDto,
 	UserAdminControllerApi,
 	UserBase,
 	UserControllerApi,
@@ -80,7 +80,7 @@ export type AnswerApi = AnswerDto;
 export type AnswerApiTypeEnum = AnswerDtoAnswerTypeEnum;
 export type FileAnswerStatusApi = PairListAnswerDtoListString;
 export type ApplicationCampaignApi = ApplicationCampaignDto;
-export type ApplicationStepRequestApi = EvidenceRequestDraftRequestDto;
-export type EvidenceRequestDraftApi = DraftRequestDto;
-export type EvidenceRequestStepApi = StepRequestDto;
-export type NewDraftParameterApi = NewDraftRequestDto;
+export type ApplicationStepRequestApi = EvidenceRequestDraftDto;
+export type DraftApi = DraftDto;
+export type EvidenceRequestStepApi = StepDto;
+export type NewDraftApi = NewDraftDto;

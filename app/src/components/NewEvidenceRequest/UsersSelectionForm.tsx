@@ -38,7 +38,7 @@ const UsersSelectionForm = ({
 		mode: 'onChange'
 	});
 	const delegates = watch('delegates');
-	const approver = watch('approvers');
+	const approvers = watch('approvers');
 	const reviewer = watch('focalPoint');
 	useEffect(() => {
 		setRequestDraft(old => ({
@@ -52,7 +52,7 @@ const UsersSelectionForm = ({
 								return {
 									...el,
 									delegates,
-									approver,
+									approvers,
 									reviewer
 								};
 							}
@@ -69,7 +69,7 @@ const UsersSelectionForm = ({
 		setRequestDraft,
 		step.id,
 		delegates,
-		approver,
+		approvers,
 		reviewer
 	]);
 
@@ -117,7 +117,7 @@ const UsersSelectionForm = ({
 					rules={{
 						required: true
 					}}
-					defaultValue={step.approver}
+					defaultValue={step.approvers}
 					getUserFn={() => {
 						// eslint-disable-next-line react-hooks/rules-of-hooks
 						return useGetUsersByRole('WORKFLOW_APPROVER');

@@ -1,4 +1,4 @@
-import { EvidenceRequestDraftApi } from 'cosmo-api';
+import { DraftApi } from 'cosmo-api';
 import User, { fromUserApi } from './User';
 import ApplicationStepRequest, {
 	fromApplicationStepRequestApi
@@ -6,24 +6,23 @@ import ApplicationStepRequest, {
 
 interface EvidenceRequestDraft {
 	id: string;
-	creator?: User;
+	creator: User;
 	requests?: ApplicationStepRequest[];
-	suggestedText?: string;
+	text?: string;
 	collaborators?: User[];
-	workflowType?: string;
-	type?: string;
+	workflowType: string;
+	type: string;
 	name?: string;
 	stepInfo?: { publicComment: string; privateComment: string };
+	dueDate?: Date;
 }
 
 export const fromEvidenceRequestDraftApi = (
-	evidenceRequestDraft: EvidenceRequestDraftApi
+	evidenceRequestDraft: DraftApi
 ): EvidenceRequestDraft => {
 	return {
 		id: `${evidenceRequestDraft.id}`,
-		creator: evidenceRequestDraft.creator
-			? fromUserApi(evidenceRequestDraft.creator)
-			: undefined,
+		creator: fromUserApi(evidenceRequestDraft.creator),
 		requests: evidenceRequestDraft.requests
 			? [...evidenceRequestDraft.requests].map(request =>
 					fromApplicationStepRequestApi(request)
@@ -34,8 +33,8 @@ export const fromEvidenceRequestDraftApi = (
 					fromUserApi(collaborator)
 			  )
 			: [],
-		suggestedText: evidenceRequestDraft.suggestedText || '',
-		workflowType: evidenceRequestDraft.workflowType || '',
+		text: evidenceRequestDraft.text,
+		workflowType: evidenceRequestDraft.workflowType,
 		type: evidenceRequestDraft.type,
 		name: evidenceRequestDraft.name,
 		stepInfo: evidenceRequestDraft.stepInfo

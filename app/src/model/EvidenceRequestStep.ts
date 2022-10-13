@@ -3,7 +3,7 @@ import User, { fromUserApi } from './User';
 
 interface EvidenceRequestStep {
 	id?: string;
-	approver?: User[];
+	approvers?: User[];
 	reviewer?: User;
 	type?: 'REQUEST' | 'APPROVAL' | 'UPLOAD';
 	delegates?: User[];
@@ -14,8 +14,8 @@ export const fromEvidenceRequestStepApi = (
 ): EvidenceRequestStep => {
 	return {
 		id: `${evidenceRequestStep.id}`,
-		approver: evidenceRequestStep.approver
-			? [...evidenceRequestStep.approver].map(user => fromUserApi(user))
+		approvers: evidenceRequestStep.approvers
+			? [...evidenceRequestStep.approvers].map(user => fromUserApi(user))
 			: [],
 		reviewer: evidenceRequestStep.reviewer
 			? fromUserApi(evidenceRequestStep.reviewer)

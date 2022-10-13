@@ -12,51 +12,81 @@
  * Do not edit the class manually.
  */
 
+import { FileLinkDto } from './file-link-dto';
 import { UserDto } from './user-dto';
 
 /**
  *
  * @export
- * @interface StepDraftRequestDto
+ * @interface StepDto
  */
-export interface StepDraftRequestDto {
+export interface StepDto {
 	/**
 	 *
 	 * @type {Set<UserDto>}
-	 * @memberof StepDraftRequestDto
+	 * @memberof StepDto
 	 */
-	approver?: Set<UserDto>;
+	approvers?: Set<UserDto>;
 	/**
 	 *
 	 * @type {UserDto}
-	 * @memberof StepDraftRequestDto
+	 * @memberof StepDto
 	 */
 	reviewer?: UserDto;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof StepDraftRequestDto
+	 * @memberof StepDto
 	 */
-	type?: StepDraftRequestDtoTypeEnum;
+	stepInfo?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof StepDto
+	 */
+	type: StepDtoTypeEnum;
 	/**
 	 *
 	 * @type {Set<UserDto>}
-	 * @memberof StepDraftRequestDto
+	 * @memberof StepDto
 	 */
 	delegates?: Set<UserDto>;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof StepDraftRequestDto
+	 * @memberof StepDto
 	 */
 	text?: string;
+	/**
+	 *
+	 * @type {number}
+	 * @memberof StepDto
+	 */
+	stepOrder: number;
+	/**
+	 *
+	 * @type {Set<FileLinkDto>}
+	 * @memberof StepDto
+	 */
+	fileLinks?: Set<FileLinkDto>;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof StepDto
+	 */
+	completionDate?: string;
+	/**
+	 *
+	 * @type {number}
+	 * @memberof StepDto
+	 */
+	id?: number;
 }
 
-export const StepDraftRequestDtoTypeEnum = {
+export const StepDtoTypeEnum = {
 	Request: 'REQUEST',
 	Approval: 'APPROVAL',
 	Upload: 'UPLOAD'
 } as const;
 
-export type StepDraftRequestDtoTypeEnum =
-	typeof StepDraftRequestDtoTypeEnum[keyof typeof StepDraftRequestDtoTypeEnum];
+export type StepDtoTypeEnum = typeof StepDtoTypeEnum[keyof typeof StepDtoTypeEnum];

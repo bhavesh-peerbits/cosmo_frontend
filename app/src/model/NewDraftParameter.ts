@@ -1,4 +1,4 @@
-import { NewDraftParameterApi } from 'cosmo-api';
+import { NewDraftApi } from 'cosmo-api';
 
 interface NewDraftParameter {
 	workflowName: string[];
@@ -6,7 +6,7 @@ interface NewDraftParameter {
 }
 
 export const fromNewDraftParameterApi = (
-	newDraftParameter: NewDraftParameterApi
+	newDraftParameter: NewDraftApi
 ): NewDraftParameter => {
 	return {
 		workflowName: newDraftParameter.workflowName ? newDraftParameter.workflowName : [],
