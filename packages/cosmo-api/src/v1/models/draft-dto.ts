@@ -45,13 +45,13 @@ export interface DraftDto {
 	 * @type {UserDto}
 	 * @memberof DraftDto
 	 */
-	creator?: UserDto;
+	creator: UserDto;
 	/**
 	 *
 	 * @type {string}
 	 * @memberof DraftDto
 	 */
-	dueDate: string;
+	dueDate?: string;
 	/**
 	 *
 	 * @type {Array<FileLinkDto>}
@@ -69,7 +69,7 @@ export interface DraftDto {
 	 * @type {string}
 	 * @memberof DraftDto
 	 */
-	type?: string;
+	type: string;
 	/**
 	 *
 	 * @type {string}

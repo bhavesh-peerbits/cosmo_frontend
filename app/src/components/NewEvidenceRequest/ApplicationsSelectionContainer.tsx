@@ -1,23 +1,26 @@
-import { Grid, TableToolbarSearch } from '@carbon/react';
+import { Button, Grid, TableToolbarSearch } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import CosmoTable, { HeaderFunction } from '@components/table/CosmoTable';
 import useManagementApps from '@hooks/management/useManagementApps';
 import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
 import { RowSelectionState } from '@tanstack/react-table';
 import Application from 'model/Application';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 type ApplicationsSelectionContainerProps = {
 	request: EvidenceRequestDraft;
-	setIsNextActive: (val: boolean) => void;
+	setCurrentStep: (val: number) => void;
+	setRequestDraft: Dispatch<SetStateAction<EvidenceRequestDraft>>;
+	apps: Application[];
 };
 const ApplicationsSelectionContainer = ({
 	request,
-	setIsNextActive
+	setCurrentStep,
+	setRequestDraft,
+	apps
 }: ApplicationsSelectionContainerProps) => {
-	const { t } = useTranslation(['evidenceRequest', 'management']);
-	const { apps } = useManagementApps();
+	const { t } = useTranslation(['evidenceRequest', 'management', 'modals']);
 	const { filters, setFilters } = useManagementApps();
 	const [selectedRows, setSelectedRows] = useState<
 		(Application | undefined)[] | undefined
@@ -25,16 +28,14 @@ const ApplicationsSelectionContainer = ({
 
 	const selectedAppsIndex = useMemo(
 		() =>
-			request.requests?.reduce((prev, curr) => {
-				const index = apps.findIndex(app => app.id === curr?.application?.id);
-				return { ...prev, [index]: true };
-			}, {}),
+			request.requests
+				?.filter(req => req.selected)
+				.reduce((prev, curr) => {
+					const index = apps?.findIndex(app => app?.id === curr?.application?.id);
+					return { ...prev, [index as number]: true };
+				}, {}),
 		[request.requests, apps]
 	);
-
-	useEffect(() => {
-		setIsNextActive((selectedRows && selectedRows.length > 0) || false);
-	}, [selectedRows, setIsNextActive]);
 
 	const columns: HeaderFunction<Application> = useCallback(
 		table => [
@@ -64,6 +65,21 @@ const ApplicationsSelectionContainer = ({
 			onChange={e => setFilters({ q: e.currentTarget?.value })}
 		/>
 	);
+	const handleNext = () => {
+		const newRequests = request.requests?.map(req => {
+			if (selectedRows?.find(app => app?.id === req.application?.id)) {
+				return { ...req, selected: !req.selected };
+			}
+			return req;
+		});
+		if (selectedRows?.length) {
+			setCurrentStep(1);
+			setRequestDraft(old => ({
+				...old,
+				requests: newRequests
+			}));
+		}
+	};
 
 	return (
 		<Grid fullWidth narrow className='space-y-5'>
@@ -86,6 +102,11 @@ const ApplicationsSelectionContainer = ({
 					setSelectedRows={setSelectedRows}
 					selectedRows={selectedAppsIndex as RowSelectionState}
 				/>
+			</FullWidthColumn>
+			<FullWidthColumn className='flex justify-end'>
+				<Button size='md' disabled={!selectedRows?.length} onClick={handleNext}>
+					{t('modals:next')}
+				</Button>
 			</FullWidthColumn>
 		</Grid>
 	);

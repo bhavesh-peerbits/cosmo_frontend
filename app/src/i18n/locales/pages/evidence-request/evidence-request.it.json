@@ -48,5 +48,10 @@
 	"file-link-dimension": "Dimensione",
 	"approvers": "Approvatori",
 	"reviewer": "Revisore",
-	"owner": "Proprietario"
+	"owner": "Proprietario",
+	"focal-point-delegates": "Delegati del Focal Point",
+	"approval": "Approvazione",
+	"upload": "Caricamento",
+	"request": "Richiesta",
+	"attachments-description": "In questa sezione è possibile effettuare l'upload di files. I files caricati non verranno salvati come bozza, quindi è importante caricarli esclusivamente in prossimità dell'invio della richiesta"
 }

@@ -1,12 +1,12 @@
-import { EvidenceRequestStepApi } from 'cosmo-api';
+import { EvidenceRequestStepApi, UserApi } from 'cosmo-api';
 import FileLink, { fromFileLinkApi } from './FileLink';
-import UserBase, { fromUserBaseApi } from './UserBase';
+import User, { fromUserApi, toUserApi } from './User';
 
 interface EvidenceRequestStep {
-	approvers?: UserBase[];
-	reviewer?: UserBase;
-	type?: 'REQUEST' | 'APPROVAL' | 'UPLOAD';
-	delegates?: UserBase[];
+	approvers?: User[];
+	reviewer?: User;
+	type: 'REQUEST' | 'APPROVAL' | 'UPLOAD';
+	delegates?: User[];
 	text: string;
 	stepInfo?: string;
 	completionDate?: Date;
@@ -20,14 +20,14 @@ export const fromEvidenceRequestStepApi = (
 ): EvidenceRequestStep => {
 	return {
 		approvers: evidenceRequestStep.approvers
-			? [...evidenceRequestStep.approvers].map(user => fromUserBaseApi(user))
+			? [...evidenceRequestStep.approvers].map(user => fromUserApi(user))
 			: [],
 		reviewer: evidenceRequestStep.reviewer
-			? fromUserBaseApi(evidenceRequestStep.reviewer)
+			? fromUserApi(evidenceRequestStep.reviewer)
 			: undefined,
 		type: evidenceRequestStep.type,
 		delegates: evidenceRequestStep.delegates
-			? [...evidenceRequestStep.delegates].map(user => fromUserBaseApi(user))
+			? [...evidenceRequestStep.delegates].map(user => fromUserApi(user))
 			: [],
 		text: evidenceRequestStep.text || '',
 		completionDate: evidenceRequestStep.completionDate
@@ -38,6 +38,26 @@ export const fromEvidenceRequestStepApi = (
 		fileLinks: evidenceRequestStep.fileLinks
 			? [...evidenceRequestStep.fileLinks].map(fl => fromFileLinkApi(fl))
 			: [],
+		stepOrder: evidenceRequestStep.stepOrder
+	};
+};
+
+export const toEvidenceRequestStepApi = (
+	evidenceRequestStep: EvidenceRequestStep
+): EvidenceRequestStepApi => {
+	return {
+		id: +evidenceRequestStep.id,
+		approvers: new Set<UserApi>(
+			evidenceRequestStep.approvers?.map(user => toUserApi(user))
+		),
+		reviewer: evidenceRequestStep.reviewer
+			? toUserApi(evidenceRequestStep.reviewer)
+			: undefined,
+		type: evidenceRequestStep.type,
+
+		delegates: evidenceRequestStep.delegates
+			? new Set<UserApi>(evidenceRequestStep.delegates.map(user => toUserApi(user)))
+			: undefined,
 		stepOrder: evidenceRequestStep.stepOrder
 	};
 };
