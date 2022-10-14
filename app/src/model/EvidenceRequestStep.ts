@@ -1,4 +1,5 @@
 import { EvidenceRequestStepApi } from 'cosmo-api';
+import FileLink, { fromFileLinkApi } from './FileLink';
 import UserBase, { fromUserBaseApi } from './UserBase';
 
 interface EvidenceRequestStep {
@@ -10,6 +11,8 @@ interface EvidenceRequestStep {
 	stepInfo?: string;
 	completionDate?: Date;
 	id: string;
+	fileLinks: FileLink[];
+	stepOrder: number;
 }
 
 export const fromEvidenceRequestStepApi = (
@@ -31,7 +34,11 @@ export const fromEvidenceRequestStepApi = (
 			? new Date(evidenceRequestStep.completionDate)
 			: undefined,
 		id: `${evidenceRequestStep.id}`,
-		stepInfo: evidenceRequestStep.stepInfo || ''
+		stepInfo: evidenceRequestStep.stepInfo || '',
+		fileLinks: evidenceRequestStep.fileLinks
+			? [...evidenceRequestStep.fileLinks].map(fl => fromFileLinkApi(fl))
+			: [],
+		stepOrder: evidenceRequestStep.stepOrder
 	};
 };
 

@@ -16,15 +16,15 @@ import {
 	CampaignDtoTypeEnum,
 	CampaignReviewDto,
 	Configuration,
-	DraftRequestDto,
+	DraftDto,
 	EvidenceRequestControllerApi,
-	EvidenceRequestDraftRequestDto,
-	EvidenceRequestRequestDto,
+	EvidenceRequestDraftDto,
+	EvidenceRequestDto,
 	FileLinkDto,
 	GenerateReportControllerApi,
 	IdentityProviderDto,
 	NarrativeReviewControllerApi,
-	NewDraftRequestDto,
+	NewDraftDto,
 	PairListAnswerDtoListString,
 	ProcedureAppInstanceDto,
 	ProcedureControllerApi,
@@ -34,7 +34,7 @@ import {
 	ReviewDtoStatusEnum,
 	ReviewerCampaignControllerApi,
 	ReviewerControllerApi,
-	StepResponseDto,
+	StepDto,
 	UserAdminControllerApi,
 	UserBase,
 	UserControllerApi,
@@ -82,9 +82,9 @@ export type AnswerApi = AnswerDto;
 export type AnswerApiTypeEnum = AnswerDtoAnswerTypeEnum;
 export type FileAnswerStatusApi = PairListAnswerDtoListString;
 export type ApplicationCampaignApi = ApplicationCampaignDto;
-export type ApplicationStepRequestApi = EvidenceRequestDraftRequestDto;
-export type EvidenceRequestDraftApi = DraftRequestDto;
-export type EvidenceRequestApi = EvidenceRequestRequestDto;
-export type EvidenceRequestStepApi = StepResponseDto;
-export type NewDraftParameterApi = NewDraftRequestDto;
+export type ApplicationStepRequestApi = EvidenceRequestDraftDto;
+export type EvidenceRequestDraftApi = DraftDto;
+export type EvidenceRequestApi = EvidenceRequestDto;
+export type EvidenceRequestStepApi = StepDto;
+export type NewDraftParameterApi = NewDraftDto;
 export type FileLinkApi = FileLinkDto;

@@ -48,10 +48,4 @@ export interface FileLinkDto {
 	 * @memberof FileLinkDto
 	 */
 	dimension?: number;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof FileLinkDto
-	 */
-	expirationTime?: string;
 }

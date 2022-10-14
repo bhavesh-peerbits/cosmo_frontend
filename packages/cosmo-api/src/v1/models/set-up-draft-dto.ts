@@ -12,32 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { Application } from './application';
-import { User } from './user';
-import { UserApplicationKey } from './user-application-key';
-
 /**
  *
  * @export
- * @interface UserApplication
+ * @interface SetUpDraftDto
  */
-export interface UserApplication {
+export interface SetUpDraftDto {
 	/**
 	 *
-	 * @type {UserApplicationKey}
-	 * @memberof UserApplication
+	 * @type {string}
+	 * @memberof SetUpDraftDto
 	 */
-	userApplicationKey?: UserApplicationKey;
+	name?: string;
 	/**
 	 *
-	 * @type {User}
-	 * @memberof UserApplication
+	 * @type {string}
+	 * @memberof SetUpDraftDto
 	 */
-	user?: User;
+	workflowname: string;
 	/**
 	 *
-	 * @type {Application}
-	 * @memberof UserApplication
+	 * @type {string}
+	 * @memberof SetUpDraftDto
 	 */
-	application?: Application;
+	requestType: string;
 }

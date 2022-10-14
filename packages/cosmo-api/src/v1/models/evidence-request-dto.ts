@@ -13,115 +13,108 @@
  */
 
 import { ApplicationDto } from './application-dto';
-import { FileLinkDto } from './file-link-dto';
-import { StepResponseDto } from './step-response-dto';
+import { StepDto } from './step-dto';
 import { UserDto } from './user-dto';
 
 /**
  *
  * @export
- * @interface EvidenceRequestResponseDto
+ * @interface EvidenceRequestDto
  */
-export interface EvidenceRequestResponseDto {
+export interface EvidenceRequestDto {
 	/**
 	 *
 	 * @type {number}
-	 * @memberof EvidenceRequestResponseDto
+	 * @memberof EvidenceRequestDto
 	 */
 	id: number;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof EvidenceRequestResponseDto
+	 * @memberof EvidenceRequestDto
 	 */
 	name: string;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof EvidenceRequestResponseDto
+	 * @memberof EvidenceRequestDto
 	 */
-	code?: string;
+	code: string;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof EvidenceRequestResponseDto
+	 * @memberof EvidenceRequestDto
 	 */
 	type?: string;
 	/**
 	 *
 	 * @type {ApplicationDto}
-	 * @memberof EvidenceRequestResponseDto
+	 * @memberof EvidenceRequestDto
 	 */
 	application: ApplicationDto;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof EvidenceRequestResponseDto
+	 * @memberof EvidenceRequestDto
 	 */
-	status: EvidenceRequestResponseDtoStatusEnum;
+	status: EvidenceRequestDtoStatusEnum;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof EvidenceRequestResponseDto
+	 * @memberof EvidenceRequestDto
 	 */
 	workflowName: string;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof EvidenceRequestResponseDto
+	 * @memberof EvidenceRequestDto
 	 */
 	workflowType?: string;
 	/**
 	 *
 	 * @type {number}
-	 * @memberof EvidenceRequestResponseDto
+	 * @memberof EvidenceRequestDto
 	 */
 	currentStep: number;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof EvidenceRequestResponseDto
+	 * @memberof EvidenceRequestDto
 	 */
 	dueDate: string;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof EvidenceRequestResponseDto
+	 * @memberof EvidenceRequestDto
 	 */
 	startDate: string;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof EvidenceRequestResponseDto
+	 * @memberof EvidenceRequestDto
 	 */
 	completionDate?: string;
 	/**
 	 *
-	 * @type {Array<StepResponseDto>}
-	 * @memberof EvidenceRequestResponseDto
+	 * @type {Array<StepDto>}
+	 * @memberof EvidenceRequestDto
 	 */
-	steps?: Array<StepResponseDto>;
-	/**
-	 *
-	 * @type {Set<FileLinkDto>}
-	 * @memberof EvidenceRequestResponseDto
-	 */
-	fileLinks?: Set<FileLinkDto>;
+	steps?: Array<StepDto>;
 	/**
 	 *
 	 * @type {Set<UserDto>}
-	 * @memberof EvidenceRequestResponseDto
+	 * @memberof EvidenceRequestDto
 	 */
 	contributors?: Set<UserDto>;
 	/**
 	 *
 	 * @type {UserDto}
-	 * @memberof EvidenceRequestResponseDto
+	 * @memberof EvidenceRequestDto
 	 */
-	creator?: UserDto;
+	creator: UserDto;
 }
 
-export const EvidenceRequestResponseDtoStatusEnum = {
+export const EvidenceRequestDtoStatusEnum = {
 	Draft: 'DRAFT',
 	InProgress: 'IN_PROGRESS',
 	Rejected: 'REJECTED',
@@ -129,5 +122,5 @@ export const EvidenceRequestResponseDtoStatusEnum = {
 	Terminated: 'TERMINATED'
 } as const;
 
-export type EvidenceRequestResponseDtoStatusEnum =
-	typeof EvidenceRequestResponseDtoStatusEnum[keyof typeof EvidenceRequestResponseDtoStatusEnum];
+export type EvidenceRequestDtoStatusEnum =
+	typeof EvidenceRequestDtoStatusEnum[keyof typeof EvidenceRequestDtoStatusEnum];

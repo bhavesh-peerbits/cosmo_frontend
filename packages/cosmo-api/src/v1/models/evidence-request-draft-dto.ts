@@ -13,36 +13,36 @@
  */
 
 import { ApplicationDto } from './application-dto';
-import { StepRequestDto } from './step-request-dto';
+import { StepDto } from './step-dto';
 
 /**
  *
  * @export
- * @interface EvidenceRequestDraftRequestDto
+ * @interface EvidenceRequestDraftDto
  */
-export interface EvidenceRequestDraftRequestDto {
+export interface EvidenceRequestDraftDto {
 	/**
 	 *
 	 * @type {ApplicationDto}
-	 * @memberof EvidenceRequestDraftRequestDto
+	 * @memberof EvidenceRequestDraftDto
 	 */
-	application?: ApplicationDto;
+	application: ApplicationDto;
 	/**
 	 *
-	 * @type {Array<StepRequestDto>}
-	 * @memberof EvidenceRequestDraftRequestDto
+	 * @type {Array<StepDto>}
+	 * @memberof EvidenceRequestDraftDto
 	 */
-	steps?: Array<StepRequestDto>;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof EvidenceRequestDraftRequestDto
-	 */
-	selected?: boolean;
+	steps: Array<StepDto>;
 	/**
 	 *
 	 * @type {number}
-	 * @memberof EvidenceRequestDraftRequestDto
+	 * @memberof EvidenceRequestDraftDto
 	 */
 	id?: number;
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof EvidenceRequestDraftDto
+	 */
+	selected: boolean;
 }

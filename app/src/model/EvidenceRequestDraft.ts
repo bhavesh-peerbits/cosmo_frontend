@@ -7,7 +7,7 @@ import ApplicationStepRequest, {
 interface EvidenceRequestDraft {
 	id: string;
 	requests?: ApplicationStepRequest[];
-	suggestedText?: string;
+	text?: string;
 	collaborators?: User[];
 	workflowType?: string;
 	type?: string;
@@ -29,7 +29,7 @@ export const fromEvidenceRequestDraftApi = (
 					fromUserApi(collaborator)
 			  )
 			: [],
-		suggestedText: evidenceRequestDraft.suggestedText || '',
+		text: evidenceRequestDraft.text || '',
 		workflowType: evidenceRequestDraft.workflowType || '',
 		type: evidenceRequestDraft.type,
 		name: evidenceRequestDraft.name

@@ -15,19 +15,19 @@
 /**
  *
  * @export
- * @interface UserApplicationKey
+ * @interface NewDraftDto
  */
-export interface UserApplicationKey {
+export interface NewDraftDto {
 	/**
 	 *
-	 * @type {string}
-	 * @memberof UserApplicationKey
+	 * @type {Array<string>}
+	 * @memberof NewDraftDto
 	 */
-	userId?: string;
+	workflowName: Array<string>;
 	/**
 	 *
-	 * @type {number}
-	 * @memberof UserApplicationKey
+	 * @type {Array<string>}
+	 * @memberof NewDraftDto
 	 */
-	applicationId?: number;
+	requestType: Array<string>;
 }

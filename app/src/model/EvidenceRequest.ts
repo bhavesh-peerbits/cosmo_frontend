@@ -2,7 +2,6 @@ import { EvidenceRequestApi } from 'cosmo-api';
 import Application, { fromApplicationApi } from './Application';
 import { EvidenceRequestStatus } from './EvidenceRequestStatus';
 import EvidenceRequestStep, { fromEvidenceRequestStepApi } from './EvidenceRequestStep';
-import FileLink, { fromFileLinkApi } from './FileLink';
 import UserBase, { fromUserBaseApi } from './UserBase';
 
 interface EvidenceRequest {
@@ -20,7 +19,6 @@ interface EvidenceRequest {
 	startDate?: Date;
 	creator: UserBase;
 	steps: EvidenceRequestStep[];
-	fileLinks?: FileLink[];
 	contributors: UserBase[];
 }
 
@@ -38,8 +36,8 @@ export const fromEvidenceRequestApi = (
 		status: evidenceRequest.status,
 		workflowName: evidenceRequest.workflowName,
 		workflowType: evidenceRequest.workflowType,
-		currentStep: evidenceRequest.currentStep ? evidenceRequest.currentStep : 1,
-		dueDate: evidenceRequest.dueDate ? new Date(evidenceRequest.dueDate) : new Date(),
+		currentStep: evidenceRequest.currentStep,
+		dueDate: new Date(evidenceRequest.dueDate),
 		startDate: evidenceRequest.startDate
 			? new Date(evidenceRequest.startDate)
 			: undefined,
@@ -49,13 +47,10 @@ export const fromEvidenceRequestApi = (
 		contributors: evidenceRequest.contributors
 			? [...evidenceRequest.contributors].map(contributor => fromUserBaseApi(contributor))
 			: [],
-		creator: fromUserBaseApi(evidenceRequest.creator!),
+		creator: fromUserBaseApi(evidenceRequest.creator),
 		completionDate: evidenceRequest.completionDate
 			? new Date(evidenceRequest.completionDate)
-			: undefined,
-		fileLinks: evidenceRequest.fileLinks
-			? [...evidenceRequest.fileLinks].map(fl => fromFileLinkApi(fl))
-			: []
+			: undefined
 	};
 };
 

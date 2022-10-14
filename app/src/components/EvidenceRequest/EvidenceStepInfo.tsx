@@ -6,29 +6,26 @@ import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { ChevronDown, ChevronUp } from '@carbon/react/icons';
-import FileLink from '@model/FileLink';
+import UserBase from '@model/UserBase';
 import FileLinkTable from './FileLinkTable';
 
 const EvidenceStepInfo = ({
 	steps,
 	currentStep,
-	files
+	owner
 }: {
 	steps: EvidenceRequestStep[];
 	currentStep: number;
-	files: FileLink[];
+	owner: UserBase;
 }) => {
 	const { t } = useTranslation('evidenceRequest');
-	let defaultShowMore = {};
+	let defaultShowMore: Record<number, boolean> = {};
 	steps.forEach((_, i) => {
 		defaultShowMore = { ...defaultShowMore, [i]: false };
 	});
 	const [showMore, setShowMore] = useState(defaultShowMore);
 	return (
-		<TableOfContents
-			// stickyOffset={buttonRef.current?.getBoundingClientRect()?.height || 0}
-			tocStickyOffset={146}
-		>
+		<TableOfContents stickyOffset={100} tocStickyOffset={146}>
 			<Grid fullWidth className='h-full'>
 				<FullWidthColumn className='space-y-5 pt-4'>
 					{steps
@@ -60,23 +57,21 @@ const EvidenceStepInfo = ({
 												)}
 												{step.approvers?.length ? (
 													<p className='col-span-3 mt-5'>
-														{`Approvers : ${step.approvers
+														{`${t('approvers')} : ${step.approvers
 															.map(app => app.displayName)
 															.join(', ')}`}
 													</p>
 												) : step.reviewer ? (
-													<p className='col-span-3 mt-5'>{`Reviewer : ${step.reviewer.displayName}`}</p>
-												) : step.stepInfo &&
-												  JSON.parse(step.stepInfo).publicComment &&
-												  !showMore[index as keyof typeof showMore] ? (
-													<p className='col-span-3 mt-5 inline line-clamp-1 '>{`Public Comment : ${
-														JSON.parse(step.stepInfo).publicComment
+													<p className='col-span-3 mt-5'>{`${t('reviewer')} : ${
+														step.reviewer.displayName
 													}`}</p>
-												) : (
-													<p className='col-span-3' />
-												)}
+												) : owner ? (
+													<p className='col-span-3 mt-5'>{`${t('owner')} : ${
+														owner.displayName
+													}`}</p>
+												) : null}
 												<div className='mt-3 justify-self-end'>
-													{!showMore[index as keyof typeof showMore] ? (
+													{!showMore[index] ? (
 														<Button
 															size='sm'
 															kind='ghost'
@@ -96,9 +91,9 @@ const EvidenceStepInfo = ({
 														/>
 													)}
 												</div>
-												{showMore[index as keyof typeof showMore] ? (
+												{showMore[index] ? (
 													step.stepInfo && JSON.parse(step.stepInfo).publicComment ? (
-														<p className='col-span-4'>
+														<p className='col-span-4 mt-5'>
 															{`${t('public-comment')} :`}
 															<br />
 															{`${
@@ -109,10 +104,11 @@ const EvidenceStepInfo = ({
 														</p>
 													) : null
 												) : null}
-												{showMore[index as keyof typeof showMore] ? (
-													files.length ? (
-														<div className='col-span-4'>
-															<FileLinkTable files={files} />
+												{showMore[index] ? (
+													step.fileLinks.length ? (
+														<div className='col-span-4 mt-5'>
+															<p>{t('attachments')} :</p>
+															<FileLinkTable files={step.fileLinks} />
 														</div>
 													) : null
 												) : null}

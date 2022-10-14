@@ -45,5 +45,8 @@
 	"reminder-description": "",
 	"file-link-name": "File Name",
 	"file-link-type": "Type",
-	"file-link-dimension": "Dimension"
+	"file-link-dimension": "Dimension",
+	"approvers": "Approvers",
+	"reviewer": "Reviewer",
+	"owner": "Owner"
 }

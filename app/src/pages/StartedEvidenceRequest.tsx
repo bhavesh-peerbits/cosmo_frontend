@@ -85,7 +85,7 @@ const StartedEvidenceRequest = () => {
 							<EvidenceStepInfo
 								steps={data.steps}
 								currentStep={data.currentStep}
-								files={data.fileLinks || []}
+								owner={data.creator}
 							/>
 						</TabPanel>
 					</TabPanels>

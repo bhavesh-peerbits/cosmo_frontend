@@ -12,79 +12,80 @@
  * Do not edit the class manually.
  */
 
-import { EvidenceRequestDraftResponseDto } from './evidence-request-draft-response-dto';
+import { EvidenceRequestDraftDto } from './evidence-request-draft-dto';
+import { FileLinkDto } from './file-link-dto';
 import { UserDto } from './user-dto';
 
 /**
  *
  * @export
- * @interface DraftResponseDto
+ * @interface DraftDto
  */
-export interface DraftResponseDto {
+export interface DraftDto {
 	/**
 	 *
-	 * @type {Array<EvidenceRequestDraftResponseDto>}
-	 * @memberof DraftResponseDto
+	 * @type {Array<EvidenceRequestDraftDto>}
+	 * @memberof DraftDto
 	 */
-	requests?: Array<EvidenceRequestDraftResponseDto>;
+	requests?: Array<EvidenceRequestDraftDto>;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof DraftResponseDto
+	 * @memberof DraftDto
 	 */
 	text?: string;
 	/**
 	 *
-	 * @type {Array<UserDto>}
-	 * @memberof DraftResponseDto
+	 * @type {Set<UserDto>}
+	 * @memberof DraftDto
 	 */
-	collaborators?: Array<UserDto>;
+	collaborators?: Set<UserDto>;
 	/**
 	 *
 	 * @type {UserDto}
-	 * @memberof DraftResponseDto
+	 * @memberof DraftDto
 	 */
 	creator?: UserDto;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof DraftResponseDto
+	 * @memberof DraftDto
 	 */
 	dueDate: string;
 	/**
 	 *
-	 * @type {Array<any>}
-	 * @memberof DraftResponseDto
+	 * @type {Array<FileLinkDto>}
+	 * @memberof DraftDto
 	 */
-	files?: Array<any>;
+	files?: Array<FileLinkDto>;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof DraftResponseDto
+	 * @memberof DraftDto
 	 */
 	workflowType: string;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof DraftResponseDto
+	 * @memberof DraftDto
 	 */
 	type?: string;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof DraftResponseDto
+	 * @memberof DraftDto
 	 */
 	name?: string;
 	/**
 	 *
 	 * @type {number}
-	 * @memberof DraftResponseDto
+	 * @memberof DraftDto
 	 */
 	id?: number;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof DraftResponseDto
+	 * @memberof DraftDto
 	 */
 	stepInfo?: string;
 }
