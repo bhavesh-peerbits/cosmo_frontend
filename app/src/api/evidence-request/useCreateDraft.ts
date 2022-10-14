@@ -12,7 +12,7 @@ interface CreateDraftParams {
 
 const createDraft = ({ draftData }: CreateDraftParams) => {
 	return api.evidenceRequest
-		.createDraft({ setUpDraftResponseDto: draftData })
+		.createDraft({ setUpDraftDto: draftData })
 		.then(({ data }) => data.valueOf());
 };
 
