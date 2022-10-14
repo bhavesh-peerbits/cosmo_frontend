@@ -90,6 +90,36 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "SOFT"\
         }]\
       ]],\
+      ["@aizoon/carbon__react", [\
+        ["npm:1.0.17", {\
+          "packageLocation": "./.yarn/cache/@aizoon-carbon__react-npm-1.0.17-3922a550a3-1b5bc04088.zip/node_modules/@aizoon/carbon__react/",\
+          "packageDependencies": [\
+            ["@aizoon/carbon__react", "npm:1.0.17"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.17", {\
+          "packageLocation": "./.yarn/__virtual__/@aizoon-carbon__react-virtual-02d7530ef9/0/cache/@aizoon-carbon__react-npm-1.0.17-3922a550a3-1b5bc04088.zip/node_modules/@aizoon/carbon__react/",\
+          "packageDependencies": [\
+            ["@aizoon/carbon__react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.17"],\
+            ["@types/react", "npm:18.0.12"],\
+            ["@types/react-dom", "npm:18.0.5"],\
+            ["@types/react-router-dom", null],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:18.2.0"],\
+            ["react-router-dom", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:6.3.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react-router-dom",\
+            "@types/react",\
+            "react-dom",\
+            "react-router-dom",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@alloc/quick-lru", [\
         ["npm:5.2.0", {\
           "packageLocation": "./.yarn/cache/@alloc-quick-lru-npm-5.2.0-eb83517088-bdc35758b5.zip/node_modules/@alloc/quick-lru/",\
@@ -12138,36 +12168,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["@types/carbon__react", [\
-        ["npm:1.0.12", {\
-          "packageLocation": "./.yarn/cache/@types-carbon__react-npm-1.0.12-6c157114dc-2989d9975e.zip/node_modules/@types/carbon__react/",\
-          "packageDependencies": [\
-            ["@types/carbon__react", "npm:1.0.12"]\
-          ],\
-          "linkType": "SOFT"\
-        }],\
-        ["virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.12", {\
-          "packageLocation": "./.yarn/__virtual__/@types-carbon__react-virtual-3216631ffe/0/cache/@types-carbon__react-npm-1.0.12-6c157114dc-2989d9975e.zip/node_modules/@types/carbon__react/",\
-          "packageDependencies": [\
-            ["@types/carbon__react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.12"],\
-            ["@types/react", "npm:18.0.12"],\
-            ["@types/react-dom", "npm:18.0.5"],\
-            ["@types/react-router-dom", null],\
-            ["react", "npm:18.2.0"],\
-            ["react-dom", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:18.2.0"],\
-            ["react-router-dom", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:6.3.0"]\
-          ],\
-          "packagePeers": [\
-            "@types/react-dom",\
-            "@types/react-router-dom",\
-            "@types/react",\
-            "react-dom",\
-            "react-router-dom",\
-            "react"\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["@types/chai", [\
         ["npm:4.3.0", {\
           "packageLocation": "./.yarn/cache/@types-chai-npm-4.3.0-42bcda9bbc-3e393e0942.zip/node_modules/@types/chai/",\
@@ -14709,7 +14709,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/c8", null],\
             ["@types/carbon__colors", "npm:10.31.0"],\
             ["@types/carbon__layout", "npm:0.0.1"],\
-            ["@types/carbon__react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.12"],\
+            ["@types/carbon__react", [\
+              "@aizoon/carbon__react",\
+              "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.17"\
+            ]],\
             ["@types/css-mediaquery", "npm:0.1.1"],\
             ["@types/eslint", null],\
             ["@types/papaparse", "npm:5.3.2"],\
@@ -14820,7 +14823,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@tiptap/starter-kit", "npm:2.0.0-beta.185"],\
             ["@types/carbon__colors", "npm:10.31.0"],\
             ["@types/carbon__layout", "npm:0.0.1"],\
-            ["@types/carbon__react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.12"],\
+            ["@types/carbon__react", [\
+              "@aizoon/carbon__react",\
+              "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.17"\
+            ]],\
             ["@types/css-mediaquery", "npm:0.1.1"],\
             ["@types/papaparse", "npm:5.3.2"],\
             ["@types/react", "npm:18.0.12"],\
