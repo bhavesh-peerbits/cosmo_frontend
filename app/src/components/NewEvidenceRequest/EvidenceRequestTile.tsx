@@ -13,9 +13,9 @@ const EvidenceRequestTile = ({ request }: EvidenceRequestTileProps) => {
 
 	return (
 		<Layer level={1}>
-			<ClickableTile onClick={() => navigate(request?.id ?? '')}>
+			<ClickableTile onClick={() => navigate(request?.id ?? '')} className='mb-5'>
 				<div className='space-y-4'>
-					<p className='line-clamp-1 text-heading-2'>{request?.name}</p>
+					<p className='block truncate line-clamp-1 text-heading-2'>{request?.name}</p>
 					<span className='mt-2 flex space-x-2 '>
 						<p className='text-text-secondary text-body-short-1 '>
 							{t('evidenceRequest:request-type')}:
@@ -26,7 +26,7 @@ const EvidenceRequestTile = ({ request }: EvidenceRequestTileProps) => {
 						<p className='text-text-secondary text-body-short-1 '>
 							{t('evidenceRequest:workflow-type')}:
 						</p>
-						<p className='text-body-short-1'>{request?.workflowType}</p>
+						<p className='block truncate text-body-short-1'>{request?.workflowType}</p>
 					</span>
 					<div>
 						<span className='mt-2 flex  space-x-2 '>

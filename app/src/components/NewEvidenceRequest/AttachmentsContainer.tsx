@@ -7,6 +7,7 @@ import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 type FormData = {
 	file: File[];
@@ -20,6 +21,7 @@ const AttachmentsContainer = ({
 	setCurrentStep,
 	requestDraft
 }: AttachmentsContainerProps) => {
+	const navigate = useNavigate();
 	const { t } = useTranslation(['evidenceRequest', 'modals']);
 	const { mutate, isLoading, isError, isSuccess, error } = useSaveDraft();
 	const { control } = useForm<FormData>({
@@ -27,7 +29,11 @@ const AttachmentsContainer = ({
 		criteriaMode: 'all'
 	});
 	const saveDraft = () => {
-		return mutate(requestDraft);
+		mutate(requestDraft, {
+			onSuccess: () => {
+				navigate('/new-evidence-request');
+			}
+		});
 	};
 
 	return (

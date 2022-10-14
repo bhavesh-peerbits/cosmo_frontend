@@ -1,6 +1,5 @@
 import { Grid, ProgressStep, ProgressIndicator, Layer, Tile } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
-import Application from '@model/Application';
 import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -64,7 +63,7 @@ const NewEvidenceRequestFlowContainer = ({
 						request={requestDraft}
 						setCurrentStep={setCurrentStep}
 						setRequestDraft={setRequestDraft}
-						apps={request?.requests?.map(req => req.application as Application) || []} // TODO remove controls when be controls are ready
+						apps={request?.requests?.map(req => req.application) || []}
 					/>
 				);
 		}

@@ -37,7 +37,7 @@ export const toEvidenceRequestStepApi = (
 	return {
 		id: +evidenceRequestStep.id,
 		// @ts-ignore
-		approver: evidenceRequestStep.approver?.map(user => toUserApi(user)),
+		approvers: evidenceRequestStep.approvers?.map(user => toUserApi(user)),
 		reviewer: evidenceRequestStep.reviewer
 			? toUserApi(evidenceRequestStep.reviewer)
 			: undefined,
