@@ -1,5 +1,6 @@
 import ApiError from '@api/ApiError';
 import useCreateDraft from '@api/evidence-request/useCreateDraft';
+import useGetAllUniqueEvidenceNames from '@api/evidence-request/useGetAllUniqueEvidenceNames';
 import useGetNewDraftParameter from '@api/evidence-request/useGetNewDraftParameter';
 import {
 	ComposedModal,
@@ -34,9 +35,9 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 		'applicationInfo',
 		'userSelect'
 	]);
-	const existingRequestNames: string[] = []; // TODO da modificare con l'endpoint dei nomi univoci
 	const { mutate, isError, error } = useCreateDraft();
 	const { data: parameters } = useGetNewDraftParameter();
+	const { data: requestNames } = useGetAllUniqueEvidenceNames();
 
 	const {
 		register,
@@ -87,7 +88,7 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 						invalid={Boolean(errors.requestName)}
 						{...register('requestName', {
 							validate: name =>
-								!existingRequestNames.includes(name.toLowerCase()) ||
+								!requestNames?.includes(name.toLowerCase()) ||
 								t('applicationInfo:name-exists')
 						})}
 					/>
