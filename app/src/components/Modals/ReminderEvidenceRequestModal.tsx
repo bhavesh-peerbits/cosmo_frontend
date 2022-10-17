@@ -1,3 +1,4 @@
+import useSendReminder from '@api/evidence-request/useSendReminder';
 import {
 	Button,
 	ComposedModal,
@@ -5,17 +6,27 @@ import {
 	ModalFooter,
 	ModalHeader
 } from '@carbon/react';
+import EvidenceRequest from '@model/EvidenceRequest';
 import { useTranslation } from 'react-i18next';
 
 type CloseModalProps = {
 	isOpen: boolean;
 	setIsOpen: (value: boolean) => void;
+	evidenceRequest: EvidenceRequest;
 };
 
-const ReminderEvidenceRequestModal = ({ isOpen, setIsOpen }: CloseModalProps) => {
+const ReminderEvidenceRequestModal = ({
+	isOpen,
+	setIsOpen,
+	evidenceRequest
+}: CloseModalProps) => {
 	const { t } = useTranslation(['modals', 'evidenceRequest']);
 	const cleanUp = () => {
 		setIsOpen(false);
+	};
+	const { mutate } = useSendReminder();
+	const handleSendReminder = () => {
+		mutate({ evidenceRequest }, { onSuccess: () => cleanUp() });
 	};
 
 	return (
@@ -29,7 +40,9 @@ const ReminderEvidenceRequestModal = ({ isOpen, setIsOpen }: CloseModalProps) =>
 				<Button kind='secondary' onClick={cleanUp}>
 					{t('modals:cancel')}
 				</Button>
-				<Button kind='danger'>{t('evidenceRequest:send-reminder')}</Button>
+				<Button kind='danger' onClick={handleSendReminder}>
+					{t('evidenceRequest:send-reminder')}
+				</Button>
 			</ModalFooter>
 		</ComposedModal>
 	);

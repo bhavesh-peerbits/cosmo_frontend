@@ -5,6 +5,11 @@ import ApplicationStepRequest, {
 	toApplicationStepRequestApi
 } from './ApplicationStepRequest';
 
+export type StepInfoType = {
+	publicComment: string | undefined;
+	privateComment: string | undefined;
+};
+
 interface EvidenceRequestDraft {
 	id: string;
 	creator: User;
@@ -14,7 +19,7 @@ interface EvidenceRequestDraft {
 	workflowType: string;
 	type: string;
 	name?: string;
-	stepInfo?: { publicComment: string; privateComment: string };
+	stepInfo?: { publicComment: string | undefined; privateComment: string | undefined };
 	dueDate?: Date;
 }
 
@@ -39,8 +44,8 @@ export const fromEvidenceRequestDraftApi = (
 		type: evidenceRequestDraftApi.type,
 		name: evidenceRequestDraftApi.name,
 		stepInfo: evidenceRequestDraftApi.stepInfo
-			? JSON.parse(evidenceRequestDraftApi.stepInfo)
-			: undefined
+			? (evidenceRequestDraftApi.stepInfo as StepInfoType)
+			: ({} as StepInfoType)
 	};
 };
 
@@ -64,7 +69,7 @@ export const toEvidenceRequestDraftApi = (
 		workflowType: evidenceRequestDraft.workflowType,
 		type: evidenceRequestDraft.type,
 		name: evidenceRequestDraft.name,
-		stepInfo: JSON.stringify(evidenceRequestDraft.stepInfo),
+		stepInfo: evidenceRequestDraft.stepInfo,
 		dueDate: evidenceRequestDraft.dueDate
 			? evidenceRequestDraft.dueDate?.toISOString()
 			: undefined

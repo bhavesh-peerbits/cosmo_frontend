@@ -93,6 +93,7 @@ const StartedEvidenceRequest = () => {
 				<ReminderEvidenceRequestModal
 					isOpen={isReminderModalOpen}
 					setIsOpen={setIsReminderModalOpen}
+					evidenceRequest={data}
 				/>
 				<CloseEvidenceRequestModal
 					isOpen={isCloseModalOpen}

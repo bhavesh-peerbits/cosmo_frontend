@@ -1,25 +1,29 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { EvidenceRequestApi } from 'cosmo-api';
-import Application, { fromApplicationApi } from './Application';
+import Application, { fromApplicationApi, toApplicationApi } from './Application';
 import { EvidenceRequestStatus } from './EvidenceRequestStatus';
-import EvidenceRequestStep, { fromEvidenceRequestStepApi } from './EvidenceRequestStep';
-import UserBase, { fromUserBaseApi } from './UserBase';
+import EvidenceRequestStep, {
+	fromEvidenceRequestStepApi,
+	toEvidenceRequestStepApi
+} from './EvidenceRequestStep';
+import User, { fromUserApi, toUserApi } from './User';
 
 interface EvidenceRequest {
 	id: string;
 	name?: string;
 	code: string;
 	type?: string;
-	application?: Application;
-	status?: EvidenceRequestStatus;
+	application: Application;
+	status: EvidenceRequestStatus;
 	workflowName?: string;
 	workflowType?: string;
 	currentStep: number;
 	completionDate?: Date;
 	dueDate: Date;
 	startDate?: Date;
-	creator: UserBase;
+	creator: User;
 	steps: EvidenceRequestStep[];
-	contributors: UserBase[];
+	contributors: User[];
 }
 
 export const fromEvidenceRequestApi = (
@@ -30,9 +34,7 @@ export const fromEvidenceRequestApi = (
 		name: evidenceRequest.name,
 		code: evidenceRequest.code || '',
 		type: evidenceRequest.type,
-		application: evidenceRequest.application
-			? fromApplicationApi(evidenceRequest.application)
-			: undefined,
+		application: fromApplicationApi(evidenceRequest.application),
 		status: evidenceRequest.status,
 		workflowName: evidenceRequest.workflowName,
 		workflowType: evidenceRequest.workflowType,
@@ -45,11 +47,40 @@ export const fromEvidenceRequestApi = (
 			? [...evidenceRequest.steps].map(step => fromEvidenceRequestStepApi(step))
 			: [],
 		contributors: evidenceRequest.contributors
-			? [...evidenceRequest.contributors].map(contributor => fromUserBaseApi(contributor))
+			? [...evidenceRequest.contributors].map(contributor => fromUserApi(contributor))
 			: [],
-		creator: fromUserBaseApi(evidenceRequest.creator),
+		creator: fromUserApi(evidenceRequest.creator),
 		completionDate: evidenceRequest.completionDate
 			? new Date(evidenceRequest.completionDate)
+			: undefined
+	};
+};
+
+export const toEvidenceRequestApi = (
+	evidenceRequest: EvidenceRequest
+): EvidenceRequestApi => {
+	return {
+		id: +evidenceRequest.id,
+		name: evidenceRequest.name || '',
+		code: evidenceRequest.code || '',
+		type: evidenceRequest.type,
+		application: toApplicationApi(evidenceRequest.application),
+		status: evidenceRequest.status,
+		workflowName: evidenceRequest.workflowName || '',
+		workflowType: evidenceRequest.workflowType,
+		currentStep: evidenceRequest.currentStep,
+		dueDate: evidenceRequest.dueDate.toISOString(),
+		startDate: evidenceRequest.startDate ? evidenceRequest.startDate.toISOString() : '',
+		steps: evidenceRequest.steps
+			? [...evidenceRequest.steps].map(step => toEvidenceRequestStepApi(step))
+			: [],
+		// @ts-ignore
+		contributors: evidenceRequest.contributors
+			? evidenceRequest.contributors.map(user => toUserApi(user))
+			: undefined,
+		creator: toUserApi(evidenceRequest.creator),
+		completionDate: evidenceRequest.completionDate
+			? evidenceRequest.completionDate.toISOString()
 			: undefined
 	};
 };

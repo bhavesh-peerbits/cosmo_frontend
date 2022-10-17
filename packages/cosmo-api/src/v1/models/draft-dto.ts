@@ -84,8 +84,8 @@ export interface DraftDto {
 	id?: number;
 	/**
 	 *
-	 * @type {string}
+	 * @type {{ [key: string]: string | undefined; }}
 	 * @memberof DraftDto
 	 */
-	stepInfo?: string;
+	stepInfo?: { [key: string]: string | undefined };
 }

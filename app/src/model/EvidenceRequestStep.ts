@@ -1,6 +1,12 @@
-import { EvidenceRequestStepApi, UserApi } from 'cosmo-api';
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { EvidenceRequestStepApi } from 'cosmo-api';
 import FileLink, { fromFileLinkApi } from './FileLink';
 import User, { fromUserApi, toUserApi } from './User';
+
+export type StepInfoType = {
+	publicComment: string | undefined;
+	privateComment: string | undefined;
+};
 
 interface EvidenceRequestStep {
 	approvers?: User[];
@@ -8,7 +14,7 @@ interface EvidenceRequestStep {
 	type: 'REQUEST' | 'APPROVAL' | 'UPLOAD';
 	delegates?: User[];
 	text: string;
-	stepInfo?: string;
+	stepInfo?: StepInfoType;
 	completionDate?: Date;
 	id: string;
 	fileLinks: FileLink[];
@@ -34,7 +40,7 @@ export const fromEvidenceRequestStepApi = (
 			? new Date(evidenceRequestStep.completionDate)
 			: undefined,
 		id: `${evidenceRequestStep.id}`,
-		stepInfo: evidenceRequestStep.stepInfo || '',
+		stepInfo: (evidenceRequestStep.stepInfo as StepInfoType) || ({} as StepInfoType),
 		fileLinks: evidenceRequestStep.fileLinks
 			? [...evidenceRequestStep.fileLinks].map(fl => fromFileLinkApi(fl))
 			: [],
@@ -47,18 +53,22 @@ export const toEvidenceRequestStepApi = (
 ): EvidenceRequestStepApi => {
 	return {
 		id: +evidenceRequestStep.id,
-		approvers: new Set<UserApi>(
-			evidenceRequestStep.approvers?.map(user => toUserApi(user))
-		),
+		// @ts-ignore
+		approvers: evidenceRequestStep.approvers?.map(user => toUserApi(user)),
 		reviewer: evidenceRequestStep.reviewer
 			? toUserApi(evidenceRequestStep.reviewer)
 			: undefined,
 		type: evidenceRequestStep.type,
-
+		// @ts-ignore
 		delegates: evidenceRequestStep.delegates
-			? new Set<UserApi>(evidenceRequestStep.delegates.map(user => toUserApi(user)))
+			? evidenceRequestStep.delegates.map(user => toUserApi(user))
 			: undefined,
-		stepOrder: evidenceRequestStep.stepOrder
+		stepOrder: evidenceRequestStep.stepOrder,
+		stepInfo: evidenceRequestStep.stepInfo || {},
+		completionDate: evidenceRequestStep.completionDate
+			? evidenceRequestStep.completionDate.toISOString()
+			: undefined,
+		text: evidenceRequestStep.text || ''
 	};
 };
 

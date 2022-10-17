@@ -4,9 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { useController, useForm } from 'react-hook-form';
 import EvidenceRequestStep from '@model/EvidenceRequestStep';
 import { useState } from 'react';
+import useSaveStep from '@api/evidence-request/useSaveStep';
 
 interface StepRequestTextForm {
 	stepRequestText: string;
+	publicComment: string;
+	privateComment: string;
 }
 
 const EvidenceRequestInfo = ({
@@ -16,21 +19,16 @@ const EvidenceRequestInfo = ({
 	stepRequest: EvidenceRequestStep;
 	currentStep: number;
 }) => {
-	const defaultValue = {
-		publicComment: stepRequest.stepInfo
-			? JSON.parse(stepRequest.stepInfo).publicComment
-			: '',
-		privateComment: stepRequest.stepInfo
-			? JSON.parse(stepRequest.stepInfo).privateComment
-			: ''
-	};
-	const [stepInfo, setStepInfo] = useState(defaultValue);
 	const { t } = useTranslation('evidenceRequest');
 	const [resetTip, setResetTip] = useState(false);
-	const { control, reset } = useForm<StepRequestTextForm>({
+	const { mutate } = useSaveStep();
+
+	const { register, control, reset, handleSubmit } = useForm<StepRequestTextForm>({
 		mode: 'onChange',
 		defaultValues: {
-			stepRequestText: stepRequest.text
+			stepRequestText: stepRequest.text,
+			publicComment: stepRequest.stepInfo?.publicComment,
+			privateComment: stepRequest.stepInfo?.privateComment
 		}
 	});
 	const {
@@ -44,6 +42,20 @@ const EvidenceRequestInfo = ({
 		control,
 		name: 'stepRequestText'
 	});
+
+	const handleSaveStep = (data: StepRequestTextForm) => {
+		mutate({
+			step: {
+				...stepRequest,
+				stepInfo: {
+					publicComment: data.publicComment,
+					privateComment: data.privateComment
+				},
+				text: descriptionValue
+			}
+		});
+	};
+
 	if (!stepRequest) {
 		return null;
 	}
@@ -51,8 +63,7 @@ const EvidenceRequestInfo = ({
 	return (
 		<Form
 			onReset={() => {
-				setStepInfo(defaultValue);
-				reset({ stepRequestText: stepRequest.text });
+				reset();
 				setResetTip(!resetTip);
 			}}
 		>
@@ -78,30 +89,18 @@ const EvidenceRequestInfo = ({
 				</div>
 				<div className='space-y-2'>
 					<p>{t('public-comment')}</p>
-					<TextArea
-						labelText=''
-						value={stepInfo.publicComment}
-						onChange={e => {
-							setStepInfo(old => ({ ...old, publicComment: e.currentTarget?.value }));
-						}}
-					/>
+					<TextArea labelText='' {...register('publicComment')} />
 				</div>
 				<div className='space-y-2'>
 					<p>{t('private-comment')}</p>
-					<TextArea
-						labelText=''
-						value={stepInfo.privateComment}
-						onChange={e => {
-							setStepInfo(old => ({ ...old, privateComment: e.currentTarget?.value }));
-						}}
-					/>
+					<TextArea labelText='' {...register('privateComment')} />
 				</div>
 			</div>
 			<div className='space-x-5 p-5 text-right'>
 				<Button kind='secondary' type='reset'>
 					{t('reset')}
 				</Button>
-				<Button>{t('save')}</Button>
+				<Button onClick={handleSubmit(handleSaveStep)}>{t('save')}</Button>
 			</div>
 		</Form>
 	);

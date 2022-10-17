@@ -35,10 +35,10 @@ export interface StepDto {
 	reviewer?: UserDto;
 	/**
 	 *
-	 * @type {string}
+	 * @type {{ [key: string]: string | undefined; }}
 	 * @memberof StepDto
 	 */
-	stepInfo?: string;
+	stepInfo?: { [key: string]: string | undefined };
 	/**
 	 *
 	 * @type {string}

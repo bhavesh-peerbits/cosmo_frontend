@@ -1,6 +1,5 @@
 .gitignore
 .npmignore
-.openapi-generator-ignore
 api.ts
 api/access-controller-api.ts
 api/analyst-campaign-controller-api.ts
@@ -10,6 +9,7 @@ api/config-element-controller-api.ts
 api/config-element-module-controller-api.ts
 api/control-controller-api.ts
 api/csv-reader-controller-api.ts
+api/dev-home-redirect-controller-api.ts
 api/evidence-request-controller-api.ts
 api/frequency-controller-api.ts
 api/generate-report-controller-api.ts

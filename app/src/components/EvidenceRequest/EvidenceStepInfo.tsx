@@ -6,7 +6,7 @@ import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { ChevronDown, ChevronUp } from '@carbon/react/icons';
-import UserBase from '@model/UserBase';
+import User from '@model/User';
 import FileLinkTable from './FileLinkTable';
 
 const EvidenceStepInfo = ({
@@ -16,7 +16,7 @@ const EvidenceStepInfo = ({
 }: {
 	steps: EvidenceRequestStep[];
 	currentStep: number;
-	owner: UserBase;
+	owner: User;
 }) => {
 	const { t } = useTranslation('evidenceRequest');
 	let defaultShowMore: Record<number, boolean> = {};
@@ -92,15 +92,11 @@ const EvidenceStepInfo = ({
 													)}
 												</div>
 												{showMore[index] ? (
-													step.stepInfo && JSON.parse(step.stepInfo).publicComment ? (
+													step.stepInfo?.publicComment ? (
 														<p className='col-span-4 mt-5'>
 															{`${t('public-comment')} :`}
 															<br />
-															{`${
-																step.stepInfo
-																	? JSON.parse(step.stepInfo).publicComment
-																	: ''
-															}`}
+															{`${step.stepInfo?.publicComment}`}
 														</p>
 													) : null
 												) : null}
