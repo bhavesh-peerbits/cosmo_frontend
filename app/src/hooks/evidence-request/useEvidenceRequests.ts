@@ -19,6 +19,7 @@ const useEvidenceRequests = () => {
 		q: string | undefined;
 		currentStep: number[] | undefined;
 		tab: number | undefined;
+		application: string[];
 	}>({
 		minDueDate: undefined,
 		maxDueDate: undefined,
@@ -28,7 +29,8 @@ const useEvidenceRequests = () => {
 		creator: [],
 		q: undefined,
 		currentStep: [],
-		tab: undefined
+		tab: undefined,
+		application: []
 	});
 	const [filters, setFilters] = useRecoilState(evidenceRequestsFilters);
 	const setReqs = useSetRecoilState(evidenceRequests);
@@ -40,7 +42,8 @@ const useEvidenceRequests = () => {
 		maxDueDate,
 		requests,
 		creator,
-		currentStep
+		currentStep,
+		application
 	} = useRecoilValue(filteredEvidenceRequests);
 	const { data = new Map() } = useGetAllEvidenceRequest();
 
@@ -58,7 +61,8 @@ const useEvidenceRequests = () => {
 			creator: urlFilters.creator || [],
 			query: urlFilters.q,
 			currentStep: urlFilters.currentStep || [],
-			tab: urlFilters.tab
+			tab: urlFilters.tab,
+			application: urlFilters.application || []
 		});
 	}, [urlFilters, setFilters]);
 
@@ -70,7 +74,8 @@ const useEvidenceRequests = () => {
 		status,
 		requests,
 		creator,
-		currentStep
+		currentStep,
+		application
 	};
 	return { requests, filtersAvailable, filters, setFilters: setUrlFilters };
 };

@@ -65,11 +65,13 @@ const EvidenceStepInfo = ({
 													<p className='col-span-3 mt-5'>{`${t('reviewer')} : ${
 														step.reviewer.displayName
 													}`}</p>
-												) : owner ? (
+												) : step.stepOrder === 1 && owner ? (
 													<p className='col-span-3 mt-5'>{`${t('owner')} : ${
 														owner.displayName
 													}`}</p>
-												) : null}
+												) : (
+													<span className='col-span-3' />
+												)}
 												<div className='mt-3 justify-self-end'>
 													{!showMore[index] ? (
 														<Button

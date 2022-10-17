@@ -14,6 +14,7 @@ type Filters = {
 	status: string[];
 	minCompDate: string | undefined;
 	maxCompDate: string | undefined;
+	application: string[];
 };
 
 const evidenceRequestsFilters = atom<Filters>({
@@ -27,7 +28,8 @@ const evidenceRequestsFilters = atom<Filters>({
 		tab: undefined,
 		status: [],
 		minCompDate: undefined,
-		maxCompDate: undefined
+		maxCompDate: undefined,
+		application: []
 	}
 });
 
@@ -47,7 +49,11 @@ const applyFilters = (
 				? request.code
 						?.toLowerCase()
 						?.trim()
-						?.includes(filters.query.toLowerCase().trim())
+						?.includes(`${filters.query}`.toLowerCase().trim()) ||
+				  request.application.codeName
+						.toLowerCase()
+						.trim()
+						.includes(`${filters.query}`.toLowerCase().trim())
 				: true
 		)
 		// .filter(request =>
@@ -64,7 +70,15 @@ const applyFilters = (
 			filters.creator?.length
 				? filters.creator.some(
 						creator =>
-							request.creator.displayName?.toLowerCase() === creator.toLowerCase()
+							request.creator.displayName?.toLowerCase() === `${creator}`.toLowerCase()
+				  )
+				: true
+		)
+
+		.filter(request =>
+			filters.application?.length
+				? filters.application.some(
+						app => request.application.codeName.toLowerCase() === `${app}`.toLowerCase()
 				  )
 				: true
 		)
@@ -116,6 +130,21 @@ const filteredEvidenceRequests = selector({
 			].map(creator => ({
 				creator,
 				enabled: filters.creator?.includes(creator ?? '')
+			})),
+			application: [
+				...new Set(
+					requests
+						.filter(req =>
+							filters.tab !== 1
+								? req.status === 'IN_PROGRESS'
+								: req.status !== 'DRAFT' && req.status !== 'IN_PROGRESS'
+						)
+						.map(req => req.application.codeName)
+						.filter(o => !!o) as string[]
+				)
+			].map(application => ({
+				application,
+				enabled: filters.application?.includes(`${application}` ?? '')
 			})),
 			currentStep: [
 				...new Set(

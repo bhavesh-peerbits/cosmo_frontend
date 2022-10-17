@@ -19,12 +19,12 @@ const EvidenceRequestFilters = ({ view }: { view: string }) => {
 		action: 'add' | 'remove',
 		property: keyof Omit<typeof filters, 'query'>
 	) => {
-		(property === 'creator' || property === 'status') &&
+		(property === 'creator' || property === 'status' || property === 'application') &&
 			setFilters(old => ({
 				[property]:
 					action === 'add'
 						? [...(old[property] ?? []), filter]
-						: (old[property] ?? []).filter((f: string) => f !== filter)
+						: (old[property] ?? []).filter((f: string) => `${f}` !== `${filter}`)
 			}));
 	};
 
@@ -72,6 +72,31 @@ const EvidenceRequestFilters = ({ view }: { view: string }) => {
 							}
 							id={filter.creator}
 							labelText={filter.creator}
+						/>
+					))}
+				</AccordionItem>
+				<AccordionItem title={t('application')} className='border-0'>
+					<Checkbox
+						labelText={t('all')}
+						id='app-all'
+						checked={filtersAvailable.application.every(f => f.enabled)}
+						onChange={(_, { checked }) =>
+							setFilters({
+								application: checked
+									? filtersAvailable.application.map(({ application }) => application)
+									: []
+							})
+						}
+					/>
+					{filtersAvailable.application.map(filter => (
+						<Checkbox
+							key={filter.application}
+							checked={filter.enabled}
+							onChange={(_, { checked, id }) =>
+								handleCheckFilter(id, checked ? 'add' : 'remove', 'application')
+							}
+							id={filter.application}
+							labelText={filter.application}
 						/>
 					))}
 				</AccordionItem>
