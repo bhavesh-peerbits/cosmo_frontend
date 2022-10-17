@@ -76,7 +76,6 @@ const UsersSelectionForm = ({
 	useEffect(() => {
 		setIsCompleted(old => ({ ...old, [`${step.id}-${application.id}`]: isValid }));
 	}, [application.id, isValid, setIsCompleted, step.id]);
-
 	return (
 		<Grid fullWidth>
 			<Column sm={4} md={4} lg={8} className='mb-5'>
@@ -88,7 +87,7 @@ const UsersSelectionForm = ({
 					rules={{
 						required: true
 					}}
-					defaultValue={step.reviewer}
+					// TODO Add default value
 					getUserFn={() => {
 						// eslint-disable-next-line react-hooks/rules-of-hooks
 						return useGetUsersByRole('FOCAL_POINT');
