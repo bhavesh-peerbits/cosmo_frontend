@@ -25,7 +25,7 @@ const ActionsCell = ({ setIsModalOpen, setActionSelected, user }: ActionCellProp
 					setIsModalOpen(true);
 					setActionSelected('edit');
 				}}
-				disabled={user?.inactive}
+				disabled={user?.inactive || user?.roles.includes('SYS_ADMIN')}
 			/>
 			<OverflowMenuItem
 				isDelete={!user?.inactive}
