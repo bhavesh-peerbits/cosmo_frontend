@@ -62,8 +62,8 @@ const StartedEvidenceRequest = () => {
 						aria-label='List of tabs'
 						className='sticky z-10 bg-background'
 					>
-						<Tab className='w-[200px]'>Request Info</Tab>
-						<Tab className='w-[200px]'>Steps</Tab>
+						<Tab className='max-w-none'>Request Info</Tab>
+						<Tab className='max-w-none'>Steps</Tab>
 					</TabList>
 					<TabPanels>
 						<TabPanel>
