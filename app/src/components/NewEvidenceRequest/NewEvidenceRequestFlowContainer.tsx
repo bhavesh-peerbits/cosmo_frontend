@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import { Grid, ProgressStep, ProgressIndicator, Layer, Tile } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
@@ -12,6 +14,7 @@ import UsersSelectionContainer from './UsersSelectionContainer';
 type NewEvidenceRequestFlowContainerProps = {
 	request: EvidenceRequestDraft;
 };
+
 const NewEvidenceRequestFlowContainer = ({
 	request
 }: NewEvidenceRequestFlowContainerProps) => {
@@ -79,18 +82,70 @@ const NewEvidenceRequestFlowContainer = ({
 				>
 					<ProgressStep
 						className='truncate'
-						label={t('evidenceRequest:apps-selection')}
+						// complete={requestDraft.requests?.filter(req => req.selected)?.length > 0} //TODO Fix this logic
+						label={
+							<span className='cursor-pointer' onClick={() => setCurrentStep(0)}>
+								{t('evidenceRequest:apps-selection')}
+							</span>
+						}
 					/>
 					<ProgressStep
 						className='truncate'
-						label={t('evidenceRequest:users-selection')}
+						// complete={
+						// 	requestDraft.requests?.filter(req =>
+						// 		req.steps.find(step => step.approvers?.length)
+						// 	).length > 0
+						// } //TODO Fix this logic
+						label={
+							requestDraft.requests?.filter(req => req.selected).length ? (
+								<span className='cursor-pointer' onClick={() => setCurrentStep(1)}>
+									{t('evidenceRequest:users-selection')}
+								</span>
+							) : (
+								t('evidenceRequest:users-selection')
+							)
+						}
 					/>
-					<ProgressStep className='truncate' label={t('evidenceRequest:request-text')} />
 					<ProgressStep
 						className='truncate'
-						label={t('evidenceRequest:additional-info')}
+						complete={requestDraft.text !== null}
+						label={
+							requestDraft.requests?.filter(req =>
+								req.steps.find(step => step.approvers?.length)
+							).length ? (
+								<span className='cursor-pointer' onClick={() => setCurrentStep(2)}>
+									{t('evidenceRequest:request-text')}
+								</span>
+							) : (
+								t('evidenceRequest:request-text')
+							)
+						}
 					/>
-					<ProgressStep className='truncate' label={t('evidenceRequest:attachments')} />
+					<ProgressStep
+						className='truncate'
+						complete={requestDraft.stepInfo !== null}
+						label={
+							requestDraft.text ? (
+								<span className='cursor-pointer' onClick={() => setCurrentStep(3)}>
+									{t('evidenceRequest:additional-info')}
+								</span>
+							) : (
+								t('evidenceRequest:additional-info')
+							)
+						}
+					/>
+					<ProgressStep
+						className=' truncate'
+						label={
+							requestDraft.stepInfo ? (
+								<span className='cursor-pointer' onClick={() => setCurrentStep(3)}>
+									{t('evidenceRequest:attachments')}
+								</span>
+							) : (
+								t('evidenceRequest:attachments')
+							)
+						}
+					/>
 				</ProgressIndicator>
 			</FullWidthColumn>
 			<FullWidthColumn>
