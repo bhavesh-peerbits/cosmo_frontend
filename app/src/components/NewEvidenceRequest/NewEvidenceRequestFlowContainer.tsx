@@ -66,7 +66,11 @@ const NewEvidenceRequestFlowContainer = ({
 						request={requestDraft}
 						setCurrentStep={setCurrentStep}
 						setRequestDraft={setRequestDraft}
-						apps={request?.requests?.map(req => req.application) || []}
+						apps={
+							request?.requests
+								?.sort((a, b) => Number(b.selected) - Number(a.selected))
+								.map(req => req.application) || []
+						}
 					/>
 				);
 		}
@@ -82,7 +86,14 @@ const NewEvidenceRequestFlowContainer = ({
 				>
 					<ProgressStep
 						className='truncate'
-						// complete={requestDraft.requests?.filter(req => req.selected)?.length > 0} //TODO Fix this logic
+						complete={
+							requestDraft.requests
+								?.filter(req => req.selected)
+								.map(req => req.application) &&
+							requestDraft.requests
+								?.filter(req => req.selected)
+								.map(req => req.application).length > 0
+						}
 						label={
 							<span className='cursor-pointer' onClick={() => setCurrentStep(0)}>
 								{t('evidenceRequest:apps-selection')}
@@ -91,11 +102,9 @@ const NewEvidenceRequestFlowContainer = ({
 					/>
 					<ProgressStep
 						className='truncate'
-						// complete={
-						// 	requestDraft.requests?.filter(req =>
-						// 		req.steps.find(step => step.approvers?.length)
-						// 	).length > 0
-						// } //TODO Fix this logic
+						complete={requestDraft.requests
+							?.filter(req => req.selected)
+							.every(req => req.steps.some(step => step.approvers && step.reviewer))}
 						label={
 							requestDraft.requests?.filter(req => req.selected).length ? (
 								<span className='cursor-pointer' onClick={() => setCurrentStep(1)}>

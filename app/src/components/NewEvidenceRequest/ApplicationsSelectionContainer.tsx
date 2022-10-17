@@ -63,19 +63,20 @@ const ApplicationsSelectionContainer = ({
 			onChange={e => setFilters(e.currentTarget?.value)}
 		/>
 	);
+
 	const handleNext = () => {
 		const newRequests = request.requests?.map(req => {
 			if (selectedRows?.find(app => app?.id === req.application?.id)) {
-				return { ...req, selected: !req.selected };
+				return { ...req, selected: true };
 			}
-			return req;
+			return { ...req, selected: false };
 		});
 		if (selectedRows?.length) {
-			setCurrentStep(1);
 			setRequestDraft(old => ({
 				...old,
 				requests: newRequests
 			}));
+			setCurrentStep(1);
 		}
 	};
 

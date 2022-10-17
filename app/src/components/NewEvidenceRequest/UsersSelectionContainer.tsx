@@ -36,7 +36,6 @@ const UsersSelectionContainer = ({
 	const handleNext = () => {
 		setCurrentStep(2);
 	};
-
 	return (
 		<Grid fullWidth narrow className='space-y-5'>
 			<FullWidthColumn>
