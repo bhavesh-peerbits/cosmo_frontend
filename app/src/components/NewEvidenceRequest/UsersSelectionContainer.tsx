@@ -48,12 +48,13 @@ const UsersSelectionContainer = ({
 				</FullWidthColumn>
 			</FullWidthColumn>
 			{requestDraft?.requests?.[0].steps?.slice(1).map(step => (
-				<FullWidthColumn className='space-y-3'>
+				<FullWidthColumn className='space-y-3' key={`${step.id}`}>
 					<span className='text-body-long-2'>{translateStepType(step.type)}</span>
 					<Layer level={2}>
 						<Accordion className='bg-layer-1'>
 							{appsSelected.map(application => (
 								<AccordionItem
+									key={`${application.id}-${step.id}`}
 									title={
 										<span className='text-productive-heading-1'>{application.name}</span>
 									}

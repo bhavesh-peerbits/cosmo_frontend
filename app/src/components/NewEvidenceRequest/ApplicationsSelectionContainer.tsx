@@ -1,7 +1,6 @@
 import { Button, Grid, TableToolbarSearch } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import CosmoTable, { HeaderFunction } from '@components/table/CosmoTable';
-import useManagementApps from '@hooks/management/useManagementApps';
 import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
 import { RowSelectionState } from '@tanstack/react-table';
 import Application from 'model/Application';
@@ -21,7 +20,7 @@ const ApplicationsSelectionContainer = ({
 	apps
 }: ApplicationsSelectionContainerProps) => {
 	const { t } = useTranslation(['evidenceRequest', 'management', 'modals']);
-	const { filters, setFilters } = useManagementApps();
+	const [filters, setFilters] = useState('');
 	const [selectedRows, setSelectedRows] = useState<
 		(Application | undefined)[] | undefined
 	>();
@@ -61,8 +60,7 @@ const ApplicationsSelectionContainer = ({
 			persistent
 			placeholder={t('management:search-placeholder')}
 			id='search'
-			value={filters.query ?? ''}
-			onChange={e => setFilters({ q: e.currentTarget?.value })}
+			onChange={e => setFilters(e.currentTarget?.value)}
 		/>
 	);
 	const handleNext = () => {
@@ -93,7 +91,11 @@ const ApplicationsSelectionContainer = ({
 			</FullWidthColumn>
 			<FullWidthColumn>
 				<CosmoTable
-					data={apps}
+					data={
+						filters
+							? apps.filter(app => app.name.toLowerCase().includes(filters.toLowerCase()))
+							: apps
+					}
 					createHeaders={columns}
 					noDataMessage={t('management:no-applications')}
 					toolbar={{ toolbarContent }}

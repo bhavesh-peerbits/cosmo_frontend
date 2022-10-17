@@ -93,6 +93,7 @@ const UsersSelectionForm = ({
 						// eslint-disable-next-line react-hooks/rules-of-hooks
 						return useGetUsersByRole('FOCAL_POINT');
 					}}
+					key={`reviewer-${step.id}-${application.id}`}
 				/>
 			</Column>
 			<Column sm={4} md={4} lg={8} className='mb-5'>
@@ -106,6 +107,7 @@ const UsersSelectionForm = ({
 						// eslint-disable-next-line react-hooks/rules-of-hooks
 						return useGetUsersByRole('FOCAL_POINT');
 					}}
+					key={`delegates-${step.id}-${application.id}`}
 				/>
 			</Column>
 			<Column sm={4} md={4} lg={8}>
@@ -122,6 +124,7 @@ const UsersSelectionForm = ({
 						// eslint-disable-next-line react-hooks/rules-of-hooks
 						return useGetUsersByRole('WORKFLOW_APPROVER');
 					}}
+					key={`approvers-${step.id}-${application.id}`}
 				/>
 			</Column>
 		</Grid>
