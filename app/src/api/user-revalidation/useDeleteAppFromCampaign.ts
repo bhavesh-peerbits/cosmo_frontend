@@ -44,6 +44,7 @@ const useDeleteAppFromCampaign = () => {
 				}
 			);
 			queryClient.invalidateQueries(['campaigns-reviewer']);
+			queryClient.invalidateQueries(['campaigns-not-started']);
 		}
 	});
 };
