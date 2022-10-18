@@ -79,7 +79,7 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 		<ComposedModal size='xs' open={isOpen} onClose={cleanUp}>
 			<ModalHeader title={t('evidenceRequest:create-new-request')} closeModal={cleanUp} />
 			<ModalBody className='m-0 space-y-4 pb-9'>
-				<Form className='space-y-6' onSubmit={handleSubmit(createDraft)}>
+				<Form className='space-y-6'>
 					<TextInput
 						id='request-name'
 						labelText={t('evidenceRequest:request-name')}
@@ -145,7 +145,7 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 				<Button kind='secondary' onClick={cleanUp}>
 					{t('modals:cancel')}
 				</Button>
-				<Button type='submit' disabled={!isValid}>
+				<Button type='submit' disabled={!isValid} onClick={handleSubmit(createDraft)}>
 					{t('evidenceRequest:create-new-request')}
 				</Button>
 			</ModalFooter>
