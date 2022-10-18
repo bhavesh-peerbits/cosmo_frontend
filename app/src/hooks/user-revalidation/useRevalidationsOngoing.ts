@@ -14,18 +14,19 @@ const useRevalidationsOngoing = () => {
 		dueDate: number | undefined;
 		layer: string[];
 		revalidationType: string[];
+		revalidationStatus: string[];
 		q: string | undefined;
 	}>({
 		dueDate: undefined,
 		layer: [],
 		revalidationType: [],
+		revalidationStatus: [],
 		q: undefined
 	});
 	const [filters, setFilters] = useRecoilState(revalidationsOngoingFilters);
 	const setRevalidations = useSetRecoilState(revalidationsOngoing);
-	const { revalidations, dueDate, layer, revalidationType } = useRecoilValue(
-		filteredRevalidationsOngoing
-	);
+	const { revalidations, dueDate, layer, revalidationType, revalidationStatus } =
+		useRecoilValue(filteredRevalidationsOngoing);
 	const { data: campaigns = new Map<string, CampaignWithReview>() } =
 		useGetCampaignsOngoingAndCompleted();
 
@@ -38,6 +39,7 @@ const useRevalidationsOngoing = () => {
 			dueDate: urlFilters.dueDate,
 			layer: urlFilters.layer ?? [],
 			revalidationType: urlFilters.revalidationType ?? [],
+			revalidationStatus: urlFilters.revalidationStatus ?? [],
 			query: urlFilters.q
 		});
 	}, [urlFilters, setFilters]);
@@ -45,7 +47,8 @@ const useRevalidationsOngoing = () => {
 	const filtersAvailable = {
 		dueDate,
 		layer,
-		revalidationType
+		revalidationType,
+		revalidationStatus
 	};
 	return { revalidations, filtersAvailable, filters, setFilters: setUrlFilters };
 };

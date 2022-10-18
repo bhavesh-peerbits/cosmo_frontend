@@ -78,10 +78,9 @@ const Review = () => {
 				id: 'procedure',
 				header: t('procedure')
 			}),
-			table.createDataColumn(row => row.owner, {
+			table.createDataColumn(row => row.owner.displayName, {
 				id: 'owner',
 				header: t('owner'),
-				cell: info => info.getValue()?.displayName || '-',
 				meta: {
 					exportableFn: (info: { displayName: string }) => info.displayName
 				}

@@ -1,8 +1,8 @@
-import { Button, Grid } from '@carbon/react';
+import { Button, Grid, Form } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import TiptapEditor from '@components/tiptap/TiptapEditor';
 import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -20,8 +20,9 @@ const RequestTextContainer = ({
 	requestDraft
 }: RequestTextContainerProps) => {
 	const { t } = useTranslation(['evidenceRequest', 'modals']);
+	const [resetTip, setResetTip] = useState(false);
 
-	const { control, watch } = useForm<RequestTextForm>({
+	const { control, watch, reset } = useForm<RequestTextForm>({
 		mode: 'onChange',
 		defaultValues: {
 			requestText: requestDraft.text
@@ -58,17 +59,32 @@ const RequestTextContainer = ({
 				</FullWidthColumn>
 			</FullWidthColumn>
 			<FullWidthColumn>
-				<Button disabled={isValid && requestText !== '<p></p>'} kind='tertiary' size='sm'>
-					{t('evidenceRequest:suggest-text')}
-				</Button>
-			</FullWidthColumn>
-			<FullWidthColumn>
-				<TiptapEditor
-					content={requestTextValue}
-					onChange={onChangeRequestText}
-					onBlur={onBlurRequestText}
-					ref={requestTextRef}
-				/>
+				<Form
+					onReset={() => {
+						reset();
+						setResetTip(!resetTip);
+					}}
+					className='space-y-5'
+				>
+					<Button
+						disabled={isValid && requestText !== '<p></p>'}
+						kind='tertiary'
+						size='sm'
+						type='reset'
+					>
+						{t('evidenceRequest:suggest-text')}
+					</Button>
+
+					<FullWidthColumn>
+						<TiptapEditor
+							content={requestTextValue}
+							onChange={onChangeRequestText}
+							onBlur={onBlurRequestText}
+							ref={requestTextRef}
+							onReset={resetTip}
+						/>
+					</FullWidthColumn>
+				</Form>
 			</FullWidthColumn>
 			<FullWidthColumn className='flex justify-end space-x-5'>
 				<Button kind='secondary' size='md' onClick={() => setCurrentStep(1)}>
