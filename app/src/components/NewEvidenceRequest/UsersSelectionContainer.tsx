@@ -1,6 +1,7 @@
 import { Accordion, AccordionItem, Button, Grid, Layer } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import Application from '@model/Application';
+import ApplicationStepRequest from '@model/ApplicationStepRequest';
 import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
 import { StepDtoTypeEnum } from 'cosmo-api/src/v1';
 import { Dispatch, SetStateAction, useState } from 'react';
@@ -59,8 +60,12 @@ const UsersSelectionContainer = ({
 									}
 								>
 									<UsersSelectionForm
-										application={application}
 										step={step}
+										appStepRequest={
+											requestDraft.requests?.find(
+												request => request.application.id === application.id
+											) as ApplicationStepRequest
+										}
 										setIsCompleted={setIsCompleted}
 										setRequestDraft={setRequestDraft}
 									/>
