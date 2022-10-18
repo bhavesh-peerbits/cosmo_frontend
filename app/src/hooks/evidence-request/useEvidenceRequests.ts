@@ -20,6 +20,7 @@ const useEvidenceRequests = () => {
 		currentStep: number[] | undefined;
 		tab: number | undefined;
 		application: string[];
+		workflowType: string[];
 	}>({
 		minDueDate: undefined,
 		maxDueDate: undefined,
@@ -30,7 +31,8 @@ const useEvidenceRequests = () => {
 		q: undefined,
 		currentStep: [],
 		tab: undefined,
-		application: []
+		application: [],
+		workflowType: []
 	});
 	const [filters, setFilters] = useRecoilState(evidenceRequestsFilters);
 	const setReqs = useSetRecoilState(evidenceRequests);
@@ -43,7 +45,8 @@ const useEvidenceRequests = () => {
 		requests,
 		creator,
 		currentStep,
-		application
+		application,
+		workflowType
 	} = useRecoilValue(filteredEvidenceRequests);
 	const { data = new Map() } = useGetAllEvidenceRequest();
 
@@ -62,7 +65,8 @@ const useEvidenceRequests = () => {
 			query: urlFilters.q,
 			currentStep: urlFilters.currentStep || [],
 			tab: urlFilters.tab,
-			application: urlFilters.application || []
+			application: urlFilters.application || [],
+			workflowType: urlFilters.workflowType || []
 		});
 	}, [urlFilters, setFilters]);
 
@@ -75,7 +79,8 @@ const useEvidenceRequests = () => {
 		requests,
 		creator,
 		currentStep,
-		application
+		application,
+		workflowType
 	};
 	return { requests, filtersAvailable, filters, setFilters: setUrlFilters };
 };

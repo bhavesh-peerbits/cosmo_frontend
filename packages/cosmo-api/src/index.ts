@@ -35,6 +35,7 @@ import {
 	ReviewerCampaignControllerApi,
 	ReviewerControllerApi,
 	StepDto,
+	CloseEvidenceDto,
 	UserAdminControllerApi,
 	UserBase,
 	UserControllerApi,
@@ -88,3 +89,4 @@ export type EvidenceRequestApi = EvidenceRequestDto;
 export type EvidenceRequestStepApi = StepDto;
 export type NewDraftParameterApi = NewDraftDto;
 export type FileLinkApi = FileLinkDto;
+export type CloseEvidenceApi = CloseEvidenceDto;

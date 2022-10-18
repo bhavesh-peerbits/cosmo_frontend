@@ -15,6 +15,7 @@ type Filters = {
 	minCompDate: string | undefined;
 	maxCompDate: string | undefined;
 	application: string[];
+	workflowType: string[];
 };
 
 const evidenceRequestsFilters = atom<Filters>({
@@ -29,7 +30,8 @@ const evidenceRequestsFilters = atom<Filters>({
 		status: [],
 		minCompDate: undefined,
 		maxCompDate: undefined,
-		application: []
+		application: [],
+		workflowType: []
 	}
 });
 
@@ -65,13 +67,18 @@ const applyFilters = (
 				? filters.status.some(status => request.status === status)
 				: true
 		)
-		// filter by start date
 		.filter(request =>
 			filters.creator?.length
 				? filters.creator.some(
 						creator =>
 							request.creator.displayName?.toLowerCase() === `${creator}`.toLowerCase()
 				  )
+				: true
+		)
+
+		.filter(request =>
+			filters.workflowType?.length
+				? filters.workflowType.some(wfType => request.workflowType === wfType)
 				: true
 		)
 
@@ -130,6 +137,21 @@ const filteredEvidenceRequests = selector({
 			].map(creator => ({
 				creator,
 				enabled: filters.creator?.includes(creator ?? '')
+			})),
+			workflowType: [
+				...new Set(
+					requests
+						.filter(req =>
+							filters.tab !== 1
+								? req.status === 'IN_PROGRESS'
+								: req.status !== 'DRAFT' && req.status !== 'IN_PROGRESS'
+						)
+						.map(req => req.workflowType)
+						.filter(o => !!o) as string[]
+				)
+			].map(workflowType => ({
+				workflowType,
+				enabled: filters.workflowType.includes(workflowType ?? '')
 			})),
 			application: [
 				...new Set(

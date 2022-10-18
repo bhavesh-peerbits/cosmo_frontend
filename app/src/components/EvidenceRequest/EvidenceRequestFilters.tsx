@@ -19,7 +19,10 @@ const EvidenceRequestFilters = ({ view }: { view: string }) => {
 		action: 'add' | 'remove',
 		property: keyof Omit<typeof filters, 'query'>
 	) => {
-		(property === 'creator' || property === 'status' || property === 'application') &&
+		(property === 'creator' ||
+			property === 'status' ||
+			property === 'application' ||
+			property === 'workflowType') &&
 			setFilters(old => ({
 				[property]:
 					action === 'add'
@@ -97,6 +100,31 @@ const EvidenceRequestFilters = ({ view }: { view: string }) => {
 							}
 							id={filter.application}
 							labelText={filter.application}
+						/>
+					))}
+				</AccordionItem>
+				<AccordionItem title={t('workflow-type')} className='border-0'>
+					<Checkbox
+						labelText={t('all')}
+						id='wf-all'
+						checked={filtersAvailable.workflowType.every(f => f.enabled)}
+						onChange={(_, { checked }) =>
+							setFilters({
+								workflowType: checked
+									? filtersAvailable.workflowType.map(({ workflowType }) => workflowType)
+									: []
+							})
+						}
+					/>
+					{filtersAvailable.workflowType.map(filter => (
+						<Checkbox
+							key={filter.workflowType}
+							checked={filter.enabled}
+							onChange={(_, { checked, id }) =>
+								handleCheckFilter(id, checked ? 'add' : 'remove', 'workflowType')
+							}
+							id={filter.workflowType}
+							labelText={filter.workflowType}
 						/>
 					))}
 				</AccordionItem>

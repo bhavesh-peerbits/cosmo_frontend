@@ -5,7 +5,7 @@ import StickyTabs from '@components/StickyTabs';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { UserFollow, Exit, EventSchedule } from '@carbon/react/icons';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useQueryClient } from 'react-query';
 import MultiAddSelect from '@components/MultiAddSelect';
 import CloseEvidenceRequestModal from '@components/Modals/CloseEvidenceRequestModal';
@@ -13,6 +13,10 @@ import ReminderEvidenceRequestModal from '@components/Modals/ReminderEvidenceReq
 import EvidenceRequestDetails from '@components/EvidenceRequest/EvidenceRequestDetails';
 import EvidenceRequestInfo from '@components/EvidenceRequest/EvidenceRequestInfo';
 import EvidenceStepInfo from '@components/EvidenceRequest/EvidenceStepInfo';
+import useGetAllUserByRoleAndApplication from '@api/evidence-request/useGetAllUserByRoleAndApplication';
+import { UserRoleEnum } from '@model/UserRole';
+import User, { fromUserApi } from '@model/User';
+import useAddCollaboratorsToEvidence from '@api/evidence-request/useAddCollaboratorsToEvidence';
 
 const StartedEvidenceRequest = () => {
 	const { requestId = '' } = useParams<'requestId'>();
@@ -21,7 +25,32 @@ const StartedEvidenceRequest = () => {
 	const [isCollaboratorsOpen, setIsCollaboratorsOpen] = useState(false);
 	const [isCloseModalOpen, setIsCloseModalOpen] = useState(false);
 	const [isReminderModalOpen, setIsReminderModalOpen] = useState(false);
+	const { mutateAsync: mutateCollaborators } = useAddCollaboratorsToEvidence();
 	const queryClient = useQueryClient();
+	const { data: possibleCollaborators } = useGetAllUserByRoleAndApplication({
+		role: UserRoleEnum.RequestAnalyst,
+		appId: `${data?.application.id}`
+	});
+	const handleAddCollaborators = useCallback(
+		(selection: string[]) => {
+			return mutateCollaborators({
+				id: +`${data?.id}`,
+				userIds: selection
+			}).then(() => setIsCollaboratorsOpen(false));
+		},
+		[data?.id, mutateCollaborators]
+	);
+	const userMapper = (u: User) => ({
+		id: u.id,
+		title: u.displayName,
+		tagInfo: u.principalRole,
+		subtitle: u.email || t('userSelect:no-email'),
+		role: u.principalRole,
+		avatar: {
+			imageDescription: u.username,
+			initials: u.displayName
+		}
+	});
 
 	if (!data) {
 		return null;
@@ -101,16 +130,18 @@ const StartedEvidenceRequest = () => {
 				/>
 				<MultiAddSelect
 					selectedItems={{
-						entries: []
+						entries: data.contributors.map(userMapper)
 					}}
 					items={{
-						entries: []
+						entries: possibleCollaborators
+							? possibleCollaborators.map(us => userMapper(fromUserApi(us)))
+							: []
 					}}
 					title={t('userSelect:select-user')}
 					description={t('userSelect:select-users')}
 					open={isCollaboratorsOpen}
 					onSubmitButtonText={t('modals:save')}
-					onSubmit={() => {}}
+					onSubmit={selection => handleAddCollaborators(selection)}
 					onCloseButtonText={t('modals:cancel')}
 					onClose={() => setIsCollaboratorsOpen(false)}
 					globalSearchLabel={t('userSelect:username-email')}

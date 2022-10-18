@@ -53,7 +53,7 @@ const EvidenceRequestsTableView = ({ view }: EvidenceRequestsTableViewProps) => 
 	const columns: HeaderFunction<EvidenceRequest> = useCallback(
 		table => {
 			const ArrayCol = [
-				table.createDataColumn(row => row, {
+				table.createDataColumn(row => ({ id: row.id, code: row.code }), {
 					id: `code${view}`,
 					header: t('code'),
 					cell: info =>

@@ -40,7 +40,7 @@ const ReminderEvidenceRequestModal = ({
 				<Button kind='secondary' onClick={cleanUp}>
 					{t('modals:cancel')}
 				</Button>
-				<Button kind='danger' onClick={handleSendReminder}>
+				<Button kind='primary' onClick={handleSendReminder}>
 					{t('evidenceRequest:send-reminder')}
 				</Button>
 			</ModalFooter>

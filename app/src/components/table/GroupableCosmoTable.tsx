@@ -17,6 +17,7 @@ import {
 } from '@carbon/react';
 
 import {
+	AggregationFn,
 	ColumnDef,
 	ColumnSort,
 	createTable,
@@ -28,6 +29,7 @@ import {
 	getSortedRowModel,
 	PaginationState,
 	Table as TableType,
+	TableGenerics,
 	useTableInstance
 } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
@@ -41,6 +43,12 @@ import {
 } from '@components/table/types';
 import useExportTablePlugin from '@hooks/useExportTablePlugin';
 import CosmoTableToolbar from './CosmoTableToolbar';
+
+declare module '@tanstack/react-table' {
+	interface AggregationFns {
+		myCustomAggregation: AggregationFn<TableGenerics>;
+	}
+}
 
 type HeaderFunction<T extends object> = GroupableTableProps<T>['createHeaders'];
 
