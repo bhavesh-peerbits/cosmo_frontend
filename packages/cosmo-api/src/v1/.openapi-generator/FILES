@@ -9,7 +9,6 @@ api/config-element-controller-api.ts
 api/config-element-module-controller-api.ts
 api/control-controller-api.ts
 api/csv-reader-controller-api.ts
-api/dev-home-redirect-controller-api.ts
 api/evidence-request-controller-api.ts
 api/frequency-controller-api.ts
 api/generate-report-controller-api.ts
@@ -43,6 +42,7 @@ models/application.ts
 models/campaign-dto.ts
 models/campaign-review-dto.ts
 models/campaign-template-dto.ts
+models/close-evidence-dto.ts
 models/config-element.ts
 models/config-module-key.ts
 models/config-module.ts

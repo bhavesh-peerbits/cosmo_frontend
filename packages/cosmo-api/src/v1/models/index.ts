@@ -10,6 +10,7 @@ export * from './application-user-dto';
 export * from './campaign-dto';
 export * from './campaign-review-dto';
 export * from './campaign-template-dto';
+export * from './close-evidence-dto';
 export * from './config-element';
 export * from './config-module';
 export * from './config-module-key';
