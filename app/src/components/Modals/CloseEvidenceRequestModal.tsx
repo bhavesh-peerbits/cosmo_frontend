@@ -17,9 +17,19 @@ type CloseModalProps = {
 const CloseEvidenceRequestModal = ({ isOpen, setIsOpen }: CloseModalProps) => {
 	const { t } = useTranslation(['modals', 'evidenceRequest']);
 	const [pubComment, setPubComment] = useState('');
+	// const { mutateAsync: mutateClose } = useCloseEvidence();
 	const cleanUp = () => {
 		setIsOpen(false);
 	};
+	// const handleCloseEvidence = useCallback(
+	// 	(selection: string[]) => {
+	// 		return mutateClose({
+	// 			id: +`${data?.id}`,
+	// 			userIds: selection
+	// 		}).then(() => setIsCollaboratorsOpen(false));
+	// 	},
+	// 	[data?.id, mutateCollaborators]
+	// );
 
 	return (
 		<ComposedModal size='sm' open={isOpen} onClose={cleanUp} preventCloseOnClickOutside>
@@ -42,8 +52,8 @@ const CloseEvidenceRequestModal = ({ isOpen, setIsOpen }: CloseModalProps) => {
 					{t('modals:cancel')}
 				</Button>
 				<Button kind='danger'>{t('evidenceRequest:close')}</Button>
-				<div>{pubComment}</div>
 			</ModalFooter>
+			{pubComment}
 		</ComposedModal>
 	);
 };
