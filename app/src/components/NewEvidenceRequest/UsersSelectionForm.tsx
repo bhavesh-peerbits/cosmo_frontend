@@ -40,6 +40,7 @@ const UsersSelectionForm = ({
 	const delegates = watch('delegates');
 	const approvers = watch('approvers');
 	const reviewer = watch('focalPoint');
+
 	useEffect(() => {
 		setRequestDraft(old => ({
 			...old,
@@ -48,7 +49,7 @@ const UsersSelectionForm = ({
 					return {
 						...req,
 						steps: req.steps?.map(el => {
-							if (el.id === step.id) {
+							if (el.stepOrder === step.stepOrder) {
 								return {
 									...el,
 									delegates,
@@ -66,7 +67,7 @@ const UsersSelectionForm = ({
 	}, [
 		getValues,
 		setRequestDraft,
-		step.id,
+		step.stepOrder,
 		delegates,
 		approvers,
 		reviewer,
@@ -76,9 +77,9 @@ const UsersSelectionForm = ({
 	useEffect(() => {
 		setIsCompleted(old => ({
 			...old,
-			[`${step.id}-${appStepRequest.application.id}`]: isValid
+			[`step${step.stepOrder}-${appStepRequest.application.id}`]: isValid
 		}));
-	}, [appStepRequest.application.id, isValid, setIsCompleted, step.id]);
+	}, [appStepRequest.application.id, isValid, setIsCompleted, step.stepOrder]);
 	return (
 		<Grid fullWidth>
 			<Column sm={4} md={4} lg={8} className='mb-5'>
@@ -95,7 +96,7 @@ const UsersSelectionForm = ({
 						// eslint-disable-next-line react-hooks/rules-of-hooks
 						return useGetUsersByRole('FOCAL_POINT');
 					}}
-					key={`reviewer-${step.id}-${appStepRequest.application.id}`}
+					key={`reviewer-step${step.stepOrder}-${appStepRequest.application.id}`}
 					defaultValue={
 						appStepRequest.steps.find(
 							stepRequest => stepRequest.stepOrder === step.stepOrder
@@ -118,7 +119,7 @@ const UsersSelectionForm = ({
 						// eslint-disable-next-line react-hooks/rules-of-hooks
 						return useGetUsersByRole('FOCAL_POINT');
 					}}
-					key={`delegates-${step.id}-${appStepRequest.application.id}`}
+					key={`delegates-step${step.stepOrder}-${appStepRequest.application.id}`}
 				/>
 			</Column>
 			<Column sm={4} md={4} lg={8}>
@@ -139,7 +140,7 @@ const UsersSelectionForm = ({
 						// eslint-disable-next-line react-hooks/rules-of-hooks
 						return useGetUsersByRole('WORKFLOW_APPROVER');
 					}}
-					key={`approvers-${step.id}-${appStepRequest.application.id}`}
+					key={`approvers-step${step.stepOrder}-${appStepRequest.application.id}`}
 				/>
 			</Column>
 		</Grid>
