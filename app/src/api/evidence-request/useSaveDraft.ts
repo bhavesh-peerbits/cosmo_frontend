@@ -16,8 +16,9 @@ const saveDraft = (requestDraft: EvidenceRequestDraft) => {
 const useSaveDraft = () => {
 	const queryClient = useQueryClient();
 	return useMutation(saveDraft, {
-		onSuccess: () => {
+		onSuccess: data => {
 			queryClient.invalidateQueries(['all-request-draft']);
+			queryClient.invalidateQueries(['draft', data.id]);
 		}
 	});
 };
