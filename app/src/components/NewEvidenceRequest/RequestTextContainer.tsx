@@ -67,7 +67,7 @@ const RequestTextContainer = ({
 					className='space-y-5'
 				>
 					<Button
-						disabled={isValid && requestText !== '<p></p>'}
+						disabled={(isValid && requestText !== '<p></p>') || !requestDraft.text}
 						kind='tertiary'
 						size='sm'
 						type='reset'
