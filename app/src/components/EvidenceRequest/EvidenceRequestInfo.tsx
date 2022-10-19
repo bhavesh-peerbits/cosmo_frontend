@@ -63,7 +63,11 @@ const EvidenceRequestInfo = ({
 	return (
 		<Form
 			onReset={() => {
-				reset();
+				reset({
+					stepRequestText: stepRequest.text,
+					publicComment: stepRequest.stepInfo?.publicComment,
+					privateComment: stepRequest.stepInfo?.privateComment
+				});
 				setResetTip(!resetTip);
 			}}
 		>

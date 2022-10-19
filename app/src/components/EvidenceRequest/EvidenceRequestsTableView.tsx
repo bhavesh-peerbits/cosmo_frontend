@@ -63,6 +63,11 @@ const EvidenceRequestsTableView = ({ view }: EvidenceRequestsTableViewProps) => 
 					id: `app${view}`,
 					header: t('application')
 				}),
+
+				table.createDataColumn(row => row.startDate?.toLocaleDateString(), {
+					id: `startDate${view}`,
+					header: t('start-date')
+				}),
 				table.createDataColumn(row => row.dueDate?.toLocaleDateString(), {
 					id: `dueDate${view}`,
 					header: t('due-date')
