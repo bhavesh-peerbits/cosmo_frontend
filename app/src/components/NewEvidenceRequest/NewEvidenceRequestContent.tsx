@@ -11,8 +11,8 @@ type NewEvidenceRequestContentProps = {
 const NewEvidenceRequestContent = ({ request }: NewEvidenceRequestContentProps) => {
 	const { t } = useTranslation('evidenceRequest');
 	return (
-		<Grid fullWidth narrow className='p-container-2'>
-			<Column md={8} lg={3} className='space-y-6'>
+		<Grid fullWidth narrow className='space-y-5 p-container-2 lg:space-y-0'>
+			<Column sm={4} md={8} lg={3} className='space-y-6'>
 				{/* // TODO Fix endpoint after creating the flow */}
 				<FullWidthColumn className='flex flex-col'>
 					<span className='text-heading-2'>{t('workflow-type')}</span>
@@ -25,7 +25,7 @@ const NewEvidenceRequestContent = ({ request }: NewEvidenceRequestContentProps) 
 					<span className='text-text-secondary text-body-short-1'>{request?.type}</span>
 				</FullWidthColumn>
 			</Column>
-			<Column md={8} lg={13}>
+			<Column sm={4} md={8} lg={13}>
 				<NewEvidenceRequestFlowContainer request={request} />
 			</Column>
 		</Grid>

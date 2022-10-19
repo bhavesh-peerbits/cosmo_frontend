@@ -47,34 +47,38 @@ const UsersSelectionContainer = ({
 					<span>Description to add</span>
 				</FullWidthColumn>
 			</FullWidthColumn>
-			{requestDraft?.requests?.[0].steps?.slice(1).map(step => (
-				<FullWidthColumn className='space-y-3' key={`${step.id}`}>
-					<span className='text-body-long-2'>{translateStepType(step.type)}</span>
-					<Layer level={2}>
-						<Accordion className='bg-layer-1'>
-							{appsSelected.map(application => (
-								<AccordionItem
-									key={`${application.id}-${step.id}`}
-									title={
-										<span className='text-productive-heading-1'>{application.name}</span>
-									}
-								>
-									<UsersSelectionForm
-										step={step}
-										appStepRequest={
-											requestDraft.requests?.find(
-												request => request.application.id === application.id
-											) as ApplicationStepRequest
+			{requestDraft?.requests?.[0].steps
+				?.filter(step => step.type !== 'REQUEST')
+				.map(step => (
+					<FullWidthColumn className='space-y-3' key={`${step.id}`}>
+						<span className='text-body-long-2'>{translateStepType(step.type)}</span>
+						<Layer level={2}>
+							<Accordion className='bg-layer-1'>
+								{appsSelected.map(application => (
+									<AccordionItem
+										key={`${application.id}-${step.id}`}
+										title={
+											<span className='text-productive-heading-1'>
+												{application.name}
+											</span>
 										}
-										setIsCompleted={setIsCompleted}
-										setRequestDraft={setRequestDraft}
-									/>
-								</AccordionItem>
-							))}
-						</Accordion>
-					</Layer>
-				</FullWidthColumn>
-			))}
+									>
+										<UsersSelectionForm
+											step={step}
+											appStepRequest={
+												requestDraft.requests?.find(
+													request => request.application.id === application.id
+												) as ApplicationStepRequest
+											}
+											setIsCompleted={setIsCompleted}
+											setRequestDraft={setRequestDraft}
+										/>
+									</AccordionItem>
+								))}
+							</Accordion>
+						</Layer>
+					</FullWidthColumn>
+				))}
 			<FullWidthColumn>
 				<FullWidthColumn className='flex justify-end space-x-5'>
 					<Button kind='secondary' size='md' onClick={() => setCurrentStep(0)}>

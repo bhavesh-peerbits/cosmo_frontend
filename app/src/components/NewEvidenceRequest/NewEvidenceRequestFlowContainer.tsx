@@ -3,6 +3,7 @@
 import { Grid, ProgressStep, ProgressIndicator, Layer, Tile } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
+import { useResponsive } from 'ahooks';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AdditionalInfoContainer from './AdditionalInfoContainer';
@@ -75,25 +76,26 @@ const NewEvidenceRequestFlowContainer = ({
 				);
 		}
 	};
+	const { md } = useResponsive();
 
 	return (
 		<Grid fullWidth narrow className='space-y-5'>
 			<FullWidthColumn>
 				<ProgressIndicator
 					currentIndex={currentStep}
-					spaceEqually
-					className='overflow-hidden'
+					className='overflow-auto lg:overflow-hidden'
+					spaceEqually={md}
 				>
 					<ProgressStep
 						className='truncate'
-						complete={
-							requestDraft.requests
-								?.filter(req => req.selected)
-								.map(req => req.application) &&
-							requestDraft.requests
-								?.filter(req => req.selected)
-								.map(req => req.application).length > 0
-						}
+						// complete={
+						// 	requestDraft.requests
+						// 		?.filter(req => req.selected)
+						// 		.map(req => req.application) &&
+						// 	requestDraft.requests
+						// 		?.filter(req => req.selected)
+						// 		.map(req => req.application).length > 0
+						// }
 						label={
 							<span className='cursor-pointer' onClick={() => setCurrentStep(0)}>
 								{t('evidenceRequest:apps-selection')}
@@ -102,9 +104,14 @@ const NewEvidenceRequestFlowContainer = ({
 					/>
 					<ProgressStep
 						className='truncate'
-						complete={requestDraft.requests
-							?.filter(req => req.selected)
-							.every(req => req.steps.some(step => step.approvers && step.reviewer))}
+						// complete={
+						// 	requestDraft.requests?.filter(req => req.selected).length > 0 &&
+						// 	requestDraft.requests
+						// 		?.filter(req => req.selected)
+						// 		.every(req =>
+						// 			req.steps.splice(1).every(step => step.approvers && step.reviewer)
+						// 		)
+						// }
 						label={
 							requestDraft.requests?.filter(req => req.selected).length ? (
 								<span className='cursor-pointer' onClick={() => setCurrentStep(1)}>
@@ -132,7 +139,10 @@ const NewEvidenceRequestFlowContainer = ({
 					/>
 					<ProgressStep
 						className='truncate'
-						complete={requestDraft.stepInfo !== null}
+						// complete={
+						// 	requestDraft.stepInfo?.privateComment?.length > 0 &&
+						// 	requestDraft.stepInfo.publicComment?.length > 0
+						// }
 						label={
 							requestDraft.text ? (
 								<span className='cursor-pointer' onClick={() => setCurrentStep(3)}>
@@ -146,7 +156,8 @@ const NewEvidenceRequestFlowContainer = ({
 					<ProgressStep
 						className=' truncate'
 						label={
-							requestDraft.stepInfo ? (
+							requestDraft.stepInfo?.privateComment?.length &&
+							requestDraft.stepInfo.publicComment?.length ? (
 								<span className='cursor-pointer' onClick={() => setCurrentStep(3)}>
 									{t('evidenceRequest:attachments')}
 								</span>
