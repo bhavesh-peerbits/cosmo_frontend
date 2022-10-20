@@ -78,29 +78,22 @@ const AdditionalInfoContainer = ({
 			<FullWidthColumn>
 				<Layer level={2}>
 					<TextArea
-						labelText={`${t('evidenceRequest:public-comment')} *`}
+						labelText={t('evidenceRequest:public-comment')}
 						invalid={Boolean(errors.publicComment)}
 						invalidText={errors.publicComment?.message}
 						placeholder={`${t('evidenceRequest:public-comment-placeholder')}.`}
-						{...register('publicComment', {
-							required: { value: true, message: `${t('modals:field-required')}` }
-						})}
+						{...register('publicComment')}
 					/>
 				</Layer>
 			</FullWidthColumn>
 			<FullWidthColumn>
 				<Layer level={2}>
 					<TextArea
-						labelText={`${t('evidenceRequest:private-comment')} *`}
+						labelText={t('evidenceRequest:private-comment')}
 						invalid={Boolean(errors.privateComment)}
 						invalidText={errors.privateComment?.message}
 						placeholder={`${t('evidenceRequest:private-comment-placeholder')}.`}
-						{...register('privateComment', {
-							required: {
-								value: true,
-								message: `${t('modals:field-required')}`
-							}
-						})}
+						{...register('privateComment')}
 					/>
 				</Layer>
 			</FullWidthColumn>
