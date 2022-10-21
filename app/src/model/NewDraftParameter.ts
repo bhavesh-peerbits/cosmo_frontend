@@ -1,5 +1,5 @@
 import { NewDraftParameterApi } from 'cosmo-api';
-import { PhaseType } from 'cosmo-api/src/v1';
+import PhaseType, { fromPhaseTypeApi } from './PhaseType';
 
 interface NewDraftParameter {
 	workflowName: string[];
@@ -13,7 +13,7 @@ export const fromNewDraftParameterApi = (
 	return {
 		workflowName: newDraftParameter.workflowName ? newDraftParameter.workflowName : [],
 		requestType: newDraftParameter.requestType ? newDraftParameter.requestType : [],
-		phaseType: newDraftParameter.phaseType
+		phaseType: newDraftParameter.phaseType?.map(fromPhaseTypeApi) ?? []
 	};
 };
 

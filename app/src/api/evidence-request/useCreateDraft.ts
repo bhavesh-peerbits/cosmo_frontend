@@ -1,20 +1,25 @@
 import { useMutation, useQueryClient } from 'react-query';
 import api from '@api';
 import { useNavigate } from 'react-router-dom';
-import { PhaseTypeDto } from 'cosmo-api/src/v1';
+import PhaseType, { toPhaseTypeApi } from '@model/PhaseType';
 
 interface CreateDraftParams {
 	draftData: {
 		name: string;
 		workflowname: string;
 		requestType: string;
-		phaseType?: PhaseTypeDto;
+		phaseType?: PhaseType;
 	};
 }
 
 const createDraft = ({ draftData }: CreateDraftParams) => {
 	return api.evidenceRequest
-		.createDraft({ setUpDraftDto: draftData })
+		.createDraft({
+			setUpDraftDto: {
+				...draftData,
+				phaseType: draftData.phaseType ? toPhaseTypeApi(draftData.phaseType) : undefined
+			}
+		})
 		.then(({ data }) => data.valueOf());
 };
 

@@ -26,6 +26,7 @@ import {
 	NarrativeReviewControllerApi,
 	NewDraftDto,
 	PairListAnswerDtoListString,
+	PhaseTypeDto,
 	ProcedureAppInstanceDto,
 	ProcedureControllerApi,
 	ProcedureDto,
@@ -90,3 +91,4 @@ export type EvidenceRequestStepApi = StepDto;
 export type NewDraftParameterApi = NewDraftDto;
 export type FileLinkApi = FileLinkDto;
 export type WorkflowApi = WorkflowDto;
+export type PhaseTypeApi = PhaseTypeDto;

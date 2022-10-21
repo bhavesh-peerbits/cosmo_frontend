@@ -1,11 +1,11 @@
 import { EvidenceRequestDraftApi } from 'cosmo-api';
-import { PhaseTypeDto } from 'cosmo-api/src/v1/models/phase-type-dto';
 import User, { fromUserApi, toUserApi } from './User';
 import ApplicationStepRequest, {
 	fromApplicationStepRequestApi,
 	toApplicationStepRequestApi
 } from './ApplicationStepRequest';
 import Workflow, { fromWorkflowApi, toWorkflowApi } from './Workflow';
+import PhaseType, { fromPhaseTypeApi, toPhaseTypeApi } from './PhaseType';
 
 export type StepInfoType = {
 	publicComment: string | undefined;
@@ -22,7 +22,7 @@ interface EvidenceRequestDraft {
 	name?: string;
 	stepInfo?: { publicComment: string | undefined; privateComment: string | undefined };
 	dueDate?: Date;
-	phaseType?: PhaseTypeDto;
+	phaseType?: PhaseType;
 	workflow: Workflow;
 }
 
@@ -48,7 +48,9 @@ export const fromEvidenceRequestDraftApi = (
 		stepInfo: evidenceRequestDraftApi.stepInfo
 			? (evidenceRequestDraftApi.stepInfo as StepInfoType)
 			: ({} as StepInfoType),
-		phaseType: evidenceRequestDraftApi.phaseType,
+		phaseType: evidenceRequestDraftApi.phaseType
+			? fromPhaseTypeApi(evidenceRequestDraftApi.phaseType)
+			: undefined,
 		workflow: fromWorkflowApi(evidenceRequestDraftApi.workflow)
 	};
 };
@@ -76,7 +78,9 @@ export const toEvidenceRequestDraftApi = (
 		dueDate: evidenceRequestDraft.dueDate
 			? evidenceRequestDraft.dueDate?.toISOString()
 			: undefined,
-		phaseType: evidenceRequestDraft.phaseType,
+		phaseType: evidenceRequestDraft.phaseType
+			? toPhaseTypeApi(evidenceRequestDraft.phaseType)
+			: undefined,
 		workflow: toWorkflowApi(evidenceRequestDraft.workflow)
 	};
 };
