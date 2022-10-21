@@ -12,30 +12,16 @@
  * Do not edit the class manually.
  */
 
-import { PhaseTypeDto } from './phase-type-dto';
-
 /**
  *
  * @export
- * @interface NewDraftDto
+ * @interface InlineObject9
  */
-export interface NewDraftDto {
+export interface InlineObject9 {
 	/**
 	 *
-	 * @type {Array<string>}
-	 * @memberof NewDraftDto
+	 * @type {any}
+	 * @memberof InlineObject9
 	 */
-	workflowName: Array<string>;
-	/**
-	 *
-	 * @type {Array<string>}
-	 * @memberof NewDraftDto
-	 */
-	requestType: Array<string>;
-	/**
-	 *
-	 * @type {Array<PhaseTypeDto>}
-	 * @memberof NewDraftDto
-	 */
-	phaseType?: Array<PhaseTypeDto>;
+	file?: any;
 }

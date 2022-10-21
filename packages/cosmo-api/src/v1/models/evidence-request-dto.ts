@@ -102,6 +102,12 @@ export interface EvidenceRequestDto {
 	steps?: Array<StepDto>;
 	/**
 	 *
+	 * @type {string}
+	 * @memberof EvidenceRequestDto
+	 */
+	phaseType?: string;
+	/**
+	 *
 	 * @type {Set<UserDto>}
 	 * @memberof EvidenceRequestDto
 	 */

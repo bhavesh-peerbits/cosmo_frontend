@@ -14,6 +14,7 @@ import {
 	Form,
 	InlineNotification
 } from '@carbon/react';
+import { PhaseType } from 'cosmo-api/src/v1';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -24,8 +25,9 @@ type NewEvidenceRequestModalProps = {
 
 interface CreateRequestForm {
 	requestName: string;
-	workflowType: string;
+	workflow: string;
 	requestType: string;
+	phaseType: PhaseType;
 }
 
 const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalProps) => {
@@ -45,11 +47,6 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 		handleSubmit,
 		formState: { isValid, errors }
 	} = useForm<CreateRequestForm>({
-		defaultValues: {
-			requestName: '',
-			workflowType: undefined,
-			requestType: undefined
-		},
 		mode: 'onChange'
 	});
 
@@ -64,7 +61,8 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 				draftData: {
 					name: data.requestName,
 					requestType: data.requestType,
-					workflowname: data.workflowType
+					workflowname: data.workflow,
+					phaseType: data.phaseType
 				}
 			},
 			{
@@ -95,15 +93,10 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 					<Select
 						id='workflow-types'
 						labelText={`${t('evidenceRequest:workflow-type')} *`}
-						{...register('workflowType', {
+						{...register('workflow', {
 							required: true
 						})}
 					>
-						<SelectItem
-							hidden
-							value='workflow-placeholder'
-							text={t('userSelect:choose-option')}
-						/>
 						{parameters?.workflowName.map(workflowName => (
 							<SelectItem text={workflowName} value={workflowName} key={workflowName} />
 						))}
@@ -115,13 +108,17 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 							required: true
 						})}
 					>
-						<SelectItem
-							hidden
-							value='request-types-placeholder'
-							text={t('userSelect:choose-option')}
-						/>
 						{parameters?.requestType.map(type => (
 							<SelectItem text={type} value={type} key={type} />
+						))}
+					</Select>
+					<Select id='phase-types' labelText='Tipo di fase' {...register('phaseType')}>
+						{parameters?.phaseType?.map(phaseType => (
+							<SelectItem
+								text={phaseType.name || ''}
+								value={phaseType}
+								key={phaseType.id}
+							/>
 						))}
 					</Select>
 

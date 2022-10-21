@@ -26,7 +26,7 @@ const EvidenceRequestTile = ({ request }: EvidenceRequestTileProps) => {
 						<p className='text-text-secondary text-body-short-1 '>
 							{t('evidenceRequest:workflow-type')}:
 						</p>
-						<p className='block truncate text-body-short-1'>{request?.workflowType}</p>
+						<p className='block truncate text-body-short-1'>{request?.workflow.name}</p>
 					</span>
 					<div>
 						<span className='mt-2 flex  space-x-2 '>

@@ -1,29 +1,37 @@
+import ApiError from '@api/ApiError';
+import useSendRequest from '@api/evidence-request/useSendRequest';
 import {
 	Button,
 	ComposedModal,
 	Grid,
 	ModalBody,
 	ModalFooter,
-	ModalHeader
+	ModalHeader,
+	InlineNotification,
+	InlineLoading
 } from '@carbon/react';
 import DatePickerWrapper from '@components/DatePickerWrapper';
 import FullWidthColumn from '@components/FullWidthColumn';
+import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
 import { startOfTomorrow } from 'date-fns';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 type SendRequestModalProps = {
 	isOpen: boolean;
 	setIsOpen: (value: boolean) => void;
+	request: EvidenceRequestDraft;
 };
 
 type FormData = {
 	dueDate: Date;
 };
 
-const SendRequestModal = ({ isOpen, setIsOpen }: SendRequestModalProps) => {
+const SendRequestModal = ({ isOpen, setIsOpen, request }: SendRequestModalProps) => {
 	const { t } = useTranslation(['modals', 'evidenceRequest', 'userRevalidation']);
-	// TODO Inserire la navigazione alla pagina di ongoing una volta inviata la richiesta
+	const { mutate, isLoading, isError, error } = useSendRequest();
+	const navigate = useNavigate();
 	const {
 		control,
 		reset,
@@ -38,6 +46,14 @@ const SendRequestModal = ({ isOpen, setIsOpen }: SendRequestModalProps) => {
 	const cleanUp = () => {
 		setIsOpen(false);
 		reset();
+	};
+
+	const sendRequest = () => {
+		mutate(request, {
+			onSuccess: () => {
+				navigate('/started-evidence-request');
+			}
+		});
 	};
 
 	return (
@@ -72,7 +88,7 @@ const SendRequestModal = ({ isOpen, setIsOpen }: SendRequestModalProps) => {
 					</FullWidthColumn>
 
 					<FullWidthColumn>
-						{/* {isError && (
+						{isError && (
 							<InlineNotification
 								kind='error'
 								title='Error'
@@ -82,7 +98,7 @@ const SendRequestModal = ({ isOpen, setIsOpen }: SendRequestModalProps) => {
 									'An error has occurred, please try again later'
 								}
 							/>
-						)} // TODO rimuovere quando endpoint pronti */}
+						)}
 					</FullWidthColumn>
 				</Grid>
 			</ModalBody>
@@ -90,9 +106,9 @@ const SendRequestModal = ({ isOpen, setIsOpen }: SendRequestModalProps) => {
 				<Button kind='secondary' onClick={cleanUp}>
 					{t('modals:cancel')}
 				</Button>
-				<Button disabled={!isValid}>
+				<Button disabled={!isValid || isLoading} onClick={sendRequest}>
 					{t('evidenceRequest:send-request')}
-					{/* {isLoading ? <InlineLoading /> : ''} // TODO Rimuovere quando endpoint pronti */}
+					{isLoading ? <InlineLoading /> : ''}
 				</Button>
 			</ModalFooter>
 		</ComposedModal>

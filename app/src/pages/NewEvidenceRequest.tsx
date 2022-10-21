@@ -1,12 +1,13 @@
 import PageHeader from '@components/PageHeader';
 import { TrashCan, Send } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import SendRequestModal from '@components/Modals/SendRequestModal';
 import DeleteRequestDraftModal from '@components/Modals/DeleteRequestDraftModal';
 import NewEvidenceRequestContent from '@components/NewEvidenceRequest/NewEvidenceRequestContent';
 import { useParams } from 'react-router-dom';
 import useGetDraftById from '@api/evidence-request/useGetDraftById';
+import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
 
 const NewEvidenceRequest = () => {
 	const { t } = useTranslation('evidenceRequest');
@@ -14,8 +15,9 @@ const NewEvidenceRequest = () => {
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 	const { requestId = '' } = useParams<'requestId'>();
 	const { data: request } = useGetDraftById(requestId);
+	const [requestDraft, setRequestDraft] = useState(request);
 
-	if (!request) {
+	if (!requestDraft) {
 		return null;
 	}
 	return (
@@ -43,7 +45,11 @@ const NewEvidenceRequest = () => {
 		>
 			<>
 				{isSendModalOpen && (
-					<SendRequestModal isOpen={isSendModalOpen} setIsOpen={setIsSendModalOpen} />
+					<SendRequestModal
+						isOpen={isSendModalOpen}
+						setIsOpen={setIsSendModalOpen}
+						request={requestDraft}
+					/>
 				)}
 				{isDeleteModalOpen && (
 					<DeleteRequestDraftModal
@@ -52,7 +58,12 @@ const NewEvidenceRequest = () => {
 						draftId={requestId}
 					/>
 				)}
-				<NewEvidenceRequestContent request={request} />
+				<NewEvidenceRequestContent
+					requestDraft={requestDraft}
+					setRequestDraft={
+						setRequestDraft as Dispatch<SetStateAction<EvidenceRequestDraft>>
+					}
+				/>
 			</>
 		</PageHeader>
 	);
