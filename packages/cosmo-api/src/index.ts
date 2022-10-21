@@ -38,7 +38,8 @@ import {
 	UserAdminControllerApi,
 	UserBase,
 	UserControllerApi,
-	UserDto
+	UserDto,
+	WorkflowDto
 } from './v1';
 
 export const ApiConfiguration = Configuration;
@@ -88,3 +89,4 @@ export type EvidenceRequestApi = EvidenceRequestDto;
 export type EvidenceRequestStepApi = StepDto;
 export type NewDraftParameterApi = NewDraftDto;
 export type FileLinkApi = FileLinkDto;
+export type WorkflowApi = WorkflowDto;

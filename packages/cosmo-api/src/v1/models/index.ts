@@ -61,4 +61,4 @@ export * from './user-dto';
 export * from './user-profile';
 export * from './user-profile-key';
 export * from './validation-error';
-export * from './workflow';
+export * from './workflow-dto';

@@ -16,7 +16,7 @@ import { EvidenceRequestDraftDto } from './evidence-request-draft-dto';
 import { FileLinkDto } from './file-link-dto';
 import { PhaseType } from './phase-type';
 import { UserDto } from './user-dto';
-import { Workflow } from './workflow';
+import { WorkflowDto } from './workflow-dto';
 
 /**
  *
@@ -68,10 +68,10 @@ export interface DraftDto {
 	phaseType?: PhaseType;
 	/**
 	 *
-	 * @type {Workflow}
+	 * @type {WorkflowDto}
 	 * @memberof DraftDto
 	 */
-	workflow: Workflow;
+	workflow: WorkflowDto;
 	/**
 	 *
 	 * @type {string}
