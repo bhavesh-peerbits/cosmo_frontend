@@ -10,6 +10,8 @@ api/config-element-module-controller-api.ts
 api/control-controller-api.ts
 api/csv-reader-controller-api.ts
 api/evidence-request-controller-api.ts
+api/evidence-request-focal-point-controller-api.ts
+api/framework-tree-for-evidence-controller-api.ts
 api/frequency-controller-api.ts
 api/generate-report-controller-api.ts
 api/module-controller-api.ts
@@ -55,6 +57,7 @@ models/email.ts
 models/evidence-request-draft-dto.ts
 models/evidence-request-dto.ts
 models/file-link-dto.ts
+models/framework-tree-dto.ts
 models/frequency.ts
 models/identity-provider-dto.ts
 models/index.ts
@@ -62,14 +65,16 @@ models/inline-object3.ts
 models/inline-object4.ts
 models/inline-object5.ts
 models/inline-object6.ts
-models/inline-object7.ts
 models/inline-object8.ts
+models/inline-object9.ts
 models/mail-template-dto.ts
 models/module.ts
 models/multiple-narrative-review-body.ts
 models/narrative-review-body.ts
 models/new-draft-dto.ts
 models/pair-list-answer-dto-list-string.ts
+models/phase-type-dto.ts
+models/phase-type.ts
 models/procedure-app-instance-dto.ts
 models/procedure-app-instance.ts
 models/procedure-dto.ts
@@ -91,3 +96,4 @@ models/user-profile-key.ts
 models/user-profile.ts
 models/user.ts
 models/validation-error.ts
+models/workflow-dto.ts

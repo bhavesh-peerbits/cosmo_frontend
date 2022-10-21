@@ -3,7 +3,8 @@
 import { Grid, ProgressStep, ProgressIndicator, Layer, Tile } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
-import { useState } from 'react';
+import { useResponsive } from 'ahooks';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AdditionalInfoContainer from './AdditionalInfoContainer';
 import ApplicationsSelectionContainer from './ApplicationsSelectionContainer';
@@ -12,15 +13,17 @@ import RequestTextContainer from './RequestTextContainer';
 import UsersSelectionContainer from './UsersSelectionContainer';
 
 type NewEvidenceRequestFlowContainerProps = {
-	request: EvidenceRequestDraft;
+	requestDraft: EvidenceRequestDraft;
+	setRequestDraft: Dispatch<SetStateAction<EvidenceRequestDraft>>;
 };
 
 const NewEvidenceRequestFlowContainer = ({
-	request
+	requestDraft,
+	setRequestDraft
 }: NewEvidenceRequestFlowContainerProps) => {
 	const { t } = useTranslation(['evidenceRequest', 'modals']);
+	const { md } = useResponsive();
 	const [currentStep, setCurrentStep] = useState(0);
-	const [requestDraft, setRequestDraft] = useState(request);
 
 	const contentToRender = () => {
 		switch (currentStep) {
@@ -67,7 +70,7 @@ const NewEvidenceRequestFlowContainer = ({
 						setCurrentStep={setCurrentStep}
 						setRequestDraft={setRequestDraft}
 						apps={
-							request?.requests
+							requestDraft?.requests
 								?.sort((a, b) => Number(b.selected) - Number(a.selected))
 								.map(req => req.application) || []
 						}
@@ -81,33 +84,39 @@ const NewEvidenceRequestFlowContainer = ({
 			<FullWidthColumn>
 				<ProgressIndicator
 					currentIndex={currentStep}
-					spaceEqually
-					className='overflow-hidden'
+					className='overflow-auto lg:overflow-hidden'
+					spaceEqually={md}
 				>
 					<ProgressStep
 						className='truncate'
-						complete={
-							requestDraft.requests
-								?.filter(req => req.selected)
-								.map(req => req.application) &&
-							requestDraft.requests
-								?.filter(req => req.selected)
-								.map(req => req.application).length > 0
-						}
+						complete={!!requestDraft.requests?.filter(req => req.selected).length}
 						label={
-							<span className='cursor-pointer' onClick={() => setCurrentStep(0)}>
+							<span
+								title={t('evidenceRequest:apps-selection')}
+								className='cursor-pointer'
+								onClick={() => setCurrentStep(0)}
+							>
 								{t('evidenceRequest:apps-selection')}
 							</span>
 						}
 					/>
 					<ProgressStep
 						className='truncate'
-						complete={requestDraft.requests
-							?.filter(req => req.selected)
-							.every(req => req.steps.some(step => step.approvers && step.reviewer))}
+						complete={
+							!!requestDraft.requests?.filter(req => req.selected).length &&
+							requestDraft.requests
+								?.filter(req => req.selected)
+								.map(req => req.steps.filter(step => step.type !== 'REQUEST'))
+								.flat()
+								.every(step => !!step.approvers?.length || step.reviewer)
+						}
 						label={
 							requestDraft.requests?.filter(req => req.selected).length ? (
-								<span className='cursor-pointer' onClick={() => setCurrentStep(1)}>
+								<span
+									title={t('evidenceRequest:users-selection')}
+									className='cursor-pointer'
+									onClick={() => setCurrentStep(1)}
+								>
 									{t('evidenceRequest:users-selection')}
 								</span>
 							) : (
@@ -122,7 +131,11 @@ const NewEvidenceRequestFlowContainer = ({
 							requestDraft.requests?.filter(req =>
 								req.steps.find(step => step.approvers?.length)
 							).length ? (
-								<span className='cursor-pointer' onClick={() => setCurrentStep(2)}>
+								<span
+									title={t('evidenceRequest:request-text')}
+									className='cursor-pointer'
+									onClick={() => setCurrentStep(2)}
+								>
 									{t('evidenceRequest:request-text')}
 								</span>
 							) : (
@@ -132,10 +145,17 @@ const NewEvidenceRequestFlowContainer = ({
 					/>
 					<ProgressStep
 						className='truncate'
-						complete={requestDraft.stepInfo !== null}
+						complete={
+							!!requestDraft.stepInfo?.privateComment &&
+							!!requestDraft.stepInfo.publicComment
+						}
 						label={
 							requestDraft.text ? (
-								<span className='cursor-pointer' onClick={() => setCurrentStep(3)}>
+								<span
+									title={t('evidenceRequest:additional-info')}
+									className='cursor-pointer'
+									onClick={() => setCurrentStep(3)}
+								>
 									{t('evidenceRequest:additional-info')}
 								</span>
 							) : (
@@ -145,9 +165,11 @@ const NewEvidenceRequestFlowContainer = ({
 					/>
 					<ProgressStep
 						className=' truncate'
+						title={t('evidenceRequest:attachments')}
 						label={
-							requestDraft.stepInfo ? (
-								<span className='cursor-pointer' onClick={() => setCurrentStep(3)}>
+							!!requestDraft.stepInfo?.privateComment &&
+							!!requestDraft.stepInfo.publicComment ? (
+								<span className='cursor-pointer' onClick={() => setCurrentStep(4)}>
 									{t('evidenceRequest:attachments')}
 								</span>
 							) : (

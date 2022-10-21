@@ -12,30 +12,34 @@
  * Do not edit the class manually.
  */
 
-import { PhaseTypeDto } from './phase-type-dto';
-
 /**
  *
  * @export
- * @interface NewDraftDto
+ * @interface FrameworkTreeDto
  */
-export interface NewDraftDto {
+export interface FrameworkTreeDto {
 	/**
 	 *
-	 * @type {Array<string>}
-	 * @memberof NewDraftDto
+	 * @type {string}
+	 * @memberof FrameworkTreeDto
 	 */
-	workflowName: Array<string>;
+	code?: string;
 	/**
 	 *
-	 * @type {Array<string>}
-	 * @memberof NewDraftDto
+	 * @type {string}
+	 * @memberof FrameworkTreeDto
 	 */
-	requestType: Array<string>;
+	name?: string;
 	/**
 	 *
-	 * @type {Array<PhaseTypeDto>}
-	 * @memberof NewDraftDto
+	 * @type {string}
+	 * @memberof FrameworkTreeDto
 	 */
-	phaseType?: Array<PhaseTypeDto>;
+	description?: string;
+	/**
+	 *
+	 * @type {Array<FrameworkTreeDto>}
+	 * @memberof FrameworkTreeDto
+	 */
+	children?: Array<FrameworkTreeDto>;
 }

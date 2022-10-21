@@ -1,5 +1,6 @@
 import useGetUsersByRole from '@api/user/useGetUsersByRole';
 import { Grid, Column } from '@carbon/react';
+import FullWidthColumn from '@components/FullWidthColumn';
 import MultipleUserSelect from '@components/MultipleUserSelect';
 import SingleUserSelect from '@components/SingleUserSelect';
 import ApplicationStepRequest from '@model/ApplicationStepRequest';
@@ -82,67 +83,73 @@ const UsersSelectionForm = ({
 	}, [appStepRequest.application.id, isValid, setIsCompleted, step.stepOrder]);
 	return (
 		<Grid fullWidth>
-			<Column sm={4} md={4} lg={8} className='mb-5'>
-				<SingleUserSelect
-					control={control}
-					label='Focal Point *'
-					name='focalPoint'
-					level={2}
-					rules={{
-						required: true
-					}}
-					// TODO Add default value
-					getUserFn={() => {
-						// eslint-disable-next-line react-hooks/rules-of-hooks
-						return useGetUsersByRole('FOCAL_POINT');
-					}}
-					key={`reviewer-step${step.stepOrder}-${appStepRequest.application.id}`}
-					defaultValue={
-						appStepRequest.steps.find(
-							stepRequest => stepRequest.stepOrder === step.stepOrder
-						)?.reviewer
-					}
-				/>
-			</Column>
-			<Column sm={4} md={4} lg={8} className='mb-5'>
-				<MultipleUserSelect
-					control={control}
-					label={t('focal-point-delegates')}
-					name='delegates'
-					level={2}
-					defaultValue={
-						appStepRequest.steps.find(
-							stepRequest => stepRequest.stepOrder === step.stepOrder
-						)?.delegates
-					}
-					getUserFn={() => {
-						// eslint-disable-next-line react-hooks/rules-of-hooks
-						return useGetUsersByRole('FOCAL_POINT');
-					}}
-					key={`delegates-step${step.stepOrder}-${appStepRequest.application.id}`}
-				/>
-			</Column>
-			<Column sm={4} md={4} lg={8}>
-				<MultipleUserSelect
-					control={control}
-					label={`${t('approvers')} *`}
-					name='approvers'
-					level={2}
-					rules={{
-						required: true
-					}}
-					defaultValue={
-						appStepRequest.steps.find(
-							stepRequest => stepRequest.stepOrder === step.stepOrder
-						)?.approvers
-					}
-					getUserFn={() => {
-						// eslint-disable-next-line react-hooks/rules-of-hooks
-						return useGetUsersByRole('WORKFLOW_APPROVER');
-					}}
-					key={`approvers-step${step.stepOrder}-${appStepRequest.application.id}`}
-				/>
-			</Column>
+			{step.type === 'UPLOAD' && (
+				<>
+					<Column sm={4} md={4} lg={8} className='mb-5'>
+						<SingleUserSelect
+							control={control}
+							label='Focal Point *'
+							name='focalPoint'
+							level={2}
+							rules={{
+								required: true
+							}}
+							// TODO Add default value
+							getUserFn={() => {
+								// eslint-disable-next-line react-hooks/rules-of-hooks
+								return useGetUsersByRole('FOCAL_POINT');
+							}}
+							key={`reviewer-step${step.stepOrder}-${appStepRequest.application.id}`}
+							defaultValue={
+								appStepRequest.steps.find(
+									stepRequest => stepRequest.stepOrder === step.stepOrder
+								)?.reviewer
+							}
+						/>
+					</Column>
+					<Column sm={4} md={4} lg={8} className='mb-5'>
+						<MultipleUserSelect
+							control={control}
+							label={t('focal-point-delegates')}
+							name='delegates'
+							level={2}
+							defaultValue={
+								appStepRequest.steps.find(
+									stepRequest => stepRequest.stepOrder === step.stepOrder
+								)?.delegates
+							}
+							getUserFn={() => {
+								// eslint-disable-next-line react-hooks/rules-of-hooks
+								return useGetUsersByRole('FOCAL_POINT');
+							}}
+							key={`delegates-step${step.stepOrder}-${appStepRequest.application.id}`}
+						/>
+					</Column>
+				</>
+			)}
+			{step.type === 'APPROVAL' && (
+				<FullWidthColumn>
+					<MultipleUserSelect
+						control={control}
+						label={`${t('approvers')} *`}
+						name='approvers'
+						level={2}
+						rules={{
+							required: true
+						}}
+						defaultValue={
+							appStepRequest.steps.find(
+								stepRequest => stepRequest.stepOrder === step.stepOrder
+							)?.approvers
+						}
+						getUserFn={() => {
+							// eslint-disable-next-line react-hooks/rules-of-hooks
+							return useGetUsersByRole('WORKFLOW_APPROVER');
+						}}
+						key={`approvers-step${step.stepOrder}-${appStepRequest.application.id}`}
+					/>
+				</FullWidthColumn>
+			)}
 		</Grid>
 	);
 };

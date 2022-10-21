@@ -21,6 +21,8 @@ export * from './api/config-element-module-controller-api';
 export * from './api/control-controller-api';
 export * from './api/csv-reader-controller-api';
 export * from './api/evidence-request-controller-api';
+export * from './api/evidence-request-focal-point-controller-api';
+export * from './api/framework-tree-for-evidence-controller-api';
 export * from './api/frequency-controller-api';
 export * from './api/generate-report-controller-api';
 export * from './api/module-controller-api';

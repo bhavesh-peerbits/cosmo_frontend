@@ -67,14 +67,13 @@ const RequestTextContainer = ({
 					className='space-y-5'
 				>
 					<Button
-						disabled={isValid && requestText !== '<p></p>'}
+						disabled={(isValid && requestText !== '<p></p>') || !requestDraft.text}
 						kind='tertiary'
 						size='sm'
 						type='reset'
 					>
 						{t('evidenceRequest:suggest-text')}
 					</Button>
-
 					<FullWidthColumn>
 						<TiptapEditor
 							content={requestTextValue}
@@ -84,19 +83,19 @@ const RequestTextContainer = ({
 							onReset={resetTip}
 						/>
 					</FullWidthColumn>
+					<FullWidthColumn className='flex justify-end space-x-5'>
+						<Button kind='secondary' size='md' onClick={() => setCurrentStep(1)}>
+							{t('modals:back')}
+						</Button>
+						<Button
+							size='md'
+							disabled={!isValid || requestText === '<p></p>'}
+							onClick={handleNext}
+						>
+							{t('modals:next')}
+						</Button>
+					</FullWidthColumn>
 				</Form>
-			</FullWidthColumn>
-			<FullWidthColumn className='flex justify-end space-x-5'>
-				<Button kind='secondary' size='md' onClick={() => setCurrentStep(1)}>
-					{t('modals:back')}
-				</Button>
-				<Button
-					size='md'
-					disabled={!isValid || requestText === '<p></p>'}
-					onClick={handleNext}
-				>
-					{t('modals:next')}
-				</Button>
 			</FullWidthColumn>
 		</Grid>
 	);

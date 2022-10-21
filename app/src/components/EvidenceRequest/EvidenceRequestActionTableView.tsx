@@ -10,11 +10,13 @@ import { Information } from '@carbon/react/icons';
 import { useCallback } from 'react';
 import EvidenceRequestFilters from './EvidenceRequestFilters';
 
-interface EvidenceRequestsTableViewProps {
+interface EvidenceRequestActionTableViewProps {
 	view: string;
 }
 
-const EvidenceRequestsTableView = ({ view }: EvidenceRequestsTableViewProps) => {
+const EvidenceRequestActionTableView = ({
+	view
+}: EvidenceRequestActionTableViewProps) => {
 	const { requests } = useEvidenceRequests();
 	const { t } = useTranslation('evidenceRequest');
 	const { filters, setFilters } = useEvidenceRequests();
@@ -172,4 +174,4 @@ const EvidenceRequestsTableView = ({ view }: EvidenceRequestsTableViewProps) => 
 	);
 };
 
-export default EvidenceRequestsTableView;
+export default EvidenceRequestActionTableView;

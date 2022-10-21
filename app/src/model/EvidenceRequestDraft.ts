@@ -4,6 +4,8 @@ import ApplicationStepRequest, {
 	fromApplicationStepRequestApi,
 	toApplicationStepRequestApi
 } from './ApplicationStepRequest';
+import Workflow, { fromWorkflowApi, toWorkflowApi } from './Workflow';
+import PhaseType, { fromPhaseTypeApi, toPhaseTypeApi } from './PhaseType';
 
 export type StepInfoType = {
 	publicComment: string | undefined;
@@ -16,11 +18,12 @@ interface EvidenceRequestDraft {
 	requests?: ApplicationStepRequest[];
 	text?: string;
 	collaborators?: User[];
-	workflowType: string;
 	type: string;
 	name?: string;
 	stepInfo?: { publicComment: string | undefined; privateComment: string | undefined };
 	dueDate?: Date;
+	phaseType?: PhaseType;
+	workflow: Workflow;
 }
 
 export const fromEvidenceRequestDraftApi = (
@@ -40,12 +43,15 @@ export const fromEvidenceRequestDraftApi = (
 			  )
 			: [],
 		text: evidenceRequestDraftApi.text,
-		workflowType: evidenceRequestDraftApi.workflowType,
 		type: evidenceRequestDraftApi.type,
 		name: evidenceRequestDraftApi.name,
 		stepInfo: evidenceRequestDraftApi.stepInfo
 			? (evidenceRequestDraftApi.stepInfo as StepInfoType)
-			: ({} as StepInfoType)
+			: ({} as StepInfoType),
+		phaseType: evidenceRequestDraftApi.phaseType
+			? fromPhaseTypeApi(evidenceRequestDraftApi.phaseType)
+			: undefined,
+		workflow: fromWorkflowApi(evidenceRequestDraftApi.workflow)
 	};
 };
 
@@ -66,13 +72,16 @@ export const toEvidenceRequestDraftApi = (
 			? evidenceRequestDraft.collaborators.map(user => toUserApi(user))
 			: undefined,
 		text: evidenceRequestDraft.text,
-		workflowType: evidenceRequestDraft.workflowType,
 		type: evidenceRequestDraft.type,
 		name: evidenceRequestDraft.name,
 		stepInfo: evidenceRequestDraft.stepInfo,
 		dueDate: evidenceRequestDraft.dueDate
 			? evidenceRequestDraft.dueDate?.toISOString()
-			: undefined
+			: undefined,
+		phaseType: evidenceRequestDraft.phaseType
+			? toPhaseTypeApi(evidenceRequestDraft.phaseType)
+			: undefined,
+		workflow: toWorkflowApi(evidenceRequestDraft.workflow)
 	};
 };
 

@@ -12,6 +12,8 @@
  * Do not edit the class manually.
  */
 
+import { PhaseTypeDto } from './phase-type-dto';
+
 /**
  *
  * @export
@@ -36,4 +38,10 @@ export interface SetUpDraftDto {
 	 * @memberof SetUpDraftDto
 	 */
 	requestType: string;
+	/**
+	 *
+	 * @type {PhaseTypeDto}
+	 * @memberof SetUpDraftDto
+	 */
+	phaseType?: PhaseTypeDto;
 }

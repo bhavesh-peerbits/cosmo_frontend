@@ -6,17 +6,16 @@ import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { UserFollow, Exit, EventSchedule } from '@carbon/react/icons';
 import { useCallback, useState } from 'react';
-import { useQueryClient } from 'react-query';
 import MultiAddSelect from '@components/MultiAddSelect';
 import CloseEvidenceRequestModal from '@components/Modals/CloseEvidenceRequestModal';
 import ReminderEvidenceRequestModal from '@components/Modals/ReminderEvidenceRequestModal';
 import EvidenceRequestDetails from '@components/EvidenceRequest/EvidenceRequestDetails';
 import EvidenceRequestInfo from '@components/EvidenceRequest/EvidenceRequestInfo';
 import EvidenceStepInfo from '@components/EvidenceRequest/EvidenceStepInfo';
-import useGetAllUserByRoleAndApplication from '@api/evidence-request/useGetAllUserByRoleAndApplication';
 import { UserRoleEnum } from '@model/UserRole';
 import User, { fromUserApi } from '@model/User';
 import useAddCollaboratorsToEvidence from '@api/evidence-request/useAddCollaboratorsToEvidence';
+import useGetUsersByRoles from '@api/user/useGetUsersByRoles';
 
 const StartedEvidenceRequest = () => {
 	const { requestId = '' } = useParams<'requestId'>();
@@ -26,11 +25,10 @@ const StartedEvidenceRequest = () => {
 	const [isCloseModalOpen, setIsCloseModalOpen] = useState(false);
 	const [isReminderModalOpen, setIsReminderModalOpen] = useState(false);
 	const { mutateAsync: mutateCollaborators } = useAddCollaboratorsToEvidence();
-	const queryClient = useQueryClient();
-	const { data: possibleCollaborators } = useGetAllUserByRoleAndApplication({
-		role: UserRoleEnum.RequestAnalyst,
-		appId: `${data?.application.id}`
-	});
+	const { data: possibleCollaborators } = useGetUsersByRoles(
+		UserRoleEnum.RequestAnalyst,
+		UserRoleEnum.RequestAdmin
+	);
 	const handleAddCollaborators = useCallback(
 		(selection: string[]) => {
 			return mutateCollaborators({
@@ -78,9 +76,9 @@ const StartedEvidenceRequest = () => {
 					name: t('evidenceRequest:close-request'),
 					icon: Exit,
 					onClick: () => {
-						queryClient.invalidateQueries(['evidence-request', requestId]);
 						setIsCloseModalOpen(true);
-					}
+					},
+					disabled: data.status !== 'IN_PROGRESS'
 				}
 			]}
 		>
@@ -106,6 +104,7 @@ const StartedEvidenceRequest = () => {
 									<EvidenceRequestInfo
 										stepRequest={data.steps.filter(step => step.type === 'REQUEST')[0]}
 										currentStep={data.currentStep}
+										status={data.status}
 									/>
 								</Column>
 							</Grid>
@@ -127,6 +126,8 @@ const StartedEvidenceRequest = () => {
 				<CloseEvidenceRequestModal
 					isOpen={isCloseModalOpen}
 					setIsOpen={setIsCloseModalOpen}
+					stepReq={data.steps.filter(step => step.type === 'REQUEST')[0]}
+					erId={+data.id}
 				/>
 				<MultiAddSelect
 					selectedItems={{

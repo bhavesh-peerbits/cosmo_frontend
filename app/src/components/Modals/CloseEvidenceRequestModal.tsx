@@ -4,56 +4,98 @@ import {
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
-	TextArea
+	TextArea,
+	Form
 } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+import { useCallback, useEffect } from 'react';
+import useCloseEvidence from '@api/evidence-request/useCloseEvidence';
+import { useForm } from 'react-hook-form';
+import EvidenceRequestStep from '@model/EvidenceRequestStep';
+import { useNavigate } from 'react-router-dom';
 
 type CloseModalProps = {
 	isOpen: boolean;
 	setIsOpen: (value: boolean) => void;
+	erId: number;
+	stepReq: EvidenceRequestStep;
 };
 
-const CloseEvidenceRequestModal = ({ isOpen, setIsOpen }: CloseModalProps) => {
+interface CloseEvidenceForm {
+	publicComment: string;
+	privateComment: string;
+}
+
+const CloseEvidenceRequestModal = ({
+	erId,
+	stepReq,
+	isOpen,
+	setIsOpen
+}: CloseModalProps) => {
 	const { t } = useTranslation(['modals', 'evidenceRequest']);
-	const [pubComment, setPubComment] = useState('');
-	// const { mutateAsync: mutateClose } = useCloseEvidence();
+	const navigate = useNavigate();
+	const { register, handleSubmit, reset, formState } = useForm<CloseEvidenceForm>({
+		mode: 'onChange',
+		defaultValues: {
+			publicComment: stepReq.stepInfo?.publicComment,
+			privateComment: stepReq.stepInfo?.privateComment
+		}
+	});
+	const { mutateAsync: mutateClose } = useCloseEvidence();
 	const cleanUp = () => {
 		setIsOpen(false);
 	};
-	// const handleCloseEvidence = useCallback(
-	// 	(selection: string[]) => {
-	// 		return mutateClose({
-	// 			id: +`${data?.id}`,
-	// 			userIds: selection
-	// 		}).then(() => setIsCollaboratorsOpen(false));
-	// 	},
-	// 	[data?.id, mutateCollaborators]
-	// );
+	const handleCloseEvidence = useCallback(
+		(data: CloseEvidenceForm) => {
+			return mutateClose({
+				data: {
+					id: erId,
+					stepInfo: {
+						publicComment: data.publicComment,
+						privateComment: data.privateComment
+					}
+				}
+			}).then(() => {
+				setIsOpen(false);
+				navigate('/started-evidence-request');
+			});
+		},
+		[erId, mutateClose, navigate, setIsOpen]
+	);
+	useEffect(() => {
+		reset;
+	}, [reset, stepReq]);
 
 	return (
 		<ComposedModal size='sm' open={isOpen} onClose={cleanUp} preventCloseOnClickOutside>
-			<ModalHeader title={t('evidenceRequest:close-request')} closeModal={cleanUp} />
-			<ModalBody>
-				<span>{t('evidenceRequest:confirm-close')}</span>
-				{/* <ModalError isError={isError} error={error as ApiError} /> */}
-				<div>
-					<TextArea
-						labelText='Public Comment'
-						cols={50}
-						rows={4}
-						id='public-comment-close'
-						onChange={e => setPubComment(e.currentTarget.value)}
-					/>
-				</div>
-			</ModalBody>
-			<ModalFooter>
-				<Button kind='secondary' onClick={cleanUp}>
-					{t('modals:cancel')}
-				</Button>
-				<Button kind='danger'>{t('evidenceRequest:close')}</Button>
-			</ModalFooter>
-			{pubComment}
+			<Form>
+				<ModalHeader title={t('evidenceRequest:close-request')} closeModal={cleanUp} />
+				<ModalBody>
+					<span>{t('evidenceRequest:confirm-close')}</span>
+					{/* <ModalError isError={isError} error={error as ApiError} /> */}
+					<div>
+						<TextArea
+							labelText='Public Comment'
+							cols={50}
+							rows={4}
+							{...register('publicComment')}
+							id='public-comment-close'
+						/>
+					</div>
+				</ModalBody>
+				<ModalFooter>
+					<Button kind='secondary' onClick={cleanUp}>
+						{t('modals:cancel')}
+					</Button>
+					<Button
+						kind='danger'
+						onClick={handleSubmit(handleCloseEvidence)}
+						disabled={!formState.isDirty}
+					>
+						{t('evidenceRequest:close')}
+					</Button>
+				</ModalFooter>
+			</Form>
 		</ComposedModal>
 	);
 };
