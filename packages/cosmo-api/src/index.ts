@@ -40,7 +40,9 @@ import {
 	UserBase,
 	UserControllerApi,
 	UserDto,
-	WorkflowDto
+	WorkflowDto,
+	FrameworkTreeDto,
+	FrameworkTreeForEvidenceControllerApi
 } from './v1';
 
 export const ApiConfiguration = Configuration;
@@ -58,7 +60,8 @@ export default function configureApi(config: Configuration) {
 		realmApi: new RealmControllerApi(config),
 		revalidationApi: new ReviewerCampaignControllerApi(config),
 		analystCampaignApi: new AnalystCampaignControllerApi(config),
-		evidenceRequest: new EvidenceRequestControllerApi(config)
+		evidenceRequest: new EvidenceRequestControllerApi(config),
+		frameworkTreeApi: new FrameworkTreeForEvidenceControllerApi(config)
 	};
 }
 export type ApplicationApi = ApplicationDto;
@@ -92,3 +95,4 @@ export type NewDraftParameterApi = NewDraftDto;
 export type FileLinkApi = FileLinkDto;
 export type WorkflowApi = WorkflowDto;
 export type PhaseTypeApi = PhaseTypeDto;
+export type FrameworkApi = FrameworkTreeDto;
