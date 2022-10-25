@@ -42,6 +42,8 @@ import {
 	UserControllerApi,
 	UserDto,
 	WorkflowDto,
+	FrameworkTreeDto,
+	FrameworkTreeForEvidenceControllerApi,
 	EvidenceRequestFocalPointControllerApi
 } from './v1';
 
@@ -61,6 +63,7 @@ export default function configureApi(config: Configuration) {
 		revalidationApi: new ReviewerCampaignControllerApi(config),
 		analystCampaignApi: new AnalystCampaignControllerApi(config),
 		evidenceRequest: new EvidenceRequestControllerApi(config),
+		frameworkTreeApi: new FrameworkTreeForEvidenceControllerApi(config),
 		evidenceRequestFocalPointApi: new EvidenceRequestFocalPointControllerApi(config)
 	};
 }
@@ -95,4 +98,5 @@ export type NewDraftParameterApi = NewDraftDto;
 export type FileLinkApi = FileLinkDto;
 export type WorkflowApi = WorkflowDto;
 export type PhaseTypeApi = PhaseTypeDto;
+export type FrameworkApi = FrameworkTreeDto;
 export type CloseEvidenceApi = CloseEvidenceDto;

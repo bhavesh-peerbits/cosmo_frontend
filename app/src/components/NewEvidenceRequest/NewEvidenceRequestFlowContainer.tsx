@@ -80,11 +80,11 @@ const NewEvidenceRequestFlowContainer = ({
 	};
 
 	return (
-		<Grid fullWidth narrow className='space-y-5'>
+		<Grid fullWidth narrow>
 			<FullWidthColumn>
 				<ProgressIndicator
 					currentIndex={currentStep}
-					className='overflow-auto lg:overflow-hidden'
+					className='overflow-x-auto pb-7 lg:overflow-x-hidden'
 					spaceEqually={md}
 				>
 					<ProgressStep
@@ -144,11 +144,11 @@ const NewEvidenceRequestFlowContainer = ({
 						}
 					/>
 					<ProgressStep
-						className='truncate'
 						complete={
 							!!requestDraft.stepInfo?.privateComment &&
 							!!requestDraft.stepInfo.publicComment
 						}
+						secondaryLabel={t('evidenceRequest:optional-step')}
 						label={
 							requestDraft.text ? (
 								<span
