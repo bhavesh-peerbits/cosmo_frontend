@@ -57,5 +57,6 @@
 	"phase-type": "Fase di test",
 	"select-branches-leaves": "Seleziona rami o foglie",
 	"selected-items": "Elementi selezionati",
-	"basic-info": "Informazioni di base"
+	"basic-info": "Informazioni di base",
+	"optional-step": "Step facoltativo"
 }
