@@ -54,5 +54,8 @@
 	"upload": "Télécharger",
 	"request": "Requête",
 	"attachments-description": "Dans cette section, il est possible de télécharger des fichiers. Les fichiers téléchargés ne seront pas enregistrés en tant que brouillon, il est donc important de les télécharger immédiatement avant de soumettre votre demande",
-	"phase-type": "Phase de test"
+	"phase-type": "Phase de test",
+	"select-branches-leaves": "Sélectionner des branches ou des feuilles",
+	"selected-items": "Éléments sélectionnés",
+	"basic-info": "Informations de base"
 }
