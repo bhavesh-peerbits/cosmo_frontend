@@ -8,20 +8,25 @@ import { useState } from 'react';
 import { ChevronDown, ChevronUp } from '@carbon/react/icons';
 import User from '@model/User';
 import FileLinkTable from './FileLinkTable';
+import EvidenceRequestApproveForm from './EvidenceRequestApproveForm';
+import EvidenceRequestUploadForm from './EvidenceRequestUploadForm';
 
-const EvidenceStepInfo = ({
+const ActionEvidenceRequestInfo = ({
 	steps,
 	currentStep,
-	owner
+	owner,
+	setIsOpen
 }: {
 	steps: EvidenceRequestStep[];
 	currentStep: number;
 	owner: User;
+	setIsOpen: (value: boolean) => void;
 }) => {
 	const { t } = useTranslation('evidenceRequest');
+	const { type } = steps.filter(st => st.stepOrder === currentStep)[0];
 	let defaultShowMore: Record<number, boolean> = {};
 	steps.forEach((_, i) => {
-		defaultShowMore = { ...defaultShowMore, [i]: false };
+		defaultShowMore = { ...defaultShowMore, [i]: i + 1 === currentStep };
 	});
 	const [showMore, setShowMore] = useState(defaultShowMore);
 	return (
@@ -32,7 +37,11 @@ const EvidenceStepInfo = ({
 						.sort((a, b) => +a.id - +b.id)
 						.map((step, index) => {
 							return (
-								<Tile className='w-full bg-background' key={step.id}>
+								<Tile
+									className='w-full bg-background'
+									key={step.id}
+									id={`${step.stepOrder}`}
+								>
 									<Grid>
 										<FullWidthColumn className='flex justify-between space-x-1 space-y-4'>
 											<div className='grid w-full grid-cols-4'>
@@ -100,6 +109,12 @@ const EvidenceStepInfo = ({
 															<br />
 															{`${step.stepInfo?.publicComment}`}
 														</p>
+													) : index + 1 === currentStep && type === 'UPLOAD' ? (
+														<EvidenceRequestUploadForm
+															step={steps.filter(st => st.stepOrder === currentStep)[0]}
+														/>
+													) : index + 1 === currentStep && type === 'APPROVAL' ? (
+														<EvidenceRequestApproveForm setIsOpen={setIsOpen} />
 													) : null
 												) : null}
 												{showMore[index] ? (
@@ -122,4 +137,4 @@ const EvidenceStepInfo = ({
 	);
 };
 
-export default EvidenceStepInfo;
+export default ActionEvidenceRequestInfo;

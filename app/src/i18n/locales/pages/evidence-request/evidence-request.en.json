@@ -30,7 +30,7 @@
 	"creator": "Owner",
 	"step-progress": "Progression",
 	"completion-date": "Completion date",
-	"search-placeholder": "Search by request code",
+	"search-placeholder": "Search by request code or application",
 	"all": "All",
 	"current-step": "Current step",
 	"reset": "Reset",
@@ -55,5 +55,12 @@
 	"request": "Request",
 	"attachments-description": "In this section it is possible to upload files. Uploaded files will not be saved as a draft, so it is important to upload them immediately before submitting your request",
 	"phase-type": "Test phase",
-	"start-date": "Start date"
+	"start-date": "Start date",
+	"approve": "Approve",
+	"reject": "Reject",
+	"change-request": "Change request",
+	"action": "Action",
+	"save-upload": "Save upload",
+	"close-upload": "Close upload",
+	"response": "Response"
 }

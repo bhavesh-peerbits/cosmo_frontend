@@ -8,6 +8,7 @@ const routes = {
 	USER_REVALIDATION: '/user-revalidation',
 	NEW_EVIDENCE_REQUEST: '/new-evidence-request',
 	STARTED_EVIDENCE_REQUEST: '/started-evidence-request',
+	EVIDENCE_REQUEST_ACTION: '/evidence-request-action',
 	ADMIN: '/admin',
 	LOGOUT: '/logout',
 	FORBIDDEN: '/forbidden',

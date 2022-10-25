@@ -15,11 +15,13 @@ interface StepRequestTextForm {
 const EvidenceRequestInfo = ({
 	stepRequest,
 	currentStep,
-	status
+	status,
+	disabled
 }: {
 	stepRequest: EvidenceRequestStep;
 	currentStep: number;
 	status: string;
+	disabled?: boolean;
 }) => {
 	const { t } = useTranslation('evidenceRequest');
 	const [resetTip, setResetTip] = useState(false);
@@ -82,7 +84,7 @@ const EvidenceRequestInfo = ({
 						onBlur={onBlurDescription}
 						ref={descriptionRef}
 						onReset={resetTip}
-						readOnly={status !== 'IN_PROGRESS' || `${currentStep}` !== '1'}
+						readOnly={disabled || status !== 'IN_PROGRESS' || `${currentStep}` !== '1'}
 						className='max-h-[300px] overflow-y-auto'
 					/>
 				</div>
@@ -98,7 +100,7 @@ const EvidenceRequestInfo = ({
 					<TextArea
 						labelText=''
 						{...register('publicComment')}
-						disabled={status !== 'IN_PROGRESS'}
+						disabled={disabled || status !== 'IN_PROGRESS'}
 					/>
 				</div>
 				<div className='space-y-2'>
@@ -106,19 +108,20 @@ const EvidenceRequestInfo = ({
 					<TextArea
 						labelText=''
 						{...register('privateComment')}
-						disabled={status !== 'IN_PROGRESS'}
+						disabled={disabled || status !== 'IN_PROGRESS'}
 					/>
 				</div>
 			</div>
 			<div className='space-x-5 p-5 text-right'>
-				{status === 'IN_PROGRESS' && (
-					<>
-						<Button kind='secondary' type='reset'>
-							{t('reset')}
-						</Button>
-						<Button onClick={handleSubmit(handleSaveStep)}>{t('save')}</Button>
-					</>
-				)}
+				{disabled ||
+					(status === 'IN_PROGRESS' && (
+						<>
+							<Button kind='secondary' type='reset'>
+								{t('reset')}
+							</Button>
+							<Button onClick={handleSubmit(handleSaveStep)}>{t('save')}</Button>
+						</>
+					))}
 			</div>
 		</Form>
 	);

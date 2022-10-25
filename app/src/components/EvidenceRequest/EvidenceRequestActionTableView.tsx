@@ -1,14 +1,20 @@
-import { Column, Grid, TableToolbarSearch, Tooltip } from '@carbon/react';
+import {
+	TableToolbarSearch,
+	Tooltip,
+	ContentSwitcher,
+	Switch,
+	Select,
+	SelectItem
+} from '@carbon/react';
 import Fade from '@components/Fade';
 import { HeaderFunction } from '@components/table/CosmoTable';
 import GroupableCosmoTable from '@components/table/GroupableCosmoTable';
-import useEvidenceRequests from '@hooks/evidence-request/useEvidenceRequests';
+import useEvidenceRequestAction from '@hooks/evidence-request/useEvidenceRequestAction';
 import EvidenceRequest from '@model/EvidenceRequest';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Information } from '@carbon/react/icons';
+import { Information, Grid as GridIcon, HorizontalView } from '@carbon/react/icons';
 import { useCallback } from 'react';
-import EvidenceRequestFilters from './EvidenceRequestFilters';
 
 interface EvidenceRequestActionTableViewProps {
 	view: string;
@@ -17,9 +23,8 @@ interface EvidenceRequestActionTableViewProps {
 const EvidenceRequestActionTableView = ({
 	view
 }: EvidenceRequestActionTableViewProps) => {
-	const { requests } = useEvidenceRequests();
+	const { requests, filters, setFilters } = useEvidenceRequestAction();
 	const { t } = useTranslation('evidenceRequest');
-	const { filters, setFilters } = useEvidenceRequests();
 
 	const tooltipCell = useCallback(
 		(info: {
@@ -48,7 +53,7 @@ const EvidenceRequestActionTableView = ({
 	const CellLinkComponent = useCallback(
 		(info: { id: string | undefined; code: string | undefined }) =>
 			info.id ? (
-				<Link to={`/started-evidence-request/${info.id}`}>{info.code}</Link>
+				<Link to={`/evidence-request-action/${info.id}`}>{info.code}</Link>
 			) : (
 				<span>{info.code}</span>
 			),
@@ -62,6 +67,7 @@ const EvidenceRequestActionTableView = ({
 					id: `code${view}`,
 					header: t('code'),
 					cell: info =>
+						info &&
 						CellLinkComponent({
 							id: info.row.original?.id,
 							code: info.getValue()
@@ -86,9 +92,9 @@ const EvidenceRequestActionTableView = ({
 					header: t('creator')
 				})
 			];
-			if (view === 'OnGoing') {
+			if (view === 'ActionPending') {
 				ArrayCol.splice(
-					3,
+					2,
 					0,
 					table.createDataColumn(row => row.currentStep, {
 						id: `step_progress${view}`,
@@ -99,11 +105,33 @@ const EvidenceRequestActionTableView = ({
 								: `${t('current-step')}: ${info.getValue()}`
 					})
 				);
+
+				ArrayCol.splice(
+					2,
+					0,
+					table.createDataColumn(
+						row => ({ currentStep: row.currentStep, steps: row.steps }),
+						{
+							id: `action${view}`,
+							header: t('action'),
+							enableGrouping: false,
+							cell: info => {
+								const steps = [...info.getValue().steps];
+								steps.sort((a, b) => a.stepOrder - b.stepOrder);
+								return steps[+info.getValue().currentStep - 1].type === 'APPROVAL'
+									? t('approve').toUpperCase()
+									: t('upload').toUpperCase();
+							}
+						}
+					)
+				);
 			}
+
 			if (view === 'Closed') {
 				ArrayCol.splice(
 					3,
 					0,
+
 					table.createDataColumn(
 						row => ({
 							title: `${row.status}`,
@@ -149,27 +177,49 @@ const EvidenceRequestActionTableView = ({
 
 	return (
 		<Fade>
-			<Grid fullWidth narrow className='h-full'>
-				<Column sm={4} md={8} lg={4}>
-					<div className='pl-5 md:ml-0'>
-						<EvidenceRequestFilters view={view} />
+			<div className='flex w-full justify-end'>
+				<div className='ml-5 flex w-full items-center justify-between space-x-5 md:justify-end'>
+					<div className='flex w-full justify-end gap-5'>
+						<div className='w-auto'>
+							<Select
+								id='workflow-types'
+								labelText=''
+								onChange={e =>
+									setFilters(old => ({
+										...old,
+										action:
+											e.currentTarget?.value === 'All'
+												? undefined
+												: e.currentTarget?.value
+									}))
+								}
+							>
+								<SelectItem text='All' value='All' key='All' />
+								<SelectItem text='Approve' value='APPROVAL' key='Approve' />
+								<SelectItem text='Upload' value='UPLOAD' key='Upload' />
+							</Select>
+						</div>
+						<ContentSwitcher
+							selectedIndex={1}
+							onChange={() => setFilters({ isTile: false })}
+							className='mt-3 w-auto'
+						>
+							<Switch name='first'>
+								<GridIcon />
+							</Switch>
+							<Switch name='second'>
+								<HorizontalView />
+							</Switch>
+						</ContentSwitcher>
 					</div>
-				</Column>
-				<Column sm={4} md={8} lg={12}>
-					<GroupableCosmoTable
-						tableId={view}
-						data={
-							view === 'OnGoing'
-								? requests.filter(req => req.status === 'IN_PROGRESS')
-								: requests.filter(
-										req => req.status !== 'DRAFT' && req.status !== 'IN_PROGRESS'
-								  )
-						}
-						createHeaders={columns}
-						toolbar={{ toolbarContent }}
-					/>
-				</Column>
-			</Grid>
+				</div>
+			</div>
+			<GroupableCosmoTable
+				tableId={view}
+				data={requests}
+				createHeaders={columns}
+				toolbar={{ toolbarContent }}
+			/>
 		</Fade>
 	);
 };

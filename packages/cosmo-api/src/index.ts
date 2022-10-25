@@ -41,7 +41,8 @@ import {
 	UserBase,
 	UserControllerApi,
 	UserDto,
-	WorkflowDto
+	WorkflowDto,
+	EvidenceRequestFocalPointControllerApi
 } from './v1';
 
 export const ApiConfiguration = Configuration;
@@ -59,7 +60,8 @@ export default function configureApi(config: Configuration) {
 		realmApi: new RealmControllerApi(config),
 		revalidationApi: new ReviewerCampaignControllerApi(config),
 		analystCampaignApi: new AnalystCampaignControllerApi(config),
-		evidenceRequest: new EvidenceRequestControllerApi(config)
+		evidenceRequest: new EvidenceRequestControllerApi(config),
+		evidenceRequestFocalPointApi: new EvidenceRequestFocalPointControllerApi(config)
 	};
 }
 export type ApplicationApi = ApplicationDto;

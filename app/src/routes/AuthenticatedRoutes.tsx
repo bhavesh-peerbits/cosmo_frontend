@@ -8,6 +8,7 @@ import PageSkeleton from '@components/PageSkeleton';
 import usePolicyStore from '@hooks/usePolicyStore';
 import ProtectRoute from '@routes/ProtectRoute';
 import StartedEvidenceRequest from '@pages/StartedEvidenceRequest';
+import ActionEvidenceRequest from '@pages/ActionEvidenceRequest';
 
 const Home = React.lazy(() => import('@pages/Home'));
 const Test = React.lazy(() => import('@pages/Test'));
@@ -36,6 +37,9 @@ const NewEvidenceRequestDashboard = React.lazy(
 const NewEvidenceRequest = React.lazy(() => import('@pages/NewEvidenceRequest'));
 const StartedEvidenceRequestDashboard = React.lazy(
 	() => import('@pages/StartedEvidenceRequestDashboard')
+);
+const ActionEvidenceRequestDashboard = React.lazy(
+	() => import('@pages/ActionEvidenceRequestDashboard')
 );
 
 const AuthenticatedRoutes = () => {
@@ -219,6 +223,10 @@ const AuthenticatedRoutes = () => {
 							<Route path='started-evidence-request'>
 								<Route index element={<StartedEvidenceRequestDashboard />} />
 								<Route path=':requestId' element={<StartedEvidenceRequest />} />
+							</Route>
+							<Route path='evidence-request-action'>
+								<Route index element={<ActionEvidenceRequestDashboard />} />
+								<Route path=':requestId' element={<ActionEvidenceRequest />} />
 							</Route>
 
 							<Route path='test' element={<Test />} />

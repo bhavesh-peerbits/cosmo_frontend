@@ -55,5 +55,12 @@
 	"request": "Requête",
 	"start-date": "Date de début",
 	"attachments-description": "Dans cette section, il est possible de télécharger des fichiers. Les fichiers téléchargés ne seront pas enregistrés en tant que brouillon, il est donc important de les télécharger immédiatement avant de soumettre votre demande",
-	"phase-type": "Phase de test"
+	"phase-type": "Phase de test",
+	"approve": "",
+	"reject": "",
+	"change-request": "",
+	"action": "",
+	"save-upload": "",
+	"close-upload": "",
+	"response": ""
 }

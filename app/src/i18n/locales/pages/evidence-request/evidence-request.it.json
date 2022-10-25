@@ -55,5 +55,12 @@
 	"request": "Richiesta",
 	"start-date": "Data inizio",
 	"attachments-description": "In questa sezione è possibile effettuare l'upload di files. I files caricati non verranno salvati come bozza, quindi è importante caricarli esclusivamente in prossimità dell'invio della richiesta",
-	"phase-type": "Fase di test"
+	"phase-type": "Fase di test",
+	"approve": "Approva",
+	"reject": "Rifiuta",
+	"change-request": "Cambia richiesta",
+	"action": "Azione",
+	"save-upload": "Salva caricamento",
+	"close-upload": "Chiudi caricamento",
+	"response": "Risposta"
 }
