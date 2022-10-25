@@ -22,12 +22,10 @@ const NewEvidenceRequestDashboard = () => {
 			]}
 		>
 			<div className='h-full p-container-1'>
-				{isNewRequestOpen && (
-					<NewEvidenceRequestModal
-						isOpen={isNewRequestOpen}
-						setIsOpen={setIsNewRequestOpen}
-					/>
-				)}
+				<NewEvidenceRequestModal
+					isOpen={isNewRequestOpen}
+					setIsOpen={setIsNewRequestOpen}
+				/>
 				<EvidenceRequestTileView />
 			</div>
 		</PageHeader>
