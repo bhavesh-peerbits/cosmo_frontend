@@ -37,11 +37,19 @@ const policyStore = selector<Policies>({
 			hasNoRole,
 			canSeeNarrativeManagement: Boolean(
 				!hasNoRole &&
-					policies?.includesMulti(UserRoleEnum.SysAdmin, UserRoleEnum.NarrativeAnalyst)
+					policies?.includesMulti(
+						UserRoleEnum.SysAdmin,
+						UserRoleEnum.NarrativeAnalyst,
+						UserRoleEnum.NarrativeAdmin
+					)
 			),
 			canReviewNarrative: Boolean(
 				!hasNoRole &&
-					policies?.includesMulti(UserRoleEnum.SysAdmin, UserRoleEnum.NarrativeAnalyst)
+					policies?.includesMulti(
+						UserRoleEnum.SysAdmin,
+						UserRoleEnum.NarrativeAnalyst,
+						UserRoleEnum.NarrativeAdmin
+					)
 			),
 			canReview: Boolean(
 				!hasNoRole &&
