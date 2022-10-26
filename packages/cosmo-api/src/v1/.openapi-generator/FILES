@@ -9,6 +9,7 @@ api/config-element-controller-api.ts
 api/config-element-module-controller-api.ts
 api/control-controller-api.ts
 api/csv-reader-controller-api.ts
+api/dev-home-redirect-controller-api.ts
 api/evidence-request-controller-api.ts
 api/evidence-request-focal-point-controller-api.ts
 api/framework-tree-for-evidence-controller-api.ts
@@ -41,6 +42,7 @@ models/application-dto.ts
 models/application-profile.ts
 models/application-user-dto.ts
 models/application.ts
+models/association-dto.ts
 models/campaign-dto.ts
 models/campaign-review-dto.ts
 models/campaign-template-dto.ts

@@ -1,5 +1,6 @@
 import { ApplicationStepRequestApi } from 'cosmo-api';
 import Application, { fromApplicationApi, toApplicationApi } from './Application';
+import Association, { fromAssociationApi, toAssociationApi } from './Association';
 import EvidenceRequestStep, {
 	fromEvidenceRequestStepApi,
 	toEvidenceRequestStepApi
@@ -9,6 +10,7 @@ interface ApplicationStepRequest {
 	id: string;
 	application: Application;
 	steps: EvidenceRequestStep[];
+	associations?: Association[];
 	selected: boolean;
 }
 
@@ -18,6 +20,9 @@ export const fromApplicationStepRequestApi = (
 	return {
 		id: `${applicationStepRequestApi.id}`,
 		application: fromApplicationApi(applicationStepRequestApi.application),
+		associations: applicationStepRequestApi.associations
+			? applicationStepRequestApi.associations.map(asso => fromAssociationApi(asso))
+			: undefined,
 		steps: applicationStepRequestApi.steps
 			? [...applicationStepRequestApi.steps].map(step => fromEvidenceRequestStepApi(step))
 			: [],
@@ -30,6 +35,9 @@ export const toApplicationStepRequestApi = (
 ): ApplicationStepRequestApi => {
 	return {
 		id: +applicationStepRequest.id,
+		associations: applicationStepRequest.associations
+			? applicationStepRequest.associations.map(asso => toAssociationApi(asso))
+			: undefined,
 		application: toApplicationApi(applicationStepRequest.application),
 		steps: applicationStepRequest.steps?.map(step => toEvidenceRequestStepApi(step)),
 		selected: applicationStepRequest.selected

@@ -12,36 +12,30 @@
  * Do not edit the class manually.
  */
 
-import { PhaseTypeDto } from './phase-type-dto';
+import { FrameworkTree } from './framework-tree';
 
 /**
  *
  * @export
- * @interface SetUpDraftDto
+ * @interface FrameworkTreeStatus
  */
-export interface SetUpDraftDto {
+export interface FrameworkTreeStatus {
 	/**
 	 *
-	 * @type {string}
-	 * @memberof SetUpDraftDto
+	 * @type {number}
+	 * @memberof FrameworkTreeStatus
 	 */
-	name?: string;
+	id?: number;
 	/**
 	 *
-	 * @type {string}
-	 * @memberof SetUpDraftDto
+	 * @type {number}
+	 * @memberof FrameworkTreeStatus
 	 */
-	workflowname: string;
+	depth?: number;
 	/**
 	 *
-	 * @type {Array<string>}
-	 * @memberof SetUpDraftDto
+	 * @type {FrameworkTree}
+	 * @memberof FrameworkTreeStatus
 	 */
-	requestType: Array<string>;
-	/**
-	 *
-	 * @type {PhaseTypeDto}
-	 * @memberof SetUpDraftDto
-	 */
-	phaseType?: PhaseTypeDto;
+	root?: FrameworkTree;
 }

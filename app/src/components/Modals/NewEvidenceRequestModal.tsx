@@ -23,11 +23,11 @@ type NewEvidenceRequestModalProps = {
 interface CreateRequestForm {
 	requestName: string;
 	workflow: string;
-	requestType: string;
+	requestType: string[];
 	phaseType: PhaseType;
 }
-const GenerateFrameworkStep = (requestType: string) => {
-	const { data } = useGetFrameworkTreeByCode('Tree');
+const GenerateFrameworkStep = ({ requestType }: { requestType: string[] }) => {
+	const { data } = useGetFrameworkTreeByCode('ITGC');
 	const [selectedItems, setSelectedItems] = useState<Framework[]>([]);
 	const { t } = useTranslation('evidenceRequest');
 	const recursiveMap = (framework: Framework) => {
@@ -62,7 +62,7 @@ const GenerateFrameworkStep = (requestType: string) => {
 		<CreateTearsheetStep
 			keyValue='frameworkStep'
 			title='Framework'
-			includeStep={requestType !== 'FREE'}
+			includeStep={requestType[0] !== 'FREE'}
 			className='overflow-auto'
 		>
 			<div className='flex w-full space-x-5 divide-x-1 divide-solid divide-border-subtle-0'>
@@ -247,11 +247,11 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 				setIsOpen(false);
 			}}
 			onRequestSubmit={
-				requestType === 'FREE' ? handleSubmit(submitFreeRequest) : () => undefined // TODO Add correct function
+				requestType[0] === 'FREE' ? handleSubmit(submitFreeRequest) : () => undefined // TODO Add correct function
 			}
 		>
 			{generateBasicInfoStep()}
-			{!isFreeSelected && GenerateFrameworkStep(requestType)}
+			{!isFreeSelected && GenerateFrameworkStep({ requestType })}
 		</CreateTearsheet>
 	);
 };

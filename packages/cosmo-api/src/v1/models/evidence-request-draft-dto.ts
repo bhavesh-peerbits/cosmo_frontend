@@ -13,6 +13,7 @@
  */
 
 import { ApplicationDto } from './application-dto';
+import { AssociationDto } from './association-dto';
 import { StepDto } from './step-dto';
 
 /**
@@ -27,6 +28,12 @@ export interface EvidenceRequestDraftDto {
 	 * @memberof EvidenceRequestDraftDto
 	 */
 	application: ApplicationDto;
+	/**
+	 *
+	 * @type {Array<AssociationDto>}
+	 * @memberof EvidenceRequestDraftDto
+	 */
+	associations?: Array<AssociationDto>;
 	/**
 	 *
 	 * @type {Array<StepDto>}

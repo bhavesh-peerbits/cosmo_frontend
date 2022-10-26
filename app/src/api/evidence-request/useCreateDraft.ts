@@ -7,7 +7,7 @@ interface CreateDraftParams {
 	draftData: {
 		name: string;
 		workflowname: string;
-		requestType: string;
+		requestType: string[];
 		phaseType?: PhaseType;
 	};
 }

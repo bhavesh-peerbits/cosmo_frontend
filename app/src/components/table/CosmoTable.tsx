@@ -164,6 +164,7 @@ const CosmoTable = <D extends object>({
 												? 'max-h-fit overflow-visible whitespace-normal break-words sm:max-w-[300px] lg:max-w-[600px]'
 												: 'max-h-[48px] truncate sm:max-w-[300px] lg:max-w-[600px]'
 										}`}
+										// eslint-disable-next-line react/no-danger
 										dangerouslySetInnerHTML={{ __html: cell.getValue() as string }}
 									/>
 								</TableCell>

@@ -12,36 +12,30 @@
  * Do not edit the class manually.
  */
 
-import { PhaseTypeDto } from './phase-type-dto';
+import { UserDto } from './user-dto';
 
 /**
  *
  * @export
- * @interface SetUpDraftDto
+ * @interface AssociationDto
  */
-export interface SetUpDraftDto {
+export interface AssociationDto {
 	/**
 	 *
-	 * @type {string}
-	 * @memberof SetUpDraftDto
+	 * @type {number}
+	 * @memberof AssociationDto
 	 */
-	name?: string;
+	id?: number;
 	/**
 	 *
-	 * @type {string}
-	 * @memberof SetUpDraftDto
+	 * @type {UserDto}
+	 * @memberof AssociationDto
 	 */
-	workflowname: string;
+	reviewer?: UserDto;
 	/**
 	 *
-	 * @type {Array<string>}
-	 * @memberof SetUpDraftDto
+	 * @type {Set<UserDto>}
+	 * @memberof AssociationDto
 	 */
-	requestType: Array<string>;
-	/**
-	 *
-	 * @type {PhaseTypeDto}
-	 * @memberof SetUpDraftDto
-	 */
-	phaseType?: PhaseTypeDto;
+	delegates?: Set<UserDto>;
 }

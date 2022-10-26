@@ -7,6 +7,7 @@ export * from './application-campaign-dto';
 export * from './application-dto';
 export * from './application-profile';
 export * from './application-user-dto';
+export * from './association-dto';
 export * from './campaign-dto';
 export * from './campaign-review-dto';
 export * from './campaign-template-dto';

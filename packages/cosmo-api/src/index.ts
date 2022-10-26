@@ -42,6 +42,7 @@ import {
 	UserControllerApi,
 	UserDto,
 	WorkflowDto,
+	AssociationDto,
 	FrameworkTreeDto,
 	FrameworkTreeForEvidenceControllerApi,
 	EvidenceRequestFocalPointControllerApi
@@ -100,3 +101,4 @@ export type WorkflowApi = WorkflowDto;
 export type PhaseTypeApi = PhaseTypeDto;
 export type FrameworkApi = FrameworkTreeDto;
 export type CloseEvidenceApi = CloseEvidenceDto;
+export type AssociationApi = AssociationDto;
