@@ -155,7 +155,7 @@ const NewEvidenceRequestFlowContainer = ({
 						}
 					/>
 					<ProgressStep
-						className=' truncate'
+						className='truncate'
 						complete={
 							!!requestDraft.stepInfo?.privateComment &&
 							!!requestDraft.stepInfo.publicComment
