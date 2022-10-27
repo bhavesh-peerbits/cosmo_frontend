@@ -17,6 +17,16 @@ const NewEvidenceRequest = () => {
 	const { data: request } = useGetDraftById(requestId);
 	const [requestDraft, setRequestDraft] = useState(request);
 
+	const isRequestDraftCompleted =
+		!!requestDraft?.requests?.filter(req => req.selected).length &&
+		!!requestDraft.requests?.filter(req => req.selected).length &&
+		requestDraft.requests
+			?.filter(req => req.selected)
+			.map(req => req.steps.filter(step => step.type !== 'REQUEST'))
+			.flat()
+			.every(step => !!step.approvers?.length || step.reviewer) &&
+		requestDraft.text !== null;
+
 	if (!requestDraft) {
 		return null;
 	}
@@ -31,7 +41,8 @@ const NewEvidenceRequest = () => {
 					onClick: () => {
 						setIsSendModalOpen(true);
 					},
-					kind: 'primary'
+					kind: 'primary',
+					disabled: !isRequestDraftCompleted
 				},
 				{
 					name: t('delete-request'),
