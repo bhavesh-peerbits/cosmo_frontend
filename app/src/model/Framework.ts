@@ -1,7 +1,7 @@
 import { FrameworkApi } from 'cosmo-api';
 
 interface Framework {
-	code?: string;
+	code: string;
 	name?: string;
 	description?: string;
 	children?: Framework[];
@@ -9,7 +9,7 @@ interface Framework {
 
 export const fromFrameworkApi = (frameworkApi: FrameworkApi): Framework => {
 	return {
-		code: frameworkApi.code,
+		code: frameworkApi.code || '',
 		name: frameworkApi.name,
 		description: frameworkApi.description,
 		children: frameworkApi.children
