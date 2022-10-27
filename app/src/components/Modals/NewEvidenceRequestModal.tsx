@@ -95,8 +95,9 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 							invalid={Boolean(errors.requestName)}
 							{...register('requestName', {
 								validate: name =>
-									!requestNames?.includes(name.toLowerCase()) ||
-									t('applicationInfo:name-exists')
+									!requestNames
+										?.map(existingName => existingName.toLowerCase())
+										.includes(name.toLowerCase()) || t('applicationInfo:name-exists')
 							})}
 						/>
 					</FullWidthColumn>
