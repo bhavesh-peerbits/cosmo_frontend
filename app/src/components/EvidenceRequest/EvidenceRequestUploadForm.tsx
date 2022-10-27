@@ -27,11 +27,11 @@ const EvidenceRequestUploadForm = ({ step }: EvidenceReqUploadFormProps) => {
 			<Form className=' space-y-5'>
 				<TextArea labelText={t('public-comment')} {...register('publicComment')} />
 				<p>UPLOAD FILE PLACEHOLDER</p>
-				<div className='text-right'>
-					<Button kind='tertiary' onClick={handleSubmit(handleSaveUpload)}>
+				<div className='space-x-5 text-right'>
+					<Button kind='tertiary' size='md' onClick={handleSubmit(handleSaveUpload)}>
 						{t('save-upload')}
 					</Button>
-					<Button kind='primary' onClick={handleSubmit(handleCloseUpload)}>
+					<Button kind='primary' size='md' onClick={handleSubmit(handleCloseUpload)}>
 						{t('close-upload')}
 					</Button>
 				</div>

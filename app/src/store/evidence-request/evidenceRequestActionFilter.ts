@@ -1,4 +1,5 @@
 import EvidenceRequest from '@model/EvidenceRequest';
+import authStore from '@store/auth/authStore';
 import { GetRecoilType } from '@store/util';
 import { atom, selector } from 'recoil';
 
@@ -26,7 +27,8 @@ const evidenceRequestsAction = atom<EvidenceRequest[]>({
 
 const applyFilters = (
 	requests: GetRecoilType<typeof evidenceRequestsAction>,
-	filters: GetRecoilType<typeof evidenceRequestsActionFilters>
+	filters: GetRecoilType<typeof evidenceRequestsActionFilters>,
+	auth: GetRecoilType<typeof authStore>
 ) => {
 	const filteredRequest = requests
 		// filter by query term string
@@ -42,11 +44,19 @@ const applyFilters = (
 						.includes(`${filters.query}`.toLowerCase().trim())
 				: true
 		)
-		.filter(request =>
-			!filters.tab
-				? request.status === 'IN_PROGRESS'
-				: request.status !== 'DRAFT' && request.status !== 'IN_PROGRESS'
-		)
+		.filter(request => {
+			const currStep = request.steps.filter(
+				st => st.stepOrder === request.currentStep
+			)[0];
+			const idUserInStep = auth?.user?.id
+				? (currStep && currStep.approvers?.map(us => us.id).includes(auth.user.id)) ||
+				  (currStep && currStep.delegates?.map(us => us.id).includes(auth.user.id)) ||
+				  (currStep && currStep.reviewer?.id === auth.user.id)
+				: false;
+			return !filters.tab
+				? request.status === 'IN_PROGRESS' && idUserInStep
+				: request.status !== 'DRAFT' && !idUserInStep;
+		})
 
 		.filter(request =>
 			filters.action
@@ -61,10 +71,11 @@ const applyFilters = (
 const filteredEvidenceRequestsAction = selector({
 	key: 'filteredEvidenceRequestsAction',
 	get: ({ get }) => {
+		const auth = get(authStore);
 		const filters = get(evidenceRequestsActionFilters);
 		const requests = get(evidenceRequestsAction);
 		return {
-			requests: applyFilters(requests, filters)
+			requests: applyFilters(requests, filters, auth)
 		};
 	}
 });

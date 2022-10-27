@@ -64,6 +64,13 @@ const UsersSelectionContainer = ({
 										}
 									>
 										<UsersSelectionForm
+											associations={
+												(
+													requestDraft.requests?.find(
+														request => request.application.id === application.id
+													) as ApplicationStepRequest
+												).associations
+											}
 											step={step}
 											appStepRequest={
 												requestDraft.requests?.find(
