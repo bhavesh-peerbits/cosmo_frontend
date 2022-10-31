@@ -71,7 +71,7 @@ const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 				<span className='text-text-secondary text-body-1'>{t('body-edit')}.</span>
 			</ModalHeader>
 			<ModalBody>
-				<div className='h-full w-full space-y-5'>
+				<div className='w-full space-y-5'>
 					{isError && (
 						<div className='mt-5 flex items-center justify-center'>
 							<InlineNotification
