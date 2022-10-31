@@ -75,5 +75,9 @@
 	"select-new-date": "Select a new campaign due date",
 	"note": "Notes",
 	"app-owner": "Application owner",
-	"user-details": "User Details"
+	"user-details": "User Details",
+	"risk-description": "Risk description",
+	"firefighter": "Firefighter",
+	"modify-answer": "Modify answer",
+	"permission-description": "Permission description"
 }

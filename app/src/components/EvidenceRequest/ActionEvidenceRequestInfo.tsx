@@ -4,9 +4,12 @@ import EvidenceRequestStep from '@model/EvidenceRequestStep';
 import { Grid, Tile, Button } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { ChevronDown, ChevronUp } from '@carbon/react/icons';
 import User from '@model/User';
+import { smoothScroll, triggerFocus } from '@components/TableOfContents/utils';
+import useLoginStore from '@hooks/auth/useLoginStore';
+import { EvidenceRequestStatus } from '@model/EvidenceRequestStatus';
 import FileLinkTable from './FileLinkTable';
 import EvidenceRequestApproveForm from './EvidenceRequestApproveForm';
 import EvidenceRequestUploadForm from './EvidenceRequestUploadForm';
@@ -15,20 +18,36 @@ const ActionEvidenceRequestInfo = ({
 	steps,
 	currentStep,
 	owner,
+	statusRequest,
 	setIsOpen
 }: {
 	steps: EvidenceRequestStep[];
 	currentStep: number;
 	owner: User;
+	statusRequest: EvidenceRequestStatus;
 	setIsOpen: (value: boolean) => void;
 }) => {
+	const { auth } = useLoginStore();
 	const { t } = useTranslation('evidenceRequest');
 	const { type } = steps.filter(st => st.stepOrder === currentStep)[0];
 	let defaultShowMore: Record<number, boolean> = {};
 	steps.forEach((_, i) => {
 		defaultShowMore = { ...defaultShowMore, [i]: i + 1 === currentStep };
 	});
+	const currStep = steps.filter(st => st.stepOrder === currentStep)[0];
+	const idUserInStep = auth?.user?.id
+		? currStep &&
+		  (currStep.approvers?.map(us => us.id).includes(auth.user.id) ||
+				currStep.delegates?.map(us => us.id).includes(auth.user.id) ||
+				currStep.reviewer?.id === auth.user.id)
+		: false;
 	const [showMore, setShowMore] = useState(defaultShowMore);
+	useLayoutEffect(() => {
+		const selector = `*[data-toc-id="step-${currentStep}"]`;
+		smoothScroll(selector, 240);
+		triggerFocus(selector);
+	}, [currentStep]);
+
 	return (
 		<TableOfContents stickyOffset={100} tocStickyOffset={146}>
 			<Grid fullWidth className='h-full'>
@@ -46,7 +65,7 @@ const ActionEvidenceRequestInfo = ({
 										<FullWidthColumn className='flex justify-between space-x-1 space-y-4'>
 											<div className='grid w-full grid-cols-4'>
 												<p
-													data-toc-id={`step-${step.id}`}
+													data-toc-id={`step-${step.stepOrder}`}
 													className='col-span-2 inline flex-1 text-productive-heading-1'
 												>
 													{step.type}
@@ -109,11 +128,15 @@ const ActionEvidenceRequestInfo = ({
 															<br />
 															{`${step.stepInfo?.publicComment}`}
 														</p>
-													) : index + 1 === currentStep && type === 'UPLOAD' ? (
-														<EvidenceRequestUploadForm
-															step={steps.filter(st => st.stepOrder === currentStep)[0]}
-														/>
-													) : index + 1 === currentStep && type === 'APPROVAL' ? (
+													) : index + 1 === currentStep &&
+													  type === 'UPLOAD' &&
+													  idUserInStep &&
+													  statusRequest === 'IN_PROGRESS' ? (
+														<EvidenceRequestUploadForm step={currStep} />
+													) : index + 1 === currentStep &&
+													  type === 'APPROVAL' &&
+													  idUserInStep &&
+													  statusRequest === 'IN_PROGRESS' ? (
 														<EvidenceRequestApproveForm setIsOpen={setIsOpen} />
 													) : null
 												) : null}
