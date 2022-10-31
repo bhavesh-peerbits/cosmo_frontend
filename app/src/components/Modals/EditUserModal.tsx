@@ -28,6 +28,7 @@ const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 		'NARRATIVE_ADMIN',
 		'NARRATIVE_ANALYST',
 		'REVALIDATION_ANALYST',
+		'REVALIDATION_ADMIN',
 		'FOCAL_POINT',
 		'REQUEST_ADMIN',
 		'REQUEST_ANALYST',
