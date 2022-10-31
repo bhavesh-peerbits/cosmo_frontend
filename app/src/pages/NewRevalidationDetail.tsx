@@ -1,5 +1,5 @@
 import PageHeader from '@components/PageHeader';
-import { Email, TrashCan, Upload } from '@carbon/react/icons';
+import { Email, TrashCan, Upload, Download } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { LegacyRef, useRef, useState } from 'react';
 import SendRevalidationModal from '@components/Modals/SendRevalidationModal';
@@ -15,6 +15,9 @@ import useGetCampaign from '@api/user-revalidation/useGetCampaign';
 import NoDataMessage from '@components/NoDataMessage';
 import useGetCampaignApplications from '@api/user-revalidation/useGetCampaignApplications';
 import CampaignApplication from '@model/CampaignApplication';
+import Papa from 'papaparse';
+import useGetCampaignTemplate from '@api/user-revalidation/useGetCampaignTemplate';
+import { downloadFileViaBlob } from '@components/util/fileUtil';
 
 interface RevalidationContentProps {
 	buttonRef: LegacyRef<HTMLDivElement>;
@@ -85,7 +88,8 @@ const RevalidationContent = ({
 const NewRevalidationDetail = () => {
 	const { t } = useTranslation(['userRevalidation', 'modals']);
 	const { campaignId = '' } = useParams<'campaignId'>();
-	const { data } = useGetCampaign(campaignId);
+	const { data: campaign } = useGetCampaign(campaignId);
+	const { mutate } = useGetCampaignTemplate();
 
 	const [isSendModalOpen, setIsSendModalOpen] = useState(false);
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -93,15 +97,44 @@ const NewRevalidationDetail = () => {
 	const buttonRef = useRef<HTMLDivElement>(null);
 	const { breadcrumbSize } = useBreadcrumbSize();
 
-	if (!data) {
+	if (!campaign) {
+		return null;
+	}
+
+	const downloadTemplate = () => {
+		mutate(
+			{ type: campaign?.type },
+			{
+				onSuccess: data => {
+					const delimiter = ',';
+					const csvString = Papa.unparse([data.fields], {
+						delimiter,
+						quotes: value => typeof value === 'string'
+					});
+					const fileBlob = new Blob([csvString], { type: 'text/csv' });
+					downloadFileViaBlob(fileBlob, `${campaign?.type}-template`, 'csv');
+				}
+			}
+		);
+	};
+
+	if (!campaign) {
 		return null;
 	}
 
 	return (
 		<PageHeader
-			pageTitle={`${data.name} (${data.type})`}
+			pageTitle={`${campaign.name} (${campaign.type})`}
 			intermediateRoutes={[{ name: 'New Revalidation', to: '/new-revalidation' }]}
 			actions={[
+				{
+					name: 'Download template',
+					icon: Download,
+					kind: 'tertiary',
+					onClick: () => {
+						downloadTemplate();
+					}
+				},
 				{
 					name: t('userRevalidation:send-revalidation'),
 					icon: Email,
@@ -109,7 +142,7 @@ const NewRevalidationDetail = () => {
 					onClick: () => {
 						setIsSendModalOpen(true);
 					},
-					disabled: data.applicationsCount === 0
+					disabled: campaign.applicationsCount === 0
 				},
 				{
 					name: t('modals:delete'),
@@ -123,24 +156,24 @@ const NewRevalidationDetail = () => {
 		>
 			<div className='pl-5'>
 				<SendRevalidationModal
-					campaign={data}
+					campaign={campaign}
 					isOpen={isSendModalOpen}
 					setIsOpen={setIsSendModalOpen}
 				/>
 				<DeleteCampaignModal
-					campaign={data}
+					campaign={campaign}
 					isOpen={isDeleteModalOpen}
 					setIsOpen={setIsDeleteModalOpen}
 				/>
 				<UploadFileModal
 					isOpen={isUploadModalOpen}
 					setIsOpen={setIsUploadModalOpen}
-					campaignType={data.type}
+					campaignType={campaign.type}
 					campaignId={campaignId}
-					isEmpty={data.applicationsCount < 1}
+					isEmpty={campaign.applicationsCount < 1}
 				/>
 
-				{data.applicationsCount > 0 ? (
+				{campaign.applicationsCount > 0 ? (
 					<TableOfContents
 						stickyOffset={buttonRef.current?.getBoundingClientRect()?.height || 0}
 						tocStickyOffset={breadcrumbSize * 2}
@@ -148,14 +181,14 @@ const NewRevalidationDetail = () => {
 						<RevalidationContent
 							buttonRef={buttonRef}
 							openModal={setIsUploadModalOpen}
-							isEmpty={data.applicationsCount < 1}
+							isEmpty={campaign.applicationsCount < 1}
 						/>
 					</TableOfContents>
 				) : (
 					<RevalidationContent
 						buttonRef={buttonRef}
 						openModal={setIsUploadModalOpen}
-						isEmpty={data.applicationsCount < 1}
+						isEmpty={campaign.applicationsCount < 1}
 					/>
 				)}
 			</div>
