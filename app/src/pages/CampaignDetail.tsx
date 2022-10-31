@@ -209,7 +209,9 @@ const CampaignDetail = () => {
 						aria-label='List of tabs'
 					>
 						{[...applications.values()].map(application => (
-							<Tab key={application.id}>{application.application.name}</Tab>
+							<Tab key={application.id} title={application.application.name}>
+								{application.application.name}
+							</Tab>
 						))}
 					</TabList>
 					<TabPanels>
