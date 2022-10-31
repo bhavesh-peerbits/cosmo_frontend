@@ -1,23 +1,23 @@
 import { Group, User } from '@carbon/react/icons';
 import { Tooltip } from '@carbon/react';
-import { forwardRef, memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { forwardRef, memo, useCallback, useMemo } from 'react';
 import cx from 'classnames';
-import useUiStore from '@hooks/useUiStore';
-import { colors as carbonColors } from '@carbon/colors';
 
-type CarbonColor = Exclude<keyof typeof carbonColors, 'black' | 'white'>;
-type ColorsType = `${'light' | 'dark'}-${CarbonColor}`;
+// type CarbonColor = Exclude<keyof typeof carbonColors, 'black' | 'white'>;
+// type ColorsType = `${'light' | 'dark'}-${CarbonColor}`;
 
-const colors: ColorsType[] = Object.keys(carbonColors)
-	.filter(color => color !== 'black' && color !== 'white')
-	.reduce(
-		(acc, color) => [
-			...acc,
-			`light-${color as CarbonColor}` as const,
-			`dark-${color as CarbonColor}` as const
-		],
-		[] as ColorsType[]
-	);
+// const colors: ColorsType[] = Object.keys(carbonColors)
+// 	.filter(color => color !== 'black' && color !== 'white')
+// 	.reduce(
+// 		(acc, color) => [
+// 			...acc,
+// 			`light-${color as CarbonColor}` as const,
+// 			`dark-${color as CarbonColor}` as const
+// 		],
+// 		[] as ColorsType[]
+// 	);
+
+const colors: string[] = ['#1446d2', '#2d60eb', '#06b6d4', '#0891b2', '#0e7490'];
 const sizeClass = {
 	xlg: 'text-heading-4 w-10 h-10',
 	lg: 'text-body-short-1 w-7 h-7',
@@ -100,7 +100,7 @@ const FillItem = memo(
 const UserProfileImage = forwardRef<HTMLDivElement, UserProfileImageProps>(
 	(
 		{
-			backgroundColor: propsBackground,
+			// backgroundColor: propsBackground,
 			className,
 			kind,
 			icon,
@@ -112,46 +112,47 @@ const UserProfileImage = forwardRef<HTMLDivElement, UserProfileImageProps>(
 		},
 		ref
 	) => {
-		const { theme } = useUiStore();
-		const [backgroundColor, setBackgroundColor] = useState<ColorsType>();
-		useEffect(() => {
-			setBackgroundColor(propsBackground || getRandomColor());
-		}, [propsBackground]);
+		// const { theme } = useUiStore();
+		// const [backgroundColor, setBackgroundColor] = useState<ColorsType | string>();
+		// useEffect(() => {
+		// 	setBackgroundColor(propsBackground || getRandomColor());
+		// }, [propsBackground]);
 
-		const themeConf: Record<typeof theme, { light: 60 | 50; dark: 80 | 30 }> = useMemo(
-			() => ({
-				white: {
-					light: 60,
-					dark: 80
-				},
-				g10: {
-					light: 60,
-					dark: 80
-				},
-				g90: {
-					light: 50,
-					dark: 30
-				},
-				g100: {
-					light: 50,
-					dark: 30
-				}
-			}),
-			[]
-		);
+		// const themeConf: Record<typeof theme, { light: 60 | 50; dark: 80 | 30 }> = useMemo(
+		// 	() => ({
+		// 		white: {
+		// 			light: 60,
+		// 			dark: 80
+		// 		},
+		// 		g10: {
+		// 			light: 60,
+		// 			dark: 80
+		// 		},
+		// 		g90: {
+		// 			light: 50,
+		// 			dark: 30
+		// 		},
+		// 		g100: {
+		// 			light: 50,
+		// 			dark: 30
+		// 		}
+		// 	}),
+		// 	[]
+		// );
 
-		const getImageBackgroundColor = () => {
-			const bg = backgroundColor || getRandomColor();
-			const [variant, color] = bg.split('-');
-			const carbonGrade = themeConf[theme][variant as 'light' | 'dark'];
-			return carbonColors[color as CarbonColor][`${carbonGrade}`];
-		};
+		// const getImageBackgroundColor = () => {
+		// 	const bg = backgroundColor;
+		// 	if (!bg) return getRandomColor();
+		// 	const [variant, color] = bg.split('-');
+		// 	const carbonGrade = themeConf[theme][variant as 'light' | 'dark'];
+		// 	return carbonColors[color as CarbonColor][`${carbonGrade}`];
+		// };
 
 		const renderUserProfileImage = () => (
 			<div
 				ref={ref}
 				style={{
-					backgroundColor: getImageBackgroundColor()
+					backgroundColor: getRandomColor()
 				}}
 				className={cx([
 					'flex flex-col items-center justify-center rounded-full uppercase text-background',
@@ -180,7 +181,7 @@ const UserProfileImage = forwardRef<HTMLDivElement, UserProfileImageProps>(
 );
 
 interface UserProfileImageProps {
-	backgroundColor?: ColorsType;
+	// backgroundColor?: ColorsType;
 
 	/**
 	 * Provide an optional class to be applied to the containing node.

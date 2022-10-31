@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import Answer from '@model/Answer';
 import { Information } from '@carbon/react/icons';
 import GroupableCosmoTable from '@components/table/GroupableCosmoTable';
+import User from '@model/User';
+import UserProfileImage from '@components/UserProfileImage';
 
 interface AnswerTableProp {
 	answers: Answer[];
@@ -17,6 +19,23 @@ const AnswerTable = ({ answers, reviewId, campaignType }: AnswerTableProp) => {
 	const [filters, setFilters] = useState('');
 	const isFireFighter = campaignType === 'FIREFIGHTER';
 	const isSuid = campaignType === 'SUID';
+
+	const usersListCell = useCallback(
+		(info: CellProperties<Answer, { delegates: User[] | undefined }>) => (
+			<div className='flex items-center space-x-2'>
+				{info.getValue().delegates?.map(us => (
+					<UserProfileImage
+						size='md'
+						initials={us.displayName}
+						imageDescription={us.username}
+						tooltipText={us.displayName}
+						className='mx-[-4px]'
+					/>
+				))}
+			</div>
+		),
+		[]
+	);
 
 	const tooltipCell = useCallback(
 		(
@@ -57,6 +76,16 @@ const AnswerTable = ({ answers, reviewId, campaignType }: AnswerTableProp) => {
 					id: `user${reviewId}`,
 					header: 'Username',
 					sortUndefined: 1
+				}),
+				table.createDataColumn(row => ({ delegates: row.delegated }), {
+					id: `delegated${reviewId}`,
+					header: t('userRevalidation:delegates'),
+					cell: usersListCell,
+					enableGrouping: false,
+					meta: {
+						exportableFn: info =>
+							(info.delegates as User[]).map(delegate => delegate.displayName).join(', ')
+					}
 				}),
 				table.createDataColumn(row => row.userDetails, {
 					id: `userDisplayName${reviewId}`,
@@ -106,7 +135,7 @@ const AnswerTable = ({ answers, reviewId, campaignType }: AnswerTableProp) => {
 			}
 			return ArrayCol;
 		},
-		[isFireFighter, isSuid, reviewId, t, tooltipCell]
+		[isFireFighter, isSuid, reviewId, t, tooltipCell, usersListCell]
 	);
 
 	const toolbarContent = (

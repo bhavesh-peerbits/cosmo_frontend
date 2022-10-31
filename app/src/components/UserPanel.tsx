@@ -27,7 +27,6 @@ const UserPanel = ({ expanded, user, onClickOutside }: UserPanelProps) => {
 		>
 			<section className='flex flex-nowrap items-center space-x-5 p-5'>
 				<UserProfileImage
-					backgroundColor='light-gray'
 					initials={user?.displayName}
 					imageDescription={user?.username}
 					size='xlg'
