@@ -32,17 +32,15 @@ const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 		'FOCAL_POINT',
 		'REQUEST_ADMIN',
 		'REQUEST_ANALYST',
-		'WORKFLOW_APPROVER',
-		'USER_UNKNOWN'
+		'WORKFLOW_APPROVER'
 	];
 
 	const { t } = useTranslation('modals');
 	const { t: tHome } = useTranslation('home');
 	const { mutate, isLoading, isError, error, reset } = useSetRolesForUser();
-	const assignedRoles = user?.roles.length
-		? user.roles.map(role => role)
-		: ['USER_UNKNOWN'];
-	const [selectedRoles, setSelectedRoles] = useState<string[]>(assignedRoles);
+	const [selectedRoles, setSelectedRoles] = useState<UserDtoRolesEnum[]>(
+		user?.roles.filter(role => role !== 'USER_UNKNOWN') || []
+	);
 
 	const cleanUp = () => {
 		setIsOpen(false);
@@ -54,7 +52,10 @@ const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 			mutate(
 				{
 					userId: user.id,
-					userData: { ...user, roles: selectedRoles as UserDtoRolesEnum[] }
+					userData: {
+						...user,
+						roles: selectedRoles.length > 0 ? selectedRoles : ['USER_UNKNOWN']
+					}
 				},
 				{
 					onSuccess: () => {
@@ -67,7 +68,7 @@ const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 	return (
 		<ComposedModal open={isOpen} onClose={cleanUp}>
 			<ModalHeader title={t('edit-user')} closeModal={cleanUp}>
-				<span className='text-text-secondary text-body-1'>{t('body-edit')}</span>
+				<span className='text-text-secondary text-body-1'>{t('body-edit')}.</span>
 			</ModalHeader>
 			<ModalBody>
 				<div className='h-full w-full space-y-5'>
@@ -102,16 +103,16 @@ const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 						/>
 					</div>
 					<div className='w-1/2'>
-						<p className='mb-3 text-text-secondary text-label-1'>{tHome('roles')} *</p>
+						<p className='mb-3 text-text-secondary text-label-1'>{tHome('roles')}</p>
 						{roles.map(role => (
 							<Checkbox
 								labelText={mapUserRoleToDisplayRole(role as UserDtoRolesEnum)}
 								id={`${role}-edit`}
-								defaultChecked={assignedRoles.includes(role)}
+								defaultChecked={user?.roles.includes(role as UserDtoRolesEnum)}
 								onChange={(e, { checked }) =>
 									!checked
 										? setSelectedRoles(selectedRoles.filter(r => r !== role))
-										: setSelectedRoles(old => [...old, role])
+										: setSelectedRoles(old => [...old, role as UserDtoRolesEnum])
 								}
 							/>
 						))}
@@ -124,11 +125,7 @@ const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 				</Button>
 				<Button
 					kind='primary'
-					disabled={
-						selectedRoles.length === 0 ||
-						selectedRoles.join() === assignedRoles.join() ||
-						isLoading
-					}
+					disabled={selectedRoles.join() === user?.roles.join() || isLoading}
 					onClick={editUser}
 				>
 					{t('edit')}
