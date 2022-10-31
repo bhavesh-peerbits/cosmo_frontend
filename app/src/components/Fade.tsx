@@ -9,10 +9,10 @@ type FadeProps = {
 const Fade: FC<FadeProps> = ({ timing, children }) => {
 	return (
 		<motion.div
+			key='fade'
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
-			exit={{ opacity: 0 }}
-			className={`h-full w-full ${timing || 'duration-fast-1'}`}
+			className={`h-full w-full ${timing || 'duration-moderate-1'}`}
 		>
 			{children}
 		</motion.div>
