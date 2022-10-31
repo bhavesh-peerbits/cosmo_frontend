@@ -6,10 +6,15 @@ import {
 	RadioButtonGroup
 } from '@carbon/react';
 import useRevalidationsOngoing from '@hooks/user-revalidation/useRevalidationsOngoing';
+import { mapCampaignLayerToCampaignDisplayLayer } from '@model/CampaignLayer';
 import { mapCampaignStatusToCampaignDisplayStatus } from '@model/CampaignStatus';
 import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
 import { useResponsive } from 'ahooks';
-import { CampaignDtoStatusEnum, CampaignDtoTypeEnum } from 'cosmo-api/src/v1';
+import {
+	CampaignDtoLayerEnum,
+	CampaignDtoStatusEnum,
+	CampaignDtoTypeEnum
+} from 'cosmo-api/src/v1';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -108,7 +113,9 @@ const RevalidationsOngoingFilters = () => {
 								handleCheckFilterLayer(id, checked ? 'add' : 'remove')
 							}
 							id={filter.layer}
-							labelText={filter.layer}
+							labelText={mapCampaignLayerToCampaignDisplayLayer(
+								filter.layer as CampaignDtoLayerEnum
+							)}
 						/>
 					))}
 				</AccordionItem>

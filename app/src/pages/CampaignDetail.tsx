@@ -22,6 +22,7 @@ import useUiStore from '@hooks/useUiStore';
 import { interfaces } from '@carbon/charts';
 import { useQueryClient } from 'react-query';
 import SetDueDateCampaignModal from '@components/Modals/SetDueDateCampaignModal';
+import { mapCampaignLayerToCampaignDisplayLayer } from '@model/CampaignLayer';
 
 const CampaignStatus = memo(({ campaign }: { campaign: Campaign }) => {
 	const { id, type, layer, startDate, dueDate } = campaign;
@@ -67,7 +68,7 @@ const CampaignStatus = memo(({ campaign }: { campaign: Campaign }) => {
 			{
 				id: 'layer',
 				label: `${t('userRevalidation:layer')}:`,
-				value: layer
+				value: mapCampaignLayerToCampaignDisplayLayer(layer)
 			},
 			{
 				id: 'start-date',
