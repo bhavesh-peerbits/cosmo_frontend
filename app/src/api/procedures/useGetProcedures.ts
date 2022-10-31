@@ -5,7 +5,7 @@ import { toMap } from '@model/util';
 
 const getProcedures = () => {
 	return api.procedureApi
-		.getAllProcedure()
+		.getAllProcedure1()
 		.then(({ data }) => (data ? data.map(fromProcedureApi) : []))
 		.then(toMap);
 };

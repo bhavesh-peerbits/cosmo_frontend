@@ -9,6 +9,7 @@ import { ChevronDown, ChevronUp } from '@carbon/react/icons';
 import User from '@model/User';
 import { smoothScroll, triggerFocus } from '@components/TableOfContents/utils';
 import useLoginStore from '@hooks/auth/useLoginStore';
+import { EvidenceRequestStatus } from '@model/EvidenceRequestStatus';
 import FileLinkTable from './FileLinkTable';
 import EvidenceRequestApproveForm from './EvidenceRequestApproveForm';
 import EvidenceRequestUploadForm from './EvidenceRequestUploadForm';
@@ -17,11 +18,13 @@ const ActionEvidenceRequestInfo = ({
 	steps,
 	currentStep,
 	owner,
+	statusRequest,
 	setIsOpen
 }: {
 	steps: EvidenceRequestStep[];
 	currentStep: number;
 	owner: User;
+	statusRequest: EvidenceRequestStatus;
 	setIsOpen: (value: boolean) => void;
 }) => {
 	const { auth } = useLoginStore();
@@ -33,9 +36,10 @@ const ActionEvidenceRequestInfo = ({
 	});
 	const currStep = steps.filter(st => st.stepOrder === currentStep)[0];
 	const idUserInStep = auth?.user?.id
-		? (currStep && currStep.approvers?.map(us => us.id).includes(auth.user.id)) ||
-		  (currStep && currStep.delegates?.map(us => us.id).includes(auth.user.id)) ||
-		  (currStep && currStep.reviewer?.id === auth.user.id)
+		? currStep &&
+		  (currStep.approvers?.map(us => us.id).includes(auth.user.id) ||
+				currStep.delegates?.map(us => us.id).includes(auth.user.id) ||
+				currStep.reviewer?.id === auth.user.id)
 		: false;
 	const [showMore, setShowMore] = useState(defaultShowMore);
 	useLayoutEffect(() => {
@@ -126,11 +130,13 @@ const ActionEvidenceRequestInfo = ({
 														</p>
 													) : index + 1 === currentStep &&
 													  type === 'UPLOAD' &&
-													  idUserInStep ? (
+													  idUserInStep &&
+													  statusRequest === 'IN_PROGRESS' ? (
 														<EvidenceRequestUploadForm step={currStep} />
 													) : index + 1 === currentStep &&
 													  type === 'APPROVAL' &&
-													  idUserInStep ? (
+													  idUserInStep &&
+													  statusRequest === 'IN_PROGRESS' ? (
 														<EvidenceRequestApproveForm setIsOpen={setIsOpen} />
 													) : null
 												) : null}

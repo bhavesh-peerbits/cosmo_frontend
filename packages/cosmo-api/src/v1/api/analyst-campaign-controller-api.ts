@@ -1464,6 +1464,67 @@ export const AnalystCampaignControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
+		 * @param {number} revId
+		 * @param {AnswerDto} answerDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveModifiedAnswer: async (
+			revId: number,
+			answerDto: AnswerDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'revId' is not null or undefined
+			assertParamExists('saveModifiedAnswer', 'revId', revId);
+			// verify required parameter 'answerDto' is not null or undefined
+			assertParamExists('saveModifiedAnswer', 'answerDto', answerDto);
+			const localVarPath = `/api/analyst/campaign/save-modified-answer/{revId}`.replace(
+				`{${'revId'}}`,
+				encodeURIComponent(String(revId))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				answerDto,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
 		 * @param {number} campaignId
 		 * @param {StartCampaignDto} startCampaignDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
@@ -2288,6 +2349,33 @@ export const AnalystCampaignControllerApiFp = function (configuration?: Configur
 		},
 		/**
 		 *
+		 * @param {number} revId
+		 * @param {AnswerDto} answerDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async saveModifiedAnswer(
+			revId: number,
+			answerDto: AnswerDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AnswerDto>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.saveModifiedAnswer(
+				revId,
+				answerDto,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
 		 * @param {number} campaignId
 		 * @param {StartCampaignDto} startCampaignDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
@@ -2798,6 +2886,24 @@ export const AnalystCampaignControllerApiFactory = function (
 		): AxiosPromise<boolean> {
 			return localVarFp
 				.isCampaignNameNotAvailable(campaignName, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} revId
+		 * @param {AnswerDto} answerDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveModifiedAnswer(
+			revId: number,
+			answerDto: AnswerDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<AnswerDto> {
+			return localVarFp
+				.saveModifiedAnswer(revId, answerDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -3419,6 +3525,34 @@ export interface AnalystCampaignControllerApiIsCampaignNameNotAvailableRequest {
 }
 
 /**
+ * Request parameters for saveModifiedAnswer operation in AnalystCampaignControllerApi.
+ * @export
+ * @interface AnalystCampaignControllerApiSaveModifiedAnswerRequest
+ */
+export interface AnalystCampaignControllerApiSaveModifiedAnswerRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystCampaignControllerApiSaveModifiedAnswer
+	 */
+	readonly revId: number;
+
+	/**
+	 *
+	 * @type {AnswerDto}
+	 * @memberof AnalystCampaignControllerApiSaveModifiedAnswer
+	 */
+	readonly answerDto: AnswerDto;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystCampaignControllerApiSaveModifiedAnswer
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
  * Request parameters for setDueDateAndContributorsForCampaign operation in AnalystCampaignControllerApi.
  * @export
  * @interface AnalystCampaignControllerApiSetDueDateAndContributorsForCampaignRequest
@@ -3998,6 +4132,27 @@ export class AnalystCampaignControllerApi extends BaseAPI {
 		return AnalystCampaignControllerApiFp(this.configuration)
 			.isCampaignNameNotAvailable(
 				requestParameters.campaignName,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystCampaignControllerApiSaveModifiedAnswerRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystCampaignControllerApi
+	 */
+	public saveModifiedAnswer(
+		requestParameters: AnalystCampaignControllerApiSaveModifiedAnswerRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystCampaignControllerApiFp(this.configuration)
+			.saveModifiedAnswer(
+				requestParameters.revId,
+				requestParameters.answerDto,
 				requestParameters.acceptLanguage,
 				options
 			)

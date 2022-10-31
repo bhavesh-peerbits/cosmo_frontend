@@ -3,7 +3,7 @@ import User, { fromUserApi, toUserApi } from '@model/User';
 
 interface Answer {
 	id: string;
-	jsonApplicationData?: Map<string, string>;
+	jsonApplicationData?: Record<string, string | undefined>;
 	revalidationUser?: User;
 	userToRevalidate?: string;
 	userDetails?: string;
@@ -29,7 +29,7 @@ export const fromAnswersApi = (answerApi: AnswerApi): Answer => ({
 	note: answerApi.note,
 	delegated: answerApi.delegated?.map(fromUserApi),
 	jsonApplicationData: answerApi.jsonApplicationData
-		? new Map(Object.entries(JSON.parse(answerApi.jsonApplicationData)))
+		? JSON.parse(answerApi.jsonApplicationData)
 		: undefined
 });
 

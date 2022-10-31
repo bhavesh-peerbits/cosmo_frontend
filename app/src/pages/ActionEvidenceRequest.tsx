@@ -38,6 +38,7 @@ const ActionEvidenceRequest = () => {
 								currentStep={data.currentStep}
 								owner={data.creator}
 								setIsOpen={setIsOpen}
+								statusRequest={data.status}
 							/>
 						</TabPanel>
 						<TabPanel>
