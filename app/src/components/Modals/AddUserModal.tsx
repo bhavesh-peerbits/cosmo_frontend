@@ -37,7 +37,7 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 	const { t: tUser } = useTranslation('userAdmin');
 	const existingUsername = users.map(user => user.username.toLowerCase());
 	const existingEmail = users.map(user => user.email?.toLocaleLowerCase());
-	const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
+	const [selectedRoles, setSelectedRoles] = useState<UserDtoRolesEnum[]>([]);
 	const { mutate, isError, error } = useAddUser();
 	const {
 		register,
@@ -64,8 +64,7 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 		'FOCAL_POINT',
 		'REQUEST_ADMIN',
 		'REQUEST_ANALYST',
-		'WORKFLOW_APPROVER',
-		'USER_UNKNOWN'
+		'WORKFLOW_APPROVER'
 	];
 
 	const cleanUp = () => {
@@ -83,7 +82,7 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 					surname: data.surname,
 					email: data.email,
 					inactive: false,
-					roles: selectedRoles as UserDtoRolesEnum[]
+					roles: selectedRoles.length > 0 ? selectedRoles : ['USER_UNKNOWN']
 				}
 			},
 			{
@@ -173,7 +172,7 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 									onChange={(e, { id, checked }) =>
 										!checked
 											? setSelectedRoles(selectedRoles.filter(r => r !== id))
-											: setSelectedRoles(old => [...old, id])
+											: setSelectedRoles(old => [...old, id as UserDtoRolesEnum])
 									}
 								/>
 							))}
@@ -198,11 +197,7 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 					<Button kind='secondary' onClick={cleanUp}>
 						{t('cancel')}
 					</Button>
-					<Button
-						kind='primary'
-						type='submit'
-						disabled={!isValid || selectedRoles.length === 0}
-					>
+					<Button kind='primary' type='submit' disabled={!isValid}>
 						{t('add-user')}
 					</Button>
 				</ModalFooter>
