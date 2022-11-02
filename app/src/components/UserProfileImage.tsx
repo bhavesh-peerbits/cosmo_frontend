@@ -165,11 +165,11 @@ const UserProfileImage = forwardRef<HTMLDivElement, UserProfileImageProps>(
 		);
 
 		return tooltipText ? (
-			<Tooltip align='bottom' label={tooltipText}>
+			<Tooltip align='left' label={tooltipText}>
 				<button
 					type='button'
 					onClick={e => e.preventDefault()}
-					className='cursor-default'
+					className=' cursor-default'
 				>
 					{renderUserProfileImage()}
 				</button>

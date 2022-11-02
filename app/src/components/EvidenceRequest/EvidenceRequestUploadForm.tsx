@@ -1,4 +1,5 @@
 import { Form, Button, TextArea } from '@carbon/react';
+import UploaderS3 from '@components/util/UploaderS3';
 import EvidenceRequestStep from '@model/EvidenceRequestStep';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -26,7 +27,7 @@ const EvidenceRequestUploadForm = ({ step }: EvidenceReqUploadFormProps) => {
 		<div className='col-span-4'>
 			<Form className=' space-y-5'>
 				<TextArea labelText={t('public-comment')} {...register('publicComment')} />
-				<p>UPLOAD FILE PLACEHOLDER</p>
+				<UploaderS3 label='Drop' name='upload-step' />
 				<div className='space-x-5 text-right'>
 					<Button kind='tertiary' size='md' onClick={handleSubmit(handleSaveUpload)}>
 						{t('save-upload')}

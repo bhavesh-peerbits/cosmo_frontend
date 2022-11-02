@@ -25,11 +25,11 @@ const AnswerTable = ({ answers, reviewId, campaignType }: AnswerTableProp) => {
 			<div className='flex items-center space-x-2'>
 				{info.getValue().delegates?.map(us => (
 					<UserProfileImage
-						size='md'
+						size='lg'
 						initials={us.displayName}
 						imageDescription={us.username}
 						tooltipText={us.displayName}
-						className='mx-[-4px]'
+						className='mx-[-5px]'
 					/>
 				))}
 			</div>

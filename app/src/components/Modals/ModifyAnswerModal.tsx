@@ -1,4 +1,5 @@
 import useSaveModifiedAnswer from '@api/review-campaign/useSaveModifiedAnswer';
+import useGetUsersByRole from '@api/user/useGetUsersByRole';
 import {
 	Button,
 	ComposedModal,
@@ -10,6 +11,9 @@ import {
 	TextInput,
 	InlineLoading
 } from '@carbon/react';
+import MultipleUserSelect from '@components/MultipleUserSelect';
+import SingleUserSelect from '@components/SingleUserSelect';
+import User from '@model/User';
 import modifyAnswerModalInfo from '@store/user-revalidation/modifyAnswerModalInfo';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -24,6 +28,8 @@ type AnswerForm = {
 	risk: string;
 	riskDescription: string;
 	firefighterID: string;
+	delegates: User[];
+	revalidator: User;
 };
 
 const ModifyAnswerModal = () => {
@@ -31,6 +37,7 @@ const ModifyAnswerModal = () => {
 	const { t } = useTranslation(['userRevalidation', 'modals']);
 	const { mutate, isLoading } = useSaveModifiedAnswer();
 	const {
+		control,
 		register,
 		reset,
 		handleSubmit,
@@ -50,6 +57,8 @@ const ModifyAnswerModal = () => {
 
 	useEffect(() => {
 		reset({
+			revalidator: modifyModal.answer?.revalidationUser,
+			delegates: modifyModal.answer?.delegated,
 			userToRevalidate: modifyModal.answer?.userToRevalidate,
 			userDetails: modifyModal.answer?.userDetails,
 			permissions: modifyModal.answer?.permissions,
@@ -105,12 +114,39 @@ const ModifyAnswerModal = () => {
 			open={modifyModal.open}
 			onClose={cleanUp}
 			preventCloseOnClickOutside
-			className='z-[9999]'
+			className='z-[9000]'
 		>
 			<ModalHeader title={t('userRevalidation:modify-answer')} closeModal={cleanUp} />
 			<ModalBody className='mb-3 max-h-[500px] overflow-y-auto'>
 				<Form>
 					<div className='grid grid-cols-2 gap-5 p-5'>
+						<div>
+							<SingleUserSelect
+								control={control}
+								label={t('userRevalidation:revalidators')}
+								name='revalidator'
+								level={2}
+								// TODO Add default value
+								getUserFn={() => {
+									// eslint-disable-next-line react-hooks/rules-of-hooks
+									return useGetUsersByRole('FOCAL_POINT');
+								}}
+								defaultValue={modifyModal.answer?.revalidationUser}
+							/>
+						</div>
+						<div>
+							<MultipleUserSelect
+								control={control}
+								label='Delegates'
+								name='delegates'
+								level={2}
+								defaultValue={modifyModal.answer?.delegated}
+								getUserFn={() => {
+									// eslint-disable-next-line react-hooks/rules-of-hooks
+									return useGetUsersByRole('FOCAL_POINT');
+								}}
+							/>
+						</div>
 						<TextInput
 							id='userToRevalidate'
 							labelText={t('userRevalidation:users-to-revalidate')}
