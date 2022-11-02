@@ -82,7 +82,7 @@ const ApplicationsSelectionContainer = ({
 					<span>{t('evidenceRequest:apps-selection')}</span>
 				</FullWidthColumn>
 				<FullWidthColumn className='text-text-secondary text-body-long-1'>
-					<span>Description to add</span>
+					<span>{t('evidenceRequest:applications-selection-description')}.</span>
 				</FullWidthColumn>
 			</FullWidthColumn>
 			<FullWidthColumn>

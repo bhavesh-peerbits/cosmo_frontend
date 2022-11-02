@@ -55,7 +55,7 @@ const RequestTextContainer = ({
 					<span>{t('evidenceRequest:request-text')}</span>
 				</FullWidthColumn>
 				<FullWidthColumn className='text-text-secondary text-body-long-1'>
-					<span>Description to add</span>
+					<span>{t('evidenceRequest:request-text-description')}.</span>
 				</FullWidthColumn>
 			</FullWidthColumn>
 			<FullWidthColumn>

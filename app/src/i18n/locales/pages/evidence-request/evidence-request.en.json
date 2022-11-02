@@ -53,7 +53,6 @@
 	"approval": "Approval",
 	"upload": "Upload",
 	"request": "Request",
-	"attachments-description": "In this section it is possible to upload files. Uploaded files will not be saved as a draft, so it is important to upload them immediately before submitting your request",
 	"phase-type": "Test phase",
 	"select-branches-leaves": "Select branches or leaves",
 	"selected-items": "Selected items",
@@ -66,5 +65,10 @@
 	"action": "Action",
 	"save-upload": "Save upload",
 	"close-upload": "Close upload",
-	"response": "Response"
+	"response": "Response",
+	"applications-selection-description": "Select one or more applications to associate with the evidence request",
+	"users-selection-description": "Select, for all the steps of each application, the focal points (with any delegates) or approvers",
+	"request-text-description": "Enter a description of this new request to provide more information to users who have access to the request",
+	"additional-info-description": "Enter a private comment (visible only to the creator of the request) and a public comment (visible to all users with access to the request)",
+	"attachments-description": "In this section it is possible to upload files. Uploaded files will not be saved as a draft, so it is important to upload them immediately before submitting your request"
 }

@@ -58,7 +58,7 @@ const AdditionalInfoContainer = ({
 					<span>{t('evidenceRequest:additional-info')}</span>
 				</FullWidthColumn>
 				<FullWidthColumn className='text-text-secondary text-body-long-1'>
-					<span>Description to add</span>
+					<span>{t('evidenceRequest:additional-info-description')}.</span>
 				</FullWidthColumn>
 			</FullWidthColumn>
 			<FullWidthColumn>
