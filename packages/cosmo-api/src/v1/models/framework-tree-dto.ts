@@ -42,4 +42,10 @@ export interface FrameworkTreeDto {
 	 * @memberof FrameworkTreeDto
 	 */
 	children?: Array<FrameworkTreeDto>;
+	/**
+	 *
+	 * @type {Array<string>}
+	 * @memberof FrameworkTreeDto
+	 */
+	leafs?: Array<string>;
 }
