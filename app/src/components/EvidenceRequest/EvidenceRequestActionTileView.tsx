@@ -19,7 +19,7 @@ const SearchBar = () => {
 	const { t } = useTranslation('evidenceRequest');
 
 	return (
-		<Layer className='ml-5 mt-2 w-full'>
+		<Layer className='w-full'>
 			<Search
 				size='lg'
 				labelText={t('search-placeholder')}
@@ -37,43 +37,45 @@ const EvidenceRequestActionTileView = () => {
 
 	return (
 		<Fade>
-			<div className='flex flex-col space-y-7'>
-				<div className='flex w-full items-center justify-between space-y-5 space-x-5 md:w-auto md:justify-end'>
-					<div className='flex w-full justify-end gap-5'>
-						<SearchBar />
-						<div className='w-[10rem]'>
-							<Select
-								id='workflow-types'
-								labelText=''
-								className=''
-								onChange={e =>
-									setFilters(old => ({
-										...old,
-										action:
-											e.currentTarget?.value === 'All'
-												? undefined
-												: e.currentTarget?.value
-									}))
-								}
-							>
-								<SelectItem text='All' value='All' key='All' />
-								<SelectItem
-									text='Approve'
-									value='APPROVAL'
-									key='Approve'
-									selected={filters.action === 'APPROVAL'}
-								/>
-								<SelectItem
-									text='Upload'
-									value='UPLOAD'
-									key='Upload'
-									selected={filters.action === 'UPLOAD'}
-								/>
-							</Select>
+			<div className='flex flex-col space-y-5'>
+				<div className='flex w-full space-x-5 md:justify-end'>
+					<div className='flex w-full items-center space-x-5'>
+						<div className='flex w-full items-end space-x-5'>
+							<SearchBar />
+							<Layer>
+								<Select
+									size='lg'
+									id='workflow-types'
+									hideLabel
+									onChange={e =>
+										setFilters(old => ({
+											...old,
+											action:
+												e.currentTarget?.value === 'All'
+													? undefined
+													: e.currentTarget?.value
+										}))
+									}
+								>
+									<SelectItem text='All' value='All' key='All' />
+									<SelectItem
+										text='Approve'
+										value='APPROVAL'
+										key='Approve'
+										selected={filters.action === 'APPROVAL'}
+									/>
+									<SelectItem
+										text='Upload'
+										value='UPLOAD'
+										key='Upload'
+										selected={filters.action === 'UPLOAD'}
+									/>
+								</Select>
+							</Layer>
 						</div>
 						<ContentSwitcher
-							onChange={() => setFilters({ isTile: true })}
-							className='mt-3 w-auto'
+							onChange={() => setFilters({ isTile: false })}
+							className='w-auto'
 						>
 							<Switch name='first'>
 								<GridIcon />
@@ -84,7 +86,7 @@ const EvidenceRequestActionTileView = () => {
 						</ContentSwitcher>
 					</div>
 				</div>
-				<div>
+				<div className=''>
 					{requests.length === 0 ? (
 						<Fade>
 							<Centered>
