@@ -1,13 +1,15 @@
 import { FileUploaderDropContainer, FileUploaderItem } from '@carbon/react';
+import FileLink from '@model/FileLink';
+import { useEffect } from 'react';
 import {
 	FieldPath,
 	FieldValues,
 	PathValue,
 	UnpackNestedValue,
 	useController,
-	UseControllerProps
+	useForm
 } from 'react-hook-form';
-import { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 
 type CosmoFileUploaderProps<
 	T extends FieldValues,
@@ -15,66 +17,73 @@ type CosmoFileUploaderProps<
 > = UnpackNestedValue<PathValue<T, TName>> extends File[]
 	? {
 			label: string;
-			name: TName;
-			rules?: UseControllerProps<T, TName>['rules'];
-			multiple?: boolean;
+			save?: boolean;
+			alreadyUploaded?: FileLink[];
 	  }
 	: never;
 
+interface UploaderS3Form {
+	files: File[];
+}
+
+const handleSaveFile = () => {};
+
 const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
-	name,
-	rules,
 	label,
-	multiple
+	save,
+	alreadyUploaded
 }: CosmoFileUploaderProps<T, TName>) => {
+	// const { t } = useTranslation('uploaderS3');
+	const { control, handleSubmit } = useForm<UploaderS3Form>({
+		defaultValues: { files: [] }
+	});
 	const {
-		field: { onChange, onBlur, value: formValue },
-		fieldState: { error }
+		field: { onChange, value: formValue }
 	} = useController({
-		name,
-		rules
+		name: 'files',
+		control
 	});
 	const files = formValue as File[];
-	const errorObj = useMemo(
-		() =>
-			error?.types
-				? Object.values(error.types)
-						.map(value => JSON.parse(`${value}` || '{}'))
-						.reduce((previousValue, currentValue) =>
-							previousValue.map((val: boolean | string, index: number) =>
-								val === true ? currentValue[index] : val
-							)
-						)
-				: [],
-		[error]
-	);
-
+	useEffect(() => {
+		handleSubmit(handleSaveFile);
+	}, [handleSubmit, save]);
 	return (
-		<div>
-			<FileUploaderDropContainer
-				labelText={label}
-				accept={['.csv']}
-				className='w-full'
-				onBlur={onBlur}
-				multiple={multiple}
-				// onAddFiles={(e, { addedFiles }) => console.log(addedFiles)}
-			/>
-			{files?.map((file, index) => (
-				<div className='mt-2' key={file.name}>
-					<FileUploaderItem
-						errorBody={errorObj[index]}
-						name={file.name}
-						onDelete={() => {
-							files.length > 1
-								? onChange(files.filter((_, i) => i !== index))
-								: onChange(undefined);
-						}}
-						errorSubject='File not valid'
-						invalid={errorObj[index] !== undefined && errorObj[index] !== true}
-						status='edit'
-					/>
+		<div className='mt-5 space-y-5'>
+			{alreadyUploaded ? (
+				<div>
+					{/* <div>{t('already-uploaded')}</div> */}
+					{alreadyUploaded.map(file => (
+						<Link to={file.link || ''}>{file.name}</Link>
+					))}
 				</div>
-			))}
+			) : null}
+			<div className=' space-y-5'>
+				{/* <div>{t('upload-file')}</div> */}
+				<FileUploaderDropContainer
+					labelText={label}
+					className='w-full'
+					onAddFiles={(e, { addedFiles }) => {
+						files.push(addedFiles[0]);
+						onChange(files);
+					}}
+				/>
+				<div className='mt-2 max-h-[160px] max-w-[20rem] overflow-y-auto'>
+					{files?.map((file, index) => (
+						<div className='mt-2' key={`${file.name}`}>
+							<FileUploaderItem
+								name={file.name}
+								onDelete={() => {
+									files.length > 1
+										? onChange(files.filter((_, i) => i !== index))
+										: onChange([]);
+								}}
+								errorSubject='File not valid'
+								status='edit'
+							/>
+						</div>
+					))}
+				</div>
+			</div>
 		</div>
 	);
 };

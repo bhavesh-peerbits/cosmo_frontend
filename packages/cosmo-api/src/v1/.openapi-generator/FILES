@@ -11,6 +11,7 @@ api/control-controller-api.ts
 api/csv-reader-controller-api.ts
 api/evidence-request-controller-api.ts
 api/evidence-request-focal-point-controller-api.ts
+api/framework-tree-controller-api.ts
 api/framework-tree-for-evidence-controller-api.ts
 api/frequency-controller-api.ts
 api/generate-report-controller-api.ts
