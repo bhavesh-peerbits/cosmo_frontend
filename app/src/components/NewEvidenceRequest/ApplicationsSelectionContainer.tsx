@@ -1,4 +1,4 @@
-import { Button, Grid, TableToolbarSearch } from '@carbon/react';
+import { Button, Grid } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import CosmoTable, { HeaderFunction } from '@components/table/CosmoTable';
 import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
@@ -20,7 +20,6 @@ const ApplicationsSelectionContainer = ({
 	apps
 }: ApplicationsSelectionContainerProps) => {
 	const { t } = useTranslation(['evidenceRequest', 'management', 'modals']);
-	const [filters, setFilters] = useState('');
 	const [selectedRows, setSelectedRows] = useState<
 		(Application | undefined)[] | undefined
 	>();
@@ -44,24 +43,20 @@ const ApplicationsSelectionContainer = ({
 			}),
 			table.createDataColumn(row => row.codeName, {
 				id: 'code',
-				header: t('management:code')
+				header: t('management:code'),
+				enableGlobalFilter: false
 			}),
 			table.createDataColumn(row => row.owner, {
 				id: 'owner',
 				header: t('management:owner'),
-				cell: info => info.getValue()?.displayName || '-'
+				cell: info => info.getValue()?.displayName || '-',
+				enableGlobalFilter: false,
+				meta: {
+					exportableFn: info => info.displayName || '-'
+				}
 			})
 		],
 		[t]
-	);
-	const toolbarContent = (
-		<TableToolbarSearch
-			size='lg'
-			persistent
-			placeholder={t('management:search-placeholder')}
-			id='search'
-			onChange={e => setFilters(e.currentTarget?.value)}
-		/>
 	);
 
 	const handleNext = () => {
@@ -87,19 +82,15 @@ const ApplicationsSelectionContainer = ({
 					<span>{t('evidenceRequest:apps-selection')}</span>
 				</FullWidthColumn>
 				<FullWidthColumn className='text-text-secondary text-body-long-1'>
-					<span>Description to add</span>
+					<span>{t('evidenceRequest:applications-selection-description')}.</span>
 				</FullWidthColumn>
 			</FullWidthColumn>
 			<FullWidthColumn>
 				<CosmoTable
-					data={
-						filters
-							? apps.filter(app => app.name.toLowerCase().includes(filters.toLowerCase()))
-							: apps
-					}
+					data={apps}
 					createHeaders={columns}
 					noDataMessage={t('management:no-applications')}
-					toolbar={{ toolbarContent }}
+					searchBarPlaceholder={t('management:search-placeholder')}
 					isSelectable
 					level={2}
 					setSelectedRows={setSelectedRows}

@@ -38,7 +38,7 @@ const FileLinkTable = ({ files }: { files: FileLink[] }) => {
 		],
 		[linkCell, t]
 	);
-	return <CosmoTable createHeaders={columns} data={files} />;
+	return <CosmoTable createHeaders={columns} data={files} disableSearch />;
 };
 
 export default FileLinkTable;

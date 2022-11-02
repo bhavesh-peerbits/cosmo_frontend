@@ -35,6 +35,15 @@ const AttachmentsContainer = ({
 			}
 		});
 	};
+	const isRequestDraftCompleted =
+		!!requestDraft?.requests?.filter(req => req.selected).length &&
+		!!requestDraft.requests?.filter(req => req.selected).length &&
+		requestDraft.requests
+			?.filter(req => req.selected)
+			.map(req => req.steps.filter(step => step.type !== 'REQUEST'))
+			.flat()
+			.every(step => !!step.approvers?.length || step.reviewer) &&
+		requestDraft.text !== null;
 
 	return (
 		<Grid fullWidth narrow className='space-y-5'>
@@ -63,7 +72,7 @@ const AttachmentsContainer = ({
 				<Button kind='secondary' size='md' onClick={() => setCurrentStep(3)}>
 					{t('modals:back')}
 				</Button>
-				<Button size='md' onClick={saveDraft}>
+				<Button size='md' onClick={saveDraft} disabled={!isRequestDraftCompleted}>
 					{t('modals:save')}
 				</Button>
 			</FullWidthColumn>

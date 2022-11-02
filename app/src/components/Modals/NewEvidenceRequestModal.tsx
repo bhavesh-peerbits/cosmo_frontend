@@ -1,19 +1,19 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import useCreateDraft from '@api/evidence-request/useCreateDraft';
 import useGetAllUniqueEvidenceNames from '@api/evidence-request/useGetAllUniqueEvidenceNames';
 import useGetNewDraftParameter from '@api/evidence-request/useGetNewDraftParameter';
-import useGetFrameworkTreeByCode from '@api/framework/useGetFrameworkTreeByCode';
 import { TextInput, Select, SelectItem, Grid, TreeView, TreeNode } from '@carbon/react';
 import { CreateTearsheet } from '@components/CreateTearsheet';
 import CreateTearsheetStep from '@components/CreateTearsheet/CreateTearsheepStep';
 import FullWidthColumn from '@components/FullWidthColumn';
 import Framework from '@model/Framework';
 import PhaseType from '@model/PhaseType';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { TrashCan } from '@carbon/react/icons';
+import useGetFrameworkTreeByCode from '@api/framework/useGetFrameworkTreeByCode';
 
 type NewEvidenceRequestModalProps = {
 	isOpen: boolean;
@@ -23,85 +23,9 @@ type NewEvidenceRequestModalProps = {
 interface CreateRequestForm {
 	requestName: string;
 	workflow: string;
-	requestType: string[];
+	requestType: string;
 	phaseType: PhaseType;
 }
-const GenerateFrameworkStep = ({ requestType }: { requestType: string[] }) => {
-	const { data } = useGetFrameworkTreeByCode('ITGC');
-	const [selectedItems, setSelectedItems] = useState<Framework[]>([]);
-	const { t } = useTranslation('evidenceRequest');
-	const recursiveMap = (framework: Framework) => {
-		return framework?.children?.map(children => (
-			<TreeNode
-				label={
-					<div
-						className={`${
-							!children.children &&
-							!selectedItems.find(item => item.code === children.code) &&
-							'cursor-pointer'
-						}`}
-						onClick={() =>
-							!children.children &&
-							!selectedItems.find(item => item.code === children.code) &&
-							setSelectedItems(old => [...old, children])
-						}
-					>
-						{children.name}
-					</div>
-				}
-			>
-				{recursiveMap(children)}
-			</TreeNode>
-		));
-	};
-	if (!data) {
-		return null;
-	}
-
-	return (
-		<CreateTearsheetStep
-			keyValue='frameworkStep'
-			title='Framework'
-			includeStep={requestType && requestType[0] !== 'FREE'}
-			className='overflow-auto'
-		>
-			<div className='flex w-full space-x-5 divide-x-1 divide-solid divide-border-subtle-0'>
-				<div className='w-full'>
-					<p>{t('select-branches-leaves')}</p>
-					<TreeView className='w-full pt-3' hideLabel label='Framework'>
-						{recursiveMap(data)}
-					</TreeView>
-				</div>
-				<div className='w-full pl-5'>
-					<p>{t('selected-items')}</p>
-					<TreeView className='w-full pt-3' hideLabel label='Selected leaves'>
-						{selectedItems.map(item => (
-							<TreeNode
-								label={
-									<div className='flex'>
-										{item.name}
-										<div
-											className='cursor-pointer pl-4'
-											onClick={() =>
-												setSelectedItems(
-													selectedItems.filter(
-														selectedItem => selectedItem.code !== item.code
-													)
-												)
-											}
-										>
-											<TrashCan />
-										</div>
-									</div>
-								}
-							/>
-						))}
-					</TreeView>
-				</div>
-			</div>
-		</CreateTearsheetStep>
-	);
-};
 
 const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalProps) => {
 	const { t } = useTranslation([
@@ -113,8 +37,7 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 	const { mutate } = useCreateDraft(); // TODO Handle errors
 	const { data: parameters } = useGetNewDraftParameter();
 	const { data: requestNames } = useGetAllUniqueEvidenceNames();
-	const [isFreeSelected, setIsFreeSelected] = useState(false);
-
+	const [selectedLeaves, setSelectedLeaves] = useState<Framework[]>([]);
 	const {
 		register,
 		reset,
@@ -125,18 +48,24 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 		mode: 'onChange'
 	});
 	const requestType = watch('requestType');
-
+	const { data: framework } = useGetFrameworkTreeByCode(
+		requestType !== 'FREE' ? requestType : ''
+	);
 	const cleanUp = () => {
 		reset();
 		setIsOpen(false);
 	};
+	useEffect(() => {
+		setSelectedLeaves([]);
+	}, [requestType]);
 
-	const submitFreeRequest = (data: CreateRequestForm) => {
+	const submitRequest = (data: CreateRequestForm) => {
 		return mutate(
 			{
 				draftData: {
 					name: data.requestName,
-					requestType: data.requestType,
+					requestType:
+						requestType === 'FREE' ? ['FREE'] : selectedLeaves.map(leaf => leaf.code),
 					workflowname: data.workflow,
 					phaseType: data.phaseType
 				}
@@ -148,6 +77,7 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 			}
 		);
 	};
+
 	const generateBasicInfoStep = useCallback(() => {
 		return (
 			<CreateTearsheetStep
@@ -165,13 +95,13 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 							invalid={Boolean(errors.requestName)}
 							{...register('requestName', {
 								validate: name =>
-									!requestNames?.includes(name.toLowerCase()) ||
-									t('applicationInfo:name-exists')
+									!requestNames
+										?.map(existingName => existingName.toLowerCase())
+										.includes(name.toLowerCase()) || t('applicationInfo:name-exists')
 							})}
 						/>
 					</FullWidthColumn>
 					<FullWidthColumn>
-						{' '}
 						<Select
 							id='workflow-types'
 							labelText={`${t('evidenceRequest:workflow-type')} *`}
@@ -193,14 +123,7 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 							})}
 						>
 							{parameters?.requestType.map(type => (
-								<SelectItem
-									text={type}
-									value={type}
-									key={type}
-									onSelect={() =>
-										type === 'FREE' ? setIsFreeSelected(true) : setIsFreeSelected(false)
-									}
-								/>
+								<SelectItem text={type} value={type} key={type} />
 							))}
 						</Select>
 					</FullWidthColumn>
@@ -233,6 +156,74 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 		t
 	]);
 
+	const generateFrameworkStep = useCallback(() => {
+		const recursiveMap = (tree: Framework) => {
+			return tree.children?.map(children => (
+				<TreeNode
+					className={
+						!children.children &&
+						![...selectedLeaves].find(item => item.code === children.code)
+							? 'cursor-pointer'
+							: 'cursor-auto'
+					}
+					label={children.name}
+					onSelect={() =>
+						!children.children &&
+						![...selectedLeaves].find(item => item.code === children.code) &&
+						setSelectedLeaves(old => [...old, children])
+					}
+				>
+					{recursiveMap(children)}
+				</TreeNode>
+			));
+		};
+
+		return (
+			<CreateTearsheetStep
+				keyValue='frameworkStep'
+				title='Framework'
+				includeStep={requestType !== 'FREE'}
+				className='overflow-auto'
+				disableSubmit={selectedLeaves.length === 0}
+			>
+				<div className='flex w-full space-x-5 divide-x-1 divide-solid divide-border-subtle-0'>
+					<div className='w-full'>
+						<p>{t('evidenceRequest:select-branches-leaves')}</p>
+						<TreeView className='w-full pt-3' hideLabel label='Framework'>
+							{framework && recursiveMap(framework)}
+						</TreeView>
+					</div>
+					<div className='w-full pl-5'>
+						<p>{t('evidenceRequest:selected-items')}</p>
+						<TreeView className='w-full pt-3' hideLabel label='Selected leaves'>
+							{[...selectedLeaves].map(leaf => (
+								<TreeNode
+									label={
+										<div className='flex'>
+											{leaf.name}
+											<div
+												className='cursor-pointer pl-4'
+												onClick={() =>
+													setSelectedLeaves(
+														[...selectedLeaves].filter(
+															selectedLeaf => selectedLeaf.code !== leaf.code
+														)
+													)
+												}
+											>
+												<TrashCan />
+											</div>
+										</div>
+									}
+								/>
+							))}
+						</TreeView>
+					</div>
+				</div>
+			</CreateTearsheetStep>
+		);
+	}, [framework, requestType, selectedLeaves, t]);
+
 	return (
 		<CreateTearsheet
 			influencerWidth='narrow'
@@ -240,20 +231,17 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 			cancelButtonText={t('modals:cancel')}
 			backButtonText={t('modals:back')}
 			nextButtonText={t('modals:next')}
+			className='bg-background-brand'
 			title={t('evidenceRequest:create-new-request')}
 			open={isOpen}
 			onClose={() => {
 				cleanUp();
 				setIsOpen(false);
 			}}
-			onRequestSubmit={
-				requestType && requestType[0] === 'FREE'
-					? handleSubmit(submitFreeRequest)
-					: () => undefined // TODO Add correct function
-			}
+			onRequestSubmit={handleSubmit(submitRequest)}
 		>
 			{generateBasicInfoStep()}
-			{!isFreeSelected && GenerateFrameworkStep({ requestType })}
+			{generateFrameworkStep()}
 		</CreateTearsheet>
 	);
 };

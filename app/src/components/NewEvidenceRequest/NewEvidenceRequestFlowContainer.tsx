@@ -24,6 +24,15 @@ const NewEvidenceRequestFlowContainer = ({
 	const { t } = useTranslation(['evidenceRequest', 'modals']);
 	const { md } = useResponsive();
 	const [currentStep, setCurrentStep] = useState(0);
+	const isRequestDraftCompleted =
+		!!requestDraft?.requests?.filter(req => req.selected).length &&
+		!!requestDraft.requests?.filter(req => req.selected).length &&
+		requestDraft.requests
+			?.filter(req => req.selected)
+			.map(req => req.steps.filter(step => step.type !== 'REQUEST'))
+			.flat()
+			.every(step => !!step.approvers?.length || step.reviewer) &&
+		requestDraft.text !== null;
 
 	const contentToRender = () => {
 		switch (currentStep) {
@@ -91,13 +100,17 @@ const NewEvidenceRequestFlowContainer = ({
 						className='truncate'
 						complete={!!requestDraft.requests?.filter(req => req.selected).length}
 						label={
-							<span
-								title={t('evidenceRequest:apps-selection')}
-								className='cursor-pointer'
-								onClick={() => setCurrentStep(0)}
-							>
-								{t('evidenceRequest:apps-selection')}
-							</span>
+							isRequestDraftCompleted ? (
+								<span
+									title={t('evidenceRequest:apps-selection')}
+									className='cursor-pointer'
+									onClick={() => setCurrentStep(0)}
+								>
+									{t('evidenceRequest:apps-selection')}
+								</span>
+							) : (
+								t('evidenceRequest:apps-selection')
+							)
 						}
 					/>
 					<ProgressStep
@@ -111,7 +124,7 @@ const NewEvidenceRequestFlowContainer = ({
 								.every(step => !!step.approvers?.length || step.reviewer)
 						}
 						label={
-							requestDraft.requests?.filter(req => req.selected).length ? (
+							isRequestDraftCompleted ? (
 								<span
 									title={t('evidenceRequest:users-selection')}
 									className='cursor-pointer'
@@ -128,9 +141,7 @@ const NewEvidenceRequestFlowContainer = ({
 						className='truncate'
 						complete={requestDraft.text !== null}
 						label={
-							requestDraft.requests?.filter(req =>
-								req.steps.find(step => step.approvers?.length)
-							).length ? (
+							isRequestDraftCompleted ? (
 								<span
 									title={t('evidenceRequest:request-text')}
 									className='cursor-pointer'
@@ -144,13 +155,14 @@ const NewEvidenceRequestFlowContainer = ({
 						}
 					/>
 					<ProgressStep
+						className='truncate'
 						complete={
 							!!requestDraft.stepInfo?.privateComment &&
 							!!requestDraft.stepInfo.publicComment
 						}
 						secondaryLabel={t('evidenceRequest:optional-step')}
 						label={
-							requestDraft.text ? (
+							isRequestDraftCompleted ? (
 								<span
 									title={t('evidenceRequest:additional-info')}
 									className='cursor-pointer'
@@ -167,8 +179,7 @@ const NewEvidenceRequestFlowContainer = ({
 						className=' truncate'
 						title={t('evidenceRequest:attachments')}
 						label={
-							!!requestDraft.stepInfo?.privateComment &&
-							!!requestDraft.stepInfo.publicComment ? (
+							isRequestDraftCompleted ? (
 								<span className='cursor-pointer' onClick={() => setCurrentStep(4)}>
 									{t('evidenceRequest:attachments')}
 								</span>

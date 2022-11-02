@@ -44,7 +44,7 @@ const UsersSelectionContainer = ({
 					<span>{t('evidenceRequest:users-selection')}</span>
 				</FullWidthColumn>
 				<FullWidthColumn className='text-text-secondary text-body-long-1'>
-					<span>Description to add</span>
+					<span>{t('evidenceRequest:users-selection-description')}.</span>
 				</FullWidthColumn>
 			</FullWidthColumn>
 			{requestDraft?.requests?.[0].steps

@@ -113,7 +113,7 @@ const UsersSelectionForm = ({
 									<div className='mt-1 flex flex-row '>
 										<span className='flex flex-row space-x-3'>
 											<span>{`Focal point : `}</span>
-											<span className=' flex'>
+											<span className='flex'>
 												<UserProfileImage
 													initials={association.reviewer?.displayName}
 													imageDescription={association.reviewer?.username}
