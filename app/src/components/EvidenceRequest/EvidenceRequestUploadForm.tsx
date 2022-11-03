@@ -1,6 +1,7 @@
 import { Form, Button, TextArea } from '@carbon/react';
 import UploaderS3 from '@components/util/UploaderS3';
 import EvidenceRequestStep from '@model/EvidenceRequestStep';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -14,25 +15,30 @@ interface EvidenceReqUploadFormProps {
 
 const EvidenceRequestUploadForm = ({ step }: EvidenceReqUploadFormProps) => {
 	const { t } = useTranslation('evidenceRequest');
+	const [saveUpload, setSaveUpload] = useState(false);
 	const { register, handleSubmit } = useForm<StepUploadForm>({
 		mode: 'onChange',
 		defaultValues: {
 			publicComment: step.stepInfo?.publicComment
 		}
 	});
-	const handleSaveUpload = () => {};
 	const handleCloseUpload = () => {};
 
 	return (
 		<div className='col-span-4'>
 			<Form className=' space-y-5'>
 				<TextArea labelText={t('public-comment')} {...register('publicComment')} />
-				<UploaderS3 label='Drop' name='upload-step' />
+				<UploaderS3 label='Drop' />
 				<div className='space-x-5 text-right'>
-					<Button kind='tertiary' size='md' onClick={handleSubmit(handleSaveUpload)}>
+					<Button kind='tertiary' size='md' onClick={() => setSaveUpload(!saveUpload)}>
 						{t('save-upload')}
 					</Button>
-					<Button kind='primary' size='md' onClick={handleSubmit(handleCloseUpload)}>
+					<Button
+						kind='primary'
+						size='md'
+						onClick={handleSubmit(handleCloseUpload)}
+						disabled={saveUpload}
+					>
 						{t('close-upload')}
 					</Button>
 				</div>
