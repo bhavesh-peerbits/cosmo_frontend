@@ -16,7 +16,11 @@ interface EvidenceReqUploadFormProps {
 const EvidenceRequestUploadForm = ({ step }: EvidenceReqUploadFormProps) => {
 	const { t } = useTranslation('evidenceRequest');
 	const [saveUpload, setSaveUpload] = useState(false);
-	const { register, handleSubmit } = useForm<StepUploadForm>({
+	const {
+		register,
+		handleSubmit,
+		formState: { isDirty }
+	} = useForm<StepUploadForm>({
 		mode: 'onChange',
 		defaultValues: {
 			publicComment: step.stepInfo?.publicComment
@@ -28,7 +32,7 @@ const EvidenceRequestUploadForm = ({ step }: EvidenceReqUploadFormProps) => {
 		<div className='col-span-4'>
 			<Form className=' space-y-5'>
 				<TextArea labelText={t('public-comment')} {...register('publicComment')} />
-				<UploaderS3 label='Drop' />
+				<UploaderS3 label='Drop' parentFormDirty={isDirty} />
 				<div className='space-x-5 text-right'>
 					<Button kind='tertiary' size='md' onClick={() => setSaveUpload(!saveUpload)}>
 						{t('save-upload')}

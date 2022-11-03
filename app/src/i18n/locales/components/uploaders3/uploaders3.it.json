@@ -1,4 +1,5 @@
 {
 	"already-uploaded": "Already Uploaded",
-	"upload-file": "Upload File"
+	"upload-file": "Upload File",
+	"prevent-close": "Sei sicuro di cambiare pagina, i caricamenti saranno persi"
 }

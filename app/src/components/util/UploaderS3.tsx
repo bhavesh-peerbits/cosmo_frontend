@@ -21,6 +21,7 @@ type CosmoFileUploaderProps<
 			label: string;
 			save?: boolean;
 			alreadyUploaded?: FileLink[];
+			parentFormDirty?: boolean;
 	  }
 	: never;
 
@@ -33,7 +34,8 @@ const handleSaveFile = () => {};
 const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 	label,
 	save,
-	alreadyUploaded
+	alreadyUploaded,
+	parentFormDirty
 }: CosmoFileUploaderProps<T, TName>) => {
 	const { t } = useTranslation('uploaderS3');
 	const {
@@ -50,7 +52,7 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 		control
 	});
 
-	usePrompt('test confirm', isDirty);
+	usePrompt(t('prevent-close'), isDirty || parentFormDirty);
 
 	const files = formValue as File[];
 	useEffect(() => {

@@ -3,7 +3,7 @@ import { useContext, useEffect } from 'react';
 import { UNSAFE_NavigationContext as NavigationContext } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
-function useConfirmExit(when = true) {
+function useConfirmExit(message: string, when = true) {
 	const { navigator } = useContext(NavigationContext);
 	const [preventActionProp, setPreventActionProp] = useRecoilState(
 		preventActionModalStore
@@ -17,6 +17,7 @@ function useConfirmExit(when = true) {
 			navigator.push = (...args: Parameters<typeof push>) => {
 				setPreventActionProp(old => ({
 					...old,
+					message,
 					isOpen: true,
 					onSuccess: () => {
 						push(...args);
@@ -28,7 +29,7 @@ function useConfirmExit(when = true) {
 		return () => {
 			navigator.push = push;
 		};
-	}, [navigator, when, preventActionProp, setPreventActionProp]);
+	}, [navigator, when, preventActionProp, setPreventActionProp, message]);
 }
 
 const usePrompt = (message: string, when = true) => {
@@ -44,7 +45,7 @@ const usePrompt = (message: string, when = true) => {
 		};
 	}, [message, when]);
 
-	useConfirmExit(when);
+	useConfirmExit(message, when);
 };
 
 export default usePrompt;
