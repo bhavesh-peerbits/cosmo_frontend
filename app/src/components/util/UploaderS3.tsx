@@ -1,4 +1,5 @@
 import { FileUploaderDropContainer, FileUploaderItem } from '@carbon/react';
+import usePrompt from '@hooks/usePreventNavigatePrompt';
 import FileLink from '@model/FileLink';
 import { useEffect } from 'react';
 import {
@@ -9,6 +10,7 @@ import {
 	useController,
 	useForm
 } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 type CosmoFileUploaderProps<
@@ -33,8 +35,12 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 	save,
 	alreadyUploaded
 }: CosmoFileUploaderProps<T, TName>) => {
-	// const { t } = useTranslation('uploaderS3');
-	const { control, handleSubmit } = useForm<UploaderS3Form>({
+	const { t } = useTranslation('uploaderS3');
+	const {
+		control,
+		handleSubmit,
+		formState: { isDirty }
+	} = useForm<UploaderS3Form>({
 		defaultValues: { files: [] }
 	});
 	const {
@@ -43,22 +49,25 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 		name: 'files',
 		control
 	});
+
+	usePrompt('test confirm', isDirty);
+
 	const files = formValue as File[];
 	useEffect(() => {
 		handleSubmit(handleSaveFile);
 	}, [handleSubmit, save]);
 	return (
-		<div className='mt-5 space-y-5'>
+		<div className='mt-5 space-y-5' id={`uploader__file__${label}`}>
 			{alreadyUploaded ? (
 				<div>
-					{/* <div>{t('already-uploaded')}</div> */}
+					<div>{t('already-uploaded')}</div>
 					{alreadyUploaded.map(file => (
 						<Link to={file.link || ''}>{file.name}</Link>
 					))}
 				</div>
 			) : null}
 			<div className=' space-y-5'>
-				{/* <div>{t('upload-file')}</div> */}
+				<div>{t('upload-file')}</div>
 				<FileUploaderDropContainer
 					labelText={label}
 					className='w-full'
