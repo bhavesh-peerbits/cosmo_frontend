@@ -101,7 +101,8 @@ const UsersSelectionForm = ({
 	return (
 		<Grid fullWidth>
 			{step.type === 'UPLOAD' && associations && (
-				<Column sm={4} md={8} lg={16} className='mb-5'>
+				<Column sm={4} md={8} lg={16} className='mb-5 space-y-5'>
+					<span className='text-text-secondary'>{t('select-user-group')}.</span>
 					<RadioButtonGroup
 						orientation='vertical'
 						name={step.id}
@@ -112,7 +113,7 @@ const UsersSelectionForm = ({
 								labelText={
 									<div className='mt-1 flex flex-row '>
 										<span className='flex flex-row space-x-3'>
-											<span>{`Focal point : `}</span>
+											<span>{`Focal Point : `}</span>
 											<span className='flex'>
 												<UserProfileImage
 													initials={association.reviewer?.displayName}
