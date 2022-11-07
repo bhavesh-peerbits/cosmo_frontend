@@ -97,7 +97,7 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 			<Form onSubmit={handleSubmit(addUser)}>
 				<ModalHeader title={t('add-user')} closeModal={cleanUp}>
 					<span className='text-text-secondary text-body-1'>
-						{t('body-add', { action: `"${t('add-user')}"` })}
+						{t('body-add', { action: `"${t('add-user')}"` })}.
 					</span>
 				</ModalHeader>
 				<ModalBody hasForm>

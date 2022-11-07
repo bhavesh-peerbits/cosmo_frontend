@@ -161,14 +161,14 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 			return tree.children?.map(children => (
 				<TreeNode
 					className={
-						!children.children &&
+						framework?.leafs?.includes(children.code) &&
 						![...selectedLeaves].find(item => item.code === children.code)
 							? 'cursor-pointer'
 							: 'cursor-auto'
 					}
 					label={children.name}
 					onSelect={() =>
-						!children.children &&
+						framework?.leafs?.includes(children.code) &&
 						![...selectedLeaves].find(item => item.code === children.code) &&
 						setSelectedLeaves(old => [...old, children])
 					}

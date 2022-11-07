@@ -4,7 +4,8 @@ import {
 	ContentSwitcher,
 	Switch,
 	Select,
-	SelectItem
+	SelectItem,
+	Layer
 } from '@carbon/react';
 import Fade from '@components/Fade';
 import { HeaderFunction } from '@components/table/CosmoTable';
@@ -177,13 +178,14 @@ const EvidenceRequestActionTableView = ({
 
 	return (
 		<Fade>
-			<div className='flex w-full justify-end'>
-				<div className='ml-5 flex w-full items-center justify-between space-x-5 md:justify-end'>
-					<div className='flex w-full justify-end gap-5'>
-						<div className='w-auto'>
+			<div className='flex justify-end'>
+				<div className='flex items-center space-x-5'>
+					<div className='flex items-center justify-end space-x-5'>
+						<Layer>
 							<Select
 								id='workflow-types'
-								labelText=''
+								hideLabel
+								size='lg'
 								onChange={e =>
 									setFilters(old => ({
 										...old,
@@ -198,11 +200,12 @@ const EvidenceRequestActionTableView = ({
 								<SelectItem text='Approve' value='APPROVAL' key='Approve' />
 								<SelectItem text='Upload' value='UPLOAD' key='Upload' />
 							</Select>
-						</div>
+						</Layer>
+
 						<ContentSwitcher
 							selectedIndex={1}
-							onChange={() => setFilters({ isTile: false })}
-							className='mt-3 w-auto'
+							onChange={() => setFilters({ isTile: true })}
+							className='w-auto'
 						>
 							<Switch name='first'>
 								<GridIcon />

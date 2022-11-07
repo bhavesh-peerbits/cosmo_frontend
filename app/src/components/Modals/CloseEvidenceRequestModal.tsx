@@ -70,18 +70,16 @@ const CloseEvidenceRequestModal = ({
 		<ComposedModal size='sm' open={isOpen} onClose={cleanUp} preventCloseOnClickOutside>
 			<Form>
 				<ModalHeader title={t('evidenceRequest:close-request')} closeModal={cleanUp} />
-				<ModalBody>
-					<span>{t('evidenceRequest:confirm-close')}</span>
+				<ModalBody className='space-y-5'>
+					<span className='text-body-long-1'>{t('evidenceRequest:confirm-close')}</span>
 					{/* <ModalError isError={isError} error={error as ApiError} /> */}
-					<div>
-						<TextArea
-							labelText='Public Comment'
-							cols={50}
-							rows={4}
-							{...register('publicComment')}
-							id='public-comment-close'
-						/>
-					</div>
+					<TextArea
+						labelText='Public Comment'
+						cols={50}
+						rows={4}
+						{...register('publicComment')}
+						id='public-comment-close'
+					/>
 				</ModalBody>
 				<ModalFooter>
 					<Button kind='secondary' onClick={cleanUp}>

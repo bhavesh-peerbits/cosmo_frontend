@@ -5,6 +5,7 @@ interface Framework {
 	name?: string;
 	description?: string;
 	children?: Framework[];
+	leafs?: string[];
 }
 
 export const fromFrameworkApi = (frameworkApi: FrameworkApi): Framework => {
@@ -14,7 +15,8 @@ export const fromFrameworkApi = (frameworkApi: FrameworkApi): Framework => {
 		description: frameworkApi.description,
 		children: frameworkApi.children
 			? frameworkApi.children.map(fromFrameworkApi)
-			: undefined
+			: undefined,
+		leafs: frameworkApi.leafs
 	};
 };
 
@@ -23,7 +25,8 @@ export const toFrameworkApi = (framework: Framework): FrameworkApi => {
 		code: framework.code,
 		name: framework.name,
 		description: framework.description,
-		children: framework.children?.map(toFrameworkApi)
+		children: framework.children?.map(toFrameworkApi),
+		leafs: framework.leafs
 	};
 };
 
