@@ -70,24 +70,16 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 			save && setSave && setSave(!save);
 			return;
 		}
-		let filesToSave = new Map<string, File>();
-		filesToSave = new Map(files.map(file => [file.name, file]));
+
 		additionalInfo?.stepId &&
 			mutate(
 				{
 					stepId: +additionalInfo?.stepId,
-					fileLinkDtoList: [...filesToSave.values()].map(file => fromFiletoFileLink(file))
+					fileLinkDtoList: files.map(file => fromFiletoFileLink(file)),
+					files
 				},
 				{
-					onSuccess: data => {
-						data.forEach(fileLink => {
-							if (fileLink.link && fileLink.name) {
-								fetch(fileLink.link, {
-									method: 'PUT',
-									body: filesToSave.get(fileLink.name)
-								});
-							}
-						});
+					onSuccess: () => {
 						setSave && setSave(!save);
 					}
 				}

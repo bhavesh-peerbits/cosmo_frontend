@@ -12,24 +12,16 @@
  * Do not edit the class manually.
  */
 
-import { FileLinkDto } from './file-link-dto';
-
 /**
  *
  * @export
- * @interface FileLinkDtoList
+ * @interface InlineObject12
  */
-export interface FileLinkDtoList {
+export interface InlineObject12 {
 	/**
 	 *
-	 * @type {Array<FileLinkDto>}
-	 * @memberof FileLinkDtoList
+	 * @type {any}
+	 * @memberof InlineObject12
 	 */
-	fileLinks: Array<FileLinkDto>;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof FileLinkDtoList
-	 */
-	path?: string;
+	file?: any;
 }

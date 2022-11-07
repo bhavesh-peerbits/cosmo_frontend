@@ -28,6 +28,7 @@ const DeleteFileS3Modal = ({ deleteInfo, setDeleteInfo }: DeleteFileS3ModalProps
 			onRequestSubmit={handleDeleteFile}
 			primaryButtonText={t('delete')}
 			secondaryButtonText={t('cancel')}
+			size='xs'
 		/>
 	);
 };

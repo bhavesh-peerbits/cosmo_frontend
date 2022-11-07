@@ -5,16 +5,19 @@ import { useQueryClient, useMutation } from 'react-query';
 interface PutASelectionOfFilesParams {
 	fileLinkDtoList: FileLink[];
 	stepId: number;
+	files: File[];
 }
 
 const putASelectionOfFiles = ({
 	fileLinkDtoList,
-	stepId
+	stepId,
+	files
 }: PutASelectionOfFilesParams) => {
-	return api.EvidenceRequestFileS3Api.putASelectionOfFiles({
+	return api.EvidenceRequestFileS3Api.putASelectionOfFilesOnStep({
 		fileLinkDtoList: { fileLinks: fileLinkDtoList.map(toFileLinkApi) },
-		stepId
-	}).then(({ data }) => data.fileLinks.map(fromFileLinkApi));
+		stepId,
+		files
+	}).then(({ data }) => data.map(fromFileLinkApi));
 };
 
 const usePutASelectionOfFiles = () => {

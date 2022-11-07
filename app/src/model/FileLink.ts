@@ -6,6 +6,7 @@ interface FileLink {
 	type?: string;
 	name?: string;
 	dimension?: number;
+	multipartFile?: any;
 }
 
 export const fromFileLinkApi = (fileLinks: FileLinkApi): FileLink => {
