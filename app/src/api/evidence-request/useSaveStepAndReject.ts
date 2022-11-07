@@ -9,19 +9,19 @@ interface SaveStepParams {
 	erId: string;
 }
 
-const saveStepAndGoNext = ({ step, erId }: SaveStepParams) => {
+const saveStepAndReject = ({ step, erId }: SaveStepParams) => {
 	return api.evidenceRequestFocalPointApi
-		.saveStepAndGoNext({ erId: +erId, stepDto: toEvidenceRequestStepApi(step) })
+		.saveStepAndReject({ erId: +erId, stepDto: toEvidenceRequestStepApi(step) })
 		.then(({ data }) => data.valueOf());
 };
 
-const useSaveStepAndGoNext = () => {
+const useSaveStepAndReject = () => {
 	const queryClient = useQueryClient();
-	return useMutation(saveStepAndGoNext, {
+	return useMutation(saveStepAndReject, {
 		onSuccess: () => {
 			queryClient.invalidateQueries(['evidence-request']);
 		}
 	});
 };
 
-export default useSaveStepAndGoNext;
+export default useSaveStepAndReject;

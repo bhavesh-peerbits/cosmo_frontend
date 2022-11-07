@@ -74,6 +74,18 @@ export interface StepDto {
 	 * @type {string}
 	 * @memberof StepDto
 	 */
+	stepName?: string;
+	/**
+	 *
+	 * @type {UserDto}
+	 * @memberof StepDto
+	 */
+	completionUser?: UserDto;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof StepDto
+	 */
 	completionDate?: string;
 	/**
 	 *

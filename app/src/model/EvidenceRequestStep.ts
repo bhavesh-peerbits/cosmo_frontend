@@ -19,6 +19,8 @@ interface EvidenceRequestStep {
 	id: string;
 	fileLinks: FileLink[];
 	stepOrder: number;
+	completionUser?: User;
+	stepName?: string;
 }
 
 export const fromEvidenceRequestStepApi = (
@@ -44,7 +46,11 @@ export const fromEvidenceRequestStepApi = (
 		fileLinks: evidenceRequestStep.fileLinks
 			? [...evidenceRequestStep.fileLinks].map(fl => fromFileLinkApi(fl))
 			: [],
-		stepOrder: evidenceRequestStep.stepOrder
+		stepOrder: evidenceRequestStep.stepOrder,
+		completionUser: evidenceRequestStep.completionUser
+			? fromUserApi(evidenceRequestStep.completionUser)
+			: undefined,
+		stepName: evidenceRequestStep.stepName
 	};
 };
 
@@ -68,7 +74,11 @@ export const toEvidenceRequestStepApi = (
 		completionDate: evidenceRequestStep.completionDate
 			? evidenceRequestStep.completionDate.toISOString()
 			: undefined,
-		text: evidenceRequestStep.text || ''
+		text: evidenceRequestStep.text || '',
+		completionUser: evidenceRequestStep.completionUser
+			? toUserApi(evidenceRequestStep.completionUser)
+			: undefined,
+		stepName: evidenceRequestStep.stepName
 	};
 };
 

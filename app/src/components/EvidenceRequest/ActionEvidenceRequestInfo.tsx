@@ -10,22 +10,24 @@ import User from '@model/User';
 import { smoothScroll, triggerFocus } from '@components/TableOfContents/utils';
 import useLoginStore from '@hooks/auth/useLoginStore';
 import { EvidenceRequestStatus } from '@model/EvidenceRequestStatus';
-import FileLinkTable from './FileLinkTable';
 import EvidenceRequestApproveForm from './EvidenceRequestApproveForm';
 import EvidenceRequestUploadForm from './EvidenceRequestUploadForm';
+import FileLinkTable from './FileLinkTable';
 
 const ActionEvidenceRequestInfo = ({
 	steps,
 	currentStep,
 	owner,
 	statusRequest,
-	setIsOpen
+	setIsOpen,
+	erId
 }: {
 	steps: EvidenceRequestStep[];
 	currentStep: number;
 	owner: User;
 	statusRequest: EvidenceRequestStatus;
 	setIsOpen: (value: boolean) => void;
+	erId: string;
 }) => {
 	const { auth } = useLoginStore();
 	const { t } = useTranslation('evidenceRequest');
@@ -49,7 +51,7 @@ const ActionEvidenceRequestInfo = ({
 	}, [currentStep]);
 
 	return (
-		<TableOfContents stickyOffset={100} tocStickyOffset={146}>
+		<TableOfContents stickyOffset={100} tocStickyOffset={100}>
 			<Grid fullWidth className='h-full'>
 				<FullWidthColumn className='space-y-5 pt-4'>
 					{steps
@@ -110,7 +112,7 @@ const ActionEvidenceRequestInfo = ({
 															renderIcon={ChevronDown}
 															iconDescription={t('additional-info')}
 														/>
-													) : (
+													) : index + 1 !== currentStep ? (
 														<Button
 															size='sm'
 															kind='ghost'
@@ -119,29 +121,32 @@ const ActionEvidenceRequestInfo = ({
 															renderIcon={ChevronUp}
 															iconDescription={t('additional-info')}
 														/>
-													)}
+													) : null}
 												</div>
-												{showMore[index] ? (
-													step.stepInfo?.publicComment ? (
-														<p className='col-span-4 mt-5'>
-															{`${t('public-comment')} :`}
-															<br />
-															{`${step.stepInfo?.publicComment}`}
-														</p>
-													) : index + 1 === currentStep &&
-													  type === 'UPLOAD' &&
-													  idUserInStep &&
-													  statusRequest === 'IN_PROGRESS' ? (
-														<EvidenceRequestUploadForm step={currStep} />
-													) : index + 1 === currentStep &&
-													  type === 'APPROVAL' &&
-													  idUserInStep &&
-													  statusRequest === 'IN_PROGRESS' ? (
-														<EvidenceRequestApproveForm setIsOpen={setIsOpen} />
-													) : null
+												{showMore[index] &&
+												index + 1 !== currentStep &&
+												step.stepInfo?.publicComment ? (
+													<p className='col-span-4 mt-5'>
+														{`${t('public-comment')} :`}
+														<br />
+														{`${step.stepInfo?.publicComment}`}
+													</p>
+												) : null}
+												{showMore[index] &&
+												index + 1 === currentStep &&
+												type === 'UPLOAD' &&
+												idUserInStep &&
+												statusRequest === 'IN_PROGRESS' ? (
+													<EvidenceRequestUploadForm step={currStep} erId={erId} />
+												) : showMore[index] &&
+												  index + 1 === currentStep &&
+												  type === 'APPROVAL' &&
+												  idUserInStep &&
+												  statusRequest === 'IN_PROGRESS' ? (
+													<EvidenceRequestApproveForm setIsOpen={setIsOpen} />
 												) : null}
 												{showMore[index] ? (
-													step.fileLinks.length ? (
+													index + 1 !== currentStep && step.fileLinks.length ? (
 														<div className='col-span-4 mt-5'>
 															<p>{t('attachments')} :</p>
 															<FileLinkTable files={step.fileLinks} />

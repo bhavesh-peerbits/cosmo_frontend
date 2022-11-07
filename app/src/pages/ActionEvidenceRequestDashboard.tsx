@@ -20,14 +20,14 @@ const ActionEvidenceRequestDashboard = () => {
 				</TabList>
 				<TabPanels>
 					<TabPanel>
-						{filters.isTile ? (
+						{!filters.isTable ? (
 							<EvidenceRequestActionTileView />
 						) : (
 							<EvidenceRequestActionTableView view='ActionPending' />
 						)}
 					</TabPanel>
 					<TabPanel>
-						{filters.isTile ? (
+						{!filters.isTable ? (
 							<EvidenceRequestActionTileView />
 						) : (
 							<EvidenceRequestActionTableView view='Closed' />

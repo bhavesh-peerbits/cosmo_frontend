@@ -154,6 +154,133 @@ export const EvidenceRequestFocalPointControllerApiAxiosParamCreator = function 
 				url: toPathString(localVarUrlObj),
 				options: localVarRequestOptions
 			};
+		},
+		/**
+		 *
+		 * @param {number} erId
+		 * @param {StepDto} stepDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveStepAndReject: async (
+			erId: number,
+			stepDto: StepDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'erId' is not null or undefined
+			assertParamExists('saveStepAndReject', 'erId', erId);
+			// verify required parameter 'stepDto' is not null or undefined
+			assertParamExists('saveStepAndReject', 'stepDto', stepDto);
+			const localVarPath =
+				`/api/focal-point/evidence-request/save-and-reject/{erId}`.replace(
+					`{${'erId'}}`,
+					encodeURIComponent(String(erId))
+				);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				stepDto,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} erId
+		 * @param {number} returnStep
+		 * @param {StepDto} stepDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveStepAndReturn: async (
+			erId: number,
+			returnStep: number,
+			stepDto: StepDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'erId' is not null or undefined
+			assertParamExists('saveStepAndReturn', 'erId', erId);
+			// verify required parameter 'returnStep' is not null or undefined
+			assertParamExists('saveStepAndReturn', 'returnStep', returnStep);
+			// verify required parameter 'stepDto' is not null or undefined
+			assertParamExists('saveStepAndReturn', 'stepDto', stepDto);
+			const localVarPath =
+				`/api/focal-point/evidence-request/save-and-return/{erId}/{returnStep}`
+					.replace(`{${'erId'}}`, encodeURIComponent(String(erId)))
+					.replace(`{${'returnStep'}}`, encodeURIComponent(String(returnStep)));
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				stepDto,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
 		}
 	};
 };
@@ -220,6 +347,63 @@ export const EvidenceRequestFocalPointControllerApiFp = function (
 				BASE_PATH,
 				configuration
 			);
+		},
+		/**
+		 *
+		 * @param {number} erId
+		 * @param {StepDto} stepDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async saveStepAndReject(
+			erId: number,
+			stepDto: StepDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StepDto>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.saveStepAndReject(
+				erId,
+				stepDto,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} erId
+		 * @param {number} returnStep
+		 * @param {StepDto} stepDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async saveStepAndReturn(
+			erId: number,
+			returnStep: number,
+			stepDto: StepDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StepDto>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.saveStepAndReturn(
+				erId,
+				returnStep,
+				stepDto,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
 		}
 	};
 };
@@ -265,6 +449,44 @@ export const EvidenceRequestFocalPointControllerApiFactory = function (
 		): AxiosPromise<StepDto> {
 			return localVarFp
 				.saveStepAndGoNext(erId, stepDto, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} erId
+		 * @param {StepDto} stepDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveStepAndReject(
+			erId: number,
+			stepDto: StepDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<StepDto> {
+			return localVarFp
+				.saveStepAndReject(erId, stepDto, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} erId
+		 * @param {number} returnStep
+		 * @param {StepDto} stepDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveStepAndReturn(
+			erId: number,
+			returnStep: number,
+			stepDto: StepDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<StepDto> {
+			return localVarFp
+				.saveStepAndReturn(erId, returnStep, stepDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		}
 	};
@@ -313,6 +535,69 @@ export interface EvidenceRequestFocalPointControllerApiSaveStepAndGoNextRequest 
 }
 
 /**
+ * Request parameters for saveStepAndReject operation in EvidenceRequestFocalPointControllerApi.
+ * @export
+ * @interface EvidenceRequestFocalPointControllerApiSaveStepAndRejectRequest
+ */
+export interface EvidenceRequestFocalPointControllerApiSaveStepAndRejectRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof EvidenceRequestFocalPointControllerApiSaveStepAndReject
+	 */
+	readonly erId: number;
+
+	/**
+	 *
+	 * @type {StepDto}
+	 * @memberof EvidenceRequestFocalPointControllerApiSaveStepAndReject
+	 */
+	readonly stepDto: StepDto;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof EvidenceRequestFocalPointControllerApiSaveStepAndReject
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for saveStepAndReturn operation in EvidenceRequestFocalPointControllerApi.
+ * @export
+ * @interface EvidenceRequestFocalPointControllerApiSaveStepAndReturnRequest
+ */
+export interface EvidenceRequestFocalPointControllerApiSaveStepAndReturnRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof EvidenceRequestFocalPointControllerApiSaveStepAndReturn
+	 */
+	readonly erId: number;
+
+	/**
+	 *
+	 * @type {number}
+	 * @memberof EvidenceRequestFocalPointControllerApiSaveStepAndReturn
+	 */
+	readonly returnStep: number;
+
+	/**
+	 *
+	 * @type {StepDto}
+	 * @memberof EvidenceRequestFocalPointControllerApiSaveStepAndReturn
+	 */
+	readonly stepDto: StepDto;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof EvidenceRequestFocalPointControllerApiSaveStepAndReturn
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
  * EvidenceRequestFocalPointControllerApi - object-oriented interface
  * @export
  * @class EvidenceRequestFocalPointControllerApi
@@ -349,6 +634,49 @@ export class EvidenceRequestFocalPointControllerApi extends BaseAPI {
 		return EvidenceRequestFocalPointControllerApiFp(this.configuration)
 			.saveStepAndGoNext(
 				requestParameters.erId,
+				requestParameters.stepDto,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {EvidenceRequestFocalPointControllerApiSaveStepAndRejectRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof EvidenceRequestFocalPointControllerApi
+	 */
+	public saveStepAndReject(
+		requestParameters: EvidenceRequestFocalPointControllerApiSaveStepAndRejectRequest,
+		options?: AxiosRequestConfig
+	) {
+		return EvidenceRequestFocalPointControllerApiFp(this.configuration)
+			.saveStepAndReject(
+				requestParameters.erId,
+				requestParameters.stepDto,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {EvidenceRequestFocalPointControllerApiSaveStepAndReturnRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof EvidenceRequestFocalPointControllerApi
+	 */
+	public saveStepAndReturn(
+		requestParameters: EvidenceRequestFocalPointControllerApiSaveStepAndReturnRequest,
+		options?: AxiosRequestConfig
+	) {
+		return EvidenceRequestFocalPointControllerApiFp(this.configuration)
+			.saveStepAndReturn(
+				requestParameters.erId,
+				requestParameters.returnStep,
 				requestParameters.stepDto,
 				requestParameters.acceptLanguage,
 				options

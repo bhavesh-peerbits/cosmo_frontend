@@ -108,6 +108,12 @@ export interface EvidenceRequestDto {
 	phaseType?: string;
 	/**
 	 *
+	 * @type {number}
+	 * @memberof EvidenceRequestDto
+	 */
+	stepBeforeReturn?: number;
+	/**
+	 *
 	 * @type {Set<UserDto>}
 	 * @memberof EvidenceRequestDto
 	 */

@@ -5,6 +5,7 @@ import { Theme } from '@carbon/react';
 import useUiStore from '@hooks/useUiStore';
 import Toast from '@components/Toast';
 import PopupNotification from '@components/PopupNotification';
+import PreventActionModal from '@components/Modals/PreventActionModal';
 
 const App = () => {
 	const { theme } = useUiStore();
@@ -13,6 +14,7 @@ const App = () => {
 			<PopupNotification />
 			<ErrorBoundary>
 				<AppRoutes />
+				<PreventActionModal />
 			</ErrorBoundary>
 			<Toast />
 		</Theme>

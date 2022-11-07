@@ -7,21 +7,26 @@ import EvidenceRequestStep, {
 interface SaveStepParams {
 	step: EvidenceRequestStep;
 	erId: string;
+	stepToReturn: number;
 }
 
-const saveStepAndGoNext = ({ step, erId }: SaveStepParams) => {
+const saveStepAndReturn = ({ step, erId, stepToReturn }: SaveStepParams) => {
 	return api.evidenceRequestFocalPointApi
-		.saveStepAndGoNext({ erId: +erId, stepDto: toEvidenceRequestStepApi(step) })
+		.saveStepAndReturn({
+			erId: +erId,
+			stepDto: toEvidenceRequestStepApi(step),
+			returnStep: stepToReturn
+		})
 		.then(({ data }) => data.valueOf());
 };
 
-const useSaveStepAndGoNext = () => {
+const useSaveStepAndReturn = () => {
 	const queryClient = useQueryClient();
-	return useMutation(saveStepAndGoNext, {
+	return useMutation(saveStepAndReturn, {
 		onSuccess: () => {
 			queryClient.invalidateQueries(['evidence-request']);
 		}
 	});
 };
 
-export default useSaveStepAndGoNext;
+export default useSaveStepAndReturn;

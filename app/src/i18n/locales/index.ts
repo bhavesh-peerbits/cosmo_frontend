@@ -57,6 +57,7 @@ import {
 	errorBoundaryFr,
 	errorBoundaryIt
 } from './components/error-boundary';
+import { uploaders3En, uploaders3Fr, uploaders3It } from './components/uploaders3';
 
 export default {
 	en_US: {
@@ -78,7 +79,8 @@ export default {
 		table: tableEn,
 		applicationInfo: applicationInfoEn,
 		procedureInfo: procedureInfoEn,
-		modals: modalsEn
+		modals: modalsEn,
+		uploaderS3: uploaders3En
 	},
 	it_IT: {
 		home: homeIt,
@@ -99,7 +101,8 @@ export default {
 		table: tableIt,
 		applicationInfo: applicationInfoIt,
 		procedureInfo: procedureInfoIt,
-		modals: modalsIt
+		modals: modalsIt,
+		uploaderS3: uploaders3It
 	},
 	fr_FR: {
 		home: homeFr,
@@ -119,6 +122,7 @@ export default {
 		table: tableFr,
 		applicationInfo: applicationInfoFr,
 		procedureInfo: procedureInfoFr,
-		modals: modalsFr
+		modals: modalsFr,
+		uploaderS3: uploaders3Fr
 	}
 } as const;

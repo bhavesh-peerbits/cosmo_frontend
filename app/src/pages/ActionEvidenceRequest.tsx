@@ -13,6 +13,7 @@ const ActionEvidenceRequest = () => {
 	const { requestId = '' } = useParams<'requestId'>();
 	const { data } = useGetEvidenceRequestById(requestId);
 	const [isOpen, setIsOpen] = useState(false);
+
 	if (!data) {
 		return null;
 	}
@@ -39,6 +40,7 @@ const ActionEvidenceRequest = () => {
 								owner={data.creator}
 								setIsOpen={setIsOpen}
 								statusRequest={data.status}
+								erId={data.id}
 							/>
 						</TabPanel>
 						<TabPanel>
@@ -65,6 +67,7 @@ const ActionEvidenceRequest = () => {
 					setIsOpen={setIsOpen}
 					steps={data.steps}
 					currentStep={data.currentStep}
+					erId={data.id}
 				/>
 			</>
 		</PageHeader>
