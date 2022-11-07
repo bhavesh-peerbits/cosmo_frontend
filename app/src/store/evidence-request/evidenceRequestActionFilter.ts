@@ -7,7 +7,7 @@ type Filters = {
 	query: string | undefined;
 	action: string | undefined;
 	tab: number | undefined;
-	isTile: boolean | undefined;
+	isTable: boolean | undefined;
 };
 
 const evidenceRequestsActionFilters = atom<Filters>({
@@ -16,7 +16,7 @@ const evidenceRequestsActionFilters = atom<Filters>({
 		query: undefined,
 		action: undefined,
 		tab: undefined,
-		isTile: undefined
+		isTable: undefined
 	}
 });
 

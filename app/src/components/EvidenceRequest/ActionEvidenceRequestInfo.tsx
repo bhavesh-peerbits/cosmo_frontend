@@ -20,7 +20,6 @@ const ActionEvidenceRequestInfo = ({
 	owner,
 	statusRequest,
 	setIsOpen,
-	path,
 	erId
 }: {
 	steps: EvidenceRequestStep[];
@@ -28,7 +27,6 @@ const ActionEvidenceRequestInfo = ({
 	owner: User;
 	statusRequest: EvidenceRequestStatus;
 	setIsOpen: (value: boolean) => void;
-	path: string;
 	erId: string;
 }) => {
 	const { auth } = useLoginStore();
@@ -139,11 +137,7 @@ const ActionEvidenceRequestInfo = ({
 												type === 'UPLOAD' &&
 												idUserInStep &&
 												statusRequest === 'IN_PROGRESS' ? (
-													<EvidenceRequestUploadForm
-														step={currStep}
-														path={path + step.stepOrder}
-														erId={erId}
-													/>
+													<EvidenceRequestUploadForm step={currStep} erId={erId} />
 												) : showMore[index] &&
 												  index + 1 === currentStep &&
 												  type === 'APPROVAL' &&

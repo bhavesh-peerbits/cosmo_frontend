@@ -13,12 +13,12 @@ const useEvidenceRequestAction = () => {
 		q: string | undefined;
 		action: string | undefined;
 		tab: number | undefined;
-		isTile: boolean | undefined;
+		isTable: boolean | undefined;
 	}>({
 		q: undefined,
 		action: undefined,
 		tab: undefined,
-		isTile: undefined
+		isTable: undefined
 	});
 	const [filters, setFilters] = useRecoilState(evidenceRequestsActionFilters);
 	const setReqs = useSetRecoilState(evidenceRequestsAction);
@@ -34,7 +34,7 @@ const useEvidenceRequestAction = () => {
 			query: urlFilters.q,
 			tab: urlFilters.tab,
 			action: urlFilters.action,
-			isTile: urlFilters.isTile
+			isTable: urlFilters.isTable
 		});
 	}, [urlFilters, setFilters]);
 

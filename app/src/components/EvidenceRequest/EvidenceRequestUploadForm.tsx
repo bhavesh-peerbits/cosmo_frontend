@@ -12,11 +12,10 @@ interface StepUploadForm {
 
 interface EvidenceReqUploadFormProps {
 	step: EvidenceRequestStep;
-	path: string;
 	erId: string;
 }
 
-const EvidenceRequestUploadForm = ({ step, path, erId }: EvidenceReqUploadFormProps) => {
+const EvidenceRequestUploadForm = ({ step, erId }: EvidenceReqUploadFormProps) => {
 	const { t } = useTranslation('evidenceRequest');
 	const [saveUpload, setSaveUpload] = useState(false);
 	const {
@@ -46,7 +45,6 @@ const EvidenceRequestUploadForm = ({ step, path, erId }: EvidenceReqUploadFormPr
 				<UploaderS3
 					label='Drop'
 					parentFormDirty={isDirty}
-					path={path}
 					additionalInfo={{ stepId: `${step.id}` }}
 					save={saveUpload}
 					setSave={setSaveUpload}

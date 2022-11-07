@@ -204,7 +204,7 @@ const EvidenceRequestActionTableView = ({
 
 						<ContentSwitcher
 							selectedIndex={1}
-							onChange={() => setFilters({ isTile: true })}
+							onChange={() => setFilters({ isTable: false })}
 							className='w-auto'
 						>
 							<Switch name='first'>

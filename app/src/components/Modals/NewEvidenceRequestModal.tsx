@@ -172,6 +172,7 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 						![...selectedLeaves].find(item => item.code === children.code) &&
 						setSelectedLeaves(old => [...old, children])
 					}
+					key={children.code}
 				>
 					{recursiveMap(children)}
 				</TreeNode>
@@ -215,6 +216,7 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 											</div>
 										</div>
 									}
+									key={`selected${leaf.code}`}
 								/>
 							))}
 						</TreeView>

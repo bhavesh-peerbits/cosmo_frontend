@@ -26,7 +26,6 @@ type CosmoFileUploaderProps<
 			setSave?: (save: boolean) => void;
 			alreadyUploaded?: FileLink[];
 			parentFormDirty?: boolean;
-			path?: string;
 			additionalInfo?: Record<string, string>;
 	  }
 	: never;
@@ -41,7 +40,6 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 	setSave,
 	alreadyUploaded,
 	parentFormDirty,
-	path,
 	additionalInfo
 }: CosmoFileUploaderProps<T, TName>) => {
 	const { mutate } = usePutASelectionOfFiles();
@@ -78,9 +76,7 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 			mutate(
 				{
 					stepId: +additionalInfo?.stepId,
-					fileLinkDtoList: [...filesToSave.values()].map(file =>
-						fromFiletoFileLink(file, path)
-					)
+					fileLinkDtoList: [...filesToSave.values()].map(file => fromFiletoFileLink(file))
 				},
 				{
 					onSuccess: data => {
@@ -96,7 +92,7 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 					}
 				}
 			);
-	}, [additionalInfo?.stepId, files, mutate, path, save, setSave]);
+	}, [additionalInfo?.stepId, files, mutate, save, setSave]);
 
 	useEffect(() => {
 		handleSaveFile();

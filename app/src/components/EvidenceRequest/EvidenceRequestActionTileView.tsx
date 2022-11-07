@@ -74,7 +74,7 @@ const EvidenceRequestActionTileView = () => {
 							</Layer>
 						</div>
 						<ContentSwitcher
-							onChange={() => setFilters({ isTile: false })}
+							onChange={() => setFilters({ isTable: true })}
 							className='w-auto'
 						>
 							<Switch name='first'>

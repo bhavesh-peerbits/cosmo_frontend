@@ -28,11 +28,10 @@ export const toFileLinkApi = (fileLinks: FileLink): FileLinkApi => {
 	};
 };
 
-export const fromFiletoFileLink = (file: File, path: string | undefined): FileLink => {
+export const fromFiletoFileLink = (file: File): FileLink => {
 	return {
 		type: file.type,
 		name: file.name,
-		link: path,
 		id: undefined,
 		dimension: file.size
 	};
