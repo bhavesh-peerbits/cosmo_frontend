@@ -9,7 +9,8 @@ import {
 	TableHeader,
 	TableRow,
 	TableSelectAll,
-	TableSelectRow
+	TableSelectRow,
+	TableToolbarSearch
 } from '@carbon/react';
 import {
 	ColumnDef,
@@ -19,10 +20,13 @@ import {
 	getPaginationRowModel,
 	getSortedRowModel,
 	PaginationState,
+	getFilteredRowModel,
+	getFacetedRowModel,
+	RowSelectionState,
 	Table as TableType,
 	useTableInstance
 } from '@tanstack/react-table';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
 	AvailableFileType,
@@ -54,6 +58,10 @@ interface CosmoTableProps<D extends object> {
 	excludeCurrentView?: boolean;
 	level?: 0 | 1 | 2;
 	tableId?: string;
+	setSelectedRows?: (val: D[]) => void;
+	selectedRows?: RowSelectionState;
+	searchBarPlaceholder?: string;
+	disableSearch?: boolean;
 }
 
 const CosmoTable = <D extends object>({
@@ -66,17 +74,21 @@ const CosmoTable = <D extends object>({
 	disableExport,
 	excludeCurrentView,
 	level,
-	tableId = ''
+	tableId = '',
+	setSelectedRows,
+	selectedRows,
+	searchBarPlaceholder,
+	disableSearch
 }: CosmoTableProps<D>) => {
 	const { t } = useTranslation('table');
 	const [showMore, setShowMore] = useState('');
 	const [rowSelection, setRowSelection] = useState({});
+	const [globalFilter, setGlobalFilter] = useState('');
 	const [sorting, setSorting] = useState<ColumnSort[]>([]);
 	const [pagination, setPagination] = useState<PaginationState>({
 		pageIndex: 0,
 		pageSize: 10
 	});
-
 	const table = createTable().setColumnMetaType<ExportProperties>().setRowType<D>();
 	const columns = useMemo(() => createHeaders(table), [createHeaders, table]);
 	const instance = useTableInstance(table, {
@@ -86,14 +98,18 @@ const CosmoTable = <D extends object>({
 		state: {
 			pagination,
 			sorting,
-			rowSelection
+			rowSelection,
+			globalFilter
 		},
 		onPaginationChange: setPagination,
 		onSortingChange: setSorting,
 		onRowSelectionChange: setRowSelection,
+		onGlobalFilterChange: setGlobalFilter,
 		getCoreRowModel: getCoreRowModel(),
 		getSortedRowModel: getSortedRowModel(),
-		getPaginationRowModel: getPaginationRowModel()
+		getPaginationRowModel: getPaginationRowModel(),
+		getFilteredRowModel: getFilteredRowModel(),
+		getFacetedRowModel: getFacetedRowModel()
 	});
 	const {
 		toggleAllRowsSelected,
@@ -108,6 +124,16 @@ const CosmoTable = <D extends object>({
 	} = instance;
 
 	const { exportData } = useExportTablePlugin(instance, exportFileName, disableExport);
+
+	useEffect(() => {
+		setSelectedRows &&
+			setSelectedRows(
+				getSelectedRowModel().flatRows.map(el => el.original as unknown as D)
+			);
+	}, [getSelectedRowModel, setSelectedRows, rowSelection]);
+	useEffect(() => {
+		setRowSelection(selectedRows || {});
+	}, [selectedRows]);
 
 	const renderBody = () => {
 		const { rows } = getRowModel();
@@ -148,6 +174,7 @@ const CosmoTable = <D extends object>({
 												? 'max-h-fit overflow-visible whitespace-normal break-words sm:max-w-[300px] lg:max-w-[600px]'
 												: 'max-h-[48px] truncate sm:max-w-[300px] lg:max-w-[600px]'
 										}`}
+										// eslint-disable-next-line react/no-danger
 										dangerouslySetInnerHTML={{ __html: cell.getValue() as string }}
 									/>
 								</TableCell>
@@ -189,9 +216,21 @@ const CosmoTable = <D extends object>({
 				}
 				onCancel={() => toggleAllRowsSelected(false)}
 				toolbarBatchActions={toolbar?.toolbarBatchActions}
-				toolbarContent={toolbar?.toolbarContent}
+				toolbarContent={
+					toolbar?.toolbarContent ||
+					(!disableSearch && (
+						<TableToolbarSearch
+							size='lg'
+							persistent
+							placeholder={searchBarPlaceholder || t('search-placeholder')}
+							id='search'
+							value={globalFilter ?? ''}
+							onChange={e => setGlobalFilter(e.currentTarget?.value)}
+						/>
+					))
+				}
 				excludeCurrentView={excludeCurrentView}
-				disableExport={data.length === 0}
+				disableExport={Object.keys(getRowModel().rowsById).length === 0}
 			/>
 
 			<Layer level={level || 1}>
@@ -256,7 +295,7 @@ const CosmoTable = <D extends object>({
 				pageSize={10}
 				pageSizes={[10, 20, 30, 40, 50]}
 				size='md'
-				totalItems={data.length}
+				totalItems={Object.keys(getRowModel().rowsById).length}
 			/>
 		</TableContainer>
 	);

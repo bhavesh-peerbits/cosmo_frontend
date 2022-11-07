@@ -178,7 +178,7 @@ const GeneralInfo = ({
 					excludedUsers={selectedDelegates}
 				/>
 			</FullWidthColumn>
-			<FullWidthColumn className='mb-5'>
+			<FullWidthColumn className='z-10 mb-5'>
 				<MultipleUserSelect
 					control={control}
 					label={`${t('applicationInfo:owner-delegates')}`}

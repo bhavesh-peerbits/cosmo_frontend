@@ -37,7 +37,7 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 	const { t: tUser } = useTranslation('userAdmin');
 	const existingUsername = users.map(user => user.username.toLowerCase());
 	const existingEmail = users.map(user => user.email?.toLocaleLowerCase());
-	const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
+	const [selectedRoles, setSelectedRoles] = useState<UserDtoRolesEnum[]>([]);
 	const { mutate, isError, error } = useAddUser();
 	const {
 		register,
@@ -61,8 +61,10 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 		'NARRATIVE_ANALYST',
 		'REVALIDATION_ANALYST',
 		'REVALIDATION_ADMIN',
-		'REVIEWER',
-		'USER_UNKNOWN'
+		'FOCAL_POINT',
+		'REQUEST_ADMIN',
+		'REQUEST_ANALYST',
+		'WORKFLOW_APPROVER'
 	];
 
 	const cleanUp = () => {
@@ -80,7 +82,7 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 					surname: data.surname,
 					email: data.email,
 					inactive: false,
-					roles: selectedRoles as UserDtoRolesEnum[]
+					roles: selectedRoles.length > 0 ? selectedRoles : ['USER_UNKNOWN']
 				}
 			},
 			{
@@ -95,7 +97,7 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 			<Form onSubmit={handleSubmit(addUser)}>
 				<ModalHeader title={t('add-user')} closeModal={cleanUp}>
 					<span className='text-text-secondary text-body-1'>
-						{t('body-add', { action: `"${t('add-user')}"` })}
+						{t('body-add', { action: `"${t('add-user')}"` })}.
 					</span>
 				</ModalHeader>
 				<ModalBody hasForm>
@@ -170,7 +172,7 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 									onChange={(e, { id, checked }) =>
 										!checked
 											? setSelectedRoles(selectedRoles.filter(r => r !== id))
-											: setSelectedRoles(old => [...old, id])
+											: setSelectedRoles(old => [...old, id as UserDtoRolesEnum])
 									}
 								/>
 							))}
@@ -195,11 +197,7 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 					<Button kind='secondary' onClick={cleanUp}>
 						{t('cancel')}
 					</Button>
-					<Button
-						kind='primary'
-						type='submit'
-						disabled={!isValid || selectedRoles.length === 0}
-					>
+					<Button kind='primary' type='submit' disabled={!isValid}>
 						{t('add-user')}
 					</Button>
 				</ModalFooter>

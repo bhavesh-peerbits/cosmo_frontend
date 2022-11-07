@@ -9,7 +9,8 @@ import { useTranslation } from 'react-i18next';
 import useResponsive from '@hooks/useResponsive';
 import useRevalidations from '@hooks/user-revalidation/useRevalidations';
 import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
-import { CampaignDtoTypeEnum } from 'cosmo-api/src/v1';
+import { CampaignDtoLayerEnum, CampaignDtoTypeEnum } from 'cosmo-api/src/v1';
+import { mapCampaignLayerToCampaignDisplayLayer } from '@model/CampaignLayer';
 
 const RevalidationsFilters = () => {
 	const { t } = useTranslation(['userRevalidation', 'management']);
@@ -64,7 +65,9 @@ const RevalidationsFilters = () => {
 								handleCheckFilterLayer(id, checked ? 'add' : 'remove')
 							}
 							id={filter.layer}
-							labelText={filter.layer}
+							labelText={mapCampaignLayerToCampaignDisplayLayer(
+								filter.layer as CampaignDtoLayerEnum
+							)}
 						/>
 					))}
 				</AccordionItem>

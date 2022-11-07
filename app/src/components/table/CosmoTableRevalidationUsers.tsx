@@ -589,8 +589,8 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 					0,
 					table.createDataColumn(
 						row => ({
-							title: row.jsonApplicationData?.get('risk'),
-							description: row.jsonApplicationData?.get('riskDescription')
+							title: row.jsonApplicationData?.risk,
+							description: row.jsonApplicationData?.riskDescription
 						}),
 						{
 							id: `risk${review.id}`,

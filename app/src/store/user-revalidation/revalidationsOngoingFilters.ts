@@ -8,6 +8,7 @@ type Filters = {
 	dueDate: number | undefined;
 	layer: string[];
 	revalidationType: string[];
+	revalidationStatus: string[];
 };
 
 const revalidationsOngoingFilters = atom<Filters>({
@@ -16,6 +17,7 @@ const revalidationsOngoingFilters = atom<Filters>({
 		query: '',
 		layer: [],
 		revalidationType: [],
+		revalidationStatus: [],
 		dueDate: undefined
 	}
 });
@@ -82,6 +84,16 @@ const applyFilters = (
 				  )
 				: true
 		)
+		// filter by revalidation type
+		.filter(revalidation =>
+			filters.revalidationStatus.length
+				? filters.revalidationStatus.some(
+						revalidationStatus =>
+							revalidation.campaign.status?.toLowerCase() ===
+							revalidationStatus.toLowerCase()
+				  )
+				: true
+		)
 		// filter due date
 		.filter(revalidation =>
 			filters.dueDate
@@ -122,6 +134,16 @@ const filteredRevalidationsOngoing = selector({
 			].map(type => ({
 				type,
 				enabled: filters.revalidationType.includes(type ?? '')
+			})),
+			revalidationStatus: [
+				...new Set(
+					revalidations
+						.map(revalidation => revalidation.campaign.status)
+						.filter(o => !!o) as string[]
+				)
+			].map(status => ({
+				status,
+				enabled: filters.revalidationStatus.includes(status ?? '')
 			}))
 		};
 	}

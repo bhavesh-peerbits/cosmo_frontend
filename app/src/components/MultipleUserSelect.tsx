@@ -155,6 +155,21 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 				</div>
 			</div>
 			<MultiAddSelect
+				selectedItems={
+					selectUsers && {
+						entries: selectUsers.map(u => ({
+							id: u.id,
+							title: u.displayName,
+							tagInfo: u.principalRole,
+							subtitle: u.email || t('no-email'),
+							role: u.principalRole,
+							avatar: {
+								imageDescription: u.username,
+								initials: u.displayName
+							}
+						}))
+					}
+				}
 				itemsLabel={t('users')}
 				noResultsTitle={t('no-results')}
 				noResultsDescription={t('different-keywords')}
@@ -188,7 +203,6 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 				items={{
 					entries: users
 						.filter(u => u.id !== excludedUser?.id)
-						.filter(u => !selectUsers?.some(s => s.id === u.id))
 						.filter(u => !u.inactive)
 						.map(u => ({
 							id: u.id,

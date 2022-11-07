@@ -75,5 +75,9 @@
 	"select-new-date": "Sélectionner une nouvelle date d'expiration de la campagne",
 	"note": "Remarques",
 	"app-owner": "Propriétaire de l'application",
-	"user-details": "Détails de l'utilisateur"
+	"user-details": "Détails de l'utilisateur",
+	"risk-description": "",
+	"firefighter": "",
+	"modify-answer": "",
+	"permission-description": ""
 }

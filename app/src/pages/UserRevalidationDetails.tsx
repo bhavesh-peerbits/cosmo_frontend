@@ -21,7 +21,9 @@ const UserRevalidationDetails = () => {
 			<StickyTabs>
 				<TabList className='sticky z-10 bg-background' aria-label='List of tabs'>
 					{campaignWithReview.campaignApplications.map(app => (
-						<Tab key={app.id}>{app.application.name}</Tab>
+						<Tab title={app.application.name} key={app.id}>
+							{app.application.name}
+						</Tab>
 					))}
 				</TabList>
 				<TabPanels>

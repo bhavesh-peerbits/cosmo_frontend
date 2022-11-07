@@ -71,7 +71,6 @@ const Header = ({ isSideNavExpanded, onClickSideNavExpand }: HeaderProps) => {
 					tooltipAlignment='end'
 				>
 					<UserProfileImage
-						backgroundColor='light-gray'
 						initials={auth?.user?.displayName}
 						imageDescription={auth?.user?.username}
 						size='md'

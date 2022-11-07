@@ -23,6 +23,7 @@ type Policies = {
 	canNarrativeAdmin: boolean;
 	canRevalidateUser: boolean;
 	canReviewUser: boolean;
+	canCreateRequest: boolean;
 };
 
 const policyStore = selector<Policies>({
@@ -36,17 +37,25 @@ const policyStore = selector<Policies>({
 			hasNoRole,
 			canSeeNarrativeManagement: Boolean(
 				!hasNoRole &&
-					policies?.includesMulti(UserRoleEnum.SysAdmin, UserRoleEnum.NarrativeAnalyst)
+					policies?.includesMulti(
+						UserRoleEnum.SysAdmin,
+						UserRoleEnum.NarrativeAnalyst,
+						UserRoleEnum.NarrativeAdmin
+					)
 			),
 			canReviewNarrative: Boolean(
 				!hasNoRole &&
-					policies?.includesMulti(UserRoleEnum.SysAdmin, UserRoleEnum.NarrativeAnalyst)
+					policies?.includesMulti(
+						UserRoleEnum.SysAdmin,
+						UserRoleEnum.NarrativeAnalyst,
+						UserRoleEnum.NarrativeAdmin
+					)
 			),
 			canReview: Boolean(
 				!hasNoRole &&
 					policies?.includesMulti(
 						UserRoleEnum.SysAdmin,
-						UserRoleEnum.Reviewer,
+						UserRoleEnum.FocalPoint,
 						UserRoleEnum.ReviewerCollaborator
 					)
 			),
@@ -77,7 +86,15 @@ const policyStore = selector<Policies>({
 			),
 			canReviewUser: Boolean(
 				!hasNoRole &&
-					policies?.includesMulti(UserRoleEnum.Reviewer, UserRoleEnum.SysAdmin)
+					policies?.includesMulti(UserRoleEnum.FocalPoint, UserRoleEnum.SysAdmin)
+			),
+			canCreateRequest: Boolean(
+				!hasNoRole &&
+					policies?.includesMulti(
+						UserRoleEnum.RequestAdmin,
+						UserRoleEnum.RequestAnalyst,
+						UserRoleEnum.SysAdmin
+					)
 			)
 		};
 	}

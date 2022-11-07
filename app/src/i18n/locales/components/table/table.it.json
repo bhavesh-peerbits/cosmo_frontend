@@ -19,5 +19,6 @@
 	"original-sort": "Ordine originale",
 	"group-by": "Raggruppa",
 	"remove-group": "Rimuovi raggruppamento",
-	"export": "Esporta"
+	"export": "Esporta",
+	"search-placeholder": "Digitare per ricercare"
 }
