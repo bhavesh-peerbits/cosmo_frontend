@@ -6,6 +6,7 @@ import ApplicationStepRequest, {
 } from './ApplicationStepRequest';
 import Workflow, { fromWorkflowApi, toWorkflowApi } from './Workflow';
 import PhaseType, { fromPhaseTypeApi, toPhaseTypeApi } from './PhaseType';
+import FileLink, { fromFileLinkApi } from './FileLink';
 
 export type StepInfoType = {
 	publicComment: string | undefined;
@@ -24,6 +25,7 @@ interface EvidenceRequestDraft {
 	dueDate?: Date;
 	phaseType?: PhaseType;
 	workflow: Workflow;
+	filelinks?: FileLink[];
 }
 
 export const fromEvidenceRequestDraftApi = (
@@ -51,7 +53,10 @@ export const fromEvidenceRequestDraftApi = (
 		phaseType: evidenceRequestDraftApi.phaseType
 			? fromPhaseTypeApi(evidenceRequestDraftApi.phaseType)
 			: undefined,
-		workflow: fromWorkflowApi(evidenceRequestDraftApi.workflow)
+		workflow: fromWorkflowApi(evidenceRequestDraftApi.workflow),
+		filelinks: evidenceRequestDraftApi.files
+			? [...evidenceRequestDraftApi.files].map(fl => fromFileLinkApi(fl))
+			: []
 	};
 };
 

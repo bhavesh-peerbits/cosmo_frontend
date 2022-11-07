@@ -56,10 +56,10 @@ export interface DraftDto {
 	dueDate?: string;
 	/**
 	 *
-	 * @type {Array<FileLinkDto>}
+	 * @type {Set<FileLinkDto>}
 	 * @memberof DraftDto
 	 */
-	files?: Array<FileLinkDto>;
+	files?: Set<FileLinkDto>;
 	/**
 	 *
 	 * @type {PhaseType}

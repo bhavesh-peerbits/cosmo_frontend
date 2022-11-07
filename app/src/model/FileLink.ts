@@ -18,4 +18,24 @@ export const fromFileLinkApi = (fileLinks: FileLinkApi): FileLink => {
 	};
 };
 
+export const toFileLinkApi = (fileLinks: FileLink): FileLinkApi => {
+	return {
+		type: fileLinks.type,
+		name: fileLinks.name,
+		id: fileLinks.id ? +fileLinks.id : undefined,
+		link: fileLinks.link,
+		dimension: fileLinks.dimension
+	};
+};
+
+export const fromFiletoFileLink = (file: File, path: string | undefined): FileLink => {
+	return {
+		type: file.type,
+		name: file.name,
+		link: path,
+		id: undefined,
+		dimension: file.size
+	};
+};
+
 export default FileLink;

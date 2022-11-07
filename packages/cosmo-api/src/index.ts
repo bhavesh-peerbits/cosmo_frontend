@@ -43,6 +43,7 @@ import {
 	UserDto,
 	WorkflowDto,
 	AssociationDto,
+	EvidenceRequestFileS3ControllerApi,
 	FrameworkTreeDto,
 	FrameworkTreeForEvidenceControllerApi,
 	EvidenceRequestFocalPointControllerApi
@@ -65,7 +66,8 @@ export default function configureApi(config: Configuration) {
 		analystCampaignApi: new AnalystCampaignControllerApi(config),
 		evidenceRequest: new EvidenceRequestControllerApi(config),
 		frameworkTreeApi: new FrameworkTreeForEvidenceControllerApi(config),
-		evidenceRequestFocalPointApi: new EvidenceRequestFocalPointControllerApi(config)
+		evidenceRequestFocalPointApi: new EvidenceRequestFocalPointControllerApi(config),
+		EvidenceRequestFileS3Api: new EvidenceRequestFileS3ControllerApi(config)
 	};
 }
 export type ApplicationApi = ApplicationDto;

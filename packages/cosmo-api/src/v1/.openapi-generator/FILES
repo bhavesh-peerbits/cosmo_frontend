@@ -9,7 +9,9 @@ api/config-element-controller-api.ts
 api/config-element-module-controller-api.ts
 api/control-controller-api.ts
 api/csv-reader-controller-api.ts
+api/dev-home-redirect-controller-api.ts
 api/evidence-request-controller-api.ts
+api/evidence-request-file-s3-controller-api.ts
 api/evidence-request-focal-point-controller-api.ts
 api/framework-tree-controller-api.ts
 api/framework-tree-for-evidence-controller-api.ts
@@ -58,6 +60,7 @@ models/draft-dto.ts
 models/email.ts
 models/evidence-request-draft-dto.ts
 models/evidence-request-dto.ts
+models/file-link-dto-list.ts
 models/file-link-dto.ts
 models/framework-tree-dto.ts
 models/frequency.ts

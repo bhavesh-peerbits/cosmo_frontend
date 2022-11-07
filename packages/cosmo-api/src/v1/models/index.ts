@@ -24,6 +24,7 @@ export * from './email';
 export * from './evidence-request-draft-dto';
 export * from './evidence-request-dto';
 export * from './file-link-dto';
+export * from './file-link-dto-list';
 export * from './framework-tree-dto';
 export * from './frequency';
 export * from './identity-provider-dto';
