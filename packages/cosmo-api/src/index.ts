@@ -16,10 +16,17 @@ import {
 	CampaignDtoTypeEnum,
 	CampaignReviewDto,
 	Configuration,
+	DraftDto,
+	EvidenceRequestControllerApi,
+	EvidenceRequestDraftDto,
+	EvidenceRequestDto,
+	FileLinkDto,
 	GenerateReportControllerApi,
 	IdentityProviderDto,
 	NarrativeReviewControllerApi,
+	NewDraftDto,
 	PairListAnswerDtoListString,
+	PhaseTypeDto,
 	ProcedureAppInstanceDto,
 	ProcedureControllerApi,
 	ProcedureDto,
@@ -28,10 +35,18 @@ import {
 	ReviewDtoStatusEnum,
 	ReviewerCampaignControllerApi,
 	ReviewerControllerApi,
+	StepDto,
+	CloseEvidenceDto,
 	UserAdminControllerApi,
 	UserBase,
 	UserControllerApi,
-	UserDto
+	UserDto,
+	WorkflowDto,
+	AssociationDto,
+	EvidenceRequestFileS3ControllerApi,
+	FrameworkTreeDto,
+	FrameworkTreeForEvidenceControllerApi,
+	EvidenceRequestFocalPointControllerApi
 } from './v1';
 
 export const ApiConfiguration = Configuration;
@@ -48,7 +63,11 @@ export default function configureApi(config: Configuration) {
 		authApi: new AuthControllerApi(config),
 		realmApi: new RealmControllerApi(config),
 		revalidationApi: new ReviewerCampaignControllerApi(config),
-		analystCampaignApi: new AnalystCampaignControllerApi(config)
+		analystCampaignApi: new AnalystCampaignControllerApi(config),
+		evidenceRequest: new EvidenceRequestControllerApi(config),
+		frameworkTreeApi: new FrameworkTreeForEvidenceControllerApi(config),
+		evidenceRequestFocalPointApi: new EvidenceRequestFocalPointControllerApi(config),
+		EvidenceRequestFileS3Api: new EvidenceRequestFileS3ControllerApi(config)
 	};
 }
 export type ApplicationApi = ApplicationDto;
@@ -74,3 +93,14 @@ export type AnswerApi = AnswerDto;
 export type AnswerApiTypeEnum = AnswerDtoAnswerTypeEnum;
 export type FileAnswerStatusApi = PairListAnswerDtoListString;
 export type ApplicationCampaignApi = ApplicationCampaignDto;
+export type ApplicationStepRequestApi = EvidenceRequestDraftDto;
+export type EvidenceRequestDraftApi = DraftDto;
+export type EvidenceRequestApi = EvidenceRequestDto;
+export type EvidenceRequestStepApi = StepDto;
+export type NewDraftParameterApi = NewDraftDto;
+export type FileLinkApi = FileLinkDto;
+export type WorkflowApi = WorkflowDto;
+export type PhaseTypeApi = PhaseTypeDto;
+export type FrameworkApi = FrameworkTreeDto;
+export type CloseEvidenceApi = CloseEvidenceDto;
+export type AssociationApi = AssociationDto;

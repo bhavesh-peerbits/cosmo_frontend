@@ -8,6 +8,7 @@ import Campaign from '@model/Campaign';
 import useUiStore from '@hooks/useUiStore';
 import useGetAnswersForReview from '@api/user-revalidation/useGetAnswersForReview';
 import Answer from '@model/Answer';
+import ModifyAnswerModal from '@components/Modals/ModifyAnswerModal';
 import RevalidatorsTable from './RevalidatorsTable';
 
 interface CampaignDetailsContainerProps {
@@ -70,40 +71,32 @@ const CampaignDetailsContainer = ({
 	);
 
 	return (
-		<Grid className='space-y-5 lg:space-y-0'>
-			<Column lg={11} md={8} sm={4}>
-				<Tile className='bg-background'>
-					<p className='divide-x-[1px] divide-solid divide-border-subtle-0 text-heading-3'>
-						{t('revalidators')}:{' '}
-						{
-							[...data.values()]
-								.map(y => y.revalidationUser?.displayName)
-								.filter((x, i, s) => s.indexOf(x) === i).length
-						}
-						{' | '}
-						{t('users-to-revalidate')}:{' '}
-						{
-							[...data.values()]
-								.map(y => y.userToRevalidate)
-								.filter((x, i, s) => s.indexOf(x) === i).length
-						}
-					</p>
-					<RevalidatorsTable
-						answers={[...data.values()]}
-						dueDate={campaign.dueDate}
-						campaignType={campaign.type}
-						reviewId={reviewId}
-					/>
-				</Tile>
-			</Column>
-			<Column lg={5} md={8} sm={4} className='h-full space-y-5 pb-5'>
-				<Tile className='bg-background'>{children}</Tile>
+		<>
+			<Grid className='space-y-5 lg:space-y-0'>
+				<Column lg={11} md={8} sm={4}>
+					<Tile className='bg-background'>
+						<p className='text-heading-3'>
+							{t('revalidators')} (
+							{[...data.values()].filter(d => Boolean(d.revalidationUser)).length})
+						</p>
+						<RevalidatorsTable
+							answers={[...data.values()]}
+							dueDate={campaign.dueDate}
+							campaignType={campaign.type}
+							reviewId={reviewId}
+						/>
+					</Tile>
+				</Column>
+				<Column lg={5} md={8} sm={4} className='h-full space-y-5 pb-5'>
+					<Tile className='bg-background'>{children}</Tile>
 
-				<Tile className='bg-background'>
-					<DonutChart data={donutData.data} options={donutData.options} />
-				</Tile>
-			</Column>
-		</Grid>
+					<Tile className='bg-background'>
+						<DonutChart data={donutData.data} options={donutData.options} />
+					</Tile>
+				</Column>
+			</Grid>
+			<ModifyAnswerModal />
+		</>
 	);
 };
 export default CampaignDetailsContainer;

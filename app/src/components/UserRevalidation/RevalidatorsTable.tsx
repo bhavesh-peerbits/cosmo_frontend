@@ -1,11 +1,14 @@
-import { TableToolbarSearch, Tooltip } from '@carbon/react';
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { TableToolbarSearch, Tooltip, Button } from '@carbon/react';
 import { HeaderFunction, CellProperties } from '@components/table/CosmoTable';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Answer from '@model/Answer';
 import isAfter from 'date-fns/isAfter';
-import { Information } from '@carbon/react/icons';
+import { Information, Edit } from '@carbon/react/icons';
 import GroupableCosmoTable from '@components/table/GroupableCosmoTable';
+import { useSetRecoilState } from 'recoil';
+import modifyAnswerModalInfo from '@store/user-revalidation/modifyAnswerModalInfo';
 
 interface RevalidatorsTableProp {
 	answers: Answer[];
@@ -23,8 +26,47 @@ const RevalidatorsTable = ({
 	const { t } = useTranslation(['table', 'userRevalidation', 'userAdmin']);
 	const [filters, setFilters] = useState('');
 	const isFireFighter = campaignType === 'FIREFIGHTER';
+	const setModifyModal = useSetRecoilState(modifyAnswerModalInfo);
 	const isSuid = campaignType === 'SUID';
+	const ref = useRef<HTMLDivElement>(null);
 
+	useEffect(() => {
+		const el = ref.current?.getElementsByClassName('cds--data-table-content')?.[0];
+		if (el) {
+			// @ts-ignore
+			const onWheel = evt => {
+				if (evt.deltaY === 0) return;
+				evt.preventDefault();
+				el.scrollTo({
+					left: el.scrollLeft + evt.deltaY
+				});
+			};
+			el.addEventListener('wheel', onWheel);
+		}
+	}, []);
+
+	const actionCell = useCallback(
+		(info: CellProperties<Answer, { answer: Answer }>) => (
+			<div className='flex justify-center'>
+				<Button
+					size='sm'
+					kind='ghost'
+					hasIconOnly
+					iconDescription='Edit'
+					renderIcon={Edit}
+					onClick={() =>
+						setModifyModal({
+							open: true,
+							answer: info.getValue().answer,
+							campaignType,
+							revId: reviewId
+						})
+					}
+				/>
+			</div>
+		),
+		[campaignType, reviewId, setModifyModal]
+	);
 	const tooltipCell = useCallback(
 		(
 			info: CellProperties<
@@ -103,7 +145,13 @@ const RevalidatorsTable = ({
 							exportableFn: info => info.title
 						}
 					}
-				)
+				),
+				table.createDataColumn(row => ({ answer: row }), {
+					id: `action${reviewId}`,
+					header: t('userAdmin:actions'),
+					cell: actionCell,
+					enableGrouping: false
+				})
 			];
 			if (isFireFighter) {
 				ArrayCol.splice(
@@ -121,8 +169,8 @@ const RevalidatorsTable = ({
 					0,
 					table.createDataColumn(
 						row => ({
-							title: row.jsonApplicationData?.get('risk'),
-							description: row.jsonApplicationData?.get('riskDescription')
+							title: row.jsonApplicationData?.risk,
+							description: row.jsonApplicationData?.riskDescription
 						}),
 						{
 							id: `risk${reviewId}`,
@@ -137,7 +185,7 @@ const RevalidatorsTable = ({
 			}
 			return ArrayCol;
 		},
-		[dueDate, isFireFighter, isSuid, reviewId, t, tooltipCell]
+		[actionCell, dueDate, isFireFighter, isSuid, reviewId, t, tooltipCell]
 	);
 
 	const toolbarContent = (
@@ -150,20 +198,22 @@ const RevalidatorsTable = ({
 		/>
 	);
 	return (
-		<GroupableCosmoTable
-			tableId={reviewId}
-			data={
-				filters
-					? answers.filter(answer =>
-							answer.userToRevalidate?.toLowerCase().includes(filters.toLowerCase())
-					  )
-					: answers
-			}
-			createHeaders={columns}
-			toolbar={{ toolbarContent }}
-			noDataMessage={t('table:no-data')}
-			exportFileName={() => 'revalidators'}
-		/>
+		<div ref={ref}>
+			<GroupableCosmoTable
+				tableId={reviewId}
+				data={
+					filters
+						? answers.filter(answer =>
+								answer.userToRevalidate?.toLowerCase().includes(filters.toLowerCase())
+						  )
+						: answers
+				}
+				createHeaders={columns}
+				toolbar={{ toolbarContent }}
+				noDataMessage={t('table:no-data')}
+				exportFileName={() => 'revalidators'}
+			/>
+		</div>
 	);
 };
 export default RevalidatorsTable;

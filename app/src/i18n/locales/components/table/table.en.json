@@ -19,5 +19,6 @@
 	"original-sort": "Original order",
 	"group-by": "Group by",
 	"remove-group": "Remove group",
-	"export": "Export"
+	"export": "Export",
+	"search-placeholder": "Type to search"
 }

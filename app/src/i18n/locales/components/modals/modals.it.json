@@ -40,14 +40,17 @@
 	"body-unblock": "Sei sicuro di voler sbloccare {{user}}?",
 	"edit-user": "Modifica utente",
 	"edit": "Modifica",
-	"body-edit": "Aggiungi o rimuovi ruoli cliccando sul menu a tendina.",
+	"body-edit": "Aggiungi o rimuovi ruoli all'utente. Se nessun ruolo è selezionato, l'utente avrà ruolo \"Guest\"",
 	"user": "Utente",
 	"add-user": "Aggiungi utente",
-	"body-add": "Compila tutti i campi obbligatori, poi clicca su {{action}}",
+	"body-add": "Compila tutti i campi obbligatori, poi clicca su {{action}}. Se nessun ruolo è selezionato, l'utente avrà ruolo \"Guest\"",
 	"exists": "{{value}} già esistente.",
 	"field-required": "Questo campo è obbligatorio",
 	"back": "Indietro",
 	"next": "Avanti",
 	"save": "Salva",
-	"create": "Crea"
+	"create": "Crea",
+	"close": "Chiudi",
+	"uploading": "Uploading... ",
+	"confirm-close-upload": "Sei sicuro di voler terminare l'upload? Non sarà più possibile effettuare modifiche."
 }

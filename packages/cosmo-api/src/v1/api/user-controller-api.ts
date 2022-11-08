@@ -50,6 +50,120 @@ export const UserControllerApiAxiosParamCreator = function (
 	return {
 		/**
 		 *
+		 * @param {string} role
+		 * @param {number} appId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllUserByRoleAndApplication: async (
+			role: string,
+			appId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'role' is not null or undefined
+			assertParamExists('getAllUserByRoleAndApplication', 'role', role);
+			// verify required parameter 'appId' is not null or undefined
+			assertParamExists('getAllUserByRoleAndApplication', 'appId', appId);
+			const localVarPath = `/api/users/evidence-request/all-by-role-app/{role}/{appId}`
+				.replace(`{${'role'}}`, encodeURIComponent(String(role)))
+				.replace(`{${'appId'}}`, encodeURIComponent(String(appId)));
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {string} role
+		 * @param {Array<number>} requestBody
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllUserByRoleAndApplications: async (
+			role: string,
+			requestBody: Array<number>,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'role' is not null or undefined
+			assertParamExists('getAllUserByRoleAndApplications', 'role', role);
+			// verify required parameter 'requestBody' is not null or undefined
+			assertParamExists('getAllUserByRoleAndApplications', 'requestBody', requestBody);
+			const localVarPath = `/api/users/evidence-request/all-by-role-app/{role}`.replace(
+				`{${'role'}}`,
+				encodeURIComponent(String(role))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				requestBody,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
@@ -183,6 +297,109 @@ export const UserControllerApiAxiosParamCreator = function (
 				url: toPathString(localVarUrlObj),
 				options: localVarRequestOptions
 			};
+		},
+		/**
+		 *
+		 * @param {string} role
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getUsersByRole: async (
+			role: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'role' is not null or undefined
+			assertParamExists('getUsersByRole', 'role', role);
+			const localVarPath = `/api/users/all/{role}`.replace(
+				`{${'role'}}`,
+				encodeURIComponent(String(role))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {string} role1
+		 * @param {string} role2
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getUsersByRoles: async (
+			role1: string,
+			role2: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'role1' is not null or undefined
+			assertParamExists('getUsersByRoles', 'role1', role1);
+			// verify required parameter 'role2' is not null or undefined
+			assertParamExists('getUsersByRoles', 'role2', role2);
+			const localVarPath = `/api/users/all/{role1}/{role2}`
+				.replace(`{${'role1'}}`, encodeURIComponent(String(role1)))
+				.replace(`{${'role2'}}`, encodeURIComponent(String(role2)));
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
 		}
 	};
 };
@@ -194,6 +411,62 @@ export const UserControllerApiAxiosParamCreator = function (
 export const UserControllerApiFp = function (configuration?: Configuration) {
 	const localVarAxiosParamCreator = UserControllerApiAxiosParamCreator(configuration);
 	return {
+		/**
+		 *
+		 * @param {string} role
+		 * @param {number} appId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getAllUserByRoleAndApplication(
+			role: string,
+			appId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<UserDto>>> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.getAllUserByRoleAndApplication(
+					role,
+					appId,
+					acceptLanguage,
+					options
+				);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {string} role
+		 * @param {Array<number>} requestBody
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getAllUserByRoleAndApplications(
+			role: string,
+			requestBody: Array<number>,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<UserDto>>> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.getAllUserByRoleAndApplications(
+					role,
+					requestBody,
+					acceptLanguage,
+					options
+				);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
 		/**
 		 *
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
@@ -261,6 +534,59 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 				BASE_PATH,
 				configuration
 			);
+		},
+		/**
+		 *
+		 * @param {string} role
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getUsersByRole(
+			role: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserDto>>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getUsersByRole(
+				role,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {string} role1
+		 * @param {string} role2
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getUsersByRoles(
+			role1: string,
+			role2: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<UserDto>>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getUsersByRoles(
+				role1,
+				role2,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
 		}
 	};
 };
@@ -276,6 +602,42 @@ export const UserControllerApiFactory = function (
 ) {
 	const localVarFp = UserControllerApiFp(configuration);
 	return {
+		/**
+		 *
+		 * @param {string} role
+		 * @param {number} appId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllUserByRoleAndApplication(
+			role: string,
+			appId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Set<UserDto>> {
+			return localVarFp
+				.getAllUserByRoleAndApplication(role, appId, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {string} role
+		 * @param {Array<number>} requestBody
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllUserByRoleAndApplications(
+			role: string,
+			requestBody: Array<number>,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Set<UserDto>> {
+			return localVarFp
+				.getAllUserByRoleAndApplications(role, requestBody, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
 		/**
 		 *
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
@@ -319,9 +681,99 @@ export const UserControllerApiFactory = function (
 			return localVarFp
 				.getOneUsers(userId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {string} role
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getUsersByRole(
+			role: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<UserDto>> {
+			return localVarFp
+				.getUsersByRole(role, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {string} role1
+		 * @param {string} role2
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getUsersByRoles(
+			role1: string,
+			role2: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Set<UserDto>> {
+			return localVarFp
+				.getUsersByRoles(role1, role2, acceptLanguage, options)
+				.then(request => request(axios, basePath));
 		}
 	};
 };
+
+/**
+ * Request parameters for getAllUserByRoleAndApplication operation in UserControllerApi.
+ * @export
+ * @interface UserControllerApiGetAllUserByRoleAndApplicationRequest
+ */
+export interface UserControllerApiGetAllUserByRoleAndApplicationRequest {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserControllerApiGetAllUserByRoleAndApplication
+	 */
+	readonly role: string;
+
+	/**
+	 *
+	 * @type {number}
+	 * @memberof UserControllerApiGetAllUserByRoleAndApplication
+	 */
+	readonly appId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserControllerApiGetAllUserByRoleAndApplication
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getAllUserByRoleAndApplications operation in UserControllerApi.
+ * @export
+ * @interface UserControllerApiGetAllUserByRoleAndApplicationsRequest
+ */
+export interface UserControllerApiGetAllUserByRoleAndApplicationsRequest {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserControllerApiGetAllUserByRoleAndApplications
+	 */
+	readonly role: string;
+
+	/**
+	 *
+	 * @type {Array<number>}
+	 * @memberof UserControllerApiGetAllUserByRoleAndApplications
+	 */
+	readonly requestBody: Array<number>;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserControllerApiGetAllUserByRoleAndApplications
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
 
 /**
  * Request parameters for getAllUsers operation in UserControllerApi.
@@ -373,12 +825,103 @@ export interface UserControllerApiGetOneUsersRequest {
 }
 
 /**
+ * Request parameters for getUsersByRole operation in UserControllerApi.
+ * @export
+ * @interface UserControllerApiGetUsersByRoleRequest
+ */
+export interface UserControllerApiGetUsersByRoleRequest {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserControllerApiGetUsersByRole
+	 */
+	readonly role: string;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserControllerApiGetUsersByRole
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getUsersByRoles operation in UserControllerApi.
+ * @export
+ * @interface UserControllerApiGetUsersByRolesRequest
+ */
+export interface UserControllerApiGetUsersByRolesRequest {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserControllerApiGetUsersByRoles
+	 */
+	readonly role1: string;
+
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserControllerApiGetUsersByRoles
+	 */
+	readonly role2: string;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserControllerApiGetUsersByRoles
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
  * UserControllerApi - object-oriented interface
  * @export
  * @class UserControllerApi
  * @extends {BaseAPI}
  */
 export class UserControllerApi extends BaseAPI {
+	/**
+	 *
+	 * @param {UserControllerApiGetAllUserByRoleAndApplicationRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof UserControllerApi
+	 */
+	public getAllUserByRoleAndApplication(
+		requestParameters: UserControllerApiGetAllUserByRoleAndApplicationRequest,
+		options?: AxiosRequestConfig
+	) {
+		return UserControllerApiFp(this.configuration)
+			.getAllUserByRoleAndApplication(
+				requestParameters.role,
+				requestParameters.appId,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {UserControllerApiGetAllUserByRoleAndApplicationsRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof UserControllerApi
+	 */
+	public getAllUserByRoleAndApplications(
+		requestParameters: UserControllerApiGetAllUserByRoleAndApplicationsRequest,
+		options?: AxiosRequestConfig
+	) {
+		return UserControllerApiFp(this.configuration)
+			.getAllUserByRoleAndApplications(
+				requestParameters.role,
+				requestParameters.requestBody,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
 	/**
 	 *
 	 * @param {UserControllerApiGetAllUsersRequest} requestParameters Request parameters.
@@ -424,6 +967,43 @@ export class UserControllerApi extends BaseAPI {
 	) {
 		return UserControllerApiFp(this.configuration)
 			.getOneUsers(requestParameters.userId, requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {UserControllerApiGetUsersByRoleRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof UserControllerApi
+	 */
+	public getUsersByRole(
+		requestParameters: UserControllerApiGetUsersByRoleRequest,
+		options?: AxiosRequestConfig
+	) {
+		return UserControllerApiFp(this.configuration)
+			.getUsersByRole(requestParameters.role, requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {UserControllerApiGetUsersByRolesRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof UserControllerApi
+	 */
+	public getUsersByRoles(
+		requestParameters: UserControllerApiGetUsersByRolesRequest,
+		options?: AxiosRequestConfig
+	) {
+		return UserControllerApiFp(this.configuration)
+			.getUsersByRoles(
+				requestParameters.role1,
+				requestParameters.role2,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 }

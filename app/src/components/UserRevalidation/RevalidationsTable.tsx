@@ -7,6 +7,7 @@ import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import CampaignWithReview from '@model/CampaignWithReview';
 import Campaign from '@model/Campaign';
+import { mapCampaignLayerToCampaignDisplayLayer } from '@model/CampaignLayer';
 
 const RevalidationsTable = () => {
 	const { t } = useTranslation(['userRevalidation', 'table']);
@@ -66,7 +67,8 @@ const RevalidationsTable = () => {
 			}),
 			table.createDataColumn(row => row.campaign.layer, {
 				id: 'layer',
-				header: t('userRevalidation:layer')
+				header: t('userRevalidation:layer'),
+				cell: info => mapCampaignLayerToCampaignDisplayLayer(info.getValue())
 			}),
 			table.createDataColumn(row => row.campaign.type, {
 				id: 'type',

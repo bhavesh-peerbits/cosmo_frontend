@@ -7,12 +7,15 @@ export type UserDisplayRole =
 	| 'System Admin'
 	| 'User Admin'
 	| 'Guest'
-	| 'Reviewer'
+	| 'Focal Point'
 	| 'Reviewer Collaborator'
 	| 'Narrative Analyst'
 	| 'Narrative Admin'
 	| 'Revalidation Analyst'
-	| 'Revalidation Admin';
+	| 'Revalidation Admin'
+	| 'Request Admin'
+	| 'Request Analyst'
+	| 'Workflow Approver';
 
 export const mapUserRoleToDisplayRole = (userRole: UserRole): UserDisplayRole => {
 	switch (userRole) {
@@ -28,10 +31,16 @@ export const mapUserRoleToDisplayRole = (userRole: UserRole): UserDisplayRole =>
 			return 'Revalidation Analyst';
 		case UserDtoRolesEnum.RevalidationAdmin:
 			return 'Revalidation Admin';
-		case UserDtoRolesEnum.Reviewer:
-			return 'Reviewer';
+		case UserDtoRolesEnum.FocalPoint:
+			return 'Focal Point';
 		case UserDtoRolesEnum.ReviewerCollaborator:
 			return 'Reviewer Collaborator';
+		case UserDtoRolesEnum.RequestAdmin:
+			return 'Request Admin';
+		case UserDtoRolesEnum.RequestAnalyst:
+			return 'Request Analyst';
+		case UserDtoRolesEnum.WorkflowApprover:
+			return 'Workflow Approver';
 		default:
 			return 'Guest';
 	}

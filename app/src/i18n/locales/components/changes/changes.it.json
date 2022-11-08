@@ -4,5 +4,6 @@
 	"field-modified": "Campo modificato",
 	"change": "Modifica",
 	"date": "Data di modifica",
-	"no-changes": "Nessuna modifica"
+	"no-changes": "Nessuna modifica",
+	"search-changes-placeholder": "Ricerca per oggetto o campo modificato"
 }

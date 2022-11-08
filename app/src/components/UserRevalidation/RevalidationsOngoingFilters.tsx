@@ -6,9 +6,15 @@ import {
 	RadioButtonGroup
 } from '@carbon/react';
 import useRevalidationsOngoing from '@hooks/user-revalidation/useRevalidationsOngoing';
+import { mapCampaignLayerToCampaignDisplayLayer } from '@model/CampaignLayer';
+import { mapCampaignStatusToCampaignDisplayStatus } from '@model/CampaignStatus';
 import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
 import { useResponsive } from 'ahooks';
-import { CampaignDtoTypeEnum } from 'cosmo-api/src/v1';
+import {
+	CampaignDtoLayerEnum,
+	CampaignDtoStatusEnum,
+	CampaignDtoTypeEnum
+} from 'cosmo-api/src/v1';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -68,6 +74,15 @@ const RevalidationsOngoingFilters = () => {
 		}));
 	};
 
+	const handleCheckFilterStatus = (filter: string, action: 'add' | 'remove') => {
+		setFilters(old => ({
+			revalidationStatus:
+				action === 'add'
+					? [...(old.revalidationStatus ?? []), filter]
+					: (old.revalidationStatus ?? []).filter((f: string) => f !== filter)
+		}));
+	};
+
 	return (
 		<div className='flex flex-col'>
 			<Accordion className='divide-y'>
@@ -98,7 +113,24 @@ const RevalidationsOngoingFilters = () => {
 								handleCheckFilterLayer(id, checked ? 'add' : 'remove')
 							}
 							id={filter.layer}
-							labelText={filter.layer}
+							labelText={mapCampaignLayerToCampaignDisplayLayer(
+								filter.layer as CampaignDtoLayerEnum
+							)}
+						/>
+					))}
+				</AccordionItem>
+				<AccordionItem title={t('status')} className='border-0' open={md}>
+					{filtersAvailable.revalidationStatus.map(filter => (
+						<Checkbox
+							key={filter.status}
+							checked={filter.enabled ?? false}
+							onChange={(_, { checked, id }) =>
+								handleCheckFilterStatus(id, checked ? 'add' : 'remove')
+							}
+							id={filter.status}
+							labelText={mapCampaignStatusToCampaignDisplayStatus(
+								filter.status as CampaignDtoStatusEnum
+							)}
 						/>
 					))}
 				</AccordionItem>

@@ -46,12 +46,18 @@ import {
 	userRevalidationFr,
 	userRevalidationIt
 } from './pages/user-revalidation';
+import {
+	evidenceRequestEn,
+	evidenceRequestFr,
+	evidenceRequestIt
+} from './pages/evidence-request';
 import { testEn, testIt } from './pages/test';
 import {
 	errorBoundaryEn,
 	errorBoundaryFr,
 	errorBoundaryIt
 } from './components/error-boundary';
+import { uploaders3En, uploaders3Fr, uploaders3It } from './components/uploaders3';
 
 export default {
 	en_US: {
@@ -64,6 +70,7 @@ export default {
 		narrativeAdmin: narrativeAdminEn,
 		reviewNarrative: reviewNarrativeEn,
 		userRevalidation: userRevalidationEn,
+		evidenceRequest: evidenceRequestEn,
 		changes: changesEn,
 		userAdmin: userAdminEn,
 		userSelect: userSelectEn,
@@ -72,7 +79,8 @@ export default {
 		table: tableEn,
 		applicationInfo: applicationInfoEn,
 		procedureInfo: procedureInfoEn,
-		modals: modalsEn
+		modals: modalsEn,
+		uploaderS3: uploaders3En
 	},
 	it_IT: {
 		home: homeIt,
@@ -84,6 +92,7 @@ export default {
 		narrativeAdmin: narrativeAdminIt,
 		reviewNarrative: reviewNarrativeIt,
 		userRevalidation: userRevalidationIt,
+		evidenceRequest: evidenceRequestIt,
 		changes: changesIt,
 		userAdmin: userAdminIt,
 		userSelect: userSelectIt,
@@ -92,7 +101,8 @@ export default {
 		table: tableIt,
 		applicationInfo: applicationInfoIt,
 		procedureInfo: procedureInfoIt,
-		modals: modalsIt
+		modals: modalsIt,
+		uploaderS3: uploaders3It
 	},
 	fr_FR: {
 		home: homeFr,
@@ -103,6 +113,7 @@ export default {
 		narrativeAdmin: narrativeAdminFr,
 		reviewNarrative: reviewNarrativeFr,
 		userRevalidation: userRevalidationFr,
+		evidenceRequest: evidenceRequestFr,
 		changes: changesFr,
 		userAdmin: userAdminFr,
 		userSelect: userSelectFr,
@@ -111,6 +122,7 @@ export default {
 		table: tableFr,
 		applicationInfo: applicationInfoFr,
 		procedureInfo: procedureInfoFr,
-		modals: modalsFr
+		modals: modalsFr,
+		uploaderS3: uploaders3Fr
 	}
 } as const;

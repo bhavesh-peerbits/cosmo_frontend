@@ -7,7 +7,8 @@ import ErrorBoundary from '@error/components/ErrorBoundary';
 import PageSkeleton from '@components/PageSkeleton';
 import usePolicyStore from '@hooks/usePolicyStore';
 import ProtectRoute from '@routes/ProtectRoute';
-import Procedures from '@pages/Procedures';
+import StartedEvidenceRequest from '@pages/StartedEvidenceRequest';
+import ActionEvidenceRequest from '@pages/ActionEvidenceRequest';
 
 const Home = React.lazy(() => import('@pages/Home'));
 const Test = React.lazy(() => import('@pages/Test'));
@@ -19,6 +20,7 @@ const ReviewDetail = React.lazy(() => import('@pages/ReviewDetail'));
 const AdminPanel = React.lazy(() => import('@pages/AdminPanel'));
 const RoleAssignment = React.lazy(() => import('@pages/RoleAssignment'));
 const ApplicationsVisibility = React.lazy(() => import('@pages/ApplicationsVisibility'));
+const Procedures = React.lazy(() => import('@pages/Procedures'));
 const NewRevalidation = React.lazy(() => import('@pages/NewRevalidation'));
 const NewRevalidationDetail = React.lazy(() => import('@pages/NewRevalidationDetail'));
 const RevalidationsOngoing = React.lazy(() => import('@pages/RevalidationsOngoing'));
@@ -29,6 +31,16 @@ const UserRevalidationDashboard = React.lazy(
 const UserRevalidationDetails = React.lazy(
 	() => import('@pages/UserRevalidationDetails')
 );
+const NewEvidenceRequestDashboard = React.lazy(
+	() => import('@pages/NewEvidenceRequestDashboard')
+);
+const NewEvidenceRequest = React.lazy(() => import('@pages/NewEvidenceRequest'));
+const StartedEvidenceRequestDashboard = React.lazy(
+	() => import('@pages/StartedEvidenceRequestDashboard')
+);
+const ActionEvidenceRequestDashboard = React.lazy(
+	() => import('@pages/ActionEvidenceRequestDashboard')
+);
 
 const AuthenticatedRoutes = () => {
 	const {
@@ -38,7 +50,9 @@ const AuthenticatedRoutes = () => {
 		canAdmin,
 		canNarrativeAdmin,
 		canUserAdmin,
-		canReviewUser
+		canReviewUser,
+		canRevalidateUser,
+		canCreateRequest
 	} = usePolicyStore();
 	return (
 		<>
@@ -116,13 +130,41 @@ const AuthenticatedRoutes = () => {
 							</Route>
 
 							<Route path='new-revalidation'>
-								<Route index element={<NewRevalidation />} />
-								<Route path=':campaignId' element={<NewRevalidationDetail />} />
+								<Route
+									index
+									element={
+										<ProtectRoute canNavigate={canRevalidateUser}>
+											<NewRevalidation />
+										</ProtectRoute>
+									}
+								/>
+								<Route
+									path=':campaignId'
+									element={
+										<ProtectRoute canNavigate={canRevalidateUser}>
+											<NewRevalidationDetail />
+										</ProtectRoute>
+									}
+								/>
 							</Route>
 
 							<Route path='revalidations-ongoing'>
-								<Route index element={<RevalidationsOngoing />} />
-								<Route path=':campaignId' element={<CampaignDetail />} />
+								<Route
+									index
+									element={
+										<ProtectRoute canNavigate={canRevalidateUser}>
+											<RevalidationsOngoing />
+										</ProtectRoute>
+									}
+								/>
+								<Route
+									path=':campaignId'
+									element={
+										<ProtectRoute canNavigate={canRevalidateUser}>
+											<CampaignDetail />
+										</ProtectRoute>
+									}
+								/>
 							</Route>
 
 							<Route path='admin'>
@@ -158,6 +200,33 @@ const AuthenticatedRoutes = () => {
 										</ProtectRoute>
 									}
 								/>
+							</Route>
+
+							<Route path='new-evidence-request'>
+								<Route
+									index
+									element={
+										<ProtectRoute canNavigate={canCreateRequest}>
+											<NewEvidenceRequestDashboard />
+										</ProtectRoute>
+									}
+								/>
+								<Route
+									path=':requestId'
+									element={
+										<ProtectRoute canNavigate={canCreateRequest}>
+											<NewEvidenceRequest />
+										</ProtectRoute>
+									}
+								/>
+							</Route>
+							<Route path='started-evidence-request'>
+								<Route index element={<StartedEvidenceRequestDashboard />} />
+								<Route path=':requestId' element={<StartedEvidenceRequest />} />
+							</Route>
+							<Route path='evidence-request-action'>
+								<Route index element={<ActionEvidenceRequestDashboard />} />
+								<Route path=':requestId' element={<ActionEvidenceRequest />} />
 							</Route>
 
 							<Route path='test' element={<Test />} />

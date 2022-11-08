@@ -15,6 +15,7 @@ import User from '@model/User';
 import cx from 'classnames';
 import useGetUsers from '@api/user/useGetUsers';
 import { useTranslation } from 'react-i18next';
+import { UseQueryResult } from 'react-query';
 
 type SingleUserSelectProps<
 	T extends FieldValues,
@@ -30,6 +31,7 @@ type SingleUserSelectProps<
 			readOnly?: boolean;
 			defaultValue?: User;
 			excludedUsers?: User[];
+			getUserFn?: () => UseQueryResult<User[]>;
 	  }
 	: never;
 
@@ -42,7 +44,8 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 	helperText,
 	readOnly,
 	defaultValue,
-	excludedUsers
+	excludedUsers,
+	getUserFn = useGetUsers
 }: SingleUserSelectProps<T, TName>) => {
 	const { t } = useTranslation('userSelect');
 	const {
@@ -56,7 +59,7 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 	});
 	const value = formValue as User | undefined;
 	const [openSearch, setOpenSearch] = useState(false);
-	const { data: users = [] } = useGetUsers();
+	const { data: users = [] } = getUserFn();
 	const invalidText = error?.message;
 
 	return (

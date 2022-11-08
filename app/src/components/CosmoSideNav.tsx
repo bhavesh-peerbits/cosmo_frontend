@@ -12,7 +12,8 @@ import {
 	RequestQuote,
 	Fade,
 	UserAdmin,
-	UserRole
+	UserRole,
+	Archive
 } from '@carbon/react/icons';
 import routes from '@routes/routes-const';
 import useUiStore from '@hooks/useUiStore';
@@ -32,7 +33,8 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 		canReview,
 		canReviewNarrative,
 		canSeeNarrativeManagement,
-		canRevalidateUser
+		canRevalidateUser,
+		canCreateRequest
 	} = usePolicyStore();
 	const { md, lg } = useResponsive();
 
@@ -57,6 +59,9 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 							</SideNavMenuItem>
 							<SideNavMenuItem element={Link} to={routes.USER_REVALIDATION}>
 								User Revalidation
+							</SideNavMenuItem>
+							<SideNavMenuItem element={Link} to={routes.EVIDENCE_REQUEST_ACTION}>
+								Evidence Request
 							</SideNavMenuItem>
 						</SideNavMenu>
 					)}
@@ -96,10 +101,25 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 						</SideNavMenu>
 					)}
 					{canAdmin && (
-						<SideNavLink renderIcon={UserAdmin} href={routes.ADMIN}>
+						<SideNavLink renderIcon={UserAdmin} element={Link} to={routes.ADMIN}>
 							Administration
 						</SideNavLink>
 					)}
+					{canCreateRequest && (
+						<SideNavMenu
+							renderIcon={Archive}
+							title='Evidence Request'
+							className='transition-all'
+						>
+							<SideNavMenuItem element={Link} to={routes.NEW_EVIDENCE_REQUEST}>
+								New Requests
+							</SideNavMenuItem>
+							<SideNavMenuItem element={Link} to={routes.STARTED_EVIDENCE_REQUEST}>
+								Started Requests
+							</SideNavMenuItem>
+						</SideNavMenu>
+					)}
+
 					<SideNavLink renderIcon={Logout} href={routes.LOGOUT}>
 						Logout
 					</SideNavLink>

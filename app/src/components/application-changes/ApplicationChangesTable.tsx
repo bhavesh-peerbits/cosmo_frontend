@@ -27,16 +27,19 @@ const ApplicationChangesTable = ({ appId }: ApplicationChangesTableProps) => {
 			cell: info => info.getValue()?.displayName || '-',
 			meta: {
 				exportableFn: (info: { displayName: string }) => info.displayName
-			}
+			},
+			enableGlobalFilter: false
 		}),
 		table.createDataColumn(row => row.date, {
 			id: 'modify-date',
 			header: t('date'),
-			cell: info => formatDate(info.getValue())
+			cell: info => formatDate(info.getValue()),
+			enableGlobalFilter: false
 		}),
 		table.createDataColumn(row => row.change, {
 			id: 'change',
-			header: t('change')
+			header: t('change'),
+			enableGlobalFilter: false
 		})
 	];
 
@@ -50,6 +53,7 @@ const ApplicationChangesTable = ({ appId }: ApplicationChangesTableProps) => {
 			)}
 			createHeaders={columns}
 			noDataMessage={t('no-changes')}
+			searchBarPlaceholder={t('search-changes-placeholder')}
 		/>
 	);
 };

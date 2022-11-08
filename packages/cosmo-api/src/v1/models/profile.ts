@@ -43,9 +43,10 @@ export const ProfileProfileTypesEnum = {
 	MonitoringAnalyst: 'MONITORING_ANALYST',
 	RevalidationAnalyst: 'REVALIDATION_ANALYST',
 	RequestAnalyst: 'REQUEST_ANALYST',
-	Reviewer: 'REVIEWER',
+	FocalPoint: 'FOCAL_POINT',
 	ReviewerCollaborator: 'REVIEWER_COLLABORATOR',
-	UserUnknown: 'USER_UNKNOWN'
+	UserUnknown: 'USER_UNKNOWN',
+	WorkflowApprover: 'WORKFLOW_APPROVER'
 } as const;
 
 export type ProfileProfileTypesEnum =

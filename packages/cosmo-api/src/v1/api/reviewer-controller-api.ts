@@ -43,6 +43,8 @@ import { ApplicationDto } from '../models';
 // @ts-ignore
 import { ProcedureAppInstanceDto } from '../models';
 // @ts-ignore
+import { ProcedureDto } from '../models';
+// @ts-ignore
 import { ReviewApplicationDto } from '../models';
 // @ts-ignore
 import { ReviewProcedureDto } from '../models';
@@ -65,6 +67,49 @@ export const ReviewerControllerApiAxiosParamCreator = function (
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			const localVarPath = `/api/reviewer/applicationsInReview`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllProcedure: async (
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/reviewer/procedure`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -372,6 +417,29 @@ export const ReviewerControllerApiFp = function (configuration?: Configuration) 
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
+		async getAllProcedure(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ProcedureDto>>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllProcedure(
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
 		async getApplicationsForReview(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
@@ -516,6 +584,20 @@ export const ReviewerControllerApiFactory = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
+		getAllProcedure(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<ProcedureDto>> {
+			return localVarFp
+				.getAllProcedure(acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
 		getApplicationsForReview(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
@@ -600,6 +682,20 @@ export interface ReviewerControllerApiGetAllApplicationWhereAProcedureIsDelegate
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
 	 * @memberof ReviewerControllerApiGetAllApplicationWhereAProcedureIsDelegatedOrOwner
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getAllProcedure operation in ReviewerControllerApi.
+ * @export
+ * @interface ReviewerControllerApiGetAllProcedureRequest
+ */
+export interface ReviewerControllerApiGetAllProcedureRequest {
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ReviewerControllerApiGetAllProcedure
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
@@ -732,6 +828,22 @@ export class ReviewerControllerApi extends BaseAPI {
 				requestParameters.acceptLanguage,
 				options
 			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {ReviewerControllerApiGetAllProcedureRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof ReviewerControllerApi
+	 */
+	public getAllProcedure(
+		requestParameters: ReviewerControllerApiGetAllProcedureRequest = {},
+		options?: AxiosRequestConfig
+	) {
+		return ReviewerControllerApiFp(this.configuration)
+			.getAllProcedure(requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 

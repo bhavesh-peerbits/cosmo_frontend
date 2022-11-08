@@ -17,7 +17,8 @@ const Home = () => {
 		canAdmin,
 		canNarrativeAdmin,
 		canUserAdmin,
-		canRevalidateUser
+		canRevalidateUser,
+		canCreateRequest
 	} = usePolicyStore();
 	const buttonToNavigate = () => {
 		if (canUserAdmin || canNarrativeAdmin || canAdmin) {
@@ -34,10 +35,10 @@ const Home = () => {
 				</Button>
 			);
 		}
-		if (canSeeNarrativeManagement) {
+		if (canCreateRequest) {
 			return (
-				<Button as={Link} to={routes.MANAGEMENT}>
-					Management
+				<Button as={Link} to={routes.NEW_EVIDENCE_REQUEST}>
+					New Requests
 				</Button>
 			);
 		}
@@ -45,6 +46,13 @@ const Home = () => {
 			return (
 				<Button as={Link} to={routes.REVALIDATIONS_ONGOING}>
 					Revalidations Ongoing
+				</Button>
+			);
+		}
+		if (canSeeNarrativeManagement) {
+			return (
+				<Button as={Link} to={routes.MANAGEMENT}>
+					Management
 				</Button>
 			);
 		}

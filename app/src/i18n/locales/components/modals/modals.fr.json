@@ -40,14 +40,17 @@
 	"unblock": "Débloquer",
 	"edit-user": "Modifier l'utilisateur",
 	"edit": "Modifier",
-	"body-edit": "Ajoutez ou supprimez des rôles en cliquant sur le menu déroulant.",
+	"body-edit": "Ajoutez ou supprimez des rôles d'utilisateur. Si aucun rôle n'est sélectionné, l'utilisateur aura le rôle \"Guest\"",
 	"user": "Utilisateur",
 	"add-user": "Ajouter utilisateur",
-	"body-add": "Veuillez remplir tous les champs obligatoires, puis cliquez sur {{action}}",
+	"body-add": "Veuillez remplir tous les champs obligatoires, puis cliquez sur {{action}}. Si aucun rôle n'est sélectionné, l'utilisateur aura le rôle \"Guest\"",
 	"exists": "{{value}} existe déjà.",
 	"field-required": "Ce champ est requis",
 	"back": "Retour",
 	"next": "Suivant",
 	"save": "Enregistrer",
-	"create": "Crée"
+	"create": "Crée",
+	"uploading": "",
+	"close": "",
+	"confirm-close-upload": ""
 }
