@@ -1,10 +1,11 @@
-import useSaveStepAndGoNext from '@api/evidence-request/useSaveStepAndGoNext';
 import { Form, Button, TextArea } from '@carbon/react';
+import ConfirmCloseStepUploadModal from '@components/Modals/ConfirmCloseStepUploadModal';
 import UploaderS3 from '@components/util/UploaderS3';
 import EvidenceRequestStep from '@model/EvidenceRequestStep';
-import { useState } from 'react';
+import evidenceRequestUploaderStore from '@store/evidence-request/evidenceRequestUploaderStore';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useRecoilState } from 'recoil';
 
 interface StepUploadForm {
 	publicComment: string;
@@ -13,11 +14,14 @@ interface StepUploadForm {
 interface EvidenceReqUploadFormProps {
 	step: EvidenceRequestStep;
 	erId: string;
+	path: string;
 }
 
-const EvidenceRequestUploadForm = ({ step, erId }: EvidenceReqUploadFormProps) => {
+const EvidenceRequestUploadForm = ({ step, erId, path }: EvidenceReqUploadFormProps) => {
 	const { t } = useTranslation('evidenceRequest');
-	const [saveUpload, setSaveUpload] = useState(false);
+	const [closeUploadInfo, setCloseUploadInfo] = useRecoilState(
+		evidenceRequestUploaderStore
+	);
 	const {
 		register,
 		handleSubmit,
@@ -28,14 +32,12 @@ const EvidenceRequestUploadForm = ({ step, erId }: EvidenceReqUploadFormProps) =
 			publicComment: step.stepInfo?.publicComment
 		}
 	});
-	const { mutate } = useSaveStepAndGoNext();
 	const handleCloseUpload = (data: StepUploadForm) => {
-		const stepMutate = step;
-		stepMutate.stepInfo = {
-			publicComment: data.publicComment,
-			privateComment: undefined
-		};
-		mutate({ erId, step });
+		setCloseUploadInfo(old => ({
+			...old,
+			isOpen: true,
+			publicComment: data.publicComment
+		}));
 	};
 
 	return (
@@ -45,25 +47,29 @@ const EvidenceRequestUploadForm = ({ step, erId }: EvidenceReqUploadFormProps) =
 				<UploaderS3
 					label='Drop'
 					parentFormDirty={isDirty}
+					path={path}
 					additionalInfo={{ stepId: `${step.id}` }}
-					save={saveUpload}
-					setSave={setSaveUpload}
 					alreadyUploaded={step.fileLinks}
 				/>
 				<div className='space-x-5 text-right'>
-					<Button kind='tertiary' size='md' onClick={() => setSaveUpload(!saveUpload)}>
+					<Button
+						kind='tertiary'
+						size='md'
+						onClick={() => setCloseUploadInfo(old => ({ ...old, saveUpload: true }))}
+					>
 						{t('save-upload')}
 					</Button>
 					<Button
 						kind='primary'
 						size='md'
 						onClick={handleSubmit(handleCloseUpload)}
-						disabled={saveUpload}
+						disabled={closeUploadInfo.saveUpload}
 					>
 						{t('close-upload')}
 					</Button>
 				</div>
 			</Form>
+			<ConfirmCloseStepUploadModal erId={erId} step={step} />
 		</div>
 	);
 };

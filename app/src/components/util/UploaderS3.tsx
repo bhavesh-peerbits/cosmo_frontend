@@ -4,6 +4,7 @@ import { FileUploaderDropContainer, FileUploaderItem, Form, Tag } from '@carbon/
 import DeleteFileS3Modal from '@components/Modals/DeleteFileS3Modal';
 import usePrompt from '@hooks/usePreventNavigatePrompt';
 import FileLink, { fromFiletoFileLink } from '@model/FileLink';
+import evidenceRequestUploaderStore from '@store/evidence-request/evidenceRequestUploaderStore';
 import { useCallback, useEffect, useState } from 'react';
 import {
 	FieldPath,
@@ -15,6 +16,7 @@ import {
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 
 type CosmoFileUploaderProps<
 	T extends FieldValues,
@@ -22,11 +24,10 @@ type CosmoFileUploaderProps<
 > = UnpackNestedValue<PathValue<T, TName>> extends File[]
 	? {
 			label: string;
-			save?: boolean;
-			setSave?: (save: boolean) => void;
 			alreadyUploaded?: FileLink[];
 			parentFormDirty?: boolean;
 			additionalInfo?: Record<string, string>;
+			path: string;
 	  }
 	: never;
 
@@ -36,13 +37,15 @@ interface UploaderS3Form {
 
 const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 	label,
-	save,
-	setSave,
 	alreadyUploaded,
 	parentFormDirty,
-	additionalInfo
+	additionalInfo,
+	path
 }: CosmoFileUploaderProps<T, TName>) => {
 	const { mutate } = usePutASelectionOfFiles();
+	const [closeUploadInfo, setCloseUploadInfo] = useRecoilState(
+		evidenceRequestUploaderStore
+	);
 	const { t } = useTranslation('uploaderS3');
 	const [deleteInfo, setDeleteInfo] = useState<{
 		isOpen: boolean;
@@ -66,8 +69,8 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 	const files = formValue as File[];
 
 	const handleSaveFile = useCallback(() => {
-		if (files.length === 0 || !save) {
-			save && setSave && setSave(!save);
+		if (files.length === 0 || !closeUploadInfo.saveUpload) {
+			setCloseUploadInfo(old => ({ ...old, saveUpload: false }));
 			return;
 		}
 
@@ -75,20 +78,44 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 			mutate(
 				{
 					stepId: +additionalInfo?.stepId,
-					fileLinkDtoList: files.map(file => fromFiletoFileLink(file)),
+					fileLinkDtoList: files.map(file => fromFiletoFileLink(file, path)),
 					files
 				},
 				{
 					onSuccess: () => {
-						setSave && setSave(!save);
+						setCloseUploadInfo(old => ({
+							...old,
+							saveUpload: !closeUploadInfo.saveUpload
+						}));
+					},
+					onError: () => {
+						setCloseUploadInfo(old => ({
+							...old,
+							saveUpload: !closeUploadInfo.saveUpload,
+							uploadSuccess: false
+						}));
 					}
 				}
 			);
-	}, [additionalInfo?.stepId, files, mutate, save, setSave]);
+	}, [
+		additionalInfo?.stepId,
+		closeUploadInfo.saveUpload,
+		files,
+		mutate,
+		path,
+		setCloseUploadInfo
+	]);
 
 	useEffect(() => {
 		handleSaveFile();
-	}, [handleSaveFile, save]);
+	}, [handleSaveFile, closeUploadInfo.saveUpload]);
+
+	useEffect(() => {
+		setCloseUploadInfo(old => ({
+			...old,
+			isDirty
+		}));
+	}, [isDirty, setCloseUploadInfo]);
 
 	return (
 		<>
