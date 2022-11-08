@@ -72,5 +72,6 @@
 	"additional-info-description": "Entrez un commentaire privé (visible uniquement par le créateur de la demande) et un commentaire public (visible par tous les utilisateurs ayant accès à la demande)",
 	"attachments-description": "Dans cette section, il est possible de télécharger des fichiers. Les fichiers téléchargés ne seront pas enregistrés en tant que brouillon, il est donc important de les télécharger immédiatement avant de soumettre votre demande",
 	"select-user-group": "Des conflits existent suite à la sélection de plusieurs contrôles. Sélectionnez un groupe prédéfini de points focaux et de délégués ou saisissez-les manuellement",
-	"other": "Autre"
+	"other": "Autre",
+	"check-step": "voir étape {{stepNumber}} pour plus de détails"
 }

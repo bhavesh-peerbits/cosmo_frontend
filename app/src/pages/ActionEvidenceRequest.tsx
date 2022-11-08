@@ -41,6 +41,7 @@ const ActionEvidenceRequest = () => {
 								setIsOpen={setIsOpen}
 								statusRequest={data.status}
 								erId={data.id}
+								stepBeforeReturn={data.stepBeforeReturn}
 							/>
 						</TabPanel>
 						<TabPanel>
