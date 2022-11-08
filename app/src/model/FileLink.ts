@@ -6,7 +6,6 @@ interface FileLink {
 	type?: string;
 	name?: string;
 	dimension?: number;
-	multipartFile?: any;
 }
 
 export const fromFileLinkApi = (fileLinks: FileLinkApi): FileLink => {
@@ -29,11 +28,12 @@ export const toFileLinkApi = (fileLinks: FileLink): FileLinkApi => {
 	};
 };
 
-export const fromFiletoFileLink = (file: File): FileLink => {
+export const fromFiletoFileLink = (file: File, path: string): FileLink => {
 	return {
 		type: file.type,
 		name: file.name,
 		id: undefined,
+		link: path,
 		dimension: file.size
 	};
 };

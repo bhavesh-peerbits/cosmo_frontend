@@ -49,5 +49,8 @@
 	"back": "Back",
 	"next": "Next",
 	"save": "Save",
-	"create": "Create"
+	"create": "Create",
+	"close": "Close",
+	"uploading": "Uploading... ",
+	"confirm-close-upload": "Are you sure you want to close the upload? Any modification isn't allowed after closing it."
 }

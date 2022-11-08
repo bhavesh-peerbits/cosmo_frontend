@@ -13,6 +13,9 @@ const ActionEvidenceRequest = () => {
 	const { requestId = '' } = useParams<'requestId'>();
 	const { data } = useGetEvidenceRequestById(requestId);
 	const [isOpen, setIsOpen] = useState(false);
+	const path = `${new Date().getFullYear()}/${data?.application.codeName}/${
+		data?.workflowName
+	}/${data?.code}/`.replaceAll(' ', '');
 
 	if (!data) {
 		return null;
@@ -39,6 +42,7 @@ const ActionEvidenceRequest = () => {
 								currentStep={data.currentStep}
 								owner={data.creator}
 								setIsOpen={setIsOpen}
+								path={path}
 								statusRequest={data.status}
 								erId={data.id}
 							/>

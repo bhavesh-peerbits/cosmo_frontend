@@ -49,5 +49,8 @@
 	"back": "Indietro",
 	"next": "Avanti",
 	"save": "Salva",
-	"create": "Crea"
+	"create": "Crea",
+	"close": "Chiudi",
+	"uploading": "Uploading... ",
+	"confirm-close-upload": "Sei sicuro di voler terminare l'upload? Non sarà più possibile effettuare modifiche."
 }

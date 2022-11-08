@@ -49,5 +49,8 @@
 	"back": "Retour",
 	"next": "Suivant",
 	"save": "Enregistrer",
-	"create": "Crée"
+	"create": "Crée",
+	"uploading": "",
+	"close": "",
+	"confirm-close-upload": ""
 }
