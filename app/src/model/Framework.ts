@@ -5,7 +5,7 @@ interface Framework {
 	name?: string;
 	description?: string;
 	children?: Framework[];
-	leafs?: string[];
+	leafs?: string[] | null;
 }
 
 export const fromFrameworkApi = (frameworkApi: FrameworkApi): Framework => {
