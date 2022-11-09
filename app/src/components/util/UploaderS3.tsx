@@ -18,6 +18,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useRecoilState } from 'recoil';
 import { Download } from '@carbon/react/icons';
+import usePutASelectionOfFilesOnDraft from '@api/uploaders3/usePutASelectionOfFileOnDraft';
 
 type CosmoFileUploaderProps<
 	T extends FieldValues,
@@ -44,6 +45,8 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 	path
 }: CosmoFileUploaderProps<T, TName>) => {
 	const { mutate, isLoading } = usePutASelectionOfFiles();
+	const { mutate: mutateDraft, isLoading: isLoadingDraft } =
+		usePutASelectionOfFilesOnDraft();
 	const [closeUploadInfo, setCloseUploadInfo] = useRecoilState(
 		evidenceRequestUploaderStore
 	);
@@ -105,11 +108,22 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 				},
 				mutateOptions
 			);
+		additionalInfo?.draftId &&
+			mutateDraft(
+				{
+					draftId: +additionalInfo?.draftId,
+					fileLinkDtoList: files.map(file => fromFiletoFileLink(file, path)),
+					files
+				},
+				mutateOptions
+			);
 	}, [
+		additionalInfo?.draftId,
 		additionalInfo?.stepId,
 		closeUploadInfo.saveUpload,
 		files,
 		mutate,
+		mutateDraft,
 		mutateOptions,
 		path,
 		setCloseUploadInfo
@@ -139,9 +153,9 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 		() =>
 			setCloseUploadInfo(old => ({
 				...old,
-				isLoading
+				isLoading: isLoading || isLoadingDraft
 			})),
-		[isLoading, setCloseUploadInfo]
+		[isLoading, isLoadingDraft, setCloseUploadInfo]
 	);
 
 	useEffect(() => {
