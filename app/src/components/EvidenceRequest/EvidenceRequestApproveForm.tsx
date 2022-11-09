@@ -30,6 +30,7 @@ const EvidenceRequestApproveForm = ({ setIsOpen }: EvidenceRequestApproveFormPro
 							setIsOpen(true);
 						}}
 						disabled={!action}
+						size='md'
 					>
 						{t('save')}
 					</Button>

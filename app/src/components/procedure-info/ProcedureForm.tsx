@@ -239,6 +239,7 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 									</div>
 									<div className='flex w-full flex-1 justify-end space-x-5'>
 										<Button
+											size='md'
 											type='reset'
 											kind='tertiary'
 											disabled={!isDirty}
@@ -247,6 +248,7 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 											{t('procedureInfo:cancel')}
 										</Button>
 										<Button
+											size='md'
 											type='submit'
 											onClick={handleSubmit(saveForm)}
 											disabled={!isValid || !isDirty}
