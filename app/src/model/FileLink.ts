@@ -1,7 +1,7 @@
 import { FileLinkApi } from 'cosmo-api';
 
 interface FileLink {
-	id?: string;
+	id: string;
 	link?: string;
 	type?: string;
 	name?: string;
@@ -32,7 +32,7 @@ export const fromFiletoFileLink = (file: File, path: string): FileLink => {
 	return {
 		type: file.type,
 		name: file.name,
-		id: undefined,
+		id: '',
 		link: `${path}/${file.name}`,
 		dimension: file.size
 	};

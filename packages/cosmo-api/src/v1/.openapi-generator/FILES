@@ -66,9 +66,9 @@ models/framework-tree-dto.ts
 models/frequency.ts
 models/identity-provider-dto.ts
 models/index.ts
-models/inline-object11.ts
+models/inline-object10.ts
 models/inline-object12.ts
-models/inline-object6.ts
+models/inline-object13.ts
 models/inline-object7.ts
 models/inline-object8.ts
 models/inline-object9.ts
