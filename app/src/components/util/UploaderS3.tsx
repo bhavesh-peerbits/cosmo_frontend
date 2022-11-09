@@ -1,11 +1,12 @@
 /* eslint-disable no-unsafe-optional-chaining */
+import useGetFile from '@api/uploaders3/useGetFile';
 import usePutASelectionOfFiles from '@api/uploaders3/usePutASelectionOfFiles';
 import { FileUploaderDropContainer, FileUploaderItem, Form, Tag } from '@carbon/react';
 import DeleteFileS3Modal from '@components/Modals/DeleteFileS3Modal';
 import usePrompt from '@hooks/usePreventNavigatePrompt';
 import FileLink, { fromFiletoFileLink } from '@model/FileLink';
 import evidenceRequestUploaderStore from '@store/evidence-request/evidenceRequestUploaderStore';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
 	FieldPath,
 	FieldValues,
@@ -15,8 +16,9 @@ import {
 	useForm
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
+import { Download } from '@carbon/react/icons';
+import usePutASelectionOfFilesOnDraft from '@api/uploaders3/usePutASelectionOfFileOnDraft';
 
 type CosmoFileUploaderProps<
 	T extends FieldValues,
@@ -43,6 +45,8 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 	path
 }: CosmoFileUploaderProps<T, TName>) => {
 	const { mutate, isLoading } = usePutASelectionOfFiles();
+	const { mutate: mutateDraft, isLoading: isLoadingDraft } =
+		usePutASelectionOfFilesOnDraft();
 	const [closeUploadInfo, setCloseUploadInfo] = useRecoilState(
 		evidenceRequestUploaderStore
 	);
@@ -50,7 +54,8 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 	const [deleteInfo, setDeleteInfo] = useState<{
 		isOpen: boolean;
 		fileId: string | undefined;
-	}>({ isOpen: false, fileId: undefined });
+		stepId: string | undefined;
+	}>({ isOpen: false, fileId: undefined, stepId: undefined });
 	const {
 		control,
 		reset,
@@ -64,6 +69,26 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 		name: 'files',
 		control
 	});
+
+	const mutateOptions = useMemo(
+		() => ({
+			onSuccess: () => {
+				setCloseUploadInfo(old => ({
+					...old,
+					saveUpload: !closeUploadInfo.saveUpload
+				}));
+				reset({ files: [] });
+			},
+			onError: () => {
+				setCloseUploadInfo(old => ({
+					...old,
+					saveUpload: !closeUploadInfo.saveUpload,
+					uploadSuccess: false
+				}));
+			}
+		}),
+		[closeUploadInfo.saveUpload, reset, setCloseUploadInfo]
+	);
 
 	usePrompt(t('prevent-close'), isDirty || parentFormDirty);
 
@@ -81,32 +106,44 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 					fileLinkDtoList: files.map(file => fromFiletoFileLink(file, path)),
 					files
 				},
+				mutateOptions
+			);
+		additionalInfo?.draftId &&
+			mutateDraft(
 				{
-					onSuccess: () => {
-						setCloseUploadInfo(old => ({
-							...old,
-							saveUpload: !closeUploadInfo.saveUpload
-						}));
-						reset({ files: [] });
-					},
-					onError: () => {
-						setCloseUploadInfo(old => ({
-							...old,
-							saveUpload: !closeUploadInfo.saveUpload,
-							uploadSuccess: false
-						}));
-					}
-				}
+					draftId: +additionalInfo?.draftId,
+					fileLinkDtoList: files.map(file => fromFiletoFileLink(file, path)),
+					files
+				},
+				mutateOptions
 			);
 	}, [
+		additionalInfo?.draftId,
 		additionalInfo?.stepId,
 		closeUploadInfo.saveUpload,
 		files,
 		mutate,
+		mutateDraft,
+		mutateOptions,
 		path,
-		setCloseUploadInfo,
-		reset
+		setCloseUploadInfo
 	]);
+
+	const DownloadFile = (fileLink: FileLink) => {
+		useGetFile(fileLink.id).then(({ data, headers }) => {
+			const fileName =
+				headers['content-disposition']
+					?.split('filename=')?.[1]
+					?.replace(/^"/, '')
+					?.replace(/"$/, '') || `${fileLink.name}`;
+			const fileBlob = new Blob([data as unknown as BlobPart]);
+			const dataUrl = URL.createObjectURL(fileBlob);
+			const link = document.createElement('a');
+			link.download = fileName;
+			link.href = dataUrl;
+			link.click();
+		});
+	};
 
 	useEffect(() => {
 		handleSaveFile();
@@ -116,9 +153,9 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 		() =>
 			setCloseUploadInfo(old => ({
 				...old,
-				isLoading
+				isLoading: isLoading || isLoadingDraft
 			})),
-		[isLoading, setCloseUploadInfo]
+		[isLoading, isLoadingDraft, setCloseUploadInfo]
 	);
 
 	useEffect(() => {
@@ -138,11 +175,27 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 							<Tag
 								filter
 								size='md'
+								type='outline'
 								onClose={() => {
-									setDeleteInfo({ isOpen: true, fileId: file.id });
+									setDeleteInfo({
+										isOpen: true,
+										fileId: file.id,
+										stepId: additionalInfo?.stepId
+									});
 								}}
 							>
-								<Link to={file.link || ''}>{file.name}</Link>
+								<div className=''>
+									<button
+										type='button'
+										className='flex space-x-2'
+										onClick={() => DownloadFile(file)}
+									>
+										<Download />
+										<span className='text-link-primary hover:text-link-primary-hover hover:underline'>
+											{file.name}
+										</span>
+									</button>
+								</div>
 							</Tag>
 						))}
 					</div>
