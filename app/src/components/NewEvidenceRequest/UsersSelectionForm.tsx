@@ -47,6 +47,7 @@ const UsersSelectionForm = ({
 	const approvers = watch('approvers');
 	const reviewer = watch('focalPoint');
 	const [radio, setRadio] = useState('');
+
 	useEffect(() => {
 		setRequestDraft(old => ({
 			...old,
@@ -63,14 +64,14 @@ const UsersSelectionForm = ({
 											? delegates
 											: associations?.filter(ass => ass.id === radio)[0]
 											? associations?.filter(ass => ass.id === radio)[0].delegates
-											: undefined,
+											: delegates,
 									approvers,
 									reviewer:
 										radio === 'other'
 											? reviewer
 											: associations?.filter(ass => ass.id === radio)[0]
 											? associations?.filter(ass => ass.id === radio)[0].reviewer
-											: undefined
+											: reviewer
 								};
 							}
 							return el;
@@ -140,15 +141,17 @@ const UsersSelectionForm = ({
 								key={association.id}
 							/>
 						))}
-						<RadioButton labelText='others' value='other' />
+						<RadioButton labelText={t('other')} value='other' />
 					</RadioButtonGroup>
 					<div className='ml-7 flex space-x-7'>
 						<SingleUserSelect
 							control={control}
-							label='Focal Point'
+							label='Focal Point *'
 							name='focalPoint'
 							level={2}
-							// TODO Add default value
+							rules={{
+								required: true
+							}}
 							getUserFn={() => {
 								// eslint-disable-next-line react-hooks/rules-of-hooks
 								return useGetUsersByRole('FOCAL_POINT');
@@ -163,7 +166,7 @@ const UsersSelectionForm = ({
 						/>
 						<MultipleUserSelect
 							control={control}
-							label='Delegates'
+							label={t('focal-point-delegates')}
 							name='delegates'
 							level={2}
 							defaultValue={

@@ -9,7 +9,6 @@ api/config-element-controller-api.ts
 api/config-element-module-controller-api.ts
 api/control-controller-api.ts
 api/csv-reader-controller-api.ts
-api/dev-home-redirect-controller-api.ts
 api/evidence-request-controller-api.ts
 api/evidence-request-file-s3-controller-api.ts
 api/evidence-request-focal-point-controller-api.ts

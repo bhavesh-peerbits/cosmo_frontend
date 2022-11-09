@@ -45,6 +45,7 @@ const ActionEvidenceRequest = () => {
 								path={path}
 								statusRequest={data.status}
 								erId={data.id}
+								stepBeforeReturn={data.stepBeforeReturn}
 							/>
 						</TabPanel>
 						<TabPanel>

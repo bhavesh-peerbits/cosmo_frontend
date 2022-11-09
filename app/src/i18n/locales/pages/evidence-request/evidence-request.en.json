@@ -71,5 +71,7 @@
 	"request-text-description": "Enter a description of this new request to provide more information to users who have access to the request",
 	"additional-info-description": "Enter a private comment (visible only to the creator of the request) and a public comment (visible to all users with access to the request)",
 	"attachments-description": "In this section it is possible to upload files. Uploaded files will not be saved as a draft, so it is important to upload them immediately before submitting your request",
-	"select-user-group": "Conflicts exist as a result of selecting several controls. Select a predefined group of focal points and delegates or enter them manually"
+	"select-user-group": "Conflicts exist as a result of selecting several controls. Select a predefined group of focal points and delegates or enter them manually",
+	"other": "Other",
+	"check-step": "check step {{stepNumber}} for details"
 }

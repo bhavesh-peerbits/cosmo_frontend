@@ -21,7 +21,8 @@ const ActionEvidenceRequestInfo = ({
 	statusRequest,
 	setIsOpen,
 	path,
-	erId
+	erId,
+	stepBeforeReturn
 }: {
 	steps: EvidenceRequestStep[];
 	currentStep: number;
@@ -30,6 +31,7 @@ const ActionEvidenceRequestInfo = ({
 	setIsOpen: (value: boolean) => void;
 	path: string;
 	erId: string;
+	stepBeforeReturn?: number;
 }) => {
 	const { auth } = useLoginStore();
 	const { t } = useTranslation('evidenceRequest');
@@ -74,13 +76,16 @@ const ActionEvidenceRequestInfo = ({
 												>
 													{step.type}
 												</p>
-												{step.completionDate ? (
+												{step.completionDate && step.stepOrder !== currStep.stepOrder ? (
 													<span className='col-span-2 justify-self-end'>{`${t(
 														'completion-date'
 													)}: ${step.completionDate.toLocaleDateString()}`}</span>
 												) : index + 1 === currentStep ? (
 													<span className='col-span-2 justify-self-end'>
 														{t('current-step')}
+														{stepBeforeReturn &&
+															currStep.stepOrder < stepBeforeReturn &&
+															` (${t('check-step', { stepNumber: stepBeforeReturn })})`}
 													</span>
 												) : (
 													<span className='col-span-2 justify-self-end'>
