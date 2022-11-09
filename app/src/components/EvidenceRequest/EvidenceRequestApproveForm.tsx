@@ -25,12 +25,12 @@ const EvidenceRequestApproveForm = ({ setIsOpen }: EvidenceRequestApproveFormPro
 				</RadioButtonGroup>
 				<div className='text-right'>
 					<Button
-						size='md'
 						kind='primary'
 						onClick={() => {
 							setIsOpen(true);
 						}}
 						disabled={!action}
+						size='md'
 					>
 						{t('save')}
 					</Button>

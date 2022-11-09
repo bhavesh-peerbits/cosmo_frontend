@@ -72,6 +72,7 @@ const TearsheetShell = React.forwardRef<HTMLDivElement, TearsheetShellProps>(
 			portalTarget: portalTargetIn,
 			title,
 			isRail,
+			removeTertiaryButton,
 			// Collect any other property values passed in.
 			...rest
 		},
@@ -314,7 +315,7 @@ const TearsheetShell = React.forwardRef<HTMLDivElement, TearsheetShellProps>(
 									style={{ gridColumn: '1 / -1', gridRow: '-1 / -1' }}
 								>
 									<>
-										{size === 'wide' && md && (
+										{size === 'wide' && md && !removeTertiaryButton && (
 											<Button
 												onClick={() => {
 													setOpen(false);
@@ -478,6 +479,7 @@ interface TearsheetShellProps {
 	 */
 	title?: ReactNode;
 	isRail?: boolean;
+	removeTertiaryButton?: boolean;
 }
 
 export default TearsheetShell;

@@ -118,9 +118,10 @@ export const EvidenceRequestFileS3ControllerApiAxiosParamCreator = function (
 			assertParamExists('deleteFileFormStep', 'stepId', stepId);
 			// verify required parameter 'fileId' is not null or undefined
 			assertParamExists('deleteFileFormStep', 'fileId', fileId);
-			const localVarPath = `/api/evidence-request/file/{stepId}/delete-a-file/{fileId}`
-				.replace(`{${'stepId'}}`, encodeURIComponent(String(stepId)))
-				.replace(`{${'fileId'}}`, encodeURIComponent(String(fileId)));
+			const localVarPath =
+				`/api/evidence-request/file/{stepId}/delete-a-file-from-step/{fileId}`
+					.replace(`{${'stepId'}}`, encodeURIComponent(String(stepId)))
+					.replace(`{${'fileId'}}`, encodeURIComponent(String(fileId)));
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -171,9 +172,10 @@ export const EvidenceRequestFileS3ControllerApiAxiosParamCreator = function (
 			assertParamExists('deleteFileFromDraft', 'draftId', draftId);
 			// verify required parameter 'fileId' is not null or undefined
 			assertParamExists('deleteFileFromDraft', 'fileId', fileId);
-			const localVarPath = `/api/evidence-request/file/{draftId}/delete-a-file/{fileId}`
-				.replace(`{${'draftId'}}`, encodeURIComponent(String(draftId)))
-				.replace(`{${'fileId'}}`, encodeURIComponent(String(fileId)));
+			const localVarPath =
+				`/api/evidence-request/file/{draftId}/delete-a-file-from-draft/{fileId}`
+					.replace(`{${'draftId'}}`, encodeURIComponent(String(draftId)))
+					.replace(`{${'fileId'}}`, encodeURIComponent(String(fileId)));
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -254,6 +256,106 @@ export const EvidenceRequestFileS3ControllerApiAxiosParamCreator = function (
 				localVarRequestOptions,
 				configuration
 			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} draftId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllFileOfDraft: async (
+			draftId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'draftId' is not null or undefined
+			assertParamExists('getAllFileOfDraft', 'draftId', draftId);
+			const localVarPath = `/api/evidence-request/file/get-all-file/{draftId}`.replace(
+				`{${'draftId'}}`,
+				encodeURIComponent(String(draftId))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} stepId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllFileOfStep: async (
+			stepId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'stepId' is not null or undefined
+			assertParamExists('getAllFileOfStep', 'stepId', stepId);
+			const localVarPath = `/api/evidence-request/file/get-all-file/{stepId}`.replace(
+				`{${'stepId'}}`,
+				encodeURIComponent(String(stepId))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
 
 			return {
 				url: toPathString(localVarUrlObj),
@@ -531,6 +633,79 @@ export const EvidenceRequestFileS3ControllerApiAxiosParamCreator = function (
 				url: toPathString(localVarUrlObj),
 				options: localVarRequestOptions
 			};
+		},
+		/**
+		 *
+		 * @param {number} stepId
+		 * @param {any} file
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {FileLinkDto} [fileLinkDto]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		putFileOnStep: async (
+			stepId: number,
+			file: any,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			fileLinkDto?: FileLinkDto,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'stepId' is not null or undefined
+			assertParamExists('putFileOnStep', 'stepId', stepId);
+			// verify required parameter 'file' is not null or undefined
+			assertParamExists('putFileOnStep', 'file', file);
+			const localVarPath =
+				`/api/evidence-request/file/put-a-file-on-step/{stepId}`.replace(
+					`{${'stepId'}}`,
+					encodeURIComponent(String(stepId))
+				);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+			const localVarFormParams = new ((configuration && configuration.formDataCtor) ||
+				FormData)();
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			if (fileLinkDto !== undefined) {
+				localVarFormParams.append(
+					'fileLinkDto',
+					new Blob([JSON.stringify(fileLinkDto)], { type: 'application/json' })
+				);
+			}
+
+			if (file !== undefined) {
+				localVarFormParams.append('file', file as any);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = localVarFormParams;
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
 		}
 	};
 };
@@ -637,6 +812,58 @@ export const EvidenceRequestFileS3ControllerApiFp = function (
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.deleteSomeFiles(
 				fileLinkDtoList,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} draftId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getAllFileOfDraft(
+			draftId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<FileLinkDto>>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllFileOfDraft(
+				draftId,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} stepId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getAllFileOfStep(
+			stepId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<FileLinkDto>>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllFileOfStep(
+				stepId,
 				acceptLanguage,
 				options
 			);
@@ -765,6 +992,36 @@ export const EvidenceRequestFileS3ControllerApiFp = function (
 				BASE_PATH,
 				configuration
 			);
+		},
+		/**
+		 *
+		 * @param {number} stepId
+		 * @param {any} file
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {FileLinkDto} [fileLinkDto]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async putFileOnStep(
+			stepId: number,
+			file: any,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			fileLinkDto?: FileLinkDto,
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FileLinkDto>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.putFileOnStep(
+				stepId,
+				file,
+				acceptLanguage,
+				fileLinkDto,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
 		}
 	};
 };
@@ -846,6 +1103,38 @@ export const EvidenceRequestFileS3ControllerApiFactory = function (
 		): AxiosPromise<void> {
 			return localVarFp
 				.deleteSomeFiles(fileLinkDtoList, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} draftId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllFileOfDraft(
+			draftId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<FileLinkDto>> {
+			return localVarFp
+				.getAllFileOfDraft(draftId, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} stepId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllFileOfStep(
+			stepId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<FileLinkDto>> {
+			return localVarFp
+				.getAllFileOfStep(stepId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -932,6 +1221,26 @@ export const EvidenceRequestFileS3ControllerApiFactory = function (
 		): AxiosPromise<FileLinkDto> {
 			return localVarFp
 				.putFile(file, acceptLanguage, fileLinkDto, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} stepId
+		 * @param {any} file
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {FileLinkDto} [fileLinkDto]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		putFileOnStep(
+			stepId: number,
+			file: any,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			fileLinkDto?: FileLinkDto,
+			options?: any
+		): AxiosPromise<FileLinkDto> {
+			return localVarFp
+				.putFileOnStep(stepId, file, acceptLanguage, fileLinkDto, options)
 				.then(request => request(axios, basePath));
 		}
 	};
@@ -1031,6 +1340,48 @@ export interface EvidenceRequestFileS3ControllerApiDeleteSomeFilesRequest {
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
 	 * @memberof EvidenceRequestFileS3ControllerApiDeleteSomeFiles
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getAllFileOfDraft operation in EvidenceRequestFileS3ControllerApi.
+ * @export
+ * @interface EvidenceRequestFileS3ControllerApiGetAllFileOfDraftRequest
+ */
+export interface EvidenceRequestFileS3ControllerApiGetAllFileOfDraftRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof EvidenceRequestFileS3ControllerApiGetAllFileOfDraft
+	 */
+	readonly draftId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof EvidenceRequestFileS3ControllerApiGetAllFileOfDraft
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getAllFileOfStep operation in EvidenceRequestFileS3ControllerApi.
+ * @export
+ * @interface EvidenceRequestFileS3ControllerApiGetAllFileOfStepRequest
+ */
+export interface EvidenceRequestFileS3ControllerApiGetAllFileOfStepRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof EvidenceRequestFileS3ControllerApiGetAllFileOfStep
+	 */
+	readonly stepId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof EvidenceRequestFileS3ControllerApiGetAllFileOfStep
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
@@ -1155,6 +1506,41 @@ export interface EvidenceRequestFileS3ControllerApiPutFileRequest {
 }
 
 /**
+ * Request parameters for putFileOnStep operation in EvidenceRequestFileS3ControllerApi.
+ * @export
+ * @interface EvidenceRequestFileS3ControllerApiPutFileOnStepRequest
+ */
+export interface EvidenceRequestFileS3ControllerApiPutFileOnStepRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof EvidenceRequestFileS3ControllerApiPutFileOnStep
+	 */
+	readonly stepId: number;
+
+	/**
+	 *
+	 * @type {any}
+	 * @memberof EvidenceRequestFileS3ControllerApiPutFileOnStep
+	 */
+	readonly file: any;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof EvidenceRequestFileS3ControllerApiPutFileOnStep
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+
+	/**
+	 *
+	 * @type {FileLinkDto}
+	 * @memberof EvidenceRequestFileS3ControllerApiPutFileOnStep
+	 */
+	readonly fileLinkDto?: FileLinkDto;
+}
+
+/**
  * EvidenceRequestFileS3ControllerApi - object-oriented interface
  * @export
  * @class EvidenceRequestFileS3ControllerApi
@@ -1241,6 +1627,46 @@ export class EvidenceRequestFileS3ControllerApi extends BaseAPI {
 
 	/**
 	 *
+	 * @param {EvidenceRequestFileS3ControllerApiGetAllFileOfDraftRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof EvidenceRequestFileS3ControllerApi
+	 */
+	public getAllFileOfDraft(
+		requestParameters: EvidenceRequestFileS3ControllerApiGetAllFileOfDraftRequest,
+		options?: AxiosRequestConfig
+	) {
+		return EvidenceRequestFileS3ControllerApiFp(this.configuration)
+			.getAllFileOfDraft(
+				requestParameters.draftId,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {EvidenceRequestFileS3ControllerApiGetAllFileOfStepRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof EvidenceRequestFileS3ControllerApi
+	 */
+	public getAllFileOfStep(
+		requestParameters: EvidenceRequestFileS3ControllerApiGetAllFileOfStepRequest,
+		options?: AxiosRequestConfig
+	) {
+		return EvidenceRequestFileS3ControllerApiFp(this.configuration)
+			.getAllFileOfStep(
+				requestParameters.stepId,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
 	 * @param {EvidenceRequestFileS3ControllerApiGetFileRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
@@ -1312,6 +1738,28 @@ export class EvidenceRequestFileS3ControllerApi extends BaseAPI {
 	) {
 		return EvidenceRequestFileS3ControllerApiFp(this.configuration)
 			.putFile(
+				requestParameters.file,
+				requestParameters.acceptLanguage,
+				requestParameters.fileLinkDto,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {EvidenceRequestFileS3ControllerApiPutFileOnStepRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof EvidenceRequestFileS3ControllerApi
+	 */
+	public putFileOnStep(
+		requestParameters: EvidenceRequestFileS3ControllerApiPutFileOnStepRequest,
+		options?: AxiosRequestConfig
+	) {
+		return EvidenceRequestFileS3ControllerApiFp(this.configuration)
+			.putFileOnStep(
+				requestParameters.stepId,
 				requestParameters.file,
 				requestParameters.acceptLanguage,
 				requestParameters.fileLinkDto,

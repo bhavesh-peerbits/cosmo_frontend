@@ -116,7 +116,7 @@ const EvidenceRequestInfo = ({
 				{disabled ||
 					(status === 'IN_PROGRESS' && (
 						<>
-							<Button kind='secondary' type='reset'>
+							<Button kind='secondary' type='reset' size='md'>
 								{t('reset')}
 							</Button>
 							<Button onClick={handleSubmit(handleSaveStep)}>{t('save')}</Button>

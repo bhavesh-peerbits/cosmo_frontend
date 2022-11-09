@@ -127,6 +127,8 @@ interface TearsheetProps {
 	isRail?: boolean;
 
 	children?: ReactElement;
+
+	removeTertiaryButton?: boolean;
 }
 
 export default Tearsheet;
