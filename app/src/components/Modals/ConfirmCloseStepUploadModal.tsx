@@ -26,7 +26,16 @@ const ConfirmCloseStepUploadModal = ({
 	const { mutate } = useSaveStepAndGoNext();
 
 	const handleCloseUploadStep = () => {
-		setConfirmCloseInfo(old => ({ ...old, saveUpload: true }));
+		if (confirmCloseInfo.isDirty) {
+			setConfirmCloseInfo(old => ({ ...old, saveUpload: true }));
+		} else {
+			const stepMutate = step;
+			stepMutate.stepInfo = {
+				publicComment: confirmCloseInfo.publicComment,
+				privateComment: undefined
+			};
+			mutate({ erId, step }, { onSuccess: cleanUp });
+		}
 	};
 
 	useEffect(() => {

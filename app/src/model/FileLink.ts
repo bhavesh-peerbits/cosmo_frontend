@@ -33,7 +33,7 @@ export const fromFiletoFileLink = (file: File, path: string): FileLink => {
 		type: file.type,
 		name: file.name,
 		id: undefined,
-		link: path,
+		link: `${path}/${file.name}`,
 		dimension: file.size
 	};
 };
