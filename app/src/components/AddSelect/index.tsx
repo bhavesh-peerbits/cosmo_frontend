@@ -340,6 +340,7 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 						influencer={multi && <AddSelectSidebar {...sidebarProps} />}
 						influencerWidth='wide'
 						influencerPosition='right'
+						removeTertiaryButton
 					>
 						{body}
 					</Tearsheet>
