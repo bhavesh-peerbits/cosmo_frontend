@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState } from 'recoil';
 
-interface StepUploadForm {
+export interface StepUploadForm {
 	publicComment: string;
 }
 
@@ -18,13 +18,14 @@ interface EvidenceReqUploadFormProps {
 }
 
 const EvidenceRequestUploadForm = ({ step, erId, path }: EvidenceReqUploadFormProps) => {
-	const { t } = useTranslation('evidenceRequest');
+	const { t } = useTranslation(['evidenceRequest', 'modals']);
 	const [closeUploadInfo, setCloseUploadInfo] = useRecoilState(
 		evidenceRequestUploaderStore
 	);
 	const {
 		register,
 		handleSubmit,
+		reset,
 		formState: { isDirty }
 	} = useForm<StepUploadForm>({
 		mode: 'onChange',
@@ -43,7 +44,10 @@ const EvidenceRequestUploadForm = ({ step, erId, path }: EvidenceReqUploadFormPr
 	return (
 		<div className='col-span-4'>
 			<Form className=' space-y-5'>
-				<TextArea labelText={t('public-comment')} {...register('publicComment')} />
+				<TextArea
+					labelText={t('evidenceRequest:public-comment')}
+					{...register('publicComment')}
+				/>
 				<UploaderS3
 					label='Drop'
 					parentFormDirty={isDirty}
@@ -56,8 +60,11 @@ const EvidenceRequestUploadForm = ({ step, erId, path }: EvidenceReqUploadFormPr
 						kind='tertiary'
 						size='md'
 						onClick={() => setCloseUploadInfo(old => ({ ...old, saveUpload: true }))}
+						disabled={closeUploadInfo.isLoading || !closeUploadInfo.isDirty}
 					>
-						{t('save-upload')}
+						{closeUploadInfo.isLoading
+							? `${t('modals:uploading')}...`
+							: t('evidenceRequest:save-upload')}
 					</Button>
 					<Button
 						kind='primary'
@@ -65,11 +72,11 @@ const EvidenceRequestUploadForm = ({ step, erId, path }: EvidenceReqUploadFormPr
 						onClick={handleSubmit(handleCloseUpload)}
 						disabled={closeUploadInfo.saveUpload}
 					>
-						{t('close-upload')}
+						{t('evidenceRequest:close-upload')}
 					</Button>
 				</div>
 			</Form>
-			<ConfirmCloseStepUploadModal erId={erId} step={step} />
+			<ConfirmCloseStepUploadModal erId={erId} step={step} reset={reset} />
 		</div>
 	);
 };

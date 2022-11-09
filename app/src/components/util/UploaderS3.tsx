@@ -42,7 +42,7 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 	additionalInfo,
 	path
 }: CosmoFileUploaderProps<T, TName>) => {
-	const { mutate } = usePutASelectionOfFiles();
+	const { mutate, isLoading } = usePutASelectionOfFiles();
 	const [closeUploadInfo, setCloseUploadInfo] = useRecoilState(
 		evidenceRequestUploaderStore
 	);
@@ -53,6 +53,7 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 	}>({ isOpen: false, fileId: undefined });
 	const {
 		control,
+		reset,
 		formState: { isDirty }
 	} = useForm<UploaderS3Form>({
 		defaultValues: { files: [] }
@@ -73,7 +74,6 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 			setCloseUploadInfo(old => ({ ...old, saveUpload: false }));
 			return;
 		}
-
 		additionalInfo?.stepId &&
 			mutate(
 				{
@@ -87,6 +87,7 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 							...old,
 							saveUpload: !closeUploadInfo.saveUpload
 						}));
+						reset({ files: [] });
 					},
 					onError: () => {
 						setCloseUploadInfo(old => ({
@@ -103,12 +104,22 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 		files,
 		mutate,
 		path,
-		setCloseUploadInfo
+		setCloseUploadInfo,
+		reset
 	]);
 
 	useEffect(() => {
 		handleSaveFile();
 	}, [handleSaveFile, closeUploadInfo.saveUpload]);
+
+	useEffect(
+		() =>
+			setCloseUploadInfo(old => ({
+				...old,
+				isLoading
+			})),
+		[isLoading, setCloseUploadInfo]
+	);
 
 	useEffect(() => {
 		setCloseUploadInfo(old => ({
