@@ -221,12 +221,40 @@ const AuthenticatedRoutes = () => {
 								/>
 							</Route>
 							<Route path='started-evidence-request'>
-								<Route index element={<StartedEvidenceRequestDashboard />} />
-								<Route path=':requestId' element={<StartedEvidenceRequest />} />
+								<Route
+									index
+									element={
+										<ProtectRoute canNavigate={canCreateRequest}>
+											<StartedEvidenceRequestDashboard />
+										</ProtectRoute>
+									}
+								/>
+								<Route
+									path=':requestId'
+									element={
+										<ProtectRoute canNavigate={canCreateRequest}>
+											<StartedEvidenceRequest />
+										</ProtectRoute>
+									}
+								/>
 							</Route>
 							<Route path='evidence-request-action'>
-								<Route index element={<ActionEvidenceRequestDashboard />} />
-								<Route path=':requestId' element={<ActionEvidenceRequest />} />
+								<Route
+									index
+									element={
+										<ProtectRoute canNavigate={canReview}>
+											<ActionEvidenceRequestDashboard />
+										</ProtectRoute>
+									}
+								/>
+								<Route
+									path=':requestId'
+									element={
+										<ProtectRoute canNavigate={canReview}>
+											<ActionEvidenceRequest />
+										</ProtectRoute>
+									}
+								/>
 							</Route>
 
 							<Route path='test' element={<Test />} />
