@@ -59,7 +59,8 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 		isOpen: boolean;
 		fileId: string | undefined;
 		stepId: string | undefined;
-	}>({ isOpen: false, fileId: undefined, stepId: undefined });
+		draftId: string | undefined;
+	}>({ isOpen: false, fileId: undefined, stepId: undefined, draftId: undefined });
 
 	const { mutate, isLoading, isError, error, isSuccess } = usePutASelectionOfFiles();
 	const {
@@ -237,7 +238,8 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 									setDeleteInfo({
 										isOpen: true,
 										fileId: file.id,
-										stepId: additionalInfo?.stepId
+										stepId: additionalInfo?.stepId,
+										draftId: additionalInfo?.draftId
 									});
 								}}
 							>
