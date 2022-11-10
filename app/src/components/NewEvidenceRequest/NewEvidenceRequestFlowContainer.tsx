@@ -2,28 +2,22 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import { Grid, ProgressStep, ProgressIndicator, Layer, Tile } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
-import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
+import evidenceRequestDraftStore from '@store/evidenceRequestDraft/evidenceRequestDraftStore';
 import { useResponsive } from 'ahooks';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useRecoilValue } from 'recoil';
 import AdditionalInfoContainer from './AdditionalInfoContainer';
 import ApplicationsSelectionContainer from './ApplicationsSelectionContainer';
 import AttachmentsContainer from './AttachmentsContainer';
 import RequestTextContainer from './RequestTextContainer';
 import UsersSelectionContainer from './UsersSelectionContainer';
 
-type NewEvidenceRequestFlowContainerProps = {
-	requestDraft: EvidenceRequestDraft;
-	setRequestDraft: Dispatch<SetStateAction<EvidenceRequestDraft>>;
-};
-
-const NewEvidenceRequestFlowContainer = ({
-	requestDraft,
-	setRequestDraft
-}: NewEvidenceRequestFlowContainerProps) => {
+const NewEvidenceRequestFlowContainer = () => {
 	const { t } = useTranslation(['evidenceRequest', 'modals']);
 	const { md } = useResponsive();
 	const [currentStep, setCurrentStep] = useState(0);
+	const requestDraft = useRecoilValue(evidenceRequestDraftStore);
 	const isRequestDraftCompleted =
 		!!requestDraft?.requests?.filter(req => req.selected).length &&
 		!!requestDraft.requests?.filter(req => req.selected).length &&
@@ -45,46 +39,16 @@ const NewEvidenceRequestFlowContainer = ({
 								.map(req => req.application) || []
 						}
 						setCurrentStep={setCurrentStep}
-						setRequestDraft={setRequestDraft}
-						requestDraft={requestDraft}
 					/>
 				);
 			case 2:
-				return (
-					<RequestTextContainer
-						setCurrentStep={setCurrentStep}
-						setRequestDraft={setRequestDraft}
-						requestDraft={requestDraft}
-					/>
-				);
+				return <RequestTextContainer setCurrentStep={setCurrentStep} />;
 			case 3:
-				return (
-					<AdditionalInfoContainer
-						setCurrentStep={setCurrentStep}
-						setRequestDraft={setRequestDraft}
-						requestDraft={requestDraft}
-					/>
-				);
+				return <AdditionalInfoContainer setCurrentStep={setCurrentStep} />;
 			case 4:
-				return (
-					<AttachmentsContainer
-						requestDraft={requestDraft}
-						setCurrentStep={setCurrentStep}
-					/>
-				); // TODO Fix when BE logic is ready
+				return <AttachmentsContainer setCurrentStep={setCurrentStep} />; // TODO Fix when BE logic is ready
 			default:
-				return (
-					<ApplicationsSelectionContainer
-						request={requestDraft}
-						setCurrentStep={setCurrentStep}
-						setRequestDraft={setRequestDraft}
-						apps={
-							requestDraft?.requests
-								?.sort((a, b) => Number(b.selected) - Number(a.selected))
-								.map(req => req.application) || []
-						}
-					/>
-				);
+				return <ApplicationsSelectionContainer setCurrentStep={setCurrentStep} />;
 		}
 	};
 

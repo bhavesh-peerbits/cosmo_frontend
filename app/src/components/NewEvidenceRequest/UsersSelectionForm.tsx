@@ -7,12 +7,13 @@ import SingleUserSelect from '@components/SingleUserSelect';
 import UserProfileImage from '@components/UserProfileImage';
 import ApplicationStepRequest from '@model/ApplicationStepRequest';
 import Association from '@model/Association';
-import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
 import EvidenceRequestStep from '@model/EvidenceRequestStep';
 import User from '@model/User';
+import evidenceRequestDraftStore from '@store/evidenceRequestDraft/evidenceRequestDraftStore';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useSetRecoilState } from 'recoil';
 
 interface UsersSelectionFormData {
 	focalPoint: User;
@@ -23,7 +24,6 @@ type UsersSelectionFormProps = {
 	step: EvidenceRequestStep;
 	appStepRequest: ApplicationStepRequest;
 	setIsCompleted: Dispatch<SetStateAction<{ [id: string]: boolean } | undefined>>;
-	setRequestDraft: Dispatch<SetStateAction<EvidenceRequestDraft>>;
 	associations?: Association[];
 };
 
@@ -31,10 +31,11 @@ const UsersSelectionForm = ({
 	step,
 	appStepRequest,
 	setIsCompleted,
-	setRequestDraft,
 	associations
 }: UsersSelectionFormProps) => {
 	const { t } = useTranslation('evidenceRequest');
+	const setRequestDraft = useSetRecoilState(evidenceRequestDraftStore);
+
 	const {
 		control,
 		getValues,

@@ -1,13 +1,14 @@
 import PageHeader from '@components/PageHeader';
 import { TrashCan, Send } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useEffect, useState } from 'react';
 import SendRequestModal from '@components/Modals/SendRequestModal';
 import DeleteRequestDraftModal from '@components/Modals/DeleteRequestDraftModal';
 import NewEvidenceRequestContent from '@components/NewEvidenceRequest/NewEvidenceRequestContent';
 import { useParams } from 'react-router-dom';
 import useGetDraftById from '@api/evidence-request/useGetDraftById';
-import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
+import { useRecoilState } from 'recoil';
+import evidenceRequestDraftStore from '@store/evidenceRequestDraft/evidenceRequestDraftStore';
 
 const NewEvidenceRequest = () => {
 	const { t } = useTranslation('evidenceRequest');
@@ -15,8 +16,11 @@ const NewEvidenceRequest = () => {
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 	const { requestId = '' } = useParams<'requestId'>();
 	const { data: request } = useGetDraftById(requestId);
-	const [requestDraft, setRequestDraft] = useState(request);
+	const [requestDraft, setRequestDraft] = useRecoilState(evidenceRequestDraftStore);
 
+	useEffect(() => {
+		request && setRequestDraft(request);
+	}, [request, setRequestDraft]);
 	const isRequestDraftCompleted =
 		!!requestDraft?.requests?.filter(req => req.selected).length &&
 		!!requestDraft.requests?.filter(req => req.selected).length &&
@@ -27,9 +31,10 @@ const NewEvidenceRequest = () => {
 			.every(step => !!step.approvers?.length || step.reviewer) &&
 		requestDraft.text !== null;
 
-	if (!requestDraft) {
+	if (!request || !requestDraft) {
 		return null;
 	}
+
 	return (
 		<PageHeader
 			pageTitle={request?.name || 'Nome'}
@@ -69,12 +74,7 @@ const NewEvidenceRequest = () => {
 						draftId={requestId}
 					/>
 				)}
-				<NewEvidenceRequestContent
-					requestDraft={requestDraft}
-					setRequestDraft={
-						setRequestDraft as Dispatch<SetStateAction<EvidenceRequestDraft>>
-					}
-				/>
+				<NewEvidenceRequestContent />
 			</>
 		</PageHeader>
 	);

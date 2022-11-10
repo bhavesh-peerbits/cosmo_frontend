@@ -2,11 +2,11 @@ import useGetUsersByRoles from '@api/user/useGetUsersByRoles';
 import { Button, Grid, Layer, TextArea } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import MultipleUserSelect from '@components/MultipleUserSelect';
-import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
 import User from '@model/User';
-import { Dispatch, SetStateAction } from 'react';
+import evidenceRequestDraftStore from '@store/evidenceRequestDraft/evidenceRequestDraftStore';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useRecoilState } from 'recoil';
 
 interface AdditionalInfoForm {
 	collaborators: User[];
@@ -16,15 +16,11 @@ interface AdditionalInfoForm {
 
 type AdditionalInfoContainerProps = {
 	setCurrentStep: (val: number) => void;
-	setRequestDraft: Dispatch<SetStateAction<EvidenceRequestDraft>>;
-	requestDraft: EvidenceRequestDraft;
 };
-const AdditionalInfoContainer = ({
-	setCurrentStep,
-	setRequestDraft,
-	requestDraft
-}: AdditionalInfoContainerProps) => {
+const AdditionalInfoContainer = ({ setCurrentStep }: AdditionalInfoContainerProps) => {
 	const { t } = useTranslation(['evidenceRequest', 'modals']);
+	const [requestDraft, setRequestDraft] = useRecoilState(evidenceRequestDraftStore);
+
 	const {
 		control,
 		register,

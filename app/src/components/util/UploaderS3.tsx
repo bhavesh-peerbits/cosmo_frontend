@@ -16,9 +16,11 @@ import {
 	useForm
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { Download } from '@carbon/react/icons';
 import usePutASelectionOfFilesOnDraft from '@api/uploaders3/usePutASelectionOfFileOnDraft';
+import evidenceRequestDraftStore from '@store/evidenceRequestDraft/evidenceRequestDraftStore';
+import useSaveDraft from '@api/evidence-request/useSaveDraft';
 
 type CosmoFileUploaderProps<
 	T extends FieldValues,
@@ -50,6 +52,9 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 	const [closeUploadInfo, setCloseUploadInfo] = useRecoilState(
 		evidenceRequestUploaderStore
 	);
+	const requestDraft = useRecoilValue(evidenceRequestDraftStore);
+	const { mutate: mutateSaveDraft } = useSaveDraft();
+
 	const { t } = useTranslation('uploaderS3');
 	const [deleteInfo, setDeleteInfo] = useState<{
 		isOpen: boolean;
@@ -75,7 +80,8 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 			onSuccess: () => {
 				setCloseUploadInfo(old => ({
 					...old,
-					saveUpload: !closeUploadInfo.saveUpload
+					saveUpload: !closeUploadInfo.saveUpload,
+					uploadSuccess: true
 				}));
 				reset({ files: [] });
 			},
@@ -115,18 +121,52 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 					fileLinkDtoList: files.map(file => fromFiletoFileLink(file, path)),
 					files
 				},
-				mutateOptions
+				{
+					onSuccess: data => {
+						setCloseUploadInfo(old => ({
+							...old,
+							saveUpload: !closeUploadInfo.saveUpload,
+							uploadSuccess: true
+						}));
+						mutateSaveDraft(
+							{
+								...requestDraft,
+								fileLinks: requestDraft.fileLinks
+									? [...requestDraft.fileLinks, ...data]
+									: data
+							},
+							{
+								onSuccess: () => {
+									setCloseUploadInfo(old => ({ ...old, uploadSuccess: false }));
+									// navigate('/new-evidence-request');
+								}
+							}
+						);
+
+						reset({ files: [] });
+					},
+					onError: () => {
+						setCloseUploadInfo(old => ({
+							...old,
+							saveUpload: !closeUploadInfo.saveUpload,
+							uploadSuccess: false
+						}));
+					}
+				}
 			);
 	}, [
-		additionalInfo?.draftId,
-		additionalInfo?.stepId,
-		closeUploadInfo.saveUpload,
 		files,
+		closeUploadInfo.saveUpload,
+		additionalInfo?.stepId,
+		additionalInfo?.draftId,
 		mutate,
-		mutateDraft,
 		mutateOptions,
+		mutateDraft,
+		setCloseUploadInfo,
 		path,
-		setCloseUploadInfo
+		mutateSaveDraft,
+		requestDraft,
+		reset
 	]);
 
 	const DownloadFile = (fileLink: FileLink) => {
