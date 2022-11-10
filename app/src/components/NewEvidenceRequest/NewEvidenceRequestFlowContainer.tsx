@@ -140,8 +140,9 @@ const NewEvidenceRequestFlowContainer = () => {
 						}
 					/>
 					<ProgressStep
-						className=' truncate'
+						className='truncate'
 						title={t('evidenceRequest:attachments')}
+						complete={!!requestDraft.fileLinks?.length}
 						label={
 							isRequestDraftCompleted ? (
 								<span className='cursor-pointer' onClick={() => setCurrentStep(4)}>

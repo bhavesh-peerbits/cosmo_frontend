@@ -224,55 +224,59 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 
 	return (
 		<>
-			<div className='mt-5 space-y-5' id={`uploader__file__${label}`}>
+			<div className='space-y-5' id={`uploader__file__${label}`}>
 				{alreadyUploaded && alreadyUploaded?.length > 0 ? (
-					<div>
-						<div>{t('already-uploaded')}</div>
-						{alreadyUploaded.map(file => (
-							<Tag
-								filter
-								size='md'
-								type='outline'
-								className='bg-layer-2'
-								onClose={() => {
-									setDeleteInfo({
-										isOpen: true,
-										fileId: file.id,
-										stepId: additionalInfo?.stepId,
-										draftId: additionalInfo?.draftId
-									});
-								}}
-							>
-								<div className=''>
-									<button
-										type='button'
-										className='flex space-x-2'
-										onClick={() => DownloadFile(file)}
-									>
-										<Download />
-										<span className='text-link-primary hover:text-link-primary-hover hover:underline'>
-											{file.name}
-										</span>
-									</button>
-								</div>
-							</Tag>
-						))}
+					<div className='space-y-3'>
+						<div className='text-body-compact-1'>{t('already-uploaded')}:</div>
+						<div className='space-x-3'>
+							{alreadyUploaded.map(file => (
+								<Tag
+									filter
+									size='md'
+									type='outline'
+									className='bg-layer-2'
+									onClose={() => {
+										setDeleteInfo({
+											isOpen: true,
+											fileId: file.id,
+											stepId: additionalInfo?.stepId,
+											draftId: additionalInfo?.draftId
+										});
+									}}
+								>
+									<div className=''>
+										<button
+											type='button'
+											className='flex space-x-2'
+											onClick={() => DownloadFile(file)}
+										>
+											<Download />
+											<span className='text-link-primary hover:text-link-primary-hover hover:underline'>
+												{file.name}
+											</span>
+										</button>
+									</div>
+								</Tag>
+							))}
+						</div>
 					</div>
 				) : null}
 				<Form>
-					<div className=' space-y-5'>
-						<div>{t('upload-file')}</div>
-						<FileUploaderDropContainer
-							labelText={label}
-							className='w-full'
-							onAddFiles={(e, { addedFiles }) => {
-								files.push(addedFiles[0]);
-								onChange(files);
-							}}
-						/>
-						<div className='mt-2 max-h-[160px] max-w-[20rem] overflow-y-auto'>
+					<div className='space-y-5'>
+						<div className='space-y-3'>
+							<div className='text-heading-compact-1'>{t('upload-file')}</div>
+							<FileUploaderDropContainer
+								labelText={label}
+								className='w-full'
+								onAddFiles={(e, { addedFiles }) => {
+									files.push(addedFiles[0]);
+									onChange(files);
+								}}
+							/>
+						</div>
+						<div className='max-h-[160px] max-w-[20rem] space-y-3 overflow-y-auto'>
 							{files?.map((file, index) => (
-								<div className='mt-2' key={`${file.name}`}>
+								<div className='' key={`${file.name}`}>
 									<FileUploaderItem
 										name={file.name}
 										onDelete={() => {

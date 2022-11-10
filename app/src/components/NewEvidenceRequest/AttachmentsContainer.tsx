@@ -15,7 +15,7 @@ type AttachmentsContainerProps = {
 };
 const AttachmentsContainer = ({ setCurrentStep }: AttachmentsContainerProps) => {
 	const navigate = useNavigate();
-	const { t } = useTranslation(['evidenceRequest', 'modals']);
+	const { t } = useTranslation(['evidenceRequest', 'modals', 'userRevalidation']);
 	const requestDraft = useRecoilValue(evidenceRequestDraftStore);
 
 	const path = `${new Date().getFullYear()}/${requestDraft.workflow.name}/${
@@ -59,7 +59,7 @@ const AttachmentsContainer = ({ setCurrentStep }: AttachmentsContainerProps) => 
 				</FullWidthColumn>
 				<FullWidthColumn>
 					<UploaderS3
-						label='Drop'
+						label={t('userRevalidation:upload-instructions')}
 						parentFormDirty={false}
 						path={path}
 						additionalInfo={{ draftId: `${requestDraft.id}` }}
