@@ -65,7 +65,7 @@
 	"action": "Action",
 	"save-upload": "Save upload",
 	"close-upload": "Close upload",
-	"response": "Response",
+	"select-response": "Select a response",
 	"applications-selection-description": "Select one or more applications to associate with the evidence request",
 	"users-selection-description": "Select, for all the steps of each application, the focal points (with any delegates) or approvers",
 	"request-text-description": "Enter a description of this new request to provide more information to users who have access to the request",

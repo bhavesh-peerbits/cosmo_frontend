@@ -65,7 +65,7 @@
 	"action": "Azione",
 	"save-upload": "Salva caricamento",
 	"close-upload": "Chiudi caricamento",
-	"response": "Risposta",
+	"select-response": "Seleziona una risposta",
 	"applications-selection-description": "Selezionare una o più applicazioni da associare alla richiesta evidenze",
 	"users-selection-description": "Indicare, per tutti gli step di ogni applicazione, i focal point (con eventuali delegati) o gli approvatori",
 	"request-text-description": "Inserire una descrizione della richiesta per fornire maggiori informazioni agli utenti che hanno accesso alla richiesta",

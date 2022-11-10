@@ -65,7 +65,7 @@
 	"action": "",
 	"save-upload": "",
 	"close-upload": "",
-	"response": "",
+	"select-response": "Sélectionner une réponse",
 	"applications-selection-description": "Sélectionnez une ou plusieurs applications à associer à la demande de preuve",
 	"users-selection-description": "Sélectionner, pour toutes les étapes de chaque candidature, les focal points (avec d'éventuels délégués) ou approbateurs",
 	"request-text-description": "Entrez une description de cette nouvelle demande pour fournir plus d'informations aux utilisateurs qui ont accès à la demande",
