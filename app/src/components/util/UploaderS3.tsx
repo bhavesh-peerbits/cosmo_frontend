@@ -21,6 +21,9 @@ import { Download } from '@carbon/react/icons';
 import usePutASelectionOfFilesOnDraft from '@api/uploaders3/usePutASelectionOfFileOnDraft';
 import evidenceRequestDraftStore from '@store/evidenceRequestDraft/evidenceRequestDraftStore';
 import useSaveDraft from '@api/evidence-request/useSaveDraft';
+import InlineLoadingStatus from '@components/InlineLoadingStatus';
+import ApiError from '@api/ApiError';
+import { useNavigate } from 'react-router-dom';
 
 type CosmoFileUploaderProps<
 	T extends FieldValues,
@@ -46,21 +49,34 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 	additionalInfo,
 	path
 }: CosmoFileUploaderProps<T, TName>) => {
-	const { mutate, isLoading } = usePutASelectionOfFiles();
-	const { mutate: mutateDraft, isLoading: isLoadingDraft } =
-		usePutASelectionOfFilesOnDraft();
+	const { t } = useTranslation('uploaderS3');
+	const navigate = useNavigate();
 	const [closeUploadInfo, setCloseUploadInfo] = useRecoilState(
 		evidenceRequestUploaderStore
 	);
 	const requestDraft = useRecoilValue(evidenceRequestDraftStore);
-	const { mutate: mutateSaveDraft } = useSaveDraft();
-
-	const { t } = useTranslation('uploaderS3');
 	const [deleteInfo, setDeleteInfo] = useState<{
 		isOpen: boolean;
 		fileId: string | undefined;
 		stepId: string | undefined;
 	}>({ isOpen: false, fileId: undefined, stepId: undefined });
+
+	const { mutate, isLoading, isError, error, isSuccess } = usePutASelectionOfFiles();
+	const {
+		mutate: mutateDraft,
+		isLoading: isLoadingDraft,
+		isError: isErrorDraft,
+		error: errorDraft,
+		isSuccess: isSuccessDraft
+	} = usePutASelectionOfFilesOnDraft();
+	const {
+		mutate: mutateSaveDraft,
+		isError: isErrorSaveDraft,
+		error: errorSaveDraft,
+		isLoading: isLoadingSaveDraft,
+		isSuccess: isSuccessSaveDraft
+	} = useSaveDraft();
+
 	const {
 		control,
 		reset,
@@ -138,7 +154,7 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 							{
 								onSuccess: () => {
 									setCloseUploadInfo(old => ({ ...old, uploadSuccess: false }));
-									// navigate('/new-evidence-request');
+									navigate('/new-evidence-request');
 								}
 							}
 						);
@@ -166,7 +182,8 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 		path,
 		mutateSaveDraft,
 		requestDraft,
-		reset
+		reset,
+		navigate
 	]);
 
 	const DownloadFile = (fileLink: FileLink) => {
@@ -267,6 +284,14 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 								</div>
 							))}
 						</div>
+						<InlineLoadingStatus
+							{...{
+								isLoading: isLoading || isLoadingDraft || isLoadingSaveDraft,
+								isSuccess: isSuccess || isSuccessDraft || isSuccessSaveDraft,
+								isError: isError || isErrorDraft || isErrorSaveDraft,
+								error: (error || errorDraft || errorSaveDraft) as ApiError
+							}}
+						/>
 					</div>
 				</Form>
 			</div>
