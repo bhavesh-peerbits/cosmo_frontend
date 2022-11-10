@@ -1,26 +1,22 @@
 import { Button, Grid, Form } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import TiptapEditor from '@components/tiptap/TiptapEditor';
-import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
-import { Dispatch, SetStateAction, useState } from 'react';
+import evidenceRequestDraftStore from '@store/evidenceRequestDraft/evidenceRequestDraftStore';
+import { useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useRecoilState } from 'recoil';
 
 interface RequestTextForm {
 	requestText: string;
 }
 type RequestTextContainerProps = {
 	setCurrentStep: (val: number) => void;
-	setRequestDraft: Dispatch<SetStateAction<EvidenceRequestDraft>>;
-	requestDraft: EvidenceRequestDraft;
 };
-const RequestTextContainer = ({
-	setCurrentStep,
-	setRequestDraft,
-	requestDraft
-}: RequestTextContainerProps) => {
+const RequestTextContainer = ({ setCurrentStep }: RequestTextContainerProps) => {
 	const { t } = useTranslation(['evidenceRequest', 'modals']);
 	const [resetTip, setResetTip] = useState(false);
+	const [requestDraft, setRequestDraft] = useRecoilState(evidenceRequestDraftStore);
 
 	const { control, watch, reset } = useForm<RequestTextForm>({
 		mode: 'onChange',

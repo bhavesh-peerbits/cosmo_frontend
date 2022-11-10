@@ -16,9 +16,14 @@ import {
 	useForm
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { Download } from '@carbon/react/icons';
 import usePutASelectionOfFilesOnDraft from '@api/uploaders3/usePutASelectionOfFileOnDraft';
+import evidenceRequestDraftStore from '@store/evidenceRequestDraft/evidenceRequestDraftStore';
+import useSaveDraft from '@api/evidence-request/useSaveDraft';
+import InlineLoadingStatus from '@components/InlineLoadingStatus';
+import ApiError from '@api/ApiError';
+import { useNavigate } from 'react-router-dom';
 
 type CosmoFileUploaderProps<
 	T extends FieldValues,
@@ -44,18 +49,42 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 	additionalInfo,
 	path
 }: CosmoFileUploaderProps<T, TName>) => {
-	const { mutate, isLoading } = usePutASelectionOfFiles();
-	const { mutate: mutateDraft, isLoading: isLoadingDraft } =
-		usePutASelectionOfFilesOnDraft();
+	const { t } = useTranslation('uploaderS3');
+	const navigate = useNavigate();
 	const [closeUploadInfo, setCloseUploadInfo] = useRecoilState(
 		evidenceRequestUploaderStore
 	);
-	const { t } = useTranslation('uploaderS3');
+	const requestDraft = useRecoilValue(evidenceRequestDraftStore);
 	const [deleteInfo, setDeleteInfo] = useState<{
 		isOpen: boolean;
 		fileId: string | undefined;
 		stepId: string | undefined;
-	}>({ isOpen: false, fileId: undefined, stepId: undefined });
+		draftId: string | undefined;
+		files: FileLink[] | undefined;
+	}>({
+		isOpen: false,
+		fileId: undefined,
+		stepId: undefined,
+		draftId: undefined,
+		files: alreadyUploaded
+	});
+
+	const { mutate, isLoading, isError, error, isSuccess } = usePutASelectionOfFiles();
+	const {
+		mutate: mutateDraft,
+		isLoading: isLoadingDraft,
+		isError: isErrorDraft,
+		error: errorDraft,
+		isSuccess: isSuccessDraft
+	} = usePutASelectionOfFilesOnDraft();
+	const {
+		mutate: mutateSaveDraft,
+		isError: isErrorSaveDraft,
+		error: errorSaveDraft,
+		isLoading: isLoadingSaveDraft,
+		isSuccess: isSuccessSaveDraft
+	} = useSaveDraft();
+
 	const {
 		control,
 		reset,
@@ -115,18 +144,55 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 					fileLinkDtoList: files.map(file => fromFiletoFileLink(file, path)),
 					files
 				},
-				mutateOptions
+				{
+					onSuccess: data => {
+						setCloseUploadInfo(old => ({
+							...old,
+							saveUpload: !closeUploadInfo.saveUpload,
+							uploadSuccess: true
+						}));
+						mutateSaveDraft(
+							{
+								...requestDraft,
+								fileLinks:
+									requestDraft.fileLinks && deleteInfo.files
+										? [...requestDraft.fileLinks, ...data]
+										: data
+							},
+							{
+								onSuccess: () => {
+									setCloseUploadInfo(old => ({ ...old, uploadSuccess: false }));
+									navigate('/new-evidence-request');
+								}
+							}
+						);
+
+						reset({ files: [] });
+					},
+					onError: () => {
+						setCloseUploadInfo(old => ({
+							...old,
+							saveUpload: !closeUploadInfo.saveUpload,
+							uploadSuccess: false
+						}));
+					}
+				}
 			);
 	}, [
-		additionalInfo?.draftId,
-		additionalInfo?.stepId,
-		closeUploadInfo.saveUpload,
 		files,
+		closeUploadInfo.saveUpload,
+		additionalInfo?.stepId,
+		additionalInfo?.draftId,
 		mutate,
-		mutateDraft,
 		mutateOptions,
+		mutateDraft,
+		setCloseUploadInfo,
 		path,
-		setCloseUploadInfo
+		mutateSaveDraft,
+		requestDraft,
+		deleteInfo.files,
+		reset,
+		navigate
 	]);
 
 	const DownloadFile = (fileLink: FileLink) => {
@@ -167,53 +233,60 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 
 	return (
 		<>
-			<div className='mt-5 space-y-5' id={`uploader__file__${label}`}>
-				{alreadyUploaded ? (
-					<div>
-						<div>{t('already-uploaded')}</div>
-						{alreadyUploaded.map(file => (
-							<Tag
-								filter
-								size='md'
-								type='outline'
-								onClose={() => {
-									setDeleteInfo({
-										isOpen: true,
-										fileId: file.id,
-										stepId: additionalInfo?.stepId
-									});
-								}}
-							>
-								<div className=''>
-									<button
-										type='button'
-										className='flex space-x-2'
-										onClick={() => DownloadFile(file)}
-									>
-										<Download />
-										<span className='text-link-primary hover:text-link-primary-hover hover:underline'>
-											{file.name}
-										</span>
-									</button>
-								</div>
-							</Tag>
-						))}
+			<div className='space-y-5' id={`uploader__file__${label}`}>
+				{deleteInfo.files && deleteInfo.files?.length > 0 ? (
+					<div className='space-y-3'>
+						<div className='text-body-compact-1'>{t('already-uploaded')}:</div>
+						<div className='space-x-3'>
+							{deleteInfo.files.map(file => (
+								<Tag
+									filter
+									size='md'
+									type='outline'
+									className='bg-layer-2'
+									onClose={() => {
+										setDeleteInfo(old => ({
+											...old,
+											isOpen: true,
+											fileId: file.id,
+											stepId: additionalInfo?.stepId,
+											draftId: additionalInfo?.draftId
+										}));
+									}}
+								>
+									<div className=''>
+										<button
+											type='button'
+											className='flex space-x-2'
+											onClick={() => DownloadFile(file)}
+										>
+											<Download />
+											<span className='text-link-primary hover:text-link-primary-hover hover:underline'>
+												{file.name}
+											</span>
+										</button>
+									</div>
+								</Tag>
+							))}
+						</div>
 					</div>
 				) : null}
 				<Form>
-					<div className=' space-y-5'>
-						<div>{t('upload-file')}</div>
-						<FileUploaderDropContainer
-							labelText={label}
-							className='w-full'
-							onAddFiles={(e, { addedFiles }) => {
-								files.push(addedFiles[0]);
-								onChange(files);
-							}}
-						/>
-						<div className='mt-2 max-h-[160px] max-w-[20rem] overflow-y-auto'>
+					<div className='space-y-5'>
+						<div className='space-y-3'>
+							<div className='text-heading-compact-1'>{t('upload-file')}</div>
+							<FileUploaderDropContainer
+								labelText={label}
+								className='w-full'
+								onAddFiles={(e, { addedFiles }) => {
+									files.push(addedFiles[0]);
+									onChange(files);
+								}}
+							/>
+						</div>
+						<div className='max-h-[160px] max-w-[20rem] space-y-3 overflow-y-auto'>
 							{files?.map((file, index) => (
-								<div className='mt-2' key={`${file.name}`}>
+								<div className='' key={`${file.name}`}>
 									<FileUploaderItem
 										name={file.name}
 										onDelete={() => {
@@ -227,6 +300,14 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 								</div>
 							))}
 						</div>
+						<InlineLoadingStatus
+							{...{
+								isLoading: isLoading || isLoadingDraft || isLoadingSaveDraft,
+								isSuccess: isSuccess || isSuccessDraft || isSuccessSaveDraft,
+								isError: isError || isErrorDraft || isErrorSaveDraft,
+								error: (error || errorDraft || errorSaveDraft) as ApiError
+							}}
+						/>
 					</div>
 				</Form>
 			</div>

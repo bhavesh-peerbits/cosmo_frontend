@@ -3,7 +3,7 @@ import { atom } from 'recoil';
 
 const evidenceRequestActionModal = atom<EnumActionEvidenceRequestApprove>({
 	key: 'evidenceRequestActionModal',
-	default: undefined
+	default: 'approve'
 });
 
 export default evidenceRequestActionModal;

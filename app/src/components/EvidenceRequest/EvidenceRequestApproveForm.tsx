@@ -14,9 +14,10 @@ const EvidenceRequestApproveForm = ({ setIsOpen }: EvidenceRequestApproveFormPro
 	return (
 		<Form className='col-span-4'>
 			<div className='mt-5 space-y-5'>
-				<div className=''>{t('response')}</div>
+				<div className=''>{t('select-response')}</div>
 				<RadioButtonGroup
 					name='action'
+					defaultSelected='approve'
 					onChange={value => setAction(value as EnumActionEvidenceRequestApprove)}
 				>
 					<RadioButton value='approve' labelText={t('approve')} />

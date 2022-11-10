@@ -1,4 +1,4 @@
-import { Form, Button, TextArea } from '@carbon/react';
+import { Form, Button, TextArea, Layer } from '@carbon/react';
 import ConfirmCloseStepUploadModal from '@components/Modals/ConfirmCloseStepUploadModal';
 import UploaderS3 from '@components/util/UploaderS3';
 import EvidenceRequestStep from '@model/EvidenceRequestStep';
@@ -18,7 +18,7 @@ interface EvidenceReqUploadFormProps {
 }
 
 const EvidenceRequestUploadForm = ({ step, erId, path }: EvidenceReqUploadFormProps) => {
-	const { t } = useTranslation(['evidenceRequest', 'modals']);
+	const { t } = useTranslation(['evidenceRequest', 'modals', 'userRevalidation']);
 	const [closeUploadInfo, setCloseUploadInfo] = useRecoilState(
 		evidenceRequestUploaderStore
 	);
@@ -44,17 +44,21 @@ const EvidenceRequestUploadForm = ({ step, erId, path }: EvidenceReqUploadFormPr
 	return (
 		<div className='col-span-4'>
 			<Form className=' space-y-5'>
-				<TextArea
-					labelText={t('evidenceRequest:public-comment')}
-					{...register('publicComment')}
-				/>
-				<UploaderS3
-					label='Drop'
-					parentFormDirty={isDirty}
-					path={path}
-					additionalInfo={{ stepId: `${step.id}` }}
-					alreadyUploaded={step.fileLinks}
-				/>
+				<Layer className='space-y-5'>
+					<TextArea
+						labelText={t('evidenceRequest:public-comment')}
+						className='mt-5'
+						{...register('publicComment')}
+					/>
+
+					<UploaderS3
+						label={t('userRevalidation:upload-instructions')}
+						parentFormDirty={isDirty}
+						path={path}
+						additionalInfo={{ stepId: `${step.id}` }}
+						alreadyUploaded={step.fileLinks}
+					/>
+				</Layer>
 				<div className='space-x-5 text-right'>
 					<Button
 						kind='tertiary'
@@ -62,9 +66,7 @@ const EvidenceRequestUploadForm = ({ step, erId, path }: EvidenceReqUploadFormPr
 						onClick={() => setCloseUploadInfo(old => ({ ...old, saveUpload: true }))}
 						disabled={closeUploadInfo.isLoading || !closeUploadInfo.isDirty}
 					>
-						{closeUploadInfo.isLoading
-							? `${t('modals:uploading')}...`
-							: t('evidenceRequest:save-upload')}
+						{t('evidenceRequest:save-upload')}
 					</Button>
 					<Button
 						kind='primary'

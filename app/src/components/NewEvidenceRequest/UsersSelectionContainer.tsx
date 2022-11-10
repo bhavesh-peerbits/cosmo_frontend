@@ -2,26 +2,24 @@ import { Accordion, AccordionItem, Button, Grid, Layer } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import Application from '@model/Application';
 import ApplicationStepRequest from '@model/ApplicationStepRequest';
-import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
+import evidenceRequestDraftStore from '@store/evidenceRequestDraft/evidenceRequestDraftStore';
 import { StepDtoTypeEnum } from 'cosmo-api/src/v1';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useRecoilValue } from 'recoil';
 import UsersSelectionForm from './UsersSelectionForm';
 
 type UsersSelectionContainerProps = {
 	appsSelected: Application[];
 	setCurrentStep: (val: number) => void;
-	setRequestDraft: Dispatch<SetStateAction<EvidenceRequestDraft>>;
-	requestDraft: EvidenceRequestDraft;
 };
 const UsersSelectionContainer = ({
 	appsSelected,
-	setCurrentStep,
-	setRequestDraft,
-	requestDraft
+	setCurrentStep
 }: UsersSelectionContainerProps) => {
 	const { t } = useTranslation(['evidenceRequest', 'modals']);
 	const [isCompleted, setIsCompleted] = useState<{ [id: string]: boolean }>();
+	const requestDraft = useRecoilValue(evidenceRequestDraftStore);
 
 	const translateStepType = (stepType: StepDtoTypeEnum) => {
 		switch (stepType) {
@@ -78,7 +76,6 @@ const UsersSelectionContainer = ({
 												) as ApplicationStepRequest
 											}
 											setIsCompleted={setIsCompleted}
-											setRequestDraft={setRequestDraft}
 										/>
 									</AccordionItem>
 								))}

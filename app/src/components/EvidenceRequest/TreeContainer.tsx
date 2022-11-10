@@ -11,6 +11,7 @@ const TreeContainer = React.memo(
 		const recursiveMap = (tree: Framework) => {
 			return tree.children?.map(children => (
 				<TreeNode
+					key={children.code}
 					className={
 						framework?.leafs?.includes(children.code) ? 'cursor-pointer' : 'cursor-auto'
 					}
