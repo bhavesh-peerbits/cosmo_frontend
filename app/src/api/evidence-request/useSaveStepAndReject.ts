@@ -19,6 +19,7 @@ const useSaveStepAndReject = () => {
 	const queryClient = useQueryClient();
 	return useMutation(saveStepAndReject, {
 		onSuccess: () => {
+			queryClient.invalidateQueries(['evidence-of-user']);
 			queryClient.invalidateQueries(['evidence-request']);
 		}
 	});

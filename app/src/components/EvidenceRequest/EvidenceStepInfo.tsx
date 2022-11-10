@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import TableOfContents from '@components/TableOfContents';
 import EvidenceRequestStep from '@model/EvidenceRequestStep';
-import { Grid, Tile, Button } from '@carbon/react';
+import { Grid, Tile, Button, Layer } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
@@ -24,6 +24,10 @@ const EvidenceStepInfo = ({
 		defaultShowMore = { ...defaultShowMore, [i]: false };
 	});
 	const [showMore, setShowMore] = useState(defaultShowMore);
+	const thereIsContent = (index: number, cStep: number, step: EvidenceRequestStep) => {
+		return index + 1 !== cStep && (step.stepInfo?.publicComment || step.fileLinks.length);
+	};
+
 	return (
 		<TableOfContents stickyOffset={100} tocStickyOffset={146}>
 			<Grid fullWidth className='h-full'>
@@ -32,88 +36,87 @@ const EvidenceStepInfo = ({
 						.sort((a, b) => +a.id - +b.id)
 						.map((step, index) => {
 							return (
-								<Tile className='w-full bg-background' key={step.id}>
-									<Grid>
-										<FullWidthColumn className='flex justify-between space-x-1 space-y-4'>
-											<div className='grid w-full grid-cols-4'>
-												<p
-													data-toc-id={`step-${step.id}`}
-													className='col-span-2 inline flex-1 text-productive-heading-1'
-												>
-													{step.type}
-												</p>
-												{step.completionDate ? (
-													<span className='col-span-2 justify-self-end'>{`${t(
-														'completion-date'
-													)}: ${step.completionDate.toLocaleDateString()}`}</span>
-												) : index + 1 === currentStep ? (
-													<span className='col-span-2 justify-self-end'>
-														{t('current-step')}
-													</span>
-												) : (
-													<span className='col-span-2 justify-self-end'>
-														{t('not-completed')}
-													</span>
-												)}
-												{step.approvers?.length ? (
-													<p className='col-span-3 mt-5'>
-														{`${t('approvers')} : ${step.approvers
-															.map(app => app.displayName)
-															.join(', ')}`}
+								<Layer>
+									<Tile className='w-full' key={step.id}>
+										<Grid>
+											<FullWidthColumn className='flex justify-between space-x-1 space-y-4'>
+												<div className='grid w-full grid-cols-4'>
+													<p
+														data-toc-id={`step-${step.id}`}
+														className='col-span-2 inline flex-1 text-productive-heading-1'
+													>
+														{step.type}
 													</p>
-												) : step.reviewer ? (
-													<p className='col-span-3 mt-5'>{`${t('reviewer')} : ${
-														step.reviewer.displayName
-													}`}</p>
-												) : step.stepOrder === 1 && owner ? (
-													<p className='col-span-3 mt-5'>{`${t('owner')} : ${
-														owner.displayName
-													}`}</p>
-												) : (
-													<span className='col-span-3' />
-												)}
-												<div className='mt-3 justify-self-end'>
-													{!showMore[index] ? (
-														<Button
-															size='sm'
-															kind='ghost'
-															onClick={() => setShowMore({ ...showMore, [index]: true })}
-															hasIconOnly
-															renderIcon={ChevronDown}
-															iconDescription={t('additional-info')}
-														/>
+													{step.completionDate ? (
+														<span className='col-span-2 justify-self-end'>{`${t(
+															'completion-date'
+														)}: ${step.completionDate.toLocaleDateString()}`}</span>
+													) : index + 1 === currentStep ? (
+														<span className='col-span-2 justify-self-end'>
+															{t('current-step')}
+														</span>
 													) : (
-														<Button
-															size='sm'
-															kind='ghost'
-															onClick={() => setShowMore({ ...showMore, [index]: false })}
-															hasIconOnly
-															renderIcon={ChevronUp}
-															iconDescription={t('additional-info')}
-														/>
+														<span className='col-span-2 justify-self-end'>
+															{t('not-completed')}
+														</span>
 													)}
-												</div>
-												{showMore[index] ? (
-													step.stepInfo?.publicComment ? (
-														<p className='col-span-4 mt-5'>
-															{`${t('public-comment')} :`}
-															<br />
-															{`${step.stepInfo?.publicComment}`}
+													{step.approvers?.length ? (
+														<p className='col-span-3 mt-5'>
+															{`${t('approvers')} : ${step.approvers
+																.map(app => app.displayName)
+																.join(', ')}`}
 														</p>
-													) : null
-												) : null}
-												{showMore[index] ? (
-													step.fileLinks.length ? (
-														<div className='col-span-4 mt-5'>
-															<p>{t('attachments')} :</p>
-															<FileLinkTable files={step.fileLinks} />
+													) : step.reviewer ? (
+														<p className='col-span-3 mt-5'>{`${t('reviewer')} : ${
+															step.reviewer.displayName
+														}`}</p>
+													) : step.stepOrder === 1 && owner ? (
+														<p className='col-span-3 mt-5'>{`${t('owner')} : ${
+															owner.displayName
+														}`}</p>
+													) : (
+														<span className='col-span-3' />
+													)}
+													{thereIsContent(index, currentStep, step) ? (
+														<div className='mt-3 justify-self-end'>
+															<Button
+																size='sm'
+																kind='ghost'
+																onClick={() =>
+																	setShowMore({ ...showMore, [index]: !showMore[index] })
+																}
+																hasIconOnly
+																renderIcon={showMore[index] ? ChevronUp : ChevronDown}
+																iconDescription={t('additional-info')}
+															/>
 														</div>
-													) : null
-												) : null}
-											</div>
-										</FullWidthColumn>
-									</Grid>
-								</Tile>
+													) : null}
+													{showMore[index] ? (
+														index + 1 !== currentStep ? (
+															<>
+																{step.stepInfo?.publicComment ? (
+																	<p className='col-span-4 mt-5'>
+																		{`${t('public-comment')} :`}
+																		<br />
+																		{`${step.stepInfo?.publicComment}`}
+																	</p>
+																) : null}
+																{step.fileLinks.length ? (
+																	<div className='col-span-4 mt-5'>
+																		<p>{t('attachments')} :</p>
+																		<Layer>
+																			<FileLinkTable files={step.fileLinks} />
+																		</Layer>
+																	</div>
+																) : null}
+															</>
+														) : null
+													) : null}
+												</div>
+											</FullWidthColumn>
+										</Grid>
+									</Tile>
+								</Layer>
 							);
 						})}
 				</FullWidthColumn>

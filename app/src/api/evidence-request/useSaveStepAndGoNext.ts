@@ -20,6 +20,7 @@ const useSaveStepAndGoNext = () => {
 	return useMutation(saveStepAndGoNext, {
 		onSuccess: () => {
 			queryClient.invalidateQueries(['evidence-request']);
+			queryClient.invalidateQueries(['evidence-of-user']);
 		}
 	});
 };
