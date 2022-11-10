@@ -41,11 +41,11 @@ export interface FrameworkTreeDto {
 	 * @type {Array<FrameworkTreeDto>}
 	 * @memberof FrameworkTreeDto
 	 */
-	children?: Array<FrameworkTreeDto> | null;
+	children?: Array<FrameworkTreeDto>;
 	/**
 	 * List of the leafs of the entire FrameworkTree
 	 * @type {Array<string>}
 	 * @memberof FrameworkTreeDto
 	 */
-	leafs?: Array<string> | null;
+	leafs?: Array<string>;
 }
