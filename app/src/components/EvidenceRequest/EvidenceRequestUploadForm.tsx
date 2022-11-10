@@ -1,4 +1,4 @@
-import { Form, Button, TextArea } from '@carbon/react';
+import { Form, Button, TextArea, Layer } from '@carbon/react';
 import ConfirmCloseStepUploadModal from '@components/Modals/ConfirmCloseStepUploadModal';
 import UploaderS3 from '@components/util/UploaderS3';
 import EvidenceRequestStep from '@model/EvidenceRequestStep';
@@ -44,10 +44,12 @@ const EvidenceRequestUploadForm = ({ step, erId, path }: EvidenceReqUploadFormPr
 	return (
 		<div className='col-span-4'>
 			<Form className=' space-y-5'>
-				<TextArea
-					labelText={t('evidenceRequest:public-comment')}
-					{...register('publicComment')}
-				/>
+				<Layer>
+					<TextArea
+						labelText={t('evidenceRequest:public-comment')}
+						{...register('publicComment')}
+					/>
+				</Layer>
 				<UploaderS3
 					label='Drop'
 					parentFormDirty={isDirty}
