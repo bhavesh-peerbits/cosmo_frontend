@@ -223,7 +223,7 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 
 	return (
 		<>
-			<div className='mt-5 space-y-5' id={`uploader__file__${label}`}>
+			<div className='space-y-5' id={`uploader__file__${label}`}>
 				{alreadyUploaded && alreadyUploaded?.length > 0 ? (
 					<div className='space-y-3'>
 						<div className='text-body-compact-1'>{t('already-uploaded')}:</div>

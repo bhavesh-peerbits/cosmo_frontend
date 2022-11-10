@@ -44,9 +44,10 @@ const EvidenceRequestUploadForm = ({ step, erId, path }: EvidenceReqUploadFormPr
 	return (
 		<div className='col-span-4'>
 			<Form className=' space-y-5'>
-				<Layer>
+				<Layer className='space-y-5'>
 					<TextArea
 						labelText={t('evidenceRequest:public-comment')}
+						className='mt-5'
 						{...register('publicComment')}
 					/>
 
