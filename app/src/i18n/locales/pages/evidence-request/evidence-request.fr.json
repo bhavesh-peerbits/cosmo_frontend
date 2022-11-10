@@ -70,7 +70,7 @@
 	"users-selection-description": "Sélectionner, pour toutes les étapes de chaque candidature, les focal points (avec d'éventuels délégués) ou approbateurs",
 	"request-text-description": "Entrez une description de cette nouvelle demande pour fournir plus d'informations aux utilisateurs qui ont accès à la demande",
 	"additional-info-description": "Entrez un commentaire privé (visible uniquement par le créateur de la demande) et un commentaire public (visible par tous les utilisateurs ayant accès à la demande)",
-	"attachments-description": "Dans cette section, il est possible de télécharger des fichiers. Les fichiers téléchargés ne seront pas enregistrés en tant que brouillon, il est donc important de les télécharger immédiatement avant de soumettre votre demande",
+	"attachments-description": "Dans cette section, il est possible de télécharger des fichiers. Attention : il n'est pas possible de télécharger des fichiers avec le même nom",
 	"select-user-group": "Des conflits existent suite à la sélection de plusieurs contrôles. Sélectionnez un groupe prédéfini de points focaux et de délégués ou saisissez-les manuellement",
 	"other": "Autre",
 	"check-step": "voir étape {{stepNumber}} pour plus de détails"

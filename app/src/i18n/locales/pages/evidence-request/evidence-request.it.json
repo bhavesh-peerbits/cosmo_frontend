@@ -70,7 +70,7 @@
 	"users-selection-description": "Indicare, per tutti gli step di ogni applicazione, i focal point (con eventuali delegati) o gli approvatori",
 	"request-text-description": "Inserire una descrizione della richiesta per fornire maggiori informazioni agli utenti che hanno accesso alla richiesta",
 	"additional-info-description": "Inserire un commento privato (visibile solo al creatore della richiesta) e un commento pubblico (visibile a tutti gli utenti con accesso alla richiesta)",
-	"attachments-description": "In questa sezione è possibile effettuare l'upload di files. I files caricati non verranno salvati come bozza, quindi è importante caricarli esclusivamente in prossimità dell'invio della richiesta",
+	"attachments-description": "In questa sezione è possibile effettuare l'upload di allegati. Attenzione: non è possibile effettuare l'upload di file con lo stesso nome",
 	"select-user-group": "Sono presenti dei conflitti a seguito della selezione di diversi controlli. Selezionare un gruppo di focal point e delegati prestabilito oppure inserirli manualmente",
 	"other": "Altro",
 	"check-step": "vedi step {{stepNumber}} per maggiori dettagli"

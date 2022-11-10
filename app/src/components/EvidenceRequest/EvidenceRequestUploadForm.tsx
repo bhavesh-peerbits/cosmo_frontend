@@ -65,9 +65,7 @@ const EvidenceRequestUploadForm = ({ step, erId, path }: EvidenceReqUploadFormPr
 						onClick={() => setCloseUploadInfo(old => ({ ...old, saveUpload: true }))}
 						disabled={closeUploadInfo.isLoading || !closeUploadInfo.isDirty}
 					>
-						{closeUploadInfo.isLoading
-							? `${t('modals:uploading')}...`
-							: t('evidenceRequest:save-upload')}
+						{t('evidenceRequest:save-upload')}
 					</Button>
 					<Button
 						kind='primary'
