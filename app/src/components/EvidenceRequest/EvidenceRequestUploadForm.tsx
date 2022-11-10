@@ -49,14 +49,15 @@ const EvidenceRequestUploadForm = ({ step, erId, path }: EvidenceReqUploadFormPr
 						labelText={t('evidenceRequest:public-comment')}
 						{...register('publicComment')}
 					/>
+
+					<UploaderS3
+						label='Drop'
+						parentFormDirty={isDirty}
+						path={path}
+						additionalInfo={{ stepId: `${step.id}` }}
+						alreadyUploaded={step.fileLinks}
+					/>
 				</Layer>
-				<UploaderS3
-					label='Drop'
-					parentFormDirty={isDirty}
-					path={path}
-					additionalInfo={{ stepId: `${step.id}` }}
-					alreadyUploaded={step.fileLinks}
-				/>
 				<div className='space-x-5 text-right'>
 					<Button
 						kind='tertiary'
