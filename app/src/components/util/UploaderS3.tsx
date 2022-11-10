@@ -16,9 +16,14 @@ import {
 	useForm
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { Download } from '@carbon/react/icons';
 import usePutASelectionOfFilesOnDraft from '@api/uploaders3/usePutASelectionOfFileOnDraft';
+import evidenceRequestDraftStore from '@store/evidenceRequestDraft/evidenceRequestDraftStore';
+import useSaveDraft from '@api/evidence-request/useSaveDraft';
+import InlineLoadingStatus from '@components/InlineLoadingStatus';
+import ApiError from '@api/ApiError';
+import { useNavigate } from 'react-router-dom';
 
 type CosmoFileUploaderProps<
 	T extends FieldValues,
@@ -44,18 +49,34 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 	additionalInfo,
 	path
 }: CosmoFileUploaderProps<T, TName>) => {
-	const { mutate, isLoading } = usePutASelectionOfFiles();
-	const { mutate: mutateDraft, isLoading: isLoadingDraft } =
-		usePutASelectionOfFilesOnDraft();
+	const { t } = useTranslation('uploaderS3');
+	const navigate = useNavigate();
 	const [closeUploadInfo, setCloseUploadInfo] = useRecoilState(
 		evidenceRequestUploaderStore
 	);
-	const { t } = useTranslation('uploaderS3');
+	const requestDraft = useRecoilValue(evidenceRequestDraftStore);
 	const [deleteInfo, setDeleteInfo] = useState<{
 		isOpen: boolean;
 		fileId: string | undefined;
 		stepId: string | undefined;
 	}>({ isOpen: false, fileId: undefined, stepId: undefined });
+
+	const { mutate, isLoading, isError, error, isSuccess } = usePutASelectionOfFiles();
+	const {
+		mutate: mutateDraft,
+		isLoading: isLoadingDraft,
+		isError: isErrorDraft,
+		error: errorDraft,
+		isSuccess: isSuccessDraft
+	} = usePutASelectionOfFilesOnDraft();
+	const {
+		mutate: mutateSaveDraft,
+		isError: isErrorSaveDraft,
+		error: errorSaveDraft,
+		isLoading: isLoadingSaveDraft,
+		isSuccess: isSuccessSaveDraft
+	} = useSaveDraft();
+
 	const {
 		control,
 		reset,
@@ -115,18 +136,53 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 					fileLinkDtoList: files.map(file => fromFiletoFileLink(file, path)),
 					files
 				},
-				mutateOptions
+				{
+					onSuccess: data => {
+						setCloseUploadInfo(old => ({
+							...old,
+							saveUpload: !closeUploadInfo.saveUpload,
+							uploadSuccess: true
+						}));
+						mutateSaveDraft(
+							{
+								...requestDraft,
+								fileLinks: requestDraft.fileLinks
+									? [...requestDraft.fileLinks, ...data]
+									: data
+							},
+							{
+								onSuccess: () => {
+									setCloseUploadInfo(old => ({ ...old, uploadSuccess: false }));
+									navigate('/new-evidence-request');
+								}
+							}
+						);
+
+						reset({ files: [] });
+					},
+					onError: () => {
+						setCloseUploadInfo(old => ({
+							...old,
+							saveUpload: !closeUploadInfo.saveUpload,
+							uploadSuccess: false
+						}));
+					}
+				}
 			);
 	}, [
-		additionalInfo?.draftId,
-		additionalInfo?.stepId,
-		closeUploadInfo.saveUpload,
 		files,
+		closeUploadInfo.saveUpload,
+		additionalInfo?.stepId,
+		additionalInfo?.draftId,
 		mutate,
-		mutateDraft,
 		mutateOptions,
+		mutateDraft,
+		setCloseUploadInfo,
 		path,
-		setCloseUploadInfo
+		mutateSaveDraft,
+		requestDraft,
+		reset,
+		navigate
 	]);
 
 	const DownloadFile = (fileLink: FileLink) => {
@@ -168,7 +224,7 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 	return (
 		<>
 			<div className='mt-5 space-y-5' id={`uploader__file__${label}`}>
-				{alreadyUploaded ? (
+				{alreadyUploaded && alreadyUploaded?.length > 0 ? (
 					<div>
 						<div>{t('already-uploaded')}</div>
 						{alreadyUploaded.map(file => (
@@ -176,6 +232,7 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 								filter
 								size='md'
 								type='outline'
+								className='bg-layer-2'
 								onClose={() => {
 									setDeleteInfo({
 										isOpen: true,
@@ -227,6 +284,14 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 								</div>
 							))}
 						</div>
+						<InlineLoadingStatus
+							{...{
+								isLoading: isLoading || isLoadingDraft || isLoadingSaveDraft,
+								isSuccess: isSuccess || isSuccessDraft || isSuccessSaveDraft,
+								isError: isError || isErrorDraft || isErrorSaveDraft,
+								error: (error || errorDraft || errorSaveDraft) as ApiError
+							}}
+						/>
 					</div>
 				</Form>
 			</div>
