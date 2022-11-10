@@ -260,19 +260,21 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 					</div>
 				) : null}
 				<Form>
-					<div className=' space-y-5'>
-						<div>{t('upload-file')}</div>
-						<FileUploaderDropContainer
-							labelText={label}
-							className='w-full'
-							onAddFiles={(e, { addedFiles }) => {
-								files.push(addedFiles[0]);
-								onChange(files);
-							}}
-						/>
-						<div className='mt-2 max-h-[160px] max-w-[20rem] overflow-y-auto'>
+					<div className='space-y-5'>
+						<div className='space-y-3'>
+							<div className='text-heading-compact-1'>{t('upload-file')}</div>
+							<FileUploaderDropContainer
+								labelText={label}
+								className='w-full'
+								onAddFiles={(e, { addedFiles }) => {
+									files.push(addedFiles[0]);
+									onChange(files);
+								}}
+							/>
+						</div>
+						<div className='max-h-[160px] max-w-[20rem] space-y-3 overflow-y-auto'>
 							{files?.map((file, index) => (
-								<div className='mt-2' key={`${file.name}`}>
+								<div className='' key={`${file.name}`}>
 									<FileUploaderItem
 										name={file.name}
 										onDelete={() => {

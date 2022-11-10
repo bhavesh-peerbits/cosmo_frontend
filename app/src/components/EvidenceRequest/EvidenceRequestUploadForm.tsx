@@ -18,7 +18,7 @@ interface EvidenceReqUploadFormProps {
 }
 
 const EvidenceRequestUploadForm = ({ step, erId, path }: EvidenceReqUploadFormProps) => {
-	const { t } = useTranslation(['evidenceRequest', 'modals']);
+	const { t } = useTranslation(['evidenceRequest', 'modals', 'userRevalidation']);
 	const [closeUploadInfo, setCloseUploadInfo] = useRecoilState(
 		evidenceRequestUploaderStore
 	);
@@ -52,7 +52,7 @@ const EvidenceRequestUploadForm = ({ step, erId, path }: EvidenceReqUploadFormPr
 					/>
 
 					<UploaderS3
-						label='Drop'
+						label={t('userRevalidation:upload-instructions')}
 						parentFormDirty={isDirty}
 						path={path}
 						additionalInfo={{ stepId: `${step.id}` }}
