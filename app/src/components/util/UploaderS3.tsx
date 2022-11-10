@@ -96,8 +96,7 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 			onSuccess: () => {
 				setCloseUploadInfo(old => ({
 					...old,
-					saveUpload: !closeUploadInfo.saveUpload,
-					uploadSuccess: true
+					saveUpload: !closeUploadInfo.saveUpload
 				}));
 				reset({ files: [] });
 			},
@@ -225,7 +224,7 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 	return (
 		<>
 			<div className='mt-5 space-y-5' id={`uploader__file__${label}`}>
-				{alreadyUploaded ? (
+				{alreadyUploaded && alreadyUploaded?.length > 0 ? (
 					<div>
 						<div>{t('already-uploaded')}</div>
 						{alreadyUploaded.map(file => (
@@ -233,6 +232,7 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 								filter
 								size='md'
 								type='outline'
+								className='bg-layer-2'
 								onClose={() => {
 									setDeleteInfo({
 										isOpen: true,

@@ -18,7 +18,7 @@ const useSendRequest = () => {
 	return useMutation(sendRequest, {
 		onSuccess: data => {
 			queryClient.invalidateQueries(['all-request-draft']);
-			queryClient.invalidateQueries(['draft', data.id]);
+			queryClient.removeQueries(['draft', data.id]);
 			queryClient.invalidateQueries(['all-request']);
 		}
 	});
