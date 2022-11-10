@@ -60,7 +60,14 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 		fileId: string | undefined;
 		stepId: string | undefined;
 		draftId: string | undefined;
-	}>({ isOpen: false, fileId: undefined, stepId: undefined, draftId: undefined });
+		files: FileLink[] | undefined;
+	}>({
+		isOpen: false,
+		fileId: undefined,
+		stepId: undefined,
+		draftId: undefined,
+		files: alreadyUploaded
+	});
 
 	const { mutate, isLoading, isError, error, isSuccess } = usePutASelectionOfFiles();
 	const {
@@ -147,9 +154,10 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 						mutateSaveDraft(
 							{
 								...requestDraft,
-								fileLinks: requestDraft.fileLinks
-									? [...requestDraft.fileLinks, ...data]
-									: data
+								fileLinks:
+									requestDraft.fileLinks && deleteInfo.files
+										? [...requestDraft.fileLinks, ...data]
+										: data
 							},
 							{
 								onSuccess: () => {
@@ -182,6 +190,7 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 		path,
 		mutateSaveDraft,
 		requestDraft,
+		deleteInfo.files,
 		reset,
 		navigate
 	]);
@@ -225,23 +234,24 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 	return (
 		<>
 			<div className='space-y-5' id={`uploader__file__${label}`}>
-				{alreadyUploaded && alreadyUploaded?.length > 0 ? (
+				{deleteInfo.files && deleteInfo.files?.length > 0 ? (
 					<div className='space-y-3'>
 						<div className='text-body-compact-1'>{t('already-uploaded')}:</div>
 						<div className='space-x-3'>
-							{alreadyUploaded.map(file => (
+							{deleteInfo.files.map(file => (
 								<Tag
 									filter
 									size='md'
 									type='outline'
 									className='bg-layer-2'
 									onClose={() => {
-										setDeleteInfo({
+										setDeleteInfo(old => ({
+											...old,
 											isOpen: true,
 											fileId: file.id,
 											stepId: additionalInfo?.stepId,
 											draftId: additionalInfo?.draftId
-										});
+										}));
 									}}
 								>
 									<div className=''>
