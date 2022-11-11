@@ -29,7 +29,7 @@ const EvidenceStepInfo = ({
 	};
 
 	return (
-		<TableOfContents stickyOffset={100} tocStickyOffset={146}>
+		<TableOfContents stickyOffset={100} tocStickyOffset={100}>
 			<Grid fullWidth className='h-full'>
 				<FullWidthColumn className='space-y-5 pt-4'>
 					{steps
