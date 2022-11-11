@@ -61,6 +61,7 @@ const ActionEvidenceRequest = () => {
 										currentStep={data.currentStep}
 										status={data.status}
 										disabled
+										action
 									/>
 								</Column>
 							</Grid>
