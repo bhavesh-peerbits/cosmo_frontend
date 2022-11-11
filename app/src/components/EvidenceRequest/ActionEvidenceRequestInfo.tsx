@@ -81,8 +81,7 @@ const ActionEvidenceRequestInfo = ({
 													>
 														{step.type}
 													</p>
-													{step.completionDate &&
-													step.stepOrder !== currStep.stepOrder ? (
+													{step.completionDate ? (
 														<span className='col-span-2 justify-self-end'>{`${t(
 															'completion-date'
 														)}: ${step.completionDate.toLocaleDateString()}`}</span>

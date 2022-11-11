@@ -3,14 +3,13 @@ import { TextInput, Select, SelectItem, Grid } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import useGetAllUniqueEvidenceNames from '@api/evidence-request/useGetAllUniqueEvidenceNames';
 import useGetNewDraftParameter from '@api/evidence-request/useGetNewDraftParameter';
-import PhaseType from '@model/PhaseType';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
 export interface CreateRequestForm {
 	requestName: string;
 	workflow: string;
 	requestType: string;
-	phaseType: PhaseType;
+	phaseTypeId: string;
 }
 
 type RequestBasicInfoProps = {
@@ -69,12 +68,12 @@ const RequestBasicInfo = ({ errors, register }: RequestBasicInfoProps) => {
 				<Select
 					id='phase-types'
 					labelText={`${t('evidenceRequest:phase-type')}`}
-					{...register('phaseType')}
+					{...register('phaseTypeId')}
 				>
 					{parameters?.phaseType?.map(phaseType => (
 						<SelectItem
 							text={phaseType.name || ''}
-							value={phaseType}
+							value={phaseType.id}
 							key={phaseType.id}
 						/>
 					))}
