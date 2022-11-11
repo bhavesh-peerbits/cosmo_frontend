@@ -78,7 +78,7 @@ const EvidenceRequestInfo = ({
 					setResetTip(!resetTip);
 				}}
 			>
-				<div className='bg-background px-5 py-5'>
+				<div className='bg-layer-2 px-5 py-5'>
 					<p className='text-productive-heading-3'>{t('request-text')}</p>
 					<div className='h-max-[400px] mt-6'>
 						<TipTapEditor
@@ -92,7 +92,7 @@ const EvidenceRequestInfo = ({
 						/>
 					</div>
 				</div>
-				<div className='mt-7 space-y-5 bg-background px-5 py-5'>
+				<div className='mt-7 space-y-5 bg-layer-2 px-5 py-5'>
 					<p className='text-productive-heading-3'>{t('additional-info')}</p>
 					<div className='space-y-2'>
 						<p>{t('attachments')}</p>
@@ -121,7 +121,7 @@ const EvidenceRequestInfo = ({
 					{disabled ||
 						(status === 'IN_PROGRESS' && (
 							<>
-								<Button kind='secondary' type='reset' size='md'>
+								<Button kind='secondary' type='reset'>
 									{t('reset')}
 								</Button>
 								<Button onClick={handleSubmit(handleSaveStep)}>{t('save')}</Button>
