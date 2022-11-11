@@ -50,7 +50,6 @@ const EvidenceRequestUploadForm = ({ step, erId, path }: EvidenceReqUploadFormPr
 						className='mt-5'
 						{...register('publicComment')}
 					/>
-
 					<UploaderS3
 						label={t('userRevalidation:upload-instructions')}
 						parentFormDirty={isDirty}

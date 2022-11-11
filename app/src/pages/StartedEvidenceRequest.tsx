@@ -29,6 +29,10 @@ const StartedEvidenceRequest = () => {
 		UserRoleEnum.RequestAnalyst,
 		UserRoleEnum.RequestAdmin
 	);
+	const path = `${new Date().getFullYear()}/${data?.application.codeName}/${
+		data?.workflowName
+	}/${data?.code}/`.replaceAll(' ', '');
+
 	const handleAddCollaborators = useCallback(
 		(selection: string[]) => {
 			return mutateCollaborators({
@@ -107,6 +111,7 @@ const StartedEvidenceRequest = () => {
 										stepRequest={data.steps.filter(step => step.type === 'REQUEST')[0]}
 										currentStep={data.currentStep}
 										status={data.status}
+										path={path}
 									/>
 								</Column>
 							</Grid>

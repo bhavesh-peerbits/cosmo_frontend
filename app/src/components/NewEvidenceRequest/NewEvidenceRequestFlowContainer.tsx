@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import { Grid, ProgressStep, ProgressIndicator, Layer, Tile } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import evidenceRequestDraftStore from '@store/evidenceRequestDraft/evidenceRequestDraftStore';
@@ -18,15 +16,6 @@ const NewEvidenceRequestFlowContainer = () => {
 	const { md } = useResponsive();
 	const [currentStep, setCurrentStep] = useState(0);
 	const requestDraft = useRecoilValue(evidenceRequestDraftStore);
-	const isRequestDraftCompleted =
-		!!requestDraft?.requests?.filter(req => req.selected).length &&
-		!!requestDraft.requests?.filter(req => req.selected).length &&
-		requestDraft.requests
-			?.filter(req => req.selected)
-			.map(req => req.steps.filter(step => step.type !== 'REQUEST'))
-			.flat()
-			.every(step => !!step.approvers?.length || step.reviewer) &&
-		requestDraft.text !== null;
 
 	const contentToRender = () => {
 		switch (currentStep) {
@@ -63,19 +52,7 @@ const NewEvidenceRequestFlowContainer = () => {
 					<ProgressStep
 						className='truncate'
 						complete={!!requestDraft.requests?.filter(req => req.selected).length}
-						label={
-							isRequestDraftCompleted ? (
-								<span
-									title={t('evidenceRequest:apps-selection')}
-									className='cursor-pointer'
-									onClick={() => setCurrentStep(0)}
-								>
-									{t('evidenceRequest:apps-selection')}
-								</span>
-							) : (
-								t('evidenceRequest:apps-selection')
-							)
-						}
+						label={t('evidenceRequest:apps-selection')}
 					/>
 					<ProgressStep
 						className='truncate'
@@ -87,36 +64,12 @@ const NewEvidenceRequestFlowContainer = () => {
 								.flat()
 								.every(step => !!step.approvers?.length || step.reviewer)
 						}
-						label={
-							isRequestDraftCompleted ? (
-								<span
-									title={t('evidenceRequest:users-selection')}
-									className='cursor-pointer'
-									onClick={() => setCurrentStep(1)}
-								>
-									{t('evidenceRequest:users-selection')}
-								</span>
-							) : (
-								t('evidenceRequest:users-selection')
-							)
-						}
+						label={t('evidenceRequest:users-selection')}
 					/>
 					<ProgressStep
 						className='truncate'
 						complete={requestDraft.text !== null}
-						label={
-							isRequestDraftCompleted ? (
-								<span
-									title={t('evidenceRequest:request-text')}
-									className='cursor-pointer'
-									onClick={() => setCurrentStep(2)}
-								>
-									{t('evidenceRequest:request-text')}
-								</span>
-							) : (
-								t('evidenceRequest:request-text')
-							)
-						}
+						label={t('evidenceRequest:request-text')}
 					/>
 					<ProgressStep
 						className='truncate'
@@ -125,33 +78,13 @@ const NewEvidenceRequestFlowContainer = () => {
 							!!requestDraft.stepInfo.publicComment
 						}
 						secondaryLabel={t('evidenceRequest:optional-step')}
-						label={
-							isRequestDraftCompleted ? (
-								<span
-									title={t('evidenceRequest:additional-info')}
-									className='cursor-pointer'
-									onClick={() => setCurrentStep(3)}
-								>
-									{t('evidenceRequest:additional-info')}
-								</span>
-							) : (
-								t('evidenceRequest:additional-info')
-							)
-						}
+						label={t('evidenceRequest:additional-info')}
 					/>
 					<ProgressStep
 						className='truncate'
 						title={t('evidenceRequest:attachments')}
 						complete={!!requestDraft.fileLinks?.length}
-						label={
-							isRequestDraftCompleted ? (
-								<span className='cursor-pointer' onClick={() => setCurrentStep(4)}>
-									{t('evidenceRequest:attachments')}
-								</span>
-							) : (
-								t('evidenceRequest:attachments')
-							)
-						}
+						label={t('evidenceRequest:attachments')}
 					/>
 				</ProgressIndicator>
 			</FullWidthColumn>
