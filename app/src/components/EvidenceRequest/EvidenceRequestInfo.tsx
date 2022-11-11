@@ -5,6 +5,8 @@ import { useController, useForm } from 'react-hook-form';
 import EvidenceRequestStep from '@model/EvidenceRequestStep';
 import { useState } from 'react';
 import useSaveStep from '@api/evidence-request/useSaveStep';
+import UploaderS3 from '@components/util/UploaderS3';
+import FileLinkTable from './FileLinkTable';
 
 interface StepRequestTextForm {
 	stepRequestText: string;
@@ -17,19 +19,27 @@ const EvidenceRequestInfo = ({
 	currentStep,
 	status,
 	disabled,
-	action
+	action,
+	path
 }: {
 	stepRequest: EvidenceRequestStep;
 	currentStep: number;
 	status: string;
 	disabled?: boolean;
 	action?: boolean;
+	path?: string;
 }) => {
 	const { t } = useTranslation('evidenceRequest');
 	const [resetTip, setResetTip] = useState(false);
 	const { mutate } = useSaveStep();
 
-	const { register, control, reset, handleSubmit } = useForm<StepRequestTextForm>({
+	const {
+		register,
+		control,
+		reset,
+		handleSubmit,
+		formState: { isDirty }
+	} = useForm<StepRequestTextForm>({
 		mode: 'onChange',
 		defaultValues: {
 			stepRequestText: stepRequest.text,
@@ -60,6 +70,25 @@ const EvidenceRequestInfo = ({
 				text: descriptionValue
 			}
 		});
+	};
+
+	const attachmentsContent = () => {
+		if (disabled) {
+			return stepRequest.fileLinks.length > 0 ? (
+				<FileLinkTable files={stepRequest.fileLinks} />
+			) : (
+				'No attachments'
+			);
+		}
+		return (
+			<UploaderS3
+				alreadyUploaded={stepRequest.fileLinks}
+				parentFormDirty={isDirty}
+				label='ciao'
+				additionalInfo={{ stepId: `${stepRequest.id}` }}
+				path={path || ''}
+			/>
+		);
 	};
 
 	if (!stepRequest) {
@@ -93,9 +122,9 @@ const EvidenceRequestInfo = ({
 			</div>
 			<div className='mt-7 space-y-5 bg-layer-2 px-5 py-5'>
 				<p className='text-productive-heading-3'>{t('additional-info')}</p>
-				<div className='space-y-2'>
+				<div className='space-y-3'>
 					<p>{t('attachments')}</p>
-					<p className='text-body-compact-1'>placeholder attachment files</p>
+					{attachmentsContent()}
 				</div>
 				<Layer level={2}>
 					<TextArea

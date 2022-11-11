@@ -78,7 +78,12 @@ export const toEvidenceRequestStepApi = (
 		completionUser: evidenceRequestStep.completionUser
 			? toUserApi(evidenceRequestStep.completionUser)
 			: undefined,
-		stepName: evidenceRequestStep.stepName
+		stepName: evidenceRequestStep.stepName,
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
+		fileLinks: evidenceRequestStep.fileLinks
+			? evidenceRequestStep.fileLinks.map(file => file)
+			: undefined
 	};
 };
 
