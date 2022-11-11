@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import TableOfContents from '@components/TableOfContents';
 import EvidenceRequestStep from '@model/EvidenceRequestStep';
-import { Grid, Tile, Button } from '@carbon/react';
+import { Grid, Tile, Button, Layer } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
 import { useLayoutEffect, useState } from 'react';
@@ -21,7 +21,8 @@ const ActionEvidenceRequestInfo = ({
 	statusRequest,
 	setIsOpen,
 	path,
-	erId
+	erId,
+	stepBeforeReturn
 }: {
 	steps: EvidenceRequestStep[];
 	currentStep: number;
@@ -30,6 +31,7 @@ const ActionEvidenceRequestInfo = ({
 	setIsOpen: (value: boolean) => void;
 	path: string;
 	erId: string;
+	stepBeforeReturn?: number;
 }) => {
 	const { auth } = useLoginStore();
 	const { t } = useTranslation('evidenceRequest');
@@ -51,6 +53,14 @@ const ActionEvidenceRequestInfo = ({
 		smoothScroll(selector, 240);
 		triggerFocus(selector);
 	}, [currentStep]);
+	const showAppForm = type === 'APPROVAL' && statusRequest === 'IN_PROGRESS';
+	const showUplForm = type === 'UPLOAD' && statusRequest === 'IN_PROGRESS';
+	const thereIsContent = (index: number, cStep: number, step: EvidenceRequestStep) => {
+		return (
+			(index + 1 !== cStep && (step.stepInfo?.publicComment || step.fileLinks.length)) ||
+			(index + 1 === cStep && idUserInStep && (showUplForm || showAppForm))
+		);
+	};
 
 	return (
 		<TableOfContents stickyOffset={100} tocStickyOffset={100}>
@@ -60,109 +70,99 @@ const ActionEvidenceRequestInfo = ({
 						.sort((a, b) => +a.id - +b.id)
 						.map((step, index) => {
 							return (
-								<Tile
-									className='w-full bg-background'
-									key={step.id}
-									id={`${step.stepOrder}`}
-								>
-									<Grid>
-										<FullWidthColumn className='flex justify-between space-x-1 space-y-4'>
-											<div className='grid w-full grid-cols-4'>
-												<p
-													data-toc-id={`step-${step.stepOrder}`}
-													className='col-span-2 inline flex-1 text-productive-heading-1'
-												>
-													{step.type}
-												</p>
-												{step.completionDate ? (
-													<span className='col-span-2 justify-self-end'>{`${t(
-														'completion-date'
-													)}: ${step.completionDate.toLocaleDateString()}`}</span>
-												) : index + 1 === currentStep ? (
-													<span className='col-span-2 justify-self-end'>
-														{t('current-step')}
-													</span>
-												) : (
-													<span className='col-span-2 justify-self-end'>
-														{t('not-completed')}
-													</span>
-												)}
-												{step.approvers?.length ? (
-													<p className='col-span-3 mt-5'>
-														{`${t('approvers')} : ${step.approvers
-															.map(app => app.displayName)
-															.join(', ')}`}
+								<Layer>
+									<Tile className='w-full' key={step.id} id={`${step.stepOrder}`}>
+										<Grid>
+											<FullWidthColumn className='flex justify-between space-x-1 space-y-4'>
+												<div className='grid w-full grid-cols-4'>
+													<p
+														data-toc-id={`step-${step.stepOrder}`}
+														className='col-span-2 inline flex-1 text-productive-heading-1'
+													>
+														{step.type}
 													</p>
-												) : step.reviewer ? (
-													<p className='col-span-3 mt-5'>{`${t('reviewer')} : ${
-														step.reviewer.displayName
-													}`}</p>
-												) : step.stepOrder === 1 && owner ? (
-													<p className='col-span-3 mt-5'>{`${t('owner')} : ${
-														owner.displayName
-													}`}</p>
-												) : (
-													<span className='col-span-3' />
-												)}
-												<div className='mt-3 justify-self-end'>
-													{!showMore[index] ? (
-														<Button
-															size='sm'
-															kind='ghost'
-															onClick={() => setShowMore({ ...showMore, [index]: true })}
-															hasIconOnly
-															renderIcon={ChevronDown}
-															iconDescription={t('additional-info')}
-														/>
-													) : index + 1 !== currentStep ? (
-														<Button
-															size='sm'
-															kind='ghost'
-															onClick={() => setShowMore({ ...showMore, [index]: false })}
-															hasIconOnly
-															renderIcon={ChevronUp}
-															iconDescription={t('additional-info')}
-														/>
+													{step.completionDate &&
+													step.stepOrder !== currStep.stepOrder ? (
+														<span className='col-span-2 justify-self-end'>{`${t(
+															'completion-date'
+														)}: ${step.completionDate.toLocaleDateString()}`}</span>
+													) : index + 1 === currentStep ? (
+														<span className='col-span-2 justify-self-end'>
+															{t('current-step')}
+															{stepBeforeReturn &&
+																currStep.stepOrder < stepBeforeReturn &&
+																` (${t('check-step', { stepNumber: stepBeforeReturn })})`}
+														</span>
+													) : (
+														<span className='col-span-2 justify-self-end'>
+															{t('not-completed')}
+														</span>
+													)}
+													{step.approvers?.length ? (
+														<p className='col-span-3 mt-5'>
+															{`${t('approvers')} : ${step.approvers
+																.map(app => app.displayName)
+																.join(', ')}`}
+														</p>
+													) : step.reviewer ? (
+														<p className='col-span-3 mt-5'>{`${t('reviewer')} : ${
+															step.reviewer.displayName
+														}`}</p>
+													) : step.stepOrder === 1 && owner ? (
+														<p className='col-span-3 mt-5'>{`${t('owner')} : ${
+															owner.displayName
+														}`}</p>
+													) : (
+														<span className='col-span-3' />
+													)}
+													{thereIsContent(index, currentStep, step) ? (
+														<div className='mt-3 justify-self-end'>
+															<Button
+																size='sm'
+																kind='ghost'
+																onClick={() =>
+																	setShowMore({ ...showMore, [index]: !showMore[index] })
+																}
+																hasIconOnly
+																renderIcon={showMore[index] ? ChevronUp : ChevronDown}
+																iconDescription={t('additional-info')}
+															/>
+														</div>
+													) : null}
+													{showMore[index] ? (
+														index + 1 !== currentStep ? (
+															<>
+																{step.stepInfo?.publicComment ? (
+																	<p className='col-span-4 mt-5'>
+																		{`${t('public-comment')} :`}
+																		<br />
+																		{`${step.stepInfo?.publicComment}`}
+																	</p>
+																) : null}
+																{step.fileLinks.length ? (
+																	<div className='col-span-4 mt-5'>
+																		<p>{t('attachments')} :</p>
+																		<FileLinkTable files={step.fileLinks} />
+																	</div>
+																) : null}
+															</>
+														) : idUserInStep ? (
+															showUplForm ? (
+																<EvidenceRequestUploadForm
+																	step={currStep}
+																	erId={erId}
+																	path={path + step.stepOrder}
+																/>
+															) : showAppForm ? (
+																<EvidenceRequestApproveForm setIsOpen={setIsOpen} />
+															) : null
+														) : null
 													) : null}
 												</div>
-												{showMore[index] &&
-												index + 1 !== currentStep &&
-												step.stepInfo?.publicComment ? (
-													<p className='col-span-4 mt-5'>
-														{`${t('public-comment')} :`}
-														<br />
-														{`${step.stepInfo?.publicComment}`}
-													</p>
-												) : null}
-												{showMore[index] &&
-												index + 1 === currentStep &&
-												type === 'UPLOAD' &&
-												idUserInStep &&
-												statusRequest === 'IN_PROGRESS' ? (
-													<EvidenceRequestUploadForm
-														step={currStep}
-														erId={erId}
-														path={path + step.stepOrder}
-													/>
-												) : showMore[index] &&
-												  index + 1 === currentStep &&
-												  type === 'APPROVAL' &&
-												  idUserInStep &&
-												  statusRequest === 'IN_PROGRESS' ? (
-													<EvidenceRequestApproveForm setIsOpen={setIsOpen} />
-												) : null}
-												{showMore[index] ? (
-													index + 1 !== currentStep && step.fileLinks.length ? (
-														<div className='col-span-4 mt-5'>
-															<p>{t('attachments')} :</p>
-															<FileLinkTable files={step.fileLinks} />
-														</div>
-													) : null
-												) : null}
-											</div>
-										</FullWidthColumn>
-									</Grid>
-								</Tile>
+											</FullWidthColumn>
+										</Grid>
+									</Tile>
+								</Layer>
 							);
 						})}
 				</FullWidthColumn>

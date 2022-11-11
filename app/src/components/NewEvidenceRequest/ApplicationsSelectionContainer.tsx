@@ -1,38 +1,42 @@
 import { Button, Grid } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import CosmoTable, { HeaderFunction } from '@components/table/CosmoTable';
-import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
+import evidenceRequestDraftStore from '@store/evidenceRequestDraft/evidenceRequestDraftStore';
 import { RowSelectionState } from '@tanstack/react-table';
 import Application from 'model/Application';
-import { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useRecoilState } from 'recoil';
 
 type ApplicationsSelectionContainerProps = {
-	request: EvidenceRequestDraft;
 	setCurrentStep: (val: number) => void;
-	setRequestDraft: Dispatch<SetStateAction<EvidenceRequestDraft>>;
-	apps: Application[];
 };
 const ApplicationsSelectionContainer = ({
-	request,
-	setCurrentStep,
-	setRequestDraft,
-	apps
+	setCurrentStep
 }: ApplicationsSelectionContainerProps) => {
 	const { t } = useTranslation(['evidenceRequest', 'management', 'modals']);
 	const [selectedRows, setSelectedRows] = useState<
 		(Application | undefined)[] | undefined
 	>();
+	const [requestDraft, setRequestDraft] = useRecoilState(evidenceRequestDraftStore);
+	const apps = useMemo(
+		() =>
+			requestDraft?.requests
+				?.slice()
+				?.sort((a, b) => Number(b.selected) - Number(a.selected))
+				.map(req => req.application) || [],
+		[requestDraft?.requests]
+	);
 
 	const selectedAppsIndex = useMemo(
 		() =>
-			request.requests
+			requestDraft.requests
 				?.filter(req => req.selected)
 				.reduce((prev, curr) => {
 					const index = apps?.findIndex(app => app?.id === curr?.application?.id);
 					return { ...prev, [index as number]: true };
 				}, {}),
-		[request.requests, apps]
+		[requestDraft.requests, apps]
 	);
 
 	const columns: HeaderFunction<Application> = useCallback(
@@ -60,7 +64,7 @@ const ApplicationsSelectionContainer = ({
 	);
 
 	const handleNext = () => {
-		const newRequests = request.requests?.map(req => {
+		const newRequests = requestDraft.requests?.map(req => {
 			if (selectedRows?.find(app => app?.id === req.application?.id)) {
 				return { ...req, selected: true };
 			}

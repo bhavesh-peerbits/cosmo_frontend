@@ -1,20 +1,13 @@
 import { Grid, Column } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
-import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
-import { Dispatch, SetStateAction } from 'react';
+import evidenceRequestDraftStore from '@store/evidenceRequestDraft/evidenceRequestDraftStore';
 import { useTranslation } from 'react-i18next';
+import { useRecoilValue } from 'recoil';
 import NewEvidenceRequestFlowContainer from './NewEvidenceRequestFlowContainer';
 
-type NewEvidenceRequestContentProps = {
-	requestDraft: EvidenceRequestDraft;
-	setRequestDraft: Dispatch<SetStateAction<EvidenceRequestDraft>>;
-};
-
-const NewEvidenceRequestContent = ({
-	requestDraft,
-	setRequestDraft
-}: NewEvidenceRequestContentProps) => {
+const NewEvidenceRequestContent = () => {
 	const { t } = useTranslation('evidenceRequest');
+	const requestDraft = useRecoilValue(evidenceRequestDraftStore);
 	return (
 		<Grid fullWidth narrow className='space-y-5 p-container-2 lg:space-y-0'>
 			<Column sm={4} md={8} lg={3} className='space-y-6'>
@@ -40,10 +33,7 @@ const NewEvidenceRequestContent = ({
 				)}
 			</Column>
 			<Column sm={4} md={8} lg={13}>
-				<NewEvidenceRequestFlowContainer
-					setRequestDraft={setRequestDraft}
-					requestDraft={requestDraft}
-				/>
+				<NewEvidenceRequestFlowContainer />
 			</Column>
 		</Grid>
 	);

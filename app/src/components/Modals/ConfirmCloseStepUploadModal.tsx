@@ -1,19 +1,23 @@
 import useSaveStepAndGoNext from '@api/evidence-request/useSaveStepAndGoNext';
 import { Modal, InlineLoading } from '@carbon/react';
+import { StepUploadForm } from '@components/EvidenceRequest/EvidenceRequestUploadForm';
 import EvidenceRequestStep from '@model/EvidenceRequestStep';
 import evidenceRequestUploaderStore from '@store/evidence-request/evidenceRequestUploaderStore';
 import { useCallback, useEffect } from 'react';
+import { UseFormReset } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState } from 'recoil';
 
 type ConfirmCloseStepUploadModalProps = {
 	erId: string;
 	step: EvidenceRequestStep;
+	reset: UseFormReset<StepUploadForm>;
 };
 
 const ConfirmCloseStepUploadModal = ({
 	erId,
-	step
+	step,
+	reset
 }: ConfirmCloseStepUploadModalProps) => {
 	const { t } = useTranslation('modals');
 	const [confirmCloseInfo, setConfirmCloseInfo] = useRecoilState(
@@ -21,12 +25,22 @@ const ConfirmCloseStepUploadModal = ({
 	);
 	const cleanUp = useCallback(() => {
 		setConfirmCloseInfo(old => ({ ...old, isOpen: false, uploadSuccess: false }));
-	}, [setConfirmCloseInfo]);
+		reset();
+	}, [setConfirmCloseInfo, reset]);
 
 	const { mutate } = useSaveStepAndGoNext();
 
 	const handleCloseUploadStep = () => {
-		setConfirmCloseInfo(old => ({ ...old, saveUpload: true }));
+		if (confirmCloseInfo.isDirty) {
+			setConfirmCloseInfo(old => ({ ...old, saveUpload: true }));
+		} else {
+			const stepMutate = step;
+			stepMutate.stepInfo = {
+				publicComment: confirmCloseInfo.publicComment,
+				privateComment: undefined
+			};
+			mutate({ erId, step }, { onSuccess: cleanUp });
+		}
 	};
 
 	useEffect(() => {

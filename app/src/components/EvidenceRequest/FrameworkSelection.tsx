@@ -36,6 +36,7 @@ const FrameworkSelection = ({
 				<TreeView className='w-full pt-3' hideLabel label='Selected leaves'>
 					{[...selectedLeaves].map(leaf => (
 						<TreeNode
+							key={leaf.code}
 							label={
 								<div className='flex'>
 									{leaf.name}

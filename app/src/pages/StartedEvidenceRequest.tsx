@@ -61,6 +61,7 @@ const StartedEvidenceRequest = () => {
 				{
 					name: t('evidenceRequest:reminder'),
 					icon: EventSchedule,
+					disabled: data.status !== 'DRAFT' && data.status !== 'IN_PROGRESS',
 					onClick: () => {
 						setIsReminderModalOpen(true);
 					}
@@ -68,6 +69,7 @@ const StartedEvidenceRequest = () => {
 				{
 					name: t('evidenceRequest:collaborators'),
 					icon: UserFollow,
+					disabled: data.status !== 'DRAFT' && data.status !== 'IN_PROGRESS',
 					onClick: () => {
 						setIsCollaboratorsOpen(true);
 					}
@@ -135,7 +137,9 @@ const StartedEvidenceRequest = () => {
 					}}
 					items={{
 						entries: possibleCollaborators
-							? possibleCollaborators.map(us => userMapper(fromUserApi(us)))
+							? possibleCollaborators
+									.filter(user => data.creator.id !== user.id)
+									.map(us => userMapper(fromUserApi(us)))
 							: []
 					}}
 					title={t('userSelect:select-user')}

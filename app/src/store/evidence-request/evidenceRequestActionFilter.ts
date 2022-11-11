@@ -55,7 +55,7 @@ const applyFilters = (
 				: false;
 			return !filters.tab
 				? request.status === 'IN_PROGRESS' && idUserInStep
-				: request.status !== 'DRAFT' && !idUserInStep;
+				: request.status !== 'DRAFT' && request.status !== 'IN_PROGRESS' && idUserInStep;
 		})
 
 		.filter(request =>

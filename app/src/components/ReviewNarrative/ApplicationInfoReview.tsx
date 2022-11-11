@@ -134,6 +134,7 @@ const ApplicationInfoReview = ({ application }: ApplicationInfoReviewProps) => {
 										reset();
 										apiReset();
 									}}
+									size='md'
 								>
 									{t('discard')}
 								</Button>
@@ -143,7 +144,7 @@ const ApplicationInfoReview = ({ application }: ApplicationInfoReviewProps) => {
 										<Checkmark />
 									</div>
 								) : (
-									<Button type='submit' disabled={!isValid || isLoading}>
+									<Button type='submit' disabled={!isValid || isLoading} size='md'>
 										{t('confirm')}
 									</Button>
 								)}

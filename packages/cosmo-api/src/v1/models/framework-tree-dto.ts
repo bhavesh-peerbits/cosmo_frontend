@@ -19,31 +19,31 @@
  */
 export interface FrameworkTreeDto {
 	/**
-	 *
+	 * Code of the FrameworkTree node
 	 * @type {string}
 	 * @memberof FrameworkTreeDto
 	 */
 	code?: string;
 	/**
-	 *
+	 * Name of the FrameworkTree node
 	 * @type {string}
 	 * @memberof FrameworkTreeDto
 	 */
 	name?: string;
 	/**
-	 *
+	 * Description of the FrameworkTree node
 	 * @type {string}
 	 * @memberof FrameworkTreeDto
 	 */
 	description?: string;
 	/**
-	 *
+	 * List of children of the FrameworkTree node
 	 * @type {Array<FrameworkTreeDto>}
 	 * @memberof FrameworkTreeDto
 	 */
 	children?: Array<FrameworkTreeDto>;
 	/**
-	 *
+	 * List of the leafs of the entire FrameworkTree
 	 * @type {Array<string>}
 	 * @memberof FrameworkTreeDto
 	 */

@@ -180,6 +180,7 @@ const ProcedureReview = ({ procedureApp, appId }: ProcedureReviewProps) => {
 											reset();
 											apiReset();
 										}}
+										size='md'
 									>
 										{t('procedureInfo:discard')}
 									</Button>
@@ -189,7 +190,7 @@ const ProcedureReview = ({ procedureApp, appId }: ProcedureReviewProps) => {
 											<Checkmark />
 										</div>
 									) : (
-										<Button type='submit' disabled={!isValid}>
+										<Button type='submit' disabled={!isValid} size='md'>
 											{t('procedureInfo:confirm')}
 										</Button>
 									)}
