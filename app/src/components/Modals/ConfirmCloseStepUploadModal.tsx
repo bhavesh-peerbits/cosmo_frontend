@@ -28,8 +28,8 @@ const ConfirmCloseStepUploadModal = ({
 		reset();
 	}, [setConfirmCloseInfo, reset]);
 
-	const { mutate } = useSaveStepAndGoNext();
-
+	const { mutate, isLoading } = useSaveStepAndGoNext();
+	const { type } = step;
 	const handleCloseUploadStep = () => {
 		if (confirmCloseInfo.isDirty) {
 			setConfirmCloseInfo(old => ({ ...old, saveUpload: true }));
@@ -37,7 +37,7 @@ const ConfirmCloseStepUploadModal = ({
 			const stepMutate = step;
 			stepMutate.stepInfo = {
 				publicComment: confirmCloseInfo.publicComment,
-				privateComment: undefined
+				privateComment: confirmCloseInfo.privateComment
 			};
 			mutate({ erId, step }, { onSuccess: cleanUp });
 		}
@@ -66,13 +66,15 @@ const ConfirmCloseStepUploadModal = ({
 			open={confirmCloseInfo.isOpen}
 			danger
 			className='z-[9999] flex'
-			modalHeading={t('confirm-close-upload')}
+			modalHeading={
+				type === 'UPLOAD' ? t('confirm-close-upload') : t('confirm-close-request')
+			}
 			onRequestClose={cleanUp}
 			onRequestSubmit={handleCloseUploadStep}
 			primaryButtonText={
-				confirmCloseInfo.saveUpload && !confirmCloseInfo.uploadSuccess ? (
+				isLoading || (confirmCloseInfo.saveUpload && !confirmCloseInfo.uploadSuccess) ? (
 					<div>
-						{t('uploading')}
+						{type === 'UPLOAD' ? t('uploading') : t('save')}
 						<InlineLoading />
 					</div>
 				) : (
@@ -80,7 +82,7 @@ const ConfirmCloseStepUploadModal = ({
 				)
 			}
 			primaryButtonDisabled={
-				confirmCloseInfo.saveUpload && !confirmCloseInfo.uploadSuccess
+				isLoading || (confirmCloseInfo.saveUpload && !confirmCloseInfo.uploadSuccess)
 			}
 			secondaryButtonText={t('cancel')}
 			size='sm'

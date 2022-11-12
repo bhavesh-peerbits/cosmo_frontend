@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { useController, useForm } from 'react-hook-form';
 import EvidenceRequestStep from '@model/EvidenceRequestStep';
 import { useState } from 'react';
-import useSaveStep from '@api/evidence-request/useSaveStep';
 import UploaderS3 from '@components/util/UploaderS3';
+import useSaveStepAndGoNext from '@api/evidence-request/useSaveStepAndGoNext';
 import FileLinkTable from './FileLinkTable';
 
 interface StepRequestTextForm {
@@ -17,6 +17,7 @@ interface StepRequestTextForm {
 const EvidenceRequestInfo = ({
 	stepRequest,
 	currentStep,
+	erId,
 	status,
 	disabled,
 	action,
@@ -24,14 +25,15 @@ const EvidenceRequestInfo = ({
 }: {
 	stepRequest: EvidenceRequestStep;
 	currentStep: number;
+	erId?: string;
 	status: string;
 	disabled?: boolean;
 	action?: boolean;
 	path?: string;
 }) => {
-	const { t } = useTranslation('evidenceRequest');
+	const { t } = useTranslation(['evidenceRequest', 'userRevalidation']);
 	const [resetTip, setResetTip] = useState(false);
-	const { mutate } = useSaveStep();
+	const { mutate } = useSaveStepAndGoNext();
 
 	const {
 		register,
@@ -60,20 +62,22 @@ const EvidenceRequestInfo = ({
 	});
 
 	const handleSaveStep = (data: StepRequestTextForm) => {
-		mutate({
-			step: {
-				...stepRequest,
-				stepInfo: {
-					publicComment: data.publicComment,
-					privateComment: data.privateComment
-				},
-				text: descriptionValue
-			}
-		});
+		erId &&
+			mutate({
+				erId,
+				step: {
+					...stepRequest,
+					stepInfo: {
+						publicComment: data.publicComment,
+						privateComment: data.privateComment
+					},
+					text: descriptionValue
+				}
+			});
 	};
 
 	const attachmentsContent = () => {
-		if (disabled) {
+		if (disabled || `${currentStep}` !== '1') {
 			return stepRequest.fileLinks.length > 0 ? (
 				<FileLinkTable files={stepRequest.fileLinks} />
 			) : (
@@ -84,7 +88,7 @@ const EvidenceRequestInfo = ({
 			<UploaderS3
 				alreadyUploaded={stepRequest.fileLinks}
 				parentFormDirty={isDirty}
-				label='ciao'
+				label={t('userRevalidation:upload-instructions')}
 				additionalInfo={{ stepId: `${stepRequest.id}` }}
 				path={path || ''}
 			/>
@@ -107,7 +111,7 @@ const EvidenceRequestInfo = ({
 			}}
 		>
 			<div className='bg-layer-2 px-5 py-5'>
-				<p className='text-productive-heading-3'>{t('request-text')}</p>
+				<p className='text-productive-heading-3'>{t('evidenceRequest:request-text')}</p>
 				<div className='h-max-[400px] mt-6'>
 					<TipTapEditor
 						content={descriptionValue}
@@ -121,14 +125,16 @@ const EvidenceRequestInfo = ({
 				</div>
 			</div>
 			<div className='mt-7 space-y-5 bg-layer-2 px-5 py-5'>
-				<p className='text-productive-heading-3'>{t('additional-info')}</p>
+				<p className='text-productive-heading-3'>
+					{t('evidenceRequest:additional-info')}
+				</p>
 				<div className='space-y-3'>
-					<p>{t('attachments')}</p>
+					<p>{t('evidenceRequest:attachments')}</p>
 					{attachmentsContent()}
 				</div>
 				<Layer level={2}>
 					<TextArea
-						labelText={t('public-comment')}
+						labelText={t('evidenceRequest:public-comment')}
 						{...register('publicComment')}
 						disabled={disabled || status !== 'IN_PROGRESS'}
 					/>
@@ -136,7 +142,7 @@ const EvidenceRequestInfo = ({
 				{!action && (
 					<Layer level={2}>
 						<TextArea
-							labelText={t('private-comment')}
+							labelText={t('evidenceRequest:private-comment')}
 							{...register('privateComment')}
 							disabled={disabled || status !== 'IN_PROGRESS'}
 						/>
@@ -148,9 +154,11 @@ const EvidenceRequestInfo = ({
 					(status === 'IN_PROGRESS' && (
 						<>
 							<Button kind='secondary' type='reset'>
-								{t('reset')}
+								{t('evidenceRequest:reset')}
 							</Button>
-							<Button onClick={handleSubmit(handleSaveStep)}>{t('save')}</Button>
+							<Button onClick={handleSubmit(handleSaveStep)}>
+								{t('evidenceRequest:save')}
+							</Button>
 						</>
 					))}
 			</div>

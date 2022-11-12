@@ -16,6 +16,7 @@ import { UserRoleEnum } from '@model/UserRole';
 import User, { fromUserApi } from '@model/User';
 import useAddCollaboratorsToEvidence from '@api/evidence-request/useAddCollaboratorsToEvidence';
 import useGetUsersByRoles from '@api/user/useGetUsersByRoles';
+import EvidenceRequestStepRequestForm from '@components/EvidenceRequest/EvidenceRequestStepRequestForm';
 
 const StartedEvidenceRequest = () => {
 	const { requestId = '' } = useParams<'requestId'>();
@@ -107,12 +108,20 @@ const StartedEvidenceRequest = () => {
 									</div>
 								</Column>
 								<Column sm={4} md={5} lg={13}>
-									<EvidenceRequestInfo
-										stepRequest={data.steps.filter(step => step.type === 'REQUEST')[0]}
-										currentStep={data.currentStep}
-										status={data.status}
-										path={path}
-									/>
+									{`${data.currentStep}` !== '1' ? (
+										<EvidenceRequestInfo
+											stepRequest={data.steps.filter(step => step.type === 'REQUEST')[0]}
+											currentStep={data.currentStep}
+											status={data.status}
+											path={path}
+										/>
+									) : (
+										<EvidenceRequestStepRequestForm
+											erId={data.id}
+											path={path}
+											step={data.steps.filter(step => step.type === 'REQUEST')[0]}
+										/>
+									)}
 								</Column>
 							</Grid>
 						</TabPanel>
