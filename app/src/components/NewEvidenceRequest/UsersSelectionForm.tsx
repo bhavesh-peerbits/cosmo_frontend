@@ -97,9 +97,10 @@ const UsersSelectionForm = ({
 	useEffect(() => {
 		setIsCompleted(old => ({
 			...old,
-			[`step${step.stepOrder}-${appStepRequest.application.id}`]: isValid
+			[`step${step.stepOrder}-${appStepRequest.application.id}`]:
+				isValid || !!(radio !== 'other' && radio)
 		}));
-	}, [appStepRequest.application.id, isValid, setIsCompleted, step.stepOrder]);
+	}, [appStepRequest.application.id, isValid, radio, setIsCompleted, step.stepOrder]);
 	return (
 		<Grid fullWidth>
 			{step.type === 'UPLOAD' && associations && (
