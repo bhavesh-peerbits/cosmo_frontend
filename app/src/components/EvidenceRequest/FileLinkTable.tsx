@@ -50,7 +50,7 @@ const FileLinkTable = ({ files }: { files: FileLink[] }) => {
 			}),
 			table.createDataColumn(row => row.dimension, {
 				id: 'owner',
-				header: t('file-link-dimension')
+				header: `${t('file-link-dimension')} [Byte]`
 			})
 		],
 		[linkCell, t]

@@ -67,7 +67,7 @@ const EvidenceStepInfo = ({
 																.join(', ')}`}
 														</p>
 													) : step.reviewer ? (
-														<p className='col-span-3 mt-5'>{`${t('reviewer')} : ${
+														<p className='col-span-3 mt-5'>{`${t('task-owner')} : ${
 															step.reviewer.displayName
 														}`}</p>
 													) : step.stepOrder === 1 && owner ? (

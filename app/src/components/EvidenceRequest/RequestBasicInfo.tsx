@@ -54,7 +54,7 @@ const RequestBasicInfo = ({ errors, register }: RequestBasicInfoProps) => {
 			<FullWidthColumn>
 				<Select
 					id='request-types'
-					labelText={`${t('evidenceRequest:request-type')} *`}
+					labelText='Framework *'
 					{...register('requestType', {
 						required: true
 					})}

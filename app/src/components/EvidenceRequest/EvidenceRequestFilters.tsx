@@ -146,7 +146,12 @@ const EvidenceRequestFilters = ({ view }: { view: string }) => {
 									: null
 							}
 						>
-							<DatePickerInput labelText='min' id='min' size='sm' autoComplete='off' />
+							<DatePickerInput
+								labelText={t('after')}
+								id='min'
+								size='sm'
+								autoComplete='off'
+							/>
 						</DatePicker>
 						<DatePicker
 							id='date-picker'
@@ -164,7 +169,12 @@ const EvidenceRequestFilters = ({ view }: { view: string }) => {
 									: null
 							}
 						>
-							<DatePickerInput labelText='max' id='max' size='sm' autoComplete='off' />
+							<DatePickerInput
+								labelText={t('before')}
+								id='max'
+								size='sm'
+								autoComplete='off'
+							/>
 						</DatePicker>
 
 						<Button
@@ -204,7 +214,7 @@ const EvidenceRequestFilters = ({ view }: { view: string }) => {
 								}
 							>
 								<DatePickerInput
-									labelText='min'
+									labelText={t('after')}
 									id='minCompDate'
 									size='sm'
 									autoComplete='off'
@@ -227,7 +237,7 @@ const EvidenceRequestFilters = ({ view }: { view: string }) => {
 								}
 							>
 								<DatePickerInput
-									labelText='max'
+									labelText={t('before')}
 									id='maxCompDate'
 									size='sm'
 									autoComplete='off'

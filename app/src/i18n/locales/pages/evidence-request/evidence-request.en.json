@@ -73,5 +73,9 @@
 	"attachments-description": "In this section it is possible to upload attachments. Warning: files with the same name cannot be uploaded",
 	"select-user-group": "Conflicts exist as a result of selecting several controls. Select a predefined group of focal points and delegates or enter them manually",
 	"other": "Other",
-	"check-step": "check step {{stepNumber}} for details"
+	"check-step": "check step {{stepNumber}} for details",
+	"action-pending": "Action pending",
+	"after": "After",
+	"before": "Before",
+	"task-owner": "Task owner"
 }

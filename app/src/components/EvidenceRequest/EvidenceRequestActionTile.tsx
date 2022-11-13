@@ -42,7 +42,9 @@ const EvidenceRequestActionTile = ({ request }: ERATileProp) => {
 					</div>
 					<div>
 						<span className='mt-2 flex  space-x-2 '>
-							<p className='text-text-secondary text-body-short-1 '>{t('action')} : </p>
+							<p className='text-text-secondary text-body-short-1 '>
+								{t('action-pending')} :
+							</p>
 							<p className='text-body-short-1'>
 								{request.steps.filter(st => st.stepOrder === request.currentStep)[0]
 									.type === 'APPROVAL'
