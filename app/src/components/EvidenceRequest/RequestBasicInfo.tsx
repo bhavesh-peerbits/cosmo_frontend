@@ -18,7 +18,7 @@ type RequestBasicInfoProps = {
 };
 
 const RequestBasicInfo = ({ errors, register }: RequestBasicInfoProps) => {
-	const { t } = useTranslation(['evidenceRequest', 'applicationInfo']);
+	const { t } = useTranslation(['evidenceRequest', 'applicationInfo', 'modals']);
 	const { data: parameters } = useGetNewDraftParameter();
 	const { data: requestNames } = useGetAllUniqueEvidenceNames();
 	return (
@@ -31,6 +31,10 @@ const RequestBasicInfo = ({ errors, register }: RequestBasicInfoProps) => {
 					invalidText={errors.requestName?.message}
 					invalid={Boolean(errors.requestName)}
 					{...register('requestName', {
+						required: {
+							value: true,
+							message: `${t('applicationInfo:required')}`
+						},
 						validate: name =>
 							!requestNames
 								?.map(existingName => existingName.toLowerCase())
@@ -41,7 +45,7 @@ const RequestBasicInfo = ({ errors, register }: RequestBasicInfoProps) => {
 			<FullWidthColumn>
 				<Select
 					id='workflow-types'
-					labelText={`${t('evidenceRequest:workflow-type')} *`}
+					labelText={t('evidenceRequest:workflow-type')}
 					{...register('workflow', {
 						required: true
 					})}
@@ -54,7 +58,7 @@ const RequestBasicInfo = ({ errors, register }: RequestBasicInfoProps) => {
 			<FullWidthColumn>
 				<Select
 					id='request-types'
-					labelText='Framework *'
+					labelText='Framework'
 					{...register('requestType', {
 						required: true
 					})}
@@ -67,7 +71,7 @@ const RequestBasicInfo = ({ errors, register }: RequestBasicInfoProps) => {
 			<FullWidthColumn>
 				<Select
 					id='phase-types'
-					labelText={`${t('evidenceRequest:phase-type')}`}
+					labelText={t('evidenceRequest:phase-type')}
 					{...register('phaseTypeId')}
 				>
 					{parameters?.phaseType?.map(phaseType => (
