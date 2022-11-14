@@ -126,7 +126,7 @@ const EvidenceRequestInfo = ({
 					/>
 				</div>
 			</div>
-			<div className='mt-7 space-y-5 bg-layer-2 px-5 py-5'>
+			<div className='mt-5 space-y-5 bg-layer-2 px-5 py-5'>
 				<p className='text-productive-heading-3'>
 					{t('evidenceRequest:additional-info')}
 				</p>
@@ -155,10 +155,10 @@ const EvidenceRequestInfo = ({
 				{disabled ||
 					(status === 'IN_PROGRESS' && (
 						<>
-							<Button kind='secondary' type='reset'>
+							<Button kind='secondary' size='md' type='reset'>
 								{t('evidenceRequest:reset')}
 							</Button>
-							<Button onClick={handleSubmit(handleSaveStep)}>
+							<Button size='md' onClick={handleSubmit(handleSaveStep)}>
 								{t('evidenceRequest:save')}
 							</Button>
 						</>
