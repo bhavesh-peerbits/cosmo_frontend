@@ -68,6 +68,14 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 		draftId: undefined,
 		files: alreadyUploaded
 	});
+	useEffect(
+		() =>
+			setDeleteInfo(old => ({
+				...old,
+				files: alreadyUploaded
+			})),
+		[alreadyUploaded]
+	);
 
 	const { mutate, isLoading, isError, error, isSuccess } = usePutASelectionOfFiles();
 	const {
@@ -106,6 +114,7 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 					...old,
 					saveUpload: !closeUploadInfo.saveUpload
 				}));
+
 				reset({ files: [] });
 			},
 			onError: () => {
@@ -116,7 +125,7 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 				}));
 			}
 		}),
-		[closeUploadInfo.saveUpload, reset, setCloseUploadInfo]
+		[setCloseUploadInfo, reset, closeUploadInfo.saveUpload]
 	);
 
 	usePrompt(t('prevent-close'), isDirty || parentFormDirty);
@@ -166,7 +175,6 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 								}
 							}
 						);
-
 						reset({ files: [] });
 					},
 					onError: () => {
@@ -240,6 +248,7 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 						<div className='space-x-3'>
 							{deleteInfo.files.map(file => (
 								<Tag
+									key={file.id}
 									filter
 									size='md'
 									type='outline'
