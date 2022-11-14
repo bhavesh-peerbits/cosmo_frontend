@@ -67,7 +67,7 @@ const SendRequestModal = ({ isOpen, setIsOpen, request }: SendRequestModalProps)
 				preventCloseOnClickOutside
 				open={isOpen}
 				onClose={cleanUp}
-				className='z-[9000]'
+				className='z-[9999]'
 				size='xs'
 			>
 				<ModalHeader title={t('evidenceRequest:send-request')} closeModal={cleanUp}>
