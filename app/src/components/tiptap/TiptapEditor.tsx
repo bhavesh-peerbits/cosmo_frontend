@@ -30,6 +30,7 @@ import { useTranslation } from 'react-i18next';
 
 type EditorType = {
 	editor?: Editor | null;
+	disabled?: boolean;
 };
 const CustomTableCell = TableCell.extend({
 	addAttributes() {
@@ -52,14 +53,14 @@ const CustomTableCell = TableCell.extend({
 	}
 });
 
-const MenuBar = ({ editor }: EditorType) => {
+const MenuBar = ({ editor, disabled }: EditorType) => {
 	const { t } = useTranslation('tiptapEditor');
-	if (!editor) {
+	if (!editor || disabled) {
 		return null;
 	}
 
 	return (
-		<div className='flex flex-wrap'>
+		<div className='pointer-events-none flex flex-wrap'>
 			<Button
 				size='sm'
 				hasIconOnly
@@ -249,7 +250,7 @@ const TipTapEditor = forwardRef<PureEditorContent, TipTapEditorProps>(
 		return (
 			<div className='divide-y-[1px] divide-solid divide-border-subtle-0 border-[1px] border-solid border-border-strong-3'>
 				<div className='bg-layer-1'>
-					<MenuBar editor={editor} />
+					<MenuBar editor={editor} disabled={readOnly} />
 				</div>
 				<EditorContent ref={ref} editor={editor} className={className} />
 			</div>

@@ -81,7 +81,9 @@ const EvidenceRequestInfo = ({
 			return stepRequest.fileLinks.length > 0 ? (
 				<FileLinkTable files={stepRequest.fileLinks} />
 			) : (
-				'No attachments'
+				<span className='italic text-text-secondary'>
+					{t('evidenceRequest:no-attachment')}
+				</span>
 			);
 		}
 		return (

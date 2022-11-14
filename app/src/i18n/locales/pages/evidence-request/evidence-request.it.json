@@ -78,5 +78,6 @@
 	"after": "Dopo il",
 	"before": "Prima del",
 	"task-owner": "Task owner",
-	"no-delegates": "Nessun delegato associato"
+	"no-delegates": "Nessun delegato associato",
+	"no-attachment": "Nessun allegato presente"
 }

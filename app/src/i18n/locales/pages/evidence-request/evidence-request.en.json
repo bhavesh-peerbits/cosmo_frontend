@@ -78,5 +78,6 @@
 	"after": "After",
 	"before": "Before",
 	"task-owner": "Task owner",
-	"no-delegates": "No delegate associated"
+	"no-delegates": "No delegate associated",
+	"no-attachment": "No attachment"
 }
