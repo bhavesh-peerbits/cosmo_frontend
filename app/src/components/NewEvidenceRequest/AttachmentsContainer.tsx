@@ -7,14 +7,12 @@ import UploaderS3 from '@components/util/UploaderS3';
 import evidenceRequestUploaderStore from '@store/evidence-request/evidenceRequestUploaderStore';
 import evidenceRequestDraftStore from '@store/evidenceRequestDraft/evidenceRequestDraftStore';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 type AttachmentsContainerProps = {
 	setCurrentStep: (val: number) => void;
 };
 const AttachmentsContainer = ({ setCurrentStep }: AttachmentsContainerProps) => {
-	const navigate = useNavigate();
 	const { t } = useTranslation(['evidenceRequest', 'modals', 'userRevalidation']);
 	const requestDraft = useRecoilValue(evidenceRequestDraftStore);
 
@@ -29,11 +27,7 @@ const AttachmentsContainer = ({ setCurrentStep }: AttachmentsContainerProps) => 
 	const saveDraft = () => {
 		closeUploadInfo.isDirty
 			? setCloseUploadInfo(old => ({ ...old, saveUpload: true }))
-			: mutate(requestDraft, {
-					onSuccess: () => {
-						navigate('/new-evidence-request');
-					}
-			  });
+			: mutate(requestDraft);
 	};
 
 	const isRequestDraftCompleted =

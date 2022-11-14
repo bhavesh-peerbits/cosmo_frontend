@@ -23,7 +23,6 @@ import evidenceRequestDraftStore from '@store/evidenceRequestDraft/evidenceReque
 import useSaveDraft from '@api/evidence-request/useSaveDraft';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';
-import { useNavigate } from 'react-router-dom';
 
 type CosmoFileUploaderProps<
 	T extends FieldValues,
@@ -50,7 +49,6 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 	path
 }: CosmoFileUploaderProps<T, TName>) => {
 	const { t } = useTranslation('uploaderS3');
-	const navigate = useNavigate();
 	const [closeUploadInfo, setCloseUploadInfo] = useRecoilState(
 		evidenceRequestUploaderStore
 	);
@@ -171,7 +169,6 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 							{
 								onSuccess: () => {
 									setCloseUploadInfo(old => ({ ...old, uploadSuccess: false }));
-									navigate('/new-evidence-request');
 								}
 							}
 						);
@@ -199,8 +196,7 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 		mutateSaveDraft,
 		requestDraft,
 		deleteInfo.files,
-		reset,
-		navigate
+		reset
 	]);
 
 	const DownloadFile = (fileLink: FileLink) => {
