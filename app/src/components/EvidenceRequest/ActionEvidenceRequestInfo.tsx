@@ -79,7 +79,7 @@ const ActionEvidenceRequestInfo = ({
 														data-toc-id={`step-${step.stepOrder}`}
 														className='col-span-2 inline flex-1 text-productive-heading-1'
 													>
-														{step.type}
+														{step.stepOrder} - {step.type}
 													</p>
 													{step.completionDate ? (
 														<span className='col-span-2 justify-self-end'>{`${t(
