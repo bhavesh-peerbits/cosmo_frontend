@@ -7,7 +7,7 @@ const EvidenceRequestDetails = ({ request }: { request: EvidenceRequest }) => {
 		<div>
 			<p className='font-bold text-productive-heading-2'>{t('workflow-type')}</p>
 			<p className='text-sm text-body-compact-1'>{request.workflowType}</p>
-			<p className='mt-5 font-bold text-productive-heading-2'>{t('request-type')}</p>
+			<p className='mt-5 font-bold text-productive-heading-2'>Framework</p>
 			<p className='text-sm text-body-compact-1'>{request.type}</p>
 			<p className='mt-5 font-bold text-productive-heading-2'>{t('application')}</p>
 			<p className='text-sm text-body-compact-1'>{request.application?.codeName}</p>

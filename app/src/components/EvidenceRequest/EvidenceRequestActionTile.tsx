@@ -17,7 +17,9 @@ const EvidenceRequestActionTile = ({ request }: ERATileProp) => {
 				<div className='space-y-4'>
 					<p className='block truncate line-clamp-1 text-heading-2'>{request?.name}</p>
 					<span className='mt-2 flex space-x-2 '>
-						<p className='text-text-secondary text-body-short-1 '>{t('request-type')}:</p>
+						<p className='whitespace-nowrap text-text-secondary text-body-short-1 '>
+							Framework:
+						</p>
 						<p className='block truncate text-body-short-1'>{request?.type}</p>
 					</span>
 					<span className='mt-2 flex space-x-2'>

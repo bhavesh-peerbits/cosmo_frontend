@@ -70,7 +70,7 @@ const ActionEvidenceRequestInfo = ({
 						.sort((a, b) => +a.id - +b.id)
 						.map((step, index) => {
 							return (
-								<Layer>
+								<Layer key={step.id}>
 									<Tile className='w-full' key={step.id} id={`${step.stepOrder}`}>
 										<Grid>
 											<FullWidthColumn className='flex justify-between space-x-1 space-y-4'>
