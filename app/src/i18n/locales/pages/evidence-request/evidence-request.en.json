@@ -77,5 +77,6 @@
 	"action-pending": "Action pending",
 	"after": "After",
 	"before": "Before",
-	"task-owner": "Task owner"
+	"task-owner": "Task owner",
+	"no-delegates": "No delegate associated"
 }

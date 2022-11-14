@@ -77,5 +77,6 @@
 	"action-pending": "Action pending",
 	"after": "",
 	"before": "",
-	"task-owner": ""
+	"task-owner": "",
+	"no-delegates": ""
 }

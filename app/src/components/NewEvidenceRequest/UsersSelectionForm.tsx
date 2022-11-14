@@ -116,36 +116,46 @@ const UsersSelectionForm = ({
 								labelText={
 									<div className='mt-1 flex flex-row '>
 										<span className='flex flex-row space-x-3'>
-											<span>{`Focal Point : `}</span>
-											<span className='flex'>
-												<UserProfileImage
-													initials={association.reviewer?.displayName}
-													imageDescription={association.reviewer?.username}
-													size='md'
-												/>
-											</span>
+											<span className='text-heading-1'>{`Focal Point : `}</span>
+
+											<UserProfileImage
+												initials={association.reviewer?.displayName}
+												imageDescription={association.reviewer?.username}
+												size='md'
+											/>
+
 											<span>{`${association.reviewer?.displayName}`}</span>
 										</span>
-										<span className='mx-7'>{`${t('focal-point-delegates')} : `}</span>
-
-										{association.delegates?.map(delegate => (
-											<UserProfileImage
-												initials={delegate.displayName}
-												imageDescription={delegate.username}
-												tooltipText={delegate.displayName}
-												size='md'
-												className='mx-[-3px]'
-											/>
-										))}
+										<span className='mx-7 text-heading-1'>{`${t(
+											'focal-point-delegates'
+										)} : `}</span>
+										{association.delegates?.length ? (
+											association.delegates?.map(delegate => (
+												<UserProfileImage
+													initials={delegate.displayName}
+													imageDescription={delegate.username}
+													tooltipText={delegate.displayName}
+													size='md'
+													className='mx-[-3px]'
+												/>
+											))
+										) : (
+											<span className='italic text-text-secondary'>
+												{t('no-delegates')}
+											</span>
+										)}
 									</div>
 								}
 								value={association.id}
 								key={association.id}
 							/>
 						))}
-						<RadioButton labelText={t('other')} value='other' />
+						<RadioButton
+							labelText={<span className='text-heading-1'>{t('other')}</span>}
+							value='other'
+						/>
 					</RadioButtonGroup>
-					<div className='ml-7 flex space-x-7'>
+					<div className='flex space-x-5'>
 						<SingleUserSelect
 							control={control}
 							label='Focal Point *'
