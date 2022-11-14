@@ -132,7 +132,7 @@ const StartedEvidenceRequest = () => {
 										<EvidenceRequestDetails request={data} />
 									</div>
 								</Column>
-								<Column sm={4} md={5} lg={13}>
+								<Column sm={4} md={5} lg={13} className='pl-5 pt-5 md:pl-0 md:pt-0'>
 									<EvidenceStepInfo
 										steps={data.steps}
 										currentStep={data.currentStep}

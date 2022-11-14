@@ -69,7 +69,7 @@ const ActionEvidenceRequestInfo = ({
 					return (
 						<Layer key={step.id}>
 							<Tile className='w-full' key={step.id} id={`${step.stepOrder}`}>
-								<Grid>
+								<Grid narrow>
 									<FullWidthColumn className='flex justify-between space-x-1 space-y-4'>
 										<div className='grid w-full grid-cols-4'>
 											<p

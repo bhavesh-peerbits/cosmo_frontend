@@ -35,7 +35,7 @@ const EvidenceStepInfo = ({
 					return (
 						<Layer>
 							<Tile className='w-full' key={step.id}>
-								<Grid>
+								<Grid narrow>
 									<FullWidthColumn className='flex justify-between space-x-1 space-y-4'>
 										<div className='grid w-full grid-cols-4'>
 											<p className='col-span-2 inline flex-1 text-productive-heading-1'>
