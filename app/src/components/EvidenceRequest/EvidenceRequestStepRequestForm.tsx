@@ -59,7 +59,8 @@ const EvidenceRequestStepRequestForm = ({
 			...old,
 			isOpen: true,
 			publicComment: data.publicComment,
-			privateComment: data.privateComment
+			privateComment: data.privateComment,
+			requestText: data.text
 		}));
 	};
 
@@ -113,7 +114,7 @@ const EvidenceRequestStepRequestForm = ({
 							onClick={handleSubmit(handleCloseUpload)}
 							disabled={closeUploadInfo.saveUpload}
 						>
-							{t('evidenceRequest:close')}
+							{t('evidenceRequest:send-request')}
 						</Button>
 					</div>
 				</Form>

@@ -35,6 +35,7 @@ const ConfirmCloseStepUploadModal = ({
 			setConfirmCloseInfo(old => ({ ...old, saveUpload: true }));
 		} else {
 			const stepMutate = step;
+			stepMutate.text = confirmCloseInfo.requestText || '';
 			stepMutate.stepInfo = {
 				publicComment: confirmCloseInfo.publicComment,
 				privateComment: confirmCloseInfo.privateComment
@@ -46,10 +47,12 @@ const ConfirmCloseStepUploadModal = ({
 	useEffect(() => {
 		if (confirmCloseInfo.uploadSuccess) {
 			const stepMutate = step;
+			stepMutate.text = confirmCloseInfo.requestText || '';
 			stepMutate.stepInfo = {
 				publicComment: confirmCloseInfo.publicComment,
-				privateComment: undefined
+				privateComment: confirmCloseInfo.privateComment
 			};
+
 			mutate({ erId, step }, { onSuccess: cleanUp });
 		}
 	}, [
@@ -58,7 +61,9 @@ const ConfirmCloseStepUploadModal = ({
 		step,
 		confirmCloseInfo.uploadSuccess,
 		cleanUp,
-		confirmCloseInfo.publicComment
+		confirmCloseInfo.publicComment,
+		confirmCloseInfo.requestText,
+		confirmCloseInfo.privateComment
 	]);
 
 	return (

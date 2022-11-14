@@ -6,6 +6,7 @@ const evidenceRequestUploaderStore = atom<{
 	uploadSuccess: boolean;
 	publicComment: string;
 	privateComment?: string;
+	requestText?: string;
 	isDirty: boolean;
 	isLoading: boolean;
 }>({
@@ -16,6 +17,7 @@ const evidenceRequestUploaderStore = atom<{
 		uploadSuccess: false,
 		publicComment: '',
 		privateComment: undefined,
+		requestText: undefined,
 		isDirty: false,
 		isLoading: false
 	}
