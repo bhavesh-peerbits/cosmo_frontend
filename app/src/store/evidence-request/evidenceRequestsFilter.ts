@@ -58,9 +58,13 @@ const applyFilters = (
 						.includes(`${filters.query}`.toLowerCase().trim())
 				: true
 		)
-		// .filter(request =>
-		// 	filters.currentStep ? filters.currentStep.includes(`${request.currentStep}`) : true
-		// )
+
+		// filter by current step
+		.filter(request =>
+			filters.currentStep?.length
+				? filters.currentStep.some(currStep => currStep === request.currentStep)
+				: true
+		)
 
 		.filter(request =>
 			filters.status?.length
