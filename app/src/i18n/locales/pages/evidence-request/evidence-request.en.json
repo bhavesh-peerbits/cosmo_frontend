@@ -79,5 +79,7 @@
 	"before": "Before",
 	"task-owner": "Task owner",
 	"no-delegates": "No delegate associated",
-	"no-attachment": "No attachment"
+	"no-attachment": "No attachment",
+	"managed": "Managed",
+	"pending-actions": "Pending actions"
 }

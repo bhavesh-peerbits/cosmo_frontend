@@ -79,5 +79,7 @@
 	"before": "Prima del",
 	"task-owner": "Task owner",
 	"no-delegates": "Nessun delegato associato",
-	"no-attachment": "Nessun allegato presente"
+	"no-attachment": "Nessun allegato presente",
+	"managed": "Gestite",
+	"pending-actions": "Azioni in attesa"
 }

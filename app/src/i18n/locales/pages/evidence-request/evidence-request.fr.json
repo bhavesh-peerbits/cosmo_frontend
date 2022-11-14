@@ -79,5 +79,7 @@
 	"before": "",
 	"task-owner": "",
 	"no-delegates": "",
-	"no-attachment": ""
+	"no-attachment": "",
+	"managed": "Managed",
+	"pending-actions": "Pending actions"
 }
