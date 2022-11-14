@@ -45,13 +45,14 @@ const EvidenceRequestActionTile = ({ request }: ERATileProp) => {
 					<div>
 						<span className='mt-2 flex  space-x-2 '>
 							<p className='text-text-secondary text-body-short-1 '>
-								{t('action-pending')} :
+								{request.completionDate ? t('completion-date') : t('action-pending')} :
 							</p>
 							<p className='text-body-short-1'>
-								{request.steps.filter(st => st.stepOrder === request.currentStep)[0]
-									.type === 'APPROVAL'
-									? t('approve')
-									: t('upload')}
+								{request.completionDate?.toLocaleDateString() ||
+									(request.steps.filter(st => st.stepOrder === request.currentStep)[0]
+										.type === 'APPROVAL'
+										? t('approve')
+										: t('upload'))}
 							</p>
 						</span>
 					</div>

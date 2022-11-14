@@ -101,13 +101,13 @@ const StartedEvidenceRequest = () => {
 					</TabList>
 					<TabPanels>
 						<TabPanel>
-							<Grid fullWidth narrow className='h-full'>
+							<Grid fullWidth narrow className='h-full space-y-5 md:space-y-0'>
 								<Column sm={4} md={3} lg={3}>
 									<div className='pl-5 md:ml-0'>
 										<EvidenceRequestDetails request={data} />
 									</div>
 								</Column>
-								<Column sm={4} md={5} lg={13}>
+								<Column sm={4} md={5} lg={13} className='pl-5 md:pl-0'>
 									{`${data.currentStep}` !== '1' ? (
 										<EvidenceRequestInfo
 											stepRequest={data.steps.filter(step => step.type === 'REQUEST')[0]}
@@ -126,11 +126,20 @@ const StartedEvidenceRequest = () => {
 							</Grid>
 						</TabPanel>
 						<TabPanel>
-							<EvidenceStepInfo
-								steps={data.steps}
-								currentStep={data.currentStep}
-								owner={data.creator}
-							/>
+							<Grid fullWidth narrow className='h-full'>
+								<Column sm={4} md={3} lg={3}>
+									<div className='pl-5 md:ml-0'>
+										<EvidenceRequestDetails request={data} />
+									</div>
+								</Column>
+								<Column sm={4} md={5} lg={13}>
+									<EvidenceStepInfo
+										steps={data.steps}
+										currentStep={data.currentStep}
+										owner={data.creator}
+									/>
+								</Column>
+							</Grid>
 						</TabPanel>
 					</TabPanels>
 				</StickyTabs>
