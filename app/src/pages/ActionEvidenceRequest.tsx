@@ -22,7 +22,7 @@ const ActionEvidenceRequest = () => {
 	}
 	return (
 		<PageHeader
-			pageTitle={data.code}
+			pageTitle={`${data.code} - ${data.name}`}
 			intermediateRoutes={[{ name: 'Evidence Request', to: '/evidence-request-action' }]}
 		>
 			<>
