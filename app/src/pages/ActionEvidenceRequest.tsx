@@ -22,7 +22,7 @@ const ActionEvidenceRequest = () => {
 	}
 	return (
 		<PageHeader
-			pageTitle={data.code}
+			pageTitle={`${data.code} - ${data.name}`}
 			intermediateRoutes={[{ name: 'Evidence Request', to: '/evidence-request-action' }]}
 		>
 			<>
@@ -37,16 +37,25 @@ const ActionEvidenceRequest = () => {
 					</TabList>
 					<TabPanels>
 						<TabPanel>
-							<ActionEvidenceRequestInfo
-								steps={data.steps}
-								currentStep={data.currentStep}
-								owner={data.creator}
-								setIsOpen={setIsOpen}
-								path={path}
-								statusRequest={data.status}
-								erId={data.id}
-								stepBeforeReturn={data.stepBeforeReturn}
-							/>
+							<Grid fullWidth narrow className='h-full space-y-5 md:space-y-0'>
+								<Column sm={4} md={3} lg={3}>
+									<div className='pl-5 md:ml-0'>
+										<EvidenceRequestDetails request={data} />
+									</div>
+								</Column>
+								<Column sm={4} md={5} lg={13} className='pl-5 md:pl-0'>
+									<ActionEvidenceRequestInfo
+										steps={data.steps}
+										currentStep={data.currentStep}
+										owner={data.creator}
+										setIsOpen={setIsOpen}
+										path={path}
+										statusRequest={data.status}
+										erId={data.id}
+										stepBeforeReturn={data.stepBeforeReturn}
+									/>
+								</Column>
+							</Grid>
 						</TabPanel>
 						<TabPanel>
 							<Grid fullWidth narrow className='h-full'>
@@ -61,6 +70,7 @@ const ActionEvidenceRequest = () => {
 										currentStep={data.currentStep}
 										status={data.status}
 										disabled
+										action
 									/>
 								</Column>
 							</Grid>

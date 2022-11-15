@@ -16,14 +16,12 @@ import {
 	useForm
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { Download } from '@carbon/react/icons';
 import usePutASelectionOfFilesOnDraft from '@api/uploaders3/usePutASelectionOfFileOnDraft';
-import evidenceRequestDraftStore from '@store/evidenceRequestDraft/evidenceRequestDraftStore';
 import useSaveDraft from '@api/evidence-request/useSaveDraft';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';
-import { useNavigate } from 'react-router-dom';
 
 type CosmoFileUploaderProps<
 	T extends FieldValues,
@@ -50,11 +48,10 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 	path
 }: CosmoFileUploaderProps<T, TName>) => {
 	const { t } = useTranslation('uploaderS3');
-	const navigate = useNavigate();
 	const [closeUploadInfo, setCloseUploadInfo] = useRecoilState(
 		evidenceRequestUploaderStore
 	);
-	const requestDraft = useRecoilValue(evidenceRequestDraftStore);
+	// const requestDraft = useRecoilValue(evidenceRequestDraftStore);
 	const [deleteInfo, setDeleteInfo] = useState<{
 		isOpen: boolean;
 		fileId: string | undefined;
@@ -68,6 +65,14 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 		draftId: undefined,
 		files: alreadyUploaded
 	});
+	useEffect(
+		() =>
+			setDeleteInfo(old => ({
+				...old,
+				files: alreadyUploaded
+			})),
+		[alreadyUploaded]
+	);
 
 	const { mutate, isLoading, isError, error, isSuccess } = usePutASelectionOfFiles();
 	const {
@@ -78,7 +83,6 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 		isSuccess: isSuccessDraft
 	} = usePutASelectionOfFilesOnDraft();
 	const {
-		mutate: mutateSaveDraft,
 		isError: isErrorSaveDraft,
 		error: errorSaveDraft,
 		isLoading: isLoadingSaveDraft,
@@ -104,8 +108,10 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 			onSuccess: () => {
 				setCloseUploadInfo(old => ({
 					...old,
-					saveUpload: !closeUploadInfo.saveUpload
+					saveUpload: !closeUploadInfo.saveUpload,
+					uploadSuccess: true
 				}));
+
 				reset({ files: [] });
 			},
 			onError: () => {
@@ -116,7 +122,7 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 				}));
 			}
 		}),
-		[closeUploadInfo.saveUpload, reset, setCloseUploadInfo]
+		[setCloseUploadInfo, reset, closeUploadInfo.saveUpload]
 	);
 
 	usePrompt(t('prevent-close'), isDirty || parentFormDirty);
@@ -145,34 +151,38 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 					files
 				},
 				{
-					onSuccess: data => {
+					onSuccess: (data: FileLink[]) => {
 						setCloseUploadInfo(old => ({
 							...old,
-							saveUpload: !closeUploadInfo.saveUpload,
-							uploadSuccess: true
+							saveUpload: false,
+							uploadSuccess: true,
+							files: data
 						}));
-						mutateSaveDraft(
-							{
-								...requestDraft,
-								fileLinks:
-									requestDraft.fileLinks && deleteInfo.files
-										? [...requestDraft.fileLinks, ...data]
-										: data
-							},
-							{
-								onSuccess: () => {
-									setCloseUploadInfo(old => ({ ...old, uploadSuccess: false }));
-									navigate('/new-evidence-request');
-								}
-							}
-						);
+						const fileList: FileLink[] = [];
+						deleteInfo.files?.forEach(file => fileList.push(file));
+						data.forEach(file => fileList.push(file));
 
+						setDeleteInfo(old => ({ ...old, files: fileList }));
+						// mutateSaveDraft(
+						// 	{
+						// 		...requestDraft,
+						// 		fileLinks:
+						// 			requestDraft.fileLinks && deleteInfo.files
+						// 				? [...requestDraft.fileLinks, ...data]
+						// 				: data
+						// 	},
+						// 	{
+						// 		onSuccess: () => {
+						// 			setCloseUploadInfo(old => ({ ...old, uploadSuccess: false }));
+						// 		}
+						// 	}
+						// );
 						reset({ files: [] });
 					},
 					onError: () => {
 						setCloseUploadInfo(old => ({
 							...old,
-							saveUpload: !closeUploadInfo.saveUpload,
+							saveUpload: false,
 							uploadSuccess: false
 						}));
 					}
@@ -188,11 +198,8 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 		mutateDraft,
 		setCloseUploadInfo,
 		path,
-		mutateSaveDraft,
-		requestDraft,
 		deleteInfo.files,
-		reset,
-		navigate
+		reset
 	]);
 
 	const DownloadFile = (fileLink: FileLink) => {
@@ -240,6 +247,7 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 						<div className='space-x-3'>
 							{deleteInfo.files.map(file => (
 								<Tag
+									key={file.id}
 									filter
 									size='md'
 									type='outline'

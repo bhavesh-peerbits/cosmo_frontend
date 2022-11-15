@@ -5,7 +5,8 @@ import {
 	Checkbox,
 	DatePicker,
 	DatePickerInput,
-	Form
+	Form,
+	Layer
 } from '@carbon/react';
 import useEvidenceRequests from '@hooks/evidence-request/useEvidenceRequests';
 import { useTranslation } from 'react-i18next';
@@ -129,60 +130,74 @@ const EvidenceRequestFilters = ({ view }: { view: string }) => {
 					))}
 				</AccordionItem>
 				<AccordionItem title={t('due-date')} className='border-0 '>
-					<Form>
-						<DatePicker
-							id='date-picker'
-							datePickerType='single'
-							dateFormat='d/m'
-							onChange={e => handleDateFilter(e[0].toDateString(), 'minDueDate')}
-							maxDate={
-								filters.maxDueDate
-									? new Date(filters.maxDueDate).toLocaleDateString()
-									: new Date('1/1/3000')
-							}
-							value={
-								filters.minDueDate
-									? new Date(filters.minDueDate).toLocaleDateString().slice(0, -5)
-									: null
-							}
-						>
-							<DatePickerInput labelText='min' id='min' size='sm' autoComplete='off' />
-						</DatePicker>
-						<DatePicker
-							id='date-picker'
-							datePickerType='single'
-							dateFormat='d/m'
-							onChange={e => handleDateFilter(e[0]?.toDateString(), 'maxDueDate')}
-							minDate={
-								filters.minDueDate
-									? new Date(filters.minDueDate).toLocaleDateString()
-									: new Date(0)
-							}
-							value={
-								filters.maxDueDate
-									? new Date(filters.maxDueDate).toLocaleDateString().slice(0, -5)
-									: null
-							}
-						>
-							<DatePickerInput labelText='max' id='max' size='sm' autoComplete='off' />
-						</DatePicker>
+					<Layer>
+						<Form className='space-y-5'>
+							<DatePicker
+								id='date-picker'
+								datePickerType='single'
+								dateFormat='d/m'
+								onChange={e => handleDateFilter(e[0].toDateString(), 'minDueDate')}
+								maxDate={
+									filters.maxDueDate
+										? new Date(filters.maxDueDate).toLocaleDateString()
+										: new Date('1/1/3000')
+								}
+								value={
+									filters.minDueDate
+										? new Date(filters.minDueDate).toLocaleDateString().slice(0, -5)
+										: null
+								}
+							>
+								<DatePickerInput
+									labelText={t('after')}
+									id='min'
+									size='sm'
+									autoComplete='off'
+									placeholder='dd/mm'
+								/>
+							</DatePicker>
+							<DatePicker
+								id='date-picker'
+								datePickerType='single'
+								dateFormat='d/m'
+								onChange={e => handleDateFilter(e[0]?.toDateString(), 'maxDueDate')}
+								minDate={
+									filters.minDueDate
+										? new Date(filters.minDueDate).toLocaleDateString()
+										: new Date(0)
+								}
+								value={
+									filters.maxDueDate
+										? new Date(filters.maxDueDate).toLocaleDateString().slice(0, -5)
+										: null
+								}
+							>
+								<DatePickerInput
+									labelText={t('before')}
+									id='max'
+									size='sm'
+									autoComplete='off'
+									placeholder='dd/mm'
+								/>
+							</DatePicker>
 
-						<Button
-							type='reset'
-							kind='tertiary'
-							className='mt-3 w-full max-w-[212px]'
-							renderIcon={Reset}
-							size='sm'
-							onClick={() => {
-								setFilters(() => ({
-									maxDueDate: undefined,
-									minDueDate: undefined
-								}));
-							}}
-						>
-							Reset
-						</Button>
-					</Form>
+							<Button
+								type='reset'
+								kind='tertiary'
+								className='mt-3 w-full max-w-[212px]'
+								renderIcon={Reset}
+								size='sm'
+								onClick={() => {
+									setFilters(() => ({
+										maxDueDate: undefined,
+										minDueDate: undefined
+									}));
+								}}
+							>
+								Reset
+							</Button>
+						</Form>
+					</Layer>
 				</AccordionItem>
 				{view === 'Closed' && (
 					<AccordionItem title={t('completion-date')} className='border-0 '>
@@ -204,7 +219,7 @@ const EvidenceRequestFilters = ({ view }: { view: string }) => {
 								}
 							>
 								<DatePickerInput
-									labelText='min'
+									labelText={t('after')}
 									id='minCompDate'
 									size='sm'
 									autoComplete='off'
@@ -227,7 +242,7 @@ const EvidenceRequestFilters = ({ view }: { view: string }) => {
 								}
 							>
 								<DatePickerInput
-									labelText='max'
+									labelText={t('before')}
 									id='maxCompDate'
 									size='sm'
 									autoComplete='off'

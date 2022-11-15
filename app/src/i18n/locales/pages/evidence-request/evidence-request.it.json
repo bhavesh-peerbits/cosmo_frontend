@@ -60,8 +60,8 @@
 	"basic-info": "Informazioni di base",
 	"optional-step": "Step facoltativo",
 	"approve": "Approva",
-	"reject": "Rifiuta",
-	"change-request": "Cambia richiesta",
+	"reject": "Rifiuta e chiudi",
+	"change-request": "Rifiuta e torna indietro",
 	"action": "Azione",
 	"save-upload": "Salva caricamento",
 	"close-upload": "Chiudi caricamento",
@@ -73,5 +73,13 @@
 	"attachments-description": "In questa sezione è possibile effettuare l'upload di allegati. Attenzione: non è possibile effettuare l'upload di file con lo stesso nome",
 	"select-user-group": "Sono presenti dei conflitti a seguito della selezione di diversi controlli. Selezionare un gruppo di focal point e delegati prestabilito oppure inserirli manualmente",
 	"other": "Altro",
-	"check-step": "vedi step {{stepNumber}} per maggiori dettagli"
+	"check-step": "vedi step {{stepNumber}} per maggiori dettagli",
+	"action-pending": "Azione in attesa",
+	"after": "Dopo il",
+	"before": "Prima del",
+	"task-owner": "Task owner",
+	"no-delegates": "Nessun delegato associato",
+	"no-attachment": "Nessun allegato presente",
+	"managed": "Gestite",
+	"pending-actions": "Azioni in attesa"
 }

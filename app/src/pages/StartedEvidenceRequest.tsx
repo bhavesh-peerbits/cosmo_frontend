@@ -16,6 +16,7 @@ import { UserRoleEnum } from '@model/UserRole';
 import User, { fromUserApi } from '@model/User';
 import useAddCollaboratorsToEvidence from '@api/evidence-request/useAddCollaboratorsToEvidence';
 import useGetUsersByRoles from '@api/user/useGetUsersByRoles';
+import EvidenceRequestStepRequestForm from '@components/EvidenceRequest/EvidenceRequestStepRequestForm';
 
 const StartedEvidenceRequest = () => {
 	const { requestId = '' } = useParams<'requestId'>();
@@ -29,6 +30,10 @@ const StartedEvidenceRequest = () => {
 		UserRoleEnum.RequestAnalyst,
 		UserRoleEnum.RequestAdmin
 	);
+	const path = `${new Date().getFullYear()}/${data?.application.codeName}/${
+		data?.workflowName
+	}/${data?.code}/`.replaceAll(' ', '');
+
 	const handleAddCollaborators = useCallback(
 		(selection: string[]) => {
 			return mutateCollaborators({
@@ -55,7 +60,7 @@ const StartedEvidenceRequest = () => {
 	}
 	return (
 		<PageHeader
-			pageTitle={data.code}
+			pageTitle={`${data.code} - ${data.name}`}
 			intermediateRoutes={[{ name: 'Evidence Request', to: '/started-evidence-request' }]}
 			actions={[
 				{
@@ -96,27 +101,45 @@ const StartedEvidenceRequest = () => {
 					</TabList>
 					<TabPanels>
 						<TabPanel>
+							<Grid fullWidth narrow className='h-full space-y-5 md:space-y-0'>
+								<Column sm={4} md={3} lg={3}>
+									<div className='pl-5 md:ml-0'>
+										<EvidenceRequestDetails request={data} />
+									</div>
+								</Column>
+								<Column sm={4} md={5} lg={13} className='pl-5 md:pl-0'>
+									{`${data.currentStep}` !== '1' ? (
+										<EvidenceRequestInfo
+											stepRequest={data.steps.filter(step => step.type === 'REQUEST')[0]}
+											currentStep={data.currentStep}
+											status={data.status}
+											path={path}
+										/>
+									) : (
+										<EvidenceRequestStepRequestForm
+											erId={data.id}
+											path={path}
+											step={data.steps.filter(step => step.type === 'REQUEST')[0]}
+										/>
+									)}
+								</Column>
+							</Grid>
+						</TabPanel>
+						<TabPanel>
 							<Grid fullWidth narrow className='h-full'>
 								<Column sm={4} md={3} lg={3}>
 									<div className='pl-5 md:ml-0'>
 										<EvidenceRequestDetails request={data} />
 									</div>
 								</Column>
-								<Column sm={4} md={5} lg={13}>
-									<EvidenceRequestInfo
-										stepRequest={data.steps.filter(step => step.type === 'REQUEST')[0]}
+								<Column sm={4} md={5} lg={13} className='pl-5 pt-5 md:pl-0 md:pt-0'>
+									<EvidenceStepInfo
+										steps={data.steps}
 										currentStep={data.currentStep}
-										status={data.status}
+										owner={data.creator}
 									/>
 								</Column>
 							</Grid>
-						</TabPanel>
-						<TabPanel>
-							<EvidenceStepInfo
-								steps={data.steps}
-								currentStep={data.currentStep}
-								owner={data.creator}
-							/>
 						</TabPanel>
 					</TabPanels>
 				</StickyTabs>

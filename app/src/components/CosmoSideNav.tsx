@@ -100,11 +100,6 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 							</SideNavMenuItem>
 						</SideNavMenu>
 					)}
-					{canAdmin && (
-						<SideNavLink renderIcon={UserAdmin} element={Link} to={routes.ADMIN}>
-							Administration
-						</SideNavLink>
-					)}
 					{canCreateRequest && (
 						<SideNavMenu
 							renderIcon={Archive}
@@ -118,6 +113,12 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 								Started Requests
 							</SideNavMenuItem>
 						</SideNavMenu>
+					)}
+
+					{canAdmin && (
+						<SideNavLink renderIcon={UserAdmin} element={Link} to={routes.ADMIN}>
+							Administration
+						</SideNavLink>
 					)}
 
 					<SideNavLink renderIcon={Logout} href={routes.LOGOUT}>

@@ -162,6 +162,7 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 							title: u.displayName,
 							tagInfo: u.principalRole,
 							subtitle: u.email || t('no-email'),
+							username: u.username,
 							role: u.principalRole,
 							avatar: {
 								imageDescription: u.username,
@@ -209,6 +210,7 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 							title: u.displayName,
 							tagInfo: u.principalRole,
 							subtitle: u.email || t('no-email'),
+							username: u.username,
 							role: u.principalRole,
 							avatar: {
 								imageDescription: u.username,

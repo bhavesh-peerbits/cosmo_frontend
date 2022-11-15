@@ -14,14 +14,15 @@ import {
 import DatePickerWrapper from '@components/DatePickerWrapper';
 import FullWidthColumn from '@components/FullWidthColumn';
 import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
+import evidenceRequestUploaderStore from '@store/evidence-request/evidenceRequestUploaderStore';
 import { startOfTomorrow } from 'date-fns';
+import { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 
 type SendRequestModalProps = {
-	isOpen: boolean;
-	setIsOpen: (value: boolean) => void;
 	request: EvidenceRequestDraft;
 };
 
@@ -29,9 +30,12 @@ type FormData = {
 	dueDate: Date;
 };
 
-const SendRequestModal = ({ isOpen, setIsOpen, request }: SendRequestModalProps) => {
+const SendRequestModal = ({ request }: SendRequestModalProps) => {
 	const { t } = useTranslation(['modals', 'evidenceRequest', 'userRevalidation']);
 	const { mutate, isLoading, isError, error } = useSendRequest();
+	const [confirmSendInfo, setConfirmSendInfo] = useRecoilState(
+		evidenceRequestUploaderStore
+	);
 	const navigate = useNavigate();
 	const {
 		control,
@@ -45,29 +49,62 @@ const SendRequestModal = ({ isOpen, setIsOpen, request }: SendRequestModalProps)
 		}
 	});
 
-	const cleanUp = () => {
-		setIsOpen(false);
+	const cleanUp = useCallback(() => {
+		setConfirmSendInfo(old => ({ ...old, dueDate: undefined, isOpen: false }));
 		reset();
-	};
+	}, [reset, setConfirmSendInfo]);
 
 	const sendRequest = (data: FormData) => {
-		mutate(
-			{ ...request, dueDate: data.dueDate },
-			{
-				onSuccess: () => {
-					navigate('/started-evidence-request');
+		if (confirmSendInfo.isDirty) {
+			setConfirmSendInfo(old => ({ ...old, saveUpload: true, dueDate: data.dueDate }));
+		} else {
+			mutate(
+				{ ...request, dueDate: data.dueDate },
+				{
+					onSuccess: () => {
+						cleanUp();
+						navigate('/started-evidence-request');
+					}
 				}
-			}
-		);
+			);
+		}
 	};
+
+	useEffect(() => {
+		if (confirmSendInfo.uploadSuccess) {
+			setConfirmSendInfo(old => ({ ...old, uploadSuccess: false }));
+			mutate(
+				{
+					...request,
+					fileLinks: confirmSendInfo.files,
+					dueDate: confirmSendInfo.dueDate
+				},
+				{
+					onSuccess: () => {
+						cleanUp();
+						navigate('/started-evidence-request');
+					}
+				}
+			);
+		}
+	}, [
+		cleanUp,
+		confirmSendInfo.dueDate,
+		confirmSendInfo.files,
+		confirmSendInfo.uploadSuccess,
+		mutate,
+		navigate,
+		request,
+		setConfirmSendInfo
+	]);
 
 	return (
 		<Form>
 			<ComposedModal
 				preventCloseOnClickOutside
-				open={isOpen}
+				open={confirmSendInfo.isOpen}
 				onClose={cleanUp}
-				className='z-[9000]'
+				className='z-[9999]'
 				size='xs'
 			>
 				<ModalHeader title={t('evidenceRequest:send-request')} closeModal={cleanUp}>
@@ -113,7 +150,7 @@ const SendRequestModal = ({ isOpen, setIsOpen, request }: SendRequestModalProps)
 						{t('modals:cancel')}
 					</Button>
 					<Button
-						disabled={!isValid || isLoading}
+						disabled={!isValid || isLoading || confirmSendInfo.isLoading}
 						type='submit'
 						onClick={handleSubmit(sendRequest)}
 					>

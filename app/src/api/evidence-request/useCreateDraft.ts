@@ -1,14 +1,13 @@
 import { useMutation, useQueryClient } from 'react-query';
 import api from '@api';
 import { useNavigate } from 'react-router-dom';
-import PhaseType, { toPhaseTypeApi } from '@model/PhaseType';
 
 interface CreateDraftParams {
 	draftData: {
 		name: string;
 		workflowname: string;
 		requestType: string[];
-		phaseType?: PhaseType;
+		phaseTypeId?: string;
 	};
 }
 
@@ -17,7 +16,7 @@ const createDraft = ({ draftData }: CreateDraftParams) => {
 		.createDraft({
 			setUpDraftDto: {
 				...draftData,
-				phaseType: draftData.phaseType ? toPhaseTypeApi(draftData.phaseType) : undefined
+				phaseTypeId: draftData.phaseTypeId ? +draftData.phaseTypeId : undefined
 			}
 		})
 		.then(({ data }) => data.valueOf());
