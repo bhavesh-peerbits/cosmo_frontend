@@ -110,7 +110,8 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 			onSuccess: () => {
 				setCloseUploadInfo(old => ({
 					...old,
-					saveUpload: !closeUploadInfo.saveUpload
+					saveUpload: !closeUploadInfo.saveUpload,
+					uploadSuccess: true
 				}));
 
 				reset({ files: [] });

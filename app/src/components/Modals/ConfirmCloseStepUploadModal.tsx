@@ -52,7 +52,7 @@ const ConfirmCloseStepUploadModal = ({
 				publicComment: confirmCloseInfo.publicComment,
 				privateComment: confirmCloseInfo.privateComment
 			};
-
+			setConfirmCloseInfo(old => ({ ...old, uploadSuccess: false }));
 			mutate({ erId, step }, { onSuccess: cleanUp });
 		}
 	}, [
@@ -63,7 +63,8 @@ const ConfirmCloseStepUploadModal = ({
 		cleanUp,
 		confirmCloseInfo.publicComment,
 		confirmCloseInfo.requestText,
-		confirmCloseInfo.privateComment
+		confirmCloseInfo.privateComment,
+		setConfirmCloseInfo
 	]);
 
 	return (
