@@ -3,14 +3,13 @@ import { TextInput, Select, SelectItem, Grid } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import useGetAllUniqueEvidenceNames from '@api/evidence-request/useGetAllUniqueEvidenceNames';
 import useGetNewDraftParameter from '@api/evidence-request/useGetNewDraftParameter';
-import PhaseType from '@model/PhaseType';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
 export interface CreateRequestForm {
 	requestName: string;
 	workflow: string;
 	requestType: string;
-	phaseType: PhaseType;
+	phaseTypeId: string;
 }
 
 type RequestBasicInfoProps = {
@@ -19,7 +18,7 @@ type RequestBasicInfoProps = {
 };
 
 const RequestBasicInfo = ({ errors, register }: RequestBasicInfoProps) => {
-	const { t } = useTranslation(['evidenceRequest', 'applicationInfo']);
+	const { t } = useTranslation(['evidenceRequest', 'applicationInfo', 'modals']);
 	const { data: parameters } = useGetNewDraftParameter();
 	const { data: requestNames } = useGetAllUniqueEvidenceNames();
 	return (
@@ -32,6 +31,10 @@ const RequestBasicInfo = ({ errors, register }: RequestBasicInfoProps) => {
 					invalidText={errors.requestName?.message}
 					invalid={Boolean(errors.requestName)}
 					{...register('requestName', {
+						required: {
+							value: true,
+							message: `${t('applicationInfo:required')}`
+						},
 						validate: name =>
 							!requestNames
 								?.map(existingName => existingName.toLowerCase())
@@ -42,7 +45,7 @@ const RequestBasicInfo = ({ errors, register }: RequestBasicInfoProps) => {
 			<FullWidthColumn>
 				<Select
 					id='workflow-types'
-					labelText={`${t('evidenceRequest:workflow-type')} *`}
+					labelText={t('evidenceRequest:workflow-type')}
 					{...register('workflow', {
 						required: true
 					})}
@@ -55,7 +58,7 @@ const RequestBasicInfo = ({ errors, register }: RequestBasicInfoProps) => {
 			<FullWidthColumn>
 				<Select
 					id='request-types'
-					labelText={`${t('evidenceRequest:request-type')} *`}
+					labelText='Framework'
 					{...register('requestType', {
 						required: true
 					})}
@@ -68,13 +71,13 @@ const RequestBasicInfo = ({ errors, register }: RequestBasicInfoProps) => {
 			<FullWidthColumn>
 				<Select
 					id='phase-types'
-					labelText={`${t('evidenceRequest:phase-type')}`}
-					{...register('phaseType')}
+					labelText={t('evidenceRequest:phase-type')}
+					{...register('phaseTypeId')}
 				>
 					{parameters?.phaseType?.map(phaseType => (
 						<SelectItem
 							text={phaseType.name || ''}
-							value={phaseType}
+							value={phaseType.id}
 							key={phaseType.id}
 						/>
 					))}

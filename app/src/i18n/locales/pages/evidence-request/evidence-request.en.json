@@ -60,8 +60,8 @@
 	"optional-step": "Optional step",
 	"start-date": "Start date",
 	"approve": "Approve",
-	"reject": "Reject",
-	"change-request": "Change request",
+	"reject": "Reject and close",
+	"change-request": "Reject and move back",
 	"action": "Action",
 	"save-upload": "Save upload",
 	"close-upload": "Close upload",
@@ -73,5 +73,13 @@
 	"attachments-description": "In this section it is possible to upload attachments. Warning: files with the same name cannot be uploaded",
 	"select-user-group": "Conflicts exist as a result of selecting several controls. Select a predefined group of focal points and delegates or enter them manually",
 	"other": "Other",
-	"check-step": "check step {{stepNumber}} for details"
+	"check-step": "check step {{stepNumber}} for details",
+	"action-pending": "Action pending",
+	"after": "After",
+	"before": "Before",
+	"task-owner": "Task owner",
+	"no-delegates": "No delegate associated",
+	"no-attachment": "No attachment",
+	"managed": "Managed",
+	"pending-actions": "Pending actions"
 }

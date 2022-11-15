@@ -37,6 +37,7 @@ const EvidenceRequestUploadForm = ({ step, erId, path }: EvidenceReqUploadFormPr
 		setCloseUploadInfo(old => ({
 			...old,
 			isOpen: true,
+			uploadSuccess: false,
 			publicComment: data.publicComment
 		}));
 	};
@@ -50,7 +51,6 @@ const EvidenceRequestUploadForm = ({ step, erId, path }: EvidenceReqUploadFormPr
 						className='mt-5'
 						{...register('publicComment')}
 					/>
-
 					<UploaderS3
 						label={t('userRevalidation:upload-instructions')}
 						parentFormDirty={isDirty}

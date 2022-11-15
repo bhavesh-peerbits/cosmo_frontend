@@ -71,7 +71,13 @@ const AddSelectSidebar = ({
 								<p className='mb-5 text-body-long-1'>{item.subtitle}</p>
 							</div>
 							{Object.keys(item)
-								.filter(key => key !== 'title' && key !== 'subtitle' && key !== 'tagInfo')
+								.filter(
+									key =>
+										key !== 'title' &&
+										key !== 'subtitle' &&
+										key !== 'tagInfo' &&
+										key !== 'id'
+								)
 								.map(key => (
 									<div key={key}>
 										<p className='mb-3 text-text-secondary text-label-1 first-letter:uppercase'>

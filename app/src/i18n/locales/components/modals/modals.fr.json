@@ -52,5 +52,6 @@
 	"create": "Crée",
 	"uploading": "",
 	"close": "",
-	"confirm-close-upload": ""
+	"confirm-close-upload": "",
+	"confirm-close-request": ""
 }

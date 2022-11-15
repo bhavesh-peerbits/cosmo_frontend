@@ -38,7 +38,12 @@ const DatePickerWrapper = <T extends FieldValues, TName extends FieldPath<T>>({
 					minDate={minDate ? formatShort(minDate) : undefined}
 					value={value}
 				>
-					<DatePickerInput id={name} placeholder={placeholder} labelText={label} />
+					<DatePickerInput
+						id={name}
+						placeholder={placeholder}
+						labelText={label}
+						autoComplete='off'
+					/>
 				</DatePicker>
 			)}
 		/>

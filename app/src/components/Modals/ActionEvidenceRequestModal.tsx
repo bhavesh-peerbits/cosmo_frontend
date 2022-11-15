@@ -43,13 +43,21 @@ const ActionEvidenceRequestModal = ({
 	const { mutate: mutateReject } = useSaveStepAndReject();
 	const { mutate: mutateReturn } = useSaveStepAndReturn();
 
-	const { register, handleSubmit, reset } = useForm<StepUploadForm>({
+	const {
+		register,
+		handleSubmit,
+		reset,
+		watch,
+		formState: { isValid }
+	} = useForm<StepUploadForm>({
 		mode: 'onChange',
 		defaultValues: {
 			publicComment: steps.filter(step => step.stepOrder === currentStep)[0].stepInfo
 				?.publicComment
 		}
 	});
+	const publicComment = watch('publicComment');
+
 	const cleanUp = () => {
 		reset({
 			publicComment: steps.filter(step => step.stepOrder === currentStep)[0].stepInfo
@@ -57,6 +65,7 @@ const ActionEvidenceRequestModal = ({
 		});
 		setIsOpen(false);
 	};
+
 	const handleSaveStep = (data: StepUploadForm) => {
 		const stepToSave = steps.filter(step => step.stepOrder === currentStep)[0];
 		stepToSave.stepInfo = {
@@ -92,6 +101,7 @@ const ActionEvidenceRequestModal = ({
 			);
 		}
 	};
+
 	return (
 		<ComposedModal size='sm' open={isOpen} onClose={cleanUp}>
 			<ModalHeader title={t(`evidenceRequest:${action}`)} closeModal={cleanUp} />
@@ -111,8 +121,15 @@ const ActionEvidenceRequestModal = ({
 						</Select>
 					)}
 					<TextArea
-						labelText={t('evidenceRequest:public-comment')}
-						{...register('publicComment')}
+						labelText={`${t('evidenceRequest:public-comment')} ${
+							action !== 'approve' ? '*' : ''
+						}`}
+						{...register('publicComment', {
+							required: {
+								value: action !== 'approve',
+								message: t('modals:field-required')
+							}
+						})}
 					/>
 				</Form>
 			</ModalBody>
@@ -120,7 +137,11 @@ const ActionEvidenceRequestModal = ({
 				<Button kind='secondary' onClick={cleanUp}>
 					{t('modals:cancel')}
 				</Button>
-				<Button kind='primary' onClick={handleSubmit(handleSaveStep)}>
+				<Button
+					kind='primary'
+					onClick={handleSubmit(handleSaveStep)}
+					disabled={action !== 'approve' && (!isValid || publicComment === '')}
+				>
 					{t('evidenceRequest:save')}
 				</Button>
 			</ModalFooter>

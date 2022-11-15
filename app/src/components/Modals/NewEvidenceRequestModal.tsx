@@ -51,7 +51,7 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 					requestType:
 						requestType === 'FREE' ? ['FREE'] : selectedLeaves.map(leaf => leaf.code),
 					workflowname: data.workflow,
-					phaseType: data.phaseType
+					phaseTypeId: data.phaseTypeId
 				}
 			},
 			{

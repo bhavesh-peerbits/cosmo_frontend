@@ -1,10 +1,12 @@
 import TipTapEditor from '@components/tiptap/TiptapEditor';
-import { TextArea, Button, Form } from '@carbon/react';
+import { TextArea, Button, Form, Layer } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import { useController, useForm } from 'react-hook-form';
 import EvidenceRequestStep from '@model/EvidenceRequestStep';
 import { useState } from 'react';
+import UploaderS3 from '@components/util/UploaderS3';
 import useSaveStep from '@api/evidence-request/useSaveStep';
+import FileLinkTable from './FileLinkTable';
 
 interface StepRequestTextForm {
 	stepRequestText: string;
@@ -16,18 +18,28 @@ const EvidenceRequestInfo = ({
 	stepRequest,
 	currentStep,
 	status,
-	disabled
+	disabled,
+	action,
+	path
 }: {
 	stepRequest: EvidenceRequestStep;
 	currentStep: number;
 	status: string;
 	disabled?: boolean;
+	action?: boolean;
+	path?: string;
 }) => {
-	const { t } = useTranslation('evidenceRequest');
+	const { t } = useTranslation(['evidenceRequest', 'userRevalidation']);
 	const [resetTip, setResetTip] = useState(false);
-	const { mutate } = useSaveStep();
+	const { mutate, isLoading } = useSaveStep();
 
-	const { register, control, reset, handleSubmit } = useForm<StepRequestTextForm>({
+	const {
+		register,
+		control,
+		reset,
+		handleSubmit,
+		formState: { isDirty }
+	} = useForm<StepRequestTextForm>({
 		mode: 'onChange',
 		defaultValues: {
 			stepRequestText: stepRequest.text,
@@ -47,6 +59,15 @@ const EvidenceRequestInfo = ({
 		name: 'stepRequestText'
 	});
 
+	const resetForm = () => {
+		reset({
+			stepRequestText: stepRequest.text,
+			publicComment: stepRequest.stepInfo?.publicComment,
+			privateComment: stepRequest.stepInfo?.privateComment
+		});
+		setResetTip(!resetTip);
+	};
+
 	const handleSaveStep = (data: StepRequestTextForm) => {
 		mutate({
 			step: {
@@ -60,23 +81,35 @@ const EvidenceRequestInfo = ({
 		});
 	};
 
+	const attachmentsContent = () => {
+		if (disabled || `${currentStep}` !== '1') {
+			return stepRequest.fileLinks.length > 0 ? (
+				<FileLinkTable files={stepRequest.fileLinks} />
+			) : (
+				<span className='italic text-text-secondary'>
+					{t('evidenceRequest:no-attachment')}
+				</span>
+			);
+		}
+		return (
+			<UploaderS3
+				alreadyUploaded={stepRequest.fileLinks}
+				parentFormDirty={isDirty}
+				label={t('userRevalidation:upload-instructions')}
+				additionalInfo={{ stepId: `${stepRequest.id}` }}
+				path={path || ''}
+			/>
+		);
+	};
+
 	if (!stepRequest) {
 		return null;
 	}
 
 	return (
-		<Form
-			onReset={() => {
-				reset({
-					stepRequestText: stepRequest.text,
-					publicComment: stepRequest.stepInfo?.publicComment,
-					privateComment: stepRequest.stepInfo?.privateComment
-				});
-				setResetTip(!resetTip);
-			}}
-		>
-			<div className='bg-background px-5 py-5'>
-				<p className='text-productive-heading-3'>{t('request-text')}</p>
+		<Form>
+			<div className='bg-layer-2 px-5 py-5'>
+				<p className='text-productive-heading-3'>{t('evidenceRequest:request-text')}</p>
 				<div className='h-max-[400px] mt-6'>
 					<TipTapEditor
 						content={descriptionValue}
@@ -89,37 +122,45 @@ const EvidenceRequestInfo = ({
 					/>
 				</div>
 			</div>
-			<div className='mt-7 space-y-5 bg-background px-5 py-5'>
-				<p className='text-productive-heading-3'>{t('additional-info')}</p>
-				<div className='space-y-2'>
-					<p>{t('attachments')}</p>
-					<p className='text-body-compact-1'>placeholder attachment files</p>
+			<div className='mt-5 space-y-5 bg-layer-2 px-5 py-5'>
+				<p className='text-productive-heading-3'>
+					{t('evidenceRequest:additional-info')}
+				</p>
+				<div className='space-y-3'>
+					<p>{t('evidenceRequest:attachments')}</p>
+					{attachmentsContent()}
 				</div>
-				<div className='space-y-2'>
-					<p>{t('public-comment')}</p>
+				<Layer level={2}>
 					<TextArea
-						labelText=''
+						labelText={t('evidenceRequest:public-comment')}
 						{...register('publicComment')}
 						disabled={disabled || status !== 'IN_PROGRESS'}
 					/>
-				</div>
-				<div className='space-y-2'>
-					<p>{t('private-comment')}</p>
-					<TextArea
-						labelText=''
-						{...register('privateComment')}
-						disabled={disabled || status !== 'IN_PROGRESS'}
-					/>
-				</div>
+				</Layer>
+				{!action && (
+					<Layer level={2}>
+						<TextArea
+							labelText={t('evidenceRequest:private-comment')}
+							{...register('privateComment')}
+							disabled={disabled || status !== 'IN_PROGRESS'}
+						/>
+					</Layer>
+				)}
 			</div>
 			<div className='space-x-5 p-5 text-right'>
 				{disabled ||
 					(status === 'IN_PROGRESS' && (
 						<>
-							<Button kind='secondary' type='reset' size='md'>
-								{t('reset')}
+							<Button kind='secondary' size='md' type='button' onClick={resetForm}>
+								{t('evidenceRequest:reset')}
 							</Button>
-							<Button onClick={handleSubmit(handleSaveStep)}>{t('save')}</Button>
+							<Button
+								size='md'
+								disabled={isLoading}
+								onClick={handleSubmit(handleSaveStep)}
+							>
+								{t('evidenceRequest:save')}
+							</Button>
 						</>
 					))}
 			</div>

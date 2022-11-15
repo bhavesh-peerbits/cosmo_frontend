@@ -4,9 +4,11 @@ import EvidenceRequestActionTileView from '@components/EvidenceRequest/EvidenceR
 import PageHeader from '@components/PageHeader';
 import StickyTabs from '@components/StickyTabs';
 import useEvidenceRequestAction from '@hooks/evidence-request/useEvidenceRequestAction';
+import { useTranslation } from 'react-i18next';
 
 const ActionEvidenceRequestDashboard = () => {
 	const { filters } = useEvidenceRequestAction();
+	const { t } = useTranslation('evidenceRequest');
 	return (
 		<PageHeader pageTitle='Evidence Requests'>
 			<StickyTabs>
@@ -15,8 +17,8 @@ const ActionEvidenceRequestDashboard = () => {
 					aria-label='List of tabs'
 					className='sticky z-10 bg-background'
 				>
-					<Tab className='max-w-none'>Action Pending</Tab>
-					<Tab className='max-w-none'>Closed</Tab>
+					<Tab className='max-w-none'>{t('pending-actions')}</Tab>
+					<Tab className='max-w-none'>{t('managed')}</Tab>
 				</TabList>
 				<TabPanels>
 					<TabPanel>

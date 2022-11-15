@@ -28,16 +28,17 @@ const ConfirmCloseStepUploadModal = ({
 		reset();
 	}, [setConfirmCloseInfo, reset]);
 
-	const { mutate } = useSaveStepAndGoNext();
-
+	const { mutate, isLoading } = useSaveStepAndGoNext();
+	const { type } = step;
 	const handleCloseUploadStep = () => {
 		if (confirmCloseInfo.isDirty) {
 			setConfirmCloseInfo(old => ({ ...old, saveUpload: true }));
 		} else {
 			const stepMutate = step;
+			stepMutate.text = confirmCloseInfo.requestText || '';
 			stepMutate.stepInfo = {
 				publicComment: confirmCloseInfo.publicComment,
-				privateComment: undefined
+				privateComment: confirmCloseInfo.privateComment
 			};
 			mutate({ erId, step }, { onSuccess: cleanUp });
 		}
@@ -46,10 +47,12 @@ const ConfirmCloseStepUploadModal = ({
 	useEffect(() => {
 		if (confirmCloseInfo.uploadSuccess) {
 			const stepMutate = step;
+			stepMutate.text = confirmCloseInfo.requestText || '';
 			stepMutate.stepInfo = {
 				publicComment: confirmCloseInfo.publicComment,
-				privateComment: undefined
+				privateComment: confirmCloseInfo.privateComment
 			};
+			setConfirmCloseInfo(old => ({ ...old, uploadSuccess: false }));
 			mutate({ erId, step }, { onSuccess: cleanUp });
 		}
 	}, [
@@ -58,7 +61,10 @@ const ConfirmCloseStepUploadModal = ({
 		step,
 		confirmCloseInfo.uploadSuccess,
 		cleanUp,
-		confirmCloseInfo.publicComment
+		confirmCloseInfo.publicComment,
+		confirmCloseInfo.requestText,
+		confirmCloseInfo.privateComment,
+		setConfirmCloseInfo
 	]);
 
 	return (
@@ -66,13 +72,15 @@ const ConfirmCloseStepUploadModal = ({
 			open={confirmCloseInfo.isOpen}
 			danger
 			className='z-[9999] flex'
-			modalHeading={t('confirm-close-upload')}
+			modalHeading={
+				type === 'UPLOAD' ? t('confirm-close-upload') : t('confirm-close-request')
+			}
 			onRequestClose={cleanUp}
 			onRequestSubmit={handleCloseUploadStep}
 			primaryButtonText={
-				confirmCloseInfo.saveUpload && !confirmCloseInfo.uploadSuccess ? (
+				isLoading || (confirmCloseInfo.saveUpload && !confirmCloseInfo.uploadSuccess) ? (
 					<div>
-						{t('uploading')}
+						{type === 'UPLOAD' ? t('uploading') : t('save')}
 						<InlineLoading />
 					</div>
 				) : (
@@ -80,7 +88,7 @@ const ConfirmCloseStepUploadModal = ({
 				)
 			}
 			primaryButtonDisabled={
-				confirmCloseInfo.saveUpload && !confirmCloseInfo.uploadSuccess
+				isLoading || (confirmCloseInfo.saveUpload && !confirmCloseInfo.uploadSuccess)
 			}
 			secondaryButtonText={t('cancel')}
 			size='sm'

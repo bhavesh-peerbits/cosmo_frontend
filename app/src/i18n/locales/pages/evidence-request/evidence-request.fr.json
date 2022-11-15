@@ -73,5 +73,13 @@
 	"attachments-description": "Dans cette section, il est possible de télécharger des fichiers. Attention : il n'est pas possible de télécharger des fichiers avec le même nom",
 	"select-user-group": "Des conflits existent suite à la sélection de plusieurs contrôles. Sélectionnez un groupe prédéfini de points focaux et de délégués ou saisissez-les manuellement",
 	"other": "Autre",
-	"check-step": "voir étape {{stepNumber}} pour plus de détails"
+	"check-step": "voir étape {{stepNumber}} pour plus de détails",
+	"action-pending": "Action pending",
+	"after": "",
+	"before": "",
+	"task-owner": "",
+	"no-delegates": "",
+	"no-attachment": "",
+	"managed": "Managed",
+	"pending-actions": "Pending actions"
 }
