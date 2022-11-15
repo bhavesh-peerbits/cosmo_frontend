@@ -45,7 +45,7 @@ const EvidenceRequestActionTile = ({ request }: ERATileProp) => {
 					<div>
 						<span className='mt-2 flex  space-x-2 '>
 							<p className='text-text-secondary text-body-short-1 '>
-								{request.completionDate ? t('completion-date') : t('action-pending')} :
+								{request.completionDate ? t('completion-date') : t('current-step')} :
 							</p>
 							<p className='text-body-short-1'>
 								{request.completionDate?.toLocaleDateString() ||
