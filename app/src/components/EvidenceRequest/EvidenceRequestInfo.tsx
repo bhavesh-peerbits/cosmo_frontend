@@ -5,7 +5,7 @@ import { useController, useForm } from 'react-hook-form';
 import EvidenceRequestStep from '@model/EvidenceRequestStep';
 import { useState } from 'react';
 import UploaderS3 from '@components/util/UploaderS3';
-import useSaveStepAndGoNext from '@api/evidence-request/useSaveStepAndGoNext';
+import useSaveStep from '@api/evidence-request/useSaveStep';
 import FileLinkTable from './FileLinkTable';
 
 interface StepRequestTextForm {
@@ -17,7 +17,6 @@ interface StepRequestTextForm {
 const EvidenceRequestInfo = ({
 	stepRequest,
 	currentStep,
-	erId,
 	status,
 	disabled,
 	action,
@@ -25,7 +24,6 @@ const EvidenceRequestInfo = ({
 }: {
 	stepRequest: EvidenceRequestStep;
 	currentStep: number;
-	erId?: string;
 	status: string;
 	disabled?: boolean;
 	action?: boolean;
@@ -33,7 +31,7 @@ const EvidenceRequestInfo = ({
 }) => {
 	const { t } = useTranslation(['evidenceRequest', 'userRevalidation']);
 	const [resetTip, setResetTip] = useState(false);
-	const { mutate } = useSaveStepAndGoNext();
+	const { mutate } = useSaveStep();
 
 	const {
 		register,
@@ -62,18 +60,16 @@ const EvidenceRequestInfo = ({
 	});
 
 	const handleSaveStep = (data: StepRequestTextForm) => {
-		erId &&
-			mutate({
-				erId,
-				step: {
-					...stepRequest,
-					stepInfo: {
-						publicComment: data.publicComment,
-						privateComment: data.privateComment
-					},
-					text: descriptionValue
-				}
-			});
+		mutate({
+			step: {
+				...stepRequest,
+				stepInfo: {
+					publicComment: data.publicComment,
+					privateComment: data.privateComment
+				},
+				text: descriptionValue
+			}
+		});
 	};
 
 	const attachmentsContent = () => {
