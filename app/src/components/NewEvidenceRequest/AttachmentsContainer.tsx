@@ -1,8 +1,6 @@
-import ApiError from '@api/ApiError';
 import useSaveDraft from '@api/evidence-request/useSaveDraft';
-import { Button, Grid, Layer } from '@carbon/react';
+import { Button, Grid, Layer, InlineLoading } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
-import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import UploaderS3 from '@components/util/UploaderS3';
 import evidenceRequestUploaderStore from '@store/evidence-request/evidenceRequestUploaderStore';
 import evidenceRequestDraftStore from '@store/evidenceRequestDraft/evidenceRequestDraftStore';
@@ -20,14 +18,15 @@ const AttachmentsContainer = ({ setCurrentStep }: AttachmentsContainerProps) => 
 		requestDraft.type
 	}/${requestDraft.id}/1`.replaceAll(' ', '');
 
-	const { mutate, isLoading, isError, isSuccess, error } = useSaveDraft();
+	const { mutate, isLoading } = useSaveDraft();
 	const [closeUploadInfo, setCloseUploadInfo] = useRecoilState(
 		evidenceRequestUploaderStore
 	);
 	const saveDraft = () => {
-		closeUploadInfo.isDirty
-			? setCloseUploadInfo(old => ({ ...old, saveUpload: true }))
-			: mutate(requestDraft);
+		if (closeUploadInfo.isDirty) {
+			setCloseUploadInfo(old => ({ ...old, saveUpload: true }));
+		}
+		mutate(requestDraft);
 	};
 
 	const isRequestDraftCompleted =
@@ -60,9 +59,7 @@ const AttachmentsContainer = ({ setCurrentStep }: AttachmentsContainerProps) => 
 						alreadyUploaded={requestDraft.fileLinks}
 					/>
 				</FullWidthColumn>
-				<InlineLoadingStatus
-					{...{ isLoading, isSuccess, isError, error: error as ApiError }}
-				/>
+				{isLoading && <InlineLoading />}
 				<FullWidthColumn className='flex justify-end space-x-5'>
 					<Button kind='secondary' size='md' onClick={() => setCurrentStep(3)}>
 						{t('modals:back')}

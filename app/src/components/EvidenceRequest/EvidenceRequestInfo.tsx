@@ -31,7 +31,7 @@ const EvidenceRequestInfo = ({
 }) => {
 	const { t } = useTranslation(['evidenceRequest', 'userRevalidation']);
 	const [resetTip, setResetTip] = useState(false);
-	const { mutate } = useSaveStep();
+	const { mutate, isLoading } = useSaveStep();
 
 	const {
 		register,
@@ -58,6 +58,15 @@ const EvidenceRequestInfo = ({
 		control,
 		name: 'stepRequestText'
 	});
+
+	const resetForm = () => {
+		reset({
+			stepRequestText: stepRequest.text,
+			publicComment: stepRequest.stepInfo?.publicComment,
+			privateComment: stepRequest.stepInfo?.privateComment
+		});
+		setResetTip(!resetTip);
+	};
 
 	const handleSaveStep = (data: StepRequestTextForm) => {
 		mutate({
@@ -98,16 +107,7 @@ const EvidenceRequestInfo = ({
 	}
 
 	return (
-		<Form
-			onReset={() => {
-				reset({
-					stepRequestText: stepRequest.text,
-					publicComment: stepRequest.stepInfo?.publicComment,
-					privateComment: stepRequest.stepInfo?.privateComment
-				});
-				setResetTip(!resetTip);
-			}}
-		>
+		<Form>
 			<div className='bg-layer-2 px-5 py-5'>
 				<p className='text-productive-heading-3'>{t('evidenceRequest:request-text')}</p>
 				<div className='h-max-[400px] mt-6'>
@@ -151,10 +151,14 @@ const EvidenceRequestInfo = ({
 				{disabled ||
 					(status === 'IN_PROGRESS' && (
 						<>
-							<Button kind='secondary' size='md' type='reset'>
+							<Button kind='secondary' size='md' type='button' onClick={resetForm}>
 								{t('evidenceRequest:reset')}
 							</Button>
-							<Button size='md' onClick={handleSubmit(handleSaveStep)}>
+							<Button
+								size='md'
+								disabled={isLoading}
+								onClick={handleSubmit(handleSaveStep)}
+							>
 								{t('evidenceRequest:save')}
 							</Button>
 						</>

@@ -16,7 +16,7 @@ import FullWidthColumn from '@components/FullWidthColumn';
 import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
 import evidenceRequestUploaderStore from '@store/evidence-request/evidenceRequestUploaderStore';
 import { startOfTomorrow } from 'date-fns';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -49,10 +49,10 @@ const SendRequestModal = ({ request }: SendRequestModalProps) => {
 		}
 	});
 
-	const cleanUp = () => {
+	const cleanUp = useCallback(() => {
 		setConfirmSendInfo(old => ({ ...old, dueDate: undefined, isOpen: false }));
 		reset();
-	};
+	}, [reset, setConfirmSendInfo]);
 
 	const sendRequest = (data: FormData) => {
 		if (confirmSendInfo.isDirty) {
@@ -62,6 +62,7 @@ const SendRequestModal = ({ request }: SendRequestModalProps) => {
 				{ ...request, dueDate: data.dueDate },
 				{
 					onSuccess: () => {
+						cleanUp();
 						navigate('/started-evidence-request');
 					}
 				}
@@ -80,12 +81,14 @@ const SendRequestModal = ({ request }: SendRequestModalProps) => {
 				},
 				{
 					onSuccess: () => {
+						cleanUp();
 						navigate('/started-evidence-request');
 					}
 				}
 			);
 		}
 	}, [
+		cleanUp,
 		confirmSendInfo.dueDate,
 		confirmSendInfo.files,
 		confirmSendInfo.uploadSuccess,
