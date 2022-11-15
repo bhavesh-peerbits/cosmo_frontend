@@ -1,3 +1,4 @@
+import FileLink from '@model/FileLink';
 import { atom } from 'recoil';
 
 const evidenceRequestUploaderStore = atom<{
@@ -8,6 +9,8 @@ const evidenceRequestUploaderStore = atom<{
 	privateComment?: string;
 	requestText?: string;
 	isDirty: boolean;
+	dueDate?: Date;
+	files?: FileLink[];
 	isLoading: boolean;
 }>({
 	key: 'evidenceRequestUploaderStore',
@@ -18,7 +21,9 @@ const evidenceRequestUploaderStore = atom<{
 		publicComment: '',
 		privateComment: undefined,
 		requestText: undefined,
+		dueDate: undefined,
 		isDirty: false,
+		files: undefined,
 		isLoading: false
 	}
 });

@@ -37,6 +37,7 @@ const EvidenceRequestUploadForm = ({ step, erId, path }: EvidenceReqUploadFormPr
 		setCloseUploadInfo(old => ({
 			...old,
 			isOpen: true,
+			uploadSuccess: false,
 			publicComment: data.publicComment
 		}));
 	};

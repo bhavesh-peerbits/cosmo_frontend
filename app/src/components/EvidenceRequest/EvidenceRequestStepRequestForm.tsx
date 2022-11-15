@@ -58,6 +58,7 @@ const EvidenceRequestStepRequestForm = ({
 		setCloseUploadInfo(old => ({
 			...old,
 			isOpen: true,
+			uploadSuccess: false,
 			publicComment: data.publicComment,
 			privateComment: data.privateComment,
 			requestText: data.text
