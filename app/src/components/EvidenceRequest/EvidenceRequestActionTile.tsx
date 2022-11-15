@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Layer, ClickableTile } from '@carbon/react';
 import EvidenceRequest from '@model/EvidenceRequest';
+import useEvidenceRequestAction from '@hooks/evidence-request/useEvidenceRequestAction';
 
 interface ERATileProp {
 	request: EvidenceRequest;
@@ -10,6 +11,7 @@ interface ERATileProp {
 const EvidenceRequestActionTile = ({ request }: ERATileProp) => {
 	const navigate = useNavigate();
 	const { t } = useTranslation('evidenceRequest');
+	const { filters } = useEvidenceRequestAction();
 
 	return (
 		<Layer level={1}>
@@ -45,7 +47,10 @@ const EvidenceRequestActionTile = ({ request }: ERATileProp) => {
 					<div>
 						<span className='mt-2 flex  space-x-2 '>
 							<p className='text-text-secondary text-body-short-1 '>
-								{request.completionDate ? t('completion-date') : t('current-step')} :
+								{request.completionDate
+									? t('completion-date')
+									: (filters.tab === 1 && t('current-step')) || t('action-pending')}
+								:
 							</p>
 							<p className='text-body-short-1'>
 								{request.completionDate?.toLocaleDateString() ||
