@@ -83,7 +83,7 @@ export interface DraftDto {
 	 * @type {string}
 	 * @memberof DraftDto
 	 */
-	name?: string;
+	name: string;
 	/**
 	 *
 	 * @type {number}

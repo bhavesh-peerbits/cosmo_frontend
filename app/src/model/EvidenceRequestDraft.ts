@@ -78,7 +78,7 @@ export const toEvidenceRequestDraftApi = (
 			: undefined,
 		text: evidenceRequestDraft.text,
 		type: evidenceRequestDraft.type,
-		name: evidenceRequestDraft.name,
+		name: evidenceRequestDraft.name || '',
 		stepInfo: evidenceRequestDraft.stepInfo,
 		dueDate: evidenceRequestDraft.dueDate
 			? evidenceRequestDraft.dueDate?.toISOString()

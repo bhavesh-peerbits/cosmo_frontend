@@ -1,4 +1,5 @@
 import useSaveStepAndGoNext from '@api/evidence-request/useSaveStepAndGoNext';
+import useSaveStepAndGoNextAnalyst from '@api/evidence-request/useSaveStepAndGoNextAnalyst';
 import { Modal, InlineLoading } from '@carbon/react';
 import { StepUploadForm } from '@components/EvidenceRequest/EvidenceRequestUploadForm';
 import EvidenceRequestStep from '@model/EvidenceRequestStep';
@@ -29,6 +30,8 @@ const ConfirmCloseStepUploadModal = ({
 	}, [setConfirmCloseInfo, reset]);
 
 	const { mutate, isLoading } = useSaveStepAndGoNext();
+	const { mutate: mutateAnalyst, isLoading: isLoadaingAnalyst } =
+		useSaveStepAndGoNextAnalyst();
 	const { type } = step;
 	const handleCloseUploadStep = () => {
 		if (confirmCloseInfo.isDirty) {
@@ -40,7 +43,9 @@ const ConfirmCloseStepUploadModal = ({
 				publicComment: confirmCloseInfo.publicComment,
 				privateComment: confirmCloseInfo.privateComment
 			};
-			mutate({ erId, step }, { onSuccess: cleanUp });
+			step.type === 'REQUEST'
+				? mutateAnalyst({ erId, step: stepMutate }, { onSuccess: cleanUp })
+				: mutate({ erId, step: stepMutate }, { onSuccess: cleanUp });
 		}
 	};
 
@@ -53,7 +58,9 @@ const ConfirmCloseStepUploadModal = ({
 				privateComment: confirmCloseInfo.privateComment
 			};
 			setConfirmCloseInfo(old => ({ ...old, uploadSuccess: false }));
-			mutate({ erId, step }, { onSuccess: cleanUp });
+			step.type === 'REQUEST'
+				? mutateAnalyst({ erId, step: stepMutate }, { onSuccess: cleanUp })
+				: mutate({ erId, step: stepMutate }, { onSuccess: cleanUp });
 		}
 	}, [
 		erId,
@@ -64,7 +71,8 @@ const ConfirmCloseStepUploadModal = ({
 		confirmCloseInfo.publicComment,
 		confirmCloseInfo.requestText,
 		confirmCloseInfo.privateComment,
-		setConfirmCloseInfo
+		setConfirmCloseInfo,
+		mutateAnalyst
 	]);
 
 	return (
@@ -78,7 +86,9 @@ const ConfirmCloseStepUploadModal = ({
 			onRequestClose={cleanUp}
 			onRequestSubmit={handleCloseUploadStep}
 			primaryButtonText={
-				isLoading || (confirmCloseInfo.saveUpload && !confirmCloseInfo.uploadSuccess) ? (
+				isLoadaingAnalyst ||
+				isLoading ||
+				(confirmCloseInfo.saveUpload && !confirmCloseInfo.uploadSuccess) ? (
 					<div>
 						{type === 'UPLOAD' ? t('uploading') : t('save')}
 						<InlineLoading />
@@ -88,7 +98,9 @@ const ConfirmCloseStepUploadModal = ({
 				)
 			}
 			primaryButtonDisabled={
-				isLoading || (confirmCloseInfo.saveUpload && !confirmCloseInfo.uploadSuccess)
+				isLoadaingAnalyst ||
+				isLoading ||
+				(confirmCloseInfo.saveUpload && !confirmCloseInfo.uploadSuccess)
 			}
 			secondaryButtonText={t('cancel')}
 			size='sm'
