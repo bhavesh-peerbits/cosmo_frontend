@@ -12,6 +12,7 @@ const evidenceRequestUploaderStore = atom<{
 	dueDate?: Date;
 	files?: FileLink[];
 	isLoading: boolean;
+	avoidNot?: boolean;
 }>({
 	key: 'evidenceRequestUploaderStore',
 	default: {

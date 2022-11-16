@@ -1,7 +1,13 @@
 /* eslint-disable no-unsafe-optional-chaining */
 import useGetFile from '@api/uploaders3/useGetFile';
 import usePutASelectionOfFiles from '@api/uploaders3/usePutASelectionOfFiles';
-import { FileUploaderDropContainer, FileUploaderItem, Form, Tag } from '@carbon/react';
+import {
+	FileUploaderDropContainer,
+	FileUploaderItem,
+	Form,
+	Tag,
+	InlineLoading
+} from '@carbon/react';
 import DeleteFileS3Modal from '@components/Modals/DeleteFileS3Modal';
 import usePrompt from '@hooks/usePreventNavigatePrompt';
 import FileLink, { fromFiletoFileLink } from '@model/FileLink';
@@ -19,9 +25,8 @@ import { useTranslation } from 'react-i18next';
 import { useRecoilState } from 'recoil';
 import { Download } from '@carbon/react/icons';
 import usePutASelectionOfFilesOnDraft from '@api/uploaders3/usePutASelectionOfFileOnDraft';
-import useSaveDraft from '@api/evidence-request/useSaveDraft';
-import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';
+import useNotification from '@hooks/useNotification';
 
 type CosmoFileUploaderProps<
 	T extends FieldValues,
@@ -52,6 +57,7 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 		evidenceRequestUploaderStore
 	);
 	// const requestDraft = useRecoilValue(evidenceRequestDraftStore);
+	const { showNotification } = useNotification();
 	const [deleteInfo, setDeleteInfo] = useState<{
 		isOpen: boolean;
 		fileId: string | undefined;
@@ -74,20 +80,12 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 		[alreadyUploaded]
 	);
 
-	const { mutate, isLoading, isError, error, isSuccess } = usePutASelectionOfFiles();
+	const { mutate, isLoading, error } = usePutASelectionOfFiles();
 	const {
 		mutate: mutateDraft,
 		isLoading: isLoadingDraft,
-		isError: isErrorDraft,
-		error: errorDraft,
-		isSuccess: isSuccessDraft
+		error: errorDraft
 	} = usePutASelectionOfFilesOnDraft();
-	const {
-		isError: isErrorSaveDraft,
-		error: errorSaveDraft,
-		isLoading: isLoadingSaveDraft,
-		isSuccess: isSuccessSaveDraft
-	} = useSaveDraft();
 
 	const {
 		control,
@@ -111,7 +109,11 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 					saveUpload: !closeUploadInfo.saveUpload,
 					uploadSuccess: true
 				}));
-
+				showNotification({
+					title: t('upload-success'),
+					message: t('upload-success-message'),
+					type: 'success'
+				});
 				reset({ files: [] });
 			},
 			onError: () => {
@@ -122,7 +124,8 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 				}));
 			}
 		}),
-		[setCloseUploadInfo, reset, closeUploadInfo.saveUpload]
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[setCloseUploadInfo, t, reset, closeUploadInfo.saveUpload]
 	);
 
 	usePrompt(t('prevent-close'), isDirty || parentFormDirty);
@@ -163,20 +166,6 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 						data.forEach(file => fileList.push(file));
 
 						setDeleteInfo(old => ({ ...old, files: fileList }));
-						// mutateSaveDraft(
-						// 	{
-						// 		...requestDraft,
-						// 		fileLinks:
-						// 			requestDraft.fileLinks && deleteInfo.files
-						// 				? [...requestDraft.fileLinks, ...data]
-						// 				: data
-						// 	},
-						// 	{
-						// 		onSuccess: () => {
-						// 			setCloseUploadInfo(old => ({ ...old, uploadSuccess: false }));
-						// 		}
-						// 	}
-						// );
 						reset({ files: [] });
 					},
 					onError: () => {
@@ -201,6 +190,19 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 		deleteInfo.files,
 		reset
 	]);
+
+	useEffect(() => {
+		if (errorDraft || error) {
+			showNotification({
+				title: t('upload-failed'),
+				message:
+					((errorDraft || error) as ApiError).message ||
+					'Error uploading file, please try again later',
+				type: 'error'
+			});
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [errorDraft, error, t]);
 
 	const DownloadFile = (fileLink: FileLink) => {
 		useGetFile(fileLink.id).then(({ data, headers }) => {
@@ -308,14 +310,7 @@ const UploaderS3 = <T extends FieldValues, TName extends FieldPath<T>>({
 								</div>
 							))}
 						</div>
-						<InlineLoadingStatus
-							{...{
-								isLoading: isLoading || isLoadingDraft || isLoadingSaveDraft,
-								isSuccess: isSuccess || isSuccessDraft || isSuccessSaveDraft,
-								isError: isError || isErrorDraft || isErrorSaveDraft,
-								error: (error || errorDraft || errorSaveDraft) as ApiError
-							}}
-						/>
+						{(isLoading || isLoadingDraft) && <InlineLoading />}
 					</div>
 				</Form>
 			</div>

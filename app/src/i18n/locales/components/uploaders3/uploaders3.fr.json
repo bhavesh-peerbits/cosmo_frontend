@@ -1,5 +1,9 @@
 {
 	"already-uploaded": "",
 	"upload-file": "",
-	"prevent-close": ""
+	"prevent-close": "",
+	"upload-success": "",
+	"upload-success-message": "",
+	"upload-failed": "",
+	"upload-success-and-save-message": ""
 }

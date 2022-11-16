@@ -81,5 +81,7 @@
 	"no-delegates": "Nessun delegato associato",
 	"no-attachment": "Nessun allegato presente",
 	"managed": "Gestite",
-	"pending-actions": "Azioni in attesa"
+	"pending-actions": "Azioni in attesa",
+	"save-success": "Salvataggio avvenuto correttamente",
+	"save-success-message": ""
 }

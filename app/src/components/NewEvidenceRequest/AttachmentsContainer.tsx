@@ -1,9 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import useSaveDraft from '@api/evidence-request/useSaveDraft';
-import { Button, Grid, Layer, InlineLoading } from '@carbon/react';
+import { Button, Grid, Layer } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import UploaderS3 from '@components/util/UploaderS3';
+import useNotification from '@hooks/useNotification';
 import evidenceRequestUploaderStore from '@store/evidence-request/evidenceRequestUploaderStore';
 import evidenceRequestDraftStore from '@store/evidenceRequestDraft/evidenceRequestDraftStore';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
@@ -13,7 +16,7 @@ type AttachmentsContainerProps = {
 const AttachmentsContainer = ({ setCurrentStep }: AttachmentsContainerProps) => {
 	const { t } = useTranslation(['evidenceRequest', 'modals', 'userRevalidation']);
 	const requestDraft = useRecoilValue(evidenceRequestDraftStore);
-
+	const { showNotification } = useNotification();
 	const path = `${new Date().getFullYear()}/${requestDraft.workflow.name}/${
 		requestDraft.type
 	}/${requestDraft.id}/1`.replaceAll(' ', '');
@@ -25,9 +28,51 @@ const AttachmentsContainer = ({ setCurrentStep }: AttachmentsContainerProps) => 
 	const saveDraft = () => {
 		if (closeUploadInfo.isDirty) {
 			setCloseUploadInfo(old => ({ ...old, saveUpload: true }));
+		} else {
+			mutate(
+				{
+					...requestDraft,
+					fileLinks:
+						closeUploadInfo.files && requestDraft.fileLinks
+							? [...closeUploadInfo.files, ...requestDraft.fileLinks]
+							: requestDraft.fileLinks
+				},
+				{
+					onSuccess: () => {
+						showNotification({
+							title: t('evidenceRequest:save-success'),
+							message: t('evidenceRequest:save-success-message'),
+							type: 'success'
+						});
+					}
+				}
+			);
 		}
-		mutate(requestDraft);
 	};
+
+	useEffect(() => {
+		if (closeUploadInfo.uploadSuccess) {
+			setCloseUploadInfo(old => ({ ...old, uploadSuccess: false }));
+			mutate(
+				{
+					...requestDraft,
+					fileLinks:
+						closeUploadInfo.files && requestDraft.fileLinks
+							? [...closeUploadInfo.files, ...requestDraft.fileLinks]
+							: requestDraft.fileLinks
+				},
+				{
+					onSuccess: () => {
+						showNotification({
+							title: t('evidenceRequest:save-success'),
+							message: t('evidenceRequest:save-success-message'),
+							type: 'success'
+						});
+					}
+				}
+			);
+		}
+	}, [closeUploadInfo.uploadSuccess, mutate, requestDraft, t]);
 
 	const isRequestDraftCompleted =
 		!!requestDraft?.requests?.filter(req => req.selected).length &&
@@ -59,7 +104,6 @@ const AttachmentsContainer = ({ setCurrentStep }: AttachmentsContainerProps) => 
 						alreadyUploaded={requestDraft.fileLinks}
 					/>
 				</FullWidthColumn>
-				{isLoading && <InlineLoading />}
 				<FullWidthColumn className='flex justify-end space-x-5'>
 					<Button kind='secondary' size='md' onClick={() => setCurrentStep(3)}>
 						{t('modals:back')}
@@ -67,7 +111,7 @@ const AttachmentsContainer = ({ setCurrentStep }: AttachmentsContainerProps) => 
 					<Button
 						size='md'
 						onClick={saveDraft}
-						disabled={!isRequestDraftCompleted || closeUploadInfo.isLoading}
+						disabled={!isRequestDraftCompleted || closeUploadInfo.isLoading || isLoading}
 					>
 						{t('modals:save')}
 					</Button>

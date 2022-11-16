@@ -6,6 +6,7 @@ import EvidenceRequestStep from '@model/EvidenceRequestStep';
 import { useState } from 'react';
 import UploaderS3 from '@components/util/UploaderS3';
 import useSaveStep from '@api/evidence-request/useSaveStep';
+import useNotification from '@hooks/useNotification';
 import FileLinkTable from './FileLinkTable';
 
 interface StepRequestTextForm {
@@ -32,6 +33,7 @@ const EvidenceRequestInfo = ({
 	const { t } = useTranslation(['evidenceRequest', 'userRevalidation']);
 	const [resetTip, setResetTip] = useState(false);
 	const { mutate, isLoading } = useSaveStep();
+	const { showNotification } = useNotification();
 
 	const {
 		register,
@@ -69,16 +71,27 @@ const EvidenceRequestInfo = ({
 	};
 
 	const handleSaveStep = (data: StepRequestTextForm) => {
-		mutate({
-			step: {
-				...stepRequest,
-				stepInfo: {
-					publicComment: data.publicComment,
-					privateComment: data.privateComment
-				},
-				text: descriptionValue
+		mutate(
+			{
+				step: {
+					...stepRequest,
+					stepInfo: {
+						publicComment: data.publicComment,
+						privateComment: data.privateComment
+					},
+					text: descriptionValue
+				}
+			},
+			{
+				onSuccess: () => {
+					showNotification({
+						title: t('evidenceRequest:save-success'),
+						message: t('evidenceRequest:save-success-message'),
+						type: 'success'
+					});
+				}
 			}
-		});
+		);
 	};
 
 	const attachmentsContent = () => {
