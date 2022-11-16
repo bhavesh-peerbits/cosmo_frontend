@@ -717,6 +717,68 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
+		 * @param {number} erId
+		 * @param {StepDto} stepDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveStepAndGoNext1: async (
+			erId: number,
+			stepDto: StepDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'erId' is not null or undefined
+			assertParamExists('saveStepAndGoNext1', 'erId', erId);
+			// verify required parameter 'stepDto' is not null or undefined
+			assertParamExists('saveStepAndGoNext1', 'stepDto', stepDto);
+			const localVarPath =
+				`/api/analyst/evidence-request/save-and-procede/{erId}`.replace(
+					`{${'erId'}}`,
+					encodeURIComponent(String(erId))
+				);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				stepDto,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
 		 * @param {EvidenceRequestDto} evidenceRequestDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
@@ -1211,6 +1273,33 @@ export const EvidenceRequestControllerApiFp = function (configuration?: Configur
 		},
 		/**
 		 *
+		 * @param {number} erId
+		 * @param {StepDto} stepDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async saveStepAndGoNext1(
+			erId: number,
+			stepDto: StepDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StepDto>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.saveStepAndGoNext1(
+				erId,
+				stepDto,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
 		 * @param {EvidenceRequestDto} evidenceRequestDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
@@ -1499,6 +1588,24 @@ export const EvidenceRequestControllerApiFactory = function (
 		): AxiosPromise<StepDto> {
 			return localVarFp
 				.saveStep(stepDto, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} erId
+		 * @param {StepDto} stepDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveStepAndGoNext1(
+			erId: number,
+			stepDto: StepDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<StepDto> {
+			return localVarFp
+				.saveStepAndGoNext1(erId, stepDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -1805,6 +1912,34 @@ export interface EvidenceRequestControllerApiSaveStepRequest {
 }
 
 /**
+ * Request parameters for saveStepAndGoNext1 operation in EvidenceRequestControllerApi.
+ * @export
+ * @interface EvidenceRequestControllerApiSaveStepAndGoNext1Request
+ */
+export interface EvidenceRequestControllerApiSaveStepAndGoNext1Request {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof EvidenceRequestControllerApiSaveStepAndGoNext1
+	 */
+	readonly erId: number;
+
+	/**
+	 *
+	 * @type {StepDto}
+	 * @memberof EvidenceRequestControllerApiSaveStepAndGoNext1
+	 */
+	readonly stepDto: StepDto;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof EvidenceRequestControllerApiSaveStepAndGoNext1
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
  * Request parameters for sendReminder operation in EvidenceRequestControllerApi.
  * @export
  * @interface EvidenceRequestControllerApiSendReminderRequest
@@ -2100,6 +2235,27 @@ export class EvidenceRequestControllerApi extends BaseAPI {
 	) {
 		return EvidenceRequestControllerApiFp(this.configuration)
 			.saveStep(requestParameters.stepDto, requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {EvidenceRequestControllerApiSaveStepAndGoNext1Request} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof EvidenceRequestControllerApi
+	 */
+	public saveStepAndGoNext1(
+		requestParameters: EvidenceRequestControllerApiSaveStepAndGoNext1Request,
+		options?: AxiosRequestConfig
+	) {
+		return EvidenceRequestControllerApiFp(this.configuration)
+			.saveStepAndGoNext1(
+				requestParameters.erId,
+				requestParameters.stepDto,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 
