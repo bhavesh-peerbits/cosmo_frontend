@@ -81,5 +81,7 @@
 	"no-delegates": "",
 	"no-attachment": "",
 	"managed": "Managed",
-	"pending-actions": "Pending actions"
+	"pending-actions": "Pending actions",
+	"save-success": "",
+	"save-success-message": ""
 }

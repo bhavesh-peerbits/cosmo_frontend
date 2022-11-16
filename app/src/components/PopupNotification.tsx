@@ -8,8 +8,8 @@ const PopupNotification = () => {
 
 	return createPortal(
 		<Theme theme='white'>
-			<div className='absolute top-0 flex w-full place-content-end pt-3 pr-3'>
-				<div className='z-[9999] flex flex-col items-stretch justify-items-stretch space-y-3'>
+			<div className='fixed top-[2.5rem] right-[-1rem] z-[9999] flex w-full place-content-end pt-3 pr-3'>
+				<div className=' flex flex-col items-stretch justify-items-stretch space-y-3'>
 					{notificationList.map(notification => (
 						<Fade key={notification.id}>
 							{notification.action ? (

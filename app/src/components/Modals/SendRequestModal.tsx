@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import ApiError from '@api/ApiError';
 import useSendRequest from '@api/evidence-request/useSendRequest';
 import {
@@ -13,6 +14,7 @@ import {
 } from '@carbon/react';
 import DatePickerWrapper from '@components/DatePickerWrapper';
 import FullWidthColumn from '@components/FullWidthColumn';
+import useNotification from '@hooks/useNotification';
 import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
 import evidenceRequestUploaderStore from '@store/evidence-request/evidenceRequestUploaderStore';
 import { startOfTomorrow } from 'date-fns';
@@ -32,6 +34,7 @@ type FormData = {
 
 const SendRequestModal = ({ request }: SendRequestModalProps) => {
 	const { t } = useTranslation(['modals', 'evidenceRequest', 'userRevalidation']);
+	const { showNotification } = useNotification();
 	const { mutate, isLoading, isError, error } = useSendRequest();
 	const [confirmSendInfo, setConfirmSendInfo] = useRecoilState(
 		evidenceRequestUploaderStore
@@ -62,6 +65,11 @@ const SendRequestModal = ({ request }: SendRequestModalProps) => {
 				{ ...request, dueDate: data.dueDate },
 				{
 					onSuccess: () => {
+						showNotification({
+							title: t('evidenceRequest:save-success'),
+							message: t('evidenceRequest:save-success-message'),
+							type: 'success'
+						});
 						cleanUp();
 						navigate('/started-evidence-request');
 					}
@@ -76,7 +84,10 @@ const SendRequestModal = ({ request }: SendRequestModalProps) => {
 			mutate(
 				{
 					...request,
-					fileLinks: confirmSendInfo.files,
+					fileLinks:
+						confirmSendInfo.files && request.fileLinks
+							? [...confirmSendInfo.files, ...request.fileLinks]
+							: request.fileLinks,
 					dueDate: confirmSendInfo.dueDate
 				},
 				{
