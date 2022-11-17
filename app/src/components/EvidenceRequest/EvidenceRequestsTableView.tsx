@@ -151,7 +151,7 @@ const EvidenceRequestsTableView = ({ view }: EvidenceRequestsTableViewProps) => 
 
 	return (
 		<Fade>
-			<Grid fullWidth narrow className='h-full'>
+			<Grid fullWidth narrow className='p-3'>
 				<Column sm={4} md={8} lg={4}>
 					<div className='pl-5 md:ml-0'>
 						<EvidenceRequestFilters view={view} />
