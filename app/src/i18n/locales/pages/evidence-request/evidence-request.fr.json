@@ -83,5 +83,6 @@
 	"managed": "Managed",
 	"pending-actions": "Pending actions",
 	"save-success": "",
-	"save-success-message": ""
+	"save-success-message": "",
+	"workflow-name": ""
 }

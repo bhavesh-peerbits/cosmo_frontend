@@ -14,6 +14,12 @@ const NewEvidenceRequestContent = () => {
 				<FullWidthColumn className='flex flex-col'>
 					<span className='text-heading-2'>{t('workflow-type')}</span>
 					<span className='text-text-secondary text-body-short-1'>
+						{requestDraft?.workflow.type}
+					</span>
+				</FullWidthColumn>
+				<FullWidthColumn className='flex flex-col'>
+					<span className='text-heading-2'>{t('workflow-name')}</span>
+					<span className='text-text-secondary text-body-short-1'>
 						{requestDraft?.workflow.name}
 					</span>
 				</FullWidthColumn>

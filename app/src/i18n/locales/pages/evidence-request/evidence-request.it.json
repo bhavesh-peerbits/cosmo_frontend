@@ -83,5 +83,6 @@
 	"managed": "Gestite",
 	"pending-actions": "Azioni in attesa",
 	"save-success": "Salvataggio avvenuto correttamente",
-	"save-success-message": ""
+	"save-success-message": "",
+	"workflow-name": "Nome workflow"
 }

@@ -26,9 +26,9 @@ const EvidenceRequestActionTile = ({ request }: ERATileProp) => {
 					</span>
 					<span className='mt-2 flex space-x-2'>
 						<p className='overflow-visible whitespace-nowrap text-text-secondary text-body-short-1'>
-							{t('workflow-type')}:
+							{t('workflow-name')}:
 						</p>
-						<p className='block truncate text-body-short-1'>{request.workflowType}</p>
+						<p className='block truncate text-body-short-1'>{request.name}</p>
 					</span>
 					<div>
 						<span className='mt-2 flex space-x-2'>
