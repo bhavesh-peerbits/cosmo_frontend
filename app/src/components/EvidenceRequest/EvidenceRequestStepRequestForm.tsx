@@ -104,7 +104,13 @@ const EvidenceRequestStepRequestForm = ({
 						<Button
 							kind='tertiary'
 							size='md'
-							onClick={() => setCloseUploadInfo(old => ({ ...old, saveUpload: true }))}
+							onClick={() =>
+								setCloseUploadInfo(old => ({
+									...old,
+									saveUpload: true,
+									isOnlyUpload: true
+								}))
+							}
 							disabled={closeUploadInfo.isLoading || !closeUploadInfo.isDirty}
 						>
 							{t('evidenceRequest:save-upload')}
