@@ -37,13 +37,13 @@ const ActionEvidenceRequest = () => {
 					</TabList>
 					<TabPanels>
 						<TabPanel>
-							<Grid fullWidth narrow className='h-full space-y-5 md:space-y-0'>
+							<Grid fullWidth narrow className='h-full space-y-5 py-3 md:space-y-0'>
 								<Column sm={4} md={3} lg={3}>
-									<div className='pl-5 md:ml-0'>
+									<div className='pl-6'>
 										<EvidenceRequestDetails request={data} />
 									</div>
 								</Column>
-								<Column sm={4} md={5} lg={13} className='pl-5 md:pl-0'>
+								<Column sm={4} md={5} lg={13} className='pl-5 pr-3'>
 									<ActionEvidenceRequestInfo
 										steps={data.steps}
 										currentStep={data.currentStep}
@@ -58,13 +58,13 @@ const ActionEvidenceRequest = () => {
 							</Grid>
 						</TabPanel>
 						<TabPanel>
-							<Grid fullWidth narrow className='h-full'>
+							<Grid fullWidth narrow className='h-full space-y-5 py-3 md:space-y-0'>
 								<Column sm={4} md={3} lg={3}>
-									<div className='pl-5 md:ml-0'>
+									<div className='pl-6'>
 										<EvidenceRequestDetails request={data} />
 									</div>
 								</Column>
-								<Column sm={4} md={5} lg={13}>
+								<Column sm={4} md={5} lg={13} className='pl-5 pr-3'>
 									<EvidenceRequestInfo
 										stepRequest={data.steps.filter(step => step.type === 'REQUEST')[0]}
 										currentStep={data.currentStep}
