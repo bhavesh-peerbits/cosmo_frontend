@@ -15,7 +15,7 @@ const ManagementTableView = () => {
 			<Fade>
 				<Grid fullWidth className='h-full'>
 					<FullWidthColumn>
-						<div className='flex flex-col space-y-7'>
+						<div className='flex flex-col space-y-5'>
 							<div className='flex w-full justify-end'>
 								<div className='ml-5 flex w-full items-center justify-between space-x-5 md:justify-end'>
 									<div className='whitespace-nowrap'>{`${apps.length} ${t(

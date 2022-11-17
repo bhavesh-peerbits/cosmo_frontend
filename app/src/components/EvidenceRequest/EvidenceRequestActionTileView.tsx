@@ -37,7 +37,7 @@ const EvidenceRequestActionTileView = () => {
 
 	return (
 		<Fade>
-			<div className='flex flex-col space-y-5'>
+			<div className='flex flex-col space-y-5 p-3'>
 				<div className='flex w-full space-x-5 md:justify-end'>
 					<div className='flex w-full items-center space-x-5'>
 						<div className='flex w-full items-end space-x-5'>
