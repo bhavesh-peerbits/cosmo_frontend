@@ -15,12 +15,16 @@ const TreeContainer = React.memo(
 					className={
 						framework?.leafs?.includes(children.code)
 							? 'cursor-pointer text-text-primary'
-							: 'cursor-auto'
+							: `${children.children ? '' : 'text-text-disabled'}`
 					}
 					label={
 						<div
 							key={children.code}
-							className={framework?.leafs?.includes(children.code) ? 'font-bold' : ''}
+							className={
+								framework?.leafs?.includes(children.code)
+									? 'font-bold'
+									: `${children.children ? '' : 'text-text-disabled'}`
+							}
 						>
 							{children.name}
 						</div>
