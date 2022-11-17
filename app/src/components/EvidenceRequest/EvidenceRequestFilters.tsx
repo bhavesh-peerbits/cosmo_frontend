@@ -337,7 +337,7 @@ const EvidenceRequestFilters = ({ view }: { view: string }) => {
 				)}
 
 				{view === 'OnGoing' && (
-					<AccordionItem title={t('current-step')} className='border-0'>
+					<AccordionItem title={t('current-step-type')} className='border-0'>
 						<Checkbox
 							labelText={t('all')}
 							id='current-step-type-all'
