@@ -16,9 +16,9 @@ const sendRequest = (requestDraft: EvidenceRequestDraft) => {
 const useSendRequest = () => {
 	const queryClient = useQueryClient();
 	return useMutation(sendRequest, {
-		onSuccess: data => {
+		onSuccess: () => {
 			queryClient.invalidateQueries(['all-request-draft']);
-			queryClient.removeQueries(['draft', data.id]);
+			queryClient.removeQueries(['draft']);
 			queryClient.invalidateQueries(['all-request']);
 		}
 	});
