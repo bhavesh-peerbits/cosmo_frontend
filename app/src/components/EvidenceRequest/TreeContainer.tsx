@@ -13,9 +13,18 @@ const TreeContainer = React.memo(
 				<TreeNode
 					key={children.code}
 					className={
-						framework?.leafs?.includes(children.code) ? 'cursor-pointer' : 'cursor-auto'
+						framework?.leafs?.includes(children.code)
+							? 'cursor-pointer text-text-primary'
+							: 'cursor-auto'
 					}
-					label={children.name}
+					label={
+						<div
+							key={children.code}
+							className={framework?.leafs?.includes(children.code) ? 'font-bold' : ''}
+						>
+							{children.name}
+						</div>
+					}
 					onSelect={() =>
 						framework?.leafs?.includes(children.code) &&
 						setSelectedLeaves(old =>
