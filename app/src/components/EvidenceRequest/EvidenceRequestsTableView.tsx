@@ -93,7 +93,11 @@ const EvidenceRequestsTableView = ({ view }: EvidenceRequestsTableViewProps) => 
 						header: t('step-progress'),
 						cell: info =>
 							info.row.original?.steps.length
-								? `${info.getValue()}/${info.row.original?.steps.length}`
+								? `${info.getValue()}/${info.row.original?.steps.length} - ${
+										info.row.original.steps.find(
+											step => step.stepOrder === info.getValue()
+										)?.type
+								  }`
 								: `${t('current-step')}: ${info.getValue()}`
 					})
 				);

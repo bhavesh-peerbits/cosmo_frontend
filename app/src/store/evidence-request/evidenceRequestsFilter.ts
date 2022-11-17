@@ -6,7 +6,8 @@ import { isBefore } from 'date-fns';
 
 type Filters = {
 	query: string | undefined;
-	currentStep: number[] | undefined;
+	currentStepOrder: number[] | undefined;
+	currentStepType: string[] | undefined;
 	creator: string[];
 	minDueDate: string | undefined;
 	maxDueDate: string | undefined;
@@ -22,7 +23,8 @@ const evidenceRequestsFilters = atom<Filters>({
 	key: 'evidenceRequestFilters',
 	default: {
 		query: undefined,
-		currentStep: [],
+		currentStepOrder: [],
+		currentStepType: [],
 		creator: [],
 		minDueDate: undefined,
 		maxDueDate: undefined,
@@ -59,10 +61,23 @@ const applyFilters = (
 				: true
 		)
 
-		// filter by current step
+		// filter by current step order
 		.filter(request =>
-			filters.currentStep?.length
-				? filters.currentStep.some(currStep => currStep === request.currentStep)
+			filters.currentStepOrder?.length
+				? filters.currentStepOrder.some(
+						currStepOrder => currStepOrder === request.currentStep
+				  )
+				: true
+		)
+
+		// filter by current step type
+		.filter(request =>
+			filters.currentStepType?.length
+				? filters.currentStepType.some(
+						currStepType =>
+							currStepType ===
+							request.steps.find(step => step.stepOrder === request.currentStep)?.type
+				  )
 				: true
 		)
 
@@ -172,7 +187,7 @@ const filteredEvidenceRequests = selector({
 				application,
 				enabled: filters.application?.includes(`${application}` ?? '')
 			})),
-			currentStep: [
+			currentStepOrder: [
 				...new Set(
 					requests
 						.filter(req =>
@@ -183,9 +198,24 @@ const filteredEvidenceRequests = selector({
 						.map(req => req.currentStep)
 						.filter(o => !!o) as number[]
 				)
-			].map(currentStep => ({
-				currentStep,
-				enabled: filters.currentStep?.includes(currentStep)
+			].map(currentStepOrder => ({
+				currentStepOrder,
+				enabled: filters.currentStepOrder?.includes(currentStepOrder)
+			})),
+			currentStepType: [
+				...new Set(
+					requests
+						.filter(req =>
+							filters.tab !== 1
+								? req.status === 'IN_PROGRESS'
+								: req.status !== 'DRAFT' && req.status !== 'IN_PROGRESS'
+						)
+						.map(req => req.steps.find(step => step.stepOrder === req.currentStep)?.type)
+						.filter(o => !!o) as string[]
+				)
+			].map(currentStepType => ({
+				currentStepType,
+				enabled: filters.currentStepType?.includes(currentStepType)
 			})),
 			status: [
 				...new Set(
