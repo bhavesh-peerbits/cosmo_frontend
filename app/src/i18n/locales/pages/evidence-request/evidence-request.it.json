@@ -23,7 +23,7 @@
 	"public-comment": "Commento pubblico",
 	"private-comment": "Commento privato",
 	"public-comment-placeholder": "Questo è un commento pubblico. Ogni utente che ha accesso a questa richiesta può vederlo",
-	"private-comment-placeholder": "Questo è un commento privato. Solo tu puoi vederlo",
+	"private-comment-placeholder": "Questo è un commento privato. Solo tu e i tuoi collaboratori possono vederlo",
 	"code": "codice",
 	"application": "Applicazione",
 	"due-date": "Data scadenza",
