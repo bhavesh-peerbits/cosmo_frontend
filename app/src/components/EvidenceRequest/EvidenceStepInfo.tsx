@@ -23,8 +23,16 @@ const EvidenceStepInfo = ({
 		defaultShowMore = { ...defaultShowMore, [i]: false };
 	});
 	const [showMore, setShowMore] = useState(defaultShowMore);
-	const thereIsContent = (index: number, cStep: number, step: EvidenceRequestStep) => {
-		return index + 1 !== cStep && (step.stepInfo?.publicComment || step.fileLinks.length);
+	const thereIsContent = (
+		index: number,
+		cStep: number,
+		step: EvidenceRequestStep,
+		totStep: number
+	) => {
+		return (
+			(index + 1 !== cStep || totStep === cStep) &&
+			(step.stepInfo?.publicComment || step.fileLinks.length)
+		);
 	};
 
 	return (
@@ -71,7 +79,7 @@ const EvidenceStepInfo = ({
 											) : (
 												<span className='col-span-3' />
 											)}
-											{thereIsContent(index, currentStep, step) ? (
+											{thereIsContent(index, currentStep, step, steps.length) ? (
 												<div className='mt-3 justify-self-end'>
 													<Button
 														size='sm'
@@ -86,7 +94,7 @@ const EvidenceStepInfo = ({
 												</div>
 											) : null}
 											{showMore[index] ? (
-												index + 1 !== currentStep ? (
+												steps.length === currentStep || index + 1 !== currentStep ? (
 													<>
 														{step.stepInfo?.publicComment ? (
 															<p className='col-span-4 mt-5'>

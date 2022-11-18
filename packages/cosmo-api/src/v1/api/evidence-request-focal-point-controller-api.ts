@@ -112,7 +112,7 @@ export const EvidenceRequestFocalPointControllerApiAxiosParamCreator = function 
 			// verify required parameter 'stepDto' is not null or undefined
 			assertParamExists('saveStepAndGoNext', 'stepDto', stepDto);
 			const localVarPath =
-				`/api/focal-point/evidence-request/save-and-procede/{erId}`.replace(
+				`/api/focal-point/evidence-request/step/{erId}/save-and-procede`.replace(
 					`{${'erId'}}`,
 					encodeURIComponent(String(erId))
 				);
@@ -174,7 +174,7 @@ export const EvidenceRequestFocalPointControllerApiAxiosParamCreator = function 
 			// verify required parameter 'stepDto' is not null or undefined
 			assertParamExists('saveStepAndReject', 'stepDto', stepDto);
 			const localVarPath =
-				`/api/focal-point/evidence-request/save-and-reject/{erId}`.replace(
+				`/api/focal-point/evidence-request/step/{erId}/save-and-reject`.replace(
 					`{${'erId'}}`,
 					encodeURIComponent(String(erId))
 				);
@@ -240,7 +240,7 @@ export const EvidenceRequestFocalPointControllerApiAxiosParamCreator = function 
 			// verify required parameter 'stepDto' is not null or undefined
 			assertParamExists('saveStepAndReturn', 'stepDto', stepDto);
 			const localVarPath =
-				`/api/focal-point/evidence-request/save-and-return/{erId}/{returnStep}`
+				`/api/focal-point/evidence-request/step/{erId}/save-and-return/{returnStep}`
 					.replace(`{${'erId'}}`, encodeURIComponent(String(erId)))
 					.replace(`{${'returnStep'}}`, encodeURIComponent(String(returnStep)));
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.

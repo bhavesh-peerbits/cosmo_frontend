@@ -6,7 +6,7 @@ interface DeleteDraftParams {
 }
 
 const deleteDraft = ({ draftId }: DeleteDraftParams) => {
-	return api.evidenceRequest.deleteDraftById({ id: +draftId });
+	return api.evidenceRequest.deleteDraftById({ draftId: +draftId });
 };
 
 const useDeleteDraft = () => {
