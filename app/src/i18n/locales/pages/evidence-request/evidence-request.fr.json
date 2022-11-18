@@ -87,5 +87,6 @@
 	"save-success-message": "",
 	"workflow-name": "",
 	"control": "",
-	"no-control": ""
+	"no-control": "",
+	"task-delegates": ""
 }

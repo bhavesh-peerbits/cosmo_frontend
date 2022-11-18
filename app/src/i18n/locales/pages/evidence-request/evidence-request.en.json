@@ -87,5 +87,6 @@
 	"save-success-message": "",
 	"workflow-name": "Workflow name",
 	"control": "Control",
-	"no-control": "No control"
+	"no-control": "No control",
+	"task-delegates": "Task delegates"
 }
