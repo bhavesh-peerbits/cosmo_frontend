@@ -135,6 +135,14 @@ const ActionEvidenceRequestInfo = ({
 												<>
 													{index + 1 !== currentStep || steps.length === currentStep ? (
 														<>
+															{step.delegates ? (
+																<p className='col-span-4 mt-5'>
+																	{`${t('task-delegates')} : `}
+																	{`${step.delegates
+																		.map(app => app.displayName)
+																		.join(', ')}`}
+																</p>
+															) : null}
 															{step.stepInfo?.publicComment ? (
 																<p className='col-span-4 mt-5'>
 																	{`${t('public-comment')} :`}
