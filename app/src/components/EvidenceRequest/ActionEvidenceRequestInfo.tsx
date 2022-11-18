@@ -135,7 +135,7 @@ const ActionEvidenceRequestInfo = ({
 												<>
 													{index + 1 !== currentStep || steps.length === currentStep ? (
 														<>
-															{step.delegates ? (
+															{step.delegates?.length ? (
 																<p className='col-span-4 mt-5'>
 																	{`${t('task-delegates')} : `}
 																	{`${step.delegates
