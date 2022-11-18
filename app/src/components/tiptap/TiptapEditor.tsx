@@ -60,7 +60,7 @@ const MenuBar = ({ editor, disabled }: EditorType) => {
 	}
 
 	return (
-		<div className='pointer-events-none flex flex-wrap'>
+		<div className='flex flex-wrap'>
 			<Button
 				size='sm'
 				hasIconOnly
