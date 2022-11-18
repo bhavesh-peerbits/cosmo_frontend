@@ -35,7 +35,7 @@ const NewEvidenceRequestFlowContainer = () => {
 			case 3:
 				return <AdditionalInfoContainer setCurrentStep={setCurrentStep} />;
 			case 4:
-				return <AttachmentsContainer setCurrentStep={setCurrentStep} />; // TODO Fix when BE logic is ready
+				return <AttachmentsContainer setCurrentStep={setCurrentStep} />;
 			default:
 				return <ApplicationsSelectionContainer setCurrentStep={setCurrentStep} />;
 		}

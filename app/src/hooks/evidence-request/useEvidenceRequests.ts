@@ -17,7 +17,8 @@ const useEvidenceRequests = () => {
 		status: string[];
 		creator: string[];
 		q: string | undefined;
-		currentStep: number[] | undefined;
+		currentStepOrder: number[] | undefined;
+		currentStepType: string[] | undefined;
 		tab: number | undefined;
 		application: string[];
 		workflowType: string[];
@@ -29,7 +30,8 @@ const useEvidenceRequests = () => {
 		status: [],
 		creator: [],
 		q: undefined,
-		currentStep: [],
+		currentStepOrder: [],
+		currentStepType: [],
 		tab: undefined,
 		application: [],
 		workflowType: []
@@ -44,7 +46,8 @@ const useEvidenceRequests = () => {
 		maxDueDate,
 		requests,
 		creator,
-		currentStep,
+		currentStepOrder,
+		currentStepType,
 		application,
 		workflowType
 	} = useRecoilValue(filteredEvidenceRequests);
@@ -63,7 +66,8 @@ const useEvidenceRequests = () => {
 			status: urlFilters.status || [],
 			creator: urlFilters.creator || [],
 			query: urlFilters.q,
-			currentStep: urlFilters.currentStep || [],
+			currentStepOrder: urlFilters.currentStepOrder || [],
+			currentStepType: urlFilters.currentStepType || [],
 			tab: urlFilters.tab,
 			application: urlFilters.application || [],
 			workflowType: urlFilters.workflowType || []
@@ -78,7 +82,8 @@ const useEvidenceRequests = () => {
 		status,
 		requests,
 		creator,
-		currentStep,
+		currentStepOrder,
+		currentStepType,
 		application,
 		workflowType
 	};

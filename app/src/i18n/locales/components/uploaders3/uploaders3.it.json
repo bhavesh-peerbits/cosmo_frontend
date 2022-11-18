@@ -1,7 +1,7 @@
 {
 	"already-uploaded": "Caricamenti effettuati",
 	"upload-file": "Upload File",
-	"prevent-close": "Sei sicuro di cambiare pagina, i caricamenti saranno persi",
+	"prevent-close": "Sei sicuro di cambiare pagina? I caricamenti dei files andranno persi",
 	"upload-success": "Caricamento effettuato",
 	"upload-success-message": "Il caricamento è stato effettuato con successo",
 	"upload-failed": "Caricamento fallito",

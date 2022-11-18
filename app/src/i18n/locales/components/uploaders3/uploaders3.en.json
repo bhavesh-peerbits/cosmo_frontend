@@ -1,7 +1,7 @@
 {
 	"already-uploaded": "Already uploaded",
 	"upload-file": "Upload File",
-	"prevent-close": "Are you sure u want to change page form data aren't saved yet, changes will be lost.",
+	"prevent-close": "Are you sure you want to change page? Form data aren't saved yet, changes will be lost.",
 	"upload-success": "Upload successful",
 	"upload-success-message": "Files have been uploaded correctly",
 	"upload-failed": "Upload failed",

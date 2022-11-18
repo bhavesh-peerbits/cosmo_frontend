@@ -9,8 +9,8 @@ const NewEvidenceRequestContent = () => {
 	const { t } = useTranslation('evidenceRequest');
 	const requestDraft = useRecoilValue(evidenceRequestDraftStore);
 	return (
-		<Grid fullWidth narrow className='space-y-5 p-container-2 lg:space-y-0'>
-			<Column sm={4} md={8} lg={3} className='space-y-6'>
+		<Grid fullWidth narrow className='space-y-5 p-container-1 lg:space-y-0'>
+			<Column sm={4} md={8} lg={3} className='space-y-6 pl-5'>
 				<FullWidthColumn className='flex flex-col'>
 					<span className='text-heading-2'>{t('workflow-type')}</span>
 					<span className='text-text-secondary text-body-short-1'>

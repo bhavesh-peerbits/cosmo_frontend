@@ -194,7 +194,7 @@ const GroupableCosmoTable = <D extends object>({
 	};
 
 	return (
-		<TableContainer>
+		<TableContainer className='pt-0'>
 			{toolbar ? (
 				<CosmoTableToolbar<D>
 					onExportClick={exportData}

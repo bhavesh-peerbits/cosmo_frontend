@@ -178,7 +178,7 @@ const EvidenceRequestActionTableView = ({
 
 	return (
 		<Fade>
-			<div className='flex justify-end'>
+			<div className='flex justify-end p-3'>
 				<div className='flex items-center space-x-5'>
 					<div className='flex items-center justify-end space-x-5'>
 						<Layer>
@@ -217,12 +217,14 @@ const EvidenceRequestActionTableView = ({
 					</div>
 				</div>
 			</div>
-			<GroupableCosmoTable
-				tableId={view}
-				data={requests}
-				createHeaders={columns}
-				toolbar={{ toolbarContent }}
-			/>
+			<div className='p-3'>
+				<GroupableCosmoTable
+					tableId={view}
+					data={requests}
+					createHeaders={columns}
+					toolbar={{ toolbarContent }}
+				/>
+			</div>
 		</Fade>
 	);
 };
