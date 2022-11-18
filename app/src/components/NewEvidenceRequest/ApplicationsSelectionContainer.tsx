@@ -1,6 +1,8 @@
-import { Button, Grid } from '@carbon/react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Button, Grid, UnorderedList, ListItem } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import CosmoTable, { HeaderFunction } from '@components/table/CosmoTable';
+import Association from '@model/Association';
 import evidenceRequestDraftStore from '@store/evidenceRequestDraft/evidenceRequestDraftStore';
 import { RowSelectionState } from '@tanstack/react-table';
 import Application from 'model/Application';
@@ -39,6 +41,24 @@ const ApplicationsSelectionContainer = ({
 		[requestDraft.requests, apps]
 	);
 
+	const associationCell = useCallback(
+		(associations: Association[]) =>
+			associations.length > 0 ? (
+				<UnorderedList nested className='ml-0'>
+					{associations.map(association => {
+						return (
+							<ListItem className='flex items-center space-x-2'>
+								{association.name}
+							</ListItem>
+						);
+					})}
+				</UnorderedList>
+			) : (
+				t('evidenceRequest:no-control')
+			),
+		[requestDraft]
+	);
+
 	const columns: HeaderFunction<Application> = useCallback(
 		table => [
 			table.createDataColumn(row => row.name, {
@@ -58,9 +78,26 @@ const ApplicationsSelectionContainer = ({
 				meta: {
 					exportableFn: info => info.displayName || '-'
 				}
+			}),
+			table.createDataColumn(row => row.id, {
+				id: `control`,
+				header: t('evidenceRequest:control'),
+				cell: info =>
+					associationCell(
+						requestDraft.requests?.find(req => req.application.id === info.getValue())
+							?.associations || []
+					),
+				meta: {
+					exportableFn: info =>
+						requestDraft.requests
+							?.find(req => req.application.id === info)
+							?.associations?.map(association => association.name)
+							.join(',')
+							.toString() || t('evidenceRequest:no-control')
+				}
 			})
 		],
-		[t]
+		[t, associationCell]
 	);
 
 	const handleNext = () => {

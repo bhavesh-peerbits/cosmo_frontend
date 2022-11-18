@@ -85,5 +85,7 @@
 	"pending-actions": "Azioni in attesa",
 	"save-success": "Salvataggio avvenuto correttamente",
 	"save-success-message": "",
-	"workflow-name": "Nome workflow"
+	"workflow-name": "Nome workflow",
+	"control": "Controllo",
+	"no-control": "Nessun controllo"
 }

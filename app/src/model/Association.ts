@@ -11,6 +11,7 @@ interface Association {
 	reviewer?: User;
 	delegates?: User[];
 	id: string;
+	name?: string;
 }
 
 export const fromAssociationApi = (association: AssociationApi): Association => {
@@ -19,7 +20,8 @@ export const fromAssociationApi = (association: AssociationApi): Association => 
 		delegates: association.delegates
 			? [...association.delegates].map(user => fromUserApi(user))
 			: [],
-		id: `${association.id}`
+		id: `${association.id}`,
+		name: association.name
 	};
 };
 
@@ -28,7 +30,8 @@ export const toAssociationApi = (association: Association): AssociationApi => {
 		id: +association.id,
 		reviewer: association.reviewer ? toUserApi(association.reviewer) : undefined,
 		// @ts-ignore
-		delegates: association.delegates
+		delegates: association.delegates,
+		name: association.name
 	};
 };
 

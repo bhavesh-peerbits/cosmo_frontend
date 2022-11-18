@@ -38,4 +38,10 @@ export interface AssociationDto {
 	 * @memberof AssociationDto
 	 */
 	delegates?: Set<UserDto>;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AssociationDto
+	 */
+	name?: string;
 }
