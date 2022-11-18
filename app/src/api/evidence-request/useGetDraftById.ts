@@ -9,4 +9,6 @@ const useGetDraftById = (draftId: string) => {
 };
 
 export default (draftId: string) =>
-	useQuery(['draft', draftId], () => useGetDraftById(draftId));
+	useQuery(['draft', draftId], () => useGetDraftById(draftId), {
+		cacheTime: 1800000 // 30 minutes
+	});
