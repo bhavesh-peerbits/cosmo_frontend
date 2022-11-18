@@ -55,7 +55,7 @@
 	"upload": "Upload",
 	"request": "Request",
 	"phase-type": "Test phase",
-	"select-branches-leaves": "Select branches or leaves",
+	"select-leaves": "Select one or more leaves",
 	"selected-items": "Selected items",
 	"basic-info": "Basic information",
 	"optional-step": "Optional step",

@@ -56,7 +56,7 @@
 	"request": "Requête",
 	"start-date": "Date de début",
 	"phase-type": "Phase de test",
-	"select-branches-leaves": "Sélectionner des branches ou des feuilles",
+	"select-leaves": "Sélectionner une ou plusieurs feuilles",
 	"selected-items": "Éléments sélectionnés",
 	"basic-info": "Informations de base",
 	"optional-step": "Step facultative",
