@@ -54,9 +54,15 @@ const ActionEvidenceRequestInfo = ({
 	}, [currentStep]);
 	const showAppForm = type === 'APPROVAL' && statusRequest === 'IN_PROGRESS';
 	const showUplForm = type === 'UPLOAD' && statusRequest === 'IN_PROGRESS';
-	const thereIsContent = (index: number, cStep: number, step: EvidenceRequestStep) => {
+	const thereIsContent = (
+		index: number,
+		cStep: number,
+		step: EvidenceRequestStep,
+		totStep: number
+	) => {
 		return (
-			(index + 1 !== cStep && (step.stepInfo?.publicComment || step.fileLinks.length)) ||
+			((index + 1 !== cStep || cStep === totStep) &&
+				(step.stepInfo?.publicComment || step.fileLinks.length)) ||
 			(index + 1 === cStep && idUserInStep && (showUplForm || showAppForm))
 		);
 	};
@@ -111,7 +117,7 @@ const ActionEvidenceRequestInfo = ({
 											) : (
 												<span className='col-span-3' />
 											)}
-											{thereIsContent(index, currentStep, step) ? (
+											{thereIsContent(index, currentStep, step, steps.length) ? (
 												<div className='mt-3 justify-self-end'>
 													<Button
 														size='sm'
@@ -126,33 +132,36 @@ const ActionEvidenceRequestInfo = ({
 												</div>
 											) : null}
 											{showMore[index] ? (
-												index + 1 !== currentStep ? (
-													<>
-														{step.stepInfo?.publicComment ? (
-															<p className='col-span-4 mt-5'>
-																{`${t('public-comment')} :`}
-																<br />
-																{`${step.stepInfo?.publicComment}`}
-															</p>
-														) : null}
-														{step.fileLinks.length ? (
-															<div className='col-span-4 mt-5'>
-																<p>{t('attachments')} :</p>
-																<FileLinkTable files={step.fileLinks} />
-															</div>
-														) : null}
-													</>
-												) : idUserInStep ? (
-													showUplForm ? (
-														<EvidenceRequestUploadForm
-															step={currStep}
-															erId={erId}
-															path={path + step.stepOrder}
-														/>
-													) : showAppForm ? (
-														<EvidenceRequestApproveForm setIsOpen={setIsOpen} />
-													) : null
-												) : null
+												<>
+													{index + 1 !== currentStep || steps.length === currentStep ? (
+														<>
+															{step.stepInfo?.publicComment ? (
+																<p className='col-span-4 mt-5'>
+																	{`${t('public-comment')} :`}
+																	<br />
+																	{`${step.stepInfo?.publicComment}`}
+																</p>
+															) : null}
+															{step.fileLinks.length ? (
+																<div className='col-span-4 mt-5'>
+																	<p>{t('attachments')} :</p>
+																	<FileLinkTable files={step.fileLinks} />
+																</div>
+															) : null}
+														</>
+													) : null}
+													{index + 1 === currentStep && idUserInStep ? (
+														showUplForm ? (
+															<EvidenceRequestUploadForm
+																step={currStep}
+																erId={erId}
+																path={path + step.stepOrder}
+															/>
+														) : showAppForm ? (
+															<EvidenceRequestApproveForm setIsOpen={setIsOpen} />
+														) : null
+													) : null}
+												</>
 											) : null}
 										</div>
 									</FullWidthColumn>

@@ -137,6 +137,7 @@ const StartedEvidenceRequest = () => {
 										steps={data.steps}
 										currentStep={data.currentStep}
 										owner={data.creator}
+										stepBeforeReturn={data.stepBeforeReturn}
 									/>
 								</Column>
 							</Grid>
