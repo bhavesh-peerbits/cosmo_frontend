@@ -32,12 +32,24 @@ const EvidenceRequestFilters = ({ view }: { view: string }) => {
 			}));
 	};
 
-	const handleCheckCurrentStepFilter = (filter: number, action: 'add' | 'remove') => {
+	const handleCheckCurrentStepOrderFilter = (
+		filter: number,
+		action: 'add' | 'remove'
+	) => {
 		setFilters(old => ({
-			currentStep:
+			currentStepOrder:
 				action === 'add'
-					? [...(old.currentStep ?? []), filter]
-					: (old.currentStep ?? []).filter((f: number) => `${f}` !== `${filter}`)
+					? [...(old.currentStepOrder ?? []), filter]
+					: (old.currentStepOrder ?? []).filter((f: number) => `${f}` !== `${filter}`)
+		}));
+	};
+
+	const handleCheckCurrentStepTypeFilter = (filter: string, action: 'add' | 'remove') => {
+		setFilters(old => ({
+			currentStepType:
+				action === 'add'
+					? [...(old.currentStepType ?? []), filter]
+					: (old.currentStepType ?? []).filter((f: string) => `${f}` !== `${filter}`)
 		}));
 	};
 
@@ -136,7 +148,7 @@ const EvidenceRequestFilters = ({ view }: { view: string }) => {
 								id='date-picker'
 								datePickerType='single'
 								dateFormat='d/m'
-								onChange={e => handleDateFilter(e[0].toDateString(), 'minDueDate')}
+								onChange={e => handleDateFilter(e[0].toLocaleDateString(), 'minDueDate')}
 								maxDate={
 									filters.maxDueDate
 										? new Date(filters.maxDueDate).toLocaleDateString()
@@ -160,7 +172,7 @@ const EvidenceRequestFilters = ({ view }: { view: string }) => {
 								id='date-picker'
 								datePickerType='single'
 								dateFormat='d/m'
-								onChange={e => handleDateFilter(e[0]?.toDateString(), 'maxDueDate')}
+								onChange={e => handleDateFilter(e[0]?.toLocaleDateString(), 'maxDueDate')}
 								minDate={
 									filters.minDueDate
 										? new Date(filters.minDueDate).toLocaleDateString()
@@ -206,7 +218,9 @@ const EvidenceRequestFilters = ({ view }: { view: string }) => {
 								id='date-picker'
 								datePickerType='single'
 								dateFormat='d/m'
-								onChange={e => handleDateFilter(e[0]?.toDateString(), 'minCompDate')}
+								onChange={e =>
+									handleDateFilter(e[0]?.toLocaleDateString(), 'minCompDate')
+								}
 								maxDate={
 									filters.maxCompDate
 										? new Date(filters.maxCompDate).toLocaleDateString()
@@ -229,7 +243,9 @@ const EvidenceRequestFilters = ({ view }: { view: string }) => {
 								id='date-picker'
 								datePickerType='single'
 								dateFormat='d/m'
-								onChange={e => handleDateFilter(e[0]?.toDateString(), 'maxCompDate')}
+								onChange={e =>
+									handleDateFilter(e[0]?.toLocaleDateString(), 'maxCompDate')
+								}
 								minDate={
 									filters.minCompDate
 										? new Date(filters.minCompDate).toLocaleDateString()
@@ -299,24 +315,56 @@ const EvidenceRequestFilters = ({ view }: { view: string }) => {
 						<Checkbox
 							labelText={t('all')}
 							id='current-step-all'
-							checked={filtersAvailable.currentStep.every(f => f.enabled)}
+							checked={filtersAvailable.currentStepOrder.every(f => f.enabled)}
 							onChange={(_, { checked }) =>
 								setFilters({
-									currentStep: checked
-										? filtersAvailable.currentStep.map(({ currentStep }) => currentStep)
+									currentStepOrder: checked
+										? filtersAvailable.currentStepOrder.map(
+												({ currentStepOrder }) => currentStepOrder
+										  )
 										: []
 								})
 							}
 						/>
-						{filtersAvailable.currentStep.map(filter => (
+						{filtersAvailable.currentStepOrder.map(filter => (
 							<Checkbox
-								key={filter.currentStep}
+								key={filter.currentStepOrder}
 								checked={filter.enabled}
 								onChange={(_, { checked, id }) =>
-									handleCheckCurrentStepFilter(+id, checked ? 'add' : 'remove')
+									handleCheckCurrentStepOrderFilter(+id, checked ? 'add' : 'remove')
 								}
-								id={`${filter.currentStep}`}
-								labelText={filter.currentStep}
+								id={`${filter.currentStepOrder}`}
+								labelText={`Step ${filter.currentStepOrder}`}
+							/>
+						))}
+					</AccordionItem>
+				)}
+
+				{view === 'OnGoing' && (
+					<AccordionItem title={t('current-step-type')} className='border-0'>
+						<Checkbox
+							labelText={t('all')}
+							id='current-step-type-all'
+							checked={filtersAvailable.currentStepType.every(f => f.enabled)}
+							onChange={(_, { checked }) =>
+								setFilters({
+									currentStepType: checked
+										? filtersAvailable.currentStepType.map(
+												({ currentStepType }) => currentStepType
+										  )
+										: []
+								})
+							}
+						/>
+						{filtersAvailable.currentStepType.map(filter => (
+							<Checkbox
+								key={filter.currentStepType}
+								checked={filter.enabled}
+								onChange={(_, { checked, id }) =>
+									handleCheckCurrentStepTypeFilter(id, checked ? 'add' : 'remove')
+								}
+								id={`${filter.currentStepType}`}
+								labelText={filter.currentStepType}
 							/>
 						))}
 					</AccordionItem>

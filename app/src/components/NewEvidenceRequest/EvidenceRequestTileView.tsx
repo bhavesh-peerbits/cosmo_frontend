@@ -29,7 +29,7 @@ const EvidenceRequestTileView = () => {
 	return (
 		<Grid fullWidth narrow className='h-full'>
 			<Column sm={4} md={8} lg={16}>
-				<div className='flex flex-col space-y-7'>
+				<div className='flex flex-col space-y-5'>
 					<div className='flex w-full items-center space-x-5'>
 						<SearchBar />
 						<p className='lg:whitespace-nowrap'>{`${drafts.length} ${t('requests')}`}</p>

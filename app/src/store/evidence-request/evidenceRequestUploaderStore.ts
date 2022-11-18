@@ -13,6 +13,7 @@ const evidenceRequestUploaderStore = atom<{
 	files?: FileLink[];
 	isLoading: boolean;
 	avoidNot?: boolean;
+	isOnlyUpload?: boolean;
 }>({
 	key: 'evidenceRequestUploaderStore',
 	default: {

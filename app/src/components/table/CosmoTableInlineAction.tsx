@@ -158,7 +158,7 @@ const CosmoTableInlineAction = <D extends object>({
 	};
 
 	return (
-		<TableContainer>
+		<TableContainer className='pt-0'>
 			<CosmoTableToolbar<D>
 				onExportClick={exportData}
 				disableExport={grouping.length > 0 || data.length === 0}

@@ -6,9 +6,9 @@ const EvidenceRequestActionTileContainer = () => {
 	const { requests } = useEvidenceRequestAction();
 
 	return (
-		<Grid fullWidth narrow>
+		<Grid fullWidth narrow className='pl-5'>
 			<Column sm={4} md={8} lg={16} xlg={16} max={16}>
-				<Grid fullWidth>
+				<Grid fullWidth narrow condensed>
 					{requests.map(er => (
 						<Column key={er.id} sm={4} md={4} lg={8} xlg={4} max={4}>
 							<EvidenceRequestActionTile request={er} />

@@ -50,14 +50,14 @@ const ConfirmCloseStepUploadModal = ({
 	};
 
 	useEffect(() => {
-		if (confirmCloseInfo.uploadSuccess) {
+		if (confirmCloseInfo.uploadSuccess && !confirmCloseInfo.isOnlyUpload) {
 			const stepMutate = step;
 			stepMutate.text = confirmCloseInfo.requestText || '';
 			stepMutate.stepInfo = {
 				publicComment: confirmCloseInfo.publicComment,
 				privateComment: confirmCloseInfo.privateComment
 			};
-			setConfirmCloseInfo(old => ({ ...old, uploadSuccess: false }));
+			setConfirmCloseInfo(old => ({ ...old, uploadSuccess: false, isOnlyUpload: false }));
 			step.type === 'REQUEST'
 				? mutateAnalyst({ erId, step: stepMutate }, { onSuccess: cleanUp })
 				: mutate({ erId, step: stepMutate }, { onSuccess: cleanUp });
@@ -72,7 +72,8 @@ const ConfirmCloseStepUploadModal = ({
 		confirmCloseInfo.requestText,
 		confirmCloseInfo.privateComment,
 		setConfirmCloseInfo,
-		mutateAnalyst
+		mutateAnalyst,
+		confirmCloseInfo.isOnlyUpload
 	]);
 
 	return (

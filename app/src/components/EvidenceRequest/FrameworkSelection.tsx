@@ -26,7 +26,7 @@ const FrameworkSelection = ({
 	return (
 		<div className='flex w-full space-x-5 divide-x-1 divide-solid divide-border-subtle-0'>
 			<div className='w-full'>
-				<p>{t('select-branches-leaves')}</p>
+				<p>{t('select-leaves')}</p>
 				{framework && (
 					<TreeContainer framework={framework} setSelectedLeaves={setSelectedLeaves} />
 				)}

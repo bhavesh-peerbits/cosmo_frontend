@@ -7,10 +7,10 @@ const ApplicationsTileContainer = () => {
 
 	return (
 		<Grid fullWidth narrow>
-			<Column sm={4} md={6} lg={16} xlg={15} max={16}>
-				<Grid fullWidth>
+			<Column sm={4} md={6} lg={16} xlg={16} max={16}>
+				<Grid fullWidth narrow condensed>
 					{apps.map(el => (
-						<Column key={el.id} sm={4} md={3} lg={8} xlg={5} max={4}>
+						<Column key={el.id} sm={4} md={3} lg={8} xlg={4} max={4}>
 							<ApplicationTile application={el} />
 						</Column>
 					))}

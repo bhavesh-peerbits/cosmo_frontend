@@ -51,7 +51,7 @@ const Procedures = () => {
 					isOpen={isNewProcModalOpen}
 					setIsOpen={setIsNewProcModalOpen}
 				/>
-				<FullWidthColumn className='pb-7'>
+				<FullWidthColumn className='pb-5'>
 					<div className='flex w-full flex-wrap justify-between space-x-5 space-y-5 md:flex-nowrap md:space-y-0'>
 						<SearchBar />
 						<div className='flex w-full items-center justify-between space-x-5 md:w-auto md:justify-end'>
