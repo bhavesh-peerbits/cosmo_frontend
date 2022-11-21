@@ -30,8 +30,8 @@ image: node:16.17.0-slim
 build:
   stage: build_code 🔨
   variables:
-    http_proxy: http://srvprx01.aizoon.it:3128
-    https_proxy: http://srvprx01.aizoon.it:3128
+    http_proxy: ''
+    https_proxy: ''
     no_proxy: localhost,127.0.0.1,*.aizoon.it
   before_script:
     - YARN_CHECKSUM_BEHAVIOR=update yarn install
