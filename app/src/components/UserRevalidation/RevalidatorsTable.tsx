@@ -9,6 +9,8 @@ import { Information, Edit } from '@carbon/react/icons';
 import GroupableCosmoTable from '@components/table/GroupableCosmoTable';
 import { useSetRecoilState } from 'recoil';
 import modifyAnswerModalInfo from '@store/user-revalidation/modifyAnswerModalInfo';
+import UserProfileImage from '@components/UserProfileImage';
+import User from '@model/User';
 
 interface RevalidatorsTableProp {
 	answers: Answer[];
@@ -30,6 +32,22 @@ const RevalidatorsTable = ({
 	const isSuid = campaignType === 'SUID';
 	const ref = useRef<HTMLDivElement>(null);
 
+	const usersListCell = useCallback(
+		(info: CellProperties<Answer, { delegates: User[] | undefined }>) => (
+			<div className='flex items-center space-x-2'>
+				{info.getValue().delegates?.map(us => (
+					<UserProfileImage
+						size='lg'
+						initials={us.displayName}
+						imageDescription={us.username}
+						tooltipText={us.displayName}
+						className='mx-[-5px]'
+					/>
+				))}
+			</div>
+		),
+		[]
+	);
 	useEffect(() => {
 		const el = ref.current?.getElementsByClassName('cds--data-table-content')?.[0];
 		if (el) {
@@ -100,6 +118,16 @@ const RevalidatorsTable = ({
 				table.createDataColumn(row => row.revalidationUser?.displayName, {
 					id: `revalidator${reviewId}`,
 					header: t('userRevalidation:revalidators')
+				}),
+				table.createDataColumn(row => ({ delegates: row.delegated }), {
+					id: `delegated${reviewId}`,
+					header: t('userRevalidation:delegates'),
+					cell: usersListCell,
+					enableGrouping: false,
+					meta: {
+						exportableFn: info =>
+							(info.delegates as User[]).map(delegate => delegate.displayName).join(', ')
+					}
 				}),
 				table.createDataColumn(row => row.answerType, {
 					id: `answer${reviewId}`,
@@ -185,7 +213,7 @@ const RevalidatorsTable = ({
 			}
 			return ArrayCol;
 		},
-		[actionCell, dueDate, isFireFighter, isSuid, reviewId, t, tooltipCell]
+		[actionCell, dueDate, isFireFighter, isSuid, reviewId, t, tooltipCell, usersListCell]
 	);
 
 	const toolbarContent = (
