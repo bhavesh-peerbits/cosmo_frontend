@@ -96,7 +96,7 @@ const AddSelectFilter = ({
 					/>
 				)}
 				{open && (
-					<div className='absolute right-0 z-[6000] w-full max-w-[40rem] translate-y-full bg-field-1 shadow shadow-md shadow-background'>
+					<div className='absolute right-0 z-[6000] w-full max-w-[40rem] translate-y-full bg-field-1  shadow-md shadow-background'>
 						<div className='p-5'>
 							<p>{t('filters')}</p>
 							<div className='grid grid-cols-2 gap-y-5 gap-x-7'>

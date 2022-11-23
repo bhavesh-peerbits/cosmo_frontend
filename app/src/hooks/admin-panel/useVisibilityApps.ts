@@ -11,8 +11,10 @@ import useGetAppsAdmin from '@api/user-admin/useGetAppsAdmin';
 const useVisibilityApps = () => {
 	const [urlFilters, setUrlFilters] = useUrlState<{
 		q: string | undefined;
+		tab?: number;
 	}>({
-		q: undefined
+		q: undefined,
+		tab: undefined
 	});
 	const [filters, setFilters] = useRecoilState(appsVisibilityFilters);
 	const setApps = useSetRecoilState(appsList);

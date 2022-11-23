@@ -43,6 +43,8 @@ import { ApplicationDto } from '../models';
 // @ts-ignore
 import { ApplicationUserDto } from '../models';
 // @ts-ignore
+import { InlineObject17 } from '../models';
+// @ts-ignore
 import { Profile } from '../models';
 // @ts-ignore
 import { UserBase } from '../models';
@@ -463,6 +465,115 @@ export const UserAdminControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
+		 * @param {string} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getApplicationVisibilityOfUser: async (
+			id: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'id' is not null or undefined
+			assertParamExists('getApplicationVisibilityOfUser', 'id', id);
+			const localVarPath =
+				`/api/users/admin/user/application/application-visibility/{id}`.replace(
+					`{${'id'}}`,
+					encodeURIComponent(String(id))
+				);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {string} searchField
+		 * @param {number} page
+		 * @param {number} size
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getFilteredUser: async (
+			searchField: string,
+			page: number,
+			size: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'searchField' is not null or undefined
+			assertParamExists('getFilteredUser', 'searchField', searchField);
+			// verify required parameter 'page' is not null or undefined
+			assertParamExists('getFilteredUser', 'page', page);
+			// verify required parameter 'size' is not null or undefined
+			assertParamExists('getFilteredUser', 'size', size);
+			const localVarPath = `/api/users/admin/filtered-user/{searchField}/{page}/{size}`
+				.replace(`{${'searchField'}}`, encodeURIComponent(String(searchField)))
+				.replace(`{${'page'}}`, encodeURIComponent(String(page)))
+				.replace(`{${'size'}}`, encodeURIComponent(String(size)));
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
 		 * @param {string} userId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
@@ -746,6 +857,60 @@ export const UserAdminControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
+		 * @param {InlineObject17} inlineObject17
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		setUserAppVisibility: async (
+			inlineObject17: InlineObject17,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'inlineObject17' is not null or undefined
+			assertParamExists('setUserAppVisibility', 'inlineObject17', inlineObject17);
+			const localVarPath = `/api/users/admin/user/applications/set-visibility`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				inlineObject17,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
 		 * @param {string} userId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
@@ -1020,6 +1185,63 @@ export const UserAdminControllerApiFp = function (configuration?: Configuration)
 		},
 		/**
 		 *
+		 * @param {string} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getApplicationVisibilityOfUser(
+			id: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<ApplicationDto>>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.getApplicationVisibilityOfUser(
+					id,
+					acceptLanguage,
+					options
+				);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {string} searchField
+		 * @param {number} page
+		 * @param {number} size
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getFilteredUser(
+			searchField: string,
+			page: number,
+			size: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<UserDto>>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getFilteredUser(
+				searchField,
+				page,
+				size,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
 		 * @param {string} userId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
@@ -1139,6 +1361,32 @@ export const UserAdminControllerApiFp = function (configuration?: Configuration)
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.setUserActive(
 				userId,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {InlineObject17} inlineObject17
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async setUserAppVisibility(
+			inlineObject17: InlineObject17,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<number>>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.setUserAppVisibility(
+				inlineObject17,
 				acceptLanguage,
 				options
 			);
@@ -1319,6 +1567,42 @@ export const UserAdminControllerApiFactory = function (
 		},
 		/**
 		 *
+		 * @param {string} id
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getApplicationVisibilityOfUser(
+			id: string,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Set<ApplicationDto>> {
+			return localVarFp
+				.getApplicationVisibilityOfUser(id, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {string} searchField
+		 * @param {number} page
+		 * @param {number} size
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getFilteredUser(
+			searchField: string,
+			page: number,
+			size: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Set<UserDto>> {
+			return localVarFp
+				.getFilteredUser(searchField, page, size, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
 		 * @param {string} userId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
@@ -1401,6 +1685,22 @@ export const UserAdminControllerApiFactory = function (
 		): AxiosPromise<boolean> {
 			return localVarFp
 				.setUserActive(userId, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {InlineObject17} inlineObject17
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		setUserAppVisibility(
+			inlineObject17: InlineObject17,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<number>> {
+			return localVarFp
+				.setUserAppVisibility(inlineObject17, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -1563,6 +1863,62 @@ export interface UserAdminControllerApiGetApplicationUserRequest {
 }
 
 /**
+ * Request parameters for getApplicationVisibilityOfUser operation in UserAdminControllerApi.
+ * @export
+ * @interface UserAdminControllerApiGetApplicationVisibilityOfUserRequest
+ */
+export interface UserAdminControllerApiGetApplicationVisibilityOfUserRequest {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserAdminControllerApiGetApplicationVisibilityOfUser
+	 */
+	readonly id: string;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserAdminControllerApiGetApplicationVisibilityOfUser
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getFilteredUser operation in UserAdminControllerApi.
+ * @export
+ * @interface UserAdminControllerApiGetFilteredUserRequest
+ */
+export interface UserAdminControllerApiGetFilteredUserRequest {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserAdminControllerApiGetFilteredUser
+	 */
+	readonly searchField: string;
+
+	/**
+	 *
+	 * @type {number}
+	 * @memberof UserAdminControllerApiGetFilteredUser
+	 */
+	readonly page: number;
+
+	/**
+	 *
+	 * @type {number}
+	 * @memberof UserAdminControllerApiGetFilteredUser
+	 */
+	readonly size: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserAdminControllerApiGetFilteredUser
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
  * Request parameters for getUser operation in UserAdminControllerApi.
  * @export
  * @interface UserAdminControllerApiGetUserRequest
@@ -1684,6 +2040,27 @@ export interface UserAdminControllerApiSetUserActiveRequest {
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
 	 * @memberof UserAdminControllerApiSetUserActive
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for setUserAppVisibility operation in UserAdminControllerApi.
+ * @export
+ * @interface UserAdminControllerApiSetUserAppVisibilityRequest
+ */
+export interface UserAdminControllerApiSetUserAppVisibilityRequest {
+	/**
+	 *
+	 * @type {InlineObject17}
+	 * @memberof UserAdminControllerApiSetUserAppVisibility
+	 */
+	readonly inlineObject17: InlineObject17;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserAdminControllerApiSetUserAppVisibility
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
@@ -1866,6 +2243,48 @@ export class UserAdminControllerApi extends BaseAPI {
 
 	/**
 	 *
+	 * @param {UserAdminControllerApiGetApplicationVisibilityOfUserRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof UserAdminControllerApi
+	 */
+	public getApplicationVisibilityOfUser(
+		requestParameters: UserAdminControllerApiGetApplicationVisibilityOfUserRequest,
+		options?: AxiosRequestConfig
+	) {
+		return UserAdminControllerApiFp(this.configuration)
+			.getApplicationVisibilityOfUser(
+				requestParameters.id,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {UserAdminControllerApiGetFilteredUserRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof UserAdminControllerApi
+	 */
+	public getFilteredUser(
+		requestParameters: UserAdminControllerApiGetFilteredUserRequest,
+		options?: AxiosRequestConfig
+	) {
+		return UserAdminControllerApiFp(this.configuration)
+			.getFilteredUser(
+				requestParameters.searchField,
+				requestParameters.page,
+				requestParameters.size,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
 	 * @param {UserAdminControllerApiGetUserRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
@@ -1956,6 +2375,26 @@ export class UserAdminControllerApi extends BaseAPI {
 	) {
 		return UserAdminControllerApiFp(this.configuration)
 			.setUserActive(requestParameters.userId, requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {UserAdminControllerApiSetUserAppVisibilityRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof UserAdminControllerApi
+	 */
+	public setUserAppVisibility(
+		requestParameters: UserAdminControllerApiSetUserAppVisibilityRequest,
+		options?: AxiosRequestConfig
+	) {
+		return UserAdminControllerApiFp(this.configuration)
+			.setUserAppVisibility(
+				requestParameters.inlineObject17,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 

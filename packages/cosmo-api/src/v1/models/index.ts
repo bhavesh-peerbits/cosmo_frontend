@@ -31,6 +31,7 @@ export * from './identity-provider-dto';
 export * from './inline-object10';
 export * from './inline-object12';
 export * from './inline-object13';
+export * from './inline-object17';
 export * from './inline-object7';
 export * from './inline-object8';
 export * from './inline-object9';

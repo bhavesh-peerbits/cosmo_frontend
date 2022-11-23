@@ -9,6 +9,7 @@ api/config-element-controller-api.ts
 api/config-element-module-controller-api.ts
 api/control-controller-api.ts
 api/csv-reader-controller-api.ts
+api/dev-home-redirect-controller-api.ts
 api/evidence-request-controller-api.ts
 api/evidence-request-file-s3-controller-api.ts
 api/evidence-request-focal-point-controller-api.ts
@@ -68,6 +69,7 @@ models/index.ts
 models/inline-object10.ts
 models/inline-object12.ts
 models/inline-object13.ts
+models/inline-object17.ts
 models/inline-object7.ts
 models/inline-object8.ts
 models/inline-object9.ts
