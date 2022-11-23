@@ -49,6 +49,7 @@ const EvidenceRequestUploadForm = ({ step, erId, path }: EvidenceReqUploadFormPr
 					<TextArea
 						labelText={t('evidenceRequest:public-comment')}
 						className='mt-5'
+						placeholder={t('evidenceRequest:public-comment-not-saved')}
 						{...register('publicComment')}
 					/>
 					<UploaderS3

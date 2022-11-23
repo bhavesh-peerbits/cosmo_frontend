@@ -148,7 +148,7 @@ const EvidenceRequestFilters = ({ view }: { view: string }) => {
 								id='date-picker'
 								datePickerType='single'
 								dateFormat='d/m'
-								onChange={e => handleDateFilter(e[0].toLocaleDateString(), 'minDueDate')}
+								onChange={e => handleDateFilter(e[0].toDateString(), 'minDueDate')}
 								maxDate={
 									filters.maxDueDate
 										? new Date(filters.maxDueDate).toLocaleDateString()
@@ -172,7 +172,7 @@ const EvidenceRequestFilters = ({ view }: { view: string }) => {
 								id='date-picker'
 								datePickerType='single'
 								dateFormat='d/m'
-								onChange={e => handleDateFilter(e[0]?.toLocaleDateString(), 'maxDueDate')}
+								onChange={e => handleDateFilter(e[0]?.toDateString(), 'maxDueDate')}
 								minDate={
 									filters.minDueDate
 										? new Date(filters.minDueDate).toLocaleDateString()
@@ -218,9 +218,7 @@ const EvidenceRequestFilters = ({ view }: { view: string }) => {
 								id='date-picker'
 								datePickerType='single'
 								dateFormat='d/m'
-								onChange={e =>
-									handleDateFilter(e[0]?.toLocaleDateString(), 'minCompDate')
-								}
+								onChange={e => handleDateFilter(e[0]?.toDateString(), 'minCompDate')}
 								maxDate={
 									filters.maxCompDate
 										? new Date(filters.maxCompDate).toLocaleDateString()
@@ -243,9 +241,7 @@ const EvidenceRequestFilters = ({ view }: { view: string }) => {
 								id='date-picker'
 								datePickerType='single'
 								dateFormat='d/m'
-								onChange={e =>
-									handleDateFilter(e[0]?.toLocaleDateString(), 'maxCompDate')
-								}
+								onChange={e => handleDateFilter(e[0]?.toDateString(), 'maxCompDate')}
 								minDate={
 									filters.minCompDate
 										? new Date(filters.minCompDate).toLocaleDateString()
