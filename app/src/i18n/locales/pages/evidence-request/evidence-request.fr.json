@@ -88,5 +88,6 @@
 	"workflow-name": "",
 	"control": "",
 	"no-control": "",
-	"task-delegates": ""
+	"task-delegates": "",
+	"public-comment-not-saved": "Public comment won't be saved until step upload isn't closed"
 }
