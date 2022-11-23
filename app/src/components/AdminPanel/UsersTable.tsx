@@ -119,6 +119,7 @@ const UsersTable = () => {
 		<>
 			{isModalOpen && modalToOpen()}
 			<CosmoTableInlineAction
+				tableId='userstable'
 				data={users}
 				createHeaders={columns}
 				noDataMessage={tTable('no-data')}

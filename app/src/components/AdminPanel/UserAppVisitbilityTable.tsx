@@ -1,53 +1,56 @@
-import { TableToolbarSearch } from '@carbon/react';
-import CosmoTable, { HeaderFunction } from '@components/table/CosmoTable';
-import { useCallback, useEffect, useState } from 'react';
-import User, { fromUserApi } from '@model/User';
-import { useQueryClient } from 'react-query';
-import api from '@api';
+import { TableToolbarSearch, Button } from '@carbon/react';
+import { HeaderFunction } from '@components/table/CosmoTable';
+import { useCallback, useState } from 'react';
+import User from '@model/User';
+import { Add } from '@carbon/react/icons';
+import CosmoTableInlineAction from '@components/table/CosmoTableInlineAction';
+import { useDebounce } from 'ahooks';
+import useGetFilteredPagedUser from '@api/user-admin/useGetFilteredPagedUser';
+import usePaginationStore from '@hooks/pagination/usePaginationStore';
+import SelectApplicationUser from './SelectApplicationUser';
 
-// type ActionCellProps = {
-// 	setIsSelectOpen: (val: boolean) => void;
-// };
+type ActionCellProps = {
+	setIsSelectOpen: (val: boolean) => void;
+};
 
-// const ActionsCell = ({ setIsSelectOpen }: ActionCellProps) => {
-// 	const { t } = useTranslation('userSelect');
-// 	return (
-// 		<Button
-// 			hasIconOnly
-// 			kind='ghost'
-// 			renderIcon={UserFollow}
-// 			iconDescription={t('add-user')}
-// 			tooltipPosition='left'
-// 			onClick={() => setIsSelectOpen(true)}
-// 		/>
-// 	);
-// };
+const ActionsCell = ({ setIsSelectOpen }: ActionCellProps) => {
+	return (
+		<Button
+			hasIconOnly
+			kind='ghost'
+			renderIcon={Add}
+			iconDescription='add'
+			tooltipPosition='left'
+			onClick={() => setIsSelectOpen(true)}
+		/>
+	);
+};
 
 const UserAppsVisibilityTable = () => {
-	const queryClient = useQueryClient();
 	const [filters, setFilters] = useState('');
-	const [users, setUsers] = useState<User[]>();
-
-	useEffect(() => {
-		queryClient.fetchQuery({
-			queryKey: ['paged-user'],
-			queryFn: () =>
-				api.userAdminApi
-					.getFilteredUser({
-						page: 0,
-						size: 10,
-						searchField: filters.length <= 3 ? '__none' : filters
-					})
-					.then(({ data }) => setUsers([...data].map(fromUserApi)))
-		});
-	}, [filters, queryClient]);
+	const search = useDebounce(filters, { wait: 600 });
+	const [isSelectOpen, setIsSelectOpen] = useState(false);
+	const [userSelectedId, setUserSelectedId] = useState<string>();
+	const { pagination } = usePaginationStore('userappvisibility');
+	const { data: { content, totalElements } = {} } = useGetFilteredPagedUser(
+		search,
+		pagination.pageIndex,
+		pagination.pageSize
+	);
 
 	const columns: HeaderFunction<User> = useCallback(
 		table => [
 			table.createDataColumn(row => row.name, {
 				id: 'name',
-				header: 'application-name',
-				sortUndefined: 1
+				header: 'Name'
+			}),
+			table.createDataColumn(row => row.surname, {
+				id: 'surname',
+				header: 'surname'
+			}),
+			table.createDataColumn(row => row.username, {
+				id: 'username',
+				header: 'username'
 			})
 		],
 		[]
@@ -59,18 +62,36 @@ const UserAppsVisibilityTable = () => {
 			placeholder='search-placeholder'
 			id='search'
 			value={filters ?? ''}
-			onChange={e => setFilters(e.currentTarget?.value)}
+			onChange={e => {
+				e.currentTarget?.value ? setFilters(e.currentTarget?.value) : setFilters('');
+			}}
 		/>
 	);
 
 	return (
-		<CosmoTable
-			data={users || []}
-			createHeaders={columns}
-			noDataMessage='no-data'
-			toolbar={{ toolbarContent }}
-			exportFileName={({ all }) => (all ? 'applications-all' : 'applications-selection')}
-		/>
+		<>
+			{userSelectedId ? (
+				<SelectApplicationUser
+					appSelectedId={userSelectedId}
+					setIsSelectOpen={setIsSelectOpen}
+					isSelectOpen={isSelectOpen}
+				/>
+			) : null}
+
+			<CosmoTableInlineAction
+				tableId='userappvisibility'
+				dataLength={totalElements}
+				data={content || []}
+				createHeaders={columns}
+				noDataMessage='no-data'
+				toolbar={{ toolbarContent }}
+				exportFileName={({ all }) =>
+					all ? 'applications-all' : 'applications-selection'
+				}
+				inlineAction={<ActionsCell setIsSelectOpen={setIsSelectOpen} />}
+				setRowSelected={setUserSelectedId}
+			/>
+		</>
 	);
 };
 

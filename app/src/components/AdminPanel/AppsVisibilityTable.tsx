@@ -81,6 +81,7 @@ const AppsVisibilityTable = () => {
 			) : null}
 
 			<CosmoTableInlineAction
+				tableId='appvisibility'
 				data={apps}
 				createHeaders={columns}
 				noDataMessage={tTable('no-data')}

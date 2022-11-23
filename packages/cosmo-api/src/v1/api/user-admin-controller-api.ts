@@ -45,6 +45,8 @@ import { ApplicationUserDto } from '../models';
 // @ts-ignore
 import { InlineObject17 } from '../models';
 // @ts-ignore
+import { PageUserDto } from '../models';
+// @ts-ignore
 import { Profile } from '../models';
 // @ts-ignore
 import { UserBase } from '../models';
@@ -517,29 +519,24 @@ export const UserAdminControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {string} searchField
-		 * @param {number} page
-		 * @param {number} size
+		 * @param {number} [page] Zero-based page index (0..N)
+		 * @param {number} [size] The size of the page to be returned
+		 * @param {Array<string>} [sort] Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getFilteredUser: async (
 			searchField: string,
-			page: number,
-			size: number,
+			page?: number,
+			size?: number,
+			sort?: Array<string>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'searchField' is not null or undefined
 			assertParamExists('getFilteredUser', 'searchField', searchField);
-			// verify required parameter 'page' is not null or undefined
-			assertParamExists('getFilteredUser', 'page', page);
-			// verify required parameter 'size' is not null or undefined
-			assertParamExists('getFilteredUser', 'size', size);
-			const localVarPath = `/api/users/admin/filtered-user/{searchField}/{page}/{size}`
-				.replace(`{${'searchField'}}`, encodeURIComponent(String(searchField)))
-				.replace(`{${'page'}}`, encodeURIComponent(String(page)))
-				.replace(`{${'size'}}`, encodeURIComponent(String(size)));
+			const localVarPath = `/api/users/admin/filtered-user`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -553,6 +550,22 @@ export const UserAdminControllerApiAxiosParamCreator = function (
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (searchField !== undefined) {
+				localVarQueryParameter['searchField'] = searchField;
+			}
+
+			if (page !== undefined) {
+				localVarQueryParameter['page'] = page;
+			}
+
+			if (size !== undefined) {
+				localVarQueryParameter['size'] = size;
+			}
+
+			if (sort) {
+				localVarQueryParameter['sort'] = sort;
+			}
 
 			if (acceptLanguage !== undefined && acceptLanguage !== null) {
 				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
@@ -1213,23 +1226,26 @@ export const UserAdminControllerApiFp = function (configuration?: Configuration)
 		/**
 		 *
 		 * @param {string} searchField
-		 * @param {number} page
-		 * @param {number} size
+		 * @param {number} [page] Zero-based page index (0..N)
+		 * @param {number} [size] The size of the page to be returned
+		 * @param {Array<string>} [sort] Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getFilteredUser(
 			searchField: string,
-			page: number,
-			size: number,
+			page?: number,
+			size?: number,
+			sort?: Array<string>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<UserDto>>> {
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageUserDto>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getFilteredUser(
 				searchField,
 				page,
 				size,
+				sort,
 				acceptLanguage,
 				options
 			);
@@ -1584,21 +1600,23 @@ export const UserAdminControllerApiFactory = function (
 		/**
 		 *
 		 * @param {string} searchField
-		 * @param {number} page
-		 * @param {number} size
+		 * @param {number} [page] Zero-based page index (0..N)
+		 * @param {number} [size] The size of the page to be returned
+		 * @param {Array<string>} [sort] Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getFilteredUser(
 			searchField: string,
-			page: number,
-			size: number,
+			page?: number,
+			size?: number,
+			sort?: Array<string>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Set<UserDto>> {
+		): AxiosPromise<PageUserDto> {
 			return localVarFp
-				.getFilteredUser(searchField, page, size, acceptLanguage, options)
+				.getFilteredUser(searchField, page, size, sort, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -1897,18 +1915,25 @@ export interface UserAdminControllerApiGetFilteredUserRequest {
 	readonly searchField: string;
 
 	/**
-	 *
+	 * Zero-based page index (0..N)
 	 * @type {number}
 	 * @memberof UserAdminControllerApiGetFilteredUser
 	 */
-	readonly page: number;
+	readonly page?: number;
 
 	/**
-	 *
+	 * The size of the page to be returned
 	 * @type {number}
 	 * @memberof UserAdminControllerApiGetFilteredUser
 	 */
-	readonly size: number;
+	readonly size?: number;
+
+	/**
+	 * Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+	 * @type {Array<string>}
+	 * @memberof UserAdminControllerApiGetFilteredUser
+	 */
+	readonly sort?: Array<string>;
 
 	/**
 	 *
@@ -2277,6 +2302,7 @@ export class UserAdminControllerApi extends BaseAPI {
 				requestParameters.searchField,
 				requestParameters.page,
 				requestParameters.size,
+				requestParameters.sort,
 				requestParameters.acceptLanguage,
 				options
 			)

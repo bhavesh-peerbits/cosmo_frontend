@@ -23,7 +23,6 @@ import {
 	getGroupedRowModel,
 	getPaginationRowModel,
 	getSortedRowModel,
-	PaginationState,
 	Table as TableType,
 	useTableInstance
 } from '@tanstack/react-table';
@@ -37,6 +36,7 @@ import {
 	CosmoTableToolbarProps
 } from '@components/table/types';
 import useExportTablePlugin from '@hooks/useExportTablePlugin';
+import usePaginationStore from '@hooks/pagination/usePaginationStore';
 import CosmoTableToolbar from './CosmoTableToolbar';
 
 type HeaderFunction<T extends object> = TableInlineActionProps<T>['createHeaders'];
@@ -55,34 +55,36 @@ interface TableInlineActionProps<D extends object> {
 	inlineAction: ReactNode;
 	setRowSelected: (val: string) => void;
 	isGroupable?: boolean;
+	dataLength?: number;
+	tableId: string;
 }
 
 const CosmoTableInlineAction = <D extends object>({
 	createHeaders,
-	data,
+	data: tableData,
 	noDataMessage,
 	exportFileName,
 	disableExport,
 	inlineAction,
 	setRowSelected,
 	toolbar,
-	isGroupable
+	isGroupable,
+	dataLength,
+	tableId
 }: TableInlineActionProps<D>) => {
+	const data = useMemo(() => tableData, [tableData]);
 	const { t } = useTranslation('table');
 	const [expanded, setExpanded] = useState<ExpandedState>({});
 	const [grouping, setGrouping] = useState<string[]>([]);
 	const [sorting, setSorting] = useState<ColumnSort[]>([]);
-
-	const [pagination, setPagination] = useState<PaginationState>({
-		pageIndex: 0,
-		pageSize: 10
-	});
+	const { pagination, setPagination } = usePaginationStore(tableId);
 	const table = createTable().setColumnMetaType<ExportProperties>().setRowType<D>();
 	const columns = useMemo(() => createHeaders(table), [createHeaders, table]);
 	const instance = useTableInstance(table, {
 		data,
 		columns,
 		autoResetPageIndex: false,
+		manualPagination: dataLength !== undefined,
 		state: {
 			pagination,
 			sorting,
@@ -99,7 +101,7 @@ const CosmoTableInlineAction = <D extends object>({
 		getGroupedRowModel: getGroupedRowModel(),
 		getPaginationRowModel: getPaginationRowModel()
 	});
-	const { getRowModel, getHeaderGroups, setPageIndex, setPageSize } = instance;
+	const { getRowModel, getHeaderGroups } = instance;
 	const { exportData } = useExportTablePlugin(instance, exportFileName, disableExport);
 	const renderBody = () => {
 		const { rows } = getRowModel();
@@ -244,15 +246,17 @@ const CosmoTableInlineAction = <D extends object>({
 				pageRangeText={(current, total) =>
 					t(total > 1 ? 'page-range-plural' : 'page-range', { current, total })
 				}
-				page={1}
+				page={pagination.pageIndex + 1}
 				onChange={({ page, pageSize }) => {
-					setPageIndex(page - 1);
-					setPageSize(pageSize);
+					setPagination({
+						pageSize,
+						pageIndex: page - 1
+					});
 				}}
-				pageSize={10}
+				pageSize={pagination.pageSize}
 				pageSizes={[10, 20, 30, 40, 50]}
 				size='md'
-				totalItems={data.length}
+				totalItems={dataLength ?? data.length}
 			/>
 		</TableContainer>
 	);

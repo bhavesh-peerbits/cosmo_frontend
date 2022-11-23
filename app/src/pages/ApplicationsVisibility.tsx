@@ -19,8 +19,8 @@ const ApplicationsVisibility = () => {
 					aria-label='List of tabs'
 					className='sticky z-10 bg-background'
 				>
-					<Tab className='max-w-none'>{`App -> User`}</Tab>
-					<Tab className='max-w-none'>{`User -> App`}</Tab>
+					<Tab className='max-w-none'>Users</Tab>
+					<Tab className='max-w-none'>Application</Tab>
 				</TabList>
 				<TabPanels>
 					<TabPanel>
