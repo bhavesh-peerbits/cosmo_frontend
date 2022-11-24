@@ -107,8 +107,9 @@ const UsersSelectionForm = ({
 				<Column sm={4} md={8} lg={16} className='mb-5 space-y-5'>
 					<span className='text-text-secondary'>{t('select-user-group')}.</span>
 					<RadioButtonGroup
+						key={step.id}
 						orientation='vertical'
-						name={step.id}
+						name={step.id + associations[0].id}
 						onChange={value => setRadio(`${value}`)}
 					>
 						{associations.map(association => (

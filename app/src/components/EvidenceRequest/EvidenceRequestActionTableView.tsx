@@ -64,9 +64,9 @@ const EvidenceRequestActionTableView = ({
 	const columns: HeaderFunction<EvidenceRequest> = useCallback(
 		table => {
 			const ArrayCol = [
-				table.createDataColumn(row => row.code, {
-					id: `code${view}`,
-					header: t('code'),
+				table.createDataColumn(row => row.name, {
+					id: `name${view}`,
+					header: t('request-name'),
 					cell: info =>
 						info &&
 						CellLinkComponent({
