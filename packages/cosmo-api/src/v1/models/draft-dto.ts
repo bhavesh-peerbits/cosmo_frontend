@@ -83,6 +83,12 @@ export interface DraftDto {
 	 * @type {string}
 	 * @memberof DraftDto
 	 */
+	frameworkName: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DraftDto
+	 */
 	name: string;
 	/**
 	 *

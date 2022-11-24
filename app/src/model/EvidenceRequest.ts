@@ -26,6 +26,7 @@ interface EvidenceRequest {
 	contributors: User[];
 	phaseType?: string;
 	stepBeforeReturn?: number;
+	frameworkName?: string;
 }
 
 export const fromEvidenceRequestApi = (
@@ -56,7 +57,8 @@ export const fromEvidenceRequestApi = (
 			? new Date(evidenceRequest.completionDate)
 			: undefined,
 		phaseType: evidenceRequest.phaseType,
-		stepBeforeReturn: evidenceRequest.stepBeforeReturn
+		stepBeforeReturn: evidenceRequest.stepBeforeReturn,
+		frameworkName: evidenceRequest.frameworkName
 	};
 };
 
@@ -87,7 +89,10 @@ export const toEvidenceRequestApi = (
 			? evidenceRequest.completionDate.toISOString()
 			: undefined,
 		phaseType: evidenceRequest.phaseType,
-		stepBeforeReturn: evidenceRequest.stepBeforeReturn
+		stepBeforeReturn: evidenceRequest.stepBeforeReturn,
+		frameworkName: evidenceRequest.frameworkName
+			? evidenceRequest.frameworkName
+			: undefined
 	};
 };
 

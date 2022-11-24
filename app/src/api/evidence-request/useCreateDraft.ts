@@ -8,6 +8,7 @@ interface CreateDraftParams {
 		workflowname: string;
 		requestType: string[];
 		phaseTypeId?: string;
+		frameworkName: string[];
 	};
 }
 

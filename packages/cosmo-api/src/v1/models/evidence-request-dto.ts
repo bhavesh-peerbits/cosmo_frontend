@@ -48,6 +48,12 @@ export interface EvidenceRequestDto {
 	type?: string;
 	/**
 	 *
+	 * @type {string}
+	 * @memberof EvidenceRequestDto
+	 */
+	frameworkName?: string;
+	/**
+	 *
 	 * @type {ApplicationDto}
 	 * @memberof EvidenceRequestDto
 	 */

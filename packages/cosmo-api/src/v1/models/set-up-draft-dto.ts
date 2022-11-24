@@ -42,4 +42,10 @@ export interface SetUpDraftDto {
 	 * @memberof SetUpDraftDto
 	 */
 	phaseTypeId?: number;
+	/**
+	 *
+	 * @type {Array<string>}
+	 * @memberof SetUpDraftDto
+	 */
+	frameworkName: Array<string>;
 }
