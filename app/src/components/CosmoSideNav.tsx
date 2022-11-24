@@ -34,7 +34,8 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 		canReviewNarrative,
 		canSeeNarrativeManagement,
 		canRevalidateUser,
-		canCreateRequest
+		canCreateRequest,
+		canWorkflowApprover
 	} = usePolicyStore();
 	const { md, lg } = useResponsive();
 
@@ -48,18 +49,22 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 				isRail={md && !lg}
 			>
 				<SideNavItems>
-					{canReview && (
+					{(canReview || canWorkflowApprover) && (
 						<SideNavMenu
 							renderIcon={RequestQuote}
 							title='Inbox'
 							className='transition-all'
 						>
-							<SideNavMenuItem element={Link} to={routes.REVIEW_NARRATIVE}>
-								Review Narrative
-							</SideNavMenuItem>
-							<SideNavMenuItem element={Link} to={routes.USER_REVALIDATION}>
-								User Revalidation
-							</SideNavMenuItem>
+							{canReview && (
+								<>
+									<SideNavMenuItem element={Link} to={routes.REVIEW_NARRATIVE}>
+										Review Narrative
+									</SideNavMenuItem>
+									<SideNavMenuItem element={Link} to={routes.USER_REVALIDATION}>
+										User Revalidation
+									</SideNavMenuItem>
+								</>
+							)}
 							<SideNavMenuItem element={Link} to={routes.EVIDENCE_REQUEST_ACTION}>
 								Evidence Request
 							</SideNavMenuItem>

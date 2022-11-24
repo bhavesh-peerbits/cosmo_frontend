@@ -52,7 +52,8 @@ const AuthenticatedRoutes = () => {
 		canUserAdmin,
 		canReviewUser,
 		canRevalidateUser,
-		canCreateRequest
+		canCreateRequest,
+		canWorkflowApprover
 	} = usePolicyStore();
 	return (
 		<>
@@ -122,7 +123,7 @@ const AuthenticatedRoutes = () => {
 								<Route
 									path=':campaignId'
 									element={
-										<ProtectRoute canNavigate={canReview}>
+										<ProtectRoute canNavigate={canReview || canWorkflowApprover}>
 											<UserRevalidationDetails />
 										</ProtectRoute>
 									}
