@@ -38,7 +38,7 @@ const applyFilters = (
 						?.toLowerCase()
 						?.trim()
 						?.includes(`${filters.query}`.toLowerCase().trim()) ||
-				  request.application.codeName
+				  request.application.name
 						.toLowerCase()
 						.trim()
 						.includes(`${filters.query}`.toLowerCase().trim())

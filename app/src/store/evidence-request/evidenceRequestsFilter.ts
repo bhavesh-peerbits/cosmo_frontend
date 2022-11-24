@@ -54,7 +54,7 @@ const applyFilters = (
 						?.toLowerCase()
 						?.trim()
 						?.includes(`${filters.query}`.toLowerCase().trim()) ||
-				  request.application.codeName
+				  request.application.name
 						.toLowerCase()
 						.trim()
 						.includes(`${filters.query}`.toLowerCase().trim())
@@ -104,7 +104,7 @@ const applyFilters = (
 		.filter(request =>
 			filters.application?.length
 				? filters.application.some(
-						app => request.application.codeName.toLowerCase() === `${app}`.toLowerCase()
+						app => request.application.name.toLowerCase() === `${app}`.toLowerCase()
 				  )
 				: true
 		)
@@ -180,7 +180,7 @@ const filteredEvidenceRequests = selector({
 								? req.status === 'IN_PROGRESS'
 								: req.status !== 'DRAFT' && req.status !== 'IN_PROGRESS'
 						)
-						.map(req => req.application.codeName)
+						.map(req => req.application.name)
 						.filter(o => !!o) as string[]
 				)
 			].map(application => ({
