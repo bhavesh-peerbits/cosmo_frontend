@@ -17,7 +17,7 @@ const EvidenceRequestActionTile = ({ request }: ERATileProp) => {
 		<Layer level={1}>
 			<ClickableTile onClick={() => navigate(request?.id ?? '')} className='mb-5'>
 				<div className='space-y-3'>
-					<p className='block truncate  text-heading-2'>{request?.code}</p>
+					<p className='block truncate  text-heading-2'>{request?.name}</p>
 					<span className='mt-2 flex space-x-2 '>
 						<p className='whitespace-nowrap text-text-secondary text-body-short-1 '>
 							Framework:
