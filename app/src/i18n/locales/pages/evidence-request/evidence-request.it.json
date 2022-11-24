@@ -89,5 +89,6 @@
 	"control": "Controllo",
 	"no-control": "Nessun controllo",
 	"task-delegates": "Delegati task",
-	"public-comment-not-saved": "Il commento pubblico non verrà salvato finchè non chiuderai lo step upload"
+	"public-comment-not-saved": "Il commento pubblico non verrà salvato finchè non chiuderai lo step upload",
+	"framework-name": "Nome framework"
 }

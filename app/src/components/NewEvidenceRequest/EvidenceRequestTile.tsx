@@ -18,9 +18,9 @@ const EvidenceRequestTile = ({ request }: EvidenceRequestTileProps) => {
 					<p className='block truncate line-clamp-1 text-heading-2'>{request?.name}</p>
 					<span className='mt-2 flex space-x-2 '>
 						<p className='whitespace-nowrap text-text-secondary text-body-short-1'>
-							Framework:
+							{t('evidenceRequest:framework-name')}:
 						</p>
-						<p className='block truncate text-body-short-1'>{request?.type}</p>
+						<p className='block truncate text-body-short-1'>{request?.frameworkName}</p>
 					</span>
 					<div className='space-y-2'>
 						<span className='mt-2 flex space-x-2 '>
