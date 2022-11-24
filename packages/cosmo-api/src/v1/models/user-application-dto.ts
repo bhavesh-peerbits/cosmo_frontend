@@ -12,28 +12,24 @@
  * Do not edit the class manually.
  */
 
+import { ApplicationDto } from './application-dto';
+
 /**
  *
  * @export
- * @interface Sort
+ * @interface UserApplicationDto
  */
-export interface Sort {
+export interface UserApplicationDto {
 	/**
 	 *
-	 * @type {boolean}
-	 * @memberof Sort
+	 * @type {string}
+	 * @memberof UserApplicationDto
 	 */
-	empty?: boolean;
+	userId: string;
 	/**
 	 *
-	 * @type {boolean}
-	 * @memberof Sort
+	 * @type {Array<ApplicationDto>}
+	 * @memberof UserApplicationDto
 	 */
-	sorted?: boolean;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof Sort
-	 */
-	unsorted?: boolean;
+	applications?: Array<ApplicationDto>;
 }

@@ -69,7 +69,6 @@ models/index.ts
 models/inline-object10.ts
 models/inline-object12.ts
 models/inline-object13.ts
-models/inline-object17.ts
 models/inline-object7.ts
 models/inline-object8.ts
 models/inline-object9.ts
@@ -99,6 +98,7 @@ models/start-campaign-dto.ts
 models/step-dto.ts
 models/tenant.ts
 models/test-dto.ts
+models/user-application-dto.ts
 models/user-base.ts
 models/user-dto.ts
 models/user-profile-key.ts

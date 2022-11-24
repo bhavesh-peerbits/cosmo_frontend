@@ -1,25 +1,47 @@
-import useGetApplicationUser from '@api/user-admin/useGetApplicationUser';
-import useGetAppsAdminNotMap from '@api/user-admin/useGetAppsAdminNotMap';
+import useGetUserAppVisibility from '@api/user-admin/useGetUserAppVisibility';
+import useSetUserApplication from '@api/user-admin/useSetUserApplication';
 import MultiAddSelect from '@components/MultiAddSelect';
+import Application from '@model/Application';
 import { useTranslation } from 'react-i18next';
+import { useQueryClient } from 'react-query';
 
 type SelectApplicationUserProps = {
-	appSelectedId: string;
+	userSelectedId: string;
 	setIsSelectOpen: (val: boolean) => void;
 	isSelectOpen: boolean;
+	applications: Application[];
 };
 const SelectApplicationUser = ({
-	appSelectedId,
+	userSelectedId,
 	setIsSelectOpen,
-	isSelectOpen
+	isSelectOpen,
+	applications
 }: SelectApplicationUserProps) => {
 	const { t } = useTranslation('management');
+	const queryClient = useQueryClient();
 	const { t: tSelect } = useTranslation('userSelect');
 	const { t: tProc } = useTranslation('procedureInfo');
-	const { data: applicationUser } = useGetApplicationUser(appSelectedId);
-	const { data: applications } = useGetAppsAdminNotMap();
+	const { data: applicationUser } = useGetUserAppVisibility(userSelectedId);
+	const { mutate } = useSetUserApplication();
 	const cleanUp = () => {
+		setTimeout(() => queryClient.removeQueries(['app-user-visibility']), 1);
 		setIsSelectOpen(false);
+	};
+
+	const setUserAppVisibility = (ids: string[]) => {
+		applications &&
+			ids &&
+			mutate(
+				{
+					userId: userSelectedId,
+					applications: applications.filter(app => `${ids.indexOf(`${app.id}`)}` !== '-1')
+				},
+				{
+					onSuccess: () => {
+						cleanUp();
+					}
+				}
+			);
 	};
 
 	return (
@@ -28,43 +50,32 @@ const SelectApplicationUser = ({
 				entries:
 					applications?.map(app => ({
 						id: app.id,
-						title: app.codeName
+						title: app.name,
+						subtitle: app.codeName
 					})) ?? []
 			}}
-			title={tSelect('select-user')}
-			description={tSelect('select-user')}
+			title={tSelect('select-app')}
 			open={isSelectOpen}
 			onSubmitButtonText={tProc('save')}
-			onSubmit={() => {}}
+			onSubmit={ids => setUserAppVisibility(ids)}
 			onCloseButtonText={t('cancel')}
 			onClose={() => {
 				cleanUp();
 			}}
 			globalSearchLabel={tSelect('username-email')}
-			globalSearchPlaceholder={tSelect('find-user')}
-			globalFilters={[
-				{
-					id: 'role',
-					label: tSelect('role')
-				}
-			]}
-			globalFiltersIconDescription={tSelect('filters')}
-			globalFiltersPlaceholderText={tSelect('choose-option')}
-			globalFiltersPrimaryButtonText={tSelect('apply')}
-			globalFiltersSecondaryButtonText={tSelect('reset')}
-			clearFiltersText={tSelect('clear-filters')}
+			globalSearchPlaceholder={tSelect('find-app')}
 			influencerItemTitle={tSelect('name')}
-			influencerItemSubtitle='email'
+			influencerItemSubtitle={tSelect('code')}
 			noResultsTitle={tSelect('no-results')}
 			noResultsDescription={tSelect('different-keywords')}
 			selectedItems={{
-				entries:
-					applicationUser && applicationUser.users
-						? applications?.map(app => ({
-								id: app.id,
-								title: app.codeName
-						  })) ?? []
-						: []
+				entries: applicationUser
+					? applicationUser?.map(app => ({
+							id: app.id,
+							title: app.name,
+							subtitle: app.codeName
+					  })) ?? []
+					: []
 			}}
 		/>
 	);

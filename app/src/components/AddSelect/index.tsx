@@ -83,8 +83,8 @@ const AddSelect = forwardRef<HTMLDivElement, AddSelectProps>(
 			if (!open && selectedItems.entries.length === 0) {
 				setSingleSelection('');
 				setMultiSelection([]);
-			} else if (open && selectedItems.entries.length > 0) {
-				setMultiSelection(selectedItems.entries.map(entry => entry.id));
+			} else if (open) {
+				setMultiSelection(selectedItems.entries?.map(entry => entry.id) ?? []);
 			}
 		}, [open, selectedItems.entries, selectedItems.entries.length]);
 

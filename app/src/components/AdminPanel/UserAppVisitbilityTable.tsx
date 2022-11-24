@@ -7,6 +7,7 @@ import CosmoTableInlineAction from '@components/table/CosmoTableInlineAction';
 import { useDebounce } from 'ahooks';
 import useGetFilteredPagedUser from '@api/user-admin/useGetFilteredPagedUser';
 import usePaginationStore from '@hooks/pagination/usePaginationStore';
+import useGetAppsAdminNotMap from '@api/user-admin/useGetAppsAdminNotMap';
 import SelectApplicationUser from './SelectApplicationUser';
 
 type ActionCellProps = {
@@ -15,14 +16,16 @@ type ActionCellProps = {
 
 const ActionsCell = ({ setIsSelectOpen }: ActionCellProps) => {
 	return (
-		<Button
-			hasIconOnly
-			kind='ghost'
-			renderIcon={Add}
-			iconDescription='add'
-			tooltipPosition='left'
-			onClick={() => setIsSelectOpen(true)}
-		/>
+		<div className='float-right flex'>
+			<Button
+				hasIconOnly
+				kind='ghost'
+				renderIcon={Add}
+				iconDescription='add'
+				tooltipPosition='left'
+				onClick={() => setIsSelectOpen(true)}
+			/>
+		</div>
 	);
 };
 
@@ -32,6 +35,7 @@ const UserAppsVisibilityTable = () => {
 	const [isSelectOpen, setIsSelectOpen] = useState(false);
 	const [userSelectedId, setUserSelectedId] = useState<string>();
 	const { pagination } = usePaginationStore('userappvisibility');
+	const { data: applications } = useGetAppsAdminNotMap();
 	const { data: { content, totalElements } = {} } = useGetFilteredPagedUser(
 		search,
 		pagination.pageIndex,
@@ -72,9 +76,10 @@ const UserAppsVisibilityTable = () => {
 		<>
 			{userSelectedId ? (
 				<SelectApplicationUser
-					appSelectedId={userSelectedId}
+					userSelectedId={userSelectedId}
 					setIsSelectOpen={setIsSelectOpen}
 					isSelectOpen={isSelectOpen}
+					applications={applications || []}
 				/>
 			) : null}
 

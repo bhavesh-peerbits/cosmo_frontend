@@ -43,11 +43,11 @@ import { ApplicationDto } from '../models';
 // @ts-ignore
 import { ApplicationUserDto } from '../models';
 // @ts-ignore
-import { InlineObject17 } from '../models';
-// @ts-ignore
 import { PageUserDto } from '../models';
 // @ts-ignore
 import { Profile } from '../models';
+// @ts-ignore
+import { UserApplicationDto } from '../models';
 // @ts-ignore
 import { UserBase } from '../models';
 // @ts-ignore
@@ -870,18 +870,18 @@ export const UserAdminControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {InlineObject17} inlineObject17
+		 * @param {UserApplicationDto} userApplicationDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		setUserAppVisibility: async (
-			inlineObject17: InlineObject17,
+			userApplicationDto: UserApplicationDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'inlineObject17' is not null or undefined
-			assertParamExists('setUserAppVisibility', 'inlineObject17', inlineObject17);
+			// verify required parameter 'userApplicationDto' is not null or undefined
+			assertParamExists('setUserAppVisibility', 'userApplicationDto', userApplicationDto);
 			const localVarPath = `/api/users/admin/user/applications/set-visibility`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -912,7 +912,7 @@ export const UserAdminControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				inlineObject17,
+				userApplicationDto,
 				localVarRequestOptions,
 				configuration
 			);
@@ -1389,20 +1389,20 @@ export const UserAdminControllerApiFp = function (configuration?: Configuration)
 		},
 		/**
 		 *
-		 * @param {InlineObject17} inlineObject17
+		 * @param {UserApplicationDto} userApplicationDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async setUserAppVisibility(
-			inlineObject17: InlineObject17,
+			userApplicationDto: UserApplicationDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<number>>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.setUserAppVisibility(
-				inlineObject17,
+				userApplicationDto,
 				acceptLanguage,
 				options
 			);
@@ -1707,18 +1707,18 @@ export const UserAdminControllerApiFactory = function (
 		},
 		/**
 		 *
-		 * @param {InlineObject17} inlineObject17
+		 * @param {UserApplicationDto} userApplicationDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		setUserAppVisibility(
-			inlineObject17: InlineObject17,
+			userApplicationDto: UserApplicationDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Array<number>> {
 			return localVarFp
-				.setUserAppVisibility(inlineObject17, acceptLanguage, options)
+				.setUserAppVisibility(userApplicationDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -2077,10 +2077,10 @@ export interface UserAdminControllerApiSetUserActiveRequest {
 export interface UserAdminControllerApiSetUserAppVisibilityRequest {
 	/**
 	 *
-	 * @type {InlineObject17}
+	 * @type {UserApplicationDto}
 	 * @memberof UserAdminControllerApiSetUserAppVisibility
 	 */
-	readonly inlineObject17: InlineObject17;
+	readonly userApplicationDto: UserApplicationDto;
 
 	/**
 	 *
@@ -2417,7 +2417,7 @@ export class UserAdminControllerApi extends BaseAPI {
 	) {
 		return UserAdminControllerApiFp(this.configuration)
 			.setUserAppVisibility(
-				requestParameters.inlineObject17,
+				requestParameters.userApplicationDto,
 				requestParameters.acceptLanguage,
 				options
 			)

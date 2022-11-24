@@ -20,7 +20,7 @@ const ApplicationsVisibility = () => {
 					className='sticky z-10 bg-background'
 				>
 					<Tab className='max-w-none'>Users</Tab>
-					<Tab className='max-w-none'>Application</Tab>
+					<Tab className='max-w-none'>Applications</Tab>
 				</TabList>
 				<TabPanels>
 					<TabPanel>
