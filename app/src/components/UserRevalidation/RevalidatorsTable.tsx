@@ -9,19 +9,22 @@ import { Information, Edit } from '@carbon/react/icons';
 import GroupableCosmoTable from '@components/table/GroupableCosmoTable';
 import { useSetRecoilState } from 'recoil';
 import modifyAnswerModalInfo from '@store/user-revalidation/modifyAnswerModalInfo';
+import { CampaignDtoStatusEnum } from 'cosmo-api/src/v1/models/campaign-dto';
 
 interface RevalidatorsTableProp {
 	answers: Answer[];
 	dueDate: Date | undefined;
 	campaignType: string;
 	reviewId: string;
+	status?: CampaignDtoStatusEnum;
 }
 
 const RevalidatorsTable = ({
 	answers,
 	dueDate,
 	campaignType,
-	reviewId
+	reviewId,
+	status
 }: RevalidatorsTableProp) => {
 	const { t } = useTranslation(['table', 'userRevalidation', 'userAdmin']);
 	const [filters, setFilters] = useState('');
@@ -145,14 +148,18 @@ const RevalidatorsTable = ({
 							exportableFn: info => info.title
 						}
 					}
-				),
-				table.createDataColumn(row => ({ answer: row }), {
-					id: `action${reviewId}`,
-					header: t('userAdmin:actions'),
-					cell: actionCell,
-					enableGrouping: false
-				})
+				)
 			];
+			if (status !== 'COMPLETED' && status !== 'COMPLETED_WITH_PARTIAL_ANSWERS') {
+				ArrayCol.push(
+					table.createDataColumn(row => ({ answer: row }), {
+						id: `action${reviewId}`,
+						header: t('userAdmin:actions'),
+						cell: actionCell,
+						enableGrouping: false
+					})
+				);
+			}
 			if (isFireFighter) {
 				ArrayCol.splice(
 					6,
@@ -185,7 +192,7 @@ const RevalidatorsTable = ({
 			}
 			return ArrayCol;
 		},
-		[actionCell, dueDate, isFireFighter, isSuid, reviewId, t, tooltipCell]
+		[actionCell, dueDate, isFireFighter, isSuid, reviewId, status, t, tooltipCell]
 	);
 
 	const toolbarContent = (
