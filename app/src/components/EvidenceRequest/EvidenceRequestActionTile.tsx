@@ -18,20 +18,12 @@ const EvidenceRequestActionTile = ({ request }: ERATileProp) => {
 			<ClickableTile onClick={() => navigate(request?.id ?? '')} className='mb-5'>
 				<div className='space-y-3'>
 					<p className='block truncate  text-heading-2'>{request?.name}</p>
-					<div className='space-y-2'>
-						<span className='mt-2 flex space-x-2 '>
-							<p className='whitespace-nowrap text-text-secondary text-body-short-1 '>
-								{t('framework-code')}:
-							</p>
-							<p className='block truncate text-body-short-1'>{request?.type}</p>
-						</span>
-						<span className='flex space-x-2'>
-							<p className='whitespace-nowrap text-text-secondary text-body-short-1 '>
-								{t('framework-name')}:
-							</p>
-							<p className='block truncate text-body-short-1'>{request?.frameworkName}</p>
-						</span>
-					</div>
+					<span className='flex space-x-2'>
+						<p className='whitespace-nowrap text-text-secondary text-body-short-1 '>
+							{t('framework-name')}:
+						</p>
+						<p className='block truncate text-body-short-1'>{request?.frameworkName}</p>
+					</span>
 					<div className='space-y-2'>
 						<span className='flex space-x-2'>
 							<p className='overflow-visible whitespace-nowrap text-text-secondary text-body-short-1'>
