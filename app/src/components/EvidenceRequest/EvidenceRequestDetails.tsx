@@ -9,8 +9,6 @@ const EvidenceRequestDetails = ({ request }: { request: EvidenceRequest }) => {
 			<p className='text-sm text-body-compact-1'>{request.workflowType}</p>
 			<p className='mt-5 font-bold text-productive-heading-2'>{t('workflow-name')}</p>
 			<p className='text-sm text-body-compact-1'>{request.workflowName}</p>
-			<p className='mt-5 font-bold text-productive-heading-2'>Framework</p>
-			<p className='text-sm text-body-compact-1'>{request.type}</p>
 			<p className='mt-5 font-bold text-productive-heading-2'>{t('application')}</p>
 			<p className='text-sm break-words text-body-compact-1'>
 				{request.application?.name}
@@ -23,6 +21,10 @@ const EvidenceRequestDetails = ({ request }: { request: EvidenceRequest }) => {
 			<p className='text-sm text-body-compact-1'>
 				{`${request.currentStep}/${request.steps.length}`}
 			</p>
+			<p className='mt-5 font-bold text-productive-heading-2'>{t('framework-code')}</p>
+			<p className='text-sm text-body-compact-1'>{request.type}</p>
+			<p className='mt-5 font-bold text-productive-heading-2'>{t('framework-name')}</p>
+			<p className='text-sm text-body-compact-1'>{request.frameworkName}</p>
 		</div>
 	);
 };
