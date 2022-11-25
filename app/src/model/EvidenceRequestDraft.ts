@@ -26,6 +26,7 @@ interface EvidenceRequestDraft {
 	phaseType?: PhaseType;
 	workflow: Workflow;
 	fileLinks?: FileLink[];
+	frameworkName: string;
 }
 
 export const fromEvidenceRequestDraftApi = (
@@ -56,7 +57,8 @@ export const fromEvidenceRequestDraftApi = (
 		workflow: fromWorkflowApi(evidenceRequestDraftApi.workflow),
 		fileLinks: evidenceRequestDraftApi.files
 			? [...evidenceRequestDraftApi.files].map(fl => fromFileLinkApi(fl))
-			: []
+			: [],
+		frameworkName: evidenceRequestDraftApi.frameworkName
 	};
 };
 
@@ -91,7 +93,8 @@ export const toEvidenceRequestDraftApi = (
 		// @ts-ignore
 		files: evidenceRequestDraft.fileLinks
 			? evidenceRequestDraft.fileLinks.map(file => file)
-			: undefined
+			: undefined,
+		frameworkName: evidenceRequestDraft.frameworkName
 	};
 };
 

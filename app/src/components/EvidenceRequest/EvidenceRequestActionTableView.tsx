@@ -74,7 +74,7 @@ const EvidenceRequestActionTableView = ({
 							code: info.getValue()
 						})
 				}),
-				table.createDataColumn(row => row.application?.codeName, {
+				table.createDataColumn(row => row.application?.name, {
 					id: `app${view}`,
 					header: t('application')
 				}),
