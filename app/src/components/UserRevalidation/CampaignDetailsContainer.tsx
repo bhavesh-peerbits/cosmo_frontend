@@ -84,6 +84,7 @@ const CampaignDetailsContainer = ({
 							dueDate={campaign.dueDate}
 							campaignType={campaign.type}
 							reviewId={reviewId}
+							status={campaign.status}
 						/>
 					</Tile>
 				</Column>
