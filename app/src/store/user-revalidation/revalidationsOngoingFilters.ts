@@ -60,12 +60,13 @@ const applyFilters = (
 	filters: GetRecoilType<typeof revalidationsOngoingFilters>
 ) => {
 	const filteredRevalidations = revalidations
+		.filter(rev => rev.campaign.status !== 'READY_FOR_REVIEW')
+
 		.filter(revalidation =>
 			filters.tab
 				? `${filters.tab}` === '1'
 					? revalidation.campaign.status === 'REVIEW_IN_PROGRESS' ||
-					  revalidation.campaign.status === 'WAITING_FOR_DATA' ||
-					  revalidation.campaign.status === 'READY_FOR_REVIEW'
+					  revalidation.campaign.status === 'WAITING_FOR_DATA'
 					: revalidation.campaign.status === 'COMPLETED' ||
 					  revalidation.campaign.status === 'COMPLETED_WITH_PARTIAL_ANSWERS' ||
 					  revalidation.campaign.status === 'ANNULLED'
