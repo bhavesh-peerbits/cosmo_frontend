@@ -22,9 +22,7 @@ const useAnswerStore = (reviewId: string) => {
 		(selected: Answer[], answerType: AnswerApiTypeEnum, note?: string) => {
 			setAnswers(old => {
 				const newAnswers = new Map(old);
-				selected.forEach(s =>
-					newAnswers.set(s.id, { ...s, answerType, note: note || s.note })
-				);
+				selected.forEach(s => newAnswers.set(s.id, { ...s, answerType, note }));
 				return newAnswers;
 			});
 		},
