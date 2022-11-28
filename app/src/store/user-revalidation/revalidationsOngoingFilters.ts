@@ -9,6 +9,7 @@ type Filters = {
 	layer: string[];
 	revalidationType: string[];
 	revalidationStatus: string[];
+	tab?: number;
 };
 
 const revalidationsOngoingFilters = atom<Filters>({
@@ -18,7 +19,8 @@ const revalidationsOngoingFilters = atom<Filters>({
 		layer: [],
 		revalidationType: [],
 		revalidationStatus: [],
-		dueDate: undefined
+		dueDate: undefined,
+		tab: undefined
 	}
 });
 
@@ -58,6 +60,18 @@ const applyFilters = (
 	filters: GetRecoilType<typeof revalidationsOngoingFilters>
 ) => {
 	const filteredRevalidations = revalidations
+		.filter(revalidation =>
+			filters.tab
+				? `${filters.tab}` === '1'
+					? revalidation.campaign.status === 'REVIEW_IN_PROGRESS' ||
+					  revalidation.campaign.status === 'WAITING_FOR_DATA' ||
+					  revalidation.campaign.status === 'READY_FOR_REVIEW'
+					: revalidation.campaign.status === 'COMPLETED' ||
+					  revalidation.campaign.status === 'COMPLETED_WITH_PARTIAL_ANSWERS' ||
+					  revalidation.campaign.status === 'ANNULLED'
+				: true
+		)
+
 		// filter by query term string
 		.filter(revalidation =>
 			filters.query

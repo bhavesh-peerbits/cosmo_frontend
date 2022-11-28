@@ -16,12 +16,14 @@ const useRevalidationsOngoing = () => {
 		revalidationType: string[];
 		revalidationStatus: string[];
 		q: string | undefined;
+		tab?: number;
 	}>({
 		dueDate: undefined,
 		layer: [],
 		revalidationType: [],
 		revalidationStatus: [],
-		q: undefined
+		q: undefined,
+		tab: undefined
 	});
 	const [filters, setFilters] = useRecoilState(revalidationsOngoingFilters);
 	const setRevalidations = useSetRecoilState(revalidationsOngoing);
@@ -40,7 +42,8 @@ const useRevalidationsOngoing = () => {
 			layer: urlFilters.layer ?? [],
 			revalidationType: urlFilters.revalidationType ?? [],
 			revalidationStatus: urlFilters.revalidationStatus ?? [],
-			query: urlFilters.q
+			query: urlFilters.q,
+			tab: urlFilters.tab
 		});
 	}, [urlFilters, setFilters]);
 
