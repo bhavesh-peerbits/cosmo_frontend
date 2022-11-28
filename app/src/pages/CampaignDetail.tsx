@@ -194,6 +194,7 @@ const CampaignDetail = () => {
 					name: t('userRevalidation:close-campaign'),
 					icon: Exit,
 					disabled: CLOSED_CAMPAIGN,
+					kind: 'danger',
 					onClick: () => {
 						queryClient.invalidateQueries(['campaigns', campaign.id]);
 						setIsCloseModalOpen(true);

@@ -28,8 +28,8 @@ type AnswerForm = {
 	risk: string;
 	riskDescription: string;
 	firefighterID: string;
-	delegates: User[];
-	revalidator: User;
+	delegated: User[];
+	revalidationUser: User;
 };
 
 const ModifyAnswerModal = () => {
@@ -57,8 +57,8 @@ const ModifyAnswerModal = () => {
 
 	useEffect(() => {
 		reset({
-			revalidator: modifyModal.answer?.revalidationUser,
-			delegates: modifyModal.answer?.delegated,
+			revalidationUser: modifyModal.answer?.revalidationUser,
+			delegated: modifyModal.answer?.delegated,
 			userToRevalidate: modifyModal.answer?.userToRevalidate,
 			userDetails: modifyModal.answer?.userDetails,
 			permissions: modifyModal.answer?.permissions,
@@ -88,7 +88,9 @@ const ModifyAnswerModal = () => {
 			userDetails,
 			permissions,
 			permissionDescription,
-			firefighterID
+			firefighterID,
+			delegated,
+			revalidationUser
 		} = data;
 		const answer = {
 			...modifyModal.answer,
@@ -96,7 +98,9 @@ const ModifyAnswerModal = () => {
 			userDetails,
 			permissions,
 			permissionDescription,
-			firefighterID
+			firefighterID,
+			revalidationUser,
+			delegated
 		};
 		answer.jsonApplicationData = { risk, riskDescription };
 		mutate(
@@ -124,7 +128,7 @@ const ModifyAnswerModal = () => {
 							<SingleUserSelect
 								control={control}
 								label={t('userRevalidation:revalidators')}
-								name='revalidator'
+								name='revalidationUser'
 								level={2}
 								// TODO Add default value
 								getUserFn={() => {
@@ -138,7 +142,7 @@ const ModifyAnswerModal = () => {
 							<MultipleUserSelect
 								control={control}
 								label='Delegates'
-								name='delegates'
+								name='delegated'
 								level={2}
 								defaultValue={modifyModal.answer?.delegated}
 								getUserFn={() => {
