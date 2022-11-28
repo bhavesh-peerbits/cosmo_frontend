@@ -156,7 +156,10 @@ const RevalidatorsTable = ({
 						id: `action${reviewId}`,
 						header: t('userAdmin:actions'),
 						cell: actionCell,
-						enableGrouping: false
+						enableGrouping: false,
+						meta: {
+							disableExport: true
+						}
 					})
 				);
 			}
