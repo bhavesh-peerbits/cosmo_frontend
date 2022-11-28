@@ -10,6 +10,8 @@ import GroupableCosmoTable from '@components/table/GroupableCosmoTable';
 import { useSetRecoilState } from 'recoil';
 import modifyAnswerModalInfo from '@store/user-revalidation/modifyAnswerModalInfo';
 import { CampaignDtoStatusEnum } from 'cosmo-api/src/v1/models/campaign-dto';
+import UserProfileImage from '@components/UserProfileImage';
+import User from '@model/User';
 
 interface RevalidatorsTableProp {
 	answers: Answer[];
@@ -218,7 +220,17 @@ const RevalidatorsTable = ({
 			}
 			return ArrayCol;
 		},
-		[actionCell, dueDate, isFireFighter, isSuid, reviewId, status, t, tooltipCell]
+		[
+			actionCell,
+			dueDate,
+			isFireFighter,
+			isSuid,
+			reviewId,
+			status,
+			t,
+			tooltipCell,
+			usersListCell
+		]
 	);
 
 	const toolbarContent = (
