@@ -19,7 +19,11 @@ const UserRevalidationDetails = () => {
 			intermediateRoutes={[{ name: 'User Revalidation', to: '/user-revalidation' }]}
 		>
 			<StickyTabs>
-				<TabList className='sticky z-10 bg-background' aria-label='List of tabs'>
+				<TabList
+					className='sticky z-10 bg-background'
+					contained
+					aria-label='List of tabs'
+				>
 					{campaignWithReview.campaignApplications.map(app => (
 						<Tab title={app.application.name} key={app.id}>
 							{app.application.name}
@@ -28,7 +32,7 @@ const UserRevalidationDetails = () => {
 				</TabList>
 				<TabPanels>
 					{campaignWithReview.campaignApplications.map(app => (
-						<TabPanel className='bg-background' key={app.id}>
+						<TabPanel className='bg-layer-1 p-6' key={app.id}>
 							<UserRevalidationTabContent key={app.id} review={app} />
 						</TabPanel>
 					))}

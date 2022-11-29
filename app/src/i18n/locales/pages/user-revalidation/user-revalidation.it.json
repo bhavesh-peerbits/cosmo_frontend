@@ -79,5 +79,7 @@
 	"risk-description": "Descrizionbe rischio",
 	"firefighter": "Firefighter",
 	"modify-answer": "Modifica risposta",
-	"permission-description": "Descrizione permessi"
+	"permission-description": "Descrizione permessi",
+	"given-at": "Risposta data il",
+	"given-by": "Risposta data da"
 }

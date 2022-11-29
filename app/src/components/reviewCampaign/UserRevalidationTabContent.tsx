@@ -1,48 +1,67 @@
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@carbon/react';
-import { Group } from '@carbon/react/icons';
 import RevalidationUsersContainer from '@components/reviewCampaign/RevalidationUsersContainer';
-import { useTranslation } from 'react-i18next';
 import CampaignApplication from '@model/CampaignApplication';
+import { useMemo } from 'react';
+import useAnswerStore from '@hooks/user-revalidation-review/useAnswerStore';
+import { MeterChart } from '@carbon/charts-react';
+import { interfaces } from '@carbon/charts';
+import useUiStore from '@hooks/useUiStore';
 
 interface UserRevalidationTabContentProps {
 	review: CampaignApplication;
 }
 
 const UserRevalidationTabContent = ({ review }: UserRevalidationTabContentProps) => {
-	const { t } = useTranslation(['userSelect', 'management', 'userRevalidation']);
+	const { answers } = useAnswerStore(review.id);
+	const answersList = useMemo(() => [...answers.values()], [answers]);
+	const { theme } = useUiStore();
+	const state = useMemo(
+		() => ({
+			data: [
+				{
+					group: 'Answer Ok',
+					value: answersList.filter(a => a.answerType === 'OK').length
+				},
+				{
+					group: 'Answer Modify',
+					value: answersList.filter(a => a.answerType === 'MODIFY').length
+				},
+				{
+					group: 'Blocked',
+					value: answersList.filter(a => a.answerType === 'LOCK').length
+				},
+				{
+					group: 'Errors',
+					value: answersList.filter(a => a.answerType === 'REPORT_ERROR').length
+				}
+			],
+			options: {
+				title: 'Answers recap',
+				height: '130px',
+				theme: theme as interfaces.ChartTheme,
+				meter: {
+					proportional: {
+						total: answersList.length,
+						unit: 'answers'
+					}
+				},
+				color: {
+					pairing: {
+						option: 3
+					}
+				}
+			}
+		}),
+		[answersList, theme]
+	);
 
 	return (
 		<div className='h-fit'>
-			<div className='mb-8 mt-3'>
-				<h2 className='flex h-full flex-wrap text-productive-heading-4'>
-					{t('userRevalidation:answers-review')}
-				</h2>
-				<p className='mt-2 w-1/2 text-text-secondary text-caption-2'>
-					{`${t('userRevalidation:answers-review-description')}.`}
-				</p>
+			<div className='mb-6'>
+				<MeterChart data={state.data} options={state.options} />
 			</div>
-			<Tabs>
-				<TabList contained aria-label='List of tabs'>
-					<Tab>
-						<div className='flex items-center space-x-3'>
-							<Group size={20} />
-							<span>{t('userSelect:users')}</span>
-						</div>
-					</Tab>
-					{/* <Tab> */}
-					{/*	<div className='flex items-center space-x-3'> */}
-					{/*		<InformationSquare size={20} /> */}
-					{/*		<span>{t('management:application-info')}</span> */}
-					{/*	</div> */}
-					{/* </Tab> */}
-				</TabList>
-				<TabPanels>
-					<TabPanel className='bg-layer-1'>
-						<RevalidationUsersContainer key={review.id} review={review} />
-					</TabPanel>
-					{/* <TabPanel>info</TabPanel> */}
-				</TabPanels>
-			</Tabs>
+			<div>
+				<RevalidationUsersContainer key={review.id} review={review} />
+			</div>
 		</div>
 	);
 };

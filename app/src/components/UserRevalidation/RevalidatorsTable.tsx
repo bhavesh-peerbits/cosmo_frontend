@@ -129,6 +129,20 @@ const RevalidatorsTable = ({
 						exportableFn: info => info || '-'
 					}
 				}),
+				table.createDataColumn(row => row.givenBy?.displayName, {
+					id: `givenBy${reviewId}`,
+					header: t('userRevalidation:given-by'),
+					meta: {
+						exportableFn: info => info || '-'
+					}
+				}),
+				table.createDataColumn(row => row.givenAt?.toLocaleString(), {
+					id: `givenAt${reviewId}`,
+					header: t('userRevalidation:given-at'),
+					meta: {
+						exportableFn: info => info || '-'
+					}
+				}),
 				table.createDataColumn(row => row.userToRevalidate, {
 					id: `user${reviewId}`,
 					header: 'Username',

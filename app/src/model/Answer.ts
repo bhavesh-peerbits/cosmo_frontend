@@ -13,6 +13,8 @@ interface Answer {
 	answerType?: AnswerApiTypeEnum;
 	note?: string;
 	delegated?: Array<User>;
+	givenBy?: User;
+	givenAt?: Date;
 }
 
 export const fromAnswersApi = (answerApi: AnswerApi): Answer => ({
@@ -30,7 +32,9 @@ export const fromAnswersApi = (answerApi: AnswerApi): Answer => ({
 	delegated: answerApi.delegated?.map(fromUserApi),
 	jsonApplicationData: answerApi.jsonApplicationData
 		? JSON.parse(answerApi.jsonApplicationData)
-		: undefined
+		: undefined,
+	givenAt: answerApi.givenAt ? new Date(answerApi.givenAt) : undefined,
+	givenBy: answerApi.givenBy ? fromUserApi(answerApi.givenBy) : undefined
 });
 
 export const toAnswersApi = (answer: Answer): AnswerApi => ({
@@ -46,7 +50,9 @@ export const toAnswersApi = (answer: Answer): AnswerApi => ({
 	answerType: answer.answerType,
 	note: answer.note,
 	jsonApplicationData: JSON.stringify(answer.jsonApplicationData),
-	delegated: answer.delegated?.map(toUserApi)
+	delegated: answer.delegated?.map(toUserApi),
+	givenAt: answer.givenAt ? answer.givenAt.toISOString() : undefined,
+	givenBy: answer.givenBy ? toUserApi(answer.givenBy) : undefined
 });
 
 export default Answer;

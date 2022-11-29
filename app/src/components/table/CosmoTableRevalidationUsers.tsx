@@ -556,9 +556,24 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 					{
 						id: `permissions${review.id}`,
 						header: t('userRevalidation:permission'),
+						enableGrouping: false,
 						cell: tooltipCell
 					}
 				),
+				table.createDataColumn(row => row.givenBy?.displayName, {
+					id: `givenBy${review.id}`,
+					header: t('userRevalidation:given-by'),
+					meta: {
+						exportableFn: info => info || '-'
+					}
+				}),
+				table.createDataColumn(row => row.givenAt?.toLocaleString(), {
+					id: `givenAt${review.id}`,
+					header: t('userRevalidation:given-at'),
+					meta: {
+						exportableFn: info => info || '-'
+					}
+				}),
 				table.createDataColumn(
 					row => ({
 						answerType: row.answerType,
@@ -595,6 +610,7 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 						{
 							id: `risk${review.id}`,
 							header: t('userRevalidation:risk'),
+							enableGrouping: false,
 							cell: tooltipCell
 						}
 					)
