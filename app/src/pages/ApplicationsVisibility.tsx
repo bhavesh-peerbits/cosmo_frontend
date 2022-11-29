@@ -1,23 +1,36 @@
-import { Grid, Column } from '@carbon/react';
+import { TabList, TabPanels, Tab, TabPanel } from '@carbon/react';
 import AppsVisibilityTable from '@components/AdminPanel/AppsVisibilityTable';
+import UserAppsVisibilityTable from '@components/AdminPanel/UserAppVisitbilityTable';
 import PageHeader from '@components/PageHeader';
-import useVisibilityApps from '@hooks/admin-panel/useVisibilityApps';
+import StickyTabs from '@components/StickyTabs';
 import { useTranslation } from 'react-i18next';
 
 const ApplicationsVisibility = () => {
 	const { t } = useTranslation('userAdmin');
-	const { apps, filters, setFilters } = useVisibilityApps();
 
 	return (
 		<PageHeader
 			pageTitle={t('app-visibility')}
 			intermediateRoutes={[{ name: 'Admin Panel', to: '/admin' }]}
 		>
-			<Grid fullWidth className='h-full p-container-1'>
-				<Column sm={4} md={8} lg={16}>
-					<AppsVisibilityTable apps={apps} filters={filters} setFilters={setFilters} />
-				</Column>
-			</Grid>
+			<StickyTabs>
+				<TabList
+					contained
+					aria-label='List of tabs'
+					className='sticky z-10 bg-background'
+				>
+					<Tab className='max-w-none'>Users</Tab>
+					<Tab className='max-w-none'>Applications</Tab>
+				</TabList>
+				<TabPanels>
+					<TabPanel>
+						<UserAppsVisibilityTable />
+					</TabPanel>
+					<TabPanel>
+						<AppsVisibilityTable />
+					</TabPanel>
+				</TabPanels>
+			</StickyTabs>
 		</PageHeader>
 	);
 };

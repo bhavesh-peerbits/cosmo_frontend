@@ -5,12 +5,14 @@ import Application from '@model/Application';
 
 type Filters = {
 	query: string | undefined;
+	tab?: number;
 };
 
 const appsVisibilityFilters = atom<Filters>({
 	key: 'appsVisibilityFilters',
 	default: {
-		query: ''
+		query: '',
+		tab: undefined
 	}
 });
 

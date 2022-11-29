@@ -1,27 +1,16 @@
 import { useTranslation } from 'react-i18next';
 import { Button, TableToolbarSearch } from '@carbon/react';
 import { HeaderFunction } from '@components/table/CosmoTable';
-import { SetStateAction, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import CosmoTableInlineAction from '@components/table/CosmoTableInlineAction';
 import Application from '@model/Application';
 import { UserFollow } from '@carbon/react/icons';
 import useGetAllAnalystUsers from '@api/user-admin/useGetAllAnalystUsers';
+import useVisibilityApps from '@hooks/admin-panel/useVisibilityApps';
 import SelectUserApplication from './SelectUserApplication';
 
 type ActionCellProps = {
 	setIsSelectOpen: (val: boolean) => void;
-};
-
-type AppsTableProps = {
-	apps: Application[];
-	filters: { query: string | undefined };
-	setFilters: (
-		s: SetStateAction<
-			Partial<{
-				q: string | undefined;
-			}>
-		>
-	) => void;
 };
 
 const ActionsCell = ({ setIsSelectOpen }: ActionCellProps) => {
@@ -38,9 +27,10 @@ const ActionsCell = ({ setIsSelectOpen }: ActionCellProps) => {
 	);
 };
 
-const AppsVisibilityTable = ({ apps, filters, setFilters }: AppsTableProps) => {
+const AppsVisibilityTable = () => {
 	const { t } = useTranslation('management');
 	const { t: tTable } = useTranslation('table');
+	const { apps, filters, setFilters } = useVisibilityApps();
 	const [isSelectOpen, setIsSelectOpen] = useState(false);
 	const [appSelectedId, setAppSelectedId] = useState<string>();
 	const { data: analystUsers = [] } = useGetAllAnalystUsers();
@@ -74,7 +64,7 @@ const AppsVisibilityTable = ({ apps, filters, setFilters }: AppsTableProps) => {
 			placeholder={t('search-placeholder')}
 			id='search'
 			value={filters.query ?? ''}
-			onChange={e => setFilters({ q: e.currentTarget?.value })}
+			onChange={e => setFilters(old => ({ ...old, q: e.currentTarget?.value }))}
 		/>
 	);
 
@@ -91,6 +81,7 @@ const AppsVisibilityTable = ({ apps, filters, setFilters }: AppsTableProps) => {
 			) : null}
 
 			<CosmoTableInlineAction
+				tableId='appvisibility'
 				data={apps}
 				createHeaders={columns}
 				noDataMessage={tTable('no-data')}

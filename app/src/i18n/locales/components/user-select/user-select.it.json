@@ -20,5 +20,8 @@
 	"remove": "Rimuovi",
 	"select-users": "Seleziona uno o più utenti dalla lista",
 	"users-selected": "Utenti selezionati",
-	"name": "Nome"
+	"name": "Nome",
+	"code": "Codice applicazione",
+	"select-app": "Selezione applicazioni",
+	"find-app": "Cerca per nome applicazione"
 }

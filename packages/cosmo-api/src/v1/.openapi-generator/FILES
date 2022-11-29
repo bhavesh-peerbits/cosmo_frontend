@@ -9,6 +9,7 @@ api/config-element-controller-api.ts
 api/config-element-module-controller-api.ts
 api/control-controller-api.ts
 api/csv-reader-controller-api.ts
+api/dev-home-redirect-controller-api.ts
 api/evidence-request-controller-api.ts
 api/evidence-request-file-s3-controller-api.ts
 api/evidence-request-focal-point-controller-api.ts
@@ -76,6 +77,8 @@ models/module.ts
 models/multiple-narrative-review-body.ts
 models/narrative-review-body.ts
 models/new-draft-dto.ts
+models/page-user-dto.ts
+models/pageable-object.ts
 models/pair-list-answer-dto-list-string.ts
 models/phase-type-dto.ts
 models/phase-type.ts
@@ -90,10 +93,12 @@ models/review-application-dto.ts
 models/review-dto.ts
 models/review-procedure-dto.ts
 models/set-up-draft-dto.ts
+models/sort.ts
 models/start-campaign-dto.ts
 models/step-dto.ts
 models/tenant.ts
 models/test-dto.ts
+models/user-application-dto.ts
 models/user-base.ts
 models/user-dto.ts
 models/user-profile-key.ts
