@@ -64,26 +64,27 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 	return {
 		/**
 		 *
-		 * @param {number} id
+		 * @param {number} erId
 		 * @param {Array<string>} requestBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		addCollaboratorsToEvidence: async (
-			id: number,
+			erId: number,
 			requestBody: Array<string>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'id' is not null or undefined
-			assertParamExists('addCollaboratorsToEvidence', 'id', id);
+			// verify required parameter 'erId' is not null or undefined
+			assertParamExists('addCollaboratorsToEvidence', 'erId', erId);
 			// verify required parameter 'requestBody' is not null or undefined
 			assertParamExists('addCollaboratorsToEvidence', 'requestBody', requestBody);
-			const localVarPath = `/api/analyst/evidence-request/{id}/contributors`.replace(
-				`{${'id'}}`,
-				encodeURIComponent(String(id))
-			);
+			const localVarPath =
+				`/api/analyst/evidence-request/evidence/{erId}/contributors`.replace(
+					`{${'erId'}}`,
+					encodeURIComponent(String(erId))
+				);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -137,7 +138,7 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 		): Promise<RequestArgs> => {
 			// verify required parameter 'closeEvidenceDto' is not null or undefined
 			assertParamExists('closeEvidence', 'closeEvidenceDto', closeEvidenceDto);
-			const localVarPath = `/api/analyst/evidence-request/close/{id}`;
+			const localVarPath = `/api/analyst/evidence-request/evidence/{erId}/close`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -233,21 +234,21 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {number} id
+		 * @param {number} draftId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		deleteDraftById: async (
-			id: number,
+			draftId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'id' is not null or undefined
-			assertParamExists('deleteDraftById', 'id', id);
-			const localVarPath = `/api/analyst/evidence-request/draft/{id}`.replace(
-				`{${'id'}}`,
-				encodeURIComponent(String(id))
+			// verify required parameter 'draftId' is not null or undefined
+			assertParamExists('deleteDraftById', 'draftId', draftId);
+			const localVarPath = `/api/analyst/evidence-request/draft/{draftId}`.replace(
+				`{${'draftId'}}`,
+				encodeURIComponent(String(draftId))
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -734,7 +735,7 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 			// verify required parameter 'stepDto' is not null or undefined
 			assertParamExists('saveStepAndGoNext1', 'stepDto', stepDto);
 			const localVarPath =
-				`/api/analyst/evidence-request/save-and-procede/{erId}`.replace(
+				`/api/analyst/evidence-request/step/{erId}/save-and-procede`.replace(
 					`{${'erId'}}`,
 					encodeURIComponent(String(erId))
 				);
@@ -960,21 +961,21 @@ export const EvidenceRequestControllerApiFp = function (configuration?: Configur
 	return {
 		/**
 		 *
-		 * @param {number} id
+		 * @param {number} erId
 		 * @param {Array<string>} requestBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async addCollaboratorsToEvidence(
-			id: number,
+			erId: number,
 			requestBody: Array<string>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<UserDto>>> {
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.addCollaboratorsToEvidence(
-					id,
+					erId,
 					requestBody,
 					acceptLanguage,
 					options
@@ -1036,18 +1037,18 @@ export const EvidenceRequestControllerApiFp = function (configuration?: Configur
 		},
 		/**
 		 *
-		 * @param {number} id
+		 * @param {number} draftId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async deleteDraftById(
-			id: number,
+			draftId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<number>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.deleteDraftById(
-				id,
+				draftId,
 				acceptLanguage,
 				options
 			);
@@ -1390,20 +1391,20 @@ export const EvidenceRequestControllerApiFactory = function (
 	return {
 		/**
 		 *
-		 * @param {number} id
+		 * @param {number} erId
 		 * @param {Array<string>} requestBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		addCollaboratorsToEvidence(
-			id: number,
+			erId: number,
 			requestBody: Array<string>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Set<UserDto>> {
 			return localVarFp
-				.addCollaboratorsToEvidence(id, requestBody, acceptLanguage, options)
+				.addCollaboratorsToEvidence(erId, requestBody, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -1440,18 +1441,18 @@ export const EvidenceRequestControllerApiFactory = function (
 		},
 		/**
 		 *
-		 * @param {number} id
+		 * @param {number} draftId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		deleteDraftById(
-			id: number,
+			draftId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<number> {
 			return localVarFp
-				.deleteDraftById(id, acceptLanguage, options)
+				.deleteDraftById(draftId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -1670,7 +1671,7 @@ export interface EvidenceRequestControllerApiAddCollaboratorsToEvidenceRequest {
 	 * @type {number}
 	 * @memberof EvidenceRequestControllerApiAddCollaboratorsToEvidence
 	 */
-	readonly id: number;
+	readonly erId: number;
 
 	/**
 	 *
@@ -1740,7 +1741,7 @@ export interface EvidenceRequestControllerApiDeleteDraftByIdRequest {
 	 * @type {number}
 	 * @memberof EvidenceRequestControllerApiDeleteDraftById
 	 */
-	readonly id: number;
+	readonly draftId: number;
 
 	/**
 	 *
@@ -2022,7 +2023,7 @@ export class EvidenceRequestControllerApi extends BaseAPI {
 	) {
 		return EvidenceRequestControllerApiFp(this.configuration)
 			.addCollaboratorsToEvidence(
-				requestParameters.id,
+				requestParameters.erId,
 				requestParameters.requestBody,
 				requestParameters.acceptLanguage,
 				options
@@ -2082,7 +2083,11 @@ export class EvidenceRequestControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return EvidenceRequestControllerApiFp(this.configuration)
-			.deleteDraftById(requestParameters.id, requestParameters.acceptLanguage, options)
+			.deleteDraftById(
+				requestParameters.draftId,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 

@@ -7,7 +7,10 @@ interface CollabProps {
 }
 
 const addCollaboratorToEvidence = ({ id, userIds }: CollabProps) => {
-	return api.evidenceRequest.addCollaboratorsToEvidence({ id, requestBody: userIds });
+	return api.evidenceRequest.addCollaboratorsToEvidence({
+		erId: id,
+		requestBody: userIds
+	});
 };
 
 const useAddCollaboratorsToEvidence = () => {
