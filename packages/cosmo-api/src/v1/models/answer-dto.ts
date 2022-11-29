@@ -69,6 +69,18 @@ export interface AnswerDto {
 	 */
 	firefighterID?: string;
 	/**
+	 *
+	 * @type {UserDto}
+	 * @memberof AnswerDto
+	 */
+	givenBy?: UserDto;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AnswerDto
+	 */
+	givenAt?: string;
+	/**
 	 * Answer for this user review
 	 * @type {string}
 	 * @memberof AnswerDto
