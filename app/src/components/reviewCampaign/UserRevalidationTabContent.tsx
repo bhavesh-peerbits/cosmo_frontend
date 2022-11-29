@@ -41,7 +41,18 @@ const UserRevalidationTabContent = ({ review }: UserRevalidationTabContentProps)
 				meter: {
 					proportional: {
 						total: answersList.length,
-						unit: 'answers'
+						unit: 'answers',
+						// eslint-disable-next-line @typescript-eslint/no-explicit-any
+						breakdownFormatter: ({
+							datasetsTotal,
+							total
+						}: {
+							datasetsTotal: number;
+							total: number;
+						}) =>
+							`Answers given: ${datasetsTotal} - Answers to give: ${
+								total - datasetsTotal
+							}`
 					}
 				},
 				color: {
