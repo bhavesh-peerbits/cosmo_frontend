@@ -73,6 +73,8 @@
 
 		td,
 		th {
+			@apply bg-transparent;
+
 			min-width: 1em;
 			border: 2px solid #ced4da;
 			padding: 3px 5px;
@@ -86,9 +88,12 @@
 		}
 
 		th {
+			@apply bg-layer-1;
+
 			font-weight: bold;
 			text-align: left;
-			background-color: #f1f3f5;
+
+			// background-color: #f1f3f5;
 		}
 
 		.selectedCell::after {
