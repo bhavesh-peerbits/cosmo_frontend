@@ -6736,15 +6736,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/carbon__react@npm:@aizoon/carbon__react@^1.0.39":
-  version: 1.0.39
-  resolution: "@aizoon/carbon__react@npm:1.0.39"
+"@types/carbon__react@npm:@aizoon/carbon__react@^1.0.44":
+  version: 1.0.44
+  resolution: "@aizoon/carbon__react@npm:1.0.44"
   peerDependencies:
     "@types/carbon__icons-react": "*"
     react: ^18.2.0
     react-dom: ^18.2.0
     react-router-dom: ^6.3.0
-  checksum: 0156dea9862c6dbf03a943d78af1baa07fde86545406c8a061979bfcf3310e3a114e9a59d7928797ac4b4c8eea3a16c4490c9d5ecdd4882571a3bafcd6d3b1e6
+  checksum: 45d0509339ca61ae7a20c22ba46b3b5bc7450a2177d4cad9c811bc23914d702a8f6db34fc5df3a06dddaee180e2f929b2f9d6a5bd981cde7de7eb962847d0858
   languageName: node
   linkType: hard
 
@@ -8888,7 +8888,7 @@ __metadata:
     "@tiptap/starter-kit": ^2.0.0-beta.185
     "@types/carbon__colors": ^10.31.0
     "@types/carbon__layout": ^0.0.1
-    "@types/carbon__react": "npm:@aizoon/carbon__react@^1.0.39"
+    "@types/carbon__react": "npm:@aizoon/carbon__react@^1.0.44"
     "@types/css-mediaquery": ^0.1.1
     "@types/papaparse": ^5.3.2
     "@types/react": ^18.0.12

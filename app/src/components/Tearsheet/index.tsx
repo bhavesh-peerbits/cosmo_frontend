@@ -16,7 +16,10 @@ import './tearsheet.scss';
  * action buttons.
  */
 const Tearsheet = React.forwardRef<HTMLDivElement, TearsheetProps>(
-	({ influencerPosition = 'left', influencerWidth = 'narrow', ...rest }, ref) => {
+	(
+		{ influencerPosition = 'left', influencerWidth = 'narrow', size = 'wide', ...rest },
+		ref
+	) => {
 		return (
 			<TearsheetShell
 				{...{
@@ -25,7 +28,7 @@ const Tearsheet = React.forwardRef<HTMLDivElement, TearsheetProps>(
 					influencerWidth,
 					portalTarget: document.getElementById('main'),
 					ref,
-					size: 'wide'
+					size
 				}}
 			/>
 		);
@@ -92,7 +95,7 @@ interface TearsheetProps {
 	 * The width of the influencer: 'narrow' (the default) is 256px, and 'wide'
 	 * is 320px.
 	 */
-	influencerWidth?: 'narrow' | 'wide';
+	influencerWidth?: 'narrow' | 'wide' | 'extrawide';
 
 	/**
 	 * A label for the tearsheet, displayed in the header area of the tearsheet
@@ -127,6 +130,8 @@ interface TearsheetProps {
 	isRail?: boolean;
 
 	children?: ReactElement;
+
+	size?: 'narrow' | 'wide' | 'extrawide';
 
 	removeTertiaryButton?: boolean;
 }

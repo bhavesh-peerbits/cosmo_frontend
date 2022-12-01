@@ -33,6 +33,10 @@ const UserRevalidationTabContent = ({ review }: UserRevalidationTabContentProps)
 					group: 'Errors',
 					value: answersList.filter(a => a.answerType === 'REPORT_ERROR').length
 				}
+				// {
+				// 	group: 'Missing Answer',
+				// 	value: answersList.filter(a => !a.answerType).length
+				// }
 			],
 			options: {
 				title: 'Answers recap',
@@ -56,8 +60,11 @@ const UserRevalidationTabContent = ({ review }: UserRevalidationTabContentProps)
 					}
 				},
 				color: {
-					pairing: {
-						option: 3
+					scale: {
+						'Answer Ok': '#459922',
+						'Answer Modify': '#1446c2',
+						Errors: '#cc0022',
+						Blocked: '#999999'
 					}
 				}
 			}

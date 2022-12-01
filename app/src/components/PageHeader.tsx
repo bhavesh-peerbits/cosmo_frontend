@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { Breadcrumb, BreadcrumbItem, Button, Column, Grid } from '@carbon/react';
 import { useNavigate } from 'react-router-dom';
 import FullWidthColumn from '@components/FullWidthColumn';
@@ -109,7 +110,13 @@ const PageHeader = ({
 														<Button
 															size='sm'
 															key={action.name}
-															kind={index === 0 ? 'primary' : 'danger'}
+															kind={
+																action.kind
+																	? action.kind
+																	: index === 0
+																	? 'primary'
+																	: 'danger'
+															}
 															renderIcon={action.icon}
 															disabled={action.disabled}
 															iconDescription={action.name}
@@ -172,6 +179,7 @@ const PageHeader = ({
 													key={actions[1].name}
 													size='md'
 													className='w-1/2 xlg:w-fit'
+													kind={actions[1].kind || 'primary'}
 													onClick={actions[1].onClick}
 													renderIcon={actions[1].icon}
 													disabled={actions[1].disabled}
@@ -182,7 +190,7 @@ const PageHeader = ({
 													// ref={actionButtonRef}
 													key={actions[2].name}
 													size='md'
-													kind='danger'
+													kind={actions[2].kind || 'danger'}
 													className='w-1/2 xlg:w-fit'
 													renderIcon={actions[2].icon}
 													onClick={actions[2].onClick}
