@@ -1398,9 +1398,7 @@ export const UserAdminControllerApiFp = function (configuration?: Configuration)
 			userApplicationDto: UserApplicationDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<number>>
-		> {
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.setUserAppVisibility(
 				userApplicationDto,
 				acceptLanguage,
@@ -1716,7 +1714,7 @@ export const UserAdminControllerApiFactory = function (
 			userApplicationDto: UserApplicationDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Array<number>> {
+		): AxiosPromise<void> {
 			return localVarFp
 				.setUserAppVisibility(userApplicationDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));

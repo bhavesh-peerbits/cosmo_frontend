@@ -16,7 +16,7 @@
 		"@carbon/charts-react": "^1.5.2",
 		"@carbon/colors": "^11.4.0",
 		"@carbon/layout": "^11.5.0",
-		"@carbon/react": "1.12.0",
+		"@carbon/react": "1.17.0",
 		"@ibm/plex": "6.0.2",
 		"@recoiljs/refine": "^0.1.1",
 		"@sentry/core": "^6.19.7",

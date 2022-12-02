@@ -61,10 +61,10 @@ const UserRevalidationTabContent = ({ review }: UserRevalidationTabContentProps)
 				},
 				color: {
 					scale: {
-						'Answer Ok': '#459922',
-						'Answer Modify': '#1446c2',
-						Errors: '#cc0022',
-						Blocked: '#999999'
+						'Answer Ok': '#0B96C3',
+						'Answer Modify': '#008873',
+						Blocked: '#5CB4A6',
+						Errors: '#C7E2DC'
 					}
 				}
 			}
