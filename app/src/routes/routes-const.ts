@@ -11,6 +11,7 @@ const routes = {
 	EVIDENCE_REQUEST_ACTION: '/evidence-request-action',
 	ADMIN: '/admin',
 	LOGOUT: '/logout',
+	NEWLOGIN: '/newlogin',
 	FORBIDDEN: '/forbidden',
 	NOTFOUND: '/404'
 };
