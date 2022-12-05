@@ -3,7 +3,7 @@ import { UserFollow, Exit, Edit } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { TabList, Tab, TabPanels, TabPanel, Stack, Button } from '@carbon/react';
 import StickyTabs from '@components/StickyTabs';
-import { memo, useCallback, useMemo, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import CloseCampaignModal from '@components/Modals/CloseCampaignModal';
 import MultiAddSelect from '@components/MultiAddSelect';
 import CampaignDetailsContainer from '@components/UserRevalidation/CampaignDetailsContainer';
@@ -23,6 +23,9 @@ import { interfaces } from '@carbon/charts';
 import { useQueryClient } from 'react-query';
 import SetDueDateCampaignModal from '@components/Modals/SetDueDateCampaignModal';
 import { mapCampaignLayerToCampaignDisplayLayer } from '@model/CampaignLayer';
+import RevalidationReminderStore from '@store/user-revalidation/RevalidationReminderStore';
+import { useSetRecoilState } from 'recoil';
+import ReminderTearsheet from '@components/reviewCampaign/ReminderTearsheet';
 
 const CampaignStatus = memo(({ campaign }: { campaign: Campaign }) => {
 	const { id, type, layer, startDate, dueDate } = campaign;
@@ -137,6 +140,14 @@ const CampaignDetail = () => {
 	const [isCloseModalOpen, setIsCloseModalOpen] = useState(false);
 	const [isCollaboratorsOpen, setIsCollaboratorsOpen] = useState(false);
 	const queryClient = useQueryClient();
+	const setReminderData = useSetRecoilState(RevalidationReminderStore);
+
+	useEffect(() => {
+		setReminderData(old => ({
+			...old,
+			applications: [...applications.values()].map(ap => ap.application)
+		}));
+	}, [applications, setReminderData]);
 
 	const addContributors = useCallback(
 		(userSelected: string[]) => {
@@ -190,6 +201,14 @@ const CampaignDetail = () => {
 				// 	onClick: () => {}, // TODO complete later
 				// 	disabled: true
 				// },
+				{
+					name: 'Send reminder',
+					icon: Exit,
+					disabled: CLOSED_CAMPAIGN,
+					onClick: () => {
+						setReminderData(old => ({ ...old, open: true }));
+					}
+				},
 				{
 					name: t('userRevalidation:close-campaign'),
 					icon: Exit,
@@ -268,6 +287,7 @@ const CampaignDetail = () => {
 					noResultsTitle={t('userSelect:no-results')}
 					noResultsDescription={t('userSelect:different-keywords')}
 				/>
+				<ReminderTearsheet />
 			</>
 		</PageHeader>
 	);

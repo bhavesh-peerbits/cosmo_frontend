@@ -81,5 +81,10 @@
 	"modify-answer": "Modifica risposta",
 	"permission-description": "Descrizione permessi",
 	"given-at": "Risposta data il",
-	"given-by": "Risposta data da"
+	"given-by": "Risposta data da",
+	"users-for-application": "Utenti per",
+	"reminder-recap": "Riassunto",
+	"recap-descrition": "Utenti che riceveranno una mail e corrispettive applicazioni",
+	"select-user-descrition": "Seleziona gli utenti che riceveranno un reminder",
+	"select-app-descrition": "Selezionando un applicazione verranno selezionati tutti i possibili utenti per essa"
 }

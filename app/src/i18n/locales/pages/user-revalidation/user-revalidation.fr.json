@@ -81,5 +81,10 @@
 	"modify-answer": "",
 	"permission-description": "",
 	"given-at": "",
-	"given-by": ""
+	"given-by": "",
+	"users-for-application": "Users for",
+	"reminder-recap": "",
+	"recap-descrition": "",
+	"select-user-descrition": "",
+	"select-app-descrition": ""
 }

@@ -107,6 +107,13 @@ $motion-duration: $duration-moderate-02;
 			}
 		}
 
+		@include breakpoint(md) {
+			&--extrawide &__container {
+				width: calc(100% - (2 * #{$spacing-10}));
+				max-width: 80%;
+			}
+		}
+
 		&--stacked-1-of-2.is-visible &__container,
 		&--stacked-2-of-3.is-visible &__container {
 			transform: scaleX(var(--tearsheet-stacking-scale-factor-single)) translateY(1rem);
@@ -123,7 +130,18 @@ $motion-duration: $duration-moderate-02;
 			margin: 0;
 		}
 
+		&--extrawide &__header {
+			@apply border-b-1 border-solid border-border-subtle-1;
+
+			padding: $spacing-06 $spacing-07;
+			margin: 0;
+		}
+
 		&--wide &__header--with-nav {
+			padding-bottom: 0;
+		}
+
+		&--extrawide &__header--with-nav {
 			padding-bottom: 0;
 		}
 
@@ -133,6 +151,10 @@ $motion-duration: $duration-moderate-02;
 		}
 
 		&--wide &__header--with-close-icon {
+			padding-right: $spacing-10;
+		}
+
+		&--extrawide &__header--with-close-icon {
 			padding-right: $spacing-10;
 		}
 
