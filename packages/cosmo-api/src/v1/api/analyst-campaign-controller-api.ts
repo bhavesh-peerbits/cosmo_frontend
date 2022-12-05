@@ -1525,6 +1525,60 @@ export const AnalystCampaignControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
+		 * @param {Array<string>} requestBody
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		sendReminder1: async (
+			requestBody: Array<string>,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'requestBody' is not null or undefined
+			assertParamExists('sendReminder1', 'requestBody', requestBody);
+			const localVarPath = `/api/analyst/campaign/send-reminder`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				requestBody,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
 		 * @param {number} campaignId
 		 * @param {StartCampaignDto} startCampaignDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
@@ -2376,6 +2430,30 @@ export const AnalystCampaignControllerApiFp = function (configuration?: Configur
 		},
 		/**
 		 *
+		 * @param {Array<string>} requestBody
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async sendReminder1(
+			requestBody: Array<string>,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.sendReminder1(
+				requestBody,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
 		 * @param {number} campaignId
 		 * @param {StartCampaignDto} startCampaignDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
@@ -2904,6 +2982,22 @@ export const AnalystCampaignControllerApiFactory = function (
 		): AxiosPromise<AnswerDto> {
 			return localVarFp
 				.saveModifiedAnswer(revId, answerDto, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {Array<string>} requestBody
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		sendReminder1(
+			requestBody: Array<string>,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<void> {
+			return localVarFp
+				.sendReminder1(requestBody, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -3553,6 +3647,27 @@ export interface AnalystCampaignControllerApiSaveModifiedAnswerRequest {
 }
 
 /**
+ * Request parameters for sendReminder1 operation in AnalystCampaignControllerApi.
+ * @export
+ * @interface AnalystCampaignControllerApiSendReminder1Request
+ */
+export interface AnalystCampaignControllerApiSendReminder1Request {
+	/**
+	 *
+	 * @type {Array<string>}
+	 * @memberof AnalystCampaignControllerApiSendReminder1
+	 */
+	readonly requestBody: Array<string>;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystCampaignControllerApiSendReminder1
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
  * Request parameters for setDueDateAndContributorsForCampaign operation in AnalystCampaignControllerApi.
  * @export
  * @interface AnalystCampaignControllerApiSetDueDateAndContributorsForCampaignRequest
@@ -4153,6 +4268,26 @@ export class AnalystCampaignControllerApi extends BaseAPI {
 			.saveModifiedAnswer(
 				requestParameters.revId,
 				requestParameters.answerDto,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystCampaignControllerApiSendReminder1Request} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystCampaignControllerApi
+	 */
+	public sendReminder1(
+		requestParameters: AnalystCampaignControllerApiSendReminder1Request,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystCampaignControllerApiFp(this.configuration)
+			.sendReminder1(
+				requestParameters.requestBody,
 				requestParameters.acceptLanguage,
 				options
 			)

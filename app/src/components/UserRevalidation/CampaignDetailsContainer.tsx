@@ -2,13 +2,16 @@ import { Grid, Column, Tile } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import Application from '@model/Application';
 import { DonutChart } from '@carbon/charts-react';
-import { ReactNode, useMemo } from 'react';
+import { ReactNode, useEffect, useMemo } from 'react';
 import { interfaces } from '@carbon/charts';
 import Campaign from '@model/Campaign';
 import useUiStore from '@hooks/useUiStore';
 import useGetAnswersForReview from '@api/user-revalidation/useGetAnswersForReview';
 import Answer from '@model/Answer';
 import ModifyAnswerModal from '@components/Modals/ModifyAnswerModal';
+import { useSetRecoilState } from 'recoil';
+import RevalidationReminderStore from '@store/user-revalidation/RevalidationReminderStore';
+import User from '@model/User';
 import RevalidatorsTable from './RevalidatorsTable';
 
 interface CampaignDetailsContainerProps {
@@ -30,6 +33,26 @@ const CampaignDetailsContainer = ({
 		campaign.id,
 		reviewId
 	);
+	const setReminderData = useSetRecoilState(RevalidationReminderStore);
+
+	useEffect(() => {
+		const users: User[] = [];
+		[...data.values()].forEach(ans => {
+			if (!ans.givenAt) {
+				ans.delegated?.forEach(us => users.push(us));
+				ans.revalidationUser && users.push(ans.revalidationUser);
+			}
+		});
+		setReminderData(old => ({
+			...old,
+			userApp: old.userApp.set(application.id, {
+				users: users.filter(
+					(user, i, arr) => arr.findIndex(us => us.id === user.id) === i
+				),
+				appId: application.id
+			})
+		}));
+	}, [application.id, data, setReminderData]);
 
 	const chartsData = useMemo(() => {
 		const cData = [...data.values()].reduce(

@@ -201,7 +201,8 @@ const TearsheetShell = React.forwardRef<HTMLDivElement, TearsheetShellProps>(
 					'flex-[0_1_321px]': md,
 					'flex-[0_0_321px]': !md,
 					tearsheet__influencer: isRail,
-					'basis-1/2': influencerWidth === 'wide'
+					'basis-1/2': influencerWidth === 'wide',
+					'basis-1/3 max-w-[33.3333%] min-w-[33.33333%]': influencerWidth === 'extrawide'
 				}
 			);
 
@@ -216,7 +217,8 @@ const TearsheetShell = React.forwardRef<HTMLDivElement, TearsheetShellProps>(
 							// Don't apply this on the initial open of a single tearsheet.
 							depth > 1 || (depth === 1 && prevDepth.current > 1),
 						[`${bc}--wide`]: size === 'wide',
-						[`${bc}--narrow`]: size !== 'wide'
+						[`${bc}--narrow`]: size === 'narrow',
+						[`${bc}--extrawide`]: size === 'extrawide'
 					})}
 					style={{
 						[`--${bc}-stacking-scale-factor-single`]: (width - 32) / width,
@@ -436,7 +438,7 @@ interface TearsheetShellProps {
 	 * The width of the influencer: 'narrow' (the default) is 256px, and 'wide'
 	 * is 320px.
 	 */
-	influencerWidth?: 'narrow' | 'wide';
+	influencerWidth?: 'narrow' | 'wide' | 'extrawide';
 
 	/**
 	 * A label for the tearsheet, displayed in the header area of the tearsheet
@@ -472,7 +474,7 @@ interface TearsheetShellProps {
 	/**
 	 * Specifies the width of the tearsheet, 'narrow' or 'wide'.
 	 */
-	size: 'narrow' | 'wide';
+	size: 'narrow' | 'wide' | 'extrawide';
 
 	/**
 	 * The main title of the tearsheet, displayed in the header area.

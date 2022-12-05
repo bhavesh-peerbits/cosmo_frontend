@@ -81,5 +81,10 @@
 	"modify-answer": "Modify answer",
 	"permission-description": "Permission description",
 	"given-at": "Answer given on",
-	"given-by": "Answer given by"
+	"given-by": "Answer given by",
+	"users-for-application": "Users for",
+	"reminder-recap": "Recap",
+	"recap-descrition": "User that are going to receive an email and corespective applications",
+	"select-user-descrition": "Select user that are going to recive the reminder",
+	"select-app-descrition": "Selecting an application will select all the possible user for it"
 }

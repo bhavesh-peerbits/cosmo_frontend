@@ -13,6 +13,10 @@
 	// }
 }
 
+.cds--contained-list.cds--contained-list--on-page {
+	margin-top: 0 !important;
+}
+
 // fix tab skeleton component
 .#{$prefix}--tabs--scrollable__nav {
 	@apply flex;
