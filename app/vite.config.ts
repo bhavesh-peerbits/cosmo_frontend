@@ -55,16 +55,8 @@ export default defineConfig(({ mode }) => ({
 				  }
 		}
 	},
-	esbuild:
-		mode === 'production'
-			? {
-					jsxFactory: '_jsx',
-					jsxFragment: '_jsxFragment',
-					jsxInject: `import { createElement as _jsx, Fragment as _jsxFragment } from 'react'`
-			  }
-			: {},
 	plugins: [
-		...(mode === 'production' ? [] : [react()]),
+		...[react()],
 		istanbul({
 			include: 'src/*',
 			exclude: ['node_modules', 'src/test/*', 'src/**/__tests__/*'],
