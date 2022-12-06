@@ -26,6 +26,7 @@ import { CampaignDtoLayerEnum, CampaignDtoTypeEnum } from 'cosmo-api/src/v1';
 import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
 import useGetAllCampaigns from '@api/user-revalidation/useGetAllCampaigns';
 import { useEffect, useMemo, useState } from 'react';
+import { mapCampaignLayerToCampaignDisplayLayer } from '@model/CampaignLayer';
 
 type NewCampaignModalProps = {
 	isOpen: boolean;
@@ -133,7 +134,13 @@ const NewCampaignModal = ({ isOpen, setIsOpen }: NewCampaignModalProps) => {
 						name='revalidation-layer'
 					>
 						{layers.map(([id, value]) => (
-							<RadioButton className='uppercase' key={id} labelText={id} value={value} />
+							<RadioButton
+								key={id}
+								labelText={mapCampaignLayerToCampaignDisplayLayer(
+									id.toUpperCase() as CampaignDtoLayerEnum
+								)}
+								value={value}
+							/>
 						))}
 					</RadioButtonGroup>
 				</Form>
