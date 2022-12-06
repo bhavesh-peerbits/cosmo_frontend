@@ -36,7 +36,7 @@ type ErrorCode = typeof errorCodes[number];
 const tenants = import.meta.env.COSMO_TENANTS.split(', ');
 
 const Login = () => {
-	const [cosmoForm, setCosmoForm] = useState(false);
+	const [cosmoForm, setCosmoForm] = useState(tenants.length > 1);
 	const { removeLoading, showErrorDuringLoading } = removeLoadingScreen();
 	const {
 		data: providersData = [],
