@@ -100,7 +100,12 @@ const CampaignDetailsContainer = ({
 					<Tile className='bg-background'>
 						<p className='text-heading-3'>
 							{t('revalidators')} (
-							{[...data.values()].filter(d => Boolean(d.revalidationUser)).length})
+							{
+								[...data.values()]
+									.map(u => u.revalidationUser?.id)
+									.filter((value, index, self) => self.indexOf(value) === index).length
+							}
+							)
 						</p>
 						<RevalidatorsTable
 							answers={[...data.values()]}
