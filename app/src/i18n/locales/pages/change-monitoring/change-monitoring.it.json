@@ -1,3 +1,9 @@
 {
-	"new-monitoring": "Nuovo monitoraggio"
+	"new-monitoring": "Nuovo monitoraggio",
+	"app-instance": "Istanza app",
+	"control-code": "Codice controllo",
+	"draft": "bozza",
+	"drafts": "bozze",
+	"no-drafts": "Nessuna bozza trovata",
+	"monitoring-search-placeholder": "Cerca tramite nome della bozza di monitoraggio"
 }

@@ -1,3 +1,9 @@
 {
-	"new-monitoring": "New monitoring"
+	"new-monitoring": "New monitoring",
+	"app-instance": "App instance",
+	"control-code": "Control code",
+	"draft": "draft",
+	"drafts": "drafts",
+	"no-drafts": "No draft found",
+	"monitoring-search-placeholder": "Search by monitoring draft name"
 }
