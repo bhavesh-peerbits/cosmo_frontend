@@ -5,5 +5,12 @@
 	"draft": "bozza",
 	"drafts": "bozze",
 	"no-drafts": "Nessuna bozza trovata",
-	"monitoring-search-placeholder": "Cerca tramite nome della bozza di monitoraggio"
+	"monitoring-search-placeholder": "Cerca tramite nome della bozza di monitoraggio",
+	"monitoring-type": "Tipo monitoraggio",
+	"manual": "Manuale",
+	"automatic": "Automatico",
+	"copy": "Copia",
+	"copy-monitoring": "Copia da un altro monitoraggio",
+	"monitoring-name": "Nome monitoraggio",
+	"monitoring-name-placeholder": "Inserisci nome bozza del monitoraggio"
 }

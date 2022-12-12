@@ -5,5 +5,12 @@
 	"draft": "draft",
 	"drafts": "drafts",
 	"no-drafts": "No draft found",
-	"monitoring-search-placeholder": "Search by monitoring draft name"
+	"monitoring-search-placeholder": "Search by monitoring draft name",
+	"monitoring-type": "Monitoring type",
+	"manual": "Manual",
+	"automatic": "Automatic",
+	"copy": "Copy",
+	"copy-monitoring": "Copy from another monitoring",
+	"monitoring-name": "Monitoring name",
+	"monitoring-name-placeholder": "Enter monitoring draft name"
 }

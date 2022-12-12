@@ -5,5 +5,12 @@
 	"draft": "",
 	"drafts": "",
 	"no-drafts": "",
-	"monitoring-search-placeholder": ""
+	"monitoring-search-placeholder": "",
+	"monitoring-type": "",
+	"manual": "",
+	"automatic": "",
+	"copy": "",
+	"copy-monitoring": "",
+	"monitoring-name": "",
+	"monitoring-name-placeholder": ""
 }
