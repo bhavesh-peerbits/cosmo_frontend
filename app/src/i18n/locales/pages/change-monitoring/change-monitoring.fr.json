@@ -12,5 +12,7 @@
 	"copy": "",
 	"copy-monitoring": "",
 	"monitoring-name": "",
-	"monitoring-name-placeholder": ""
+	"monitoring-name-placeholder": "",
+	"controls": "",
+	"search-monitoring-name": ""
 }

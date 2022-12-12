@@ -12,5 +12,7 @@
 	"copy": "Copia",
 	"copy-monitoring": "Copia da un altro monitoraggio",
 	"monitoring-name": "Nome monitoraggio",
-	"monitoring-name-placeholder": "Inserisci nome bozza del monitoraggio"
+	"monitoring-name-placeholder": "Inserisci nome bozza del monitoraggio",
+	"controls": "Controlli",
+	"search-monitoring-name": "Cerca tramite nome monitoraggio"
 }

@@ -12,5 +12,7 @@
 	"copy": "Copy",
 	"copy-monitoring": "Copy from another monitoring",
 	"monitoring-name": "Monitoring name",
-	"monitoring-name-placeholder": "Enter monitoring draft name"
+	"monitoring-name-placeholder": "Enter monitoring draft name",
+	"controls": "Controls",
+	"search-monitoring-name": "Search by monitoring name"
 }
