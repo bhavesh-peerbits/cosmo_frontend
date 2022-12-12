@@ -24,6 +24,7 @@ type Policies = {
 	canRevalidateUser: boolean;
 	canReviewUser: boolean;
 	canCreateRequest: boolean;
+	canCreateMonitoring: boolean;
 	canWorkflowApprover: boolean;
 };
 
@@ -95,6 +96,14 @@ const policyStore = selector<Policies>({
 					policies?.includesMulti(
 						UserRoleEnum.RequestAdmin,
 						UserRoleEnum.RequestAnalyst,
+						UserRoleEnum.SysAdmin
+					)
+			),
+			canCreateMonitoring: Boolean(
+				!hasNoRole &&
+					policies?.includesMulti(
+						UserRoleEnum.MonitoringAdmin,
+						UserRoleEnum.MonitoringAnalyst,
 						UserRoleEnum.SysAdmin
 					)
 			),
