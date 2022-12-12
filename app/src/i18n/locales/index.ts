@@ -51,6 +51,11 @@ import {
 	evidenceRequestFr,
 	evidenceRequestIt
 } from './pages/evidence-request';
+import {
+	changeMonitoringEn,
+	changeMonitoringFr,
+	changeMonitoringIt
+} from './pages/change-monitoring';
 import { testEn, testIt } from './pages/test';
 import {
 	errorBoundaryEn,
@@ -80,6 +85,7 @@ export default {
 		applicationInfo: applicationInfoEn,
 		procedureInfo: procedureInfoEn,
 		modals: modalsEn,
+		changeMonitoring: changeMonitoringEn,
 		uploaderS3: uploaders3En
 	},
 	it_IT: {
@@ -102,6 +108,7 @@ export default {
 		applicationInfo: applicationInfoIt,
 		procedureInfo: procedureInfoIt,
 		modals: modalsIt,
+		changeMonitoring: changeMonitoringIt,
 		uploaderS3: uploaders3It
 	},
 	fr_FR: {
@@ -123,6 +130,7 @@ export default {
 		applicationInfo: applicationInfoFr,
 		procedureInfo: procedureInfoFr,
 		modals: modalsFr,
+		changeMonitoring: changeMonitoringFr,
 		uploaderS3: uploaders3Fr
 	}
 } as const;
