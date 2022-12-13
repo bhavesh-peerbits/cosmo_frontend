@@ -1,6 +1,7 @@
 import PageHeader from '@components/PageHeader';
 import { useTranslation } from 'react-i18next';
 import { Group, Send, Report } from '@carbon/react/icons';
+import { Grid, Column } from '@carbon/react';
 import { useState } from 'react';
 import MonitoringDraftRecapModal from '@components/Modals/MonitoringDraftRecapModal';
 import MultiAddSelect from '@components/MultiAddSelect';
@@ -93,6 +94,31 @@ const MonitoringDraftDetails = () => {
 				)}
 
 				<MonitoringDraftRecapModal isOpen={isRecapOpen} setIsOpen={setIsRecapOpen} />
+				<Grid fullWidth narrow className='p-container-1 pl-8'>
+					<Column sm={4} md={8} lg={3} className='space-y-5'>
+						<div className='flex flex-col'>
+							<span className='text-heading-2'>
+								{t('changeMonitoring:monitoring-type')}
+							</span>
+							<span className='text-text-secondary text-body-short-1'>Tipo</span>
+						</div>
+						<div className='flex flex-col'>
+							<span className='text-heading-2'>Assets</span>
+							<span className='text-text-secondary text-body-short-1'>Assets</span>
+						</div>
+						<div className='flex flex-col'>
+							<span className='text-heading-2'>Framework</span>
+							<span className='text-text-secondary text-body-short-1'>Framework</span>
+						</div>
+						<div className='flex flex-col'>
+							<span className='text-heading-2'>{t('changeMonitoring:scheduling')}</span>
+							<span className='text-text-secondary text-body-short-1'>Scheduling</span>
+						</div>
+					</Column>
+					<Column sm={4} md={8} lg={13}>
+						dcm
+					</Column>
+				</Grid>
 			</div>
 		</PageHeader>
 	);
