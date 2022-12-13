@@ -14,5 +14,7 @@
 	"monitoring-name": "",
 	"monitoring-name-placeholder": "",
 	"controls": "",
-	"search-monitoring-name": ""
+	"search-monitoring-name": "",
+	"completed-runs": "",
+	"scheduling": ""
 }

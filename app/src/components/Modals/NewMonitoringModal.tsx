@@ -25,17 +25,28 @@ type NewMonitoringModalProps = {
 	setIsOpen: Dispatch<SetStateAction<boolean>>;
 };
 const NewMonitoringModal = ({ isOpen, setIsOpen }: NewMonitoringModalProps) => {
-	const { t } = useTranslation(['changeMonitoring', 'management']);
+	const { t } = useTranslation(['changeMonitoring', 'management', 'modals']);
 	const [isCopySelected, setIsCopySelected] = useState(false);
+
 	const cleanUp = () => {
+		setIsCopySelected(false);
 		setIsOpen(false);
 	};
+
 	return (
 		<TearsheetNarrow
-			title='New monitoring'
+			title={t('changeMonitoring:new-monitoring')}
 			open={isOpen}
 			onClose={cleanUp}
-			actions={[{ label: 'Cancel', kind: 'secondary' }, { label: 'Create' }]}
+			actions={[
+				{
+					label: t('modals:cancel'),
+					kind: 'secondary',
+					onClick: cleanUp,
+					id: 'cancel-new-monitoring'
+				},
+				{ label: t('modals:create'), id: 'create-new-monitoring' }
+			]}
 		>
 			<Form className='space-y-5 px-5'>
 				<RadioButtonGroup
@@ -62,6 +73,7 @@ const NewMonitoringModal = ({ isOpen, setIsOpen }: NewMonitoringModalProps) => {
 					labelA='No'
 					labelB={t('changeMonitoring:copy')}
 					aria-label='Copy monitoring type'
+					toggled={isCopySelected}
 					onToggle={() => setIsCopySelected(!isCopySelected)}
 				/>
 				{isCopySelected && (
@@ -92,9 +104,13 @@ const NewMonitoringModal = ({ isOpen, setIsOpen }: NewMonitoringModalProps) => {
 						<Tag filter>Filters:</Tag>
 						<Accordion>
 							<AccordionItem
+								key='c'
 								title={
 									// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-									<div className='flex justify-start' onClick={e => e.stopPropagation()}>
+									<div
+										className='flex w-fit justify-start'
+										onClick={e => e.stopPropagation()}
+									>
 										<RadioButton
 											labelText={
 												<span className='text-productive-heading-2'>Monitoring Name</span>
@@ -104,7 +120,20 @@ const NewMonitoringModal = ({ isOpen, setIsOpen }: NewMonitoringModalProps) => {
 									</div>
 								}
 							>
-								cc
+								<div className='flex flex-col'>
+									<div className='flex space-x-1'>
+										<span className='text-heading-1'>Completed runs:</span>
+										<span>5</span>
+									</div>
+									<div className='flex space-x-1'>
+										<span className='text-heading-1'>Path:</span>
+										<span>Path</span>
+									</div>
+									<div className='mt-3 flex space-x-1'>
+										<span className='text-heading-1'>Scheduling:</span>
+										<span>On Demand</span>
+									</div>
+								</div>
 							</AccordionItem>
 						</Accordion>
 					</div>

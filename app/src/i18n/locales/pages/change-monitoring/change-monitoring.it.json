@@ -14,5 +14,7 @@
 	"monitoring-name": "Nome monitoraggio",
 	"monitoring-name-placeholder": "Inserisci nome bozza del monitoraggio",
 	"controls": "Controlli",
-	"search-monitoring-name": "Cerca tramite nome monitoraggio"
+	"search-monitoring-name": "Cerca tramite nome monitoraggio",
+	"completed-runs": "Runs completate",
+	"scheduling": "Schedulazione"
 }

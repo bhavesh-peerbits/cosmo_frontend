@@ -14,5 +14,7 @@
 	"monitoring-name": "Monitoring name",
 	"monitoring-name-placeholder": "Enter monitoring draft name",
 	"controls": "Controls",
-	"search-monitoring-name": "Search by monitoring name"
+	"search-monitoring-name": "Search by monitoring name",
+	"completed-runs": "Completed runs",
+	"scheduling": "Scheduling"
 }
