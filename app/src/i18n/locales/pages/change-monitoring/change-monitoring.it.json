@@ -24,5 +24,6 @@
 	"operating-system": "Sistema operativo",
 	"recipient": "Destinatari",
 	"totals-runs": "Run totali",
-	"frequency": "Frequenza"
+	"frequency": "Frequenza",
+	"assets-step-description": "In questo step è necessario selezionare un'applicazione, una sua istanza ed infine uno o più assets"
 }

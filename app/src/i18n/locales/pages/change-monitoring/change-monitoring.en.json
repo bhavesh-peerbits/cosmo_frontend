@@ -24,5 +24,6 @@
 	"operating-system": "Operating system",
 	"recipient": "Recipient",
 	"total-runs": "Total runs",
-	"frequency": "Frequency"
+	"frequency": "Frequency",
+	"assets-step-description": "In this step you have to select an application, one of its instances and finally one or more assets"
 }

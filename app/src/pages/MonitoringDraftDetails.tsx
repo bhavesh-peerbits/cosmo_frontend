@@ -7,6 +7,7 @@ import MonitoringDraftRecapModal from '@components/Modals/MonitoringDraftRecapMo
 import MultiAddSelect from '@components/MultiAddSelect';
 import useGetUsers from '@api/user/useGetUsers';
 import User from '@model/User';
+import NewMonitoringStepsContainer from '@components/NewMonitoring/NewMonitoringStepsContainer';
 
 const MonitoringDraftDetails = () => {
 	const { t } = useTranslation([
@@ -116,7 +117,7 @@ const MonitoringDraftDetails = () => {
 						</div>
 					</Column>
 					<Column sm={4} md={8} lg={13}>
-						dcm
+						<NewMonitoringStepsContainer />
 					</Column>
 				</Grid>
 			</div>
