@@ -15,7 +15,7 @@
 	"monitoring-name-placeholder": "Inserisci nome bozza del monitoraggio",
 	"controls": "Controlli",
 	"search-monitoring-name": "Cerca tramite nome monitoraggio",
-	"completed-runs": "Runs completate",
+	"completed-runs": "Run completate",
 	"scheduling": "Schedulazione",
 	"confirm-delete": "Sei sicuro di voler eliminare {{draft}}?",
 	"start-monitoring": "Avvia monitoraggio",

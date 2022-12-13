@@ -122,16 +122,20 @@ const NewMonitoringModal = ({ isOpen, setIsOpen }: NewMonitoringModalProps) => {
 							>
 								<div className='flex flex-col'>
 									<div className='flex space-x-1'>
-										<span className='text-heading-1'>Completed runs:</span>
+										<span className='text-heading-1'>
+											{t('changeMonitoring:completed-runs')}:
+										</span>
 										<span>5</span>
 									</div>
 									<div className='flex space-x-1'>
-										<span className='text-heading-1'>Path:</span>
-										<span>Path</span>
+										<span className='text-heading-1'>
+											{t('changeMonitoring:scheduling')}:
+										</span>
+										<span>On Demand</span>
 									</div>
 									<div className='mt-3 flex space-x-1'>
-										<span className='text-heading-1'>Scheduling:</span>
-										<span>On Demand</span>
+										<span className='text-heading-1'>Path:</span>
+										<span>Path</span>
 									</div>
 								</div>
 							</AccordionItem>

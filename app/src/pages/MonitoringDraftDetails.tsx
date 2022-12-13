@@ -10,6 +10,7 @@ const MonitoringDraftDetails = () => {
 	return (
 		<PageHeader
 			pageTitle='title'
+			intermediateRoutes={[{ name: 'New Monitoring', to: '/new-monitoring' }]}
 			actions={[
 				{ name: t('evidenceRequest:collaborators'), onClick: () => {}, icon: Group },
 				{
