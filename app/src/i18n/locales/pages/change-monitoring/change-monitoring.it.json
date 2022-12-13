@@ -17,5 +17,7 @@
 	"search-monitoring-name": "Cerca tramite nome monitoraggio",
 	"completed-runs": "Runs completate",
 	"scheduling": "Schedulazione",
-	"confirm-delete": "Sei sicuro di voler eliminare {{draft}}?"
+	"confirm-delete": "Sei sicuro di voler eliminare {{draft}}?",
+	"start-monitoring": "Avvia monitoraggio",
+	"show-recap": "Visualizza recap"
 }

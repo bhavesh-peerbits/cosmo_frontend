@@ -17,5 +17,7 @@
 	"search-monitoring-name": "",
 	"completed-runs": "",
 	"scheduling": "",
-	"confirm-delete": ""
+	"confirm-delete": "",
+	"start-monitoring": "",
+	"show-recap": ""
 }
