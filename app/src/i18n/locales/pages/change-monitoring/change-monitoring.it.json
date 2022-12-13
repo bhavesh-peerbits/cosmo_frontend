@@ -16,5 +16,6 @@
 	"controls": "Controlli",
 	"search-monitoring-name": "Cerca tramite nome monitoraggio",
 	"completed-runs": "Runs completate",
-	"scheduling": "Schedulazione"
+	"scheduling": "Schedulazione",
+	"confirm-delete": "Sei sicuro di voler eliminare {{draft}}?"
 }
