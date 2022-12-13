@@ -10,6 +10,7 @@ import Fade from '@components/Fade';
 import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
 import Centered from '@components/Centered';
 import ButtonKinds from '@carbon/react/lib/components/Button/ButtonKinds';
+import { CarbonIconType } from '@carbon/react/icons';
 
 interface PageHeaderProps {
 	pageTitle: string;
@@ -19,13 +20,14 @@ interface PageHeaderProps {
 	}>;
 	actions?: Array<{
 		name: string;
-		icon?: (() => ReactElement) | ReactElement;
+		icon?: (() => ReactElement) | ReactElement | CarbonIconType;
 		onClick: () => void;
 		kind?: ButtonKinds;
 		disabled?: boolean;
 	}>;
 	children: ReactElement;
 }
+
 const PageHeader = ({
 	pageTitle,
 	intermediateRoutes = [],

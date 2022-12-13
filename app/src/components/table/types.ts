@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ColumnDef, Overwrite, Render } from '@tanstack/react-table';
-import { ReactElement, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { AvailableFileType as AvailableFileTypeUtil } from '@components/util/fileUtil';
+import { CarbonIconType } from '@carbon/react/icons';
 
 export type AvailableFileType = AvailableFileTypeUtil;
 export type ExportProperties = {
@@ -32,7 +33,7 @@ export interface CosmoTableToolbarProps<T extends object> {
 	onCancel?: () => void;
 	toolbarBatchActions?: Array<{
 		id: string;
-		icon: (() => ReactElement) | ReactElement;
+		icon: CarbonIconType;
 		label: string;
 		onClick: ({ selectionIds, clean }: { selectionIds: T[]; clean?: () => void }) => void;
 	}>;

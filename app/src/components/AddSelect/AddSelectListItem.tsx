@@ -124,7 +124,7 @@ const AddSelectListItem = ({
 					)}
 					{item.children && (
 						<ChevronRight
-							onClick={(e: MouseEvent) => {
+							onClick={e => {
 								onNavigateItem(item);
 								e.stopPropagation();
 							}}

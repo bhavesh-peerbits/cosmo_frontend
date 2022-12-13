@@ -1,53 +1,54 @@
 @use '@carbon/react' as * with (
 	$font-path: '@ibm/plex'
 );
+@use "@carbon/ibm-products/css" as ibm-products;
 @use '@carbon/react/scss/theme' as theme;
 @use 'cosmo-theme' as cosmo_theme;
 @use '@carbon/charts/styles.css';
 
 .container-w-sidenav {
-	@apply mr-0 p-0 md:ml-[3rem] lg:ml-[calc(32*0.5rem)];
+  @apply mr-0 p-0 md:ml-[3rem] lg:ml-[calc(32*0.5rem)];
 
-	// @include breakpoint.breakpoint-down('lg') {
-	//	margin-left: 0;
-	// }
+  // @include breakpoint.breakpoint-down('lg') {
+  //	margin-left: 0;
+  // }
 }
 
 .cds--contained-list.cds--contained-list--on-page {
-	margin-top: 0 !important;
+  margin-top: 0 !important;
 }
 
 // fix tab skeleton component
 .#{$prefix}--tabs--scrollable__nav {
-	@apply flex;
+  @apply flex;
 }
 
 // Remove outline from tab panel
 .#{$prefix}--tab-content,
 .#{$prefix}--tabs__nav-link {
-	outline: 0 !important;
+  outline: 0 !important;
 }
 
 .#{$prefix}--overflow-menu-options {
-	z-index: 9090 !important;
+  z-index: 9090 !important;
 }
 
 // fix datepicker width
 .#{$prefix}--date-picker.#{$prefix}--date-picker--single .#{$prefix}--date-picker__input {
-	width: 100%;
+  width: 100%;
 }
 
 .fix-height {
-	height: calc(100% - 3rem);
+  height: calc(100% - 3rem);
 }
 
 // include in the specific theme class or add to root component to override all
 .#{$prefix}--white {
-	@include theme.theme(cosmo_theme.$theme-cosmo-white);
+  @include theme.theme(cosmo_theme.$theme-cosmo-white);
 }
 
 .#{$prefix}--g100 {
-	@include theme.theme(cosmo_theme.$theme-cosmo-dark);
+  @include theme.theme(cosmo_theme.$theme-cosmo-dark);
 }
 
 // :root main {}
@@ -57,27 +58,27 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-	box-shadow: 0 0 0 50px #{theme.$field} inset !important;
-	-webkit-text-fill-color: #{theme.$text-primary} !important;
+  box-shadow: 0 0 0 50px #{theme.$field} inset !important;
+  -webkit-text-fill-color: #{theme.$text-primary} !important;
 }
 
 // modify default browser scrollbar
 ::-webkit-scrollbar {
-	width: 0.5rem;
-	height: 0.5rem;
+  width: 0.5rem;
+  height: 0.5rem;
 }
 
 ::-webkit-scrollbar-track {
-	background: transparent;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-	background: #aaa;
-	border-radius: 0.3rem;
-	border: 0.1rem solid rgb(0 0 0 / 0%);
-	background-clip: padding-box;
+  background: #aaa;
+  border-radius: 0.3rem;
+  border: 0.1rem solid rgb(0 0 0 / 0%);
+  background-clip: padding-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-	border: none;
+  border: none;
 }

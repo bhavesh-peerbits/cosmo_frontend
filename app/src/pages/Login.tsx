@@ -23,6 +23,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import useCleanSession from '@api/user/useCleanSession';
 import useLoginConfig from '@api/providers/useLoginConfig';
+import { ExpressiveCard } from '@carbon/ibm-products';
 
 interface LoginForm {
 	username: string;
@@ -124,6 +125,18 @@ const Login = () => {
 		<Theme theme='white' className='custom-login-theme h-full'>
 			<Grid fullWidth condensed className=' h-full bg-[#033C53] p-0' ref={loginRef}>
 				<Column sm={4} md={4} lg={6} className='flex h-full flex-col bg-background'>
+					{/* TODO REMOVE */}
+					<ExpressiveCard
+						label='Label'
+						mediaRatio={null}
+						primaryButtonText='Primary'
+						title='Title'
+					>
+						<p>
+							expressive card body content block. description inviting the user to take
+							action on the card.
+						</p>
+					</ExpressiveCard>
 					<div className='flex h-[calc(100%-50px-32px)]   items-center justify-center'>
 						{!cosmoForm ? (
 							<div className='w-7/10 mt-[82px] '>
