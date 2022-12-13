@@ -25,5 +25,11 @@
 	"recipient": "Destinatari",
 	"totals-runs": "Run totali",
 	"frequency": "Frequenza",
-	"assets-step-description": "In questo step è necessario selezionare un'applicazione, una sua istanza ed infine uno o più assets"
+	"assets-step-description": "In questo step è necessario selezionare un'applicazione, una sua istanza ed infine uno o più assets",
+	"select-app-instance": "Selezionare un'instanza dell'applicazione",
+	"select-one-app-instance": "Selezionare una sola istanza dalla lista",
+	"app-instances": "Instanze applicazione",
+	"search-by-instance-name": "Cerca tramite nome dell'istanza",
+	"search-instance": "Cerca istanza",
+	"add-instance": "Aggiungi istanza"
 }

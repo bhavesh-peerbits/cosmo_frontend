@@ -25,5 +25,11 @@
 	"recipient": "",
 	"totals-runs": "",
 	"frequency": "",
-	"assets-step-description": ""
+	"assets-step-description": "",
+	"select-app-instance": "",
+	"select-one-app-instance": "",
+	"app-instances": "",
+	"search-by-instance-name": "",
+	"search-instance": "",
+	"add-instance": ""
 }

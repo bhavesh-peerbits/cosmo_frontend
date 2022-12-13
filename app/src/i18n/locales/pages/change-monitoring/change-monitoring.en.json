@@ -25,5 +25,11 @@
 	"recipient": "Recipient",
 	"total-runs": "Total runs",
 	"frequency": "Frequency",
-	"assets-step-description": "In this step you have to select an application, one of its instances and finally one or more assets"
+	"assets-step-description": "In this step you have to select an application, one of its instances and finally one or more assets",
+	"select-app-instance": "Select application instance",
+	"select-one-app-instance": "Select only one application instance from the list",
+	"app-instances": "Application instances",
+	"search-by-instance-name": "Search by application instance name",
+	"search-instance": "Search instance",
+	"add-instance": "Add instance"
 }
