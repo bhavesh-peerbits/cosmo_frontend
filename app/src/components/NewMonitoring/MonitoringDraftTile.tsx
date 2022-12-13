@@ -12,7 +12,7 @@ const MonitoringDraftTile = () => {
 	return (
 		<Layer level={1}>
 			<DeleteMonitoringDraftModal isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} />
-			<ClickableTile onClick={() => navigate('')} className='mb-5'>
+			<ClickableTile onClick={() => navigate('1')} className='mb-5'>
 				<div className='space-y-3'>
 					<div className='flex justify-between'>
 						<p className='block truncate line-clamp-1 text-heading-2'>Monitoring Name</p>
