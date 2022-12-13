@@ -19,5 +19,10 @@
 	"scheduling": "Schedulazione",
 	"confirm-delete": "Sei sicuro di voler eliminare {{draft}}?",
 	"start-monitoring": "Avvia monitoraggio",
-	"show-recap": "Visualizza recap"
+	"show-recap": "Visualizza recap",
+	"monitoring-recap": "Riepilogo monitoraggio",
+	"operating-system": "Sistema operativo",
+	"recipient": "Destinatari",
+	"totals-runs": "Run totali",
+	"frequency": "Frequenza"
 }

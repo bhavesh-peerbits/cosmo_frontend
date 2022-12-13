@@ -19,5 +19,10 @@
 	"scheduling": "",
 	"confirm-delete": "",
 	"start-monitoring": "",
-	"show-recap": ""
+	"show-recap": "",
+	"monitoring-recap": "",
+	"operating-system": "",
+	"recipient": "",
+	"totals-runs": "",
+	"frequency": ""
 }

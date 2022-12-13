@@ -19,5 +19,10 @@
 	"scheduling": "Scheduling",
 	"confirm-delete": "Are you sure you want to delete {{draft}}?",
 	"start-monitoring": "Start monitoring",
-	"show-recap": "Show recap"
+	"show-recap": "Show recap",
+	"monitoring-recap": "Monitoring recap",
+	"operating-system": "Operating system",
+	"recipient": "Recipient",
+	"total-runs": "Total runs",
+	"frequency": "Frequency"
 }
