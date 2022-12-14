@@ -1,6 +1,6 @@
 import PageHeader from '@components/PageHeader';
 import { useTranslation } from 'react-i18next';
-import { Group, Send, Report } from '@carbon/react/icons';
+import { Group, Send, TrashCan } from '@carbon/react/icons';
 import { Grid, Column } from '@carbon/react';
 import { useState } from 'react';
 import MonitoringDraftRecapModal from '@components/Modals/MonitoringDraftRecapModal';
@@ -8,6 +8,7 @@ import MultiAddSelect from '@components/MultiAddSelect';
 import useGetUsers from '@api/user/useGetUsers';
 import User from '@model/User';
 import NewMonitoringStepsContainer from '@components/NewMonitoring/NewMonitoringStepsContainer';
+import DeleteMonitoringDraftModal from '@components/Modals/DeleteMonitoringDraftModal';
 
 const MonitoringDraftDetails = () => {
 	const { t } = useTranslation([
@@ -16,7 +17,8 @@ const MonitoringDraftDetails = () => {
 		'modals',
 		'userSelect'
 	]);
-	const [isRecapOpen, setIsRecapOpen] = useState({ open: false, shouldStart: false });
+	const [isSendDraftOpen, setIsSendDraftOpen] = useState(false);
+	const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 	const [isCollaboratorsOpen, setIsCollaboratorsOpen] = useState(false);
 
 	const { data } = useGetUsers();
@@ -46,17 +48,16 @@ const MonitoringDraftDetails = () => {
 				{
 					name: t('changeMonitoring:start-monitoring'),
 					onClick: () => {
-						setIsRecapOpen({ open: true, shouldStart: true });
+						setIsSendDraftOpen(true);
 					},
 					icon: Send
 				},
 				{
-					name: t('changeMonitoring:show-recap'),
+					name: t('modals:delete'),
 					onClick: () => {
-						setIsRecapOpen({ open: true, shouldStart: false });
+						setIsDeleteOpen(true);
 					},
-					icon: Report,
-					kind: 'secondary'
+					icon: TrashCan
 				}
 			]}
 		>
@@ -94,7 +95,12 @@ const MonitoringDraftDetails = () => {
 					/>
 				)}
 
-				<MonitoringDraftRecapModal isOpen={isRecapOpen} setIsOpen={setIsRecapOpen} />
+				<MonitoringDraftRecapModal
+					isOpen={isSendDraftOpen}
+					setIsOpen={setIsSendDraftOpen}
+				/>
+				<DeleteMonitoringDraftModal isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} />
+
 				<Grid fullWidth narrow className='p-container-1 pl-8'>
 					<Column sm={4} md={8} lg={3} className='space-y-5'>
 						<div className='flex flex-col'>

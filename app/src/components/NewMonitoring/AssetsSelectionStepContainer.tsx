@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from 'react';
-import { Grid, Button } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
 import SingleApplicationSelect from '@components/SingleApplicationSelect';
@@ -8,25 +6,15 @@ import { useForm } from 'react-hook-form';
 import useGetApps from '@api/management/useGetApps';
 import SingleAppInstanceSelect from './SingleAppInstanceSelect';
 
-type AssetsSelectionStepContainerProps = {
-	setCurrentStep: Dispatch<SetStateAction<number>>;
-};
-
 type FormData = {
 	application: Application;
 	applicationInstance: Application;
 };
 
-const AssetsSelectionStepContainer = ({
-	setCurrentStep
-}: AssetsSelectionStepContainerProps) => {
+const AssetsSelectionStepContainer = () => {
 	const { t } = useTranslation(['modals', 'changeMonitoring']);
 	const { data: applications } = useGetApps(); // TODO Change when BE is ready
-	const {
-		control,
-		watch,
-		formState: { isValid }
-	} = useForm<FormData>({
+	const { control, watch } = useForm<FormData>({
 		mode: 'onChange',
 		criteriaMode: 'all'
 	});
@@ -34,15 +22,7 @@ const AssetsSelectionStepContainer = ({
 	const app = watch('application');
 
 	return (
-		<Grid fullWidth narrow className='space-y-5'>
-			<FullWidthColumn>
-				<FullWidthColumn className='text-heading-3'>
-					<span>Assets</span>
-				</FullWidthColumn>
-				<FullWidthColumn className='text-text-secondary text-body-long-1'>
-					<span>{t('changeMonitoring:assets-step-description')}.</span>
-				</FullWidthColumn>
-			</FullWidthColumn>
+		<>
 			<FullWidthColumn className='w-1/2 pt-5'>
 				<SingleApplicationSelect
 					level={1}
@@ -75,16 +55,7 @@ const AssetsSelectionStepContainer = ({
 				/>
 			</FullWidthColumn>
 			<FullWidthColumn className='pt-5'>Assets selection</FullWidthColumn>
-			<FullWidthColumn className='flex justify-end'>
-				<Button
-					size='md'
-					onClick={() => setCurrentStep(old => old + 1)}
-					disabled={!isValid}
-				>
-					{t('modals:next')}
-				</Button>
-			</FullWidthColumn>
-		</Grid>
+		</>
 	);
 };
 export default AssetsSelectionStepContainer;

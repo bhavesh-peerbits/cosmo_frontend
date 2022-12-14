@@ -1,31 +1,16 @@
-import { ClickableTile, Layer, Button } from '@carbon/react';
+import { ClickableTile, Layer } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { TrashCan } from '@carbon/react/icons';
-import { useState } from 'react';
-import DeleteMonitoringDraftModal from '@components/Modals/DeleteMonitoringDraftModal';
 
 const MonitoringDraftTile = () => {
 	const navigate = useNavigate();
 	const { t } = useTranslation(['changeMonitoring', 'modals']);
-	const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
 	return (
 		<Layer level={1}>
-			<DeleteMonitoringDraftModal isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} />
 			<ClickableTile onClick={() => navigate('1')} className='mb-5'>
 				<div className='space-y-3'>
-					<div className='flex justify-between'>
-						<p className='block truncate line-clamp-1 text-heading-2'>Monitoring Name</p>
-						<Button
-							kind='ghost'
-							size='sm'
-							hasIconOnly
-							renderIcon={TrashCan}
-							iconDescription={t('modals:delete')}
-							onClick={() => setIsDeleteOpen(true)}
-						/>
-					</div>
-
+					<p className='block truncate line-clamp-1 text-heading-2'>Monitoring Name</p>
 					<div className='space-y-2'>
 						{' '}
 						<span className='flex space-x-2'>

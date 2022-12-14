@@ -26,25 +26,22 @@ const RecapStringRow = ({ title, info }: RecapStringRowProps) => {
 };
 
 type MonitoringRecapModalProps = {
-	isOpen: {
-		open: boolean;
-		shouldStart: boolean;
-	};
-	setIsOpen: Dispatch<
-		SetStateAction<{
-			open: boolean;
-			shouldStart: boolean;
-		}>
-	>;
+	isOpen: boolean;
+	setIsOpen: Dispatch<SetStateAction<boolean>>;
+	shouldStart?: boolean;
 };
-const MonitoringDraftRecapModal = ({ isOpen, setIsOpen }: MonitoringRecapModalProps) => {
+const MonitoringDraftRecapModal = ({
+	isOpen,
+	setIsOpen,
+	shouldStart
+}: MonitoringRecapModalProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'modals', 'evidenceRequest']);
 	const cleanUp = () => {
-		setIsOpen({ open: false, shouldStart: false });
+		setIsOpen(false);
 	};
 
 	return (
-		<ComposedModal open={isOpen.open} onClose={cleanUp} size='sm'>
+		<ComposedModal open={isOpen} onClose={cleanUp} size='sm'>
 			<ModalHeader
 				label='monitoring name'
 				title={t('changeMonitoring:show-recap')}
@@ -105,7 +102,7 @@ const MonitoringDraftRecapModal = ({ isOpen, setIsOpen }: MonitoringRecapModalPr
 					<RecapStringRow title={t('changeMonitoring:total-runs')} info='info' />
 				</div>
 			</ModalBody>
-			{isOpen.shouldStart && (
+			{shouldStart && (
 				<ModalFooter>
 					<Button kind='secondary' onClick={cleanUp}>
 						{t('modals:cancel')}

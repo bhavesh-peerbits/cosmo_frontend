@@ -1,8 +1,9 @@
-import { Grid, ProgressStep, ProgressIndicator, Layer, Tile } from '@carbon/react';
+import { Grid, ProgressStep, ProgressIndicator, Layer } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AssetsSelectionStepContainer from './AssetsSelectionStepContainer';
+import NewMonitoringStepTile from './NewMonitoringStepTile';
 
 const NewMonitoringStepsContainer = () => {
 	const { t } = useTranslation(['changeMonitoring', 'evidenceRequest']);
@@ -10,7 +11,11 @@ const NewMonitoringStepsContainer = () => {
 	const contentToRender = () => {
 		switch (currentStep) {
 			default:
-				return <AssetsSelectionStepContainer setCurrentStep={setCurrentStep} />;
+				return {
+					content: <AssetsSelectionStepContainer />,
+					title: 'Assets',
+					description: t('changeMonitoring:assets-step-description')
+				};
 		}
 	};
 	return (
@@ -27,7 +32,12 @@ const NewMonitoringStepsContainer = () => {
 			</FullWidthColumn>
 			<FullWidthColumn>
 				<Layer level={1}>
-					<Tile>{contentToRender()}</Tile>
+					<NewMonitoringStepTile
+						content={contentToRender().content}
+						title={contentToRender().title}
+						description={contentToRender().description}
+						setCurrentStep={setCurrentStep}
+					/>
 				</Layer>
 			</FullWidthColumn>
 		</Grid>
