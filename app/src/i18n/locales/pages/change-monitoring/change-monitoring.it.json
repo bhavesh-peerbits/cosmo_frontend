@@ -42,5 +42,7 @@
 	"path-step-description": "In questo step è necessario definire, per ogni asset, uno o più path. È inoltre possible indicare stessi path per tutti gli asset",
 	"same": "Uguale",
 	"different": "Diverso",
-	"asset-setup-toggle": "Setup per ogni asset"
+	"asset-setup-toggle": "Setup per ogni asset",
+	"add-path": "Aggiungi path",
+	"remove-path": "Rimuovi path"
 }

@@ -42,5 +42,7 @@
 	"path-step-description": "",
 	"same": "",
 	"different": "",
-	"asset-setup-toggle": ""
+	"asset-setup-toggle": "",
+	"add-path": "",
+	"remove-path": ""
 }
