@@ -98,6 +98,7 @@ const MonitoringDraftDetails = () => {
 				<MonitoringDraftRecapModal
 					isOpen={isSendDraftOpen}
 					setIsOpen={setIsSendDraftOpen}
+					shouldStart
 				/>
 				<DeleteMonitoringDraftModal isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} />
 

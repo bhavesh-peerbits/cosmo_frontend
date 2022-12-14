@@ -27,6 +27,7 @@ const AssetsSelectionStepContainer = () => {
 	});
 
 	const app = watch('application');
+	const instance = watch('applicationInstance');
 
 	return (
 		<>
@@ -63,6 +64,7 @@ const AssetsSelectionStepContainer = () => {
 			</FullWidthColumn>
 			<FullWidthColumn className='pt-5 lg:w-1/2'>
 				<MultipleAssetSelect
+					readOnly={!instance}
 					control={control}
 					name='assets'
 					label={t('changeMonitoring:select-assets')}

@@ -43,17 +43,17 @@ const NewMonitoringStepTile = ({
 
 					{content}
 					<FullWidthColumn className='flex justify-end space-x-5 pt-7'>
-						{currentStep > 1 && (
+						{currentStep > 0 && (
 							<Button
 								size='md'
 								kind='secondary'
-								onClick={() => setCurrentStep(old => old + 1)}
+								onClick={() => setCurrentStep(old => old - 1)}
 							>
 								{t('modals:back')}
 							</Button>
 						)}
 						<Button size='md' onClick={() => setCurrentStep(old => old + 1)}>
-							{currentStep === 6 ? t('modals:save') : t('modals:next')}
+							{currentStep === 6 ? t('modals:save') : t('changeMonitoring:save-next')}
 						</Button>
 					</FullWidthColumn>
 				</Grid>

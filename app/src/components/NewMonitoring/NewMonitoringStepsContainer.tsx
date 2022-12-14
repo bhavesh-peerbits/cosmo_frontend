@@ -3,6 +3,7 @@ import FullWidthColumn from '@components/FullWidthColumn';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AssetsSelectionStepContainer from './AssetsSelectionStepContainer';
+import FrameworkSelectionStepContainer from './FrameworkSelectionStepContainer';
 import NewMonitoringStepTile from './NewMonitoringStepTile';
 import PathDefinitionStepContainer from './PathDefinitionStepContainer';
 
@@ -22,6 +23,12 @@ const NewMonitoringStepsContainer = () => {
 					content: <PathDefinitionStepContainer />,
 					title: 'Path',
 					description: t('changeMonitoring:path-step-description')
+				};
+			case 2:
+				return {
+					content: <FrameworkSelectionStepContainer />,
+					title: 'Framework',
+					description: 'Description?????????'
 				};
 			default:
 				return {

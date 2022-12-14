@@ -44,5 +44,6 @@
 	"different": "Diverso",
 	"asset-setup-toggle": "Setup per ogni asset",
 	"add-path": "Aggiungi path",
-	"remove-path": "Rimuovi path"
+	"remove-path": "Rimuovi path",
+	"save-next": "Salva e prosegui"
 }
