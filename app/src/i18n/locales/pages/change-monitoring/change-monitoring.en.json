@@ -31,5 +31,12 @@
 	"app-instances": "Application instances",
 	"search-by-instance-name": "Search by application instance name",
 	"search-instance": "Search instance",
-	"add-instance": "Add instance"
+	"add-instance": "Add instance",
+	"select-assets": "Select assets",
+	"add-assets": "Add assets",
+	"select-assets-list": "Select one or more assets from the list",
+	"search-asset-name": "Search by asset name",
+	"asset-name": "Asset name",
+	"search-asset": "Search assets",
+	"selected-assets": "Selected assets"
 }

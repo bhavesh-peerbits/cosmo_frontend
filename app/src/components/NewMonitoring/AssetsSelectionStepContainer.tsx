@@ -5,10 +5,17 @@ import Application from '@model/Application';
 import { useForm } from 'react-hook-form';
 import useGetApps from '@api/management/useGetApps';
 import SingleAppInstanceSelect from './SingleAppInstanceSelect';
+import MultipleAssetSelect from './MultipleAssetSelect';
 
+type Asset = {
+	info1: string;
+	info2: string;
+	id: string;
+};
 type FormData = {
 	application: Application;
 	applicationInstance: Application;
+	assets: Asset[];
 };
 
 const AssetsSelectionStepContainer = () => {
@@ -23,7 +30,7 @@ const AssetsSelectionStepContainer = () => {
 
 	return (
 		<>
-			<FullWidthColumn className='w-1/2 pt-5'>
+			<FullWidthColumn className='pt-5 lg:w-1/2'>
 				<SingleApplicationSelect
 					level={1}
 					label={`${t('modals:application')} *`}
@@ -38,7 +45,7 @@ const AssetsSelectionStepContainer = () => {
 					applications={applications ? [...applications.values()] : []}
 				/>
 			</FullWidthColumn>
-			<FullWidthColumn className='w-1/2 pt-5'>
+			<FullWidthColumn className='pt-5 lg:w-1/2'>
 				<SingleAppInstanceSelect
 					readOnly={!app}
 					level={1}
@@ -54,7 +61,13 @@ const AssetsSelectionStepContainer = () => {
 					applications={applications ? [...applications.values()] : []}
 				/>
 			</FullWidthColumn>
-			<FullWidthColumn className='pt-5'>Assets selection</FullWidthColumn>
+			<FullWidthColumn className='pt-5 lg:w-1/2'>
+				<MultipleAssetSelect
+					control={control}
+					name='assets'
+					label={t('changeMonitoring:select-assets')}
+				/>
+			</FullWidthColumn>
 		</>
 	);
 };

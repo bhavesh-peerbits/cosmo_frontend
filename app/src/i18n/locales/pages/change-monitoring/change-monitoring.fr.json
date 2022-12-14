@@ -31,5 +31,12 @@
 	"app-instances": "",
 	"search-by-instance-name": "",
 	"search-instance": "",
-	"add-instance": ""
+	"add-instance": "",
+	"select-assets": "",
+	"add-assets": "",
+	"select-assets-list": "",
+	"search-asset-name": "",
+	"asset-name": "",
+	"search-asset": "",
+	"selected-assets": ""
 }

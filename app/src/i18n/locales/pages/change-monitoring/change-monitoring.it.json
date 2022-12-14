@@ -31,5 +31,12 @@
 	"app-instances": "Instanze applicazione",
 	"search-by-instance-name": "Cerca tramite nome dell'istanza",
 	"search-instance": "Cerca istanza",
-	"add-instance": "Aggiungi istanza"
+	"add-instance": "Aggiungi istanza",
+	"select-assets": "Seleziona asset",
+	"add-assets": "Aggiungi asset",
+	"select-assets-list": "Seleziona uno o più asset dalla lista",
+	"search-asset-name": "Cerca tramite nome asset",
+	"asset-name": "Nome asset",
+	"search-asset": "Cerca asset",
+	"selected-assets": "Asset selezionati"
 }
