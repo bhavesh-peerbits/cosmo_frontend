@@ -38,5 +38,9 @@
 	"search-asset-name": "Search by asset name",
 	"asset-name": "Asset name",
 	"search-asset": "Search assets",
-	"selected-assets": "Selected assets"
+	"selected-assets": "Selected assets",
+	"path-step-description": "In this step it is necessary to define, for each asset, one or more paths. It is also possible to indicate the same paths for all assets",
+	"same": "Same",
+	"different": "Different",
+	"asset-setup-toggle": "Setup for each asset"
 }

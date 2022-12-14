@@ -10,12 +10,14 @@ type NewMonitoringStepTileProps = {
 	title: string;
 	description: string;
 	setCurrentStep: Dispatch<SetStateAction<number>>;
+	currentStep: number;
 };
 const NewMonitoringStepTile = ({
 	content,
 	title,
 	description,
-	setCurrentStep
+	setCurrentStep,
+	currentStep
 }: NewMonitoringStepTileProps) => {
 	const { t } = useTranslation(['modals', 'changeMonitoring']);
 	const [isRecapOpen, setIsRecapOpen] = useState(false);
@@ -24,7 +26,7 @@ const NewMonitoringStepTile = ({
 			<Tile>
 				<Grid fullWidth narrow className='space-y-5'>
 					<MonitoringDraftRecapModal isOpen={isRecapOpen} setIsOpen={setIsRecapOpen} />
-					<FullWidthColumn className='space-y-5'>
+					<FullWidthColumn className='space-y-5' style={{ marginTop: '0px' }}>
 						<div className='flex justify-between'>
 							<span className='text-heading-3'>{title}</span>
 							<Button
@@ -40,9 +42,18 @@ const NewMonitoringStepTile = ({
 					</FullWidthColumn>
 
 					{content}
-					<FullWidthColumn className='flex justify-end'>
+					<FullWidthColumn className='flex justify-end space-x-5 pt-7'>
+						{currentStep > 1 && (
+							<Button
+								size='md'
+								kind='secondary'
+								onClick={() => setCurrentStep(old => old + 1)}
+							>
+								{t('modals:back')}
+							</Button>
+						)}
 						<Button size='md' onClick={() => setCurrentStep(old => old + 1)}>
-							{t('modals:next')}
+							{currentStep === 6 ? t('modals:save') : t('modals:next')}
 						</Button>
 					</FullWidthColumn>
 				</Grid>

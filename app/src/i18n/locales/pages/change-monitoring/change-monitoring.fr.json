@@ -38,5 +38,9 @@
 	"search-asset-name": "",
 	"asset-name": "",
 	"search-asset": "",
-	"selected-assets": ""
+	"selected-assets": "",
+	"path-step-description": "",
+	"same": "",
+	"different": "",
+	"asset-setup-toggle": ""
 }
