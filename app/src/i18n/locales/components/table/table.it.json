@@ -20,5 +20,10 @@
 	"group-by": "Raggruppa",
 	"remove-group": "Rimuovi raggruppamento",
 	"export": "Esporta",
-	"search-placeholder": "Digitare per ricercare"
+	"search-placeholder": "Digitare per ricercare",
+	"select-all-page": "Seleziona tutte le pagine",
+	"deselect-all": "Deseleziona tutto",
+	"select-all": "Seleziona tutto",
+	"deselect-all-page": "Deseleziona tutte le pagine",
+	"action": "Azione"
 }

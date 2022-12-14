@@ -11463,19 +11463,29 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["@tanstack/react-table", [\
-        ["npm:8.0.0-beta.8", {\
-          "packageLocation": "./.yarn/cache/@tanstack-react-table-npm-8.0.0-beta.8-8bc6e48a5d-8445d084ef.zip/node_modules/@tanstack/react-table/",\
+      ["@tanstack/match-sorter-utils", [\
+        ["npm:8.7.2", {\
+          "packageLocation": "./.yarn/cache/@tanstack-match-sorter-utils-npm-8.7.2-c8343691fa-0821430d7d.zip/node_modules/@tanstack/match-sorter-utils/",\
           "packageDependencies": [\
-            ["@tanstack/react-table", "npm:8.0.0-beta.8"]\
+            ["@tanstack/match-sorter-utils", "npm:8.7.2"],\
+            ["remove-accents", "npm:0.4.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@tanstack/react-table", [\
+        ["npm:8.7.3", {\
+          "packageLocation": "./.yarn/cache/@tanstack-react-table-npm-8.7.3-a9cf212af2-808cef190a.zip/node_modules/@tanstack/react-table/",\
+          "packageDependencies": [\
+            ["@tanstack/react-table", "npm:8.7.3"]\
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:8.0.0-beta.8", {\
-          "packageLocation": "./.yarn/__virtual__/@tanstack-react-table-virtual-a63acbd6dd/0/cache/@tanstack-react-table-npm-8.0.0-beta.8-8bc6e48a5d-8445d084ef.zip/node_modules/@tanstack/react-table/",\
+        ["virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:8.7.3", {\
+          "packageLocation": "./.yarn/__virtual__/@tanstack-react-table-virtual-9b928e1e1b/0/cache/@tanstack-react-table-npm-8.7.3-a9cf212af2-808cef190a.zip/node_modules/@tanstack/react-table/",\
           "packageDependencies": [\
-            ["@tanstack/react-table", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:8.0.0-beta.8"],\
-            ["@tanstack/table-core", "npm:8.0.0-beta.8"],\
+            ["@tanstack/react-table", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:8.7.3"],\
+            ["@tanstack/table-core", "npm:8.7.3"],\
             ["@types/react", "npm:18.0.12"],\
             ["@types/react-dom", "npm:18.0.5"],\
             ["react", "npm:18.2.0"],\
@@ -11490,11 +11500,43 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["@tanstack/table-core", [\
-        ["npm:8.0.0-beta.8", {\
-          "packageLocation": "./.yarn/cache/@tanstack-table-core-npm-8.0.0-beta.8-5fb63e8d46-7648696ea0.zip/node_modules/@tanstack/table-core/",\
+      ["@tanstack/react-virtual", [\
+        ["npm:3.0.0-beta.30", {\
+          "packageLocation": "./.yarn/cache/@tanstack-react-virtual-npm-3.0.0-beta.30-df1b2fc0fb-f5e558acee.zip/node_modules/@tanstack/react-virtual/",\
           "packageDependencies": [\
-            ["@tanstack/table-core", "npm:8.0.0-beta.8"]\
+            ["@tanstack/react-virtual", "npm:3.0.0-beta.30"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:3.0.0-beta.30", {\
+          "packageLocation": "./.yarn/__virtual__/@tanstack-react-virtual-virtual-d8cb48f77d/0/cache/@tanstack-react-virtual-npm-3.0.0-beta.30-df1b2fc0fb-f5e558acee.zip/node_modules/@tanstack/react-virtual/",\
+          "packageDependencies": [\
+            ["@tanstack/react-virtual", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:3.0.0-beta.30"],\
+            ["@tanstack/virtual-core", "npm:3.0.0-beta.30"],\
+            ["@types/react", "npm:18.0.12"],\
+            ["react", "npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@tanstack/table-core", [\
+        ["npm:8.7.3", {\
+          "packageLocation": "./.yarn/cache/@tanstack-table-core-npm-8.7.3-251321a0ab-3512ceb240.zip/node_modules/@tanstack/table-core/",\
+          "packageDependencies": [\
+            ["@tanstack/table-core", "npm:8.7.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@tanstack/virtual-core", [\
+        ["npm:3.0.0-beta.30", {\
+          "packageLocation": "./.yarn/cache/@tanstack-virtual-core-npm-3.0.0-beta.30-052f9d8b53-5d43b2ed52.zip/node_modules/@tanstack/virtual-core/",\
+          "packageDependencies": [\
+            ["@tanstack/virtual-core", "npm:3.0.0-beta.30"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -14966,7 +15008,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@sentry/react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:6.19.7"],\
             ["@sentry/tracing", "npm:6.19.7"],\
             ["@tailwindcss/line-clamp", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:0.4.0"],\
-            ["@tanstack/react-table", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:8.0.0-beta.8"],\
+            ["@tanstack/match-sorter-utils", "npm:8.7.2"],\
+            ["@tanstack/react-table", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:8.7.3"],\
+            ["@tanstack/react-virtual", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:3.0.0-beta.30"],\
             ["@testing-library/dom", "npm:8.13.0"],\
             ["@testing-library/jest-dom", "npm:5.16.4"],\
             ["@testing-library/react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:13.3.0"],\
@@ -15088,7 +15132,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@sentry/react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:6.19.7"],\
             ["@sentry/tracing", "npm:6.19.7"],\
             ["@tailwindcss/line-clamp", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:0.4.0"],\
-            ["@tanstack/react-table", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:8.0.0-beta.8"],\
+            ["@tanstack/match-sorter-utils", "npm:8.7.2"],\
+            ["@tanstack/react-table", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:8.7.3"],\
+            ["@tanstack/react-virtual", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:3.0.0-beta.30"],\
             ["@testing-library/dom", "npm:8.13.0"],\
             ["@testing-library/jest-dom", "npm:5.16.4"],\
             ["@testing-library/react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:13.3.0"],\

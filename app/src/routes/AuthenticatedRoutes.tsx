@@ -7,8 +7,6 @@ import ErrorBoundary from '@error/components/ErrorBoundary';
 import PageSkeleton from '@components/PageSkeleton';
 import usePolicyStore from '@hooks/usePolicyStore';
 import ProtectRoute from '@routes/ProtectRoute';
-import StartedEvidenceRequest from '@pages/StartedEvidenceRequest';
-import ActionEvidenceRequest from '@pages/ActionEvidenceRequest';
 
 const Home = React.lazy(() => import('@pages/Home'));
 const Test = React.lazy(() => import('@pages/Test'));
@@ -41,6 +39,9 @@ const StartedEvidenceRequestDashboard = React.lazy(
 const ActionEvidenceRequestDashboard = React.lazy(
 	() => import('@pages/ActionEvidenceRequestDashboard')
 );
+
+const ActionEvidenceRequest = React.lazy(() => import('@pages/ActionEvidenceRequest'));
+const StartedEvidenceRequest = React.lazy(() => import('@pages/StartedEvidenceRequest'));
 
 const AuthenticatedRoutes = () => {
 	const {

@@ -20,5 +20,10 @@
 	"group-by": "Group by",
 	"remove-group": "Remove group",
 	"export": "Export",
-	"search-placeholder": "Type to search"
+	"search-placeholder": "Type to search",
+	"deselect-all-page": "Deselect all pages",
+	"select-all-page": "Select all pages",
+	"deselect-all": "deselect all",
+	"select-all": "select all",
+	"action": "Action"
 }

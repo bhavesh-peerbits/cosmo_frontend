@@ -1,20 +1,24 @@
-import { TableToolbarSearch, Button } from '@carbon/react';
-import { HeaderFunction } from '@components/table/CosmoTable';
-import { useCallback, useState } from 'react';
+import { Button } from '@carbon/react';
+import { useMemo, useState } from 'react';
 import User from '@model/User';
 import { Add } from '@carbon/react/icons';
-import CosmoTableInlineAction from '@components/table/CosmoTableInlineAction';
 import { useDebounce } from 'ahooks';
 import useGetFilteredPagedUser from '@api/user-admin/useGetFilteredPagedUser';
 import usePaginationStore from '@hooks/pagination/usePaginationStore';
 import useGetAppsAdminNotMap from '@api/user-admin/useGetAppsAdminNotMap';
+import { CellContext, ColumnDef } from '@tanstack/react-table';
+import CosmoTable from '@components/table/CosmoTable';
+import { useTranslation } from 'react-i18next';
 import SelectApplicationUser from './SelectApplicationUser';
 
 type ActionCellProps = {
 	setIsSelectOpen: (val: boolean) => void;
+	setUserSelectedId: (val: string) => void;
+	info: CellContext<User, unknown>;
 };
 
-const ActionsCell = ({ setIsSelectOpen }: ActionCellProps) => {
+const ActionsCell = ({ setIsSelectOpen, setUserSelectedId, info }: ActionCellProps) => {
+	const { getValue } = info;
 	return (
 		<div className='float-right flex'>
 			<Button
@@ -23,7 +27,10 @@ const ActionsCell = ({ setIsSelectOpen }: ActionCellProps) => {
 				renderIcon={Add}
 				iconDescription='add'
 				tooltipPosition='left'
-				onClick={() => setIsSelectOpen(true)}
+				onClick={() => {
+					setIsSelectOpen(true);
+					setUserSelectedId(getValue() as string);
+				}}
 			/>
 		</div>
 	);
@@ -31,6 +38,7 @@ const ActionsCell = ({ setIsSelectOpen }: ActionCellProps) => {
 
 const UserAppsVisibilityTable = () => {
 	const [filters, setFilters] = useState('');
+	const { t: tTable } = useTranslation('table');
 	const search = useDebounce(filters, { wait: 600 });
 	const [isSelectOpen, setIsSelectOpen] = useState(false);
 	const [userSelectedId, setUserSelectedId] = useState<string>();
@@ -42,34 +50,34 @@ const UserAppsVisibilityTable = () => {
 		pagination.pageSize
 	);
 
-	const columns: HeaderFunction<User> = useCallback(
-		table => [
-			table.createDataColumn(row => row.name, {
+	const columns = useMemo<ColumnDef<User>[]>(
+		() => [
+			{
 				id: 'name',
+				accessorFn: row => row.name,
 				header: 'Name'
-			}),
-			table.createDataColumn(row => row.surname, {
+			},
+			{
 				id: 'surname',
+				accessorFn: row => row.surname,
 				header: 'surname'
-			}),
-			table.createDataColumn(row => row.username, {
+			},
+			{
 				id: 'username',
+				accessorFn: row => row.username,
 				header: 'username'
-			})
+			},
+			{
+				id: 'action',
+				header: tTable('action'),
+				accessorFn: row => row.id,
+				cell: info => ActionsCell({ setIsSelectOpen, setUserSelectedId, info }),
+				meta: {
+					disableExport: true
+				}
+			}
 		],
-		[]
-	);
-	const toolbarContent = (
-		<TableToolbarSearch
-			size='lg'
-			persistent
-			placeholder='search-placeholder'
-			id='search'
-			value={filters ?? ''}
-			onChange={e => {
-				e.currentTarget?.value ? setFilters(e.currentTarget?.value) : setFilters('');
-			}}
-		/>
+		[tTable]
 	);
 
 	return (
@@ -83,18 +91,22 @@ const UserAppsVisibilityTable = () => {
 				/>
 			) : null}
 
-			<CosmoTableInlineAction
+			<CosmoTable
 				tableId='userappvisibility'
-				dataLength={totalElements}
 				data={content || []}
-				createHeaders={columns}
+				dataLength={totalElements}
+				columns={columns}
 				noDataMessage='no-data'
-				toolbar={{ toolbarContent }}
-				exportFileName={({ all }) =>
-					all ? 'applications-all' : 'applications-selection'
-				}
-				inlineAction={<ActionsCell setIsSelectOpen={setIsSelectOpen} />}
-				setRowSelected={setUserSelectedId}
+				exportFileName={({ all }) => (all ? 'users-all' : 'users-selection')}
+				toolbar={{
+					searchBar: {
+						enabled: true,
+						value: filters ?? '',
+						onSearch: e => setFilters(e)
+					},
+					toolbarBatchActions: [],
+					toolbarTableMenus: []
+				}}
 			/>
 		</>
 	);

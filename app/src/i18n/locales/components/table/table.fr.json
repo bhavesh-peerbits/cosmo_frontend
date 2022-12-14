@@ -20,5 +20,10 @@
 	"group-by": "Regrouper",
 	"remove-group": "Supprimer le groupement",
 	"export": "Exporter",
-	"search-placeholder": "Tapez pour rechercher"
+	"search-placeholder": "Tapez pour rechercher",
+	"select-all-page": "",
+	"deselect-all": "",
+	"select-all": "",
+	"deselect-all-page": "",
+	"action": ""
 }

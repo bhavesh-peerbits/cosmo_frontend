@@ -6320,22 +6320,49 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-table@npm:^8.0.0-beta.8":
-  version: 8.0.0-beta.8
-  resolution: "@tanstack/react-table@npm:8.0.0-beta.8"
+"@tanstack/match-sorter-utils@npm:^8.5.14":
+  version: 8.7.2
+  resolution: "@tanstack/match-sorter-utils@npm:8.7.2"
   dependencies:
-    "@tanstack/table-core": 8.0.0-beta.8
-  peerDependencies:
-    react: ">=16"
-    react-dom: ">=16"
-  checksum: 8445d084efc2443ec73fc639644f89b1ae5a187fd9742192b589712cad9b40e8a7b27045d447460e87936fd0caa6cb7bf32d4da65e2b2f8c16373a232626ca77
+    remove-accents: 0.4.2
+  checksum: 0821430d7de76911481b5300f4812f7cfefb804bf2f23fb1bab45e66c273379f0c919785ca1aecd8614b72d9e5e0e0edf9f449cbbb87dd91166d77ca285351f6
   languageName: node
   linkType: hard
 
-"@tanstack/table-core@npm:8.0.0-beta.8":
-  version: 8.0.0-beta.8
-  resolution: "@tanstack/table-core@npm:8.0.0-beta.8"
-  checksum: 7648696ea06596f3ec2f01817db9badb237a3a1f759cc3b81ba4bdbb86e7941d3f3e434bd6ed49a482b4ec351170d326d1dc6f24ae7aa1e0a52589ce1fc409bb
+"@tanstack/react-table@npm:^8.7.0":
+  version: 8.7.3
+  resolution: "@tanstack/react-table@npm:8.7.3"
+  dependencies:
+    "@tanstack/table-core": 8.7.3
+  peerDependencies:
+    react: ">=16"
+    react-dom: ">=16"
+  checksum: 808cef190a30084f2fd3522201383db2c708d5b685fb8bf8e2b58aff91eab9657865f90da1b602dd159c3e14361f6eab8e2ba07fe9800e78eaed2783a8cf1455
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-virtual@npm:^3.0.0-beta.18":
+  version: 3.0.0-beta.30
+  resolution: "@tanstack/react-virtual@npm:3.0.0-beta.30"
+  dependencies:
+    "@tanstack/virtual-core": 3.0.0-beta.30
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: f5e558acee618be35790cd217786960d91a465922161fe39b4e994f841b6330910763d2586ebc8ffbdfe38a3833dfc4b5aece446c2d713c3e3c4f51b9b893cab
+  languageName: node
+  linkType: hard
+
+"@tanstack/table-core@npm:8.7.3":
+  version: 8.7.3
+  resolution: "@tanstack/table-core@npm:8.7.3"
+  checksum: 3512ceb240d8fceeb74a0b1f7069efddcb9bc40992066f51f3e01fa9d88143bb75ec53eb02b01b90711599ef70ab29ff38ecabf1c7706d2146d50409a434c214
+  languageName: node
+  linkType: hard
+
+"@tanstack/virtual-core@npm:3.0.0-beta.30":
+  version: 3.0.0-beta.30
+  resolution: "@tanstack/virtual-core@npm:3.0.0-beta.30"
+  checksum: 5d43b2ed529b6f422473905d214680c3fd4c2b19a4f9d22a6fc575f3eadf37d553a307e818e831737846875b6a1f486b3a991e0a127f3ffff2aff040c8a33d11
   languageName: node
   linkType: hard
 
@@ -9019,7 +9046,9 @@ __metadata:
     "@sentry/react": 6.19.7
     "@sentry/tracing": 6.19.7
     "@tailwindcss/line-clamp": ^0.4.0
-    "@tanstack/react-table": ^8.0.0-beta.8
+    "@tanstack/match-sorter-utils": ^8.5.14
+    "@tanstack/react-table": ^8.7.0
+    "@tanstack/react-virtual": ^3.0.0-beta.18
     "@testing-library/dom": ^8.13.0
     "@testing-library/jest-dom": ^5.16.4
     "@testing-library/react": ^13.3.0

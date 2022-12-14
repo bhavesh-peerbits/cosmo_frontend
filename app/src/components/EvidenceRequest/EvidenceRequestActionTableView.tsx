@@ -1,5 +1,4 @@
 import {
-	TableToolbarSearch,
 	Tooltip,
 	ContentSwitcher,
 	Switch,
@@ -8,14 +7,15 @@ import {
 	Layer
 } from '@carbon/react';
 import Fade from '@components/Fade';
-import { HeaderFunction } from '@components/table/CosmoTable';
-import GroupableCosmoTable from '@components/table/GroupableCosmoTable';
 import useEvidenceRequestAction from '@hooks/evidence-request/useEvidenceRequestAction';
 import EvidenceRequest from '@model/EvidenceRequest';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Information, Grid as GridIcon, HorizontalView } from '@carbon/react/icons';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
+import { CellContext, ColumnDef } from '@tanstack/react-table';
+import EvidenceRequestStep from '@model/EvidenceRequestStep';
+import CosmoTable from '@components/table/CosmoTable';
 
 interface EvidenceRequestActionTableViewProps {
 	view: string;
@@ -28,153 +28,129 @@ const EvidenceRequestActionTableView = ({
 	const { t } = useTranslation('evidenceRequest');
 
 	const tooltipCell = useCallback(
-		(info: {
-			title: string | undefined;
-			current: number | undefined;
-			tot: number | undefined;
-		}) => (
-			<div className='flex items-center space-x-2'>
-				<span>{info.title}</span>
-				<span>
-					<Tooltip
-						description={`${info.current}/${info.tot}`}
-						align='top'
-						className='mt-2'
-					>
-						<button type='button'>
-							<Information />
-						</button>
-					</Tooltip>
-				</span>
-			</div>
-		),
+		({ getValue }: CellContext<EvidenceRequest, unknown>) => {
+			const info = getValue() as {
+				title: string | undefined;
+				current: number | undefined;
+				tot: number | undefined;
+			};
+			return (
+				<div className='flex items-center space-x-2'>
+					<span>{info.title}</span>
+					<span>
+						<Tooltip
+							description={`${info.current}/${info.tot}`}
+							align='top'
+							className='mt-2'
+						>
+							<button type='button'>
+								<Information />
+							</button>
+						</Tooltip>
+					</span>
+				</div>
+			);
+		},
 		[]
 	);
 
+	const CellAction = useCallback(
+		({ getValue }: CellContext<EvidenceRequest, unknown>) => {
+			const info = getValue() as { currentStep: number; steps: EvidenceRequestStep[] };
+			const steps = [...info.steps];
+			steps.sort((a, b) => a.stepOrder - b.stepOrder);
+			return steps[info.currentStep - 1].type === 'APPROVAL'
+				? t('approve').toUpperCase()
+				: t('upload').toUpperCase();
+		},
+		[t]
+	);
+
 	const CellLinkComponent = useCallback(
-		(info: { id: string | undefined; code: string | undefined }) =>
-			info.id ? (
-				<Link to={`/evidence-request-action/${info.id}`}>{info.code}</Link>
+		({ getValue, row }: CellContext<EvidenceRequest, unknown>) =>
+			row.original.id ? (
+				<Link to={`/evidence-request-action/${row.original.id}`}>
+					{getValue() as string}
+				</Link>
 			) : (
-				<span>{info.code}</span>
+				<span>{getValue() as string}</span>
 			),
 		[]
 	);
 
-	const columns: HeaderFunction<EvidenceRequest> = useCallback(
-		table => {
-			const ArrayCol = [
-				table.createDataColumn(row => row.name, {
-					id: `name${view}`,
-					header: t('request-name'),
-					cell: info =>
-						info &&
-						CellLinkComponent({
-							id: info.row.original?.id,
-							code: info.getValue()
-						})
-				}),
-				table.createDataColumn(row => row.application?.name, {
-					id: `app${view}`,
-					header: t('application')
-				}),
-
-				table.createDataColumn(row => row.startDate?.toLocaleDateString(), {
-					id: `startDate${view}`,
-					header: t('start-date')
-				}),
-				table.createDataColumn(row => row.dueDate?.toLocaleDateString(), {
-					id: `dueDate${view}`,
-					header: t('due-date')
-				}),
-
-				table.createDataColumn(row => row.creator?.displayName, {
-					id: `creator${view}`,
-					header: t('creator')
-				})
-			];
-			if (view === 'ActionPending') {
-				ArrayCol.splice(
-					2,
-					0,
-					table.createDataColumn(row => row.currentStep, {
-						id: `step_progress${view}`,
-						header: t('step-progress'),
-						cell: info =>
-							info.row.original?.steps.length
-								? `${info.getValue()}/${info.row.original?.steps.length}`
-								: `${t('current-step')}: ${info.getValue()}`
-					})
-				);
-
-				ArrayCol.splice(
-					2,
-					0,
-					table.createDataColumn(
-						row => ({ currentStep: row.currentStep, steps: row.steps }),
-						{
-							id: `action${view}`,
-							header: t('action'),
-							enableGrouping: false,
-							cell: info => {
-								const steps = [...info.getValue().steps];
-								steps.sort((a, b) => a.stepOrder - b.stepOrder);
-								return steps[+info.getValue().currentStep - 1].type === 'APPROVAL'
-									? t('approve').toUpperCase()
-									: t('upload').toUpperCase();
-							}
-						}
-					)
-				);
+	const columns = useMemo<ColumnDef<EvidenceRequest>[]>(() => {
+		const ArrayCol: ColumnDef<EvidenceRequest>[] = [
+			{
+				accessorKey: `name${view}`,
+				header: t('request-name'),
+				accessorFn: row => row.name,
+				cell: CellLinkComponent
+			},
+			{
+				accessorKey: `app${view}`,
+				accessorFn: row => row.application?.name,
+				header: t('application')
+			},
+			{
+				accessorKey: `startDate${view}`,
+				accessorFn: row => row.startDate?.toLocaleDateString(),
+				header: t('start-date')
+			},
+			{
+				accessorKey: `dueDate${view}`,
+				accessorFn: row => row.dueDate?.toLocaleDateString(),
+				header: t('due-date')
+			},
+			{
+				accessorKey: `creator${view}`,
+				accessorFn: row => row.creator?.displayName,
+				header: t('creator')
 			}
+		];
+		if (view === 'ActionPending') {
+			ArrayCol.splice(2, 0, {
+				accessorKey: `step_progress${view}`,
+				header: t('step-progress'),
+				accessorFn: row => row.currentStep,
+				cell: info =>
+					info.row.original?.steps.length
+						? `${info.getValue()}/${info.row.original?.steps.length}`
+						: `${t('current-step')}: ${info.getValue()}`
+			});
 
-			if (view === 'Closed') {
-				ArrayCol.splice(
-					3,
-					0,
+			ArrayCol.splice(2, 0, {
+				accessorKey: `action${view}`,
+				header: t('action'),
+				accessorFn: row => ({ currentStep: row.currentStep, steps: row.steps }),
+				enableGrouping: false,
+				cell: CellAction
+			});
+		}
 
-					table.createDataColumn(
-						row => ({
-							title: `${row.status}`,
-							current: row.currentStep,
-							tot: row.steps.length
-						}),
-						{
-							id: `status${view}`,
-							header: t('status'),
-							cell: info =>
-								tooltipCell({
-									title: info.getValue().title,
-									current: info.getValue().current,
-									tot: info.getValue().tot
-								})
-						}
-					)
-				);
-				ArrayCol.splice(
-					3,
-					0,
-					table.createDataColumn(row => row.completionDate?.toLocaleDateString(), {
-						id: `completionDate${view}`,
-						header: t('completion-date')
-					})
-				);
-			}
-			return ArrayCol;
-		},
-		[CellLinkComponent, t, tooltipCell, view]
-	);
+		if (view === 'Closed') {
+			ArrayCol.splice(
+				3,
+				0,
 
-	const toolbarContent = (
-		<TableToolbarSearch
-			size='lg'
-			persistent
-			placeholder={t('search-placeholder')}
-			id='search'
-			value={filters.query ?? ''}
-			onChange={e => setFilters({ q: e.currentTarget?.value })}
-		/>
-	);
+				{
+					accessorKey: `status${view}`,
+					header: t('status'),
+					accessorFn: row => ({
+						title: `${row.status}`,
+						current: row.currentStep,
+						tot: row.steps.length
+					}),
+					cell: tooltipCell
+				}
+			);
+			ArrayCol.splice(3, 0, {
+				id: `completionDate${view}`,
+				header: t('completion-date'),
+				accessorFn: row => row.completionDate?.toLocaleDateString()
+			});
+		}
+		return ArrayCol;
+	}, [CellAction, CellLinkComponent, t, tooltipCell, view]);
 
 	return (
 		<Fade>
@@ -218,11 +194,21 @@ const EvidenceRequestActionTableView = ({
 				</div>
 			</div>
 			<div className='p-3'>
-				<GroupableCosmoTable
+				<CosmoTable
 					tableId={view}
 					data={requests}
-					createHeaders={columns}
-					toolbar={{ toolbarContent }}
+					columns={columns}
+					toolbar={{
+						searchBar: {
+							enabled: true,
+							value: filters.query ?? '',
+							onSearch: e => setFilters({ q: e })
+						},
+						toolbarBatchActions: [],
+						toolbarTableMenus: []
+					}}
+					canAdd={false}
+					isColumnOrderingEnabled
 				/>
 			</div>
 		</Fade>

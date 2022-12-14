@@ -1,20 +1,24 @@
 import { useTranslation } from 'react-i18next';
-import { Button, TableToolbarSearch } from '@carbon/react';
-import { HeaderFunction } from '@components/table/CosmoTable';
-import { useCallback, useState } from 'react';
-import CosmoTableInlineAction from '@components/table/CosmoTableInlineAction';
+import { Button } from '@carbon/react';
+import { useMemo, useState } from 'react';
 import Application from '@model/Application';
 import { UserFollow } from '@carbon/react/icons';
 import useGetAllAnalystUsers from '@api/user-admin/useGetAllAnalystUsers';
 import useVisibilityApps from '@hooks/admin-panel/useVisibilityApps';
+import { CellContext, ColumnDef } from '@tanstack/react-table';
+import StringDashCell from '@components/table/Cell/StringDashCell';
+import CosmoTable from '@components/table/CosmoTable';
 import SelectUserApplication from './SelectUserApplication';
 
 type ActionCellProps = {
 	setIsSelectOpen: (val: boolean) => void;
+	setAppSelectedId: (val: string) => void;
+	info: CellContext<Application, unknown>;
 };
 
-const ActionsCell = ({ setIsSelectOpen }: ActionCellProps) => {
+const ActionsCell = ({ setIsSelectOpen, setAppSelectedId, info }: ActionCellProps) => {
 	const { t } = useTranslation('userSelect');
+	const { getValue } = info;
 	return (
 		<Button
 			hasIconOnly
@@ -22,7 +26,10 @@ const ActionsCell = ({ setIsSelectOpen }: ActionCellProps) => {
 			renderIcon={UserFollow}
 			iconDescription={t('add-user')}
 			tooltipPosition='left'
-			onClick={() => setIsSelectOpen(true)}
+			onClick={() => {
+				setIsSelectOpen(true);
+				setAppSelectedId(getValue() as string);
+			}}
 		/>
 	);
 };
@@ -35,37 +42,39 @@ const AppsVisibilityTable = () => {
 	const [appSelectedId, setAppSelectedId] = useState<string>();
 	const { data: analystUsers = [] } = useGetAllAnalystUsers();
 
-	const columns: HeaderFunction<Application> = useCallback(
-		table => [
-			table.createDataColumn(row => row.name, {
+	const columns = useMemo<ColumnDef<Application>[]>(
+		() => [
+			{
 				id: 'name',
+				accessorFn: row => row.name,
 				header: t('application-name'),
 				sortUndefined: 1
-			}),
-			table.createDataColumn(row => row.codeName, {
+			},
+			{
 				id: 'code',
+				accessorFn: row => row.codeName,
 				header: t('code')
-			}),
-			table.createDataColumn(row => row.createdBy, {
+			},
+			{
 				id: 'created-by',
+				accessorFn: row => row.createdBy?.displayName,
 				header: t('created-by'),
-				cell: info => info.getValue()?.displayName || '-',
+				cell: StringDashCell,
 				meta: {
-					exportableFn: info => info.displayName || '-'
+					exportableFn: (info: string) => info || '-'
 				}
-			})
+			},
+			{
+				id: 'action',
+				header: tTable('action'),
+				accessorFn: row => row.id,
+				cell: info => ActionsCell({ setIsSelectOpen, setAppSelectedId, info }),
+				meta: {
+					disableExport: true
+				}
+			}
 		],
-		[t]
-	);
-	const toolbarContent = (
-		<TableToolbarSearch
-			size='lg'
-			persistent
-			placeholder={t('search-placeholder')}
-			id='search'
-			value={filters.query ?? ''}
-			onChange={e => setFilters(old => ({ ...old, q: e.currentTarget?.value }))}
-		/>
+		[t, tTable]
 	);
 
 	return (
@@ -80,17 +89,23 @@ const AppsVisibilityTable = () => {
 				/>
 			) : null}
 
-			<CosmoTableInlineAction
+			<CosmoTable
 				tableId='appvisibility'
 				data={apps}
-				createHeaders={columns}
+				columns={columns}
 				noDataMessage={tTable('no-data')}
-				toolbar={{ toolbarContent }}
 				exportFileName={({ all }) =>
 					all ? 'applications-all' : 'applications-selection'
 				}
-				inlineAction={<ActionsCell setIsSelectOpen={setIsSelectOpen} />}
-				setRowSelected={setAppSelectedId}
+				toolbar={{
+					searchBar: {
+						enabled: true,
+						value: filters.query ?? '',
+						onSearch: e => setFilters(old => ({ ...old, q: e }))
+					},
+					toolbarBatchActions: [],
+					toolbarTableMenus: []
+				}}
 			/>
 		</>
 	);
