@@ -45,5 +45,6 @@
 	"asset-setup-toggle": "Setup per ogni asset",
 	"add-path": "Aggiungi path",
 	"remove-path": "Rimuovi path",
-	"save-next": "Salva e prosegui"
+	"save-next": "Salva e prosegui",
+	"show-more": "Mostra altro"
 }

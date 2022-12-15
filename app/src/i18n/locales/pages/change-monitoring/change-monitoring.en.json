@@ -45,5 +45,6 @@
 	"asset-setup-toggle": "Setup for each asset",
 	"add-path": "Add path",
 	"remove-path": "Remove path",
-	"save-next": "Save and go next"
+	"save-next": "Save and go next",
+	"show-more": "Show more"
 }

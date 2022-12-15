@@ -6,6 +6,7 @@ import AssetsSelectionStepContainer from './AssetsSelectionStepContainer';
 import FrameworkSelectionStepContainer from './FrameworkSelectionStepContainer';
 import NewMonitoringStepTile from './NewMonitoringStepTile';
 import PathDefinitionStepContainer from './PathDefinitionStepContainer';
+import ScriptSelectionStepContainer from './ScriptSelectionStepContainer';
 
 const NewMonitoringStepsContainer = () => {
 	const { t } = useTranslation(['changeMonitoring', 'evidenceRequest']);
@@ -28,6 +29,12 @@ const NewMonitoringStepsContainer = () => {
 				return {
 					content: <FrameworkSelectionStepContainer />,
 					title: 'Framework',
+					description: 'Description?????????'
+				};
+			case 3:
+				return {
+					content: <ScriptSelectionStepContainer />,
+					title: 'Script',
 					description: 'Description?????????'
 				};
 			default:
