@@ -24,9 +24,9 @@ const NewMonitoringStepTile = ({
 	return (
 		<Layer level={1}>
 			<Tile>
+				<MonitoringDraftRecapModal isOpen={isRecapOpen} setIsOpen={setIsRecapOpen} />
 				<Grid fullWidth narrow className='space-y-5'>
-					<MonitoringDraftRecapModal isOpen={isRecapOpen} setIsOpen={setIsRecapOpen} />
-					<FullWidthColumn className='space-y-5' style={{ marginTop: '0px' }}>
+					<FullWidthColumn className='space-y-3 md:space-y-0'>
 						<div className='flex justify-between'>
 							<span className='text-heading-3'>{title}</span>
 							<Button
@@ -38,7 +38,9 @@ const NewMonitoringStepTile = ({
 								onClick={() => setIsRecapOpen(true)}
 							/>
 						</div>
-						<span className='text-text-secondary text-body-long-1'>{description}.</span>
+						<div className='mr-0 text-text-secondary text-body-long-1 md:mr-[56px]'>
+							{description}.
+						</div>
 					</FullWidthColumn>
 
 					{content}

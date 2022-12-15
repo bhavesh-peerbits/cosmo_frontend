@@ -39,12 +39,12 @@ const NewMonitoringStepsContainer = () => {
 		}
 	};
 	return (
-		<Grid fullWidth narrow>
+		<Grid fullWidth narrow className='space-y-5'>
 			<FullWidthColumn>
 				<ProgressIndicator
 					currentIndex={currentStep}
 					spaceEqually
-					className='overflow-x-auto pb-7'
+					className='overflow-x-auto'
 				>
 					<ProgressStep label='Assets' />
 					<ProgressStep label='Path' />
