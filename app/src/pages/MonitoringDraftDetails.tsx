@@ -61,7 +61,7 @@ const MonitoringDraftDetails = () => {
 				}
 			]}
 		>
-			<div>
+			<>
 				{data && (
 					<MultiAddSelect
 						// selectedItems={} //TODO Add after BE
@@ -127,7 +127,7 @@ const MonitoringDraftDetails = () => {
 						<NewMonitoringStepsContainer />
 					</Column>
 				</Grid>
-			</div>
+			</>
 		</PageHeader>
 	);
 };

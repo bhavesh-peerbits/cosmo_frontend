@@ -1,4 +1,4 @@
-import { Grid, ProgressStep, ProgressIndicator, Layer } from '@carbon/react';
+import { Grid, ProgressStep, ProgressIndicator } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -55,15 +55,13 @@ const NewMonitoringStepsContainer = () => {
 				</ProgressIndicator>
 			</FullWidthColumn>
 			<FullWidthColumn>
-				<Layer level={1}>
-					<NewMonitoringStepTile
-						content={contentToRender().content}
-						title={contentToRender().title}
-						description={contentToRender().description}
-						setCurrentStep={setCurrentStep}
-						currentStep={currentStep}
-					/>
-				</Layer>
+				<NewMonitoringStepTile
+					content={contentToRender().content}
+					title={contentToRender().title}
+					description={contentToRender().description}
+					setCurrentStep={setCurrentStep}
+					currentStep={currentStep}
+				/>
 			</FullWidthColumn>
 		</Grid>
 	);
