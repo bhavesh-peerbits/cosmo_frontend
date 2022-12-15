@@ -91,17 +91,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@aizoon/carbon__react", [\
-        ["npm:1.0.50", {\
-          "packageLocation": "./.yarn/cache/@aizoon-carbon__react-npm-1.0.50-fbc6798990-7999fffc03.zip/node_modules/@aizoon/carbon__react/",\
+        ["npm:1.0.51", {\
+          "packageLocation": "./.yarn/cache/@aizoon-carbon__react-npm-1.0.51-6939b2de05-0efc187f7c.zip/node_modules/@aizoon/carbon__react/",\
           "packageDependencies": [\
-            ["@aizoon/carbon__react", "npm:1.0.50"]\
+            ["@aizoon/carbon__react", "npm:1.0.51"]\
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.50", {\
-          "packageLocation": "./.yarn/__virtual__/@aizoon-carbon__react-virtual-dbc9c6c9c2/0/cache/@aizoon-carbon__react-npm-1.0.50-fbc6798990-7999fffc03.zip/node_modules/@aizoon/carbon__react/",\
+        ["virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.51", {\
+          "packageLocation": "./.yarn/__virtual__/@aizoon-carbon__react-virtual-e5f9b2f1e0/0/cache/@aizoon-carbon__react-npm-1.0.51-6939b2de05-0efc187f7c.zip/node_modules/@aizoon/carbon__react/",\
           "packageDependencies": [\
-            ["@aizoon/carbon__react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.50"],\
+            ["@aizoon/carbon__react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.51"],\
             ["@types/carbon__icons-react", null],\
             ["@types/react", "npm:18.0.12"],\
             ["@types/react-dom", "npm:18.0.5"],\
@@ -14816,7 +14816,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/carbon__layout", "npm:0.0.1"],\
             ["@types/carbon__react", [\
               "@aizoon/carbon__react",\
-              "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.50"\
+              "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.51"\
             ]],\
             ["@types/css-mediaquery", "npm:0.1.1"],\
             ["@types/eslint", null],\
@@ -14932,7 +14932,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/carbon__layout", "npm:0.0.1"],\
             ["@types/carbon__react", [\
               "@aizoon/carbon__react",\
-              "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.50"\
+              "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.51"\
             ]],\
             ["@types/css-mediaquery", "npm:0.1.1"],\
             ["@types/papaparse", "npm:5.3.2"],\
