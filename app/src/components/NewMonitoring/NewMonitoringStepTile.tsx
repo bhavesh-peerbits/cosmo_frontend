@@ -44,7 +44,7 @@ const NewMonitoringStepTile = ({
 					</FullWidthColumn>
 
 					{content}
-					<FullWidthColumn className='flex justify-end space-x-5 pt-7'>
+					<FullWidthColumn className='flex justify-end space-x-5 pt-5'>
 						{currentStep > 0 && (
 							<Button
 								size='md'

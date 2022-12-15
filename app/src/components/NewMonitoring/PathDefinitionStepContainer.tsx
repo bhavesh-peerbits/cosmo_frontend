@@ -4,6 +4,7 @@ import { Information } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import PathTextInput from './PathTextInput';
+import AssetsList from './AssetsList';
 
 const PathDefinitionStepContainer = () => {
 	const { t } = useTranslation('changeMonitoring');
@@ -32,9 +33,14 @@ const PathDefinitionStepContainer = () => {
 				/>
 			</FullWidthColumn>
 			{sameSetup ? (
-				<FullWidthColumn>
-					<PathTextInput spaceElements={7} />
-				</FullWidthColumn>
+				<>
+					<FullWidthColumn className='pb-5'>
+						<AssetsList />
+					</FullWidthColumn>
+					<FullWidthColumn>
+						<PathTextInput spaceElements={7} />
+					</FullWidthColumn>
+				</>
 			) : (
 				<FullWidthColumn>
 					<Accordion className='bg-layer-1'>

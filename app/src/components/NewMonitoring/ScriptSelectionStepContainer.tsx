@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Toggle, Tooltip, Accordion, AccordionItem } from '@carbon/react';
 import { Information } from '@carbon/react/icons';
 import OSScriptListContainer from './OSScriptListContainer';
+import AssetsList from './AssetsList';
 
 const ScriptSelectionStepContainer = () => {
 	const { t } = useTranslation('changeMonitoring');
@@ -60,13 +61,18 @@ const ScriptSelectionStepContainer = () => {
 				/>
 			</FullWidthColumn>
 			{sameSetup ? (
-				<FullWidthColumn className='space-y-5 divide-y-[1px] divide-solid divide-border-subtle-0'>
-					{fakeData.map(data => (
-						<FullWidthColumn className='pt-5'>
-							<OSScriptListContainer data={data} />
-						</FullWidthColumn>
-					))}
-				</FullWidthColumn>
+				<>
+					<FullWidthColumn>
+						<AssetsList />
+					</FullWidthColumn>
+					<FullWidthColumn className='space-y-5 divide-y-[1px] divide-solid divide-border-subtle-0'>
+						{fakeData.map(data => (
+							<FullWidthColumn className='pt-5'>
+								<OSScriptListContainer data={data} />
+							</FullWidthColumn>
+						))}
+					</FullWidthColumn>
+				</>
 			) : (
 				<FullWidthColumn>
 					<Accordion className='bg-layer-1'>
