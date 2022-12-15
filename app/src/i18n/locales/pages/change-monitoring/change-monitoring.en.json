@@ -46,5 +46,7 @@
 	"add-path": "Add path",
 	"remove-path": "Remove path",
 	"save-next": "Save and go next",
-	"show-more": "Show more"
+	"show-more": "Show more",
+	"script-step-description": "In this step it is necessary to select a script for each asset. It is possible to indicate the same script for all assets",
+	"tooltip-toggle-script": "Choose whether to select a different script for each asset or a single script for all assets."
 }

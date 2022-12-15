@@ -35,7 +35,7 @@ const NewMonitoringStepsContainer = () => {
 				return {
 					content: <ScriptSelectionStepContainer />,
 					title: 'Script',
-					description: 'Description?????????'
+					description: t('changeMonitoring:script-step-description')
 				};
 			default:
 				return {

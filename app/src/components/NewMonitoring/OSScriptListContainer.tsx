@@ -9,13 +9,14 @@ type OSScriptListContainerProps = {
 			description: string;
 		}[];
 	};
+	level?: 0 | 1 | 2;
 };
-const OSScriptListContainer = ({ data }: OSScriptListContainerProps) => {
+const OSScriptListContainer = ({ data, level }: OSScriptListContainerProps) => {
 	return (
 		<div className='space-y-5'>
 			<span className='text-productive-heading-3'>{data.os}</span>
 			{data.script.map(script => (
-				<Layer>
+				<Layer level={level}>
 					<TileGroup name='os-script-group'>
 						<RadioTile value='c'>
 							<OSScriptTileContent script={script} />

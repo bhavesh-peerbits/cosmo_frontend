@@ -1,7 +1,7 @@
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Toggle, Tooltip } from '@carbon/react';
+import { Toggle, Tooltip, Accordion, AccordionItem } from '@carbon/react';
 import { Information } from '@carbon/react/icons';
 import OSScriptListContainer from './OSScriptListContainer';
 
@@ -50,7 +50,7 @@ const ScriptSelectionStepContainer = () => {
 					labelText={
 						<div className='flex space-x-3'>
 							<p className='text-label-1'>{t('asset-setup-toggle')}</p>
-							<Tooltip align='top' label='Inserisci descrizione'>
+							<Tooltip align='top' label={t('tooltip-toggle-script')}>
 								<button type='button' onClick={e => e.preventDefault()}>
 									<Information />
 								</button>
@@ -59,13 +59,29 @@ const ScriptSelectionStepContainer = () => {
 					}
 				/>
 			</FullWidthColumn>
-			<FullWidthColumn className='space-y-5 divide-y-[1px] divide-solid divide-border-subtle-0'>
-				{fakeData.map(data => (
-					<FullWidthColumn className='pt-5'>
-						<OSScriptListContainer data={data} />
-					</FullWidthColumn>
-				))}
-			</FullWidthColumn>
+			{sameSetup ? (
+				<FullWidthColumn className='space-y-5 divide-y-[1px] divide-solid divide-border-subtle-0'>
+					{fakeData.map(data => (
+						<FullWidthColumn className='pt-5'>
+							<OSScriptListContainer data={data} />
+						</FullWidthColumn>
+					))}
+				</FullWidthColumn>
+			) : (
+				<FullWidthColumn>
+					<Accordion className='bg-layer-1'>
+						<AccordionItem>
+							<FullWidthColumn className='space-y-5 divide-y-[1px] divide-solid divide-border-subtle-0'>
+								{fakeData.map(data => (
+									<FullWidthColumn className='pt-5'>
+										<OSScriptListContainer level={1} data={data} />
+									</FullWidthColumn>
+								))}
+							</FullWidthColumn>{' '}
+						</AccordionItem>
+					</Accordion>
+				</FullWidthColumn>
+			)}
 		</>
 	);
 };
