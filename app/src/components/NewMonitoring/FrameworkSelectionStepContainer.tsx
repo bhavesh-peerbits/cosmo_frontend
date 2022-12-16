@@ -62,9 +62,11 @@ const FrameworkSelectionStepContainer = () => {
 						)}
 					>
 						<div className='flex h-full w-full items-center justify-between space-x-2 pl-5 pr-8'>
-							{selectedLeaves ? (
+							{selectedLeaves.length > 0 ? (
 								<div className='mr-3 flex w-full items-center space-x-4'>
-									<Tag>{selectedLeaves.length} leaves selected</Tag>
+									<Tag onClose={() => setSelectedLeaves([])} filter>
+										{selectedLeaves.length} {t('selected-leaves')}
+									</Tag>
 								</div>
 							) : (
 								<div className='text-text-placeholder text-body-compact-1'>

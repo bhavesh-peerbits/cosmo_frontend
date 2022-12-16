@@ -52,5 +52,6 @@
 	"choose-framework": "",
 	"leaves": "",
 	"select-framework-leaves": "",
-	"select-leaves": ""
+	"select-leaves": "",
+	"selected-leaves": ""
 }

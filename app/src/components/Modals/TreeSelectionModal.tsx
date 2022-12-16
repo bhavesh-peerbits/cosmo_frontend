@@ -8,7 +8,7 @@ import Framework from '@model/Framework';
 import useGetFrameworkTreeByCode from '@api/framework/useGetFrameworkTreeByCode';
 import { TreeView, TreeNode } from '@carbon/react';
 import { TrashCan } from '@carbon/react/icons';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 type TreeSelectionModalProps = {
 	selectedFramework: string;
@@ -32,9 +32,19 @@ const TreeSelectionModal = ({
 	]);
 
 	const { data: framework } = useGetFrameworkTreeByCode(selectedFramework);
+	const [selectedItems, setSelectedItems] = useState<Framework[]>(selectedLeaves);
+
+	useEffect(() => {
+		setSelectedItems(selectedLeaves);
+	}, [selectedLeaves]);
 
 	const cleanUp = () => {
 		setIsOpen(false);
+		setSelectedItems([]);
+	};
+	const submit = () => {
+		setSelectedLeaves(selectedItems);
+		cleanUp();
 	};
 
 	return (
@@ -47,12 +57,15 @@ const TreeSelectionModal = ({
 				{
 					id: 'cancel-button',
 					label: t('modals:cancel'),
-					kind: 'secondary'
+					kind: 'secondary',
+					onClick: cleanUp
 				},
 				{
 					id: 'submit-button',
 					label: t('userSelect:select'),
-					kind: 'primary'
+					kind: 'primary',
+					onClick: submit,
+					disabled: !selectedItems.length
 				}
 			]}
 			open={open}
@@ -63,16 +76,13 @@ const TreeSelectionModal = ({
 					<div className='w-full'>
 						<p className='text-heading-1'>{t('evidenceRequest:select-leaves')}</p>
 						{framework && (
-							<TreeContainer
-								framework={framework}
-								setSelectedLeaves={setSelectedLeaves}
-							/>
+							<TreeContainer framework={framework} setSelectedLeaves={setSelectedItems} />
 						)}
 					</div>
 					<div className='w-full pl-5'>
 						<p className='text-heading-1'>{t('evidenceRequest:selected-items')}</p>
 						<TreeView className='w-full pt-3' hideLabel label='Selected leaves'>
-							{[...selectedLeaves].map(leaf => (
+							{[...selectedItems].map(leaf => (
 								<TreeNode
 									key={leaf.code}
 									label={
@@ -81,8 +91,8 @@ const TreeSelectionModal = ({
 											<div
 												className='cursor-pointer pl-4'
 												onClick={() =>
-													setSelectedLeaves(
-														[...selectedLeaves].filter(
+													setSelectedItems(
+														[...selectedItems].filter(
 															selectedLeaf => selectedLeaf.code !== leaf.code
 														)
 													)

@@ -52,5 +52,6 @@
 	"choose-framework": "Seleziona un framework",
 	"leaves": "Foglie",
 	"select-framework-leaves": "Seleziona foglie da {{framework}}",
-	"select-leaves": "Seleziona foglie"
+	"select-leaves": "Seleziona foglie",
+	"selected-leaves": "foglie selezionate"
 }
