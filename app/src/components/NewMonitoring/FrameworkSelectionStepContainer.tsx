@@ -59,7 +59,7 @@ const FrameworkSelectionStepContainer = () => {
 					setSelectedLeaves={setSelectedLeaves}
 				/>
 			)}
-			<FullWidthColumn className='w-1/2'>
+			<FullWidthColumn className='lg:w-1/2'>
 				<Layer level={2}>
 					<Select
 						labelText='Framework *'
@@ -75,7 +75,7 @@ const FrameworkSelectionStepContainer = () => {
 					</Select>
 				</Layer>
 			</FullWidthColumn>
-			<FullWidthColumn className='w-1/2 pt-5'>
+			<FullWidthColumn className='pt-5 lg:w-1/2'>
 				<FormLabel className='mb-3'>
 					<span>{t('leaves')} *</span>
 				</FormLabel>
@@ -122,7 +122,7 @@ const FrameworkSelectionStepContainer = () => {
 					</Tile>
 				</div>
 			</FullWidthColumn>
-			<FullWidthColumn className='w-1/2 pt-5'>
+			<FullWidthColumn className='pt-5 lg:w-1/2'>
 				<SingleControlSelect
 					level={1}
 					label={t('control')}
@@ -137,7 +137,7 @@ const FrameworkSelectionStepContainer = () => {
 					}}
 				/>
 			</FullWidthColumn>
-			<FullWidthColumn>
+			<FullWidthColumn className='overflow-scroll'>
 				<AssociationSelectionList
 					associations={associationsFakeData}
 					control={controlForm}
