@@ -53,5 +53,12 @@
 	"leaves": "Foglie",
 	"select-framework-leaves": "Seleziona foglie da {{framework}}",
 	"select-leaves": "Seleziona foglie",
-	"selected-leaves": "foglie selezionate"
+	"selected-leaves": "foglie selezionate",
+	"control": "Controllo",
+	"select-a-control": "Seleziona un controllo",
+	"select-single-control": "Seleziona un solo controllo",
+	"search-control-label": "Cerca controllo",
+	"search-control-placeholder": "Digita per effettuare la ricerca",
+	"select-control": "Seleziona controllo",
+	"control-required": "Selezionare un controllo"
 }

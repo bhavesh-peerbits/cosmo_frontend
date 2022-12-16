@@ -53,5 +53,12 @@
 	"leaves": "Leaves",
 	"select-framework-leaves": "Select leaves from {{framework}}",
 	"select-leaves": "Select leaves",
-	"selected-leaves": "selected leaves"
+	"selected-leaves": "selected leaves",
+	"control": "Control",
+	"select-a-control": "Select a control",
+	"select-single-control": "Select only one control",
+	"search-control-label": "Search control",
+	"search-control-placeholder": "Type in to search",
+	"select-control": "Select control",
+	"control-required": "Please select a control"
 }

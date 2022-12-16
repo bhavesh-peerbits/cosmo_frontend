@@ -53,5 +53,12 @@
 	"leaves": "",
 	"select-framework-leaves": "",
 	"select-leaves": "",
-	"selected-leaves": ""
+	"selected-leaves": "",
+	"control": "",
+	"select-a-control": "",
+	"select-single-control": "",
+	"search-control-label": "",
+	"search-control-placeholder": "",
+	"select-control": "",
+	"control-required": ""
 }

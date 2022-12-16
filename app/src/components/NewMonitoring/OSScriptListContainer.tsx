@@ -17,7 +17,7 @@ const OSScriptListContainer = ({ data }: OSScriptListContainerProps) => {
 		<div className='space-y-5'>
 			<span className='text-productive-heading-3'>{data.os}</span>
 			{data.script.map(script => (
-				<Layer>
+				<Layer key={script.script}>
 					<TileGroup name='os-script-group'>
 						<RadioTile value='c'>
 							<OSScriptTileContent script={script} />

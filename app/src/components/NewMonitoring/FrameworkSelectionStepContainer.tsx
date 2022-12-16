@@ -8,6 +8,7 @@ import TreeSelectionModal from '@components/Modals/TreeSelectionModal';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Framework from '@model/Framework';
+import SingleControlSelect from './SingleControlSelect';
 
 type FrameworkStepFormData = {
 	framework: string;
@@ -19,6 +20,8 @@ const FrameworkSelectionStepContainer = () => {
 	const { register, watch } = useForm<FrameworkStepFormData>();
 	const [isTreeSelectionOpen, setIsTreeSelectionOpen] = useState(false);
 	const [selectedLeaves, setSelectedLeaves] = useState<Framework[]>([]);
+
+	const { control } = useForm();
 
 	const { data: parameters } = useGetNewDraftParameter(); // TODO Change when BE is ready
 	const selectedFramework = watch('framework');
@@ -42,9 +45,9 @@ const FrameworkSelectionStepContainer = () => {
 				/>
 			)}
 			<FullWidthColumn className='w-1/2'>
-				<Layer>
+				<Layer level={2}>
 					<Select
-						labelText='Framework'
+						labelText='Framework *'
 						id='framework-selection'
 						{...register('framework', {
 							required: true
@@ -59,12 +62,12 @@ const FrameworkSelectionStepContainer = () => {
 			</FullWidthColumn>
 			<FullWidthColumn className='w-1/2 pt-5'>
 				<FormLabel className='mb-3'>
-					<span>{t('leaves')}</span>
+					<span>{t('leaves')} *</span>
 				</FormLabel>
 				<div className='flex w-full items-center'>
 					<Tile
 						className={cx(
-							'relative z-0 flex min-h-[2.5rem] w-full items-center border-b-[1px] border-solid border-border-strong-1 bg-layer-1 p-0'
+							'relative z-0 flex min-h-[2.5rem] w-full items-center border-b-[1px] border-solid border-border-strong-1 bg-layer-3 p-0'
 						)}
 					>
 						<div className='flex h-full w-full items-center justify-between space-x-2 pl-5 pr-8'>
@@ -76,7 +79,7 @@ const FrameworkSelectionStepContainer = () => {
 								</div>
 							) : (
 								<div className='text-text-placeholder text-body-compact-1'>
-									{t('select-leaves')}
+									{t('select-control')}
 								</div>
 							)}
 						</div>
@@ -103,6 +106,21 @@ const FrameworkSelectionStepContainer = () => {
 						</div>
 					</Tile>
 				</div>
+			</FullWidthColumn>
+			<FullWidthColumn className='w-1/2 pt-5'>
+				<SingleControlSelect
+					level={1}
+					label={t('control')}
+					name='application'
+					control={control}
+					controls={['controllo 1', 'controllo 2']}
+					rules={{
+						required: {
+							value: true,
+							message: t('control-required')
+						}
+					}}
+				/>
 			</FullWidthColumn>
 		</>
 	);
