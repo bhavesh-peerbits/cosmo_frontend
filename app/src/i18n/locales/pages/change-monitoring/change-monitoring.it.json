@@ -73,5 +73,8 @@
 	"annual": "Annuale",
 	"multiple-times-day": "Più volte al giorno",
 	"select-frequency-type": "Seleziona un tipo di frequenza",
-	"on-demand": "Su richiesta"
+	"on-demand": "Su richiesta",
+	"start-date": "Data inizio",
+	"end-date": "Data fine",
+	"start-time": "Orario di partenza run"
 }

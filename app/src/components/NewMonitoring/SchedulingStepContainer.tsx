@@ -10,6 +10,7 @@ import {
 } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 
+// TODO Fix id of components when BE is ready
 const SchedulingStepContainer = () => {
 	const { t } = useTranslation('changeMonitoring');
 	const frequencyList = [
@@ -51,34 +52,30 @@ const SchedulingStepContainer = () => {
 		}
 	];
 	return (
-		<>
-			<FullWidthColumn className='lg:w-1/2'>
-				<Layer>
-					<Select id='frequency-select' labelText={t('frequency')}>
-						<SelectItem text={t('select-frequency-type')} value='select' hidden />
-						{frequencyList.map(option => (
-							<SelectItem text={option.text} value={option.value} />
-						))}
-					</Select>
-				</Layer>
-			</FullWidthColumn>
-
+		<FullWidthColumn>
 			<Layer className='flex space-x-5'>
+				<Select id='frequency-select' labelText={t('frequency')} className='w-full'>
+					<SelectItem text={t('select-frequency-type')} value='select' hidden />
+					{frequencyList.map(option => (
+						<SelectItem text={option.text} value={option.value} />
+					))}
+				</Select>
+
 				<DatePicker datePickerType='range' className=''>
 					<DatePickerInput
 						id='date-picker-input-id-start'
 						placeholder='mm/dd/yyyy'
-						labelText='Start date'
+						labelText={t('start-date')}
 						size='md'
 					/>
 					<DatePickerInput
 						id='date-picker-input-id-finish'
 						placeholder='mm/dd/yyyy'
-						labelText='End date'
+						labelText={t('end-date')}
 						size='md'
 					/>
 				</DatePicker>
-				<TimePicker id='select-time' labelText='Select time'>
+				<TimePicker id='select-time' labelText={t('start-time')}>
 					<TimePickerSelect id='time-picker-select-1'>
 						<SelectItem value='AM' text='AM' />
 						<SelectItem value='PM' text='PM' />7{' '}
@@ -89,7 +86,7 @@ const SchedulingStepContainer = () => {
 					</TimePickerSelect>
 				</TimePicker>
 			</Layer>
-		</>
+		</FullWidthColumn>
 	);
 };
 export default SchedulingStepContainer;

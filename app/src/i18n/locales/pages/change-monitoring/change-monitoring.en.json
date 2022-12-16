@@ -73,5 +73,8 @@
 	"annual": "Annual",
 	"multiple-times-day": "Multiple times per day",
 	"select-frequency-type": "Select a frequency type",
-	"on-demand": "On demand"
+	"on-demand": "On demand",
+	"start-date": "Start date",
+	"end-date": "End date",
+	"start-time": "Start time run"
 }
