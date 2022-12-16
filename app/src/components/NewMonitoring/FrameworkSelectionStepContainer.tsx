@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Framework from '@model/Framework';
 import useGetUsers from '@api/user/useGetUsers';
+import User from '@model/User';
 import SingleControlSelect from './SingleControlSelect';
 import AssociationSelectionList from './AssociationSelectionList';
 
@@ -16,17 +17,19 @@ type FrameworkStepFormData = {
 	framework: string;
 	leaves: string[];
 	control: string;
+	focalPoint: User;
+	delegates: User[];
 };
+
 const FrameworkSelectionStepContainer = () => {
 	const { t } = useTranslation('changeMonitoring');
-	const { register, watch } = useForm<FrameworkStepFormData>();
 	const [isTreeSelectionOpen, setIsTreeSelectionOpen] = useState(false);
 	const [selectedLeaves, setSelectedLeaves] = useState<Framework[]>([]);
 
-	const { control } = useForm();
-
 	const { data: parameters } = useGetNewDraftParameter(); // TODO Change when BE is ready
 	const { data: users = [] } = useGetUsers();
+
+	const { register, watch, control: controlForm } = useForm<FrameworkStepFormData>();
 	const selectedFramework = watch('framework');
 	useEffect(() => {
 		setSelectedLeaves([]);
@@ -40,6 +43,7 @@ const FrameworkSelectionStepContainer = () => {
 			name: 'prova'
 		}
 	];
+
 	return (
 		<>
 			{(!selectedFramework || selectedFramework !== ('choose-framework' || 'FREE')) && (
@@ -122,8 +126,8 @@ const FrameworkSelectionStepContainer = () => {
 				<SingleControlSelect
 					level={1}
 					label={t('control')}
-					name='application'
-					control={control}
+					name='control'
+					control={controlForm}
 					controls={['controllo 1', 'controllo 2']}
 					rules={{
 						required: {
@@ -134,7 +138,10 @@ const FrameworkSelectionStepContainer = () => {
 				/>
 			</FullWidthColumn>
 			<FullWidthColumn>
-				<AssociationSelectionList associations={associationsFakeData} />
+				<AssociationSelectionList
+					associations={associationsFakeData}
+					control={controlForm}
+				/>
 			</FullWidthColumn>
 		</>
 	);

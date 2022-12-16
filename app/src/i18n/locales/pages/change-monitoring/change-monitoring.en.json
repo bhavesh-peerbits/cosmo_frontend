@@ -62,5 +62,6 @@
 	"select-control": "Select control",
 	"control-required": "Please select a control",
 	"association-name": "Association name",
-	"framework-step-description": "In this step you need to select a framework and then its leaves. You must also select a control and then an association."
+	"framework-step-description": "In this step you need to select a framework and then its leaves. You must also select a control and then an association.",
+	"free-selection": ""
 }

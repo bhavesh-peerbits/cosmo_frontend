@@ -23,6 +23,7 @@ type SingleUserSelectProps<
 > = UnpackNestedValue<PathValue<T, TName>> extends User
 	? {
 			label: string;
+			hideLabel?: boolean;
 			name: TName;
 			control: UseControllerProps<T, TName>['control'];
 			rules?: UseControllerProps<T, TName>['rules'];
@@ -37,6 +38,7 @@ type SingleUserSelectProps<
 
 const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 	label,
+	hideLabel,
 	control,
 	name,
 	rules,
@@ -66,9 +68,11 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 		<>
 			<div className='flex w-full flex-wrap justify-end md:flex-nowrap'>
 				<div className='flex w-full flex-col'>
-					<FormLabel className='mb-3'>
-						<span>{label}</span>
-					</FormLabel>
+					{!hideLabel && (
+						<FormLabel className='mb-3'>
+							<span>{label}</span>
+						</FormLabel>
+					)}
 					<div className='flex w-full  flex-auto flex-col'>
 						<div className='flex w-full items-center'>
 							<Tile

@@ -7,14 +7,29 @@ import {
 	StructuredListInput
 } from '@carbon/react';
 import { CheckmarkFilled } from '@carbon/react/icons';
+import MultipleUserSelect from '@components/MultipleUserSelect';
+import SingleUserSelect from '@components/SingleUserSelect';
 import UserProfileImage from '@components/UserProfileImage';
 import Association from '@model/Association';
+import User from '@model/User';
+import { Control } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 type AssociationSelectionListProps = {
+	control: Control<{
+		framework: string;
+		leaves: string[];
+		control: string;
+		focalPoint: User;
+		delegates: User[];
+	}>;
+
 	associations: Association[];
 };
-const AssociationSelectionList = ({ associations }: AssociationSelectionListProps) => {
+const AssociationSelectionList = ({
+	control,
+	associations
+}: AssociationSelectionListProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'evidenceRequest']);
 	return (
 		<StructuredListWrapper selection ariaLabel='Structured list'>
@@ -31,10 +46,39 @@ const AssociationSelectionList = ({ associations }: AssociationSelectionListProp
 				</StructuredListRow>
 			</StructuredListHead>
 			<StructuredListBody>
+				<StructuredListRow tabIndex={0} key='free-association'>
+					<StructuredListCell className='italic'>
+						{t('changeMonitoring:free-selection')}
+					</StructuredListCell>
+					<StructuredListCell noWrap className='space-x-4'>
+						<SingleUserSelect control={control} label='' hideLabel name='focalPoint' />
+					</StructuredListCell>
+					<StructuredListCell noWrap>
+						<MultipleUserSelect
+							control={control}
+							label='delegates'
+							hideLabel
+							name='delegates'
+						/>
+					</StructuredListCell>
+					<StructuredListInput
+						id='row-1'
+						value='row-1'
+						title='row-1'
+						name='row-1'
+						defaultChecked
+					/>
+					<StructuredListCell>
+						<CheckmarkFilled
+							className='cds--structured-list-svg'
+							aria-label='select an option'
+						/>
+					</StructuredListCell>
+				</StructuredListRow>
 				{associations.map(association => (
 					<StructuredListRow tabIndex={0} key={association.id}>
 						<StructuredListCell>{association.name}</StructuredListCell>
-						<StructuredListCell className='space-x-4'>
+						<StructuredListCell className='space-x-4' noWrap>
 							<UserProfileImage
 								initials={association.reviewer?.displayName}
 								imageDescription={association.reviewer?.username}

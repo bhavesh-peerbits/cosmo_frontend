@@ -62,5 +62,6 @@
 	"select-control": "Seleziona controllo",
 	"control-required": "Selezionare un controllo",
 	"association-name": "Nome associazione",
-	"framework-step-description": "In questo step è necessario selezionare un framework e successivamente le sue foglie. È inoltre necessario selezionare un controllo e, in seguito, un'associazione tra quelle elencate"
+	"framework-step-description": "In questo step è necessario selezionare un framework e successivamente le sue foglie. È inoltre necessario selezionare un controllo e, in seguito, un'associazione tra quelle elencate",
+	"free-selection": "Selezione libera"
 }

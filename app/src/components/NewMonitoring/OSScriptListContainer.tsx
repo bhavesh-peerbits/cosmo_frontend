@@ -14,17 +14,17 @@ type OSScriptListContainerProps = {
 
 const OSScriptListContainer = ({ data }: OSScriptListContainerProps) => {
 	return (
-		<div className='space-y-5'>
-			<span className='text-productive-heading-3'>{data.os}</span>
-			{data.script.map(script => (
-				<Layer key={script.script}>
-					<TileGroup name='os-script-group'>
-						<RadioTile value='c'>
+		<div>
+			<span className='text-productive-heading-3'>{data.os}</span>{' '}
+			<Layer key={data.os}>
+				<TileGroup name='os-script-group'>
+					{data.script.map(script => (
+						<RadioTile value={script.script} className='mt-5'>
 							<OSScriptTileContent script={script} />
 						</RadioTile>
-					</TileGroup>
-				</Layer>
-			))}
+					))}
+				</TileGroup>
+			</Layer>
 		</div>
 	);
 };

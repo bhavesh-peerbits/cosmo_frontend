@@ -62,5 +62,6 @@
 	"select-control": "",
 	"control-required": "",
 	"association-name": "",
-	"framework-step-description": ""
+	"framework-step-description": "",
+	"free-selection": ""
 }
