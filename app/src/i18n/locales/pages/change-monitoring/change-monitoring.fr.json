@@ -48,5 +48,9 @@
 	"save-next": "",
 	"show-more": "",
 	"script-step-description": "",
-	"tooltip-toggle-script": ""
+	"tooltip-toggle-script": "",
+	"choose-framework": "",
+	"leaves": "",
+	"select-framework-leaves": "",
+	"select-leaves": ""
 }

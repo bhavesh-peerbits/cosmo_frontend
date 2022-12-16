@@ -48,5 +48,9 @@
 	"save-next": "Salva e prosegui",
 	"show-more": "Mostra altro",
 	"script-step-description": "In questo step è necessario selezionare un solo script per tutti gli asset",
-	"tooltip-toggle-script": "Scegli se selezionare uno script diverso per ogni asset oppure un unico script per tutti gli asset presenti."
+	"tooltip-toggle-script": "Scegli se selezionare uno script diverso per ogni asset oppure un unico script per tutti gli asset presenti.",
+	"choose-framework": "Seleziona un framework",
+	"leaves": "Foglie",
+	"select-framework-leaves": "Seleziona foglie da {{framework}}",
+	"select-leaves": "Seleziona foglie"
 }

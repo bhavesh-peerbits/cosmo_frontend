@@ -5,42 +5,58 @@ import { useTranslation } from 'react-i18next';
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
 import TreeContainer from '@components/EvidenceRequest/TreeContainer';
 import Framework from '@model/Framework';
-import { useState } from 'react';
 import useGetFrameworkTreeByCode from '@api/framework/useGetFrameworkTreeByCode';
 import { TreeView, TreeNode } from '@carbon/react';
 import { TrashCan } from '@carbon/react/icons';
+import { Dispatch, SetStateAction } from 'react';
 
 type TreeSelectionModalProps = {
 	selectedFramework: string;
 	open: boolean;
+	setIsOpen: Dispatch<SetStateAction<boolean>>;
+	selectedLeaves: Framework[];
+	setSelectedLeaves: Dispatch<SetStateAction<Framework[]>>;
 };
-const TreeSelectionModal = ({ selectedFramework, open }: TreeSelectionModalProps) => {
+const TreeSelectionModal = ({
+	selectedFramework,
+	open,
+	setIsOpen,
+	selectedLeaves,
+	setSelectedLeaves
+}: TreeSelectionModalProps) => {
 	const { t } = useTranslation([
 		'changeMonitoring',
 		'modals',
 		'userSelect',
 		'evidenceRequest'
 	]);
-	const [selectedLeaves, setSelectedLeaves] = useState<Framework[]>([]);
+
 	const { data: framework } = useGetFrameworkTreeByCode(selectedFramework);
+
+	const cleanUp = () => {
+		setIsOpen(false);
+	};
 
 	return (
 		<TearsheetNarrow
 			hasCloseIcon
-			title='Ciao'
+			title={t('changeMonitoring:select-framework-leaves', {
+				framework: selectedFramework
+			})}
 			actions={[
 				{
 					id: 'cancel-button',
 					label: t('modals:cancel'),
-					kind: 'primary'
+					kind: 'secondary'
 				},
 				{
 					id: 'submit-button',
 					label: t('userSelect:select'),
-					kind: 'secondary'
+					kind: 'primary'
 				}
 			]}
 			open={open}
+			onClose={cleanUp}
 		>
 			{framework && (
 				<div className='flex w-full space-x-5 divide-x-1 divide-solid divide-border-subtle-0 px-5'>

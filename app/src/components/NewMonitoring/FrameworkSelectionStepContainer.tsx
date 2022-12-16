@@ -1,11 +1,13 @@
 import FullWidthColumn from '@components/FullWidthColumn';
-import { Select, SelectItem, Layer, Tile, Button, FormLabel } from '@carbon/react';
+import { Select, SelectItem, Layer, Tile, Button, FormLabel, Tag } from '@carbon/react';
 import { Add, EditOff } from '@carbon/react/icons';
 import cx from 'classnames';
 import useGetNewDraftParameter from '@api/evidence-request/useGetNewDraftParameter';
 import { useForm } from 'react-hook-form';
 import TreeSelectionModal from '@components/Modals/TreeSelectionModal';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import Framework from '@model/Framework';
 
 type FrameworkStepFormData = {
 	framework: string;
@@ -13,8 +15,10 @@ type FrameworkStepFormData = {
 	control: string;
 };
 const FrameworkSelectionStepContainer = () => {
+	const { t } = useTranslation('changeMonitoring');
 	const { register, watch } = useForm<FrameworkStepFormData>();
 	const [isTreeSelectionOpen, setIsTreeSelectionOpen] = useState(false);
+	const [selectedLeaves, setSelectedLeaves] = useState<Framework[]>([]);
 
 	const { data: parameters } = useGetNewDraftParameter(); // TODO Change when BE is ready
 
@@ -26,6 +30,9 @@ const FrameworkSelectionStepContainer = () => {
 						watch('framework') !== 'FREE' || !watch('framework') ? watch('framework') : ''
 					}
 					open={isTreeSelectionOpen}
+					setIsOpen={setIsTreeSelectionOpen}
+					selectedLeaves={selectedLeaves}
+					setSelectedLeaves={setSelectedLeaves}
 				/>
 			)}
 			<FullWidthColumn className='w-1/2'>
@@ -37,7 +44,7 @@ const FrameworkSelectionStepContainer = () => {
 							required: true
 						})}
 					>
-						<SelectItem text='Choose a framework' value='choose-framework' hidden />
+						<SelectItem text={t('choose-framework')} value='choose-framework' hidden />
 						{parameters?.requestType.map(req => (
 							<SelectItem text={req} value={req} />
 						))}
@@ -46,7 +53,7 @@ const FrameworkSelectionStepContainer = () => {
 			</FullWidthColumn>
 			<FullWidthColumn className='w-1/2 pt-5'>
 				<FormLabel className='mb-3'>
-					<span>Leaves</span>
+					<span>{t('leaves')}</span>
 				</FormLabel>
 				<div className='flex w-full items-center'>
 					<Tile
@@ -54,6 +61,17 @@ const FrameworkSelectionStepContainer = () => {
 							'relative z-0 flex min-h-[2.5rem] w-full items-center border-b-[1px] border-solid border-border-strong-1 bg-layer-1 p-0'
 						)}
 					>
+						<div className='flex h-full w-full items-center justify-between space-x-2 pl-5 pr-8'>
+							{selectedLeaves ? (
+								<div className='mr-3 flex w-full items-center space-x-4'>
+									<Tag>{selectedLeaves.length} leaves selected</Tag>
+								</div>
+							) : (
+								<div className='text-text-placeholder text-body-compact-1'>
+									{t('select-leaves')}
+								</div>
+							)}
+						</div>
 						<div className='absolute top-1/2 right-2 -translate-y-1/2'>
 							<Button
 								kind='ghost'
@@ -68,6 +86,7 @@ const FrameworkSelectionStepContainer = () => {
 								hasIconOnly
 								disabled={!watch('framework') || watch('framework') === 'FREE'}
 								onClick={() => setIsTreeSelectionOpen(true)}
+								iconDescription={t('select-leaves')}
 							/>
 						</div>
 					</Tile>

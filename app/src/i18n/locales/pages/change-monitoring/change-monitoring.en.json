@@ -48,5 +48,9 @@
 	"save-next": "Save and go next",
 	"show-more": "Show more",
 	"script-step-description": "In this step it is necessary to select one script for all assets",
-	"tooltip-toggle-script": "Choose whether to select a different script for each asset or a single script for all assets."
+	"tooltip-toggle-script": "Choose whether to select a different script for each asset or a single script for all assets.",
+	"choose-framework": "Choose a framework",
+	"leaves": "Leaves",
+	"select-framework-leaves": "Select leaves from {{framework}}",
+	"select-leaves": "Select leaves"
 }
