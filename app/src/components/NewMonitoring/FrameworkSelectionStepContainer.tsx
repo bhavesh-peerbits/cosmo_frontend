@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Framework from '@model/Framework';
 import SingleControlSelect from './SingleControlSelect';
+import AssociationSelectionList from './AssociationSelectionList';
 
 type FrameworkStepFormData = {
 	framework: string;
@@ -121,6 +122,10 @@ const FrameworkSelectionStepContainer = () => {
 						}
 					}}
 				/>
+			</FullWidthColumn>
+			<FullWidthColumn>
+				{' '}
+				<AssociationSelectionList />
 			</FullWidthColumn>
 		</>
 	);
