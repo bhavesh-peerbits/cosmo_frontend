@@ -63,5 +63,15 @@
 	"control-required": "Selezionare un controllo",
 	"association-name": "Nome associazione",
 	"framework-step-description": "In questo step è necessario selezionare un framework e successivamente le sue foglie. È inoltre necessario selezionare un controllo e, in seguito, un'associazione tra quelle elencate",
-	"free-selection": "Selezione libera"
+	"free-selection": "Selezione libera",
+	"daily": "Giornaliero",
+	"weekly": "Settimanale",
+	"biweekly": "Bisettimanale",
+	"monthly": "Mensile",
+	"quarterly": "Trimestrale",
+	"semiannual": "Semestrale",
+	"annual": "Annuale",
+	"multiple-times-day": "Più volte al giorno",
+	"select-frequency-type": "Seleziona un tipo di frequenza",
+	"on-demand": "Su richiesta"
 }

@@ -63,5 +63,15 @@
 	"control-required": "",
 	"association-name": "",
 	"framework-step-description": "",
-	"free-selection": ""
+	"free-selection": "",
+	"daily": "",
+	"weekly": "",
+	"biweekly": "",
+	"monthly": "",
+	"quarterly": "",
+	"semiannual": "",
+	"annual": "",
+	"multiple-times-day": "",
+	"select-frequency-type": "",
+	"on-demand": ""
 }

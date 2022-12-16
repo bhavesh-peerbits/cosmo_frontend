@@ -63,5 +63,15 @@
 	"control-required": "Please select a control",
 	"association-name": "Association name",
 	"framework-step-description": "In this step you need to select a framework and then its leaves. You must also select a control and then an association.",
-	"free-selection": ""
+	"free-selection": "Free selection",
+	"daily": "Daily",
+	"weekly": "Weekly",
+	"biweekly": "Biweekly",
+	"monthly": "Monthly",
+	"quarterly": "Quarterly",
+	"semiannual": "Semiannual",
+	"annual": "Annual",
+	"multiple-times-day": "Multiple times per day",
+	"select-frequency-type": "Select a frequency type",
+	"on-demand": "On demand"
 }
