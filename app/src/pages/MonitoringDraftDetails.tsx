@@ -101,7 +101,6 @@ const MonitoringDraftDetails = () => {
 					shouldStart
 				/>
 				<DeleteMonitoringDraftModal isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} />
-
 				<Grid fullWidth narrow className='p-container-1 pl-8'>
 					<Column sm={4} md={8} lg={3} className='space-y-5'>
 						<div className='flex flex-col'>
