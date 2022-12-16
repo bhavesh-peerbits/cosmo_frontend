@@ -6,11 +6,12 @@ import AssetsSelectionStepContainer from './AssetsSelectionStepContainer';
 import FrameworkSelectionStepContainer from './FrameworkSelectionStepContainer';
 import NewMonitoringStepTile from './NewMonitoringStepTile';
 import PathDefinitionStepContainer from './PathDefinitionStepContainer';
+import SchedulingStepContainer from './SchedulingStepContainer';
 import ScriptSelectionStepContainer from './ScriptSelectionStepContainer';
 
 const NewMonitoringStepsContainer = () => {
 	const { t } = useTranslation(['changeMonitoring', 'evidenceRequest']);
-	const [currentStep, setCurrentStep] = useState(0);
+	const [currentStep, setCurrentStep] = useState(4);
 	const contentToRender = () => {
 		switch (currentStep) {
 			case 0:
@@ -36,6 +37,12 @@ const NewMonitoringStepsContainer = () => {
 					content: <ScriptSelectionStepContainer />,
 					title: 'Script',
 					description: t('changeMonitoring:script-step-description')
+				};
+			case 4:
+				return {
+					content: <SchedulingStepContainer />,
+					title: t('changeMonitoring:scheduling'),
+					description: 'Description????????'
 				};
 			default:
 				return {
