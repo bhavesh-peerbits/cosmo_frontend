@@ -5,7 +5,7 @@ import cx from 'classnames';
 import useGetNewDraftParameter from '@api/evidence-request/useGetNewDraftParameter';
 import { useForm } from 'react-hook-form';
 import TreeSelectionModal from '@components/Modals/TreeSelectionModal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Framework from '@model/Framework';
 
@@ -21,13 +21,19 @@ const FrameworkSelectionStepContainer = () => {
 	const [selectedLeaves, setSelectedLeaves] = useState<Framework[]>([]);
 
 	const { data: parameters } = useGetNewDraftParameter(); // TODO Change when BE is ready
+	const selectedFramework = watch('framework');
+	useEffect(() => {
+		setSelectedLeaves([]);
+	}, [selectedFramework]);
 
 	return (
 		<>
-			{(!watch('framework') || watch('framework') !== 'FREE') && (
+			{(!selectedFramework || selectedFramework !== ('choose-framework' || 'FREE')) && (
 				<TreeSelectionModal
 					selectedFramework={
-						watch('framework') !== 'FREE' || !watch('framework') ? watch('framework') : ''
+						selectedFramework !== ('choose-framework' || 'FREE') || !selectedFramework
+							? selectedFramework
+							: ''
 					}
 					open={isTreeSelectionOpen}
 					setIsOpen={setIsTreeSelectionOpen}
@@ -78,7 +84,8 @@ const FrameworkSelectionStepContainer = () => {
 							<Button
 								kind='ghost'
 								renderIcon={() =>
-									!watch('framework') || watch('framework') === 'FREE' ? (
+									!selectedFramework ||
+									selectedFramework === ('choose-framework' || 'FREE') ? (
 										<EditOff size={20} />
 									) : (
 										<Add size={20} />
@@ -86,7 +93,10 @@ const FrameworkSelectionStepContainer = () => {
 								}
 								size='sm'
 								hasIconOnly
-								disabled={!watch('framework') || watch('framework') === 'FREE'}
+								disabled={
+									!selectedFramework ||
+									selectedFramework === ('choose-framework' || 'FREE')
+								}
 								onClick={() => setIsTreeSelectionOpen(true)}
 								iconDescription={t('select-leaves')}
 							/>
