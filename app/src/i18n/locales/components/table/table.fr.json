@@ -25,5 +25,15 @@
 	"deselect-all": "",
 	"select-all": "",
 	"deselect-all-page": "",
-	"action": ""
+	"action": "",
+	"customize-columns": "Customize Columns",
+	"customize-columns-display": "Customize Display",
+	"customize-columns-primary": "Save",
+	"customize-columns-secondary": "Cancel",
+	"customize-columns-instructions": "Select columns to display them. Click and drag the box to reorder the columns. These specifications will be saved and persist if you leave and return to the data table.",
+	"customize-columns-find": "Find column",
+	"customize-columns-reset": "Reset to default",
+	"customize-columns-assistive": "Press space bar to toggle drag drop mode, use arrow keys to move selected elements.",
+	"customize-columns-assistive-disabled": "Reordering columns are disabled because they are filtered currently.",
+	"customize-columns-column-name": "Column name"
 }

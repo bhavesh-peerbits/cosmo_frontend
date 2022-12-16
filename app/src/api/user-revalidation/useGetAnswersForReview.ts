@@ -1,5 +1,5 @@
 import api from '@api';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { toMap } from '@model/util';
 import { fromAnswersApi } from '@model/Answer';
 

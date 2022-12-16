@@ -1,6 +1,6 @@
 import api from '@api';
 import { fromNewDraftParameterApi } from '@model/NewDraftParameter';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
 const getNewDraftParameter = () => {
 	return api.evidenceRequest

@@ -1,16 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { TableExpandHeader, TableHeader, TableRow } from '@carbon/react';
-import { ColumnOrderState, HeaderGroup } from '@tanstack/react-table';
+import { HeaderGroup } from '@tanstack/react-table';
 import { useCallback } from 'react';
 import ColumnHeader from './ColumnHeader';
 import SelectAllHeader from './SelectAllHeader';
 
 interface TableHeadersProps<T> {
 	headerGroups: HeaderGroup<T>[];
-	columnOrder: ColumnOrderState;
-	setColumnOrder: (columnOrder: ColumnOrderState) => void;
+
 	isSelectable: boolean | undefined | 'radio';
-	hasColumnsDraggable: boolean | undefined;
+
 	getIsAllRowsSelected: () => boolean;
 	getIsSomeRowsSelected: () => boolean;
 	getIsAllPageRowsSelected: () => boolean;

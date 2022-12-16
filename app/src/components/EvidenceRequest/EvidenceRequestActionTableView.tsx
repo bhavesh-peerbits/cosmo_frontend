@@ -207,7 +207,6 @@ const EvidenceRequestActionTableView = ({
 						toolbarBatchActions: [],
 						toolbarTableMenus: []
 					}}
-					canAdd={false}
 					isColumnOrderingEnabled
 				/>
 			</div>

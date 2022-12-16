@@ -25,5 +25,15 @@
 	"deselect-all": "Deseleziona tutto",
 	"select-all": "Seleziona tutto",
 	"deselect-all-page": "Deseleziona tutte le pagine",
-	"action": "Azione"
+	"action": "Azione",
+	"customize-columns": "Personalizza Colonne",
+	"customize-columns-display": "Personalizza Visualizzazione",
+	"customize-columns-primary": "Salva",
+	"customize-columns-secondary": "Cancella",
+	"customize-columns-instructions": "Seleziona le colonne da visualizzare. Clicca e trascina la box per riordinare le colonne. Queste specifiche verranno salvate se esci e ritorni sulla tabella.",
+	"customize-columns-find": "Trova colonna",
+	"customize-columns-reset": "Reimposta su default",
+	"customize-columns-assistive": "Premi la space bar per abilitare la modalità drag and drop, usa i tasti freccia per muovere gli elementi selezionati.",
+	"customize-columns-assistive-disabled": "Il riordinamento delle colonne è disabilitato perchè sono correntemente filtrate.",
+	"customize-columns-column-name": "Nome colonna"
 }

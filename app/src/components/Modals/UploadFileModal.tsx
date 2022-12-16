@@ -14,7 +14,7 @@ import ApiError from '@api/ApiError';
 import AnswerTable from '@components/UserRevalidation/AnswerTable';
 import CampaignApplication from '@model/CampaignApplication';
 import useGetCampaignApplications from '@api/user-revalidation/useGetCampaignApplications';
-import { useQueryClient } from 'react-query';
+import { useQueryClient } from '@tanstack/react-query';
 
 type UploadFileModalProps = {
 	isOpen: boolean;

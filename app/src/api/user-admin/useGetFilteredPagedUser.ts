@@ -1,17 +1,23 @@
 import api from '@api';
+import { OpenApiPagination } from '@exportabletypes/pagination';
+import useQueryPagination from '@hooks/pagination/useQueryPagination';
 import { fromUserApi } from '@model/User';
-import { useQuery } from 'react-query';
 
-const useGetFilteredPagedUser = (searchField: string, page: number, size: number) => {
+const useGetFilteredPagedUser = (pagination: OpenApiPagination) => {
 	return api.userAdminApi
-		.getFilteredUser({ searchField, page, size, sort: ['username'] })
+		.getFilteredUser({
+			searchField: pagination.filter ?? '__none',
+			page: pagination.page,
+			size: pagination.size,
+			sort: pagination.sort
+		})
 		.then(({ data }) => ({
 			...data,
 			content: (data?.content ?? []).map(fromUserApi)
 		}));
 };
 
-export default (searchField: string, page: number, size: number) =>
-	useQuery(['filtered-user', searchField, page, size], () =>
-		useGetFilteredPagedUser(searchField, page, size)
+export default (paginationId: string) =>
+	useQueryPagination(paginationId, ['filtered-user'], pagination =>
+		useGetFilteredPagedUser(pagination)
 	);

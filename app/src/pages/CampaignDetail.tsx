@@ -20,7 +20,7 @@ import User from '@model/User';
 import useAddContributorsToCampaign from '@api/user-revalidation/useAddContributorsToCampaign';
 import useUiStore from '@hooks/useUiStore';
 import { interfaces } from '@carbon/charts';
-import { useQueryClient } from 'react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import SetDueDateCampaignModal from '@components/Modals/SetDueDateCampaignModal';
 import { mapCampaignLayerToCampaignDisplayLayer } from '@model/CampaignLayer';
 import RevalidationReminderStore from '@store/user-revalidation/RevalidationReminderStore';

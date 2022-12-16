@@ -1,6 +1,6 @@
 import { FallbackProps } from 'react-error-boundary';
 import { useForm } from 'react-hook-form';
-import { useQueryErrorResetBoundary } from 'react-query';
+import { useQueryErrorResetBoundary } from '@tanstack/react-query';
 import * as Sentry from '@sentry/react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getReportDialogEndpoint } from '@sentry/core';

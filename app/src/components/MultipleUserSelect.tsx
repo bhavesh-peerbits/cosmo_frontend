@@ -16,7 +16,7 @@ import useGetUsers from '@api/user/useGetUsers';
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { TooltipPosition } from '@carbon/react/typings/shared';
-import { UseQueryResult } from 'react-query';
+import { UseQueryResult } from '@tanstack/react-query';
 
 type MultipleUserSelectProps<
 	T extends FieldValues,

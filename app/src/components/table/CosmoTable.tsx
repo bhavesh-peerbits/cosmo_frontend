@@ -1,5 +1,5 @@
 import {
-	Modal,
+	ComposedModal,
 	Table,
 	TableBody,
 	TableCell,
@@ -25,19 +25,10 @@ import {
 	useReactTable,
 	VisibilityState
 } from '@tanstack/react-table';
-import {
-	FC,
-	ReactNode,
-	SetStateAction,
-	useCallback,
-	useEffect,
-	useMemo,
-	useRef,
-	useState
-} from 'react';
+import { FC, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import cx from 'classnames';
-import { useBoolean, useDebounce, useUnmount, useUpdateEffect } from 'ahooks';
+import { useBoolean, useDebounce, useMount, useUnmount, useUpdateEffect } from 'ahooks';
 import { rankItem } from '@tanstack/match-sorter-utils';
 import usePaginationStore from '@hooks/pagination/usePaginationStore';
 import useExportTablePlugin from '@hooks/useExportTablePlugin';
@@ -52,11 +43,7 @@ import TableBodySkeleton from './TableBodySkeleton';
 import CosmoTableToolbar from './CosmoTableToolbar';
 
 interface ToolbarProps<T extends object> {
-	searchBar: {
-		enabled: boolean;
-		onSearch: (searchText: string) => void;
-		value: string;
-	};
+	searchBar?: boolean;
 	toolbarBatchActions: CosmoTableToolbarAction<T>[];
 	toolbarTableMenus: CosmoTableToolbarMenu[];
 	primaryButton?: {
@@ -76,7 +63,6 @@ interface CosmoTableProps<T extends SubRows<T>> {
 	isSelectable?: boolean | 'radio';
 	isExpandable?: boolean;
 	isColumnOrderingEnabled?: boolean;
-	hasColumnsDraggable?: boolean;
 	exportFileName?: (param: {
 		fileType: AvailableFileType;
 		all: boolean | 'selection';
@@ -94,10 +80,7 @@ interface CosmoTableProps<T extends SubRows<T>> {
 	canAdd?: boolean;
 	canEdit?: boolean;
 	canDelete?: boolean;
-	modalContent?: FC<{ row: Row<T> }>;
-	dataLength?: number;
-	onAdd?: () => void;
-	onEdit?: (row: Row<T>) => void;
+	modalContent?: FC<{ row: Row<T> | undefined; closeModal: () => void; edit: boolean }>;
 	onDelete?: (rows: Row<T>[]) => void;
 }
 
@@ -130,12 +113,11 @@ const CosmoTable = <T extends SubRows<T>>({
 	isSelectable,
 	isExpandable,
 	isColumnOrderingEnabled,
-	canAdd = true,
-	canEdit = true,
-	canDelete = true,
+	canAdd = false,
+	canEdit = false,
+	canDelete = false,
 	modalContent,
 	noDataMessage,
-	hasColumnsDraggable,
 	exportFileName,
 	disableExport,
 	title,
@@ -147,9 +129,6 @@ const CosmoTable = <T extends SubRows<T>>({
 	onRowSelection,
 	size = 'md',
 	showSizeOption,
-	onAdd,
-	dataLength,
-	onEdit,
 	onDelete
 }: CosmoTableProps<T>) => {
 	const data = useMemo(() => tableData, [tableData]);
@@ -161,6 +140,7 @@ const CosmoTable = <T extends SubRows<T>>({
 	const [expanded, setExpanded] = useState<ExpandedState>({});
 	const [tableSize, setTableSize] = useState<TableSize>(size);
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
 	const {
 		pagination,
 		sorting,
@@ -263,6 +243,14 @@ const CosmoTable = <T extends SubRows<T>>({
 
 	const ModalContent = modalContent;
 
+	useMount(() => {
+		table.setColumnVisibility(
+			Object.fromEntries(
+				allLeafColumns.map(c => [c.id, c.columnDef.meta?.initialVisible ?? true])
+			)
+		);
+	});
+
 	return (
 		<>
 			<TableContainer title={title} description={description}>
@@ -270,7 +258,7 @@ const CosmoTable = <T extends SubRows<T>>({
 					disableExport={disableExport}
 					searchBar={toolbar?.searchBar}
 					onExportClick={exportData}
-					onSearch={(value: SetStateAction<string>) => setGlobalFilter(value)}
+					onSearch={value => setGlobalFilter(value)}
 					selectionRows={selectedRows}
 					onCancel={() => table.toggleAllRowsSelected(false)}
 					toolbarTableMenus={toolbar?.toolbarTableMenus}
@@ -287,6 +275,8 @@ const CosmoTable = <T extends SubRows<T>>({
 					canEdit={canEdit}
 					canDelete={canDelete}
 					onDelete={onDelete}
+					setColumnOrder={table.setColumnOrder}
+					setColumnVisibility={table.setColumnVisibility}
 				/>
 				<div className='relative overflow-hidden'>
 					<div
@@ -307,12 +297,7 @@ const CosmoTable = <T extends SubRows<T>>({
 									getToggleAllPageRowsSelectedHandler={table.getToggleAllPageRowsSelectedHandler()}
 									getIsAllPageRowsSelected={table.getIsAllPageRowsSelected}
 									isSelectable={isSelectable}
-									hasColumnsDraggable={hasColumnsDraggable}
 									headerGroups={headerGroups}
-									columnOrder={
-										columnOrder.length > 0 ? columnOrder : allLeafColumns.map(c => c.id)
-									}
-									setColumnOrder={table.setColumnOrder}
 									isExpandable={isExpandable && Boolean(subComponent)}
 									table={table}
 									showFilter={showFilter}
@@ -355,21 +340,17 @@ const CosmoTable = <T extends SubRows<T>>({
 						/>
 					</div>
 				</div>
-				<TablePagination tableId={tableId} dataLength={dataLength ?? data.length} />
+				<TablePagination tableId={tableId} dataLength={status?.total ?? data.length} />
 			</TableContainer>
-			<Modal
-				open={isModalOpen}
-				primaryButtonText={`${Object.keys(rowSelection)?.[0] ? 'Save' : 'Add'}`}
-				secondaryButtonText='Cancel'
-				onRequestClose={() => setIsModalOpen(false)}
-				onRequestSubmit={() =>
-					table.getSelectedRowModel().flatRows.length > 0 && onEdit
-						? onEdit(table.getSelectedRowModel().flatRows?.[0])
-						: onAdd && onAdd()
-				}
-			>
-				{ModalContent && <ModalContent row={table.getSelectedRowModel().flatRows?.[0]} />}
-			</Modal>
+			<ComposedModal open={isModalOpen} preventCloseOnClickOutside>
+				{ModalContent && (
+					<ModalContent
+						closeModal={() => setIsModalOpen(false)}
+						row={table.getSelectedRowModel().flatRows?.[0]}
+						edit={Boolean(table.getSelectedRowModel().flatRows?.[0])}
+					/>
+				)}
+			</ComposedModal>
 		</>
 	);
 };

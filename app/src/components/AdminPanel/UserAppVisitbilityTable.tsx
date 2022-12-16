@@ -2,9 +2,7 @@ import { Button } from '@carbon/react';
 import { useMemo, useState } from 'react';
 import User from '@model/User';
 import { Add } from '@carbon/react/icons';
-import { useDebounce } from 'ahooks';
 import useGetFilteredPagedUser from '@api/user-admin/useGetFilteredPagedUser';
-import usePaginationStore from '@hooks/pagination/usePaginationStore';
 import useGetAppsAdminNotMap from '@api/user-admin/useGetAppsAdminNotMap';
 import { CellContext, ColumnDef } from '@tanstack/react-table';
 import CosmoTable from '@components/table/CosmoTable';
@@ -37,18 +35,11 @@ const ActionsCell = ({ setIsSelectOpen, setUserSelectedId, info }: ActionCellPro
 };
 
 const UserAppsVisibilityTable = () => {
-	const [filters, setFilters] = useState('');
 	const { t: tTable } = useTranslation('table');
-	const search = useDebounce(filters, { wait: 600 });
 	const [isSelectOpen, setIsSelectOpen] = useState(false);
 	const [userSelectedId, setUserSelectedId] = useState<string>();
-	const { pagination } = usePaginationStore('userappvisibility');
 	const { data: applications } = useGetAppsAdminNotMap();
-	const { data: { content, totalElements } = {} } = useGetFilteredPagedUser(
-		search,
-		pagination.pageIndex,
-		pagination.pageSize
-	);
+	const { data: { content } = {} } = useGetFilteredPagedUser('userappvisibility');
 
 	const columns = useMemo<ColumnDef<User>[]>(
 		() => [
@@ -94,16 +85,13 @@ const UserAppsVisibilityTable = () => {
 			<CosmoTable
 				tableId='userappvisibility'
 				data={content || []}
-				dataLength={totalElements}
 				columns={columns}
+				serverSidePagination
+				isColumnOrderingEnabled
 				noDataMessage='no-data'
 				exportFileName={({ all }) => (all ? 'users-all' : 'users-selection')}
 				toolbar={{
-					searchBar: {
-						enabled: true,
-						value: filters ?? '',
-						onSearch: e => setFilters(e)
-					},
+					searchBar: true,
 					toolbarBatchActions: [],
 					toolbarTableMenus: []
 				}}

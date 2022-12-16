@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
 	Button,
-	Checkbox,
 	RadioButton,
 	TableBatchAction,
 	TableBatchActions,
@@ -11,12 +10,19 @@ import {
 	TableToolbarMenu,
 	TableToolbarSearch
 } from '@carbon/react';
-import { Column, Row, RowData } from '@tanstack/react-table';
+import {
+	Column,
+	ColumnOrderState,
+	Row,
+	RowData,
+	VisibilityState
+} from '@tanstack/react-table';
 import { ReactNode, useMemo } from 'react';
 import {
 	Add,
 	Csv,
 	DocumentPdf,
+	Column as ColumnIcon,
 	Edit,
 	FilterEdit,
 	TableBuilt,
@@ -25,11 +31,13 @@ import {
 	Xls
 } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
+import { useBoolean } from 'ahooks';
 import CosmoTableToolbarAction from './types/CosmoTableToolbarAction';
 import CosmoTableToolbarMenu from './types/CosmoTableToolbarMenu';
 import TableSize from './types/TableSize';
 import ExportSelectionAction from './ExportSelectionAction';
 import AvailableFileType from './types/FileType';
+import CustomizeColumnsModal from './columnCustomize/CustomizeColumnsModal';
 
 interface CosmoTableToolbarProps<T extends object> {
 	selectionRows: Row<T>[];
@@ -43,13 +51,7 @@ interface CosmoTableToolbarProps<T extends object> {
 	allColumns: Column<T, RowData>[];
 	onExportClick: (fileType: AvailableFileType, all?: boolean | 'selection') => void;
 	disableExport?: boolean;
-	searchBar:
-		| {
-				enabled: boolean;
-				onSearch: (searchText: string) => void;
-				value: string;
-		  }
-		| undefined;
+	searchBar: boolean | undefined;
 	isColumnOrderingEnabled: boolean | undefined;
 	selectedSize: TableSize;
 	sizeOptions: Record<TableSize, { value: number; label: string }> | undefined;
@@ -61,6 +63,8 @@ interface CosmoTableToolbarProps<T extends object> {
 	onDelete?: (rows: Row<T>[]) => void;
 	onSearch: (value: string) => void;
 	onFilterClick: () => void;
+	setColumnOrder: (columnOrder: ColumnOrderState) => void;
+	setColumnVisibility: (visibilityState: VisibilityState) => void;
 }
 
 const CosmoTableToolbar = <T extends object>({
@@ -83,9 +87,12 @@ const CosmoTableToolbar = <T extends object>({
 	canAdd,
 	canEdit,
 	canDelete,
-	onDelete
+	onDelete,
+	setColumnOrder,
+	setColumnVisibility
 }: CosmoTableToolbarProps<T>) => {
 	const { t } = useTranslation('table');
+	const [openModal, { toggle: toggleOpen }] = useBoolean(false);
 	const selectionElements = useMemo(
 		() => selectionRows.map(row => row.original).filter(r => r),
 		[selectionRows]
@@ -202,7 +209,7 @@ const CosmoTableToolbar = <T extends object>({
 				>
 					{null}
 				</TableToolbarMenu>
-				{searchBar?.enabled && (
+				{searchBar && (
 					<TableToolbarSearch
 						size='lg'
 						placeholder='Search'
@@ -241,7 +248,7 @@ const CosmoTableToolbar = <T extends object>({
 						ariaLabel='Table toolbar menu'
 						disabled={menu.disabled}
 					>
-						{menu.tableToolbarActions.map((action: any) => (
+						{menu.tableToolbarActions.map(action => (
 							<TableToolbarAction
 								key={action.id}
 								onClick={action.onClick}
@@ -254,24 +261,16 @@ const CosmoTableToolbar = <T extends object>({
 
 				{isColumnOrderingEnabled && (
 					<TableToolbarMenu
-						iconDescription='Table columns order'
-						ariaLabel='Table columns order'
+						onClick={() => toggleOpen()}
+						open={openModal}
+						renderIcon={() => <ColumnIcon />}
+						iconDescription='Show filters'
+						ariaLabel='Show Filters'
 					>
-						{allColumns.map(column => (
-							<TableToolbarAction
-								key={column.id}
-								itemText={
-									<Checkbox
-										id={column.id}
-										labelText={column.id}
-										checked={column.getIsVisible()}
-									/>
-								}
-								onClick={column.getToggleVisibilityHandler()}
-							/>
-						))}
+						{null}
 					</TableToolbarMenu>
 				)}
+
 				{sizeOptions && (
 					<TableToolbarMenu iconDescription='Table size' ariaLabel='Table size option'>
 						<div className='mb-3 flex w-full flex-col justify-center px-5 pt-5'>
@@ -307,6 +306,25 @@ const CosmoTableToolbar = <T extends object>({
 					<Button onClick={primaryButton.onClick}>{primaryButton.label}</Button>
 				)}
 			</TableToolbarContent>
+			{isColumnOrderingEnabled && openModal && (
+				<CustomizeColumnsModal
+					isOpen={openModal}
+					setIsModalOpen={() => toggleOpen()}
+					onSaveColumnPrefs={newCol => {
+						setColumnVisibility(
+							newCol.reduce(
+								(prev, curr) => ({
+									...prev,
+									[curr.id]: curr.visible
+								}),
+								{}
+							)
+						);
+						setColumnOrder(newCol.map(col => col.id));
+					}}
+					columnDefinitions={allColumns}
+				/>
+			)}
 		</TableToolbar>
 	);
 };

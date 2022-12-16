@@ -23,7 +23,6 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import useCleanSession from '@api/user/useCleanSession';
 import useLoginConfig from '@api/providers/useLoginConfig';
-import { ExpressiveCard } from '@carbon/ibm-products';
 
 interface LoginForm {
 	username: string;
@@ -175,17 +174,6 @@ const Login = () => {
 											{t(error)}
 										</InlineNotification>
 									)}
-									<ExpressiveCard
-										label='Label'
-										mediaRatio={null}
-										primaryButtonText='Primary'
-										title='Title'
-									>
-										<p>
-											expressive card body content block. description inviting the user to
-											take action on the card.
-										</p>
-									</ExpressiveCard>
 									<TextInput
 										id='username'
 										invalidText={errors.username?.message}

@@ -1,6 +1,6 @@
 import api from '@api';
 import FileLink, { fromFileLinkApi, toFileLinkApi } from '@model/FileLink';
-import { useQueryClient, useMutation } from 'react-query';
+import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 interface PutASelectionOfFilesParams {
 	fileLinkDtoList: FileLink[];

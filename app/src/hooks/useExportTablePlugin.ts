@@ -1,13 +1,13 @@
-import { Column, RowModel, TableInstance } from '@tanstack/react-table';
+import { Column, RowModel, Table } from '@tanstack/react-table';
 import Papa from 'papaparse';
 import { utils, writeFile } from 'xlsx';
 import JsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { useCallback } from 'react';
-import { ExportProperties } from '@components/table/types';
 import { isDate } from 'date-fns';
+import AvailableFileType from '@components/table/types/FileType';
 import { formatDate } from '@i18n';
-import { AvailableFileType, downloadFileViaBlob } from '@components/util/fileUtil';
+import useFileUtil from './useFileUtil';
 
 // Get exported file name(do not specify extension here)
 const defaultGetExportFileName = ({
@@ -85,21 +85,27 @@ function getExportFileBlob({
 	return false;
 }
 
-const useExportTablePlugin = <T extends { ColumnMeta: ExportProperties }>(
-	instance: TableInstance<T>,
+const useExportTablePlugin = <T>(
+	instance: Table<T>,
 	getExportFileName = defaultGetExportFileName,
 	globalDisableExport = false
 ) => {
-	const { getFlatHeaders, getRowModel, getCoreRowModel, getSelectedRowModel } = instance;
+	const isDateVal = (val: unknown): val is Date => {
+		return isDate(val);
+	};
+
+	const { downloadFileViaBlob } = useFileUtil();
+	const { getRowModel, getCoreRowModel, getSelectedRowModel, getAllLeafColumns } =
+		instance;
 
 	// This method will enable export of data on `instance` object
 	const exportData = useCallback(
 		(fileType: AvailableFileType, all: boolean | 'selection' = false) => {
 			if (!globalDisableExport) {
-				const columns = getFlatHeaders()
-					.map(({ column }) => {
+				const columns = getAllLeafColumns()
+					.map(column => {
+						const { id } = column;
 						const {
-							id,
 							meta: {
 								disableExport,
 								exportLabel = defaultGetColumnExportValue,
@@ -131,12 +137,12 @@ const useExportTablePlugin = <T extends { ColumnMeta: ExportProperties }>(
 				const { rows } = rowModel;
 				const data = rows.map(row =>
 					columns.map(col => {
-						const v = row.getValue(col.id);
+						const v = row.getValue(col.id as string);
 						if (col.exportableFn) {
 							return col.exportableFn(v);
 						}
 
-						if (isDate(v)) {
+						if (isDateVal(v)) {
 							return fileType === 'pdf' ? formatDate(v) : v;
 						}
 
@@ -161,11 +167,12 @@ const useExportTablePlugin = <T extends { ColumnMeta: ExportProperties }>(
 		},
 		[
 			globalDisableExport,
-			getFlatHeaders,
+			getAllLeafColumns,
+			getExportFileName,
 			getSelectedRowModel,
-			getRowModel,
 			getCoreRowModel,
-			getExportFileName
+			getRowModel,
+			downloadFileViaBlob
 		]
 	);
 	return {

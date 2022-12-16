@@ -15,7 +15,7 @@ import User from '@model/User';
 import cx from 'classnames';
 import useGetUsers from '@api/user/useGetUsers';
 import { useTranslation } from 'react-i18next';
-import { UseQueryResult } from 'react-query';
+import { UseQueryResult } from '@tanstack/react-query';
 
 type SingleUserSelectProps<
 	T extends FieldValues,
