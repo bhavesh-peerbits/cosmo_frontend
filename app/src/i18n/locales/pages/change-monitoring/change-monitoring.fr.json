@@ -60,5 +60,7 @@
 	"search-control-label": "",
 	"search-control-placeholder": "",
 	"select-control": "",
-	"control-required": ""
+	"control-required": "",
+	"association-name": "",
+	"framework-step-description": ""
 }

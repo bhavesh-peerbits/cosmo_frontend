@@ -60,5 +60,7 @@
 	"search-control-label": "Search control",
 	"search-control-placeholder": "Type in to search",
 	"select-control": "Select control",
-	"control-required": "Please select a control"
+	"control-required": "Please select a control",
+	"association-name": "Association name",
+	"framework-step-description": "In this step you need to select a framework and then its leaves. You must also select a control and then an association."
 }

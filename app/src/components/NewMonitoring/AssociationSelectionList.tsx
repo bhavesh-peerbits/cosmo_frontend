@@ -7,63 +7,69 @@ import {
 	StructuredListInput
 } from '@carbon/react';
 import { CheckmarkFilled } from '@carbon/react/icons';
+import UserProfileImage from '@components/UserProfileImage';
+import Association from '@model/Association';
+import { useTranslation } from 'react-i18next';
 
-const AssociationSelectionList = () => {
+type AssociationSelectionListProps = {
+	associations: Association[];
+};
+const AssociationSelectionList = ({ associations }: AssociationSelectionListProps) => {
+	const { t } = useTranslation(['changeMonitoring', 'evidenceRequest']);
 	return (
 		<StructuredListWrapper selection ariaLabel='Structured list'>
 			<StructuredListHead>
 				<StructuredListRow head tabIndex={0}>
-					<StructuredListCell head>ColumnA</StructuredListCell>
-					<StructuredListCell head>ColumnB</StructuredListCell>
+					<StructuredListCell head>
+						{t('changeMonitoring:association-name')}
+					</StructuredListCell>
+					<StructuredListCell head>Focal Point</StructuredListCell>
+					<StructuredListCell head>
+						{t('evidenceRequest:focal-point-delegates')}
+					</StructuredListCell>
 					<StructuredListCell head />
 				</StructuredListRow>
 			</StructuredListHead>
 			<StructuredListBody>
-				<StructuredListRow tabIndex={0}>
-					<StructuredListCell>Row 1</StructuredListCell>
-					<StructuredListCell>Row 1</StructuredListCell>
-					<StructuredListInput
-						id='row-1'
-						value='row-1'
-						title='row-1'
-						name='row-1'
-						defaultChecked
-					/>
-					<StructuredListCell>
-						<CheckmarkFilled
-							className='cds--structured-list-svg'
-							aria-label='select an option'
-						>
-							<title>select an option</title>
-						</CheckmarkFilled>
-					</StructuredListCell>
-				</StructuredListRow>
-				<StructuredListRow tabIndex={0}>
-					<StructuredListCell>Row 2</StructuredListCell>
-					<StructuredListCell>Row 2</StructuredListCell>
-					<StructuredListInput id='row-2' value='row-2' title='row-2' name='row-2' />
-					<StructuredListCell>
-						<CheckmarkFilled
-							className='cds--structured-list-svg'
-							aria-label='select an option'
-						>
-							<title>select an option</title>
-						</CheckmarkFilled>
-					</StructuredListCell>
-				</StructuredListRow>
-				<StructuredListRow tabIndex={0}>
-					<StructuredListCell>Row 3</StructuredListCell>
-					<StructuredListCell>Row 3</StructuredListCell>
-					<StructuredListInput id='row-3' value='row-3' title='row-3' name='row-3' />
-					<StructuredListCell>
-						<CheckmarkFilled
-							className='cds--structured-list-svg'
-							aria-label='select an option'
-						>
-							<title>select an option</title>
-						</CheckmarkFilled>
-					</StructuredListCell>
-				</StructuredListRow>
+				{associations.map(association => (
+					<StructuredListRow tabIndex={0} key={association.id}>
+						<StructuredListCell>{association.name}</StructuredListCell>
+						<StructuredListCell className='space-x-4'>
+							<UserProfileImage
+								initials={association.reviewer?.displayName}
+								imageDescription={association.reviewer?.username}
+								tooltipText={association.reviewer?.displayName}
+								size='lg'
+							/>
+							<span>{association.reviewer?.displayName}</span>
+						</StructuredListCell>
+						<StructuredListCell>
+							{association.delegates?.map(del => (
+								<UserProfileImage
+									initials={del.displayName}
+									imageDescription={del.username}
+									size='lg'
+									tooltipText={del?.displayName}
+								/>
+							))}
+						</StructuredListCell>
+						<StructuredListInput
+							id='row-1'
+							value='row-1'
+							title='row-1'
+							name='row-1'
+							defaultChecked
+						/>
+						<StructuredListCell>
+							<CheckmarkFilled
+								className='cds--structured-list-svg'
+								aria-label='select an option'
+							>
+								<title>select an option</title>
+							</CheckmarkFilled>
+						</StructuredListCell>
+					</StructuredListRow>
+				))}
 			</StructuredListBody>
 		</StructuredListWrapper>
 	);

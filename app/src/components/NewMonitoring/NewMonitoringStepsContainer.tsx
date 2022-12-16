@@ -29,7 +29,7 @@ const NewMonitoringStepsContainer = () => {
 				return {
 					content: <FrameworkSelectionStepContainer />,
 					title: 'Framework',
-					description: 'Description?????????'
+					description: t('changeMonitoring:framework-step-description')
 				};
 			case 3:
 				return {

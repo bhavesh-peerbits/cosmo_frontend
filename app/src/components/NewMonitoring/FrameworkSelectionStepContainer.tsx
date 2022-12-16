@@ -8,6 +8,7 @@ import TreeSelectionModal from '@components/Modals/TreeSelectionModal';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Framework from '@model/Framework';
+import useGetUsers from '@api/user/useGetUsers';
 import SingleControlSelect from './SingleControlSelect';
 import AssociationSelectionList from './AssociationSelectionList';
 
@@ -25,11 +26,20 @@ const FrameworkSelectionStepContainer = () => {
 	const { control } = useForm();
 
 	const { data: parameters } = useGetNewDraftParameter(); // TODO Change when BE is ready
+	const { data: users = [] } = useGetUsers();
 	const selectedFramework = watch('framework');
 	useEffect(() => {
 		setSelectedLeaves([]);
 	}, [selectedFramework]);
 
+	const associationsFakeData = [
+		{
+			reviewer: users[0],
+			delegates: users,
+			id: 'prova',
+			name: 'prova'
+		}
+	];
 	return (
 		<>
 			{(!selectedFramework || selectedFramework !== ('choose-framework' || 'FREE')) && (
@@ -124,8 +134,7 @@ const FrameworkSelectionStepContainer = () => {
 				/>
 			</FullWidthColumn>
 			<FullWidthColumn>
-				{' '}
-				<AssociationSelectionList />
+				<AssociationSelectionList associations={associationsFakeData} />
 			</FullWidthColumn>
 		</>
 	);
