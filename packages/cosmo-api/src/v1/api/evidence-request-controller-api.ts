@@ -468,13 +468,13 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getEvidenceRequestById: async (
+		getEvidenceRequestById1: async (
 			id: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
-			assertParamExists('getEvidenceRequestById', 'id', id);
+			assertParamExists('getEvidenceRequestById1', 'id', id);
 			const localVarPath = `/api/analyst/evidence-request/{id}`.replace(
 				`{${'id'}}`,
 				encodeURIComponent(String(id))
@@ -1160,14 +1160,14 @@ export const EvidenceRequestControllerApiFp = function (configuration?: Configur
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async getEvidenceRequestById(
+		async getEvidenceRequestById1(
 			id: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EvidenceRequestDto>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getEvidenceRequestById(
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getEvidenceRequestById1(
 				id,
 				acceptLanguage,
 				options
@@ -1520,13 +1520,13 @@ export const EvidenceRequestControllerApiFactory = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getEvidenceRequestById(
+		getEvidenceRequestById1(
 			id: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<EvidenceRequestDto> {
 			return localVarFp
-				.getEvidenceRequestById(id, acceptLanguage, options)
+				.getEvidenceRequestById1(id, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -1815,22 +1815,22 @@ export interface EvidenceRequestControllerApiGetDraftByIdRequest {
 }
 
 /**
- * Request parameters for getEvidenceRequestById operation in EvidenceRequestControllerApi.
+ * Request parameters for getEvidenceRequestById1 operation in EvidenceRequestControllerApi.
  * @export
- * @interface EvidenceRequestControllerApiGetEvidenceRequestByIdRequest
+ * @interface EvidenceRequestControllerApiGetEvidenceRequestById1Request
  */
-export interface EvidenceRequestControllerApiGetEvidenceRequestByIdRequest {
+export interface EvidenceRequestControllerApiGetEvidenceRequestById1Request {
 	/**
 	 *
 	 * @type {number}
-	 * @memberof EvidenceRequestControllerApiGetEvidenceRequestById
+	 * @memberof EvidenceRequestControllerApiGetEvidenceRequestById1
 	 */
 	readonly id: number;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof EvidenceRequestControllerApiGetEvidenceRequestById
+	 * @memberof EvidenceRequestControllerApiGetEvidenceRequestById1
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
@@ -2157,17 +2157,17 @@ export class EvidenceRequestControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {EvidenceRequestControllerApiGetEvidenceRequestByIdRequest} requestParameters Request parameters.
+	 * @param {EvidenceRequestControllerApiGetEvidenceRequestById1Request} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
 	 * @memberof EvidenceRequestControllerApi
 	 */
-	public getEvidenceRequestById(
-		requestParameters: EvidenceRequestControllerApiGetEvidenceRequestByIdRequest,
+	public getEvidenceRequestById1(
+		requestParameters: EvidenceRequestControllerApiGetEvidenceRequestById1Request,
 		options?: AxiosRequestConfig
 	) {
 		return EvidenceRequestControllerApiFp(this.configuration)
-			.getEvidenceRequestById(
+			.getEvidenceRequestById1(
 				requestParameters.id,
 				requestParameters.acceptLanguage,
 				options
