@@ -7,28 +7,30 @@ import {
 	TimePickerSelect,
 	DatePicker,
 	DatePickerInput,
-	MultiSelect,
-	RadioButtonGroup,
-	RadioButton,
-	NumberInput
+	MultiSelect
 } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import { Controller, useForm } from 'react-hook-form';
 import useGetDateFormat from '@hooks/useGetDateFormat';
 import { startOfToday } from 'date-fns';
 import { formatDate } from '@i18n';
+import { useState } from 'react';
+import DayMonthRadioSelection from './DayMonthRadioSelection';
 
 type SchedulingFormData = {
 	frequency: string;
 	date: Date[];
 	startHour: string;
 	timeFormat: string;
+	dayOfWeek: string | string[];
+	dayOfMonth: string;
 };
 
 // TODO Fix id of components when BE is ready
 const SchedulingStepContainer = () => {
 	const { t } = useTranslation('changeMonitoring');
 	const { format, placeholder, localeCode } = useGetDateFormat();
+	const [, setSelectedRadio] = useState<string | number>();
 
 	const { register, watch, control, setValue } = useForm<SchedulingFormData>();
 	const selectedFrequency = watch('frequency');
@@ -101,13 +103,19 @@ const SchedulingStepContainer = () => {
 			text: t('sunday')
 		}
 	];
+
 	const frequencySetup = () => {
 		switch (selectedFrequency) {
 			case 'daily':
 				return null;
 			case 'weekly':
 				return (
-					<Select id='select-day-week' labelText={t('days-of-week')} className='w-1/2'>
+					<Select
+						id='select-day-week'
+						labelText={`${t('days-of-week')} *`}
+						className='w-1/2'
+						onChange={e => setValue('dayOfWeek', e.currentTarget.value)}
+					>
 						{daysOfWeek.map(day => (
 							<SelectItem value={day.value} text={day.text} />
 						))}
@@ -117,160 +125,54 @@ const SchedulingStepContainer = () => {
 				return (
 					<MultiSelect
 						id='select-day-week'
-						titleText={t('days-of-week')}
+						titleText={`${t('days-of-week')} *`}
 						label={t('select-two-days')}
 						className='w-1/2'
 						items={daysOfWeek}
 						itemToString={item => item.text}
+						onChange={e =>
+							setValue(
+								'dayOfWeek',
+								e.selectedItems.map(item => item.value)
+							)
+						}
+						invalid={Array.isArray(watch('dayOfWeek')) && watch('dayOfWeek').length > 2}
+						invalidText={t('invalid-days-select')}
 					/>
 				);
 			case 'monthly':
 				return (
-					<RadioButtonGroup name='ciao' orientation='vertical'>
-						<RadioButton
-							labelText={
-								<NumberInput
-									id='day-mssonth'
-									label='Day of the month'
-									size='sm'
-									value={1}
-									min={1}
-									max={31}
-									className='w-min'
-								/>
-							}
-							value='day-month'
-						/>
-						<RadioButton
-							labelText={
-								<div className='flex space-x-3'>
-									<Select id='custom-day-month-order' size='sm' hideLabel>
-										<SelectItem text={t('first')} value='first' />
-										<SelectItem text={t('second')} value='second' />
-										<SelectItem text={t('third')} value='third' />
-										<SelectItem text={t('last')} value='last' />
-									</Select>
-									<Select id='custom-day-month-select' size='sm' hideLabel>
-										{daysOfWeek.map(day => (
-											<SelectItem value={day.value} text={day.text} />
-										))}
-									</Select>
-								</div>
-							}
-							value='custom-day-month'
-						/>
-					</RadioButtonGroup>
+					<DayMonthRadioSelection
+						name='monthly'
+						setSelectedRadio={setSelectedRadio}
+						daysOfWeek={daysOfWeek}
+					/>
 				);
 			case 'quarterly':
 				return (
-					<RadioButtonGroup name='quarterly-radio' orientation='vertical'>
-						<RadioButton
-							labelText={
-								<NumberInput
-									id='quarterly-day-month-input'
-									label='Day of the month'
-									size='sm'
-									value={1}
-									min={1}
-									max={31}
-									className='w-min'
-								/>
-							}
-							value='quarterly-day-month'
-						/>
-						<RadioButton
-							labelText={
-								<div className='flex space-x-3'>
-									<Select id='quarterly-day-month-order' size='sm' hideLabel>
-										<SelectItem text={t('first')} value='first' />
-										<SelectItem text={t('second')} value='second' />
-										<SelectItem text={t('third')} value='third' />
-										<SelectItem text={t('last')} value='last' />
-									</Select>
-									<Select id='quarterly-day-week-select' size='sm' hideLabel>
-										{daysOfWeek.map(day => (
-											<SelectItem value={day.value} text={day.text} />
-										))}
-									</Select>
-								</div>
-							}
-							value='custom-quarterly-day-month'
-						/>
-					</RadioButtonGroup>
+					<DayMonthRadioSelection
+						name='quarterly'
+						setSelectedRadio={setSelectedRadio}
+						daysOfWeek={daysOfWeek}
+					/>
 				);
+
 			case 'semiannual':
 				return (
-					<RadioButtonGroup name='semiannual-radio' orientation='vertical'>
-						<RadioButton
-							labelText={
-								<NumberInput
-									id='semiannual-day-month-input'
-									label='Day of the month'
-									size='sm'
-									value={1}
-									min={1}
-									max={31}
-									className='w-min'
-								/>
-							}
-							value='semiannual-day-month'
-						/>
-						<RadioButton
-							labelText={
-								<div className='flex space-x-3'>
-									<Select id='semiannual-day-month-order' size='sm' hideLabel>
-										<SelectItem text={t('first')} value='first' />
-										<SelectItem text={t('second')} value='second' />
-										<SelectItem text={t('third')} value='third' />
-										<SelectItem text={t('last')} value='last' />
-									</Select>
-									<Select id='semiannual-day-week-select' size='sm' hideLabel>
-										{daysOfWeek.map(day => (
-											<SelectItem value={day.value} text={day.text} />
-										))}
-									</Select>
-								</div>
-							}
-							value='custom-semiannual-day-month'
-						/>
-					</RadioButtonGroup>
+					<DayMonthRadioSelection
+						name='semiannual'
+						setSelectedRadio={setSelectedRadio}
+						daysOfWeek={daysOfWeek}
+					/>
 				);
+
 			case 'annual':
 				return (
-					<RadioButtonGroup name='annual-radio' orientation='vertical'>
-						<RadioButton
-							labelText={
-								<NumberInput
-									id='annual-day-month-input'
-									label='Day of the month'
-									size='sm'
-									value={1}
-									min={1}
-									max={31}
-									className='w-min'
-								/>
-							}
-							value='annual-day-month'
-						/>
-						<RadioButton
-							labelText={
-								<div className='flex space-x-3'>
-									<Select id='annual-day-month-order' size='sm' hideLabel>
-										<SelectItem text={t('first')} value='first' />
-										<SelectItem text={t('second')} value='second' />
-										<SelectItem text={t('third')} value='third' />
-										<SelectItem text={t('last')} value='last' />
-									</Select>
-									<Select id='annual-day-week-select' size='sm' hideLabel>
-										{daysOfWeek.map(day => (
-											<SelectItem value={day.value} text={day.text} />
-										))}
-									</Select>
-								</div>
-							}
-							value='custom-annual-day-month'
-						/>
-					</RadioButtonGroup>
+					<DayMonthRadioSelection
+						name='annual'
+						setSelectedRadio={setSelectedRadio}
+						daysOfWeek={daysOfWeek}
+					/>
 				);
 			default:
 				return null;
@@ -279,7 +181,7 @@ const SchedulingStepContainer = () => {
 
 	return (
 		<FullWidthColumn className='space-y-7'>
-			<Layer className='flex space-x-5'>
+			<Layer className='xlg:w-1/2'>
 				<Select
 					id='frequency-select'
 					labelText={`${t('frequency')} *`}
@@ -296,7 +198,9 @@ const SchedulingStepContainer = () => {
 						<SelectItem text={option.text} value={option.value} />
 					))}
 				</Select>
+			</Layer>
 
+			<Layer className='flex w-fit space-x-5'>
 				<Controller
 					control={control}
 					name='date'
@@ -319,13 +223,15 @@ const SchedulingStepContainer = () => {
 							<DatePickerInput
 								id='start-date'
 								placeholder={placeholder}
-								labelText={t('start-date')}
+								labelText={`${t('start-date')} *`}
 								size='md'
 							/>
 							<DatePickerInput
 								id='end-date'
 								placeholder={placeholder}
-								labelText={t('end-date')}
+								labelText={
+									selectedFrequency === 'on-demand' ? t('end-date') : `${t('end-date')} *`
+								}
 								disabled={selectedFrequency === 'on-demand'}
 								size='md'
 							/>
@@ -334,7 +240,7 @@ const SchedulingStepContainer = () => {
 				/>
 				<TimePicker
 					id='select-time'
-					labelText={t('start-time')}
+					labelText={`${t('start-time')} *`}
 					onChange={e => setValue('startHour', e.currentTarget.value)}
 				>
 					<TimePickerSelect

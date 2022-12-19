@@ -90,5 +90,7 @@
 	"second": "Second",
 	"third": "Third",
 	"last": "Last",
-	"field-required": "This field is required"
+	"field-required": "This field is required",
+	"day-of-month": "Day of the month",
+	"invalid-days-select": "Too many selected days. Select only two days."
 }

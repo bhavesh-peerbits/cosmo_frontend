@@ -90,5 +90,7 @@
 	"second": "",
 	"third": "",
 	"last": "",
-	"field-required": ""
+	"field-required": "",
+	"day-of-month": "",
+	"invalid-days-select": ""
 }
