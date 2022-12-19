@@ -19,7 +19,7 @@ import { formatDate } from '@i18n';
 type SchedulingFormData = {
 	frequency: string;
 	date: Date[];
-	startHour: string;
+	startHour: number;
 	timeFormat: string;
 	dayOfWeek: string | string[];
 	dayOfMonth: number;
@@ -254,8 +254,17 @@ const SchedulingStepContainer = () => {
 				/>
 				<TimePicker
 					id='select-time'
+					placeholder='hh'
 					labelText={`${t('start-time')} *`}
-					onChange={e => setValue('startHour', e.currentTarget.value)}
+					invalidText={errors.dayOfMonth?.message}
+					{...register('startHour', {
+						required: {
+							value: true,
+							message: `${t('field-required')}`
+						},
+
+						validate: numberInput => numberInput > 3 || 'ciao'
+					})}
 				>
 					<TimePickerSelect
 						id='hour-format-select'
