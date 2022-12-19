@@ -13,12 +13,26 @@ import {
 	NumberInput
 } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import useGetDateFormat from '@hooks/useGetDateFormat';
+import { startOfToday } from 'date-fns';
+import { formatDate } from '@i18n';
+
+type SchedulingFormData = {
+	frequency: string;
+	date: Date[];
+	startHour: string;
+	timeFormat: string;
+};
 
 // TODO Fix id of components when BE is ready
 const SchedulingStepContainer = () => {
 	const { t } = useTranslation('changeMonitoring');
-	const [frequency, setFrequency] = useState('');
+	const { format, placeholder, localeCode } = useGetDateFormat();
+
+	const { register, watch, control, setValue } = useForm<SchedulingFormData>();
+	const selectedFrequency = watch('frequency');
+
 	const frequencyList = [
 		{
 			text: t('on-demand'),
@@ -88,7 +102,7 @@ const SchedulingStepContainer = () => {
 		}
 	];
 	const frequencySetup = () => {
-		switch (frequency) {
+		switch (selectedFrequency) {
 			case 'daily':
 				return null;
 			case 'weekly':
@@ -262,14 +276,20 @@ const SchedulingStepContainer = () => {
 				return null;
 		}
 	};
+
 	return (
 		<FullWidthColumn className='space-y-7'>
 			<Layer className='flex space-x-5'>
 				<Select
 					id='frequency-select'
-					labelText={t('frequency')}
+					labelText={`${t('frequency')} *`}
 					className='w-full'
-					onChange={e => setFrequency(e.target.value)}
+					{...register('frequency', {
+						required: {
+							value: true,
+							message: `${t('field-required')}`
+						}
+					})}
 				>
 					<SelectItem text={t('select-frequency-type')} value='select' hidden />
 					{frequencyList.map(option => (
@@ -277,33 +297,60 @@ const SchedulingStepContainer = () => {
 					))}
 				</Select>
 
-				<DatePicker datePickerType='range'>
-					<DatePickerInput
-						id='date-picker-input-id-start'
-						placeholder='mm/dd/yyyy'
-						labelText={t('start-date')}
-						size='md'
-					/>
-					<DatePickerInput
-						id='date-picker-input-id-finish'
-						placeholder='mm/dd/yyyy'
-						labelText={t('end-date')}
-						size='md'
-						disabled={frequency === 'on-demand'}
-					/>
-				</DatePicker>
-				<TimePicker id='select-time' labelText={t('start-time')}>
-					<TimePickerSelect id='time-picker-select-1'>
+				<Controller
+					control={control}
+					name='date'
+					rules={{
+						required: {
+							value: true,
+							message: `${t('field-required')}`
+						}
+					}}
+					render={({ field }) => (
+						<DatePicker
+							{...field}
+							locale={localeCode}
+							dateFormat={format}
+							datePickerType='range'
+							allowInput
+							className='w-full'
+							minDate={formatDate(startOfToday(), 'P')}
+						>
+							<DatePickerInput
+								id='start-date'
+								placeholder={placeholder}
+								labelText={t('start-date')}
+								size='md'
+							/>
+							<DatePickerInput
+								id='end-date'
+								placeholder={placeholder}
+								labelText={t('end-date')}
+								disabled={selectedFrequency === 'on-demand'}
+								size='md'
+							/>
+						</DatePicker>
+					)}
+				/>
+				<TimePicker
+					id='select-time'
+					labelText={t('start-time')}
+					onChange={e => setValue('startHour', e.currentTarget.value)}
+				>
+					<TimePickerSelect
+						id='hour-format-select'
+						onChange={e => setValue('timeFormat', e.currentTarget.value)}
+					>
 						<SelectItem value='AM' text='AM' />
-						<SelectItem value='PM' text='PM' />7{' '}
-					</TimePickerSelect>{' '}
-					<TimePickerSelect id='time-picker-select-2'>
+						<SelectItem value='PM' text='PM' />
+					</TimePickerSelect>
+					<TimePickerSelect id='time-zone-select'>
 						<SelectItem value='Time zone 1' text='Time zone 1' />
-						<SelectItem value='Time zone 2' text='Time zone 2' />{' '}
+						<SelectItem value='Time zone 2' text='Time zone 2' />
 					</TimePickerSelect>
 				</TimePicker>
 			</Layer>
-			<Layer className=''>{frequencySetup()}</Layer>
+			<Layer>{frequencySetup()}</Layer>
 		</FullWidthColumn>
 	);
 };

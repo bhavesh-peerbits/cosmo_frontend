@@ -89,5 +89,6 @@
 	"first": "First",
 	"second": "Second",
 	"third": "Third",
-	"last": "Last"
+	"last": "Last",
+	"field-required": "This field is required"
 }

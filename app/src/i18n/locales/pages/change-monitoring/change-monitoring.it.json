@@ -89,5 +89,6 @@
 	"first": "Primo",
 	"second": "Secondo",
 	"third": "Terzo",
-	"last": "Ultimo"
+	"last": "Ultimo",
+	"field-required": "Questo campo è obbligatorio"
 }
