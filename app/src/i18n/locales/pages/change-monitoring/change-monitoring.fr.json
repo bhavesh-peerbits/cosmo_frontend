@@ -76,5 +76,18 @@
 	"on-demand": "",
 	"start-date": "",
 	"end-date": "",
-	"start-time": ""
+	"start-time": "",
+	"monday": "",
+	"tuesday": "",
+	"wednesday": "",
+	"thursday": "",
+	"friday": "",
+	"saturday": "",
+	"sunday": "",
+	"days-of-week": "",
+	"select-two-days": "",
+	"first": "",
+	"second": "",
+	"third": "",
+	"last": ""
 }

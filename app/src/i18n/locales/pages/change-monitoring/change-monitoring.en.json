@@ -76,5 +76,18 @@
 	"on-demand": "On demand",
 	"start-date": "Start date",
 	"end-date": "End date",
-	"start-time": "Start time run"
+	"start-time": "Start time run",
+	"monday": "Monday",
+	"tuesday": "Tuesday",
+	"wednesday": "Wednesday",
+	"thursday": "Thursday",
+	"friday": "Friday",
+	"saturday": "Saturday",
+	"sunday": "Sunday",
+	"days-of-week": "Days of the week",
+	"select-two-days": "Select two days",
+	"first": "First",
+	"second": "Second",
+	"third": "Third",
+	"last": "Last"
 }

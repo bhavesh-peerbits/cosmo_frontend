@@ -76,5 +76,18 @@
 	"on-demand": "Su richiesta",
 	"start-date": "Data inizio",
 	"end-date": "Data fine",
-	"start-time": "Orario di partenza run"
+	"start-time": "Orario di partenza run",
+	"monday": "Lunedì",
+	"tuesday": "Martedì",
+	"wednesday": "Mercoledì",
+	"thursday": "Giovedì",
+	"friday": "Venerdì",
+	"saturday": "Sabato",
+	"sunday": "Domenica",
+	"days-of-week": "Giorni della settimana",
+	"select-two-days": "Seleziona due giorni",
+	"first": "Primo",
+	"second": "Secondo",
+	"third": "Terzo",
+	"last": "Ultimo"
 }
