@@ -42,7 +42,7 @@ const NewMonitoringStepsContainer = () => {
 				return {
 					content: <SchedulingStepContainer />,
 					title: t('changeMonitoring:scheduling'),
-					description: 'Description????????'
+					description: t('changeMonitoring:scheduling-step-description')
 				};
 			default:
 				return {

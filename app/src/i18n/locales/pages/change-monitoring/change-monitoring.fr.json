@@ -92,5 +92,6 @@
 	"field-required": "",
 	"day-of-month": "",
 	"invalid-days-select": "",
-	"error-day-number": ""
+	"error-day-number": "",
+	"scheduling-step-description": ""
 }

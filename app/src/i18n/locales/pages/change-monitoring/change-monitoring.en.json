@@ -92,5 +92,6 @@
 	"field-required": "This field is required",
 	"day-of-month": "Day of the month",
 	"invalid-days-select": "Too many selected days. Select only two days.",
-	"error-day-number": "Enter a number between 1 and 31."
+	"error-day-number": "Enter a number between 1 and 31.",
+	"scheduling-step-description": "In this step it is necessary to select a type of execution frequency of the monitoring runs. For each type of frequency it is necessary to indicate different information."
 }

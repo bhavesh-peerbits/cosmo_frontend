@@ -280,6 +280,10 @@ const SchedulingStepContainer = () => {
 				</TimePicker>
 			</Layer>
 			<Layer>{frequencySetup()}</Layer>
+			<div>
+				<span className='text-productive-heading-2'>{t('total-runs')}: </span>
+				<span>5</span>
+			</div>
 		</FullWidthColumn>
 	);
 };
