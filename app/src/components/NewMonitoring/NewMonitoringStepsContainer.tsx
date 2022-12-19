@@ -2,6 +2,7 @@ import { Grid, ProgressStep, ProgressIndicator } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import AdditionalInfoStepContainer from './AdditionalInfoStepContainer';
 import AssetsSelectionStepContainer from './AssetsSelectionStepContainer';
 import FrameworkSelectionStepContainer from './FrameworkSelectionStepContainer';
 import NewMonitoringStepTile from './NewMonitoringStepTile';
@@ -43,6 +44,12 @@ const NewMonitoringStepsContainer = () => {
 					content: <SchedulingStepContainer />,
 					title: t('changeMonitoring:scheduling'),
 					description: t('changeMonitoring:scheduling-step-description')
+				};
+			case 5:
+				return {
+					content: <AdditionalInfoStepContainer />,
+					title: t('evidenceRequest:additional-info'),
+					description: 'Description????'
 				};
 			default:
 				return {
