@@ -31,7 +31,9 @@ const TreeSelectionModal = ({
 		'evidenceRequest'
 	]);
 
-	const { data: framework } = useGetFrameworkTreeByCode(selectedFramework);
+	const { data: framework } = useGetFrameworkTreeByCode(
+		selectedFramework !== 'FREE' ? selectedFramework : ''
+	);
 	const [selectedItems, setSelectedItems] = useState<Framework[]>(selectedLeaves);
 
 	useEffect(() => {

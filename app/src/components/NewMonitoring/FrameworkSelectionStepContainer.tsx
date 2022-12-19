@@ -5,7 +5,7 @@ import cx from 'classnames';
 import useGetNewDraftParameter from '@api/evidence-request/useGetNewDraftParameter';
 import { useForm } from 'react-hook-form';
 import TreeSelectionModal from '@components/Modals/TreeSelectionModal';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Framework from '@model/Framework';
 import useGetUsers from '@api/user/useGetUsers';
@@ -46,18 +46,18 @@ const FrameworkSelectionStepContainer = () => {
 
 	return (
 		<>
-			{(!selectedFramework || selectedFramework !== ('choose-framework' || 'FREE')) && (
-				<TreeSelectionModal
-					selectedFramework={
-						selectedFramework !== ('choose-framework' || 'FREE') || !selectedFramework
-							? selectedFramework
-							: ''
-					}
-					open={isTreeSelectionOpen}
-					setIsOpen={setIsTreeSelectionOpen}
-					selectedLeaves={selectedLeaves}
-					setSelectedLeaves={setSelectedLeaves}
-				/>
+			{(!selectedFramework || selectedFramework !== 'FREE') && (
+				<Suspense>
+					<TreeSelectionModal
+						selectedFramework={
+							selectedFramework !== 'FREE' || !selectedFramework ? selectedFramework : ''
+						}
+						open={isTreeSelectionOpen}
+						setIsOpen={setIsTreeSelectionOpen}
+						selectedLeaves={selectedLeaves}
+						setSelectedLeaves={setSelectedLeaves}
+					/>
+				</Suspense>
 			)}
 			<FullWidthColumn className='lg:w-1/2'>
 				<Layer level={2}>
@@ -68,7 +68,6 @@ const FrameworkSelectionStepContainer = () => {
 							required: true
 						})}
 					>
-						<SelectItem text={t('choose-framework')} value='choose-framework' hidden />
 						{parameters?.requestType.map(req => (
 							<SelectItem text={req} value={req} />
 						))}
@@ -77,7 +76,9 @@ const FrameworkSelectionStepContainer = () => {
 			</FullWidthColumn>
 			<FullWidthColumn className='pt-5 lg:w-1/2'>
 				<FormLabel className='mb-3'>
-					<span>{t('leaves')} *</span>
+					<span>
+						{t('leaves')} {selectedFramework !== 'FREE' && '*'}
+					</span>
 				</FormLabel>
 				<div className='flex w-full items-center'>
 					<Tile
@@ -94,7 +95,7 @@ const FrameworkSelectionStepContainer = () => {
 								</div>
 							) : (
 								<div className='text-text-placeholder text-body-compact-1'>
-									{t('select-control')}
+									{t('select-leaves')}
 								</div>
 							)}
 						</div>
@@ -102,8 +103,7 @@ const FrameworkSelectionStepContainer = () => {
 							<Button
 								kind='ghost'
 								renderIcon={() =>
-									!selectedFramework ||
-									selectedFramework === ('choose-framework' || 'FREE') ? (
+									!selectedFramework || selectedFramework === 'FREE' ? (
 										<EditOff size={20} />
 									) : (
 										<Add size={20} />
@@ -111,10 +111,7 @@ const FrameworkSelectionStepContainer = () => {
 								}
 								size='sm'
 								hasIconOnly
-								disabled={
-									!selectedFramework ||
-									selectedFramework === ('choose-framework' || 'FREE')
-								}
+								disabled={!selectedFramework || selectedFramework === 'FREE'}
 								onClick={() => setIsTreeSelectionOpen(true)}
 								iconDescription={t('select-leaves')}
 							/>
