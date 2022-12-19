@@ -71,7 +71,6 @@
 	"quarterly": "",
 	"semiannual": "",
 	"annual": "",
-	"multiple-times-day": "",
 	"select-frequency-type": "",
 	"on-demand": "",
 	"start-date": "",
@@ -92,5 +91,6 @@
 	"last": "",
 	"field-required": "",
 	"day-of-month": "",
-	"invalid-days-select": ""
+	"invalid-days-select": "",
+	"error-day-number": ""
 }

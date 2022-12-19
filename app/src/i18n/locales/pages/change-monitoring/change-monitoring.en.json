@@ -71,7 +71,6 @@
 	"quarterly": "Quarterly",
 	"semiannual": "Semiannual",
 	"annual": "Annual",
-	"multiple-times-day": "Multiple times per day",
 	"select-frequency-type": "Select a frequency type",
 	"on-demand": "On demand",
 	"start-date": "Start date",
@@ -92,5 +91,6 @@
 	"last": "Last",
 	"field-required": "This field is required",
 	"day-of-month": "Day of the month",
-	"invalid-days-select": "Too many selected days. Select only two days."
+	"invalid-days-select": "Too many selected days. Select only two days.",
+	"error-day-number": "Enter a number between 1 and 31."
 }

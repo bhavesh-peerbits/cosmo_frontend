@@ -71,7 +71,6 @@
 	"quarterly": "Trimestrale",
 	"semiannual": "Semestrale",
 	"annual": "Annuale",
-	"multiple-times-day": "Più volte al giorno",
 	"select-frequency-type": "Seleziona un tipo di frequenza",
 	"on-demand": "Su richiesta",
 	"start-date": "Data inizio",
@@ -92,5 +91,6 @@
 	"last": "Ultimo",
 	"field-required": "Questo campo è obbligatorio",
 	"day-of-month": "Giorno del mese",
-	"invalid-days-select": "Troppi giorni selezionati. Selezionare solo due giorni."
+	"invalid-days-select": "Troppi giorni selezionati. Selezionare solo due giorni.",
+	"error-day-number": "Inserire un numero compreso tra 1 e 31."
 }

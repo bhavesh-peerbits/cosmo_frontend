@@ -7,15 +7,14 @@ import {
 	TimePickerSelect,
 	DatePicker,
 	DatePickerInput,
-	MultiSelect
+	MultiSelect,
+	NumberInput
 } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import { Controller, useForm } from 'react-hook-form';
 import useGetDateFormat from '@hooks/useGetDateFormat';
 import { startOfToday } from 'date-fns';
 import { formatDate } from '@i18n';
-import { useState } from 'react';
-import DayMonthRadioSelection from './DayMonthRadioSelection';
 
 type SchedulingFormData = {
 	frequency: string;
@@ -23,16 +22,26 @@ type SchedulingFormData = {
 	startHour: string;
 	timeFormat: string;
 	dayOfWeek: string | string[];
-	dayOfMonth: string;
+	dayOfMonth: number;
 };
 
 // TODO Fix id of components when BE is ready
 const SchedulingStepContainer = () => {
 	const { t } = useTranslation('changeMonitoring');
 	const { format, placeholder, localeCode } = useGetDateFormat();
-	const [, setSelectedRadio] = useState<string | number>();
 
-	const { register, watch, control, setValue } = useForm<SchedulingFormData>();
+	const {
+		register,
+		watch,
+		control,
+		setValue,
+		getValues,
+		formState: { errors }
+	} = useForm<SchedulingFormData>({
+		defaultValues: {
+			dayOfMonth: 1
+		}
+	});
 	const selectedFrequency = watch('frequency');
 
 	const frequencyList = [
@@ -67,10 +76,6 @@ const SchedulingStepContainer = () => {
 		{
 			text: t('annual'),
 			value: 'annual'
-		},
-		{
-			text: t('multiple-times-day'),
-			value: 'multiple-times-day'
 		}
 	];
 	const daysOfWeek = [
@@ -105,78 +110,87 @@ const SchedulingStepContainer = () => {
 	];
 
 	const frequencySetup = () => {
-		switch (selectedFrequency) {
-			case 'daily':
-				return null;
-			case 'weekly':
-				return (
-					<Select
-						id='select-day-week'
-						labelText={`${t('days-of-week')} *`}
-						className='w-1/2'
-						onChange={e => setValue('dayOfWeek', e.currentTarget.value)}
-					>
-						{daysOfWeek.map(day => (
-							<SelectItem value={day.value} text={day.text} />
-						))}
-					</Select>
-				);
-			case 'biweekly':
-				return (
-					<MultiSelect
-						id='select-day-week'
-						titleText={`${t('days-of-week')} *`}
-						label={t('select-two-days')}
-						className='w-1/2'
-						items={daysOfWeek}
-						itemToString={item => item.text}
-						onChange={e =>
-							setValue(
-								'dayOfWeek',
-								e.selectedItems.map(item => item.value)
-							)
-						}
-						invalid={Array.isArray(watch('dayOfWeek')) && watch('dayOfWeek').length > 2}
-						invalidText={t('invalid-days-select')}
-					/>
-				);
-			case 'monthly':
-				return (
-					<DayMonthRadioSelection
-						name='monthly'
-						setSelectedRadio={setSelectedRadio}
-						daysOfWeek={daysOfWeek}
-					/>
-				);
-			case 'quarterly':
-				return (
-					<DayMonthRadioSelection
-						name='quarterly'
-						setSelectedRadio={setSelectedRadio}
-						daysOfWeek={daysOfWeek}
-					/>
-				);
-
-			case 'semiannual':
-				return (
-					<DayMonthRadioSelection
-						name='semiannual'
-						setSelectedRadio={setSelectedRadio}
-						daysOfWeek={daysOfWeek}
-					/>
-				);
-
-			case 'annual':
-				return (
-					<DayMonthRadioSelection
-						name='annual'
-						setSelectedRadio={setSelectedRadio}
-						daysOfWeek={daysOfWeek}
-					/>
-				);
-			default:
-				return null;
+		if (selectedFrequency === ('daily' || 'on-demand')) {
+			return null;
 		}
+		if (selectedFrequency === 'weekly') {
+			return (
+				<Select
+					id='select-day-week'
+					labelText={`${t('days-of-week')} *`}
+					className='w-1/2'
+					onChange={e => setValue('dayOfWeek', e.currentTarget.value)}
+				>
+					{daysOfWeek.map(day => (
+						<SelectItem value={day.value} text={day.text} />
+					))}
+				</Select>
+			);
+		}
+		if (selectedFrequency === 'biweekly') {
+			return (
+				<MultiSelect
+					id='select-day-week'
+					titleText={`${t('days-of-week')} *`}
+					label={t('select-two-days')}
+					className='w-1/2'
+					items={daysOfWeek}
+					itemToString={item => item.text}
+					onChange={e =>
+						setValue(
+							'dayOfWeek',
+							e.selectedItems.map(item => item.value)
+						)
+					}
+					invalid={Array.isArray(watch('dayOfWeek')) && watch('dayOfWeek').length > 2}
+					invalidText={t('invalid-days-select')}
+				/>
+			);
+		}
+		if (
+			selectedFrequency === 'monthly' ||
+			selectedFrequency === 'quarterly' ||
+			selectedFrequency === 'semiannual' ||
+			selectedFrequency === 'annual'
+		) {
+			return (
+				<Controller
+					control={control}
+					name='dayOfMonth'
+					defaultValue={getValues('dayOfMonth')}
+					rules={{
+						required: {
+							value:
+								selectedFrequency === 'monthly' ||
+								selectedFrequency === 'quarterly' ||
+								selectedFrequency === 'semiannual' ||
+								selectedFrequency === 'annual',
+							message: `${t('field-required')}`
+						}
+					}}
+					render={({ field }) => (
+						<NumberInput
+							{...field}
+							min={1}
+							max={31}
+							onChange={(e, data) =>
+								setValue('dayOfMonth', data.value as number, {
+									shouldDirty: true,
+									shouldValidate: true
+								})
+							}
+							id='day-month-input'
+							label={t('day-of-month')}
+							size='sm'
+							className='w-min'
+							invalidText={t('error-day-number')}
+							invalid={Boolean(errors.dayOfMonth)}
+						/>
+					)}
+				/>
+			);
+		}
+		return null;
 	};
 
 	return (
