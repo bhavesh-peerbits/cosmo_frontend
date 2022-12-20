@@ -93,5 +93,10 @@
 	"day-of-month": "Day of the month",
 	"invalid-days-select": "Too many selected days. Select only two days.",
 	"error-day-number": "Enter a number between 1 and 31.",
-	"scheduling-step-description": "In this step it is necessary to select a type of execution frequency of the monitoring runs. For each type of frequency it is necessary to indicate different information."
+	"scheduling-step-description": "In this step it is necessary to select a type of execution frequency of the monitoring runs. For each type of frequency it is necessary to indicate different information.",
+	"add": "Add",
+	"extensions-to-ignore": "Extensions to ignore",
+	"first-run-file": "First run file",
+	"first-run-file-description": "This file will be the base for the first run of the monitoring.",
+	"note": "Note"
 }

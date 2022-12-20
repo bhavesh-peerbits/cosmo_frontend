@@ -93,5 +93,10 @@
 	"day-of-month": "Giorno del mese",
 	"invalid-days-select": "Troppi giorni selezionati. Selezionare solo due giorni.",
 	"error-day-number": "Inserire un numero compreso tra 1 e 31.",
-	"scheduling-step-description": "In questo step è necessario selezionare un tipo di frequenza di esecuzione delle run del monitoraggio. Per ogni tipologia di frequenza è necessario indicare diverse informazioni"
+	"scheduling-step-description": "In questo step è necessario selezionare un tipo di frequenza di esecuzione delle run del monitoraggio. Per ogni tipologia di frequenza è necessario indicare diverse informazioni",
+	"add": "Aggiungi",
+	"extensions-to-ignore": "Estensioni da ignorare",
+	"first-run-file": "File per prima run",
+	"first-run-file-description": "Questo file costituisce la base per la prima run del monitoraggio.",
+	"note": "Nota"
 }

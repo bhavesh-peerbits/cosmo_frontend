@@ -12,7 +12,7 @@ import ScriptSelectionStepContainer from './ScriptSelectionStepContainer';
 
 const NewMonitoringStepsContainer = () => {
 	const { t } = useTranslation(['changeMonitoring', 'evidenceRequest']);
-	const [currentStep, setCurrentStep] = useState(4);
+	const [currentStep, setCurrentStep] = useState(5);
 	const contentToRender = () => {
 		switch (currentStep) {
 			case 0:

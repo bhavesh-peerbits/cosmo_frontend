@@ -16,9 +16,10 @@ import { useForm } from 'react-hook-form';
 
 type AdditionalInfoFormData = {
 	extension: string;
+	note: string;
 };
 const AdditionalInfoStepContainer = () => {
-	const { t } = useTranslation('changeMonitoring');
+	const { t } = useTranslation(['changeMonitoring', 'userRevalidation']);
 	const [sameSetup, setSameSetup] = useState(false);
 	const [extensions, setExtensions] = useState<string[]>([]);
 
@@ -26,22 +27,24 @@ const AdditionalInfoStepContainer = () => {
 
 	const extension = watch('extension');
 	const addExtension = () => {
-		setExtensions(old => [...old, extension]);
+		setExtensions(old =>
+			!old.find(el => el === extension) ? [...old, extension] : [...old]
+		);
 		reset({ extension: '' });
 	};
 	return (
-		<>
+		<FullWidthColumn className='space-y-7'>
 			<FullWidthColumn>
 				<Toggle
 					aria-label='Path toggle'
 					id='path-toggle'
-					labelA={t('different')}
-					labelB={t('same')}
+					labelA={t('changeMonitoring:different')}
+					labelB={t('changeMonitoring:same')}
 					toggled={sameSetup}
 					onToggle={() => setSameSetup(!sameSetup)}
 					labelText={
 						<div className='flex space-x-3'>
-							<p className='text-label-1'>{t('asset-setup-toggle')}</p>
+							<p className='text-label-1'>{t('changeMonitoring:asset-setup-toggle')}</p>
 							<Tooltip align='top' label='Inserisci descrizione'>
 								<button type='button' onClick={e => e.preventDefault()}>
 									<Information />
@@ -55,16 +58,18 @@ const AdditionalInfoStepContainer = () => {
 				<Layer className='flex items-end space-x-3 lg:w-1/2'>
 					<TextInput
 						id='extensions-ignore'
-						labelText='Extensions to ignore'
+						labelText={t('changeMonitoring:extensions-to-ignore')}
 						onKeyDown={e =>
-							e.key === 'Enter'
-								? (setExtensions(old => [...old, extension]), reset({ extension: '' }))
-								: {}
+							e.key === 'Enter' &&
+							(setExtensions(old =>
+								!old.find(el => el === extension) ? [...old, extension] : [...old]
+							),
+							reset({ extension: '' }))
 						}
 						{...register('extension')}
 					/>
-					<Button renderIcon={Add} size='md' onClick={addExtension}>
-						Add
+					<Button renderIcon={Add} size='md' onClick={addExtension} disabled={!extension}>
+						{t('changeMonitoring:add')}
 					</Button>
 				</Layer>
 				{extensions.map(ex => (
@@ -73,15 +78,25 @@ const AdditionalInfoStepContainer = () => {
 					</Tag>
 				))}
 			</FullWidthColumn>
-			<FullWidthColumn>
-				<FileUploaderDropContainer labelText='Monitoring file' />
+			<FullWidthColumn className='space-y-5'>
+				<div className='flex flex-col space-y-3'>
+					<span className='text-heading-compact-1'>
+						{t('changeMonitoring:first-run-file')}
+					</span>
+					<span className='text-text-secondary text-body-compact-1'>
+						{t('changeMonitoring:first-run-file-description')}
+					</span>
+				</div>
+				<FileUploaderDropContainer
+					labelText={t('userRevalidation:upload-instructions')}
+				/>
 			</FullWidthColumn>
 			<FullWidthColumn>
 				<Layer>
-					<TextArea labelText='Note' />
+					<TextArea labelText={t('changeMonitoring:note')} {...register('note')} />
 				</Layer>
 			</FullWidthColumn>
-		</>
+		</FullWidthColumn>
 	);
 };
 export default AdditionalInfoStepContainer;

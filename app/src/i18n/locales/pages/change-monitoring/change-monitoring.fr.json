@@ -93,5 +93,10 @@
 	"day-of-month": "",
 	"invalid-days-select": "",
 	"error-day-number": "",
-	"scheduling-step-description": ""
+	"scheduling-step-description": "",
+	"add": "",
+	"extensions-to-ignore": "",
+	"first-run-file": "",
+	"first-run-file-description": "",
+	"note": ""
 }
