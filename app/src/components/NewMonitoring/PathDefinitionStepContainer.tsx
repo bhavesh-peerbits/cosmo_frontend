@@ -4,11 +4,13 @@ import { Information } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import PathTextInput from './PathTextInput';
-import AssetsList from './AssetsList';
+import AccordionPathTextInput from './AccordionPathTextInput';
 
 const PathDefinitionStepContainer = () => {
 	const { t } = useTranslation('changeMonitoring');
 	const [sameSetup, setSameSetup] = useState(false);
+
+	const fakeData = ['path1', 'path2', 'path3'];
 
 	return (
 		<>
@@ -32,24 +34,14 @@ const PathDefinitionStepContainer = () => {
 					}
 				/>
 			</FullWidthColumn>
-			{sameSetup ? (
-				<>
-					<FullWidthColumn className='pb-5'>
-						<AssetsList />
-					</FullWidthColumn>
-					<FullWidthColumn>
-						<PathTextInput spaceElements={7} />
-					</FullWidthColumn>
-				</>
-			) : (
-				<FullWidthColumn>
-					<Accordion>
-						<AccordionItem>
-							<PathTextInput spaceElements={5} level={1} />
-						</AccordionItem>
-					</Accordion>
-				</FullWidthColumn>
-			)}
+			<FullWidthColumn className='space-y-7'>
+				{sameSetup && <PathTextInput />}
+				<Accordion>
+					<AccordionItem>
+						<AccordionPathTextInput sameSetup={sameSetup} assetPaths={fakeData} />
+					</AccordionItem>
+				</Accordion>
+			</FullWidthColumn>
 		</>
 	);
 };

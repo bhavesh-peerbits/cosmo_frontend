@@ -99,5 +99,6 @@
 	"first-run-file": "File per prima run",
 	"first-run-file-description": "Questo file costituisce la base per la prima run del monitoraggio.",
 	"note": "Nota",
-	"same-setup-additional-info": "Nel caso di setup uguale per tutti gli asset, tutte le informazioni inserite saranno utilizzate per tutti gli asset selezionati. In caso contrario sarà necessario indicare le informazioni per ogni asset."
+	"same-setup-additional-info": "Nel caso di setup uguale per tutti gli asset, tutte le informazioni inserite saranno utilizzate per tutti gli asset selezionati. In caso contrario sarà necessario indicare le informazioni per ogni asset.",
+	"select-an-option": "Seleziona un'opzione"
 }

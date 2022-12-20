@@ -5,10 +5,9 @@ import { TextInput, Button, Layer } from '@carbon/react';
 import { Add, TrashCan } from '@carbon/react/icons';
 
 type PathTextInputProps = {
-	level?: 0 | 1 | 2;
-	spaceElements: 5 | 7;
+	inAccordion?: boolean;
 };
-const PathTextInput = ({ level, spaceElements }: PathTextInputProps) => {
+const PathTextInput = ({ inAccordion }: PathTextInputProps) => {
 	const { t } = useTranslation('changeMonitoring');
 
 	const { control, register } = useForm();
@@ -26,8 +25,12 @@ const PathTextInput = ({ level, spaceElements }: PathTextInputProps) => {
 	return (
 		<div className='space-y-5'>
 			{fields.map((field, index) => (
-				<Layer level={level}>
-					<div className={`flex items-end space-y-${spaceElements} space-x-5`}>
+				<Layer>
+					<div
+						className={`flex items-end ${
+							inAccordion ? 'space-y-5' : 'space-y-7'
+						} space-x-5`}
+					>
 						<TextInput
 							id={`path-${field.id}`}
 							labelText='Path'

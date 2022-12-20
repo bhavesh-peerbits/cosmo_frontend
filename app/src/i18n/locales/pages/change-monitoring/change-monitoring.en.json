@@ -99,5 +99,6 @@
 	"first-run-file": "First run file",
 	"first-run-file-description": "This file will be the base for the first run of the monitoring.",
 	"note": "Note",
-	"same-setup-additional-info": "If you select the same setup for all assets, all information will be used for all selected assets. Otherwise it is necessary to indicate information for each asset."
+	"same-setup-additional-info": "If you select the same setup for all assets, all information will be used for all selected assets. Otherwise it is necessary to indicate information for each asset.",
+	"select-an-option": "Select an option"
 }
