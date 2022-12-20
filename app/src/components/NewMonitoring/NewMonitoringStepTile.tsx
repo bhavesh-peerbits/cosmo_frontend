@@ -55,7 +55,7 @@ const NewMonitoringStepTile = ({
 							</Button>
 						)}
 						<Button size='md' onClick={() => setCurrentStep(old => old + 1)}>
-							{currentStep === 6 ? t('modals:save') : t('changeMonitoring:save-next')}
+							{currentStep === 5 ? t('modals:save') : t('changeMonitoring:save-next')}
 						</Button>
 					</FullWidthColumn>
 				</Grid>
