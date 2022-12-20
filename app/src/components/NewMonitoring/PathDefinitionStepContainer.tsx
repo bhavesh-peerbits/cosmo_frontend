@@ -43,7 +43,7 @@ const PathDefinitionStepContainer = () => {
 				</>
 			) : (
 				<FullWidthColumn>
-					<Accordion className='bg-layer-1'>
+					<Accordion>
 						<AccordionItem>
 							<PathTextInput spaceElements={5} level={1} />
 						</AccordionItem>
