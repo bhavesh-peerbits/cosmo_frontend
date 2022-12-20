@@ -10,6 +10,8 @@ interface User {
 	displayName: string;
 	roles: UserRole[];
 	principalRole?: UserDisplayRole;
+
+  lastLogin: Date;
 	inactive: boolean;
 }
 
@@ -45,6 +47,7 @@ export const fromUserApi = (userApi: UserApi): User => {
 		surname: userApi.surname,
 		roles: userApi.roles || [],
 		principalRole: getPrincipalRole(userApi),
+    lastLogin: new Date(),
 		displayName:
 			!userApi.name && !userApi.surname
 				? userApi.username

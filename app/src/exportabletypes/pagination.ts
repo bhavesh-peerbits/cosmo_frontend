@@ -11,5 +11,5 @@ export type Pagination = {
 
 export type OpenApiPagination = Omit<Pagination, 'sort'> & {
 	sort: string[];
-	filter: Record<string, string | number | boolean>;
+	filter: Record<string, unknown | unknown[]>;
 };

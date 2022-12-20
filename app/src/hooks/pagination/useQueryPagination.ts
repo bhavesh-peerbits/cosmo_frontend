@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { useEffect, useMemo } from 'react';
 import { UseQueryOptions } from '@tanstack/react-query/src/types';
+import { useCallback, useEffect, useMemo } from 'react';
+import { isArray } from 'lodash';
 import usePaginationStore from '@hooks/pagination/usePaginationStore';
 import { OpenApiPagination } from '@exportabletypes/pagination';
 
@@ -10,6 +10,10 @@ type QueryKey = (string | number | string[])[];
 interface PaginationData {
 	last?: boolean;
 	totalElements?: number;
+}
+
+const valueIsArray = (value: unknown): value is unknown[] => {
+	return isArray(value);
 }
 
 const useQueryPagination = <T extends PaginationData>(
@@ -29,41 +33,35 @@ const useQueryPagination = <T extends PaginationData>(
 		[sorting]
 	);
 
-	// const normalizeFilter = useCallback((v: { id: string; value: unknown }) => {
-	// 	let filter = '';
-	// 	if (isArray(v.value)) {
-	// 		// @ts-ignore
-	// 		const [min, max] = v.value;
-	// 		filter = min !== undefined ? `${v.id}>=${min},` : '';
-	// 		filter += max !== undefined ? `${v.id}<=${max}` : '';
-	// 	} else {
-	// 		filter = `${v.id}:${v.value},`;
-	// 	}
-	// 	return filter;
-	// }, []);
+	const normalizeFilter = useCallback((v: { id: string; value: unknown }) => {
+		const filter = {} as Record<string, unknown | unknown[]>;
+		if (valueIsArray(v.value)) {
+			const [min, max] = v.value;
+			filter[v.id] = [min, max];
+		} else {
+			filter[v.id] = v.value;
+		}
+		return filter;
+	}, []);
 
-	// const filterNormalize = useMemo(
-	// 	() =>
-	// 		columnFiltersState.length > 0
-	// 			? columnFiltersState.map(normalizeFilter).join('')
-	// 			: undefined,
-	// 	[columnFiltersState, normalizeFilter]
-	// );
+	const filterNormalize = useMemo(
+		() =>
+			columnFiltersState.length > 0
+				? columnFiltersState
+						.map(normalizeFilter)
+						.reduce((acc, cur) => ({ ...acc, ...cur }), {})
+				: {},
+		[columnFiltersState, normalizeFilter]
+	);
 
 	const query = useQuery(
-		[
-			...key,
-			pageIndex,
-			pageSize,
-			sortNormalize,
-			JSON.stringify(columnFiltersState) ?? ''
-		],
+		[...key, pageIndex, pageSize, sortNormalize, JSON.stringify(filterNormalize ?? {})],
 		() =>
 			fetchFn({
 				page: pageIndex,
 				size: pageSize,
 				sort: sortNormalize,
-				filter: columnFiltersState
+				filter: filterNormalize
 			}),
 		{
 			...options,
@@ -84,19 +82,13 @@ const useQueryPagination = <T extends PaginationData>(
 		if (data && !isPreviousData && !data.last) {
 			const nextPage = pageIndex + 1;
 			queryClient.prefetchQuery(
-				[
-					...key,
-					nextPage,
-					pageSize,
-					sortNormalize,
-					JSON.stringify(columnFiltersState) ?? ''
-				],
+				[...key, nextPage, pageSize, sortNormalize, filterNormalize ?? ''],
 				() =>
 					fetchFn({
 						page: nextPage,
 						size: pageSize,
 						sort: sortNormalize,
-						filter: columnFiltersState
+						filter: filterNormalize
 					}),
 				{
 					staleTime: 2 * 60 * 1000
@@ -113,7 +105,7 @@ const useQueryPagination = <T extends PaginationData>(
 		pageSize,
 		isPreviousData,
 		sortNormalize,
-		columnFiltersState
+		filterNormalize
 	]);
 
 	return query;

@@ -141,7 +141,6 @@ const CosmoTable = <T extends SubRows<T>>({
 	const [expanded, setExpanded] = useState<ExpandedState>({});
 	const [tableSize, setTableSize] = useState<TableSize>(size);
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-	const [filterTable, setFilterTable] = useState<ColumnFilter[]>([]);
 
 	const {
 		pagination,
@@ -150,7 +149,8 @@ const CosmoTable = <T extends SubRows<T>>({
 		setPagination,
 		setSorting,
 		resetPagination,
-		setColumnFilters
+		setColumnFilters,
+		columnFiltersState
 	} = usePaginationStore(tableId);
 
 	useUpdateEffect(() => setRowSelection({}), [isSelectable]);
@@ -173,18 +173,9 @@ const CosmoTable = <T extends SubRows<T>>({
 		return itemRank.passed;
 	}, []);
 
-	useEffect(() => {
-		filterTable.forEach(v => {
-			setColumnFilters(old => ({
-				...old,
-				[v.id]: v.value as number | string | boolean
-			}));
-		});
-	}, [filterTable, setColumnFilters]);
-
 	const [globalFilterState, setGlobalFilter] = useState('');
 	const globalFilter = useDebounce(globalFilterState, { wait: 500 });
-	const columnFilters = useDebounce(filterTable, { wait: 500 });
+	const columnFilters = useDebounce(columnFiltersState, { wait: 500 });
 
 	const table = useReactTable({
 		data,
@@ -198,7 +189,7 @@ const CosmoTable = <T extends SubRows<T>>({
 			fuzzy: fuzzyFilter
 		},
 		globalFilterFn: fuzzyFilter,
-		onColumnFiltersChange: setFilterTable,
+		onColumnFiltersChange: setColumnFilters,
 		onGlobalFilterChange: setGlobalFilter,
 		getFilteredRowModel: getFilteredRowModel(),
 		getFacetedRowModel: getFacetedRowModel(),
