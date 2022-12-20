@@ -89,6 +89,7 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 									{
 										'bg-field-1': level === 1,
 										'bg-field-2': level === 2,
+										'bg-field-3': level === 3,
 										'outline-support-error': invalid
 									}
 								)}
