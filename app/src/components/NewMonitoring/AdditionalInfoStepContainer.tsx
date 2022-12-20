@@ -13,8 +13,8 @@ const AdditionalInfoStepContainer = () => {
 		<FullWidthColumn className='space-y-7'>
 			<FullWidthColumn>
 				<Toggle
-					aria-label='Path toggle'
-					id='path-toggle'
+					aria-label='Additional info toggle'
+					id='additional-info-toggle'
 					labelA={t('different')}
 					labelB={t('same')}
 					toggled={sameSetup}

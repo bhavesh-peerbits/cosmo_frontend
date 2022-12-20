@@ -37,7 +37,7 @@ const AdditionalInfoStepContent = ({ inAccordion }: AdditionalInfoStepContentPro
 	return (
 		<FullWidthColumn className={`${inAccordion ? 'space-y-5' : 'space-y-7'}`}>
 			<FullWidthColumn>
-				<Layer className='flex items-end space-x-3 lg:w-1/2' level={inAccordion ? 2 : 0}>
+				<Layer className='flex items-end space-x-3 lg:w-1/2'>
 					<TextInput
 						id='extensions-ignore'
 						labelText={t('changeMonitoring:extensions-to-ignore')}

@@ -51,13 +51,20 @@ const AssociationSelectionList = ({
 						{t('changeMonitoring:free-selection')}
 					</StructuredListCell>
 					<StructuredListCell noWrap className='space-x-4'>
-						<SingleUserSelect control={control} label='' hideLabel name='focalPoint' />
+						<SingleUserSelect
+							control={control}
+							label=''
+							level={3}
+							hideLabel
+							name='focalPoint'
+						/>
 					</StructuredListCell>
 					<StructuredListCell noWrap>
 						<MultipleUserSelect
 							control={control}
 							label='delegates'
 							hideLabel
+							level={3}
 							name='delegates'
 						/>
 					</StructuredListCell>
