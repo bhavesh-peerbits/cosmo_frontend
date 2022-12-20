@@ -70,6 +70,18 @@ export interface User {
 	deletedAt?: string;
 	/**
 	 *
+	 * @type {string}
+	 * @memberof User
+	 */
+	lastLogin?: string;
+	/**
+	 *
+	 * @type {User}
+	 * @memberof User
+	 */
+	createdBy?: User;
+	/**
+	 *
 	 * @type {Array<string>}
 	 * @memberof User
 	 */

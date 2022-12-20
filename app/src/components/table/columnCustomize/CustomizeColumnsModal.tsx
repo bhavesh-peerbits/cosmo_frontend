@@ -83,7 +83,6 @@ const CustomizeColumnsModal = <T extends object>({
 		<Modal
 			className='mb-0 p-0'
 			open={isOpen}
-			isFullWidth
 			modalHeading={`${t(
 				'customize-columns-display'
 			)} (${visibleColumnsCount}/${totalColumns})`}

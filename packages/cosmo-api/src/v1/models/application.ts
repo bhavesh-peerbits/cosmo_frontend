@@ -13,6 +13,7 @@
  */
 
 import { ApplicationProfile } from './application-profile';
+import { Instance } from './instance';
 import { ProcedureAppInstance } from './procedure-app-instance';
 import { Tenant } from './tenant';
 import { User } from './user';
@@ -155,4 +156,10 @@ export interface Application {
 	 * @memberof Application
 	 */
 	procedures?: Array<ProcedureAppInstance>;
+	/**
+	 *
+	 * @type {Array<Instance>}
+	 * @memberof Application
+	 */
+	instances?: Array<Instance>;
 }

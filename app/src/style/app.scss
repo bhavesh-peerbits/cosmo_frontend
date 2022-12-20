@@ -83,3 +83,7 @@ input:-webkit-autofill:active {
 ::-webkit-scrollbar-thumb:hover {
 	border: none;
 }
+
+::-webkit-scrollbar-corner {
+	@apply bg-layer-1;
+}

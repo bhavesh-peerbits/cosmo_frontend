@@ -15,25 +15,13 @@
 /**
  *
  * @export
- * @interface Sort
+ * @interface Inet
  */
-export interface Sort {
+export interface Inet {
 	/**
 	 *
-	 * @type {boolean}
-	 * @memberof Sort
+	 * @type {string}
+	 * @memberof Inet
 	 */
-	empty?: boolean;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof Sort
-	 */
-	unsorted?: boolean;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof Sort
-	 */
-	sorted?: boolean;
+	address?: string;
 }

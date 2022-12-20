@@ -51,12 +51,12 @@ const UserAppsVisibilityTable = () => {
 			{
 				id: 'surname',
 				accessorFn: row => row.surname,
-				header: 'surname'
+				header: 'Surname'
 			},
 			{
 				id: 'username',
 				accessorFn: row => row.username,
-				header: 'username'
+				header: 'Username'
 			},
 			{
 				id: 'action',

@@ -6,7 +6,7 @@ import { fromUserApi } from '@model/User';
 const useGetFilteredPagedUser = (pagination: OpenApiPagination) => {
 	return api.userAdminApi
 		.getFilteredUser({
-			searchField: pagination.filter ?? '__none',
+			...pagination.filter,
 			page: pagination.page,
 			size: pagination.size,
 			sort: pagination.sort

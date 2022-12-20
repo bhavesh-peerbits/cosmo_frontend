@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { UseQueryOptions } from '@tanstack/react-query/src/types';
-import { isArray } from 'lodash';
 import usePaginationStore from '@hooks/pagination/usePaginationStore';
 import { OpenApiPagination } from '@exportabletypes/pagination';
 
@@ -30,35 +29,41 @@ const useQueryPagination = <T extends PaginationData>(
 		[sorting]
 	);
 
-	const normalizeFilter = useCallback((v: { id: string; value: unknown }) => {
-		let filter = '';
-		if (isArray(v.value)) {
-			// @ts-ignore
-			const [min, max] = v.value;
-			filter = min !== undefined ? `${v.id}>=${min},` : '';
-			filter += max !== undefined ? `${v.id}<=${max}` : '';
-		} else {
-			filter = `${v.id}:${v.value},`;
-		}
-		return filter;
-	}, []);
+	// const normalizeFilter = useCallback((v: { id: string; value: unknown }) => {
+	// 	let filter = '';
+	// 	if (isArray(v.value)) {
+	// 		// @ts-ignore
+	// 		const [min, max] = v.value;
+	// 		filter = min !== undefined ? `${v.id}>=${min},` : '';
+	// 		filter += max !== undefined ? `${v.id}<=${max}` : '';
+	// 	} else {
+	// 		filter = `${v.id}:${v.value},`;
+	// 	}
+	// 	return filter;
+	// }, []);
 
-	const filterNormalize = useMemo(
-		() =>
-			columnFiltersState.length > 0
-				? columnFiltersState.map(normalizeFilter).join('')
-				: undefined,
-		[columnFiltersState, normalizeFilter]
-	);
+	// const filterNormalize = useMemo(
+	// 	() =>
+	// 		columnFiltersState.length > 0
+	// 			? columnFiltersState.map(normalizeFilter).join('')
+	// 			: undefined,
+	// 	[columnFiltersState, normalizeFilter]
+	// );
 
 	const query = useQuery(
-		[...key, pageIndex, pageSize, sortNormalize, filterNormalize ?? ''],
+		[
+			...key,
+			pageIndex,
+			pageSize,
+			sortNormalize,
+			JSON.stringify(columnFiltersState) ?? ''
+		],
 		() =>
 			fetchFn({
 				page: pageIndex,
 				size: pageSize,
 				sort: sortNormalize,
-				filter: filterNormalize
+				filter: columnFiltersState
 			}),
 		{
 			...options,
@@ -79,13 +84,19 @@ const useQueryPagination = <T extends PaginationData>(
 		if (data && !isPreviousData && !data.last) {
 			const nextPage = pageIndex + 1;
 			queryClient.prefetchQuery(
-				[...key, nextPage, pageSize, sortNormalize, filterNormalize ?? ''],
+				[
+					...key,
+					nextPage,
+					pageSize,
+					sortNormalize,
+					JSON.stringify(columnFiltersState) ?? ''
+				],
 				() =>
 					fetchFn({
 						page: nextPage,
 						size: pageSize,
 						sort: sortNormalize,
-						filter: filterNormalize
+						filter: columnFiltersState
 					}),
 				{
 					staleTime: 2 * 60 * 1000
@@ -102,7 +113,7 @@ const useQueryPagination = <T extends PaginationData>(
 		pageSize,
 		isPreviousData,
 		sortNormalize,
-		filterNormalize
+		columnFiltersState
 	]);
 
 	return query;

@@ -1,9 +1,8 @@
-import { ColumnFiltersState } from '@tanstack/react-table';
 import { atomFamily } from 'recoil';
 
-const filterAtom = atomFamily<ColumnFiltersState, string>({
+const filterAtom = atomFamily<Record<string, string | number | boolean>, string>({
 	key: 'paginationFilter',
-	default: []
+	default: {}
 });
 
 export default filterAtom;

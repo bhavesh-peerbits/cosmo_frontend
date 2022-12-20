@@ -1,6 +1,7 @@
-import cx from 'classnames';
 import { flexRender, Header, Table } from '@tanstack/react-table';
-import { TableHeader } from '@carbon/react';
+import { TableHeader, OverflowMenu, OverflowMenuItem } from '@carbon/react';
+import { useTranslation } from 'react-i18next';
+import cx from 'classnames';
 import HeaderFilter from './HeaderFilter';
 
 interface ColumnHeaderProps<T> {
@@ -14,6 +15,7 @@ const ColumnHeader = <T extends object>({
 	table,
 	showFilter
 }: ColumnHeaderProps<T>) => {
+	const { t } = useTranslation('table');
 	return (
 		<TableHeader
 			key={header.id}
@@ -27,12 +29,38 @@ const ColumnHeader = <T extends object>({
 			isSortable={header.column.getCanSort()}
 			isSortHeader={header.column.getCanSort() && !!header.column.getIsSorted()}
 		>
-			<div
-				className='h-full overflow-hidden text-ellipsis whitespace-nowrap leading-normal'
-				style={{ width: header.getSize() }}
-			>
-				<span>{flexRender(header.column.columnDef.header, header.getContext())}</span>
+			<div className='h-full overflow-hidden ' style={{ width: header.getSize() }}>
+				<div className='flex items-center justify-between'>
+					<div className='text-ellipsis whitespace-nowrap leading-normal'>
+						{flexRender(header.column.columnDef.header, header.getContext())}
+					</div>
+					<div className='mr-3'>
+						<OverflowMenu ariaLabel='Overflow Menu' iconDescription='Menu'>
+							<OverflowMenuItem
+								itemText={
+									(header.column.getNextSortingOrder() === 'desc' &&
+										t('sort-descending')) ||
+									(header.column.getNextSortingOrder() === 'asc' &&
+										t('sort-ascending')) ||
+									t('original-sort')
+								}
+								onClick={header.column.getToggleSortingHandler()}
+							/>
+
+							{header.column.getCanGroup() && (
+								<OverflowMenuItem
+									hasDivider
+									itemText={
+										header.column.getIsGrouped() ? t('remove-group') : t('group-by')
+									}
+									onClick={header.column.getToggleGroupingHandler()}
+								/>
+							)}
+						</OverflowMenu>
+					</div>
+				</div>
 			</div>
+
 			<div
 				aria-label='Draggable'
 				onMouseDown={header.getResizeHandler()}

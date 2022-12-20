@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React from 'react';
+import { useCallback, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Checkbox } from '@carbon/react';
@@ -44,11 +44,12 @@ const Columns = <T extends object>({
 	selectAllLabel?: string;
 	setColumnsObject: (updated: ColumnType<T>[]) => void;
 }) => {
-	const [ariaRegionText, setAriaRegionText] = React.useState('');
-	const [focusIndex, setFocusIndex] = React.useState(-1);
-	const moveElement = React.useCallback(
+	const [ariaRegionText, setAriaRegionText] = useState('');
+	const [focusIndex, setFocusIndex] = useState(-1);
+	const moveElement = useCallback(
 		(dragIndex: number, hoverIndex: number) => {
 			const dragCard = columns[dragIndex];
+			// TODO fix
 			setColumnsObject(
 				update(columns, {
 					$splice: [

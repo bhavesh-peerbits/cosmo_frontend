@@ -79,6 +79,7 @@ const TableInnerBody = <T extends object>({
 											/>
 										)}
 										{flexRender(cell.column.columnDef.cell, cell.getContext())}
+										{cell.getIsGrouped() && <>({row.subRows.length})</>}
 									</div>
 								</TableCell>
 							);

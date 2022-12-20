@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { Sort } from './sort';
+import { SortObject } from './sort-object';
 
 /**
  *
@@ -28,22 +28,22 @@ export interface PageableObject {
 	offset?: number;
 	/**
 	 *
-	 * @type {Sort}
+	 * @type {SortObject}
 	 * @memberof PageableObject
 	 */
-	sort?: Sort;
-	/**
-	 *
-	 * @type {number}
-	 * @memberof PageableObject
-	 */
-	pageNumber?: number;
+	sort?: SortObject;
 	/**
 	 *
 	 * @type {number}
 	 * @memberof PageableObject
 	 */
 	pageSize?: number;
+	/**
+	 *
+	 * @type {number}
+	 * @memberof PageableObject
+	 */
+	pageNumber?: number;
 	/**
 	 *
 	 * @type {boolean}
