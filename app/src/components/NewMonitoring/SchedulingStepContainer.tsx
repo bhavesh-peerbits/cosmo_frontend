@@ -194,7 +194,7 @@ const SchedulingStepContainer = () => {
 	};
 
 	return (
-		<FullWidthColumn className='space-y-7'>
+		<FullWidthColumn className='space-y-7 overflow-auto'>
 			<Layer className='xlg:w-1/2'>
 				<Select
 					id='frequency-select'
@@ -214,7 +214,7 @@ const SchedulingStepContainer = () => {
 				</Select>
 			</Layer>
 
-			<Layer className='flex w-fit space-x-5'>
+			<Layer className='w-fit space-y-7 lg:flex lg:space-y-0 lg:space-x-5'>
 				<Controller
 					control={control}
 					name='date'

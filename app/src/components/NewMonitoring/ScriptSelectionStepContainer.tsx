@@ -19,14 +19,14 @@ const ScriptSelectionStepContainer = () => {
 	};
 
 	return (
-		<>
+		<FullWidthColumn className='overflow-auto'>
 			<FullWidthColumn>
 				<AssetsList />
 			</FullWidthColumn>
 			<FullWidthColumn className='pt-5'>
 				<OSScriptListContainer data={fakeData} />
 			</FullWidthColumn>
-		</>
+		</FullWidthColumn>
 	);
 };
 export default ScriptSelectionStepContainer;
