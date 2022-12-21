@@ -1,9 +1,10 @@
 import FullWidthColumn from '@components/FullWidthColumn';
-import { Toggle, Tooltip, Accordion, AccordionItem } from '@carbon/react';
+import { Toggle, Tooltip } from '@carbon/react';
 import { Information } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import AdditionalInfoStepContent from './AdditionalInfoStepContent';
+import AssetExpandableTile from './AssetExpandableTile';
 
 const AdditionalInfoStepContainer = () => {
 	const { t } = useTranslation('changeMonitoring');
@@ -34,11 +35,14 @@ const AdditionalInfoStepContainer = () => {
 			{sameSetup ? (
 				<AdditionalInfoStepContent />
 			) : (
-				<Accordion>
-					<AccordionItem>
-						<AdditionalInfoStepContent inAccordion />
-					</AccordionItem>
-				</Accordion>
+				<div>
+					<AssetExpandableTile title='Asset'>
+						<AdditionalInfoStepContent inTile />
+					</AssetExpandableTile>
+					<AssetExpandableTile title='Asset'>
+						<AdditionalInfoStepContent inTile />
+					</AssetExpandableTile>
+				</div>
 			)}
 		</FullWidthColumn>
 	);

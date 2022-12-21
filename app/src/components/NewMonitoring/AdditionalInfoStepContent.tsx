@@ -19,9 +19,9 @@ type AdditionalInfoFormData = {
 };
 
 type AdditionalInfoStepContentProps = {
-	inAccordion?: boolean;
+	inTile?: boolean;
 };
-const AdditionalInfoStepContent = ({ inAccordion }: AdditionalInfoStepContentProps) => {
+const AdditionalInfoStepContent = ({ inTile }: AdditionalInfoStepContentProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'userRevalidation']);
 	const [extensions, setExtensions] = useState<string[]>([]);
 
@@ -35,49 +35,56 @@ const AdditionalInfoStepContent = ({ inAccordion }: AdditionalInfoStepContentPro
 		reset({ extension: '' });
 	};
 	return (
-		<FullWidthColumn className={`${inAccordion ? 'space-y-5' : 'space-y-7'}`}>
-			<FullWidthColumn>
-				<Layer className='flex items-end space-x-3 lg:w-1/2'>
-					<TextInput
-						id='extensions-ignore'
-						labelText={t('changeMonitoring:extensions-to-ignore')}
-						onKeyDown={e =>
-							e.key === 'Enter' &&
-							(setExtensions(old =>
-								!old.find(el => el === extension) ? [...old, extension] : [...old]
-							),
-							reset({ extension: '' }))
-						}
-						{...register('extension')}
+		<FullWidthColumn>
+			<Layer level={inTile ? 1 : 2} className={`${inTile ? 'space-y-5' : 'space-y-7'}`}>
+				<FullWidthColumn>
+					<Layer level={inTile ? 1 : 2}>
+						<div className='flex items-end space-x-3'>
+							<TextInput
+								id='extensions-ignore'
+								labelText={t('changeMonitoring:extensions-to-ignore')}
+								onKeyDown={e =>
+									e.key === 'Enter' &&
+									(setExtensions(old =>
+										!old.find(el => el === extension) ? [...old, extension] : [...old]
+									),
+									reset({ extension: '' }))
+								}
+								{...register('extension')}
+							/>
+							<Button
+								renderIcon={Add}
+								size='md'
+								onClick={addExtension}
+								disabled={!extension}
+							>
+								{t('changeMonitoring:add')}
+							</Button>
+						</div>
+					</Layer>
+					{extensions.map(ex => (
+						<Tag filter onClose={() => setExtensions(old => old.filter(el => el !== ex))}>
+							{ex}
+						</Tag>
+					))}
+				</FullWidthColumn>
+				<FullWidthColumn className='space-y-5'>
+					<div className='flex flex-col space-y-3'>
+						<span className='text-heading-compact-1'>
+							{t('changeMonitoring:first-run-file')}
+						</span>
+						<span className='text-text-secondary text-body-compact-1'>
+							{t('changeMonitoring:first-run-file-description')}
+						</span>
+					</div>
+					<FileUploaderDropContainer
+						labelText={t('userRevalidation:upload-instructions')}
 					/>
-					<Button renderIcon={Add} size='md' onClick={addExtension} disabled={!extension}>
-						{t('changeMonitoring:add')}
-					</Button>
-				</Layer>
-				{extensions.map(ex => (
-					<Tag filter onClose={() => setExtensions(old => old.filter(el => el !== ex))}>
-						{ex}
-					</Tag>
-				))}
-			</FullWidthColumn>
-			<FullWidthColumn className='space-y-5'>
-				<div className='flex flex-col space-y-3'>
-					<span className='text-heading-compact-1'>
-						{t('changeMonitoring:first-run-file')}
-					</span>
-					<span className='text-text-secondary text-body-compact-1'>
-						{t('changeMonitoring:first-run-file-description')}
-					</span>
-				</div>
-				<FileUploaderDropContainer
-					labelText={t('userRevalidation:upload-instructions')}
-				/>
-			</FullWidthColumn>
-			<FullWidthColumn>
-				<Layer>
+				</FullWidthColumn>
+				<FullWidthColumn>
 					<TextArea labelText={t('changeMonitoring:note')} {...register('note')} />
-				</Layer>
-			</FullWidthColumn>
+				</FullWidthColumn>
+			</Layer>
 		</FullWidthColumn>
 	);
 };
