@@ -49,7 +49,6 @@
 	"show-more": "Show more",
 	"script-step-description": "In this step it is necessary to select one script for all assets",
 	"tooltip-toggle-script": "Choose whether to select a different script for each asset or a single script for all assets.",
-	"choose-framework": "Choose a framework",
 	"leaves": "Leaves",
 	"select-framework-leaves": "Select leaves from {{framework}}",
 	"select-leaves": "Select leaves",
@@ -62,7 +61,7 @@
 	"select-control": "Select control",
 	"control-required": "Please select a control",
 	"association-name": "Association name",
-	"framework-step-description": "In this step you need to select a framework and then its leaves. You must also select a control and then an association.",
+	"framework-step-description": "In this step you need to select in order: a framework, one or more leaves, a control and then an association",
 	"free-selection": "Free selection",
 	"daily": "Daily",
 	"weekly": "Weekly",
@@ -100,5 +99,7 @@
 	"first-run-file-description": "This file will be the base for the first run of the monitoring.",
 	"note": "Note",
 	"same-setup-additional-info": "If you select the same setup for all assets, all information will be used for all selected assets. Otherwise it is necessary to indicate information for each asset.",
-	"select-an-option": "Select an option"
+	"select-an-option": "Select an option",
+	"additional-info-step-description": "In this step you can add additional and optional information. You can add for each asset same or different information",
+	"same-setup-path": "If you select the same setup for all assets, all paths will be used for all selected assets. Otherwise it is necessary to indicate different path for each asset."
 }

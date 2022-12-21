@@ -130,7 +130,7 @@ const UploadFileModal = ({
 					<SingleApplicationSelect
 						readOnly={Boolean(application)}
 						defaultValue={application}
-						level={2}
+						level={0}
 						label={`${t('userRevalidation:app-related')} *`}
 						name='application'
 						rules={{

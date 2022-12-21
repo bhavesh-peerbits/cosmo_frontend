@@ -86,8 +86,9 @@ const MultipleAssetSelect = <T extends FieldValues, TName extends FieldPath<T>>(
 								className={cx(
 									'relative z-0 flex min-h-[2.5rem] w-full items-center border-b-[1px] border-solid border-border-strong-1 p-0',
 									{
-										'bg-field-1': level === 1,
-										'bg-field-2': level === 2,
+										'bg-field-1': level === 0,
+										'bg-field-2': level === 1,
+										'bg-field-3': level === 2,
 										'outline-support-error': invalid
 									}
 								)}

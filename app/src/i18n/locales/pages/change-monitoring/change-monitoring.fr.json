@@ -49,7 +49,6 @@
 	"show-more": "",
 	"script-step-description": "",
 	"tooltip-toggle-script": "",
-	"choose-framework": "",
 	"leaves": "",
 	"select-framework-leaves": "",
 	"select-leaves": "",
@@ -99,5 +98,7 @@
 	"first-run-file": "",
 	"first-run-file-description": "",
 	"note": "",
-	"select-an-option": ""
+	"select-an-option": "",
+	"additional-info-step-description": "",
+	"same-setup-path": ""
 }

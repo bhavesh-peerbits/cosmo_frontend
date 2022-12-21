@@ -22,7 +22,7 @@ const PathDefinitionStepContainer = () => {
 					labelText={
 						<div className='flex space-x-3'>
 							<p className='text-label-1'>{t('asset-setup-toggle')}</p>
-							<Tooltip align='top' label='Inserisci descrizione'>
+							<Tooltip align='top' label={t('same-setup-additional-info')}>
 								<button type='button' onClick={e => e.preventDefault()}>
 									<Information />
 								</button>

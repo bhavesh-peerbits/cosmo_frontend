@@ -25,7 +25,7 @@
 	"recipient": "Destinatari",
 	"totals-runs": "Run totali",
 	"frequency": "Frequenza",
-	"assets-step-description": "In questo step è necessario selezionare un'applicazione, una sua istanza ed infine uno o più assets",
+	"assets-step-description": "In questo step è necessario selezionare un'applicazione, una sua istanza e infine uno o più assets",
 	"select-app-instance": "Selezionare un'instanza dell'applicazione",
 	"select-one-app-instance": "Selezionare una sola istanza dalla lista",
 	"app-instances": "Instanze applicazione",
@@ -49,7 +49,6 @@
 	"show-more": "Mostra altro",
 	"script-step-description": "In questo step è necessario selezionare un solo script per tutti gli asset",
 	"tooltip-toggle-script": "Scegli se selezionare uno script diverso per ogni asset oppure un unico script per tutti gli asset presenti.",
-	"choose-framework": "Seleziona un framework",
 	"leaves": "Foglie",
 	"select-framework-leaves": "Seleziona foglie da {{framework}}",
 	"select-leaves": "Seleziona foglie",
@@ -62,7 +61,7 @@
 	"select-control": "Seleziona controllo",
 	"control-required": "Selezionare un controllo",
 	"association-name": "Nome associazione",
-	"framework-step-description": "In questo step è necessario selezionare un framework e successivamente le sue foglie. È inoltre necessario selezionare un controllo e, in seguito, un'associazione tra quelle elencate",
+	"framework-step-description": "In questo step è necessario selezionare in ordine: un framework, le foglie del framework, un controllo e, infine, un'associazione tra quelle elencate",
 	"free-selection": "Selezione libera",
 	"daily": "Giornaliero",
 	"weekly": "Settimanale",
@@ -100,5 +99,7 @@
 	"first-run-file-description": "Questo file costituisce la base per la prima run del monitoraggio.",
 	"note": "Nota",
 	"same-setup-additional-info": "Nel caso di setup uguale per tutti gli asset, tutte le informazioni inserite saranno utilizzate per tutti gli asset selezionati. In caso contrario sarà necessario indicare le informazioni per ogni asset.",
-	"select-an-option": "Seleziona un'opzione"
+	"select-an-option": "Seleziona un'opzione",
+	"additional-info-step-description": "In questo step è possibile indicare delle informazioni addizionali e facoltative. È possibile definire, per ogni asset, informazioni uguali o diverse",
+	"same-setup-path": "Nel caso di setup uguale per tutti gli asset, tutti i path inseriti saranno utilizzati per tutti gli asset selezionati. In caso contrario sarà necessario indicare le informazioni per ogni asset."
 }

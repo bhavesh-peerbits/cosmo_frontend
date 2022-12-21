@@ -33,7 +33,7 @@ const AssetsSelectionStepContainer = () => {
 		<>
 			<FullWidthColumn className='pt-5 lg:w-1/2'>
 				<SingleApplicationSelect
-					level={1}
+					level={2}
 					label={`${t('modals:application')} *`}
 					name='application'
 					control={control}
@@ -49,7 +49,7 @@ const AssetsSelectionStepContainer = () => {
 			<FullWidthColumn className='pt-5 lg:w-1/2'>
 				<SingleAppInstanceSelect
 					readOnly={!app}
-					level={1}
+					level={2}
 					label={`${t('changeMonitoring:app-instance')} *`}
 					name='applicationInstance'
 					control={control}
@@ -65,6 +65,7 @@ const AssetsSelectionStepContainer = () => {
 			<FullWidthColumn className='pt-5 lg:w-1/2'>
 				<MultipleAssetSelect
 					readOnly={!instance}
+					level={2}
 					control={control}
 					name='assets'
 					label={t('changeMonitoring:select-assets')}

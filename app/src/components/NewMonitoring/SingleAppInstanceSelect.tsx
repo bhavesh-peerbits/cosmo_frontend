@@ -75,8 +75,9 @@ const SingleApplicationSelect = <T extends FieldValues, TName extends FieldPath<
 								className={cx(
 									'relative flex h-container-3 min-h-fit w-full items-center border-b-[1px] border-solid border-border-strong-1 p-0',
 									{
-										'bg-field-1': level === 1,
-										'bg-field-2': level === 2,
+										'bg-field-1': level === 0,
+										'bg-field-2': level === 1,
+										'bg-field-3': level === 2,
 										'outline-support-error': invalid
 									}
 								)}

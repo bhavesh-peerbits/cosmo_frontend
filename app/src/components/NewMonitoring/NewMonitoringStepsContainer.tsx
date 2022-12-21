@@ -12,7 +12,7 @@ import ScriptSelectionStepContainer from './ScriptSelectionStepContainer';
 
 const NewMonitoringStepsContainer = () => {
 	const { t } = useTranslation(['changeMonitoring', 'evidenceRequest']);
-	const [currentStep, setCurrentStep] = useState(4);
+	const [currentStep, setCurrentStep] = useState(0);
 	const contentToRender = () => {
 		switch (currentStep) {
 			case 0:
@@ -49,7 +49,7 @@ const NewMonitoringStepsContainer = () => {
 				return {
 					content: <AdditionalInfoStepContainer />,
 					title: t('evidenceRequest:additional-info'),
-					description: 'Description????'
+					description: t('changeMonitoring:additional-info-step-description')
 				};
 			default:
 				return {
