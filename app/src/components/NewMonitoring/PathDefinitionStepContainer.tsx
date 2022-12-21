@@ -3,14 +3,10 @@ import { Toggle, Tooltip, Accordion, AccordionItem } from '@carbon/react';
 import { Information } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
-import PathTextInput from './PathTextInput';
-import AccordionPathTextInput from './AccordionPathTextInput';
 
 const PathDefinitionStepContainer = () => {
 	const { t } = useTranslation('changeMonitoring');
 	const [sameSetup, setSameSetup] = useState(false);
-
-	const fakeData = ['path1', 'path2', 'path3'];
 
 	return (
 		<>
@@ -35,10 +31,10 @@ const PathDefinitionStepContainer = () => {
 				/>
 			</FullWidthColumn>
 			<FullWidthColumn className='space-y-7'>
-				{sameSetup && <PathTextInput />}
+				{sameSetup && <p>table for same setup goes here</p>}
 				<Accordion>
 					<AccordionItem>
-						<AccordionPathTextInput sameSetup={sameSetup} assetPaths={fakeData} />
+						<p>Table for asset paths goes here</p>
 					</AccordionItem>
 				</Accordion>
 			</FullWidthColumn>
