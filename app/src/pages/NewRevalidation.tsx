@@ -16,7 +16,7 @@ const SearchBar = () => {
 	const { filters, setFilters } = useRevalidations();
 	const { t } = useTranslation('userRevalidation');
 	return (
-		<Layer className='ml-5 w-full'>
+		<Layer className='w-full'>
 			<Search
 				size='lg'
 				labelText=''
