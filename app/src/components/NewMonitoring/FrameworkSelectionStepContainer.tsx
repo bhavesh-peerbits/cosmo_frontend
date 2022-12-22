@@ -74,7 +74,7 @@ const FrameworkSelectionStepContainer = () => {
 					</Select>
 				</Layer>
 			</FullWidthColumn>
-			<FullWidthColumn className='pt-5 lg:w-1/2'>
+			<FullWidthColumn className='lg:w-1/2'>
 				<FormLabel className='mb-3'>
 					<span>
 						{t('leaves')} {selectedFramework !== 'FREE' && '*'}
@@ -119,7 +119,7 @@ const FrameworkSelectionStepContainer = () => {
 					</Tile>
 				</div>
 			</FullWidthColumn>
-			<FullWidthColumn className='pt-5 lg:w-1/2'>
+			<FullWidthColumn className='lg:w-1/2'>
 				<SingleControlSelect
 					level={1}
 					label={t('control')}

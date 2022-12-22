@@ -25,7 +25,7 @@ const NewMonitoringStepTile = ({
 		<Layer level={1}>
 			<Tile>
 				<MonitoringDraftRecapModal isOpen={isRecapOpen} setIsOpen={setIsRecapOpen} />
-				<Grid fullWidth narrow className='space-y-5'>
+				<Grid fullWidth narrow className='space-y-7'>
 					<FullWidthColumn className='space-y-3 md:space-y-0'>
 						<div className='flex justify-between'>
 							<span className='text-heading-3'>{title}</span>
@@ -44,7 +44,7 @@ const NewMonitoringStepTile = ({
 					</FullWidthColumn>
 
 					{content}
-					<FullWidthColumn className='justify-end space-y-5 pt-5 md:flex md:space-y-0 md:space-x-5'>
+					<FullWidthColumn className='justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
 						{currentStep > 0 && (
 							<Button
 								size='md'

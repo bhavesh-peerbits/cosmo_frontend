@@ -31,7 +31,7 @@ const AssetsSelectionStepContainer = () => {
 
 	return (
 		<>
-			<FullWidthColumn className='pt-5 lg:w-1/2'>
+			<FullWidthColumn className='lg:w-1/2'>
 				<SingleApplicationSelect
 					level={2}
 					label={`${t('modals:application')} *`}
@@ -46,7 +46,7 @@ const AssetsSelectionStepContainer = () => {
 					applications={applications ? [...applications.values()] : []}
 				/>
 			</FullWidthColumn>
-			<FullWidthColumn className='pt-5 lg:w-1/2'>
+			<FullWidthColumn className='lg:w-1/2'>
 				<SingleAppInstanceSelect
 					readOnly={!app}
 					level={2}
@@ -62,7 +62,7 @@ const AssetsSelectionStepContainer = () => {
 					applications={applications ? [...applications.values()] : []}
 				/>
 			</FullWidthColumn>
-			<FullWidthColumn className='pt-5 lg:w-1/2'>
+			<FullWidthColumn className='lg:w-1/2'>
 				<MultipleAssetSelect
 					readOnly={!instance}
 					level={2}

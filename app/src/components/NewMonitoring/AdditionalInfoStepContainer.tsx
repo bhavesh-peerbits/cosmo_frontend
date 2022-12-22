@@ -15,15 +15,13 @@ const AdditionalInfoStepContainer = () => {
 
 	return (
 		<FullWidthColumn className='space-y-7'>
-			<FullWidthColumn>
-				<Layer>
-					<TextArea
-						labelText={t('note')}
-						{...register('note')}
-						placeholder={t('monitoring-note-placeholder')}
-					/>
-				</Layer>
-			</FullWidthColumn>
+			<Layer>
+				<TextArea
+					labelText={t('note')}
+					{...register('note')}
+					placeholder={t('monitoring-note-placeholder')}
+				/>
+			</Layer>
 			<FullWidthColumn>
 				<Toggle
 					aria-label='Additional info toggle'
