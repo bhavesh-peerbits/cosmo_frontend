@@ -27,11 +27,14 @@ const AdditionalInfoStepContent = ({ inTile }: AdditionalInfoStepContentProps) =
 
 	const { register, watch, reset } = useForm<AdditionalInfoFormData>();
 
-	const extension = watch('extension');
+	const extensionInput = watch('extension');
 	const addExtension = () => {
-		setExtensions(old =>
-			!old.find(el => el === extension) ? [...old, extension] : [...old]
-		);
+		const newExtensions = extensionInput
+			.split(',')
+			.filter(ex => !extensions.includes(ex.toLowerCase()))
+			.map(ex => ex.replace(/[^a-zA-Z0-9-, ]/g, ''));
+		newExtensions &&
+			setExtensions(old => [...old, ...newExtensions.map(newEx => newEx.toLowerCase())]);
 		reset({ extension: '' });
 	};
 	return (
@@ -43,20 +46,15 @@ const AdditionalInfoStepContent = ({ inTile }: AdditionalInfoStepContentProps) =
 							<TextInput
 								id='extensions-ignore'
 								labelText={t('changeMonitoring:extensions-to-ignore')}
-								onKeyDown={e =>
-									e.key === 'Enter' &&
-									(setExtensions(old =>
-										!old.find(el => el === extension) ? [...old, extension] : [...old]
-									),
-									reset({ extension: '' }))
-								}
+								placeholder={t('changeMonitoring:placeholder-extensions')}
+								onKeyDown={e => e.key === 'Enter' && addExtension()}
 								{...register('extension')}
 							/>
 							<Button
 								renderIcon={Add}
 								size='md'
 								onClick={addExtension}
-								disabled={!extension}
+								disabled={!extensionInput}
 							>
 								{t('changeMonitoring:add')}
 							</Button>
