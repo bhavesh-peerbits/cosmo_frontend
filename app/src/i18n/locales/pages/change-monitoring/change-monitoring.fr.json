@@ -58,7 +58,7 @@
 	"select-single-control": "",
 	"search-control-label": "",
 	"search-control-placeholder": "",
-	"select-control": "",
+	"select-controls": "",
 	"control-required": "",
 	"association-name": "",
 	"framework-step-description": "",
@@ -102,5 +102,9 @@
 	"additional-info-step-description": "",
 	"same-setup-path": "",
 	"placeholder-extensions": "",
-	"monitoring-note-placeholder": ""
+	"monitoring-note-placeholder": "",
+	"add-controls": "",
+	"select-controls-list": "",
+	"selected-controls": "",
+	"control-name": ""
 }

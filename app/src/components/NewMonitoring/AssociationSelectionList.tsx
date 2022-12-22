@@ -19,7 +19,11 @@ type AssociationSelectionListProps = {
 	control: Control<{
 		framework: string;
 		leaves: string[];
-		control: string;
+		controls: {
+			info1: string;
+			name: string;
+			id: string;
+		}[];
 		focalPoint: User;
 		delegates: User[];
 	}>;

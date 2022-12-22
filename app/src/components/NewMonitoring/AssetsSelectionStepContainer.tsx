@@ -68,7 +68,7 @@ const AssetsSelectionStepContainer = () => {
 					level={2}
 					control={control}
 					name='assets'
-					label={t('changeMonitoring:select-assets')}
+					label={`${t('changeMonitoring:select-assets')} *`}
 				/>
 			</FullWidthColumn>
 		</>

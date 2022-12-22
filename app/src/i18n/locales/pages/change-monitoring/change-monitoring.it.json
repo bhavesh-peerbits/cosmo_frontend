@@ -57,8 +57,8 @@
 	"select-a-control": "Seleziona un controllo",
 	"select-single-control": "Seleziona un solo controllo",
 	"search-control-label": "Cerca controllo",
-	"search-control-placeholder": "Digita per effettuare la ricerca",
-	"select-control": "Seleziona controllo",
+	"search-control-placeholder": "Cerca tramite nome controllo",
+	"select-controls": "Seleziona controlli",
 	"control-required": "Selezionare un controllo",
 	"association-name": "Nome associazione",
 	"framework-step-description": "In questo step è necessario selezionare in ordine: un framework, le foglie del framework, un controllo e, infine, un'associazione tra quelle elencate",
@@ -103,5 +103,9 @@
 	"additional-info-step-description": "In questo step è possibile indicare delle informazioni addizionali e facoltative. È possibile definire, per ogni asset, informazioni uguali o diverse",
 	"same-setup-path": "Nel caso di setup uguale per tutti gli asset, tutti i path inseriti saranno utilizzati per tutti gli asset selezionati. In caso contrario sarà necessario indicare le informazioni per ogni asset.",
 	"placeholder-extensions": "Separa le estensioni con una virgola (es: txt,csv)",
-	"monitoring-note-placeholder": "Questa è la nota del monitoraggio"
+	"monitoring-note-placeholder": "Questa è la nota del monitoraggio",
+	"add-controls": "Aggiungi controlli",
+	"select-controls-list": "Seleziona uno o più controlli dalla lista",
+	"selected-controls": "Controlli selezionati",
+	"control-name": "Nome controllo"
 }

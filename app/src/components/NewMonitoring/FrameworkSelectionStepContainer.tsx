@@ -10,13 +10,17 @@ import { useTranslation } from 'react-i18next';
 import Framework from '@model/Framework';
 import useGetUsers from '@api/user/useGetUsers';
 import User from '@model/User';
-import SingleControlSelect from './SingleControlSelect';
+import MultipleControlSelect from './MultipleControlSelect';
 import AssociationSelectionList from './AssociationSelectionList';
 
 type FrameworkStepFormData = {
 	framework: string;
 	leaves: string[];
-	control: string;
+	controls: {
+		info1: string;
+		name: string;
+		id: string;
+	}[];
 	focalPoint: User;
 	delegates: User[];
 };
@@ -120,12 +124,11 @@ const FrameworkSelectionStepContainer = () => {
 				</div>
 			</FullWidthColumn>
 			<FullWidthColumn className='lg:w-1/2'>
-				<SingleControlSelect
-					level={1}
-					label={t('control')}
-					name='control'
+				<MultipleControlSelect
+					level={2}
+					label={`${t('control')} *`}
+					name='controls'
 					control={controlForm}
-					controls={['controllo 1', 'controllo 2']}
 					rules={{
 						required: {
 							value: true,
