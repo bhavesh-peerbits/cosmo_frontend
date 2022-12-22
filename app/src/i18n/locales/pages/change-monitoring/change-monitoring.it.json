@@ -102,5 +102,6 @@
 	"select-an-option": "Seleziona un'opzione",
 	"additional-info-step-description": "In questo step è possibile indicare delle informazioni addizionali e facoltative. È possibile definire, per ogni asset, informazioni uguali o diverse",
 	"same-setup-path": "Nel caso di setup uguale per tutti gli asset, tutti i path inseriti saranno utilizzati per tutti gli asset selezionati. In caso contrario sarà necessario indicare le informazioni per ogni asset.",
-	"placeholder-extensions": "Separa le estensioni con una virgola (es: txt,csv)"
+	"placeholder-extensions": "Separa le estensioni con una virgola (es: txt,csv)",
+	"monitoring-note-placeholder": "Questa è la nota del monitoraggio"
 }

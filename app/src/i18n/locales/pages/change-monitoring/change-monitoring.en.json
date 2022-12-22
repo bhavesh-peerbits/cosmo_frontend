@@ -102,5 +102,6 @@
 	"select-an-option": "Select an option",
 	"additional-info-step-description": "In this step you can add additional and optional information. You can add for each asset same or different information",
 	"same-setup-path": "If you select the same setup for all assets, all paths will be used for all selected assets. Otherwise it is necessary to indicate different path for each asset.",
-	"placeholder-extensions": "Separate extensions with a comma (e.g. txt,csv)"
+	"placeholder-extensions": "Separate extensions with a comma (e.g. txt,csv)",
+	"monitoring-note-placeholder": "This is monitoring note"
 }

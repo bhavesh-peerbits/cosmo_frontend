@@ -1,8 +1,9 @@
 import FullWidthColumn from '@components/FullWidthColumn';
-import { Toggle, Tooltip } from '@carbon/react';
+import { Toggle, Tooltip, TextArea, Layer } from '@carbon/react';
 import { Information } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import AdditionalInfoStepContent from './AdditionalInfoStepContent';
 import AssetExpandableTile from './AssetExpandableTile';
 
@@ -10,8 +11,19 @@ const AdditionalInfoStepContainer = () => {
 	const { t } = useTranslation('changeMonitoring');
 	const [sameSetup, setSameSetup] = useState(false);
 
+	const { register } = useForm<{ note: string }>();
+
 	return (
 		<FullWidthColumn className='space-y-7'>
+			<FullWidthColumn>
+				<Layer>
+					<TextArea
+						labelText={t('note')}
+						{...register('note')}
+						placeholder={t('monitoring-note-placeholder')}
+					/>
+				</Layer>
+			</FullWidthColumn>
 			<FullWidthColumn>
 				<Toggle
 					aria-label='Additional info toggle'

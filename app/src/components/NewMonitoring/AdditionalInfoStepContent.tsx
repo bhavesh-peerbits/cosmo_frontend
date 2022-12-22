@@ -1,21 +1,13 @@
-import {
-	FileUploaderDropContainer,
-	TextArea,
-	Layer,
-	TextInput,
-	Button,
-	Tag
-} from '@carbon/react';
+import { FileUploaderDropContainer, Layer, TextInput, Button, Tag } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-type AdditionalInfoFormData = {
+type AdditionalInfoAssetFormData = {
 	extension: string;
-	note: string;
-	level?: 0 | 1 | 2;
+	file: [];
 };
 
 type AdditionalInfoStepContentProps = {
@@ -25,7 +17,7 @@ const AdditionalInfoStepContent = ({ inTile }: AdditionalInfoStepContentProps) =
 	const { t } = useTranslation(['changeMonitoring', 'userRevalidation']);
 	const [extensions, setExtensions] = useState<string[]>([]);
 
-	const { register, watch, reset } = useForm<AdditionalInfoFormData>();
+	const { register, watch, reset } = useForm<AdditionalInfoAssetFormData>();
 
 	const extensionInput = watch('extension');
 	const addExtension = () => {
@@ -78,9 +70,6 @@ const AdditionalInfoStepContent = ({ inTile }: AdditionalInfoStepContentProps) =
 					<FileUploaderDropContainer
 						labelText={t('userRevalidation:upload-instructions')}
 					/>
-				</FullWidthColumn>
-				<FullWidthColumn>
-					<TextArea labelText={t('changeMonitoring:note')} {...register('note')} />
 				</FullWidthColumn>
 			</Layer>
 		</FullWidthColumn>

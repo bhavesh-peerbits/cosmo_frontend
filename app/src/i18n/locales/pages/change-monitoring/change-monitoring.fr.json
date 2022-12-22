@@ -101,5 +101,6 @@
 	"select-an-option": "",
 	"additional-info-step-description": "",
 	"same-setup-path": "",
-	"placeholder-extensions": ""
+	"placeholder-extensions": "",
+	"monitoring-note-placeholder": ""
 }
