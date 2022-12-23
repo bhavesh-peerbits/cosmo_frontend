@@ -13,7 +13,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Controller, useForm } from 'react-hook-form';
 import useGetDateFormat from '@hooks/useGetDateFormat';
-import { startOfToday } from 'date-fns';
+import { startOfTomorrow } from 'date-fns';
 import { formatDate } from '@i18n';
 
 type SchedulingFormData = {
@@ -110,9 +110,6 @@ const SchedulingStepContainer = () => {
 	];
 
 	const frequencySetup = () => {
-		if (selectedFrequency === ('daily' || 'on-demand')) {
-			return null;
-		}
 		if (selectedFrequency === 'weekly') {
 			return (
 				<Select
@@ -147,12 +144,7 @@ const SchedulingStepContainer = () => {
 				/>
 			);
 		}
-		if (
-			selectedFrequency === 'monthly' ||
-			selectedFrequency === 'quarterly' ||
-			selectedFrequency === 'semiannual' ||
-			selectedFrequency === 'annual'
-		) {
+		if (selectedFrequency === 'monthly') {
 			return (
 				<Controller
 					control={control}
@@ -190,6 +182,7 @@ const SchedulingStepContainer = () => {
 				/>
 			);
 		}
+
 		return null;
 	};
 
@@ -232,7 +225,7 @@ const SchedulingStepContainer = () => {
 							datePickerType='range'
 							allowInput
 							className='w-full'
-							minDate={formatDate(startOfToday(), 'P')}
+							minDate={formatDate(startOfTomorrow(), 'P')}
 						>
 							<DatePickerInput
 								id='start-date'
