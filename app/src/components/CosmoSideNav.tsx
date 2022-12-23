@@ -131,7 +131,7 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 							<SideNavMenuItem element={Link} to={routes.NEW_MONITORING}>
 								New Monitoring
 							</SideNavMenuItem>
-							<SideNavMenuItem element={Link} to={routes.DASHBOARD_MONITORING}>
+							<SideNavMenuItem element={Link} to={routes.MONITORING_DASHBOARD}>
 								Dashboard
 							</SideNavMenuItem>
 						</SideNavMenu>

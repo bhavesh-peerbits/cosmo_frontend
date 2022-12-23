@@ -43,6 +43,7 @@ const ActionEvidenceRequestDashboard = React.lazy(
 );
 const NewMonitoring = React.lazy(() => import('@pages/NewMonitoring'));
 const MonitoringDraftDetails = React.lazy(() => import('@pages/MonitoringDraftDetails'));
+const DashboardMonitoring = React.lazy(() => import('@pages/DashboardMonitoring'));
 
 const AuthenticatedRoutes = () => {
 	const {
@@ -275,6 +276,16 @@ const AuthenticatedRoutes = () => {
 									element={
 										<ProtectRoute canNavigate={canCreateMonitoring}>
 											<MonitoringDraftDetails />
+										</ProtectRoute>
+									}
+								/>
+							</Route>
+							<Route path='monitoring-dashboard'>
+								<Route
+									index
+									element={
+										<ProtectRoute canNavigate={canCreateMonitoring}>
+											<DashboardMonitoring />
 										</ProtectRoute>
 									}
 								/>
