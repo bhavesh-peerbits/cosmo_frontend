@@ -1,11 +1,11 @@
 import PageHeader from '@components/PageHeader';
 import StickyTabs from '@components/StickyTabs';
 import { TabList, Tab, TabPanels, TabPanel } from '@carbon/react';
-import DashboardMonitoringContent from '@components/DashboardMonitoring/DashboardMonitoringContent';
+import MonitoringDashboardContent from '@components/MonitoringDashboard/MonitoringDashboardContent';
 import { useTranslation } from 'react-i18next';
 
-const DashboardMonitoring = () => {
-	const { t } = useTranslation('dashboardMonitoring');
+const MonitoringDashboard = () => {
+	const { t } = useTranslation('monitoringDashboard');
 	return (
 		<PageHeader pageTitle='Change Monitoring Dashboard'>
 			<StickyTabs>
@@ -20,21 +20,21 @@ const DashboardMonitoring = () => {
 					<Tab className='max-w-none'>{t('completed')}</Tab>
 				</TabList>
 				<TabPanels>
-					<TabPanel>
-						<DashboardMonitoringContent view='all' />
+					<TabPanel className='p-container-1'>
+						<MonitoringDashboardContent view='all' />
 					</TabPanel>
-					<TabPanel>
-						<DashboardMonitoringContent view='pending' />
+					<TabPanel className='p-container-1'>
+						<MonitoringDashboardContent view='pending' />
 					</TabPanel>
-					<TabPanel>
-						<DashboardMonitoringContent view='ongoing' />
+					<TabPanel className='p-container-1'>
+						<MonitoringDashboardContent view='ongoing' />
 					</TabPanel>
-					<TabPanel>
-						<DashboardMonitoringContent view='completed' />
+					<TabPanel className='p-container-1'>
+						<MonitoringDashboardContent view='completed' />
 					</TabPanel>
 				</TabPanels>
 			</StickyTabs>
 		</PageHeader>
 	);
 };
-export default DashboardMonitoring;
+export default MonitoringDashboard;

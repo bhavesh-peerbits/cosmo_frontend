@@ -57,10 +57,10 @@ import {
 	changeMonitoringIt
 } from './pages/change-monitoring';
 import {
-	dashboardMonitoringEn,
-	dashboardMonitoringFr,
-	dashboardMonitoringIt
-} from './pages/dashboard-monitoring';
+	monitoringDashboardEn,
+	monitoringDashboardFr,
+	monitoringDashboardIt
+} from './pages/monitoring-dashboard';
 import { testEn, testIt } from './pages/test';
 import {
 	errorBoundaryEn,
@@ -91,7 +91,7 @@ export default {
 		procedureInfo: procedureInfoEn,
 		modals: modalsEn,
 		changeMonitoring: changeMonitoringEn,
-		dashboardMonitoring: dashboardMonitoringEn,
+		monitoringDashboard: monitoringDashboardEn,
 		uploaderS3: uploaders3En
 	},
 	it_IT: {
@@ -115,7 +115,7 @@ export default {
 		procedureInfo: procedureInfoIt,
 		modals: modalsIt,
 		changeMonitoring: changeMonitoringIt,
-		dashboardMonitoring: dashboardMonitoringIt,
+		monitoringDashboard: monitoringDashboardIt,
 		uploaderS3: uploaders3It
 	},
 	fr_FR: {
@@ -138,7 +138,7 @@ export default {
 		procedureInfo: procedureInfoFr,
 		modals: modalsFr,
 		changeMonitoring: changeMonitoringFr,
-		dashboardMonitoring: dashboardMonitoringFr,
+		monitoringDashboard: monitoringDashboardFr,
 		uploaderS3: uploaders3Fr
 	}
 } as const;
