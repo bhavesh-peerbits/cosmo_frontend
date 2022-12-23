@@ -13,7 +13,7 @@ const MonitoringDashboardTile = ({ monitoring }: MonitoringDashboardTileProps) =
 	const navigate = useNavigate();
 	return (
 		<Layer level={1}>
-			<ClickableTile onClick={() => navigate('1')} className='mb-5'>
+			<ClickableTile onClick={() => navigate(monitoring.id)} className='mb-5'>
 				<div className='space-y-3'>
 					<p className='block truncate line-clamp-1 text-heading-2'>{monitoring.name}</p>
 					<div className='space-y-2'>
