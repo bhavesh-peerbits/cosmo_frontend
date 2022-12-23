@@ -9,7 +9,6 @@ import {
 } from '@carbon/react';
 import {
 	ColumnDef,
-	ColumnFilter,
 	ColumnOrderState,
 	ExpandedState,
 	FilterFn,
@@ -78,6 +77,7 @@ interface CosmoTableProps<T extends SubRows<T>> {
 	onRowSelection?: (selectedRows: Row<T>[]) => void;
 	size?: TableSize;
 	showSizeOption?: boolean;
+	defaultSelectedRows?: RowSelectionState;
 	canAdd?: boolean;
 	canEdit?: boolean;
 	canDelete?: boolean;
@@ -128,6 +128,7 @@ const CosmoTable = <T extends SubRows<T>>({
 	toolbar = {} as ToolbarProps<T>,
 	subComponent,
 	onRowSelection,
+	defaultSelectedRows,
 	size = 'md',
 	showSizeOption,
 	onDelete
@@ -240,7 +241,8 @@ const CosmoTable = <T extends SubRows<T>>({
 	const selectedRows = table.getSelectedRowModel().flatRows;
 	useEffect(() => {
 		onRowSelection?.(selectedRows);
-	}, [selectedRows, onRowSelection]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [selectedRows]);
 
 	const ModalContent = modalContent;
 
@@ -251,6 +253,10 @@ const CosmoTable = <T extends SubRows<T>>({
 			)
 		);
 	});
+
+	useEffect(() => {
+		setRowSelection(defaultSelectedRows || {});
+	}, [defaultSelectedRows]);
 
 	return (
 		<>

@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Button, Grid, UnorderedList, ListItem } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
-import CosmoTable, { HeaderFunction } from '@components/table/CosmoTable';
+import StringDashCell from '@components/table/Cell/StringDashCell';
+import CosmoTable from '@components/table/CosmoTable';
 import Association from '@model/Association';
 import evidenceRequestDraftStore from '@store/evidenceRequestDraft/evidenceRequestDraftStore';
-import { RowSelectionState } from '@tanstack/react-table';
+import { ColumnDef, RowSelectionState } from '@tanstack/react-table';
 import Application from 'model/Application';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -59,28 +60,29 @@ const ApplicationsSelectionContainer = ({
 		[requestDraft]
 	);
 
-	const columns: HeaderFunction<Application> = useCallback(
-		table => [
-			table.createDataColumn(row => row.name, {
+	const columns = useMemo<ColumnDef<Application>[]>(
+		() => [
+			{
 				id: 'name',
+				accessorFn: row => row.name,
 				header: t('management:application-name')
-			}),
-			table.createDataColumn(row => row.codeName, {
+			},
+			{
 				id: 'code',
+				accessorFn: row => row.codeName,
 				header: t('management:code'),
 				enableGlobalFilter: false
-			}),
-			table.createDataColumn(row => row.owner, {
+			},
+			{
 				id: 'owner',
+				accessorFn: row => row.owner.displayName,
 				header: t('management:owner'),
-				cell: info => info.getValue()?.displayName || '-',
-				enableGlobalFilter: false,
-				meta: {
-					exportableFn: info => info.displayName || '-'
-				}
-			}),
-			table.createDataColumn(row => row.id, {
+				cell: StringDashCell,
+				enableGlobalFilter: false
+			},
+			{
 				id: `control`,
+				accessorFn: row => row.id,
 				header: t('evidenceRequest:control'),
 				cell: info =>
 					associationCell(
@@ -95,12 +97,12 @@ const ApplicationsSelectionContainer = ({
 							.join(',')
 							.toString() || t('evidenceRequest:no-control')
 				}
-			})
+			}
 		],
 		[t, associationCell]
 	);
 
-	const handleNext = () => {
+	const handleNext = useCallback(() => {
 		const newRequests = requestDraft.requests?.map(req => {
 			if (selectedRows?.find(app => app?.id === req.application?.id)) {
 				return { ...req, selected: true };
@@ -114,7 +116,7 @@ const ApplicationsSelectionContainer = ({
 			}));
 			setCurrentStep(1);
 		}
-	};
+	}, []);
 
 	return (
 		<Grid fullWidth narrow className='space-y-5'>
@@ -128,14 +130,19 @@ const ApplicationsSelectionContainer = ({
 			</FullWidthColumn>
 			<FullWidthColumn>
 				<CosmoTable
+					tableId='applicationselection'
 					data={apps}
-					createHeaders={columns}
+					columns={columns}
+					isColumnOrderingEnabled
 					noDataMessage={t('management:no-applications')}
-					searchBarPlaceholder={t('management:search-placeholder')}
+					toolbar={{
+						searchBar: true,
+						toolbarBatchActions: [],
+						toolbarTableMenus: []
+					}}
 					isSelectable
-					level={2}
-					setSelectedRows={setSelectedRows}
-					selectedRows={selectedAppsIndex as RowSelectionState}
+					onRowSelection={selRows => setSelectedRows(selRows.map(v => v.original))}
+					defaultSelectedRows={selectedAppsIndex as RowSelectionState}
 				/>
 			</FullWidthColumn>
 			<FullWidthColumn className='flex justify-end'>

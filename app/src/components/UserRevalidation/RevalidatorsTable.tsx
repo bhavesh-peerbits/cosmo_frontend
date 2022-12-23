@@ -1,17 +1,19 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { TableToolbarSearch, Tooltip, Button } from '@carbon/react';
-import { HeaderFunction, CellProperties } from '@components/table/CosmoTable';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { Button } from '@carbon/react';
+import CosmoTable from '@components/table/CosmoTable';
+import { useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import Answer from '@model/Answer';
 import isAfter from 'date-fns/isAfter';
-import { Information, Edit } from '@carbon/react/icons';
-import GroupableCosmoTable from '@components/table/GroupableCosmoTable';
-import { useSetRecoilState } from 'recoil';
+import { Edit } from '@carbon/react/icons';
+import { SetterOrUpdater, useSetRecoilState } from 'recoil';
 import modifyAnswerModalInfo from '@store/user-revalidation/modifyAnswerModalInfo';
 import { CampaignDtoStatusEnum } from 'cosmo-api/src/v1/models/campaign-dto';
-import UserProfileImage from '@components/UserProfileImage';
 import User from '@model/User';
+import { CellContext, ColumnDef } from '@tanstack/react-table';
+import DateCell from '@components/table/Cell/DateCell';
+import TooltipCell from '@components/table/Cell/TooltipCell';
+import UsersListCell from '@components/table/Cell/UsersListCell';
 
 interface RevalidatorsTableProp {
 	answers: Answer[];
@@ -21,6 +23,41 @@ interface RevalidatorsTableProp {
 	status?: CampaignDtoStatusEnum;
 }
 
+type ActionCellProps = {
+	setModifyModal: SetterOrUpdater<{
+		open: boolean;
+		answer: Answer | undefined;
+		revId: string | undefined;
+		campaignType: string | undefined;
+	}>;
+	info: CellContext<Answer, unknown>;
+	campaignType: string;
+	revId: string;
+};
+
+const ActionCell = ({ setModifyModal, info, campaignType, revId }: ActionCellProps) => {
+	const answer = info.getValue() as Answer;
+	return (
+		<div className='flex justify-center'>
+			<Button
+				size='sm'
+				kind='ghost'
+				hasIconOnly
+				iconDescription='Edit'
+				renderIcon={Edit}
+				onClick={() =>
+					setModifyModal({
+						open: true,
+						answer,
+						campaignType,
+						revId
+					})
+				}
+			/>
+		</div>
+	);
+};
+
 const RevalidatorsTable = ({
 	answers,
 	dueDate,
@@ -29,28 +66,11 @@ const RevalidatorsTable = ({
 	status
 }: RevalidatorsTableProp) => {
 	const { t } = useTranslation(['table', 'userRevalidation', 'userAdmin']);
-	const [filters, setFilters] = useState('');
 	const isFireFighter = campaignType === 'FIREFIGHTER';
 	const setModifyModal = useSetRecoilState(modifyAnswerModalInfo);
 	const isSuid = campaignType === 'SUID';
 	const ref = useRef<HTMLDivElement>(null);
 
-	const usersListCell = useCallback(
-		(info: CellProperties<Answer, { delegates: User[] | undefined }>) => (
-			<div className='flex items-center space-x-2'>
-				{info.getValue().delegates?.map(us => (
-					<UserProfileImage
-						size='lg'
-						initials={us.displayName}
-						imageDescription={us.username}
-						tooltipText={us.displayName}
-						className='mx-[-5px]'
-					/>
-				))}
-			</div>
-		),
-		[]
-	);
 	useEffect(() => {
 		const el = ref.current?.getElementsByClassName('cds--data-table-content')?.[0];
 		if (el) {
@@ -66,212 +86,147 @@ const RevalidatorsTable = ({
 		}
 	}, []);
 
-	const actionCell = useCallback(
-		(info: CellProperties<Answer, { answer: Answer }>) => (
-			<div className='flex justify-center'>
-				<Button
-					size='sm'
-					kind='ghost'
-					hasIconOnly
-					iconDescription='Edit'
-					renderIcon={Edit}
-					onClick={() =>
-						setModifyModal({
-							open: true,
-							answer: info.getValue().answer,
-							campaignType,
-							revId: reviewId
-						})
+	const columns = useMemo<ColumnDef<Answer>[]>(() => {
+		const ArrayCol: ColumnDef<Answer>[] = [
+			{
+				id: `revalidator${reviewId}`,
+				accessorFn: row => row.revalidationUser?.displayName,
+				header: t('userRevalidation:revalidators')
+			},
+			{
+				id: `delegated${reviewId}`,
+				accessorFn: row => ({ delegates: row.delegated }),
+				header: t('userRevalidation:delegates'),
+				cell: UsersListCell,
+				enableGrouping: false,
+				meta: {
+					exportableFn: info =>
+						(info as { delegates: User[] | undefined }).delegates
+							?.map(delegate => delegate.displayName)
+							.join(', ') ?? '-'
+				}
+			},
+			{
+				id: `answer${reviewId}`,
+				accessorFn: row => row.answerType,
+				header: t('userRevalidation:answer'),
+				cell: info => {
+					if (info.getValue()) {
+						return info.getValue();
 					}
-				/>
-			</div>
-		),
-		[campaignType, reviewId, setModifyModal]
-	);
-	const tooltipCell = useCallback(
-		(
-			info: CellProperties<
-				Answer,
-				{ title: string | undefined; description: string | undefined }
-			>
-		) => (
-			<div className='flex items-center space-x-2'>
-				<span>{info.getValue().title}</span>
-				<span>
-					<Tooltip
-						description={
-							info.getValue().description ||
-							t('userRevalidation:permissions-description-null')
-						}
-						align='top'
-					>
-						<button type='button'>
-							<Information />
-						</button>
-					</Tooltip>
-				</span>
-			</div>
-		),
-		[t]
-	);
 
-	const columns: HeaderFunction<Answer> = useCallback(
-		table => {
-			const ArrayCol = [
-				table.createDataColumn(row => row.revalidationUser?.displayName, {
-					id: `revalidator${reviewId}`,
-					header: t('userRevalidation:revalidators')
+					if (dueDate && isAfter(new Date(), dueDate)) {
+						return t('userRevalidation:due-date-exceeded');
+					}
+
+					return t('userRevalidation:not-completed');
+				}
+			},
+			{
+				id: `answerNote${reviewId}`,
+				accessorFn: row => row.note,
+				header: t('userRevalidation:note')
+			},
+			{
+				id: `givenBy${reviewId}`,
+				header: t('userRevalidation:given-by'),
+				accessorFn: row => row.givenBy?.displayName
+			},
+			{
+				id: `givenAt${reviewId}`,
+				header: t('userRevalidation:given-at'),
+				accessorFn: row => row.givenAt,
+				cell: DateCell
+			},
+			{
+				id: `user${reviewId}`,
+				header: 'Username',
+				accessorFn: row => row.userToRevalidate,
+				sortUndefined: 1
+			},
+			{
+				id: `userDisplayName${reviewId}`,
+				accessorFn: row => row.userDetails,
+				header: t('userRevalidation:user-details')
+			},
+			{
+				id: `permissions${reviewId}`,
+				accessorFn: row => ({
+					content: row.permissions,
+					description: row.permissionDescription
 				}),
-				table.createDataColumn(row => ({ delegates: row.delegated }), {
-					id: `delegated${reviewId}`,
-					header: t('userRevalidation:delegates'),
-					cell: usersListCell,
-					enableGrouping: false,
+				header: t('userRevalidation:permission'),
+				cell: TooltipCell,
+				meta: {
+					exportableFn: info =>
+						(
+							info as {
+								content: string;
+								description?: string;
+							}
+						).content
+				}
+			}
+		];
+		if (status !== 'COMPLETED' && status !== 'COMPLETED_WITH_PARTIAL_ANSWERS') {
+			ArrayCol.push({
+				id: `action${reviewId}`,
+				accessorFn: row => row,
+				header: t('userAdmin:actions'),
+				cell: info => ActionCell({ setModifyModal, info, campaignType, revId: reviewId }),
+				enableGrouping: false,
+				meta: {
+					disableExport: true
+				}
+			});
+		}
+		if (isFireFighter) {
+			ArrayCol.splice(6, 0, {
+				id: `fireFighter${reviewId}`,
+				accessorFn: row => row.firefighterID,
+				header: t('userRevalidation:fire-fighter')
+			});
+		}
+		if (isFireFighter || isSuid) {
+			ArrayCol.splice(
+				6,
+				0,
+
+				{
+					id: `risk${reviewId}`,
+					header: t('userRevalidation:risk'),
+					accessorFn: row => ({
+						content: row.jsonApplicationData?.risk,
+						description: row.jsonApplicationData?.riskDescription
+					}),
+					cell: TooltipCell,
 					meta: {
 						exportableFn: info =>
-							(info.delegates as User[]).map(delegate => delegate.displayName).join(', ')
+							(
+								info as {
+									content: string;
+									description?: string;
+								}
+							).content
 					}
-				}),
-				table.createDataColumn(row => row.answerType, {
-					id: `answer${reviewId}`,
-					header: t('userRevalidation:answer'),
-					cell: info => {
-						if (info.getValue()) {
-							return info.getValue();
-						}
+				}
+			);
+		}
+		return ArrayCol;
+	}, [campaignType, dueDate, isFireFighter, isSuid, reviewId, setModifyModal, status, t]);
 
-						if (dueDate && isAfter(new Date(), dueDate)) {
-							return t('userRevalidation:due-date-exceeded');
-						}
-
-						return t('userRevalidation:not-completed');
-					},
-					meta: {
-						exportableFn: info => info || '-'
-					}
-				}),
-				table.createDataColumn(row => row.note, {
-					id: `answerNote${reviewId}`,
-					header: t('userRevalidation:note'),
-					meta: {
-						exportableFn: info => info || '-'
-					}
-				}),
-				table.createDataColumn(row => row.givenBy?.displayName, {
-					id: `givenBy${reviewId}`,
-					header: t('userRevalidation:given-by'),
-					meta: {
-						exportableFn: info => info || '-'
-					}
-				}),
-				table.createDataColumn(row => row.givenAt?.toLocaleString(), {
-					id: `givenAt${reviewId}`,
-					header: t('userRevalidation:given-at'),
-					meta: {
-						exportableFn: info => info || '-'
-					}
-				}),
-				table.createDataColumn(row => row.userToRevalidate, {
-					id: `user${reviewId}`,
-					header: 'Username',
-					sortUndefined: 1
-				}),
-				table.createDataColumn(row => row.userDetails, {
-					id: `userDisplayName${reviewId}`,
-					header: t('userRevalidation:user-details')
-				}),
-				table.createDataColumn(
-					row => ({ title: row.permissions, description: row.permissionDescription }),
-					{
-						id: `permissions${reviewId}`,
-						header: t('userRevalidation:permission'),
-						cell: tooltipCell,
-						meta: {
-							exportableFn: info => info.title
-						}
-					}
-				)
-			];
-			if (status !== 'COMPLETED' && status !== 'COMPLETED_WITH_PARTIAL_ANSWERS') {
-				ArrayCol.push(
-					table.createDataColumn(row => ({ answer: row }), {
-						id: `action${reviewId}`,
-						header: t('userAdmin:actions'),
-						cell: actionCell,
-						enableGrouping: false,
-						meta: {
-							disableExport: true
-						}
-					})
-				);
-			}
-			if (isFireFighter) {
-				ArrayCol.splice(
-					6,
-					0,
-					table.createDataColumn(row => row.firefighterID, {
-						id: `fireFighter${reviewId}`,
-						header: t('userRevalidation:fire-fighter')
-					})
-				);
-			}
-			if (isFireFighter || isSuid) {
-				ArrayCol.splice(
-					6,
-					0,
-					table.createDataColumn(
-						row => ({
-							title: row.jsonApplicationData?.risk,
-							description: row.jsonApplicationData?.riskDescription
-						}),
-						{
-							id: `risk${reviewId}`,
-							header: t('userRevalidation:risk'),
-							cell: tooltipCell,
-							meta: {
-								exportableFn: info => info.title
-							}
-						}
-					)
-				);
-			}
-			return ArrayCol;
-		},
-		[
-			actionCell,
-			dueDate,
-			isFireFighter,
-			isSuid,
-			reviewId,
-			status,
-			t,
-			tooltipCell,
-			usersListCell
-		]
-	);
-
-	const toolbarContent = (
-		<TableToolbarSearch
-			size='lg'
-			persistent
-			placeholder={t('userAdmin:search-placeholder')}
-			id='search'
-			onChange={e => setFilters(e.currentTarget?.value)}
-		/>
-	);
 	return (
 		<div ref={ref}>
-			<GroupableCosmoTable
+			<CosmoTable
 				tableId={reviewId}
-				data={
-					filters
-						? answers.filter(answer =>
-								answer.userToRevalidate?.toLowerCase().includes(filters.toLowerCase())
-						  )
-						: answers
-				}
-				createHeaders={columns}
-				toolbar={{ toolbarContent }}
+				data={answers}
+				columns={columns}
+				toolbar={{
+					searchBar: true,
+					toolbarBatchActions: [],
+					toolbarTableMenus: []
+				}}
+				isColumnOrderingEnabled
 				noDataMessage={t('table:no-data')}
 				exportFileName={() => 'revalidators'}
 			/>

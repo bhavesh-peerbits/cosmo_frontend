@@ -4,7 +4,7 @@ import { fromEvidenceRequestApi } from '@model/EvidenceRequest';
 
 const useGetEvidenceRequestById = (requestId: string) => {
 	return api.evidenceRequest
-		.getEvidenceRequestById({ id: +requestId })
+		.getEvidenceRequestById1({ id: +requestId })
 		.then(({ data }) => fromEvidenceRequestApi(data));
 };
 

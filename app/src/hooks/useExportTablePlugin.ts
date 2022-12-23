@@ -138,6 +138,9 @@ const useExportTablePlugin = <T>(
 				const data = rows.map(row =>
 					columns.map(col => {
 						const v = row.getValue(col.id as string);
+						if (!v) {
+							return '-';
+						}
 						if (col.exportableFn) {
 							return col.exportableFn(v);
 						}

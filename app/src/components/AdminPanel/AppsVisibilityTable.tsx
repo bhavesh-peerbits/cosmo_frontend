@@ -37,7 +37,7 @@ const ActionsCell = ({ setIsSelectOpen, setAppSelectedId, info }: ActionCellProp
 const AppsVisibilityTable = () => {
 	const { t } = useTranslation('management');
 	const { t: tTable } = useTranslation('table');
-	const { apps, filters, setFilters } = useVisibilityApps();
+	const { apps } = useVisibilityApps();
 	const [isSelectOpen, setIsSelectOpen] = useState(false);
 	const [appSelectedId, setAppSelectedId] = useState<string>();
 	const { data: analystUsers = [] } = useGetAllAnalystUsers();
@@ -61,7 +61,7 @@ const AppsVisibilityTable = () => {
 				header: t('created-by'),
 				cell: StringDashCell,
 				meta: {
-					exportableFn: (info: string) => info || '-'
+					exportableFn: info => (info as string) || '-'
 				}
 			},
 			{
@@ -93,16 +93,13 @@ const AppsVisibilityTable = () => {
 				tableId='appvisibility'
 				data={apps}
 				columns={columns}
+				isColumnOrderingEnabled
 				noDataMessage={tTable('no-data')}
 				exportFileName={({ all }) =>
 					all ? 'applications-all' : 'applications-selection'
 				}
 				toolbar={{
-					searchBar: {
-						enabled: true,
-						value: filters.query ?? '',
-						onSearch: e => setFilters(old => ({ ...old, q: e }))
-					},
+					searchBar: true,
 					toolbarBatchActions: [],
 					toolbarTableMenus: []
 				}}

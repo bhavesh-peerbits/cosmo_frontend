@@ -2740,7 +2740,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@carbon/react@npm:^1.19.0":
+"@carbon/react@npm:1.19.0":
   version: 1.19.0
   resolution: "@carbon/react@npm:1.19.0"
   dependencies:
@@ -2770,6 +2770,39 @@ __metadata:
     react-dom: ^16.8.6 || ^17.0.1
     sass: ^1.33.0
   checksum: 678ac459282cfd3259c28c60767952e1ea2461b8284f1e763bddebf8bc65e984b15b6b3d0b877012e999bc5e88885dc82aed12ec72ab867b075bdb7125222cc7
+  languageName: node
+  linkType: hard
+
+"@carbon/react@patch:@carbon/react@npm%3A1.19.0#../.yarn/patches/@carbon-react-npm-1.19.0-985c79b931.patch::locator=app%40workspace%3Aapp":
+  version: 1.19.0
+  resolution: "@carbon/react@patch:@carbon/react@npm%3A1.19.0#../.yarn/patches/@carbon-react-npm-1.19.0-985c79b931.patch::version=1.19.0&hash=b87274&locator=app%40workspace%3Aapp"
+  dependencies:
+    "@babel/runtime": ^7.18.3
+    "@carbon/feature-flags": ^0.11.0
+    "@carbon/icons-react": ^11.13.0
+    "@carbon/layout": ^11.9.0
+    "@carbon/styles": ^1.19.0
+    "@carbon/telemetry": 0.1.0
+    classnames: 2.3.2
+    copy-to-clipboard: ^3.3.1
+    downshift: 5.2.1
+    flatpickr: 4.6.9
+    invariant: ^2.2.3
+    lodash.debounce: ^4.0.8
+    lodash.findlast: ^4.5.0
+    lodash.isequal: ^4.5.0
+    lodash.omit: ^4.5.0
+    lodash.throttle: ^4.1.1
+    prop-types: ^15.7.2
+    react-is: ^17.0.2
+    use-resize-observer: ^6.0.0
+    wicg-inert: ^3.1.1
+    window-or-global: ^1.0.1
+  peerDependencies:
+    react: ^16.8.6 || ^17.0.1
+    react-dom: ^16.8.6 || ^17.0.1
+    sass: ^1.33.0
+  checksum: 0b3d86dc08ead70e6a3a33e4c9f8b89d2a53dab5b6529f53bcf69a9a362bc93c3f99c81dbdd21ba9037f0c1e89db7bdb49f96029b8c2473bc73e6ee9316a34b4
   languageName: node
   linkType: hard
 
@@ -9071,7 +9104,7 @@ __metadata:
     "@carbon/ibm-products": ^2.0.0-rc.10
     "@carbon/layout": ^11.9.0
     "@carbon/motion": ^11.7.0
-    "@carbon/react": ^1.19.0
+    "@carbon/react": "patch:@carbon/react@npm%3A1.19.0#../.yarn/patches/@carbon-react-npm-1.19.0-985c79b931.patch"
     "@carbon/themes": ^11.14.0
     "@ibm/plex": 6.0.2
     "@nabla/vite-plugin-eslint": ^1.4.0

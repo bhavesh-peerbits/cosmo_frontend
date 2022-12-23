@@ -14,7 +14,7 @@ interface PaginationData {
 
 const valueIsArray = (value: unknown): value is unknown[] => {
 	return isArray(value);
-}
+};
 
 const useQueryPagination = <T extends PaginationData>(
 	paginationId: string,

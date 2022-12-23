@@ -24,7 +24,7 @@ interface EvidenceRequestActionTableViewProps {
 const EvidenceRequestActionTableView = ({
 	view
 }: EvidenceRequestActionTableViewProps) => {
-	const { requests, filters, setFilters } = useEvidenceRequestAction();
+	const { requests, setFilters } = useEvidenceRequestAction();
 	const { t } = useTranslation('evidenceRequest');
 
 	const tooltipCell = useCallback(
@@ -199,11 +199,7 @@ const EvidenceRequestActionTableView = ({
 					data={requests}
 					columns={columns}
 					toolbar={{
-						searchBar: {
-							enabled: true,
-							value: filters.query ?? '',
-							onSearch: e => setFilters({ q: e })
-						},
+						searchBar: true,
 						toolbarBatchActions: [],
 						toolbarTableMenus: []
 					}}

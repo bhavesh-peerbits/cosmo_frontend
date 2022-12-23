@@ -58,20 +58,15 @@ const UserAppsVisibilityTable = () => {
 				accessorFn: row => row.username,
 				header: 'Username'
 			},
-      {
-        id: 'lastLogin',
-        accessorFn: row => row.lastLogin.toISOString(),
-        header: 'last login'
-      },
 			{
 				id: 'action',
 				header: tTable('action'),
 				accessorFn: row => row.id,
-        enableColumnFilter: false,
-        enableSorting: false,
+				enableColumnFilter: false,
+				enableSorting: false,
 				cell: info => ActionsCell({ setIsSelectOpen, setUserSelectedId, info }),
 				meta: {
-					disableExport: true,
+					disableExport: true
 				}
 			}
 		],

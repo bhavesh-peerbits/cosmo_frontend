@@ -42,11 +42,12 @@ const DraggableElement = ({
 	selected?: boolean;
 	type: string;
 }) => {
-	const ref = useRef<HTMLLIElement>(null);
+	const ref = useRef<HTMLDivElement>(null);
 
-	const [{ isOver }, drop] = useDrop({
+	const [{ handlerId, isOver }, drop] = useDrop({
 		accept: DRAG_TYPE + type,
 		collect: monitor => ({
+			handlerId: monitor.getHandlerId(),
 			isOver: monitor.isOver()
 		}),
 		drop: (item: { index: number }) => {
@@ -59,41 +60,31 @@ const DraggableElement = ({
 			}
 			const dragIndex = item.index;
 			const hoverIndex = index;
-
 			// Don't replace items with themselves
 			if (dragIndex === hoverIndex) {
 				return;
 			}
-
 			// Determine rectangle on screen
 			const hoverBoundingRect = ref.current?.getBoundingClientRect();
-
 			// Get vertical middle
 			const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-
 			// Determine mouse position
 			const clientOffset = monitor.getClientOffset();
-
 			// Get pixels to the top
 			const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
-
 			// Only perform the move when the mouse has crossed half of the items height
 			// When dragging downwards, only move when the cursor is below 50%
 			// When dragging upwards, only move when the cursor is above 50%
-
 			// Dragging downwards
 			if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
 				return;
 			}
-
 			// Dragging upwards
 			if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
 				return;
 			}
-
 			// Time to actually perform the action
 			moveElement(dragIndex, hoverIndex);
-
 			// Note: we're mutating the monitor item here!
 			// Generally it's better to avoid mutations,
 			// but it's good here for the sake of performance
@@ -103,12 +94,13 @@ const DraggableElement = ({
 		}
 	});
 
-	const [{ isDragging }, drag, preview] = useDrag({
+	const [{ isDragging }, drag] = useDrag({
 		type: DRAG_TYPE + type,
 		item: { id, index },
 		canDrag: () => !disabled,
 		collect: monitor => ({
-			isDragging: monitor.isDragging()
+			isDragging: monitor.isDragging(),
+			handlerDragId: monitor.getHandlerId()
 		})
 	});
 
@@ -119,8 +111,7 @@ const DraggableElement = ({
 	}, [isFocused]);
 
 	const [isGrabbed, setIsGrabbed] = useState(false);
-	const [isFocusedOnItem, setIsFocusedOnItem] = useState(isFocused);
-	drop(ref);
+	drag(drop(ref));
 	const content = (
 		<>
 			<div
@@ -133,16 +124,17 @@ const DraggableElement = ({
 			{children}
 		</>
 	);
+
+	const opacity = isDragging ? 0 : 1;
 	return (
 		<li
 			className={cx('flex h-9 border-b-[1px] border-solid border-layer-active-1 pl-5', {
 				'border-1 border-b-1 border-dashed border-focus bg-layer-selected-hover-1':
-					isOver && !disabled,
+					!disabled && isOver,
 				'bg-highlight hover:bg-layer-selected-hover-1': isGrabbed,
 				'bg-layer-selected-1 hover:bg-layer-selected-hover-1': selected && !isGrabbed,
 				'hover:bg-layer-selected-1': !selected
 			})}
-			ref={ref}
 			aria-selected={isFocused}
 			role='option'
 			tabIndex={isFocused ? 0 : -1}
@@ -163,33 +155,19 @@ const DraggableElement = ({
 					e.preventDefault();
 				}
 			}}
-			onBlur={e => {
-				// handle when focus move to inner elements
-				setIsFocusedOnItem(e.currentTarget === e.target);
-			}}
-			onFocus={e => {
-				// handle when focus move to li element
-				setIsFocusedOnItem(e.currentTarget === e.target);
-			}}
 		>
 			<span className='border-0 absolute h-0 w-0 overflow-hidden whitespace-nowrap'>
 				{ariaLabel}
 			</span>
-			{isDragging && !isOver ? (
-				<div ref={preview} className='flex w-full items-center'>
-					{content}
-				</div>
-			) : (
-				<div
-					ref={drag}
-					aria-hidden={isFocused && isFocusedOnItem} // if focus on li, hide the children from aria
-					className={cx('flex w-full items-center', {
-						'mr-3 cursor-grab': !disabled
-					})}
-				>
-					{(!isOver || disabled) && content}
-				</div>
-			)}
+
+			<div
+				ref={ref}
+				className='flex w-full items-center'
+				data-handler-id={handlerId}
+				style={{ opacity }}
+			>
+				{content}
+			</div>
 		</li>
 	);
 };

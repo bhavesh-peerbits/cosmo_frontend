@@ -49,7 +49,7 @@ const ActionsCell = ({
 const UsersTable = () => {
 	const { t } = useTranslation('userAdmin');
 	const { t: tTable } = useTranslation('table');
-	const { users, filters, setFilters } = useRoleAssignmentUsers();
+	const { users } = useRoleAssignmentUsers();
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [actionSelected, setActionSelected] = useState('');
 	const [user, setUser] = useState<User>();
@@ -107,7 +107,7 @@ const UsersTable = () => {
 				header: t('status'),
 				cell: info => (info.getValue() ? t('blocked') : t('active')),
 				meta: {
-					exportableFn: (info: string) => (info ? t('blocked') : t('active'))
+					exportableFn: info => ((info as string) ? t('blocked') : t('active'))
 				}
 			},
 			{
@@ -128,13 +128,10 @@ const UsersTable = () => {
 				tableId='userstable'
 				data={users}
 				columns={columns}
+				isColumnOrderingEnabled
 				noDataMessage={tTable('no-data')}
 				toolbar={{
-					searchBar: {
-						enabled: true,
-						value: filters.query ?? '',
-						onSearch: e => setFilters({ q: e })
-					},
+					searchBar: true,
 					toolbarBatchActions: [],
 					toolbarTableMenus: []
 				}}
