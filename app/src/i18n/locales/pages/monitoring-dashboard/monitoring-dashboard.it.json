@@ -2,5 +2,7 @@
 	"all": "Tutti",
 	"pending": "In attesa",
 	"ongoing": "In corso",
-	"completed": "Completati"
+	"completed": "Completati",
+	"current-run": "Run corrente",
+	"status": "Stato"
 }
