@@ -8,5 +8,9 @@
 	"number-placeholder": "es: 3",
 	"confirm-close": "Conferma chiusura monitoraggio",
 	"close-monitoring": "Sei sicuro di voler chiudere {{name}}?",
-	"edit-focal-point-title": "Modifica il focal point e i suoi delegati"
+	"edit-focal-point-title": "Modifica il focal point e i suoi delegati",
+	"started-on": "Partita il",
+	"completed-on": "Completata il",
+	"scheduled-for": "Partenza prevista il",
+	"not-started": "Non partita"
 }

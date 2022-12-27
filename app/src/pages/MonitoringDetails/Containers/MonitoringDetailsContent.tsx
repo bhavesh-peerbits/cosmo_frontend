@@ -1,5 +1,6 @@
 import { Grid, Column } from '@carbon/react';
 import MonitoringSummaryDetails from '../Components/MonitoringSummaryDetails';
+import RunsTileContainer from './RunsTileContainer';
 
 const MonitoringDetailsContent = () => {
 	return (
@@ -8,7 +9,7 @@ const MonitoringDetailsContent = () => {
 				<MonitoringSummaryDetails />
 			</Column>
 			<Column sm={4} md={6} lg={13}>
-				card list
+				<RunsTileContainer />
 			</Column>
 		</Grid>
 	);

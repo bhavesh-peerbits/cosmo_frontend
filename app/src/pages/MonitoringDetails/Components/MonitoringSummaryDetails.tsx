@@ -1,26 +1,25 @@
-import useStartedMonitorings from '@hooks/monitoring-dashboard/useStartedMonitorings';
 import { useTranslation } from 'react-i18next';
 
 const MonitoringSummaryDetails = () => {
 	const { t } = useTranslation('changeMonitoring');
-	const { monitorings } = useStartedMonitorings();
-	const monitoring = monitorings[0];
+
 	const paths = ['path1', 'path2'];
+	const assets = ['asset1', 'asset2'];
 	return (
 		<div className='space-y-5'>
 			<div>
 				<p className='font-bold text-productive-heading-2'>{t('monitoring-type')}</p>
-				<p className='text-sm text-body-compact-1'>{monitoring.type}</p>
+				<p className='text-sm text-body-compact-1'>type</p>
 			</div>
 			<div>
 				<p className='font-bold text-productive-heading-2'>Assets</p>
-				{monitoring.assets?.map(asset => (
+				{assets?.map(asset => (
 					<p className='text-sm text-body-compact-1'>{asset}</p>
 				))}
 			</div>
 			<div>
 				<p className='font-bold text-productive-heading-2'>Framework</p>
-				<p className='text-sm text-body-compact-1'>{monitoring.framework}</p>
+				<p className='text-sm text-body-compact-1'>framework</p>
 			</div>
 			<div>
 				<p className='font-bold text-productive-heading-2'>Paths</p>
@@ -30,11 +29,11 @@ const MonitoringSummaryDetails = () => {
 			</div>
 			<div>
 				<p className='font-bold text-productive-heading-2'>{t('control-code')}</p>
-				<p className='text-sm text-body-compact-1'>{monitoring.controlCode}</p>
+				<p className='text-sm text-body-compact-1'>code</p>
 			</div>
 			<div>
 				<p className='font-bold text-productive-heading-2'>{t('note')}</p>
-				<p className='text-sm text-body-compact-1'>{monitoring.note}</p>
+				<p className='text-sm text-body-compact-1'>note</p>
 			</div>
 		</div>
 	);

@@ -8,5 +8,9 @@
 	"number-placeholder": "",
 	"confirm-close": "",
 	"close-monitoring": "",
-	"edit-focal-point-title": ""
+	"edit-focal-point-title": "",
+	"started-on": "",
+	"completed-on": "",
+	"scheduled-for": "",
+	"not-started": ""
 }
