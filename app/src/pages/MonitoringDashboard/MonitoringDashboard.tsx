@@ -1,8 +1,8 @@
 import PageHeader from '@components/PageHeader';
 import StickyTabs from '@components/StickyTabs';
 import { TabList, Tab, TabPanels, TabPanel } from '@carbon/react';
-import MonitoringDashboardContent from '@components/MonitoringDashboard/MonitoringDashboardContent';
 import { useTranslation } from 'react-i18next';
+import MonitoringDashboardContent from './Containers/MonitoringDashboardContent';
 
 const MonitoringDashboard = () => {
 	const { t } = useTranslation('monitoringDashboard');

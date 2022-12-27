@@ -2,7 +2,7 @@ import { Grid, Column, Layer, Search, ContentSwitcher, Switch } from '@carbon/re
 import useStartedMonitorings from '@hooks/monitoring-dashboard/useStartedMonitorings';
 import { useTranslation } from 'react-i18next';
 import { Grid as GridIcon, HorizontalView } from '@carbon/react/icons';
-import MonitoringDashboardFilters from './MonitoringDashboardFilters';
+import MonitoringDashboardFilters from '../Components/MonitoringDashboardFilters';
 import MonitoringDashboardTilesContainer from './MonitoringDashboardTilesContainer';
 
 const SearchBar = () => {
