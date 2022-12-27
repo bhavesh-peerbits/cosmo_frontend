@@ -7,5 +7,6 @@
 	"status": "Status",
 	"number-placeholder": "e.g. 3",
 	"confirm-close": "Confirm monitoring closure",
-	"close-monitoring": "Are you sure you want to close {{name}}?"
+	"close-monitoring": "Are you sure you want to close {{name}}?",
+	"edit-focal-point-title": "Edit focal point and its delegates"
 }

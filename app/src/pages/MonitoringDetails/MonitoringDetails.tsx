@@ -4,31 +4,44 @@ import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CloseMonitoringModal from './Modals/CloseMonitoringModal';
+import EditFocalPointModal from './Modals/EditFocalPointModal';
 
 const MonitoringDetails = () => {
 	const { t } = useTranslation('evidenceRequest');
 	const { monitoringId = '' } = useParams();
-	const [modalOpen, setModalOpen] = useState<string>();
+	const [modalToOpen, setModalToOpen] = useState<string>();
 	return (
 		<PageHeader
 			pageTitle='Monitoring Name'
 			actions={[
 				{ name: t('collaborators'), onClick: () => {}, icon: Collaborate },
-				{ name: 'Focal Point', onClick: () => {}, icon: Group },
+				{
+					name: 'Focal Point',
+					onClick: () => {
+						setModalToOpen('focalPoint');
+					},
+					icon: Group
+				},
 				{
 					name: t('close'),
 					onClick: () => {
-						setModalOpen('close');
+						setModalToOpen('close');
 					},
 					icon: CloseOutline
 				}
 			]}
 		>
-			<CloseMonitoringModal
-				isOpen={!!modalOpen}
-				setIsOpen={setModalOpen}
-				id={monitoringId}
-			/>
+			<>
+				<CloseMonitoringModal
+					isOpen={modalToOpen === 'close'}
+					setIsOpen={setModalToOpen}
+					id={monitoringId}
+				/>
+				<EditFocalPointModal
+					isOpen={modalToOpen === 'focalPoint'}
+					setIsOpen={setModalToOpen}
+				/>
+			</>
 		</PageHeader>
 	);
 };

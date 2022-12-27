@@ -7,5 +7,6 @@
 	"status": "Stato",
 	"number-placeholder": "es: 3",
 	"confirm-close": "Conferma chiusura monitoraggio",
-	"close-monitoring": "Sei sicuro di voler chiudere {{name}}?"
+	"close-monitoring": "Sei sicuro di voler chiudere {{name}}?",
+	"edit-focal-point-title": "Modifica il focal point e i suoi delegati"
 }
