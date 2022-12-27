@@ -8,6 +8,7 @@ import useGetUsers from '@api/user/useGetUsers';
 import User from '@model/User';
 import CloseMonitoringModal from './Modals/CloseMonitoringModal';
 import EditFocalPointModal from './Modals/EditFocalPointModal';
+import MonitoringDetailsContent from './Containers/MonitoringDetailsContent';
 
 const MonitoringDetails = () => {
 	const { t } = useTranslation(['evidenceRequest', 'userSelect', 'modals']);
@@ -95,6 +96,7 @@ const MonitoringDetails = () => {
 					noResultsTitle={t('userSelect:no-results')}
 					noResultsDescription={t('userSelect:different-keywords')}
 				/>
+				<MonitoringDetailsContent />
 			</>
 		</PageHeader>
 	);
