@@ -2,53 +2,24 @@ import {
 	Accordion,
 	AccordionItem,
 	Checkbox,
-	RadioButton,
-	RadioButtonGroup
+	Layer,
+	DatePickerInput,
+	DatePicker,
+	Button,
+	Form
 } from '@carbon/react';
+import { Reset } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import useResponsive from '@hooks/useResponsive';
-import { useEffect, useState } from 'react';
 import useStartedMonitorings from '@hooks/monitoring-dashboard/useStartedMonitorings';
 
-interface FilterRadioGroupProps {
-	filterName: 'startDate' | 'endDate';
-}
-
-const FilterRadioGroup = ({ filterName }: FilterRadioGroupProps) => {
-	const { t } = useTranslation('monitoringDashboard');
-	const { setFilters, filtersAvailable, filters } = useStartedMonitorings();
-	const filterOption = filtersAvailable[filterName];
-	const [selectedValue, setSelectedValue] = useState<number | ''>('');
-
-	useEffect(() => {
-		setSelectedValue(filterOption?.find(f => f.enabled)?.date ?? '');
-	}, [filterName, filterOption, filters]);
-
-	return (
-		<RadioButtonGroup
-			name={filterName}
-			orientation='vertical'
-			valueSelected={selectedValue}
-			onChange={(value, group) => setFilters({ [group]: value || undefined })}
-		>
-			<RadioButton labelText={t('all')} value='' id={`${filterName}-all`} />
-			{filterOption?.map(filter => {
-				return (
-					<RadioButton
-						key={filter.value}
-						labelText={filter.value}
-						value={filter.date || ''}
-						id={`${filterName}-${filter.value}`}
-					/>
-				);
-			})}
-		</RadioButtonGroup>
-	);
-};
-
 const MonitoringDashboardFilters = () => {
-	const { t } = useTranslation(['changeMonitoring', 'monitoringDashboard']);
-	const { filtersAvailable, setFilters } = useStartedMonitorings();
+	const { t } = useTranslation([
+		'changeMonitoring',
+		'monitoringDashboard',
+		'evidenceRequest'
+	]);
+	const { filtersAvailable, setFilters, filters } = useStartedMonitorings();
 	const { md } = useResponsive();
 
 	const handleCheckFilter = (filter: string, action: 'add' | 'remove') => {
@@ -60,6 +31,16 @@ const MonitoringDashboardFilters = () => {
 		}));
 	};
 
+	const handleDateFilter = (
+		filter: string,
+		property: 'minStartDate' | 'maxStartDate' | 'minEndDate' | 'maxEndDate'
+	) => {
+		setFilters(old => ({
+			...old,
+			[property]: filter
+		}));
+	};
+
 	return (
 		<div className='flex flex-col'>
 			<Accordion className='divide-y'>
@@ -68,14 +49,148 @@ const MonitoringDashboardFilters = () => {
 					className='border-0'
 					open={md}
 				>
-					<FilterRadioGroup filterName='startDate' />
+					<Layer>
+						<Form className='space-y-5'>
+							<DatePicker
+								id='date-picker'
+								datePickerType='single'
+								dateFormat='d/m'
+								onChange={e => handleDateFilter(e[0].toDateString(), 'minStartDate')}
+								maxDate={
+									filters.maxStartDate
+										? new Date(filters.maxStartDate).toLocaleDateString()
+										: new Date('1/1/3000')
+								}
+								value={
+									filters.minStartDate
+										? new Date(filters.minStartDate).toLocaleDateString().slice(0, -5)
+										: null
+								}
+							>
+								<DatePickerInput
+									labelText={t('evidenceRequest:before')}
+									id='min'
+									size='sm'
+									autoComplete='off'
+									placeholder='dd/mm'
+								/>
+							</DatePicker>
+							<DatePicker
+								id='date-picker'
+								datePickerType='single'
+								dateFormat='d/m'
+								onChange={e => handleDateFilter(e[0]?.toDateString(), 'maxStartDate')}
+								minDate={
+									filters.minStartDate
+										? new Date(filters.minStartDate).toLocaleDateString()
+										: new Date(0)
+								}
+								value={
+									filters.maxStartDate
+										? new Date(filters.maxStartDate).toLocaleDateString().slice(0, -5)
+										: null
+								}
+							>
+								<DatePickerInput
+									labelText={t('evidenceRequest:after')}
+									id='max'
+									size='sm'
+									autoComplete='off'
+									placeholder='dd/mm'
+								/>
+							</DatePicker>
+
+							<Button
+								type='reset'
+								kind='tertiary'
+								className='mt-3 w-full max-w-[212px]'
+								size='sm'
+								renderIcon={Reset}
+								onClick={() => {
+									setFilters(() => ({
+										maxStartDate: undefined,
+										minStartDate: undefined
+									}));
+								}}
+							>
+								Reset
+							</Button>
+						</Form>
+					</Layer>
 				</AccordionItem>
 				<AccordionItem
 					title={t('changeMonitoring:end-date')}
 					className='border-0'
 					open={md}
 				>
-					<FilterRadioGroup filterName='endDate' />
+					<Layer>
+						<Form className='space-y-5'>
+							<DatePicker
+								id='date-picker'
+								datePickerType='single'
+								dateFormat='d/m'
+								onChange={e => handleDateFilter(e[0].toDateString(), 'minStartDate')}
+								maxDate={
+									filters.maxEndDate
+										? new Date(filters.maxEndDate).toLocaleDateString()
+										: new Date('1/1/3000')
+								}
+								value={
+									filters.minEndDate
+										? new Date(filters.minEndDate).toLocaleDateString().slice(0, -5)
+										: null
+								}
+							>
+								<DatePickerInput
+									labelText={t('evidenceRequest:before')}
+									id='min'
+									size='sm'
+									autoComplete='off'
+									placeholder='dd/mm'
+								/>
+							</DatePicker>
+							<DatePicker
+								id='date-picker'
+								datePickerType='single'
+								dateFormat='d/m'
+								onChange={e => handleDateFilter(e[0]?.toDateString(), 'maxEndDate')}
+								minDate={
+									filters.minEndDate
+										? new Date(filters.minEndDate).toLocaleDateString()
+										: new Date(0)
+								}
+								value={
+									filters.maxEndDate
+										? new Date(filters.maxEndDate).toLocaleDateString().slice(0, -5)
+										: null
+								}
+							>
+								<DatePickerInput
+									labelText={t('evidenceRequest:after')}
+									id='max'
+									size='sm'
+									autoComplete='off'
+									placeholder='dd/mm'
+								/>
+							</DatePicker>
+
+							<Button
+								type='reset'
+								kind='tertiary'
+								className='mt-3 w-full max-w-[212px]'
+								size='sm'
+								renderIcon={Reset}
+								onClick={() => {
+									setFilters(() => ({
+										maxEndDate: undefined,
+										minEndDate: undefined
+									}));
+								}}
+							>
+								Reset
+							</Button>
+						</Form>
+					</Layer>
 				</AccordionItem>
 				<AccordionItem
 					title={t('changeMonitoring:frequency')}

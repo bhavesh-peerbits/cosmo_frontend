@@ -11,8 +11,10 @@ const useStartedMonitorings = () => {
 	const [urlFilters, setUrlFilters] = useUrlState<{
 		frequency: string[];
 		numberOfRun: number[] | undefined;
-		startDate: number | undefined;
-		endDate: number | undefined;
+		minStartDate: string | undefined;
+		maxStartDate: string | undefined;
+		minEndDate: string | undefined;
+		maxEndDate: string | undefined;
 		currentRun: number[] | undefined;
 		tab: number | undefined;
 		q: string | undefined;
@@ -20,8 +22,10 @@ const useStartedMonitorings = () => {
 	}>({
 		frequency: [],
 		numberOfRun: [],
-		startDate: undefined,
-		endDate: undefined,
+		minStartDate: undefined,
+		maxStartDate: undefined,
+		minEndDate: undefined,
+		maxEndDate: undefined,
 		currentRun: [],
 		tab: undefined,
 		isTile: true,
@@ -29,8 +33,16 @@ const useStartedMonitorings = () => {
 	});
 	const [filters, setFilters] = useRecoilState(dashboardFilters);
 	const setMonitorings = useSetRecoilState(startedMonitorings);
-	const { monitorings, frequency, numberOfRun, startDate, endDate, currentRun } =
-		useRecoilValue(filteredStartedMonitorings);
+	const {
+		monitorings,
+		frequency,
+		numberOfRun,
+		minStartDate,
+		maxStartDate,
+		minEndDate,
+		maxEndDate,
+		currentRun
+	} = useRecoilValue(filteredStartedMonitorings);
 	const data = useMemo(
 		() => [
 			{
@@ -95,8 +107,10 @@ const useStartedMonitorings = () => {
 		setFilters({
 			frequency: urlFilters.frequency ?? [],
 			numberOfRun: urlFilters.numberOfRun,
-			startDate: urlFilters.startDate,
-			endDate: urlFilters.endDate,
+			minStartDate: urlFilters.minStartDate,
+			maxStartDate: urlFilters.maxStartDate,
+			minEndDate: urlFilters.minEndDate,
+			maxEndDate: urlFilters.maxEndDate,
 			currentRun: urlFilters.currentRun,
 			tab: urlFilters.tab,
 			isTile: urlFilters.isTile,
@@ -107,8 +121,10 @@ const useStartedMonitorings = () => {
 	const filtersAvailable = {
 		frequency,
 		numberOfRun,
-		startDate,
-		endDate,
+		minStartDate,
+		maxStartDate,
+		minEndDate,
+		maxEndDate,
 		currentRun
 	};
 	return { monitorings, filtersAvailable, filters, setFilters: setUrlFilters };

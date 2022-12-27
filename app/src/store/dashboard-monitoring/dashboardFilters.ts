@@ -1,14 +1,16 @@
 /* eslint-disable no-nested-ternary */
 import { atom, selector } from 'recoil';
-import { formatDate } from '@i18n';
 import { GetRecoilType } from '@store/util';
 import Monitoring from '@model/Monitoring';
+import { isAfter, isBefore } from 'date-fns';
 
 type Filters = {
 	frequency: string[];
 	numberOfRun: number[] | undefined;
-	startDate: number | undefined;
-	endDate: number | undefined;
+	minStartDate: string | undefined;
+	maxStartDate: string | undefined;
+	minEndDate: string | undefined;
+	maxEndDate: string | undefined;
 	currentRun: number[] | undefined;
 	tab: number | undefined;
 	q: string | undefined;
@@ -20,8 +22,10 @@ const dashboardFilters = atom<Filters>({
 	default: {
 		frequency: [],
 		numberOfRun: [],
-		startDate: undefined,
-		endDate: undefined,
+		minStartDate: undefined,
+		maxStartDate: undefined,
+		minEndDate: undefined,
+		maxEndDate: undefined,
 		currentRun: [],
 		tab: undefined,
 		isTile: true,
@@ -33,32 +37,6 @@ const startedMonitorings = atom<Monitoring[]>({
 	key: 'startedMonitorings',
 	default: []
 });
-
-const prepareDateFilter = (
-	monitorings: GetRecoilType<typeof startedMonitorings>,
-	filters: GetRecoilType<typeof dashboardFilters>,
-	filterName: 'startDate' | 'endDate'
-) => {
-	return (
-		(
-			monitorings
-				.map(monitoring => monitoring.scheduling[filterName])
-				.filter(l => !!l) as Date[]
-		)
-			.map(date => ({ date, time: date.getTime() }))
-			// sort in ascending order by time
-			.sort((a, b) => a.time - b.time)
-			.map(({ date, time }) => ({
-				date: time,
-				value: formatDate(date),
-				enabled: filters[filterName] === time
-			}))
-			// remove duplicates
-			.filter((o, index, array) => array.findIndex(t => t.value === o.value) === index)
-			// sort in descending order by time
-			.reverse()
-	);
-};
 
 const applyFilters = (
 	monitorings: GetRecoilType<typeof startedMonitorings>,
@@ -76,20 +54,33 @@ const applyFilters = (
 		);
 
 	if (filters.isTile !== false) {
-		// filter by start date
 		return (
 			filteredMonitorings
-				.filter(monitoring =>
-					filters.startDate
-						? monitoring.scheduling.startDate &&
-						  monitoring.scheduling.startDate.getTime() >= filters.startDate
+				// filter by start date
+				.filter(request =>
+					filters.minStartDate
+						? request.scheduling.startDate &&
+						  isAfter(request.scheduling.startDate, new Date(filters.minStartDate))
 						: true
 				)
+				.filter(request =>
+					filters.maxStartDate
+						? request.scheduling.startDate &&
+						  isBefore(request.scheduling.startDate, new Date(filters.maxStartDate))
+						: true
+				)
+
 				// filter by end date
-				.filter(monitoring =>
-					filters.endDate
-						? monitoring.scheduling.endDate &&
-						  monitoring.scheduling.endDate.getTime() >= filters.endDate
+				.filter(request =>
+					filters.minEndDate
+						? request.scheduling.endDate &&
+						  isAfter(request.scheduling.endDate, new Date(filters.minEndDate))
+						: true
+				)
+				.filter(request =>
+					filters.maxStartDate
+						? request.scheduling.startDate &&
+						  isBefore(request.scheduling.startDate, new Date(filters.maxStartDate))
 						: true
 				)
 				// filter by frequency
@@ -115,11 +106,11 @@ const applyFilters = (
 				)
 				// filter by tab
 				.filter(monitoring =>
-					`${filters.tab}` === '1'
+					filters.tab === 1
 						? monitoring.status === 'pending'
-						: `${filters.tab}` === '2'
+						: filters.tab === 2
 						? monitoring.status === 'ongoing'
-						: `${filters.tab}` === '3'
+						: filters.tab === 3
 						? monitoring.status === 'completed'
 						: monitoring
 				)
@@ -135,8 +126,34 @@ const filteredStartedMonitorings = selector({
 		const monitorings = get(startedMonitorings);
 		return {
 			monitorings: applyFilters(monitorings, filters),
-			startDate: prepareDateFilter(monitorings, filters, 'startDate'),
-			endDate: prepareDateFilter(monitorings, filters, 'endDate'),
+			maxStartDate: new Date(
+				Math.max(
+					...monitorings.map(element => {
+						return new Date(element.scheduling.startDate).getTime();
+					})
+				)
+			),
+			minStartDate: new Date(
+				Math.min(
+					...monitorings.map(element => {
+						return new Date(element.scheduling.startDate).getTime();
+					})
+				)
+			),
+			maxEndDate: new Date(
+				Math.max(
+					...monitorings.map(element => {
+						return new Date(element.scheduling.endDate).getTime();
+					})
+				)
+			),
+			minEndDate: new Date(
+				Math.min(
+					...monitorings.map(element => {
+						return new Date(element.scheduling.endDate).getTime();
+					})
+				)
+			),
 			currentRun: [
 				...new Set(
 					monitorings
