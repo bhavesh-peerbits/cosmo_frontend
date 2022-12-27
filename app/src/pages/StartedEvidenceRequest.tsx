@@ -4,7 +4,7 @@ import { Tab, TabList, TabPanel, TabPanels, Grid, Column } from '@carbon/react';
 import StickyTabs from '@components/StickyTabs';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Group, Exit, EventSchedule } from '@carbon/react/icons';
+import { Collaborate, Exit, EventSchedule } from '@carbon/react/icons';
 import { useCallback, useState } from 'react';
 import MultiAddSelect from '@components/MultiAddSelect';
 import CloseEvidenceRequestModal from '@components/Modals/CloseEvidenceRequestModal';
@@ -73,7 +73,7 @@ const StartedEvidenceRequest = () => {
 				},
 				{
 					name: t('evidenceRequest:collaborators'),
-					icon: Group,
+					icon: Collaborate,
 					disabled: data.status !== 'DRAFT' && data.status !== 'IN_PROGRESS',
 					onClick: () => {
 						setIsCollaboratorsOpen(true);

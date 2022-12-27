@@ -1,6 +1,6 @@
 import PageHeader from '@components/PageHeader';
 import { useTranslation } from 'react-i18next';
-import { Group, Send, TrashCan } from '@carbon/react/icons';
+import { Collaborate, Send, TrashCan } from '@carbon/react/icons';
 import { Grid, Column } from '@carbon/react';
 import { useState } from 'react';
 import MonitoringDraftRecapModal from '@components/Modals/MonitoringDraftRecapModal';
@@ -43,7 +43,7 @@ const MonitoringDraftDetails = () => {
 				{
 					name: t('evidenceRequest:collaborators'),
 					onClick: () => setIsCollaboratorsOpen(true),
-					icon: Group
+					icon: Collaborate
 				},
 				{
 					name: t('changeMonitoring:start-monitoring'),

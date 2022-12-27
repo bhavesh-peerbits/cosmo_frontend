@@ -1,5 +1,5 @@
 import PageHeader from '@components/PageHeader';
-import { Group, Exit, Edit } from '@carbon/react/icons';
+import { Collaborate, Exit, Edit } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { TabList, Tab, TabPanels, TabPanel, Stack, Button } from '@carbon/react';
 import StickyTabs from '@components/StickyTabs';
@@ -189,7 +189,7 @@ const CampaignDetail = () => {
 			actions={[
 				{
 					name: t('userRevalidation:collaborators'),
-					icon: Group,
+					icon: Collaborate,
 					disabled: CLOSED_CAMPAIGN,
 					onClick: () => {
 						setIsCollaboratorsOpen(true);
