@@ -5,5 +5,7 @@
 	"completed": "Completed",
 	"current-run": "Current run",
 	"status": "Status",
-	"number-placeholder": "e.g. 3"
+	"number-placeholder": "e.g. 3",
+	"confirm-close": "Confirm monitoring closure",
+	"close-monitoring": "Are you sure you want to close {{name}}?"
 }

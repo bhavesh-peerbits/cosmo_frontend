@@ -5,5 +5,7 @@
 	"completed": "",
 	"current-run": "",
 	"status": "",
-	"number-placeholder": ""
+	"number-placeholder": "",
+	"confirm-close": "",
+	"close-monitoring": ""
 }
