@@ -2,10 +2,10 @@ import PageHeader from '@components/PageHeader';
 import { CloseOutline, Collaborate, Group } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
-import CloseMonitoringModal from '@components/Modals/CloseMonitoringModal';
 import { useParams } from 'react-router-dom';
+import CloseMonitoringModal from './Modals/CloseMonitoringModal';
 
-const StartedMonitoringDetails = () => {
+const MonitoringDetails = () => {
 	const { t } = useTranslation('evidenceRequest');
 	const { monitoringId = '' } = useParams();
 	const [modalOpen, setModalOpen] = useState<string>();
@@ -32,4 +32,4 @@ const StartedMonitoringDetails = () => {
 		</PageHeader>
 	);
 };
-export default StartedMonitoringDetails;
+export default MonitoringDetails;

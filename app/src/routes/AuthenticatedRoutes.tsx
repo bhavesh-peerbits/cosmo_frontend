@@ -46,8 +46,8 @@ const MonitoringDraftDetails = React.lazy(() => import('@pages/MonitoringDraftDe
 const MonitoringDashboard = React.lazy(
 	() => import('@pages/MonitoringDashboard/MonitoringDashboard')
 );
-const StartedMonitoringDetails = React.lazy(
-	() => import('@pages/StartedMonitoringDetails')
+const MonitoringDetails = React.lazy(
+	() => import('@pages/MonitoringDetails/MonitoringDetails')
 );
 
 const AuthenticatedRoutes = () => {
@@ -298,7 +298,7 @@ const AuthenticatedRoutes = () => {
 									path=':monitoringId'
 									element={
 										<ProtectRoute canNavigate={canCreateMonitoring}>
-											<StartedMonitoringDetails />
+											<MonitoringDetails />
 										</ProtectRoute>
 									}
 								/>
