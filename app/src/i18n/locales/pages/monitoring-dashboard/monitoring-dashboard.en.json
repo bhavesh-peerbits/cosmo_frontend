@@ -4,5 +4,6 @@
 	"ongoing": "Ongoing",
 	"completed": "Completed",
 	"current-run": "Current run",
-	"status": "Status"
+	"status": "Status",
+	"number-placeholder": "e.g. 3"
 }

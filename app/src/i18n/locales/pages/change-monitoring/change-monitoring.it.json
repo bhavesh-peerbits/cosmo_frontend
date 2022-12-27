@@ -23,7 +23,7 @@
 	"monitoring-recap": "Riepilogo monitoraggio",
 	"operating-system": "Sistema operativo",
 	"recipient": "Destinatari",
-	"totals-runs": "Run totali",
+	"total-runs": "Run totali",
 	"frequency": "Frequenza",
 	"assets-step-description": "In questo step è necessario selezionare un'applicazione, una sua istanza e infine uno o più assets",
 	"select-app-instance": "Selezionare un'instanza dell'applicazione",

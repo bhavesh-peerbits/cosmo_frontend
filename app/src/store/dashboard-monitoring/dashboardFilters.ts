@@ -6,12 +6,12 @@ import { isAfter, isBefore } from 'date-fns';
 
 type Filters = {
 	frequency: string[];
-	numberOfRun: number[] | undefined;
+	numberOfRun: number | undefined;
 	minStartDate: string | undefined;
 	maxStartDate: string | undefined;
 	minEndDate: string | undefined;
 	maxEndDate: string | undefined;
-	currentRun: number[] | undefined;
+	currentRun: number | undefined;
 	tab: number | undefined;
 	q: string | undefined;
 	isTile: boolean | undefined;
@@ -21,12 +21,12 @@ const dashboardFilters = atom<Filters>({
 	key: 'monitoringDashboardFilters',
 	default: {
 		frequency: [],
-		numberOfRun: [],
+		numberOfRun: undefined,
 		minStartDate: undefined,
 		maxStartDate: undefined,
 		minEndDate: undefined,
 		maxEndDate: undefined,
-		currentRun: [],
+		currentRun: undefined,
 		tab: undefined,
 		isTile: true,
 		q: ''
@@ -94,15 +94,11 @@ const applyFilters = (
 				)
 				// filter by number of run
 				.filter(monitoring =>
-					filters.numberOfRun?.length
-						? filters.numberOfRun.some(numOfRun => numOfRun === monitoring.numberOfRun)
-						: true
+					filters.numberOfRun ? filters.numberOfRun === monitoring.numberOfRun : true
 				)
 				// filter by current run
 				.filter(monitoring =>
-					filters.currentRun?.length
-						? filters.currentRun.some(currRun => currRun === monitoring.currentRun)
-						: true
+					filters.currentRun ? filters.currentRun === monitoring.currentRun : true
 				)
 				// filter by tab
 				.filter(monitoring =>
@@ -162,7 +158,7 @@ const filteredStartedMonitorings = selector({
 				)
 			].map(currentRun => ({
 				currentRun,
-				enabled: filters.currentRun?.includes(currentRun)
+				enabled: filters.currentRun === currentRun
 			})),
 			numberOfRun: [
 				...new Set(
@@ -172,7 +168,7 @@ const filteredStartedMonitorings = selector({
 				)
 			].map(numberOfRun => ({
 				numberOfRun,
-				enabled: filters.numberOfRun?.includes(numberOfRun)
+				enabled: filters.numberOfRun === numberOfRun
 			})),
 			frequency: [
 				...new Set(

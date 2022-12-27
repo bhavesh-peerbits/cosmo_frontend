@@ -10,23 +10,23 @@ import useUrlState from '@hooks/useUrlState';
 const useStartedMonitorings = () => {
 	const [urlFilters, setUrlFilters] = useUrlState<{
 		frequency: string[];
-		numberOfRun: number[] | undefined;
+		numberOfRun: number | undefined;
 		minStartDate: string | undefined;
 		maxStartDate: string | undefined;
 		minEndDate: string | undefined;
 		maxEndDate: string | undefined;
-		currentRun: number[] | undefined;
+		currentRun: number | undefined;
 		tab: number | undefined;
 		q: string | undefined;
 		isTile: boolean;
 	}>({
 		frequency: [],
-		numberOfRun: [],
+		numberOfRun: undefined,
 		minStartDate: undefined,
 		maxStartDate: undefined,
 		minEndDate: undefined,
 		maxEndDate: undefined,
-		currentRun: [],
+		currentRun: undefined,
 		tab: undefined,
 		isTile: true,
 		q: undefined

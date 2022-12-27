@@ -6,7 +6,8 @@ import {
 	DatePickerInput,
 	DatePicker,
 	Button,
-	Form
+	Form,
+	TextInput
 } from '@carbon/react';
 import { Reset } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
@@ -220,6 +221,28 @@ const MonitoringDashboardFilters = () => {
 							labelText={filter.frequency}
 						/>
 					))}
+				</AccordionItem>
+				<AccordionItem title={t('monitoringDashboard:current-run')}>
+					<Layer>
+						<TextInput
+							id='current-run-filter'
+							labelText={t('monitoringDashboard:current-run')}
+							hideLabel
+							onChange={e => setFilters({ currentRun: +e.currentTarget.value })}
+							placeholder={t('monitoringDashboard:number-placeholder')}
+						/>
+					</Layer>
+				</AccordionItem>
+				<AccordionItem title={t('changeMonitoring:total-runs')}>
+					<Layer>
+						<TextInput
+							id='total-runs-filter'
+							labelText={t('changeMonitoring:total-runs')}
+							hideLabel
+							onChange={e => setFilters({ numberOfRun: +e.currentTarget.value })}
+							placeholder={t('monitoringDashboard:number-placeholder')}
+						/>
+					</Layer>
 				</AccordionItem>
 			</Accordion>
 		</div>

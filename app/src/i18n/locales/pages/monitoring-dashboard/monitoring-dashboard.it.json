@@ -4,5 +4,6 @@
 	"ongoing": "In corso",
 	"completed": "Completati",
 	"current-run": "Run corrente",
-	"status": "Stato"
+	"status": "Stato",
+	"number-placeholder": "es: 3"
 }
