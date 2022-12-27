@@ -64,7 +64,9 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 		'FOCAL_POINT',
 		'REQUEST_ADMIN',
 		'REQUEST_ANALYST',
-		'WORKFLOW_APPROVER'
+		'WORKFLOW_APPROVER',
+		'MONITORING_ADMIN',
+		'MONITORING_ANALYST'
 	];
 
 	const cleanUp = () => {
