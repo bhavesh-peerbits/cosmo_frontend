@@ -10,6 +10,7 @@ type Filters = {
 	startDate: number | undefined;
 	endDate: number | undefined;
 	currentRun: number[] | undefined;
+	tab: number | undefined;
 	q: string | undefined;
 	isTile: boolean | undefined;
 };
@@ -22,6 +23,7 @@ const dashboardFilters = atom<Filters>({
 		startDate: undefined,
 		endDate: undefined,
 		currentRun: [],
+		tab: undefined,
 		isTile: true,
 		q: ''
 	}
@@ -110,6 +112,16 @@ const applyFilters = (
 					filters.currentRun?.length
 						? filters.currentRun.some(currRun => currRun === monitoring.currentRun)
 						: true
+				)
+				// filter by tab
+				.filter(monitoring =>
+					`${filters.tab}` === '1'
+						? monitoring.status === 'pending'
+						: `${filters.tab}` === '2'
+						? monitoring.status === 'ongoing'
+						: `${filters.tab}` === '3'
+						? monitoring.status === 'completed'
+						: monitoring
 				)
 		);
 	}

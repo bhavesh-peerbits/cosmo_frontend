@@ -2,14 +2,11 @@ import useStartedMonitorings from '@hooks/monitoring-dashboard/useStartedMonitor
 import MonitoringDashboardTableView from './MonitoringDashboardTableView';
 import MonitoringDashboardTileView from './MonitoringDashboardTileView';
 
-type MonitoringDashboardContentProps = {
-	view: 'all' | 'pending' | 'ongoing' | 'completed';
-};
-const MonitoringDashboardContent = ({ view }: MonitoringDashboardContentProps) => {
+const MonitoringDashboardContent = () => {
 	const { filters } = useStartedMonitorings();
 
-	return filters.isTile ? (
-		<MonitoringDashboardTileView view={view} />
+	return filters.isTile !== false ? (
+		<MonitoringDashboardTileView />
 	) : (
 		<MonitoringDashboardTableView />
 	);

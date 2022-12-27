@@ -5,13 +5,9 @@ import { Grid as GridIcon, HorizontalView } from '@carbon/react/icons';
 import MonitoringDashboardFilters from './MonitoringDashboardFilters';
 import MonitoringDashboardTilesContainer from './MonitoringDashboardTilesContainer';
 
-type MonitoringDashboardTileViewProps = {
-	view: 'all' | 'pending' | 'ongoing' | 'completed';
-};
 const SearchBar = () => {
 	const { filters, setFilters } = useStartedMonitorings();
 	const { t } = useTranslation('changeMonitoring');
-
 	return (
 		<Layer className='w-full'>
 			<Search
@@ -25,7 +21,7 @@ const SearchBar = () => {
 	);
 };
 
-const MonitoringDashboardTileView = ({ view }: MonitoringDashboardTileViewProps) => {
+const MonitoringDashboardTileView = () => {
 	const { setFilters } = useStartedMonitorings();
 	return (
 		<Grid fullWidth narrow>
@@ -36,7 +32,6 @@ const MonitoringDashboardTileView = ({ view }: MonitoringDashboardTileViewProps)
 				<div className='flex items-center space-x-5'>
 					<SearchBar />
 					<ContentSwitcher
-						selectedIndex={0}
 						onChange={() => {
 							setFilters({ isTile: false });
 						}}
@@ -52,7 +47,6 @@ const MonitoringDashboardTileView = ({ view }: MonitoringDashboardTileViewProps)
 				</div>
 
 				<MonitoringDashboardTilesContainer />
-				{view}
 			</Column>
 		</Grid>
 	);

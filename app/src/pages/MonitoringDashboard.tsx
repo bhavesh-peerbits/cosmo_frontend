@@ -21,16 +21,16 @@ const MonitoringDashboard = () => {
 				</TabList>
 				<TabPanels>
 					<TabPanel className='p-container-1'>
-						<MonitoringDashboardContent view='all' />
+						<MonitoringDashboardContent />
 					</TabPanel>
 					<TabPanel className='p-container-1'>
-						<MonitoringDashboardContent view='pending' />
+						<MonitoringDashboardContent />
 					</TabPanel>
 					<TabPanel className='p-container-1'>
-						<MonitoringDashboardContent view='ongoing' />
+						<MonitoringDashboardContent />
 					</TabPanel>
 					<TabPanel className='p-container-1'>
-						<MonitoringDashboardContent view='completed' />
+						<MonitoringDashboardContent />
 					</TabPanel>
 				</TabPanels>
 			</StickyTabs>

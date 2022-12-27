@@ -14,6 +14,7 @@ const useStartedMonitorings = () => {
 		startDate: number | undefined;
 		endDate: number | undefined;
 		currentRun: number[] | undefined;
+		tab: number | undefined;
 		q: string | undefined;
 		isTile: boolean;
 	}>({
@@ -22,6 +23,7 @@ const useStartedMonitorings = () => {
 		startDate: undefined,
 		endDate: undefined,
 		currentRun: [],
+		tab: undefined,
 		isTile: true,
 		q: undefined
 	});
@@ -96,6 +98,7 @@ const useStartedMonitorings = () => {
 			startDate: urlFilters.startDate,
 			endDate: urlFilters.endDate,
 			currentRun: urlFilters.currentRun,
+			tab: urlFilters.tab,
 			isTile: urlFilters.isTile,
 			q: urlFilters.q
 		});
