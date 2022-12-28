@@ -4,5 +4,9 @@
 	"confirm-run-closure-body": "",
 	"file-upload": "",
 	"not-started": "",
-	"approver": ""
+	"approver": "",
+	"save": "",
+	"repeat-new-path": "",
+	"repeat-path-description": "",
+	"repeat": ""
 }

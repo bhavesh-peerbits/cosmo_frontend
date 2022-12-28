@@ -4,5 +4,9 @@
 	"confirm-run-closure-body": "Sei sicuro di voler chiudere la run n° {{number}}?",
 	"file-upload": "Caricamento file",
 	"not-started": "Non partito",
-	"approver": "Approvatore"
+	"approver": "Approvatore",
+	"save": "Salva",
+	"repeat-new-path": "Replica nuovi paths su tutti gli asset",
+	"repeat-path-description": "Selezionando 'Replica', tutti i nuovi paths verranno aggiunti a tutti gli assets.",
+	"repeat": "Replica"
 }

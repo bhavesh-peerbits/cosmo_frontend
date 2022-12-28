@@ -4,5 +4,9 @@
 	"confirm-run-closure-body": "Are you sure you want to close run n° {{number}}?",
 	"file-upload": "File upload",
 	"not-started": "Not started",
-	"approver": "Approver"
+	"approver": "Approver",
+	"save": "Save",
+	"repeat-new-path": "Repeat paths on all assets",
+	"repeat-path-description": "By selecting 'Repeat', all new paths will be added to all assets.",
+	"repeat": "Repeat"
 }
