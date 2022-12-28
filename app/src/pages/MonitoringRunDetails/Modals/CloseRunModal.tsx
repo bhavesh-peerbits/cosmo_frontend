@@ -5,29 +5,32 @@ import {
 	ModalFooter,
 	ModalHeader
 } from '@carbon/react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction } from 'react';
 
-type CloseMonitoringProps = {
+type CloseRunProps = {
 	isOpen: boolean;
-	setIsOpen: Dispatch<SetStateAction<string | undefined>>;
+	setIsOpen: Dispatch<SetStateAction<boolean>>;
 	id: string;
 };
 
-const CloseMonitoringModal = ({ isOpen, setIsOpen, id }: CloseMonitoringProps) => {
+const CloseRunModal = ({ isOpen, setIsOpen, id }: CloseRunProps) => {
 	const navigate = useNavigate();
-	const { t } = useTranslation(['modals', 'monitoringDashboard']);
+	const { t } = useTranslation(['modals', 'runDetails']);
+	const { monitoringId = '' } = useParams();
 
 	const cleanUp = () => {
-		setIsOpen('');
+		setIsOpen(false);
 	};
+
+	// TODO Fix number in modal body
 
 	return (
 		<ComposedModal size='xs' open={isOpen} onClose={cleanUp}>
-			<ModalHeader title={t('monitoringDashboard:confirm-close')} closeModal={cleanUp} />
+			<ModalHeader title={t('runDetails:confirm-run-closure')} closeModal={cleanUp} />
 			<ModalBody>
-				<span>{`${t('monitoringDashboard:close-monitoring', { name: id })}`}</span>
+				<span>{`${t('runDetails:confirm-run-closure-body', { number: id })}`}</span>
 				{/* {isError && (
 					<div className='mt-5 flex items-center justify-center'>
 						<InlineNotification
@@ -46,11 +49,14 @@ const CloseMonitoringModal = ({ isOpen, setIsOpen, id }: CloseMonitoringProps) =
 				<Button kind='secondary' onClick={cleanUp}>
 					{t('modals:cancel')}
 				</Button>
-				<Button kind='danger' onClick={() => navigate('/monitoring-dashboard')}>
+				<Button
+					kind='danger'
+					onClick={() => navigate(`/monitoring-dashboard/${monitoringId}`)}
+				>
 					{t('modals:close')}
 				</Button>
 			</ModalFooter>
 		</ComposedModal>
 	);
 };
-export default CloseMonitoringModal;
+export default CloseRunModal;

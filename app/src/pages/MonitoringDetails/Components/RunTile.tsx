@@ -1,14 +1,21 @@
 import { ClickableTile } from '@carbon/react';
 import { formatDate } from '@i18n';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 type RunTileProps = {
 	run: string;
 };
 const RunTile = ({ run }: RunTileProps) => {
 	const { t } = useTranslation('monitoringDashboard');
+	const navigate = useNavigate();
+	// TODO Add info for not started/ongoing runs and remove clickable for not started runs
 	return (
-		<ClickableTile className='space-y-3 bg-layer-2' id={run}>
+		<ClickableTile
+			className='space-y-3 bg-layer-2'
+			onClick={() => navigate(run)}
+			id={run}
+		>
 			<div className='flex justify-between'>
 				<p className='text-heading-2'>{run.toUpperCase()}</p>
 				<div>

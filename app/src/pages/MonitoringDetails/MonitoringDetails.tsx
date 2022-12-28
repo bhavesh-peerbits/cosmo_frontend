@@ -33,6 +33,9 @@ const MonitoringDetails = () => {
 	return (
 		<PageHeader
 			pageTitle='Monitoring Name'
+			intermediateRoutes={[
+				{ name: 'Change Monitoring Dashboard', to: '/monitoring-dashboard' }
+			]}
 			actions={[
 				{
 					name: t('evidenceRequest:collaborators'),

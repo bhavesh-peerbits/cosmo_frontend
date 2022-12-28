@@ -1,0 +1,5 @@
+{
+	"close-run": "Chiudi run",
+	"confirm-run-closure": "Conferma chiusura run",
+	"confirm-run-closure-body": "Sei sicuro di voler chiudere la run n° {{number}}?"
+}
