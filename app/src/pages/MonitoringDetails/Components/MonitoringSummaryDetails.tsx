@@ -1,12 +1,14 @@
+import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
 import { useTranslation } from 'react-i18next';
 
 const MonitoringSummaryDetails = () => {
 	const { t } = useTranslation('changeMonitoring');
+	const { breadcrumbSize } = useBreadcrumbSize();
 
 	const paths = ['path1', 'path2'];
 	const assets = ['asset1', 'asset2'];
 	return (
-		<div className='space-y-5'>
+		<div className='sticky space-y-5' style={{ top: breadcrumbSize + 24 }}>
 			<div>
 				<p className='font-bold text-productive-heading-2'>{t('monitoring-type')}</p>
 				<p className='text-sm text-body-compact-1'>type</p>
