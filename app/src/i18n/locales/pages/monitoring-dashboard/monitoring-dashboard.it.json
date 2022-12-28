@@ -12,5 +12,7 @@
 	"started-on": "Partita il",
 	"completed-on": "Completata il",
 	"scheduled-for": "Partenza prevista il",
-	"not-started": "Non partita"
+	"not-started": "Non partita",
+	"delta-found": "Delta individuati",
+	"note": "Nota"
 }

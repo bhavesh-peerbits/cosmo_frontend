@@ -28,11 +28,11 @@ const RunTile = ({ run }: RunTileProps) => {
 				</div>
 			</div>
 			<div className='flex items-center space-x-2'>
-				<p className='text-heading-1'>Delta found:</p>
+				<p className='text-heading-1'>{t('delta-found')}:</p>
 				<p className='text-body-long-1'>8</p>
 			</div>
 			<div className='flex items-start space-x-2 align-top'>
-				<p className='text-heading-1'>Note:</p>
+				<p className='text-heading-1'>{t('note')}:</p>
 				<p className='line-clamp-1 text-body-long-1'>
 					THis is a very long long long long long long long long long long long long long
 					long long long long long long long long long long long long long long long note

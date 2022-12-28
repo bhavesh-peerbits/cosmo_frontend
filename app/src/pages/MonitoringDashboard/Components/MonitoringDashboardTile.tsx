@@ -44,7 +44,7 @@ const MonitoringDashboardTile = ({ monitoring }: MonitoringDashboardTileProps) =
 								{t('changeMonitoring:start-date')}:
 							</p>
 							<p className='block truncate text-body-short-1'>
-								{formatDate(monitoring.scheduling.startDate)}
+								{formatDate(monitoring.scheduling.startDate, 'short')}
 							</p>
 						</span>
 						<span className='flex space-x-2'>
@@ -52,7 +52,7 @@ const MonitoringDashboardTile = ({ monitoring }: MonitoringDashboardTileProps) =
 								{t('changeMonitoring:end-date')}:
 							</p>
 							<p className='block truncate text-body-short-1'>
-								{formatDate(monitoring.scheduling.endDate)}
+								{formatDate(monitoring.scheduling.endDate, 'short')}
 							</p>
 						</span>
 					</div>

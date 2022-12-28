@@ -12,5 +12,7 @@
 	"started-on": "Started on",
 	"completed-on": "Completed on",
 	"scheduled-for": "Scheduled for",
-	"not-started": "Not started"
+	"not-started": "Not started",
+	"delta-found": "Delta found",
+	"note": "Note"
 }
