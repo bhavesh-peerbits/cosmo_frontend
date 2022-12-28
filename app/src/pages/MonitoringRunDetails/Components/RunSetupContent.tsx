@@ -1,15 +1,22 @@
 import { Toggle, TextArea, Button, Tooltip } from '@carbon/react';
 import { Information } from '@carbon/react/icons';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import AssetPathsTile from './AssetPathsTile';
 
 const RunSetupContent = () => {
 	const { t } = useTranslation(['runDetails', 'monitoringDashboard', 'changeMonitoring']);
+	const [sameSetup, setSameSetup] = useState(false);
+
+	const fakeData = ['asset1', 'asset2', 'asset3'];
 	return (
 		<div className='space-y-7 pb-9 pt-5'>
 			<TextArea labelText={t('monitoringDashboard:note')} />
 			<Toggle
 				aria-label='Asset same setup'
 				id='asset-same-setup'
+				toggled={sameSetup}
+				onToggle={() => setSameSetup(!sameSetup)}
 				labelText={
 					<div className='flex space-x-3'>
 						<p className='text-label-1'>{t('runDetails:repeat-new-path')}</p>
@@ -23,6 +30,12 @@ const RunSetupContent = () => {
 				labelA='No'
 				labelB={t('runDetails:repeat')}
 			/>
+			{sameSetup && <div> Table for same setup goes here </div>}
+			<div>
+				{fakeData.map(asset => (
+					<AssetPathsTile asset={asset} />
+				))}
+			</div>
 			<div className='flex justify-end space-x-5'>
 				<Button kind='tertiary'>{t('runDetails:save')}</Button>
 				<Button>{t('changeMonitoring:save-next')}</Button>
