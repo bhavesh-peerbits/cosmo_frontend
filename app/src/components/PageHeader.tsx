@@ -100,7 +100,9 @@ const PageHeader = ({
 														iconDescription={action.name}
 														renderIcon={action.icon}
 														disabled={action.disabled}
-														kind={actions?.length > 1 ? 'tertiary' : 'primary'}
+														kind={
+															action.kind || actions?.length > 1 ? 'tertiary' : 'primary'
+														}
 													>
 														{action.name}
 													</Button>
@@ -156,6 +158,7 @@ const PageHeader = ({
 											// ref={actionButtonRef}
 											onClick={actions[0].onClick}
 											disabled={actions[0].disabled}
+											kind={actions[0].kind || 'primary'}
 										>
 											{actions[0].name}
 										</Button>
