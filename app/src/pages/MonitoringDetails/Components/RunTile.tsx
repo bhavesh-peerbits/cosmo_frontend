@@ -2,12 +2,15 @@ import { ClickableTile } from '@carbon/react';
 import { formatDate } from '@i18n';
 import { useTranslation } from 'react-i18next';
 
-const RunTile = () => {
+type RunTileProps = {
+	run: string;
+};
+const RunTile = ({ run }: RunTileProps) => {
 	const { t } = useTranslation('monitoringDashboard');
 	return (
-		<ClickableTile className='space-y-3 bg-layer-2'>
+		<ClickableTile className='space-y-3 bg-layer-2' id={run}>
 			<div className='flex justify-between'>
-				<p className='text-heading-2'>RUN 1</p>
+				<p className='text-heading-2'>{run.toUpperCase()}</p>
 				<div>
 					<p className='flex justify-end text-text-secondary text-body-short-1'>
 						{t('started-on')} {formatDate(new Date(), 'short')}
