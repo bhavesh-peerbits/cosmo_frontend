@@ -1,5 +1,5 @@
 import PageHeader from '@components/PageHeader';
-import { Collaborate, Exit, Edit } from '@carbon/react/icons';
+import { Collaborate, Exit, Edit, Reminder } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { TabList, Tab, TabPanels, TabPanel, Stack, Button } from '@carbon/react';
 import StickyTabs from '@components/StickyTabs';
@@ -208,7 +208,7 @@ const CampaignDetail = () => {
 				// },
 				{
 					name: t('evidenceRequest:send-reminder'),
-					icon: Exit,
+					icon: Reminder,
 					disabled: CLOSED_CAMPAIGN,
 					onClick: () => {
 						setReminderData(old => ({ ...old, open: true }));
