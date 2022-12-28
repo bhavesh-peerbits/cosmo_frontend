@@ -1,5 +1,8 @@
 {
 	"close-run": "Chiudi run",
 	"confirm-run-closure": "Conferma chiusura run",
-	"confirm-run-closure-body": "Sei sicuro di voler chiudere la run n° {{number}}?"
+	"confirm-run-closure-body": "Sei sicuro di voler chiudere la run n° {{number}}?",
+	"file-upload": "Caricamento file",
+	"not-started": "Non partito",
+	"approver": "Approvatore"
 }

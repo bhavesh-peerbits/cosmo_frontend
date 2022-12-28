@@ -3,7 +3,10 @@ import { useParams } from 'react-router-dom';
 import { CloseOutline } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
+import { Grid, Column } from '@carbon/react';
+import MonitoringSummaryDetails from '@pages/MonitoringDetails/Components/MonitoringSummaryDetails';
 import CloseRunModal from './Modals/CloseRunModal';
+import RunDetailsStepContainer from './Containers/RunDetailsStepContainer';
 
 const MonitoringRunDetails = () => {
 	const { monitoringId = '', runId = '' } = useParams();
@@ -31,7 +34,15 @@ const MonitoringRunDetails = () => {
 				}
 			]}
 		>
-			<CloseRunModal id={runId} setIsOpen={setIsCloseOpen} isOpen={isCloseOpen} />
+			<Grid className='p-container-1'>
+				<CloseRunModal id={runId} setIsOpen={setIsCloseOpen} isOpen={isCloseOpen} />
+				<Column sm={4} md={2} lg={3}>
+					<MonitoringSummaryDetails />
+				</Column>
+				<Column sm={4} md={6} lg={13}>
+					<RunDetailsStepContainer />
+				</Column>
+			</Grid>
 		</PageHeader>
 	);
 };

@@ -1,5 +1,8 @@
 {
 	"close-run": "Close run",
 	"confirm-run-closure": "Confirm run closure",
-	"confirm-run-closure-body": "Are you sure you want to close run n° {{number}}?"
+	"confirm-run-closure-body": "Are you sure you want to close run n° {{number}}?",
+	"file-upload": "File upload",
+	"not-started": "Not started",
+	"approver": "Approver"
 }
