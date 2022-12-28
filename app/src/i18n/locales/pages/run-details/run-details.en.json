@@ -8,5 +8,9 @@
 	"save": "Save",
 	"repeat-new-path": "Repeat paths on all assets",
 	"repeat-path-description": "By selecting 'Repeat', all new paths will be added to all assets.",
-	"repeat": "Repeat"
+	"repeat": "Repeat",
+	"previous-period": "Previous period",
+	"previous-period-description": "Please indicate a file for the previous period. It is possible to indicate the file of the last run or to upload a new one. Below there is the list of already uploaded files.",
+	"current-period": "Current period",
+	"current-period-description": "Please indicate for each path a file. It is possible to indicate the same file for some or all paths. Below there is the list of already uploaded files."
 }

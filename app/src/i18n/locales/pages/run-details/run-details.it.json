@@ -8,5 +8,9 @@
 	"save": "Salva",
 	"repeat-new-path": "Replica nuovi paths su tutti gli asset",
 	"repeat-path-description": "Selezionando 'Replica', tutti i nuovi paths verranno aggiunti a tutti gli assets.",
-	"repeat": "Replica"
+	"repeat": "Replica",
+	"previous-period": "Periodo precedente",
+	"previous-period-description": "Indicare un file per il periodo precedente. È possibile selezionare il file della run precedente o caricarne uno nuovo. Di seguito sono indicati i file già caricati.",
+	"current-period": "Periodo corrente",
+	"current-period-description": "Indicare per ogni path un file. È possibile indicare lo stesso file per tutti path o alcuni. Di seguito sono indicati i file già caricati."
 }

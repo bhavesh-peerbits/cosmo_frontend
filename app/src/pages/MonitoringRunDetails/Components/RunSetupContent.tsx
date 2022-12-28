@@ -33,7 +33,7 @@ const RunSetupContent = () => {
 			{sameSetup && <div> Table for same setup goes here </div>}
 			<div>
 				{fakeData.map(asset => (
-					<AssetPathsTile asset={asset} />
+					<AssetPathsTile key={asset} asset={asset} />
 				))}
 			</div>
 			<div className='flex justify-end space-x-5'>

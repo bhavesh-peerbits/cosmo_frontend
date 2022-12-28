@@ -5,13 +5,14 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import RunDetailsStepTile from '../Components/RunDetailsStepTile';
 import RunSetupContent from '../Components/RunSetupContent';
+import UploadFileContent from '../Components/UploadFileContent';
 
 const RunDetailsStepContainer = () => {
 	const { t } = useTranslation(['monitoringDashboard', 'evidenceRequest', 'runDetails']);
 	const { runId } = useParams();
 	// TODO Fix selector based on the current step (also fix isCurrent for RunDetailsStepTile)
 	useLayoutEffect(() => {
-		const selector = `*[id="tile-setup-${runId}"]`;
+		const selector = `*[id="tile-upload-${runId}"]`;
 		smoothScroll(selector, 149);
 	}, [runId]);
 
@@ -19,7 +20,6 @@ const RunDetailsStepContainer = () => {
 		<div className='space-y-5'>
 			<RunDetailsStepTile
 				id={`tile-setup-${runId}`}
-				isCurrent
 				title='Setup'
 				inCharge='Federica Bruno'
 				detail={`${t('monitoringDashboard:completed-on')} ${formatDate(
@@ -33,9 +33,10 @@ const RunDetailsStepContainer = () => {
 				id={`tile-upload-${runId}`}
 				title={t('runDetails:file-upload')}
 				inCharge='Federica Bruno'
+				isCurrent
 				detail={t('evidenceRequest:current-step')}
 			>
-				<div>content</div>
+				<UploadFileContent />
 			</RunDetailsStepTile>
 			<RunDetailsStepTile
 				id={`tile-delta-${runId}`}
