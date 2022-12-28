@@ -10,7 +10,7 @@ import ReminderRecap from './ReminderRecap';
 
 const ReminderTearsheet = () => {
 	const [reminderData, setReminderData] = useRecoilState(RevalidationReminderStore);
-	const { t } = useTranslation(['userRevalidation', 'modals']);
+	const { t } = useTranslation(['userRevalidation', 'modals', 'evidenceRequest']);
 	const { mutate, isLoading } = useSendRevReminder();
 
 	const handleSubmit = () => {
@@ -38,7 +38,7 @@ const ReminderTearsheet = () => {
 			influencerPosition='right'
 			influencerWidth='extrawide'
 			hasCloseIcon
-			title='Reminder Users Selection'
+			title={t('evidenceRequest:reminder-users-selection')}
 			actions={[
 				{
 					id: 'cancel-button',

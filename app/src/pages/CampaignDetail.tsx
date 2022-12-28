@@ -130,7 +130,12 @@ const CampaignStatus = memo(({ campaign }: { campaign: Campaign }) => {
 });
 
 const CampaignDetail = () => {
-	const { t } = useTranslation(['modals', 'userRevalidation', 'userSelect']);
+	const { t } = useTranslation([
+		'modals',
+		'userRevalidation',
+		'userSelect',
+		'evidenceRequest'
+	]);
 	const { campaignId = '' } = useParams<'campaignId'>();
 	const { data: campaign } = useGetCampaign(campaignId);
 	const { data: users = [] } = useGetPossibleContributors(campaignId);
@@ -202,7 +207,7 @@ const CampaignDetail = () => {
 				// 	disabled: true
 				// },
 				{
-					name: 'Send reminder',
+					name: t('evidenceRequest:send-reminder'),
 					icon: Exit,
 					disabled: CLOSED_CAMPAIGN,
 					onClick: () => {
