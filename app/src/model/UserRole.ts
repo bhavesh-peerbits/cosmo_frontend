@@ -15,7 +15,9 @@ export type UserDisplayRole =
 	| 'Revalidation Admin'
 	| 'Request Admin'
 	| 'Request Analyst'
-	| 'Workflow Approver';
+	| 'Workflow Approver'
+	| 'Monitoring Admin'
+	| 'Monitoring Analyst';
 
 export const mapUserRoleToDisplayRole = (userRole: UserRole): UserDisplayRole => {
 	switch (userRole) {
@@ -41,6 +43,10 @@ export const mapUserRoleToDisplayRole = (userRole: UserRole): UserDisplayRole =>
 			return 'Request Analyst';
 		case UserDtoRolesEnum.WorkflowApprover:
 			return 'Workflow Approver';
+		case UserDtoRolesEnum.MonitoringAdmin:
+			return 'Monitoring Admin';
+		case UserDtoRolesEnum.MonitoringAnalyst:
+			return 'Monitoring Analyst';
 		default:
 			return 'Guest';
 	}

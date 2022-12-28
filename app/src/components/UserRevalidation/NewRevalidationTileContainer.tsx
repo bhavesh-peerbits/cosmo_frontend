@@ -6,10 +6,10 @@ const NewRevalidationTileContainer = () => {
 	const { revalidations } = useRevalidations();
 	return (
 		<Grid fullWidth narrow>
-			<Column sm={4} md={6} lg={16} xlg={15} max={16}>
-				<Grid fullWidth className='h-full'>
+			<Column sm={4} md={6} lg={16} xlg={16} max={16}>
+				<Grid fullWidth condensed narrow>
 					{revalidations.map(revalidation => (
-						<Column key={revalidation.id} sm={4} md={3} lg={8} xlg={5} max={4}>
+						<Column key={revalidation.id} sm={4} md={3} lg={8} xlg={4} max={4}>
 							<NewRevalidationTile revalidation={revalidation} />
 						</Column>
 					))}

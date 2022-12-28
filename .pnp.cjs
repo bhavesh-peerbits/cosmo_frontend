@@ -91,17 +91,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@aizoon/carbon__react", [\
-        ["npm:1.0.45", {\
-          "packageLocation": "./.yarn/cache/@aizoon-carbon__react-npm-1.0.45-27da455601-b7bddd48f8.zip/node_modules/@aizoon/carbon__react/",\
+        ["npm:1.0.52", {\
+          "packageLocation": "./.yarn/cache/@aizoon-carbon__react-npm-1.0.52-4f17d767d4-d1cf8c44d1.zip/node_modules/@aizoon/carbon__react/",\
           "packageDependencies": [\
-            ["@aizoon/carbon__react", "npm:1.0.45"]\
+            ["@aizoon/carbon__react", "npm:1.0.52"]\
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.45", {\
-          "packageLocation": "./.yarn/__virtual__/@aizoon-carbon__react-virtual-4b48f369b2/0/cache/@aizoon-carbon__react-npm-1.0.45-27da455601-b7bddd48f8.zip/node_modules/@aizoon/carbon__react/",\
+        ["virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.52", {\
+          "packageLocation": "./.yarn/__virtual__/@aizoon-carbon__react-virtual-4163b1279e/0/cache/@aizoon-carbon__react-npm-1.0.52-4f17d767d4-d1cf8c44d1.zip/node_modules/@aizoon/carbon__react/",\
           "packageDependencies": [\
-            ["@aizoon/carbon__react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.45"],\
+            ["@aizoon/carbon__react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.52"],\
             ["@types/carbon__icons-react", "npm:11.12.0"],\
             ["@types/react", "npm:18.0.12"],\
             ["@types/react-dom", "npm:18.0.5"],\
@@ -6270,7 +6270,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/carbon__motion", null],\
             ["@types/carbon__react", [\
               "@aizoon/carbon__react",\
-              "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.45"\
+              "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.52"\
             ]],\
             ["@types/carbon__themes", null],\
             ["@types/carbon__type", null],\
@@ -15100,7 +15100,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/carbon__layout", "npm:0.0.1"],\
             ["@types/carbon__react", [\
               "@aizoon/carbon__react",\
-              "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.45"\
+              "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.52"\
             ]],\
             ["@types/css-mediaquery", "npm:0.1.1"],\
             ["@types/eslint", null],\
@@ -15227,7 +15227,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/carbon__layout", "npm:0.0.1"],\
             ["@types/carbon__react", [\
               "@aizoon/carbon__react",\
-              "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.45"\
+              "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.52"\
             ]],\
             ["@types/css-mediaquery", "npm:0.1.1"],\
             ["@types/papaparse", "npm:5.3.2"],\

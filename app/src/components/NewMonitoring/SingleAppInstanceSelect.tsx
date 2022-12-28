@@ -1,8 +1,7 @@
 import { Button, FormLabel, Tile } from '@carbon/react';
-import { Close, EditOff, UserFollow } from '@carbon/react/icons';
+import { Close, EditOff, Add } from '@carbon/react/icons';
 import SingleAddSelect from '@components/SingleAddSelect';
 import { useState } from 'react';
-import UserProfileImage from '@components/UserProfileImage';
 import {
 	FieldPath,
 	FieldValues,
@@ -11,34 +10,30 @@ import {
 	useController,
 	UseControllerProps
 } from 'react-hook-form';
-import User from '@model/User';
 import cx from 'classnames';
-import useGetUsers from '@api/user/useGetUsers';
 import { useTranslation } from 'react-i18next';
-import { UseQueryResult } from '@tanstack/react-query';
+import Application from '@model/Application';
 
-type SingleUserSelectProps<
+type SingleApplicationSelectProps<
 	T extends FieldValues,
 	TName extends FieldPath<T>
-> = UnpackNestedValue<PathValue<T, TName>> extends User
+> = UnpackNestedValue<PathValue<T, TName>> extends Application
 	? {
 			label: string;
-			hideLabel?: boolean;
 			name: TName;
 			control: UseControllerProps<T, TName>['control'];
 			rules?: UseControllerProps<T, TName>['rules'];
 			level?: number;
 			helperText?: string;
 			readOnly?: boolean;
-			defaultValue?: User;
-			excludedUsers?: User[];
-			getUserFn?: () => UseQueryResult<User[]>;
+			defaultValue?: Application;
+			excludedApps?: string[];
+			applications: Application[];
 	  }
 	: never;
 
-const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
+const SingleApplicationSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 	label,
-	hideLabel,
 	control,
 	name,
 	rules,
@@ -46,10 +41,9 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 	helperText,
 	readOnly,
 	defaultValue,
-	excludedUsers,
-	getUserFn = useGetUsers
-}: SingleUserSelectProps<T, TName>) => {
-	const { t } = useTranslation('userSelect');
+	applications
+}: SingleApplicationSelectProps<T, TName>) => {
+	const { t } = useTranslation(['applicationSelect', 'changeMonitoring']);
 	const {
 		field: { onChange, onBlur, value: formValue, ref },
 		fieldState: { invalid, error }
@@ -59,20 +53,17 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 		rules,
 		defaultValue: defaultValue as UnpackNestedValue<PathValue<T, TName>>
 	});
-	const value = formValue as User | undefined;
+	const value = formValue as Application | undefined;
 	const [openSearch, setOpenSearch] = useState(false);
-	const { data: users = [] } = getUserFn();
 	const invalidText = error?.message;
 
 	return (
 		<>
 			<div className='flex w-full flex-wrap justify-end md:flex-nowrap'>
 				<div className='flex w-full flex-col'>
-					{!hideLabel && (
-						<FormLabel className='mb-3'>
-							<span>{label}</span>
-						</FormLabel>
-					)}
+					<FormLabel className='mb-3'>
+						<span>{label}</span>
+					</FormLabel>
 					<div className='flex w-full  flex-auto flex-col'>
 						<div className='flex w-full items-center'>
 							<Tile
@@ -84,9 +75,9 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 								className={cx(
 									'relative flex h-container-3 min-h-fit w-full items-center border-b-[1px] border-solid border-border-strong-1 p-0',
 									{
-										'bg-field-1': level === 1,
-										'bg-field-2': level === 2,
-										'bg-field-3': level === 3,
+										'bg-field-1': level === 0,
+										'bg-field-2': level === 1,
+										'bg-field-3': level === 2,
 										'outline-support-error': invalid
 									}
 								)}
@@ -104,16 +95,16 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 												size='sm'
 												renderIcon={() => <Close size={20} />}
 												hasIconOnly
-												iconDescription={t('remove')}
+												iconDescription={t('applicationSelect:remove')}
 												onClick={() => onChange(null)}
 											/>
 										) : (
 											<Button
 												kind='ghost'
-												renderIcon={() => <UserFollow size={20} />}
+												renderIcon={() => <Add size={20} />}
 												size='sm'
 												hasIconOnly
-												iconDescription={t('add-user')}
+												iconDescription={t('changeMonitoring:add-instance')}
 												onClick={() => setOpenSearch(true)}
 											/>
 										))}
@@ -121,16 +112,11 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 								<div className='flex h-full w-full items-center justify-between space-x-2 pl-5 pr-8'>
 									{value ? (
 										<div className='mr-3 flex w-full items-center space-x-4'>
-											<UserProfileImage
-												initials={value.displayName}
-												imageDescription={value.username}
-												size='md'
-											/>
-											<span>{value.displayName}</span>
+											<span>{value.name}</span>
 										</div>
 									) : (
 										<div className='text-text-placeholder text-body-compact-1'>
-											{t('select-user')}
+											{t('changeMonitoring:select-app-instance')}
 										</div>
 									)}
 								</div>
@@ -149,47 +135,28 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 				</div>
 			</div>
 			<SingleAddSelect
-				itemsLabel={`${t('users')}:`}
-				noResultsTitle={t('no-results')}
-				noResultsDescription={t('different-keywords')}
-				onCloseButtonText={t('cancel')}
+				itemsLabel={`${t('changeMonitoring:app-instances')}:`}
+				noResultsTitle={t('applicationSelect:no-results')}
+				noResultsDescription={t('applicationSelect:different-keywords')}
+				onCloseButtonText={t('applicationSelect:cancel')}
 				onSubmit={id => {
-					onChange(users.find(user => user.id === id));
+					onChange(applications.find(app => app.id === id));
 					setOpenSearch(false);
 				}}
 				onClose={() => setOpenSearch(false)}
-				onSubmitButtonText={t('select')}
-				searchResultsLabel={t('search-results')}
-				title={t('select-user')}
-				description={t('select-single')}
-				globalSearchLabel={t('username-email')}
-				globalSearchPlaceholder={t('find-user')}
+				onSubmitButtonText={t('applicationSelect:select')}
+				searchResultsLabel={t('applicationSelect:search-results')}
+				title={t('changeMonitoring:select-app-instance')}
+				description={t('changeMonitoring:select-one-app-instance')}
+				globalSearchLabel={t('changeMonitoring:search-instance')}
+				globalSearchPlaceholder={t('changeMonitoring:search-by-instance-name')}
 				open={openSearch}
-				globalFilters={[
-					{
-						id: 'role',
-						label: t('role')
-					}
-				]}
-				globalFiltersIconDescription={t('filters')}
-				globalFiltersPlaceholderText={t('choose-option')}
-				globalFiltersPrimaryButtonText={t('apply')}
-				globalFiltersSecondaryButtonText={t('reset')}
-				clearFiltersText={t('clear-filters')}
 				items={{
-					entries: users
-						.filter(u => !excludedUsers?.some(e => e.id === u.id))
-						.filter(u => u.id !== value?.id)
-						.map(u => ({
-							id: u.id,
-							title: u.displayName,
-							tagInfo: u.principalRole,
-							subtitle: u.email || t('no-email'),
-							role: u.principalRole,
-							avatar: {
-								imageDescription: u.username,
-								initials: u.displayName
-							}
+					entries: applications
+						.filter(a => a.id !== value?.id)
+						.map(a => ({
+							id: a.id,
+							title: a.name
 						}))
 				}}
 			/>
@@ -197,4 +164,4 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 	);
 };
 
-export default SingleUserSelect;
+export default SingleApplicationSelect;

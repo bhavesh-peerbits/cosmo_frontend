@@ -32,7 +32,9 @@ const EditUserModal = ({ isOpen, setIsOpen, user }: EditUserModalProps) => {
 		'FOCAL_POINT',
 		'REQUEST_ADMIN',
 		'REQUEST_ANALYST',
-		'WORKFLOW_APPROVER'
+		'WORKFLOW_APPROVER',
+		'MONITORING_ADMIN',
+		'MONITORING_ANALYST'
 	];
 
 	const { t } = useTranslation('modals');

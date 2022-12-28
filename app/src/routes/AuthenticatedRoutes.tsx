@@ -39,6 +39,8 @@ const StartedEvidenceRequestDashboard = React.lazy(
 const ActionEvidenceRequestDashboard = React.lazy(
 	() => import('@pages/ActionEvidenceRequestDashboard')
 );
+const NewMonitoring = React.lazy(() => import('@pages/NewMonitoring'));
+const MonitoringDraftDetails = React.lazy(() => import('@pages/MonitoringDraftDetails'));
 
 const ActionEvidenceRequest = React.lazy(() => import('@pages/ActionEvidenceRequest'));
 const StartedEvidenceRequest = React.lazy(() => import('@pages/StartedEvidenceRequest'));
@@ -54,7 +56,8 @@ const AuthenticatedRoutes = () => {
 		canReviewUser,
 		canRevalidateUser,
 		canCreateRequest,
-		canWorkflowApprover
+		canWorkflowApprover,
+		canCreateMonitoring
 	} = usePolicyStore();
 	return (
 		<>
@@ -254,6 +257,25 @@ const AuthenticatedRoutes = () => {
 									element={
 										<ProtectRoute canNavigate={canReview}>
 											<ActionEvidenceRequest />
+										</ProtectRoute>
+									}
+								/>
+							</Route>
+
+							<Route path='new-monitoring'>
+								<Route
+									index
+									element={
+										<ProtectRoute canNavigate={canCreateMonitoring}>
+											<NewMonitoring />
+										</ProtectRoute>
+									}
+								/>
+								<Route
+									path=':monitoringDraftId'
+									element={
+										<ProtectRoute canNavigate={canCreateMonitoring}>
+											<MonitoringDraftDetails />
 										</ProtectRoute>
 									}
 								/>
