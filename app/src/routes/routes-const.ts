@@ -11,6 +11,7 @@ const routes = {
 	EVIDENCE_REQUEST_ACTION: '/evidence-request-action',
 	NEW_MONITORING: '/new-monitoring',
 	MONITORING_DASHBOARD: '/monitoring-dashboard',
+	CHANGE_MONITORING: '/change-monitoring',
 	ADMIN: '/admin',
 	LOGOUT: '/logout',
 	NEWLOGIN: '/newlogin',

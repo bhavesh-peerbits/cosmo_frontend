@@ -52,6 +52,9 @@ const MonitoringDetails = React.lazy(
 const MonitoringRunDetails = React.lazy(
 	() => import('@pages/MonitoringRunDetails/MonitoringRunDetails')
 );
+const ChangeMonitoringInbox = React.lazy(
+	() => import('@pages/ChangeMonitoringInbox/ChangeMonitoringInbox')
+);
 
 const AuthenticatedRoutes = () => {
 	const {
@@ -233,6 +236,7 @@ const AuthenticatedRoutes = () => {
 									}
 								/>
 							</Route>
+
 							<Route path='started-evidence-request'>
 								<Route
 									index
@@ -251,6 +255,7 @@ const AuthenticatedRoutes = () => {
 									}
 								/>
 							</Route>
+
 							<Route path='evidence-request-action'>
 								<Route
 									index
@@ -288,6 +293,7 @@ const AuthenticatedRoutes = () => {
 									}
 								/>
 							</Route>
+
 							<Route path='monitoring-dashboard'>
 								<Route
 									index
@@ -315,6 +321,17 @@ const AuthenticatedRoutes = () => {
 										}
 									/>
 								</Route>
+							</Route>
+
+							<Route path='change-monitoring'>
+								<Route
+									index
+									element={
+										<ProtectRoute canNavigate={canReview}>
+											<ChangeMonitoringInbox />
+										</ProtectRoute>
+									}
+								/>
 							</Route>
 							<Route path='test' element={<Test />} />
 							<Route path='*' element={<Navigate replace to='/404' />} />

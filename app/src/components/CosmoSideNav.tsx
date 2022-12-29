@@ -65,6 +65,9 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 									<SideNavMenuItem element={Link} to={routes.USER_REVALIDATION}>
 										User Revalidation
 									</SideNavMenuItem>
+									<SideNavMenuItem element={Link} to={routes.CHANGE_MONITORING}>
+										Change Monitoring
+									</SideNavMenuItem>
 								</>
 							)}
 							<SideNavMenuItem element={Link} to={routes.EVIDENCE_REQUEST_ACTION}>
