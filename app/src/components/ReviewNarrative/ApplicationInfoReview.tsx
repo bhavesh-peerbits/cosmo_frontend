@@ -117,7 +117,7 @@ const ApplicationInfoReview = ({ application }: ApplicationInfoReviewProps) => {
 							</FullWidthColumn>
 						</Grid>
 					</div>
-					<FullWidthColumn className='mt-5 flex justify-end'>
+					<FullWidthColumn className='mt-5 mr-0 flex justify-end'>
 						<div className='flex flex-wrap justify-between space-x-2'>
 							<div className='flex-1'>
 								<InlineLoadingStatus
