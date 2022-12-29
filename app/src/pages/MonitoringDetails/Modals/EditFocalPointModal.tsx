@@ -38,6 +38,7 @@ const EditFocalPointModalModal = ({ isOpen, setIsOpen }: EditFocalPointModalProp
 	return (
 		<ComposedModal open={isOpen} onClose={cleanUp}>
 			<ModalHeader
+				label='Monitoring Name'
 				title={t('monitoringDashboard:edit-focal-point-title')}
 				closeModal={cleanUp}
 			/>

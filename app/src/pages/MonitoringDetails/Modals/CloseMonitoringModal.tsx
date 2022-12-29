@@ -25,7 +25,11 @@ const CloseMonitoringModal = ({ isOpen, setIsOpen, id }: CloseMonitoringProps) =
 
 	return (
 		<ComposedModal size='xs' open={isOpen} onClose={cleanUp}>
-			<ModalHeader title={t('monitoringDashboard:confirm-close')} closeModal={cleanUp} />
+			<ModalHeader
+				label='Monitoring Name'
+				title={t('monitoringDashboard:confirm-close')}
+				closeModal={cleanUp}
+			/>
 			<ModalBody>
 				<span>{`${t('monitoringDashboard:close-monitoring', { name: id })}`}</span>
 				{/* {isError && (

@@ -28,7 +28,11 @@ const CloseRunModal = ({ isOpen, setIsOpen, id }: CloseRunProps) => {
 
 	return (
 		<ComposedModal size='xs' open={isOpen} onClose={cleanUp}>
-			<ModalHeader title={t('runDetails:confirm-run-closure')} closeModal={cleanUp} />
+			<ModalHeader
+				label='Monitoring Name - Run N'
+				title={t('runDetails:confirm-run-closure')}
+				closeModal={cleanUp}
+			/>
 			<ModalBody>
 				<span>{`${t('runDetails:confirm-run-closure-body', { number: id })}`}</span>
 				{/* {isError && (
