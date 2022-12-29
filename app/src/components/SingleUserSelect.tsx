@@ -16,6 +16,7 @@ import cx from 'classnames';
 import useGetUsers from '@api/user/useGetUsers';
 import { useTranslation } from 'react-i18next';
 import { UseQueryResult } from 'react-query';
+import { TooltipPosition } from '@carbon/react/typings/shared';
 
 type SingleUserSelectProps<
 	T extends FieldValues,
@@ -33,6 +34,7 @@ type SingleUserSelectProps<
 			defaultValue?: User;
 			excludedUsers?: User[];
 			getUserFn?: () => UseQueryResult<User[]>;
+			tooltipPosition?: TooltipPosition;
 	  }
 	: never;
 
@@ -47,6 +49,7 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 	readOnly,
 	defaultValue,
 	excludedUsers,
+	tooltipPosition,
 	getUserFn = useGetUsers
 }: SingleUserSelectProps<T, TName>) => {
 	const { t } = useTranslation('userSelect');
@@ -105,6 +108,7 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 												renderIcon={() => <Close size={20} />}
 												hasIconOnly
 												iconDescription={t('remove')}
+												tooltipPosition={tooltipPosition}
 												onClick={() => onChange(null)}
 											/>
 										) : (
@@ -114,6 +118,7 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 												size='sm'
 												hasIconOnly
 												iconDescription={t('add-user')}
+												tooltipPosition={tooltipPosition}
 												onClick={() => setOpenSearch(true)}
 											/>
 										))}
