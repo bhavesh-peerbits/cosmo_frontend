@@ -21,5 +21,7 @@
 	"new-file": "Nuovo file",
 	"use-last-run": "Utilizza file della run precedente",
 	"upload-file": "Carica file",
-	"or": "o"
+	"or": "o",
+	"delta-result": "Risultato delta",
+	"complete-run": "Completa run"
 }

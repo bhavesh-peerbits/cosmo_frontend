@@ -3,6 +3,7 @@ import { formatDate } from '@i18n';
 import { useLayoutEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
+import DeltaResultContent from '../Components/DeltaResultContent';
 import RunDetailsStepTile from '../Components/RunDetailsStepTile';
 import RunSetupContent from '../Components/RunSetupContent';
 import UploadFileContent from '../Components/UploadFileContent';
@@ -11,6 +12,7 @@ const RunDetailsStepContainer = () => {
 	const { t } = useTranslation(['monitoringDashboard', 'evidenceRequest', 'runDetails']);
 	const { runId } = useParams();
 	// TODO Fix selector based on the current step (also fix isCurrent for RunDetailsStepTile)
+	// TODO Remove expandable fn if step is not started
 	useLayoutEffect(() => {
 		const selector = `*[id="tile-upload-${runId}"]`;
 		smoothScroll(selector, 149);
@@ -33,18 +35,18 @@ const RunDetailsStepContainer = () => {
 				id={`tile-upload-${runId}`}
 				title={t('runDetails:file-upload')}
 				inCharge='Federica Bruno'
-				isCurrent
 				detail={t('evidenceRequest:current-step')}
 			>
 				<UploadFileContent />
 			</RunDetailsStepTile>
 			<RunDetailsStepTile
 				id={`tile-delta-${runId}`}
-				title='Delta'
+				title={t('runDetails:delta-result')}
 				inCharge='Federica Bruno'
+				isCurrent
 				detail={t('runDetails:not-started')}
 			>
-				content
+				<DeltaResultContent />
 			</RunDetailsStepTile>
 		</div>
 	);

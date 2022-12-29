@@ -19,5 +19,7 @@
 	"new-file": "",
 	"use-last-run": "",
 	"upload-file": "",
-	"or": ""
+	"or": "",
+	"delta-result": "",
+	"complete-run": ""
 }

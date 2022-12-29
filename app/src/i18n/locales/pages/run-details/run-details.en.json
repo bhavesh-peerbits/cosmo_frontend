@@ -21,5 +21,7 @@
 	"new-file": "New file",
 	"use-last-run": "Use file of the last run",
 	"upload-file": "Upload file",
-	"or": "or"
+	"or": "or",
+	"delta-result": "Delta result",
+	"complete-run": "Complete run"
 }
