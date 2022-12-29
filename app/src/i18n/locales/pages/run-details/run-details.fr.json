@@ -21,5 +21,7 @@
 	"upload-file": "",
 	"or": "",
 	"delta-result": "",
-	"complete-run": ""
+	"complete-run": "",
+	"add-answer-description": "",
+	"ignore-description": ""
 }

@@ -38,14 +38,14 @@ const AddFileToPathModal = ({
 			<ModalHeader
 				title={t('runDetails:add-file-path')}
 				label={`Monitoring Name - Run ${id}`}
-			/>
-			<ModalBody className='space-y-7'>
-				<p className='text-body-long-1'>
+			>
+				<p className='text-text-secondary text-body-long-1'>
 					{includeLastRun
 						? t('runDetails:add-file-last-run')
 						: t('runDetails:add-file-path-description')}
 				</p>
-
+			</ModalHeader>
+			<ModalBody className='space-y-7'>
 				{includeLastRun && (
 					<RadioButtonGroup
 						name='select-file'

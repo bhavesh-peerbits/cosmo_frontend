@@ -23,5 +23,7 @@
 	"upload-file": "Carica file",
 	"or": "o",
 	"delta-result": "Risultato delta",
-	"complete-run": "Completa run"
+	"complete-run": "Completa run",
+	"add-answer-description": "ADD descriptionnn",
+	"ignore-description": "Inserire una nota per motivare la risposta."
 }

@@ -23,5 +23,7 @@
 	"upload-file": "Upload file",
 	"or": "or",
 	"delta-result": "Delta result",
-	"complete-run": "Complete run"
+	"complete-run": "Complete run",
+	"add-answer-description": "ADD descriptionnn",
+	"ignore-description": "Please, insert a note to justify the answer."
 }
