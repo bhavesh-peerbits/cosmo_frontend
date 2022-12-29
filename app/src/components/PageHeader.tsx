@@ -101,7 +101,11 @@ const PageHeader = ({
 														renderIcon={action.icon}
 														disabled={action.disabled}
 														kind={
-															action.kind || actions?.length > 1 ? 'tertiary' : 'primary'
+															action.kind
+																? action.kind
+																: actions?.length > 1
+																? 'tertiary'
+																: 'primary'
 														}
 													>
 														{action.name}
