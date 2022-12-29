@@ -8,7 +8,7 @@ interface ApplicationChangesContainerProps {
 
 const ApplicationChangesContainer = ({ appId }: ApplicationChangesContainerProps) => {
 	return (
-		<Grid fullWidth className='h-full p-5'>
+		<Grid fullWidth className='h-full p-5 pt-6'>
 			<FullWidthColumn>
 				<ApplicationChangesTable appId={appId} />
 			</FullWidthColumn>

@@ -66,9 +66,9 @@ const ProcedureInfo = () => {
 			stickyOffset={STICKY_OFFSET}
 			tocStickyOffset={breadcrumbSize + 48}
 		>
-			<Grid fullWidth className='h-full'>
-				<FullWidthColumn className='pt-4'>
-					<div className='flex flex-col space-y-4'>
+			<Grid fullWidth className='h-full pr-3'>
+				<FullWidthColumn className='pt-3'>
+					<div className='flex flex-col space-y-5'>
 						<div
 							className='flex w-full flex-wrap items-center bg-layer-1 md:sticky md:z-10  md:space-x-4'
 							ref={buttonRef}

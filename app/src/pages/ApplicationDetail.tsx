@@ -66,13 +66,13 @@ const ApplicationDetail = () => {
 						<Tab>{t('changes')}</Tab>
 					</TabList>
 					<TabPanels>
-						<TabPanel>
+						<TabPanel className='pl-container-1 pr-0'>
 							<ApplicationInfo application={data} />
 						</TabPanel>
-						<TabPanel>
+						<TabPanel className='pl-container-1 pr-0'>
 							<ProcedureInfo />
 						</TabPanel>
-						<TabPanel>
+						<TabPanel className='p-0 px-3'>
 							<ApplicationChangesContainer appId={appId} />
 						</TabPanel>
 					</TabPanels>
