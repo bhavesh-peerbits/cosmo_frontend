@@ -11,6 +11,8 @@
 	"repeat": "",
 	"previous-period": "",
 	"previous-period-description": "",
+	"current-period": "",
+	"current-period-description": "",
 	"add-file-path": "",
 	"add-file-path-description": "",
 	"add-file-last-run": "",
@@ -23,5 +25,7 @@
 	"delta-result": "",
 	"complete-run": "",
 	"add-answer-description": "",
-	"ignore-description": ""
+	"ignore-description": "",
+	"complete-run-body": "",
+	"complete-and-close": ""
 }

@@ -25,5 +25,7 @@
 	"delta-result": "Risultato delta",
 	"complete-run": "Completa run",
 	"add-answer-description": "ADD descriptionnn",
-	"ignore-description": "Inserire una nota per motivare la risposta."
+	"ignore-description": "Inserire una nota per motivare la risposta.",
+	"complete-run-body": "Sei sicuro di voler completare la run? Completando la run, questa verrà chiusa.",
+	"complete-and-close": "Completa e chiudi"
 }

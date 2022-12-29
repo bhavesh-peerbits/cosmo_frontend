@@ -3,6 +3,7 @@ import { Download } from '@carbon/react/icons';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AddAnswerToDeltaModal from '../Modals/AddAnswerToDeltaModal';
+import CompleteRunModal from '../Modals/CompleteRunModal';
 
 const DeltaResultContent = () => {
 	const { t } = useTranslation('runDetails');
@@ -44,6 +45,7 @@ const DeltaResultContent = () => {
 				setIsOpen={setModalToOpen}
 				isIgnore={modalToOpen === 'ignore'}
 			/>
+			<CompleteRunModal isOpen={modalToOpen === 'close'} setIsOpen={setModalToOpen} />
 			<div className='flex justify-end space-x-5'>
 				<Button size='md' kind='tertiary'>
 					{t('save')}
