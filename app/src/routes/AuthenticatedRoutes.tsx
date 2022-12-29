@@ -332,6 +332,24 @@ const AuthenticatedRoutes = () => {
 										</ProtectRoute>
 									}
 								/>
+								<Route path=':monitoringId'>
+									<Route
+										index
+										element={
+											<ProtectRoute canNavigate={canReview}>
+												<MonitoringDetails isFocalPoint />
+											</ProtectRoute>
+										}
+									/>
+									<Route
+										path=':runId'
+										element={
+											<ProtectRoute canNavigate={canReview}>
+												<MonitoringRunDetails />
+											</ProtectRoute>
+										}
+									/>
+								</Route>
 							</Route>
 							<Route path='test' element={<Test />} />
 							<Route path='*' element={<Navigate replace to='/404' />} />
