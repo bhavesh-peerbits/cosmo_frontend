@@ -38,6 +38,7 @@ const SendToFocalPointModal = ({ isOpen, setIsOpen }: SendToFocalPointProps) => 
 
 	return (
 		<TearsheetNarrow
+			hasCloseIcon
 			label='Monitoring Name - Run 5'
 			description={t('runDetails:helper-focal-point')}
 			title={t('runDetails:complete-run')}

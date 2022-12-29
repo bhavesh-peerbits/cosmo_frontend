@@ -38,6 +38,7 @@ const NewMonitoringModal = ({ isOpen, setIsOpen }: NewMonitoringModalProps) => {
 			title={t('changeMonitoring:new-monitoring')}
 			open={isOpen}
 			onClose={cleanUp}
+			hasCloseIcon
 			actions={[
 				{
 					label: t('modals:cancel'),

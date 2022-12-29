@@ -1,15 +1,12 @@
 import {
-	ComposedModal,
-	ModalBody,
-	ModalFooter,
-	ModalHeader,
-	Button,
+	Form,
 	Select,
 	SelectItem,
 	FileUploaderDropContainer,
 	TextInput,
 	TextArea
 } from '@carbon/react';
+import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
 import { Dispatch, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -35,15 +32,32 @@ const AddAnswerToDeltaModal = ({
 	};
 
 	return (
-		<ComposedModal size='sm' open={isOpen} onClose={cleanUp}>
-			<ModalHeader title={t('runDetails:add-file-path')} label={`Monitoring Name - Run `}>
-				<p className='text-secondary text-body-long-1'>
-					{isIgnore
-						? t('runDetails:ignore-description')
-						: t('runDetails:add-answer-description')}
-				</p>
-			</ModalHeader>
-			<ModalBody className='space-y-6'>
+		<TearsheetNarrow
+			hasCloseIcon
+			title={t('runDetails:add-file-path')}
+			label={`Monitoring Name - Run `}
+			description={
+				isIgnore
+					? t('runDetails:ignore-description')
+					: t('runDetails:add-answer-description')
+			}
+			open={isOpen}
+			onClose={cleanUp}
+			actions={[
+				{
+					label: t('modals:cancel'),
+					kind: 'secondary',
+					onClick: cleanUp,
+					id: 'cancel-add-answer'
+				},
+				{
+					label: t('modals:save'),
+					id: 'save-answer',
+					onClick: () => {}
+				}
+			]}
+		>
+			<Form className='space-y-5 px-5'>
 				{isIgnore && <TextArea labelText={t('changeMonitoring:note')} />}
 				{!isIgnore && (
 					<div className='space-y-7'>
@@ -67,14 +81,8 @@ const AddAnswerToDeltaModal = ({
 						</div>
 					</div>
 				)}
-			</ModalBody>
-			<ModalFooter>
-				<Button kind='secondary' onClick={cleanUp}>
-					{t('modals:cancel')}
-				</Button>
-				<Button>{t('modals:save')}</Button>
-			</ModalFooter>
-		</ComposedModal>
+			</Form>
+		</TearsheetNarrow>
 	);
 };
 export default AddAnswerToDeltaModal;
