@@ -27,5 +27,8 @@
 	"add-answer-description": "ADD descriptionnn",
 	"ignore-description": "Inserire una nota per motivare la risposta.",
 	"complete-run-body": "Sei sicuro di voler completare la run? Completando la run, questa verrà chiusa.",
-	"complete-and-close": "Completa e chiudi"
+	"complete-and-close": "Completa e chiudi",
+	"send-to-focal-point": "Invia al Focal Point",
+	"send-request": "Invia richiesta",
+	"helper-focal-point": "La richiesta verrà inviata al Focal Point e ai suoi delegati."
 }

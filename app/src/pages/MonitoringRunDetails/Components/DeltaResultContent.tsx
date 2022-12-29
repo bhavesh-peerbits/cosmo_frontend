@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AddAnswerToDeltaModal from '../Modals/AddAnswerToDeltaModal';
 import CompleteRunModal from '../Modals/CompleteRunModal';
+import SendToFocalPointModal from '../Modals/SendToFocalPoint';
 
 const DeltaResultContent = () => {
 	const { t } = useTranslation('runDetails');
@@ -46,11 +47,16 @@ const DeltaResultContent = () => {
 				isIgnore={modalToOpen === 'ignore'}
 			/>
 			<CompleteRunModal isOpen={modalToOpen === 'close'} setIsOpen={setModalToOpen} />
+			<SendToFocalPointModal
+				isOpen={modalToOpen === 'send-focal-point'}
+				setIsOpen={setModalToOpen}
+			/>
 			<div className='flex justify-end space-x-5'>
 				<Button size='md' kind='tertiary'>
 					{t('save')}
 				</Button>
 				<Button size='md'>{t('complete-run')}</Button>
+				{/* // TODO Add text in case of partial answers to send request to focal point t('send-to-focal-point') */}
 			</div>
 		</div>
 	);

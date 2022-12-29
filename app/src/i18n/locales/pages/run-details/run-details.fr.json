@@ -27,5 +27,8 @@
 	"add-answer-description": "",
 	"ignore-description": "",
 	"complete-run-body": "",
-	"complete-and-close": ""
+	"complete-and-close": "",
+	"send-to-focal-point": "",
+	"send-request": "",
+	"helper-focal-point": ""
 }
