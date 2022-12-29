@@ -37,8 +37,10 @@ const RunSetupContent = () => {
 				))}
 			</div>
 			<div className='flex justify-end space-x-5'>
-				<Button kind='tertiary'>{t('runDetails:save')}</Button>
-				<Button>{t('changeMonitoring:save-next')}</Button>
+				<Button size='md' kind='tertiary'>
+					{t('runDetails:save')}
+				</Button>
+				<Button size='md'>{t('changeMonitoring:save-next')}</Button>
 			</div>
 		</div>
 	);
