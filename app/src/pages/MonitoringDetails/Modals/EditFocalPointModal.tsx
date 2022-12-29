@@ -1,18 +1,11 @@
-import {
-	Button,
-	ComposedModal,
-	ModalBody,
-	ModalFooter,
-	ModalHeader,
-	Grid,
-	Column
-} from '@carbon/react';
+import { Form } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction } from 'react';
 import MultipleUserSelect from '@components/MultipleUserSelect';
 import SingleUserSelect from '@components/SingleUserSelect';
 import { useForm } from 'react-hook-form';
 import User from '@model/User';
+import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
 
 type EditFocalPointModalProps = {
 	isOpen: boolean;
@@ -26,7 +19,11 @@ type EditFocalPointForm = {
 
 const EditFocalPointModalModal = ({ isOpen, setIsOpen }: EditFocalPointModalProps) => {
 	const { t } = useTranslation(['modals', 'monitoringDashboard', 'evidenceRequest']);
-	const { control, watch } = useForm<EditFocalPointForm>();
+	const {
+		control,
+		watch,
+		formState: { isValid }
+	} = useForm<EditFocalPointForm>();
 	const selectedFocalPoint = watch ? watch('focalPoint') : undefined;
 	const selectedDelegates = watch ? watch('delegates') : [];
 
@@ -36,37 +33,45 @@ const EditFocalPointModalModal = ({ isOpen, setIsOpen }: EditFocalPointModalProp
 
 	// TODO Add focal point and delegates default values
 	return (
-		<ComposedModal open={isOpen} onClose={cleanUp}>
-			<ModalHeader
-				label='Monitoring Name'
-				title={t('monitoringDashboard:edit-focal-point-title')}
-				closeModal={cleanUp}
-			/>
-			<ModalBody>
-				<Grid>
-					<Column sm={4} md={4} lg={8}>
-						<SingleUserSelect
-							control={control}
-							level={2}
-							label='Focal Point *'
-							name='focalPoint'
-							rules={{
-								required: true
-							}}
-							excludedUsers={selectedDelegates}
-						/>
-					</Column>
-					<Column sm={4} md={4} lg={8}>
-						<MultipleUserSelect
-							control={control}
-							level={2}
-							label={t('evidenceRequest:focal-point-delegates')}
-							name='delegates'
-							excludedUser={selectedFocalPoint}
-						/>
-					</Column>
-				</Grid>
-
+		<TearsheetNarrow
+			hasCloseIcon
+			label='Monitoring Name'
+			title={t('monitoringDashboard:edit-focal-point-title')}
+			open={isOpen}
+			onClose={cleanUp}
+			actions={[
+				{
+					label: t('modals:cancel'),
+					kind: 'secondary',
+					onClick: cleanUp,
+					id: 'cancel-send-focal-point'
+				},
+				{
+					label: t('modals:save'),
+					id: 'send-focal-point',
+					disabled: !isValid,
+					onClick: () => {}
+				}
+			]}
+		>
+			<Form className='space-y-5 px-5'>
+				<SingleUserSelect
+					control={control}
+					level={2}
+					label='Focal Point *'
+					name='focalPoint'
+					rules={{
+						required: true
+					}}
+					excludedUsers={selectedDelegates}
+				/>
+				<MultipleUserSelect
+					control={control}
+					level={2}
+					label={t('evidenceRequest:focal-point-delegates')}
+					name='delegates'
+					excludedUser={selectedFocalPoint}
+				/>{' '}
 				{/* {isError && (
 					<div className='mt-5 flex items-center justify-center'>
 						<InlineNotification
@@ -80,16 +85,8 @@ const EditFocalPointModalModal = ({ isOpen, setIsOpen }: EditFocalPointModalProp
 						/>
 					</div>
 				)} */}
-			</ModalBody>
-			<ModalFooter>
-				<Button kind='secondary' onClick={cleanUp}>
-					{t('modals:cancel')}
-				</Button>
-				<Button kind='primary' onClick={() => {}}>
-					{t('modals:save')}
-				</Button>
-			</ModalFooter>
-		</ComposedModal>
+			</Form>
+		</TearsheetNarrow>
 	);
 };
 export default EditFocalPointModalModal;
