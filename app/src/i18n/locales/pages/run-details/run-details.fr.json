@@ -10,5 +10,14 @@
 	"repeat-path-description": "",
 	"repeat": "",
 	"previous-period": "",
-	"previous-period-description": ""
+	"previous-period-description": "",
+	"add-file-path": "",
+	"add-file-path-description": "",
+	"add-file-last-run": "",
+	"select-file": "",
+	"select-from-uploaded": "",
+	"new-file": "",
+	"use-last-run": "",
+	"upload-file": "",
+	"or": ""
 }

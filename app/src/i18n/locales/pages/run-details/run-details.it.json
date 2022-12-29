@@ -12,5 +12,14 @@
 	"previous-period": "Periodo precedente",
 	"previous-period-description": "Indicare un file per il periodo precedente. È possibile selezionare il file della run precedente o caricarne uno nuovo. Di seguito sono indicati i file già caricati.",
 	"current-period": "Periodo corrente",
-	"current-period-description": "Indicare per ogni path un file. È possibile indicare lo stesso file per tutti path o alcuni. Di seguito sono indicati i file già caricati."
+	"current-period-description": "Indicare per ogni path un file. È possibile indicare lo stesso file per tutti path o alcuni. Di seguito sono indicati i file già caricati.",
+	"add-file-path": "Aggiungi file a un path",
+	"add-file-path-description": "Aggiungi un file al pat per il periodo precedente. Puoi utilizzare un file già caricato o caricarne uno nuovo.",
+	"add-file-last-run": "Aggiungi un file al path per il periodo precedente. Puoi utilizzare il file della run precedente, un file già caricato o caricarne uno nuovo.",
+	"select-file": "Seleziona un file",
+	"select-from-uploaded": "Seleziona un file tra quelli già caricati",
+	"new-file": "Nuovo file",
+	"use-last-run": "Utilizza file della run precedente",
+	"upload-file": "Carica file",
+	"or": "o"
 }

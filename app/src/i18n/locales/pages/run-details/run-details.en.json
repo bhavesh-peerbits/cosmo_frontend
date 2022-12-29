@@ -12,5 +12,14 @@
 	"previous-period": "Previous period",
 	"previous-period-description": "Please indicate a file for the previous period. It is possible to indicate the file of the last run or to upload a new one. Below there is the list of already uploaded files.",
 	"current-period": "Current period",
-	"current-period-description": "Please indicate for each path a file. It is possible to indicate the same file for some or all paths. Below there is the list of already uploaded files."
+	"current-period-description": "Please indicate for each path a file. It is possible to indicate the same file for some or all paths. Below there is the list of already uploaded files.",
+	"add-file-path": "Add file to path",
+	"add-file-path-description": "Add a file to path for previous period. You can use a file already uploaded or a new one.",
+	"add-file-last-run": "Add a file to path for previous period. You can use the file of the last run, a file already uploaded or a new one.",
+	"select-file": "Select a file",
+	"select-from-uploaded": "Select a file from already uploaded ones",
+	"new-file": "New file",
+	"use-last-run": "Use file of the last run",
+	"upload-file": "Upload file",
+	"or": "or"
 }
