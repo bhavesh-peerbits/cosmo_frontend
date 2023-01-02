@@ -1,9 +1,10 @@
 import FullWidthColumn from '@components/FullWidthColumn';
-import { Toggle, Tooltip } from '@carbon/react';
+import { Toggle, Tooltip, Layer } from '@carbon/react';
 import { Information } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import AssetExpandableTile from './AssetExpandableTile';
+import PathAssetTable from './PathAssetTable';
 
 const PathDefinitionStepContainer = () => {
 	const { t } = useTranslation('changeMonitoring');
@@ -32,10 +33,18 @@ const PathDefinitionStepContainer = () => {
 				/>
 			</FullWidthColumn>
 			<FullWidthColumn className='space-y-7'>
-				{sameSetup && <p>table for same setup goes here</p>}
+				{sameSetup && (
+					<Layer>
+						<PathAssetTable />
+					</Layer>
+				)}
 				<div>
-					<AssetExpandableTile title='Asset'>table goes here</AssetExpandableTile>
-					<AssetExpandableTile title='Asset'>table goes here</AssetExpandableTile>
+					<AssetExpandableTile title='Asset'>
+						<PathAssetTable />
+					</AssetExpandableTile>
+					<AssetExpandableTile title='Asset'>
+						<PathAssetTable />
+					</AssetExpandableTile>
 				</div>
 			</FullWidthColumn>
 		</>
