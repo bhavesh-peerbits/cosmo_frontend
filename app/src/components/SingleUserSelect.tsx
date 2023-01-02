@@ -33,6 +33,7 @@ type SingleUserSelectProps<
 			defaultValue?: User;
 			excludedUsers?: User[];
 			getUserFn?: () => UseQueryResult<User[]>;
+			setSelectedUser?: (value?: User) => void;
 	  }
 	: never;
 
@@ -47,7 +48,8 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 	readOnly,
 	defaultValue,
 	excludedUsers,
-	getUserFn = useGetUsers
+	getUserFn = useGetUsers,
+	setSelectedUser
 }: SingleUserSelectProps<T, TName>) => {
 	const { t } = useTranslation('userSelect');
 	const {
@@ -156,6 +158,7 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 				onSubmit={id => {
 					onChange(users.find(user => user.id === id));
 					setOpenSearch(false);
+					setSelectedUser && setSelectedUser(users.find(user => user.id === id));
 				}}
 				onClose={() => setOpenSearch(false)}
 				onSubmitButtonText={t('select')}
