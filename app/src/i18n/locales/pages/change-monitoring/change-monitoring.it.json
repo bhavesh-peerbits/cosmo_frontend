@@ -107,5 +107,8 @@
 	"add-controls": "Aggiungi controlli",
 	"select-controls-list": "Seleziona uno o più controlli dalla lista",
 	"selected-controls": "Controlli selezionati",
-	"control-name": "Nome controllo"
+	"control-name": "Nome controllo",
+	"include": "Includi",
+	"exclude": "Escludi",
+	"included": "Incluso"
 }

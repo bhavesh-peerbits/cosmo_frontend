@@ -1,8 +1,8 @@
 import CosmoTable from '@components/table/CosmoTable';
 import { CellContext, ColumnDef } from '@tanstack/react-table';
-import { t } from 'i18next';
-import { useMemo } from 'react';
-import { CheckmarkFilled } from '@carbon/react/icons';
+import { Dispatch, SetStateAction, useMemo } from 'react';
+import { CheckmarkFilled, CheckmarkOutline, SubtractAlt } from '@carbon/react/icons';
+import { useTranslation } from 'react-i18next';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CellBoolean = ({ getValue }: CellContext<any, unknown>) => {
@@ -10,46 +10,94 @@ const CellBoolean = ({ getValue }: CellContext<any, unknown>) => {
 	return value && <CheckmarkFilled />;
 };
 
-const PathAssetTable = () => {
-	const columns = useMemo<ColumnDef<{ included: boolean; path: string }>[]>(() => {
-		const ArrayCol: ColumnDef<{ included: boolean; path: string }>[] = [
+type PathAssetTableProps = {
+	isSameSetup?: boolean;
+	data: { path: string; included: boolean }[];
+	assetId?: string;
+	canAdd?: boolean;
+	setData?: Dispatch<
+		SetStateAction<
 			{
-				id: `included-all-asset`,
+				included: boolean;
+				path: string;
+			}[]
+		>
+	>;
+};
+const PathAssetTable = ({
+	isSameSetup,
+	data,
+	assetId,
+	canAdd,
+	setData
+}: PathAssetTableProps) => {
+	const { t } = useTranslation(['changeMonitoring', 'table']);
+
+	const columns = useMemo<ColumnDef<{ path: string; included: boolean }>[]>(() => {
+		const ArrayCol: ColumnDef<{ path: string; included: boolean }>[] = [
+			{
+				id: isSameSetup ? 'included-same-setup' : `included-${assetId}`,
 				accessorFn: row => row.included,
 				cell: CellBoolean,
-				header: 'Included'
+				header: t('changeMonitoring:included')
 			},
-
 			{
-				id: `path-all-asset`,
+				id: isSameSetup ? 'path-same-setup' : `path-${assetId}`,
 				accessorFn: row => row.path,
 				header: 'Path',
 				sortUndefined: 1
 			}
 		];
 		return ArrayCol;
-	}, []);
+	}, [assetId, isSameSetup, t]);
+
+	const toolbarBatchActions = [
+		{
+			id: 'include',
+			label: t('changeMonitoring:include'),
+			icon: CheckmarkOutline,
+			onClick: (selectionElements: { path: string; included: boolean }[]) => {
+				setData &&
+					setData(old =>
+						old.map(element => {
+							return selectionElements.includes(element)
+								? { ...element, included: true }
+								: element;
+						})
+					);
+			}
+		},
+		{
+			id: 'exclude',
+			label: t('changeMonitoring:exclude'),
+			icon: SubtractAlt,
+			onClick: (selectionElements: { path: string; included: boolean }[]) => {
+				setData &&
+					setData(old =>
+						old.map(element => {
+							return selectionElements.includes(element)
+								? { ...element, included: false }
+								: element;
+						})
+					);
+			}
+		}
+	];
+
 	return (
 		<CosmoTable
-			tableId='prova'
+			tableId='path-asset-table'
 			columns={columns}
 			noDataMessage={t('table:no-data')}
 			isColumnOrderingEnabled
+			canAdd={canAdd}
 			toolbar={{
 				searchBar: true,
-				toolbarBatchActions: [],
+				toolbarBatchActions,
 				toolbarTableMenus: []
 			}}
 			exportFileName={({ all }) => (all ? 'answers-all' : 'answers-selection')}
-			data={[
-				{
-					included: true,
-					path: 'path1veryveryveryveryveryveryveryveryveryveryveryveryveryveryveryverylong'
-				},
-				{ included: false, path: 'path2' },
-				{ included: true, path: 'path3' },
-				{ included: true, path: 'path4' }
-			]}
+			data={data}
 			isSelectable
 		/>
 	);

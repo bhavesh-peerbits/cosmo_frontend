@@ -10,6 +10,23 @@ const PathDefinitionStepContainer = () => {
 	const { t } = useTranslation('changeMonitoring');
 	const [sameSetup, setSameSetup] = useState(false);
 
+	const fakeDataPath = [
+		{
+			included: true,
+			path: 'path1veryveryveryveryveryveryveryveryveryveryveryveryveryveryveryverylong'
+		},
+		{ included: false, path: 'path2' },
+		{ included: true, path: 'path3' },
+		{ included: true, path: 'path4' }
+	];
+
+	const [data, setData] = useState<
+		{
+			included: boolean;
+			path: string;
+		}[]
+	>(fakeDataPath);
+
 	return (
 		<>
 			<FullWidthColumn>
@@ -35,15 +52,15 @@ const PathDefinitionStepContainer = () => {
 			<FullWidthColumn className='space-y-7'>
 				{sameSetup && (
 					<Layer>
-						<PathAssetTable />
+						<PathAssetTable isSameSetup data={data} canAdd setData={setData} />
 					</Layer>
 				)}
 				<div>
 					<AssetExpandableTile title='Asset'>
-						<PathAssetTable />
+						<PathAssetTable data={data} assetId='1' canAdd={!sameSetup} />
 					</AssetExpandableTile>
 					<AssetExpandableTile title='Asset'>
-						<PathAssetTable />
+						<PathAssetTable data={data} assetId='2' canAdd={!sameSetup} />
 					</AssetExpandableTile>
 				</div>
 			</FullWidthColumn>

@@ -106,5 +106,8 @@
 	"add-controls": "",
 	"select-controls-list": "",
 	"selected-controls": "",
-	"control-name": ""
+	"control-name": "",
+	"include": "",
+	"exclude": "",
+	"included": ""
 }
