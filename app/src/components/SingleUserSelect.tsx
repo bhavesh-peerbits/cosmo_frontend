@@ -15,8 +15,8 @@ import User from '@model/User';
 import cx from 'classnames';
 import useGetUsers from '@api/user/useGetUsers';
 import { useTranslation } from 'react-i18next';
-import { UseQueryResult } from 'react-query';
 import { TooltipPosition } from '@carbon/react/typings/shared';
+import { UseQueryResult } from '@tanstack/react-query';
 
 type SingleUserSelectProps<
 	T extends FieldValues,
@@ -35,6 +35,7 @@ type SingleUserSelectProps<
 			excludedUsers?: User[];
 			getUserFn?: () => UseQueryResult<User[]>;
 			tooltipPosition?: TooltipPosition;
+			setSelectedUser?: (value?: User) => void;
 	  }
 	: never;
 
@@ -50,7 +51,8 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 	defaultValue,
 	excludedUsers,
 	tooltipPosition,
-	getUserFn = useGetUsers
+	getUserFn = useGetUsers,
+	setSelectedUser
 }: SingleUserSelectProps<T, TName>) => {
 	const { t } = useTranslation('userSelect');
 	const {
@@ -161,6 +163,7 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 				onSubmit={id => {
 					onChange(users.find(user => user.id === id));
 					setOpenSearch(false);
+					setSelectedUser && setSelectedUser(users.find(user => user.id === id));
 				}}
 				onClose={() => setOpenSearch(false)}
 				onSubmitButtonText={t('select')}

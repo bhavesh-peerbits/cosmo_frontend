@@ -1,5 +1,5 @@
 import api from '@api';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { fromProcedureAppInstanceApi } from '@model/ProcedureAppInstance';
 import { toMap } from '@model/util';
 

@@ -1,10 +1,10 @@
 import api from '@api';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { fromEvidenceRequestApi } from '@model/EvidenceRequest';
 
 const useGetEvidenceRequestById = (requestId: string) => {
 	return api.evidenceRequest
-		.getEvidenceRequestById({ id: +requestId })
+		.getEvidenceRequestById1({ id: +requestId })
 		.then(({ data }) => fromEvidenceRequestApi(data));
 };
 

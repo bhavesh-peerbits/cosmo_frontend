@@ -43,14 +43,14 @@ const FillItem = memo(
 		const icons = useMemo(
 			() => ({
 				user: {
-					xs: <User size={12} />,
+					xs: <User size={16} />,
 					sm: <User size={16} />,
 					md: <User size={20} />,
 					lg: <User size={24} />,
 					xlg: <User size={32} />
 				},
 				group: {
-					xs: <Group size={12} />,
+					xs: <Group size={16} />,
 					sm: <Group size={16} />,
 					md: <Group size={20} />,
 					lg: <Group size={24} />,

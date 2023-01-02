@@ -518,24 +518,42 @@ export const UserAdminControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {string} searchField
 		 * @param {number} [page] Zero-based page index (0..N)
 		 * @param {number} [size] The size of the page to be returned
 		 * @param {Array<string>} [sort] Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+		 * @param {string} [searchField]
+		 * @param {string} [lastLogin]
+		 * @param {Array<string>} [image]
+		 * @param {string} [deletedAt]
+		 * @param {string} [createdBy]
+		 * @param {string} [surname]
+		 * @param {string} [name]
+		 * @param {boolean} [active]
+		 * @param {string} [id]
+		 * @param {string} [email]
+		 * @param {string} [username]
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getFilteredUser: async (
-			searchField: string,
 			page?: number,
 			size?: number,
 			sort?: Array<string>,
+			searchField?: string,
+			lastLogin?: string,
+			image?: Array<string>,
+			deletedAt?: string,
+			createdBy?: string,
+			surname?: string,
+			name?: string,
+			active?: boolean,
+			id?: string,
+			email?: string,
+			username?: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'searchField' is not null or undefined
-			assertParamExists('getFilteredUser', 'searchField', searchField);
 			const localVarPath = `/api/users/admin/filtered-user`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -551,10 +569,6 @@ export const UserAdminControllerApiAxiosParamCreator = function (
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
 
-			if (searchField !== undefined) {
-				localVarQueryParameter['searchField'] = searchField;
-			}
-
 			if (page !== undefined) {
 				localVarQueryParameter['page'] = page;
 			}
@@ -565,6 +579,56 @@ export const UserAdminControllerApiAxiosParamCreator = function (
 
 			if (sort) {
 				localVarQueryParameter['sort'] = sort;
+			}
+
+			if (searchField !== undefined) {
+				localVarQueryParameter['searchField'] = searchField;
+			}
+
+			if (lastLogin !== undefined) {
+				localVarQueryParameter['lastLogin'] =
+					(lastLogin as any) instanceof Date
+						? (lastLogin as any).toISOString()
+						: lastLogin;
+			}
+
+			if (image) {
+				localVarQueryParameter['image'] = image;
+			}
+
+			if (deletedAt !== undefined) {
+				localVarQueryParameter['deletedAt'] =
+					(deletedAt as any) instanceof Date
+						? (deletedAt as any).toISOString()
+						: deletedAt;
+			}
+
+			if (createdBy !== undefined) {
+				localVarQueryParameter['createdBy'] = createdBy;
+			}
+
+			if (surname !== undefined) {
+				localVarQueryParameter['surname'] = surname;
+			}
+
+			if (name !== undefined) {
+				localVarQueryParameter['name'] = name;
+			}
+
+			if (active !== undefined) {
+				localVarQueryParameter['active'] = active;
+			}
+
+			if (id !== undefined) {
+				localVarQueryParameter['id'] = id;
+			}
+
+			if (email !== undefined) {
+				localVarQueryParameter['email'] = email;
+			}
+
+			if (username !== undefined) {
+				localVarQueryParameter['username'] = username;
 			}
 
 			if (acceptLanguage !== undefined && acceptLanguage !== null) {
@@ -1225,27 +1289,57 @@ export const UserAdminControllerApiFp = function (configuration?: Configuration)
 		},
 		/**
 		 *
-		 * @param {string} searchField
 		 * @param {number} [page] Zero-based page index (0..N)
 		 * @param {number} [size] The size of the page to be returned
 		 * @param {Array<string>} [sort] Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+		 * @param {string} [searchField]
+		 * @param {string} [lastLogin]
+		 * @param {Array<string>} [image]
+		 * @param {string} [deletedAt]
+		 * @param {string} [createdBy]
+		 * @param {string} [surname]
+		 * @param {string} [name]
+		 * @param {boolean} [active]
+		 * @param {string} [id]
+		 * @param {string} [email]
+		 * @param {string} [username]
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getFilteredUser(
-			searchField: string,
 			page?: number,
 			size?: number,
 			sort?: Array<string>,
+			searchField?: string,
+			lastLogin?: string,
+			image?: Array<string>,
+			deletedAt?: string,
+			createdBy?: string,
+			surname?: string,
+			name?: string,
+			active?: boolean,
+			id?: string,
+			email?: string,
+			username?: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageUserDto>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getFilteredUser(
-				searchField,
 				page,
 				size,
 				sort,
+				searchField,
+				lastLogin,
+				image,
+				deletedAt,
+				createdBy,
+				surname,
+				name,
+				active,
+				id,
+				email,
+				username,
 				acceptLanguage,
 				options
 			);
@@ -1597,24 +1691,61 @@ export const UserAdminControllerApiFactory = function (
 		},
 		/**
 		 *
-		 * @param {string} searchField
 		 * @param {number} [page] Zero-based page index (0..N)
 		 * @param {number} [size] The size of the page to be returned
 		 * @param {Array<string>} [sort] Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+		 * @param {string} [searchField]
+		 * @param {string} [lastLogin]
+		 * @param {Array<string>} [image]
+		 * @param {string} [deletedAt]
+		 * @param {string} [createdBy]
+		 * @param {string} [surname]
+		 * @param {string} [name]
+		 * @param {boolean} [active]
+		 * @param {string} [id]
+		 * @param {string} [email]
+		 * @param {string} [username]
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getFilteredUser(
-			searchField: string,
 			page?: number,
 			size?: number,
 			sort?: Array<string>,
+			searchField?: string,
+			lastLogin?: string,
+			image?: Array<string>,
+			deletedAt?: string,
+			createdBy?: string,
+			surname?: string,
+			name?: string,
+			active?: boolean,
+			id?: string,
+			email?: string,
+			username?: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<PageUserDto> {
 			return localVarFp
-				.getFilteredUser(searchField, page, size, sort, acceptLanguage, options)
+				.getFilteredUser(
+					page,
+					size,
+					sort,
+					searchField,
+					lastLogin,
+					image,
+					deletedAt,
+					createdBy,
+					surname,
+					name,
+					active,
+					id,
+					email,
+					username,
+					acceptLanguage,
+					options
+				)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -1906,13 +2037,6 @@ export interface UserAdminControllerApiGetApplicationVisibilityOfUserRequest {
  */
 export interface UserAdminControllerApiGetFilteredUserRequest {
 	/**
-	 *
-	 * @type {string}
-	 * @memberof UserAdminControllerApiGetFilteredUser
-	 */
-	readonly searchField: string;
-
-	/**
 	 * Zero-based page index (0..N)
 	 * @type {number}
 	 * @memberof UserAdminControllerApiGetFilteredUser
@@ -1932,6 +2056,83 @@ export interface UserAdminControllerApiGetFilteredUserRequest {
 	 * @memberof UserAdminControllerApiGetFilteredUser
 	 */
 	readonly sort?: Array<string>;
+
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserAdminControllerApiGetFilteredUser
+	 */
+	readonly searchField?: string;
+
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserAdminControllerApiGetFilteredUser
+	 */
+	readonly lastLogin?: string;
+
+	/**
+	 *
+	 * @type {Array<string>}
+	 * @memberof UserAdminControllerApiGetFilteredUser
+	 */
+	readonly image?: Array<string>;
+
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserAdminControllerApiGetFilteredUser
+	 */
+	readonly deletedAt?: string;
+
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserAdminControllerApiGetFilteredUser
+	 */
+	readonly createdBy?: string;
+
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserAdminControllerApiGetFilteredUser
+	 */
+	readonly surname?: string;
+
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserAdminControllerApiGetFilteredUser
+	 */
+	readonly name?: string;
+
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof UserAdminControllerApiGetFilteredUser
+	 */
+	readonly active?: boolean;
+
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserAdminControllerApiGetFilteredUser
+	 */
+	readonly id?: string;
+
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserAdminControllerApiGetFilteredUser
+	 */
+	readonly email?: string;
+
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserAdminControllerApiGetFilteredUser
+	 */
+	readonly username?: string;
 
 	/**
 	 *
@@ -2292,15 +2493,25 @@ export class UserAdminControllerApi extends BaseAPI {
 	 * @memberof UserAdminControllerApi
 	 */
 	public getFilteredUser(
-		requestParameters: UserAdminControllerApiGetFilteredUserRequest,
+		requestParameters: UserAdminControllerApiGetFilteredUserRequest = {},
 		options?: AxiosRequestConfig
 	) {
 		return UserAdminControllerApiFp(this.configuration)
 			.getFilteredUser(
-				requestParameters.searchField,
 				requestParameters.page,
 				requestParameters.size,
 				requestParameters.sort,
+				requestParameters.searchField,
+				requestParameters.lastLogin,
+				requestParameters.image,
+				requestParameters.deletedAt,
+				requestParameters.createdBy,
+				requestParameters.surname,
+				requestParameters.name,
+				requestParameters.active,
+				requestParameters.id,
+				requestParameters.email,
+				requestParameters.username,
 				requestParameters.acceptLanguage,
 				options
 			)

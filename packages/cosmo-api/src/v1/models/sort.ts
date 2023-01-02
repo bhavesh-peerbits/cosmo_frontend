@@ -29,11 +29,11 @@ export interface Sort {
 	 * @type {boolean}
 	 * @memberof Sort
 	 */
-	sorted?: boolean;
+	unsorted?: boolean;
 	/**
 	 *
 	 * @type {boolean}
 	 * @memberof Sort
 	 */
-	unsorted?: boolean;
+	sorted?: boolean;
 }

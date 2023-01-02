@@ -16,7 +16,7 @@ import useGetUsers from '@api/user/useGetUsers';
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { TooltipPosition } from '@carbon/react/typings/shared';
-import { UseQueryResult } from 'react-query';
+import { UseQueryResult } from '@tanstack/react-query';
 
 type MultipleUserSelectProps<
 	T extends FieldValues,
@@ -35,6 +35,7 @@ type MultipleUserSelectProps<
 			tooltipPosition?: TooltipPosition;
 			getUserFn?: () => UseQueryResult<User[]>;
 			excludedUser?: User;
+			setSelectedUser?: (value?: User[]) => void;
 	  }
 	: never;
 
@@ -50,7 +51,8 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 	defaultValue,
 	tooltipPosition,
 	getUserFn = useGetUsers,
-	excludedUser
+	excludedUser,
+	setSelectedUser
 }: MultipleUserSelectProps<T, TName>) => {
 	const { t } = useTranslation('userSelect');
 	const [openSearch, setOpenSearch] = useState(false);
@@ -183,6 +185,7 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 				onSubmit={id => {
 					onChange(users.filter(user => id.includes(user.id)));
 					setOpenSearch(false);
+					setSelectedUser && setSelectedUser(users.filter(user => id.includes(user.id)));
 				}}
 				onClose={() => setOpenSearch(false)}
 				onSubmitButtonText={t('select')}

@@ -1,8 +1,9 @@
-import CosmoTable, { CellProperties, HeaderFunction } from '@components/table/CosmoTable';
+import CosmoTable from '@components/table/CosmoTable';
 import FileLink from '@model/FileLink';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import useGetFile from '@api/uploaders3/useGetFile';
+import { CellContext, ColumnDef } from '@tanstack/react-table';
 
 const FileLinkTable = ({ files }: { files: FileLink[] }) => {
 	const { t } = useTranslation('evidenceRequest');
@@ -23,39 +24,51 @@ const FileLinkTable = ({ files }: { files: FileLink[] }) => {
 		});
 	};
 
-	const linkCell = useCallback(
-		(info: CellProperties<FileLink, { file: FileLink }>) => (
+	const linkCell = useCallback(({ getValue }: CellContext<any, unknown>) => {
+		const value = getValue() as FileLink;
+		return (
 			<div className='flex items-center space-x-2'>
 				<button
 					type='button'
-					onClick={() => DownloadFile(info.getValue().file)}
+					onClick={() => DownloadFile(value)}
 					className='text-link-primary hover:text-link-primary-hover hover:underline'
 				>
-					{info.getValue().file.name}
+					{value.name}
 				</button>
 			</div>
-		),
-		[]
-	);
-	const columns: HeaderFunction<FileLink> = useCallback(
-		table => [
-			table.createDataColumn(row => ({ file: row }), {
+		);
+	}, []);
+	const columns = useMemo<ColumnDef<FileLink>[]>(
+		() => [
+			{
 				id: 'name',
+				accessorFn: row => row,
 				header: t('file-link-name'),
 				cell: linkCell
-			}),
-			table.createDataColumn(row => row.type, {
+			},
+			{
 				id: 'type',
+				accessorFn: row => row.type,
 				header: t('file-link-type')
-			}),
-			table.createDataColumn(row => row.dimension, {
+			},
+
+			{
 				id: 'owner',
+				accessorFn: row => row.dimension,
 				header: `${t('file-link-dimension')} [Byte]`
-			})
+			}
 		],
 		[linkCell, t]
 	);
-	return <CosmoTable createHeaders={columns} data={files} disableSearch />;
+	return (
+		<CosmoTable
+			tableId='filelinktable'
+			columns={columns}
+			data={files}
+			toolbar={{ searchBar: false, toolbarBatchActions: [], toolbarTableMenus: [] }}
+			isColumnOrderingEnabled
+		/>
+	);
 };
 
 export default FileLinkTable;

@@ -3,7 +3,7 @@ import ApplicationUser, {
 	fromApplicationUserApi,
 	toApplicationUserApi
 } from '@model/ApplicationUser';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface SetApplicationUserParams {
 	appId: string;

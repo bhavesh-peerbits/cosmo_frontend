@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 import CampaignApplication from '@model/CampaignApplication';
 import useAnswerStore from '@hooks/user-revalidation-review/useAnswerStore';
 import useSaveAnswersToReview from '@api/review-campaign/useSaveAnswersToReview';
-import CosmoTableRevalidationUsers from '@components/table/CosmoTableRevalidationUsers';
 import { useParams } from 'react-router-dom';
 import useNotification from '@hooks/useNotification';
 import ApiError from '@api/ApiError';
 import { useMemo } from 'react';
+import RevalidationUserTable from '@components/UserRevalidation/RevalidationUserTable';
 
 type RevalidationUsersContainerProps = {
 	review: CampaignApplication;
@@ -52,19 +52,6 @@ const Actions = ({ review }: RevalidationUsersContainerProps) => {
 							})}.`,
 							type: 'success'
 						});
-					// showNotification({ TODO check feasibility
-					// 	message: `${t('userRevalidation:campaign-left-toast', {
-					// 		number: 'N',
-					// 		application: 'App Name'
-					// 	})}.`,
-					// 	type: 'error',
-					// 	title: t('userRevalidation:campaigns-left', { number: 'N' }),
-					// 	action: {
-					// 		label: 'Dashboard',
-					// 		onClick: () => navigate('/user-revalidation')
-					// 	},
-					// 	timeout: 'long'
-					// });
 				}
 			}
 		);
@@ -98,7 +85,7 @@ const RevalidationUsersContainer = ({ review }: RevalidationUsersContainerProps)
 				<Actions review={review} />
 			</FullWidthColumn>
 			<FullWidthColumn>
-				<CosmoTableRevalidationUsers review={review} />
+				<RevalidationUserTable review={review} />
 			</FullWidthColumn>
 		</Grid>
 	);

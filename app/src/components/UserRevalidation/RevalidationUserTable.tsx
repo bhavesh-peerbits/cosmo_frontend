@@ -2,7 +2,7 @@ import CampaignApplication from '@model/CampaignApplication';
 import useAnswerStore from '@hooks/user-revalidation-review/useAnswerStore';
 import { useTranslation } from 'react-i18next';
 import Answer from '@model/Answer';
-import { CellProperties, HeaderFunction } from '@components/table/CosmoTable';
+import CosmoTable from '@components/table/CosmoTable';
 import {
 	CheckmarkOutline,
 	RequestQuote,
@@ -19,17 +19,16 @@ import UserRevalidationActionModal, {
 } from '@components/Modals/UserRevalidationActionModal';
 import useGetRevalidatorAnswers from '@api/review-campaign/useGetRevalidatorAnswers';
 import { useParams } from 'react-router-dom';
-import GroupableCosmoTable from './GroupableCosmoTable';
+import { CellContext, ColumnDef } from '@tanstack/react-table';
+import TooltipCell from '@components/table/Cell/TooltipCell';
+import DateCell from '@components/table/Cell/DateCell';
 
 interface CosmoTableRevalidationUsersProps {
 	review: CampaignApplication;
 }
 
 interface ActionCellProps {
-	info: CellProperties<
-		Answer,
-		{ answerType: AnswerApiTypeEnum | undefined; note: string | undefined }
-	>;
+	info: CellContext<Answer, unknown>;
 	onActionClick: (answerType: AnswerApiTypeEnum, note?: string) => void;
 	setIsModalOpen: (isOpen: UserRevalidationActionState) => void;
 }
@@ -37,20 +36,17 @@ interface ActionCellProps {
 const ActionsCell = ({ info, onActionClick, setIsModalOpen }: ActionCellProps) => {
 	const { translateAnswer } = useMapAnswerType();
 	const { t } = useTranslation(['userAdmin', 'userRevalidation']);
-
+	const value = info.getValue() as { answerType: AnswerApiTypeEnum; note?: string };
 	return (
 		<div className='flex items-center justify-between'>
 			<div>
-				{info.getValue().answerType !== 'MODIFY' &&
-				info.getValue().answerType !== 'REPORT_ERROR' ? (
-					translateAnswer(info.getValue().answerType)
+				{value.answerType !== 'MODIFY' && value.answerType !== 'REPORT_ERROR' ? (
+					translateAnswer(value.answerType)
 				) : (
 					<div className='grid grid-cols-6'>
-						<span className='col-span-5'>
-							{translateAnswer(info.getValue().answerType)}
-						</span>
+						<span className='col-span-5'>{translateAnswer(value.answerType)}</span>
 						<span className='self-center text-right'>
-							<Tooltip description={info.getValue().note} align='top'>
+							<Tooltip description={value.note} align='top'>
 								<button type='button'>
 									<Information />
 								</button>
@@ -85,7 +81,7 @@ const ActionsCell = ({ info, onActionClick, setIsModalOpen }: ActionCellProps) =
 							setIsModalOpen({
 								isOpen: true,
 								actionSelected: 'Change',
-								note: info.getValue()?.note,
+								note: value?.note,
 								onSuccess: ({ description }) => onActionClick('MODIFY', description)
 							});
 						}}
@@ -101,7 +97,7 @@ const ActionsCell = ({ info, onActionClick, setIsModalOpen }: ActionCellProps) =
 							setIsModalOpen({
 								isOpen: true,
 								actionSelected: 'Error',
-								note: info.getValue()?.note,
+								note: value?.note,
 								onSuccess: ({ description }) => onActionClick('REPORT_ERROR', description)
 							});
 						}}
@@ -121,7 +117,7 @@ const ActionsCell = ({ info, onActionClick, setIsModalOpen }: ActionCellProps) =
 	);
 };
 
-const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProps) => {
+const RevalidationUserTable = ({ review }: CosmoTableRevalidationUsersProps) => {
 	const { campaignId = '' } = useParams<'campaignId'>();
 	const { data: answersMap = new Map<string, Answer>() } = useGetRevalidatorAnswers(
 		campaignId,
@@ -151,34 +147,20 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 		{
 			id: 'confirm-selection',
 			icon: CheckmarkOutline,
-			onClick: ({
-				selectionIds,
-				clean
-			}: {
-				selectionIds: Answer[];
-				clean?: () => void;
-			}) => {
+			onClick: (selectionIds: Answer[]) => {
 				modifyAnswer(selectionIds, 'OK');
-				clean && clean();
 			},
 			label: t('userRevalidation:confirm')
 		},
 		{
 			id: 'change-selection',
 			icon: RequestQuote,
-			onClick: ({
-				selectionIds,
-				clean
-			}: {
-				selectionIds: Answer[];
-				clean?: () => void;
-			}) =>
+			onClick: (selectionIds: Answer[]) =>
 				setIsModalOpen({
 					isOpen: true,
 					actionSelected: 'Change',
 					onSuccess: ({ description }) => {
 						modifyAnswer(selectionIds, 'MODIFY', description);
-						clean && clean();
 					}
 				}),
 			label: t('userRevalidation:change-request')
@@ -186,19 +168,12 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 		{
 			id: 'error-selection',
 			icon: MisuseOutline,
-			onClick: ({
-				selectionIds,
-				clean
-			}: {
-				selectionIds: Answer[];
-				clean?: () => void;
-			}) =>
+			onClick: (selectionIds: Answer[]) =>
 				setIsModalOpen({
 					isOpen: true,
 					actionSelected: 'Change',
 					onSuccess: ({ description }) => {
 						modifyAnswer(selectionIds, 'REPORT_ERROR', description);
-						clean && clean();
 					}
 				}),
 			label: t('userRevalidation:report-error')
@@ -206,27 +181,15 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 		{
 			id: 'block-selection',
 			icon: Error,
-			onClick: ({
-				selectionIds,
-				clean
-			}: {
-				selectionIds: Answer[];
-				clean?: () => void;
-			}) => {
+			onClick: (selectionIds: Answer[]) => {
 				modifyAnswer(selectionIds, 'LOCK');
-				clean && clean();
 			},
 			label: t('userRevalidation:block')
 		}
 	];
 
 	const ActionCellComponent = useCallback(
-		(
-			info: CellProperties<
-				Answer,
-				{ answerType: AnswerApiTypeEnum | undefined; note: string | undefined }
-			>
-		) => (
+		(info: CellContext<Answer, unknown>) => (
 			<ActionsCell
 				{...{
 					info,
@@ -240,125 +203,98 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 		[modifyAnswer]
 	);
 
-	const tooltipCell = useCallback(
-		(
-			info: CellProperties<
-				Answer,
-				{ title: string | undefined; description: string | undefined }
-			>
-		) => (
-			<div className='flex items-center space-x-2'>
-				<span>{info.getValue().title}</span>
-				<span>
-					<Tooltip
-						description={
-							info.getValue().description ||
-							t('userRevalidation:permissions-description-null')
-						}
-						align='top'
-					>
-						<button type='button'>
-							<Information />
-						</button>
-					</Tooltip>
-				</span>
-			</div>
-		),
-		[t]
-	);
-
 	const isFireFighter = review.campaign.type === 'FIREFIGHTER';
 	const isSuid = review.campaign.type === 'SUID';
-	const columns: HeaderFunction<Answer> = useCallback(
-		table => {
-			const ArrayCol = [
-				table.createDataColumn(row => row.userToRevalidate, {
-					id: `user${review.id}`,
-					header: 'Username',
-					sortUndefined: 1
-				}),
-				table.createDataColumn(row => row.userDetails, {
-					id: `userDisplayName${review.id}`,
-					header: 'User'
-				}),
-				table.createDataColumn(
-					row => ({ title: row.permissions, description: row.permissionDescription }),
-					{
-						id: `permissions${review.id}`,
-						header: t('userRevalidation:permission'),
-						enableGrouping: false,
-						cell: tooltipCell
-					}
-				),
-				table.createDataColumn(row => row.givenBy?.displayName, {
-					id: `givenBy${review.id}`,
-					header: t('userRevalidation:given-by'),
-					meta: {
-						exportableFn: info => info || '-'
-					}
-				}),
-				table.createDataColumn(row => row.givenAt?.toLocaleString(), {
-					id: `givenAt${review.id}`,
-					header: t('userRevalidation:given-at'),
-					meta: {
-						exportableFn: info => info || '-'
-					}
-				}),
-				table.createDataColumn(
-					row => ({
-						answerType: row.answerType,
-						note: row.note
-					}),
+	const columns = useMemo<ColumnDef<Answer>[]>(() => {
+		const ArrayCol: ColumnDef<Answer>[] = [
+			{
+				id: `user${review.id}`,
+				accessorFn: row => row.userToRevalidate,
+				header: 'Username',
+				sortUndefined: 1
+			},
 
-					{
-						enableGrouping: false,
-						id: `answer${review.id}`,
-						header: t('userRevalidation:answer'),
-						cell: ActionCellComponent
-					}
-				)
-			];
-			if (isFireFighter) {
-				ArrayCol.splice(
-					3,
-					0,
-					table.createDataColumn(row => row.firefighterID, {
-						id: `fireFighter${review.id}`,
-						header: t('userRevalidation:fire-fighter')
-					})
-				);
+			{
+				id: `userDisplayName${review.id}`,
+				accessorFn: row => row.userDetails,
+				header: 'User'
+			},
+
+			{
+				id: `permissions${review.id}`,
+				accessorFn: row => ({
+					content: row.permissions,
+					description: row.permissionDescription
+				}),
+				header: t('userRevalidation:permission'),
+				enableGrouping: false,
+				cell: TooltipCell
+			},
+
+			{
+				id: `givenBy${review.id}`,
+				accessorFn: row => row.givenBy?.displayName,
+				header: t('userRevalidation:given-by')
+			},
+
+			{
+				id: `givenAt${review.id}`,
+				accessorFn: row => row.givenAt,
+				cell: DateCell,
+				header: t('userRevalidation:given-at')
+			},
+
+			{
+				enableGrouping: false,
+				accessorFn: row => ({
+					answerType: row.answerType,
+					note: row.note
+				}),
+				id: `answer${review.id}`,
+				header: t('userRevalidation:answer'),
+				cell: ActionCellComponent
 			}
-			if (isFireFighter || isSuid) {
-				ArrayCol.splice(
-					3,
-					0,
-					table.createDataColumn(
-						row => ({
-							title: row.jsonApplicationData?.risk,
-							description: row.jsonApplicationData?.riskDescription
-						}),
-						{
-							id: `risk${review.id}`,
-							header: t('userRevalidation:risk'),
-							enableGrouping: false,
-							cell: tooltipCell
-						}
-					)
-				);
-			}
-			return ArrayCol;
-		},
-		[review.id, t, ActionCellComponent, tooltipCell, isFireFighter, isSuid]
-	);
+		];
+		if (isFireFighter) {
+			ArrayCol.splice(3, 0, {
+				id: `fireFighter${review.id}`,
+				accessorFn: row => row.firefighterID,
+				header: t('userRevalidation:fire-fighter')
+			});
+		}
+		if (isFireFighter || isSuid) {
+			ArrayCol.splice(
+				3,
+				0,
+
+				{
+					id: `risk${review.id}`,
+					accessorFn: row => ({
+						content: row.jsonApplicationData?.risk,
+						description: row.jsonApplicationData?.riskDescription
+					}),
+					header: t('userRevalidation:risk'),
+					enableGrouping: false,
+					cell: TooltipCell
+				}
+			);
+		}
+		return ArrayCol;
+	}, [ActionCellComponent, isFireFighter, isSuid, review.id, t]);
 
 	return (
 		<>
 			<UserRevalidationActionModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
-			<GroupableCosmoTable
+			<CosmoTable
 				tableId={review.id}
-				createHeaders={columns}
+				columns={columns}
 				noDataMessage={t('table:no-data')}
-				toolbar={{ toolbarBatchActions }}
+				isColumnOrderingEnabled
+				toolbar={{
+					searchBar: true,
+					toolbarBatchActions,
+					toolbarTableMenus: []
+				}}
 				exportFileName={({ all }) => (all ? 'answers-all' : 'answers-selection')}
 				data={answersList}
 				isSelectable
@@ -367,4 +303,4 @@ const CosmoTableRevalidationUsers = ({ review }: CosmoTableRevalidationUsersProp
 	);
 };
 
-export default CosmoTableRevalidationUsers;
+export default RevalidationUserTable;

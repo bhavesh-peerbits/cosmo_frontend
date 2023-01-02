@@ -1,9 +1,9 @@
 import { icons } from '@components/IconPicker';
-import { ApplicationVirtual } from '@carbon/react/icons';
+import { ApplicationVirtual, CarbonIconProps } from '@carbon/react/icons';
 
 interface IconResolverProps {
 	icon?: keyof typeof icons;
-	size?: number;
+	size?: CarbonIconProps['size'];
 }
 
 const IconResolver = ({ icon, size }: IconResolverProps) => {

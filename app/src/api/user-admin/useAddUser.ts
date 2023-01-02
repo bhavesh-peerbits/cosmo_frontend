@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@api';
 import { UserBase } from 'cosmo-api/src/v1/models';
 import { fromUserApi } from '@model/User';
