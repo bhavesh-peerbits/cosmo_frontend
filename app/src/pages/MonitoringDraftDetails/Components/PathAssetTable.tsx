@@ -5,7 +5,7 @@ import { CheckmarkFilled, CheckmarkOutline, SubtractAlt } from '@carbon/react/ic
 import { useTranslation } from 'react-i18next';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const CellBoolean = ({ getValue }: CellContext<any, unknown>) => {
+const BooleanCell = ({ getValue }: CellContext<any, unknown>) => {
 	const value = getValue() as boolean;
 	return value && <CheckmarkFilled />;
 };
@@ -43,7 +43,7 @@ const PathAssetTable = ({
 			{
 				id: isSameSetup ? 'included-same-setup' : `included-${assetId}`,
 				accessorFn: row => row.included,
-				cell: CellBoolean,
+				cell: BooleanCell,
 				header: t('changeMonitoring:included')
 			},
 			{
@@ -99,7 +99,9 @@ const PathAssetTable = ({
 				toolbarBatchActions: canAdd ? toolbarBatchActions : [],
 				toolbarTableMenus: []
 			}}
-			exportFileName={({ all }) => (all ? 'answers-all' : 'answers-selection')}
+			exportFileName={({ all }) =>
+				all ? 'monitoring-drafts-all' : 'monitoring-drafts-selection'
+			}
 			data={data}
 			isSelectable
 			noDataMessageSubtitle={

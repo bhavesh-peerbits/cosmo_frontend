@@ -73,7 +73,7 @@ const MonitoringDashboardTile = ({ monitoring }: MonitoringDashboardTileProps) =
 							<p className='whitespace-nowrap text-text-secondary text-body-short-1'>
 								{t('changeMonitoring:controls')}:
 							</p>
-							<p className='block truncate text-body-short-1'>{monitoring.controlCode}</p>
+							<p className='block truncate text-body-short-1'>{monitoring.controls}</p>
 						</span>
 					</div>
 				</div>

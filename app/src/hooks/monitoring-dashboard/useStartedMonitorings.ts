@@ -51,7 +51,7 @@ const useStartedMonitorings = () => {
 				name: 'Nome',
 				status: 'pending',
 				framework: 'Framework',
-				control: ['control1', 'control2'],
+				controls: ['control1', 'control2'],
 				scheduling: {
 					startDate: new Date(),
 					endDate: new Date(),
@@ -68,7 +68,6 @@ const useStartedMonitorings = () => {
 				name: 'Nome',
 				status: 'ongoing',
 				framework: 'Framework',
-				control: ['control3', 'control4'],
 				scheduling: {
 					startDate: new Date(),
 					endDate: new Date(),
@@ -84,7 +83,7 @@ const useStartedMonitorings = () => {
 				name: 'Nome',
 				status: 'completed',
 				framework: 'Framework',
-				control: ['control13', 'control42'],
+				controls: ['control13', 'control42'],
 				scheduling: {
 					startDate: new Date(),
 					endDate: new Date(),
