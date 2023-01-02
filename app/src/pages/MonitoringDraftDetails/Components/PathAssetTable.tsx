@@ -102,6 +102,11 @@ const PathAssetTable = ({
 			exportFileName={({ all }) => (all ? 'answers-all' : 'answers-selection')}
 			data={data}
 			isSelectable
+			noDataMessageSubtitle={
+				data.length > 0
+					? t('changeMonitoring:no-path-subtitle')
+					: t('changeMonitoring:no-path-yet')
+			}
 		/>
 	);
 };
