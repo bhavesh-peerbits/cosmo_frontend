@@ -8,6 +8,10 @@ import ExpandableButton from './ExpandableButton';
 
 interface TableInnerBodyProps<T> {
 	rows: Row<T>[];
+	// columns: ColumnDef<T>[];
+	// addingInline: boolean;
+	// isInlineAdd?: boolean;
+	// setAddingInline: (addingInline: boolean) => void;
 	tableId: string;
 	colSize: number;
 	isSelectable: boolean | undefined | 'radio';
@@ -24,9 +28,17 @@ const TableInnerBody = <T extends object>({
 	noDataMessage,
 	isExpandable,
 	SubComponent
-}: TableInnerBodyProps<T>) => {
+}: // columns,
+// addingInline,
+// setAddingInline,
+// isInlineAdd
+TableInnerBodyProps<T>) => {
 	return rows.length ? (
 		<>
+			{/* {addingInline && isInlineAdd && (
+				<RowInlineAdd columns={columns} setAddingInline={setAddingInline} />
+			)} */}
+
 			{rows.map(row => {
 				const visibleCells = row.getVisibleCells();
 

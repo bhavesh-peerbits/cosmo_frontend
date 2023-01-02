@@ -2646,9 +2646,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@carbon/ibm-products@npm:^2.0.0-rc.10":
-  version: 2.0.0-rc.10
-  resolution: "@carbon/ibm-products@npm:2.0.0-rc.10"
+"@carbon/ibm-products@npm:^2.0.0-rc.11":
+  version: 2.0.0-rc.11
+  resolution: "@carbon/ibm-products@npm:2.0.0-rc.11"
   dependencies:
     "@babel/runtime": ^7.18.9
     "@carbon/telemetry": ^0.1.0
@@ -2668,7 +2668,7 @@ __metadata:
     "@carbon/type": ^11.4.0
     react: ^16.8.6 || ^17.0.1
     react-dom: ^16.8.6 || ^17.0.1
-  checksum: ca4d3746c17cb1e3e13535bdb862756dcabbadc7c1a1e7c8ad985fe016ed00bedc08a3d64a546e1cf8a1f046842ad8a06ca310b3a04e68de005bec782f3d05d3
+  checksum: 32595e3281215ed3b88ed5e34ff55d2f90e26bd29a78fbbbb55e91644b429222c84ee63840226d0c81e6bf13532e47d4a1c0f383ee600d74f120582f77c255b6
   languageName: node
   linkType: hard
 
@@ -9101,7 +9101,7 @@ __metadata:
     "@carbon/charts": ^1.6.2
     "@carbon/charts-react": ^1.6.2
     "@carbon/colors": ^11.10.0
-    "@carbon/ibm-products": ^2.0.0-rc.10
+    "@carbon/ibm-products": ^2.0.0-rc.11
     "@carbon/layout": ^11.9.0
     "@carbon/motion": ^11.7.0
     "@carbon/react": "patch:@carbon/react@npm%3A1.19.0#../.yarn/patches/@carbon-react-npm-1.19.0-985c79b931.patch"

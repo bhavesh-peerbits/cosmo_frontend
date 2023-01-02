@@ -84,27 +84,55 @@ const EvidenceRequestActionTableView = ({
 				accessorKey: `name${view}`,
 				header: t('request-name'),
 				accessorFn: row => row.name,
-				cell: CellLinkComponent
+				cell: CellLinkComponent,
+				meta: {
+					modalInfo: { modelKeyName: 'name', type: 'string', halfWidth: true }
+				}
 			},
 			{
 				accessorKey: `app${view}`,
 				accessorFn: row => row.application?.name,
-				header: t('application')
+				header: t('application'),
+				meta: {
+					modalInfo: {
+						modelKeyName: 'name',
+						type: 'number',
+						halfWidth: true,
+						validation: { max: 4 }
+					}
+				}
 			},
 			{
 				accessorKey: `startDate${view}`,
 				accessorFn: row => row.startDate?.toLocaleDateString(),
-				header: t('start-date')
+				header: t('start-date'),
+				meta: {
+					modalInfo: { modelKeyName: 'startDate', type: 'date', halfWidth: true }
+				}
 			},
 			{
 				accessorKey: `dueDate${view}`,
 				accessorFn: row => row.dueDate?.toLocaleDateString(),
-				header: t('due-date')
+				header: t('due-date'),
+				meta: {
+					modalInfo: {
+						type: 'users',
+						modelKeyName: 'dueDate',
+						roleOfUsers: 'FOCAL_POINT'
+					}
+				}
 			},
 			{
 				accessorKey: `creator${view}`,
 				accessorFn: row => row.creator?.displayName,
-				header: t('creator')
+				header: t('creator'),
+				meta: {
+					modalInfo: {
+						type: 'user',
+						modelKeyName: 'owner',
+						roleOfUsers: 'FOCAL_POINT'
+					}
+				}
 			}
 		];
 		if (view === 'ActionPending') {
@@ -204,6 +232,7 @@ const EvidenceRequestActionTableView = ({
 						toolbarTableMenus: []
 					}}
 					isColumnOrderingEnabled
+					canAdd
 				/>
 			</div>
 		</Fade>

@@ -58,6 +58,9 @@ interface CosmoTableToolbarProps<T extends object> {
 	changeTableSize: (size: TableSize) => void;
 	setIsModalOpen: (isModalOpen: boolean) => void;
 	canAdd?: boolean;
+	// addingInline: boolean;
+	// setAddingInline: (addingInline: boolean) => void;
+	// isAddingInline?: boolean;
 	canEdit?: boolean;
 	canDelete?: boolean;
 	onDelete?: (rows: Row<T>[]) => void;
@@ -71,6 +74,9 @@ const CosmoTableToolbar = <T extends object>({
 	selectionRows,
 	onCancel,
 	searchBar,
+	// setAddingInline,
+	// isAddingInline,
+	// addingInline,
 	allColumns,
 	onExportClick,
 	isColumnOrderingEnabled,
@@ -302,6 +308,28 @@ const CosmoTableToolbar = <T extends object>({
 						Add New
 					</Button>
 				)}
+				{/* {canAdd && !addingInline ? (
+					<Button
+						kind='primary'
+						renderIcon={Add}
+						iconDescription='Add'
+						onClick={() => {
+							isAddingInline ? setAddingInline(true) : setIsModalOpen(true);
+						}}
+					>
+						Add New
+					</Button>
+				) : (
+					<>
+						<Button hasIconOnly renderIcon={Checkmark} />
+						<Button
+							hasIconOnly
+							renderIcon={TrashCan}
+							kind='danger--ghost'
+							onClick={() => setAddingInline(false)}
+						/>
+					</>
+				)} */}
 				{primaryButton && (
 					<Button onClick={primaryButton.onClick}>{primaryButton.label}</Button>
 				)}

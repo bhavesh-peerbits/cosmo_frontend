@@ -6,6 +6,8 @@
 @use 'cosmo-theme' as cosmo_theme;
 @use '@carbon/charts/styles.css';
 @use './table';
+@use './table-form.scss';
+@use './no-data-empty-state.scss';
 
 .container-w-sidenav {
 	@apply mr-0 p-0 md:ml-[3rem] lg:ml-[calc(32*0.5rem)];

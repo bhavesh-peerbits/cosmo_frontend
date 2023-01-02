@@ -1,5 +1,4 @@
 import {
-	ComposedModal,
 	Table,
 	TableBody,
 	TableCell,
@@ -32,6 +31,7 @@ import { useBoolean, useDebounce, useMount, useUnmount, useUpdateEffect } from '
 import { rankItem } from '@tanstack/match-sorter-utils';
 import usePaginationStore from '@hooks/pagination/usePaginationStore';
 import useExportTablePlugin from '@hooks/useExportTablePlugin';
+// import { TearsheetNarrow } from '@carbon/ibm-products';
 import TablePagination from './TablePagination';
 import CosmoTableToolbarAction from './types/CosmoTableToolbarAction';
 import CosmoTableToolbarMenu from './types/CosmoTableToolbarMenu';
@@ -41,6 +41,7 @@ import TableHeaders from './TableHeaders';
 import TableInnerBody from './TableInnerBody';
 import TableBodySkeleton from './TableBodySkeleton';
 import CosmoTableToolbar from './CosmoTableToolbar';
+import TableFormTearsheet from './TableFormTearsheet';
 
 interface ToolbarProps<T extends object> {
 	searchBar?: boolean;
@@ -63,6 +64,7 @@ interface CosmoTableProps<T extends SubRows<T>> {
 	isSelectable?: boolean | 'radio';
 	isExpandable?: boolean;
 	isColumnOrderingEnabled?: boolean;
+	// isInlineAdd?: boolean;
 	exportFileName?: (param: {
 		fileType: AvailableFileType;
 		all: boolean | 'selection';
@@ -81,7 +83,7 @@ interface CosmoTableProps<T extends SubRows<T>> {
 	canAdd?: boolean;
 	canEdit?: boolean;
 	canDelete?: boolean;
-	modalContent?: FC<{ row: Row<T> | undefined; closeModal: () => void; edit: boolean }>;
+	// modalContent?: FC<{ row: Row<T> | undefined; closeModal: () => void; edit: boolean }>;
 	onDelete?: (rows: Row<T>[]) => void;
 }
 
@@ -115,9 +117,10 @@ const CosmoTable = <T extends SubRows<T>>({
 	isExpandable,
 	isColumnOrderingEnabled,
 	canAdd = false,
+	// isInlineAdd = false,
 	canEdit = false,
 	canDelete = false,
-	modalContent,
+	// modalContent,
 	noDataMessage,
 	exportFileName,
 	disableExport,
@@ -142,6 +145,7 @@ const CosmoTable = <T extends SubRows<T>>({
 	const [expanded, setExpanded] = useState<ExpandedState>({});
 	const [tableSize, setTableSize] = useState<TableSize>(size);
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+	// const [addingInline, setAddingInline] = useState(false);
 
 	const {
 		pagination,
@@ -244,7 +248,7 @@ const CosmoTable = <T extends SubRows<T>>({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedRows]);
 
-	const ModalContent = modalContent;
+	// const ModalContent = modalContent;
 
 	useMount(() => {
 		table.setColumnVisibility(
@@ -278,6 +282,9 @@ const CosmoTable = <T extends SubRows<T>>({
 					changeTableSize={setTableSize}
 					onFilterClick={toggleShowFilter}
 					setIsModalOpen={setIsModalOpen}
+					// isAddingInline={isInlineAdd}
+					// addingInline={addingInline}
+					// setAddingInline={setAddingInline}
 					canAdd={canAdd}
 					canEdit={canEdit}
 					canDelete={canDelete}
@@ -317,6 +324,10 @@ const CosmoTable = <T extends SubRows<T>>({
 									</TableRow>
 								)}
 								<TableInnerBody
+									// addingInline={addingInline}
+									// setAddingInline={setAddingInline}
+									// columns={columns}
+									// isInlineAdd={isInlineAdd}
 									rows={virtualRows.map(v => rows[v.index])}
 									isSelectable={isSelectable}
 									tableId={tableId}
@@ -347,9 +358,17 @@ const CosmoTable = <T extends SubRows<T>>({
 						/>
 					</div>
 				</div>
-				<TablePagination tableId={tableId} dataLength={status?.total ?? data.length} />
+				{data.length > 10 && (
+					<TablePagination tableId={tableId} dataLength={status?.total ?? data.length} />
+				)}
 			</TableContainer>
-			<ComposedModal open={isModalOpen} preventCloseOnClickOutside>
+			<TableFormTearsheet
+				isOpen={isModalOpen}
+				setIsOpen={() => setIsModalOpen(false)}
+				columns={columns}
+			/>
+			{/* <TearsheetNarrow open={isModalOpen} onClose={() => setIsModalOpen(false)} /> */}
+			{/* <ComposedModal open={isModalOpen} preventCloseOnClickOutside>
 				{ModalContent && (
 					<ModalContent
 						closeModal={() => setIsModalOpen(false)}
@@ -357,7 +376,7 @@ const CosmoTable = <T extends SubRows<T>>({
 						edit={Boolean(table.getSelectedRowModel().flatRows?.[0])}
 					/>
 				)}
-			</ComposedModal>
+			</ComposedModal> */}
 		</>
 	);
 };

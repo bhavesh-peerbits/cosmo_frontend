@@ -15,7 +15,7 @@
 		"@carbon/charts": "^1.6.2",
 		"@carbon/charts-react": "^1.6.2",
 		"@carbon/colors": "^11.10.0",
-		"@carbon/ibm-products": "^2.0.0-rc.10",
+		"@carbon/ibm-products": "^2.0.0-rc.11",
 		"@carbon/layout": "^11.9.0",
 		"@carbon/motion": "^11.7.0",
 		"@carbon/react": "patch:@carbon/react@npm%3A1.19.0#../.yarn/patches/@carbon-react-npm-1.19.0-985c79b931.patch",
