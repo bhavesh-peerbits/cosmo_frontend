@@ -39,8 +39,12 @@ const StartedEvidenceRequestDashboard = React.lazy(
 const ActionEvidenceRequestDashboard = React.lazy(
 	() => import('@pages/ActionEvidenceRequestDashboard')
 );
-const NewMonitoring = React.lazy(() => import('@pages/NewMonitoring'));
-const MonitoringDraftDetails = React.lazy(() => import('@pages/MonitoringDraftDetails'));
+const NewMonitoring = React.lazy(
+	() => import('@pages/MonitoringDashboard/NewMonitoring')
+);
+const MonitoringDraftDetails = React.lazy(
+	() => import('@pages/MonitoringDraftDetails/MonitoringDraftDetails')
+);
 const MonitoringDashboard = React.lazy(
 	() => import('@pages/MonitoringDashboard/MonitoringDashboard')
 );
@@ -50,7 +54,6 @@ const MonitoringDetails = React.lazy(
 const MonitoringRunDetails = React.lazy(
 	() => import('@pages/MonitoringRunDetails/MonitoringRunDetails')
 );
-
 const ActionEvidenceRequest = React.lazy(() => import('@pages/ActionEvidenceRequest'));
 const StartedEvidenceRequest = React.lazy(() => import('@pages/StartedEvidenceRequest'));
 

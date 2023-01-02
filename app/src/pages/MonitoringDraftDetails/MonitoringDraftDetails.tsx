@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { Collaborate, Send, TrashCan } from '@carbon/react/icons';
 import { Grid, Column } from '@carbon/react';
 import { useState } from 'react';
-import MonitoringDraftRecapModal from '@components/Modals/MonitoringDraftRecapModal';
 import MultiAddSelect from '@components/MultiAddSelect';
 import useGetUsers from '@api/user/useGetUsers';
 import User from '@model/User';
-import NewMonitoringStepsContainer from '@components/NewMonitoring/NewMonitoringStepsContainer';
-import DeleteMonitoringDraftModal from '@components/Modals/DeleteMonitoringDraftModal';
+import NewMonitoringStepsContainer from '@pages/MonitoringDraftDetails/Containers/NewMonitoringStepsContainer';
+import DeleteMonitoringDraftModal from './Modals/DeleteMonitoringDraftModal';
+import MonitoringDraftRecapModal from './Modals/MonitoringDraftRecapModal';
 
 const MonitoringDraftDetails = () => {
 	const { t } = useTranslation([

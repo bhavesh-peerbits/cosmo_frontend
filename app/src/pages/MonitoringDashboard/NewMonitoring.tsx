@@ -1,10 +1,10 @@
 import { Add } from '@carbon/react/icons';
 import { Column, Grid, Layer, Search } from '@carbon/react';
-import MonitoringDraftTileContainer from '@components/NewMonitoring/MonitoringDraftTileContainer';
 import PageHeader from '@components/PageHeader';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
-import NewMonitoringModal from '@components/Modals/NewMonitoringModal';
+import MonitoringDraftTileContainer from './Containers/MonitoringDraftTileContainer';
+import NewMonitoringModal from './Modals/NewMonitoringModal';
 
 const SearchBar = () => {
 	const { t } = useTranslation('changeMonitoring');

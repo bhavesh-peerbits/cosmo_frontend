@@ -2,13 +2,13 @@ import { Grid, ProgressStep, ProgressIndicator } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import AdditionalInfoStepContainer from './AdditionalInfoStepContainer';
-import AssetsSelectionStepContainer from './AssetsSelectionStepContainer';
-import FrameworkSelectionStepContainer from './FrameworkSelectionStepContainer';
-import NewMonitoringStepTile from './NewMonitoringStepTile';
-import PathDefinitionStepContainer from './PathDefinitionStepContainer';
-import SchedulingStepContainer from './SchedulingStepContainer';
-import ScriptSelectionStepContainer from './ScriptSelectionStepContainer';
+import AdditionalInfoStepContainer from '../Components/AdditionalInfoStepContainer';
+import AssetsSelectionStepContainer from '../Components/AssetsSelectionStepContainer';
+import FrameworkSelectionStepContainer from '../Components/FrameworkSelectionStepContainer';
+import NewMonitoringStepTile from '../Components/NewMonitoringStepTile';
+import PathDefinitionStepContainer from '../Components/PathDefinitionStepContainer';
+import SchedulingStepContainer from '../Components/SchedulingStepContainer';
+import ScriptSelectionStepContainer from '../Components/ScriptSelectionStepContainer';
 
 const NewMonitoringStepsContainer = () => {
 	const { t } = useTranslation(['changeMonitoring', 'evidenceRequest']);

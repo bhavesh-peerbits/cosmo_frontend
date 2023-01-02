@@ -1,9 +1,9 @@
-import AssetExpandableTile from '@components/NewMonitoring/AssetExpandableTile';
 import { TextInput, Tag, Button, Layer } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Add } from '@carbon/react/icons';
+import AssetExpandableTile from '@pages/MonitoringDraftDetails/Components/AssetExpandableTile';
 
 type AssetPathsTileProps = {
 	asset: string;

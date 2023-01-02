@@ -3,7 +3,7 @@ import { Layer, Tile, Grid, Button } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
 import { Report } from '@carbon/react/icons';
-import MonitoringDraftRecapModal from '@components/Modals/MonitoringDraftRecapModal';
+import MonitoringDraftRecapModal from '../Modals/MonitoringDraftRecapModal';
 
 type NewMonitoringStepTileProps = {
 	content: ReactNode;

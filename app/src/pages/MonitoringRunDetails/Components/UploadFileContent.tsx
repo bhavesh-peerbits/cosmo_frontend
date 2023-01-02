@@ -1,7 +1,7 @@
-import AssetExpandableTile from '@components/NewMonitoring/AssetExpandableTile';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@carbon/react';
+import AssetExpandableTile from '@pages/MonitoringDraftDetails/Components/AssetExpandableTile';
 import AddFileToPathModal from '../Modals/AddFileToPathModal';
 
 const UploadFileContent = () => {

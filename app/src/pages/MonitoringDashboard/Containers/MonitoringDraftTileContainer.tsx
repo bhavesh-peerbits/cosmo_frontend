@@ -1,5 +1,5 @@
 import { Column, Grid } from '@carbon/react';
-import MonitoringDraftTile from './MonitoringDraftTile';
+import MonitoringDraftTile from '../Components/MonitoringDraftTile';
 
 const MonitoringDraftTileContainer = () => {
 	return (
