@@ -31,9 +31,6 @@ const TableFormTearsheet = <T extends object>({
 		setIsOpen(false);
 	};
 
-	// type FormData = columns
-	// .filter(col => col.meta?.modalInfo)
-	// .reduce(column => )
 	return (
 		<TearsheetNarrow
 			open={isOpen}

@@ -16,6 +16,7 @@ interface TableInnerBodyProps<T> {
 	colSize: number;
 	isSelectable: boolean | undefined | 'radio';
 	noDataMessage: string | undefined;
+	noDataMessageSubtitle?: string;
 	isExpandable: boolean | undefined;
 	SubComponent?: FC<{ row: Row<T> }>;
 }
@@ -27,7 +28,8 @@ const TableInnerBody = <T extends object>({
 	isSelectable,
 	noDataMessage,
 	isExpandable,
-	SubComponent
+	SubComponent,
+	noDataMessageSubtitle
 }: // columns,
 // addingInline,
 // setAddingInline,
@@ -105,7 +107,10 @@ TableInnerBodyProps<T>) => {
 			<TableCell colSpan={colSize + 1}>
 				<Centered>
 					<NoDataEmptyState
-						subtitle='No data found for this table, try changing your filters or try again later.'
+						subtitle={
+							noDataMessageSubtitle ||
+							'No data found for this table, try changing your filters or try again later.'
+						}
 						title={noDataMessage || 'No data'}
 					/>
 					{/* <NoDataMessage className="p-5" title={noDataMessage} /> */}

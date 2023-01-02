@@ -81,6 +81,7 @@ interface CosmoTableProps<T extends SubRows<T>> {
 	showSizeOption?: boolean;
 	defaultSelectedRows?: RowSelectionState;
 	canAdd?: boolean;
+	noDataMessageSubtitle?: string;
 	canEdit?: boolean;
 	canDelete?: boolean;
 	// modalContent?: FC<{ row: Row<T> | undefined; closeModal: () => void; edit: boolean }>;
@@ -134,6 +135,7 @@ const CosmoTable = <T extends SubRows<T>>({
 	defaultSelectedRows,
 	size = 'md',
 	showSizeOption,
+	noDataMessageSubtitle,
 	onDelete
 }: CosmoTableProps<T>) => {
 	const data = useMemo(() => tableData, [tableData]);
@@ -328,6 +330,7 @@ const CosmoTable = <T extends SubRows<T>>({
 									// setAddingInline={setAddingInline}
 									// columns={columns}
 									// isInlineAdd={isInlineAdd}
+									noDataMessageSubtitle={noDataMessageSubtitle}
 									rows={virtualRows.map(v => rows[v.index])}
 									isSelectable={isSelectable}
 									tableId={tableId}
