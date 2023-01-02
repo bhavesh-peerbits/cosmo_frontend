@@ -12,20 +12,17 @@ const PathDefinitionStepContainer = () => {
 
 	const fakeDataPath = [
 		{
+			assetId: 'asset1',
 			included: true,
 			path: 'path1veryveryveryveryveryveryveryveryveryveryveryveryveryveryveryverylong'
 		},
-		{ included: false, path: 'path2' },
-		{ included: true, path: 'path3' },
-		{ included: true, path: 'path4' }
+		{ assetId: 'asset1', included: false, path: 'path2' },
+		{ assetId: 'asset2', included: true, path: 'path3' },
+		{ assetId: 'asset2', included: true, path: 'path4' }
 	];
-
-	const [data, setData] = useState<
-		{
-			included: boolean;
-			path: string;
-		}[]
-	>(fakeDataPath);
+	const [newPaths, setNewPaths] = useState<{ path: string; included: boolean }[]>([]);
+	const [assetsPath, setAssetsPath] =
+		useState<{ assetId?: string; path: string; included: boolean }[]>(fakeDataPath);
 
 	return (
 		<>
@@ -52,15 +49,25 @@ const PathDefinitionStepContainer = () => {
 			<FullWidthColumn className='space-y-7'>
 				{sameSetup && (
 					<Layer>
-						<PathAssetTable isSameSetup data={data} canAdd setData={setData} />
+						<PathAssetTable isSameSetup data={newPaths} canAdd setData={setNewPaths} />
 					</Layer>
 				)}
 				<div>
 					<AssetExpandableTile title='Asset'>
-						<PathAssetTable data={data} assetId='1' canAdd={!sameSetup} />
+						<PathAssetTable
+							data={assetsPath.filter(path => path.assetId === 'asset1')}
+							assetId='1'
+							canAdd={!sameSetup}
+							setData={setAssetsPath}
+						/>
 					</AssetExpandableTile>
 					<AssetExpandableTile title='Asset'>
-						<PathAssetTable data={data} assetId='2' canAdd={!sameSetup} />
+						<PathAssetTable
+							data={assetsPath.filter(path => path.assetId === 'asset2')}
+							assetId='2'
+							canAdd={!sameSetup}
+							setData={setAssetsPath}
+						/>
 					</AssetExpandableTile>
 				</div>
 			</FullWidthColumn>

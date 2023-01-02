@@ -12,14 +12,19 @@ const CellBoolean = ({ getValue }: CellContext<any, unknown>) => {
 
 type PathAssetTableProps = {
 	isSameSetup?: boolean;
-	data: { path: string; included: boolean }[];
+	data: {
+		assetId?: string;
+		path: string;
+		included: boolean;
+	}[];
 	assetId?: string;
 	canAdd?: boolean;
-	setData?: Dispatch<
+	setData: Dispatch<
 		SetStateAction<
 			{
-				included: boolean;
+				assetId?: string;
 				path: string;
+				included: boolean;
 			}[]
 		>
 	>;
@@ -57,14 +62,13 @@ const PathAssetTable = ({
 			label: t('changeMonitoring:include'),
 			icon: CheckmarkOutline,
 			onClick: (selectionElements: { path: string; included: boolean }[]) => {
-				setData &&
-					setData(old =>
-						old.map(element => {
-							return selectionElements.includes(element)
-								? { ...element, included: true }
-								: element;
-						})
-					);
+				setData(old =>
+					old.map(element => {
+						return selectionElements.includes(element)
+							? { ...element, included: true }
+							: element;
+					})
+				);
 			}
 		},
 		{
@@ -72,14 +76,13 @@ const PathAssetTable = ({
 			label: t('changeMonitoring:exclude'),
 			icon: SubtractAlt,
 			onClick: (selectionElements: { path: string; included: boolean }[]) => {
-				setData &&
-					setData(old =>
-						old.map(element => {
-							return selectionElements.includes(element)
-								? { ...element, included: false }
-								: element;
-						})
-					);
+				setData(old =>
+					old.map(element => {
+						return selectionElements.includes(element)
+							? { ...element, included: false }
+							: element;
+					})
+				);
 			}
 		}
 	];
@@ -93,7 +96,7 @@ const PathAssetTable = ({
 			canAdd={canAdd}
 			toolbar={{
 				searchBar: true,
-				toolbarBatchActions,
+				toolbarBatchActions: canAdd ? toolbarBatchActions : [],
 				toolbarTableMenus: []
 			}}
 			exportFileName={({ all }) => (all ? 'answers-all' : 'answers-selection')}
