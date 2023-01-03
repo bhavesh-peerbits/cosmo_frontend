@@ -13,7 +13,8 @@
 		"build:server": "yarn workspace server build",
 		"build:app": "yarn workspace app build",
 		"build": "yarn workspaces foreach -pt run build",
-		"lint": "yarn lint:format && yarn lint:fix && yarn workspaces foreach -pt run comm:tsc",
+		"src:tsc": "yarn workspaces foreach -pt run comm:tsc",
+		"lint": "yarn lint:format && yarn lint:fix && yarn src:tsc",
 		"lint:stylelint": "stylelint --cache --fix --ignore-path .gitignore '**/*.[s]css'",
 		"lint:fix": "yarn lint:stylelint && yarn eslint --cache --fix --ignore-path .gitignore --ext .ts,.tsx .",
 		"lint:format": "prettier -uw . ",
@@ -51,9 +52,22 @@
 		"vite": "^3.0.5"
 	},
 	"lint-staged": {
-		"**/*.+(js|jsx|ts|tsx|json|css)": [
-			"yarn lint"
+		"*.+(js|jsx|ts|tsx)": [
+			"yarn src:tsc",
+			"eslint --cache --fix",
+			"prettier --cache --write"
+		],
+		"*.+(json|css|md)": [
+			"prettier --cache --write"
+		],
+		"*.scss": [
+			"stylelint --cache --fix"
 		]
+	},
+	"resolutions": {
+		"react-dnd": "^16.0.1",
+		"react-dnd-html5-backend": "^16.0.1",
+		"@carbon/react@1.19.0": "patch:@carbon/react@npm:1.19.0#.yarn/patches/@carbon-react-npm-1.19.0-985c79b931.patch"
 	},
 	"prettier": "./.prettierrc.js",
 	"packageManager": "yarn@3.2.2",

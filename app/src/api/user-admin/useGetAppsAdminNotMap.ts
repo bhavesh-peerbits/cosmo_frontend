@@ -1,5 +1,5 @@
 import api from '@api';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { fromApplicationApi } from '@model/Application';
 
 const useGetAppsAdminNotMap = () => {

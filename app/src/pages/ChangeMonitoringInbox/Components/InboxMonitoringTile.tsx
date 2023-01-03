@@ -9,7 +9,11 @@ type InboxMonitoringTileProps = {
 };
 const InboxMonitoringTile = ({ monitoring }: InboxMonitoringTileProps) => {
 	// TODO Check info, control code
-	const { t } = useTranslation(['changeMonitoring', 'monitoringDashboard']);
+	const { t } = useTranslation([
+		'changeMonitoring',
+		'monitoringDashboard',
+		'evidenceRequest'
+	]);
 	const navigate = useNavigate();
 	return (
 		<Layer level={1}>
@@ -73,7 +77,11 @@ const InboxMonitoringTile = ({ monitoring }: InboxMonitoringTileProps) => {
 							<p className='whitespace-nowrap text-text-secondary text-body-short-1'>
 								{t('changeMonitoring:controls')}:
 							</p>
-							<p className='block truncate text-body-short-1'>{monitoring.controlCode}</p>
+							<p className='block truncate text-body-short-1'>
+								{monitoring.controls
+									? monitoring.controls?.join(', ')
+									: t('evidenceRequest:no-control')}
+							</p>
 						</span>
 					</div>
 				</div>

@@ -1,5 +1,6 @@
 import { Toggle, TextArea, Button, Tooltip } from '@carbon/react';
 import { Information } from '@carbon/react/icons';
+import PathAssetTable from '@pages/MonitoringDraftDetails/Components/PathAssetTable';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AssetPathsTile from './AssetPathsTile';
@@ -7,6 +8,7 @@ import AssetPathsTile from './AssetPathsTile';
 const RunSetupContent = () => {
 	const { t } = useTranslation(['runDetails', 'monitoringDashboard', 'changeMonitoring']);
 	const [sameSetup, setSameSetup] = useState(false);
+	const [newPaths, setNewPaths] = useState<{ path: string; included: boolean }[]>([]);
 
 	const fakeData = ['asset1', 'asset2', 'asset3'];
 	return (
@@ -30,7 +32,9 @@ const RunSetupContent = () => {
 				labelA='No'
 				labelB={t('runDetails:repeat')}
 			/>
-			{sameSetup && <div> Table for same setup goes here </div>}
+			{sameSetup && (
+				<PathAssetTable isSameSetup canAdd data={newPaths} setData={setNewPaths} />
+			)}
 			<div>
 				{fakeData.map(asset => (
 					<AssetPathsTile key={asset} asset={asset} />

@@ -7,8 +7,6 @@ import ErrorBoundary from '@error/components/ErrorBoundary';
 import PageSkeleton from '@components/PageSkeleton';
 import usePolicyStore from '@hooks/usePolicyStore';
 import ProtectRoute from '@routes/ProtectRoute';
-import StartedEvidenceRequest from '@pages/StartedEvidenceRequest';
-import ActionEvidenceRequest from '@pages/ActionEvidenceRequest';
 
 const Home = React.lazy(() => import('@pages/Home'));
 const Test = React.lazy(() => import('@pages/Test'));
@@ -41,8 +39,12 @@ const StartedEvidenceRequestDashboard = React.lazy(
 const ActionEvidenceRequestDashboard = React.lazy(
 	() => import('@pages/ActionEvidenceRequestDashboard')
 );
-const NewMonitoring = React.lazy(() => import('@pages/NewMonitoring'));
-const MonitoringDraftDetails = React.lazy(() => import('@pages/MonitoringDraftDetails'));
+const NewMonitoring = React.lazy(
+	() => import('@pages/MonitoringDashboard/NewMonitoring')
+);
+const MonitoringDraftDetails = React.lazy(
+	() => import('@pages/MonitoringDraftDetails/MonitoringDraftDetails')
+);
 const MonitoringDashboard = React.lazy(
 	() => import('@pages/MonitoringDashboard/MonitoringDashboard')
 );
@@ -55,6 +57,9 @@ const MonitoringRunDetails = React.lazy(
 const ChangeMonitoringInbox = React.lazy(
 	() => import('@pages/ChangeMonitoringInbox/ChangeMonitoringInbox')
 );
+const ActionEvidenceRequest = React.lazy(() => import('@pages/ActionEvidenceRequest'));
+
+const StartedEvidenceRequest = React.lazy(() => import('@pages/StartedEvidenceRequest'));
 
 const AuthenticatedRoutes = () => {
 	const {

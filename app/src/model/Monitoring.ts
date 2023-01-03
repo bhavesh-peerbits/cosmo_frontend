@@ -13,7 +13,7 @@ interface Monitoring {
 	instance?: string;
 	assets?: string[];
 	framework?: string;
-	controlCode?: string;
+	controls?: string[];
 	script?: string;
 	note?: string;
 	numberOfRun: number;

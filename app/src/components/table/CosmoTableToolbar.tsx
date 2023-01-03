@@ -1,94 +1,135 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-	OverflowMenu,
+	Button,
+	RadioButton,
 	TableBatchAction,
 	TableBatchActions,
 	TableToolbar,
 	TableToolbarAction,
 	TableToolbarContent,
-	TableToolbarMenu
+	TableToolbarMenu,
+	TableToolbarSearch
 } from '@carbon/react';
-import { Csv, DocumentPdf, TableBuilt, TableSplit, Xls } from '@carbon/react/icons';
+import {
+	Column,
+	ColumnOrderState,
+	Row,
+	RowData,
+	VisibilityState
+} from '@tanstack/react-table';
+import { ReactNode, useMemo } from 'react';
+import {
+	Add,
+	Csv,
+	DocumentPdf,
+	Column as ColumnIcon,
+	Edit,
+	FilterEdit,
+	TableBuilt,
+	TableSplit,
+	TrashCan,
+	Xls
+} from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
-import { AvailableFileType, CosmoTableToolbarProps } from '@components/table/types';
-import { TableGenerics } from '@tanstack/react-table';
-import { useMemo } from 'react';
 import { useBoolean } from 'ahooks';
+import CosmoTableToolbarAction from './types/CosmoTableToolbarAction';
+import CosmoTableToolbarMenu from './types/CosmoTableToolbarMenu';
+import TableSize from './types/TableSize';
+import ExportSelectionAction from './ExportSelectionAction';
+import AvailableFileType from './types/FileType';
+import CustomizeColumnsModal from './columnCustomize/CustomizeColumnsModal';
 
-const ExportSelectionAction = ({
-	exportFn
-}: {
-	exportFn: (fileType: AvailableFileType, all: 'selection') => void;
-}) => {
-	const [val, { setTrue, setFalse }] = useBoolean(false);
-	const { t } = useTranslation('table');
-	const actions = [
-		{
-			id: 'pdf',
-			label: t('download-pdf'),
-			onClick: () => {
-				exportFn('pdf', 'selection');
-				setFalse();
-			},
-			icon: DocumentPdf
-		},
-		{
-			id: 'xlsx',
-			label: t('download-xlsx'),
-			onClick: () => {
-				exportFn('xlsx', 'selection');
-				setFalse();
-			},
-			icon: DocumentPdf
-		},
-		{
-			id: 'csv',
-			label: t('download-csv'),
-			onClick: () => {
-				exportFn('csv', 'selection');
-				setFalse();
-			},
-			icon: DocumentPdf
-		}
-	];
-	return (
-		<TableBatchAction renderIcon={TableSplit} onClick={() => setTimeout(() => setTrue())}>
-			{t('export')}
-			<OverflowMenu
-				menuOffsetFlip={{ top: 20, left: -50 }}
-				open={val}
-				onClose={() => setFalse()}
-				className='h-0 w-0 opacity-0'
-				iconDescription=''
-				ariaLabel=''
-				flipped
-			>
-				{actions.map(action => (
-					<li key={action.id}>
-						<TableBatchAction
-							className='z-[1] -mt-1 w-full outline outline-1'
-							renderIcon={action.icon}
-							onClick={action.onClick}
-						>
-							{action.label}
-						</TableBatchAction>
-					</li>
-				))}
-			</OverflowMenu>
-		</TableBatchAction>
-	);
-};
+interface CosmoTableToolbarProps<T extends object> {
+	selectionRows: Row<T>[];
+	onCancel: () => void;
+	toolbarBatchActions: CosmoTableToolbarAction<T>[] | undefined;
+	toolbarTableMenus: CosmoTableToolbarMenu[] | undefined;
+	primaryButton?: {
+		label: ReactNode;
+		onClick: () => void;
+	};
+	allColumns: Column<T, RowData>[];
+	onExportClick: (fileType: AvailableFileType, all?: boolean | 'selection') => void;
+	disableExport?: boolean;
+	searchBar: boolean | undefined;
+	isColumnOrderingEnabled: boolean | undefined;
+	selectedSize: TableSize;
+	sizeOptions: Record<TableSize, { value: number; label: string }> | undefined;
+	changeTableSize: (size: TableSize) => void;
+	setIsModalOpen: (isModalOpen: boolean) => void;
+	canAdd?: boolean;
+	// addingInline: boolean;
+	// setAddingInline: (addingInline: boolean) => void;
+	// isAddingInline?: boolean;
+	canEdit?: boolean;
+	canDelete?: boolean;
+	onDelete?: (rows: Row<T>[]) => void;
+	onSearch: (value: string) => void;
+	onFilterClick: () => void;
+	setColumnOrder: (columnOrder: ColumnOrderState) => void;
+	setColumnVisibility: (visibilityState: VisibilityState) => void;
+}
 
-const CosmoTableToolbar = <T extends TableGenerics>({
-	selectionIds,
+const CosmoTableToolbar = <T extends object>({
+	selectionRows,
 	onCancel,
-	toolbarBatchActions,
-	toolbarContent,
+	searchBar,
+	// setAddingInline,
+	// isAddingInline,
+	// addingInline,
+	allColumns,
 	onExportClick,
+	isColumnOrderingEnabled,
 	disableExport,
-	excludeCurrentView,
-	onSuccess
+	selectedSize,
+	sizeOptions,
+	changeTableSize,
+	onSearch,
+	onFilterClick,
+	primaryButton,
+	toolbarBatchActions = [],
+	toolbarTableMenus = [],
+	setIsModalOpen,
+	canAdd,
+	canEdit,
+	canDelete,
+	onDelete,
+	setColumnOrder,
+	setColumnVisibility
 }: CosmoTableToolbarProps<T>) => {
 	const { t } = useTranslation('table');
+	const [openModal, { toggle: toggleOpen }] = useBoolean(false);
+	const selectionElements = useMemo(
+		() => selectionRows.map(row => row.original).filter(r => r),
+		[selectionRows]
+	);
+
+	const toolbarBatchActionsWithEditAndDelete = [
+		...toolbarBatchActions,
+		...(canEdit && selectionRows.length === 1
+			? [
+					{
+						id: 'edit',
+						label: 'Edit',
+						onClick: () => {
+							setIsModalOpen(true);
+						},
+						icon: Edit
+					}
+			  ]
+			: []),
+		...(canDelete
+			? [
+					{
+						id: 'delete',
+						label: 'Delete',
+						onClick: () => onDelete && onDelete(selectionRows),
+						icon: TrashCan
+					}
+			  ]
+			: [])
+	];
+
 	const actions = useMemo(
 		() => [
 			{
@@ -145,23 +186,20 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 		[onExportClick, t]
 	);
 
-	return onCancel && selectionIds && toolbarBatchActions ? (
+	return (
 		<TableToolbar>
 			<TableBatchActions
 				onCancel={onCancel}
-				totalSelected={selectionIds.length}
-				shouldShowBatchActions={selectionIds.length > 0}
+				totalSelected={selectionElements.length}
+				shouldShowBatchActions={selectionElements.length > 0}
 				translateWithId={t}
 			>
-				{toolbarBatchActions.map(action => (
+				{toolbarBatchActionsWithEditAndDelete.map(action => (
 					<TableBatchAction
 						key={action.id}
-						renderIcon={action.icon}
-						onClick={() => {
-							onSuccess
-								? action.onClick({ selectionIds, clean: onSuccess })
-								: action.onClick({ selectionIds });
-						}}
+						renderIcon={action.icon as JSX.Element}
+						onClick={() => action.onClick(selectionElements)}
+						disabled={action.disabled}
 					>
 						{action.label}
 					</TableBatchAction>
@@ -169,7 +207,23 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 				<ExportSelectionAction exportFn={onExportClick} />
 			</TableBatchActions>
 			<TableToolbarContent>
-				{toolbarContent}
+				<TableToolbarMenu
+					onClick={() => onFilterClick()}
+					renderIcon={() => <FilterEdit />}
+					iconDescription='Show filters'
+					ariaLabel='Show Filters'
+				>
+					{null}
+				</TableToolbarMenu>
+				{searchBar && (
+					<TableToolbarSearch
+						size='lg'
+						placeholder='Search'
+						id='search'
+						expanded
+						onChange={e => onSearch(e.currentTarget?.value)}
+					/>
+				)}
 				{actions.map(action => (
 					<TableToolbarMenu
 						key={action.id}
@@ -192,64 +246,114 @@ const CosmoTableToolbar = <T extends TableGenerics>({
 						))}
 					</TableToolbarMenu>
 				))}
-			</TableToolbarContent>
-		</TableToolbar>
-	) : (
-		<TableToolbarContent>
-			{excludeCurrentView ? (
-				actions.map(
-					action =>
-						action.id === 'export-all' && (
-							<TableToolbarMenu
+				{toolbarTableMenus.map(menu => (
+					<TableToolbarMenu
+						key={menu.id}
+						renderIcon={menu.icon}
+						iconDescription='Table toolbar menu'
+						ariaLabel='Table toolbar menu'
+						disabled={menu.disabled}
+					>
+						{menu.tableToolbarActions.map(action => (
+							<TableToolbarAction
 								key={action.id}
-								iconDescription={action.menuLabel}
-								renderIcon={() => action.menuIcon}
-								ariaLabel={action.menuLabel}
-								disabled={disableExport}
-							>
-								{action.actions.map(subAction => (
-									<TableToolbarAction
-										key={subAction.id}
-										onClick={subAction.onClick}
-										itemText={
-											<div className='flex items-center justify-between space-x-5'>
-												<div>{subAction.icon}</div>
-												<span>{subAction.label}</span>
-											</div>
-										}
+								onClick={action.onClick}
+								itemText={action.label}
+								disabled={action.disabled}
+							/>
+						))}
+					</TableToolbarMenu>
+				))}
+
+				{isColumnOrderingEnabled && (
+					<TableToolbarMenu
+						onClick={() => toggleOpen()}
+						open={openModal}
+						renderIcon={() => <ColumnIcon />}
+						iconDescription='Show filters'
+						ariaLabel='Show Filters'
+					>
+						{null}
+					</TableToolbarMenu>
+				)}
+
+				{sizeOptions && (
+					<TableToolbarMenu iconDescription='Table size' ariaLabel='Table size option'>
+						<div className='mb-3 flex w-full flex-col justify-center px-5 pt-5'>
+							<span className='text-helper typography-label-1'>Row height</span>
+						</div>
+						{Object.entries(sizeOptions).map(([size, { label }]) => (
+							<TableToolbarAction
+								key={size}
+								itemText={
+									<RadioButton
+										id={size}
+										labelText={label}
+										value={size}
+										defaultChecked={selectedSize === size}
 									/>
-								))}
-							</TableToolbarMenu>
-						)
-				)
-			) : (
-				<TableToolbarContent>
-					{toolbarContent}
-					{actions.map(action => (
-						<TableToolbarMenu
-							key={action.id}
-							iconDescription={action.menuLabel}
-							renderIcon={() => action.menuIcon}
-							ariaLabel={action.menuLabel}
-							disabled={disableExport}
-						>
-							{action.actions.map(subAction => (
-								<TableToolbarAction
-									key={subAction.id}
-									onClick={subAction.onClick}
-									itemText={
-										<div className='flex items-center justify-between space-x-5'>
-											<div>{subAction.icon}</div>
-											<span>{subAction.label}</span>
-										</div>
-									}
-								/>
-							))}
-						</TableToolbarMenu>
-					))}
-				</TableToolbarContent>
+								}
+								onClick={() => changeTableSize(size as TableSize)}
+							/>
+						))}
+					</TableToolbarMenu>
+				)}
+				{canAdd && (
+					<Button
+						kind='primary'
+						renderIcon={Add}
+						iconDescription='Add'
+						onClick={() => setIsModalOpen(true)}
+					>
+						Add New
+					</Button>
+				)}
+				{/* {canAdd && !addingInline ? (
+					<Button
+						kind='primary'
+						renderIcon={Add}
+						iconDescription='Add'
+						onClick={() => {
+							isAddingInline ? setAddingInline(true) : setIsModalOpen(true);
+						}}
+					>
+						Add New
+					</Button>
+				) : (
+					<>
+						<Button hasIconOnly renderIcon={Checkmark} />
+						<Button
+							hasIconOnly
+							renderIcon={TrashCan}
+							kind='danger--ghost'
+							onClick={() => setAddingInline(false)}
+						/>
+					</>
+				)} */}
+				{primaryButton && (
+					<Button onClick={primaryButton.onClick}>{primaryButton.label}</Button>
+				)}
+			</TableToolbarContent>
+			{isColumnOrderingEnabled && openModal && (
+				<CustomizeColumnsModal
+					isOpen={openModal}
+					setIsModalOpen={() => toggleOpen()}
+					onSaveColumnPrefs={newCol => {
+						setColumnVisibility(
+							newCol.reduce(
+								(prev, curr) => ({
+									...prev,
+									[curr.id]: curr.visible
+								}),
+								{}
+							)
+						);
+						setColumnOrder(newCol.map(col => col.id));
+					}}
+					columnDefinitions={allColumns}
+				/>
 			)}
-		</TableToolbarContent>
+		</TableToolbar>
 	);
 };
 

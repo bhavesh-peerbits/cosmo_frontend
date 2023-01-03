@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Application from '@model/Application';
 import Campaign from '@model/Campaign';
 import api from '@api';

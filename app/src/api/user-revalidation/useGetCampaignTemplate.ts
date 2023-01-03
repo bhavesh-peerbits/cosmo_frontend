@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import { CampaignDtoTypeApi } from 'cosmo-api/src';
 import api from '@api';
 

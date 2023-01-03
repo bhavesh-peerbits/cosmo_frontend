@@ -1,6 +1,6 @@
 import api from '@api';
 import { fromApplicationUserApi } from '@model/ApplicationUser';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
 const useGetApplicationUser = (appId: string) => {
 	return api.userAdminApi

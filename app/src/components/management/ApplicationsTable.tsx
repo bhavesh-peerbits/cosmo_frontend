@@ -2,76 +2,56 @@ import useManagementApps from '@hooks/management/useManagementApps';
 import { useTranslation } from 'react-i18next';
 import Application from '@model/Application';
 import { CloudDownload, Email } from '@carbon/react/icons';
-import { TableToolbarSearch } from '@carbon/react';
-import CosmoTable, { CellProperties, HeaderFunction } from '@components/table/CosmoTable';
-import IconResolver from '@components/IconResolver';
-import { formatDate } from '@i18n';
-import { useCallback, useState } from 'react';
+import CosmoTable from '@components/table/CosmoTable';
+import { useMemo, useState } from 'react';
 import MultipleReviewModal from '@components/Modals/MultipleReviewModal';
 import MultipleDeleteModal from '@components/Modals/MultipleDeleteModal';
 import MultipleGenerateModal from '@components/Modals/MultipleGenerateModal';
-
-const ApplicationIconCell = ({ row, getValue }: CellProperties<Application, string>) => {
-	return (
-		<div className='flex items-center space-x-3'>
-			<div>
-				<IconResolver icon={row.original?.icon} />
-			</div>
-			<p>{getValue() || '-'}</p>
-		</div>
-	);
-};
+import { ColumnDef } from '@tanstack/react-table';
+import StringDashCell from '@components/table/Cell/StringDashCell';
+import DateCell from '@components/table/Cell/DateCell';
+import IconCell from '@components/table/Cell/IconCell';
 
 const ApplicationsTable = () => {
 	const { t } = useTranslation('management');
 	const { apps } = useManagementApps();
-	const { filters, setFilters } = useManagementApps();
 
 	const [rowSelected, setRowSelected] = useState<Application[]>([]);
 	const [actionSelected, setActionSelected] = useState('');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
-	const columns: HeaderFunction<Application> = useCallback(
-		table => [
-			table.createDataColumn(row => row.name, {
+	const columns = useMemo<ColumnDef<Application>[]>(
+		() => [
+			{
 				id: 'name',
 				header: t('application-name'),
-				cell: ApplicationIconCell
-			}),
-			table.createDataColumn(row => row.codeName, {
+				accessorFn: row => ({ content: row.name, icon: row.icon }),
+				cell: IconCell
+			},
+			{
 				id: 'code',
+				accessorFn: row => row.codeName,
 				header: t('code')
-			}),
-			// table.createDataColumn(row => row.description?.replace(/<[^>]+>/g, '') || '-', {
-			// 	id: 'description',
-			// 	sortUndefined: 1,
-			// 	header: t('description')
-			// }),
-			table.createDataColumn(row => row.owner, {
+			},
+			{
 				id: 'owner',
+				accessorFn: row => row.owner.displayName,
 				header: t('owner'),
-				cell: info => info.getValue()?.displayName || '-',
-				meta: {
-					exportableFn: info => info.displayName || '-'
-				}
-			}),
-			table.createDataColumn(row => row.lastReview, {
+				cell: StringDashCell
+			},
+			{
 				id: 'lastReview',
+				accessorFn: row => row.lastReview,
 				header: t('last-review'),
 				sortUndefined: 1,
-				cell: info => {
-					const value = info.getValue();
-					return (value && formatDate(value)) || '-';
-				}
-			}),
-			table.createDataColumn(row => row.lastModify, {
+				cell: DateCell
+			},
+			{
 				id: 'lastModify',
+				accessorFn: row => row.lastModify,
 				header: t('last-modify'),
-				cell: info => {
-					const value = info.getValue();
-					return (value && formatDate(value)) || '-';
-				}
-			})
+				cell: DateCell
+			}
 		],
 		[t]
 	);
@@ -80,8 +60,8 @@ const ApplicationsTable = () => {
 		{
 			id: 'email',
 			icon: Email,
-			onClick: ({ selectionIds }: { selectionIds: Application[] }) => {
-				setRowSelected(selectionIds);
+			onClick: (selectionElements: Application[]) => {
+				setRowSelected(selectionElements);
 				setActionSelected('Review');
 				setIsModalOpen(true);
 			},
@@ -90,35 +70,14 @@ const ApplicationsTable = () => {
 		{
 			id: 'cloud',
 			icon: CloudDownload,
-			onClick: ({ selectionIds }: { selectionIds: Application[] }) => {
-				setRowSelected(selectionIds);
+			onClick: (selectionElements: Application[]) => {
+				setRowSelected(selectionElements);
 				setActionSelected('Generate');
 				setIsModalOpen(true);
 			},
 			label: 'Narrative'
 		}
-		// {
-		// 	id: 'trash',
-		// 	icon: TrashCan,
-		// 	onClick: (selected: Application[]) => {
-		// 		setRowSelected(selected);
-		// 		setActionSelected('Delete');
-		// 		setIsModalOpen(true);
-		// 	},
-		// 	label: t('delete')
-		// } // TODO Remove comments when endpoint will be fixed
 	];
-
-	const toolbarContent = (
-		<TableToolbarSearch
-			size='lg'
-			persistent
-			placeholder={t('search-placeholder')}
-			id='search'
-			value={filters.query ?? ''}
-			onChange={e => setFilters({ q: e.currentTarget?.value })}
-		/>
-	);
 
 	const modalToOpen = () => {
 		switch (actionSelected) {
@@ -154,10 +113,16 @@ const ApplicationsTable = () => {
 		<div>
 			{isModalOpen && modalToOpen()}
 			<CosmoTable
+				tableId='applications'
 				data={apps}
-				createHeaders={columns}
+				columns={columns}
+				isColumnOrderingEnabled
 				noDataMessage={t('no-applications')}
-				toolbar={{ toolbarContent, toolbarBatchActions }}
+				toolbar={{
+					searchBar: true,
+					toolbarBatchActions,
+					toolbarTableMenus: []
+				}}
 				isSelectable
 				exportFileName={({ all }) =>
 					all ? 'applications-all' : 'applications-selection'

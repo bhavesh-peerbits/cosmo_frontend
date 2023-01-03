@@ -1,0 +1,10 @@
+.apply-border > button:hover::after,
+.is-nobutton:hover::after {
+	@apply absolute bottom-0 right-0 h-full w-2 bg-layer-accent-active-1;
+
+	content: '';
+}
+
+.cds--data-table-content {
+	overflow-x: unset !important;
+}

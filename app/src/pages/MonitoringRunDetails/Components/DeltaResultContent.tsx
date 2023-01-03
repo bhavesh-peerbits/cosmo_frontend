@@ -1,16 +1,28 @@
+import useGetUsers from '@api/user/useGetUsers';
 import { Tag, Button } from '@carbon/react';
 import { Download } from '@carbon/react/icons';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import AddAnswerToDeltaModal from '../Modals/AddAnswerToDeltaModal';
 import CompleteRunModal from '../Modals/CompleteRunModal';
 import SendToFocalPointModal from '../Modals/SendToFocalPoint';
+import DeltaResultTable from './DeltaResultTable';
 
 const DeltaResultContent = () => {
 	const { t } = useTranslation('runDetails');
 	const [modalToOpen, setModalToOpen] = useState('');
 
 	const fakeDataFiles = ['file1', 'file2'];
+	const { data: users } = useGetUsers();
+	const fakeDataDelta = [
+		{
+			name: 'name',
+			directory: 'directory',
+			dimension: '1 GB',
+			date: new Date(),
+			answeredBy: users?.[1],
+			answer: 'Answer'
+		}
+	];
 
 	return (
 		<div className='space-y-7 pt-5 pb-9'>
@@ -34,18 +46,12 @@ const DeltaResultContent = () => {
 					</Tag>
 				))}
 			</div>
-			<p>TABLE GOES HERE</p>
-			<Button onClick={() => setModalToOpen('add-answer')}>TEST ADD ANSWER MODAL</Button>
-			<Button onClick={() => setModalToOpen('ignore')}>TEST IGNORE MODAL</Button>
+			<DeltaResultTable data={fakeDataDelta} />
 			<Button onClick={() => setModalToOpen('close')}>TEST CLOSE RUN MODAL</Button>
 			<Button onClick={() => setModalToOpen('send-focal-point')}>
 				TEST SEND FOCAL POINT MODAL
 			</Button>
-			<AddAnswerToDeltaModal
-				isOpen={modalToOpen === 'add-answer' || modalToOpen === 'ignore'}
-				setIsOpen={setModalToOpen}
-				isIgnore={modalToOpen === 'ignore'}
-			/>
+
 			<CompleteRunModal isOpen={modalToOpen === 'close'} setIsOpen={setModalToOpen} />
 			<SendToFocalPointModal
 				isOpen={modalToOpen === 'send-focal-point'}

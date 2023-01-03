@@ -29,7 +29,11 @@ function renderChunks(deps: Record<string, string>) {
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
 	define: {
-		'process.env': {}
+		'process.env': {
+			CARBON_ENABLE_CSS_CUSTOM_PROPERTIES: 'true',
+			CARBON_ENABLE_CSS_GRID: 'true',
+			CARBON_ENABLE_V11_RELEASE: 'true'
+		}
 	},
 	envPrefix: 'COSMO_',
 	test: {
@@ -56,7 +60,7 @@ export default defineConfig(({ mode }) => ({
 		}
 	},
 	plugins: [
-		...[react()],
+		react(),
 		istanbul({
 			include: 'src/*',
 			exclude: ['node_modules', 'src/test/*', 'src/**/__tests__/*'],

@@ -5,7 +5,7 @@ import errorIdAtom from '@store/error-boundary/errorIdAtom';
 import ApiError from '@api/ApiError';
 import ErrorModalFallback from '@error/components/ErrorModalFallback';
 import ApiErrorFallback from '@error/components/ApiErrorFallback';
-import { QueryErrorResetBoundary } from 'react-query';
+import { QueryErrorResetBoundary } from '@tanstack/react-query';
 
 interface Props {
 	children: ReactNode;

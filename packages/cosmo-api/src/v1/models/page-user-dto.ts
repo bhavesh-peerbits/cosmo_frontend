@@ -13,7 +13,7 @@
  */
 
 import { PageableObject } from './pageable-object';
-import { Sort } from './sort';
+import { SortObject } from './sort-object';
 import { UserDto } from './user-dto';
 
 /**
@@ -27,13 +27,13 @@ export interface PageUserDto {
 	 * @type {number}
 	 * @memberof PageUserDto
 	 */
-	totalElements?: number;
+	totalPages?: number;
 	/**
 	 *
 	 * @type {number}
 	 * @memberof PageUserDto
 	 */
-	totalPages?: number;
+	totalElements?: number;
 	/**
 	 *
 	 * @type {number}
@@ -54,22 +54,10 @@ export interface PageUserDto {
 	number?: number;
 	/**
 	 *
-	 * @type {Sort}
+	 * @type {SortObject}
 	 * @memberof PageUserDto
 	 */
-	sort?: Sort;
-	/**
-	 *
-	 * @type {number}
-	 * @memberof PageUserDto
-	 */
-	numberOfElements?: number;
-	/**
-	 *
-	 * @type {PageableObject}
-	 * @memberof PageUserDto
-	 */
-	pageable?: PageableObject;
+	sort?: SortObject;
 	/**
 	 *
 	 * @type {boolean}
@@ -82,6 +70,18 @@ export interface PageUserDto {
 	 * @memberof PageUserDto
 	 */
 	last?: boolean;
+	/**
+	 *
+	 * @type {number}
+	 * @memberof PageUserDto
+	 */
+	numberOfElements?: number;
+	/**
+	 *
+	 * @type {PageableObject}
+	 * @memberof PageUserDto
+	 */
+	pageable?: PageableObject;
 	/**
 	 *
 	 * @type {boolean}

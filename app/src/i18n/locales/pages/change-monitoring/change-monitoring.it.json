@@ -107,5 +107,10 @@
 	"add-controls": "Aggiungi controlli",
 	"select-controls-list": "Seleziona uno o più controlli dalla lista",
 	"selected-controls": "Controlli selezionati",
-	"control-name": "Nome controllo"
+	"control-name": "Nome controllo",
+	"include": "Includi",
+	"exclude": "Escludi",
+	"included": "Incluso",
+	"no-path-subtitle": "Nessun path trovato. Aggiungere un nuovo path o provare a cambiare i filtri.",
+	"no-path-yet": "Non è presente nessun path. Aggiungere un nuovo path tramite l'apposito pulsante."
 }

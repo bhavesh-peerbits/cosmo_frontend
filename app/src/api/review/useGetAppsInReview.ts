@@ -1,7 +1,7 @@
 import api from '@api';
 import { fromApplicationApi } from '@model/Application';
 import { toMap } from '@model/util';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
 const useGetAppsInReview = () => {
 	return api.reviewerApi

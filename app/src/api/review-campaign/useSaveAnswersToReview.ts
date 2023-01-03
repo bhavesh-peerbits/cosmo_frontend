@@ -1,7 +1,7 @@
 import api from '@api';
 import Answer, { fromAnswersApi, toAnswersApi } from '@model/Answer';
 import { toMap } from '@model/util';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface SaveAnswersToReviewParams {
 	campaignId: string;

@@ -1,6 +1,7 @@
 import { ContentSwitcher, Switch } from '@carbon/react';
 import { Grid as GridIcon, HorizontalView } from '@carbon/react/icons';
 import useStartedMonitorings from '@hooks/monitoring-dashboard/useStartedMonitorings';
+import MonitoringDashboardTable from '../Components/MonitoringDashboardTable';
 
 const MonitoringDashboardTableView = () => {
 	const { setFilters } = useStartedMonitorings();
@@ -20,7 +21,7 @@ const MonitoringDashboardTableView = () => {
 					</Switch>
 				</ContentSwitcher>
 			</div>
-			<p>table goes here</p>
+			<MonitoringDashboardTable />
 		</div>
 	);
 };

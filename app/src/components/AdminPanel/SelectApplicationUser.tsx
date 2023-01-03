@@ -3,7 +3,7 @@ import useSetUserApplication from '@api/user-admin/useSetUserApplication';
 import MultiAddSelect from '@components/MultiAddSelect';
 import Application from '@model/Application';
 import { useTranslation } from 'react-i18next';
-import { useQueryClient } from 'react-query';
+import { useQueryClient } from '@tanstack/react-query';
 
 type SelectApplicationUserProps = {
 	userSelectedId: string;
