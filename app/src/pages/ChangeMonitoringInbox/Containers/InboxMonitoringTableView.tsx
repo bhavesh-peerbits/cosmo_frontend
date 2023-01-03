@@ -1,6 +1,7 @@
 import { ContentSwitcher, Switch } from '@carbon/react';
 import { Grid as GridIcon, HorizontalView } from '@carbon/react/icons';
 import useInboxMonitorings from '@hooks/inbox-monitoring/useInboxMonitorings';
+import InboxMonitoringTable from '../Components/InboxMonitoringTable';
 
 const InboxMonitoringTableView = () => {
 	const { setFilters } = useInboxMonitorings();
@@ -20,7 +21,7 @@ const InboxMonitoringTableView = () => {
 					</Switch>
 				</ContentSwitcher>
 			</div>
-			<p>table goes here</p>
+			<InboxMonitoringTable />
 		</div>
 	);
 };
