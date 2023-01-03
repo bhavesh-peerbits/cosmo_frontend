@@ -31,5 +31,14 @@
 	"send-to-focal-point": "Send to Focal Point",
 	"send-request": "Send request",
 	"helper-focal-point": "The request will be sent to Focal Point and its delegates.",
-	"last-run-file": "Last run file"
+	"last-run-file": "Last run file",
+	"name": "Name",
+	"directory": "Directory",
+	"dimension": "Dimension",
+	"date-time": "Date and time",
+	"answered-by": "Answered by",
+	"answer": "Answer",
+	"actions": "Actions",
+	"ignore": "Ignore",
+	"confirm": "Confirm"
 }

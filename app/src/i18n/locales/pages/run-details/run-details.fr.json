@@ -31,5 +31,14 @@
 	"send-to-focal-point": "",
 	"send-request": "",
 	"helper-focal-point": "",
-	"last-run-file": ""
+	"last-run-file": "",
+	"name": "",
+	"directory": "",
+	"dimension": "",
+	"date-time": "",
+	"answered-by": "",
+	"answer": "",
+	"actions": "",
+	"ignore": "",
+	"confirm": ""
 }
