@@ -12,43 +12,36 @@
  * Do not edit the class manually.
  */
 
-import { Application } from './application';
-import { Asset } from './asset';
+import { ApplicationDto } from './application-dto';
 
 /**
- *
+ * Monitoring\'s instance
  * @export
- * @interface Instance
+ * @interface InstanceDto
  */
-export interface Instance {
+export interface InstanceDto {
 	/**
-	 *
+	 * The id of the instance
 	 * @type {number}
-	 * @memberof Instance
+	 * @memberof InstanceDto
 	 */
-	id?: number;
+	id: number;
 	/**
-	 *
-	 * @type {Set<Asset>}
-	 * @memberof Instance
-	 */
-	assets?: Set<Asset>;
-	/**
-	 *
+	 * The name of the instance.
 	 * @type {string}
-	 * @memberof Instance
+	 * @memberof InstanceDto
 	 */
-	name?: string;
+	name: string;
 	/**
-	 *
+	 * The description of the instance.
 	 * @type {string}
-	 * @memberof Instance
+	 * @memberof InstanceDto
 	 */
 	description?: string;
 	/**
 	 *
-	 * @type {Application}
-	 * @memberof Instance
+	 * @type {ApplicationDto}
+	 * @memberof InstanceDto
 	 */
-	application?: Application;
+	application: ApplicationDto;
 }

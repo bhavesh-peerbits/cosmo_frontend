@@ -12,43 +12,37 @@
  * Do not edit the class manually.
  */
 
-import { Application } from './application';
-import { Asset } from './asset';
+import { AssetDto } from './asset-dto';
+import { PathMonitoringDto } from './path-monitoring-dto';
 
 /**
- *
+ * Monitoring\'s assets
  * @export
- * @interface Instance
+ * @interface MonitoringAssetDto
  */
-export interface Instance {
+export interface MonitoringAssetDto {
 	/**
 	 *
 	 * @type {number}
-	 * @memberof Instance
+	 * @memberof MonitoringAssetDto
 	 */
-	id?: number;
+	id: number;
 	/**
 	 *
-	 * @type {Set<Asset>}
-	 * @memberof Instance
+	 * @type {AssetDto}
+	 * @memberof MonitoringAssetDto
 	 */
-	assets?: Set<Asset>;
+	asset: AssetDto;
+	/**
+	 *
+	 * @type {Set<PathMonitoringDto>}
+	 * @memberof MonitoringAssetDto
+	 */
+	paths: Set<PathMonitoringDto>;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof Instance
+	 * @memberof MonitoringAssetDto
 	 */
-	name?: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof Instance
-	 */
-	description?: string;
-	/**
-	 *
-	 * @type {Application}
-	 * @memberof Instance
-	 */
-	application?: Application;
+	extensions?: string;
 }

@@ -15,25 +15,25 @@
 /**
  *
  * @export
- * @interface SortObject
+ * @interface SchedulingDtoTimeOffsetRulesDurationUnits
  */
-export interface SortObject {
+export interface SchedulingDtoTimeOffsetRulesDurationUnits {
 	/**
 	 *
 	 * @type {boolean}
-	 * @memberof SortObject
+	 * @memberof SchedulingDtoTimeOffsetRulesDurationUnits
 	 */
-	empty?: boolean;
+	dateBased?: boolean;
 	/**
 	 *
 	 * @type {boolean}
-	 * @memberof SortObject
+	 * @memberof SchedulingDtoTimeOffsetRulesDurationUnits
 	 */
-	unsorted?: boolean;
+	timeBased?: boolean;
 	/**
 	 *
 	 * @type {boolean}
-	 * @memberof SortObject
+	 * @memberof SchedulingDtoTimeOffsetRulesDurationUnits
 	 */
-	sorted?: boolean;
+	durationEstimated?: boolean;
 }

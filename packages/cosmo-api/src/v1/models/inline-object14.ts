@@ -15,25 +15,13 @@
 /**
  *
  * @export
- * @interface SortObject
+ * @interface InlineObject14
  */
-export interface SortObject {
+export interface InlineObject14 {
 	/**
 	 *
-	 * @type {boolean}
-	 * @memberof SortObject
+	 * @type {any}
+	 * @memberof InlineObject14
 	 */
-	empty?: boolean;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof SortObject
-	 */
-	unsorted?: boolean;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof SortObject
-	 */
-	sorted?: boolean;
+	file?: any;
 }

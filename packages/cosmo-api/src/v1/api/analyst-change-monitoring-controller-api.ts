@@ -39,51 +39,312 @@ import {
 // @ts-ignore
 import { ApiErrorResponse } from '../models';
 // @ts-ignore
-import { CloseEvidenceDto } from '../models';
+import { CreateMonitoringDto } from '../models';
 // @ts-ignore
-import { DraftDto } from '../models';
+import { FileLinkDto } from '../models';
 // @ts-ignore
-import { EvidenceRequestDraftDto } from '../models';
+import { InlineObject18 } from '../models';
 // @ts-ignore
-import { EvidenceRequestDto } from '../models';
+import { MonitoringDto } from '../models';
 // @ts-ignore
-import { NewDraftDto } from '../models';
-// @ts-ignore
-import { SetUpDraftDto } from '../models';
-// @ts-ignore
-import { StepDto } from '../models';
+import { RunDto } from '../models';
 // @ts-ignore
 import { UserDto } from '../models';
 /**
- * EvidenceRequestControllerApi - axios parameter creator
+ * AnalystChangeMonitoringControllerApi - axios parameter creator
  * @export
  */
-export const EvidenceRequestControllerApiAxiosParamCreator = function (
+export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 	configuration?: Configuration
 ) {
 	return {
 		/**
 		 *
-		 * @param {number} erId
-		 * @param {Array<string>} requestBody
+		 * @param {number} runId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		addCollaboratorsToEvidence: async (
-			erId: number,
-			requestBody: Array<string>,
+		changeStatusWaitingForFocalpoint: async (
+			runId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'erId' is not null or undefined
-			assertParamExists('addCollaboratorsToEvidence', 'erId', erId);
-			// verify required parameter 'requestBody' is not null or undefined
-			assertParamExists('addCollaboratorsToEvidence', 'requestBody', requestBody);
+			// verify required parameter 'runId' is not null or undefined
+			assertParamExists('changeStatusWaitingForFocalpoint', 'runId', runId);
 			const localVarPath =
-				`/api/analyst/evidence-request/evidence/{erId}/contributors`.replace(
-					`{${'erId'}}`,
-					encodeURIComponent(String(erId))
+				`/api/change_monitoring/analyst/run/change-status-waiting-fp/{runId}`.replace(
+					`{${'runId'}}`,
+					encodeURIComponent(String(runId))
+				);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} runId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		closeCompletedRun: async (
+			runId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'runId' is not null or undefined
+			assertParamExists('closeCompletedRun', 'runId', runId);
+			const localVarPath =
+				`/api/change_monitoring/analyst/run/close-completed/{runId}`.replace(
+					`{${'runId'}}`,
+					encodeURIComponent(String(runId))
+				);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} monitoringId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		closeMonitoring: async (
+			monitoringId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'monitoringId' is not null or undefined
+			assertParamExists('closeMonitoring', 'monitoringId', monitoringId);
+			const localVarPath =
+				`/api/change_monitoring/analyst/monitoring/close/{monitoringId}`.replace(
+					`{${'monitoringId'}}`,
+					encodeURIComponent(String(monitoringId))
+				);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} runId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		closeRun: async (
+			runId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'runId' is not null or undefined
+			assertParamExists('closeRun', 'runId', runId);
+			const localVarPath = `/api/change_monitoring/analyst/run/close/{runId}`.replace(
+				`{${'runId'}}`,
+				encodeURIComponent(String(runId))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {CreateMonitoringDto} createMonitoringDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		createDraft: async (
+			createMonitoringDto: CreateMonitoringDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'createMonitoringDto' is not null or undefined
+			assertParamExists('createDraft', 'createMonitoringDto', createMonitoringDto);
+			const localVarPath = `/api/change_monitoring/analyst/create-draft`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				createMonitoringDto,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} monitoringId
+		 * @param {InlineObject18} inlineObject18
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		editMonitoringFocalpointAndDelegates: async (
+			monitoringId: number,
+			inlineObject18: InlineObject18,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'monitoringId' is not null or undefined
+			assertParamExists(
+				'editMonitoringFocalpointAndDelegates',
+				'monitoringId',
+				monitoringId
+			);
+			// verify required parameter 'inlineObject18' is not null or undefined
+			assertParamExists(
+				'editMonitoringFocalpointAndDelegates',
+				'inlineObject18',
+				inlineObject18
+			);
+			const localVarPath =
+				`/api/change_monitoring/analyst/monitoring/set-focalpoint-and-delegates/{monitoringId}`.replace(
+					`{${'monitoringId'}}`,
+					encodeURIComponent(String(monitoringId))
 				);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -114,7 +375,7 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				requestBody,
+				inlineObject18,
 				localVarRequestOptions,
 				configuration
 			);
@@ -126,19 +387,299 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {CloseEvidenceDto} closeEvidenceDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		closeEvidence: async (
-			closeEvidenceDto: CloseEvidenceDto,
+		getAllDraftNames: async (
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'closeEvidenceDto' is not null or undefined
-			assertParamExists('closeEvidence', 'closeEvidenceDto', closeEvidenceDto);
-			const localVarPath = `/api/analyst/evidence-request/evidence/{erId}/close`;
+			const localVarPath = `/api/change_monitoring/analyst/all-draft-names`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} runId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllFilesAnswers: async (
+			runId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'runId' is not null or undefined
+			assertParamExists('getAllFilesAnswers', 'runId', runId);
+			const localVarPath = `/api/change_monitoring/analyst/run/filelinks`.replace(
+				`{${'runId'}}`,
+				encodeURIComponent(String(runId))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllMonitoring: async (
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/change_monitoring/analyst/monitoring/all`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllMonitoringDraft: async (
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/change_monitoring/analyst/get-all-draft`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} monitoringId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getMonitoringById: async (
+			monitoringId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'monitoringId' is not null or undefined
+			assertParamExists('getMonitoringById', 'monitoringId', monitoringId);
+			const localVarPath =
+				`/api/change_monitoring/analyst/monitoring/{monitoringId}`.replace(
+					`{${'monitoringId'}}`,
+					encodeURIComponent(String(monitoringId))
+				);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} runId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getRunById: async (
+			runId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'runId' is not null or undefined
+			assertParamExists('getRunById', 'runId', runId);
+			const localVarPath = `/api/change_monitoring/analyst/run/{runId}`.replace(
+				`{${'runId'}}`,
+				encodeURIComponent(String(runId))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {MonitoringDto} monitoringDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveDraft1: async (
+			monitoringDto: MonitoringDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'monitoringDto' is not null or undefined
+			assertParamExists('saveDraft1', 'monitoringDto', monitoringDto);
+			const localVarPath = `/api/change_monitoring/analyst/save-draft`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -168,7 +709,7 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				closeEvidenceDto,
+				monitoringDto,
 				localVarRequestOptions,
 				configuration
 			);
@@ -180,19 +721,19 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {SetUpDraftDto} setUpDraftDto
+		 * @param {RunDto} runDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		createDraft1: async (
-			setUpDraftDto: SetUpDraftDto,
+		saveRun: async (
+			runDto: RunDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'setUpDraftDto' is not null or undefined
-			assertParamExists('createDraft1', 'setUpDraftDto', setUpDraftDto);
-			const localVarPath = `/api/analyst/evidence-request/create-draft`;
+			// verify required parameter 'runDto' is not null or undefined
+			assertParamExists('saveRun', 'runDto', runDto);
+			const localVarPath = `/api/change_monitoring/analyst/run/save`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -200,7 +741,7 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 				baseOptions = configuration.baseOptions;
 			}
 
-			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
 			const localVarHeaderParameter = {} as any;
 			const localVarQueryParameter = {} as any;
 
@@ -222,7 +763,7 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				setUpDraftDto,
+				runDto,
 				localVarRequestOptions,
 				configuration
 			);
@@ -234,22 +775,19 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {number} draftId
+		 * @param {RunDto} runDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		deleteDraftById: async (
-			draftId: number,
+		saveRunAndGoNext: async (
+			runDto: RunDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'draftId' is not null or undefined
-			assertParamExists('deleteDraftById', 'draftId', draftId);
-			const localVarPath = `/api/analyst/evidence-request/draft/{draftId}`.replace(
-				`{${'draftId'}}`,
-				encodeURIComponent(String(draftId))
-			);
+			// verify required parameter 'runDto' is not null or undefined
+			assertParamExists('saveRunAndGoNext', 'runDto', runDto);
+			const localVarPath = `/api/change_monitoring/analyst/run/save-and-go-next`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -257,326 +795,7 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 				baseOptions = configuration.baseOptions;
 			}
 
-			const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		getAllDraft: async (
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			const localVarPath = `/api/analyst/evidence-request/get-all-draft`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		getAllEvidenceRequest: async (
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			const localVarPath = `/api/analyst/evidence-request/all`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		getAllUniqueEvidenceNames: async (
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			const localVarPath = `/api/analyst/evidence-request/all-names`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {number} id
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		getDraftById: async (
-			id: number,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'id' is not null or undefined
-			assertParamExists('getDraftById', 'id', id);
-			const localVarPath = `/api/analyst/evidence-request/draft/{id}`.replace(
-				`{${'id'}}`,
-				encodeURIComponent(String(id))
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {number} id
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		getEvidenceRequestById1: async (
-			id: number,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'id' is not null or undefined
-			assertParamExists('getEvidenceRequestById1', 'id', id);
-			const localVarPath = `/api/analyst/evidence-request/{id}`.replace(
-				`{${'id'}}`,
-				encodeURIComponent(String(id))
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		getNewDraftParameter: async (
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			const localVarPath = `/api/analyst/evidence-request/create-data`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {DraftDto} draftDto
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		saveCompletedDraft: async (
-			draftDto: DraftDto,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'draftDto' is not null or undefined
-			assertParamExists('saveCompletedDraft', 'draftDto', draftDto);
-			const localVarPath = `/api/analyst/evidence-request/save-completed-draft`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
 			const localVarHeaderParameter = {} as any;
 			const localVarQueryParameter = {} as any;
 
@@ -598,7 +817,7 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				draftDto,
+				runDto,
 				localVarRequestOptions,
 				configuration
 			);
@@ -610,134 +829,26 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {DraftDto} draftDto
+		 * @param {number} monitoringId
+		 * @param {Set<UserDto>} userDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		saveDraft: async (
-			draftDto: DraftDto,
+		setMonitoringCollaborator: async (
+			monitoringId: number,
+			userDto: Set<UserDto>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'draftDto' is not null or undefined
-			assertParamExists('saveDraft', 'draftDto', draftDto);
-			const localVarPath = `/api/analyst/evidence-request/save-draft`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			localVarHeaderParameter['Content-Type'] = 'application/json';
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				draftDto,
-				localVarRequestOptions,
-				configuration
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {StepDto} stepDto
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		saveStep: async (
-			stepDto: StepDto,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'stepDto' is not null or undefined
-			assertParamExists('saveStep', 'stepDto', stepDto);
-			const localVarPath = `/api/analyst/evidence-request/save-step`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			localVarHeaderParameter['Content-Type'] = 'application/json';
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				stepDto,
-				localVarRequestOptions,
-				configuration
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {number} erId
-		 * @param {StepDto} stepDto
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		saveStepAndGoNext1: async (
-			erId: number,
-			stepDto: StepDto,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'erId' is not null or undefined
-			assertParamExists('saveStepAndGoNext1', 'erId', erId);
-			// verify required parameter 'stepDto' is not null or undefined
-			assertParamExists('saveStepAndGoNext1', 'stepDto', stepDto);
+			// verify required parameter 'monitoringId' is not null or undefined
+			assertParamExists('setMonitoringCollaborator', 'monitoringId', monitoringId);
+			// verify required parameter 'userDto' is not null or undefined
+			assertParamExists('setMonitoringCollaborator', 'userDto', userDto);
 			const localVarPath =
-				`/api/analyst/evidence-request/step/{erId}/save-and-procede`.replace(
-					`{${'erId'}}`,
-					encodeURIComponent(String(erId))
+				`/api/change_monitoring/analyst/monitoring/set-collaborators/{monitoringId}`.replace(
+					`{${'monitoringId'}}`,
+					encodeURIComponent(String(monitoringId))
 				);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -768,177 +879,7 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				stepDto,
-				localVarRequestOptions,
-				configuration
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {EvidenceRequestDto} evidenceRequestDto
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		sendReminder: async (
-			evidenceRequestDto: EvidenceRequestDto,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'evidenceRequestDto' is not null or undefined
-			assertParamExists('sendReminder', 'evidenceRequestDto', evidenceRequestDto);
-			const localVarPath = `/api/analyst/evidence-request/send-reminder`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			localVarHeaderParameter['Content-Type'] = 'application/json';
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				evidenceRequestDto,
-				localVarRequestOptions,
-				configuration
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {EvidenceRequestDraftDto} evidenceRequestDraftDto
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		testSendDraft: async (
-			evidenceRequestDraftDto: EvidenceRequestDraftDto,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'evidenceRequestDraftDto' is not null or undefined
-			assertParamExists(
-				'testSendDraft',
-				'evidenceRequestDraftDto',
-				evidenceRequestDraftDto
-			);
-			const localVarPath = `/api/analyst/evidence-request/test-send-draft`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			localVarHeaderParameter['Content-Type'] = 'application/json';
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				evidenceRequestDraftDto,
-				localVarRequestOptions,
-				configuration
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {EvidenceRequestDto} evidenceRequestDto
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		testSendEvidenceRequest: async (
-			evidenceRequestDto: EvidenceRequestDto,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'evidenceRequestDto' is not null or undefined
-			assertParamExists(
-				'testSendEvidenceRequest',
-				'evidenceRequestDto',
-				evidenceRequestDto
-			);
-			const localVarPath = `/api/analyst/evidence-request/test-send-evidence-request`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			localVarHeaderParameter['Content-Type'] = 'application/json';
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				evidenceRequestDto,
+				userDto,
 				localVarRequestOptions,
 				configuration
 			);
@@ -952,31 +893,30 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 };
 
 /**
- * EvidenceRequestControllerApi - functional programming interface
+ * AnalystChangeMonitoringControllerApi - functional programming interface
  * @export
  */
-export const EvidenceRequestControllerApiFp = function (configuration?: Configuration) {
+export const AnalystChangeMonitoringControllerApiFp = function (
+	configuration?: Configuration
+) {
 	const localVarAxiosParamCreator =
-		EvidenceRequestControllerApiAxiosParamCreator(configuration);
+		AnalystChangeMonitoringControllerApiAxiosParamCreator(configuration);
 	return {
 		/**
 		 *
-		 * @param {number} erId
-		 * @param {Array<string>} requestBody
+		 * @param {number} runId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async addCollaboratorsToEvidence(
-			erId: number,
-			requestBody: Array<string>,
+		async changeStatusWaitingForFocalpoint(
+			runId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<UserDto>>> {
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RunDto>> {
 			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.addCollaboratorsToEvidence(
-					erId,
-					requestBody,
+				await localVarAxiosParamCreator.changeStatusWaitingForFocalpoint(
+					runId,
 					acceptLanguage,
 					options
 				);
@@ -989,18 +929,18 @@ export const EvidenceRequestControllerApiFp = function (configuration?: Configur
 		},
 		/**
 		 *
-		 * @param {CloseEvidenceDto} closeEvidenceDto
+		 * @param {number} runId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async closeEvidence(
-			closeEvidenceDto: CloseEvidenceDto,
+		async closeCompletedRun(
+			runId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.closeEvidence(
-				closeEvidenceDto,
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RunDto>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.closeCompletedRun(
+				runId,
 				acceptLanguage,
 				options
 			);
@@ -1013,65 +953,20 @@ export const EvidenceRequestControllerApiFp = function (configuration?: Configur
 		},
 		/**
 		 *
-		 * @param {SetUpDraftDto} setUpDraftDto
+		 * @param {number} monitoringId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async createDraft1(
-			setUpDraftDto: SetUpDraftDto,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<number>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.createDraft1(
-				setUpDraftDto,
-				acceptLanguage,
-				options
-			);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {number} draftId
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async deleteDraftById(
-			draftId: number,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<number>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.deleteDraftById(
-				draftId,
-				acceptLanguage,
-				options
-			);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async getAllDraft(
+		async closeMonitoring(
+			monitoringId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<DraftDto>>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MonitoringDto>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllDraft(
+			const localVarAxiosArgs = await localVarAxiosParamCreator.closeMonitoring(
+				monitoringId,
 				acceptLanguage,
 				options
 			);
@@ -1084,23 +979,77 @@ export const EvidenceRequestControllerApiFp = function (configuration?: Configur
 		},
 		/**
 		 *
+		 * @param {number} runId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async getAllEvidenceRequest(
+		async closeRun(
+			runId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RunDto>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.closeRun(
+				runId,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {CreateMonitoringDto} createMonitoringDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async createDraft(
+			createMonitoringDto: CreateMonitoringDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(
-				axios?: AxiosInstance,
-				basePath?: string
-			) => AxiosPromise<Array<EvidenceRequestDto>>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MonitoringDto>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllEvidenceRequest(
+			const localVarAxiosArgs = await localVarAxiosParamCreator.createDraft(
+				createMonitoringDto,
 				acceptLanguage,
 				options
 			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} monitoringId
+		 * @param {InlineObject18} inlineObject18
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async editMonitoringFocalpointAndDelegates(
+			monitoringId: number,
+			inlineObject18: InlineObject18,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MonitoringDto>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.editMonitoringFocalpointAndDelegates(
+					monitoringId,
+					inlineObject18,
+					acceptLanguage,
+					options
+				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
@@ -1114,11 +1063,11 @@ export const EvidenceRequestControllerApiFp = function (configuration?: Configur
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async getAllUniqueEvidenceNames(
+		async getAllDraftNames(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<string>>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllUniqueEvidenceNames(
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllDraftNames(
 				acceptLanguage,
 				options
 			);
@@ -1131,44 +1080,20 @@ export const EvidenceRequestControllerApiFp = function (configuration?: Configur
 		},
 		/**
 		 *
-		 * @param {number} id
+		 * @param {number} runId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async getDraftById(
-			id: number,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DraftDto>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getDraftById(
-				id,
-				acceptLanguage,
-				options
-			);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {number} id
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async getEvidenceRequestById1(
-			id: number,
+		async getAllFilesAnswers(
+			runId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EvidenceRequestDto>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<FileLinkDto>>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getEvidenceRequestById1(
-				id,
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllFilesAnswers(
+				runId,
 				acceptLanguage,
 				options
 			);
@@ -1185,160 +1110,13 @@ export const EvidenceRequestControllerApiFp = function (configuration?: Configur
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async getNewDraftParameter(
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NewDraftDto>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getNewDraftParameter(
-				acceptLanguage,
-				options
-			);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {DraftDto} draftDto
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async saveCompletedDraft(
-			draftDto: DraftDto,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DraftDto>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.saveCompletedDraft(
-				draftDto,
-				acceptLanguage,
-				options
-			);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {DraftDto} draftDto
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async saveDraft(
-			draftDto: DraftDto,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DraftDto>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.saveDraft(
-				draftDto,
-				acceptLanguage,
-				options
-			);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {StepDto} stepDto
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async saveStep(
-			stepDto: StepDto,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StepDto>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.saveStep(
-				stepDto,
-				acceptLanguage,
-				options
-			);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {number} erId
-		 * @param {StepDto} stepDto
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async saveStepAndGoNext1(
-			erId: number,
-			stepDto: StepDto,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StepDto>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.saveStepAndGoNext1(
-				erId,
-				stepDto,
-				acceptLanguage,
-				options
-			);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {EvidenceRequestDto} evidenceRequestDto
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async sendReminder(
-			evidenceRequestDto: EvidenceRequestDto,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.sendReminder(
-				evidenceRequestDto,
-				acceptLanguage,
-				options
-			);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {EvidenceRequestDraftDto} evidenceRequestDraftDto
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async testSendDraft(
-			evidenceRequestDraftDto: EvidenceRequestDraftDto,
+		async getAllMonitoring(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EvidenceRequestDraftDto>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<MonitoringDto>>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.testSendDraft(
-				evidenceRequestDraftDto,
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllMonitoring(
 				acceptLanguage,
 				options
 			);
@@ -1351,20 +1129,170 @@ export const EvidenceRequestControllerApiFp = function (configuration?: Configur
 		},
 		/**
 		 *
-		 * @param {EvidenceRequestDto} evidenceRequestDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async testSendEvidenceRequest(
-			evidenceRequestDto: EvidenceRequestDto,
+		async getAllMonitoringDraft(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EvidenceRequestDto>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<MonitoringDto>>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.testSendEvidenceRequest(
-				evidenceRequestDto,
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllMonitoringDraft(
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} monitoringId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getMonitoringById(
+			monitoringId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MonitoringDto>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getMonitoringById(
+				monitoringId,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} runId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getRunById(
+			runId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RunDto>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getRunById(
+				runId,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {MonitoringDto} monitoringDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async saveDraft1(
+			monitoringDto: MonitoringDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MonitoringDto>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.saveDraft1(
+				monitoringDto,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {RunDto} runDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async saveRun(
+			runDto: RunDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RunDto>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.saveRun(
+				runDto,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {RunDto} runDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async saveRunAndGoNext(
+			runDto: RunDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RunDto>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.saveRunAndGoNext(
+				runDto,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} monitoringId
+		 * @param {Set<UserDto>} userDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async setMonitoringCollaborator(
+			monitoringId: number,
+			userDto: Set<UserDto>,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MonitoringDto>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.setMonitoringCollaborator(
+				monitoringId,
+				userDto,
 				acceptLanguage,
 				options
 			);
@@ -1379,80 +1307,117 @@ export const EvidenceRequestControllerApiFp = function (configuration?: Configur
 };
 
 /**
- * EvidenceRequestControllerApi - factory interface
+ * AnalystChangeMonitoringControllerApi - factory interface
  * @export
  */
-export const EvidenceRequestControllerApiFactory = function (
+export const AnalystChangeMonitoringControllerApiFactory = function (
 	configuration?: Configuration,
 	basePath?: string,
 	axios?: AxiosInstance
 ) {
-	const localVarFp = EvidenceRequestControllerApiFp(configuration);
+	const localVarFp = AnalystChangeMonitoringControllerApiFp(configuration);
 	return {
 		/**
 		 *
-		 * @param {number} erId
-		 * @param {Array<string>} requestBody
+		 * @param {number} runId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		addCollaboratorsToEvidence(
-			erId: number,
-			requestBody: Array<string>,
+		changeStatusWaitingForFocalpoint(
+			runId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Set<UserDto>> {
+		): AxiosPromise<RunDto> {
 			return localVarFp
-				.addCollaboratorsToEvidence(erId, requestBody, acceptLanguage, options)
+				.changeStatusWaitingForFocalpoint(runId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {CloseEvidenceDto} closeEvidenceDto
+		 * @param {number} runId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		closeEvidence(
-			closeEvidenceDto: CloseEvidenceDto,
+		closeCompletedRun(
+			runId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<void> {
+		): AxiosPromise<RunDto> {
 			return localVarFp
-				.closeEvidence(closeEvidenceDto, acceptLanguage, options)
+				.closeCompletedRun(runId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {SetUpDraftDto} setUpDraftDto
+		 * @param {number} monitoringId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		createDraft1(
-			setUpDraftDto: SetUpDraftDto,
+		closeMonitoring(
+			monitoringId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<number> {
+		): AxiosPromise<MonitoringDto> {
 			return localVarFp
-				.createDraft1(setUpDraftDto, acceptLanguage, options)
+				.closeMonitoring(monitoringId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {number} draftId
+		 * @param {number} runId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		deleteDraftById(
-			draftId: number,
+		closeRun(
+			runId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<number> {
+		): AxiosPromise<RunDto> {
 			return localVarFp
-				.deleteDraftById(draftId, acceptLanguage, options)
+				.closeRun(runId, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {CreateMonitoringDto} createMonitoringDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		createDraft(
+			createMonitoringDto: CreateMonitoringDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<MonitoringDto> {
+			return localVarFp
+				.createDraft(createMonitoringDto, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} monitoringId
+		 * @param {InlineObject18} inlineObject18
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		editMonitoringFocalpointAndDelegates(
+			monitoringId: number,
+			inlineObject18: InlineObject18,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<MonitoringDto> {
+			return localVarFp
+				.editMonitoringFocalpointAndDelegates(
+					monitoringId,
+					inlineObject18,
+					acceptLanguage,
+					options
+				)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -1461,72 +1426,28 @@ export const EvidenceRequestControllerApiFactory = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAllDraft(
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: any
-		): AxiosPromise<Array<DraftDto>> {
-			return localVarFp
-				.getAllDraft(acceptLanguage, options)
-				.then(request => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		getAllEvidenceRequest(
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: any
-		): AxiosPromise<Array<EvidenceRequestDto>> {
-			return localVarFp
-				.getAllEvidenceRequest(acceptLanguage, options)
-				.then(request => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		getAllUniqueEvidenceNames(
+		getAllDraftNames(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Set<string>> {
 			return localVarFp
-				.getAllUniqueEvidenceNames(acceptLanguage, options)
+				.getAllDraftNames(acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {number} id
+		 * @param {number} runId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getDraftById(
-			id: number,
+		getAllFilesAnswers(
+			runId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<DraftDto> {
+		): AxiosPromise<Set<FileLinkDto>> {
 			return localVarFp
-				.getDraftById(id, acceptLanguage, options)
-				.then(request => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @param {number} id
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		getEvidenceRequestById1(
-			id: number,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: any
-		): AxiosPromise<EvidenceRequestDto> {
-			return localVarFp
-				.getEvidenceRequestById1(id, acceptLanguage, options)
+				.getAllFilesAnswers(runId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -1535,496 +1456,479 @@ export const EvidenceRequestControllerApiFactory = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getNewDraftParameter(
+		getAllMonitoring(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<NewDraftDto> {
+		): AxiosPromise<Set<MonitoringDto>> {
 			return localVarFp
-				.getNewDraftParameter(acceptLanguage, options)
+				.getAllMonitoring(acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {DraftDto} draftDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		saveCompletedDraft(
-			draftDto: DraftDto,
+		getAllMonitoringDraft(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<DraftDto> {
+		): AxiosPromise<Set<MonitoringDto>> {
 			return localVarFp
-				.saveCompletedDraft(draftDto, acceptLanguage, options)
+				.getAllMonitoringDraft(acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {DraftDto} draftDto
+		 * @param {number} monitoringId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		saveDraft(
-			draftDto: DraftDto,
+		getMonitoringById(
+			monitoringId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<DraftDto> {
+		): AxiosPromise<MonitoringDto> {
 			return localVarFp
-				.saveDraft(draftDto, acceptLanguage, options)
+				.getMonitoringById(monitoringId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {StepDto} stepDto
+		 * @param {number} runId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		saveStep(
-			stepDto: StepDto,
+		getRunById(
+			runId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<StepDto> {
+		): AxiosPromise<RunDto> {
 			return localVarFp
-				.saveStep(stepDto, acceptLanguage, options)
+				.getRunById(runId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {number} erId
-		 * @param {StepDto} stepDto
+		 * @param {MonitoringDto} monitoringDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		saveStepAndGoNext1(
-			erId: number,
-			stepDto: StepDto,
+		saveDraft1(
+			monitoringDto: MonitoringDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<StepDto> {
+		): AxiosPromise<MonitoringDto> {
 			return localVarFp
-				.saveStepAndGoNext1(erId, stepDto, acceptLanguage, options)
+				.saveDraft1(monitoringDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {EvidenceRequestDto} evidenceRequestDto
+		 * @param {RunDto} runDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		sendReminder(
-			evidenceRequestDto: EvidenceRequestDto,
+		saveRun(
+			runDto: RunDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<void> {
+		): AxiosPromise<RunDto> {
 			return localVarFp
-				.sendReminder(evidenceRequestDto, acceptLanguage, options)
+				.saveRun(runDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {EvidenceRequestDraftDto} evidenceRequestDraftDto
+		 * @param {RunDto} runDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		testSendDraft(
-			evidenceRequestDraftDto: EvidenceRequestDraftDto,
+		saveRunAndGoNext(
+			runDto: RunDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<EvidenceRequestDraftDto> {
+		): AxiosPromise<RunDto> {
 			return localVarFp
-				.testSendDraft(evidenceRequestDraftDto, acceptLanguage, options)
+				.saveRunAndGoNext(runDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {EvidenceRequestDto} evidenceRequestDto
+		 * @param {number} monitoringId
+		 * @param {Set<UserDto>} userDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		testSendEvidenceRequest(
-			evidenceRequestDto: EvidenceRequestDto,
+		setMonitoringCollaborator(
+			monitoringId: number,
+			userDto: Set<UserDto>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<EvidenceRequestDto> {
+		): AxiosPromise<MonitoringDto> {
 			return localVarFp
-				.testSendEvidenceRequest(evidenceRequestDto, acceptLanguage, options)
+				.setMonitoringCollaborator(monitoringId, userDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		}
 	};
 };
 
 /**
- * Request parameters for addCollaboratorsToEvidence operation in EvidenceRequestControllerApi.
+ * Request parameters for changeStatusWaitingForFocalpoint operation in AnalystChangeMonitoringControllerApi.
  * @export
- * @interface EvidenceRequestControllerApiAddCollaboratorsToEvidenceRequest
+ * @interface AnalystChangeMonitoringControllerApiChangeStatusWaitingForFocalpointRequest
  */
-export interface EvidenceRequestControllerApiAddCollaboratorsToEvidenceRequest {
+export interface AnalystChangeMonitoringControllerApiChangeStatusWaitingForFocalpointRequest {
 	/**
 	 *
 	 * @type {number}
-	 * @memberof EvidenceRequestControllerApiAddCollaboratorsToEvidence
+	 * @memberof AnalystChangeMonitoringControllerApiChangeStatusWaitingForFocalpoint
 	 */
-	readonly erId: number;
-
-	/**
-	 *
-	 * @type {Array<string>}
-	 * @memberof EvidenceRequestControllerApiAddCollaboratorsToEvidence
-	 */
-	readonly requestBody: Array<string>;
+	readonly runId: number;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof EvidenceRequestControllerApiAddCollaboratorsToEvidence
+	 * @memberof AnalystChangeMonitoringControllerApiChangeStatusWaitingForFocalpoint
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for closeEvidence operation in EvidenceRequestControllerApi.
+ * Request parameters for closeCompletedRun operation in AnalystChangeMonitoringControllerApi.
  * @export
- * @interface EvidenceRequestControllerApiCloseEvidenceRequest
+ * @interface AnalystChangeMonitoringControllerApiCloseCompletedRunRequest
  */
-export interface EvidenceRequestControllerApiCloseEvidenceRequest {
-	/**
-	 *
-	 * @type {CloseEvidenceDto}
-	 * @memberof EvidenceRequestControllerApiCloseEvidence
-	 */
-	readonly closeEvidenceDto: CloseEvidenceDto;
-
-	/**
-	 *
-	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof EvidenceRequestControllerApiCloseEvidence
-	 */
-	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
-}
-
-/**
- * Request parameters for createDraft1 operation in EvidenceRequestControllerApi.
- * @export
- * @interface EvidenceRequestControllerApiCreateDraft1Request
- */
-export interface EvidenceRequestControllerApiCreateDraft1Request {
-	/**
-	 *
-	 * @type {SetUpDraftDto}
-	 * @memberof EvidenceRequestControllerApiCreateDraft1
-	 */
-	readonly setUpDraftDto: SetUpDraftDto;
-
-	/**
-	 *
-	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof EvidenceRequestControllerApiCreateDraft1
-	 */
-	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
-}
-
-/**
- * Request parameters for deleteDraftById operation in EvidenceRequestControllerApi.
- * @export
- * @interface EvidenceRequestControllerApiDeleteDraftByIdRequest
- */
-export interface EvidenceRequestControllerApiDeleteDraftByIdRequest {
+export interface AnalystChangeMonitoringControllerApiCloseCompletedRunRequest {
 	/**
 	 *
 	 * @type {number}
-	 * @memberof EvidenceRequestControllerApiDeleteDraftById
+	 * @memberof AnalystChangeMonitoringControllerApiCloseCompletedRun
 	 */
-	readonly draftId: number;
+	readonly runId: number;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof EvidenceRequestControllerApiDeleteDraftById
+	 * @memberof AnalystChangeMonitoringControllerApiCloseCompletedRun
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for getAllDraft operation in EvidenceRequestControllerApi.
+ * Request parameters for closeMonitoring operation in AnalystChangeMonitoringControllerApi.
  * @export
- * @interface EvidenceRequestControllerApiGetAllDraftRequest
+ * @interface AnalystChangeMonitoringControllerApiCloseMonitoringRequest
  */
-export interface EvidenceRequestControllerApiGetAllDraftRequest {
-	/**
-	 *
-	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof EvidenceRequestControllerApiGetAllDraft
-	 */
-	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
-}
-
-/**
- * Request parameters for getAllEvidenceRequest operation in EvidenceRequestControllerApi.
- * @export
- * @interface EvidenceRequestControllerApiGetAllEvidenceRequestRequest
- */
-export interface EvidenceRequestControllerApiGetAllEvidenceRequestRequest {
-	/**
-	 *
-	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof EvidenceRequestControllerApiGetAllEvidenceRequest
-	 */
-	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
-}
-
-/**
- * Request parameters for getAllUniqueEvidenceNames operation in EvidenceRequestControllerApi.
- * @export
- * @interface EvidenceRequestControllerApiGetAllUniqueEvidenceNamesRequest
- */
-export interface EvidenceRequestControllerApiGetAllUniqueEvidenceNamesRequest {
-	/**
-	 *
-	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof EvidenceRequestControllerApiGetAllUniqueEvidenceNames
-	 */
-	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
-}
-
-/**
- * Request parameters for getDraftById operation in EvidenceRequestControllerApi.
- * @export
- * @interface EvidenceRequestControllerApiGetDraftByIdRequest
- */
-export interface EvidenceRequestControllerApiGetDraftByIdRequest {
+export interface AnalystChangeMonitoringControllerApiCloseMonitoringRequest {
 	/**
 	 *
 	 * @type {number}
-	 * @memberof EvidenceRequestControllerApiGetDraftById
+	 * @memberof AnalystChangeMonitoringControllerApiCloseMonitoring
 	 */
-	readonly id: number;
+	readonly monitoringId: number;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof EvidenceRequestControllerApiGetDraftById
+	 * @memberof AnalystChangeMonitoringControllerApiCloseMonitoring
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for getEvidenceRequestById1 operation in EvidenceRequestControllerApi.
+ * Request parameters for closeRun operation in AnalystChangeMonitoringControllerApi.
  * @export
- * @interface EvidenceRequestControllerApiGetEvidenceRequestById1Request
+ * @interface AnalystChangeMonitoringControllerApiCloseRunRequest
  */
-export interface EvidenceRequestControllerApiGetEvidenceRequestById1Request {
+export interface AnalystChangeMonitoringControllerApiCloseRunRequest {
 	/**
 	 *
 	 * @type {number}
-	 * @memberof EvidenceRequestControllerApiGetEvidenceRequestById1
+	 * @memberof AnalystChangeMonitoringControllerApiCloseRun
 	 */
-	readonly id: number;
+	readonly runId: number;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof EvidenceRequestControllerApiGetEvidenceRequestById1
+	 * @memberof AnalystChangeMonitoringControllerApiCloseRun
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for getNewDraftParameter operation in EvidenceRequestControllerApi.
+ * Request parameters for createDraft operation in AnalystChangeMonitoringControllerApi.
  * @export
- * @interface EvidenceRequestControllerApiGetNewDraftParameterRequest
+ * @interface AnalystChangeMonitoringControllerApiCreateDraftRequest
  */
-export interface EvidenceRequestControllerApiGetNewDraftParameterRequest {
+export interface AnalystChangeMonitoringControllerApiCreateDraftRequest {
+	/**
+	 *
+	 * @type {CreateMonitoringDto}
+	 * @memberof AnalystChangeMonitoringControllerApiCreateDraft
+	 */
+	readonly createMonitoringDto: CreateMonitoringDto;
+
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof EvidenceRequestControllerApiGetNewDraftParameter
+	 * @memberof AnalystChangeMonitoringControllerApiCreateDraft
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for saveCompletedDraft operation in EvidenceRequestControllerApi.
+ * Request parameters for editMonitoringFocalpointAndDelegates operation in AnalystChangeMonitoringControllerApi.
  * @export
- * @interface EvidenceRequestControllerApiSaveCompletedDraftRequest
+ * @interface AnalystChangeMonitoringControllerApiEditMonitoringFocalpointAndDelegatesRequest
  */
-export interface EvidenceRequestControllerApiSaveCompletedDraftRequest {
-	/**
-	 *
-	 * @type {DraftDto}
-	 * @memberof EvidenceRequestControllerApiSaveCompletedDraft
-	 */
-	readonly draftDto: DraftDto;
-
-	/**
-	 *
-	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof EvidenceRequestControllerApiSaveCompletedDraft
-	 */
-	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
-}
-
-/**
- * Request parameters for saveDraft operation in EvidenceRequestControllerApi.
- * @export
- * @interface EvidenceRequestControllerApiSaveDraftRequest
- */
-export interface EvidenceRequestControllerApiSaveDraftRequest {
-	/**
-	 *
-	 * @type {DraftDto}
-	 * @memberof EvidenceRequestControllerApiSaveDraft
-	 */
-	readonly draftDto: DraftDto;
-
-	/**
-	 *
-	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof EvidenceRequestControllerApiSaveDraft
-	 */
-	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
-}
-
-/**
- * Request parameters for saveStep operation in EvidenceRequestControllerApi.
- * @export
- * @interface EvidenceRequestControllerApiSaveStepRequest
- */
-export interface EvidenceRequestControllerApiSaveStepRequest {
-	/**
-	 *
-	 * @type {StepDto}
-	 * @memberof EvidenceRequestControllerApiSaveStep
-	 */
-	readonly stepDto: StepDto;
-
-	/**
-	 *
-	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof EvidenceRequestControllerApiSaveStep
-	 */
-	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
-}
-
-/**
- * Request parameters for saveStepAndGoNext1 operation in EvidenceRequestControllerApi.
- * @export
- * @interface EvidenceRequestControllerApiSaveStepAndGoNext1Request
- */
-export interface EvidenceRequestControllerApiSaveStepAndGoNext1Request {
+export interface AnalystChangeMonitoringControllerApiEditMonitoringFocalpointAndDelegatesRequest {
 	/**
 	 *
 	 * @type {number}
-	 * @memberof EvidenceRequestControllerApiSaveStepAndGoNext1
+	 * @memberof AnalystChangeMonitoringControllerApiEditMonitoringFocalpointAndDelegates
 	 */
-	readonly erId: number;
+	readonly monitoringId: number;
 
 	/**
 	 *
-	 * @type {StepDto}
-	 * @memberof EvidenceRequestControllerApiSaveStepAndGoNext1
+	 * @type {InlineObject18}
+	 * @memberof AnalystChangeMonitoringControllerApiEditMonitoringFocalpointAndDelegates
 	 */
-	readonly stepDto: StepDto;
+	readonly inlineObject18: InlineObject18;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof EvidenceRequestControllerApiSaveStepAndGoNext1
+	 * @memberof AnalystChangeMonitoringControllerApiEditMonitoringFocalpointAndDelegates
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for sendReminder operation in EvidenceRequestControllerApi.
+ * Request parameters for getAllDraftNames operation in AnalystChangeMonitoringControllerApi.
  * @export
- * @interface EvidenceRequestControllerApiSendReminderRequest
+ * @interface AnalystChangeMonitoringControllerApiGetAllDraftNamesRequest
  */
-export interface EvidenceRequestControllerApiSendReminderRequest {
-	/**
-	 *
-	 * @type {EvidenceRequestDto}
-	 * @memberof EvidenceRequestControllerApiSendReminder
-	 */
-	readonly evidenceRequestDto: EvidenceRequestDto;
-
+export interface AnalystChangeMonitoringControllerApiGetAllDraftNamesRequest {
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof EvidenceRequestControllerApiSendReminder
+	 * @memberof AnalystChangeMonitoringControllerApiGetAllDraftNames
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for testSendDraft operation in EvidenceRequestControllerApi.
+ * Request parameters for getAllFilesAnswers operation in AnalystChangeMonitoringControllerApi.
  * @export
- * @interface EvidenceRequestControllerApiTestSendDraftRequest
+ * @interface AnalystChangeMonitoringControllerApiGetAllFilesAnswersRequest
  */
-export interface EvidenceRequestControllerApiTestSendDraftRequest {
+export interface AnalystChangeMonitoringControllerApiGetAllFilesAnswersRequest {
 	/**
 	 *
-	 * @type {EvidenceRequestDraftDto}
-	 * @memberof EvidenceRequestControllerApiTestSendDraft
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiGetAllFilesAnswers
 	 */
-	readonly evidenceRequestDraftDto: EvidenceRequestDraftDto;
+	readonly runId: number;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof EvidenceRequestControllerApiTestSendDraft
+	 * @memberof AnalystChangeMonitoringControllerApiGetAllFilesAnswers
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * Request parameters for testSendEvidenceRequest operation in EvidenceRequestControllerApi.
+ * Request parameters for getAllMonitoring operation in AnalystChangeMonitoringControllerApi.
  * @export
- * @interface EvidenceRequestControllerApiTestSendEvidenceRequestRequest
+ * @interface AnalystChangeMonitoringControllerApiGetAllMonitoringRequest
  */
-export interface EvidenceRequestControllerApiTestSendEvidenceRequestRequest {
-	/**
-	 *
-	 * @type {EvidenceRequestDto}
-	 * @memberof EvidenceRequestControllerApiTestSendEvidenceRequest
-	 */
-	readonly evidenceRequestDto: EvidenceRequestDto;
-
+export interface AnalystChangeMonitoringControllerApiGetAllMonitoringRequest {
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof EvidenceRequestControllerApiTestSendEvidenceRequest
+	 * @memberof AnalystChangeMonitoringControllerApiGetAllMonitoring
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
- * EvidenceRequestControllerApi - object-oriented interface
+ * Request parameters for getAllMonitoringDraft operation in AnalystChangeMonitoringControllerApi.
  * @export
- * @class EvidenceRequestControllerApi
+ * @interface AnalystChangeMonitoringControllerApiGetAllMonitoringDraftRequest
+ */
+export interface AnalystChangeMonitoringControllerApiGetAllMonitoringDraftRequest {
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiGetAllMonitoringDraft
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getMonitoringById operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiGetMonitoringByIdRequest
+ */
+export interface AnalystChangeMonitoringControllerApiGetMonitoringByIdRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiGetMonitoringById
+	 */
+	readonly monitoringId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiGetMonitoringById
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getRunById operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiGetRunByIdRequest
+ */
+export interface AnalystChangeMonitoringControllerApiGetRunByIdRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiGetRunById
+	 */
+	readonly runId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiGetRunById
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for saveDraft1 operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiSaveDraft1Request
+ */
+export interface AnalystChangeMonitoringControllerApiSaveDraft1Request {
+	/**
+	 *
+	 * @type {MonitoringDto}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveDraft1
+	 */
+	readonly monitoringDto: MonitoringDto;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveDraft1
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for saveRun operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiSaveRunRequest
+ */
+export interface AnalystChangeMonitoringControllerApiSaveRunRequest {
+	/**
+	 *
+	 * @type {RunDto}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveRun
+	 */
+	readonly runDto: RunDto;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveRun
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for saveRunAndGoNext operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiSaveRunAndGoNextRequest
+ */
+export interface AnalystChangeMonitoringControllerApiSaveRunAndGoNextRequest {
+	/**
+	 *
+	 * @type {RunDto}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveRunAndGoNext
+	 */
+	readonly runDto: RunDto;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveRunAndGoNext
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for setMonitoringCollaborator operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiSetMonitoringCollaboratorRequest
+ */
+export interface AnalystChangeMonitoringControllerApiSetMonitoringCollaboratorRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiSetMonitoringCollaborator
+	 */
+	readonly monitoringId: number;
+
+	/**
+	 *
+	 * @type {Set<UserDto>}
+	 * @memberof AnalystChangeMonitoringControllerApiSetMonitoringCollaborator
+	 */
+	readonly userDto: Set<UserDto>;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiSetMonitoringCollaborator
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * AnalystChangeMonitoringControllerApi - object-oriented interface
+ * @export
+ * @class AnalystChangeMonitoringControllerApi
  * @extends {BaseAPI}
  */
-export class EvidenceRequestControllerApi extends BaseAPI {
+export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 	/**
 	 *
-	 * @param {EvidenceRequestControllerApiAddCollaboratorsToEvidenceRequest} requestParameters Request parameters.
+	 * @param {AnalystChangeMonitoringControllerApiChangeStatusWaitingForFocalpointRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof EvidenceRequestControllerApi
+	 * @memberof AnalystChangeMonitoringControllerApi
 	 */
-	public addCollaboratorsToEvidence(
-		requestParameters: EvidenceRequestControllerApiAddCollaboratorsToEvidenceRequest,
+	public changeStatusWaitingForFocalpoint(
+		requestParameters: AnalystChangeMonitoringControllerApiChangeStatusWaitingForFocalpointRequest,
 		options?: AxiosRequestConfig
 	) {
-		return EvidenceRequestControllerApiFp(this.configuration)
-			.addCollaboratorsToEvidence(
-				requestParameters.erId,
-				requestParameters.requestBody,
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.changeStatusWaitingForFocalpoint(
+				requestParameters.runId,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -2033,18 +1937,18 @@ export class EvidenceRequestControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {EvidenceRequestControllerApiCloseEvidenceRequest} requestParameters Request parameters.
+	 * @param {AnalystChangeMonitoringControllerApiCloseCompletedRunRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof EvidenceRequestControllerApi
+	 * @memberof AnalystChangeMonitoringControllerApi
 	 */
-	public closeEvidence(
-		requestParameters: EvidenceRequestControllerApiCloseEvidenceRequest,
+	public closeCompletedRun(
+		requestParameters: AnalystChangeMonitoringControllerApiCloseCompletedRunRequest,
 		options?: AxiosRequestConfig
 	) {
-		return EvidenceRequestControllerApiFp(this.configuration)
-			.closeEvidence(
-				requestParameters.closeEvidenceDto,
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.closeCompletedRun(
+				requestParameters.runId,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -2053,18 +1957,18 @@ export class EvidenceRequestControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {EvidenceRequestControllerApiCreateDraft1Request} requestParameters Request parameters.
+	 * @param {AnalystChangeMonitoringControllerApiCloseMonitoringRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof EvidenceRequestControllerApi
+	 * @memberof AnalystChangeMonitoringControllerApi
 	 */
-	public createDraft1(
-		requestParameters: EvidenceRequestControllerApiCreateDraft1Request,
+	public closeMonitoring(
+		requestParameters: AnalystChangeMonitoringControllerApiCloseMonitoringRequest,
 		options?: AxiosRequestConfig
 	) {
-		return EvidenceRequestControllerApiFp(this.configuration)
-			.createDraft1(
-				requestParameters.setUpDraftDto,
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.closeMonitoring(
+				requestParameters.monitoringId,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -2073,18 +1977,34 @@ export class EvidenceRequestControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {EvidenceRequestControllerApiDeleteDraftByIdRequest} requestParameters Request parameters.
+	 * @param {AnalystChangeMonitoringControllerApiCloseRunRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof EvidenceRequestControllerApi
+	 * @memberof AnalystChangeMonitoringControllerApi
 	 */
-	public deleteDraftById(
-		requestParameters: EvidenceRequestControllerApiDeleteDraftByIdRequest,
+	public closeRun(
+		requestParameters: AnalystChangeMonitoringControllerApiCloseRunRequest,
 		options?: AxiosRequestConfig
 	) {
-		return EvidenceRequestControllerApiFp(this.configuration)
-			.deleteDraftById(
-				requestParameters.draftId,
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.closeRun(requestParameters.runId, requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystChangeMonitoringControllerApiCreateDraftRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystChangeMonitoringControllerApi
+	 */
+	public createDraft(
+		requestParameters: AnalystChangeMonitoringControllerApiCreateDraftRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.createDraft(
+				requestParameters.createMonitoringDto,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -2093,82 +2013,19 @@ export class EvidenceRequestControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {EvidenceRequestControllerApiGetAllDraftRequest} requestParameters Request parameters.
+	 * @param {AnalystChangeMonitoringControllerApiEditMonitoringFocalpointAndDelegatesRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof EvidenceRequestControllerApi
+	 * @memberof AnalystChangeMonitoringControllerApi
 	 */
-	public getAllDraft(
-		requestParameters: EvidenceRequestControllerApiGetAllDraftRequest = {},
+	public editMonitoringFocalpointAndDelegates(
+		requestParameters: AnalystChangeMonitoringControllerApiEditMonitoringFocalpointAndDelegatesRequest,
 		options?: AxiosRequestConfig
 	) {
-		return EvidenceRequestControllerApiFp(this.configuration)
-			.getAllDraft(requestParameters.acceptLanguage, options)
-			.then(request => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @param {EvidenceRequestControllerApiGetAllEvidenceRequestRequest} requestParameters Request parameters.
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof EvidenceRequestControllerApi
-	 */
-	public getAllEvidenceRequest(
-		requestParameters: EvidenceRequestControllerApiGetAllEvidenceRequestRequest = {},
-		options?: AxiosRequestConfig
-	) {
-		return EvidenceRequestControllerApiFp(this.configuration)
-			.getAllEvidenceRequest(requestParameters.acceptLanguage, options)
-			.then(request => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @param {EvidenceRequestControllerApiGetAllUniqueEvidenceNamesRequest} requestParameters Request parameters.
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof EvidenceRequestControllerApi
-	 */
-	public getAllUniqueEvidenceNames(
-		requestParameters: EvidenceRequestControllerApiGetAllUniqueEvidenceNamesRequest = {},
-		options?: AxiosRequestConfig
-	) {
-		return EvidenceRequestControllerApiFp(this.configuration)
-			.getAllUniqueEvidenceNames(requestParameters.acceptLanguage, options)
-			.then(request => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @param {EvidenceRequestControllerApiGetDraftByIdRequest} requestParameters Request parameters.
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof EvidenceRequestControllerApi
-	 */
-	public getDraftById(
-		requestParameters: EvidenceRequestControllerApiGetDraftByIdRequest,
-		options?: AxiosRequestConfig
-	) {
-		return EvidenceRequestControllerApiFp(this.configuration)
-			.getDraftById(requestParameters.id, requestParameters.acceptLanguage, options)
-			.then(request => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @param {EvidenceRequestControllerApiGetEvidenceRequestById1Request} requestParameters Request parameters.
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof EvidenceRequestControllerApi
-	 */
-	public getEvidenceRequestById1(
-		requestParameters: EvidenceRequestControllerApiGetEvidenceRequestById1Request,
-		options?: AxiosRequestConfig
-	) {
-		return EvidenceRequestControllerApiFp(this.configuration)
-			.getEvidenceRequestById1(
-				requestParameters.id,
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.editMonitoringFocalpointAndDelegates(
+				requestParameters.monitoringId,
+				requestParameters.inlineObject18,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -2177,34 +2034,34 @@ export class EvidenceRequestControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {EvidenceRequestControllerApiGetNewDraftParameterRequest} requestParameters Request parameters.
+	 * @param {AnalystChangeMonitoringControllerApiGetAllDraftNamesRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof EvidenceRequestControllerApi
+	 * @memberof AnalystChangeMonitoringControllerApi
 	 */
-	public getNewDraftParameter(
-		requestParameters: EvidenceRequestControllerApiGetNewDraftParameterRequest = {},
+	public getAllDraftNames(
+		requestParameters: AnalystChangeMonitoringControllerApiGetAllDraftNamesRequest = {},
 		options?: AxiosRequestConfig
 	) {
-		return EvidenceRequestControllerApiFp(this.configuration)
-			.getNewDraftParameter(requestParameters.acceptLanguage, options)
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.getAllDraftNames(requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 
 	/**
 	 *
-	 * @param {EvidenceRequestControllerApiSaveCompletedDraftRequest} requestParameters Request parameters.
+	 * @param {AnalystChangeMonitoringControllerApiGetAllFilesAnswersRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof EvidenceRequestControllerApi
+	 * @memberof AnalystChangeMonitoringControllerApi
 	 */
-	public saveCompletedDraft(
-		requestParameters: EvidenceRequestControllerApiSaveCompletedDraftRequest,
+	public getAllFilesAnswers(
+		requestParameters: AnalystChangeMonitoringControllerApiGetAllFilesAnswersRequest,
 		options?: AxiosRequestConfig
 	) {
-		return EvidenceRequestControllerApiFp(this.configuration)
-			.saveCompletedDraft(
-				requestParameters.draftDto,
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.getAllFilesAnswers(
+				requestParameters.runId,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -2213,51 +2070,50 @@ export class EvidenceRequestControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {EvidenceRequestControllerApiSaveDraftRequest} requestParameters Request parameters.
+	 * @param {AnalystChangeMonitoringControllerApiGetAllMonitoringRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof EvidenceRequestControllerApi
+	 * @memberof AnalystChangeMonitoringControllerApi
 	 */
-	public saveDraft(
-		requestParameters: EvidenceRequestControllerApiSaveDraftRequest,
+	public getAllMonitoring(
+		requestParameters: AnalystChangeMonitoringControllerApiGetAllMonitoringRequest = {},
 		options?: AxiosRequestConfig
 	) {
-		return EvidenceRequestControllerApiFp(this.configuration)
-			.saveDraft(requestParameters.draftDto, requestParameters.acceptLanguage, options)
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.getAllMonitoring(requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 
 	/**
 	 *
-	 * @param {EvidenceRequestControllerApiSaveStepRequest} requestParameters Request parameters.
+	 * @param {AnalystChangeMonitoringControllerApiGetAllMonitoringDraftRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof EvidenceRequestControllerApi
+	 * @memberof AnalystChangeMonitoringControllerApi
 	 */
-	public saveStep(
-		requestParameters: EvidenceRequestControllerApiSaveStepRequest,
+	public getAllMonitoringDraft(
+		requestParameters: AnalystChangeMonitoringControllerApiGetAllMonitoringDraftRequest = {},
 		options?: AxiosRequestConfig
 	) {
-		return EvidenceRequestControllerApiFp(this.configuration)
-			.saveStep(requestParameters.stepDto, requestParameters.acceptLanguage, options)
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.getAllMonitoringDraft(requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 
 	/**
 	 *
-	 * @param {EvidenceRequestControllerApiSaveStepAndGoNext1Request} requestParameters Request parameters.
+	 * @param {AnalystChangeMonitoringControllerApiGetMonitoringByIdRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof EvidenceRequestControllerApi
+	 * @memberof AnalystChangeMonitoringControllerApi
 	 */
-	public saveStepAndGoNext1(
-		requestParameters: EvidenceRequestControllerApiSaveStepAndGoNext1Request,
+	public getMonitoringById(
+		requestParameters: AnalystChangeMonitoringControllerApiGetMonitoringByIdRequest,
 		options?: AxiosRequestConfig
 	) {
-		return EvidenceRequestControllerApiFp(this.configuration)
-			.saveStepAndGoNext1(
-				requestParameters.erId,
-				requestParameters.stepDto,
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.getMonitoringById(
+				requestParameters.monitoringId,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -2266,18 +2122,34 @@ export class EvidenceRequestControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {EvidenceRequestControllerApiSendReminderRequest} requestParameters Request parameters.
+	 * @param {AnalystChangeMonitoringControllerApiGetRunByIdRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof EvidenceRequestControllerApi
+	 * @memberof AnalystChangeMonitoringControllerApi
 	 */
-	public sendReminder(
-		requestParameters: EvidenceRequestControllerApiSendReminderRequest,
+	public getRunById(
+		requestParameters: AnalystChangeMonitoringControllerApiGetRunByIdRequest,
 		options?: AxiosRequestConfig
 	) {
-		return EvidenceRequestControllerApiFp(this.configuration)
-			.sendReminder(
-				requestParameters.evidenceRequestDto,
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.getRunById(requestParameters.runId, requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystChangeMonitoringControllerApiSaveDraft1Request} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystChangeMonitoringControllerApi
+	 */
+	public saveDraft1(
+		requestParameters: AnalystChangeMonitoringControllerApiSaveDraft1Request,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.saveDraft1(
+				requestParameters.monitoringDto,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -2286,18 +2158,34 @@ export class EvidenceRequestControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {EvidenceRequestControllerApiTestSendDraftRequest} requestParameters Request parameters.
+	 * @param {AnalystChangeMonitoringControllerApiSaveRunRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof EvidenceRequestControllerApi
+	 * @memberof AnalystChangeMonitoringControllerApi
 	 */
-	public testSendDraft(
-		requestParameters: EvidenceRequestControllerApiTestSendDraftRequest,
+	public saveRun(
+		requestParameters: AnalystChangeMonitoringControllerApiSaveRunRequest,
 		options?: AxiosRequestConfig
 	) {
-		return EvidenceRequestControllerApiFp(this.configuration)
-			.testSendDraft(
-				requestParameters.evidenceRequestDraftDto,
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.saveRun(requestParameters.runDto, requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystChangeMonitoringControllerApiSaveRunAndGoNextRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystChangeMonitoringControllerApi
+	 */
+	public saveRunAndGoNext(
+		requestParameters: AnalystChangeMonitoringControllerApiSaveRunAndGoNextRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.saveRunAndGoNext(
+				requestParameters.runDto,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -2306,18 +2194,19 @@ export class EvidenceRequestControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {EvidenceRequestControllerApiTestSendEvidenceRequestRequest} requestParameters Request parameters.
+	 * @param {AnalystChangeMonitoringControllerApiSetMonitoringCollaboratorRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof EvidenceRequestControllerApi
+	 * @memberof AnalystChangeMonitoringControllerApi
 	 */
-	public testSendEvidenceRequest(
-		requestParameters: EvidenceRequestControllerApiTestSendEvidenceRequestRequest,
+	public setMonitoringCollaborator(
+		requestParameters: AnalystChangeMonitoringControllerApiSetMonitoringCollaboratorRequest,
 		options?: AxiosRequestConfig
 	) {
-		return EvidenceRequestControllerApiFp(this.configuration)
-			.testSendEvidenceRequest(
-				requestParameters.evidenceRequestDto,
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.setMonitoringCollaborator(
+				requestParameters.monitoringId,
+				requestParameters.userDto,
 				requestParameters.acceptLanguage,
 				options
 			)

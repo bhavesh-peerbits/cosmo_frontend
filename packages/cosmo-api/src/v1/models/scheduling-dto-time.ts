@@ -12,48 +12,42 @@
  * Do not edit the class manually.
  */
 
-import { SortObject } from './sort-object';
+import { SchedulingDtoTimeOffset } from './scheduling-dto-time-offset';
 
 /**
- *
+ * Time and Zone of the scheduling
  * @export
- * @interface PageableObject
+ * @interface SchedulingDtoTime
  */
-export interface PageableObject {
+export interface SchedulingDtoTime {
+	/**
+	 *
+	 * @type {SchedulingDtoTimeOffset}
+	 * @memberof SchedulingDtoTime
+	 */
+	offset?: SchedulingDtoTimeOffset;
 	/**
 	 *
 	 * @type {number}
-	 * @memberof PageableObject
+	 * @memberof SchedulingDtoTime
 	 */
-	offset?: number;
-	/**
-	 *
-	 * @type {SortObject}
-	 * @memberof PageableObject
-	 */
-	sort?: SortObject;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof PageableObject
-	 */
-	paged?: boolean;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof PageableObject
-	 */
-	unpaged?: boolean;
+	hour?: number;
 	/**
 	 *
 	 * @type {number}
-	 * @memberof PageableObject
+	 * @memberof SchedulingDtoTime
 	 */
-	pageNumber?: number;
+	minute?: number;
 	/**
 	 *
 	 * @type {number}
-	 * @memberof PageableObject
+	 * @memberof SchedulingDtoTime
 	 */
-	pageSize?: number;
+	second?: number;
+	/**
+	 *
+	 * @type {number}
+	 * @memberof SchedulingDtoTime
+	 */
+	nano?: number;
 }

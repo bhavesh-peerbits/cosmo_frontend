@@ -14,7 +14,7 @@ interface CreateDraftParams {
 
 const createDraft = ({ draftData }: CreateDraftParams) => {
 	return api.evidenceRequest
-		.createDraft({
+		.createDraft1({
 			setUpDraftDto: {
 				...draftData,
 				phaseTypeId: draftData.phaseTypeId ? +draftData.phaseTypeId : undefined

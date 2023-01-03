@@ -14,13 +14,13 @@
 
 export * from './api/access-controller-api';
 export * from './api/analyst-campaign-controller-api';
+export * from './api/analyst-change-monitoring-controller-api';
 export * from './api/application-controller-api';
 export * from './api/auth-controller-api';
 export * from './api/config-element-controller-api';
 export * from './api/config-element-module-controller-api';
 export * from './api/control-controller-api';
 export * from './api/csv-reader-controller-api';
-export * from './api/dev-home-redirect-controller-api';
 export * from './api/evidence-request-controller-api';
 export * from './api/evidence-request-file-s3-controller-api';
 export * from './api/evidence-request-focal-point-controller-api';
