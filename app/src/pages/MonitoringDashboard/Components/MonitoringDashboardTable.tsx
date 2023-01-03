@@ -6,6 +6,15 @@ import Monitoring from '@model/Monitoring';
 import { useMemo } from 'react';
 import DateCell from '@components/table/Cell/DateCell';
 import { UnorderedList, ListItem, Layer } from '@carbon/react';
+import { Link } from 'react-router-dom';
+
+const CellLink = ({ getValue }: CellContext<any, unknown>) => {
+	const value = getValue() as { name?: string; id?: string };
+	if (value.id) {
+		return <Link to={`/monitoring-dashboard/${value.id}`}>{value.name}</Link>;
+	}
+	return <span>{value.name}</span>;
+};
 
 const BulletListCell = ({ getValue }: CellContext<any, unknown>) => {
 	const { t } = useTranslation('evidenceRequest');
@@ -30,7 +39,11 @@ const MonitoringDashboardTable = () => {
 		const ArrayCol: ColumnDef<Monitoring>[] = [
 			{
 				id: 'monitoring-name',
-				accessorFn: row => row.name,
+				accessorFn: row => ({
+					name: row.name,
+					id: row.id
+				}),
+				cell: CellLink,
 				header: t('changeMonitoring:monitoring-name'),
 				sortUndefined: 1
 			},
@@ -84,7 +97,7 @@ const MonitoringDashboardTable = () => {
 	return (
 		<Layer>
 			<CosmoTable
-				tableId='path-asset-table'
+				tableId='monitoring-dashboard-table'
 				columns={columns}
 				noDataMessage={t('table:no-data')}
 				isColumnOrderingEnabled
