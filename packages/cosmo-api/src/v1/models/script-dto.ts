@@ -12,43 +12,42 @@
  * Do not edit the class manually.
  */
 
-import { Application } from './application';
-import { Asset } from './asset';
-
 /**
- *
+ * Monitoring\'s script.
  * @export
- * @interface Instance
+ * @interface ScriptDto
  */
-export interface Instance {
+export interface ScriptDto {
 	/**
 	 *
 	 * @type {number}
-	 * @memberof Instance
+	 * @memberof ScriptDto
 	 */
-	id?: number;
+	id: number;
 	/**
-	 *
-	 * @type {Set<Asset>}
-	 * @memberof Instance
-	 */
-	assets?: Set<Asset>;
-	/**
-	 *
+	 * Script\'s name
 	 * @type {string}
-	 * @memberof Instance
+	 * @memberof ScriptDto
 	 */
-	name?: string;
+	name: string;
 	/**
-	 *
+	 * Script\'s description
 	 * @type {string}
-	 * @memberof Instance
+	 * @memberof ScriptDto
 	 */
 	description?: string;
 	/**
-	 *
-	 * @type {Application}
-	 * @memberof Instance
+	 * Script\'s os
+	 * @type {string}
+	 * @memberof ScriptDto
 	 */
-	application?: Application;
+	os: ScriptDtoOsEnum;
 }
+
+export const ScriptDtoOsEnum = {
+	Windows: 'WINDOWS',
+	Unix: 'UNIX',
+	Mainframe: 'MAINFRAME'
+} as const;
+
+export type ScriptDtoOsEnum = typeof ScriptDtoOsEnum[keyof typeof ScriptDtoOsEnum];

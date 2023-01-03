@@ -12,28 +12,31 @@
  * Do not edit the class manually.
  */
 
+import { AssetDto } from './asset-dto';
+import { PathMonitoringDto } from './path-monitoring-dto';
+
 /**
  *
  * @export
- * @interface SortObject
+ * @interface RunAssetDto
  */
-export interface SortObject {
+export interface RunAssetDto {
 	/**
 	 *
-	 * @type {boolean}
-	 * @memberof SortObject
+	 * @type {Set<PathMonitoringDto>}
+	 * @memberof RunAssetDto
 	 */
-	empty?: boolean;
+	paths: Set<PathMonitoringDto>;
 	/**
 	 *
-	 * @type {boolean}
-	 * @memberof SortObject
+	 * @type {number}
+	 * @memberof RunAssetDto
 	 */
-	unsorted?: boolean;
+	id: number;
 	/**
 	 *
-	 * @type {boolean}
-	 * @memberof SortObject
+	 * @type {AssetDto}
+	 * @memberof RunAssetDto
 	 */
-	sorted?: boolean;
+	asset: AssetDto;
 }

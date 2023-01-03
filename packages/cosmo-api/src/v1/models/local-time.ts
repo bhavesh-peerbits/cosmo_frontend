@@ -12,43 +12,34 @@
  * Do not edit the class manually.
  */
 
-import { Application } from './application';
-import { Asset } from './asset';
-
 /**
  *
  * @export
- * @interface Instance
+ * @interface LocalTime
  */
-export interface Instance {
+export interface LocalTime {
 	/**
 	 *
 	 * @type {number}
-	 * @memberof Instance
+	 * @memberof LocalTime
 	 */
-	id?: number;
+	hour?: number;
 	/**
 	 *
-	 * @type {Set<Asset>}
-	 * @memberof Instance
+	 * @type {number}
+	 * @memberof LocalTime
 	 */
-	assets?: Set<Asset>;
+	minute?: number;
 	/**
 	 *
-	 * @type {string}
-	 * @memberof Instance
+	 * @type {number}
+	 * @memberof LocalTime
 	 */
-	name?: string;
+	second?: number;
 	/**
 	 *
-	 * @type {string}
-	 * @memberof Instance
+	 * @type {number}
+	 * @memberof LocalTime
 	 */
-	description?: string;
-	/**
-	 *
-	 * @type {Application}
-	 * @memberof Instance
-	 */
-	application?: Application;
+	nano?: number;
 }

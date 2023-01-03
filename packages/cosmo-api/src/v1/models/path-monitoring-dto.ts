@@ -15,25 +15,31 @@
 /**
  *
  * @export
- * @interface SortObject
+ * @interface PathMonitoringDto
  */
-export interface SortObject {
+export interface PathMonitoringDto {
+	/**
+	 * The path
+	 * @type {string}
+	 * @memberof PathMonitoringDto
+	 */
+	path: string;
+	/**
+	 * Tells if the path was selected in monitoring or run
+	 * @type {boolean}
+	 * @memberof PathMonitoringDto
+	 */
+	selected?: boolean;
 	/**
 	 *
 	 * @type {boolean}
-	 * @memberof SortObject
+	 * @memberof PathMonitoringDto
 	 */
-	empty?: boolean;
+	warning?: boolean;
 	/**
 	 *
-	 * @type {boolean}
-	 * @memberof SortObject
+	 * @type {number}
+	 * @memberof PathMonitoringDto
 	 */
-	unsorted?: boolean;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof SortObject
-	 */
-	sorted?: boolean;
+	id?: number;
 }

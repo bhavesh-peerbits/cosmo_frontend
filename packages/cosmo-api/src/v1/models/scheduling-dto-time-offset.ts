@@ -12,43 +12,30 @@
  * Do not edit the class manually.
  */
 
-import { Application } from './application';
-import { Asset } from './asset';
+import { SchedulingDtoTimeOffsetRules } from './scheduling-dto-time-offset-rules';
 
 /**
  *
  * @export
- * @interface Instance
+ * @interface SchedulingDtoTimeOffset
  */
-export interface Instance {
+export interface SchedulingDtoTimeOffset {
 	/**
 	 *
 	 * @type {number}
-	 * @memberof Instance
+	 * @memberof SchedulingDtoTimeOffset
 	 */
-	id?: number;
-	/**
-	 *
-	 * @type {Set<Asset>}
-	 * @memberof Instance
-	 */
-	assets?: Set<Asset>;
+	totalSeconds?: number;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof Instance
+	 * @memberof SchedulingDtoTimeOffset
 	 */
-	name?: string;
+	id?: string;
 	/**
 	 *
-	 * @type {string}
-	 * @memberof Instance
+	 * @type {SchedulingDtoTimeOffsetRules}
+	 * @memberof SchedulingDtoTimeOffset
 	 */
-	description?: string;
-	/**
-	 *
-	 * @type {Application}
-	 * @memberof Instance
-	 */
-	application?: Application;
+	rules?: SchedulingDtoTimeOffsetRules;
 }

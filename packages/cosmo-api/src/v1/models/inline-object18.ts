@@ -12,28 +12,24 @@
  * Do not edit the class manually.
  */
 
+import { UserDto } from './user-dto';
+
 /**
  *
  * @export
- * @interface SortObject
+ * @interface InlineObject18
  */
-export interface SortObject {
+export interface InlineObject18 {
 	/**
 	 *
-	 * @type {boolean}
-	 * @memberof SortObject
+	 * @type {Set<UserDto>}
+	 * @memberof InlineObject18
 	 */
-	empty?: boolean;
+	delegates?: Set<UserDto>;
 	/**
 	 *
-	 * @type {boolean}
-	 * @memberof SortObject
+	 * @type {UserDto}
+	 * @memberof InlineObject18
 	 */
-	unsorted?: boolean;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof SortObject
-	 */
-	sorted?: boolean;
+	focalPoint?: UserDto;
 }

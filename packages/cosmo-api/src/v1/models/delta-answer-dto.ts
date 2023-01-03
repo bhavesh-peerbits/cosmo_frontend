@@ -12,43 +12,31 @@
  * Do not edit the class manually.
  */
 
-import { Application } from './application';
-import { Asset } from './asset';
+import { DeltaFileDto } from './delta-file-dto';
+import { JustificationDeltaFileDto } from './justification-delta-file-dto';
 
 /**
  *
  * @export
- * @interface Instance
+ * @interface DeltaAnswerDto
  */
-export interface Instance {
+export interface DeltaAnswerDto {
 	/**
 	 *
 	 * @type {number}
-	 * @memberof Instance
+	 * @memberof DeltaAnswerDto
 	 */
-	id?: number;
+	id: number;
 	/**
 	 *
-	 * @type {Set<Asset>}
-	 * @memberof Instance
+	 * @type {Set<DeltaFileDto>}
+	 * @memberof DeltaAnswerDto
 	 */
-	assets?: Set<Asset>;
+	deltaFiles?: Set<DeltaFileDto>;
 	/**
 	 *
-	 * @type {string}
-	 * @memberof Instance
+	 * @type {JustificationDeltaFileDto}
+	 * @memberof DeltaAnswerDto
 	 */
-	name?: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof Instance
-	 */
-	description?: string;
-	/**
-	 *
-	 * @type {Application}
-	 * @memberof Instance
-	 */
-	application?: Application;
+	justification?: JustificationDeltaFileDto;
 }

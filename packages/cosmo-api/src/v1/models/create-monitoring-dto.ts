@@ -15,25 +15,25 @@
 /**
  *
  * @export
- * @interface SortObject
+ * @interface CreateMonitoringDto
  */
-export interface SortObject {
+export interface CreateMonitoringDto {
 	/**
-	 *
-	 * @type {boolean}
-	 * @memberof SortObject
+	 * Name of the monitoring draft to be created.
+	 * @type {string}
+	 * @memberof CreateMonitoringDto
 	 */
-	empty?: boolean;
+	name: string;
 	/**
-	 *
+	 * Type of the monitoring draft to be created. true for automatic false for manual.
 	 * @type {boolean}
-	 * @memberof SortObject
+	 * @memberof CreateMonitoringDto
 	 */
-	unsorted?: boolean;
+	type: boolean;
 	/**
-	 *
-	 * @type {boolean}
-	 * @memberof SortObject
+	 * The id of the monitoring to be copied for the draft.
+	 * @type {number}
+	 * @memberof CreateMonitoringDto
 	 */
-	sorted?: boolean;
+	copyMonitoringId?: number;
 }

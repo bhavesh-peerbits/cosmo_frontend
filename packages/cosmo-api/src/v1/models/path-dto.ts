@@ -15,25 +15,19 @@
 /**
  *
  * @export
- * @interface SortObject
+ * @interface PathDto
  */
-export interface SortObject {
+export interface PathDto {
+	/**
+	 * The path
+	 * @type {string}
+	 * @memberof PathDto
+	 */
+	path: string;
 	/**
 	 *
-	 * @type {boolean}
-	 * @memberof SortObject
+	 * @type {number}
+	 * @memberof PathDto
 	 */
-	empty?: boolean;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof SortObject
-	 */
-	unsorted?: boolean;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof SortObject
-	 */
-	sorted?: boolean;
+	id?: number;
 }

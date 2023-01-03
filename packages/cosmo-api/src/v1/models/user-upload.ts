@@ -12,28 +12,24 @@
  * Do not edit the class manually.
  */
 
+import { UserDto } from './user-dto';
+
 /**
  *
  * @export
- * @interface SortObject
+ * @interface UserUpload
  */
-export interface SortObject {
+export interface UserUpload {
 	/**
-	 *
-	 * @type {boolean}
-	 * @memberof SortObject
+	 * The users saved in the upload
+	 * @type {Set<UserDto>}
+	 * @memberof UserUpload
 	 */
-	empty?: boolean;
+	saved?: Set<UserDto>;
 	/**
-	 *
-	 * @type {boolean}
-	 * @memberof SortObject
+	 * The users already presents in the upload
+	 * @type {number}
+	 * @memberof UserUpload
 	 */
-	unsorted?: boolean;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof SortObject
-	 */
-	sorted?: boolean;
+	alreadyAdded?: number;
 }

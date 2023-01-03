@@ -12,43 +12,30 @@
  * Do not edit the class manually.
  */
 
-import { Application } from './application';
-import { Asset } from './asset';
+import { Tenant } from './tenant';
 
 /**
  *
  * @export
- * @interface Instance
+ * @interface Path
  */
-export interface Instance {
+export interface Path {
+	/**
+	 *
+	 * @type {Tenant}
+	 * @memberof Path
+	 */
+	tenant?: Tenant;
 	/**
 	 *
 	 * @type {number}
-	 * @memberof Instance
+	 * @memberof Path
 	 */
 	id?: number;
 	/**
 	 *
-	 * @type {Set<Asset>}
-	 * @memberof Instance
-	 */
-	assets?: Set<Asset>;
-	/**
-	 *
 	 * @type {string}
-	 * @memberof Instance
+	 * @memberof Path
 	 */
-	name?: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof Instance
-	 */
-	description?: string;
-	/**
-	 *
-	 * @type {Application}
-	 * @memberof Instance
-	 */
-	application?: Application;
+	route?: string;
 }

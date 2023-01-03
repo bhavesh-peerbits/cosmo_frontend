@@ -12,43 +12,37 @@
  * Do not edit the class manually.
  */
 
-import { Application } from './application';
-import { Asset } from './asset';
+import { FileLinkDto } from './file-link-dto';
+import { PathDto } from './path-dto';
 
 /**
  *
  * @export
- * @interface Instance
+ * @interface RunFileLinkDto
  */
-export interface Instance {
+export interface RunFileLinkDto {
 	/**
 	 *
 	 * @type {number}
-	 * @memberof Instance
+	 * @memberof RunFileLinkDto
 	 */
-	id?: number;
+	id: number;
 	/**
 	 *
-	 * @type {Set<Asset>}
-	 * @memberof Instance
+	 * @type {FileLinkDto}
+	 * @memberof RunFileLinkDto
 	 */
-	assets?: Set<Asset>;
+	fileLink: FileLinkDto;
 	/**
 	 *
-	 * @type {string}
-	 * @memberof Instance
+	 * @type {PathDto}
+	 * @memberof RunFileLinkDto
 	 */
-	name?: string;
+	path: PathDto;
 	/**
 	 *
-	 * @type {string}
-	 * @memberof Instance
+	 * @type {boolean}
+	 * @memberof RunFileLinkDto
 	 */
-	description?: string;
-	/**
-	 *
-	 * @type {Application}
-	 * @memberof Instance
-	 */
-	application?: Application;
+	old?: boolean;
 }
