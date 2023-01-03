@@ -9,7 +9,6 @@ import {
 	Accordion,
 	AccordionItem,
 	Search,
-	OverflowMenu,
 	Tabs,
 	TabList,
 	Tab,
@@ -17,8 +16,8 @@ import {
 	TabPanel,
 	Tag
 } from '@carbon/react';
-import { Filter } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
+import CosmoFiltersPanel from '@components/CosmoFiltersPanel';
 
 type NewMonitoringModalProps = {
 	isOpen: boolean;
@@ -84,7 +83,7 @@ const NewMonitoringModal = ({ isOpen, setIsOpen }: NewMonitoringModalProps) => {
 								labelText=''
 								placeholder={t('changeMonitoring:search-monitoring-name')}
 							/>
-							<OverflowMenu
+							{/* <OverflowMenu
 								ariaLabel='monitoring-filters-menu'
 								iconDescription='Monitoring filters menu'
 								renderIcon={Filter}
@@ -100,7 +99,19 @@ const NewMonitoringModal = ({ isOpen, setIsOpen }: NewMonitoringModalProps) => {
 										<TabPanel>Controls List</TabPanel>
 									</TabPanels>
 								</Tabs>
-							</OverflowMenu>
+							</OverflowMenu> */}
+							<CosmoFiltersPanel>
+								<Tabs>
+									<TabList aria-label='List of tabs'>
+										<Tab>{t('management:applications')}</Tab>
+										<Tab>{t('changeMonitoring:controls')}</Tab>
+									</TabList>
+									<TabPanels>
+										<TabPanel>Applications list</TabPanel>
+										<TabPanel>Controls List</TabPanel>
+									</TabPanels>
+								</Tabs>
+							</CosmoFiltersPanel>
 						</div>
 						<Tag filter>Filters:</Tag>
 						<Accordion>
