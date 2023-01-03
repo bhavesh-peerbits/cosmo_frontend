@@ -5,7 +5,7 @@ import useStartedMonitorings from '@hooks/monitoring-dashboard/useStartedMonitor
 import Monitoring from '@model/Monitoring';
 import { useMemo } from 'react';
 import DateCell from '@components/table/Cell/DateCell';
-import { UnorderedList, ListItem } from '@carbon/react';
+import { UnorderedList, ListItem, Layer } from '@carbon/react';
 
 const BulletListCell = ({ getValue }: CellContext<any, unknown>) => {
 	const { t } = useTranslation('evidenceRequest');
@@ -25,7 +25,7 @@ const BulletListCell = ({ getValue }: CellContext<any, unknown>) => {
 const MonitoringDashboardTable = () => {
 	const { t } = useTranslation(['changeMonitoring', 'monitoringDashboard', 'table']);
 	const { monitorings } = useStartedMonitorings();
-
+	// TODO Fix meta export
 	const columns = useMemo<ColumnDef<Monitoring>[]>(() => {
 		const ArrayCol: ColumnDef<Monitoring>[] = [
 			{
@@ -82,20 +82,22 @@ const MonitoringDashboardTable = () => {
 	}, [t]);
 
 	return (
-		<CosmoTable
-			tableId='path-asset-table'
-			columns={columns}
-			noDataMessage={t('table:no-data')}
-			isColumnOrderingEnabled
-			toolbar={{
-				searchBar: true,
-				toolbarBatchActions: [],
-				toolbarTableMenus: []
-			}}
-			exportFileName={({ all }) => (all ? 'monitorings-all' : 'monitorings-selection')}
-			data={monitorings}
-			isSelectable
-		/>
+		<Layer>
+			<CosmoTable
+				tableId='path-asset-table'
+				columns={columns}
+				noDataMessage={t('table:no-data')}
+				isColumnOrderingEnabled
+				toolbar={{
+					searchBar: true,
+					toolbarBatchActions: [],
+					toolbarTableMenus: []
+				}}
+				exportFileName={({ all }) => (all ? 'monitorings-all' : 'monitorings-selection')}
+				data={monitorings}
+				isSelectable
+			/>
+		</Layer>
 	);
 };
 export default MonitoringDashboardTable;
