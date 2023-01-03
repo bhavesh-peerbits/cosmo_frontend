@@ -22,7 +22,7 @@ type FileUploadTableProps = {
 };
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const FileUploadTable = ({ data, assetId, setData, period }: FileUploadTableProps) => {
-	const { t } = useTranslation(['changeMonitoring', 'table']);
+	const { t } = useTranslation(['changeMonitoring', 'table', 'runDetails']);
 
 	// TODO Use tag for files
 	const columns = useMemo<
@@ -45,11 +45,11 @@ const FileUploadTable = ({ data, assetId, setData, period }: FileUploadTableProp
 			ArrayCol.splice(1, 0, {
 				id: `file-last-run-${assetId}`,
 				accessorFn: row => row.fileLastRun,
-				header: 'File Last Run'
+				header: t('runDetails:last-run-file')
 			});
 		}
 		return ArrayCol;
-	}, [assetId, period]);
+	}, [assetId, period, t]);
 
 	const toolbarBatchActions = [
 		{
@@ -80,7 +80,6 @@ const FileUploadTable = ({ data, assetId, setData, period }: FileUploadTableProp
 				data={data}
 				isSelectable
 				canAdd
-				noDataMessageSubtitle='No path'
 			/>
 		</Layer>
 	);

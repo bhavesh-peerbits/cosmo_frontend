@@ -30,5 +30,6 @@
 	"complete-and-close": "Complete and close",
 	"send-to-focal-point": "Send to Focal Point",
 	"send-request": "Send request",
-	"helper-focal-point": "The request will be sent to Focal Point and its delegates."
+	"helper-focal-point": "The request will be sent to Focal Point and its delegates.",
+	"last-run-file": "Last run file"
 }
