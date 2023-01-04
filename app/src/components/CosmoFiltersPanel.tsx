@@ -25,7 +25,7 @@ const CosmoFiltersPanel = ({ children }: CosmoFiltersPanelProps) => {
 			/>
 			{isOpen && (
 				<div
-					className='absolute z-[999999] mt-[40px] h-fit w-fit bg-layer-1'
+					className='absolute z-[999999] mt-[40px] inline-block max-h-[calc(67%-2rem)] w-[calc(100%-2rem)] overflow-auto bg-layer-1 p-3'
 					style={{
 						boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)'
 					}}
