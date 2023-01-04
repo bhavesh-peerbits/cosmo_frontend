@@ -8,17 +8,19 @@ type CosmoFiltersPanelProps = {
 	children: ReactNode;
 	iconDescription?: string;
 	tooltipPosition?: TooltipPosition;
+	flipped?: boolean;
 };
 const CosmoFiltersPanel = ({
 	children,
 	iconDescription,
-	tooltipPosition
+	tooltipPosition,
+	flipped
 }: CosmoFiltersPanelProps) => {
 	const { t } = useTranslation('userSelect');
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
-		<div className='flex justify-end'>
+		<div className={`flex ${flipped ? 'justify-start' : 'justify-end'}`}>
 			<Button
 				size='md'
 				kind='ghost'
@@ -37,7 +39,7 @@ const CosmoFiltersPanel = ({
 			/>
 			{isOpen && (
 				<div
-					className='absolute z-[999999] mt-[40px] h-fit w-fit bg-layer-1 p-4'
+					className='absolute z-[9999] mt-[40px] h-fit w-fit bg-layer-1 p-4'
 					style={{
 						boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)'
 					}}

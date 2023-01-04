@@ -1,27 +1,23 @@
 import {
-	Accordion,
-	AccordionItem,
 	Checkbox,
 	Layer,
 	DatePickerInput,
 	DatePicker,
 	Button,
-	Form,
 	TextInput
 } from '@carbon/react';
-import { Reset } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
-import useResponsive from '@hooks/useResponsive';
 import useStartedMonitorings from '@hooks/monitoring-dashboard/useStartedMonitorings';
+import CosmoFiltersPanel from '@components/CosmoFiltersPanel';
 
 const MonitoringDashboardFilters = () => {
 	const { t } = useTranslation([
 		'changeMonitoring',
 		'monitoringDashboard',
-		'evidenceRequest'
+		'evidenceRequest',
+		'userSelect'
 	]);
 	const { filtersAvailable, setFilters, filters } = useStartedMonitorings();
-	const { md } = useResponsive();
 
 	const handleCheckFilter = (filter: string, action: 'add' | 'remove') => {
 		setFilters(old => ({
@@ -32,172 +28,92 @@ const MonitoringDashboardFilters = () => {
 		}));
 	};
 
-	const handleDateFilter = (
-		filter: string,
-		property: 'minStartDate' | 'maxStartDate' | 'minEndDate' | 'maxEndDate'
-	) => {
-		setFilters(old => ({
-			...old,
-			[property]: filter
-		}));
-	};
-
 	return (
-		<div className='flex flex-col'>
-			<Accordion className='divide-y'>
-				<AccordionItem
-					title={t('changeMonitoring:start-date')}
-					className='border-0'
-					open={md}
+		<CosmoFiltersPanel flipped>
+			<Layer className='space-y-5'>
+				<p className='text-body-short-2'>{t('userSelect:filters')}:</p>
+				<DatePicker
+					datePickerType='range'
+					allowInput
+					className='w-full'
+					maxDate={
+						filters.maxStartDate
+							? new Date(filters.maxStartDate).toLocaleDateString()
+							: new Date('1/1/3000')
+					}
+					minDate={
+						filters.minStartDate
+							? new Date(filters.minStartDate).toLocaleDateString()
+							: new Date(0)
+					}
 				>
-					<Layer>
-						<Form className='space-y-5'>
-							<DatePicker
-								id='date-picker'
-								datePickerType='single'
-								dateFormat='d/m'
-								onChange={e => handleDateFilter(e[0].toDateString(), 'minStartDate')}
-								maxDate={
-									filters.maxStartDate
-										? new Date(filters.maxStartDate).toLocaleDateString()
-										: new Date('1/1/3000')
-								}
-								value={
-									filters.minStartDate
-										? new Date(filters.minStartDate).toLocaleDateString().slice(0, -5)
-										: null
-								}
-							>
-								<DatePickerInput
-									labelText={t('evidenceRequest:before')}
-									id='min'
-									size='sm'
-									autoComplete='off'
-									placeholder='dd/mm'
-								/>
-							</DatePicker>
-							<DatePicker
-								id='date-picker'
-								datePickerType='single'
-								dateFormat='d/m'
-								onChange={e => handleDateFilter(e[0]?.toDateString(), 'maxStartDate')}
-								minDate={
-									filters.minStartDate
-										? new Date(filters.minStartDate).toLocaleDateString()
-										: new Date(0)
-								}
-								value={
-									filters.maxStartDate
-										? new Date(filters.maxStartDate).toLocaleDateString().slice(0, -5)
-										: null
-								}
-							>
-								<DatePickerInput
-									labelText={t('evidenceRequest:after')}
-									id='max'
-									size='sm'
-									autoComplete='off'
-									placeholder='dd/mm'
-								/>
-							</DatePicker>
+					<DatePickerInput
+						id='start-date'
+						placeholder={t('changeMonitoring:from')}
+						labelText={t('changeMonitoring:start-date')}
+						size='md'
+						value={
+							filters.minStartDate
+								? new Date(filters.minStartDate).toLocaleDateString().slice(0, -5)
+								: undefined
+						}
+					/>
+					<DatePickerInput
+						id='end-date'
+						placeholder={t('changeMonitoring:to')}
+						labelText=' '
+						size='md'
+						value={
+							filters.maxStartDate
+								? new Date(filters.maxStartDate).toLocaleDateString().slice(0, -5)
+								: undefined
+						}
+					/>
+				</DatePicker>
+				<DatePicker
+					datePickerType='range'
+					allowInput
+					className='w-full'
+					maxDate={
+						filters.maxStartDate
+							? new Date(filters.maxStartDate).toLocaleDateString()
+							: new Date('1/1/3000')
+					}
+					minDate={
+						filters.minStartDate
+							? new Date(filters.minStartDate).toLocaleDateString()
+							: new Date(0)
+					}
+					dateFormat='d/m/y'
+				>
+					<DatePickerInput
+						id='start-date'
+						labelText={t('changeMonitoring:end-date')}
+						placeholder={t('changeMonitoring:from')}
+						size='md'
+						value={
+							filters.minStartDate
+								? new Date(filters.minStartDate).toLocaleDateString().slice(0, -5)
+								: undefined
+						}
+					/>
+					<DatePickerInput
+						id='end-date'
+						labelText=' '
+						placeholder={t('changeMonitoring:to')}
+						size='md'
+						value={
+							filters.maxStartDate
+								? new Date(filters.maxStartDate).toLocaleDateString().slice(0, -5)
+								: undefined
+						}
+					/>
+				</DatePicker>
 
-							<Button
-								type='reset'
-								kind='tertiary'
-								className='mt-3 w-full max-w-[212px]'
-								size='sm'
-								renderIcon={Reset}
-								onClick={() => {
-									setFilters(() => ({
-										maxStartDate: undefined,
-										minStartDate: undefined
-									}));
-								}}
-							>
-								Reset
-							</Button>
-						</Form>
-					</Layer>
-				</AccordionItem>
-				<AccordionItem
-					title={t('changeMonitoring:end-date')}
-					className='border-0'
-					open={md}
-				>
-					<Layer>
-						<Form className='space-y-5'>
-							<DatePicker
-								id='date-picker'
-								datePickerType='single'
-								dateFormat='d/m'
-								onChange={e => handleDateFilter(e[0].toDateString(), 'minStartDate')}
-								maxDate={
-									filters.maxEndDate
-										? new Date(filters.maxEndDate).toLocaleDateString()
-										: new Date('1/1/3000')
-								}
-								value={
-									filters.minEndDate
-										? new Date(filters.minEndDate).toLocaleDateString().slice(0, -5)
-										: null
-								}
-							>
-								<DatePickerInput
-									labelText={t('evidenceRequest:before')}
-									id='min'
-									size='sm'
-									autoComplete='off'
-									placeholder='dd/mm'
-								/>
-							</DatePicker>
-							<DatePicker
-								id='date-picker'
-								datePickerType='single'
-								dateFormat='d/m'
-								onChange={e => handleDateFilter(e[0]?.toDateString(), 'maxEndDate')}
-								minDate={
-									filters.minEndDate
-										? new Date(filters.minEndDate).toLocaleDateString()
-										: new Date(0)
-								}
-								value={
-									filters.maxEndDate
-										? new Date(filters.maxEndDate).toLocaleDateString().slice(0, -5)
-										: null
-								}
-							>
-								<DatePickerInput
-									labelText={t('evidenceRequest:after')}
-									id='max'
-									size='sm'
-									autoComplete='off'
-									placeholder='dd/mm'
-								/>
-							</DatePicker>
-
-							<Button
-								type='reset'
-								kind='tertiary'
-								className='mt-3 w-full max-w-[212px]'
-								size='sm'
-								renderIcon={Reset}
-								onClick={() => {
-									setFilters(() => ({
-										maxEndDate: undefined,
-										minEndDate: undefined
-									}));
-								}}
-							>
-								Reset
-							</Button>
-						</Form>
-					</Layer>
-				</AccordionItem>
-				<AccordionItem
-					title={t('changeMonitoring:frequency')}
-					className='border-0'
-					open={md}
-				>
+				<div className='space-y-3'>
+					<p className='text-text-secondary text-label-1'>
+						{t('changeMonitoring:frequency')}
+					</p>
 					<Checkbox
 						labelText={t('monitoringDashboard:all')}
 						id='owner-all'
@@ -221,31 +137,35 @@ const MonitoringDashboardFilters = () => {
 							labelText={filter.frequency}
 						/>
 					))}
-				</AccordionItem>
-				<AccordionItem title={t('monitoringDashboard:current-run')}>
-					<Layer>
-						<TextInput
-							id='current-run-filter'
-							labelText={t('monitoringDashboard:current-run')}
-							hideLabel
-							onChange={e => setFilters({ currentRun: +e.currentTarget.value })}
-							placeholder={t('monitoringDashboard:number-placeholder')}
-						/>
-					</Layer>
-				</AccordionItem>
-				<AccordionItem title={t('changeMonitoring:total-runs')}>
-					<Layer>
-						<TextInput
-							id='total-runs-filter'
-							labelText={t('changeMonitoring:total-runs')}
-							hideLabel
-							onChange={e => setFilters({ numberOfRun: +e.currentTarget.value })}
-							placeholder={t('monitoringDashboard:number-placeholder')}
-						/>
-					</Layer>
-				</AccordionItem>
-			</Accordion>
-		</div>
+				</div>
+				<TextInput
+					id='current-run-filter'
+					labelText={t('monitoringDashboard:current-run')}
+					onChange={e => setFilters({ currentRun: +e.currentTarget.value })}
+					placeholder={t('monitoringDashboard:number-placeholder')}
+				/>
+				<TextInput
+					id='total-runs-filter'
+					labelText={t('changeMonitoring:total-runs')}
+					onChange={e => setFilters({ numberOfRun: +e.currentTarget.value })}
+					placeholder={t('monitoringDashboard:number-placeholder')}
+				/>
+				<div>
+					<div className='flex space-x-5'>
+						<div className='w-full'>
+							<Button className='w-full' size='sm' kind='secondary'>
+								Reset
+							</Button>
+						</div>
+						<div className='w-full'>
+							<Button className='w-full' size='sm'>
+								{t('evidenceRequest:save')}
+							</Button>
+						</div>
+					</div>
+				</div>
+			</Layer>
+		</CosmoFiltersPanel>
 	);
 };
 

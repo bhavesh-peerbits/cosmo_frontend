@@ -111,5 +111,7 @@
 	"exclude": "",
 	"included": "",
 	"no-path-subtitle": "",
-	"no-path-yet": ""
+	"no-path-yet": "",
+	"from": "",
+	"to": ""
 }
