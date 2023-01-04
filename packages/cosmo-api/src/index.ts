@@ -23,6 +23,8 @@ import {
 	FileLinkDto,
 	GenerateReportControllerApi,
 	IdentityProviderDto,
+	InstanceDto,
+	MonitoringDtoStatusEnum,
 	NarrativeReviewControllerApi,
 	NewDraftDto,
 	PairListAnswerDtoListString,
@@ -104,3 +106,6 @@ export type PhaseTypeApi = PhaseTypeDto;
 export type FrameworkApi = FrameworkTreeDto;
 export type CloseEvidenceApi = CloseEvidenceDto;
 export type AssociationApi = AssociationDto;
+export const MonitoringDtoStatusApiEnum = MonitoringDtoStatusEnum;
+export type MonitoringDtoStatusApi = MonitoringDtoStatusEnum;
+export type InstanceApi = InstanceDto;
