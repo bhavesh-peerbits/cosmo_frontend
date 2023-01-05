@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@api';
 
 interface CreateDraftParams {
@@ -17,7 +17,12 @@ const createDraftMonitoring = ({ name, type, copyMonitoringId }: CreateDraftPara
 };
 
 const useCreateDraftMonitoring = () => {
-	return useMutation(createDraftMonitoring);
+	const queryClient = useQueryClient();
+	return useMutation(createDraftMonitoring, {
+		onSuccess: () => {
+			queryClient.invalidateQueries(['all-monitoring-drafts']);
+		}
+	});
 };
 
 export default useCreateDraftMonitoring;

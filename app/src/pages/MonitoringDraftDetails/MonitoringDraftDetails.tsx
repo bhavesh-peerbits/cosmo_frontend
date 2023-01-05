@@ -7,6 +7,8 @@ import MultiAddSelect from '@components/MultiAddSelect';
 import useGetUsers from '@api/user/useGetUsers';
 import User from '@model/User';
 import NewMonitoringStepsContainer from '@pages/MonitoringDraftDetails/Containers/NewMonitoringStepsContainer';
+import { useParams } from 'react-router-dom';
+import useGetMonitoringDraftById from '@api/change-monitoring/useGetMonitoringDraftById';
 import DeleteMonitoringDraftModal from './Modals/DeleteMonitoringDraftModal';
 import MonitoringDraftRecapModal from './Modals/MonitoringDraftRecapModal';
 
@@ -20,6 +22,9 @@ const MonitoringDraftDetails = () => {
 	const [isSendDraftOpen, setIsSendDraftOpen] = useState(false);
 	const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 	const [isCollaboratorsOpen, setIsCollaboratorsOpen] = useState(false);
+
+	const { monitoringDraftId = '' } = useParams();
+	const { data: draft } = useGetMonitoringDraftById(monitoringDraftId);
 
 	const { data } = useGetUsers();
 
@@ -107,19 +112,31 @@ const MonitoringDraftDetails = () => {
 							<span className='text-heading-2'>
 								{t('changeMonitoring:monitoring-type')}
 							</span>
-							<span className='text-text-secondary text-body-short-1'>Tipo</span>
+							<span className='text-text-secondary text-body-short-1'>
+								{draft?.type
+									? t('changeMonitoring:automatic')
+									: t('changeMonitoring:manual')}
+							</span>
 						</div>
 						<div className='flex flex-col'>
 							<span className='text-heading-2'>Assets</span>
-							<span className='text-text-secondary text-body-short-1'>Assets</span>
+							<span className='text-text-secondary text-body-short-1'>
+								{draft?.monitoringAssets.map(asset => asset.asset.hostname)}
+							</span>
 						</div>
 						<div className='flex flex-col'>
-							<span className='text-heading-2'>Framework</span>
-							<span className='text-text-secondary text-body-short-1'>Framework</span>
+							<span className='text-heading-2'>
+								{t('changeMonitoring:framework-leafs')}
+							</span>
+							<span className='text-text-secondary text-body-short-1'>
+								{draft?.frameworkLeafs}
+							</span>
 						</div>
 						<div className='flex flex-col'>
 							<span className='text-heading-2'>{t('changeMonitoring:scheduling')}</span>
-							<span className='text-text-secondary text-body-short-1'>Scheduling</span>
+							<span className='text-text-secondary text-body-short-1'>
+								ADD SCHEDULING INFO
+							</span>
 						</div>
 					</Column>
 					<Column sm={4} md={8} lg={13}>
