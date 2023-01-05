@@ -39,7 +39,7 @@ import {
 // @ts-ignore
 import { ApiErrorResponse } from '../models';
 // @ts-ignore
-import { AssetDto } from '../models';
+import { ApplicationDto } from '../models';
 // @ts-ignore
 import { CreateMonitoringDto } from '../models';
 // @ts-ignore
@@ -49,7 +49,7 @@ import { FrameworkTreeDto } from '../models';
 // @ts-ignore
 import { InlineObject18 } from '../models';
 // @ts-ignore
-import { InstanceDto } from '../models';
+import { InstanceAssetDto } from '../models';
 // @ts-ignore
 import { MonitoringDto } from '../models';
 // @ts-ignore
@@ -441,6 +441,49 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
+		getAllApplication: async (
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/change-monitoring/analyst/get-all-applications`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
 		getAllDraftNames: async (
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
@@ -671,23 +714,22 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {number} instanceId
+		 * @param {number} draftId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAssetInstance: async (
-			instanceId: number,
+		getDraft: async (
+			draftId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'instanceId' is not null or undefined
-			assertParamExists('getAssetInstance', 'instanceId', instanceId);
-			const localVarPath =
-				`/api/change-monitoring/analyst/get-asset/{instance_id}`.replace(
-					`{${'instanceId'}}`,
-					encodeURIComponent(String(instanceId))
-				);
+			// verify required parameter 'draftId' is not null or undefined
+			assertParamExists('getDraft', 'draftId', draftId);
+			const localVarPath = `/api/change-monitoring/analyst/draft/{draftId}`.replace(
+				`{${'draftId'}}`,
+				encodeURIComponent(String(draftId))
+			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -1335,6 +1377,29 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
+		async getAllApplication(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<ApplicationDto>>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllApplication(
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
 		async getAllDraftNames(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
@@ -1434,7 +1499,7 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<InstanceDto>>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<InstanceAssetDto>>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getApplicationInstances(
 				applicationCodeName,
@@ -1450,20 +1515,20 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		},
 		/**
 		 *
-		 * @param {number} instanceId
+		 * @param {number} draftId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async getAssetInstance(
-			instanceId: number,
+		async getDraft(
+			draftId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<AssetDto>>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MonitoringDto>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.getAssetInstance(
-				instanceId,
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getDraft(
+				draftId,
 				acceptLanguage,
 				options
 			);
@@ -1812,6 +1877,20 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
+		getAllApplication(
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Set<ApplicationDto>> {
+			return localVarFp
+				.getAllApplication(acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
 		getAllDraftNames(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
@@ -1875,25 +1954,25 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 			applicationCodeName: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Set<InstanceDto>> {
+		): AxiosPromise<Set<InstanceAssetDto>> {
 			return localVarFp
 				.getApplicationInstances(applicationCodeName, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @param {number} instanceId
+		 * @param {number} draftId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		getAssetInstance(
-			instanceId: number,
+		getDraft(
+			draftId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Set<AssetDto>> {
+		): AxiosPromise<MonitoringDto> {
 			return localVarFp
-				.getAssetInstance(instanceId, acceptLanguage, options)
+				.getDraft(draftId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -2175,6 +2254,20 @@ export interface AnalystChangeMonitoringControllerApiEditMonitoringFocalpointAnd
 }
 
 /**
+ * Request parameters for getAllApplication operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiGetAllApplicationRequest
+ */
+export interface AnalystChangeMonitoringControllerApiGetAllApplicationRequest {
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiGetAllApplication
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
  * Request parameters for getAllDraftNames operation in AnalystChangeMonitoringControllerApi.
  * @export
  * @interface AnalystChangeMonitoringControllerApiGetAllDraftNamesRequest
@@ -2259,22 +2352,22 @@ export interface AnalystChangeMonitoringControllerApiGetApplicationInstancesRequ
 }
 
 /**
- * Request parameters for getAssetInstance operation in AnalystChangeMonitoringControllerApi.
+ * Request parameters for getDraft operation in AnalystChangeMonitoringControllerApi.
  * @export
- * @interface AnalystChangeMonitoringControllerApiGetAssetInstanceRequest
+ * @interface AnalystChangeMonitoringControllerApiGetDraftRequest
  */
-export interface AnalystChangeMonitoringControllerApiGetAssetInstanceRequest {
+export interface AnalystChangeMonitoringControllerApiGetDraftRequest {
 	/**
 	 *
 	 * @type {number}
-	 * @memberof AnalystChangeMonitoringControllerApiGetAssetInstance
+	 * @memberof AnalystChangeMonitoringControllerApiGetDraft
 	 */
-	readonly instanceId: number;
+	readonly draftId: number;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof AnalystChangeMonitoringControllerApiGetAssetInstance
+	 * @memberof AnalystChangeMonitoringControllerApiGetDraft
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
@@ -2590,6 +2683,22 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 
 	/**
 	 *
+	 * @param {AnalystChangeMonitoringControllerApiGetAllApplicationRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystChangeMonitoringControllerApi
+	 */
+	public getAllApplication(
+		requestParameters: AnalystChangeMonitoringControllerApiGetAllApplicationRequest = {},
+		options?: AxiosRequestConfig
+	) {
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.getAllApplication(requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
 	 * @param {AnalystChangeMonitoringControllerApiGetAllDraftNamesRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
@@ -2678,21 +2787,17 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {AnalystChangeMonitoringControllerApiGetAssetInstanceRequest} requestParameters Request parameters.
+	 * @param {AnalystChangeMonitoringControllerApiGetDraftRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
 	 * @memberof AnalystChangeMonitoringControllerApi
 	 */
-	public getAssetInstance(
-		requestParameters: AnalystChangeMonitoringControllerApiGetAssetInstanceRequest,
+	public getDraft(
+		requestParameters: AnalystChangeMonitoringControllerApiGetDraftRequest,
 		options?: AxiosRequestConfig
 	) {
 		return AnalystChangeMonitoringControllerApiFp(this.configuration)
-			.getAssetInstance(
-				requestParameters.instanceId,
-				requestParameters.acceptLanguage,
-				options
-			)
+			.getDraft(requestParameters.draftId, requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 

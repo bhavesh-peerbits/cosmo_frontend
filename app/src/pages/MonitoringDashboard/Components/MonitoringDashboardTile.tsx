@@ -32,7 +32,9 @@ const MonitoringDashboardTile = ({ monitoring }: MonitoringDashboardTileProps) =
 							<p className='whitespace-nowrap text-text-secondary text-body-short-1'>
 								{t('changeMonitoring:total-runs')}:
 							</p>
-							<p className='block truncate text-body-short-1'>{monitoring.totalRuns}</p>
+							<p className='block truncate text-body-short-1'>
+								{monitoring.scheduling.totalRuns}
+							</p>
 						</span>
 						<span className='flex space-x-2'>
 							<p className='whitespace-nowrap text-text-secondary text-body-short-1'>

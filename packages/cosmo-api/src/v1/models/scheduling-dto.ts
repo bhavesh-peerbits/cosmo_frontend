@@ -57,6 +57,12 @@ export interface SchedulingDto {
 	 * @memberof SchedulingDto
 	 */
 	dayOfMonth?: number;
+	/**
+	 *
+	 * @type {number}
+	 * @memberof SchedulingDto
+	 */
+	totalRun?: number;
 }
 
 export const SchedulingDtoDayOfWeekEnum = {

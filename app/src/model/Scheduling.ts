@@ -9,6 +9,7 @@ interface Scheduling {
 	time?: SchedulingTime;
 	dayOfWeek?: SchedulingDtoDayOfWeekEnum[];
 	dayOfMonth?: number;
+	totalRuns?: number;
 }
 
 export const fromSchedulingApi = (schedulingApi: SchedulingApi): Scheduling => ({
@@ -17,6 +18,7 @@ export const fromSchedulingApi = (schedulingApi: SchedulingApi): Scheduling => (
 	endDate: schedulingApi.endDate ? new Date(schedulingApi.endDate) : undefined,
 	time: schedulingApi.time,
 	dayOfWeek: schedulingApi.dayOfWeek ? [...schedulingApi.dayOfWeek] : undefined,
-	dayOfMonth: schedulingApi.dayOfMonth
+	dayOfMonth: schedulingApi.dayOfMonth,
+	totalRuns: schedulingApi.totalRun
 });
 export default Scheduling;

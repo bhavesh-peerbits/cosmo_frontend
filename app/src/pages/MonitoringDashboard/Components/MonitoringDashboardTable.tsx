@@ -51,7 +51,7 @@ const MonitoringDashboardTable = () => {
 			},
 			{
 				id: 'total-runs',
-				accessorFn: row => row.totalRuns,
+				accessorFn: row => row.scheduling.totalRuns,
 				header: t('changeMonitoring:total-runs')
 			},
 			{

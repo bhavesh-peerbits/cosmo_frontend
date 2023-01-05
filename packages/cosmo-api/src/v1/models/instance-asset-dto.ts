@@ -12,28 +12,25 @@
  * Do not edit the class manually.
  */
 
+import { AssetDto } from './asset-dto';
+import { InstanceDto } from './instance-dto';
+
 /**
  *
  * @export
- * @interface SortObject
+ * @interface InstanceAssetDto
  */
-export interface SortObject {
+export interface InstanceAssetDto {
 	/**
 	 *
-	 * @type {boolean}
-	 * @memberof SortObject
+	 * @type {InstanceDto}
+	 * @memberof InstanceAssetDto
 	 */
-	empty?: boolean;
+	instance?: InstanceDto;
 	/**
-	 *
-	 * @type {boolean}
-	 * @memberof SortObject
+	 * Asset of the instance
+	 * @type {Set<AssetDto>}
+	 * @memberof InstanceAssetDto
 	 */
-	sorted?: boolean;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof SortObject
-	 */
-	unsorted?: boolean;
+	assets?: Set<AssetDto>;
 }

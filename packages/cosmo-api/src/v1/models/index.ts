@@ -44,6 +44,7 @@ export * from './inline-object18';
 export * from './inline-object8';
 export * from './inline-object9';
 export * from './instance';
+export * from './instance-asset-dto';
 export * from './instance-dto';
 export * from './justification-delta-file-dto';
 export * from './local-time';

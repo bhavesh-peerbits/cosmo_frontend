@@ -95,7 +95,9 @@ const applyFilters = (
 				)
 				// filter by number of run
 				.filter(monitoring =>
-					filters.numberOfRun ? filters.numberOfRun === monitoring.totalRuns : true
+					filters.numberOfRun
+						? filters.numberOfRun === monitoring.scheduling.totalRuns
+						: true
 				)
 				// filter by current run
 				.filter(monitoring =>
@@ -163,7 +165,9 @@ const filteredStartedMonitorings = selector({
 			})),
 			numberOfRun: [
 				...new Set(
-					monitorings.map(monitoring => monitoring.totalRuns).filter(o => !!o) as number[]
+					monitorings
+						.map(monitoring => monitoring.scheduling.totalRuns)
+						.filter(o => !!o) as number[]
 				)
 			].map(numberOfRun => ({
 				numberOfRun,

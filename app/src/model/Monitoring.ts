@@ -24,7 +24,6 @@ interface Monitoring {
 	status: MonitoringStatus;
 	note?: string;
 	scheduling: Scheduling;
-	totalRuns: number;
 	currentRun?: number;
 	completionDate?: string;
 	completionUser?: User;
@@ -51,7 +50,6 @@ export const fromMonitoringApi = (monitoringApi: MonitoringApi): Monitoring => (
 	status: monitoringApi.status,
 	note: monitoringApi.note,
 	scheduling: fromSchedulingApi(monitoringApi.scheduling),
-	totalRuns: monitoringApi.totalRuns,
 	currentRun: monitoringApi.currentRun,
 	completionDate: monitoringApi.completionDate,
 	completionUser: monitoringApi.completionUser

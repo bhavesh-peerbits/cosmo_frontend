@@ -111,12 +111,6 @@ export interface MonitoringDto {
 	 */
 	scheduling: SchedulingDto;
 	/**
-	 * Monitoring\'s number of total runs.
-	 * @type {number}
-	 * @memberof MonitoringDto
-	 */
-	totalRuns: number;
-	/**
 	 * Monitoring\'s current run.
 	 * @type {number}
 	 * @memberof MonitoringDto
