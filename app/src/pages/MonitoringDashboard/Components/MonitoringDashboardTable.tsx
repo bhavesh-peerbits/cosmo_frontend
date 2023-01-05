@@ -66,8 +66,8 @@ const MonitoringDashboardTable = () => {
 			},
 			{
 				id: 'framework',
-				accessorFn: row => row.framework,
-				header: 'Framework'
+				accessorFn: row => row.frameworkLeafs,
+				header: t('changeMonitoring:framework-leafs')
 			},
 			{
 				id: 'controls',

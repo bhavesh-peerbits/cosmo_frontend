@@ -1,9 +1,9 @@
 import { SchedulingApi } from 'cosmo-api';
-import { SchedulingDtoDayOfWeekEnum, SchedulingDtoFrequencyEnum } from 'cosmo-api/src/v1';
+import { SchedulingDtoDayOfWeekEnum, FrequencyDto } from 'cosmo-api/src/v1';
 import SchedulingTime from './SchedulingTime';
 
 interface Scheduling {
-	frequency: SchedulingDtoFrequencyEnum;
+	frequency: FrequencyDto;
 	startDate: Date;
 	endDate?: Date;
 	time?: SchedulingTime;

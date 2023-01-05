@@ -18,7 +18,7 @@ interface Monitoring {
 	collaborators?: User[];
 	instance: Instance;
 	monitoringAssets: MonitoringAsset[];
-	framework: string;
+	frameworkLeafs?: string;
 	controlCode: string;
 	script: Script;
 	status: MonitoringStatus;
@@ -45,7 +45,7 @@ export const fromMonitoringApi = (monitoringApi: MonitoringApi): Monitoring => (
 		: [],
 	instance: fromInstanceApi(monitoringApi.instance),
 	monitoringAssets: [...monitoringApi.monitoringAssets].map(fromMonitoringAssetApi),
-	framework: monitoringApi.framework,
+	frameworkLeafs: monitoringApi.frameworkLeafs,
 	controlCode: monitoringApi.controlCode,
 	script: monitoringApi.script,
 	status: monitoringApi.status,

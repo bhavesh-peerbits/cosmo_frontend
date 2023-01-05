@@ -25,7 +25,7 @@ const MonitoringDashboardTile = ({ monitoring }: MonitoringDashboardTileProps) =
 								{t('changeMonitoring:frequency')}:
 							</p>
 							<p className='block truncate text-body-short-1'>
-								{monitoring.scheduling.frequency}
+								{monitoring.scheduling.frequency.frequencyType}
 							</p>
 						</span>
 						<span className='flex space-x-2'>
@@ -72,7 +72,9 @@ const MonitoringDashboardTile = ({ monitoring }: MonitoringDashboardTileProps) =
 							<p className='whitespace-nowrap text-text-secondary text-body-short-1'>
 								Framework:
 							</p>
-							<p className='block truncate text-body-short-1'>{monitoring.framework}</p>
+							<p className='block truncate text-body-short-1'>
+								{monitoring.frameworkLeafs ?? '-'}
+							</p>
 						</span>
 						<span className='flex space-x-2'>
 							<p className='whitespace-nowrap text-text-secondary text-body-short-1'>

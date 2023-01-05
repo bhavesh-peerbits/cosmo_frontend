@@ -114,5 +114,6 @@
 	"no-path-subtitle": "Nessun path trovato. Aggiungere un nuovo path o provare a cambiare i filtri.",
 	"no-path-yet": "Non è presente nessun path. Aggiungere un nuovo path tramite l'apposito pulsante.",
 	"from": "Da",
-	"to": "A"
+	"to": "A",
+	"framework-leafs": "Foglie framework"
 }

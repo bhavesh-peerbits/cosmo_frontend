@@ -114,5 +114,6 @@
 	"no-path-subtitle": "No path found. Add a new path o try changing filters.",
 	"no-path-yet": "There is no path yet. Add a new path by clicking the appropriate button.",
 	"from": "From",
-	"to": "To"
+	"to": "To",
+	"framework-leafs": "Framework leafs"
 }
