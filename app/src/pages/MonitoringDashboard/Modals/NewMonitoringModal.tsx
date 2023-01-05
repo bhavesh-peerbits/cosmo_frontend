@@ -13,6 +13,7 @@ import {
 } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import CosmoFiltersPanel from '@components/CosmoFiltersPanel';
+import Application from '@model/Application';
 import NewMonitoringFilters from '../Components/NewMonitoringFilters';
 
 type NewMonitoringModalProps = {
@@ -27,6 +28,11 @@ const NewMonitoringModal = ({ isOpen, setIsOpen }: NewMonitoringModalProps) => {
 		setIsCopySelected(false);
 		setIsOpen(false);
 	};
+
+	const [selectedItemsFilters, setSelectedItemsFilters] = useState<{
+		applications: Application[];
+		controls: { id: string; name: string }[];
+	}>({ applications: [], controls: [] });
 
 	return (
 		<TearsheetNarrow
@@ -80,10 +86,41 @@ const NewMonitoringModal = ({ isOpen, setIsOpen }: NewMonitoringModalProps) => {
 								placeholder={t('changeMonitoring:search-monitoring-name')}
 							/>
 							<CosmoFiltersPanel>
-								<NewMonitoringFilters />
+								<NewMonitoringFilters
+									setSelectedItems={setSelectedItemsFilters}
+									selectedItems={selectedItemsFilters}
+								/>
 							</CosmoFiltersPanel>
 						</div>
-						<Tag filter>{t('management:filters')}:</Tag>
+						{(selectedItemsFilters.applications.length > 0 ||
+							selectedItemsFilters.controls.length > 0) && (
+							<div className='space-x-3'>
+								<span className='text-heading-1'>{t('management:filters')}:</span>
+								{selectedItemsFilters.applications.length > 0 && (
+									<Tag
+										filter
+										onClose={() =>
+											setSelectedItemsFilters(old => ({ ...old, applications: [] }))
+										}
+									>
+										{`${selectedItemsFilters.applications.length} `}
+										{t('management:applications')}
+									</Tag>
+								)}
+								{selectedItemsFilters.controls.length > 0 && (
+									<Tag
+										filter
+										onClose={() =>
+											setSelectedItemsFilters(old => ({ ...old, controls: [] }))
+										}
+									>
+										{`${selectedItemsFilters.controls.length} `}
+										{t('changeMonitoring:controls')}
+									</Tag>
+								)}
+							</div>
+						)}
+
 						<Accordion>
 							<AccordionItem
 								key='c'
