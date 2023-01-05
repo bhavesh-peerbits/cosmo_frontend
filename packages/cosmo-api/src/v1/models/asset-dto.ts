@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-import { Inet } from './inet';
 import { PathDto } from './path-dto';
 
 /**
@@ -52,11 +51,11 @@ export interface AssetDto {
 	 */
 	os?: AssetDtoOsEnum;
 	/**
-	 *
-	 * @type {Inet}
+	 * The ip of the asset.
+	 * @type {string}
 	 * @memberof AssetDto
 	 */
-	ip?: Inet;
+	ip?: string;
 	/**
 	 * The db version of the asset, if its type is DB
 	 * @type {string}

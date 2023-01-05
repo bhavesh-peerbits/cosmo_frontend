@@ -1,5 +1,5 @@
 import { AssetApi } from 'cosmo-api';
-import { AssetDtoOsEnum, AssetDtoTypeEnum, Inet } from 'cosmo-api/src/v1';
+import { AssetDtoOsEnum, AssetDtoTypeEnum } from 'cosmo-api/src/v1';
 import Path from './Path';
 
 interface Asset {
@@ -8,7 +8,7 @@ interface Asset {
 	ports?: string;
 	type?: AssetDtoTypeEnum;
 	os?: AssetDtoOsEnum;
-	ip?: Inet;
+	ip?: string;
 	dbVersion?: string;
 	dbType?: string;
 	paths: Path[];
