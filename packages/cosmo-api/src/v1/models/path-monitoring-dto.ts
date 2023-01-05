@@ -19,6 +19,12 @@
  */
 export interface PathMonitoringDto {
 	/**
+	 *
+	 * @type {number}
+	 * @memberof PathMonitoringDto
+	 */
+	id: number;
+	/**
 	 * The path
 	 * @type {string}
 	 * @memberof PathMonitoringDto
@@ -31,15 +37,9 @@ export interface PathMonitoringDto {
 	 */
 	selected?: boolean;
 	/**
-	 *
+	 * Warning true if the path is begin currently monitored
 	 * @type {boolean}
 	 * @memberof PathMonitoringDto
 	 */
 	warning?: boolean;
-	/**
-	 *
-	 * @type {number}
-	 * @memberof PathMonitoringDto
-	 */
-	id?: number;
 }

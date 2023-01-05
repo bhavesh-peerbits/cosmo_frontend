@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+import { FrequencyDto } from './frequency-dto';
 import { SchedulingDtoTime } from './scheduling-dto-time';
 
 /**
@@ -21,11 +22,11 @@ import { SchedulingDtoTime } from './scheduling-dto-time';
  */
 export interface SchedulingDto {
 	/**
-	 * Frequency of the scheduling.
-	 * @type {string}
+	 *
+	 * @type {FrequencyDto}
 	 * @memberof SchedulingDto
 	 */
-	frequency: SchedulingDtoFrequencyEnum;
+	frequency: FrequencyDto;
 	/**
 	 * Starting date of the scheduling.
 	 * @type {string}
@@ -58,20 +59,6 @@ export interface SchedulingDto {
 	dayOfMonth?: number;
 }
 
-export const SchedulingDtoFrequencyEnum = {
-	Daily: 'DAILY',
-	Weekly: 'WEEKLY',
-	BeWeekly: 'BE_WEEKLY',
-	Monthly: 'MONTHLY',
-	Quarterly: 'QUARTERLY',
-	Semiannual: 'SEMIANNUAL',
-	Annual: 'ANNUAL',
-	Ondemand: 'ONDEMAND',
-	MultipleTimesPerDay: 'MULTIPLE_TIMES_PER_DAY'
-} as const;
-
-export type SchedulingDtoFrequencyEnum =
-	typeof SchedulingDtoFrequencyEnum[keyof typeof SchedulingDtoFrequencyEnum];
 export const SchedulingDtoDayOfWeekEnum = {
 	Monday: 'MONDAY',
 	Tuesday: 'TUESDAY',

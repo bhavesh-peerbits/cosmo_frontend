@@ -18,7 +18,7 @@ import { RunFileLinkDto } from './run-file-link-dto';
 import { UserDto } from './user-dto';
 
 /**
- *
+ * The run associated with the monitoring.
  * @export
  * @interface RunDto
  */
@@ -100,10 +100,11 @@ export interface RunDto {
 export const RunDtoStatusEnum = {
 	Planned: 'PLANNED',
 	Completed: 'COMPLETED',
-	Ongoing: 'ONGOING',
-	Notstarted: 'NOTSTARTED',
+	Setup: 'SETUP',
+	Upload: 'UPLOAD',
 	WaitingForFocalpoint: 'WAITING_FOR_FOCALPOINT',
-	WaitingForAnalyst: 'WAITING_FOR_ANALYST'
+	WaitingForAnalyst: 'WAITING_FOR_ANALYST',
+	Terminated: 'TERMINATED'
 } as const;
 
 export type RunDtoStatusEnum = typeof RunDtoStatusEnum[keyof typeof RunDtoStatusEnum];

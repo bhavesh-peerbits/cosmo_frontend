@@ -81,12 +81,6 @@ export interface MonitoringDto {
 	 */
 	monitoringAssets: Set<MonitoringAssetDto>;
 	/**
-	 * Monitoring\'s Framework name
-	 * @type {string}
-	 * @memberof MonitoringDto
-	 */
-	framework: string;
-	/**
 	 * Monitoring\'s control code. It\'s the string concatenation of the control codes by \'-\'
 	 * @type {string}
 	 * @memberof MonitoringDto
@@ -141,17 +135,29 @@ export interface MonitoringDto {
 	 */
 	completionUser?: UserDto;
 	/**
-	 *
+	 * The concatenation of the names of the leaf.
+	 * @type {string}
+	 * @memberof MonitoringDto
+	 */
+	frameworkLeafs?: string;
+	/**
+	 * The run associated with the monitoring.
 	 * @type {Set<RunDto>}
 	 * @memberof MonitoringDto
 	 */
 	runs: Set<RunDto>;
 	/**
-	 *
+	 * Files associated with the monitoring.
 	 * @type {Set<FileLinkDto>}
 	 * @memberof MonitoringDto
 	 */
 	files?: Set<FileLinkDto>;
+	/**
+	 * General\'s notes of the monitoring.
+	 * @type {string}
+	 * @memberof MonitoringDto
+	 */
+	notes?: string;
 }
 
 export const MonitoringDtoStatusEnum = {
@@ -160,7 +166,8 @@ export const MonitoringDtoStatusEnum = {
 	Ongoing: 'ONGOING',
 	Completed: 'COMPLETED',
 	WaitingForFocalpoint: 'WAITING_FOR_FOCALPOINT',
-	WaitingForAnalyst: 'WAITING_FOR_ANALYST'
+	WaitingForAnalyst: 'WAITING_FOR_ANALYST',
+	Terminated: 'TERMINATED'
 } as const;
 
 export type MonitoringDtoStatusEnum =

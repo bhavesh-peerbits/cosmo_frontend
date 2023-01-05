@@ -34,7 +34,7 @@ const AddAnswerToDeltaModal = ({
 	return (
 		<TearsheetNarrow
 			hasCloseIcon
-			title={t('runDetails:add-file-path')}
+			title={isIgnore ? t('runDetails:ignore') : t('runDetails:add-file-path')}
 			label={`Monitoring Name - Run `}
 			description={
 				isIgnore

@@ -4,8 +4,9 @@ import {
 	startedMonitorings,
 	dashboardFilters
 } from '@store/dashboard-monitoring/dashboardFilters';
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import useUrlState from '@hooks/useUrlState';
+import useGetAllMonitoring from '@api/change-monitoring/useGetAllMonitoring';
 
 const useStartedMonitorings = () => {
 	const [urlFilters, setUrlFilters] = useUrlState<{
@@ -43,64 +44,10 @@ const useStartedMonitorings = () => {
 		maxEndDate,
 		currentRun
 	} = useRecoilValue(filteredStartedMonitorings);
-	const data = useMemo(
-		() => [
-			{
-				id: '1',
-				type: true,
-				name: 'Nome',
-				status: 'pending',
-				framework: 'Framework',
-				control: ['control1', 'control2'],
-				scheduling: {
-					startDate: new Date(),
-					endDate: new Date(),
-					frequency: 'On demand'
-				},
-				numberOfRun: 2,
-				startDate: new Date(),
-				endDate: new Date(),
-				currentRun: 1
-			},
-			{
-				id: '2',
-				type: true,
-				name: 'Nome',
-				status: 'ongoing',
-				framework: 'Framework',
-				control: ['control3', 'control4'],
-				scheduling: {
-					startDate: new Date(),
-					endDate: new Date(),
-					frequency: 'Annual'
-				},
-				numberOfRun: 8,
-
-				currentRun: 3
-			},
-			{
-				id: '3',
-				type: true,
-				name: 'Nome',
-				status: 'completed',
-				framework: 'Framework',
-				control: ['control13', 'control42'],
-				scheduling: {
-					startDate: new Date(),
-					endDate: new Date(),
-					frequency: 'Annual'
-				},
-				numberOfRun: 18,
-				startDate: new Date(),
-				endDate: new Date(),
-				currentRun: 13
-			}
-		],
-		[]
-	);
+	const { data = new Map() } = useGetAllMonitoring();
 
 	useEffect(() => {
-		setMonitorings(data);
+		setMonitorings([...data.values()]);
 	}, [data, setMonitorings]);
 
 	useEffect(() => {

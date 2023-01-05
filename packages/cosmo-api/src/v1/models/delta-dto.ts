@@ -12,8 +12,8 @@
  * Do not edit the class manually.
  */
 
+import { AssetDto } from './asset-dto';
 import { DeltaAnswerDto } from './delta-answer-dto';
-import { PathDto } from './path-dto';
 
 /**
  *
@@ -47,10 +47,10 @@ export interface DeltaDto {
 	status: DeltaDtoStatusEnum;
 	/**
 	 *
-	 * @type {PathDto}
+	 * @type {AssetDto}
 	 * @memberof DeltaDto
 	 */
-	path: PathDto;
+	asset: AssetDto;
 }
 
 export const DeltaDtoStatusEnum = {

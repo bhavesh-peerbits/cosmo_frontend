@@ -1,14 +1,26 @@
 import { ReactNode, useState } from 'react';
 import { Button } from '@carbon/react';
 import { Filter } from '@carbon/react/icons';
+import { useTranslation } from 'react-i18next';
+import { TooltipPosition } from '@carbon/react/typings/shared';
 
 type CosmoFiltersPanelProps = {
 	children: ReactNode;
+	iconDescription?: string;
+	tooltipPosition?: TooltipPosition;
+	flipped?: boolean;
 };
-const CosmoFiltersPanel = ({ children }: CosmoFiltersPanelProps) => {
+const CosmoFiltersPanel = ({
+	children,
+	iconDescription,
+	tooltipPosition,
+	flipped
+}: CosmoFiltersPanelProps) => {
+	const { t } = useTranslation('userSelect');
 	const [isOpen, setIsOpen] = useState(false);
+
 	return (
-		<div className='flex justify-end'>
+		<div className={`flex ${flipped ? 'justify-start' : 'justify-end'}`}>
 			<Button
 				size='md'
 				kind='ghost'
@@ -22,6 +34,8 @@ const CosmoFiltersPanel = ({ children }: CosmoFiltersPanelProps) => {
 						: {}
 				}
 				onClick={() => setIsOpen(!isOpen)}
+				tooltipPosition={tooltipPosition}
+				iconDescription={iconDescription || t('filters')}
 			/>
 			{isOpen && (
 				<div
