@@ -14,25 +14,60 @@ import {
 import { useTranslation } from 'react-i18next';
 import CosmoFiltersPanel from '@components/CosmoFiltersPanel';
 import Application from '@model/Application';
+import useCreateDraftMonitoring from '@api/change-monitoring/useCreateMonitoringDraft';
+import { useForm } from 'react-hook-form';
+import useGetAllMonitoringDraftNames from '@api/change-monitoring/useGetAllMonitoringDraftNames';
 import NewMonitoringFilters from '../Components/NewMonitoringFilters';
 
+type NewMonitoringForm = {
+	name: string;
+	type: string;
+	monitoringSelectedId: string;
+};
 type NewMonitoringModalProps = {
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<boolean>>;
 };
 const NewMonitoringModal = ({ isOpen, setIsOpen }: NewMonitoringModalProps) => {
-	const { t } = useTranslation(['changeMonitoring', 'management', 'modals']);
-	const [isCopySelected, setIsCopySelected] = useState(false);
+	const { t } = useTranslation([
+		'changeMonitoring',
+		'management',
+		'modals',
+		'applicationInfo'
+	]);
+	const {
+		setValue,
+		getValues,
+		handleSubmit,
+		reset,
+		register,
+		formState: { errors, isValid }
+	} = useForm<NewMonitoringForm>({ mode: 'onChange' });
 
-	const cleanUp = () => {
-		setIsCopySelected(false);
-		setIsOpen(false);
-	};
+	const { mutate } = useCreateDraftMonitoring();
+	const { data: draftNames } = useGetAllMonitoringDraftNames();
+
+	const [isCopySelected, setIsCopySelected] = useState(false);
+	const [selectedMonitoring, setSelectedMonitoring] = useState<string | number>('');
 
 	const [selectedItemsFilters, setSelectedItemsFilters] = useState<{
 		applications: Application[];
 		controls: { id: string; name: string }[];
 	}>({ applications: [], controls: [] });
+
+	const cleanUp = () => {
+		setIsCopySelected(false);
+		setIsOpen(false);
+		reset();
+	};
+
+	const createDraft = (data: NewMonitoringForm) => {
+		return mutate({
+			name: data.name,
+			type: data.type === 'automatic',
+			copyMonitoringId: isCopySelected ? +selectedMonitoring : undefined
+		});
+	};
 
 	return (
 		<TearsheetNarrow
@@ -47,7 +82,12 @@ const NewMonitoringModal = ({ isOpen, setIsOpen }: NewMonitoringModalProps) => {
 					onClick: cleanUp,
 					id: 'cancel-new-monitoring'
 				},
-				{ label: t('modals:create'), id: 'create-new-monitoring' }
+				{
+					label: t('modals:create'),
+					id: 'create-new-monitoring',
+					disabled: !isValid,
+					onClick: handleSubmit(createDraft)
+				}
 			]}
 		>
 			<Form className='space-y-5 px-5'>
@@ -55,7 +95,8 @@ const NewMonitoringModal = ({ isOpen, setIsOpen }: NewMonitoringModalProps) => {
 					name='monitoring-type'
 					legendText={`${t('changeMonitoring:monitoring-type')} *`}
 					defaultSelected='manual'
-					valueSelected='manual'
+					valueSelected={getValues('type')}
+					onChange={value => setValue('type', value.toString())}
 				>
 					<RadioButton labelText={t('changeMonitoring:manual')} value='manual' />
 					<RadioButton
@@ -68,6 +109,18 @@ const NewMonitoringModal = ({ isOpen, setIsOpen }: NewMonitoringModalProps) => {
 					id='monitoring-name'
 					labelText={`${t('changeMonitoring:monitoring-name')} *`}
 					placeholder={t('changeMonitoring:monitoring-name-placeholder')}
+					invalidText={errors.name?.message}
+					invalid={Boolean(errors.name)}
+					{...register('name', {
+						required: {
+							value: true,
+							message: `${t('modals:field-required')}`
+						},
+						validate: name =>
+							!draftNames
+								?.map(existingName => existingName.toLowerCase())
+								.includes(name.toLowerCase()) || t('applicationInfo:name-exists')
+					})}
 				/>
 				<Toggle
 					id='copy-monitoring-toggle'
@@ -135,6 +188,8 @@ const NewMonitoringModal = ({ isOpen, setIsOpen }: NewMonitoringModalProps) => {
 												<span className='text-productive-heading-2'>Monitoring Name</span>
 											}
 											value='value'
+											onChange={value => setSelectedMonitoring(value)}
+											checked={selectedMonitoring === 'value'}
 										/>
 									</div>
 								}

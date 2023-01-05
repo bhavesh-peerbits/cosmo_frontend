@@ -24,7 +24,7 @@ export const fromAssetApi = (assetApi: AssetApi): Asset => ({
 	ip: assetApi.ip,
 	dbVersion: assetApi.dbVersion,
 	dbType: assetApi.dbType,
-	paths: [...assetApi.paths],
+	paths: assetApi.paths ? [...assetApi.paths] : [],
 	extensions: assetApi.extensions
 });
 export default Asset;
