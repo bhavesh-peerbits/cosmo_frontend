@@ -17,6 +17,7 @@ import Application from '@model/Application';
 import useCreateDraftMonitoring from '@api/change-monitoring/useCreateMonitoringDraft';
 import { useForm } from 'react-hook-form';
 import useGetAllMonitoringDraftNames from '@api/change-monitoring/useGetAllMonitoringDraftNames';
+import { useNavigate } from 'react-router-dom';
 import NewMonitoringFilters from '../Components/NewMonitoringFilters';
 
 type NewMonitoringForm = {
@@ -44,6 +45,7 @@ const NewMonitoringModal = ({ isOpen, setIsOpen }: NewMonitoringModalProps) => {
 		formState: { errors, isValid }
 	} = useForm<NewMonitoringForm>({ mode: 'onChange' });
 
+	const navigate = useNavigate();
 	const { mutate } = useCreateDraftMonitoring();
 	const { data: draftNames } = useGetAllMonitoringDraftNames();
 
@@ -62,11 +64,18 @@ const NewMonitoringModal = ({ isOpen, setIsOpen }: NewMonitoringModalProps) => {
 	};
 
 	const createDraft = (data: NewMonitoringForm) => {
-		return mutate({
-			name: data.name,
-			type: data.type === 'automatic',
-			copyMonitoringId: isCopySelected ? +selectedMonitoring : undefined
-		});
+		return mutate(
+			{
+				name: data.name,
+				type: data.type === 'automatic',
+				copyMonitoringId: isCopySelected ? +selectedMonitoring : undefined
+			},
+			{
+				onSuccess: newDraft => {
+					navigate(`/new-monitoring/${newDraft.id}`);
+				}
+			}
+		);
 	};
 
 	return (
