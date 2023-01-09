@@ -424,7 +424,9 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 			appId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<UserDto>>> {
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserDto>>
+		> {
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.getAllUserByRoleAndApplication(
 					role,
@@ -452,7 +454,9 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 			requestBody: Array<number>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<UserDto>>> {
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserDto>>
+		> {
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.getAllUserByRoleAndApplications(
 					role,
@@ -574,7 +578,9 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
 			role2: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<UserDto>>> {
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserDto>>
+		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getUsersByRoles(
 				role1,
 				role2,
@@ -615,7 +621,7 @@ export const UserControllerApiFactory = function (
 			appId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Set<UserDto>> {
+		): AxiosPromise<Array<UserDto>> {
 			return localVarFp
 				.getAllUserByRoleAndApplication(role, appId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
@@ -633,7 +639,7 @@ export const UserControllerApiFactory = function (
 			requestBody: Array<number>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Set<UserDto>> {
+		): AxiosPromise<Array<UserDto>> {
 			return localVarFp
 				.getAllUserByRoleAndApplications(role, requestBody, acceptLanguage, options)
 				.then(request => request(axios, basePath));
@@ -711,7 +717,7 @@ export const UserControllerApiFactory = function (
 			role2: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Set<UserDto>> {
+		): AxiosPromise<Array<UserDto>> {
 			return localVarFp
 				.getUsersByRoles(role1, role2, acceptLanguage, options)
 				.then(request => request(axios, basePath));

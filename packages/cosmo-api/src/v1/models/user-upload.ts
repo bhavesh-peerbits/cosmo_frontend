@@ -22,10 +22,10 @@ import { UserDto } from './user-dto';
 export interface UserUpload {
 	/**
 	 * The users saved in the upload
-	 * @type {Set<UserDto>}
+	 * @type {Array<UserDto>}
 	 * @memberof UserUpload
 	 */
-	saved?: Set<UserDto>;
+	saved?: Array<UserDto>;
 	/**
 	 * The users already presents in the upload
 	 * @type {number}

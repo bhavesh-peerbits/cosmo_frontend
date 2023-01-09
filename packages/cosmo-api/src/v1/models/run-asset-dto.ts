@@ -23,10 +23,10 @@ import { PathMonitoringDto } from './path-monitoring-dto';
 export interface RunAssetDto {
 	/**
 	 *
-	 * @type {Set<PathMonitoringDto>}
+	 * @type {Array<PathMonitoringDto>}
 	 * @memberof RunAssetDto
 	 */
-	paths: Set<PathMonitoringDto>;
+	paths: Array<PathMonitoringDto>;
 	/**
 	 *
 	 * @type {number}

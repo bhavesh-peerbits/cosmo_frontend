@@ -47,10 +47,10 @@ export interface SchedulingDto {
 	time?: SchedulingDtoTime;
 	/**
 	 * The days of the week chosen for the scheduling. It\'s empty if the frequency is not weekly.
-	 * @type {Set<string>}
+	 * @type {Array<string>}
 	 * @memberof SchedulingDto
 	 */
-	dayOfWeek?: Set<SchedulingDtoDayOfWeekEnum>;
+	dayOfWeek?: Array<SchedulingDtoDayOfWeekEnum>;
 	/**
 	 * The day of the month to run the scheduling.
 	 * @type {number}

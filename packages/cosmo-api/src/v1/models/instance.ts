@@ -29,10 +29,10 @@ export interface Instance {
 	id?: number;
 	/**
 	 *
-	 * @type {Set<Asset>}
+	 * @type {Array<Asset>}
 	 * @memberof Instance
 	 */
-	assets?: Set<Asset>;
+	assets?: Array<Asset>;
 	/**
 	 *
 	 * @type {string}

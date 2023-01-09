@@ -70,10 +70,10 @@ export interface AssetDto {
 	dbType?: string;
 	/**
 	 * The paths of the asset
-	 * @type {Set<PathDto>}
+	 * @type {Array<PathDto>}
 	 * @memberof AssetDto
 	 */
-	paths: Set<PathDto>;
+	paths: Array<PathDto>;
 	/**
 	 * The extension to ignore
 	 * @type {string}

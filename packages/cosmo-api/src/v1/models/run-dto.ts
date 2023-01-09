@@ -67,28 +67,28 @@ export interface RunDto {
 	focalPoint?: UserDto;
 	/**
 	 *
-	 * @type {Set<UserDto>}
+	 * @type {Array<UserDto>}
 	 * @memberof RunDto
 	 */
-	focalPointDelegates?: Set<UserDto>;
+	focalPointDelegates?: Array<UserDto>;
 	/**
 	 *
-	 * @type {Set<RunAssetDto>}
+	 * @type {Array<RunAssetDto>}
 	 * @memberof RunDto
 	 */
-	runAsset: Set<RunAssetDto>;
+	runAsset: Array<RunAssetDto>;
 	/**
 	 *
-	 * @type {Set<DeltaDto>}
+	 * @type {Array<DeltaDto>}
 	 * @memberof RunDto
 	 */
-	deltas?: Set<DeltaDto>;
+	deltas?: Array<DeltaDto>;
 	/**
 	 *
-	 * @type {Set<RunFileLinkDto>}
+	 * @type {Array<RunFileLinkDto>}
 	 * @memberof RunDto
 	 */
-	runFileLinks?: Set<RunFileLinkDto>;
+	runFileLinks?: Array<RunFileLinkDto>;
 	/**
 	 *
 	 * @type {string}

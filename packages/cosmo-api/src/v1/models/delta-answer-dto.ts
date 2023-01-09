@@ -29,10 +29,10 @@ export interface DeltaAnswerDto {
 	id: number;
 	/**
 	 *
-	 * @type {Set<DeltaFileDto>}
+	 * @type {Array<DeltaFileDto>}
 	 * @memberof DeltaAnswerDto
 	 */
-	deltaFiles?: Set<DeltaFileDto>;
+	deltaFiles?: Array<DeltaFileDto>;
 	/**
 	 *
 	 * @type {JustificationDeltaFileDto}

@@ -9,8 +9,6 @@ interface SetCollabParameters {
 const setMonitoringCollaborator = ({ id, usersId }: SetCollabParameters) => {
 	return api.analystChangeMonitoringControllerApi.setMonitoringCollaborator({
 		monitoringId: +id,
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore
 		requestBody: usersId
 	});
 };

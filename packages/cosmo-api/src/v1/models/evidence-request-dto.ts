@@ -120,10 +120,10 @@ export interface EvidenceRequestDto {
 	stepBeforeReturn?: number;
 	/**
 	 *
-	 * @type {Set<UserDto>}
+	 * @type {Array<UserDto>}
 	 * @memberof EvidenceRequestDto
 	 */
-	contributors?: Set<UserDto>;
+	contributors?: Array<UserDto>;
 	/**
 	 *
 	 * @type {UserDto}

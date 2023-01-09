@@ -35,10 +35,10 @@ export interface JustificationDeltaFileDto {
 	value?: string;
 	/**
 	 *
-	 * @type {Set<FileLinkDto>}
+	 * @type {Array<FileLinkDto>}
 	 * @memberof JustificationDeltaFileDto
 	 */
-	files?: Set<FileLinkDto>;
+	files?: Array<FileLinkDto>;
 	/**
 	 *
 	 * @type {string}

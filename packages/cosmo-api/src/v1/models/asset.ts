@@ -37,10 +37,10 @@ export interface Asset {
 	id?: number;
 	/**
 	 *
-	 * @type {Set<Instance>}
+	 * @type {Array<Instance>}
 	 * @memberof Asset
 	 */
-	instances?: Set<Instance>;
+	instances?: Array<Instance>;
 	/**
 	 *
 	 * @type {string}
@@ -49,10 +49,10 @@ export interface Asset {
 	hostname?: string;
 	/**
 	 *
-	 * @type {Set<Path>}
+	 * @type {Array<Path>}
 	 * @memberof Asset
 	 */
-	paths?: Set<Path>;
+	paths?: Array<Path>;
 	/**
 	 *
 	 * @type {string}

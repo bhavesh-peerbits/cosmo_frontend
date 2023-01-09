@@ -35,10 +35,10 @@ export interface MonitoringAssetDto {
 	asset: AssetDto;
 	/**
 	 *
-	 * @type {Set<PathMonitoringDto>}
+	 * @type {Array<PathMonitoringDto>}
 	 * @memberof MonitoringAssetDto
 	 */
-	paths: Set<PathMonitoringDto>;
+	paths: Array<PathMonitoringDto>;
 	/**
 	 *
 	 * @type {string}

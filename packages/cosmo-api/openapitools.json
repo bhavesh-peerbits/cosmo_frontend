@@ -20,6 +20,9 @@
 					"useSingleRequestParameter": true,
 					"withSeparateModelsAndApi": true
 				},
+				"typeMappings": {
+					"set": "Array"
+				},
 				"glob": "/"
 			}
 		}

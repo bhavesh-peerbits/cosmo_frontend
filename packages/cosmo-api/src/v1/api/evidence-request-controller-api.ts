@@ -972,7 +972,9 @@ export const EvidenceRequestControllerApiFp = function (configuration?: Configur
 			requestBody: Array<string>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<UserDto>>> {
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserDto>>
+		> {
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.addCollaboratorsToEvidence(
 					erId,
@@ -1117,7 +1119,9 @@ export const EvidenceRequestControllerApiFp = function (configuration?: Configur
 		async getAllUniqueEvidenceNames(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<string>>> {
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>
+		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllUniqueEvidenceNames(
 				acceptLanguage,
 				options
@@ -1402,7 +1406,7 @@ export const EvidenceRequestControllerApiFactory = function (
 			requestBody: Array<string>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Set<UserDto>> {
+		): AxiosPromise<Array<UserDto>> {
 			return localVarFp
 				.addCollaboratorsToEvidence(erId, requestBody, acceptLanguage, options)
 				.then(request => request(axios, basePath));
@@ -1492,7 +1496,7 @@ export const EvidenceRequestControllerApiFactory = function (
 		getAllUniqueEvidenceNames(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Set<string>> {
+		): AxiosPromise<Array<string>> {
 			return localVarFp
 				.getAllUniqueEvidenceNames(acceptLanguage, options)
 				.then(request => request(axios, basePath));

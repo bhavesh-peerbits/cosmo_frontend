@@ -1355,14 +1355,14 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} monitoringId
-		 * @param {Set<string>} requestBody
+		 * @param {Array<string>} requestBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		setMonitoringCollaborator: async (
 			monitoringId: number,
-			requestBody: Set<string>,
+			requestBody: Array<string>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
@@ -1664,7 +1664,7 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<ApplicationDto>>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApplicationDto>>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllApplication(
 				acceptLanguage,
@@ -1686,7 +1686,9 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		async getAllDraftNames(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<string>>> {
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>
+		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllDraftNames(
 				acceptLanguage,
 				options
@@ -1710,7 +1712,7 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<FileLinkDto>>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<FileLinkDto>>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllFilesAnswers(
 				runId,
@@ -1734,7 +1736,7 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<MonitoringDto>>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<MonitoringDto>>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllMonitoring(
 				acceptLanguage,
@@ -1757,7 +1759,10 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<MonitoringDraftDto>>
+			(
+				axios?: AxiosInstance,
+				basePath?: string
+			) => AxiosPromise<Array<MonitoringDraftDto>>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllMonitoringDraft(
 				acceptLanguage,
@@ -1782,7 +1787,7 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<InstanceAssetDto>>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InstanceAssetDto>>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getApplicationInstances(
 				applicationCodeName,
@@ -1808,7 +1813,7 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<AssociationDto>>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<AssociationDto>>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getControls(
 				leafs,
@@ -1883,7 +1888,9 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		async getFrameworkCodes(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<string>>> {
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>
+		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getFrameworkCodes(
 				acceptLanguage,
 				options
@@ -1986,7 +1993,7 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<ScriptDto>>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ScriptDto>>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getScriptByDraft(
 				draftId,
@@ -2107,14 +2114,14 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		/**
 		 *
 		 * @param {number} monitoringId
-		 * @param {Set<string>} requestBody
+		 * @param {Array<string>} requestBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async setMonitoringCollaborator(
 			monitoringId: number,
-			requestBody: Set<string>,
+			requestBody: Array<string>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
@@ -2298,7 +2305,7 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		getAllApplication(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Set<ApplicationDto>> {
+		): AxiosPromise<Array<ApplicationDto>> {
 			return localVarFp
 				.getAllApplication(acceptLanguage, options)
 				.then(request => request(axios, basePath));
@@ -2312,7 +2319,7 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		getAllDraftNames(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Set<string>> {
+		): AxiosPromise<Array<string>> {
 			return localVarFp
 				.getAllDraftNames(acceptLanguage, options)
 				.then(request => request(axios, basePath));
@@ -2328,7 +2335,7 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 			runId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Set<FileLinkDto>> {
+		): AxiosPromise<Array<FileLinkDto>> {
 			return localVarFp
 				.getAllFilesAnswers(runId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
@@ -2342,7 +2349,7 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		getAllMonitoring(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Set<MonitoringDto>> {
+		): AxiosPromise<Array<MonitoringDto>> {
 			return localVarFp
 				.getAllMonitoring(acceptLanguage, options)
 				.then(request => request(axios, basePath));
@@ -2356,7 +2363,7 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		getAllMonitoringDraft(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Set<MonitoringDraftDto>> {
+		): AxiosPromise<Array<MonitoringDraftDto>> {
 			return localVarFp
 				.getAllMonitoringDraft(acceptLanguage, options)
 				.then(request => request(axios, basePath));
@@ -2372,7 +2379,7 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 			applicationCodeName: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Set<InstanceAssetDto>> {
+		): AxiosPromise<Array<InstanceAssetDto>> {
 			return localVarFp
 				.getApplicationInstances(applicationCodeName, acceptLanguage, options)
 				.then(request => request(axios, basePath));
@@ -2388,7 +2395,7 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 			leafs: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Set<AssociationDto>> {
+		): AxiosPromise<Array<AssociationDto>> {
 			return localVarFp
 				.getControls(leafs, acceptLanguage, options)
 				.then(request => request(axios, basePath));
@@ -2434,7 +2441,7 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		getFrameworkCodes(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Set<string>> {
+		): AxiosPromise<Array<string>> {
 			return localVarFp
 				.getFrameworkCodes(acceptLanguage, options)
 				.then(request => request(axios, basePath));
@@ -2498,7 +2505,7 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 			draftId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Set<ScriptDto>> {
+		): AxiosPromise<Array<ScriptDto>> {
 			return localVarFp
 				.getScriptByDraft(draftId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
@@ -2574,14 +2581,14 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		/**
 		 *
 		 * @param {number} monitoringId
-		 * @param {Set<string>} requestBody
+		 * @param {Array<string>} requestBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		setMonitoringCollaborator(
 			monitoringId: number,
-			requestBody: Set<string>,
+			requestBody: Array<string>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<MonitoringDto> {
@@ -3127,10 +3134,10 @@ export interface AnalystChangeMonitoringControllerApiSetMonitoringCollaboratorRe
 
 	/**
 	 *
-	 * @type {Set<string>}
+	 * @type {Array<string>}
 	 * @memberof AnalystChangeMonitoringControllerApiSetMonitoringCollaborator
 	 */
-	readonly requestBody: Set<string>;
+	readonly requestBody: Array<string>;
 
 	/**
 	 *

@@ -22,10 +22,10 @@ import { UserDto } from './user-dto';
 export interface InlineObject19 {
 	/**
 	 *
-	 * @type {Set<UserDto>}
+	 * @type {Array<UserDto>}
 	 * @memberof InlineObject19
 	 */
-	delegates?: Set<UserDto>;
+	delegates?: Array<UserDto>;
 	/**
 	 *
 	 * @type {UserDto}

@@ -29,8 +29,8 @@ export interface InstanceAssetDto {
 	instance: InstanceDto;
 	/**
 	 * Asset of the instance
-	 * @type {Set<AssetDto>}
+	 * @type {Array<AssetDto>}
 	 * @memberof InstanceAssetDto
 	 */
-	assets: Set<AssetDto>;
+	assets: Array<AssetDto>;
 }

@@ -57,16 +57,16 @@ export interface MonitoringDraftDto {
 	focalPoint?: UserDto;
 	/**
 	 * Focalpoint\'s delegates
-	 * @type {Set<UserDto>}
+	 * @type {Array<UserDto>}
 	 * @memberof MonitoringDraftDto
 	 */
-	delegates?: Set<UserDto>;
+	delegates?: Array<UserDto>;
 	/**
 	 * Monitoring\'s collaborators
-	 * @type {Set<UserDto>}
+	 * @type {Array<UserDto>}
 	 * @memberof MonitoringDraftDto
 	 */
-	collaborators?: Set<UserDto>;
+	collaborators?: Array<UserDto>;
 	/**
 	 *
 	 * @type {InstanceDto}
@@ -75,10 +75,10 @@ export interface MonitoringDraftDto {
 	instance: InstanceDto;
 	/**
 	 * Monitoring\'s assets
-	 * @type {Set<MonitoringAssetDto>}
+	 * @type {Array<MonitoringAssetDto>}
 	 * @memberof MonitoringDraftDto
 	 */
-	monitoringAssets?: Set<MonitoringAssetDto>;
+	monitoringAssets?: Array<MonitoringAssetDto>;
 	/**
 	 * Monitoring\'s control code. It\'s the string concatenation of the control codes by \'-\'
 	 * @type {string}
@@ -117,10 +117,10 @@ export interface MonitoringDraftDto {
 	frameworkLeafs?: string;
 	/**
 	 * Files associated with the monitoring.
-	 * @type {Set<FileLinkDto>}
+	 * @type {Array<FileLinkDto>}
 	 * @memberof MonitoringDraftDto
 	 */
-	files?: Set<FileLinkDto>;
+	files?: Array<FileLinkDto>;
 }
 
 export const MonitoringDraftDtoStatusEnum = {
