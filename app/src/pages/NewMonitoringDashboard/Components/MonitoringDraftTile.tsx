@@ -21,14 +21,14 @@ const MonitoringDraftTile = ({ draft }: MonitoringDraftTileProps) => {
 								{t('modals:application')}:
 							</p>
 							<p className='block truncate text-body-short-1'>
-								{draft.instance.application.name}
+								{draft.instance?.application.name}
 							</p>
 						</span>
 						<span className='flex space-x-2'>
 							<p className='whitespace-nowrap text-text-secondary text-body-short-1'>
 								{t('changeMonitoring:app-instance')}:
 							</p>
-							<p className='block truncate text-body-short-1'>{draft.instance.name}</p>
+							<p className='block truncate text-body-short-1'>{draft.instance?.name}</p>
 						</span>
 					</div>
 					<span className='flex space-x-2'>
@@ -36,7 +36,7 @@ const MonitoringDraftTile = ({ draft }: MonitoringDraftTileProps) => {
 							Assets:
 						</p>
 						<p className='block truncate text-body-short-1'>
-							{draft.monitoringAssets.length}
+							{draft.monitoringAssets?.length}
 						</p>
 					</span>
 					<div className='space-y-2'>
@@ -57,7 +57,7 @@ const MonitoringDraftTile = ({ draft }: MonitoringDraftTileProps) => {
 						<p className='whitespace-nowrap text-text-secondary text-body-short-1'>
 							Script:
 						</p>
-						<p className='block truncate text-body-short-1'>{draft.script.name}</p>
+						<p className='block truncate text-body-short-1'>{draft.script?.name}</p>
 					</span>
 				</div>
 			</ClickableTile>

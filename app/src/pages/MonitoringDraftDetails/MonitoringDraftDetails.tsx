@@ -39,10 +39,12 @@ const MonitoringDraftDetails = () => {
 			initials: u.displayName
 		}
 	});
-
+	if (!draft) {
+		return null;
+	}
 	return (
 		<PageHeader
-			pageTitle='title'
+			pageTitle={draft.name || ''}
 			intermediateRoutes={[{ name: 'New Monitoring', to: '/new-monitoring' }]}
 			actions={[
 				{
@@ -104,6 +106,7 @@ const MonitoringDraftDetails = () => {
 					isOpen={isSendDraftOpen}
 					setIsOpen={setIsSendDraftOpen}
 					shouldStart
+					draft={draft}
 				/>
 				<DeleteMonitoringDraftModal isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} />
 				<Grid fullWidth narrow className='p-container-1 pl-8'>
@@ -118,26 +121,32 @@ const MonitoringDraftDetails = () => {
 									: t('changeMonitoring:manual')}
 							</span>
 						</div>
-						<div className='flex flex-col'>
-							<span className='text-heading-2'>Assets</span>
-							<span className='text-text-secondary text-body-short-1'>
-								{draft?.monitoringAssets.map(asset => asset.asset.hostname)}
-							</span>
-						</div>
-						<div className='flex flex-col'>
-							<span className='text-heading-2'>
-								{t('changeMonitoring:framework-leafs')}
-							</span>
-							<span className='text-text-secondary text-body-short-1'>
-								{draft?.frameworkLeafs}
-							</span>
-						</div>
-						<div className='flex flex-col'>
-							<span className='text-heading-2'>{t('changeMonitoring:scheduling')}</span>
-							<span className='text-text-secondary text-body-short-1'>
-								ADD SCHEDULING INFO
-							</span>
-						</div>
+						{!!draft?.monitoringAssets?.length && (
+							<div className='flex flex-col'>
+								<span className='text-heading-2'>Assets</span>
+								<span className='text-text-secondary text-body-short-1'>
+									{draft?.monitoringAssets.map(asset => asset.asset.hostname)}
+								</span>
+							</div>
+						)}
+						{draft?.frameworkLeafs && (
+							<div className='flex flex-col'>
+								<span className='text-heading-2'>
+									{t('changeMonitoring:framework-leafs')}
+								</span>
+								<span className='text-text-secondary text-body-short-1'>
+									{draft?.frameworkLeafs}
+								</span>
+							</div>
+						)}
+						{draft?.scheduling && (
+							<div className='flex flex-col'>
+								<span className='text-heading-2'>{t('changeMonitoring:scheduling')}</span>
+								<span className='text-text-secondary text-body-short-1'>
+									ADD SCHEDULING INFO
+								</span>
+							</div>
+						)}
 					</Column>
 					<Column sm={4} md={8} lg={13}>
 						<NewMonitoringStepsContainer />

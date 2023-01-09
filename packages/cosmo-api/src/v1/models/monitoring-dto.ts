@@ -55,7 +55,7 @@ export interface MonitoringDto {
 	 * @type {UserDto}
 	 * @memberof MonitoringDto
 	 */
-	focalPoint: UserDto;
+	focalPoint?: UserDto;
 	/**
 	 * Focalpoint\'s delegates
 	 * @type {Set<UserDto>}
@@ -79,7 +79,7 @@ export interface MonitoringDto {
 	 * @type {Set<MonitoringAssetDto>}
 	 * @memberof MonitoringDto
 	 */
-	monitoringAssets: Set<MonitoringAssetDto>;
+	monitoringAssets?: Set<MonitoringAssetDto>;
 	/**
 	 * Monitoring\'s control code. It\'s the string concatenation of the control codes by \'-\'
 	 * @type {string}
@@ -91,7 +91,7 @@ export interface MonitoringDto {
 	 * @type {ScriptDto}
 	 * @memberof MonitoringDto
 	 */
-	script: ScriptDto;
+	script?: ScriptDto;
 	/**
 	 * Monitoring\'s status.
 	 * @type {string}
@@ -109,7 +109,7 @@ export interface MonitoringDto {
 	 * @type {SchedulingDto}
 	 * @memberof MonitoringDto
 	 */
-	scheduling: SchedulingDto;
+	scheduling?: SchedulingDto;
 	/**
 	 * Monitoring\'s current run.
 	 * @type {number}
@@ -139,19 +139,13 @@ export interface MonitoringDto {
 	 * @type {Set<RunDto>}
 	 * @memberof MonitoringDto
 	 */
-	runs: Set<RunDto>;
+	runs?: Set<RunDto>;
 	/**
 	 * Files associated with the monitoring.
 	 * @type {Set<FileLinkDto>}
 	 * @memberof MonitoringDto
 	 */
 	files?: Set<FileLinkDto>;
-	/**
-	 * General\'s notes of the monitoring.
-	 * @type {string}
-	 * @memberof MonitoringDto
-	 */
-	notes?: string;
 }
 
 export const MonitoringDtoStatusEnum = {
