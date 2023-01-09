@@ -123,7 +123,11 @@ const MonitoringDraftDetails = () => {
 					shouldStart
 					draft={draft}
 				/>
-				<DeleteMonitoringDraftModal isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} />
+				<DeleteMonitoringDraftModal
+					isOpen={isDeleteOpen}
+					setIsOpen={setIsDeleteOpen}
+					draft={draft}
+				/>
 				<Grid fullWidth narrow className='p-container-1 pl-8'>
 					<Column sm={4} md={8} lg={3} className='space-y-5'>
 						<div className='flex flex-col'>
