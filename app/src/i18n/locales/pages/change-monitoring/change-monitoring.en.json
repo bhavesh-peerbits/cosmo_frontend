@@ -115,5 +115,6 @@
 	"no-path-yet": "There is no path yet. Add a new path by clicking the appropriate button.",
 	"from": "From",
 	"to": "To",
-	"framework-leafs": "Framework leafs"
+	"framework-leafs": "Framework leafs",
+	"no-monitoring": "No monitoring found"
 }

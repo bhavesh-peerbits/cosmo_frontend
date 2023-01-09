@@ -115,5 +115,6 @@
 	"no-path-yet": "Non è presente nessun path. Aggiungere un nuovo path tramite l'apposito pulsante.",
 	"from": "Da",
 	"to": "A",
-	"framework-leafs": "Foglie framework"
+	"framework-leafs": "Foglie framework",
+	"no-monitoring": "Nessun monitoraggio trovato"
 }

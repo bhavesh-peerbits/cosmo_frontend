@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { Button } from '@carbon/react';
 import { Filter } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
@@ -19,8 +19,20 @@ const CosmoFiltersPanel = ({
 	const { t } = useTranslation('userSelect');
 	const [isOpen, setIsOpen] = useState(false);
 
+	useEffect(() => {
+		window.addEventListener('click', e => {
+			if (document.getElementById('cosmo-filters-panel')?.contains(e.target as Node)) {
+				return null;
+			}
+			return setIsOpen(false);
+		});
+	}, []);
+
 	return (
-		<div className={`flex ${flipped ? 'justify-start' : 'justify-end'}`}>
+		<div
+			className={`flex ${flipped ? 'justify-start' : 'justify-end'}`}
+			id='cosmo-filters-panel'
+		>
 			<Button
 				size='md'
 				kind='ghost'
@@ -39,7 +51,7 @@ const CosmoFiltersPanel = ({
 			/>
 			{isOpen && (
 				<div
-					className='absolute z-[999999] mt-[40px] inline-block max-h-[calc(67%-2rem)] w-[calc(100%-2rem)] overflow-auto bg-layer-1 p-3'
+					className='absolute z-[999] mt-[40px] inline-block max-h-[calc(67%-2rem)] overflow-auto bg-layer-1 p-3'
 					style={{
 						boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)'
 					}}

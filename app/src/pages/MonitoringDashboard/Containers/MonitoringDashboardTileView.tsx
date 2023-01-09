@@ -54,7 +54,7 @@ const MonitoringDashboardTileView = () => {
 				{monitorings.length === 0 ? (
 					<Fade>
 						<Centered>
-							<NoDataMessage title={t('no-drafts')} />
+							<NoDataMessage title={t('no-monitoring')} />
 						</Centered>
 					</Fade>
 				) : (

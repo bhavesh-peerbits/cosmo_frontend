@@ -78,6 +78,7 @@ const MonitoringDashboardFilters = () => {
 											? new Date(filters.minStartDate).toLocaleDateString().slice(0, -5)
 											: undefined
 									}
+									autoComplete='off'
 								/>
 								<DatePickerInput
 									id='end-date'
@@ -89,6 +90,7 @@ const MonitoringDashboardFilters = () => {
 											? new Date(filters.maxStartDate).toLocaleDateString().slice(0, -5)
 											: undefined
 									}
+									autoComplete='off'
 								/>
 							</DatePicker>
 						)}
@@ -124,6 +126,7 @@ const MonitoringDashboardFilters = () => {
 											? new Date(filters.minStartDate).toLocaleDateString().slice(0, -5)
 											: undefined
 									}
+									autoComplete='off'
 								/>
 								<DatePickerInput
 									id='end-date'
@@ -135,6 +138,7 @@ const MonitoringDashboardFilters = () => {
 											? new Date(filters.maxStartDate).toLocaleDateString().slice(0, -5)
 											: undefined
 									}
+									autoComplete='off'
 								/>
 							</DatePicker>
 						)}
