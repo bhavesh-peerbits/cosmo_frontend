@@ -1,4 +1,3 @@
-import { User } from '@sentry/react';
 import { MonitoringDraftApi } from 'cosmo-api';
 import FileLink, { fromFileLinkApi } from './FileLink';
 import Instance, { fromInstanceApi } from './Instance';
@@ -6,7 +5,7 @@ import MonitoringAsset, { fromMonitoringAssetApi } from './MonitoringAsset';
 import { MonitoringStatus } from './MonitoringStatus';
 import Scheduling, { fromSchedulingApi } from './Scheduling';
 import Script from './Script';
-import { fromUserApi } from './User';
+import User, { fromUserApi } from './User';
 
 interface MonitoringDraft {
 	id: string;
