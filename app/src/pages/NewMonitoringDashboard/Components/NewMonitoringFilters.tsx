@@ -1,4 +1,3 @@
-import useGetApps from '@api/management/useGetApps';
 import {
 	Tabs,
 	TabList,
@@ -8,38 +7,30 @@ import {
 	Checkbox,
 	SwitcherDivider
 } from '@carbon/react';
-import Application from '@model/Application';
-import { Dispatch, SetStateAction } from 'react';
-
+import useMonitoringForNewDraft from '@hooks/new-monitoring/useMonitoringForNewDraft';
 import { useTranslation } from 'react-i18next';
 
-type NewMonitoringFiltersProps = {
-	selectedItems: {
-		applications: Application[];
-		controls: { id: string; name: string }[];
-	};
-	setSelectedItems: Dispatch<
-		SetStateAction<{
-			applications: Application[];
-			controls: {
-				id: string;
-				name: string;
-			}[];
-		}>
-	>;
-};
-const NewMonitoringFilters = ({
-	setSelectedItems,
-	selectedItems
-}: NewMonitoringFiltersProps) => {
+const NewMonitoringFilters = () => {
 	const { t } = useTranslation(['management', 'changeMonitoring']);
-	// TODO Use apps from monitoring
-	const { data } = useGetApps();
-	const apps = data ? [...data.values()] : [];
-	const controls = [
-		{ id: 'control1', name: 'control 1' },
-		{ id: 'control2', name: 'control 2' }
-	];
+	const { setFilters, filtersAvailable } = useMonitoringForNewDraft();
+
+	const handleCheckFilterApp = (filter: string, action: 'add' | 'remove') => {
+		setFilters(old => ({
+			application:
+				action === 'add'
+					? [...(old.application ?? []), filter]
+					: (old.application ?? []).filter((f: string) => f !== filter)
+		}));
+	};
+
+	const handleCheckFilterCode = (filter: string, action: 'add' | 'remove') => {
+		setFilters(old => ({
+			controlCode:
+				action === 'add'
+					? [...(old.controlCode ?? []), filter]
+					: (old.controlCode ?? []).filter((f: string) => f !== filter)
+		}));
+	};
 
 	return (
 		<Tabs className='w-full'>
@@ -50,42 +41,52 @@ const NewMonitoringFilters = ({
 			</TabList>
 			<TabPanels>
 				<TabPanel>
-					{apps.map(app => (
+					<Checkbox
+						labelText={t('management:all')}
+						id='application-all'
+						checked={filtersAvailable.application.every(a => a.enabled)}
+						onChange={(_, { checked }) =>
+							setFilters({
+								application: checked
+									? filtersAvailable.application.map(({ app }) => app)
+									: []
+							})
+						}
+					/>
+					{filtersAvailable.application.map(filter => (
 						<Checkbox
-							id={app.id}
-							labelText={app.name}
-							checked={selectedItems.applications.some(a => a.id === app.id)}
-							onChange={(e, { checked }) =>
-								!checked
-									? setSelectedItems(old => ({
-											...old,
-											applications: old?.applications.filter(a => a.id !== app.id)
-									  }))
-									: setSelectedItems(old => ({
-											...old,
-											applications: [...old.applications, app]
-									  }))
+							key={filter.app}
+							checked={filter.enabled}
+							onChange={(_, { checked, id }) =>
+								handleCheckFilterApp(id, checked ? 'add' : 'remove')
 							}
+							id={filter.app}
+							labelText={filter.app}
 						/>
 					))}
 				</TabPanel>
 				<TabPanel>
-					{controls.map(control => (
+					<Checkbox
+						labelText={t('management:all')}
+						id='control-code-all'
+						checked={filtersAvailable.controlCode.every(c => c.enabled)}
+						onChange={(_, { checked }) =>
+							setFilters({
+								controlCode: checked
+									? filtersAvailable.controlCode.map(({ code }) => code)
+									: []
+							})
+						}
+					/>
+					{filtersAvailable.controlCode.map(filter => (
 						<Checkbox
-							id={control.id}
-							labelText={control.name}
-							checked={selectedItems.controls.some(c => c.id === control.id)}
-							onChange={(e, { checked }) =>
-								!checked
-									? setSelectedItems(old => ({
-											...old,
-											controls: old?.controls.filter(c => c.id !== control.id)
-									  }))
-									: setSelectedItems(old => ({
-											...old,
-											controls: [...old.controls, control]
-									  }))
+							key={filter.code}
+							checked={filter.enabled}
+							onChange={(_, { checked, id }) =>
+								handleCheckFilterCode(id, checked ? 'add' : 'remove')
 							}
+							id={filter.code}
+							labelText={filter.code}
 						/>
 					))}
 				</TabPanel>

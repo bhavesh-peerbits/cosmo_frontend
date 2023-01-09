@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
 import { Dispatch, SetStateAction, useState } from 'react';
 import {
@@ -14,12 +15,12 @@ import {
 } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import CosmoFiltersPanel from '@components/CosmoFiltersPanel';
-import Application from '@model/Application';
 import useCreateDraftMonitoring from '@api/change-monitoring/useCreateMonitoringDraft';
 import { useForm } from 'react-hook-form';
 import useGetAllMonitoringDraftNames from '@api/change-monitoring/useGetAllMonitoringDraftNames';
 import { useNavigate } from 'react-router-dom';
 import ApiError from '@api/ApiError';
+import useMonitoringForNewDraft from '@hooks/new-monitoring/useMonitoringForNewDraft';
 import NewMonitoringFilters from '../Components/NewMonitoringFilters';
 
 type NewMonitoringForm = {
@@ -50,19 +51,16 @@ const NewMonitoringModal = ({ isOpen, setIsOpen }: NewMonitoringModalProps) => {
 	const navigate = useNavigate();
 	const { mutate, error, isError } = useCreateDraftMonitoring();
 	const { data: draftNames } = useGetAllMonitoringDraftNames();
+	const { monitorings, filters, setFilters } = useMonitoringForNewDraft();
 
 	const [isCopySelected, setIsCopySelected] = useState(false);
 	const [selectedMonitoring, setSelectedMonitoring] = useState<string | number>('');
-
-	const [selectedItemsFilters, setSelectedItemsFilters] = useState<{
-		applications: Application[];
-		controls: { id: string; name: string }[];
-	}>({ applications: [], controls: [] });
 
 	const cleanUp = () => {
 		setIsCopySelected(false);
 		setIsOpen(false);
 		reset();
+		setFilters({ application: [], controlCode: [], q: undefined });
 	};
 
 	const createDraft = (data: NewMonitoringForm) => {
@@ -145,89 +143,99 @@ const NewMonitoringModal = ({ isOpen, setIsOpen }: NewMonitoringModalProps) => {
 					/>
 					{isCopySelected && (
 						<div className='mt-3 space-y-5'>
-							<div className='flex'>
+							<div className='flex space-x-5'>
 								<Search
 									labelText=''
 									placeholder={t('changeMonitoring:search-monitoring-name')}
+									value={filters.q ?? ''}
+									onChange={e =>
+										setFilters(old => ({ ...old, q: e.currentTarget?.value }))
+									}
 								/>
-								<CosmoFiltersPanel>
-									<NewMonitoringFilters
-										setSelectedItems={setSelectedItemsFilters}
-										selectedItems={selectedItemsFilters}
-									/>
+								<CosmoFiltersPanel buttonSize='md'>
+									<NewMonitoringFilters />
 								</CosmoFiltersPanel>
 							</div>
-							{(selectedItemsFilters.applications.length > 0 ||
-								selectedItemsFilters.controls.length > 0) && (
-								<div className='space-x-3'>
-									<span className='text-heading-1'>{t('management:filters')}:</span>
-									{selectedItemsFilters.applications.length > 0 && (
-										<Tag
-											filter
-											onClose={() =>
-												setSelectedItemsFilters(old => ({ ...old, applications: [] }))
-											}
-										>
-											{`${selectedItemsFilters.applications.length} `}
-											{t('management:applications')}
-										</Tag>
-									)}
-									{selectedItemsFilters.controls.length > 0 && (
-										<Tag
-											filter
-											onClose={() =>
-												setSelectedItemsFilters(old => ({ ...old, controls: [] }))
-											}
-										>
-											{`${selectedItemsFilters.controls.length} `}
-											{t('changeMonitoring:controls')}
-										</Tag>
-									)}
-								</div>
-							)}
 
-							<Accordion>
-								<AccordionItem
-									key='c'
-									title={
-										// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-										<div
-											className='flex w-fit justify-start'
-											onClick={e => e.stopPropagation()}
+							<div className='space-x-3'>
+								<span className='text-heading-1'>{t('management:filters')}:</span>
+								{filters.application.length > 0 && (
+									<Tag
+										filter
+										onClose={() => setFilters(old => ({ ...old, application: [] }))}
+									>
+										{`${filters.application.length} `}
+										{t('management:applications')}
+									</Tag>
+								)}
+								{filters.controlCode.length > 0 && (
+									<Tag
+										filter
+										onClose={() => setFilters(old => ({ ...old, controlCode: [] }))}
+									>
+										{`${filters.controlCode.length} `}
+										{t('changeMonitoring:controls')}
+									</Tag>
+								)}
+							</div>
+							{monitorings && (
+								<Accordion>
+									{monitorings.map(monitoring => (
+										<AccordionItem
+											key={monitoring.id}
+											title={
+												// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+												<div
+													className='flex w-fit justify-start'
+													onClick={e => e.stopPropagation()}
+												>
+													<RadioButton
+														labelText={
+															<span className='text-productive-heading-2'>
+																{monitoring.name}
+															</span>
+														}
+														value={monitoring.id}
+														onChange={value => setSelectedMonitoring(value)}
+														checked={selectedMonitoring === monitoring.id}
+													/>
+												</div>
+											}
 										>
-											<RadioButton
-												labelText={
-													<span className='text-productive-heading-2'>
-														Monitoring Name
+											<div className='flex flex-col'>
+												<div className='flex space-x-1'>
+													<span className='text-heading-1'>
+														{t('changeMonitoring:completed-runs')}:
 													</span>
-												}
-												value='value'
-												onChange={value => setSelectedMonitoring(value)}
-												checked={selectedMonitoring === 'value'}
-											/>
-										</div>
-									}
-								>
-									<div className='flex flex-col'>
-										<div className='flex space-x-1'>
-											<span className='text-heading-1'>
-												{t('changeMonitoring:completed-runs')}:
-											</span>
-											<span>5</span>
-										</div>
-										<div className='flex space-x-1'>
-											<span className='text-heading-1'>
-												{t('changeMonitoring:scheduling')}:
-											</span>
-											<span>On Demand</span>
-										</div>
-										<div className='mt-3 flex space-x-1'>
-											<span className='text-heading-1'>Path:</span>
-											<span>Path</span>
-										</div>
-									</div>
-								</AccordionItem>
-							</Accordion>
+													<span>
+														{monitoring.status !== 'TERMINATED'
+															? monitoring.currentRun
+																? monitoring.currentRun - 1
+																: 0
+															: monitoring.scheduling.totalRuns}
+													</span>
+												</div>
+												<div className='flex space-x-1'>
+													<span className='text-heading-1'>
+														{t('changeMonitoring:scheduling')}:
+													</span>
+													<span>{monitoring.scheduling.frequency.frequencyType}</span>
+												</div>
+												<div className='mt-3 flex space-x-1'>
+													<span className='text-heading-1'>Path:</span>
+													<span>
+														{
+															monitoring.monitoringAssets.map(el =>
+																el.paths.map(path => path)
+															).length
+														}
+													</span>
+												</div>
+											</div>
+										</AccordionItem>
+									))}
+								</Accordion>
+							)}
 						</div>
 					)}
 				</Form>
