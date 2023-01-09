@@ -32,6 +32,7 @@ const FrameworkSelectionStepContainer = () => {
 
 	const { register, watch, control: controlForm } = useForm<FrameworkStepFormData>();
 	const selectedFramework = watch('framework');
+	const selectedControls = watch('controls');
 
 	const { data: frameworkCodes } = useGetFrameworkCodes();
 	const { data: users = [] } = useGetUsers();
@@ -95,9 +96,16 @@ const FrameworkSelectionStepContainer = () => {
 						<div className='flex h-full w-full items-center justify-between space-x-2 pl-5 pr-8'>
 							{selectedLeaves.length > 0 ? (
 								<div className='mr-3 flex w-full items-center space-x-4'>
-									<Tag onClose={() => setSelectedLeaves([])} filter>
-										{selectedLeaves.length} {t('selected-leaves')}
-									</Tag>
+									{selectedLeaves.map(leaf => (
+										<Tag
+											onClose={() =>
+												setSelectedLeaves(old => old.filter(el => el.code !== leaf.code))
+											}
+											filter
+										>
+											{leaf.code}
+										</Tag>
+									))}
 								</div>
 							) : (
 								<div className='text-text-placeholder text-body-compact-1'>
@@ -137,15 +145,18 @@ const FrameworkSelectionStepContainer = () => {
 							message: t('control-required')
 						}
 					}}
-					readOnly={selectedFramework === 'FREE'}
+					readOnly={selectedFramework === 'FREE' || selectedLeaves.length === 0}
 				/>
 			</FullWidthColumn>
-			<FullWidthColumn className='overflow-scroll'>
-				<AssociationSelectionList
-					associations={associationsFakeData}
-					control={controlForm}
-				/>
-			</FullWidthColumn>
+			{(selectedFramework === 'FREE' || selectedControls) && (
+				<FullWidthColumn className='overflow-scroll'>
+					<AssociationSelectionList
+						associations={associationsFakeData}
+						control={controlForm}
+						isFree={selectedFramework === 'FREE'}
+					/>
+				</FullWidthColumn>
+			)}
 		</>
 	);
 };
