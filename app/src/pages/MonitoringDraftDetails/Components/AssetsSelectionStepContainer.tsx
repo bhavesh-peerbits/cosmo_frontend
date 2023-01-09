@@ -20,15 +20,15 @@ type FormData = {
 const AssetsSelectionStepContainer = () => {
 	const { t } = useTranslation(['modals', 'changeMonitoring']);
 
-	const { data: applications } = useGetAllApplications();
-	// const { data: instanceAssets } = useGetAppInstances('prova3');
-
 	const { control, watch } = useForm<FormData>({
 		mode: 'onChange',
 		criteriaMode: 'all'
 	});
 	const app = watch('application');
 	const instance = watch('instance');
+
+	const { data: applications } = useGetAllApplications();
+	const { data: instanceAssets } = useGetAppInstances(app ? app.codeName : undefined);
 
 	return (
 		<>
@@ -47,7 +47,7 @@ const AssetsSelectionStepContainer = () => {
 					applications={applications ? [...applications.values()] : []}
 				/>
 			</FullWidthColumn>
-			{/* <FullWidthColumn className='lg:w-1/2'>
+			<FullWidthColumn className='lg:w-1/2'>
 				<SingleAppInstanceSelect
 					readOnly={!app}
 					level={2}
@@ -74,7 +74,7 @@ const AssetsSelectionStepContainer = () => {
 					label={`${t('changeMonitoring:select-assets')} *`}
 					assets={instanceAssets?.find(el => el.instance?.id === instance.id)?.assets}
 				/>
-			</FullWidthColumn> */}
+			</FullWidthColumn>
 		</>
 	);
 };

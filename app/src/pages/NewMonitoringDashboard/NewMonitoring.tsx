@@ -1,4 +1,4 @@
-import { Add, Fade } from '@carbon/react/icons';
+import { Add } from '@carbon/react/icons';
 import { Column, Grid, Layer, Search } from '@carbon/react';
 import PageHeader from '@components/PageHeader';
 import { useTranslation } from 'react-i18next';
@@ -12,8 +12,9 @@ import MonitoringDraftTileContainer from './Containers/MonitoringDraftTileContai
 
 type SearchBarProps = {
 	setQuery: Dispatch<SetStateAction<string>>;
+	query?: string;
 };
-const SearchBar = ({ setQuery }: SearchBarProps) => {
+const SearchBar = ({ setQuery, query }: SearchBarProps) => {
 	const { t } = useTranslation('changeMonitoring');
 	return (
 		<Layer className='w-full'>
@@ -21,7 +22,9 @@ const SearchBar = ({ setQuery }: SearchBarProps) => {
 				size='lg'
 				labelText=''
 				placeholder={t('monitoring-search-placeholder')}
-				onChange={e => setQuery(e.currentTarget.value)}
+				onChange={e => setQuery(e.currentTarget?.value)}
+				value={query}
+				onClear={() => setQuery('')}
 			/>
 		</Layer>
 	);
@@ -29,7 +32,7 @@ const SearchBar = ({ setQuery }: SearchBarProps) => {
 const NewMonitoring = () => {
 	const { t } = useTranslation('changeMonitoring');
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [searchQuery, setSearchQuery] = useState('');
+	const [searchQuery, setSearchQuery] = useState<string>('');
 	const { data = new Map() } = useGetAllMonitoringDrafts();
 	const drafts = useMemo(() => ([...data.values()] as MonitoringDraft[]) || [], [data]);
 
@@ -52,19 +55,24 @@ const NewMonitoring = () => {
 					<div className='flex flex-col space-y-5'>
 						<div className='flex w-full items-center space-x-5'>
 							<SearchBar setQuery={setSearchQuery} />
-							<p className='lg:whitespace-nowrap'>
-								{drafts.length}
-								{t('drafts')}
+							<p className='space-x-2 lg:whitespace-nowrap'>
+								<span>
+									{
+										drafts.filter(draft =>
+											draft.name.toLowerCase().includes(searchQuery.toLowerCase())
+										).length
+									}
+								</span>
+								<span>{t('drafts')}</span>
 							</p>
-							{/* // TODO fix when be is ready */}
 						</div>
 						<div>
-							{drafts.length === 0 ? (
-								<Fade>
-									<Centered>
-										<NoDataMessage title={t('no-drafts')} />
-									</Centered>
-								</Fade>
+							{drafts.filter(draft =>
+								draft.name.toLowerCase().includes(searchQuery.toLowerCase())
+							).length === 0 ? (
+								<Centered>
+									<NoDataMessage title={t('no-drafts')} />
+								</Centered>
 							) : (
 								<MonitoringDraftTileContainer
 									drafts={drafts.filter(draft =>
