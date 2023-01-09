@@ -117,7 +117,7 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 								New Requests
 							</SideNavMenuItem>
 							<SideNavMenuItem element={Link} to={routes.STARTED_EVIDENCE_REQUEST}>
-								Started Requests
+								Dashboard
 							</SideNavMenuItem>
 						</SideNavMenu>
 					)}

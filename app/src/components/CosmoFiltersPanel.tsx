@@ -9,12 +9,14 @@ type CosmoFiltersPanelProps = {
 	iconDescription?: string;
 	tooltipPosition?: TooltipPosition;
 	flipped?: boolean;
+	buttonSize?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 };
 const CosmoFiltersPanel = ({
 	children,
 	iconDescription,
 	tooltipPosition,
-	flipped
+	flipped,
+	buttonSize = 'lg'
 }: CosmoFiltersPanelProps) => {
 	const { t } = useTranslation('userSelect');
 	const [isOpen, setIsOpen] = useState(false);
@@ -34,7 +36,7 @@ const CosmoFiltersPanel = ({
 			id='cosmo-filters-panel'
 		>
 			<Button
-				size='md'
+				size={buttonSize}
 				kind='ghost'
 				renderIcon={Filter}
 				hasIconOnly
