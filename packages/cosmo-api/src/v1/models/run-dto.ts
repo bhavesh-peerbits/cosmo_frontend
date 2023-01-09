@@ -18,7 +18,7 @@ import { RunFileLinkDto } from './run-file-link-dto';
 import { UserDto } from './user-dto';
 
 /**
- * The run associated with the monitoring.
+ *
  * @export
  * @interface RunDto
  */

@@ -35,6 +35,7 @@ export * from './api/profile-controller-api';
 export * from './api/realm-controller-api';
 export * from './api/reviewer-campaign-controller-api';
 export * from './api/reviewer-controller-api';
+export * from './api/scheduling-controller-api';
 export * from './api/send-mail-controller-api';
 export * from './api/template-controller-api';
 export * from './api/tenant-controller-api';

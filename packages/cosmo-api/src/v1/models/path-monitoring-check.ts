@@ -12,22 +12,30 @@
  * Do not edit the class manually.
  */
 
+import { AssetDto } from './asset-dto';
+
 /**
- * The paths of the asset
+ *
  * @export
- * @interface PathDto
+ * @interface PathMonitoringCheck
  */
-export interface PathDto {
+export interface PathMonitoringCheck {
 	/**
 	 *
-	 * @type {number}
-	 * @memberof PathDto
+	 * @type {AssetDto}
+	 * @memberof PathMonitoringCheck
 	 */
-	id: number;
+	asset: AssetDto;
 	/**
-	 * The path
+	 * The path to check
 	 * @type {string}
-	 * @memberof PathDto
+	 * @memberof PathMonitoringCheck
 	 */
 	path: string;
+	/**
+	 * The list of the monitoring\'s names which the paths is involved
+	 * @type {Array<string>}
+	 * @memberof PathMonitoringCheck
+	 */
+	monitoring?: Array<string>;
 }
