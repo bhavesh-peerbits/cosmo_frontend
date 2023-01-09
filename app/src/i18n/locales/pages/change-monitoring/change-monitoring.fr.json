@@ -115,5 +115,7 @@
 	"from": "",
 	"to": "",
 	"framework-leafs": "",
-	"no-monitoring": ""
+	"no-monitoring": "",
+	"type": "",
+	"db-type": ""
 }

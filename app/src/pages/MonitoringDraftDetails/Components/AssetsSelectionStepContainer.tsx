@@ -72,7 +72,11 @@ const AssetsSelectionStepContainer = () => {
 					control={control}
 					name='assets'
 					label={`${t('changeMonitoring:select-assets')} *`}
-					assets={instanceAssets?.find(el => el.instance?.id === instance.id)?.assets}
+					assets={
+						instance
+							? instanceAssets?.find(el => el.instance?.id === instance.id)?.assets
+							: []
+					}
 				/>
 			</FullWidthColumn>
 		</>

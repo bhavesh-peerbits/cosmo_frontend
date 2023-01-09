@@ -116,5 +116,7 @@
 	"from": "From",
 	"to": "To",
 	"framework-leafs": "Framework leafs",
-	"no-monitoring": "No monitoring found"
+	"no-monitoring": "No monitoring found",
+	"type": "Type",
+	"db-type": "Database type"
 }

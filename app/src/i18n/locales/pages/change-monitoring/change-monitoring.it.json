@@ -116,5 +116,7 @@
 	"from": "Da",
 	"to": "A",
 	"framework-leafs": "Foglie framework",
-	"no-monitoring": "Nessun monitoraggio trovato"
+	"no-monitoring": "Nessun monitoraggio trovato",
+	"type": "Tipo",
+	"db-type": "Tipo database"
 }

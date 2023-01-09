@@ -174,12 +174,12 @@ const MultipleAssetSelect = <T extends FieldValues, TName extends FieldPath<T>>(
 				globalSearchPlaceholder={t('changeMonitoring:search-asset-name')}
 				open={openSearch}
 				influencerTitle={t('changeMonitoring:selected-assets')}
-				influencerItemTitle={t('changeMonitoring:asset-name')}
-				influencerItemSubtitle='info'
+				influencerItemTitle='Hostname'
+				influencerItemSubtitle='IP'
 				globalFilters={[
 					{
 						id: 'os',
-						label: 'OS'
+						label: t('changeMonitoring:operating-system')
 					}
 				]}
 				globalFiltersIconDescription={t('userSelect:filters')}
@@ -189,12 +189,28 @@ const MultipleAssetSelect = <T extends FieldValues, TName extends FieldPath<T>>(
 				clearFiltersText={t('userSelect:clear-filters')}
 				items={{
 					entries: assets
-						? assets.map(asset => ({
-								id: asset.id,
-								title: asset.hostname || '',
-								tagInfo: asset.os,
-								subtitle: asset.ip
-						  }))
+						? assets.map(asset =>
+								asset.type === 'DB'
+									? {
+											id: asset.id,
+											title: asset.hostname || '',
+											tagInfo: asset.os,
+											subtitle: asset.ip,
+											[t('changeMonitoring:type')]: asset.type,
+											[t('changeMonitoring:operating-system')]: asset.os,
+											database: asset.dbType,
+											cpe: 'here goes cpe'
+									  }
+									: {
+											id: asset.id,
+											title: asset.hostname || '',
+											tagInfo: asset.os,
+											subtitle: asset.ip,
+											[t('changeMonitoring:type')]: asset.type,
+											[t('changeMonitoring:operating-system')]: asset.os,
+											cpe: 'here goes cpe'
+									  }
+						  )
 						: []
 				}}
 			/>
