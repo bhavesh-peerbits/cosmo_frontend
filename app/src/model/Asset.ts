@@ -3,7 +3,7 @@ import { AssetDtoOsEnum, AssetDtoTypeEnum } from 'cosmo-api/src/v1';
 import Path from './Path';
 
 interface Asset {
-	id: number;
+	id: string;
 	hostname?: string;
 	ports?: string;
 	type?: AssetDtoTypeEnum;
@@ -16,7 +16,7 @@ interface Asset {
 }
 
 export const fromAssetApi = (assetApi: AssetApi): Asset => ({
-	id: assetApi.id,
+	id: `${assetApi.id}`,
 	hostname: assetApi.hostname,
 	ports: assetApi.ports,
 	type: assetApi.type,

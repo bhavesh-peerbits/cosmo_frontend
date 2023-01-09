@@ -47,9 +47,11 @@ import { FileLinkDto } from '../models';
 // @ts-ignore
 import { FrameworkTreeDto } from '../models';
 // @ts-ignore
-import { InlineObject18 } from '../models';
+import { InlineObject19 } from '../models';
 // @ts-ignore
 import { InstanceAssetDto } from '../models';
+// @ts-ignore
+import { MonitoringDraftDto } from '../models';
 // @ts-ignore
 import { MonitoringDto } from '../models';
 // @ts-ignore
@@ -64,57 +66,6 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 	configuration?: Configuration
 ) {
 	return {
-		/**
-		 *
-		 * @param {number} runId
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		changeStatusWaitingForFocalpoint: async (
-			runId: number,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'runId' is not null or undefined
-			assertParamExists('changeStatusWaitingForFocalpoint', 'runId', runId);
-			const localVarPath =
-				`/api/change-monitoring/analyst/run/change-status-waiting-fp/{runId}`.replace(
-					`{${'runId'}}`,
-					encodeURIComponent(String(runId))
-				);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
 		/**
 		 *
 		 * @param {number} runId
@@ -368,14 +319,14 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} monitoringId
-		 * @param {InlineObject18} inlineObject18
+		 * @param {InlineObject19} inlineObject19
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		editMonitoringFocalpointAndDelegates: async (
 			monitoringId: number,
-			inlineObject18: InlineObject18,
+			inlineObject19: InlineObject19,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
@@ -385,11 +336,11 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				'monitoringId',
 				monitoringId
 			);
-			// verify required parameter 'inlineObject18' is not null or undefined
+			// verify required parameter 'inlineObject19' is not null or undefined
 			assertParamExists(
 				'editMonitoringFocalpointAndDelegates',
-				'inlineObject18',
-				inlineObject18
+				'inlineObject19',
+				inlineObject19
 			);
 			const localVarPath =
 				`/api/change-monitoring/analyst/monitoring/set-focalpoint-and-delegates/{monitoringId}`.replace(
@@ -425,7 +376,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				inlineObject18,
+				inlineObject19,
 				localVarRequestOptions,
 				configuration
 			);
@@ -959,6 +910,78 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
+		 * @param {number} stepId
+		 * @param {any} file
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {FileLinkDto} [fileLinkDto]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveAnswerWithFile: async (
+			stepId: number,
+			file: any,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			fileLinkDto?: FileLinkDto,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'stepId' is not null or undefined
+			assertParamExists('saveAnswerWithFile', 'stepId', stepId);
+			// verify required parameter 'file' is not null or undefined
+			assertParamExists('saveAnswerWithFile', 'file', file);
+			const localVarPath = `/api/change-monitoring/analyst/save-answer-with-file`.replace(
+				`{${'stepId'}}`,
+				encodeURIComponent(String(stepId))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+			const localVarFormParams = new ((configuration && configuration.formDataCtor) ||
+				FormData)();
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			if (fileLinkDto !== undefined) {
+				localVarFormParams.append(
+					'fileLinkDto',
+					new Blob([JSON.stringify(fileLinkDto)], { type: 'application/json' })
+				);
+			}
+
+			if (file !== undefined) {
+				localVarFormParams.append('file', file as any);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = localVarFormParams;
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
 		 * @param {MonitoringDto} monitoringDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
@@ -1201,31 +1224,6 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async changeStatusWaitingForFocalpoint(
-			runId: number,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RunDto>> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.changeStatusWaitingForFocalpoint(
-					runId,
-					acceptLanguage,
-					options
-				);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {number} runId
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
 		async closeCompletedRun(
 			runId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
@@ -1305,7 +1303,7 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MonitoringDto>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MonitoringDraftDto>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.createDraft(
 				createMonitoringDto,
@@ -1344,14 +1342,14 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		/**
 		 *
 		 * @param {number} monitoringId
-		 * @param {InlineObject18} inlineObject18
+		 * @param {InlineObject19} inlineObject19
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async editMonitoringFocalpointAndDelegates(
 			monitoringId: number,
-			inlineObject18: InlineObject18,
+			inlineObject19: InlineObject19,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
@@ -1360,7 +1358,7 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.editMonitoringFocalpointAndDelegates(
 					monitoringId,
-					inlineObject18,
+					inlineObject19,
 					acceptLanguage,
 					options
 				);
@@ -1474,7 +1472,7 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<MonitoringDto>>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<MonitoringDraftDto>>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllMonitoringDraft(
 				acceptLanguage,
@@ -1525,7 +1523,7 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MonitoringDto>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MonitoringDraftDto>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getDraft(
 				draftId,
@@ -1638,6 +1636,36 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		},
 		/**
 		 *
+		 * @param {number} stepId
+		 * @param {any} file
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {FileLinkDto} [fileLinkDto]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async saveAnswerWithFile(
+			stepId: number,
+			file: any,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			fileLinkDto?: FileLinkDto,
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FileLinkDto>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.saveAnswerWithFile(
+				stepId,
+				file,
+				acceptLanguage,
+				fileLinkDto,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
 		 * @param {MonitoringDto} monitoringDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
@@ -1648,7 +1676,7 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MonitoringDto>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MonitoringDraftDto>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.saveDraft1(
 				monitoringDto,
@@ -1760,22 +1788,6 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		changeStatusWaitingForFocalpoint(
-			runId: number,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: any
-		): AxiosPromise<RunDto> {
-			return localVarFp
-				.changeStatusWaitingForFocalpoint(runId, acceptLanguage, options)
-				.then(request => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @param {number} runId
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
 		closeCompletedRun(
 			runId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
@@ -1828,7 +1840,7 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 			createMonitoringDto: CreateMonitoringDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<MonitoringDto> {
+		): AxiosPromise<MonitoringDraftDto> {
 			return localVarFp
 				.createDraft(createMonitoringDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
@@ -1851,21 +1863,21 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		/**
 		 *
 		 * @param {number} monitoringId
-		 * @param {InlineObject18} inlineObject18
+		 * @param {InlineObject19} inlineObject19
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		editMonitoringFocalpointAndDelegates(
 			monitoringId: number,
-			inlineObject18: InlineObject18,
+			inlineObject19: InlineObject19,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<MonitoringDto> {
 			return localVarFp
 				.editMonitoringFocalpointAndDelegates(
 					monitoringId,
-					inlineObject18,
+					inlineObject19,
 					acceptLanguage,
 					options
 				)
@@ -1938,7 +1950,7 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		getAllMonitoringDraft(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Set<MonitoringDto>> {
+		): AxiosPromise<Set<MonitoringDraftDto>> {
 			return localVarFp
 				.getAllMonitoringDraft(acceptLanguage, options)
 				.then(request => request(axios, basePath));
@@ -1970,7 +1982,7 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 			draftId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<MonitoringDto> {
+		): AxiosPromise<MonitoringDraftDto> {
 			return localVarFp
 				.getDraft(draftId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
@@ -2039,6 +2051,26 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		},
 		/**
 		 *
+		 * @param {number} stepId
+		 * @param {any} file
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {FileLinkDto} [fileLinkDto]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveAnswerWithFile(
+			stepId: number,
+			file: any,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			fileLinkDto?: FileLinkDto,
+			options?: any
+		): AxiosPromise<FileLinkDto> {
+			return localVarFp
+				.saveAnswerWithFile(stepId, file, acceptLanguage, fileLinkDto, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
 		 * @param {MonitoringDto} monitoringDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
@@ -2048,7 +2080,7 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 			monitoringDto: MonitoringDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<MonitoringDto> {
+		): AxiosPromise<MonitoringDraftDto> {
 			return localVarFp
 				.saveDraft1(monitoringDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
@@ -2105,27 +2137,6 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		}
 	};
 };
-
-/**
- * Request parameters for changeStatusWaitingForFocalpoint operation in AnalystChangeMonitoringControllerApi.
- * @export
- * @interface AnalystChangeMonitoringControllerApiChangeStatusWaitingForFocalpointRequest
- */
-export interface AnalystChangeMonitoringControllerApiChangeStatusWaitingForFocalpointRequest {
-	/**
-	 *
-	 * @type {number}
-	 * @memberof AnalystChangeMonitoringControllerApiChangeStatusWaitingForFocalpoint
-	 */
-	readonly runId: number;
-
-	/**
-	 *
-	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof AnalystChangeMonitoringControllerApiChangeStatusWaitingForFocalpoint
-	 */
-	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
-}
 
 /**
  * Request parameters for closeCompletedRun operation in AnalystChangeMonitoringControllerApi.
@@ -2240,10 +2251,10 @@ export interface AnalystChangeMonitoringControllerApiEditMonitoringFocalpointAnd
 
 	/**
 	 *
-	 * @type {InlineObject18}
+	 * @type {InlineObject19}
 	 * @memberof AnalystChangeMonitoringControllerApiEditMonitoringFocalpointAndDelegates
 	 */
-	readonly inlineObject18: InlineObject18;
+	readonly inlineObject19: InlineObject19;
 
 	/**
 	 *
@@ -2450,6 +2461,41 @@ export interface AnalystChangeMonitoringControllerApiGetRunByIdRequest {
 }
 
 /**
+ * Request parameters for saveAnswerWithFile operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiSaveAnswerWithFileRequest
+ */
+export interface AnalystChangeMonitoringControllerApiSaveAnswerWithFileRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveAnswerWithFile
+	 */
+	readonly stepId: number;
+
+	/**
+	 *
+	 * @type {any}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveAnswerWithFile
+	 */
+	readonly file: any;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveAnswerWithFile
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+
+	/**
+	 *
+	 * @type {FileLinkDto}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveAnswerWithFile
+	 */
+	readonly fileLinkDto?: FileLinkDto;
+}
+
+/**
  * Request parameters for saveDraft1 operation in AnalystChangeMonitoringControllerApi.
  * @export
  * @interface AnalystChangeMonitoringControllerApiSaveDraft1Request
@@ -2547,26 +2593,6 @@ export interface AnalystChangeMonitoringControllerApiSetMonitoringCollaboratorRe
  * @extends {BaseAPI}
  */
 export class AnalystChangeMonitoringControllerApi extends BaseAPI {
-	/**
-	 *
-	 * @param {AnalystChangeMonitoringControllerApiChangeStatusWaitingForFocalpointRequest} requestParameters Request parameters.
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof AnalystChangeMonitoringControllerApi
-	 */
-	public changeStatusWaitingForFocalpoint(
-		requestParameters: AnalystChangeMonitoringControllerApiChangeStatusWaitingForFocalpointRequest,
-		options?: AxiosRequestConfig
-	) {
-		return AnalystChangeMonitoringControllerApiFp(this.configuration)
-			.changeStatusWaitingForFocalpoint(
-				requestParameters.runId,
-				requestParameters.acceptLanguage,
-				options
-			)
-			.then(request => request(this.axios, this.basePath));
-	}
-
 	/**
 	 *
 	 * @param {AnalystChangeMonitoringControllerApiCloseCompletedRunRequest} requestParameters Request parameters.
@@ -2674,7 +2700,7 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 		return AnalystChangeMonitoringControllerApiFp(this.configuration)
 			.editMonitoringFocalpointAndDelegates(
 				requestParameters.monitoringId,
-				requestParameters.inlineObject18,
+				requestParameters.inlineObject19,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -2870,6 +2896,28 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 	) {
 		return AnalystChangeMonitoringControllerApiFp(this.configuration)
 			.getRunById(requestParameters.runId, requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystChangeMonitoringControllerApiSaveAnswerWithFileRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystChangeMonitoringControllerApi
+	 */
+	public saveAnswerWithFile(
+		requestParameters: AnalystChangeMonitoringControllerApiSaveAnswerWithFileRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.saveAnswerWithFile(
+				requestParameters.stepId,
+				requestParameters.file,
+				requestParameters.acceptLanguage,
+				requestParameters.fileLinkDto,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 

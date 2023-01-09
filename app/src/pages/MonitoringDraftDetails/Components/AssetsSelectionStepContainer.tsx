@@ -1,33 +1,34 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
 import SingleApplicationSelect from '@components/SingleApplicationSelect';
 import Application from '@model/Application';
 import { useForm } from 'react-hook-form';
-import useGetApps from '@api/management/useGetApps';
+import useGetAllApplications from '@api/change-monitoring/useGetAllApplications';
+import useGetAppInstances from '@api/change-monitoring/useGetAppInstances';
+import Instance from '@model/Instance';
+import Asset from '@model/Asset';
 import SingleAppInstanceSelect from './SingleAppInstanceSelect';
 import MultipleAssetSelect from './MultipleAssetSelect';
 
-type Asset = {
-	info1: string;
-	info2: string;
-	id: string;
-};
 type FormData = {
 	application: Application;
-	applicationInstance: Application;
+	instance: Instance;
 	assets: Asset[];
 };
 
 const AssetsSelectionStepContainer = () => {
 	const { t } = useTranslation(['modals', 'changeMonitoring']);
-	const { data: applications } = useGetApps(); // TODO Change when BE is ready
+
+	const { data: applications } = useGetAllApplications();
+	// const { data: instanceAssets } = useGetAppInstances('prova3');
+
 	const { control, watch } = useForm<FormData>({
 		mode: 'onChange',
 		criteriaMode: 'all'
 	});
-
 	const app = watch('application');
-	const instance = watch('applicationInstance');
+	const instance = watch('instance');
 
 	return (
 		<>
@@ -46,12 +47,12 @@ const AssetsSelectionStepContainer = () => {
 					applications={applications ? [...applications.values()] : []}
 				/>
 			</FullWidthColumn>
-			<FullWidthColumn className='lg:w-1/2'>
+			{/* <FullWidthColumn className='lg:w-1/2'>
 				<SingleAppInstanceSelect
 					readOnly={!app}
 					level={2}
 					label={`${t('changeMonitoring:app-instance')} *`}
-					name='applicationInstance'
+					name='instance'
 					control={control}
 					rules={{
 						required: {
@@ -59,7 +60,9 @@ const AssetsSelectionStepContainer = () => {
 							message: t('modals:field-required')
 						}
 					}}
-					applications={applications ? [...applications.values()] : []}
+					instances={(instanceAssets ?? []).map(el => {
+						return el.instance as Instance;
+					})}
 				/>
 			</FullWidthColumn>
 			<FullWidthColumn className='lg:w-1/2'>
@@ -69,8 +72,9 @@ const AssetsSelectionStepContainer = () => {
 					control={control}
 					name='assets'
 					label={`${t('changeMonitoring:select-assets')} *`}
+					assets={instanceAssets?.find(el => el.instance?.id === instance.id)?.assets}
 				/>
-			</FullWidthColumn>
+			</FullWidthColumn> */}
 		</>
 	);
 };

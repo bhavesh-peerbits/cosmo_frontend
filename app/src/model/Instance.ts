@@ -14,4 +14,5 @@ export const fromInstanceApi = (instanceApi: InstanceApi): Instance => ({
 	description: instanceApi.description,
 	application: fromApplicationApi(instanceApi.application)
 });
+
 export default Instance;

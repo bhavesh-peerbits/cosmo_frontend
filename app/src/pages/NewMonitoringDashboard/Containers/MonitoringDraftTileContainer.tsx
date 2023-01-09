@@ -1,9 +1,9 @@
 import { Column, Grid } from '@carbon/react';
-import Monitoring from '@model/Monitoring';
+import MonitoringDraft from '@model/MonitoringDraft';
 import MonitoringDraftTile from '../Components/MonitoringDraftTile';
 
 type MonitoringDraftTileContainerProps = {
-	drafts: Monitoring[];
+	drafts: MonitoringDraft[];
 };
 const MonitoringDraftTileContainer = ({ drafts }: MonitoringDraftTileContainerProps) => {
 	return (

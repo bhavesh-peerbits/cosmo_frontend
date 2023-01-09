@@ -76,10 +76,10 @@ models/index.ts
 models/inet.ts
 models/inline-object10.ts
 models/inline-object11.ts
-models/inline-object13.ts
+models/inline-object12.ts
 models/inline-object14.ts
-models/inline-object18.ts
-models/inline-object8.ts
+models/inline-object15.ts
+models/inline-object19.ts
 models/inline-object9.ts
 models/instance-asset-dto.ts
 models/instance-dto.ts
@@ -89,6 +89,7 @@ models/local-time.ts
 models/mail-template-dto.ts
 models/module.ts
 models/monitoring-asset-dto.ts
+models/monitoring-draft-dto.ts
 models/monitoring-dto.ts
 models/multiple-narrative-review-body.ts
 models/narrative-review-body.ts

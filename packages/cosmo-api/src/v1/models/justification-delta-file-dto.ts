@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+import { FileLinkDto } from './file-link-dto';
 import { UserDto } from './user-dto';
 
 /**
@@ -34,10 +35,10 @@ export interface JustificationDeltaFileDto {
 	value?: string;
 	/**
 	 *
-	 * @type {string}
+	 * @type {Set<FileLinkDto>}
 	 * @memberof JustificationDeltaFileDto
 	 */
-	notes?: string;
+	files?: Set<FileLinkDto>;
 	/**
 	 *
 	 * @type {string}

@@ -15,7 +15,6 @@
 import { FileLinkDto } from './file-link-dto';
 import { InstanceDto } from './instance-dto';
 import { MonitoringAssetDto } from './monitoring-asset-dto';
-import { RunDto } from './run-dto';
 import { SchedulingDto } from './scheduling-dto';
 import { ScriptDto } from './script-dto';
 import { UserDto } from './user-dto';
@@ -23,132 +22,108 @@ import { UserDto } from './user-dto';
 /**
  *
  * @export
- * @interface MonitoringDto
+ * @interface MonitoringDraftDto
  */
-export interface MonitoringDto {
+export interface MonitoringDraftDto {
 	/**
 	 * Monitoring\'s id.
 	 * @type {number}
-	 * @memberof MonitoringDto
+	 * @memberof MonitoringDraftDto
 	 */
 	id: number;
 	/**
 	 * Monitoring\'s name.
 	 * @type {string}
-	 * @memberof MonitoringDto
+	 * @memberof MonitoringDraftDto
 	 */
 	name: string;
 	/**
 	 * Monitoring\'s type. True for automatic else false.
 	 * @type {boolean}
-	 * @memberof MonitoringDto
+	 * @memberof MonitoringDraftDto
 	 */
 	type: boolean;
 	/**
 	 *
 	 * @type {UserDto}
-	 * @memberof MonitoringDto
+	 * @memberof MonitoringDraftDto
 	 */
 	owner: UserDto;
 	/**
 	 *
 	 * @type {UserDto}
-	 * @memberof MonitoringDto
+	 * @memberof MonitoringDraftDto
 	 */
-	focalPoint: UserDto;
+	focalPoint?: UserDto;
 	/**
 	 * Focalpoint\'s delegates
 	 * @type {Set<UserDto>}
-	 * @memberof MonitoringDto
+	 * @memberof MonitoringDraftDto
 	 */
 	delegates?: Set<UserDto>;
 	/**
 	 * Monitoring\'s collaborators
 	 * @type {Set<UserDto>}
-	 * @memberof MonitoringDto
+	 * @memberof MonitoringDraftDto
 	 */
 	collaborators?: Set<UserDto>;
 	/**
 	 *
 	 * @type {InstanceDto}
-	 * @memberof MonitoringDto
+	 * @memberof MonitoringDraftDto
 	 */
 	instance: InstanceDto;
 	/**
 	 * Monitoring\'s assets
 	 * @type {Set<MonitoringAssetDto>}
-	 * @memberof MonitoringDto
+	 * @memberof MonitoringDraftDto
 	 */
-	monitoringAssets: Set<MonitoringAssetDto>;
+	monitoringAssets?: Set<MonitoringAssetDto>;
 	/**
 	 * Monitoring\'s control code. It\'s the string concatenation of the control codes by \'-\'
 	 * @type {string}
-	 * @memberof MonitoringDto
+	 * @memberof MonitoringDraftDto
 	 */
-	controlCode: string;
+	controlCode?: string;
 	/**
 	 *
 	 * @type {ScriptDto}
-	 * @memberof MonitoringDto
+	 * @memberof MonitoringDraftDto
 	 */
-	script: ScriptDto;
+	script?: ScriptDto;
 	/**
 	 * Monitoring\'s status.
 	 * @type {string}
-	 * @memberof MonitoringDto
+	 * @memberof MonitoringDraftDto
 	 */
-	status: MonitoringDtoStatusEnum;
+	status: MonitoringDraftDtoStatusEnum;
 	/**
 	 * Monitoring\'s status.
 	 * @type {string}
-	 * @memberof MonitoringDto
+	 * @memberof MonitoringDraftDto
 	 */
 	note?: string;
 	/**
 	 *
 	 * @type {SchedulingDto}
-	 * @memberof MonitoringDto
+	 * @memberof MonitoringDraftDto
 	 */
-	scheduling: SchedulingDto;
-	/**
-	 * Monitoring\'s current run.
-	 * @type {number}
-	 * @memberof MonitoringDto
-	 */
-	currentRun?: number;
-	/**
-	 * Monitoring\'s completion date.
-	 * @type {string}
-	 * @memberof MonitoringDto
-	 */
-	completionDate?: string;
-	/**
-	 *
-	 * @type {UserDto}
-	 * @memberof MonitoringDto
-	 */
-	completionUser?: UserDto;
+	scheduling?: SchedulingDto;
 	/**
 	 * The concatenation of the names of the leaf.
 	 * @type {string}
-	 * @memberof MonitoringDto
+	 * @memberof MonitoringDraftDto
 	 */
-	frameworkLeafs: string;
-	/**
-	 * The run associated with the monitoring.
-	 * @type {Set<RunDto>}
-	 * @memberof MonitoringDto
-	 */
-	runs: Set<RunDto>;
+	frameworkLeafs?: string;
 	/**
 	 * Files associated with the monitoring.
 	 * @type {Set<FileLinkDto>}
-	 * @memberof MonitoringDto
+	 * @memberof MonitoringDraftDto
 	 */
 	files?: Set<FileLinkDto>;
 }
 
-export const MonitoringDtoStatusEnum = {
+export const MonitoringDraftDtoStatusEnum = {
 	Draft: 'DRAFT',
 	Pending: 'PENDING',
 	Ongoing: 'ONGOING',
@@ -158,5 +133,5 @@ export const MonitoringDtoStatusEnum = {
 	Terminated: 'TERMINATED'
 } as const;
 
-export type MonitoringDtoStatusEnum =
-	typeof MonitoringDtoStatusEnum[keyof typeof MonitoringDtoStatusEnum];
+export type MonitoringDraftDtoStatusEnum =
+	typeof MonitoringDraftDtoStatusEnum[keyof typeof MonitoringDraftDtoStatusEnum];

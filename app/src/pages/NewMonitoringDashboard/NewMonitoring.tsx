@@ -4,9 +4,9 @@ import PageHeader from '@components/PageHeader';
 import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction, useMemo, useState } from 'react';
 import useGetAllMonitoringDrafts from '@api/change-monitoring/useGetAllMonitoringDrafts';
-import Monitoring from '@model/Monitoring';
 import Centered from '@components/Centered';
 import NoDataMessage from '@components/NoDataMessage';
+import MonitoringDraft from '@model/MonitoringDraft';
 import NewMonitoringModal from './Modals/NewMonitoringModal';
 import MonitoringDraftTileContainer from './Containers/MonitoringDraftTileContainer';
 
@@ -31,7 +31,7 @@ const NewMonitoring = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [searchQuery, setSearchQuery] = useState('');
 	const { data = new Map() } = useGetAllMonitoringDrafts();
-	const drafts = useMemo(() => ([...data.values()] as Monitoring[]) || [], [data]);
+	const drafts = useMemo(() => ([...data.values()] as MonitoringDraft[]) || [], [data]);
 
 	return (
 		<PageHeader

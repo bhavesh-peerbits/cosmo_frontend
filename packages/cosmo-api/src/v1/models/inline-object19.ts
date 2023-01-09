@@ -12,25 +12,24 @@
  * Do not edit the class manually.
  */
 
-import { AssetDto } from './asset-dto';
-import { InstanceDto } from './instance-dto';
+import { UserDto } from './user-dto';
 
 /**
  *
  * @export
- * @interface InstanceAssetDto
+ * @interface InlineObject19
  */
-export interface InstanceAssetDto {
+export interface InlineObject19 {
 	/**
 	 *
-	 * @type {InstanceDto}
-	 * @memberof InstanceAssetDto
+	 * @type {Set<UserDto>}
+	 * @memberof InlineObject19
 	 */
-	instance: InstanceDto;
+	delegates?: Set<UserDto>;
 	/**
-	 * Asset of the instance
-	 * @type {Set<AssetDto>}
-	 * @memberof InstanceAssetDto
+	 *
+	 * @type {UserDto}
+	 * @memberof InlineObject19
 	 */
-	assets: Set<AssetDto>;
+	focalPoint?: UserDto;
 }

@@ -7,7 +7,7 @@ import {
 	Tag
 } from '@carbon/react';
 import UserProfileImage from '@components/UserProfileImage';
-import Monitoring from '@model/Monitoring';
+import MonitoringDraft from '@model/MonitoringDraft';
 import { Dispatch, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -30,7 +30,7 @@ type MonitoringRecapModalProps = {
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<boolean>>;
 	shouldStart?: boolean;
-	draft: Monitoring;
+	draft: MonitoringDraft;
 };
 const MonitoringDraftRecapModal = ({
 	isOpen,

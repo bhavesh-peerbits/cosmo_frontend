@@ -24,6 +24,7 @@ import {
 	GenerateReportControllerApi,
 	IdentityProviderDto,
 	InstanceDto,
+	InstanceAssetDto,
 	MonitoringDtoStatusEnum,
 	NarrativeReviewControllerApi,
 	NewDraftDto,
@@ -50,6 +51,7 @@ import {
 	FrameworkTreeForEvidenceControllerApi,
 	EvidenceRequestFocalPointControllerApi,
 	MonitoringDto,
+	MonitoringDraftDto,
 	AnalystChangeMonitoringControllerApi,
 	MonitoringAssetDto,
 	AssetDto,
@@ -123,3 +125,5 @@ export type AssetApi = AssetDto;
 export type SchedulingApi = SchedulingDto;
 export type RunApi = RunDto;
 export type RunAssetApi = RunAssetDto;
+export type InstanceAssetApi = InstanceAssetDto;
+export type MonitoringDraftApi = MonitoringDraftDto;

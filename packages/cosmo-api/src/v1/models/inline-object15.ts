@@ -12,25 +12,16 @@
  * Do not edit the class manually.
  */
 
-import { AssetDto } from './asset-dto';
-import { InstanceDto } from './instance-dto';
-
 /**
  *
  * @export
- * @interface InstanceAssetDto
+ * @interface InlineObject15
  */
-export interface InstanceAssetDto {
+export interface InlineObject15 {
 	/**
 	 *
-	 * @type {InstanceDto}
-	 * @memberof InstanceAssetDto
+	 * @type {any}
+	 * @memberof InlineObject15
 	 */
-	instance: InstanceDto;
-	/**
-	 * Asset of the instance
-	 * @type {Set<AssetDto>}
-	 * @memberof InstanceAssetDto
-	 */
-	assets: Set<AssetDto>;
+	file?: any;
 }

@@ -1,10 +1,10 @@
 import { ClickableTile, Layer } from '@carbon/react';
-import Monitoring from '@model/Monitoring';
+import MonitoringDraft from '@model/MonitoringDraft';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 type MonitoringDraftTileProps = {
-	draft: Monitoring;
+	draft: MonitoringDraft;
 };
 const MonitoringDraftTile = ({ draft }: MonitoringDraftTileProps) => {
 	const navigate = useNavigate();

@@ -13,7 +13,7 @@
  */
 
 /**
- *
+ * The paths of the asset
  * @export
  * @interface PathDto
  */

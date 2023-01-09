@@ -14,12 +14,7 @@ import {
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { TooltipPosition } from '@carbon/react/typings/shared';
-
-type Asset = {
-	info1: string;
-	info2: string;
-	id: string;
-};
+import Asset from '@model/Asset';
 
 type MultipleAssetSelectProps<
 	T extends FieldValues,
@@ -35,6 +30,7 @@ type MultipleAssetSelectProps<
 			readOnly?: boolean;
 			defaultValue?: User[];
 			tooltipPosition?: TooltipPosition;
+			assets?: Asset[];
 	  }
 	: never;
 
@@ -47,7 +43,8 @@ const MultipleAssetSelect = <T extends FieldValues, TName extends FieldPath<T>>(
 	helperText,
 	readOnly,
 	defaultValue,
-	tooltipPosition
+	tooltipPosition,
+	assets
 }: MultipleAssetSelectProps<T, TName>) => {
 	const { t } = useTranslation(['changeMonitoring', 'userSelect']);
 	const [openSearch, setOpenSearch] = useState(false);
@@ -63,10 +60,6 @@ const MultipleAssetSelect = <T extends FieldValues, TName extends FieldPath<T>>(
 
 	const invalidText = error?.message;
 	const selectAssets = formValue as Asset[] | undefined;
-	const assets = [
-		{ info1: 'info1', info2: 'info2', id: '1' },
-		{ info1: 'c', info2: 'cc', id: '2' }
-	];
 
 	return (
 		<>
@@ -128,7 +121,7 @@ const MultipleAssetSelect = <T extends FieldValues, TName extends FieldPath<T>>(
 															)
 														}
 													>
-														{asset.info1}
+														{asset.os}
 													</Tag>
 												</div>
 											))}
@@ -159,8 +152,8 @@ const MultipleAssetSelect = <T extends FieldValues, TName extends FieldPath<T>>(
 					selectAssets && {
 						entries: selectAssets.map(asset => ({
 							id: asset.id,
-							title: asset.info1,
-							tagInfo: asset.info2
+							title: asset.hostname || '',
+							tagInfo: asset.os
 						}))
 					}
 				}
@@ -169,7 +162,7 @@ const MultipleAssetSelect = <T extends FieldValues, TName extends FieldPath<T>>(
 				noResultsDescription={t('userSelect:different-keywords')}
 				onCloseButtonText={t('userSelect:cancel')}
 				onSubmit={id => {
-					onChange(assets.filter(asset => id.includes(asset.id)));
+					onChange(assets?.filter(asset => id.includes(asset.id)));
 					setOpenSearch(false);
 				}}
 				onClose={() => setOpenSearch(false)}
@@ -185,8 +178,8 @@ const MultipleAssetSelect = <T extends FieldValues, TName extends FieldPath<T>>(
 				influencerItemSubtitle='info'
 				globalFilters={[
 					{
-						id: 'info2',
-						label: 'info3'
+						id: 'os',
+						label: 'OS'
 					}
 				]}
 				globalFiltersIconDescription={t('userSelect:filters')}
@@ -195,12 +188,14 @@ const MultipleAssetSelect = <T extends FieldValues, TName extends FieldPath<T>>(
 				globalFiltersSecondaryButtonText={t('userSelect:reset')}
 				clearFiltersText={t('userSelect:clear-filters')}
 				items={{
-					entries: assets.map(asset => ({
-						id: asset.id,
-						title: asset.info1,
-						tagInfo: asset.info2,
-						subtitle: asset.info1
-					}))
+					entries: assets
+						? assets.map(asset => ({
+								id: asset.id,
+								title: asset.hostname || '',
+								tagInfo: asset.os,
+								subtitle: asset.ip
+						  }))
+						: []
 				}}
 			/>
 		</>
