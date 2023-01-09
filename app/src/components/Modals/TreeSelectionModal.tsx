@@ -5,10 +5,10 @@ import { useTranslation } from 'react-i18next';
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
 import TreeContainer from '@components/EvidenceRequest/TreeContainer';
 import Framework from '@model/Framework';
-import useGetFrameworkTreeByCode from '@api/framework/useGetFrameworkTreeByCode';
 import { TreeView, TreeNode } from '@carbon/react';
 import { TrashCan } from '@carbon/react/icons';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import useGetFrameworkByCode from '@api/change-monitoring/useGetFrameworkByCode';
 
 type TreeSelectionModalProps = {
 	selectedFramework: string;
@@ -31,9 +31,7 @@ const TreeSelectionModal = ({
 		'evidenceRequest'
 	]);
 
-	const { data: framework } = useGetFrameworkTreeByCode(
-		selectedFramework !== 'FREE' ? selectedFramework : ''
-	);
+	const { data: framework } = useGetFrameworkByCode(selectedFramework);
 	const [selectedItems, setSelectedItems] = useState<Framework[]>(selectedLeaves);
 
 	useEffect(() => {

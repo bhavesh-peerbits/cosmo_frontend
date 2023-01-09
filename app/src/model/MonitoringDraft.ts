@@ -43,7 +43,9 @@ export const fromMonitoringDraftApi = (
 	collaborators: monitoringDraftApi.collaborators
 		? [...monitoringDraftApi.collaborators].map(fromUserApi)
 		: [],
-	instance: fromInstanceApi(monitoringDraftApi.instance),
+	instance: monitoringDraftApi.instance
+		? fromInstanceApi(monitoringDraftApi.instance)
+		: undefined,
 	monitoringAssets: monitoringDraftApi.monitoringAssets
 		? [...monitoringDraftApi.monitoringAssets].map(fromMonitoringAssetApi)
 		: undefined,

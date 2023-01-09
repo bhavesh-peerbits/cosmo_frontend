@@ -2,7 +2,6 @@ import FullWidthColumn from '@components/FullWidthColumn';
 import { Select, SelectItem, Layer, Tile, Button, FormLabel, Tag } from '@carbon/react';
 import { Add, EditOff } from '@carbon/react/icons';
 import cx from 'classnames';
-import useGetNewDraftParameter from '@api/evidence-request/useGetNewDraftParameter';
 import { useForm } from 'react-hook-form';
 import TreeSelectionModal from '@components/Modals/TreeSelectionModal';
 import { Suspense, useEffect, useState } from 'react';
@@ -10,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import Framework from '@model/Framework';
 import useGetUsers from '@api/user/useGetUsers';
 import User from '@model/User';
+import useGetFrameworkCodes from '@api/change-monitoring/useGetFrameworkCodes';
 import MultipleControlSelect from './MultipleControlSelect';
 import AssociationSelectionList from './AssociationSelectionList';
 
@@ -30,11 +30,12 @@ const FrameworkSelectionStepContainer = () => {
 	const [isTreeSelectionOpen, setIsTreeSelectionOpen] = useState(false);
 	const [selectedLeaves, setSelectedLeaves] = useState<Framework[]>([]);
 
-	const { data: parameters } = useGetNewDraftParameter(); // TODO Change when BE is ready
-	const { data: users = [] } = useGetUsers();
-
 	const { register, watch, control: controlForm } = useForm<FrameworkStepFormData>();
 	const selectedFramework = watch('framework');
+
+	const { data: frameworkCodes } = useGetFrameworkCodes();
+	const { data: users = [] } = useGetUsers();
+
 	useEffect(() => {
 		setSelectedLeaves([]);
 	}, [selectedFramework]);
@@ -72,8 +73,9 @@ const FrameworkSelectionStepContainer = () => {
 							required: true
 						})}
 					>
-						{parameters?.requestType.map(req => (
-							<SelectItem text={req} value={req} />
+						<SelectItem text='FREE' value='FREE' />
+						{frameworkCodes?.map(code => (
+							<SelectItem text={code} value={code} />
 						))}
 					</Select>
 				</Layer>
@@ -104,21 +106,21 @@ const FrameworkSelectionStepContainer = () => {
 							)}
 						</div>
 						<div className='absolute top-1/2 right-2 -translate-y-1/2'>
-							<Button
-								kind='ghost'
-								renderIcon={() =>
-									!selectedFramework || selectedFramework === 'FREE' ? (
-										<EditOff size={20} />
-									) : (
-										<Add size={20} />
-									)
-								}
-								size='sm'
-								hasIconOnly
-								disabled={!selectedFramework || selectedFramework === 'FREE'}
-								onClick={() => setIsTreeSelectionOpen(true)}
-								iconDescription={t('select-leaves')}
-							/>
+							{!selectedFramework || selectedFramework === 'FREE' ? (
+								<div className='pr-4'>
+									<EditOff />
+								</div>
+							) : (
+								<Button
+									kind='ghost'
+									renderIcon={() => <Add size={20} />}
+									size='sm'
+									hasIconOnly
+									disabled={!selectedFramework || selectedFramework === 'FREE'}
+									onClick={() => setIsTreeSelectionOpen(true)}
+									iconDescription={t('select-leaves')}
+								/>
+							)}
 						</div>
 					</Tile>
 				</div>
@@ -135,6 +137,7 @@ const FrameworkSelectionStepContainer = () => {
 							message: t('control-required')
 						}
 					}}
+					readOnly={selectedFramework === 'FREE'}
 				/>
 			</FullWidthColumn>
 			<FullWidthColumn className='overflow-scroll'>
