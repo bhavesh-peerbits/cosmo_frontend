@@ -21,6 +21,8 @@ import useGetAllMonitoringDraftNames from '@api/change-monitoring/useGetAllMonit
 import { useNavigate } from 'react-router-dom';
 import ApiError from '@api/ApiError';
 import useMonitoringForNewDraft from '@hooks/new-monitoring/useMonitoringForNewDraft';
+import Centered from '@components/Centered';
+import NoDataMessage from '@components/NoDataMessage';
 import NewMonitoringFilters from '../Components/NewMonitoringFilters';
 
 type NewMonitoringForm = {
@@ -100,7 +102,7 @@ const NewMonitoringModal = ({ isOpen, setIsOpen }: NewMonitoringModalProps) => {
 			]}
 		>
 			<>
-				<Form className='space-y-5 px-5'>
+				<Form className='space-y-5 px-5 pt-5'>
 					<RadioButtonGroup
 						name='monitoring-type'
 						legendText={`${t('changeMonitoring:monitoring-type')} *`}
@@ -178,7 +180,7 @@ const NewMonitoringModal = ({ isOpen, setIsOpen }: NewMonitoringModalProps) => {
 									</Tag>
 								)}
 							</div>
-							{monitorings && (
+							{monitorings.length ? (
 								<Accordion>
 									{monitorings.map(monitoring => (
 										<AccordionItem
@@ -235,6 +237,10 @@ const NewMonitoringModal = ({ isOpen, setIsOpen }: NewMonitoringModalProps) => {
 										</AccordionItem>
 									))}
 								</Accordion>
+							) : (
+								<Centered>
+									<NoDataMessage title={t('changeMonitoring:no-monitoring')} />
+								</Centered>
 							)}
 						</div>
 					)}
