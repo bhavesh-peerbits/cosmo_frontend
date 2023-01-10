@@ -54,6 +54,8 @@ const AddSelectFilter = ({
 
 	const resetFilters = () => {
 		setFilters({});
+		handleFilter({});
+		setOpen(false);
 	};
 
 	const clearFilters = () => {
