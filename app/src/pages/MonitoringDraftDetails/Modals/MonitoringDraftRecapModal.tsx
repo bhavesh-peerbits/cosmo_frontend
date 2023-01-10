@@ -44,7 +44,7 @@ const MonitoringDraftRecapModal = ({
 	};
 	if (!draft) return null;
 	return (
-		<ComposedModal open={isOpen} onClose={cleanUp}>
+		<ComposedModal open={isOpen} onClose={cleanUp} className='z-[9999]'>
 			<ModalHeader
 				label={draft.name}
 				title={t('changeMonitoring:show-recap')}

@@ -15,6 +15,7 @@ import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { TooltipPosition } from '@carbon/react/typings/shared';
 import Association from '@model/Association';
+import UserProfileImage from '@components/UserProfileImage';
 
 type MultipleControlSelectProps<
 	T extends FieldValues,
@@ -46,7 +47,7 @@ const MultipleControlSelect = <T extends FieldValues, TName extends FieldPath<T>
 	tooltipPosition,
 	controls
 }: MultipleControlSelectProps<T, TName>) => {
-	const { t } = useTranslation(['changeMonitoring', 'userSelect']);
+	const { t } = useTranslation(['changeMonitoring', 'userSelect', 'evidenceRequest']);
 	const [openSearch, setOpenSearch] = useState(false);
 	const {
 		field: { onChange, onBlur, value: formValue, ref },
@@ -175,7 +176,7 @@ const MultipleControlSelect = <T extends FieldValues, TName extends FieldPath<T>
 				open={openSearch}
 				influencerTitle={t('changeMonitoring:selected-controls')}
 				influencerItemTitle={t('changeMonitoring:control-name')}
-				influencerItemSubtitle='info'
+				influencerItemSubtitle='Focal Point'
 				globalFilters={[
 					{
 						id: 'info2',
@@ -192,7 +193,19 @@ const MultipleControlSelect = <T extends FieldValues, TName extends FieldPath<T>
 						? controls.map(el => ({
 								id: el.id,
 								title: el.name || '',
-								subtitle: el.reviewer?.displayName
+								subtitle: el.reviewer?.displayName,
+								[t('evidenceRequest:focal-point-delegates')]: el.delegates?.length
+									? el.delegates.map(del => (
+											<UserProfileImage
+												initials={del.displayName}
+												imageDescription={del.username}
+												tooltipText={del.displayName}
+												size='lg'
+												kind='group'
+												tooltipPosition='top-left'
+											/>
+									  ))
+									: t('evidenceRequest:no-delegates')
 						  }))
 						: []
 				}}
