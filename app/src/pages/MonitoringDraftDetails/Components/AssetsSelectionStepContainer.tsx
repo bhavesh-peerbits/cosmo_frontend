@@ -8,6 +8,9 @@ import useGetAllApplications from '@api/change-monitoring/useGetAllApplications'
 import useGetAppInstances from '@api/change-monitoring/useGetAppInstances';
 import Instance from '@model/Instance';
 import Asset from '@model/Asset';
+import { Button } from '@carbon/react';
+import { Dispatch, SetStateAction } from 'react';
+import MonitoringDraft from '@model/MonitoringDraft';
 import SingleAppInstanceSelect from './SingleAppInstanceSelect';
 import MultipleAssetSelect from './MultipleAssetSelect';
 
@@ -17,12 +20,25 @@ type FormData = {
 	assets: Asset[];
 };
 
-const AssetsSelectionStepContainer = () => {
+type AssetSelectionProps = {
+	setCurrentStep: Dispatch<SetStateAction<number>>;
+	draft: MonitoringDraft;
+};
+const AssetsSelectionStepContainer = ({ setCurrentStep, draft }: AssetSelectionProps) => {
 	const { t } = useTranslation(['modals', 'changeMonitoring']);
 
-	const { control, watch } = useForm<FormData>({
+	const {
+		control,
+		watch,
+		formState: { isValid }
+	} = useForm<FormData>({
 		mode: 'onChange',
-		criteriaMode: 'all'
+		criteriaMode: 'all',
+		defaultValues: {
+			application: draft.instance?.application,
+			instance: draft.instance,
+			assets: draft.monitoringAssets?.map(asset => asset.asset)
+		}
 	});
 	const app = watch('application');
 	const instance = watch('instance');
@@ -78,6 +94,15 @@ const AssetsSelectionStepContainer = () => {
 							: []
 					}
 				/>
+			</FullWidthColumn>
+			<FullWidthColumn className='justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
+				<Button
+					size='md'
+					onClick={() => setCurrentStep(old => old + 1)}
+					className='w-full md:w-fit'
+				>
+					{t('changeMonitoring:save-next')}
+				</Button>
 			</FullWidthColumn>
 		</>
 	);

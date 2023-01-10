@@ -1,4 +1,4 @@
-import { Dispatch, ReactNode, SetStateAction, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { Layer, Tile, Grid, Button } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
@@ -11,15 +11,11 @@ type NewMonitoringStepTileProps = {
 	content: ReactNode;
 	title: string;
 	description: string;
-	setCurrentStep: Dispatch<SetStateAction<number>>;
-	currentStep: number;
 };
 const NewMonitoringStepTile = ({
 	content,
 	title,
-	description,
-	setCurrentStep,
-	currentStep
+	description
 }: NewMonitoringStepTileProps) => {
 	const { t } = useTranslation(['modals', 'changeMonitoring']);
 	const [isRecapOpen, setIsRecapOpen] = useState(false);
@@ -57,25 +53,6 @@ const NewMonitoringStepTile = ({
 						</FullWidthColumn>
 
 						{content}
-						<FullWidthColumn className='justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
-							{currentStep > 0 && (
-								<Button
-									size='md'
-									kind='secondary'
-									onClick={() => setCurrentStep(old => old - 1)}
-									className='w-full md:w-fit'
-								>
-									{t('modals:back')}
-								</Button>
-							)}
-							<Button
-								size='md'
-								onClick={() => setCurrentStep(old => old + 1)}
-								className='w-full md:w-fit'
-							>
-								{currentStep === 5 ? t('modals:save') : t('changeMonitoring:save-next')}
-							</Button>
-						</FullWidthColumn>
 					</Grid>
 				</Tile>
 			</Layer>

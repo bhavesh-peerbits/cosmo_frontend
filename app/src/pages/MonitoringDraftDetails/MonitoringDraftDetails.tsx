@@ -168,7 +168,7 @@ const MonitoringDraftDetails = () => {
 						)}
 					</Column>
 					<Column sm={4} md={8} lg={13}>
-						<NewMonitoringStepsContainer />
+						<NewMonitoringStepsContainer draft={draft} />
 					</Column>
 				</Grid>
 			</>

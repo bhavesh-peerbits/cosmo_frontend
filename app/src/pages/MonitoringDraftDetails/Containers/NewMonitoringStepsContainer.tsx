@@ -1,5 +1,6 @@
 import { Grid, ProgressStep, ProgressIndicator } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
+import MonitoringDraft from '@model/MonitoringDraft';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AdditionalInfoStepContainer from '../Components/AdditionalInfoStepContainer';
@@ -10,14 +11,20 @@ import PathDefinitionStepContainer from '../Components/PathDefinitionStepContain
 import SchedulingStepContainer from '../Components/SchedulingStepContainer';
 import ScriptSelectionStepContainer from '../Components/ScriptSelectionStepContainer';
 
-const NewMonitoringStepsContainer = () => {
+type NewMonitoringStepsContainerProps = {
+	draft: MonitoringDraft;
+};
+
+const NewMonitoringStepsContainer = ({ draft }: NewMonitoringStepsContainerProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'evidenceRequest']);
 	const [currentStep, setCurrentStep] = useState(0);
 	const contentToRender = () => {
 		switch (currentStep) {
 			case 0:
 				return {
-					content: <AssetsSelectionStepContainer />,
+					content: (
+						<AssetsSelectionStepContainer setCurrentStep={setCurrentStep} draft={draft} />
+					),
 					title: 'Assets',
 					description: t('changeMonitoring:assets-step-description')
 				};
@@ -53,7 +60,9 @@ const NewMonitoringStepsContainer = () => {
 				};
 			default:
 				return {
-					content: <AssetsSelectionStepContainer />,
+					content: (
+						<AssetsSelectionStepContainer setCurrentStep={setCurrentStep} draft={draft} />
+					),
 					title: 'Assets',
 					description: t('changeMonitoring:assets-step-description')
 				};
@@ -80,8 +89,6 @@ const NewMonitoringStepsContainer = () => {
 					content={contentToRender().content}
 					title={contentToRender().title}
 					description={contentToRender().description}
-					setCurrentStep={setCurrentStep}
-					currentStep={currentStep}
 				/>
 			</FullWidthColumn>
 		</Grid>
