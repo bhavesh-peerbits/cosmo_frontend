@@ -12,8 +12,6 @@
  * Do not edit the class manually.
  */
 
-import { UserDto } from './user-dto';
-
 /**
  *
  * @export
@@ -22,14 +20,14 @@ import { UserDto } from './user-dto';
 export interface InlineObject19 {
 	/**
 	 *
-	 * @type {Array<UserDto>}
+	 * @type {Array<string>}
 	 * @memberof InlineObject19
 	 */
-	delegates?: Array<UserDto>;
+	delegates?: Array<string>;
 	/**
 	 *
-	 * @type {UserDto}
+	 * @type {string}
 	 * @memberof InlineObject19
 	 */
-	focalPoint?: UserDto;
+	focalPoint?: string;
 }
