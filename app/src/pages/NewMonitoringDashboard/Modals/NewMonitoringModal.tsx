@@ -1,5 +1,4 @@
 /* eslint-disable no-nested-ternary */
-import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
 import { Dispatch, SetStateAction, useState } from 'react';
 import {
 	RadioButton,
@@ -23,6 +22,7 @@ import ApiError from '@api/ApiError';
 import useMonitoringForNewDraft from '@hooks/new-monitoring/useMonitoringForNewDraft';
 import Centered from '@components/Centered';
 import NoDataMessage from '@components/NoDataMessage';
+import { TearsheetNarrow } from '@carbon/ibm-products';
 import NewMonitoringFilters from '../Components/NewMonitoringFilters';
 
 type NewMonitoringForm = {
@@ -134,15 +134,17 @@ const NewMonitoringModal = ({ isOpen, setIsOpen }: NewMonitoringModalProps) => {
 									.includes(name.toLowerCase()) || t('applicationInfo:name-exists')
 						})}
 					/>
-					<Toggle
-						id='copy-monitoring-toggle'
-						labelText={t('changeMonitoring:copy-monitoring')}
-						labelA='No'
-						labelB={t('changeMonitoring:copy')}
-						aria-label='Copy monitoring type'
-						toggled={isCopySelected}
-						onToggle={() => setIsCopySelected(!isCopySelected)}
-					/>
+					{(monitorings.length > 0 || (!monitorings.length && filters)) && (
+						<Toggle
+							id='copy-monitoring-toggle'
+							labelText={t('changeMonitoring:copy-monitoring')}
+							labelA='No'
+							labelB={t('changeMonitoring:copy')}
+							aria-label='Copy monitoring type'
+							toggled={isCopySelected}
+							onToggle={() => setIsCopySelected(!isCopySelected)}
+						/>
+					)}
 					{isCopySelected && (
 						<div className='mt-3 space-y-5'>
 							<div className='flex space-x-5'>

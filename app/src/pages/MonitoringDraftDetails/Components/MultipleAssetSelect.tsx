@@ -121,7 +121,7 @@ const MultipleAssetSelect = <T extends FieldValues, TName extends FieldPath<T>>(
 															)
 														}
 													>
-														{asset.os}
+														{asset.hostname}
 													</Tag>
 												</div>
 											))}
