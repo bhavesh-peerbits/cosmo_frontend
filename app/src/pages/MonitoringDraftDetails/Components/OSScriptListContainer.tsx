@@ -1,25 +1,20 @@
 import { RadioTile, TileGroup, Layer } from '@carbon/react';
+import Script from '@model/Script';
 import OSScriptTileContent from './OSScriptTileContent';
 
 type OSScriptListContainerProps = {
-	data: {
-		os: string;
-		script: {
-			script: string;
-			description: string;
-		}[];
-	};
+	scripts: Script[];
 };
 // TODO Fix all values/id when BE is ready
 
-const OSScriptListContainer = ({ data }: OSScriptListContainerProps) => {
+const OSScriptListContainer = ({ scripts }: OSScriptListContainerProps) => {
 	return (
 		<div>
-			<span className='text-productive-heading-3'>{data.os}</span>{' '}
-			<Layer key={data.os}>
+			<span className='text-productive-heading-3'>{scripts[0].os}</span>
+			<Layer key={scripts[0].os}>
 				<TileGroup name='os-script-group'>
-					{data.script.map(script => (
-						<RadioTile value={script.script} className='mt-5'>
+					{scripts.map(script => (
+						<RadioTile value={script.id} className='mt-5'>
 							<OSScriptTileContent script={script} />
 						</RadioTile>
 					))}
