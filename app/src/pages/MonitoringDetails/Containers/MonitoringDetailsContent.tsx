@@ -1,15 +1,20 @@
 import { Grid, Column } from '@carbon/react';
+import Monitoring from '@model/Monitoring';
 import MonitoringSummaryDetails from '../Components/MonitoringSummaryDetails';
 import RunsTileContainer from './RunsTileContainer';
 
-const MonitoringDetailsContent = () => {
+type MonitoringDetailsContentProps = {
+	monitoring: Monitoring;
+};
+
+const MonitoringDetailsContent = ({ monitoring }: MonitoringDetailsContentProps) => {
 	return (
 		<Grid fullWidth className='p-container-1'>
 			<Column sm={4} md={2} lg={3}>
-				<MonitoringSummaryDetails />
+				<MonitoringSummaryDetails monitoring={monitoring} />
 			</Column>
 			<Column sm={4} md={6} lg={13}>
-				<RunsTileContainer />
+				<RunsTileContainer monitoring={monitoring} />
 			</Column>
 		</Grid>
 	);

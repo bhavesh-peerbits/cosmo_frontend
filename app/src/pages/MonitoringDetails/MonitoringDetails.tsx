@@ -45,6 +45,8 @@ const MonitoringDetails = () => {
 		);
 	};
 
+	if (!monitoring) return null;
+
 	return (
 		<PageHeader
 			pageTitle={monitoring?.name || ''}
@@ -119,7 +121,7 @@ const MonitoringDetails = () => {
 					noResultsTitle={t('userSelect:no-results')}
 					noResultsDescription={t('userSelect:different-keywords')}
 				/>
-				<MonitoringDetailsContent />
+				<MonitoringDetailsContent monitoring={monitoring} />
 			</>
 		</PageHeader>
 	);

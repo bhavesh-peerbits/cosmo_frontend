@@ -5,16 +5,20 @@ import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { Grid, Column } from '@carbon/react';
 import MonitoringSummaryDetails from '@pages/MonitoringDetails/Components/MonitoringSummaryDetails';
+import useGetMonitoringById from '@api/change-monitoring/useGetMonitoringById';
 import CloseRunModal from './Modals/CloseRunModal';
 import RunDetailsStepContainer from './Containers/RunDetailsStepContainer';
 
 const MonitoringRunDetails = () => {
 	const { monitoringId = '', runId = '' } = useParams();
 	const { t } = useTranslation('runDetails');
+	const { data: monitoring } = useGetMonitoringById(monitoringId);
 
 	const [isCloseOpen, setIsCloseOpen] = useState(false);
 
 	// TODO Change monitoring name in breadcrumb
+
+	if (!monitoring) return null;
 
 	return (
 		<PageHeader
@@ -37,7 +41,7 @@ const MonitoringRunDetails = () => {
 			<Grid className='p-container-1'>
 				<CloseRunModal id={runId} setIsOpen={setIsCloseOpen} isOpen={isCloseOpen} />
 				<Column sm={4} md={2} lg={3}>
-					<MonitoringSummaryDetails />
+					<MonitoringSummaryDetails monitoring={monitoring} />
 				</Column>
 				<Column sm={4} md={6} lg={13}>
 					<RunDetailsStepContainer />

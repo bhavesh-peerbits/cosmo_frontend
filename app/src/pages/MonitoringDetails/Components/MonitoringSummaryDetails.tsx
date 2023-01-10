@@ -1,42 +1,77 @@
 import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
 import { useTranslation } from 'react-i18next';
+import { UnorderedList, ListItem } from '@carbon/react';
+import Monitoring from '@model/Monitoring';
 
-const MonitoringSummaryDetails = () => {
-	const { t } = useTranslation('changeMonitoring');
+type MonitoringSummaryDetailsProps = {
+	monitoring: Monitoring;
+};
+const MonitoringSummaryDetails = ({ monitoring }: MonitoringSummaryDetailsProps) => {
+	const { t } = useTranslation(['changeMonitoring', 'evidenceRequest']);
 	const { breadcrumbSize } = useBreadcrumbSize();
 
-	const paths = ['path1', 'path2'];
-	const assets = ['asset1', 'asset2'];
 	return (
 		<div className='sticky space-y-5' style={{ top: breadcrumbSize + 24 }}>
 			<div>
-				<p className='font-bold text-productive-heading-2'>{t('monitoring-type')}</p>
-				<p className='text-sm text-body-compact-1'>type</p>
+				<p className='font-bold text-productive-heading-2'>
+					{t('changeMonitoring:monitoring-type')}
+				</p>
+				<p className='text-sm text-body-compact-1'>
+					{monitoring?.type
+						? t('changeMonitoring:automatic')
+						: t('changeMonitoring:manual')}
+				</p>
 			</div>
 			<div>
 				<p className='font-bold text-productive-heading-2'>Assets</p>
-				{assets?.map(asset => (
-					<p className='text-sm text-body-compact-1'>{asset}</p>
+				{monitoring?.monitoringAssets?.map(asset => (
+					<p className='text-sm text-body-compact-1'>{asset.asset.hostname}</p>
 				))}
 			</div>
 			<div>
-				<p className='font-bold text-productive-heading-2'>Framework</p>
-				<p className='text-sm text-body-compact-1'>framework</p>
+				<p className='font-bold text-productive-heading-2'>
+					{t('evidenceRequest:framework-name')}
+				</p>
+				<p className='text-sm text-body-compact-1'>HERE GOES FRAMEWORK NAME</p>
+			</div>
+			<div>
+				<p className='font-bold text-productive-heading-2'>
+					{t('evidenceRequest:framework-code')}
+				</p>
+				<p className='text-sm text-body-compact-1'>HERE GOES FRAMEWORK CODE</p>
 			</div>
 			<div>
 				<p className='font-bold text-productive-heading-2'>Paths</p>
-				{paths?.map(path => (
-					<p className='text-sm text-body-compact-1'>{path}</p>
+				{monitoring?.monitoringAssets?.map(asset => (
+					<p className='text-sm text-body-compact-1'>
+						{asset.paths.map(path => (
+							<UnorderedList nested className='ml-4'>
+								<ListItem className='break-words'>{path.path}</ListItem>
+							</UnorderedList>
+						))}
+					</p>
 				))}
 			</div>
 			<div>
-				<p className='font-bold text-productive-heading-2'>{t('control-code')}</p>
-				<p className='text-sm text-body-compact-1'>code</p>
+				<p className='font-bold text-productive-heading-2'>
+					{t('changeMonitoring:control-code')}
+				</p>
+				<p className='text-sm text-body-compact-1'>
+					{monitoring?.controlCode.split('-').map(code => (
+						<UnorderedList nested className='ml-4'>
+							<ListItem className='break-words'>{code}</ListItem>
+						</UnorderedList>
+					))}
+				</p>
 			</div>
-			<div>
-				<p className='font-bold text-productive-heading-2'>{t('note')}</p>
-				<p className='text-sm text-body-compact-1'>note</p>
-			</div>
+			{monitoring?.note && (
+				<div>
+					<p className='font-bold text-productive-heading-2'>
+						{t('changeMonitoring:note')}
+					</p>
+					<p className='text-sm text-body-compact-1'>{monitoring.note}</p>
+				</div>
+			)}
 		</div>
 	);
 };

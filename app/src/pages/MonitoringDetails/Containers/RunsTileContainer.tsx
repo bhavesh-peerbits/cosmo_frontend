@@ -1,35 +1,27 @@
 import { smoothScroll, triggerFocus } from '@components/TableOfContents/utils';
+import Monitoring from '@model/Monitoring';
 import { useLayoutEffect } from 'react';
 import RunTile from '../Components/RunTile';
 
-const RunsTileContainer = () => {
-	const fakeData = [
-		'run1',
-		'run2',
-		'run3',
-		'run4',
-		'run5',
-		'run6',
-		'run7',
-		'run8',
-		'run9',
-		'run10',
-		'run11',
-		'run12',
-		'run13'
-	];
+type RunsTileContainerProps = {
+	monitoring: Monitoring;
+};
 
+const RunsTileContainer = ({ monitoring }: RunsTileContainerProps) => {
 	useLayoutEffect(() => {
-		const selector = `*[id="run4"]`;
+		const selector = `*[id="run-${monitoring.currentRun}"]`;
 		smoothScroll(selector, 149);
 		triggerFocus(selector);
-	}, []);
+	}, [monitoring]);
 
 	return (
 		<div className='space-y-5'>
-			{fakeData.map(run => (
-				<RunTile run={run} key={run} />
-			))}
+			{monitoring.runs
+				.slice()
+				.sort((a, b) => a.orderNumber - b.orderNumber)
+				.map(run => (
+					<RunTile run={run} key={run.id} />
+				))}
 		</div>
 	);
 };
