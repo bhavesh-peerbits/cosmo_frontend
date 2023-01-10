@@ -10,7 +10,15 @@ declare module '@tanstack/react-table' {
 		exportableFn?: (info: TValue) => string;
 		exportLabel?: () => string;
 		initialVisible?: false;
-		modalInfo?: ModalInfoAll | ModalInfoSelect | ModalInfoDate | ModalInfoUser;
+		modalInfo?:
+			| ModalInfoAll
+			| ModalInfoSelect
+			| ModalInfoDate
+			| ModalInfoUser
+			| ModalInfoAllOrdered
+			| ModalInfoSelectOrdered
+			| ModalInfoDateOrdered
+			| ModalInfoUserOrdered;
 	}
 
 	interface ModalInfoBase {
@@ -18,12 +26,12 @@ declare module '@tanstack/react-table' {
 		halfWidth?: boolean;
 	}
 
-	interface ModalInfoSelect extends ModalInfoBase {
+	export interface ModalInfoSelect extends ModalInfoBase {
 		type: 'select';
 		selectContent: string[];
 	}
 
-	interface ModalInfoUser extends ModalInfoBase {
+	export interface ModalInfoUser extends ModalInfoBase {
 		type: 'user' | 'users';
 		roleOfUsers: string;
 		validation?: {
@@ -31,7 +39,7 @@ declare module '@tanstack/react-table' {
 		};
 	}
 
-	interface ModalInfoDate extends ModalInfoBase {
+	export interface ModalInfoDate extends ModalInfoBase {
 		type: 'date';
 		validation?: {
 			maxDate?: Date;
@@ -39,7 +47,37 @@ declare module '@tanstack/react-table' {
 		};
 	}
 
-	interface ModalInfoAll extends ModalInfoBase {
+	export interface ModalInfoAllOrdered extends ModalInfoBase {
+		type: 'number' | 'string';
+		validation?: Validation;
+		fieldOrder: number;
+	}
+
+	export interface ModalInfoSelectOrdered extends ModalInfoBase {
+		type: 'select';
+		selectContent: string[];
+		fieldOrder: number;
+	}
+
+	export interface ModalInfoUserOrdered extends ModalInfoBase {
+		type: 'user' | 'users';
+		roleOfUsers: string;
+		validation?: {
+			required?: boolean;
+		};
+		fieldOrder: number;
+	}
+
+	export interface ModalInfoDateOrdered extends ModalInfoBase {
+		type: 'date';
+		validation?: {
+			maxDate?: Date;
+			minDate?: Date;
+		};
+		fieldOrder: number;
+	}
+
+	export interface ModalInfoAll extends ModalInfoBase {
 		type: 'number' | 'string';
 		validation?: Validation;
 	}
