@@ -178,8 +178,12 @@ const MultipleAssetSelect = <T extends FieldValues, TName extends FieldPath<T>>(
 				influencerItemSubtitle='IP'
 				globalFilters={[
 					{
-						id: 'os',
+						id: 'tagInfo',
 						label: t('changeMonitoring:operating-system')
+					},
+					{
+						id: t('changeMonitoring:type'),
+						label: t('changeMonitoring:type')
 					}
 				]}
 				globalFiltersIconDescription={t('userSelect:filters')}
