@@ -22,7 +22,7 @@ import ApiError from '@api/ApiError';
 import useMonitoringForNewDraft from '@hooks/new-monitoring/useMonitoringForNewDraft';
 import Centered from '@components/Centered';
 import NoDataMessage from '@components/NoDataMessage';
-import { TearsheetNarrow } from '@carbon/ibm-products';
+import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
 import NewMonitoringFilters from '../Components/NewMonitoringFilters';
 
 type NewMonitoringForm = {

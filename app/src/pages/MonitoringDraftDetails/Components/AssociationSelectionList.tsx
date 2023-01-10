@@ -19,21 +19,15 @@ type AssociationSelectionListProps = {
 	control: Control<{
 		framework: string;
 		leaves: string[];
-		controls: {
-			info1: string;
-			name: string;
-			id: string;
-		}[];
+		controls: Association[];
 		focalPoint: User;
 		delegates: User[];
 	}>;
-	isFree?: boolean;
 	associations: Association[];
 };
 const AssociationSelectionList = ({
 	control,
-	associations,
-	isFree
+	associations
 }: AssociationSelectionListProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'evidenceRequest']);
 	return (
@@ -87,46 +81,47 @@ const AssociationSelectionList = ({
 						/>
 					</StructuredListCell>
 				</StructuredListRow>
-				{!isFree &&
-					associations.map(association => (
-						<StructuredListRow tabIndex={0} key={association.id}>
-							<StructuredListCell>{association.name}</StructuredListCell>
-							<StructuredListCell className='space-x-4' noWrap>
-								<UserProfileImage
-									initials={association.reviewer?.displayName}
-									imageDescription={association.reviewer?.username}
-									tooltipText={association.reviewer?.displayName}
-									size='lg'
-								/>
-								<span>{association.reviewer?.displayName}</span>
-							</StructuredListCell>
-							<StructuredListCell>
-								{association.delegates?.map(del => (
-									<UserProfileImage
-										initials={del.displayName}
-										imageDescription={del.username}
-										size='lg'
-										tooltipText={del?.displayName}
-									/>
-								))}
-							</StructuredListCell>
-							<StructuredListInput
-								id='row-1'
-								value='row-1'
-								title='row-1'
-								name='row-1'
-								defaultChecked
+				{associations.map(association => (
+					<StructuredListRow tabIndex={0} key={association.id}>
+						<StructuredListCell>{association.name}</StructuredListCell>
+						<StructuredListCell className='space-x-4' noWrap>
+							<UserProfileImage
+								initials={association.reviewer?.displayName}
+								imageDescription={association.reviewer?.username}
+								tooltipText={association.reviewer?.displayName}
+								size='lg'
 							/>
-							<StructuredListCell>
-								<CheckmarkFilled
-									className='cds--structured-list-svg'
-									aria-label='select an option'
-								>
-									<title>select an option</title>
-								</CheckmarkFilled>
-							</StructuredListCell>
-						</StructuredListRow>
-					))}
+							<span>{association.reviewer?.displayName}</span>
+						</StructuredListCell>
+						<StructuredListCell>
+							{association.delegates?.length
+								? association.delegates?.map(del => (
+										<UserProfileImage
+											initials={del.displayName}
+											imageDescription={del.username}
+											size='lg'
+											tooltipText={del?.displayName}
+										/>
+								  ))
+								: t('evidenceRequest:no-delegates')}
+						</StructuredListCell>
+						<StructuredListInput
+							id='row-1'
+							value='row-1'
+							title='row-1'
+							name='row-1'
+							defaultChecked
+						/>
+						<StructuredListCell>
+							<CheckmarkFilled
+								className='cds--structured-list-svg'
+								aria-label='select an option'
+							>
+								<title>select an option</title>
+							</CheckmarkFilled>
+						</StructuredListCell>
+					</StructuredListRow>
+				))}
 			</StructuredListBody>
 		</StructuredListWrapper>
 	);

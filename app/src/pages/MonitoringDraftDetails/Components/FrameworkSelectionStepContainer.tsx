@@ -7,20 +7,17 @@ import TreeSelectionModal from '@components/Modals/TreeSelectionModal';
 import { Suspense, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Framework from '@model/Framework';
-import useGetUsers from '@api/user/useGetUsers';
 import User from '@model/User';
 import useGetFrameworkCodes from '@api/change-monitoring/useGetFrameworkCodes';
+import Association from '@model/Association';
+import useGetControls from '@api/change-monitoring/useGetControls';
 import MultipleControlSelect from './MultipleControlSelect';
 import AssociationSelectionList from './AssociationSelectionList';
 
 type FrameworkStepFormData = {
 	framework: string;
 	leaves: string[];
-	controls: {
-		info1: string;
-		name: string;
-		id: string;
-	}[];
+	controls: Association[];
 	focalPoint: User;
 	delegates: User[];
 };
@@ -30,25 +27,29 @@ const FrameworkSelectionStepContainer = () => {
 	const [isTreeSelectionOpen, setIsTreeSelectionOpen] = useState(false);
 	const [selectedLeaves, setSelectedLeaves] = useState<Framework[]>([]);
 
-	const { register, watch, control: controlForm } = useForm<FrameworkStepFormData>();
+	const {
+		register,
+		watch,
+		control: controlForm,
+		resetField
+	} = useForm<FrameworkStepFormData>();
 	const selectedFramework = watch('framework');
 	const selectedControls = watch('controls');
 
 	const { data: frameworkCodes } = useGetFrameworkCodes();
-	const { data: users = [] } = useGetUsers();
+	const { data: controls } = useGetControls(
+		selectedFramework !== 'FREE'
+			? selectedLeaves.map(leaf => leaf.code).join('-')
+			: 'FREE'
+	);
 
 	useEffect(() => {
 		setSelectedLeaves([]);
 	}, [selectedFramework]);
 
-	const associationsFakeData = [
-		{
-			reviewer: users[0],
-			delegates: users,
-			id: 'prova',
-			name: 'prova'
-		}
-	];
+	useEffect(() => {
+		resetField('controls');
+	}, [resetField, selectedFramework, selectedLeaves]);
 
 	return (
 		<>
@@ -145,15 +146,15 @@ const FrameworkSelectionStepContainer = () => {
 							message: t('control-required')
 						}
 					}}
-					readOnly={selectedFramework === 'FREE' || selectedLeaves.length === 0}
+					readOnly={selectedFramework !== 'FREE' && selectedLeaves.length === 0}
+					controls={controls}
 				/>
 			</FullWidthColumn>
-			{(selectedFramework === 'FREE' || selectedControls) && (
+			{selectedControls && selectedControls.length > 0 && (
 				<FullWidthColumn className='overflow-scroll'>
 					<AssociationSelectionList
-						associations={associationsFakeData}
+						associations={selectedControls}
 						control={controlForm}
-						isFree={selectedFramework === 'FREE'}
 					/>
 				</FullWidthColumn>
 			)}

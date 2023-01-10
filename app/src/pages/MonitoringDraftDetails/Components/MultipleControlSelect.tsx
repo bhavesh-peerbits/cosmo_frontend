@@ -14,17 +14,12 @@ import {
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { TooltipPosition } from '@carbon/react/typings/shared';
-
-type Control = {
-	info1: string;
-	name: string;
-	id: string;
-};
+import Association from '@model/Association';
 
 type MultipleControlSelectProps<
 	T extends FieldValues,
 	TName extends FieldPath<T>
-> = UnpackNestedValue<PathValue<T, TName>> extends Control[]
+> = UnpackNestedValue<PathValue<T, TName>> extends Association[]
 	? {
 			label: string;
 			name: TName;
@@ -35,6 +30,7 @@ type MultipleControlSelectProps<
 			readOnly?: boolean;
 			defaultValue?: User[];
 			tooltipPosition?: TooltipPosition;
+			controls?: Association[];
 	  }
 	: never;
 
@@ -47,7 +43,8 @@ const MultipleControlSelect = <T extends FieldValues, TName extends FieldPath<T>
 	helperText,
 	readOnly,
 	defaultValue,
-	tooltipPosition
+	tooltipPosition,
+	controls
 }: MultipleControlSelectProps<T, TName>) => {
 	const { t } = useTranslation(['changeMonitoring', 'userSelect']);
 	const [openSearch, setOpenSearch] = useState(false);
@@ -62,11 +59,7 @@ const MultipleControlSelect = <T extends FieldValues, TName extends FieldPath<T>
 	});
 
 	const invalidText = error?.message;
-	const selectControls = formValue as Control[] | undefined;
-	const controls = [
-		{ info1: 'info1', name: 'name', id: '1' },
-		{ info1: 'c', name: 'cc', id: '2' }
-	];
+	const selectControls = formValue as Association[] | undefined;
 
 	return (
 		<>
@@ -160,7 +153,7 @@ const MultipleControlSelect = <T extends FieldValues, TName extends FieldPath<T>
 					selectControls && {
 						entries: selectControls.map(selectControl => ({
 							id: selectControl.id,
-							title: selectControl.name
+							title: selectControl.name || ''
 						}))
 					}
 				}
@@ -169,7 +162,7 @@ const MultipleControlSelect = <T extends FieldValues, TName extends FieldPath<T>
 				noResultsDescription={t('userSelect:different-keywords')}
 				onCloseButtonText={t('userSelect:cancel')}
 				onSubmit={id => {
-					onChange(controls.filter(el => id.includes(el.id)));
+					onChange(controls?.filter(el => id.includes(el.id)));
 					setOpenSearch(false);
 				}}
 				onClose={() => setOpenSearch(false)}
@@ -195,11 +188,13 @@ const MultipleControlSelect = <T extends FieldValues, TName extends FieldPath<T>
 				globalFiltersSecondaryButtonText={t('userSelect:reset')}
 				clearFiltersText={t('userSelect:clear-filters')}
 				items={{
-					entries: controls.map(el => ({
-						id: el.id,
-						title: el.name,
-						subtitle: el.info1
-					}))
+					entries: controls
+						? controls.map(el => ({
+								id: el.id,
+								title: el.name || '',
+								subtitle: el.reviewer?.displayName
+						  }))
+						: []
 				}}
 			/>
 		</>
