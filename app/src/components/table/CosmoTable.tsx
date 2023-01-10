@@ -58,6 +58,7 @@ interface ModalProps {
 	description?: string;
 	label?: string;
 	mutation: UseMutationResult<any, unknown, any, unknown>;
+	setMutationResult?: (value: any) => void;
 }
 
 type SubRows<T> = object & {

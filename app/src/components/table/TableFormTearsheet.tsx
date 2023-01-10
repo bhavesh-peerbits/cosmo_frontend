@@ -33,7 +33,8 @@ interface TableFormTearsheetProps<T> {
 	title?: string;
 	description?: string;
 	label?: string;
-	mutation: UseMutationResult<unknown, unknown, unknown, unknown>;
+	mutation: UseMutationResult<any, unknown, any, unknown>;
+	setMutationResult?: (value: any) => void;
 }
 
 const TableFormTearsheet = <T extends object>({
@@ -43,7 +44,8 @@ const TableFormTearsheet = <T extends object>({
 	title,
 	description,
 	label,
-	mutation
+	mutation,
+	setMutationResult
 }: TableFormTearsheetProps<T>) => {
 	// managing object to send to mutation through this state, avoided useForm cause managing the different input programmatically was too difficult
 	const [submitItem, setSubmitItem] = useState<Record<string, unknown>>({});
@@ -70,11 +72,21 @@ const TableFormTearsheet = <T extends object>({
 			multipleSubmitItem.forEach(item =>
 				mutate(
 					{ [columns[0].meta?.modalInfo?.modelKeyName ?? '']: item },
-					{ onSuccess: cleanUp }
+					{
+						onSuccess: (data: any) => {
+							setMutationResult && setMutationResult((old: any) => [...old, data]);
+							cleanUp();
+						}
+					}
 				)
 			);
 		} else {
-			mutate(submitItem, { onSuccess: cleanUp });
+			mutate(submitItem, {
+				onSuccess: (data: any) => {
+					setMutationResult && setMutationResult(data);
+					cleanUp();
+				}
+			});
 		}
 	};
 
