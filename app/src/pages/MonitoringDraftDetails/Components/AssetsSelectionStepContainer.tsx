@@ -8,7 +8,7 @@ import useGetAppInstances from '@api/change-monitoring/useGetAppInstances';
 import Instance from '@model/Instance';
 import Asset from '@model/Asset';
 import { Button, InlineLoading } from '@carbon/react';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import MonitoringDraft from '@model/MonitoringDraft';
 import useSaveMonitoringDraft from '@api/change-monitoring/useSaveMonitoringDraft';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
@@ -35,14 +35,11 @@ const AssetsSelectionStepContainer = ({ setCurrentStep, draft }: AssetSelectionP
 		control,
 		watch,
 		handleSubmit,
+		setValue,
+		resetField,
 		formState: { isValid }
 	} = useForm<FormData>({
-		mode: 'onChange',
-		defaultValues: {
-			application: draft.instance?.application,
-			instance: draft.instance,
-			assets: draft.monitoringAssets?.map(asset => asset.asset)
-		}
+		mode: 'onChange'
 	});
 	const app = watch('application');
 	const instance = watch('instance');
@@ -57,13 +54,42 @@ const AssetsSelectionStepContainer = ({ setCurrentStep, draft }: AssetSelectionP
 					...draft,
 					instance,
 					monitoringAssets: data.assets.map(asset => {
-						return { asset, paths: asset.paths, id: draft.id };
+						return (
+							draft.monitoringAssets?.find(ma => ma.asset.id === asset.id) ?? {
+								asset,
+								paths: asset.paths
+							}
+						);
 					})
 				}
 			},
 			{ onSuccess: () => setCurrentStep(old => old + 1) }
 		);
 	};
+
+	// Manually set default values to be able to reset them to undefined
+	useEffect(() => {
+		app
+			? app.id !== draft.instance?.application.id && resetField('instance', undefined)
+			: resetField('instance', undefined);
+	}, [app, draft.instance?.application.id, resetField]);
+
+	useEffect(() => {
+		instance
+			? instance.id !== draft.instance?.id && resetField('assets', undefined)
+			: resetField('assets', undefined);
+	}, [draft.instance?.id, instance, resetField]);
+
+	useEffect(() => {
+		draft.instance &&
+			draft.monitoringAssets &&
+			(setValue('application', draft.instance?.application),
+			setValue('instance', draft.instance),
+			setValue(
+				'assets',
+				draft.monitoringAssets?.map(ma => ma.asset)
+			));
+	}, [draft, setValue]);
 
 	return (
 		<>
@@ -112,12 +138,19 @@ const AssetsSelectionStepContainer = ({ setCurrentStep, draft }: AssetSelectionP
 							? instanceAssets?.find(el => el.instance?.id === instance.id)?.assets
 							: []
 					}
+					rules={{
+						required: {
+							value: true,
+							message: t('modals:field-required')
+						}
+					}}
 				/>
 			</FullWidthColumn>
 			<InlineLoadingStatus
 				{...{ isLoading: false, isSuccess, isError, error: error as ApiError }}
 			/>
-			<FullWidthColumn className='justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
+			<FullWidthColumn className='items-center justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
+				<div>{isLoading && <InlineLoading />}</div>
 				<Button
 					size='md'
 					className='w-full md:w-fit'
@@ -125,7 +158,6 @@ const AssetsSelectionStepContainer = ({ setCurrentStep, draft }: AssetSelectionP
 					disabled={!isValid || isLoading}
 				>
 					{t('changeMonitoring:save-next')}
-					{isLoading && <InlineLoading />}
 				</Button>
 			</FullWidthColumn>
 		</>
