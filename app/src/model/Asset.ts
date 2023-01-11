@@ -1,6 +1,5 @@
 import { AssetApi } from 'cosmo-api';
-import { AssetDtoOsEnum, AssetDtoTypeEnum } from 'cosmo-api/src/v1';
-import Path from './Path';
+import { AssetDtoOsEnum, AssetDtoTypeEnum, PathDto } from 'cosmo-api/src/v1';
 
 interface Asset {
 	id: string;
@@ -11,7 +10,7 @@ interface Asset {
 	ip?: string;
 	dbVersion?: string;
 	dbType?: string;
-	paths: Path[];
+	paths: PathDto[];
 	extensions?: string;
 }
 
@@ -27,4 +26,18 @@ export const fromAssetApi = (assetApi: AssetApi): Asset => ({
 	paths: assetApi.paths ? [...assetApi.paths] : [],
 	extensions: assetApi.extensions
 });
+
+export const toAssetApi = (asset: Asset): AssetApi => ({
+	id: +asset.id,
+	hostname: asset.hostname,
+	ports: asset.ports,
+	type: asset.type,
+	os: asset.os,
+	ip: asset.ip,
+	dbVersion: asset.dbVersion,
+	dbType: asset.dbType,
+	paths: asset.paths,
+	extensions: asset.extensions
+});
+
 export default Asset;

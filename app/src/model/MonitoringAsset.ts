@@ -1,11 +1,11 @@
 import { MonitoringAssetApi } from 'cosmo-api';
-import Asset, { fromAssetApi } from './Asset';
-import PathMonitoring from './PathMonitoring';
+import { PathMonitoringDto } from 'cosmo-api/src/v1';
+import Asset, { fromAssetApi, toAssetApi } from './Asset';
 
 interface MonitoringAsset {
-	id: string;
+	id?: string;
 	asset: Asset;
-	paths: PathMonitoring[];
+	paths: PathMonitoringDto[];
 	extensions?: string;
 }
 
@@ -16,6 +16,15 @@ export const fromMonitoringAssetApi = (
 	asset: fromAssetApi(monitoringAssetApi.asset),
 	paths: [...monitoringAssetApi.paths],
 	extensions: monitoringAssetApi.extensions
+});
+
+export const toMonitoringAssetApi = (
+	monitoringAsset: MonitoringAsset
+): MonitoringAssetApi => ({
+	id: monitoringAsset.id ? +monitoringAsset.id : undefined,
+	asset: toAssetApi(monitoringAsset.asset),
+	paths: [...monitoringAsset.paths],
+	extensions: monitoringAsset.extensions
 });
 
 export default MonitoringAsset;

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
 import SingleApplicationSelect from '@components/SingleApplicationSelect';
@@ -8,9 +7,12 @@ import useGetAllApplications from '@api/change-monitoring/useGetAllApplications'
 import useGetAppInstances from '@api/change-monitoring/useGetAppInstances';
 import Instance from '@model/Instance';
 import Asset from '@model/Asset';
-import { Button } from '@carbon/react';
+import { Button, InlineLoading } from '@carbon/react';
 import { Dispatch, SetStateAction } from 'react';
 import MonitoringDraft from '@model/MonitoringDraft';
+import useSaveMonitoringDraft from '@api/change-monitoring/useSaveMonitoringDraft';
+import InlineLoadingStatus from '@components/InlineLoadingStatus';
+import ApiError from '@api/ApiError';
 import SingleAppInstanceSelect from './SingleAppInstanceSelect';
 import MultipleAssetSelect from './MultipleAssetSelect';
 
@@ -26,14 +28,15 @@ type AssetSelectionProps = {
 };
 const AssetsSelectionStepContainer = ({ setCurrentStep, draft }: AssetSelectionProps) => {
 	const { t } = useTranslation(['modals', 'changeMonitoring']);
+	const { mutate, isLoading, isError, isSuccess, error } = useSaveMonitoringDraft();
 
 	const {
 		control,
 		watch,
+		handleSubmit,
 		formState: { isValid }
 	} = useForm<FormData>({
 		mode: 'onChange',
-		criteriaMode: 'all',
 		defaultValues: {
 			application: draft.instance?.application,
 			instance: draft.instance,
@@ -46,6 +49,20 @@ const AssetsSelectionStepContainer = ({ setCurrentStep, draft }: AssetSelectionP
 	const { data: applications } = useGetAllApplications();
 	const { data: instanceAssets } = useGetAppInstances(app ? app.codeName : undefined);
 
+	const saveDraft = (data: FormData) => {
+		return mutate(
+			{
+				draft: {
+					...draft,
+					instance,
+					monitoringAssets: data.assets.map(asset => {
+						return { asset, paths: asset.paths, id: draft.id };
+					})
+				}
+			},
+			{ onSuccess: () => setCurrentStep(old => old + 1) }
+		);
+	};
 	return (
 		<>
 			<FullWidthColumn className='lg:w-1/2'>
@@ -95,13 +112,18 @@ const AssetsSelectionStepContainer = ({ setCurrentStep, draft }: AssetSelectionP
 					}
 				/>
 			</FullWidthColumn>
+			<InlineLoadingStatus
+				{...{ isLoading: false, isSuccess, isError, error: error as ApiError }}
+			/>
 			<FullWidthColumn className='justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
 				<Button
 					size='md'
-					onClick={() => setCurrentStep(old => old + 1)}
 					className='w-full md:w-fit'
+					onClick={handleSubmit(saveDraft)}
+					disabled={!isValid || isLoading}
 				>
 					{t('changeMonitoring:save-next')}
+					{isLoading && <InlineLoading />}
 				</Button>
 			</FullWidthColumn>
 		</>

@@ -26,7 +26,7 @@ export interface MonitoringAssetDto {
 	 * @type {number}
 	 * @memberof MonitoringAssetDto
 	 */
-	id: number;
+	id?: number;
 	/**
 	 *
 	 * @type {AssetDto}

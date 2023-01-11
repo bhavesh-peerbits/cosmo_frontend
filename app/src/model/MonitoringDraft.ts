@@ -1,11 +1,14 @@
 import { MonitoringDraftApi } from 'cosmo-api';
-import FileLink, { fromFileLinkApi } from './FileLink';
-import Instance, { fromInstanceApi } from './Instance';
-import MonitoringAsset, { fromMonitoringAssetApi } from './MonitoringAsset';
+import FileLink, { fromFileLinkApi, toFileLinkApi } from './FileLink';
+import Instance, { fromInstanceApi, toInstanceApi } from './Instance';
+import MonitoringAsset, {
+	fromMonitoringAssetApi,
+	toMonitoringAssetApi
+} from './MonitoringAsset';
 import { MonitoringStatus } from './MonitoringStatus';
-import Scheduling, { fromSchedulingApi } from './Scheduling';
+import Scheduling, { fromSchedulingApi, toSchedulingApi } from './Scheduling';
 import Script from './Script';
-import User, { fromUserApi } from './User';
+import User, { fromUserApi, toUserApi } from './User';
 
 interface MonitoringDraft {
 	id: string;
@@ -60,5 +63,42 @@ export const fromMonitoringDraftApi = (
 		? [...monitoringDraftApi.files].map(fromFileLinkApi)
 		: undefined
 });
+
+export const toMonitoringDraftApi = (
+	monitoringDraft: MonitoringDraft
+): MonitoringDraftApi => {
+	return {
+		id: +monitoringDraft.id,
+		name: monitoringDraft.name,
+		type: monitoringDraft.type === 'AUTOMATIC',
+		owner: toUserApi(monitoringDraft.owner),
+		focalPoint: monitoringDraft.focalPoint
+			? toUserApi(monitoringDraft.focalPoint)
+			: undefined,
+		delegates: monitoringDraft.delegates
+			? [...monitoringDraft.delegates].map(toUserApi)
+			: [],
+		collaborators: monitoringDraft.collaborators
+			? [...monitoringDraft.collaborators].map(toUserApi)
+			: [],
+		instance: monitoringDraft.instance
+			? toInstanceApi(monitoringDraft.instance)
+			: undefined,
+		monitoringAssets: monitoringDraft.monitoringAssets
+			? [...monitoringDraft.monitoringAssets].map(toMonitoringAssetApi)
+			: undefined,
+		frameworkLeafs: monitoringDraft.frameworkLeafs,
+		controlCode: monitoringDraft.controlCode,
+		script: monitoringDraft.script,
+		status: monitoringDraft.status,
+		note: monitoringDraft.note,
+		scheduling: monitoringDraft.scheduling
+			? toSchedulingApi(monitoringDraft.scheduling)
+			: undefined,
+		files: monitoringDraft.files
+			? [...monitoringDraft.files].map(toFileLinkApi)
+			: undefined
+	};
+};
 
 export default MonitoringDraft;

@@ -1,9 +1,9 @@
 import { RunAssetApi } from 'cosmo-api';
+import { PathMonitoringDto } from 'cosmo-api/src/v1';
 import Asset, { fromAssetApi } from './Asset';
-import PathMonitoring from './PathMonitoring';
 
 interface RunAsset {
-	paths: PathMonitoring[];
+	paths: PathMonitoringDto[];
 	id: number;
 	asset: Asset;
 }

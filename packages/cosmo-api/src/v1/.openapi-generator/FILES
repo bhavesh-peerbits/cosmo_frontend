@@ -8,7 +8,6 @@ api/application-controller-api.ts
 api/auth-controller-api.ts
 api/config-element-controller-api.ts
 api/config-element-module-controller-api.ts
-api/control-controller-api.ts
 api/csv-reader-controller-api.ts
 api/evidence-request-controller-api.ts
 api/evidence-request-file-s3-controller-api.ts
@@ -55,9 +54,6 @@ models/close-evidence-dto.ts
 models/config-element.ts
 models/config-module-key.ts
 models/config-module.ts
-models/control-app-instance-key.ts
-models/control-app-instance.ts
-models/control.ts
 models/create-monitoring-dto.ts
 models/csv-answer-parsing-dto.ts
 models/delta-answer-dto.ts

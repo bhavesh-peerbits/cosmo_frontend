@@ -720,22 +720,26 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
+		 * @param {number} instanceId
 		 * @param {string} leafs
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getControls: async (
+			instanceId: number,
 			leafs: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
+			// verify required parameter 'instanceId' is not null or undefined
+			assertParamExists('getControls', 'instanceId', instanceId);
 			// verify required parameter 'leafs' is not null or undefined
 			assertParamExists('getControls', 'leafs', leafs);
-			const localVarPath = `/api/change-monitoring/analyst/get-controls/{leafs}`.replace(
-				`{${'leafs'}}`,
-				encodeURIComponent(String(leafs))
-			);
+			const localVarPath =
+				`/api/change-monitoring/analyst/get-controls/{instanceId}/{leafs}`
+					.replace(`{${'instanceId'}}`, encodeURIComponent(String(instanceId)))
+					.replace(`{${'leafs'}}`, encodeURIComponent(String(leafs)));
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -1416,23 +1420,19 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {number} draftId
+		 * @param {MonitoringDraftDto} monitoringDraftDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		startMonitoring: async (
-			draftId: number,
+			monitoringDraftDto: MonitoringDraftDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'draftId' is not null or undefined
-			assertParamExists('startMonitoring', 'draftId', draftId);
-			const localVarPath =
-				`/api/change-monitoring/analyst/start-monitoring/{draftId}`.replace(
-					`{${'draftId'}}`,
-					encodeURIComponent(String(draftId))
-				);
+			// verify required parameter 'monitoringDraftDto' is not null or undefined
+			assertParamExists('startMonitoring', 'monitoringDraftDto', monitoringDraftDto);
+			const localVarPath = `/api/change-monitoring/analyst/start-monitoring/{draftId}`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -1451,6 +1451,8 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
 			}
 
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -1459,6 +1461,11 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				...headersFromBaseOptions,
 				...options.headers
 			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				monitoringDraftDto,
+				localVarRequestOptions,
+				configuration
+			);
 
 			return {
 				url: toPathString(localVarUrlObj),
@@ -1803,12 +1810,14 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		},
 		/**
 		 *
+		 * @param {number} instanceId
 		 * @param {string} leafs
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getControls(
+			instanceId: number,
 			leafs: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
@@ -1816,6 +1825,7 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<AssociationDto>>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getControls(
+				instanceId,
 				leafs,
 				acceptLanguage,
 				options
@@ -2142,18 +2152,18 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		},
 		/**
 		 *
-		 * @param {number} draftId
+		 * @param {MonitoringDraftDto} monitoringDraftDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async startMonitoring(
-			draftId: number,
+			monitoringDraftDto: MonitoringDraftDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.startMonitoring(
-				draftId,
+				monitoringDraftDto,
 				acceptLanguage,
 				options
 			);
@@ -2386,18 +2396,20 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		},
 		/**
 		 *
+		 * @param {number} instanceId
 		 * @param {string} leafs
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getControls(
+			instanceId: number,
 			leafs: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Array<AssociationDto>> {
 			return localVarFp
-				.getControls(leafs, acceptLanguage, options)
+				.getControls(instanceId, leafs, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -2598,18 +2610,18 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		},
 		/**
 		 *
-		 * @param {number} draftId
+		 * @param {MonitoringDraftDto} monitoringDraftDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		startMonitoring(
-			draftId: number,
+			monitoringDraftDto: MonitoringDraftDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<void> {
 			return localVarFp
-				.startMonitoring(draftId, acceptLanguage, options)
+				.startMonitoring(monitoringDraftDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		}
 	};
@@ -2866,6 +2878,13 @@ export interface AnalystChangeMonitoringControllerApiGetApplicationInstancesRequ
  * @interface AnalystChangeMonitoringControllerApiGetControlsRequest
  */
 export interface AnalystChangeMonitoringControllerApiGetControlsRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiGetControls
+	 */
+	readonly instanceId: number;
+
 	/**
 	 *
 	 * @type {string}
@@ -3155,10 +3174,10 @@ export interface AnalystChangeMonitoringControllerApiSetMonitoringCollaboratorRe
 export interface AnalystChangeMonitoringControllerApiStartMonitoringRequest {
 	/**
 	 *
-	 * @type {number}
+	 * @type {MonitoringDraftDto}
 	 * @memberof AnalystChangeMonitoringControllerApiStartMonitoring
 	 */
-	readonly draftId: number;
+	readonly monitoringDraftDto: MonitoringDraftDto;
 
 	/**
 	 *
@@ -3421,7 +3440,12 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 		options?: AxiosRequestConfig
 	) {
 		return AnalystChangeMonitoringControllerApiFp(this.configuration)
-			.getControls(requestParameters.leafs, requestParameters.acceptLanguage, options)
+			.getControls(
+				requestParameters.instanceId,
+				requestParameters.leafs,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -3665,7 +3689,7 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 	) {
 		return AnalystChangeMonitoringControllerApiFp(this.configuration)
 			.startMonitoring(
-				requestParameters.draftId,
+				requestParameters.monitoringDraftDto,
 				requestParameters.acceptLanguage,
 				options
 			)

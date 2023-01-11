@@ -72,7 +72,7 @@ export interface MonitoringDraftDto {
 	 * @type {InstanceDto}
 	 * @memberof MonitoringDraftDto
 	 */
-	instance: InstanceDto;
+	instance?: InstanceDto;
 	/**
 	 * Monitoring\'s assets
 	 * @type {Array<MonitoringAssetDto>}

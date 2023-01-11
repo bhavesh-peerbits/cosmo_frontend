@@ -19,7 +19,6 @@ export * from './api/application-controller-api';
 export * from './api/auth-controller-api';
 export * from './api/config-element-controller-api';
 export * from './api/config-element-module-controller-api';
-export * from './api/control-controller-api';
 export * from './api/csv-reader-controller-api';
 export * from './api/evidence-request-controller-api';
 export * from './api/evidence-request-file-s3-controller-api';
