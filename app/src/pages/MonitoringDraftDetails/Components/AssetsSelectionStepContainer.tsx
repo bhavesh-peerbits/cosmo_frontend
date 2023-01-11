@@ -31,18 +31,12 @@ const AssetsSelectionStepContainer = ({ setCurrentStep, draft }: AssetSelectionP
 	const { t } = useTranslation(['modals', 'changeMonitoring']);
 	const { mutate, isLoading, isError, isSuccess, error } = useSaveMonitoringDraft();
 
-	const {
-		control,
-		watch,
-		handleSubmit,
-		setValue,
-		resetField,
-		formState: { isValid }
-	} = useForm<FormData>({
+	const { control, watch, handleSubmit, setValue, resetField } = useForm<FormData>({
 		mode: 'onChange'
 	});
 	const app = watch('application');
 	const instance = watch('instance');
+	const assets = watch('assets');
 
 	const { data: applications } = useGetAllApplications();
 	const { data: instanceAssets } = useGetAppInstances(app ? app.codeName : undefined);
@@ -157,7 +151,7 @@ const AssetsSelectionStepContainer = ({ setCurrentStep, draft }: AssetSelectionP
 					size='md'
 					className='w-full md:w-fit'
 					onClick={handleSubmit(saveDraft)}
-					disabled={!isValid || isLoading}
+					disabled={!(assets && app && instance) || isLoading}
 				>
 					{t('changeMonitoring:save-next')}
 				</Button>
