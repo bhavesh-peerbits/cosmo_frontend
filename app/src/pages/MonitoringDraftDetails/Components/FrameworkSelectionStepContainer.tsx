@@ -33,6 +33,7 @@ type FrameworkStepFormData = {
 	controls: Association[];
 	focalPoint: User;
 	delegates: User[];
+	association: string;
 };
 
 type FrameworkSelectionProps = {
@@ -55,10 +56,13 @@ const FrameworkSelectionStepContainer = ({
 		control: controlForm,
 		resetField,
 		handleSubmit,
-		formState: { isValid }
-	} = useForm<FrameworkStepFormData>();
+		setValue
+	} = useForm<FrameworkStepFormData>({});
+
 	const selectedFramework = watch('framework');
 	const selectedControls = watch('controls');
+	const focalPoint = watch('focalPoint');
+	const selectedAssociation = watch('association');
 
 	const { data: frameworkCodes } = useGetFrameworkCodes();
 	const { data: controls } = useGetControls(
@@ -81,10 +85,16 @@ const FrameworkSelectionStepContainer = ({
 			{
 				draft: {
 					...draft,
-					focalPoint: data.focalPoint,
-					delegates: data.delegates,
-					controlCode: data.controls.map(c => c.id).join('-'),
-					frameworkLeafs: data.leaves.join('-')
+					focalPoint:
+						data.association === 'FREE'
+							? data.focalPoint
+							: selectedControls.find(c => c.id === data.association)?.reviewer,
+					delegates:
+						data.association === 'FREE'
+							? data.delegates
+							: selectedControls.find(c => c.id === data.association)?.delegates,
+					controlCode: data.controls.map(c => c.name).join('-'),
+					frameworkLeafs: selectedLeaves.map(leaf => leaf.code).join('-')
 				}
 			},
 			{ onSuccess: () => setCurrentStep(old => old + 1) }
@@ -195,13 +205,20 @@ const FrameworkSelectionStepContainer = ({
 					<AssociationSelectionList
 						associations={selectedControls}
 						control={controlForm}
+						setValue={setValue}
+						selectedAssociation={selectedControls.find(
+							co =>
+								co.reviewer?.id === draft.focalPoint?.id &&
+								co.delegates?.every(del => draft.delegates?.find(d => d.id === del.id))
+						)}
 					/>
 				</FullWidthColumn>
 			)}
-			<InlineLoadingStatus
-				{...{ isLoading: false, isSuccess, isError, error: error as ApiError }}
-			/>
-			<FullWidthColumn className='justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
+			<FullWidthColumn className='items-center justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
+				<InlineLoadingStatus
+					{...{ isLoading: false, isSuccess, isError, error: error as ApiError }}
+				/>
+				<div>{isLoading && <InlineLoading />}</div>
 				<Button
 					size='md'
 					kind='secondary'
@@ -214,10 +231,15 @@ const FrameworkSelectionStepContainer = ({
 					size='md'
 					className='w-full md:w-fit'
 					onClick={handleSubmit(saveDraft)}
-					disabled={!isValid || isLoading}
+					disabled={
+						!(
+							selectedFramework &&
+							selectedControls &&
+							(focalPoint || selectedAssociation !== 'FREE')
+						) || isLoading
+					}
 				>
 					{t('save-next')}
-					{isLoading && <InlineLoading />}
 				</Button>
 			</FullWidthColumn>
 		</>
