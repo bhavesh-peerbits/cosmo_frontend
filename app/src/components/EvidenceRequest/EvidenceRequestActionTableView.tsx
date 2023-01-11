@@ -86,64 +86,27 @@ const EvidenceRequestActionTableView = ({
 				accessorKey: `name${view}`,
 				header: t('request-name'),
 				accessorFn: row => row.name,
-				cell: CellLinkComponent,
-				meta: {
-					modalInfo: {
-						modelKeyName: 'name',
-						type: 'string'
-					}
-				}
+				cell: CellLinkComponent
 			},
 			{
 				accessorKey: `app${view}`,
 				accessorFn: row => row.application?.name,
 				header: t('application')
-				// meta: {
-				// 	modalInfo: {
-				// 		modelKeyName: 'app',
-				// 		type: 'number',
-				// 		fieldOrder: 1,
-				// 		halfWidth: true,
-				// 		validation: { max: 4 }
-				// 	}
-				// }
 			},
 			{
 				accessorKey: `startDate${view}`,
 				accessorFn: row => row.startDate?.toLocaleDateString(),
 				header: t('start-date')
-				// meta: {
-				// 	modalInfo: {
-				// 		modelKeyName: 'startDate',
-				// 		type: 'date',
-				// 		halfWidth: true
-				// 	}
-				// }
 			},
 			{
 				accessorKey: `dueDate${view}`,
 				accessorFn: row => row.dueDate?.toLocaleDateString(),
 				header: t('due-date')
-				// meta: {
-				// 	modalInfo: {
-				// 		type: 'users',
-				// 		modelKeyName: 'dueDate',
-				// 		roleOfUsers: 'FOCAL_POINT'
-				// 	}
-				// }
 			},
 			{
 				accessorKey: `creator${view}`,
 				accessorFn: row => row.creator?.displayName,
 				header: t('creator')
-				// meta: {
-				// 	modalInfo: {
-				// 		type: 'user',
-				// 		fieldOrder: 0,
-				// 		modelKeyName: 'owner',
-				// 		roleOfUsers: 'FOCAL_POINT'
-				// 	}
-				// }
 			}
 		];
 		if (view === 'ActionPending') {
