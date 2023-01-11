@@ -1,10 +1,19 @@
-import { Checkbox, TableCell, TableRow, TableSelectRow } from '@carbon/react';
+import {
+	Checkbox,
+	TableCell,
+	TableRow,
+	TableSelectRow,
+	OverflowMenu,
+	OverflowMenuItem
+} from '@carbon/react';
 import { flexRender, Row } from '@tanstack/react-table';
 import { NoDataEmptyState } from '@carbon/ibm-products';
 import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import Centered from '../Centered';
 import ExpandableRow from './ExpandableRow';
 import ExpandableButton from './ExpandableButton';
+import { InlineActions } from './types/InlineActionType';
 
 interface TableInnerBodyProps<T> {
 	rows: Row<T>[];
@@ -19,6 +28,7 @@ interface TableInnerBodyProps<T> {
 	noDataMessageSubtitle?: string;
 	isExpandable: boolean | undefined;
 	SubComponent?: FC<{ row: Row<T> }>;
+	inlineActions?: InlineActions[];
 }
 
 const TableInnerBody = <T extends object>({
@@ -29,12 +39,14 @@ const TableInnerBody = <T extends object>({
 	noDataMessage,
 	isExpandable,
 	SubComponent,
-	noDataMessageSubtitle
+	noDataMessageSubtitle,
+	inlineActions
 }: // columns,
 // addingInline,
 // setAddingInline,
 // isInlineAdd
 TableInnerBodyProps<T>) => {
+	const { t } = useTranslation('table');
 	return rows.length ? (
 		<>
 			{/* {addingInline && isInlineAdd && (
@@ -98,6 +110,25 @@ TableInnerBodyProps<T>) => {
 								</TableCell>
 							);
 						})}
+						{inlineActions && (
+							<OverflowMenu
+								ariaLabel='Actions'
+								iconDescription={t('actions')}
+								direction='top'
+							>
+								{inlineActions.map(action => (
+									<OverflowMenuItem
+										itemText={
+											<div className='flex space-x-3'>
+												{action.icon && action.icon}
+												<div>{action.label}</div>
+											</div>
+										}
+										onClick={() => action.onClick()}
+									/>
+								))}
+							</OverflowMenu>
+						)}
 					</ExpandableRow>
 				);
 			})}

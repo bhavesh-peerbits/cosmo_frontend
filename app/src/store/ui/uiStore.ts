@@ -13,7 +13,6 @@ type UIStore = {
 // const transformLanguage = (language: string): string => {
 //   return language;
 // };
-
 const uiStore = selector<UIStore>({
 	key: 'uiStore',
 	get: ({ get }) => {
@@ -22,6 +21,7 @@ const uiStore = selector<UIStore>({
 		const languagePromptDismissed =
 			get(languagePromptDismissedAtom) ?? uiPref?.languagePromptDismissed ?? false;
 		const theme = get(themeAtom) ?? uiPref?.theme ?? 'white';
+		document.body.setAttribute('data-carbon-theme', theme);
 		return { language, languagePromptDismissed, theme };
 	},
 	set: ({ set }, newState) => {
@@ -31,6 +31,7 @@ const uiStore = selector<UIStore>({
 		set(languageAtom, newState.language);
 		set(languagePromptDismissedAtom, newState.languagePromptDismissed);
 		set(themeAtom, newState.theme);
+		document.body.setAttribute('data-carbon-theme', newState.theme);
 		localStorage.setItem('UI_PREF', JSON.stringify(newState));
 	}
 });
