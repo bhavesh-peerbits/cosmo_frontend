@@ -12,6 +12,8 @@
  * Do not edit the class manually.
  */
 
+import { AssetDto } from './asset-dto';
+
 /**
  *
  * @export
@@ -37,9 +39,15 @@ export interface PathMonitoringDto {
 	 */
 	selected?: boolean;
 	/**
-	 * Warning true if the path is begin currently monitored
-	 * @type {boolean}
+	 *
+	 * @type {AssetDto}
 	 * @memberof PathMonitoringDto
 	 */
-	warning?: boolean;
+	asset: AssetDto;
+	/**
+	 * The list of the monitoring\'s names which the paths is involved
+	 * @type {Array<string>}
+	 * @memberof PathMonitoringDto
+	 */
+	monitoring?: Array<string>;
 }

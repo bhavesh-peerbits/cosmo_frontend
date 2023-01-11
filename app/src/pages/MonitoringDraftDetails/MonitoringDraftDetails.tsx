@@ -1,7 +1,7 @@
 import PageHeader from '@components/PageHeader';
 import { useTranslation } from 'react-i18next';
 import { Collaborate, Send, TrashCan } from '@carbon/react/icons';
-import { Grid, Column } from '@carbon/react';
+import { Grid, Column, UnorderedList, ListItem } from '@carbon/react';
 import { useState } from 'react';
 import MultiAddSelect from '@components/MultiAddSelect';
 import User from '@model/User';
@@ -143,19 +143,35 @@ const MonitoringDraftDetails = () => {
 						{!!draft?.monitoringAssets?.length && (
 							<div className='flex flex-col'>
 								<span className='text-heading-2'>Assets</span>
-								<span className='text-text-secondary text-body-short-1'>
-									{draft?.monitoringAssets.map(asset => asset.asset.hostname)}
-								</span>
+								<UnorderedList nested className='ml-4'>
+									{draft.monitoringAssets.map(ma => (
+										<ListItem className='break-words'>{ma.asset.hostname}</ListItem>
+									))}
+								</UnorderedList>
 							</div>
 						)}
-						{draft?.frameworkLeafs && (
+						{draft?.frameworkLeafsCodes && (
 							<div className='flex flex-col'>
 								<span className='text-heading-2'>
-									{t('changeMonitoring:framework-leafs')}
+									{t('evidenceRequest:framework-code')}
 								</span>
-								<span className='text-text-secondary text-body-short-1'>
-									{draft?.frameworkLeafs}
+								<UnorderedList nested className='ml-4'>
+									{draft.frameworkLeafsCodes.split('-').map(code => (
+										<ListItem className='break-words'>{code}</ListItem>
+									))}
+								</UnorderedList>
+							</div>
+						)}
+						{draft?.frameworkLeafsName && (
+							<div className='flex flex-col'>
+								<span className='text-heading-2'>
+									{t('evidenceRequest:framework-name')}
 								</span>
+								<UnorderedList nested className='ml-4'>
+									{draft.frameworkLeafsName.split('-').map(name => (
+										<ListItem className='break-words'>{name}</ListItem>
+									))}
+								</UnorderedList>
 							</div>
 						)}
 						{draft?.scheduling && (

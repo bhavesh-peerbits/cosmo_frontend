@@ -114,7 +114,19 @@ export interface MonitoringDraftDto {
 	 * @type {string}
 	 * @memberof MonitoringDraftDto
 	 */
-	frameworkLeafs?: string;
+	frameworkLeafsName?: string;
+	/**
+	 * The concatenation of the codes of the leaf.
+	 * @type {string}
+	 * @memberof MonitoringDraftDto
+	 */
+	frameworkLeafsCodes?: string;
+	/**
+	 * The nameof the framework
+	 * @type {string}
+	 * @memberof MonitoringDraftDto
+	 */
+	frameworkName?: string;
 	/**
 	 * Files associated with the monitoring.
 	 * @type {Array<FileLinkDto>}

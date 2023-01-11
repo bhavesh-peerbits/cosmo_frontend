@@ -8,7 +8,7 @@ type MonitoringDraftTileProps = {
 };
 const MonitoringDraftTile = ({ draft }: MonitoringDraftTileProps) => {
 	const navigate = useNavigate();
-	const { t } = useTranslation(['changeMonitoring', 'modals']);
+	const { t } = useTranslation(['changeMonitoring', 'modals', 'evidenceRequest']);
 
 	return (
 		<Layer level={1}>
@@ -42,9 +42,11 @@ const MonitoringDraftTile = ({ draft }: MonitoringDraftTileProps) => {
 					<div className='space-y-2'>
 						<span className='flex space-x-2'>
 							<p className='whitespace-nowrap text-text-secondary text-body-short-1'>
-								{t('changeMonitoring:framework-leafs')}:
+								{t('evidenceRequest:framework-code')}:
 							</p>
-							<p className='block truncate text-body-short-1'>{draft.frameworkLeafs}</p>
+							<p className='block truncate text-body-short-1'>
+								{draft.frameworkLeafsCodes?.replaceAll('-', ',')}
+							</p>
 						</span>
 						<span className='flex space-x-2'>
 							<p className='whitespace-nowrap text-text-secondary text-body-short-1'>

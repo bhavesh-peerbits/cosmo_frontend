@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import useGetAllApplications from '@api/change-monitoring/useGetAllApplications';
 import useGetAppInstances from '@api/change-monitoring/useGetAppInstances';
 import Instance from '@model/Instance';
-import Asset from '@model/Asset';
+import Asset, { toAssetApi } from '@model/Asset';
 import { Button, InlineLoading } from '@carbon/react';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import MonitoringDraft from '@model/MonitoringDraft';
@@ -57,7 +57,9 @@ const AssetsSelectionStepContainer = ({ setCurrentStep, draft }: AssetSelectionP
 						return (
 							draft.monitoringAssets?.find(ma => ma.asset.id === asset.id) ?? {
 								asset,
-								paths: asset.paths
+								paths: asset.paths.map(p => {
+									return { path: p.path, asset: toAssetApi(asset), id: p.id };
+								})
 							}
 						);
 					})

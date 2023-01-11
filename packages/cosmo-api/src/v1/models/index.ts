@@ -58,7 +58,6 @@ export * from './pageable-object';
 export * from './pair-list-answer-dto-list-string';
 export * from './path';
 export * from './path-dto';
-export * from './path-monitoring-check';
 export * from './path-monitoring-dto';
 export * from './phase-type';
 export * from './phase-type-dto';

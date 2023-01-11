@@ -17,11 +17,11 @@ type RecapStringRowProps = {
 };
 const RecapStringRow = ({ title, info }: RecapStringRowProps) => {
 	return (
-		<div className='flex divide-x-[1px] divide-solid divide-border-subtle-0'>
-			<div className='h-[40px] w-1/3 py-3 pl-3'>
+		<div className='flex w-full divide-x-[1px] divide-solid divide-border-subtle-0'>
+			<div className='min-h-[40px] w-1/3 py-3 pl-3'>
 				<p className='text-heading-1'>{title}</p>
 			</div>
-			<p className='h-[40px] py-3 pl-3 text-body-short-1'>{info || '-'}</p>
+			<p className='min-h-[40px] w-2/3 py-3 pl-3 text-body-short-1'>{info || '-'}</p>
 		</div>
 	);
 };
@@ -70,10 +70,14 @@ const MonitoringDraftRecapModal = ({
 						title={t('changeMonitoring:app-instance')}
 						info={draft.instance?.name}
 					/>
-					<RecapStringRow title='Assets' info='info' />
+					<RecapStringRow title='Assets' info={draft.controlCode?.replaceAll('-', ',')} />
 					<RecapStringRow
-						title={t('changeMonitoring:framework-leafs')}
-						info={draft.frameworkLeafs}
+						title={t('evidenceRequest:framework-code')}
+						info={draft.frameworkLeafsCodes?.replaceAll('-', ',')}
+					/>
+					<RecapStringRow
+						title={t('evidenceRequest:framework-name')}
+						info={draft.frameworkLeafsName?.replaceAll('-', ',')}
 					/>
 					<RecapStringRow title={t('changeMonitoring:controls')} info='info' />
 					<RecapStringRow
@@ -100,15 +104,38 @@ const MonitoringDraftRecapModal = ({
 					</div>
 					<div className='flex divide-x-[1px] divide-solid divide-border-subtle-0'>
 						<div className='h-[40px] w-1/3 py-3 pl-3'>
-							<p className='text-heading-1'>Recipient</p>
+							<p className='text-heading-1'>Focal Point</p>
 						</div>
 						<div className='h-[40px] py-3 pl-3'>
-							<UserProfileImage
-								size='md'
-								initials='cc'
-								imageDescription='c'
-								tooltipText='c'
-							/>
+							{draft.focalPoint ? (
+								<UserProfileImage
+									size='md'
+									initials={draft.focalPoint.displayName}
+									imageDescription={draft.focalPoint.username}
+									tooltipText={draft.focalPoint.displayName}
+								/>
+							) : (
+								'-'
+							)}
+						</div>
+					</div>
+					<div className='flex divide-x-[1px] divide-solid divide-border-subtle-0'>
+						<div className='h-[40px] w-1/3 py-3 pl-3'>
+							<p className='text-heading-1'>
+								{t('evidenceRequest:focal-point-delegates')}
+							</p>
+						</div>
+						<div className='h-[40px] py-3 pl-3'>
+							{draft.delegates?.length
+								? draft.delegates?.map(delegate => (
+										<UserProfileImage
+											size='md'
+											initials={delegate.displayName}
+											imageDescription={delegate.username}
+											tooltipText={delegate.displayName}
+										/>
+								  ))
+								: '-'}
 						</div>
 					</div>
 					<div className='flex divide-x-[1px] divide-solid divide-border-subtle-0'>

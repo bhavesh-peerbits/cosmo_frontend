@@ -95,7 +95,6 @@ models/page-user-dto.ts
 models/pageable-object.ts
 models/pair-list-answer-dto-list-string.ts
 models/path-dto.ts
-models/path-monitoring-check.ts
 models/path-monitoring-dto.ts
 models/path.ts
 models/phase-type-dto.ts

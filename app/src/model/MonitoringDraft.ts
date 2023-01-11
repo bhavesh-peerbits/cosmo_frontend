@@ -20,7 +20,9 @@ interface MonitoringDraft {
 	collaborators?: User[];
 	instance?: Instance;
 	monitoringAssets?: MonitoringAsset[];
-	frameworkLeafs?: string;
+	frameworkLeafsName?: string;
+	frameworkLeafsCodes?: string;
+	frameworkName?: string;
 	controlCode?: string;
 	script?: Script;
 	status: MonitoringStatus;
@@ -51,7 +53,9 @@ export const fromMonitoringDraftApi = (
 	monitoringAssets: monitoringDraftApi.monitoringAssets
 		? [...monitoringDraftApi.monitoringAssets].map(fromMonitoringAssetApi)
 		: undefined,
-	frameworkLeafs: monitoringDraftApi.frameworkLeafs,
+	frameworkLeafsCodes: monitoringDraftApi.frameworkLeafsCodes,
+	frameworkLeafsName: monitoringDraftApi.frameworkLeafsName,
+	frameworkName: monitoringDraftApi.frameworkName,
 	controlCode: monitoringDraftApi.controlCode,
 	script: monitoringDraftApi.script,
 	status: monitoringDraftApi.status,
@@ -87,7 +91,9 @@ export const toMonitoringDraftApi = (
 		monitoringAssets: monitoringDraft.monitoringAssets
 			? [...monitoringDraft.monitoringAssets].map(toMonitoringAssetApi)
 			: undefined,
-		frameworkLeafs: monitoringDraft.frameworkLeafs,
+		frameworkLeafsCodes: monitoringDraft.frameworkLeafsCodes,
+		frameworkLeafsName: monitoringDraft.frameworkLeafsName,
+		frameworkName: monitoringDraft.frameworkName,
 		controlCode: monitoringDraft.controlCode,
 		script: monitoringDraft.script,
 		status: monitoringDraft.status,

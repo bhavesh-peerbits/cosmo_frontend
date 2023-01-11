@@ -94,7 +94,8 @@ const FrameworkSelectionStepContainer = ({
 							? data.delegates
 							: selectedControls.find(c => c.id === data.association)?.delegates,
 					controlCode: data.controls.map(c => c.name).join('-'),
-					frameworkLeafs: selectedLeaves.map(leaf => leaf.code).join('-')
+					frameworkLeafsCodes: selectedLeaves.map(leaf => leaf.code).join('-'),
+					frameworkLeafsName: selectedLeaves.map(leaf => leaf.name).join('-')
 				}
 			},
 			{ onSuccess: () => setCurrentStep(old => old + 1) }
