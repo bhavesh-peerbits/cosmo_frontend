@@ -118,5 +118,6 @@
 	"framework-leafs": "Foglie framework",
 	"no-monitoring": "Nessun monitoraggio trovato",
 	"type": "Tipo",
-	"db-type": "Tipo database"
+	"db-type": "Tipo database",
+	"back": "Indietro"
 }

@@ -26,6 +26,7 @@ type AssetSelectionProps = {
 	setCurrentStep: Dispatch<SetStateAction<number>>;
 	draft: MonitoringDraft;
 };
+
 const AssetsSelectionStepContainer = ({ setCurrentStep, draft }: AssetSelectionProps) => {
 	const { t } = useTranslation(['modals', 'changeMonitoring']);
 	const { mutate, isLoading, isError, isSuccess, error } = useSaveMonitoringDraft();
@@ -63,6 +64,7 @@ const AssetsSelectionStepContainer = ({ setCurrentStep, draft }: AssetSelectionP
 			{ onSuccess: () => setCurrentStep(old => old + 1) }
 		);
 	};
+
 	return (
 		<>
 			<FullWidthColumn className='lg:w-1/2'>

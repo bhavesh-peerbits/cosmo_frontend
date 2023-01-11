@@ -118,5 +118,6 @@
 	"framework-leafs": "Framework leafs",
 	"no-monitoring": "No monitoring found",
 	"type": "Type",
-	"db-type": "Database type"
+	"db-type": "Database type",
+	"back": "Back"
 }

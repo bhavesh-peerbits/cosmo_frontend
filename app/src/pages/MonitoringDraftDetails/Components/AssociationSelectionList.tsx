@@ -117,7 +117,7 @@ const AssociationSelectionList = ({
 								className='cds--structured-list-svg'
 								aria-label='select an option'
 							>
-								<title>select an option</title>
+								<title>{t('changeMonitoring:select-an-option')}</title>
 							</CheckmarkFilled>
 						</StructuredListCell>
 					</StructuredListRow>

@@ -1,18 +1,31 @@
 import FullWidthColumn from '@components/FullWidthColumn';
-import { Select, SelectItem, Layer, Tile, Button, FormLabel, Tag } from '@carbon/react';
+import {
+	Select,
+	SelectItem,
+	Layer,
+	Tile,
+	Button,
+	FormLabel,
+	Tag,
+	InlineLoading
+} from '@carbon/react';
 import { Add, EditOff } from '@carbon/react/icons';
 import cx from 'classnames';
 import { useForm } from 'react-hook-form';
 import TreeSelectionModal from '@components/Modals/TreeSelectionModal';
-import { Suspense, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, Suspense, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Framework from '@model/Framework';
 import User from '@model/User';
 import useGetFrameworkCodes from '@api/change-monitoring/useGetFrameworkCodes';
 import Association from '@model/Association';
 import useGetControls from '@api/change-monitoring/useGetControls';
-import MultipleControlSelect from './MultipleControlSelect';
+import InlineLoadingStatus from '@components/InlineLoadingStatus';
+import useSaveMonitoringDraft from '@api/change-monitoring/useSaveMonitoringDraft';
+import ApiError from '@api/ApiError';
+import MonitoringDraft from '@model/MonitoringDraft';
 import AssociationSelectionList from './AssociationSelectionList';
+import MultipleControlSelect from './MultipleControlSelect';
 
 type FrameworkStepFormData = {
 	framework: string;
@@ -22,16 +35,27 @@ type FrameworkStepFormData = {
 	delegates: User[];
 };
 
-const FrameworkSelectionStepContainer = () => {
+type FrameworkSelectionProps = {
+	setCurrentStep: Dispatch<SetStateAction<number>>;
+	draft: MonitoringDraft;
+};
+
+const FrameworkSelectionStepContainer = ({
+	setCurrentStep,
+	draft
+}: FrameworkSelectionProps) => {
 	const { t } = useTranslation('changeMonitoring');
 	const [isTreeSelectionOpen, setIsTreeSelectionOpen] = useState(false);
 	const [selectedLeaves, setSelectedLeaves] = useState<Framework[]>([]);
+	const { mutate, isLoading, isError, isSuccess, error } = useSaveMonitoringDraft();
 
 	const {
 		register,
 		watch,
 		control: controlForm,
-		resetField
+		resetField,
+		handleSubmit,
+		formState: { isValid }
 	} = useForm<FrameworkStepFormData>();
 	const selectedFramework = watch('framework');
 	const selectedControls = watch('controls');
@@ -40,7 +64,8 @@ const FrameworkSelectionStepContainer = () => {
 	const { data: controls } = useGetControls(
 		selectedFramework !== 'FREE'
 			? selectedLeaves.map(leaf => leaf.code).join('-')
-			: 'FREE'
+			: 'FREE',
+		draft.instance?.id
 	);
 
 	useEffect(() => {
@@ -50,6 +75,21 @@ const FrameworkSelectionStepContainer = () => {
 	useEffect(() => {
 		resetField('controls');
 	}, [resetField, selectedFramework, selectedLeaves]);
+
+	const saveDraft = (data: FrameworkStepFormData) => {
+		return mutate(
+			{
+				draft: {
+					...draft,
+					focalPoint: data.focalPoint,
+					delegates: data.delegates,
+					controlCode: data.controls.map(c => c.id).join('-'),
+					frameworkLeafs: data.leaves.join('-')
+				}
+			},
+			{ onSuccess: () => setCurrentStep(old => old + 1) }
+		);
+	};
 
 	return (
 		<>
@@ -158,6 +198,28 @@ const FrameworkSelectionStepContainer = () => {
 					/>
 				</FullWidthColumn>
 			)}
+			<InlineLoadingStatus
+				{...{ isLoading: false, isSuccess, isError, error: error as ApiError }}
+			/>
+			<FullWidthColumn className='justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
+				<Button
+					size='md'
+					kind='secondary'
+					className='w-full md:w-fit'
+					onClick={() => setCurrentStep(old => old - 1)}
+				>
+					{t('back')}
+				</Button>
+				<Button
+					size='md'
+					className='w-full md:w-fit'
+					onClick={handleSubmit(saveDraft)}
+					disabled={!isValid || isLoading}
+				>
+					{t('save-next')}
+					{isLoading && <InlineLoading />}
+				</Button>
+			</FullWidthColumn>
 		</>
 	);
 };
