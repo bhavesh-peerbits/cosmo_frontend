@@ -119,5 +119,6 @@
 	"no-monitoring": "Nessun monitoraggio trovato",
 	"type": "Tipo",
 	"db-type": "Tipo database",
-	"back": "Indietro"
+	"back": "Indietro",
+	"db-version": "Versione database"
 }

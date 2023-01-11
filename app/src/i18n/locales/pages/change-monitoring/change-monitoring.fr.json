@@ -118,5 +118,6 @@
 	"no-monitoring": "",
 	"type": "",
 	"db-type": "",
-	"back": ""
+	"back": "",
+	"db-version": ""
 }

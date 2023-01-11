@@ -1,20 +1,33 @@
 import { RadioTile, TileGroup, Layer } from '@carbon/react';
 import Script from '@model/Script';
+import { Dispatch, SetStateAction } from 'react';
 import OSScriptTileContent from './OSScriptTileContent';
 
 type OSScriptListContainerProps = {
 	scripts: Script[];
+	selectedScript?: number;
+	setSelectedScript: Dispatch<SetStateAction<number | undefined>>;
 };
-// TODO Fix all values/id when BE is ready
 
-const OSScriptListContainer = ({ scripts }: OSScriptListContainerProps) => {
+const OSScriptListContainer = ({
+	scripts,
+	selectedScript,
+	setSelectedScript
+}: OSScriptListContainerProps) => {
 	return (
 		<div>
 			<span className='text-productive-heading-3'>{scripts[0].os}</span>
 			<Layer key={scripts[0].os}>
-				<TileGroup name='os-script-group'>
+				<TileGroup
+					name='script-group'
+					onChange={e => setSelectedScript(e as unknown as number)}
+				>
 					{scripts.map(script => (
-						<RadioTile value={script.id} className='mt-5'>
+						<RadioTile
+							value={script.id}
+							className='mt-5'
+							selected={selectedScript === script.id}
+						>
 							<OSScriptTileContent script={script} />
 						</RadioTile>
 					))}

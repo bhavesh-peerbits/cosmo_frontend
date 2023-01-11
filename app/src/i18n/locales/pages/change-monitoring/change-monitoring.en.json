@@ -119,5 +119,6 @@
 	"no-monitoring": "No monitoring found",
 	"type": "Type",
 	"db-type": "Database type",
-	"back": "Back"
+	"back": "Back",
+	"db-version": "Database version"
 }
