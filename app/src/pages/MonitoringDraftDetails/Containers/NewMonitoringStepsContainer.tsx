@@ -17,7 +17,7 @@ type NewMonitoringStepsContainerProps = {
 
 const NewMonitoringStepsContainer = ({ draft }: NewMonitoringStepsContainerProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'evidenceRequest']);
-	const [currentStep, setCurrentStep] = useState(3);
+	const [currentStep, setCurrentStep] = useState(4);
 	const contentToRender = () => {
 		switch (currentStep) {
 			case 0:
@@ -55,7 +55,9 @@ const NewMonitoringStepsContainer = ({ draft }: NewMonitoringStepsContainerProps
 				};
 			case 4:
 				return {
-					content: <SchedulingStepContainer />,
+					content: (
+						<SchedulingStepContainer setCurrentStep={setCurrentStep} draft={draft} />
+					),
 					title: t('changeMonitoring:scheduling'),
 					description: t('changeMonitoring:scheduling-step-description')
 				};

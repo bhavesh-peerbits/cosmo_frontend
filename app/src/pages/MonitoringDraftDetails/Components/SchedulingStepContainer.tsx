@@ -15,6 +15,12 @@ import { Controller, useForm } from 'react-hook-form';
 import useGetDateFormat from '@hooks/useGetDateFormat';
 import { startOfTomorrow } from 'date-fns';
 import { formatDate } from '@i18n';
+import { Dispatch, SetStateAction } from 'react';
+import MonitoringDraft from '@model/MonitoringDraft';
+import {
+	FrequencyDtoFrequencyTypeEnum,
+	SchedulingDtoDayOfWeekEnum
+} from 'cosmo-api/src/v1';
 
 type SchedulingFormData = {
 	frequency: string;
@@ -25,8 +31,14 @@ type SchedulingFormData = {
 	dayOfMonth: number;
 };
 
+type SchedulingStepProps = {
+	draft: MonitoringDraft;
+	setCurrentStep: Dispatch<SetStateAction<number>>;
+};
+
 // TODO Fix id of components when BE is ready
-const SchedulingStepContainer = () => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps) => {
 	const { t } = useTranslation('changeMonitoring');
 	const { format, placeholder, localeCode } = useGetDateFormat();
 
@@ -43,74 +55,70 @@ const SchedulingStepContainer = () => {
 		}
 	});
 	const selectedFrequency = watch('frequency');
+	const frequencyList: FrequencyDtoFrequencyTypeEnum[] = [
+		'ONDEMAND',
+		'DAILY',
+		'WEEKLY',
+		'BE_WEEKLY',
+		'MONTHLY',
+		'QUARTERLY',
+		'SEMIANNUAL',
+		'ANNUAL'
+	];
+	const daysOfWeek: SchedulingDtoDayOfWeekEnum[] = [
+		'MONDAY',
+		'TUESDAY',
+		'WEDNESDAY',
+		'THURSDAY',
+		'FRIDAY',
+		'SATURDAY',
+		'SUNDAY'
+	];
 
-	const frequencyList = [
-		{
-			text: t('on-demand'),
-			value: 'on-demand'
-		},
-		{
-			text: t('daily'),
-			value: 'daily'
-		},
-		{
-			text: t('weekly'),
-			value: 'weekly'
-		},
-		{
-			text: t('biweekly'),
-			value: 'biweekly'
-		},
-		{
-			text: t('monthly'),
-			value: 'monthly'
-		},
-		{
-			text: t('quarterly'),
-			value: 'quarterly'
-		},
-		{
-			text: t('semiannual'),
-			value: 'semiannual'
-		},
-		{
-			text: t('annual'),
-			value: 'annual'
+	const translateFrequency = (frequency: FrequencyDtoFrequencyTypeEnum) => {
+		switch (frequency) {
+			case 'ANNUAL':
+				return t('annual');
+			case 'BE_WEEKLY':
+				return t('biweekly');
+			case 'WEEKLY':
+				return t('weekly');
+			case 'DAILY':
+				return t('daily');
+			case 'MONTHLY':
+				return t('monthly');
+			case 'ONDEMAND':
+				return t('on-demand');
+			case 'QUARTERLY':
+				return t('quarterly');
+			case 'SEMIANNUAL':
+				return t('semiannual');
+			default:
+				return t('daily');
 		}
-	];
-	const daysOfWeek = [
-		{
-			value: 'monday',
-			text: t('monday')
-		},
-		{
-			value: 'tuesday',
-			text: t('tuesday')
-		},
-		{
-			value: 'wednesday',
-			text: t('wednesday')
-		},
-		{
-			value: 'thursday',
-			text: t('thursday')
-		},
-		{
-			value: 'friday',
-			text: t('friday')
-		},
-		{
-			value: 'saturday',
-			text: t('saturday')
-		},
-		{
-			value: 'sunday',
-			text: t('sunday')
+	};
+
+	const translateDayOfWeek = (day: SchedulingDtoDayOfWeekEnum) => {
+		switch (day) {
+			case 'MONDAY':
+				return t('monday');
+			case 'TUESDAY':
+				return t('tuesday');
+			case 'WEDNESDAY':
+				return t('wednesday');
+			case 'THURSDAY':
+				return t('thursday');
+			case 'FRIDAY':
+				return t('friday');
+			case 'SATURDAY':
+				return t('saturday');
+			default:
+				return t('sunday');
 		}
-	];
+	};
 
 	const frequencySetup = () => {
-		if (selectedFrequency === 'weekly') {
+		if (selectedFrequency === 'WEEKLY') {
 			return (
 				<Select
 					id='select-day-week'
@@ -119,24 +127,24 @@ const SchedulingStepContainer = () => {
 					onChange={e => setValue('dayOfWeek', e.currentTarget.value)}
 				>
 					{daysOfWeek.map(day => (
-						<SelectItem value={day.value} text={day.text} />
+						<SelectItem value={day} text={translateDayOfWeek(day)} />
 					))}
 				</Select>
 			);
 		}
-		if (selectedFrequency === 'biweekly') {
+		if (selectedFrequency === 'BE_WEEKLY') {
 			return (
 				<MultiSelect
-					id='select-day-week'
+					id='select-day-week-multi'
 					titleText={`${t('days-of-week')} *`}
 					label={t('select-two-days')}
 					className='w-1/2'
 					items={daysOfWeek}
-					itemToString={item => item.text}
+					itemToString={item => translateDayOfWeek(item)}
 					onChange={e =>
 						setValue(
 							'dayOfWeek',
-							e.selectedItems.map(item => item.value)
+							e.selectedItems.map(item => item)
 						)
 					}
 					invalid={Array.isArray(watch('dayOfWeek')) && watch('dayOfWeek').length > 2}
@@ -144,7 +152,7 @@ const SchedulingStepContainer = () => {
 				/>
 			);
 		}
-		if (selectedFrequency === 'monthly') {
+		if (selectedFrequency === 'MONTHLY') {
 			return (
 				<Controller
 					control={control}
@@ -153,10 +161,10 @@ const SchedulingStepContainer = () => {
 					rules={{
 						required: {
 							value:
-								selectedFrequency === 'monthly' ||
-								selectedFrequency === 'quarterly' ||
-								selectedFrequency === 'semiannual' ||
-								selectedFrequency === 'annual',
+								selectedFrequency === 'MONTHLY' ||
+								selectedFrequency === 'QUARTERLY' ||
+								selectedFrequency === 'SEMIANNUAL' ||
+								selectedFrequency === 'ANNUAL',
 							message: `${t('field-required')}`
 						}
 					}}
@@ -202,7 +210,7 @@ const SchedulingStepContainer = () => {
 				>
 					<SelectItem text={t('select-frequency-type')} value='select' hidden />
 					{frequencyList.map(option => (
-						<SelectItem text={option.text} value={option.value} />
+						<SelectItem text={translateFrequency(option)} value={option} />
 					))}
 				</Select>
 			</Layer>
@@ -237,9 +245,9 @@ const SchedulingStepContainer = () => {
 								id='end-date'
 								placeholder={placeholder}
 								labelText={
-									selectedFrequency === 'on-demand' ? t('end-date') : `${t('end-date')} *`
+									selectedFrequency === 'ONDEMAND' ? t('end-date') : `${t('end-date')} *`
 								}
-								disabled={selectedFrequency === 'on-demand'}
+								disabled={selectedFrequency === 'ONDEMAND'}
 								size='md'
 							/>
 						</DatePicker>
@@ -254,9 +262,7 @@ const SchedulingStepContainer = () => {
 						required: {
 							value: true,
 							message: `${t('field-required')}`
-						},
-
-						validate: numberInput => numberInput > 3 || 'ciao'
+						}
 					})}
 				>
 					<TimePickerSelect
