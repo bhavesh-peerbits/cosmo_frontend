@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Add } from '@carbon/react/icons';
 import AssetExpandableTile from '@pages/MonitoringDraftDetails/Components/AssetExpandableTile';
-import PathAssetTable from '@pages/MonitoringDraftDetails/Components/PathAssetTable';
 
 type AssetPathsTileProps = {
 	asset: string;
@@ -15,19 +14,8 @@ type AssetSetupFormData = {
 const AssetPathsTile = ({ asset }: AssetPathsTileProps) => {
 	// TODO Add default values for extensions
 	const { t } = useTranslation(['changeMonitoring']);
-	const fakeDataPath = [
-		{
-			assetId: 'asset1',
-			included: true,
-			path: 'path1veryveryveryverylong'
-		},
-		{ assetId: 'asset1', included: false, path: 'path2' },
-		{ assetId: 'asset2', included: true, path: 'path3' },
-		{ assetId: 'asset2', included: true, path: 'path4' }
-	];
+
 	const [extensions, setExtensions] = useState<string[]>([]);
-	const [assetsPath, setAssetsPath] =
-		useState<{ assetId?: string; path: string; included: boolean }[]>(fakeDataPath);
 
 	const { register, watch, reset } = useForm<AssetSetupFormData>();
 	const extensionInput = watch('extension');
@@ -70,14 +58,14 @@ const AssetPathsTile = ({ asset }: AssetPathsTileProps) => {
 					</Tag>
 				))}
 			</div>
-			<Layer>
+			{/* <Layer>
 				<PathAssetTable
 					canAdd
 					data={assetsPath.filter(path => path.assetId === 'asset1')}
 					assetId='1'
 					setData={setAssetsPath}
 				/>
-			</Layer>
+			</Layer> */}
 		</AssetExpandableTile>
 	);
 };

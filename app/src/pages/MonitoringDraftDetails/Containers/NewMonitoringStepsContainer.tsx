@@ -17,7 +17,7 @@ type NewMonitoringStepsContainerProps = {
 
 const NewMonitoringStepsContainer = ({ draft }: NewMonitoringStepsContainerProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'evidenceRequest']);
-	const [currentStep, setCurrentStep] = useState(4);
+	const [currentStep, setCurrentStep] = useState(1);
 	const contentToRender = () => {
 		switch (currentStep) {
 			case 0:
@@ -30,7 +30,9 @@ const NewMonitoringStepsContainer = ({ draft }: NewMonitoringStepsContainerProps
 				};
 			case 1:
 				return {
-					content: <PathDefinitionStepContainer />,
+					content: (
+						<PathDefinitionStepContainer setCurrentStep={setCurrentStep} draft={draft} />
+					),
 					title: 'Path',
 					description: t('changeMonitoring:path-step-description')
 				};

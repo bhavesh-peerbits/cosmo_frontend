@@ -1,48 +1,58 @@
 import CosmoTable from '@components/table/CosmoTable';
 import { CellContext, ColumnDef } from '@tanstack/react-table';
-import { Dispatch, SetStateAction, useMemo } from 'react';
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 import { CheckmarkFilled, CheckmarkOutline, SubtractAlt } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
+import { PathMonitoringDto } from 'cosmo-api/src/v1';
+import MonitoringAsset from '@model/MonitoringAsset';
+import useCheckPathAssetMonitoring from '@api/change-monitoring/useCheckPathsAsset';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const BooleanCell = ({ getValue }: CellContext<any, unknown>) => {
 	const value = getValue() as boolean;
-	return value && <CheckmarkFilled />;
+	return value ? <CheckmarkFilled /> : 'Non incluso';
 };
 
 type PathAssetTableProps = {
+	assetId: string;
+	assetData?: MonitoringAsset[];
+	setAssetData?: Dispatch<SetStateAction<MonitoringAsset[] | undefined>>;
 	isSameSetup?: boolean;
-	data: {
-		assetId?: string;
-		path: string;
-		included: boolean;
-	}[];
-	assetId?: string;
 	canAdd?: boolean;
-	setData: Dispatch<
+	globalData?: {
+		path: string;
+		selected?: boolean;
+	}[];
+	setGlobalData?: Dispatch<
 		SetStateAction<
 			{
-				assetId?: string;
 				path: string;
-				included: boolean;
+				selected?: boolean;
 			}[]
 		>
 	>;
 };
 const PathAssetTable = ({
 	isSameSetup,
-	data,
+	globalData,
 	assetId,
 	canAdd,
-	setData
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	setGlobalData,
+	setAssetData,
+	assetData
 }: PathAssetTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table']);
 
-	const columns = useMemo<ColumnDef<{ path: string; included: boolean }>[]>(() => {
-		const ArrayCol: ColumnDef<{ path: string; included: boolean }>[] = [
+	const columns = useMemo<
+		ColumnDef<{ path: string; selected?: boolean } | PathMonitoringDto>[]
+	>(() => {
+		const ArrayCol: ColumnDef<
+			{ path: string; selected?: boolean } | PathMonitoringDto
+		>[] = [
 			{
-				id: isSameSetup ? 'included-same-setup' : `included-${assetId}`,
-				accessorFn: row => row.included,
+				id: isSameSetup ? 'selected-same-setup' : `selected-${assetId}`,
+				accessorFn: row => row.selected,
 				cell: BooleanCell,
 				header: t('changeMonitoring:included')
 			},
@@ -50,7 +60,14 @@ const PathAssetTable = ({
 				id: isSameSetup ? 'path-same-setup' : `path-${assetId}`,
 				accessorFn: row => row.path,
 				header: 'Path',
-				sortUndefined: 1
+				sortUndefined: 1,
+				meta: {
+					modalInfo: {
+						type: 'string',
+						modelKeyName: 'body',
+						validation: { required: true }
+					}
+				}
 			}
 		];
 		return ArrayCol;
@@ -61,34 +78,59 @@ const PathAssetTable = ({
 			id: 'include',
 			label: t('changeMonitoring:include'),
 			icon: CheckmarkOutline,
-			onClick: (selectionElements: { path: string; included: boolean }[]) => {
-				setData(old =>
-					old.map(element => {
-						return selectionElements.includes(element)
-							? { ...element, included: true }
-							: element;
-					})
-				);
-			}
+			onClick: () => {}
+			// onClick: (selectionElements: { path: string; selected?: boolean }[]) => {
+			// 	setGlobalData(old =>
+			// 		old.map(element => {
+			// 			return selectionElements.includes(element)
+			// 				? { ...element, selected: true }
+			// 				: element;
+			// 		})
+			// 	);
+			// }
 		},
 		{
 			id: 'exclude',
 			label: t('changeMonitoring:exclude'),
 			icon: SubtractAlt,
-			onClick: (selectionElements: { path: string; included: boolean }[]) => {
-				setData(old =>
-					old.map(element => {
-						return selectionElements.includes(element)
-							? { ...element, included: false }
-							: element;
-					})
-				);
-			}
+			onClick: () => {}
+			// onClick: (selectionElements: { path: string; selected?: boolean }[]) => {
+			// 	setGlobalData(old =>
+			// 		old.map(element => {
+			// 			return selectionElements.includes(element)
+			// 				? { ...element, selected: false }
+			// 				: element;
+			// 		})
+			// 	);
+			// }
 		}
 	];
 
+	const [prova, setProva] = useState<PathMonitoringDto[]>([]);
+
+	useEffect(() => {
+		setAssetData &&
+			setAssetData(old =>
+				old?.map(el => {
+					return el.asset.id === assetId
+						? {
+								id: el.id,
+								asset: el.asset,
+								paths: el.paths ? [...new Set([...el.paths, ...prova])] : [...prova]
+						  }
+						: el;
+				})
+			);
+	}, [assetId, prova, setAssetData]);
+
 	return (
 		<CosmoTable
+			modalProps={{
+				mutation: useCheckPathAssetMonitoring(),
+				title: 'path',
+				setMutationResult: setProva,
+				mutationDefaultValues: { assetId }
+			}}
 			tableId='path-asset-table'
 			columns={columns}
 			noDataMessage={t('table:no-data')}
@@ -102,13 +144,17 @@ const PathAssetTable = ({
 			exportFileName={({ all }) =>
 				all ? 'monitoring-drafts-all' : 'monitoring-drafts-selection'
 			}
-			data={data}
-			isSelectable
-			noDataMessageSubtitle={
-				data.length > 0
-					? t('changeMonitoring:no-path-subtitle')
-					: t('changeMonitoring:no-path-yet')
+			data={
+				isSameSetup
+					? globalData || []
+					: assetData?.find(el => el.asset.id === assetId)?.paths || []
 			}
+			isSelectable
+			// noDataMessageSubtitle={
+			// 	globalData?.length > 0
+			// 		? t('changeMonitoring:no-path-subtitle')
+			// 		: t('changeMonitoring:no-path-yet')
+			// }
 		/>
 	);
 };

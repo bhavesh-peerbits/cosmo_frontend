@@ -1,28 +1,32 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import FullWidthColumn from '@components/FullWidthColumn';
-import { Toggle, Tooltip, Layer } from '@carbon/react';
+import { Toggle, Tooltip, Layer, Button } from '@carbon/react';
 import { Information } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
+import MonitoringDraft from '@model/MonitoringDraft';
+import MonitoringAsset from '@model/MonitoringAsset';
 import AssetExpandableTile from './AssetExpandableTile';
 import PathAssetTable from './PathAssetTable';
 
-const PathDefinitionStepContainer = () => {
+type PathDefinitionProps = {
+	setCurrentStep: Dispatch<SetStateAction<number>>;
+	draft: MonitoringDraft;
+};
+
+const PathDefinitionStepContainer = ({ setCurrentStep, draft }: PathDefinitionProps) => {
 	const { t } = useTranslation('changeMonitoring');
 	const [sameSetup, setSameSetup] = useState(false);
 
-	const fakeDataPath = [
-		{
-			assetId: 'asset1',
-			included: true,
-			path: 'path1veryveryveryveryveryveryveryveryveryveryveryveryveryveryveryverylong'
-		},
-		{ assetId: 'asset1', included: false, path: 'path2' },
-		{ assetId: 'asset2', included: true, path: 'path3' },
-		{ assetId: 'asset2', included: true, path: 'path4' }
-	];
-	const [newPaths, setNewPaths] = useState<{ path: string; included: boolean }[]>([]);
-	const [assetsPath, setAssetsPath] =
-		useState<{ assetId?: string; path: string; included: boolean }[]>(fakeDataPath);
+	const [globalPaths, setGlobalPaths] = useState<{ path: string; selected?: boolean }[]>(
+		[]
+	);
+	const [assetsData, setAssetsData] = useState<MonitoringAsset[] | undefined>(
+		draft.monitoringAssets
+	);
+	const [assetsPath, setAssetsPath] = useState<MonitoringAsset[] | undefined>(
+		draft.monitoringAssets
+	);
 
 	return (
 		<>
@@ -47,20 +51,27 @@ const PathDefinitionStepContainer = () => {
 				/>
 			</FullWidthColumn>
 			<FullWidthColumn className='space-y-7'>
-				{sameSetup && (
+				{/* {sameSetup && (
 					<Layer>
-						<PathAssetTable isSameSetup data={newPaths} canAdd setData={setNewPaths} />
-					</Layer>
-				)}
-				<div>
-					<AssetExpandableTile title='Asset'>
 						<PathAssetTable
-							data={assetsPath.filter(path => path.assetId === 'asset1')}
-							assetId='1'
+							globalData={globalPaths}
+							canAdd
+							setGlobalData={setGlobalPaths}
+						/>
+					</Layer>
+				)} */}
+				{draft.monitoringAssets?.map(ma => (
+					<AssetExpandableTile title={ma.asset.hostname || ''}>
+						<PathAssetTable
+							assetData={assetsData}
+							setAssetData={setAssetsData}
 							canAdd={!sameSetup}
-							setData={setAssetsPath}
+							assetId={ma.asset.id || ''}
 						/>
 					</AssetExpandableTile>
+				))}
+				{/*
+
 					<AssetExpandableTile title='Asset'>
 						<PathAssetTable
 							data={assetsPath.filter(path => path.assetId === 'asset2')}
@@ -69,8 +80,27 @@ const PathDefinitionStepContainer = () => {
 							setData={setAssetsPath}
 						/>
 					</AssetExpandableTile>
-				</div>
+				</div> */}
 			</FullWidthColumn>
+			{/* <FullWidthColumn className='justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
+				<Button
+					size='md'
+					kind='secondary'
+					className='w-full md:w-fit'
+					onClick={() => setCurrentStep(old => old - 1)}
+				>
+					{t('back')}
+				</Button>
+				<Button
+					size='md'
+					className='w-full md:w-fit'
+					onClick={handleSubmit(saveDraft)}
+					disabled={!isValid || isLoading}
+				>
+					{t('save-next')}
+					{isLoading && <InlineLoading />}
+				</Button>
+			</FullWidthColumn> */}
 		</>
 	);
 };

@@ -11,7 +11,7 @@ const MonitoringDraftTileContainer = ({ drafts }: MonitoringDraftTileContainerPr
 			<Column sm={4} md={8} lg={16} xlg={16} max={16}>
 				<Grid fullWidth narrow condensed>
 					{drafts.map(draft => (
-						<Column sm={4} md={4} lg={8} xlg={4} max={4}>
+						<Column sm={4} md={4} lg={8} xlg={4} max={4} key={draft.id}>
 							<MonitoringDraftTile draft={draft} />
 						</Column>
 					))}
