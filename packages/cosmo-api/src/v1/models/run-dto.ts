@@ -14,7 +14,6 @@
 
 import { DeltaDto } from './delta-dto';
 import { RunAssetDto } from './run-asset-dto';
-import { RunFileLinkDto } from './run-file-link-dto';
 import { UserDto } from './user-dto';
 
 /**
@@ -83,12 +82,6 @@ export interface RunDto {
 	 * @memberof RunDto
 	 */
 	deltas?: Array<DeltaDto>;
-	/**
-	 *
-	 * @type {Array<RunFileLinkDto>}
-	 * @memberof RunDto
-	 */
-	runFileLinks?: Array<RunFileLinkDto>;
 	/**
 	 *
 	 * @type {string}

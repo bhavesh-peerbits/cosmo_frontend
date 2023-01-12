@@ -45,11 +45,17 @@ import { AssociationDto } from '../models';
 // @ts-ignore
 import { CreateMonitoringDto } from '../models';
 // @ts-ignore
+import { DeltaDto } from '../models';
+// @ts-ignore
+import { DeltaFileDto } from '../models';
+// @ts-ignore
 import { FileLinkDto } from '../models';
+// @ts-ignore
+import { FileLinkDtoList } from '../models';
 // @ts-ignore
 import { FrameworkTreeDto } from '../models';
 // @ts-ignore
-import { InlineObject19 } from '../models';
+import { InlineObject18 } from '../models';
 // @ts-ignore
 import { InstanceAssetDto } from '../models';
 // @ts-ignore
@@ -625,14 +631,14 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} monitoringId
-		 * @param {InlineObject19} inlineObject19
+		 * @param {InlineObject18} inlineObject18
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		editMonitoringFocalpointAndDelegates: async (
 			monitoringId: number,
-			inlineObject19: InlineObject19,
+			inlineObject18: InlineObject18,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
@@ -642,11 +648,11 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				'monitoringId',
 				monitoringId
 			);
-			// verify required parameter 'inlineObject19' is not null or undefined
+			// verify required parameter 'inlineObject18' is not null or undefined
 			assertParamExists(
 				'editMonitoringFocalpointAndDelegates',
-				'inlineObject19',
-				inlineObject19
+				'inlineObject18',
+				inlineObject18
 			);
 			const localVarPath =
 				`/api/change-monitoring/analyst/monitoring/set-focalpoint-and-delegates/{monitoringId}`.replace(
@@ -682,7 +688,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				inlineObject19,
+				inlineObject18,
 				localVarRequestOptions,
 				configuration
 			);
@@ -1321,28 +1327,37 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @param {number} stepId
-		 * @param {any} file
+		 * @param {number} deltaId
+		 * @param {Array<any>} files
+		 * @param {Array<DeltaFileDto>} deltaFiles
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {FileLinkDto} [fileLinkDto]
+		 * @param {string} [text]
+		 * @param {FileLinkDtoList} [fileslinks]
+		 * @param {boolean} [ignore]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		saveAnswerWithFile: async (
-			stepId: number,
-			file: any,
+			deltaId: number,
+			files: Array<any>,
+			deltaFiles: Array<DeltaFileDto>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			fileLinkDto?: FileLinkDto,
+			text?: string,
+			fileslinks?: FileLinkDtoList,
+			ignore?: boolean,
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'stepId' is not null or undefined
-			assertParamExists('saveAnswerWithFile', 'stepId', stepId);
-			// verify required parameter 'file' is not null or undefined
-			assertParamExists('saveAnswerWithFile', 'file', file);
-			const localVarPath = `/api/change-monitoring/analyst/save-answer-with-file`.replace(
-				`{${'stepId'}}`,
-				encodeURIComponent(String(stepId))
-			);
+			// verify required parameter 'deltaId' is not null or undefined
+			assertParamExists('saveAnswerWithFile', 'deltaId', deltaId);
+			// verify required parameter 'files' is not null or undefined
+			assertParamExists('saveAnswerWithFile', 'files', files);
+			// verify required parameter 'deltaFiles' is not null or undefined
+			assertParamExists('saveAnswerWithFile', 'deltaFiles', deltaFiles);
+			const localVarPath =
+				`/api/change-monitoring/analyst/save-answer-with-file/{deltaId}`.replace(
+					`{${'deltaId'}}`,
+					encodeURIComponent(String(deltaId))
+				);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -1359,19 +1374,30 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
 
+			if (files) {
+				localVarQueryParameter['files'] = files;
+			}
+
 			if (acceptLanguage !== undefined && acceptLanguage !== null) {
 				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
 			}
 
-			if (fileLinkDto !== undefined) {
+			if (text !== undefined) {
+				localVarFormParams.append('text', text as any);
+			}
+			if (deltaFiles) {
+				localVarFormParams.append('deltaFiles', deltaFiles.join(COLLECTION_FORMATS.csv));
+			}
+
+			if (fileslinks !== undefined) {
 				localVarFormParams.append(
-					'fileLinkDto',
-					new Blob([JSON.stringify(fileLinkDto)], { type: 'application/json' })
+					'fileslinks',
+					new Blob([JSON.stringify(fileslinks)], { type: 'application/json' })
 				);
 			}
 
-			if (file !== undefined) {
-				localVarFormParams.append('file', file as any);
+			if (ignore !== undefined) {
+				localVarFormParams.append('ignore', ignore as any);
 			}
 
 			localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
@@ -1953,14 +1979,14 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		/**
 		 *
 		 * @param {number} monitoringId
-		 * @param {InlineObject19} inlineObject19
+		 * @param {InlineObject18} inlineObject18
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async editMonitoringFocalpointAndDelegates(
 			monitoringId: number,
-			inlineObject19: InlineObject19,
+			inlineObject18: InlineObject18,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
@@ -1969,7 +1995,7 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.editMonitoringFocalpointAndDelegates(
 					monitoringId,
-					inlineObject19,
+					inlineObject18,
 					acceptLanguage,
 					options
 				);
@@ -2309,25 +2335,34 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		},
 		/**
 		 *
-		 * @param {number} stepId
-		 * @param {any} file
+		 * @param {number} deltaId
+		 * @param {Array<any>} files
+		 * @param {Array<DeltaFileDto>} deltaFiles
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {FileLinkDto} [fileLinkDto]
+		 * @param {string} [text]
+		 * @param {FileLinkDtoList} [fileslinks]
+		 * @param {boolean} [ignore]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async saveAnswerWithFile(
-			stepId: number,
-			file: any,
+			deltaId: number,
+			files: Array<any>,
+			deltaFiles: Array<DeltaFileDto>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			fileLinkDto?: FileLinkDto,
+			text?: string,
+			fileslinks?: FileLinkDtoList,
+			ignore?: boolean,
 			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FileLinkDto>> {
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeltaDto>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.saveAnswerWithFile(
-				stepId,
-				file,
+				deltaId,
+				files,
+				deltaFiles,
 				acceptLanguage,
-				fileLinkDto,
+				text,
+				fileslinks,
+				ignore,
 				options
 			);
 			return createRequestFunction(
@@ -2652,21 +2687,21 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		/**
 		 *
 		 * @param {number} monitoringId
-		 * @param {InlineObject19} inlineObject19
+		 * @param {InlineObject18} inlineObject18
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		editMonitoringFocalpointAndDelegates(
 			monitoringId: number,
-			inlineObject19: InlineObject19,
+			inlineObject18: InlineObject18,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<MonitoringDto> {
 			return localVarFp
 				.editMonitoringFocalpointAndDelegates(
 					monitoringId,
-					inlineObject19,
+					inlineObject18,
 					acceptLanguage,
 					options
 				)
@@ -2874,22 +2909,37 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		},
 		/**
 		 *
-		 * @param {number} stepId
-		 * @param {any} file
+		 * @param {number} deltaId
+		 * @param {Array<any>} files
+		 * @param {Array<DeltaFileDto>} deltaFiles
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {FileLinkDto} [fileLinkDto]
+		 * @param {string} [text]
+		 * @param {FileLinkDtoList} [fileslinks]
+		 * @param {boolean} [ignore]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		saveAnswerWithFile(
-			stepId: number,
-			file: any,
+			deltaId: number,
+			files: Array<any>,
+			deltaFiles: Array<DeltaFileDto>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			fileLinkDto?: FileLinkDto,
+			text?: string,
+			fileslinks?: FileLinkDtoList,
+			ignore?: boolean,
 			options?: any
-		): AxiosPromise<FileLinkDto> {
+		): AxiosPromise<DeltaDto> {
 			return localVarFp
-				.saveAnswerWithFile(stepId, file, acceptLanguage, fileLinkDto, options)
+				.saveAnswerWithFile(
+					deltaId,
+					files,
+					deltaFiles,
+					acceptLanguage,
+					text,
+					fileslinks,
+					ignore,
+					options
+				)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -3237,10 +3287,10 @@ export interface AnalystChangeMonitoringControllerApiEditMonitoringFocalpointAnd
 
 	/**
 	 *
-	 * @type {InlineObject19}
+	 * @type {InlineObject18}
 	 * @memberof AnalystChangeMonitoringControllerApiEditMonitoringFocalpointAndDelegates
 	 */
-	readonly inlineObject19: InlineObject19;
+	readonly inlineObject18: InlineObject18;
 
 	/**
 	 *
@@ -3506,14 +3556,21 @@ export interface AnalystChangeMonitoringControllerApiSaveAnswerWithFileRequest {
 	 * @type {number}
 	 * @memberof AnalystChangeMonitoringControllerApiSaveAnswerWithFile
 	 */
-	readonly stepId: number;
+	readonly deltaId: number;
 
 	/**
 	 *
-	 * @type {any}
+	 * @type {Array<any>}
 	 * @memberof AnalystChangeMonitoringControllerApiSaveAnswerWithFile
 	 */
-	readonly file: any;
+	readonly files: Array<any>;
+
+	/**
+	 *
+	 * @type {Array<DeltaFileDto>}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveAnswerWithFile
+	 */
+	readonly deltaFiles: Array<DeltaFileDto>;
 
 	/**
 	 *
@@ -3524,10 +3581,24 @@ export interface AnalystChangeMonitoringControllerApiSaveAnswerWithFileRequest {
 
 	/**
 	 *
-	 * @type {FileLinkDto}
+	 * @type {string}
 	 * @memberof AnalystChangeMonitoringControllerApiSaveAnswerWithFile
 	 */
-	readonly fileLinkDto?: FileLinkDto;
+	readonly text?: string;
+
+	/**
+	 *
+	 * @type {FileLinkDtoList}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveAnswerWithFile
+	 */
+	readonly fileslinks?: FileLinkDtoList;
+
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveAnswerWithFile
+	 */
+	readonly ignore?: boolean;
 }
 
 /**
@@ -3858,7 +3929,7 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 		return AnalystChangeMonitoringControllerApiFp(this.configuration)
 			.editMonitoringFocalpointAndDelegates(
 				requestParameters.monitoringId,
-				requestParameters.inlineObject19,
+				requestParameters.inlineObject18,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -4111,10 +4182,13 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 	) {
 		return AnalystChangeMonitoringControllerApiFp(this.configuration)
 			.saveAnswerWithFile(
-				requestParameters.stepId,
-				requestParameters.file,
+				requestParameters.deltaId,
+				requestParameters.files,
+				requestParameters.deltaFiles,
 				requestParameters.acceptLanguage,
-				requestParameters.fileLinkDto,
+				requestParameters.text,
+				requestParameters.fileslinks,
+				requestParameters.ignore,
 				options
 			)
 			.then(request => request(this.axios, this.basePath));

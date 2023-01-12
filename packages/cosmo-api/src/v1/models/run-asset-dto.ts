@@ -14,6 +14,7 @@
 
 import { AssetDto } from './asset-dto';
 import { PathMonitoringDto } from './path-monitoring-dto';
+import { RunFileLinkDto } from './run-file-link-dto';
 
 /**
  *
@@ -39,4 +40,10 @@ export interface RunAssetDto {
 	 * @memberof RunAssetDto
 	 */
 	asset: AssetDto;
+	/**
+	 *
+	 * @type {Array<RunFileLinkDto>}
+	 * @memberof RunAssetDto
+	 */
+	runFileLinks?: Array<RunFileLinkDto>;
 }

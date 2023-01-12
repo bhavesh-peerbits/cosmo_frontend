@@ -1,6 +1,6 @@
 import { User } from '@sentry/react';
 import { RunApi } from 'cosmo-api';
-import { DeltaDto, RunDtoStatusEnum, RunFileLinkDto } from 'cosmo-api/src/v1';
+import { DeltaDto, RunDtoStatusEnum } from 'cosmo-api/src/v1';
 import RunAsset, { fromRunAssetApi } from './RunAsset';
 import { fromUserApi } from './User';
 
@@ -15,7 +15,6 @@ interface Run {
 	focalPointDelegates?: User[];
 	runAsset: RunAsset[];
 	deltas?: DeltaDto[];
-	runFileLinks?: RunFileLinkDto[];
 	notes?: string;
 }
 export const fromRunApi = (runApi: RunApi): Run => ({
@@ -31,7 +30,6 @@ export const fromRunApi = (runApi: RunApi): Run => ({
 		: [],
 	runAsset: [...runApi.runAsset].map(fromRunAssetApi),
 	deltas: runApi.deltas ? [...runApi.deltas] : undefined,
-	runFileLinks: runApi.runFileLinks ? [...runApi.runFileLinks] : undefined,
 	notes: runApi.notes
 });
 export default Run;

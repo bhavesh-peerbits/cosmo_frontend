@@ -15,7 +15,7 @@
 import { PathDto } from './path-dto';
 
 /**
- * The asset to identify if it\'s monitored
+ *
  * @export
  * @interface AssetDto
  */

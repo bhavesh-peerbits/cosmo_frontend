@@ -57,7 +57,8 @@ import {
 	AssetDto,
 	SchedulingDto,
 	RunDto,
-	RunAssetDto
+	RunAssetDto,
+	RunFileLinkDto
 } from './v1';
 
 export const ApiConfiguration = Configuration;
@@ -125,5 +126,6 @@ export type AssetApi = AssetDto;
 export type SchedulingApi = SchedulingDto;
 export type RunApi = RunDto;
 export type RunAssetApi = RunAssetDto;
+export type RunFileLinkApi = RunFileLinkDto;
 export type InstanceAssetApi = InstanceAssetDto;
 export type MonitoringDraftApi = MonitoringDraftDto;
