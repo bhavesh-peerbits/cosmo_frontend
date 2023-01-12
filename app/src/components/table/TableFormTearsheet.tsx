@@ -76,12 +76,14 @@ const TableFormTearsheet = <T extends object>({
 			multipleSubmitItem.forEach(item =>
 				mutate(
 					{
-						[columns[0].meta?.modalInfo?.modelKeyName ?? '']: item,
+						[columns.filter(c => c.meta?.modalInfo)[0].meta?.modalInfo?.modelKeyName ??
+						'']: item,
 						...mutationDefaultValues
 					},
 					{
 						onSuccess: (data: any) => {
-							setMutationResult && setMutationResult((old: any) => [...old, data]);
+							setMutationResult &&
+								setMutationResult((old: any) => (old ? [...old, data] : [data]));
 							cleanUp();
 						}
 					}
