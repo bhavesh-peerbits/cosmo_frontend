@@ -19,7 +19,6 @@ import { useTranslation } from 'react-i18next';
 type AssociationSelectionListProps = {
 	control: Control<{
 		framework: string;
-		leaves: string[];
 		controls: Association[];
 		focalPoint: User;
 		delegates: User[];
@@ -29,7 +28,6 @@ type AssociationSelectionListProps = {
 	selectedAssociation?: Association;
 	setValue: UseFormSetValue<{
 		framework: string;
-		leaves: string[];
 		controls: Association[];
 		focalPoint: User;
 		delegates: User[];

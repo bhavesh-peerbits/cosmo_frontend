@@ -29,7 +29,6 @@ import MultipleControlSelect from './MultipleControlSelect';
 
 type FrameworkStepFormData = {
 	framework: string;
-	leaves: string[];
 	controls: Association[];
 	focalPoint: User;
 	delegates: User[];
@@ -49,6 +48,10 @@ const FrameworkSelectionStepContainer = ({
 	const [isTreeSelectionOpen, setIsTreeSelectionOpen] = useState(false);
 	const [selectedLeaves, setSelectedLeaves] = useState<Framework[]>([]);
 	const { mutate, isLoading, isError, isSuccess, error } = useSaveMonitoringDraft();
+	const { data: draftControls } = useGetControls(
+		draft.frameworkLeafsCodes,
+		draft.instance?.id
+	);
 
 	const {
 		register,
@@ -57,7 +60,12 @@ const FrameworkSelectionStepContainer = ({
 		resetField,
 		handleSubmit,
 		setValue
-	} = useForm<FrameworkStepFormData>({});
+	} = useForm<FrameworkStepFormData>({
+		defaultValues: {
+			framework: draft.frameworkName,
+			controls: draftControls
+		}
+	});
 
 	const selectedFramework = watch('framework');
 	const selectedControls = watch('controls');
@@ -95,7 +103,8 @@ const FrameworkSelectionStepContainer = ({
 							: selectedControls.find(c => c.id === data.association)?.delegates,
 					controlCode: data.controls.map(c => c.name).join('-'),
 					frameworkLeafsCodes: selectedLeaves.map(leaf => leaf.code).join('-'),
-					frameworkLeafsName: selectedLeaves.map(leaf => leaf.name).join('-')
+					frameworkLeafsName: selectedLeaves.map(leaf => leaf.name).join('-'),
+					frameworkName: selectedFramework
 				}
 			},
 			{ onSuccess: () => setCurrentStep(old => old + 1) }
