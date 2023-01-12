@@ -8,7 +8,9 @@ import {
 	DatePicker,
 	DatePickerInput,
 	MultiSelect,
-	NumberInput
+	NumberInput,
+	Button,
+	InlineLoading
 } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import { Controller, useForm } from 'react-hook-form';
@@ -21,13 +23,16 @@ import {
 	FrequencyDtoFrequencyTypeEnum,
 	SchedulingDtoDayOfWeekEnum
 } from 'cosmo-api/src/v1';
+import InlineLoadingStatus from '@components/InlineLoadingStatus';
+import useSaveMonitoringDraft from '@api/change-monitoring/useSaveMonitoringDraft';
+import ApiError from '@api/ApiError';
 
 type SchedulingFormData = {
-	frequency: string;
+	frequency: FrequencyDtoFrequencyTypeEnum;
 	date: Date[];
 	startHour: number;
 	timeFormat: string;
-	dayOfWeek: string | string[];
+	dayOfWeek: SchedulingDtoDayOfWeekEnum | SchedulingDtoDayOfWeekEnum[];
 	dayOfMonth: number;
 };
 
@@ -37,10 +42,10 @@ type SchedulingStepProps = {
 };
 
 // TODO Fix id of components when BE is ready
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps) => {
 	const { t } = useTranslation('changeMonitoring');
 	const { format, placeholder, localeCode } = useGetDateFormat();
+	const { mutate, isLoading, isError, isSuccess, error } = useSaveMonitoringDraft();
 
 	const {
 		register,
@@ -48,6 +53,7 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 		control,
 		setValue,
 		getValues,
+		handleSubmit,
 		formState: { errors }
 	} = useForm<SchedulingFormData>({
 		defaultValues: {
@@ -124,7 +130,9 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 					id='select-day-week'
 					labelText={`${t('days-of-week')} *`}
 					className='w-1/2'
-					onChange={e => setValue('dayOfWeek', e.currentTarget.value)}
+					onChange={e =>
+						setValue('dayOfWeek', e.currentTarget.value as SchedulingDtoDayOfWeekEnum)
+					}
 				>
 					{daysOfWeek.map(day => (
 						<SelectItem value={day} text={translateDayOfWeek(day)} />
@@ -192,6 +200,25 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 		}
 
 		return null;
+	};
+
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const saveDraft = (data: SchedulingFormData) => {
+		return mutate(
+			{
+				draft: {
+					...draft
+					// scheduling: {
+					// 	frequency: data.frequency,
+					// 	startDate: data.date[0],
+					// 	endDate: data.date[1],
+					// 	dayOfMonth: data.dayOfMonth,
+					// 	dayOfWeek: data.dayOfWeek as SchedulingDtoDayOfWeekEnum[]
+					// }
+				}
+			},
+			{ onSuccess: () => setCurrentStep(old => old + 1) }
+		);
 	};
 
 	return (
@@ -282,6 +309,28 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 			<div>
 				<span className='text-productive-heading-2'>{t('total-runs')}: </span>
 				<span>5</span>
+			</div>
+			<div className='items-center justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
+				<InlineLoadingStatus
+					{...{ isLoading: false, isSuccess, isError, error: error as ApiError }}
+				/>
+				<div>{isLoading && <InlineLoading />}</div>
+				<Button
+					size='md'
+					kind='secondary'
+					className='w-full md:w-fit'
+					onClick={() => setCurrentStep(old => old - 1)}
+				>
+					{t('back')}
+				</Button>
+				<Button
+					size='md'
+					className='w-full md:w-fit'
+					onClick={handleSubmit(saveDraft)}
+					// disabled={isLoading || !selectedScript}
+				>
+					{t('save-next')}
+				</Button>
 			</div>
 		</FullWidthColumn>
 	);
