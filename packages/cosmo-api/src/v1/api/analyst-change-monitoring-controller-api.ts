@@ -43,6 +43,10 @@ import { ApplicationDto } from '../models';
 // @ts-ignore
 import { AssociationDto } from '../models';
 // @ts-ignore
+import { CheckPathAssetsDto } from '../models';
+// @ts-ignore
+import { CheckPathDto } from '../models';
+// @ts-ignore
 import { CreateMonitoringDto } from '../models';
 // @ts-ignore
 import { DeltaDto } from '../models';
@@ -318,6 +322,64 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
 				body,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {CheckPathAssetsDto} checkPathAssetsDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		checkPathForMultipleAssets: async (
+			checkPathAssetsDto: CheckPathAssetsDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'checkPathAssetsDto' is not null or undefined
+			assertParamExists(
+				'checkPathForMultipleAssets',
+				'checkPathAssetsDto',
+				checkPathAssetsDto
+			);
+			const localVarPath = `/api/change-monitoring/analyst/check-path-for-multiple-assets`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				checkPathAssetsDto,
 				localVarRequestOptions,
 				configuration
 			);
@@ -1814,15 +1876,38 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 			body: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PathMonitoringDto>
-		> {
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CheckPathDto>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.checkPath(
 				assetId,
 				body,
 				acceptLanguage,
 				options
 			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {CheckPathAssetsDto} checkPathAssetsDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async checkPathForMultipleAssets(
+			checkPathAssetsDto: CheckPathAssetsDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CheckPathDto>> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.checkPathForMultipleAssets(
+					checkPathAssetsDto,
+					acceptLanguage,
+					options
+				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
@@ -2584,9 +2669,25 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 			body: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<PathMonitoringDto> {
+		): AxiosPromise<CheckPathDto> {
 			return localVarFp
 				.checkPath(assetId, body, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {CheckPathAssetsDto} checkPathAssetsDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		checkPathForMultipleAssets(
+			checkPathAssetsDto: CheckPathAssetsDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<CheckPathDto> {
+			return localVarFp
+				.checkPathForMultipleAssets(checkPathAssetsDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -3149,6 +3250,27 @@ export interface AnalystChangeMonitoringControllerApiCheckPathRequest {
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
 	 * @memberof AnalystChangeMonitoringControllerApiCheckPath
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for checkPathForMultipleAssets operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiCheckPathForMultipleAssetsRequest
+ */
+export interface AnalystChangeMonitoringControllerApiCheckPathForMultipleAssetsRequest {
+	/**
+	 *
+	 * @type {CheckPathAssetsDto}
+	 * @memberof AnalystChangeMonitoringControllerApiCheckPathForMultipleAssets
+	 */
+	readonly checkPathAssetsDto: CheckPathAssetsDto;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiCheckPathForMultipleAssets
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
@@ -3800,6 +3922,26 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 			.checkPath(
 				requestParameters.assetId,
 				requestParameters.body,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystChangeMonitoringControllerApiCheckPathForMultipleAssetsRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystChangeMonitoringControllerApi
+	 */
+	public checkPathForMultipleAssets(
+		requestParameters: AnalystChangeMonitoringControllerApiCheckPathForMultipleAssetsRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.checkPathForMultipleAssets(
+				requestParameters.checkPathAssetsDto,
 				requestParameters.acceptLanguage,
 				options
 			)

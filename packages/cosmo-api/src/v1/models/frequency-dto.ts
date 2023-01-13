@@ -19,17 +19,11 @@
  */
 export interface FrequencyDto {
 	/**
-	 *
-	 * @type {number}
-	 * @memberof FrequencyDto
-	 */
-	id?: number;
-	/**
-	 *
+	 * The type of frequency
 	 * @type {string}
 	 * @memberof FrequencyDto
 	 */
-	frequencyType?: FrequencyDtoFrequencyTypeEnum;
+	frequencyType: FrequencyDtoFrequencyTypeEnum;
 }
 
 export const FrequencyDtoFrequencyTypeEnum = {

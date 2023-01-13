@@ -50,6 +50,8 @@ models/association-dto.ts
 models/campaign-dto.ts
 models/campaign-review-dto.ts
 models/campaign-template-dto.ts
+models/check-path-assets-dto.ts
+models/check-path-dto.ts
 models/close-evidence-dto.ts
 models/config-element.ts
 models/config-module-key.ts
@@ -82,7 +84,6 @@ models/instance-asset-dto.ts
 models/instance-dto.ts
 models/instance.ts
 models/justification-delta-file-dto.ts
-models/local-time.ts
 models/mail-template-dto.ts
 models/module.ts
 models/monitoring-asset-dto.ts
@@ -112,13 +113,6 @@ models/review-procedure-dto.ts
 models/run-asset-dto.ts
 models/run-dto.ts
 models/run-file-link-dto.ts
-models/scheduling-dto-time-offset-rules-duration-units.ts
-models/scheduling-dto-time-offset-rules-duration.ts
-models/scheduling-dto-time-offset-rules-transition-rules.ts
-models/scheduling-dto-time-offset-rules-transitions.ts
-models/scheduling-dto-time-offset-rules.ts
-models/scheduling-dto-time-offset.ts
-models/scheduling-dto-time.ts
 models/scheduling-dto.ts
 models/script-dto.ts
 models/set-up-draft-dto.ts

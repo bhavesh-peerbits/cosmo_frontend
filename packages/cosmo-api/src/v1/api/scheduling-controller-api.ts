@@ -38,6 +38,8 @@ import {
 } from '../base';
 // @ts-ignore
 import { ApiErrorResponse } from '../models';
+// @ts-ignore
+import { SchedulingDto } from '../models';
 /**
  * SchedulingControllerApi - axios parameter creator
  * @export
@@ -48,14 +50,18 @@ export const SchedulingControllerApiAxiosParamCreator = function (
 	return {
 		/**
 		 *
+		 * @param {SchedulingDto} schedulingDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getTotalRun: async (
+			schedulingDto: SchedulingDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
+			// verify required parameter 'schedulingDto' is not null or undefined
+			assertParamExists('getTotalRun', 'schedulingDto', schedulingDto);
 			const localVarPath = `/api/scheduling/get-total-runs`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -64,7 +70,7 @@ export const SchedulingControllerApiAxiosParamCreator = function (
 				baseOptions = configuration.baseOptions;
 			}
 
-			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
 			const localVarHeaderParameter = {} as any;
 			const localVarQueryParameter = {} as any;
 
@@ -75,6 +81,8 @@ export const SchedulingControllerApiAxiosParamCreator = function (
 				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
 			}
 
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -83,6 +91,11 @@ export const SchedulingControllerApiAxiosParamCreator = function (
 				...headersFromBaseOptions,
 				...options.headers
 			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				schedulingDto,
+				localVarRequestOptions,
+				configuration
+			);
 
 			return {
 				url: toPathString(localVarUrlObj),
@@ -102,15 +115,18 @@ export const SchedulingControllerApiFp = function (configuration?: Configuration
 	return {
 		/**
 		 *
+		 * @param {SchedulingDto} schedulingDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async getTotalRun(
+			schedulingDto: SchedulingDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<number>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getTotalRun(
+				schedulingDto,
 				acceptLanguage,
 				options
 			);
@@ -137,16 +153,18 @@ export const SchedulingControllerApiFactory = function (
 	return {
 		/**
 		 *
+		 * @param {SchedulingDto} schedulingDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		getTotalRun(
+			schedulingDto: SchedulingDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<string> {
+		): AxiosPromise<number> {
 			return localVarFp
-				.getTotalRun(acceptLanguage, options)
+				.getTotalRun(schedulingDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		}
 	};
@@ -158,6 +176,13 @@ export const SchedulingControllerApiFactory = function (
  * @interface SchedulingControllerApiGetTotalRunRequest
  */
 export interface SchedulingControllerApiGetTotalRunRequest {
+	/**
+	 *
+	 * @type {SchedulingDto}
+	 * @memberof SchedulingControllerApiGetTotalRun
+	 */
+	readonly schedulingDto: SchedulingDto;
+
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
@@ -181,11 +206,15 @@ export class SchedulingControllerApi extends BaseAPI {
 	 * @memberof SchedulingControllerApi
 	 */
 	public getTotalRun(
-		requestParameters: SchedulingControllerApiGetTotalRunRequest = {},
+		requestParameters: SchedulingControllerApiGetTotalRunRequest,
 		options?: AxiosRequestConfig
 	) {
 		return SchedulingControllerApiFp(this.configuration)
-			.getTotalRun(requestParameters.acceptLanguage, options)
+			.getTotalRun(
+				requestParameters.schedulingDto,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 }

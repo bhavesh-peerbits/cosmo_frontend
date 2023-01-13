@@ -15,25 +15,19 @@
 /**
  *
  * @export
- * @interface SortObject
+ * @interface CheckPathAssetsDto
  */
-export interface SortObject {
+export interface CheckPathAssetsDto {
 	/**
 	 *
-	 * @type {boolean}
-	 * @memberof SortObject
+	 * @type {string}
+	 * @memberof CheckPathAssetsDto
 	 */
-	empty?: boolean;
+	path?: string;
 	/**
 	 *
-	 * @type {boolean}
-	 * @memberof SortObject
+	 * @type {Array<number>}
+	 * @memberof CheckPathAssetsDto
 	 */
-	unsorted?: boolean;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof SortObject
-	 */
-	sorted?: boolean;
+	assetIds?: Array<number>;
 }

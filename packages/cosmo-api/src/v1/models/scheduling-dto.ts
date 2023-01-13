@@ -13,10 +13,9 @@
  */
 
 import { FrequencyDto } from './frequency-dto';
-import { SchedulingDtoTime } from './scheduling-dto-time';
 
 /**
- * Monitoring\'s schedule.
+ *
  * @export
  * @interface SchedulingDto
  */
@@ -38,19 +37,13 @@ export interface SchedulingDto {
 	 * @type {string}
 	 * @memberof SchedulingDto
 	 */
-	endDate?: string;
-	/**
-	 *
-	 * @type {SchedulingDtoTime}
-	 * @memberof SchedulingDto
-	 */
-	time?: SchedulingDtoTime;
+	endDate: string;
 	/**
 	 * The days of the week chosen for the scheduling. It\'s empty if the frequency is not weekly.
 	 * @type {Array<string>}
 	 * @memberof SchedulingDto
 	 */
-	dayOfWeek?: Array<SchedulingDtoDayOfWeekEnum>;
+	dayOfWeek: Array<SchedulingDtoDayOfWeekEnum>;
 	/**
 	 * The day of the month to run the scheduling.
 	 * @type {number}
@@ -58,7 +51,7 @@ export interface SchedulingDto {
 	 */
 	dayOfMonth?: number;
 	/**
-	 *
+	 * The number of runs of the scheduling
 	 * @type {number}
 	 * @memberof SchedulingDto
 	 */
