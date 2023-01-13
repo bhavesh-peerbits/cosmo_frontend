@@ -123,5 +123,7 @@
 	"db-version": "Versione database",
 	"monitorings": "Monitoraggi",
 	"hour-placeholder": "hh (Formato 24 ore)",
-	"error-hour-input": "Inserisci un numero tra 0 e 23"
+	"error-hour-input": "Inserisci un numero tra 0 e 23",
+	"same-setup-title": "Path presenti in tutti gli asset",
+	"same-setup-description": "In questa tabella sono presenti i path che gli asset selezionati hanno in comune. Le modifiche effettuate ai path di questa tabella verranno replicate in tutti gli asset."
 }

@@ -13,7 +13,14 @@ import { Add, EditOff } from '@carbon/react/icons';
 import cx from 'classnames';
 import { useForm } from 'react-hook-form';
 import TreeSelectionModal from '@components/Modals/TreeSelectionModal';
-import { Dispatch, SetStateAction, Suspense, useEffect, useState } from 'react';
+import {
+	Dispatch,
+	SetStateAction,
+	Suspense,
+	useCallback,
+	useEffect,
+	useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import Framework from '@model/Framework';
 import User from '@model/User';
@@ -24,6 +31,7 @@ import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import useSaveMonitoringDraft from '@api/change-monitoring/useSaveMonitoringDraft';
 import ApiError from '@api/ApiError';
 import MonitoringDraft from '@model/MonitoringDraft';
+import useGetFrameworkTreeByCode from '@api/framework/useGetFrameworkTreeByCode';
 import AssociationSelectionList from './AssociationSelectionList';
 import MultipleControlSelect from './MultipleControlSelect';
 
@@ -40,24 +48,45 @@ type FrameworkSelectionProps = {
 	draft: MonitoringDraft;
 };
 
+// TODO Reset controls when leaves change
 const FrameworkSelectionStepContainer = ({
 	setCurrentStep,
 	draft
 }: FrameworkSelectionProps) => {
 	const { t } = useTranslation('changeMonitoring');
 	const [isTreeSelectionOpen, setIsTreeSelectionOpen] = useState(false);
-	const [selectedLeaves, setSelectedLeaves] = useState<Framework[]>([]);
 	const { mutate, isLoading, isError, isSuccess, error } = useSaveMonitoringDraft();
 	const { data: draftControls } = useGetControls(
 		draft.frameworkLeafsCodes,
 		draft.instance?.id
 	);
+	const { data: draftFrameworkTree } = useGetFrameworkTreeByCode(
+		draft.frameworkName || ''
+	);
+
+	const findLeaves = useCallback(
+		(framework: Framework): Framework[] => {
+			if (framework.children) {
+				return framework.children.reduce((prev, curr) => {
+					return [...prev, findLeaves(curr)].flat();
+				}, [] as Framework[]);
+			}
+			return draft.frameworkLeafsCodes?.split('-').includes(framework.code)
+				? [framework]
+				: [];
+		},
+		[draft.frameworkLeafsCodes]
+	);
+	const [selectedLeaves, setSelectedLeaves] = useState<Framework[]>([]);
+
+	useEffect(() => {
+		draftFrameworkTree && setSelectedLeaves(findLeaves(draftFrameworkTree));
+	}, [draft.frameworkLeafsCodes, draftFrameworkTree, findLeaves]);
 
 	const {
 		register,
 		watch,
 		control: controlForm,
-		resetField,
 		handleSubmit,
 		setValue
 	} = useForm<FrameworkStepFormData>({
@@ -81,12 +110,9 @@ const FrameworkSelectionStepContainer = ({
 	);
 
 	useEffect(() => {
-		setSelectedLeaves([]);
+		selectedFramework !== draft.frameworkName && setSelectedLeaves([]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedFramework]);
-
-	useEffect(() => {
-		resetField('controls');
-	}, [resetField, selectedFramework, selectedLeaves]);
 
 	const saveDraft = (data: FrameworkStepFormData) => {
 		return mutate(

@@ -123,5 +123,7 @@
 	"db-version": "Database version",
 	"monitorings": "Monitorings",
 	"hour-placeholder": "hh (24-hour clock)",
-	"error-hour-input": "Enter a number between 0 and 23"
+	"error-hour-input": "Enter a number between 0 and 23",
+	"same-setup-title": "Common paths for all assets",
+	"same-setup-description": "This table shows the paths that the selected assets have in common. Changes made to the paths of this table will be replicated in all assets."
 }
