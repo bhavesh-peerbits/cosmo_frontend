@@ -23,33 +23,21 @@ type PathAssetTableProps = {
 		path: string;
 		selected?: boolean;
 	}[];
-	setGlobalData?: Dispatch<
-		SetStateAction<
-			{
-				path: string;
-				selected?: boolean;
-			}[]
-		>
-	>;
 };
 const PathAssetTable = ({
 	isSameSetup,
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	globalData,
 	assetId,
 	canAdd,
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	setGlobalData,
 	setAssetData,
 	assetData
 }: PathAssetTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table']);
+	const [newPaths, setNewPaths] = useState<PathMonitoringDto[]>([]);
 
-	const columns = useMemo<
-		ColumnDef<{ path: string; selected?: boolean } | PathMonitoringDto>[]
-	>(() => {
-		const ArrayCol: ColumnDef<
-			{ path: string; selected?: boolean } | PathMonitoringDto
-		>[] = [
+	const columns = useMemo<ColumnDef<PathMonitoringDto>[]>(() => {
+		const ArrayCol: ColumnDef<PathMonitoringDto>[] = [
 			{
 				id: isSameSetup ? 'selected-same-setup' : `selected-${assetId}`,
 				accessorFn: row => row.selected,
@@ -78,35 +66,51 @@ const PathAssetTable = ({
 			id: 'include',
 			label: t('changeMonitoring:include'),
 			icon: CheckmarkOutline,
-			onClick: () => {}
-			// onClick: (selectionElements: { path: string; selected?: boolean }[]) => {
-			// 	setGlobalData(old =>
-			// 		old.map(element => {
-			// 			return selectionElements.includes(element)
-			// 				? { ...element, selected: true }
-			// 				: element;
-			// 		})
-			// 	);
-			// }
+			onClick: (selectionElements: PathMonitoringDto[]) => {
+				setAssetData &&
+					setAssetData(old => {
+						return old?.map(el => {
+							if (el.asset.id === assetId) {
+								return {
+									...el,
+									paths: el.paths.map(path => {
+										if (selectionElements.includes(path)) {
+											return { ...path, selected: true };
+										}
+										return path;
+									})
+								};
+							}
+							return el;
+						});
+					});
+			}
 		},
 		{
 			id: 'exclude',
 			label: t('changeMonitoring:exclude'),
 			icon: SubtractAlt,
-			onClick: () => {}
-			// onClick: (selectionElements: { path: string; selected?: boolean }[]) => {
-			// 	setGlobalData(old =>
-			// 		old.map(element => {
-			// 			return selectionElements.includes(element)
-			// 				? { ...element, selected: false }
-			// 				: element;
-			// 		})
-			// 	);
-			// }
+			onClick: (selectionElements: PathMonitoringDto[]) => {
+				setAssetData &&
+					setAssetData(old => {
+						return old?.map(el => {
+							if (el.asset.id === assetId) {
+								return {
+									...el,
+									paths: el.paths.map(path => {
+										if (selectionElements.includes(path)) {
+											return { ...path, selected: false };
+										}
+										return path;
+									})
+								};
+							}
+							return el;
+						});
+					});
+			}
 		}
 	];
-
-	const [prova, setProva] = useState<PathMonitoringDto[]>([]);
 
 	useEffect(() => {
 		setAssetData &&
@@ -114,21 +118,27 @@ const PathAssetTable = ({
 				old?.map(el => {
 					return el.asset.id === assetId
 						? {
-								id: el.id,
-								asset: el.asset,
-								paths: el.paths ? [...new Set([...el.paths, ...prova])] : [...prova]
+								...el,
+								paths: [
+									...el.paths,
+									...newPaths
+										.filter(e => !el.paths.some(p => p.path === e.path))
+										.map(element => {
+											return { ...element, selected: true };
+										})
+								]
 						  }
 						: el;
 				})
 			);
-	}, [assetId, prova, setAssetData]);
+	}, [assetId, newPaths, setAssetData]);
 
 	return (
 		<CosmoTable
 			modalProps={{
 				mutation: useCheckPathAssetMonitoring(),
-				title: 'path',
-				setMutationResult: setProva,
+				title: t('changeMonitoring:add-path'),
+				setMutationResult: setNewPaths,
 				mutationDefaultValues: { assetId }
 			}}
 			tableId='path-asset-table'
@@ -144,17 +154,9 @@ const PathAssetTable = ({
 			exportFileName={({ all }) =>
 				all ? 'monitoring-drafts-all' : 'monitoring-drafts-selection'
 			}
-			data={
-				isSameSetup
-					? globalData || []
-					: assetData?.find(el => el.asset.id === assetId)?.paths || []
-			}
+			data={assetData?.find(el => el.asset.id === assetId)?.paths || []}
 			isSelectable
-			// noDataMessageSubtitle={
-			// 	globalData?.length > 0
-			// 		? t('changeMonitoring:no-path-subtitle')
-			// 		: t('changeMonitoring:no-path-yet')
-			// }
+			noDataMessageSubtitle={t('changeMonitoring:no-path-subtitle')}
 		/>
 	);
 };

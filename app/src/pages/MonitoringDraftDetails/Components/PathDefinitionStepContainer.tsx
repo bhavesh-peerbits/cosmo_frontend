@@ -1,13 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import FullWidthColumn from '@components/FullWidthColumn';
-import { Toggle, Tooltip, Layer, Button } from '@carbon/react';
+import { Toggle, Tooltip, Button, InlineLoading } from '@carbon/react';
 import { Information } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction, useState } from 'react';
 import MonitoringDraft from '@model/MonitoringDraft';
 import MonitoringAsset from '@model/MonitoringAsset';
-import AssetExpandableTile from './AssetExpandableTile';
+import useSaveMonitoringDraft from '@api/change-monitoring/useSaveMonitoringDraft';
+import ApiError from '@api/ApiError';
+import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import PathAssetTable from './PathAssetTable';
+import AssetExpandableTile from './AssetExpandableTile';
 
 type PathDefinitionProps = {
 	setCurrentStep: Dispatch<SetStateAction<number>>;
@@ -17,6 +20,7 @@ type PathDefinitionProps = {
 const PathDefinitionStepContainer = ({ setCurrentStep, draft }: PathDefinitionProps) => {
 	const { t } = useTranslation('changeMonitoring');
 	const [sameSetup, setSameSetup] = useState(false);
+	const { mutate, isLoading, isError, isSuccess, error } = useSaveMonitoringDraft();
 
 	const [globalPaths, setGlobalPaths] = useState<{ path: string; selected?: boolean }[]>(
 		[]
@@ -27,6 +31,18 @@ const PathDefinitionStepContainer = ({ setCurrentStep, draft }: PathDefinitionPr
 	const [assetsPath, setAssetsPath] = useState<MonitoringAsset[] | undefined>(
 		draft.monitoringAssets
 	);
+
+	const saveDraft = () => {
+		return mutate(
+			{
+				draft: {
+					...draft,
+					monitoringAssets: assetsData
+				}
+			},
+			{ onSuccess: () => setCurrentStep(old => old + 1) }
+		);
+	};
 
 	return (
 		<>
@@ -82,7 +98,11 @@ const PathDefinitionStepContainer = ({ setCurrentStep, draft }: PathDefinitionPr
 					</AssetExpandableTile>
 				</div> */}
 			</FullWidthColumn>
-			{/* <FullWidthColumn className='justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
+			<FullWidthColumn className='justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
+				<InlineLoadingStatus
+					{...{ isLoading: false, isSuccess, isError, error: error as ApiError }}
+				/>
+				<div>{isLoading && <InlineLoading />}</div>
 				<Button
 					size='md'
 					kind='secondary'
@@ -94,13 +114,12 @@ const PathDefinitionStepContainer = ({ setCurrentStep, draft }: PathDefinitionPr
 				<Button
 					size='md'
 					className='w-full md:w-fit'
-					onClick={handleSubmit(saveDraft)}
-					disabled={!isValid || isLoading}
+					onClick={() => saveDraft()}
+					// disabled={!isValid || isLoading}
 				>
 					{t('save-next')}
-					{isLoading && <InlineLoading />}
 				</Button>
-			</FullWidthColumn> */}
+			</FullWidthColumn>
 		</>
 	);
 };

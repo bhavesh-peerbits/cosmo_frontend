@@ -312,7 +312,7 @@ const TableFormTearsheet = <T extends object>({
 							kind='primary'
 							onClick={() => {
 								setMoreColumns(old => {
-									return [...old, columns[0]];
+									return [...old, columns.filter(c => c.meta?.modalInfo)[0]];
 								});
 							}}
 						>
