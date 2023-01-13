@@ -16,6 +16,7 @@ import { useCallback, useMemo } from 'react';
 import { CellContext, ColumnDef } from '@tanstack/react-table';
 import EvidenceRequestStep from '@model/EvidenceRequestStep';
 import CosmoTable from '@components/table/CosmoTable';
+import useSaveDraft from '@api/evidence-request/useSaveDraft';
 
 interface EvidenceRequestActionTableViewProps {
 	view: string;
@@ -26,6 +27,7 @@ const EvidenceRequestActionTableView = ({
 }: EvidenceRequestActionTableViewProps) => {
 	const { requests, setFilters } = useEvidenceRequestAction();
 	const { t } = useTranslation('evidenceRequest');
+	const mutation = useSaveDraft();
 
 	const tooltipCell = useCallback(
 		({ getValue }: CellContext<EvidenceRequest, unknown>) => {
@@ -84,55 +86,27 @@ const EvidenceRequestActionTableView = ({
 				accessorKey: `name${view}`,
 				header: t('request-name'),
 				accessorFn: row => row.name,
-				cell: CellLinkComponent,
-				meta: {
-					modalInfo: { modelKeyName: 'name', type: 'string', halfWidth: true }
-				}
+				cell: CellLinkComponent
 			},
 			{
 				accessorKey: `app${view}`,
 				accessorFn: row => row.application?.name,
-				header: t('application'),
-				meta: {
-					modalInfo: {
-						modelKeyName: 'name',
-						type: 'number',
-						halfWidth: true,
-						validation: { max: 4 }
-					}
-				}
+				header: t('application')
 			},
 			{
 				accessorKey: `startDate${view}`,
 				accessorFn: row => row.startDate?.toLocaleDateString(),
-				header: t('start-date'),
-				meta: {
-					modalInfo: { modelKeyName: 'startDate', type: 'date', halfWidth: true }
-				}
+				header: t('start-date')
 			},
 			{
 				accessorKey: `dueDate${view}`,
 				accessorFn: row => row.dueDate?.toLocaleDateString(),
-				header: t('due-date'),
-				meta: {
-					modalInfo: {
-						type: 'users',
-						modelKeyName: 'dueDate',
-						roleOfUsers: 'FOCAL_POINT'
-					}
-				}
+				header: t('due-date')
 			},
 			{
 				accessorKey: `creator${view}`,
 				accessorFn: row => row.creator?.displayName,
-				header: t('creator'),
-				meta: {
-					modalInfo: {
-						type: 'user',
-						modelKeyName: 'owner',
-						roleOfUsers: 'FOCAL_POINT'
-					}
-				}
+				header: t('creator')
 			}
 		];
 		if (view === 'ActionPending') {
@@ -233,6 +207,7 @@ const EvidenceRequestActionTableView = ({
 					}}
 					isColumnOrderingEnabled
 					canAdd
+					modalProps={{ title: 'test', mutation }}
 				/>
 			</div>
 		</Fade>
