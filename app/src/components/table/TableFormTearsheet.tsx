@@ -53,12 +53,16 @@ const TableFormTearsheet = <T extends object>({
 	const [submitItem, setSubmitItem] = useState<Record<string, unknown>>(
 		mutationDefaultValues ?? {}
 	);
-	const [multipleSubmitItem, setMultipleSubmitItem] = useState<unknown[]>([]);
+	const [multipleSubmitItem, setMultipleSubmitItem] = useState<Record<string, unknown>>(
+		{}
+	);
 	const [moreColumns, setMoreColumns] = useState<typeof columns>([]);
 	const isMultiple = columns.filter(col => col.meta?.modalInfo).length === 1;
 	const { mutate, isLoading } = mutation;
 	const cleanUp = () => {
 		setIsOpen(false);
+		setMultipleSubmitItem({});
+		setSubmitItem(mutationDefaultValues ?? {});
 	};
 
 	const checkFieldorderPresent = (
@@ -73,11 +77,11 @@ const TableFormTearsheet = <T extends object>({
 
 	const handleCreate = () => {
 		if (isMultiple) {
-			multipleSubmitItem.forEach(item =>
+			Object.keys(multipleSubmitItem).forEach(item =>
 				mutate(
 					{
 						[columns.filter(c => c.meta?.modalInfo)[0].meta?.modalInfo?.modelKeyName ??
-						'']: item,
+						'']: multipleSubmitItem[item],
 						...mutationDefaultValues
 					},
 					{
@@ -140,13 +144,11 @@ const TableFormTearsheet = <T extends object>({
 										autoComplete='off'
 										onChange={(e: ChangeEvent<HTMLInputElement>) => {
 											isMultiple
-												? setMultipleSubmitItem(old => {
-														if (old) {
-															old.push(e.target.value);
-															return old;
-														}
-														return [e.target.value];
-												  })
+												? setMultipleSubmitItem(old => ({
+														...old,
+														[`${column.meta?.modalInfo?.modelKeyName}${Math.random()}`]:
+															e.target.value
+												  }))
 												: setSubmitItem(old => ({
 														...old,
 														[column.meta?.modalInfo?.modelKeyName ?? '']:
