@@ -25,7 +25,7 @@ const MonitoringDashboardTile = ({ monitoring }: MonitoringDashboardTileProps) =
 								{t('changeMonitoring:frequency')}:
 							</p>
 							<p className='block truncate text-body-short-1'>
-								{monitoring.scheduling.frequency.frequencyType}
+								{monitoring.scheduling.frequency}
 							</p>
 						</span>
 						<span className='flex space-x-2'>

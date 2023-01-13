@@ -12,8 +12,6 @@
  * Do not edit the class manually.
  */
 
-import { FrequencyDto } from './frequency-dto';
-
 /**
  *
  * @export
@@ -21,11 +19,11 @@ import { FrequencyDto } from './frequency-dto';
  */
 export interface SchedulingDto {
 	/**
-	 *
-	 * @type {FrequencyDto}
+	 * Frequency of the scheduling.
+	 * @type {string}
 	 * @memberof SchedulingDto
 	 */
-	frequency: FrequencyDto;
+	frequency: SchedulingDtoFrequencyEnum;
 	/**
 	 * Starting date of the scheduling.
 	 * @type {string}
@@ -37,13 +35,13 @@ export interface SchedulingDto {
 	 * @type {string}
 	 * @memberof SchedulingDto
 	 */
-	endDate: string;
+	endDate?: string;
 	/**
 	 * The days of the week chosen for the scheduling. It\'s empty if the frequency is not weekly.
 	 * @type {Array<string>}
 	 * @memberof SchedulingDto
 	 */
-	dayOfWeek: Array<SchedulingDtoDayOfWeekEnum>;
+	dayOfWeek?: Array<SchedulingDtoDayOfWeekEnum>;
 	/**
 	 * The day of the month to run the scheduling.
 	 * @type {number}
@@ -58,6 +56,20 @@ export interface SchedulingDto {
 	totalRun?: number;
 }
 
+export const SchedulingDtoFrequencyEnum = {
+	Daily: 'DAILY',
+	Weekly: 'WEEKLY',
+	BeWeekly: 'BE_WEEKLY',
+	Monthly: 'MONTHLY',
+	Quarterly: 'QUARTERLY',
+	Semiannual: 'SEMIANNUAL',
+	Annual: 'ANNUAL',
+	Ondemand: 'ONDEMAND',
+	MultipleTimesPerDay: 'MULTIPLE_TIMES_PER_DAY'
+} as const;
+
+export type SchedulingDtoFrequencyEnum =
+	typeof SchedulingDtoFrequencyEnum[keyof typeof SchedulingDtoFrequencyEnum];
 export const SchedulingDtoDayOfWeekEnum = {
 	Monday: 'MONDAY',
 	Tuesday: 'TUESDAY',

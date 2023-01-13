@@ -3,36 +3,31 @@ import {
 	Select,
 	SelectItem,
 	Layer,
-	TimePicker,
-	TimePickerSelect,
 	DatePicker,
 	DatePickerInput,
 	MultiSelect,
 	NumberInput,
+	TextInput,
 	Button,
 	InlineLoading
 } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import { Controller, useForm } from 'react-hook-form';
 import useGetDateFormat from '@hooks/useGetDateFormat';
-import { startOfTomorrow } from 'date-fns';
+import { startOfTomorrow, setHours } from 'date-fns';
 import { formatDate } from '@i18n';
 import { Dispatch, SetStateAction } from 'react';
 import MonitoringDraft from '@model/MonitoringDraft';
-import {
-	FrequencyDtoFrequencyTypeEnum,
-	SchedulingDtoDayOfWeekEnum
-} from 'cosmo-api/src/v1';
+import { SchedulingDtoDayOfWeekEnum, SchedulingDtoFrequencyEnum } from 'cosmo-api/src/v1';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import useSaveMonitoringDraft from '@api/change-monitoring/useSaveMonitoringDraft';
 import ApiError from '@api/ApiError';
 
 type SchedulingFormData = {
-	frequency: FrequencyDtoFrequencyTypeEnum;
+	frequency: SchedulingDtoFrequencyEnum;
 	date: Date[];
 	startHour: number;
-	timeFormat: string;
-	dayOfWeek: SchedulingDtoDayOfWeekEnum | SchedulingDtoDayOfWeekEnum[];
+	dayOfWeek: SchedulingDtoDayOfWeekEnum[];
 	dayOfMonth: number;
 };
 
@@ -41,7 +36,6 @@ type SchedulingStepProps = {
 	setCurrentStep: Dispatch<SetStateAction<number>>;
 };
 
-// TODO Fix id of components when BE is ready
 const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps) => {
 	const { t } = useTranslation('changeMonitoring');
 	const { format, placeholder, localeCode } = useGetDateFormat();
@@ -54,14 +48,19 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 		setValue,
 		getValues,
 		handleSubmit,
-		formState: { errors }
+		formState: { errors, isValid }
 	} = useForm<SchedulingFormData>({
+		mode: 'onChange',
 		defaultValues: {
-			dayOfMonth: 1
+			dayOfMonth: draft.scheduling?.dayOfMonth || 1,
+			frequency: draft.scheduling?.frequency,
+			date: [draft.scheduling?.startDate, draft.scheduling?.endDate],
+			dayOfWeek: draft.scheduling?.dayOfWeek,
+			startHour: draft.scheduling?.startDate.getHours()
 		}
 	});
 	const selectedFrequency = watch('frequency');
-	const frequencyList: FrequencyDtoFrequencyTypeEnum[] = [
+	const frequencyList: SchedulingDtoFrequencyEnum[] = [
 		'ONDEMAND',
 		'DAILY',
 		'WEEKLY',
@@ -81,7 +80,7 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 		'SUNDAY'
 	];
 
-	const translateFrequency = (frequency: FrequencyDtoFrequencyTypeEnum) => {
+	const translateFrequency = (frequency: SchedulingDtoFrequencyEnum) => {
 		switch (frequency) {
 			case 'ANNUAL':
 				return t('annual');
@@ -127,11 +126,11 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 		if (selectedFrequency === 'WEEKLY') {
 			return (
 				<Select
-					id='select-day-week'
+					id={`${draft.id}-select-day-week`}
 					labelText={`${t('days-of-week')} *`}
 					className='w-1/2'
 					onChange={e =>
-						setValue('dayOfWeek', e.currentTarget.value as SchedulingDtoDayOfWeekEnum)
+						setValue('dayOfWeek', [e.currentTarget.value as SchedulingDtoDayOfWeekEnum])
 					}
 				>
 					{daysOfWeek.map(day => (
@@ -143,7 +142,7 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 		if (selectedFrequency === 'BE_WEEKLY') {
 			return (
 				<MultiSelect
-					id='select-day-week-multi'
+					id={`${draft.id}-select-day-week-multi`}
 					titleText={`${t('days-of-week')} *`}
 					label={t('select-two-days')}
 					className='w-1/2'
@@ -187,7 +186,7 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 									shouldValidate: true
 								})
 							}
-							id='day-month-input'
+							id={`${draft.id}-day-month-input`}
 							label={t('day-of-month')}
 							size='sm'
 							className='w-min'
@@ -202,19 +201,22 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 		return null;
 	};
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const saveDraft = (data: SchedulingFormData) => {
 		return mutate(
 			{
 				draft: {
-					...draft
-					// scheduling: {
-					// 	frequency: data.frequency,
-					// 	startDate: data.date[0],
-					// 	endDate: data.date[1],
-					// 	dayOfMonth: data.dayOfMonth,
-					// 	dayOfWeek: data.dayOfWeek as SchedulingDtoDayOfWeekEnum[]
-					// }
+					...draft,
+					scheduling: {
+						frequency: data.frequency,
+						startDate: setHours(data.date[0], data.startHour + 1),
+						endDate:
+							data.date.length > 1 ? setHours(data.date[1], data.startHour) : undefined,
+						dayOfMonth: data.frequency === 'MONTHLY' ? data.dayOfMonth : undefined,
+						dayOfWeek:
+							data.frequency === 'BE_WEEKLY' || data.frequency === 'WEEKLY'
+								? data.dayOfWeek
+								: undefined
+					}
 				}
 			},
 			{ onSuccess: () => setCurrentStep(old => old + 1) }
@@ -225,7 +227,7 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 		<FullWidthColumn className='space-y-7 overflow-auto'>
 			<Layer className='xlg:w-1/2'>
 				<Select
-					id='frequency-select'
+					id={`${draft.id}-frequency-select`}
 					labelText={`${t('frequency')} *`}
 					className='w-full'
 					{...register('frequency', {
@@ -257,53 +259,54 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 							{...field}
 							locale={localeCode}
 							dateFormat={format}
-							datePickerType='range'
+							datePickerType={getValues('frequency') === 'ONDEMAND' ? 'single' : 'range'}
 							allowInput
-							className='w-full'
 							minDate={formatDate(startOfTomorrow(), 'P')}
 						>
 							<DatePickerInput
-								id='start-date'
+								id={`${draft.id}-start-date`}
 								placeholder={placeholder}
 								labelText={`${t('start-date')} *`}
 								size='md'
 							/>
-							<DatePickerInput
-								id='end-date'
-								placeholder={placeholder}
-								labelText={
-									selectedFrequency === 'ONDEMAND' ? t('end-date') : `${t('end-date')} *`
-								}
-								disabled={selectedFrequency === 'ONDEMAND'}
-								size='md'
-							/>
+							{getValues('frequency') !== 'ONDEMAND' && (
+								<DatePickerInput
+									id={`${draft.id}-end-date`}
+									placeholder={placeholder}
+									labelText={
+										selectedFrequency === 'ONDEMAND'
+											? t('end-date')
+											: `${t('end-date')} *`
+									}
+									disabled={selectedFrequency === 'ONDEMAND'}
+									size='md'
+								/>
+							)}
 						</DatePicker>
 					)}
 				/>
-				<TimePicker
-					id='select-time'
-					placeholder='hh'
+				<TextInput
+					id={`${draft.id}-select-hour`}
+					placeholder={t('hour-placeholder')}
 					labelText={`${t('start-time')} *`}
-					invalidText={errors.dayOfMonth?.message}
+					invalidText={errors.startHour?.message}
+					invalid={Boolean(errors.startHour)}
 					{...register('startHour', {
 						required: {
 							value: true,
 							message: `${t('field-required')}`
-						}
+						},
+						max: {
+							value: 23,
+							message: t('error-hour-input')
+						},
+						min: {
+							value: 0,
+							message: t('error-hour-input')
+						},
+						pattern: { value: /[0-9]/, message: t('error-hour-input') }
 					})}
-				>
-					<TimePickerSelect
-						id='hour-format-select'
-						onChange={e => setValue('timeFormat', e.currentTarget.value)}
-					>
-						<SelectItem value='AM' text='AM' />
-						<SelectItem value='PM' text='PM' />
-					</TimePickerSelect>
-					<TimePickerSelect id='time-zone-select'>
-						<SelectItem value='Time zone 1' text='Time zone 1' />
-						<SelectItem value='Time zone 2' text='Time zone 2' />
-					</TimePickerSelect>
-				</TimePicker>
+				/>
 			</Layer>
 			<Layer>{frequencySetup()}</Layer>
 			<div>
@@ -327,7 +330,7 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 					size='md'
 					className='w-full md:w-fit'
 					onClick={handleSubmit(saveDraft)}
-					// disabled={isLoading || !selectedScript}
+					disabled={isLoading || !isValid}
 				>
 					{t('save-next')}
 				</Button>

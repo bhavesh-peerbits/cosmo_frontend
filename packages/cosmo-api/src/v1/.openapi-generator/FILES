@@ -68,7 +68,6 @@ models/evidence-request-dto.ts
 models/file-link-dto-list.ts
 models/file-link-dto.ts
 models/framework-tree-dto.ts
-models/frequency-dto.ts
 models/frequency.ts
 models/identity-provider-dto.ts
 models/index.ts

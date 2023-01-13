@@ -88,7 +88,7 @@ const applyFilters = (
 					filters.frequency.length
 						? filters.frequency.some(
 								freq =>
-									monitoring.scheduling.frequency.frequencyType?.toLocaleLowerCase() ===
+									monitoring.scheduling.frequency.toLocaleLowerCase() ===
 									freq.toLowerCase()
 						  )
 						: true
@@ -176,7 +176,7 @@ const filteredStartedMonitorings = selector({
 			frequency: [
 				...new Set(
 					monitorings
-						.map(monitoring => monitoring.scheduling.frequency.frequencyType)
+						.map(monitoring => monitoring.scheduling.frequency)
 						.filter(f => !!f) as string[]
 				)
 			].map(frequency => ({

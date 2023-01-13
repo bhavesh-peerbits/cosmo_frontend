@@ -223,7 +223,7 @@ const NewMonitoringModal = ({ isOpen, setIsOpen }: NewMonitoringModalProps) => {
 													<span className='text-heading-1'>
 														{t('changeMonitoring:scheduling')}:
 													</span>
-													<span>{monitoring.scheduling.frequency.frequencyType}</span>
+													<span>{monitoring.scheduling.frequency}</span>
 												</div>
 												<div className='mt-3 flex space-x-1'>
 													<span className='text-heading-1'>Path:</span>

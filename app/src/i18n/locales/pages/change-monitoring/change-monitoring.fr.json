@@ -120,5 +120,7 @@
 	"db-type": "",
 	"back": "",
 	"db-version": "",
-	"monitorings": ""
+	"monitorings": "",
+	"hour-placeholder": "",
+	"error-hour-input": ""
 }

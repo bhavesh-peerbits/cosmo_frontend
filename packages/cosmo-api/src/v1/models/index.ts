@@ -32,7 +32,6 @@ export * from './file-link-dto';
 export * from './file-link-dto-list';
 export * from './framework-tree-dto';
 export * from './frequency';
-export * from './frequency-dto';
 export * from './identity-provider-dto';
 export * from './inet';
 export * from './inline-object10';

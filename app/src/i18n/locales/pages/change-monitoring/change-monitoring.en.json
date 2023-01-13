@@ -74,7 +74,7 @@
 	"on-demand": "On demand",
 	"start-date": "Start date",
 	"end-date": "End date",
-	"start-time": "Start time run",
+	"start-time": "Start time",
 	"monday": "Monday",
 	"tuesday": "Tuesday",
 	"wednesday": "Wednesday",
@@ -121,5 +121,7 @@
 	"db-type": "Database type",
 	"back": "Back",
 	"db-version": "Database version",
-	"monitorings": "Monitorings"
+	"monitorings": "Monitorings",
+	"hour-placeholder": "hh (24-hour clock)",
+	"error-hour-input": "Enter a number between 0 and 23"
 }
