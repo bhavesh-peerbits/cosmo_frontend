@@ -120,5 +120,6 @@
 	"type": "Tipo",
 	"db-type": "Tipo database",
 	"back": "Indietro",
-	"db-version": "Versione database"
+	"db-version": "Versione database",
+	"monitorings": "Monitoraggi"
 }

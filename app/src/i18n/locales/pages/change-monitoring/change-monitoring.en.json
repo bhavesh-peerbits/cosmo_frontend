@@ -120,5 +120,6 @@
 	"type": "Type",
 	"db-type": "Database type",
 	"back": "Back",
-	"db-version": "Database version"
+	"db-version": "Database version",
+	"monitorings": "Monitorings"
 }

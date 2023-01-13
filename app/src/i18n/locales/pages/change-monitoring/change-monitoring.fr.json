@@ -119,5 +119,6 @@
 	"type": "",
 	"db-type": "",
 	"back": "",
-	"db-version": ""
+	"db-version": "",
+	"monitorings": ""
 }

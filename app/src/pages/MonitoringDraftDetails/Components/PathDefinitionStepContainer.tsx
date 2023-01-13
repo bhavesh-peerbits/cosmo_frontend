@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import FullWidthColumn from '@components/FullWidthColumn';
-import { Toggle, Tooltip, Button, InlineLoading } from '@carbon/react';
+import { Toggle, Tooltip, Button, InlineLoading, Layer } from '@carbon/react';
 import { Information } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction, useState } from 'react';
@@ -11,6 +10,7 @@ import ApiError from '@api/ApiError';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import PathAssetTable from './PathAssetTable';
 import AssetExpandableTile from './AssetExpandableTile';
+import SameSetupPathTable from './SameSetupPathTable';
 
 type PathDefinitionProps = {
 	setCurrentStep: Dispatch<SetStateAction<number>>;
@@ -22,13 +22,10 @@ const PathDefinitionStepContainer = ({ setCurrentStep, draft }: PathDefinitionPr
 	const [sameSetup, setSameSetup] = useState(false);
 	const { mutate, isLoading, isError, isSuccess, error } = useSaveMonitoringDraft();
 
-	const [globalPaths, setGlobalPaths] = useState<{ path: string; selected?: boolean }[]>(
-		[]
-	);
+	const [globalPaths, setGlobalPaths] = useState<
+		{ path: string; selected?: boolean; monitoring: string[] }[]
+	>([]);
 	const [assetsData, setAssetsData] = useState<MonitoringAsset[] | undefined>(
-		draft.monitoringAssets
-	);
-	const [assetsPath, setAssetsPath] = useState<MonitoringAsset[] | undefined>(
 		draft.monitoringAssets
 	);
 
@@ -67,15 +64,15 @@ const PathDefinitionStepContainer = ({ setCurrentStep, draft }: PathDefinitionPr
 				/>
 			</FullWidthColumn>
 			<FullWidthColumn className='space-y-7'>
-				{/* {sameSetup && (
+				{sameSetup && (
 					<Layer>
-						<PathAssetTable
+						<SameSetupPathTable
 							globalData={globalPaths}
-							canAdd
 							setGlobalData={setGlobalPaths}
+							assetIds={draft.monitoringAssets?.map(ma => ma.asset.id) || []}
 						/>
 					</Layer>
-				)} */}
+				)}
 				{draft.monitoringAssets?.map(ma => (
 					<AssetExpandableTile title={ma.asset.hostname || ''}>
 						<PathAssetTable
@@ -86,17 +83,6 @@ const PathDefinitionStepContainer = ({ setCurrentStep, draft }: PathDefinitionPr
 						/>
 					</AssetExpandableTile>
 				))}
-				{/*
-
-					<AssetExpandableTile title='Asset'>
-						<PathAssetTable
-							data={assetsPath.filter(path => path.assetId === 'asset2')}
-							assetId='2'
-							canAdd={!sameSetup}
-							setData={setAssetsPath}
-						/>
-					</AssetExpandableTile>
-				</div> */}
 			</FullWidthColumn>
 			<FullWidthColumn className='justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
 				<InlineLoadingStatus
