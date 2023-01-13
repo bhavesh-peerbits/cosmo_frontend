@@ -73,16 +73,19 @@ const PathDefinitionStepContainer = ({ setCurrentStep, draft }: PathDefinitionPr
 						/>
 					</Layer>
 				)}
-				{draft.monitoringAssets?.map(ma => (
-					<AssetExpandableTile title={ma.asset.hostname || ''}>
-						<PathAssetTable
-							assetData={assetsData}
-							setAssetData={setAssetsData}
-							canAdd={!sameSetup}
-							assetId={ma.asset.id || ''}
-						/>
-					</AssetExpandableTile>
-				))}
+
+				<div>
+					{draft.monitoringAssets?.map(ma => (
+						<AssetExpandableTile title={ma.asset.hostname || ''} key={ma.id}>
+							<PathAssetTable
+								assetData={assetsData}
+								setAssetData={setAssetsData}
+								canAdd={!sameSetup}
+								assetId={ma.asset.id || ''}
+							/>
+						</AssetExpandableTile>
+					))}
+				</div>
 			</FullWidthColumn>
 			<FullWidthColumn className='justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
 				<InlineLoadingStatus
