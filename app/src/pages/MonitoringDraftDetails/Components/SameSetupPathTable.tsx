@@ -8,7 +8,7 @@ import useCheckPathsMultiAssets from '@api/change-monitoring/useCheckPathsMultiA
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const BooleanCell = ({ getValue }: CellContext<any, unknown>) => {
 	const value = getValue() as boolean;
-	return value ? <CheckmarkFilled /> : 'Non incluso';
+	return value && <CheckmarkFilled />;
 };
 
 type SameSetupPathTableProps = {
@@ -18,7 +18,7 @@ type SameSetupPathTableProps = {
 		selected?: boolean;
 		monitoring: string[];
 	}[];
-	setGlobalData: Dispatch<
+	setGlobalData?: Dispatch<
 		SetStateAction<
 			{
 				path: string;
@@ -67,7 +67,7 @@ const SameSetupPathTable = ({
 				}
 			}
 		];
-		if (globalData.some(el => el.monitoring)) {
+		if (globalData.some(el => el.monitoring.length)) {
 			ArrayCol.push({
 				id: 'monitoring-same-setup',
 				accessorFn: row => row.monitoring.join(', '),

@@ -17,17 +17,9 @@ type PathAssetTableProps = {
 	assetId: string;
 	assetData?: MonitoringAsset[];
 	setAssetData?: Dispatch<SetStateAction<MonitoringAsset[] | undefined>>;
-	isSameSetup?: boolean;
 	canAdd?: boolean;
-	globalData?: {
-		path: string;
-		selected?: boolean;
-	}[];
 };
 const PathAssetTable = ({
-	isSameSetup,
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	globalData,
 	assetId,
 	canAdd,
 	setAssetData,
@@ -39,13 +31,13 @@ const PathAssetTable = ({
 	const columns = useMemo<ColumnDef<PathMonitoringDto>[]>(() => {
 		const ArrayCol: ColumnDef<PathMonitoringDto>[] = [
 			{
-				id: isSameSetup ? 'selected-same-setup' : `selected-${assetId}`,
+				id: `selected-${assetId}`,
 				accessorFn: row => row.selected,
 				cell: BooleanCell,
 				header: t('changeMonitoring:included')
 			},
 			{
-				id: isSameSetup ? 'path-same-setup' : `path-${assetId}`,
+				id: `path-${assetId}`,
 				accessorFn: row => row.path,
 				header: 'Path',
 				sortUndefined: 1,
@@ -58,8 +50,16 @@ const PathAssetTable = ({
 				}
 			}
 		];
+		if (assetData?.some(el => el.paths.filter(path => path.monitoring?.length))) {
+			ArrayCol.push({
+				id: `monitorings-path-${assetId}`,
+				accessorFn: row => row.monitoring,
+				header: t('changeMonitoring:monitorings'),
+				enableGrouping: false
+			});
+		}
 		return ArrayCol;
-	}, [assetId, isSameSetup, t]);
+	}, [assetData, assetId, t]);
 
 	const toolbarBatchActions = [
 		{
@@ -141,7 +141,7 @@ const PathAssetTable = ({
 				setMutationResult: setNewPaths,
 				mutationDefaultValues: { assetId }
 			}}
-			tableId='path-asset-table'
+			tableId={`${assetId}-path-table`}
 			columns={columns}
 			noDataMessage={t('table:no-data')}
 			isColumnOrderingEnabled
