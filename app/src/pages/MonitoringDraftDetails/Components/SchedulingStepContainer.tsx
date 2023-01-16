@@ -22,6 +22,7 @@ import { SchedulingDtoDayOfWeekEnum, SchedulingDtoFrequencyEnum } from 'cosmo-ap
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import useSaveMonitoringDraft from '@api/change-monitoring/useSaveMonitoringDraft';
 import ApiError from '@api/ApiError';
+import { TranslateDayOfWeek, TranslateFrequency } from '@i18n/common/switchTranslation';
 
 type SchedulingFormData = {
 	frequency: SchedulingDtoFrequencyEnum;
@@ -80,48 +81,6 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 		'SUNDAY'
 	];
 
-	const translateFrequency = (frequency: SchedulingDtoFrequencyEnum) => {
-		switch (frequency) {
-			case 'ANNUAL':
-				return t('annual');
-			case 'BE_WEEKLY':
-				return t('biweekly');
-			case 'WEEKLY':
-				return t('weekly');
-			case 'DAILY':
-				return t('daily');
-			case 'MONTHLY':
-				return t('monthly');
-			case 'ONDEMAND':
-				return t('on-demand');
-			case 'QUARTERLY':
-				return t('quarterly');
-			case 'SEMIANNUAL':
-				return t('semiannual');
-			default:
-				return t('daily');
-		}
-	};
-
-	const translateDayOfWeek = (day: SchedulingDtoDayOfWeekEnum) => {
-		switch (day) {
-			case 'MONDAY':
-				return t('monday');
-			case 'TUESDAY':
-				return t('tuesday');
-			case 'WEDNESDAY':
-				return t('wednesday');
-			case 'THURSDAY':
-				return t('thursday');
-			case 'FRIDAY':
-				return t('friday');
-			case 'SATURDAY':
-				return t('saturday');
-			default:
-				return t('sunday');
-		}
-	};
-
 	const frequencySetup = () => {
 		if (selectedFrequency === 'WEEKLY') {
 			return (
@@ -134,7 +93,7 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 					}
 				>
 					{daysOfWeek.map(day => (
-						<SelectItem value={day} text={translateDayOfWeek(day)} />
+						<SelectItem value={day} text={TranslateDayOfWeek(day)} />
 					))}
 				</Select>
 			);
@@ -147,7 +106,7 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 					label={t('select-two-days')}
 					className='w-1/2'
 					items={daysOfWeek}
-					itemToString={item => translateDayOfWeek(item)}
+					itemToString={item => TranslateDayOfWeek(item)}
 					onChange={e =>
 						setValue(
 							'dayOfWeek',
@@ -239,7 +198,7 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 				>
 					<SelectItem text={t('select-frequency-type')} value='select' hidden />
 					{frequencyList.map(option => (
-						<SelectItem text={translateFrequency(option)} value={option} />
+						<SelectItem text={TranslateFrequency(option)} value={option} />
 					))}
 				</Select>
 			</Layer>
