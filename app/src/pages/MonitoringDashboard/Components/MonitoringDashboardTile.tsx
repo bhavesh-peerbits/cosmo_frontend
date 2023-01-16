@@ -3,7 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Monitoring from '@model/Monitoring';
 import { formatDate } from '@i18n';
-import { TranslateFrequency } from '@i18n/common/switchTranslation';
+import {
+	TranslateFrequency,
+	TranslateStatusMonitoring
+} from '@i18n/common/switchTranslation';
 
 type MonitoringDashboardTileProps = {
 	monitoring: Monitoring;
@@ -68,7 +71,9 @@ const MonitoringDashboardTile = ({ monitoring }: MonitoringDashboardTileProps) =
 						<p className='whitespace-nowrap text-text-secondary text-body-short-1'>
 							{t('monitoringDashboard:status')}:
 						</p>
-						<p className='block truncate text-body-short-1'>{monitoring.status}</p>
+						<p className='block truncate text-body-short-1'>
+							{TranslateStatusMonitoring(monitoring.status)}
+						</p>
 					</span>
 					<div className='space-y-2'>
 						<span className='flex space-x-2'>

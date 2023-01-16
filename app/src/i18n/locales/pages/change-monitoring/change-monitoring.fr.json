@@ -129,5 +129,14 @@
 	"info-daily-scheduling": "",
 	"info-quarterly-semiannual-scheduling": "",
 	"info-annual-scheduling": "",
-	"info-ondemand-scheduling": ""
+	"info-ondemand-scheduling": "",
+	"completed": "Completed",
+	"planned": "Planned",
+	"setup": "Setup",
+	"terminated": "Terminated",
+	"upload": "Upload",
+	"waiting-analyst": "Waiting for analyst",
+	"waiting-focal-point": "Waiting for focal point",
+	"completed-monitoring": "Completed",
+	"ongoing": "Ongoing"
 }

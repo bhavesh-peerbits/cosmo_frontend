@@ -1,4 +1,9 @@
-import { SchedulingDtoDayOfWeekEnum, SchedulingDtoFrequencyEnum } from 'cosmo-api/src/v1';
+import {
+	MonitoringDtoStatusEnum,
+	RunDtoStatusEnum,
+	SchedulingDtoDayOfWeekEnum,
+	SchedulingDtoFrequencyEnum
+} from 'cosmo-api/src/v1';
 import { useTranslation } from 'react-i18next';
 
 export const TranslateFrequency = (frequency: SchedulingDtoFrequencyEnum) => {
@@ -21,7 +26,7 @@ export const TranslateFrequency = (frequency: SchedulingDtoFrequencyEnum) => {
 		case 'SEMIANNUAL':
 			return t('semiannual');
 		default:
-			return t('daily');
+			return 'Missing translation';
 	}
 };
 
@@ -42,5 +47,47 @@ export const TranslateDayOfWeek = (day: SchedulingDtoDayOfWeekEnum) => {
 			return t('saturday');
 		default:
 			return t('sunday');
+	}
+};
+
+export const TranslateStatusRun = (status: RunDtoStatusEnum) => {
+	const { t } = useTranslation('changeMonitoring');
+	switch (status) {
+		case 'COMPLETED':
+			return t('completed');
+		case 'PLANNED':
+			return t('planned');
+		case 'SETUP':
+			return t('setup');
+		case 'TERMINATED':
+			return t('terminated');
+		case 'UPLOAD':
+			return t('upload');
+		case 'WAITING_FOR_ANALYST':
+			return t('waiting-analyst');
+		case 'WAITING_FOR_FOCALPOINT':
+			return t('waiting-focal-point');
+		default:
+			return 'Missing translation';
+	}
+};
+
+export const TranslateStatusMonitoring = (status: MonitoringDtoStatusEnum) => {
+	const { t } = useTranslation('changeMonitoring');
+	switch (status) {
+		case 'COMPLETED':
+			return t('completed-monitoring');
+		case 'DRAFT':
+			return t('draft');
+		case 'ONGOING':
+			return t('ongoing');
+		case 'TERMINATED':
+			return t('terminated');
+		case 'WAITING_FOR_ANALYST':
+			return t('waiting-analyst');
+		case 'WAITING_FOR_FOCALPOINT':
+			return t('waiting-focal-point');
+		default:
+			return 'Missing translation';
 	}
 };

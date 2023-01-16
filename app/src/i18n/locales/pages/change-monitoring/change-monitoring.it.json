@@ -132,5 +132,14 @@
 	"info-daily-scheduling": "Si ripete ogni giorno.",
 	"info-quarterly-semiannual-scheduling": "Si ripete ogni {{numberOfMonths}} mesi.",
 	"info-annual-scheduling": "Si ripete ogni anno.",
-	"info-ondemand-scheduling": "Non si ripete."
+	"info-ondemand-scheduling": "Non si ripete.",
+	"completed": "Completata",
+	"planned": "Pianificata",
+	"setup": "Configurazione",
+	"terminated": "Terminata",
+	"upload": "Upload",
+	"waiting-analyst": "In attesa dell'analista",
+	"waiting-focal-point": "In attesa del focal point",
+	"completed-monitoring": "Completo",
+	"ongoing": "In corso"
 }
