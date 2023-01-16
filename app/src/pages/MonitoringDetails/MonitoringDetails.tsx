@@ -84,6 +84,7 @@ const MonitoringDetails = () => {
 					id={monitoringId}
 				/>
 				<EditFocalPointModal
+					monitoring={monitoring}
 					isOpen={modalToOpen === 'focalPoint'}
 					setIsOpen={setModalToOpen}
 				/>

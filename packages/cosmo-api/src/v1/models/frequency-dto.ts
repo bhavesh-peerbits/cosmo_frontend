@@ -29,7 +29,7 @@ export interface FrequencyDto {
 export const FrequencyDtoFrequencyTypeEnum = {
 	Daily: 'DAILY',
 	Weekly: 'WEEKLY',
-	BeWeekly: 'BE_WEEKLY',
+	BeWeekly: 'BIWEEKLY',
 	Monthly: 'MONTHLY',
 	Quarterly: 'QUARTERLY',
 	Semiannual: 'SEMIANNUAL',

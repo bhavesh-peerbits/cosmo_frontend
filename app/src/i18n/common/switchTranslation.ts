@@ -6,7 +6,7 @@ export const TranslateFrequency = (frequency: SchedulingDtoFrequencyEnum) => {
 	switch (frequency) {
 		case 'ANNUAL':
 			return t('annual');
-		case 'BE_WEEKLY':
+		case 'BIWEEKLY':
 			return t('biweekly');
 		case 'WEEKLY':
 			return t('weekly');

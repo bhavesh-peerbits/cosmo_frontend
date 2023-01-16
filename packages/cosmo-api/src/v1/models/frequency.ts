@@ -35,7 +35,7 @@ export interface Frequency {
 export const FrequencyFrequencyTypesEnum = {
 	Daily: 'DAILY',
 	Weekly: 'WEEKLY',
-	BeWeekly: 'BE_WEEKLY',
+	Biweekly: 'BIWEEKLY',
 	Monthly: 'MONTHLY',
 	Quarterly: 'QUARTERLY',
 	Semiannual: 'SEMIANNUAL',

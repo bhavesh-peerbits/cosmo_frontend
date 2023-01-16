@@ -57,9 +57,9 @@ import { FileLinkDto } from '../models';
 // @ts-ignore
 import { FileLinkDtoList } from '../models';
 // @ts-ignore
-import { FrameworkTreeDto } from '../models';
+import { FocalPointAndDelegatesDto } from '../models';
 // @ts-ignore
-import { InlineObject18 } from '../models';
+import { FrameworkTreeDto } from '../models';
 // @ts-ignore
 import { InstanceAssetDto } from '../models';
 // @ts-ignore
@@ -273,21 +273,21 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} assetId
-		 * @param {string} body
+		 * @param {Array<string>} requestBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		checkPath: async (
 			assetId: number,
-			body: string,
+			requestBody: Array<string>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'assetId' is not null or undefined
 			assertParamExists('checkPath', 'assetId', assetId);
-			// verify required parameter 'body' is not null or undefined
-			assertParamExists('checkPath', 'body', body);
+			// verify required parameter 'requestBody' is not null or undefined
+			assertParamExists('checkPath', 'requestBody', requestBody);
 			const localVarPath = `/api/change-monitoring/analyst/check-path/{assetId}`.replace(
 				`{${'assetId'}}`,
 				encodeURIComponent(String(assetId))
@@ -321,7 +321,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				body,
+				requestBody,
 				localVarRequestOptions,
 				configuration
 			);
@@ -693,14 +693,14 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} monitoringId
-		 * @param {InlineObject18} inlineObject18
+		 * @param {FocalPointAndDelegatesDto} focalPointAndDelegatesDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		editMonitoringFocalpointAndDelegates: async (
 			monitoringId: number,
-			inlineObject18: InlineObject18,
+			focalPointAndDelegatesDto: FocalPointAndDelegatesDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
@@ -710,11 +710,11 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				'monitoringId',
 				monitoringId
 			);
-			// verify required parameter 'inlineObject18' is not null or undefined
+			// verify required parameter 'focalPointAndDelegatesDto' is not null or undefined
 			assertParamExists(
 				'editMonitoringFocalpointAndDelegates',
-				'inlineObject18',
-				inlineObject18
+				'focalPointAndDelegatesDto',
+				focalPointAndDelegatesDto
 			);
 			const localVarPath =
 				`/api/change-monitoring/analyst/monitoring/set-focalpoint-and-delegates/{monitoringId}`.replace(
@@ -750,7 +750,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				inlineObject18,
+				focalPointAndDelegatesDto,
 				localVarRequestOptions,
 				configuration
 			);
@@ -1866,20 +1866,22 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		/**
 		 *
 		 * @param {number} assetId
-		 * @param {string} body
+		 * @param {Array<string>} requestBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async checkPath(
 			assetId: number,
-			body: string,
+			requestBody: Array<string>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CheckPathDto>> {
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CheckPathDto>>
+		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.checkPath(
 				assetId,
-				body,
+				requestBody,
 				acceptLanguage,
 				options
 			);
@@ -1901,7 +1903,9 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 			checkPathAssetsDto: CheckPathAssetsDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CheckPathDto>> {
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CheckPathDto>>
+		> {
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.checkPathForMultipleAssets(
 					checkPathAssetsDto,
@@ -2064,14 +2068,14 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		/**
 		 *
 		 * @param {number} monitoringId
-		 * @param {InlineObject18} inlineObject18
+		 * @param {FocalPointAndDelegatesDto} focalPointAndDelegatesDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async editMonitoringFocalpointAndDelegates(
 			monitoringId: number,
-			inlineObject18: InlineObject18,
+			focalPointAndDelegatesDto: FocalPointAndDelegatesDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
@@ -2080,7 +2084,7 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.editMonitoringFocalpointAndDelegates(
 					monitoringId,
-					inlineObject18,
+					focalPointAndDelegatesDto,
 					acceptLanguage,
 					options
 				);
@@ -2659,19 +2663,19 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		/**
 		 *
 		 * @param {number} assetId
-		 * @param {string} body
+		 * @param {Array<string>} requestBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		checkPath(
 			assetId: number,
-			body: string,
+			requestBody: Array<string>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<CheckPathDto> {
+		): AxiosPromise<Array<CheckPathDto>> {
 			return localVarFp
-				.checkPath(assetId, body, acceptLanguage, options)
+				.checkPath(assetId, requestBody, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -2685,7 +2689,7 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 			checkPathAssetsDto: CheckPathAssetsDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<CheckPathDto> {
+		): AxiosPromise<Array<CheckPathDto>> {
 			return localVarFp
 				.checkPathForMultipleAssets(checkPathAssetsDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
@@ -2788,21 +2792,21 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		/**
 		 *
 		 * @param {number} monitoringId
-		 * @param {InlineObject18} inlineObject18
+		 * @param {FocalPointAndDelegatesDto} focalPointAndDelegatesDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		editMonitoringFocalpointAndDelegates(
 			monitoringId: number,
-			inlineObject18: InlineObject18,
+			focalPointAndDelegatesDto: FocalPointAndDelegatesDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<MonitoringDto> {
 			return localVarFp
 				.editMonitoringFocalpointAndDelegates(
 					monitoringId,
-					inlineObject18,
+					focalPointAndDelegatesDto,
 					acceptLanguage,
 					options
 				)
@@ -3241,10 +3245,10 @@ export interface AnalystChangeMonitoringControllerApiCheckPathRequest {
 
 	/**
 	 *
-	 * @type {string}
+	 * @type {Array<string>}
 	 * @memberof AnalystChangeMonitoringControllerApiCheckPath
 	 */
-	readonly body: string;
+	readonly requestBody: Array<string>;
 
 	/**
 	 *
@@ -3409,10 +3413,10 @@ export interface AnalystChangeMonitoringControllerApiEditMonitoringFocalpointAnd
 
 	/**
 	 *
-	 * @type {InlineObject18}
+	 * @type {FocalPointAndDelegatesDto}
 	 * @memberof AnalystChangeMonitoringControllerApiEditMonitoringFocalpointAndDelegates
 	 */
-	readonly inlineObject18: InlineObject18;
+	readonly focalPointAndDelegatesDto: FocalPointAndDelegatesDto;
 
 	/**
 	 *
@@ -3921,7 +3925,7 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 		return AnalystChangeMonitoringControllerApiFp(this.configuration)
 			.checkPath(
 				requestParameters.assetId,
-				requestParameters.body,
+				requestParameters.requestBody,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -4071,7 +4075,7 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 		return AnalystChangeMonitoringControllerApiFp(this.configuration)
 			.editMonitoringFocalpointAndDelegates(
 				requestParameters.monitoringId,
-				requestParameters.inlineObject18,
+				requestParameters.focalPointAndDelegatesDto,
 				requestParameters.acceptLanguage,
 				options
 			)

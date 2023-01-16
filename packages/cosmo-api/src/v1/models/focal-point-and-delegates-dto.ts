@@ -15,19 +15,19 @@
 /**
  *
  * @export
- * @interface CheckPathAssetsDto
+ * @interface FocalPointAndDelegatesDto
  */
-export interface CheckPathAssetsDto {
+export interface FocalPointAndDelegatesDto {
 	/**
 	 *
 	 * @type {Array<string>}
-	 * @memberof CheckPathAssetsDto
+	 * @memberof FocalPointAndDelegatesDto
 	 */
-	paths?: Array<string>;
+	delegates?: Array<string>;
 	/**
 	 *
-	 * @type {Array<number>}
-	 * @memberof CheckPathAssetsDto
+	 * @type {string}
+	 * @memberof FocalPointAndDelegatesDto
 	 */
-	assetIds?: Array<number>;
+	focalPoint?: string;
 }

@@ -1,4 +1,4 @@
-import { Form } from '@carbon/react';
+import { Form, InlineNotification } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction } from 'react';
 import MultipleUserSelect from '@components/MultipleUserSelect';
@@ -6,10 +6,15 @@ import SingleUserSelect from '@components/SingleUserSelect';
 import { useForm } from 'react-hook-form';
 import User from '@model/User';
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
+import Monitoring from '@model/Monitoring';
+import useGetUsersByRole from '@api/user/useGetUsersByRole';
+import useEditMonitoringFocalPoint from '@api/change-monitoring/useEditMonitoringFocalPoint';
+import ApiError from '@api/ApiError';
 
 type EditFocalPointModalProps = {
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<string | undefined>>;
+	monitoring: Monitoring;
 };
 
 type EditFocalPointForm = {
@@ -17,13 +22,24 @@ type EditFocalPointForm = {
 	delegates: User[];
 };
 
-const EditFocalPointModalModal = ({ isOpen, setIsOpen }: EditFocalPointModalProps) => {
+const EditFocalPointModalModal = ({
+	isOpen,
+	setIsOpen,
+	monitoring
+}: EditFocalPointModalProps) => {
 	const { t } = useTranslation(['modals', 'monitoringDashboard', 'evidenceRequest']);
+	const { mutate, isError, error } = useEditMonitoringFocalPoint();
 	const {
 		control,
 		watch,
+		handleSubmit,
 		formState: { isValid }
-	} = useForm<EditFocalPointForm>();
+	} = useForm<EditFocalPointForm>({
+		defaultValues: {
+			focalPoint: monitoring.focalPoint,
+			delegates: monitoring.delegates
+		}
+	});
 	const selectedFocalPoint = watch ? watch('focalPoint') : undefined;
 	const selectedDelegates = watch ? watch('delegates') : [];
 
@@ -31,11 +47,23 @@ const EditFocalPointModalModal = ({ isOpen, setIsOpen }: EditFocalPointModalProp
 		setIsOpen('');
 	};
 
+	const saveFocalPoint = () => {
+		selectedFocalPoint &&
+			mutate(
+				{
+					delegates: selectedDelegates.map(del => del.id),
+					focalPoint: selectedFocalPoint.id,
+					monitoringId: +monitoring.id
+				},
+				{ onSuccess: cleanUp }
+			);
+	};
+
 	// TODO Add focal point and delegates default values
 	return (
 		<TearsheetNarrow
 			hasCloseIcon
-			label='Monitoring Name'
+			label={monitoring.name}
 			title={t('monitoringDashboard:edit-focal-point-title')}
 			open={isOpen}
 			onClose={cleanUp}
@@ -50,7 +78,7 @@ const EditFocalPointModalModal = ({ isOpen, setIsOpen }: EditFocalPointModalProp
 					label: t('modals:save'),
 					id: 'send-focal-point',
 					disabled: !isValid,
-					onClick: () => {}
+					onClick: handleSubmit(saveFocalPoint)
 				}
 			]}
 		>
@@ -63,6 +91,10 @@ const EditFocalPointModalModal = ({ isOpen, setIsOpen }: EditFocalPointModalProp
 					rules={{
 						required: true
 					}}
+					getUserFn={() => {
+						// eslint-disable-next-line react-hooks/rules-of-hooks
+						return useGetUsersByRole('FOCAL_POINT');
+					}}
 					excludedUsers={selectedDelegates}
 				/>
 				<MultipleUserSelect
@@ -70,9 +102,13 @@ const EditFocalPointModalModal = ({ isOpen, setIsOpen }: EditFocalPointModalProp
 					level={2}
 					label={t('evidenceRequest:focal-point-delegates')}
 					name='delegates'
+					getUserFn={() => {
+						// eslint-disable-next-line react-hooks/rules-of-hooks
+						return useGetUsersByRole('FOCAL_POINT');
+					}}
 					excludedUser={selectedFocalPoint}
-				/>{' '}
-				{/* {isError && (
+				/>
+				{isError && (
 					<div className='mt-5 flex items-center justify-center'>
 						<InlineNotification
 							kind='error'
@@ -84,7 +120,7 @@ const EditFocalPointModalModal = ({ isOpen, setIsOpen }: EditFocalPointModalProp
 							}
 						/>
 					</div>
-				)} */}
+				)}
 			</Form>
 		</TearsheetNarrow>
 	);

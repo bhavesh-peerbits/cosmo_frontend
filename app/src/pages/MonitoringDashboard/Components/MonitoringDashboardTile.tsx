@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Monitoring from '@model/Monitoring';
 import { formatDate } from '@i18n';
+import { TranslateFrequency } from '@i18n/common/switchTranslation';
 
 type MonitoringDashboardTileProps = {
 	monitoring: Monitoring;
@@ -25,7 +26,7 @@ const MonitoringDashboardTile = ({ monitoring }: MonitoringDashboardTileProps) =
 								{t('changeMonitoring:frequency')}:
 							</p>
 							<p className='block truncate text-body-short-1'>
-								{monitoring.scheduling.frequency}
+								{TranslateFrequency(monitoring.scheduling.frequency)}
 							</p>
 						</span>
 						<span className='flex space-x-2'>

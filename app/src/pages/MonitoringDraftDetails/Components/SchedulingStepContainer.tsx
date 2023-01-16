@@ -65,7 +65,7 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 		'ONDEMAND',
 		'DAILY',
 		'WEEKLY',
-		'BE_WEEKLY',
+		'BIWEEKLY',
 		'MONTHLY',
 		'QUARTERLY',
 		'SEMIANNUAL',
@@ -98,7 +98,7 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 				</Select>
 			);
 		}
-		if (selectedFrequency === 'BE_WEEKLY') {
+		if (selectedFrequency === 'BIWEEKLY') {
 			return (
 				<MultiSelect
 					id={`${draft.id}-select-day-week-multi`}
@@ -172,7 +172,7 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 							data.date.length > 1 ? setHours(data.date[1], data.startHour) : undefined,
 						dayOfMonth: data.frequency === 'MONTHLY' ? data.dayOfMonth : undefined,
 						dayOfWeek:
-							data.frequency === 'BE_WEEKLY' || data.frequency === 'WEEKLY'
+							data.frequency === 'BIWEEKLY' || data.frequency === 'WEEKLY'
 								? data.dayOfWeek
 								: undefined
 					}
