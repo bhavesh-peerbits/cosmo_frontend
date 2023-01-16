@@ -20,10 +20,10 @@
 export interface CheckPathAssetsDto {
 	/**
 	 *
-	 * @type {string}
+	 * @type {Array<string>}
 	 * @memberof CheckPathAssetsDto
 	 */
-	path?: string;
+	paths?: Array<string>;
 	/**
 	 *
 	 * @type {Array<number>}

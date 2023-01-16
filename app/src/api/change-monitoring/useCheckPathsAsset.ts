@@ -3,12 +3,12 @@ import api from '@api';
 
 interface CheckPathAssetParams {
 	assetId: string;
-	body: string;
+	requestBody: string[];
 }
 
-const checkPathAssetMonitoring = ({ assetId, body }: CheckPathAssetParams) => {
+const checkPathAssetMonitoring = ({ assetId, requestBody }: CheckPathAssetParams) => {
 	return api.analystChangeMonitoringControllerApi
-		.checkPath({ assetId: +assetId, body })
+		.checkPath({ assetId: +assetId, requestBody })
 		.then(({ data }) => data);
 };
 

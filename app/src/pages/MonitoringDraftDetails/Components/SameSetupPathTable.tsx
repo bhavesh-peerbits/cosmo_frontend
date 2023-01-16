@@ -61,7 +61,7 @@ const SameSetupPathTable = ({
 				meta: {
 					modalInfo: {
 						type: 'string',
-						modelKeyName: 'path',
+						modelKeyName: 'paths',
 						validation: { required: true }
 					}
 				}

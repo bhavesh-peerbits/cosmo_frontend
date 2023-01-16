@@ -59,7 +59,7 @@ export interface SchedulingDto {
 export const SchedulingDtoFrequencyEnum = {
 	Daily: 'DAILY',
 	Weekly: 'WEEKLY',
-	BeWeekly: 'BE_WEEKLY',
+	Biweekly: 'BIWEEKLY',
 	Monthly: 'MONTHLY',
 	Quarterly: 'QUARTERLY',
 	Semiannual: 'SEMIANNUAL',

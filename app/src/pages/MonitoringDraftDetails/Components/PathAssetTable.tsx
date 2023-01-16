@@ -44,7 +44,7 @@ const PathAssetTable = ({
 				meta: {
 					modalInfo: {
 						type: 'string',
-						modelKeyName: 'body',
+						modelKeyName: 'requestBody',
 						validation: { required: true }
 					}
 				}
