@@ -133,7 +133,19 @@ export interface MonitoringDto {
 	 * @type {string}
 	 * @memberof MonitoringDto
 	 */
-	frameworkLeafs: string;
+	frameworkLeafsName?: string;
+	/**
+	 * The concatenation of the codes of the leaf.
+	 * @type {string}
+	 * @memberof MonitoringDto
+	 */
+	frameworkLeafsCodes?: string;
+	/**
+	 * The nameof the framework
+	 * @type {string}
+	 * @memberof MonitoringDto
+	 */
+	frameworkName?: string;
 	/**
 	 * The run associated with the monitoring.
 	 * @type {Array<RunDto>}

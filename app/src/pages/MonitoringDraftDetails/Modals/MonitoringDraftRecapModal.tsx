@@ -1,3 +1,4 @@
+import useStartMonitoring from '@api/change-monitoring/useStartMonitoring';
 import {
 	ComposedModal,
 	ModalHeader,
@@ -40,8 +41,13 @@ const MonitoringDraftRecapModal = ({
 	draft
 }: MonitoringRecapModalProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'modals', 'evidenceRequest']);
+	const { mutate } = useStartMonitoring();
 	const cleanUp = () => {
 		setIsOpen(false);
+	};
+
+	const startMonitoring = () => {
+		return mutate({ draft });
 	};
 
 	if (!draft) return null;
@@ -169,7 +175,9 @@ const MonitoringDraftRecapModal = ({
 					<Button kind='secondary' onClick={cleanUp}>
 						{t('modals:cancel')}
 					</Button>
-					<Button kind='primary'>{t('changeMonitoring:start-monitoring')}</Button>
+					<Button kind='primary' onClick={() => startMonitoring()}>
+						{t('changeMonitoring:start-monitoring')}
+					</Button>
 				</ModalFooter>
 			)}
 		</ComposedModal>

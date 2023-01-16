@@ -57,9 +57,9 @@ import { FileLinkDto } from '../models';
 // @ts-ignore
 import { FileLinkDtoList } from '../models';
 // @ts-ignore
-import { FrameworkTreeDto } from '../models';
+import { FocalPointAndDelegatesDto } from '../models';
 // @ts-ignore
-import { InlineObject18 } from '../models';
+import { FrameworkTreeDto } from '../models';
 // @ts-ignore
 import { InstanceAssetDto } from '../models';
 // @ts-ignore
@@ -693,14 +693,14 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} monitoringId
-		 * @param {InlineObject18} inlineObject18
+		 * @param {FocalPointAndDelegatesDto} focalPointAndDelegatesDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		editMonitoringFocalpointAndDelegates: async (
 			monitoringId: number,
-			inlineObject18: InlineObject18,
+			focalPointAndDelegatesDto: FocalPointAndDelegatesDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
@@ -710,11 +710,11 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				'monitoringId',
 				monitoringId
 			);
-			// verify required parameter 'inlineObject18' is not null or undefined
+			// verify required parameter 'focalPointAndDelegatesDto' is not null or undefined
 			assertParamExists(
 				'editMonitoringFocalpointAndDelegates',
-				'inlineObject18',
-				inlineObject18
+				'focalPointAndDelegatesDto',
+				focalPointAndDelegatesDto
 			);
 			const localVarPath =
 				`/api/change-monitoring/analyst/monitoring/set-focalpoint-and-delegates/{monitoringId}`.replace(
@@ -750,7 +750,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				inlineObject18,
+				focalPointAndDelegatesDto,
 				localVarRequestOptions,
 				configuration
 			);
@@ -2068,14 +2068,14 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		/**
 		 *
 		 * @param {number} monitoringId
-		 * @param {InlineObject18} inlineObject18
+		 * @param {FocalPointAndDelegatesDto} focalPointAndDelegatesDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async editMonitoringFocalpointAndDelegates(
 			monitoringId: number,
-			inlineObject18: InlineObject18,
+			focalPointAndDelegatesDto: FocalPointAndDelegatesDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
@@ -2084,7 +2084,7 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.editMonitoringFocalpointAndDelegates(
 					monitoringId,
-					inlineObject18,
+					focalPointAndDelegatesDto,
 					acceptLanguage,
 					options
 				);
@@ -2792,21 +2792,21 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		/**
 		 *
 		 * @param {number} monitoringId
-		 * @param {InlineObject18} inlineObject18
+		 * @param {FocalPointAndDelegatesDto} focalPointAndDelegatesDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		editMonitoringFocalpointAndDelegates(
 			monitoringId: number,
-			inlineObject18: InlineObject18,
+			focalPointAndDelegatesDto: FocalPointAndDelegatesDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<MonitoringDto> {
 			return localVarFp
 				.editMonitoringFocalpointAndDelegates(
 					monitoringId,
-					inlineObject18,
+					focalPointAndDelegatesDto,
 					acceptLanguage,
 					options
 				)
@@ -3413,10 +3413,10 @@ export interface AnalystChangeMonitoringControllerApiEditMonitoringFocalpointAnd
 
 	/**
 	 *
-	 * @type {InlineObject18}
+	 * @type {FocalPointAndDelegatesDto}
 	 * @memberof AnalystChangeMonitoringControllerApiEditMonitoringFocalpointAndDelegates
 	 */
-	readonly inlineObject18: InlineObject18;
+	readonly focalPointAndDelegatesDto: FocalPointAndDelegatesDto;
 
 	/**
 	 *
@@ -4075,7 +4075,7 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 		return AnalystChangeMonitoringControllerApiFp(this.configuration)
 			.editMonitoringFocalpointAndDelegates(
 				requestParameters.monitoringId,
-				requestParameters.inlineObject18,
+				requestParameters.focalPointAndDelegatesDto,
 				requestParameters.acceptLanguage,
 				options
 			)

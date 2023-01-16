@@ -67,6 +67,7 @@ models/evidence-request-draft-dto.ts
 models/evidence-request-dto.ts
 models/file-link-dto-list.ts
 models/file-link-dto.ts
+models/focal-point-and-delegates-dto.ts
 models/framework-tree-dto.ts
 models/frequency.ts
 models/identity-provider-dto.ts
@@ -76,7 +77,6 @@ models/inline-object10.ts
 models/inline-object11.ts
 models/inline-object13.ts
 models/inline-object14.ts
-models/inline-object18.ts
 models/inline-object8.ts
 models/inline-object9.ts
 models/instance-asset-dto.ts
