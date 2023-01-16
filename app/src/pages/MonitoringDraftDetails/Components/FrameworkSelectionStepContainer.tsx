@@ -48,7 +48,6 @@ type FrameworkSelectionProps = {
 	draft: MonitoringDraft;
 };
 
-// TODO Reset controls when leaves change
 const FrameworkSelectionStepContainer = ({
 	setCurrentStep,
 	draft
@@ -91,7 +90,7 @@ const FrameworkSelectionStepContainer = ({
 		setValue
 	} = useForm<FrameworkStepFormData>({
 		defaultValues: {
-			framework: draft.frameworkName,
+			framework: draft.frameworkName || 'FREE',
 			controls: draftControls,
 			focalPoint: draft.focalPoint,
 			delegates: draft.delegates
@@ -115,6 +114,10 @@ const FrameworkSelectionStepContainer = ({
 		selectedFramework !== draft.frameworkName && setSelectedLeaves([]);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedFramework]);
+
+	useEffect(() => {
+		selectedLeaves.length === 0 && setValue('controls', []);
+	}, [selectedLeaves, setValue]);
 
 	const saveDraft = (data: FrameworkStepFormData) => {
 		return mutate(
@@ -230,20 +233,22 @@ const FrameworkSelectionStepContainer = ({
 					control={controlForm}
 					rules={{
 						required: {
-							value: true,
+							value: selectedFramework !== 'FREE',
 							message: t('control-required')
 						}
 					}}
-					readOnly={selectedFramework !== 'FREE' && selectedLeaves.length === 0}
+					readOnly={selectedLeaves.length === 0}
 					controls={controls}
 				/>
 			</FullWidthColumn>
-			{selectedControls && selectedControls.length > 0 && (
+			{((selectedControls && selectedControls.length > 0) ||
+				selectedFramework === 'FREE') && (
 				<FullWidthColumn className='overflow-scroll'>
 					<AssociationSelectionList
 						associations={selectedControls}
 						control={controlForm}
 						setValue={setValue}
+						watch={watch}
 					/>
 				</FullWidthColumn>
 			)}
@@ -265,11 +270,12 @@ const FrameworkSelectionStepContainer = ({
 					className='w-full md:w-fit'
 					onClick={handleSubmit(saveDraft)}
 					disabled={
-						!(
-							selectedFramework &&
-							selectedControls &&
-							(focalPoint || selectedAssociation !== 'FREE')
-						) || isLoading
+						(selectedFramework === 'FREE'
+							? !focalPoint
+							: selectedLeaves.length === 0 ||
+							  selectedControls.length === 0 ||
+							  (selectedAssociation === 'FREE' && !focalPoint) ||
+							  !selectedAssociation) || isLoading
 					}
 				>
 					{t('save-next')}

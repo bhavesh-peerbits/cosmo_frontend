@@ -73,7 +73,8 @@ const MonitoringDraftDetails = () => {
 					onClick: () => {
 						setIsSendDraftOpen(true);
 					},
-					icon: Send
+					icon: Send,
+					disabled: !draft.scheduling
 				},
 				{
 					name: t('modals:delete'),

@@ -13,7 +13,7 @@ import UserProfileImage from '@components/UserProfileImage';
 import Association from '@model/Association';
 import User from '@model/User';
 import { useEffect, useState } from 'react';
-import { Control, UseFormSetValue } from 'react-hook-form';
+import { Control, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 type AssociationSelectionListProps = {
@@ -32,11 +32,19 @@ type AssociationSelectionListProps = {
 		delegates: User[];
 		association: string;
 	}>;
+	watch: UseFormWatch<{
+		framework: string;
+		controls: Association[];
+		focalPoint: User;
+		delegates: User[];
+		association: string;
+	}>;
 };
 const AssociationSelectionList = ({
 	control,
 	associations,
-	setValue
+	setValue,
+	watch
 }: AssociationSelectionListProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'evidenceRequest']);
 	const [selectedAss, setSelectedAss] = useState('');
@@ -75,6 +83,7 @@ const AssociationSelectionList = ({
 							level={3}
 							hideLabel
 							name='focalPoint'
+							excludedUsers={watch('delegates')}
 						/>
 					</StructuredListCell>
 					<StructuredListCell onClick={() => setSelectedAss('FREE')} noWrap>
@@ -84,6 +93,7 @@ const AssociationSelectionList = ({
 							hideLabel
 							level={3}
 							name='delegates'
+							excludedUser={watch('focalPoint')}
 						/>
 					</StructuredListCell>
 					<StructuredListInput

@@ -79,7 +79,10 @@ const MonitoringDraftRecapModal = ({
 						title={t('changeMonitoring:app-instance')}
 						info={draft.instance?.name}
 					/>
-					<RecapStringRow title='Assets' info={draft.controlCode?.replaceAll('-', ',')} />
+					<RecapStringRow
+						title='Assets'
+						info={draft.monitoringAssets?.map(ma => ma.asset.hostname).join(', ')}
+					/>
 					<RecapStringRow
 						title={t('evidenceRequest:framework-code')}
 						info={draft.frameworkLeafsCodes?.replaceAll('-', ', ')}

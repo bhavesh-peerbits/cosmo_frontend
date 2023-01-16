@@ -1717,7 +1717,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		): Promise<RequestArgs> => {
 			// verify required parameter 'monitoringDraftDto' is not null or undefined
 			assertParamExists('startMonitoring', 'monitoringDraftDto', monitoringDraftDto);
-			const localVarPath = `/api/change-monitoring/analyst/start-monitoring/{draftId}`;
+			const localVarPath = `/api/change-monitoring/analyst/start-monitoring`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;

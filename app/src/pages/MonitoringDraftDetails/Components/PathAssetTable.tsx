@@ -45,7 +45,11 @@ const PathAssetTable = ({
 					modalInfo: {
 						type: 'string',
 						modelKeyName: 'requestBody',
-						validation: { required: true }
+						validation: {
+							required: true,
+							pattern:
+								assetData?.[0].asset.os === 'WINDOWS' ? '^(?!s*$)[^/]+' : '^(?!s*$)[^\\]+'
+						}
 					}
 				}
 			}

@@ -49,41 +49,44 @@ const NewMonitoring = () => {
 				}
 			]}
 		>
-			<Grid fullWidth className='h-full p-container-1'>
+			<>
+				{' '}
 				<NewMonitoringModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
-				<Column sm={4} md={8} lg={16}>
-					<div className='flex flex-col space-y-5'>
-						<div className='flex w-full items-center space-x-5'>
-							<SearchBar setQuery={setSearchQuery} />
-							<p className='space-x-2 lg:whitespace-nowrap'>
-								<span>
-									{
-										drafts.filter(draft =>
+				<Grid fullWidth className='h-full p-container-1'>
+					<Column sm={4} md={8} lg={16}>
+						<div className='flex flex-col space-y-5'>
+							<div className='flex w-full items-center space-x-5'>
+								<SearchBar setQuery={setSearchQuery} />
+								<p className='space-x-2 lg:whitespace-nowrap'>
+									<span>
+										{
+											drafts.filter(draft =>
+												draft.name.toLowerCase().includes(searchQuery.toLowerCase())
+											).length
+										}
+									</span>
+									<span>{t('drafts')}</span>
+								</p>
+							</div>
+							<div>
+								{drafts.filter(draft =>
+									draft.name.toLowerCase().includes(searchQuery.toLowerCase())
+								).length === 0 ? (
+									<Centered>
+										<NoDataMessage title={t('no-drafts')} />
+									</Centered>
+								) : (
+									<MonitoringDraftTileContainer
+										drafts={drafts.filter(draft =>
 											draft.name.toLowerCase().includes(searchQuery.toLowerCase())
-										).length
-									}
-								</span>
-								<span>{t('drafts')}</span>
-							</p>
+										)}
+									/>
+								)}
+							</div>
 						</div>
-						<div>
-							{drafts.filter(draft =>
-								draft.name.toLowerCase().includes(searchQuery.toLowerCase())
-							).length === 0 ? (
-								<Centered>
-									<NoDataMessage title={t('no-drafts')} />
-								</Centered>
-							) : (
-								<MonitoringDraftTileContainer
-									drafts={drafts.filter(draft =>
-										draft.name.toLowerCase().includes(searchQuery.toLowerCase())
-									)}
-								/>
-							)}
-						</div>
-					</div>
-				</Column>
-			</Grid>
+					</Column>
+				</Grid>
+			</>
 		</PageHeader>
 	);
 };

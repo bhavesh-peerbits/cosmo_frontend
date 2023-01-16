@@ -104,7 +104,12 @@ const PathDefinitionStepContainer = ({ setCurrentStep, draft }: PathDefinitionPr
 					size='md'
 					className='w-full md:w-fit'
 					onClick={() => saveDraft()}
-					// disabled={!isValid || isLoading}
+					disabled={
+						isLoading ||
+						!assetsData?.every(
+							assetData => assetData.paths.length && assetData.paths.some(p => p.selected)
+						)
+					}
 				>
 					{t('save-next')}
 				</Button>

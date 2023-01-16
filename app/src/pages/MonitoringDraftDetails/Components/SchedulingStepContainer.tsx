@@ -168,11 +168,7 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 					defaultValue={getValues('dayOfMonth')}
 					rules={{
 						required: {
-							value:
-								selectedFrequency === 'MONTHLY' ||
-								selectedFrequency === 'QUARTERLY' ||
-								selectedFrequency === 'SEMIANNUAL' ||
-								selectedFrequency === 'ANNUAL',
+							value: selectedFrequency === 'MONTHLY',
 							message: `${t('field-required')}`
 						}
 					}}
@@ -188,7 +184,7 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 								})
 							}
 							id={`${draft.id}-day-month-input`}
-							label={t('day-of-month')}
+							label={`${t('day-of-month')} *`}
 							size='sm'
 							className='w-min'
 							invalidText={t('error-day-number')}
@@ -211,7 +207,9 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 						frequency: data.frequency,
 						startDate: setHours(data.date[0], data.startHour + 1),
 						endDate:
-							data.date.length > 1 ? setHours(data.date[1], data.startHour) : undefined,
+							data.date.length > 1
+								? setHours(data.date[1], data.startHour + 1)
+								: undefined,
 						dayOfMonth: data.frequency === 'MONTHLY' ? data.dayOfMonth : undefined,
 						dayOfWeek:
 							data.frequency === 'BIWEEKLY' || data.frequency === 'WEEKLY'
@@ -240,7 +238,7 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 				>
 					<SelectItem text={t('select-frequency-type')} value='select' hidden />
 					{frequencyList.map(option => (
-						<SelectItem text={TranslateFrequency(option)} value={option} />
+						<SelectItem text={TranslateFrequency(option)} value={option} key={option} />
 					))}
 				</Select>
 			</Layer>
@@ -313,11 +311,18 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 			<Suspense>
 				<SchedulingTotalRunsContainer
 					scheduling={{
-						frequency: selectedFrequency,
-						startDate: watch('date')[0],
-						endDate: watch('date')[1],
-						dayOfWeek: watch('dayOfWeek'),
-						dayOfMonth: watch('dayOfMonth')
+						frequency: watch('frequency'),
+						startDate: setHours(watch('date')[0], watch('startHour') + 1),
+						endDate:
+							watch('date').length > 1
+								? setHours(watch('date')[1], watch('startHour') + 1)
+								: undefined,
+						dayOfMonth:
+							watch('frequency') === 'MONTHLY' ? watch('dayOfMonth') : undefined,
+						dayOfWeek:
+							watch('frequency') === 'BIWEEKLY' || watch('frequency') === 'WEEKLY'
+								? watch('dayOfWeek')
+								: undefined
 					}}
 				/>
 			</Suspense>

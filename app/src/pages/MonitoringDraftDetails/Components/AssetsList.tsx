@@ -38,8 +38,12 @@ const AssetsList = ({ assets }: AssetListProps) => {
 						<StructuredListCell>{asset.ip}</StructuredListCell>
 						<StructuredListCell>{asset.type}</StructuredListCell>
 						<StructuredListCell>{asset.os}</StructuredListCell>
-						<StructuredListCell>{asset.dbType ?? '-'}</StructuredListCell>
-						<StructuredListCell>{asset.dbVersion ?? '-'}</StructuredListCell>
+						{assets.some(a => a.type === 'DB') && (
+							<StructuredListCell>{asset.dbType ?? '-'}</StructuredListCell>
+						)}
+						{assets.some(a => a.type === 'DB') && (
+							<StructuredListCell>{asset.dbVersion ?? '-'}</StructuredListCell>
+						)}
 						<StructuredListCell>HERE GOES CPE</StructuredListCell>
 					</StructuredListRow>
 				))}

@@ -75,7 +75,7 @@ const MonitoringDashboardTile = ({ monitoring }: MonitoringDashboardTileProps) =
 								Framework:
 							</p>
 							<p className='block truncate text-body-short-1'>
-								{monitoring.frameworkLeafs ?? '-'}
+								{monitoring.frameworkLeafsCodes ?? '-'}
 							</p>
 						</span>
 						<span className='flex space-x-2'>
