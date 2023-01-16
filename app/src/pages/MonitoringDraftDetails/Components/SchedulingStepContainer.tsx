@@ -16,13 +16,13 @@ import { Controller, useForm } from 'react-hook-form';
 import useGetDateFormat from '@hooks/useGetDateFormat';
 import { startOfTomorrow, setHours } from 'date-fns';
 import { formatDate } from '@i18n';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, Suspense } from 'react';
 import MonitoringDraft from '@model/MonitoringDraft';
 import { SchedulingDtoDayOfWeekEnum, SchedulingDtoFrequencyEnum } from 'cosmo-api/src/v1';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import useSaveMonitoringDraft from '@api/change-monitoring/useSaveMonitoringDraft';
 import ApiError from '@api/ApiError';
-import { TranslateDayOfWeek, TranslateFrequency } from '@i18n/common/switchTranslation';
+import SchedulingTotalRunsContainer from './SchedulingTotalRunsContainer';
 
 type SchedulingFormData = {
 	frequency: SchedulingDtoFrequencyEnum;
@@ -41,6 +41,48 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 	const { t } = useTranslation('changeMonitoring');
 	const { format, placeholder, localeCode } = useGetDateFormat();
 	const { mutate, isLoading, isError, isSuccess, error } = useSaveMonitoringDraft();
+
+	const TranslateFrequency = (frequency: SchedulingDtoFrequencyEnum) => {
+		switch (frequency) {
+			case 'ANNUAL':
+				return t('annual');
+			case 'BIWEEKLY':
+				return t('biweekly');
+			case 'WEEKLY':
+				return t('weekly');
+			case 'DAILY':
+				return t('daily');
+			case 'MONTHLY':
+				return t('monthly');
+			case 'ONDEMAND':
+				return t('on-demand');
+			case 'QUARTERLY':
+				return t('quarterly');
+			case 'SEMIANNUAL':
+				return t('semiannual');
+			default:
+				return t('daily');
+		}
+	};
+
+	const TranslateDayOfWeek = (day: SchedulingDtoDayOfWeekEnum) => {
+		switch (day) {
+			case 'MONDAY':
+				return t('monday');
+			case 'TUESDAY':
+				return t('tuesday');
+			case 'WEDNESDAY':
+				return t('wednesday');
+			case 'THURSDAY':
+				return t('thursday');
+			case 'FRIDAY':
+				return t('friday');
+			case 'SATURDAY':
+				return t('saturday');
+			default:
+				return t('sunday');
+		}
+	};
 
 	const {
 		register,
@@ -268,10 +310,17 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 				/>
 			</Layer>
 			<Layer>{frequencySetup()}</Layer>
-			<div>
-				<span className='text-productive-heading-2'>{t('total-runs')}: </span>
-				<span>5</span>
-			</div>
+			<Suspense>
+				<SchedulingTotalRunsContainer
+					scheduling={{
+						frequency: selectedFrequency,
+						startDate: watch('date')[0],
+						endDate: watch('date')[1],
+						dayOfWeek: watch('dayOfWeek'),
+						dayOfMonth: watch('dayOfMonth')
+					}}
+				/>
+			</Suspense>
 			<div className='items-center justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
 				<InlineLoadingStatus
 					{...{ isLoading: false, isSuccess, isError, error: error as ApiError }}
