@@ -92,7 +92,9 @@ const FrameworkSelectionStepContainer = ({
 	} = useForm<FrameworkStepFormData>({
 		defaultValues: {
 			framework: draft.frameworkName,
-			controls: draftControls
+			controls: draftControls,
+			focalPoint: draft.focalPoint,
+			delegates: draft.delegates
 		}
 	});
 
@@ -242,11 +244,6 @@ const FrameworkSelectionStepContainer = ({
 						associations={selectedControls}
 						control={controlForm}
 						setValue={setValue}
-						selectedAssociation={selectedControls.find(
-							co =>
-								co.reviewer?.id === draft.focalPoint?.id &&
-								co.delegates?.every(del => draft.delegates?.find(d => d.id === del.id))
-						)}
 					/>
 				</FullWidthColumn>
 			)}

@@ -122,5 +122,12 @@
 	"db-version": "",
 	"monitorings": "",
 	"hour-placeholder": "",
-	"error-hour-input": ""
+	"error-hour-input": "",
+	"info-monthly-scheduling": "",
+	"info-weekly-scheduling": "",
+	"info-biweekly-scheduling": "",
+	"info-daily-scheduling": "",
+	"info-quarterly-semiannual-scheduling": "",
+	"info-annual-scheduling": "",
+	"info-ondemand-scheduling": ""
 }

@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom';
 import useGetMonitoringDraftById from '@api/change-monitoring/useGetMonitoringDraftById';
 import useGetUsersByRoles from '@api/user/useGetUsersByRoles';
 import useSetMonitoringCollaborator from '@api/change-monitoring/useSetMonitoringCollaborators';
+import GetSchedulingDisplayInfo from '@i18n/common/displaySchedulingInfo';
 import DeleteMonitoringDraftModal from './Modals/DeleteMonitoringDraftModal';
 import MonitoringDraftRecapModal from './Modals/MonitoringDraftRecapModal';
 
@@ -174,11 +175,19 @@ const MonitoringDraftDetails = () => {
 								</UnorderedList>
 							</div>
 						)}
+						{draft?.script && (
+							<div className='flex flex-col'>
+								<span className='text-heading-2'>Script</span>
+								<span className='text-text-secondary text-body-short-1'>
+									{draft.script.name}
+								</span>
+							</div>
+						)}
 						{draft?.scheduling && (
 							<div className='flex flex-col'>
 								<span className='text-heading-2'>{t('changeMonitoring:scheduling')}</span>
 								<span className='text-text-secondary text-body-short-1'>
-									ADD SCHEDULING INFO
+									{GetSchedulingDisplayInfo(draft.scheduling)}
 								</span>
 							</div>
 						)}
