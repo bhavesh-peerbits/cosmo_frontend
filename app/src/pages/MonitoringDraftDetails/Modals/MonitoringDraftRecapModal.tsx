@@ -7,6 +7,7 @@ import {
 	Tag
 } from '@carbon/react';
 import UserProfileImage from '@components/UserProfileImage';
+import GetSchedulingDisplayInfo from '@i18n/common/displaySchedulingInfo';
 import MonitoringDraft from '@model/MonitoringDraft';
 import { Dispatch, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -73,11 +74,11 @@ const MonitoringDraftRecapModal = ({
 					<RecapStringRow title='Assets' info={draft.controlCode?.replaceAll('-', ',')} />
 					<RecapStringRow
 						title={t('evidenceRequest:framework-code')}
-						info={draft.frameworkLeafsCodes?.replaceAll('-', ',')}
+						info={draft.frameworkLeafsCodes?.replaceAll('-', ', ')}
 					/>
 					<RecapStringRow
 						title={t('evidenceRequest:framework-name')}
-						info={draft.frameworkLeafsName?.replaceAll('-', ',')}
+						info={draft.frameworkLeafsName?.replaceAll('-', ', ')}
 					/>
 					<RecapStringRow title={t('changeMonitoring:controls')} info='info' />
 					<RecapStringRow
@@ -148,7 +149,10 @@ const MonitoringDraftRecapModal = ({
 								: '-'}
 						</div>
 					</div>
-					<RecapStringRow title={t('changeMonitoring:frequency')} info='FIX' />
+					<RecapStringRow
+						title={t('changeMonitoring:frequency')}
+						info={draft.scheduling ? GetSchedulingDisplayInfo(draft.scheduling) : '-'}
+					/>
 					<RecapStringRow
 						title={t('changeMonitoring:total-runs')}
 						info={draft.scheduling?.totalRuns}

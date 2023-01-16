@@ -86,8 +86,7 @@ const TableFormTearsheet = <T extends object>({
 					},
 					{
 						onSuccess: (data: any) => {
-							setMutationResult &&
-								setMutationResult((old: any) => (old ? [...old, data] : [data]));
+							setMutationResult && setMutationResult((old: any) => [...old, data]);
 							cleanUp();
 						}
 					}
