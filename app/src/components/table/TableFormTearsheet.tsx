@@ -77,20 +77,18 @@ const TableFormTearsheet = <T extends object>({
 
 	const handleCreate = () => {
 		if (isMultiple) {
-			Object.keys(multipleSubmitItem).forEach(item =>
-				mutate(
-					{
-						[columns.filter(c => c.meta?.modalInfo)[0].meta?.modalInfo?.modelKeyName ??
-						'']: multipleSubmitItem[item],
-						...mutationDefaultValues
-					},
-					{
-						onSuccess: (data: any) => {
-							setMutationResult && setMutationResult((old: any) => [...old, data]);
-							cleanUp();
-						}
+			mutate(
+				{
+					[columns.filter(c => c.meta?.modalInfo)[0].meta?.modalInfo?.modelKeyName ?? '']:
+						Object.values(multipleSubmitItem),
+					...mutationDefaultValues
+				},
+				{
+					onSuccess: (data: any) => {
+						setMutationResult && setMutationResult((old: any) => [...old, ...data]);
+						cleanUp();
 					}
-				)
+				}
 			);
 		} else {
 			mutate(submitItem, {
@@ -132,8 +130,9 @@ const TableFormTearsheet = <T extends object>({
 								? (modInfoA.fieldOrder ?? 0) - (modInfoB.fieldOrder ?? 0)
 								: 1;
 						})
-						.map(column => {
+						.map((column, index) => {
 							if (column.meta?.modalInfo?.type === 'string') {
+								const name = `${column.meta?.modalInfo?.modelKeyName}${index}`;
 								return (
 									<TextInput
 										className={cx('', {
@@ -145,8 +144,7 @@ const TableFormTearsheet = <T extends object>({
 											isMultiple
 												? setMultipleSubmitItem(old => ({
 														...old,
-														[`${column.meta?.modalInfo?.modelKeyName}${Math.random()}`]:
-															e.target.value
+														[name]: e.target.value
 												  }))
 												: setSubmitItem(old => ({
 														...old,
@@ -154,11 +152,7 @@ const TableFormTearsheet = <T extends object>({
 															e.currentTarget.value
 												  }));
 										}}
-										id={
-											isMultiple
-												? `${column.meta?.modalInfo?.modelKeyName}${Math.random()}`
-												: column.meta?.modalInfo?.modelKeyName
-										}
+										id={isMultiple ? name : column.meta?.modalInfo?.modelKeyName}
 										labelText={column.header?.toString()}
 										{...column.meta?.modalInfo?.validation}
 									/>

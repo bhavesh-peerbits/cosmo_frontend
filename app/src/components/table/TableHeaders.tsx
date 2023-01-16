@@ -16,8 +16,6 @@ interface TableHeadersProps<T> {
 	getToggleAllRowsSelectedHandler: (event: unknown) => void;
 	getToggleAllPageRowsSelectedHandler: (event: unknown) => void;
 	isExpandable: boolean | undefined;
-	table: any;
-	showFilter: boolean;
 }
 
 const TableHeaders = <T extends object>({
@@ -28,9 +26,7 @@ const TableHeaders = <T extends object>({
 	getIsAllPageRowsSelected,
 	getToggleAllRowsSelectedHandler,
 	getToggleAllPageRowsSelectedHandler,
-	isExpandable,
-	table,
-	showFilter
+	isExpandable
 }: TableHeadersProps<T>) => {
 	const isTheLastHeaderGroup = useCallback(
 		(index: number) => {
@@ -62,12 +58,7 @@ const TableHeaders = <T extends object>({
 						header.isPlaceholder ? (
 							<TableHeader key={header.id} scope='col' />
 						) : (
-							<ColumnHeader
-								key={header.id}
-								header={header}
-								table={table}
-								showFilter={showFilter}
-							/>
+							<ColumnHeader key={header.id} header={header} />
 						)
 					)}
 				</TableRow>

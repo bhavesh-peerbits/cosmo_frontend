@@ -19,6 +19,16 @@ declare module '@tanstack/react-table' {
 			| ModalInfoSelectOrdered
 			| ModalInfoDateOrdered
 			| ModalInfoUserOrdered;
+
+		filter?:
+			| {
+					enabled: false;
+			  }
+			| {
+					enabled?: true;
+					type?: 'checkbox' | 'radio' | 'dropdown';
+					label: string;
+			  };
 	}
 
 	interface ModalInfoBase {

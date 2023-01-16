@@ -132,5 +132,14 @@
 	"info-daily-scheduling": "It occurs every day.",
 	"info-quarterly-semiannual-scheduling": "It occurs every {{numberOfMonths}} months.",
 	"info-annual-scheduling": "It occurs one a year.",
-	"info-ondemand-scheduling": "It does not repeat."
+	"info-ondemand-scheduling": "It does not repeat.",
+	"completed": "Completed",
+	"planned": "Planned",
+	"setup": "Setup",
+	"terminated": "Terminated",
+	"upload": "Upload",
+	"waiting-analyst": "Waiting for analyst",
+	"waiting-focal-point": "Waiting for focal point",
+	"completed-monitoring": "Completed",
+	"ongoing": "Ongoing"
 }

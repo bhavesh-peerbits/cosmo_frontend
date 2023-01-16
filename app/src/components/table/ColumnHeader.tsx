@@ -1,20 +1,13 @@
-import { flexRender, Header, Table } from '@tanstack/react-table';
+import { flexRender, Header } from '@tanstack/react-table';
 import { TableHeader, OverflowMenu, OverflowMenuItem } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
-import HeaderFilter from './HeaderFilter';
 
 interface ColumnHeaderProps<T> {
 	header: Header<T, unknown>;
-	table?: Table<T>;
-	showFilter?: boolean;
 }
 
-const ColumnHeader = <T extends object>({
-	header,
-	table,
-	showFilter
-}: ColumnHeaderProps<T>) => {
+const ColumnHeader = <T extends object>({ header }: ColumnHeaderProps<T>) => {
 	const { t } = useTranslation('table');
 	return (
 		<TableHeader
@@ -80,9 +73,6 @@ const ColumnHeader = <T extends object>({
 					transform: 'translateX(50%)'
 				}}
 			/>
-			{header.column.getCanFilter() && table && showFilter && (
-				<HeaderFilter column={header.column} table={table} />
-			)}
 		</TableHeader>
 	);
 };

@@ -34,7 +34,6 @@ const SameSetupPathTable = ({
 	globalData
 }: SameSetupPathTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table']);
-
 	const columns = useMemo<
 		ColumnDef<{
 			path: string;
