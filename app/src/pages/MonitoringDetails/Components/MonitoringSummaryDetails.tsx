@@ -32,13 +32,13 @@ const MonitoringSummaryDetails = ({ monitoring }: MonitoringSummaryDetailsProps)
 				<p className='font-bold text-productive-heading-2'>
 					{t('evidenceRequest:framework-name')}
 				</p>
-				<p className='text-sm text-body-compact-1'>HERE GOES FRAMEWORK NAME</p>
+				<p className='text-sm text-body-compact-1'>{monitoring.frameworkLeafsName}</p>
 			</div>
 			<div>
 				<p className='font-bold text-productive-heading-2'>
 					{t('evidenceRequest:framework-code')}
 				</p>
-				<p className='text-sm text-body-compact-1'>HERE GOES FRAMEWORK CODE</p>
+				<p className='text-sm text-body-compact-1'>{monitoring.frameworkLeafsCodes}</p>
 			</div>
 			<div>
 				<p className='font-bold text-productive-heading-2'>Paths</p>

@@ -56,6 +56,7 @@ const MonitoringDetails = () => {
 			actions={[
 				{
 					name: t('evidenceRequest:collaborators'),
+					disabled: monitoring.status === 'TERMINATED',
 					onClick: () => {
 						setModalToOpen('collaborators');
 					},
@@ -63,6 +64,7 @@ const MonitoringDetails = () => {
 				},
 				{
 					name: 'Focal Point',
+					disabled: monitoring.status === 'TERMINATED',
 					onClick: () => {
 						setModalToOpen('focalPoint');
 					},
@@ -70,6 +72,7 @@ const MonitoringDetails = () => {
 				},
 				{
 					name: t('evidenceRequest:close'),
+					disabled: monitoring.status === 'TERMINATED',
 					onClick: () => {
 						setModalToOpen('close');
 					},
@@ -81,7 +84,7 @@ const MonitoringDetails = () => {
 				<CloseMonitoringModal
 					isOpen={modalToOpen === 'close'}
 					setIsOpen={setModalToOpen}
-					id={monitoringId}
+					monitoring={monitoring}
 				/>
 				<EditFocalPointModal
 					monitoring={monitoring}
