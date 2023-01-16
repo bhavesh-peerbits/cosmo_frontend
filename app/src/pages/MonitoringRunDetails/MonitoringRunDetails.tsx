@@ -13,19 +13,19 @@ const MonitoringRunDetails = () => {
 	const { monitoringId = '', runId = '' } = useParams();
 	const { t } = useTranslation('runDetails');
 	const { data: monitoring } = useGetMonitoringById(monitoringId);
-
+	const run = monitoring?.runs.find(r => r.id === runId);
 	const [isCloseOpen, setIsCloseOpen] = useState(false);
 
 	// TODO Change monitoring name in breadcrumb
 
-	if (!monitoring) return null;
+	if (!monitoring || !run) return null;
 
 	return (
 		<PageHeader
-			pageTitle='MONITORING NAME - RUN NUMBER'
+			pageTitle={`${monitoring.name} - RUN ${run?.orderNumber}`}
 			intermediateRoutes={[
 				{ name: 'Change Monitoring Dashboard', to: '/monitoring-dashboard' },
-				{ name: 'Monitoring Name', to: `/monitoring-dashboard/${monitoringId}` }
+				{ name: monitoring.name, to: `/monitoring-dashboard/${monitoringId}` }
 			]}
 			actions={[
 				{
@@ -39,7 +39,13 @@ const MonitoringRunDetails = () => {
 			]}
 		>
 			<Grid className='p-container-1'>
-				<CloseRunModal id={runId} setIsOpen={setIsCloseOpen} isOpen={isCloseOpen} />
+				<CloseRunModal
+					id={runId}
+					setIsOpen={setIsCloseOpen}
+					isOpen={isCloseOpen}
+					monitoringName={monitoring.name}
+					runNumber={run.orderNumber}
+				/>
 				<Column sm={4} md={2} lg={3}>
 					<MonitoringSummaryDetails monitoring={monitoring} />
 				</Column>
