@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useMemo, useRef } from 'react';
-import { Column, RowData } from '@tanstack/react-table';
+import { Column, flexRender, RowData } from '@tanstack/react-table';
 import DateFilter from '@components/table/filter/DateFilter';
 import NumberFilter from '@components/table/filter/NumberFilter';
 import InputFilter from '@components/table/filter/InputFilter';
@@ -34,6 +35,8 @@ const FilterElement = <T extends object>({
 
 	const label =
 		(column.columnDef.meta?.filter?.enabled && column.columnDef.meta?.filter?.label) ||
+		// @ts-ignore
+		flexRender(column.columnDef.header, { column }) ||
 		column.id;
 
 	const filterProps = {
