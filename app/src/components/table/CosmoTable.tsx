@@ -27,7 +27,7 @@ import {
 import { FC, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import cx from 'classnames';
-import { useBoolean, useDebounce, useMount, useUnmount, useUpdateEffect } from 'ahooks';
+import { useDebounce, useMount, useUnmount, useUpdateEffect } from 'ahooks';
 import { rankItem } from '@tanstack/match-sorter-utils';
 import usePaginationStore from '@hooks/pagination/usePaginationStore';
 import useExportTablePlugin from '@hooks/useExportTablePlugin';
@@ -190,7 +190,6 @@ const CosmoTable = <T extends SubRows<T>>({
 	});
 
 	// FILTER
-	const [showFilter, { toggle: toggleShowFilter }] = useBoolean(false);
 	const fuzzyFilter: FilterFn<T> = useCallback((row, columnId, value, addMeta) => {
 		// Rank the item
 		const itemRank = rankItem(row.getValue(columnId), value);
@@ -306,7 +305,6 @@ const CosmoTable = <T extends SubRows<T>>({
 					selectedSize={tableSize}
 					sizeOptions={showSizeOption ? tableSizes : undefined}
 					changeTableSize={setTableSize}
-					onFilterClick={toggleShowFilter}
 					setIsModalOpen={setIsModalOpen}
 					// isAddingInline={isInlineAdd}
 					// addingInline={addingInline}
@@ -317,6 +315,8 @@ const CosmoTable = <T extends SubRows<T>>({
 					onDelete={onDelete}
 					setColumnOrder={table.setColumnOrder}
 					setColumnVisibility={table.setColumnVisibility}
+					tableId={tableId}
+					prefilteredValues={table.getPreFilteredRowModel().flatRows[0]}
 				/>
 				<div className='relative overflow-hidden'>
 					<div
@@ -339,8 +339,6 @@ const CosmoTable = <T extends SubRows<T>>({
 									isSelectable={isSelectable}
 									headerGroups={headerGroups}
 									isExpandable={isExpandable && Boolean(subComponent)}
-									table={table}
-									showFilter={showFilter}
 								/>
 							</TableHead>
 							<TableBody>
@@ -387,7 +385,10 @@ const CosmoTable = <T extends SubRows<T>>({
 					</div>
 				</div>
 				{(serverSidePagination || data.length > 10) && (
-					<TablePagination tableId={tableId} dataLength={status?.total ?? data.length} />
+					<TablePagination
+						tableId={tableId}
+						dataLength={status?.total ?? table.getFilteredRowModel().rows.length}
+					/>
 				)}
 			</TableContainer>
 			{modalProps && (
