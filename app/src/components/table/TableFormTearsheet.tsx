@@ -85,7 +85,7 @@ const TableFormTearsheet = <T extends object>({
 				},
 				{
 					onSuccess: (data: any) => {
-						setMutationResult && setMutationResult((old: any) => [...old, data]);
+						setMutationResult && setMutationResult((old: any) => [...old, ...data]);
 						cleanUp();
 					}
 				}
@@ -130,9 +130,9 @@ const TableFormTearsheet = <T extends object>({
 								? (modInfoA.fieldOrder ?? 0) - (modInfoB.fieldOrder ?? 0)
 								: 1;
 						})
-						.map(column => {
+						.map((column, index) => {
 							if (column.meta?.modalInfo?.type === 'string') {
-								const name = `${column.meta?.modalInfo?.modelKeyName}${Math.random()}`;
+								const name = `${column.meta?.modalInfo?.modelKeyName}${index}`;
 								return (
 									<TextInput
 										className={cx('', {
