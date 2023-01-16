@@ -125,5 +125,12 @@
 	"hour-placeholder": "hh (Formato 24 ore)",
 	"error-hour-input": "Inserisci un numero tra 0 e 23",
 	"same-setup-title": "Path presenti in tutti gli asset",
-	"same-setup-description": "In questa tabella sono presenti i path che gli asset selezionati hanno in comune. Le modifiche effettuate ai path di questa tabella verranno replicate in tutti gli asset."
+	"same-setup-description": "In questa tabella sono presenti i path che gli asset selezionati hanno in comune. Le modifiche effettuate ai path di questa tabella verranno replicate in tutti gli asset.",
+	"info-monthly-scheduling": "Si ripete ogni giorno {{day}} del mese.",
+	"info-weekly-scheduling": "Si ripete ogni {{day}}.",
+	"info-biweekly-scheduling": "Si ripete ogni {{day1}} e {{day2}}.",
+	"info-daily-scheduling": "Si ripete ogni giorno.",
+	"info-quarterly-semiannual-scheduling": "Si ripete ogni {{numberOfMonths}} mesi.",
+	"info-annual-scheduling": "Si ripete ogni anno.",
+	"info-ondemand-scheduling": "Non si ripete."
 }

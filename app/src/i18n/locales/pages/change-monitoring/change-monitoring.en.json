@@ -125,5 +125,12 @@
 	"hour-placeholder": "hh (24-hour clock)",
 	"error-hour-input": "Enter a number between 0 and 23",
 	"same-setup-title": "Common paths for all assets",
-	"same-setup-description": "This table shows the paths that the selected assets have in common. Changes made to the paths of this table will be replicated in all assets."
+	"same-setup-description": "This table shows the paths that the selected assets have in common. Changes made to the paths of this table will be replicated in all assets.",
+	"info-monthly-scheduling": "It occurs every day {{day}} of the month.",
+	"info-weekly-scheduling": "It occurs every {{day}}.",
+	"info-biweekly-scheduling": "It occurs every {{day1}} and {{day2}}.",
+	"info-daily-scheduling": "It occurs every day.",
+	"info-quarterly-semiannual-scheduling": "It occurs every {{numberOfMonths}} months.",
+	"info-annual-scheduling": "It occurs one a year.",
+	"info-ondemand-scheduling": "It does not repeat."
 }

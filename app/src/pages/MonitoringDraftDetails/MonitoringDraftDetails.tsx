@@ -10,9 +10,40 @@ import { useParams } from 'react-router-dom';
 import useGetMonitoringDraftById from '@api/change-monitoring/useGetMonitoringDraftById';
 import useGetUsersByRoles from '@api/user/useGetUsersByRoles';
 import useSetMonitoringCollaborator from '@api/change-monitoring/useSetMonitoringCollaborators';
+import Scheduling from '@model/Scheduling';
 import DeleteMonitoringDraftModal from './Modals/DeleteMonitoringDraftModal';
 import MonitoringDraftRecapModal from './Modals/MonitoringDraftRecapModal';
 
+export const GetSchedulingDisplayInfo = (scheduling: Scheduling) => {
+	const { t } = useTranslation(['changeMonitoring']);
+	switch (scheduling.frequency) {
+		case 'ONDEMAND':
+			return t('changeMonitoring:info-ondemand-scheduling');
+		case 'DAILY':
+			return t('changeMonitoring:info-daily-scheduling');
+		case 'WEEKLY':
+			return t('changeMonitoring:info-weekly-scheduling', {
+				day: scheduling.dayOfWeek?.[0]
+			});
+		case 'BIWEEKLY':
+			return t('changeMonitoring:info-weekly-scheduling', {
+				day1: scheduling.dayOfWeek?.[0],
+				day2: scheduling.dayOfWeek?.[1]
+			});
+		case 'MONTHLY':
+			return t('changeMonitoring:info-monthly-scheduling', {
+				day: scheduling.dayOfMonth
+			});
+		case 'QUARTERLY':
+			return t('changeMonitoring:info-quarterly-semiannual-scheduling');
+		case 'SEMIANNUAL':
+			return t('changeMonitoring:info-quarterly-semiannual-scheduling');
+		case 'ANNUAL':
+			return t('changeMonitoring:info-annual-scheduling');
+		default:
+			return '';
+	}
+};
 const MonitoringDraftDetails = () => {
 	const { t } = useTranslation([
 		'evidenceRequest',
@@ -174,11 +205,19 @@ const MonitoringDraftDetails = () => {
 								</UnorderedList>
 							</div>
 						)}
+						{draft?.script && (
+							<div className='flex flex-col'>
+								<span className='text-heading-2'>Script</span>
+								<span className='text-text-secondary text-body-short-1'>
+									{draft.script.name}
+								</span>
+							</div>
+						)}
 						{draft?.scheduling && (
 							<div className='flex flex-col'>
 								<span className='text-heading-2'>{t('changeMonitoring:scheduling')}</span>
 								<span className='text-text-secondary text-body-short-1'>
-									ADD SCHEDULING INFO
+									{GetSchedulingDisplayInfo(draft.scheduling)}
 								</span>
 							</div>
 						)}

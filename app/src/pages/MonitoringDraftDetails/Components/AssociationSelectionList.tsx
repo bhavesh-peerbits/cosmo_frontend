@@ -25,7 +25,6 @@ type AssociationSelectionListProps = {
 		association: string;
 	}>;
 	associations: Association[];
-	selectedAssociation?: Association;
 	setValue: UseFormSetValue<{
 		framework: string;
 		controls: Association[];
@@ -37,11 +36,10 @@ type AssociationSelectionListProps = {
 const AssociationSelectionList = ({
 	control,
 	associations,
-	selectedAssociation,
 	setValue
 }: AssociationSelectionListProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'evidenceRequest']);
-	const [selectedAss, setSelectedAss] = useState(selectedAssociation?.id || '');
+	const [selectedAss, setSelectedAss] = useState('');
 
 	useEffect(() => {
 		setValue('association', selectedAss);
@@ -144,7 +142,7 @@ const AssociationSelectionList = ({
 							value={`association-${association.id}`}
 							title={`association-${association.name}`}
 							name={`association-${association.name}`}
-						/>{' '}
+						/>
 						<StructuredListCell onClick={() => setSelectedAss(association.id)}>
 							{selectedAss === association.id && (
 								<CheckmarkFilled
