@@ -117,8 +117,6 @@ const SameSetupPathTable = ({
 			data={globalData}
 			isSelectable
 			noDataMessageSubtitle={t('changeMonitoring:no-path-yet')}
-			title={t('changeMonitoring:same-setup-title')}
-			description={t('changeMonitoring:same-setup-description')}
 		/>
 	);
 };

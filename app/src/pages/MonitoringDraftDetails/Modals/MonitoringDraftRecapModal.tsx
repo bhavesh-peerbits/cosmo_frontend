@@ -43,7 +43,9 @@ const MonitoringDraftRecapModal = ({
 	const cleanUp = () => {
 		setIsOpen(false);
 	};
+
 	if (!draft) return null;
+
 	return (
 		<ComposedModal open={isOpen} onClose={cleanUp} className='z-[9999]'>
 			<ModalHeader
@@ -80,7 +82,10 @@ const MonitoringDraftRecapModal = ({
 						title={t('evidenceRequest:framework-name')}
 						info={draft.frameworkLeafsName?.replaceAll('-', ', ')}
 					/>
-					<RecapStringRow title={t('changeMonitoring:controls')} info='info' />
+					<RecapStringRow
+						title={t('changeMonitoring:controls')}
+						info={draft.controlCode ? draft.controlCode?.replaceAll('-', ', ') : '-'}
+					/>
 					<RecapStringRow
 						title={t('changeMonitoring:operating-system')}
 						info={draft.script?.os}

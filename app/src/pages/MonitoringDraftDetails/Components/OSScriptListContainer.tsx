@@ -21,13 +21,10 @@ const OSScriptListContainer = ({
 				<TileGroup
 					name='script-group'
 					onChange={e => setSelectedScript(e as unknown as number)}
+					defaultSelected={selectedScript}
 				>
 					{scripts.map(script => (
-						<RadioTile
-							value={script.id}
-							className='mt-5'
-							selected={selectedScript === script.id}
-						>
+						<RadioTile value={script.id} className='mt-5'>
 							<OSScriptTileContent script={script} />
 						</RadioTile>
 					))}
