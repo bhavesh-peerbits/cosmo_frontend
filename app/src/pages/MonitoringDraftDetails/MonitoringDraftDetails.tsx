@@ -74,7 +74,13 @@ const MonitoringDraftDetails = () => {
 						setIsSendDraftOpen(true);
 					},
 					icon: Send,
-					disabled: !draft.scheduling
+					disabled:
+						!draft.instance ||
+						!draft.monitoringAssets ||
+						draft.monitoringAssets?.some(el => el.paths.length === 0) ||
+						!draft.focalPoint ||
+						!draft.script ||
+						!draft.scheduling
 				},
 				{
 					name: t('modals:delete'),

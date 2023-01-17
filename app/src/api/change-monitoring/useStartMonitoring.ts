@@ -17,6 +17,7 @@ const useStartMonitoring = () => {
 	return useMutation(startMonitoring, {
 		onSuccess: (data, variables) => {
 			queryClient.invalidateQueries(['monitoring-draft', `${variables.draft.id}`]);
+			queryClient.invalidateQueries(['all-monitoring']);
 		}
 	});
 };

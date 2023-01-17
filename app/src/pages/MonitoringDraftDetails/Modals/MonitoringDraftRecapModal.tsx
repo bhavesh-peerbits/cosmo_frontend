@@ -1,3 +1,4 @@
+import ApiError from '@api/ApiError';
 import useStartMonitoring from '@api/change-monitoring/useStartMonitoring';
 import {
 	ComposedModal,
@@ -5,13 +6,15 @@ import {
 	ModalBody,
 	ModalFooter,
 	Button,
-	Tag
+	Tag,
+	InlineNotification
 } from '@carbon/react';
 import UserProfileImage from '@components/UserProfileImage';
 import GetSchedulingDisplayInfo from '@i18n/common/displaySchedulingInfo';
 import MonitoringDraft from '@model/MonitoringDraft';
 import { Dispatch, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 type RecapStringRowProps = {
 	title: string;
@@ -41,13 +44,13 @@ const MonitoringDraftRecapModal = ({
 	draft
 }: MonitoringRecapModalProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'modals', 'evidenceRequest']);
-	const { mutate } = useStartMonitoring();
+	const { mutate, isLoading, isError, error } = useStartMonitoring();
 	const cleanUp = () => {
 		setIsOpen(false);
 	};
-
+	const navigate = useNavigate();
 	const startMonitoring = () => {
-		return mutate({ draft });
+		return mutate({ draft }, { onSuccess: () => navigate('/monitoring-dashboard') });
 	};
 
 	if (!draft) return null;
@@ -174,13 +177,24 @@ const MonitoringDraftRecapModal = ({
 						info={draft.scheduling?.totalRuns}
 					/>
 				</div>
+				{isError && (
+					<InlineNotification
+						kind='error'
+						title='Error'
+						hideCloseButton
+						subtitle={
+							(error as ApiError)?.message ||
+							'An error has occurred, please try again later'
+						}
+					/>
+				)}
 			</ModalBody>
 			{shouldStart && (
 				<ModalFooter>
 					<Button kind='secondary' onClick={cleanUp}>
 						{t('modals:cancel')}
 					</Button>
-					<Button kind='primary' onClick={() => startMonitoring()}>
+					<Button kind='primary' disabled={isLoading} onClick={() => startMonitoring()}>
 						{t('changeMonitoring:start-monitoring')}
 					</Button>
 				</ModalFooter>
