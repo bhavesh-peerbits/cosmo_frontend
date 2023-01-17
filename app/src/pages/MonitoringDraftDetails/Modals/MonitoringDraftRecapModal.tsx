@@ -68,7 +68,9 @@ const MonitoringDraftRecapModal = ({
 					<RecapStringRow
 						title={t('changeMonitoring:monitoring-type')}
 						info={
-							draft.type ? t('changeMonitoring:automatic') : t('changeMonitoring:manual')
+							draft.type === 'AUTOMATIC'
+								? t('changeMonitoring:automatic')
+								: t('changeMonitoring:manual')
 						}
 					/>
 					<RecapStringRow

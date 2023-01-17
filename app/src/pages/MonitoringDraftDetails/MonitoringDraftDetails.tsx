@@ -137,7 +137,7 @@ const MonitoringDraftDetails = () => {
 								{t('changeMonitoring:monitoring-type')}
 							</span>
 							<span className='text-text-secondary text-body-short-1'>
-								{draft?.type
+								{draft?.type === 'AUTOMATIC'
 									? t('changeMonitoring:automatic')
 									: t('changeMonitoring:manual')}
 							</span>

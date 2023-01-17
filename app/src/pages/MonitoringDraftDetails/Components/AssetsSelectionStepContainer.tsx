@@ -151,7 +151,7 @@ const AssetsSelectionStepContainer = ({ setCurrentStep, draft }: AssetSelectionP
 					size='md'
 					className='w-full md:w-fit'
 					onClick={handleSubmit(saveDraft)}
-					disabled={!(assets.length && app && instance) || isLoading}
+					disabled={assets?.length === 0 || !assets || !app || !instance || isLoading}
 				>
 					{t('changeMonitoring:save-next')}
 				</Button>

@@ -118,9 +118,10 @@ const PathDefinitionStepContainer = ({ setCurrentStep, draft }: PathDefinitionPr
 									assetData =>
 										assetData.paths.length && assetData.paths.some(p => p.selected)
 								))) ||
-						(!assetsData &&
-							sameSetup &&
-							(!globalPaths.length || !globalPaths?.some(p => p.selected)))
+						(sameSetup &&
+							assetsData?.some(asset => asset.paths.length === 0) &&
+							!globalPaths.length) ||
+						(globalPaths.length > 0 && !globalPaths?.some(p => p.selected))
 					}
 				>
 					{t('save-next')}

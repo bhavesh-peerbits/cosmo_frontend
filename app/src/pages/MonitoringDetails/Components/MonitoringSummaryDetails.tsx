@@ -16,7 +16,7 @@ const MonitoringSummaryDetails = ({ monitoring }: MonitoringSummaryDetailsProps)
 			<div className='flex flex-col'>
 				<span className='text-heading-2'>{t('changeMonitoring:monitoring-type')}</span>
 				<span className='text-text-secondary text-body-short-1'>
-					{monitoring?.type
+					{monitoring?.type === 'AUTOMATIC'
 						? t('changeMonitoring:automatic')
 						: t('changeMonitoring:manual')}
 				</span>
