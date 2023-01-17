@@ -134,7 +134,7 @@ const FrameworkSelectionStepContainer = ({
 							: selectedControls.find(c => c.id === data.association)?.delegates,
 					controlCode: data.controls.map(c => c.name).join('-'),
 					frameworkLeafsCodes: selectedLeaves.map(leaf => leaf.code).join('-'),
-					frameworkLeafsName: selectedLeaves.map(leaf => leaf.name).join('-'),
+					frameworkLeafsName: selectedLeaves.map(leaf => leaf.name).join('//'),
 					frameworkName: selectedFramework
 				}
 			},

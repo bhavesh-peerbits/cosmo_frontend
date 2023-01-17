@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@api';
 import MonitoringDraft, { toMonitoringDraftApi } from '@model/MonitoringDraft';
 
@@ -7,13 +7,18 @@ interface StartMonitoringParams {
 }
 
 const startMonitoring = ({ draft }: StartMonitoringParams) => {
-	return api.analystChangeMonitoringControllerApi
-		.startMonitoring({ monitoringDraftDto: toMonitoringDraftApi(draft) })
-		.then(({ data }) => data);
+	return api.analystChangeMonitoringControllerApi.startMonitoring({
+		monitoringDraftDto: toMonitoringDraftApi(draft)
+	});
 };
 
 const useStartMonitoring = () => {
-	return useMutation(startMonitoring);
+	const queryClient = useQueryClient();
+	return useMutation(startMonitoring, {
+		onSuccess: (data, variables) => {
+			queryClient.invalidateQueries(['monitoring-draft', `${variables.draft.id}`]);
+		}
+	});
 };
 
 export default useStartMonitoring;

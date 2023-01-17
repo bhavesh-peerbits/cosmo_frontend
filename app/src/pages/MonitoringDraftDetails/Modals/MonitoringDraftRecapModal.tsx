@@ -89,7 +89,7 @@ const MonitoringDraftRecapModal = ({
 					/>
 					<RecapStringRow
 						title={t('evidenceRequest:framework-name')}
-						info={draft.frameworkLeafsName?.replaceAll('-', ', ')}
+						info={draft.frameworkLeafsName?.replaceAll('//', ', ')}
 					/>
 					<RecapStringRow
 						title={t('changeMonitoring:controls')}

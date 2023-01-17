@@ -170,7 +170,7 @@ const MonitoringDraftDetails = () => {
 									{t('evidenceRequest:framework-name')}
 								</span>
 								<UnorderedList nested className='ml-4'>
-									{draft.frameworkLeafsName.split('-').map(name => (
+									{draft.frameworkLeafsName.split('//').map(name => (
 										<ListItem className='break-words'>{name}</ListItem>
 									))}
 								</UnorderedList>
