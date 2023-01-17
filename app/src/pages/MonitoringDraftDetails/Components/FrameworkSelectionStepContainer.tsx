@@ -60,7 +60,7 @@ const FrameworkSelectionStepContainer = ({
 		draft.instance?.id
 	);
 	const { data: draftFrameworkTree } = useGetFrameworkTreeByCode(
-		draft?.frameworkName !== 'FREE' ? draft.frameworkName : undefined
+		!draft?.frameworkName || draft?.frameworkName === 'FREE' ? '' : draft.frameworkName
 	);
 
 	const findLeaves = useCallback(
@@ -93,7 +93,8 @@ const FrameworkSelectionStepContainer = ({
 			framework: draft.frameworkName || 'FREE',
 			controls: draftControls,
 			focalPoint: draft.focalPoint,
-			delegates: draft.delegates
+			delegates: draft.delegates,
+			association: 'FREE'
 		}
 	});
 
@@ -115,10 +116,13 @@ const FrameworkSelectionStepContainer = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedFramework]);
 
-	useEffect(() => {
-		selectedLeaves.length === 0 && setValue('controls', []);
-	}, [selectedLeaves, setValue]);
+	// useEffect(() => {
+	// 	selectedLeaves.length === 0 && setValue('controls', []);
+	// }, [selectedLeaves, setValue]);
 
+	useEffect(() => {
+		setValue('association', 'FREE');
+	}, [setValue, draft]);
 	const saveDraft = (data: FrameworkStepFormData) => {
 		return mutate(
 			{

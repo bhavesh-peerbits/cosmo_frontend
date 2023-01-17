@@ -3,30 +3,27 @@ import {
 	Select,
 	SelectItem,
 	Layer,
-	DatePicker,
-	DatePickerInput,
 	MultiSelect,
 	NumberInput,
-	TextInput,
 	Button,
 	InlineLoading
 } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import { Controller, useForm } from 'react-hook-form';
-import useGetDateFormat from '@hooks/useGetDateFormat';
 import { startOfTomorrow, setHours } from 'date-fns';
-import { formatDate } from '@i18n';
 import { Dispatch, SetStateAction, Suspense } from 'react';
 import MonitoringDraft from '@model/MonitoringDraft';
 import { SchedulingDtoDayOfWeekEnum, SchedulingDtoFrequencyEnum } from 'cosmo-api/src/v1';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import useSaveMonitoringDraft from '@api/change-monitoring/useSaveMonitoringDraft';
 import ApiError from '@api/ApiError';
+import DatePickerWrapper from '@components/DatePickerWrapper';
 import SchedulingTotalRunsContainer from './SchedulingTotalRunsContainer';
 
 type SchedulingFormData = {
 	frequency: SchedulingDtoFrequencyEnum;
-	date: Date[];
+	startDate: Date;
+	endDate: Date;
 	startHour: number;
 	dayOfWeek: SchedulingDtoDayOfWeekEnum[];
 	dayOfMonth: number;
@@ -39,7 +36,6 @@ type SchedulingStepProps = {
 
 const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps) => {
 	const { t } = useTranslation('changeMonitoring');
-	const { format, placeholder, localeCode } = useGetDateFormat();
 	const { mutate, isLoading, isError, isSuccess, error } = useSaveMonitoringDraft();
 
 	const {
@@ -54,10 +50,13 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 		mode: 'onChange',
 		defaultValues: {
 			dayOfMonth: draft.scheduling?.dayOfMonth || 1,
-			frequency: draft.scheduling?.frequency,
-			date: [draft.scheduling?.startDate, draft.scheduling?.endDate],
-			dayOfWeek: draft.scheduling?.dayOfWeek,
+			frequency: draft.scheduling?.frequency || 'ONDEMAND',
+			startDate: draft.scheduling?.startDate,
+			endDate: draft.scheduling?.endDate,
+			dayOfWeek: draft.scheduling?.dayOfWeek || ['MONDAY', 'TUESDAY'],
 			startHour: draft.scheduling?.startDate.getHours()
+				? +draft.scheduling.startDate.getHours() - 1
+				: 1
 		}
 	});
 	const selectedFrequency = watch('frequency');
@@ -87,7 +86,7 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 				<Select
 					id={`${draft.id}-select-day-week`}
 					labelText={`${t('days-of-week')} *`}
-					className='w-1/2'
+					className='w-full'
 					onChange={e =>
 						setValue('dayOfWeek', [e.currentTarget.value as SchedulingDtoDayOfWeekEnum])
 					}
@@ -104,7 +103,6 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 					id={`${draft.id}-select-day-week-multi`}
 					titleText={`${t('days-of-week')} *`}
 					label={t('select-two-days')}
-					className='w-1/2'
 					items={daysOfWeek}
 					itemToString={item => t(item)}
 					onChange={e =>
@@ -115,6 +113,8 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 					}
 					invalid={Array.isArray(watch('dayOfWeek')) && watch('dayOfWeek').length > 2}
 					invalidText={t('invalid-days-select')}
+					className='w-full'
+					initialSelectedItems={draft.scheduling?.dayOfWeek}
 				/>
 			);
 		}
@@ -143,7 +143,6 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 							}
 							id={`${draft.id}-day-month-input`}
 							label={`${t('day-of-month')} *`}
-							size='sm'
 							className='w-min'
 							invalidText={t('error-day-number')}
 							invalid={Boolean(errors.dayOfMonth)}
@@ -163,11 +162,11 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 					...draft,
 					scheduling: {
 						frequency: data.frequency,
-						startDate: setHours(data.date[0], data.startHour + 1),
+						startDate: setHours(data.startDate, +data.startHour + 1),
 						endDate:
-							data.date.length > 1
-								? setHours(data.date[1], data.startHour + 1)
-								: undefined,
+							data.frequency !== 'ONDEMAND'
+								? setHours(data.endDate, +data.startHour + 1)
+								: setHours(data.startDate, +data.startHour + 1),
 						dayOfMonth: data.frequency === 'MONTHLY' ? data.dayOfMonth : undefined,
 						dayOfWeek:
 							data.frequency === 'BIWEEKLY' || data.frequency === 'WEEKLY'
@@ -182,108 +181,87 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 
 	return (
 		<FullWidthColumn className='space-y-7 overflow-auto'>
-			<Layer className='xlg:w-1/2'>
-				<Select
-					id={`${draft.id}-frequency-select`}
-					labelText={`${t('frequency')} *`}
-					className='w-full'
-					{...register('frequency', {
-						required: {
-							value: true,
-							message: `${t('field-required')}`
-						}
-					})}
-				>
-					<SelectItem text={t('select-frequency-type')} value='select' hidden />
-					{frequencyList.map(option => (
-						<SelectItem text={t(option)} value={option} key={option} />
-					))}
-				</Select>
-			</Layer>
-
-			<Layer className='w-fit space-y-7 lg:flex lg:space-y-0 lg:space-x-5'>
-				<Controller
-					control={control}
-					name='date'
-					rules={{
-						required: {
-							value: true,
-							message: `${t('field-required')}`
-						}
-					}}
-					render={({ field }) => (
-						<DatePicker
-							{...field}
-							locale={localeCode}
-							dateFormat={format}
-							datePickerType={getValues('frequency') === 'ONDEMAND' ? 'single' : 'range'}
-							allowInput
-							minDate={formatDate(startOfTomorrow(), 'P')}
-						>
-							<DatePickerInput
-								id={`${draft.id}-start-date`}
-								placeholder={placeholder}
-								labelText={`${t('start-date')} *`}
-								size='md'
-							/>
-							{getValues('frequency') !== 'ONDEMAND' && (
-								<DatePickerInput
-									id={`${draft.id}-end-date`}
-									placeholder={placeholder}
-									labelText={
-										selectedFrequency === 'ONDEMAND'
-											? t('end-date')
-											: `${t('end-date')} *`
+			<div className='w-full space-y-7 md:w-fit'>
+				<Layer className='flex flex-col space-y-7 md:flex-row md:space-y-0 md:space-x-5'>
+					<Select
+						id={`${draft.id}-frequency-select`}
+						labelText={`${t('frequency')} *`}
+						className='w-full'
+						{...register('frequency', {
+							required: {
+								value: true,
+								message: `${t('field-required')}`
+							}
+						})}
+					>
+						<SelectItem text={t('select-frequency-type')} value='select' hidden />
+						{frequencyList.map(option => (
+							<SelectItem text={t(option)} value={option} key={option} />
+						))}
+					</Select>
+					{frequencySetup()}
+				</Layer>
+				<Layer className='flex flex-col space-y-7  sm:flex-col md:flex-row md:space-x-5 md:space-y-0 '>
+					<div className='flex flex-col space-y-7 md:flex-row md:space-y-0 md:space-x-1'>
+						<DatePickerWrapper
+							control={control}
+							name='startDate'
+							label={`${t('start-date')} *`}
+							rules={{
+								required: {
+									value: true,
+									message: `${t('field-required')}`
+								}
+							}}
+							minDate={startOfTomorrow()}
+						/>
+						{selectedFrequency !== 'ONDEMAND' && (
+							<DatePickerWrapper
+								control={control}
+								name='endDate'
+								label={`${t('end-date')} *`}
+								rules={{
+									required: {
+										value: true,
+										message: `${t('field-required')}`
 									}
-									disabled={selectedFrequency === 'ONDEMAND'}
-									size='md'
-								/>
-							)}
-						</DatePicker>
-					)}
-				/>
-				<TextInput
-					id={`${draft.id}-select-hour`}
-					placeholder={t('hour-placeholder')}
-					labelText={`${t('start-time')} *`}
-					invalidText={errors.startHour?.message}
-					invalid={Boolean(errors.startHour)}
-					{...register('startHour', {
-						required: {
-							value: true,
-							message: `${t('field-required')}`
-						},
-						max: {
-							value: 23,
-							message: t('error-hour-input')
-						},
-						min: {
-							value: 0,
-							message: t('error-hour-input')
-						},
-						pattern: { value: /[0-9]/, message: t('error-hour-input') }
-					})}
-				/>
-			</Layer>
-			<Layer>{frequencySetup()}</Layer>
-			<Suspense>
-				<SchedulingTotalRunsContainer
-					scheduling={{
-						frequency: watch('frequency'),
-						startDate: setHours(watch('date')[0], watch('startHour') + 1),
-						endDate:
-							watch('date').length > 1
-								? setHours(watch('date')[1], watch('startHour') + 1)
-								: undefined,
-						dayOfMonth:
-							watch('frequency') === 'MONTHLY' ? watch('dayOfMonth') : undefined,
-						dayOfWeek:
-							watch('frequency') === 'BIWEEKLY' || watch('frequency') === 'WEEKLY'
-								? watch('dayOfWeek')
-								: undefined
-					}}
-				/>
-			</Suspense>
+								}}
+								minDate={getValues('startDate')}
+							/>
+						)}
+					</div>
+					<Select
+						id={`${draft.id}-select-hour`}
+						labelText={`${t('start-time')} *`}
+						{...register('startHour', {
+							required: {
+								value: true,
+								message: `${t('field-required')}`
+							}
+						})}
+					>
+						{Array.from(Array(24).keys()).map(hour => (
+							<SelectItem value={hour} text={`${hour}:00`} />
+						))}
+					</Select>
+				</Layer>
+
+				<Suspense>
+					<SchedulingTotalRunsContainer
+						scheduling={{
+							frequency: watch('frequency'),
+							startDate: setHours(watch('startDate'), watch('startHour') + 1),
+							endDate: watch('endDate'),
+							dayOfMonth:
+								watch('frequency') === 'MONTHLY' ? watch('dayOfMonth') : undefined,
+							dayOfWeek:
+								watch('frequency') === 'BIWEEKLY' || watch('frequency') === 'WEEKLY'
+									? watch('dayOfWeek')
+									: undefined
+						}}
+					/>
+				</Suspense>
+			</div>
 			<div className='items-center justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
 				<InlineLoadingStatus
 					{...{ isLoading: false, isSuccess, isError, error: error as ApiError }}
