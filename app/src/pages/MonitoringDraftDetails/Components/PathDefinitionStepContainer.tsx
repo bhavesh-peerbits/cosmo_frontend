@@ -2,12 +2,13 @@ import FullWidthColumn from '@components/FullWidthColumn';
 import { Toggle, Tooltip, Button, InlineLoading, Layer } from '@carbon/react';
 import { Information } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import MonitoringDraft from '@model/MonitoringDraft';
 import MonitoringAsset from '@model/MonitoringAsset';
 import useSaveMonitoringDraft from '@api/change-monitoring/useSaveMonitoringDraft';
 import ApiError from '@api/ApiError';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
+import { PathMonitoringDto } from 'cosmo-api/src/v1';
 import PathAssetTable from './PathAssetTable';
 import AssetExpandableTile from './AssetExpandableTile';
 import SameSetupPathTable from './SameSetupPathTable';
@@ -22,9 +23,7 @@ const PathDefinitionStepContainer = ({ setCurrentStep, draft }: PathDefinitionPr
 	const [sameSetup, setSameSetup] = useState(false);
 	const { mutate, isLoading, isError, isSuccess, error } = useSaveMonitoringDraft();
 
-	const [globalPaths, setGlobalPaths] = useState<
-		{ path: string; selected?: boolean; monitoring: string[] }[]
-	>([]);
+	const [globalPaths, setGlobalPaths] = useState<PathMonitoringDto[]>([]);
 	const [assetsData, setAssetsData] = useState<MonitoringAsset[] | undefined>(
 		draft.monitoringAssets
 	);
@@ -34,12 +33,19 @@ const PathDefinitionStepContainer = ({ setCurrentStep, draft }: PathDefinitionPr
 			{
 				draft: {
 					...draft,
-					monitoringAssets: assetsData
+					monitoringAssets: assetsData?.map(asset => {
+						return { ...asset, paths: [...asset.paths, ...globalPaths] };
+					})
 				}
 			},
 			{ onSuccess: () => setCurrentStep(old => old + 1) }
 		);
 	};
+
+	useEffect(() => {
+		setGlobalPaths([]);
+		setAssetsData(draft.monitoringAssets);
+	}, [setGlobalPaths, sameSetup, setAssetsData, draft.monitoringAssets]);
 
 	return (
 		<>
@@ -106,9 +112,15 @@ const PathDefinitionStepContainer = ({ setCurrentStep, draft }: PathDefinitionPr
 					onClick={() => saveDraft()}
 					disabled={
 						isLoading ||
-						!assetsData?.every(
-							assetData => assetData.paths.length && assetData.paths.some(p => p.selected)
-						)
+						(!sameSetup &&
+							(!assetsData?.length ||
+								!assetsData?.every(
+									assetData =>
+										assetData.paths.length && assetData.paths.some(p => p.selected)
+								))) ||
+						(!assetsData &&
+							sameSetup &&
+							(!globalPaths.length || !globalPaths?.some(p => p.selected)))
 					}
 				>
 					{t('save-next')}

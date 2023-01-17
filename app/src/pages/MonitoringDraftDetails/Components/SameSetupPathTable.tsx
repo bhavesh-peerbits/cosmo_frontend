@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction, useMemo } from 'react';
 import { CheckmarkFilled, CheckmarkOutline, SubtractAlt } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import useCheckPathsMultiAssets from '@api/change-monitoring/useCheckPathsMultiAssets';
+import { PathMonitoringDto } from 'cosmo-api/src/v1';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const BooleanCell = ({ getValue }: CellContext<any, unknown>) => {
@@ -13,20 +14,8 @@ const BooleanCell = ({ getValue }: CellContext<any, unknown>) => {
 
 type SameSetupPathTableProps = {
 	assetIds: string[];
-	globalData: {
-		path: string;
-		selected?: boolean;
-		monitoring: string[];
-	}[];
-	setGlobalData?: Dispatch<
-		SetStateAction<
-			{
-				path: string;
-				selected?: boolean;
-				monitoring: string[];
-			}[]
-		>
-	>;
+	globalData: PathMonitoringDto[];
+	setGlobalData?: Dispatch<SetStateAction<PathMonitoringDto[]>>;
 };
 const SameSetupPathTable = ({
 	assetIds,
@@ -34,18 +23,8 @@ const SameSetupPathTable = ({
 	globalData
 }: SameSetupPathTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table']);
-	const columns = useMemo<
-		ColumnDef<{
-			path: string;
-			selected?: boolean;
-			monitoring: string[];
-		}>[]
-	>(() => {
-		const ArrayCol: ColumnDef<{
-			path: string;
-			selected?: boolean;
-			monitoring: string[];
-		}>[] = [
+	const columns = useMemo<ColumnDef<PathMonitoringDto>[]>(() => {
+		const ArrayCol: ColumnDef<PathMonitoringDto>[] = [
 			{
 				id: 'selected-same-setup',
 				accessorFn: row => row.selected,
@@ -66,10 +45,10 @@ const SameSetupPathTable = ({
 				}
 			}
 		];
-		if (globalData.some(el => el.monitoring.length)) {
+		if (globalData.some(el => el.monitoring?.length)) {
 			ArrayCol.push({
 				id: 'monitoring-same-setup',
-				accessorFn: row => row.monitoring.join(', '),
+				accessorFn: row => row.monitoring?.join(', '),
 				header: t('changeMonitoring:monitorings'),
 				enableGrouping: false
 			});
@@ -82,13 +61,37 @@ const SameSetupPathTable = ({
 			id: 'include',
 			label: t('changeMonitoring:include'),
 			icon: CheckmarkOutline,
-			onClick: () => {}
+			onClick: (selectionElements: PathMonitoringDto[]) => {
+				setGlobalData &&
+					setGlobalData(old => {
+						return old?.map(el => {
+							if (
+								selectionElements.map(selectedEl => selectedEl.path).includes(el.path)
+							) {
+								return { ...el, selected: true };
+							}
+							return el;
+						});
+					});
+			}
 		},
 		{
 			id: 'exclude',
 			label: t('changeMonitoring:exclude'),
 			icon: SubtractAlt,
-			onClick: () => {}
+			onClick: (selectionElements: PathMonitoringDto[]) => {
+				setGlobalData &&
+					setGlobalData(old => {
+						return old?.map(el => {
+							if (
+								selectionElements.map(selectedEl => selectedEl.path).includes(el.path)
+							) {
+								return { ...el, selected: false };
+							}
+							return el;
+						});
+					});
+			}
 		}
 	];
 
