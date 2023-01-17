@@ -152,6 +152,14 @@ const MonitoringDraftDetails = () => {
 								</UnorderedList>
 							</div>
 						)}
+						{draft.frameworkName === 'FREE' && (
+							<div className='flex flex-col'>
+								<span className='text-heading-2'>Framework</span>
+								<span className='text-text-secondary text-body-short-1'>
+									{draft.frameworkName}
+								</span>
+							</div>
+						)}
 						{draft?.frameworkLeafsCodes && (
 							<div className='flex flex-col'>
 								<span className='text-heading-2'>
