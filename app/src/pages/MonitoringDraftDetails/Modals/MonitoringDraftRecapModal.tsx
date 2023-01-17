@@ -8,7 +8,6 @@ import {
 	Tag
 } from '@carbon/react';
 import UserProfileImage from '@components/UserProfileImage';
-import GetSchedulingDisplayInfo from '@i18n/common/displaySchedulingInfo';
 import MonitoringDraft from '@model/MonitoringDraft';
 import { Dispatch, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -165,10 +164,10 @@ const MonitoringDraftRecapModal = ({
 								: '-'}
 						</div>
 					</div>
-					<RecapStringRow
+					{/* <RecapStringRow
 						title={t('changeMonitoring:frequency')}
 						info={draft.scheduling ? GetSchedulingDisplayInfo(draft.scheduling) : '-'}
-					/>
+					/> */}
 					<RecapStringRow
 						title={t('changeMonitoring:total-runs')}
 						info={draft.scheduling?.totalRuns}

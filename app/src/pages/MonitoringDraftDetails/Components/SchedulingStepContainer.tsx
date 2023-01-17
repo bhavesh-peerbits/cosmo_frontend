@@ -42,48 +42,6 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 	const { format, placeholder, localeCode } = useGetDateFormat();
 	const { mutate, isLoading, isError, isSuccess, error } = useSaveMonitoringDraft();
 
-	const TranslateFrequency = (frequency: SchedulingDtoFrequencyEnum) => {
-		switch (frequency) {
-			case 'ANNUAL':
-				return t('annual');
-			case 'BIWEEKLY':
-				return t('biweekly');
-			case 'WEEKLY':
-				return t('weekly');
-			case 'DAILY':
-				return t('daily');
-			case 'MONTHLY':
-				return t('monthly');
-			case 'ONDEMAND':
-				return t('on-demand');
-			case 'QUARTERLY':
-				return t('quarterly');
-			case 'SEMIANNUAL':
-				return t('semiannual');
-			default:
-				return t('daily');
-		}
-	};
-
-	const TranslateDayOfWeek = (day: SchedulingDtoDayOfWeekEnum) => {
-		switch (day) {
-			case 'MONDAY':
-				return t('monday');
-			case 'TUESDAY':
-				return t('tuesday');
-			case 'WEDNESDAY':
-				return t('wednesday');
-			case 'THURSDAY':
-				return t('thursday');
-			case 'FRIDAY':
-				return t('friday');
-			case 'SATURDAY':
-				return t('saturday');
-			default:
-				return t('sunday');
-		}
-	};
-
 	const {
 		register,
 		watch,
@@ -135,7 +93,7 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 					}
 				>
 					{daysOfWeek.map(day => (
-						<SelectItem value={day} text={TranslateDayOfWeek(day)} />
+						<SelectItem value={day} text={t(day)} />
 					))}
 				</Select>
 			);
@@ -148,7 +106,7 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 					label={t('select-two-days')}
 					className='w-1/2'
 					items={daysOfWeek}
-					itemToString={item => TranslateDayOfWeek(item)}
+					itemToString={item => t(item)}
 					onChange={e =>
 						setValue(
 							'dayOfWeek',
@@ -238,7 +196,7 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 				>
 					<SelectItem text={t('select-frequency-type')} value='select' hidden />
 					{frequencyList.map(option => (
-						<SelectItem text={TranslateFrequency(option)} value={option} key={option} />
+						<SelectItem text={t(option)} value={option} key={option} />
 					))}
 				</Select>
 			</Layer>

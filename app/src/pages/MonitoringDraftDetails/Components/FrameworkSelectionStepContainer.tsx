@@ -60,7 +60,7 @@ const FrameworkSelectionStepContainer = ({
 		draft.instance?.id
 	);
 	const { data: draftFrameworkTree } = useGetFrameworkTreeByCode(
-		draft.frameworkName || ''
+		draft?.frameworkName !== 'FREE' ? draft.frameworkName : undefined
 	);
 
 	const findLeaves = useCallback(

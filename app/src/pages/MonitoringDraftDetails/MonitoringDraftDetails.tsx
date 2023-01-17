@@ -184,14 +184,19 @@ const MonitoringDraftDetails = () => {
 								</span>
 							</div>
 						)}
-						{draft?.scheduling && (
-							<div className='flex flex-col'>
-								<span className='text-heading-2'>{t('changeMonitoring:scheduling')}</span>
-								<span className='text-text-secondary text-body-short-1'>
-									{GetSchedulingDisplayInfo(draft.scheduling)}
-								</span>
-							</div>
-						)}
+
+						<div
+							className={`${
+								draft.scheduling ? 'flex flex-col' : 'flex flex-col  opacity-0'
+							}`}
+						>
+							<span className='text-heading-2'>{t('changeMonitoring:scheduling')}</span>
+							<span className='text-text-secondary text-body-short-1'>
+								{GetSchedulingDisplayInfo(
+									draft.scheduling || { frequency: 'ONDEMAND', startDate: new Date() }
+								)}
+							</span>
+						</div>
 					</Column>
 					<Column sm={4} md={8} lg={13}>
 						<NewMonitoringStepsContainer draft={draft} />
