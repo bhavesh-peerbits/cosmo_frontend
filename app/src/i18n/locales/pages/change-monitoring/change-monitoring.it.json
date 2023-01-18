@@ -96,8 +96,8 @@
 	"scheduling-step-description": "In questo step è necessario selezionare un tipo di frequenza di esecuzione delle run del monitoraggio. Per ogni tipologia di frequenza è necessario indicare diverse informazioni",
 	"add": "Aggiungi",
 	"extensions-to-ignore": "Estensioni da ignorare",
-	"first-run-file": "File per prima run",
-	"first-run-file-description": "Questo file costituisce la base per la prima run del monitoraggio.",
+	"example-files": "Files di esempio",
+	"example-files-description": "Questi files verrano utilizzati come esempio nel monitoraggio.",
 	"note": "Nota",
 	"same-setup-additional-info": "Nel caso di setup uguale per tutti gli asset, tutte le informazioni inserite saranno utilizzate per tutti gli asset selezionati. In caso contrario sarà necessario indicare le informazioni per ogni asset.",
 	"select-an-option": "Seleziona un'opzione",
@@ -146,5 +146,6 @@
 	"DRAFT": "Bozza",
 	"PENDING": "In attesa",
 	"already-monitored-toast": "Attenzione! Alcuni path sono già monitorati",
-	"already-monitored-description": "Sono stati aggiunti path già presenti in altri monitoraggi. Per rimuoverli da questo monitoraggio selezionare i path e cliccare Escludi."
+	"already-monitored-description": "Sono stati aggiunti path già presenti in altri monitoraggi. Per rimuoverli da questo monitoraggio selezionare i path e cliccare Escludi.",
+	"no-extensions": "Nessuna estensione"
 }

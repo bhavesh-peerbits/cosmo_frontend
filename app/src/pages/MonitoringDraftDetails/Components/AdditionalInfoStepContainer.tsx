@@ -6,7 +6,8 @@ import {
 	Layer,
 	Button,
 	InlineLoading,
-	Tag
+	Tag,
+	FileUploaderDropContainer
 } from '@carbon/react';
 import { Information } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
@@ -33,7 +34,11 @@ const AdditionalInfoStepContainer = ({
 	draft,
 	setCurrentStep
 }: AdditionalInfoStepProps) => {
-	const { t } = useTranslation(['changeMonitoring', 'evidenceRequest']);
+	const { t } = useTranslation([
+		'changeMonitoring',
+		'evidenceRequest',
+		'userRevalidation'
+	]);
 	const { mutate, isLoading, isError, isSuccess, error } = useSaveMonitoringDraft();
 	const [sameSetup, setSameSetup] = useState(false);
 	const [extensions, setExtensions] = useState<
@@ -79,6 +84,19 @@ const AdditionalInfoStepContainer = ({
 					placeholder={t('changeMonitoring:monitoring-note-placeholder')}
 				/>
 			</Layer>
+			<FullWidthColumn className='space-y-5'>
+				<div className='flex flex-col space-y-3'>
+					<span className='text-heading-compact-1'>
+						{t('changeMonitoring:example-files')}
+					</span>
+					<span className='text-text-secondary text-body-compact-1'>
+						{t('changeMonitoring:example-files-description')}
+					</span>
+				</div>
+				<FileUploaderDropContainer
+					labelText={t('userRevalidation:upload-instructions')}
+				/>
+			</FullWidthColumn>
 			<FullWidthColumn>
 				<Toggle
 					aria-label='Additional info toggle'
@@ -113,11 +131,15 @@ const AdditionalInfoStepContainer = ({
 										{t('changeMonitoring:extensions-to-ignore')}
 									</p>
 									<div>
-										{ma.extensions?.split('~').map(ex => (
-											<Tag className='mr-3' key={`${ma.id}-${ex}`}>
-												{ex}
-											</Tag>
-										))}
+										{ma.extensions?.length ? (
+											ma.extensions?.split('~').map(ex => (
+												<Tag className='mr-3' key={`${ma.id}-${ex}`}>
+													{ex}
+												</Tag>
+											))
+										) : (
+											<p>{t('changeMonitoring:no-extensions')}</p>
+										)}
 									</div>
 								</div>
 							</AssetExpandableTile>

@@ -96,8 +96,8 @@
 	"scheduling-step-description": "",
 	"add": "",
 	"extensions-to-ignore": "",
-	"first-run-file": "",
-	"first-run-file-description": "",
+	"example-files": "Example files",
+	"example-files-description": "These files will be used as an example for the monitoring.",
 	"note": "",
 	"select-an-option": "",
 	"additional-info-step-description": "",
@@ -143,5 +143,6 @@
 	"DRAFT": "Draft",
 	"PENDING": "Pending",
 	"already-monitored-toast": "Warning! Some paths are already monitored",
-	"already-monitored-description": "Paths already present in other monitors have been added. To remove them from this monitoring select the paths and click Exclude."
+	"already-monitored-description": "Paths already present in other monitors have been added. To remove them from this monitoring select the paths and click Exclude.",
+	"no-extensions": "No extensions"
 }
