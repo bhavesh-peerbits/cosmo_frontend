@@ -116,19 +116,21 @@ const AdditionalInfoStepContent = ({
 								</Tag>
 						  ))}
 				</FullWidthColumn>
-				<FullWidthColumn className='space-y-5'>
-					<div className='flex flex-col space-y-3'>
-						<span className='text-heading-compact-1'>
-							{t('changeMonitoring:first-run-file')}
-						</span>
-						<span className='text-text-secondary text-body-compact-1'>
-							{t('changeMonitoring:first-run-file-description')}
-						</span>
-					</div>
-					<FileUploaderDropContainer
-						labelText={t('userRevalidation:upload-instructions')}
-					/>
-				</FullWidthColumn>
+				{!inTile && (
+					<FullWidthColumn className='space-y-5'>
+						<div className='flex flex-col space-y-3'>
+							<span className='text-heading-compact-1'>
+								{t('changeMonitoring:first-run-file')}
+							</span>
+							<span className='text-text-secondary text-body-compact-1'>
+								{t('changeMonitoring:first-run-file-description')}
+							</span>
+						</div>
+						<FileUploaderDropContainer
+							labelText={t('userRevalidation:upload-instructions')}
+						/>
+					</FullWidthColumn>
+				)}
 			</Layer>
 		</FullWidthColumn>
 	);

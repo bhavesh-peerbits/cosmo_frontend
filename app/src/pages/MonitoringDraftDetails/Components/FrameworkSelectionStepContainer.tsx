@@ -76,11 +76,9 @@ const FrameworkSelectionStepContainer = ({
 		},
 		[draft.frameworkLeafsCodes]
 	);
-	const [selectedLeaves, setSelectedLeaves] = useState<Framework[]>([]);
-
-	useEffect(() => {
-		draftFrameworkTree && setSelectedLeaves(findLeaves(draftFrameworkTree));
-	}, [draft.frameworkLeafsCodes, draftFrameworkTree, findLeaves]);
+	const [selectedLeaves, setSelectedLeaves] = useState<Framework[]>(
+		draftFrameworkTree ? findLeaves(draftFrameworkTree) : []
+	);
 
 	const {
 		register,
@@ -116,9 +114,16 @@ const FrameworkSelectionStepContainer = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedFramework]);
 
-	// useEffect(() => {
-	// 	selectedLeaves.length === 0 && setValue('controls', []);
-	// }, [selectedLeaves, setValue]);
+	useEffect(() => {
+		if (
+			draftFrameworkTree &&
+			!findLeaves(draftFrameworkTree).every(c =>
+				selectedLeaves.find(el => el.code === c.code)
+			)
+		) {
+			setValue('controls', []);
+		}
+	}, [draftFrameworkTree, findLeaves, selectedLeaves, setValue]);
 
 	useEffect(() => {
 		setValue('association', 'FREE');
