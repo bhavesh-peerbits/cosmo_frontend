@@ -61,7 +61,7 @@
 	"select-controls": "Seleziona controlli",
 	"control-required": "Selezionare un controllo",
 	"association-name": "Nome associazione",
-	"framework-step-description": "In questo step è necessario selezionare in ordine: un framework, le foglie del framework, un controllo e, infine, un'associazione tra quelle elencate",
+	"framework-step-description": "In questo step è necessario selezionare in ordine: un framework, le foglie del framework, un controllo e, infine, un'associazione tra quelle elencate. Nel caso di framework FREE, è solo necessario indicare un focal point ed eventuali suoi delegati",
 	"free-selection": "Selezione libera",
 	"DAILY": "Giornaliero",
 	"WEEKLY": "Settimanale",
