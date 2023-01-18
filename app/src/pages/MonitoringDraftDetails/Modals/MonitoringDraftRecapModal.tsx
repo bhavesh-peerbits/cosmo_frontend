@@ -1,3 +1,4 @@
+import ApiError from '@api/ApiError';
 import useStartMonitoring from '@api/change-monitoring/useStartMonitoring';
 import {
 	ComposedModal,
@@ -5,13 +6,15 @@ import {
 	ModalBody,
 	ModalFooter,
 	Button,
-	Tag
+	Tag,
+	InlineNotification
 } from '@carbon/react';
 import UserProfileImage from '@components/UserProfileImage';
-import GetSchedulingDisplayInfo from '@i18n/common/displaySchedulingInfo';
 import MonitoringDraft from '@model/MonitoringDraft';
+import Scheduling from '@model/Scheduling';
 import { Dispatch, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 type RecapStringRowProps = {
 	title: string;
@@ -41,15 +44,51 @@ const MonitoringDraftRecapModal = ({
 	draft
 }: MonitoringRecapModalProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'modals', 'evidenceRequest']);
-	const { mutate } = useStartMonitoring();
+	const { mutate, isLoading, isError, error } = useStartMonitoring();
 	const cleanUp = () => {
 		setIsOpen(false);
 	};
-
+	const navigate = useNavigate();
 	const startMonitoring = () => {
-		return mutate({ draft });
+		return mutate({ draft }, { onSuccess: () => navigate('/monitoring-dashboard') });
 	};
 
+	const getSchedulingDisplayInfo = (scheduling: Scheduling) => {
+		switch (scheduling.frequency) {
+			case 'ONDEMAND':
+				return t('changeMonitoring:info-ondemand-scheduling');
+			case 'DAILY':
+				return t('changeMonitoring:info-daily-scheduling');
+			case 'WEEKLY':
+				return t('changeMonitoring:info-weekly-scheduling', {
+					day:
+						scheduling.dayOfWeek?.[0] && t(`changeMonitoring:${scheduling.dayOfWeek[0]}`)
+				});
+			case 'BIWEEKLY':
+				return t('changeMonitoring:info-weekly-scheduling', {
+					day1:
+						scheduling.dayOfWeek?.[0] && t(`changeMonitoring:${scheduling.dayOfWeek[0]}`),
+					day2:
+						scheduling.dayOfWeek?.[1] && t(`changeMonitoring:${scheduling.dayOfWeek[1]}`)
+				});
+			case 'MONTHLY':
+				return t('changeMonitoring:info-monthly-scheduling', {
+					day: scheduling.dayOfMonth
+				});
+			case 'QUARTERLY':
+				return t('changeMonitoring:info-quarterly-semiannual-scheduling', {
+					numberOfMonths: 3
+				});
+			case 'SEMIANNUAL':
+				return t('changeMonitoring:info-quarterly-semiannual-scheduling', {
+					numberOfMonths: 6
+				});
+			case 'ANNUAL':
+				return t('changeMonitoring:info-annual-scheduling');
+			default:
+				return '';
+		}
+	};
 	if (!draft) return null;
 
 	return (
@@ -167,20 +206,31 @@ const MonitoringDraftRecapModal = ({
 					</div>
 					<RecapStringRow
 						title={t('changeMonitoring:frequency')}
-						info={draft.scheduling ? GetSchedulingDisplayInfo(draft.scheduling) : '-'}
+						info={draft.scheduling ? getSchedulingDisplayInfo(draft.scheduling) : '-'}
 					/>
 					<RecapStringRow
 						title={t('changeMonitoring:total-runs')}
 						info={draft.scheduling?.totalRuns}
 					/>
 				</div>
+				{isError && (
+					<InlineNotification
+						kind='error'
+						title='Error'
+						hideCloseButton
+						subtitle={
+							(error as ApiError)?.message ||
+							'An error has occurred, please try again later'
+						}
+					/>
+				)}
 			</ModalBody>
 			{shouldStart && (
 				<ModalFooter>
 					<Button kind='secondary' onClick={cleanUp}>
 						{t('modals:cancel')}
 					</Button>
-					<Button kind='primary' onClick={() => startMonitoring()}>
+					<Button kind='primary' disabled={isLoading} onClick={() => startMonitoring()}>
 						{t('changeMonitoring:start-monitoring')}
 					</Button>
 				</ModalFooter>

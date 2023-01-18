@@ -60,7 +60,7 @@ const FrameworkSelectionStepContainer = ({
 		draft.instance?.id
 	);
 	const { data: draftFrameworkTree } = useGetFrameworkTreeByCode(
-		draft?.frameworkName !== 'FREE' ? draft.frameworkName : undefined
+		!draft?.frameworkName || draft?.frameworkName === 'FREE' ? '' : draft.frameworkName
 	);
 
 	const findLeaves = useCallback(
@@ -76,11 +76,9 @@ const FrameworkSelectionStepContainer = ({
 		},
 		[draft.frameworkLeafsCodes]
 	);
-	const [selectedLeaves, setSelectedLeaves] = useState<Framework[]>([]);
-
-	useEffect(() => {
-		draftFrameworkTree && setSelectedLeaves(findLeaves(draftFrameworkTree));
-	}, [draft.frameworkLeafsCodes, draftFrameworkTree, findLeaves]);
+	const [selectedLeaves, setSelectedLeaves] = useState<Framework[]>(
+		draftFrameworkTree ? findLeaves(draftFrameworkTree) : []
+	);
 
 	const {
 		register,
@@ -93,7 +91,8 @@ const FrameworkSelectionStepContainer = ({
 			framework: draft.frameworkName || 'FREE',
 			controls: draftControls,
 			focalPoint: draft.focalPoint,
-			delegates: draft.delegates
+			delegates: draft.delegates,
+			association: 'FREE'
 		}
 	});
 
@@ -116,9 +115,19 @@ const FrameworkSelectionStepContainer = ({
 	}, [selectedFramework]);
 
 	useEffect(() => {
-		selectedLeaves.length === 0 && setValue('controls', []);
-	}, [selectedLeaves, setValue]);
+		if (
+			draftFrameworkTree &&
+			!findLeaves(draftFrameworkTree).every(c =>
+				selectedLeaves.find(el => el.code === c.code)
+			)
+		) {
+			setValue('controls', []);
+		}
+	}, [draftFrameworkTree, findLeaves, selectedLeaves, setValue]);
 
+	useEffect(() => {
+		setValue('association', 'FREE');
+	}, [setValue, draft]);
 	const saveDraft = (data: FrameworkStepFormData) => {
 		return mutate(
 			{

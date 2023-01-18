@@ -61,7 +61,7 @@
 	"select-controls": "Select controls",
 	"control-required": "Please select a control",
 	"association-name": "Association name",
-	"framework-step-description": "In this step you need to select in order: a framework, one or more leaves, a control and then an association",
+	"framework-step-description": "In this step you need to select in order: a framework, one or more leaves, a control and then an association. If the selected framework is FREE, you need to select only one focal point and any of its delegates",
 	"free-selection": "Free selection",
 	"DAILY": "Daily",
 	"WEEKLY": "Weekly",
@@ -96,8 +96,8 @@
 	"scheduling-step-description": "In this step it is necessary to select a type of execution frequency of the monitoring runs. For each type of frequency it is necessary to indicate different information.",
 	"add": "Add",
 	"extensions-to-ignore": "Extensions to ignore",
-	"first-run-file": "First run file",
-	"first-run-file-description": "This file will be the base for the first run of the monitoring.",
+	"example-files": "Example files",
+	"example-files-description": "These files will be used as an example for the monitoring.",
 	"note": "Note",
 	"same-setup-additional-info": "If you select the same setup for all assets, all information will be used for all selected assets. Otherwise it is necessary to indicate information for each asset.",
 	"select-an-option": "Select an option",
@@ -144,5 +144,8 @@
 	"COMPLETED": "Completed",
 	"ONGOING": "Ongoing",
 	"DRAFT": "Draft",
-	"PENDING": "Pending"
+	"PENDING": "Pending",
+	"already-monitored-toast": "Warning! Some paths are already monitored",
+	"already-monitored-description": "Paths already present in other monitors have been added. To remove them from this monitoring select the paths and click Exclude.",
+	"no-extensions": "No extensions"
 }

@@ -22,9 +22,9 @@ const GetSchedulingDisplayInfo = (scheduling: Scheduling) => {
 				day: scheduling.dayOfMonth
 			});
 		case 'QUARTERLY':
-			return t('info-quarterly-semiannual-scheduling');
+			return t('info-quarterly-semiannual-scheduling', { numberOfMonths: 3 });
 		case 'SEMIANNUAL':
-			return t('info-quarterly-semiannual-scheduling');
+			return t('info-quarterly-semiannual-scheduling', { numberOfMonths: 6 });
 		case 'ANNUAL':
 			return t('info-annual-scheduling');
 		default:

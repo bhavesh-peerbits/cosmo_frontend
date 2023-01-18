@@ -25,6 +25,7 @@ import MultipleUserSelect from '@components/MultipleUserSelect';
 import { ChangeEvent, useState } from 'react';
 import { Add } from '@carbon/react/icons';
 import { UseMutationResult } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 
 interface TableFormTearsheetProps<T> {
 	isOpen: boolean;
@@ -49,6 +50,8 @@ const TableFormTearsheet = <T extends object>({
 	setMutationResult,
 	mutationDefaultValues
 }: TableFormTearsheetProps<T>) => {
+	const { t } = useTranslation('table');
+
 	// managing object to send to mutation through this state, avoided useForm cause managing the different input programmatically was too difficult
 	const [submitItem, setSubmitItem] = useState<Record<string, unknown>>(
 		mutationDefaultValues ?? {}
@@ -85,7 +88,7 @@ const TableFormTearsheet = <T extends object>({
 				},
 				{
 					onSuccess: (data: any) => {
-						setMutationResult && setMutationResult((old: any) => [...old, ...data]);
+						setMutationResult && setMutationResult(() => [...data]);
 						cleanUp();
 					}
 				}
@@ -110,12 +113,12 @@ const TableFormTearsheet = <T extends object>({
 			hasCloseIcon
 			actions={[
 				{
-					label: 'cancel',
+					label: t('cancel'),
 					kind: 'secondary',
 					onClick: cleanUp,
 					id: 'cancel'
 				},
-				{ label: 'create', id: 'create', onClick: handleCreate, disabled: isLoading }
+				{ label: t('create'), id: 'create', onClick: handleCreate, disabled: isLoading }
 			]}
 		>
 			<>
@@ -311,7 +314,7 @@ const TableFormTearsheet = <T extends object>({
 								});
 							}}
 						>
-							Add
+							{t('add')}
 						</Button>
 					)}
 				</div>

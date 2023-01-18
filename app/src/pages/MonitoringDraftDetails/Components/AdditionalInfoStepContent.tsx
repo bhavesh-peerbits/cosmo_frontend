@@ -1,4 +1,4 @@
-import { FileUploaderDropContainer, Layer, TextInput, Button, Tag } from '@carbon/react';
+import { Layer, TextInput, Button, Tag } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
@@ -115,19 +115,6 @@ const AdditionalInfoStepContent = ({
 									{ex}
 								</Tag>
 						  ))}
-				</FullWidthColumn>
-				<FullWidthColumn className='space-y-5'>
-					<div className='flex flex-col space-y-3'>
-						<span className='text-heading-compact-1'>
-							{t('changeMonitoring:first-run-file')}
-						</span>
-						<span className='text-text-secondary text-body-compact-1'>
-							{t('changeMonitoring:first-run-file-description')}
-						</span>
-					</div>
-					<FileUploaderDropContainer
-						labelText={t('userRevalidation:upload-instructions')}
-					/>
 				</FullWidthColumn>
 			</Layer>
 		</FullWidthColumn>
