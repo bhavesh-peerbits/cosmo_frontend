@@ -1,16 +1,17 @@
 import CosmoTable from '@components/table/CosmoTable';
 import { CellContext, ColumnDef } from '@tanstack/react-table';
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
-import { CheckmarkFilled, CheckmarkOutline, SubtractAlt } from '@carbon/react/icons';
+import { MisuseOutline, CheckmarkOutline } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { PathMonitoringDto } from 'cosmo-api/src/v1';
 import MonitoringAsset from '@model/MonitoringAsset';
 import useCheckPathAssetMonitoring from '@api/change-monitoring/useCheckPathsAsset';
+import useNotification from '@hooks/useNotification';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const BooleanCell = ({ getValue }: CellContext<any, unknown>) => {
 	const value = getValue() as boolean;
-	return value ? <CheckmarkFilled /> : 'Non incluso';
+	return value ? <CheckmarkOutline /> : <MisuseOutline />;
 };
 
 type PathAssetTableProps = {
@@ -27,6 +28,7 @@ const PathAssetTable = ({
 }: PathAssetTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table']);
 	const [newPaths, setNewPaths] = useState<PathMonitoringDto[]>([]);
+	const { showNotification } = useNotification();
 
 	const columns = useMemo<ColumnDef<PathMonitoringDto>[]>(() => {
 		const ArrayCol: ColumnDef<PathMonitoringDto>[] = [
@@ -93,7 +95,7 @@ const PathAssetTable = ({
 		{
 			id: 'exclude',
 			label: t('changeMonitoring:exclude'),
-			icon: SubtractAlt,
+			icon: MisuseOutline,
 			onClick: (selectionElements: PathMonitoringDto[]) => {
 				setAssetData &&
 					setAssetData(old => {
@@ -136,6 +138,16 @@ const PathAssetTable = ({
 				})
 			);
 	}, [assetId, newPaths, setAssetData]);
+
+	useEffect(() => {
+		newPaths.some(p => p.monitoring?.length) &&
+			showNotification({
+				title: t('changeMonitoring:already-monitored-toast'),
+				message: t('changeMonitoring:already-monitored-description'),
+				type: 'warning'
+			});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [newPaths]);
 
 	return (
 		<CosmoTable

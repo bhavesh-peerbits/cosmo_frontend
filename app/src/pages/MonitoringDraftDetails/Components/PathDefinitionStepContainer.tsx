@@ -22,7 +22,6 @@ const PathDefinitionStepContainer = ({ setCurrentStep, draft }: PathDefinitionPr
 	const { t } = useTranslation('changeMonitoring');
 	const [sameSetup, setSameSetup] = useState(false);
 	const { mutate, isLoading, isError, isSuccess, error } = useSaveMonitoringDraft();
-
 	const [globalPaths, setGlobalPaths] = useState<PathMonitoringDto[]>([]);
 	const [assetsData, setAssetsData] = useState<MonitoringAsset[] | undefined>(
 		draft.monitoringAssets

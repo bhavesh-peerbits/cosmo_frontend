@@ -144,5 +144,7 @@
 	"COMPLETED": "Completo",
 	"ONGOING": "In corso",
 	"DRAFT": "Bozza",
-	"PENDING": "In attesa"
+	"PENDING": "In attesa",
+	"already-monitored-toast": "Attenzione! Alcuni path sono già monitorati",
+	"already-monitored-description": "Sono stati aggiunti path già presenti in altri monitoraggi. Per rimuoverli da questo monitoraggio selezionare i path e cliccare Escludi."
 }

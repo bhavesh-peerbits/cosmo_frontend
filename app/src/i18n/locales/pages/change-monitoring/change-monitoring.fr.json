@@ -141,5 +141,7 @@
 	"COMPLETED": "Completed",
 	"ONGOING": "Ongoing",
 	"DRAFT": "Draft",
-	"PENDING": "Pending"
+	"PENDING": "Pending",
+	"already-monitored-toast": "Warning! Some paths are already monitored",
+	"already-monitored-description": "Paths already present in other monitors have been added. To remove them from this monitoring select the paths and click Exclude."
 }

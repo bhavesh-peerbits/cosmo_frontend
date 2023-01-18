@@ -1,15 +1,16 @@
 import CosmoTable from '@components/table/CosmoTable';
 import { CellContext, ColumnDef } from '@tanstack/react-table';
-import { Dispatch, SetStateAction, useMemo } from 'react';
-import { CheckmarkFilled, CheckmarkOutline, SubtractAlt } from '@carbon/react/icons';
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
+import { MisuseOutline, CheckmarkOutline } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import useCheckPathsMultiAssets from '@api/change-monitoring/useCheckPathsMultiAssets';
 import { PathMonitoringDto } from 'cosmo-api/src/v1';
+import useNotification from '@hooks/useNotification';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const BooleanCell = ({ getValue }: CellContext<any, unknown>) => {
 	const value = getValue() as boolean;
-	return value && <CheckmarkFilled />;
+	return value ? <CheckmarkOutline /> : <MisuseOutline />;
 };
 
 type SameSetupPathTableProps = {
@@ -23,6 +24,9 @@ const SameSetupPathTable = ({
 	globalData
 }: SameSetupPathTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table']);
+	const [newPaths, setNewPaths] = useState<PathMonitoringDto[]>([]);
+	const { showNotification } = useNotification();
+
 	const columns = useMemo<ColumnDef<PathMonitoringDto>[]>(() => {
 		const ArrayCol: ColumnDef<PathMonitoringDto>[] = [
 			{
@@ -78,7 +82,7 @@ const SameSetupPathTable = ({
 		{
 			id: 'exclude',
 			label: t('changeMonitoring:exclude'),
-			icon: SubtractAlt,
+			icon: MisuseOutline,
 			onClick: (selectionElements: PathMonitoringDto[]) => {
 				setGlobalData &&
 					setGlobalData(old => {
@@ -95,12 +99,26 @@ const SameSetupPathTable = ({
 		}
 	];
 
+	useEffect(() => {
+		setGlobalData && setGlobalData(old => [...old, ...newPaths]);
+	}, [newPaths, setGlobalData]);
+
+	useEffect(() => {
+		newPaths.some(p => p.monitoring?.length) &&
+			showNotification({
+				title: t('changeMonitoring:already-monitored-toast'),
+				message: t('changeMonitoring:already-monitored-description'),
+				type: 'warning'
+			});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [newPaths]);
+
 	return (
 		<CosmoTable
 			modalProps={{
 				mutation: useCheckPathsMultiAssets(),
 				title: t('changeMonitoring:add-path'),
-				setMutationResult: setGlobalData,
+				setMutationResult: setNewPaths,
 				mutationDefaultValues: { assetIds }
 			}}
 			tableId='path-multi-asset-table'
