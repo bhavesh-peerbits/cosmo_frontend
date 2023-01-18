@@ -65,7 +65,7 @@ const MonitoringDraftRecapModal = ({
 						scheduling.dayOfWeek?.[0] && t(`changeMonitoring:${scheduling.dayOfWeek[0]}`)
 				});
 			case 'BIWEEKLY':
-				return t('changeMonitoring:info-weekly-scheduling', {
+				return t('changeMonitoring:info-biweekly-scheduling', {
 					day1:
 						scheduling.dayOfWeek?.[0] && t(`changeMonitoring:${scheduling.dayOfWeek[0]}`),
 					day2:
@@ -112,6 +112,7 @@ const MonitoringDraftRecapModal = ({
 								: t('changeMonitoring:manual')
 						}
 					/>
+					<RecapStringRow title={t('changeMonitoring:note')} info={draft.note} />
 					<RecapStringRow
 						title={t('modals:application')}
 						info={draft.instance?.application.name}
@@ -204,6 +205,20 @@ const MonitoringDraftRecapModal = ({
 								: '-'}
 						</div>
 					</div>
+					<RecapStringRow
+						title={t('changeMonitoring:start-date')}
+						info={
+							draft.scheduling?.startDate
+								? draft.scheduling.startDate.toLocaleString()
+								: '-'
+						}
+					/>
+					<RecapStringRow
+						title={t('changeMonitoring:end-date')}
+						info={
+							draft.scheduling?.endDate ? draft.scheduling.endDate.toLocaleString() : '-'
+						}
+					/>
 					<RecapStringRow
 						title={t('changeMonitoring:frequency')}
 						info={draft.scheduling ? getSchedulingDisplayInfo(draft.scheduling) : '-'}
