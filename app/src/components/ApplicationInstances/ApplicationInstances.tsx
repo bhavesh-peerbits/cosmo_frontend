@@ -9,9 +9,11 @@ import { useResponsive } from 'ahooks';
 import { useMemo, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button, Grid } from '@carbon/react';
+import { useTranslation } from 'react-i18next';
 import ApplicationInstanceForm from './ApplicationInstanceForm';
 
 const ApplicationInstances = () => {
+	const { t } = useTranslation('management');
 	const { appId = '' } = useParams();
 	const { data: app } = useGetApp(appId);
 	const { data: instances } = useGetAppInstances(app?.codeName);
@@ -43,14 +45,15 @@ const ApplicationInstances = () => {
 								renderIcon={Add}
 								className='md:max-w-auto w-full max-w-full md:w-auto'
 							>
-								Button 1
+								{t('new-instance')}
 							</Button>
 							<Button
 								size='md'
 								className='md:max-w-auto w-full max-w-full md:w-auto'
 								renderIcon={Email}
+								kind='tertiary'
 							>
-								Button 2
+								{t('review')}
 							</Button>
 						</div>
 

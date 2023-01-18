@@ -35,5 +35,12 @@
 	"procedure-info": "Procedure Info",
 	"changes": "Changes",
 	"created-by": "Created by",
-	"instances": "Instances"
+	"instances": "Instances",
+	"note": "Note",
+	"instance-name": "Instance name",
+	"instance-name-placeholder": "Type in instance name.",
+	"instance-description-placeholder": "Type in a description of the instance.",
+	"delete-instance": "Delete instance",
+	"new-instance": "New instance",
+	"confirm-instance-delete": "Are you sure you want to delete {{instance}}?"
 }
