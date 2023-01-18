@@ -36,5 +36,9 @@
 	"customize-columns-assistive": "Press space bar to toggle drag drop mode, use arrow keys to move selected elements.",
 	"customize-columns-assistive-disabled": "Reordering columns are disabled because they are filtered currently.",
 	"customize-columns-column-name": "All columns",
-	"actions": "Actions"
+	"actions": "Actions",
+	"add-new": "Add new",
+	"add": "Add",
+	"cancel": "Cancel",
+	"create": "Create"
 }

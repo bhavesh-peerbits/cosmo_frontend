@@ -316,7 +316,7 @@ const CosmoTableToolbar = <T extends object>({
 						iconDescription='Add'
 						onClick={() => setIsModalOpen(true)}
 					>
-						Add New
+						{t('add-new')}
 					</Button>
 				)}
 				{/* {canAdd && !addingInline ? (
