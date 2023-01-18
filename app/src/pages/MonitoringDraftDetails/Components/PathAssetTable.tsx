@@ -4,26 +4,26 @@ import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 import { CheckmarkFilled, CheckmarkOutline, SubtractAlt } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { PathMonitoringDto } from 'cosmo-api/src/v1';
-import MonitoringAsset from '@model/MonitoringAsset';
 import useCheckPathAssetMonitoring from '@api/change-monitoring/useCheckPathsAsset';
+import { RunMonitoringAsset } from '../types/RunMonitoringAsset';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const BooleanCell = ({ getValue }: CellContext<any, unknown>) => {
 	const value = getValue() as boolean;
-	return value ? <CheckmarkFilled /> : 'Non incluso';
+	return value ? <CheckmarkFilled /> : '';
 };
 
-type PathAssetTableProps = {
+interface PathAssetTableProps {
 	assetId: string;
-	assetData?: MonitoringAsset[];
-	setAssetData?: Dispatch<SetStateAction<MonitoringAsset[] | undefined>>;
+	assetData?: RunMonitoringAsset[];
+	setAssetData?: Dispatch<SetStateAction<RunMonitoringAsset[] | undefined>>;
 	canAdd?: boolean;
-};
+}
 const PathAssetTable = ({
 	assetId,
 	canAdd,
-	setAssetData,
-	assetData
+	assetData,
+	setAssetData
 }: PathAssetTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table']);
 	const [newPaths, setNewPaths] = useState<PathMonitoringDto[]>([]);
@@ -63,7 +63,7 @@ const PathAssetTable = ({
 			});
 		}
 		return ArrayCol;
-	}, [assetData, assetId, t]);
+	}, [assetId, assetData, t]);
 
 	const toolbarBatchActions = [
 		{

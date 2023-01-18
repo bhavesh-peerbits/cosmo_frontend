@@ -1,3 +1,4 @@
+import useGetRunById from '@api/change-monitoring/useGetRunById';
 import { smoothScroll } from '@components/TableOfContents/utils';
 import { formatDate } from '@i18n';
 import { useLayoutEffect } from 'react';
@@ -10,13 +11,15 @@ import UploadFileContent from '../Components/UploadFileContent';
 
 const RunDetailsStepContainer = () => {
 	const { t } = useTranslation(['monitoringDashboard', 'evidenceRequest', 'runDetails']);
-	const { runId } = useParams();
-	// TODO Fix selector based on the current step (also fix isCurrent for RunDetailsStepTile)
+	const { runId = '' } = useParams();
+	const { data: run } = useGetRunById(runId);
+	// TODO (also fix isCurrent for RunDetailsStepTile)
 	// TODO Remove expandable fn if step is not started
 	useLayoutEffect(() => {
 		const selector = `*[id="tile-upload-${runId}"]`;
 		smoothScroll(selector, 149);
 	}, [runId]);
+	if (!run) return null;
 
 	return (
 		<div className='space-y-5'>
@@ -29,7 +32,7 @@ const RunDetailsStepContainer = () => {
 					'short'
 				)}`}
 			>
-				<RunSetupContent />
+				<RunSetupContent run={run} />
 			</RunDetailsStepTile>
 			<RunDetailsStepTile
 				id={`tile-upload-${runId}`}

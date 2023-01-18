@@ -4,7 +4,6 @@ import { Information } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import MonitoringDraft from '@model/MonitoringDraft';
-import MonitoringAsset from '@model/MonitoringAsset';
 import useSaveMonitoringDraft from '@api/change-monitoring/useSaveMonitoringDraft';
 import ApiError from '@api/ApiError';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
@@ -12,6 +11,7 @@ import { PathMonitoringDto } from 'cosmo-api/src/v1';
 import PathAssetTable from './PathAssetTable';
 import AssetExpandableTile from './AssetExpandableTile';
 import SameSetupPathTable from './SameSetupPathTable';
+import { RunMonitoringAsset } from '../types/RunMonitoringAsset';
 
 type PathDefinitionProps = {
 	setCurrentStep: Dispatch<SetStateAction<number>>;
@@ -24,7 +24,7 @@ const PathDefinitionStepContainer = ({ setCurrentStep, draft }: PathDefinitionPr
 	const { mutate, isLoading, isError, isSuccess, error } = useSaveMonitoringDraft();
 
 	const [globalPaths, setGlobalPaths] = useState<PathMonitoringDto[]>([]);
-	const [assetsData, setAssetsData] = useState<MonitoringAsset[] | undefined>(
+	const [assetsData, setAssetsData] = useState<RunMonitoringAsset[] | undefined>(
 		draft.monitoringAssets
 	);
 
