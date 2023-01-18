@@ -90,6 +90,7 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 					onChange={e =>
 						setValue('dayOfWeek', [e.currentTarget.value as SchedulingDtoDayOfWeekEnum])
 					}
+					defaultValue='MONDAY'
 				>
 					{daysOfWeek.map(day => (
 						<SelectItem value={day} text={t(day)} />
@@ -114,7 +115,7 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 					invalid={Array.isArray(watch('dayOfWeek')) && watch('dayOfWeek').length > 2}
 					invalidText={t('invalid-days-select')}
 					className='w-full'
-					initialSelectedItems={draft.scheduling?.dayOfWeek}
+					initialSelectedItems={draft.scheduling?.dayOfWeek || ['MONDAY', 'TUESDAY']}
 				/>
 			);
 		}
@@ -247,19 +248,24 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 				</Layer>
 
 				<Suspense>
-					<SchedulingTotalRunsContainer
-						scheduling={{
-							frequency: watch('frequency'),
-							startDate: setHours(watch('startDate'), watch('startHour') + 1),
-							endDate: watch('endDate'),
-							dayOfMonth:
-								watch('frequency') === 'MONTHLY' ? watch('dayOfMonth') : undefined,
-							dayOfWeek:
-								watch('frequency') === 'BIWEEKLY' || watch('frequency') === 'WEEKLY'
-									? watch('dayOfWeek')
-									: undefined
-						}}
-					/>
+					{watch('startDate') && (
+						<SchedulingTotalRunsContainer
+							scheduling={{
+								frequency: watch('frequency'),
+								startDate: setHours(watch('startDate'), +watch('startHour') + 1),
+								endDate:
+									watch('frequency') !== 'ONDEMAND'
+										? setHours(watch('endDate'), +watch('startHour') + 1)
+										: setHours(watch('startDate'), +watch('startHour') + 1),
+								dayOfMonth:
+									watch('frequency') === 'MONTHLY' ? watch('dayOfMonth') : undefined,
+								dayOfWeek:
+									watch('frequency') === 'BIWEEKLY' || watch('frequency') === 'WEEKLY'
+										? watch('dayOfWeek')
+										: undefined
+							}}
+						/>
+					)}
 				</Suspense>
 			</div>
 			<div className='items-center justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
