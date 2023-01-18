@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import FullWidthColumn from '@components/FullWidthColumn';
 import {
 	Select,
@@ -25,7 +26,8 @@ type SchedulingFormData = {
 	startDate: Date;
 	endDate: Date;
 	startHour: number;
-	dayOfWeek: SchedulingDtoDayOfWeekEnum[];
+	dayOfWeek: SchedulingDtoDayOfWeekEnum;
+	daysOfWeek: SchedulingDtoDayOfWeekEnum[];
 	dayOfMonth: number;
 };
 
@@ -53,7 +55,14 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 			frequency: draft.scheduling?.frequency || 'ONDEMAND',
 			startDate: draft.scheduling?.startDate,
 			endDate: draft.scheduling?.endDate,
-			dayOfWeek: draft.scheduling?.dayOfWeek || ['MONDAY', 'TUESDAY'],
+			dayOfWeek:
+				draft.scheduling?.dayOfWeek?.length === 1
+					? draft.scheduling?.dayOfWeek[0]
+					: 'MONDAY',
+			daysOfWeek:
+				draft.scheduling?.dayOfWeek?.length === 2
+					? draft.scheduling?.dayOfWeek
+					: ['MONDAY', 'TUESDAY'],
 			startHour: draft.scheduling?.startDate.getHours()
 				? +draft.scheduling.startDate.getHours() - 1
 				: 1
@@ -88,7 +97,7 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 					labelText={`${t('days-of-week')} *`}
 					className='w-full'
 					onChange={e =>
-						setValue('dayOfWeek', [e.currentTarget.value as SchedulingDtoDayOfWeekEnum])
+						setValue('dayOfWeek', e.currentTarget.value as SchedulingDtoDayOfWeekEnum)
 					}
 					defaultValue='MONDAY'
 				>
@@ -108,14 +117,18 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 					itemToString={item => t(item)}
 					onChange={e =>
 						setValue(
-							'dayOfWeek',
+							'daysOfWeek',
 							e.selectedItems.map(item => item)
 						)
 					}
-					invalid={Array.isArray(watch('dayOfWeek')) && watch('dayOfWeek').length > 2}
+					invalid={Array.isArray(watch('daysOfWeek')) && watch('daysOfWeek').length > 2}
 					invalidText={t('invalid-days-select')}
 					className='w-full'
-					initialSelectedItems={draft.scheduling?.dayOfWeek || ['MONDAY', 'TUESDAY']}
+					initialSelectedItems={
+						draft.scheduling?.dayOfWeek?.length === 2
+							? draft.scheduling?.dayOfWeek
+							: ['MONDAY', 'TUESDAY']
+					}
 				/>
 			);
 		}
@@ -144,7 +157,7 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 							}
 							id={`${draft.id}-day-month-input`}
 							label={`${t('day-of-month')} *`}
-							className='w-min'
+							className='w-full'
 							invalidText={t('error-day-number')}
 							invalid={Boolean(errors.dayOfMonth)}
 						/>
@@ -170,8 +183,10 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 								: setHours(data.startDate, +data.startHour + 1),
 						dayOfMonth: data.frequency === 'MONTHLY' ? data.dayOfMonth : undefined,
 						dayOfWeek:
-							data.frequency === 'BIWEEKLY' || data.frequency === 'WEEKLY'
-								? data.dayOfWeek
+							data.frequency === 'BIWEEKLY'
+								? data.daysOfWeek
+								: data.frequency === 'WEEKLY'
+								? [data.dayOfWeek]
 								: undefined
 					}
 				}
@@ -260,8 +275,10 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 								dayOfMonth:
 									watch('frequency') === 'MONTHLY' ? watch('dayOfMonth') : undefined,
 								dayOfWeek:
-									watch('frequency') === 'BIWEEKLY' || watch('frequency') === 'WEEKLY'
-										? watch('dayOfWeek')
+									watch('frequency') === 'BIWEEKLY'
+										? watch('daysOfWeek')
+										: watch('frequency') === 'WEEKLY'
+										? [watch('dayOfWeek')]
 										: undefined
 							}}
 						/>
@@ -285,7 +302,11 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 					size='md'
 					className='w-full md:w-fit'
 					onClick={handleSubmit(saveDraft)}
-					disabled={isLoading || !isValid}
+					disabled={
+						isLoading ||
+						!isValid ||
+						(watch('frequency') === 'BIWEEKLY' && watch('daysOfWeek').length < 2)
+					}
 				>
 					{t('save-next')}
 				</Button>

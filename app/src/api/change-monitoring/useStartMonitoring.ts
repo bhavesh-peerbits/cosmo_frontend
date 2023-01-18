@@ -16,7 +16,8 @@ const useStartMonitoring = () => {
 	const queryClient = useQueryClient();
 	return useMutation(startMonitoring, {
 		onSuccess: (data, variables) => {
-			queryClient.invalidateQueries(['monitoring-draft', `${variables.draft.id}`]);
+			queryClient.removeQueries(['monitoring-draft', `${variables.draft.id}`]);
+			queryClient.invalidateQueries(['all-monitoring-drafts']);
 			queryClient.invalidateQueries(['all-monitoring']);
 		}
 	});
