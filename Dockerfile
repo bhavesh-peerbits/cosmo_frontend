@@ -20,7 +20,7 @@ COPY packages/server/dist packages/server/package.json ./server/
 COPY ./app/dist ./server/cosmo
 COPY ./package.json ./yarn.lock .yarnrc.yml ./
 
-RUN https_proxy= yarn workspaces focus --production server
+RUN yarn workspaces focus --production server
 
 RUN chown -R node:node $APP_PATH/server
 
