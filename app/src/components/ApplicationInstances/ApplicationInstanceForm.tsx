@@ -1,18 +1,15 @@
-import { Button, Form, Grid, Tile, TextArea, TextInput } from '@carbon/react';
+import { Button, Form, Grid, Tile, TextArea, TextInput, Layer } from '@carbon/react';
 import { TrashCan } from '@carbon/react/icons';
 import FullWidthColumn from '@components/FullWidthColumn';
 import DeleteInstanceModal from '@components/Modals/DeleteInstanceModal';
 import InstanceAsset from '@model/InstanceAsset';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useEffect, useState } from 'react';
+import { useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { OptionsTile } from '@carbon/ibm-products';
 import AssetTileContent from './AssetTileContent';
+import { ApplicationInstanceFormData } from './AssetTileForm';
 
-type ApplicationInstanceFormData = {
-	name: string;
-	description: string;
-};
 type ApplicationInstanceFormProps = {
 	instance: InstanceAsset;
 };
@@ -23,6 +20,7 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 	const {
 		register,
 		reset,
+		control,
 		formState: { errors, isDirty, isValid }
 	} = useForm<ApplicationInstanceFormData>({
 		mode: 'onChange',
@@ -31,6 +29,26 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 			description: instance.instance?.description
 		}
 	});
+
+	const { fields, append } = useFieldArray({
+		name: 'assets',
+		control
+	});
+
+	useEffect(() => {
+		instance.assets?.map(a =>
+			append({
+				hostname: a.hostname,
+				ports: a.ports,
+				type: a.type,
+				os: a.os,
+				ip: a.ip,
+				dbVersion: a.dbVersion,
+				dbType: a.dbType,
+				key: a.id
+			})
+		);
+	}, [append, instance.assets]);
 
 	if (!instance || !instance.instance) {
 		return null;
@@ -79,16 +97,25 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 								/>
 							</FullWidthColumn>
 							<FullWidthColumn className='mb-5'>
-								<TextArea
-									labelText={t('applicationInstances:description')}
-									placeholder={t('applicationInstances:instance-description-placeholder')}
-									{...register('description')}
-								/>
+								<Layer level={0}>
+									<TextArea
+										labelText={t('applicationInstances:description')}
+										placeholder={t(
+											'applicationInstances:instance-description-placeholder'
+										)}
+										{...register('description')}
+										readOnly
+									/>
+								</Layer>
 							</FullWidthColumn>
 							{instance.assets?.map(asset => (
 								<FullWidthColumn className='mb-5'>
 									<OptionsTile summary={asset.ip} title={asset.hostname}>
-										<AssetTileContent asset={asset} />
+										<AssetTileContent
+											asset={asset}
+											index={fields.findIndex(f => f.key === asset.id)}
+											register={register}
+										/>
 									</OptionsTile>
 								</FullWidthColumn>
 							))}
