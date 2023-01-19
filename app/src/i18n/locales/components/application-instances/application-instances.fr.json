@@ -12,9 +12,12 @@
 	"ports": "Ports",
 	"db-version": "Database version",
 	"db-type": "Database type",
-	"delete-asset": "Delete asset",
-	"confirm-asset-delete": "Are you sure you want to delete asset with hostname {{hostname}}?",
+	"delete-asset-instance": "Delete asset from the instance",
+	"delete-asset-global": "Delete asset from all instances",
+	"confirm-asset-delete-instance": "Are you sure you want to delete asset with hostname {{hostname}} from the istance {{}}?",
+	"confirm-asset-delete-global": "Warning, you are about to delete the asset with hostname {{hostname}} from ALL instances where it is present. Are you sure you want to proceed? Please read the involved instances carefully before continuing.",
 	"add-new-asset": "Add new asset",
 	"create-new-instance": "Create new application instance",
-	"ports-input-placeholder": "Use a semicolon to separate asset ports."
+	"ports-input-placeholder": "Use a semicolon to separate asset ports.",
+	"add-asset": "Aggiungi asset"
 }

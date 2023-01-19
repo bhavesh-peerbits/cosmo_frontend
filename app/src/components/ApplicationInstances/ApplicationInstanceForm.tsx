@@ -1,5 +1,5 @@
 import { Button, Form, Grid, Tile, TextArea, TextInput } from '@carbon/react';
-import { TrashCan, Add } from '@carbon/react/icons';
+import { TrashCan, SubtractAlt, Add } from '@carbon/react/icons';
 import FullWidthColumn from '@components/FullWidthColumn';
 import DeleteInstanceModal from '@components/Modals/DeleteInstanceModal';
 import InstanceAsset from '@model/InstanceAsset';
@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { OptionsTile } from '@carbon/ibm-products';
 import DeleteAssetModal from '@components/Modals/DeleteAssetModal';
 import Asset from '@model/Asset';
+import Instance from '@model/Instance';
 import AssetTileContent from './AssetTileContent';
 import { ApplicationInstanceFormData } from './AssetTileForm';
 
@@ -18,7 +19,11 @@ type ApplicationInstanceFormProps = {
 const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => {
 	const { t } = useTranslation(['applicationInstances', 'modals', 'applicationInfo']);
 	const [isDeleteInstanceOpen, setIsDeleteInstanceOpen] = useState(false);
-	const [assetToDelete, setAssetToDelete] = useState<Asset>();
+	const [assetToDelete, setAssetToDelete] = useState<{
+		asset: Asset;
+		isGlobal?: boolean;
+		instance?: Instance;
+	}>();
 
 	const {
 		register,
@@ -108,7 +113,7 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 								kind='ghost'
 								renderIcon={Add}
 								tooltipPosition='bottom'
-								iconDescription={t('applicationInstances:delete-asset')}
+								iconDescription={t('applicationInstances:add-asset')}
 								onClick={() => setIsDeleteInstanceOpen(true)}
 							/>
 							<Button
@@ -154,18 +159,36 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 										title={
 											<div className='flex items-center justify-between'>
 												{asset.hostname}
-												<Button
-													size='sm'
-													kind='ghost'
-													hasIconOnly
-													renderIcon={TrashCan}
-													iconDescription={t('applicationInstances:delete-asset')}
-													tooltipPosition='bottom'
-													onClick={e => {
-														e.stopPropagation();
-														setAssetToDelete(asset);
-													}}
-												/>
+												<div className='space-x-3'>
+													<Button
+														size='sm'
+														kind='ghost'
+														hasIconOnly
+														renderIcon={SubtractAlt}
+														iconDescription={t(
+															'applicationInstances:delete-asset-instance'
+														)}
+														tooltipPosition='bottom'
+														onClick={e => {
+															e.stopPropagation();
+															setAssetToDelete({ asset, instance: instance.instance });
+														}}
+													/>
+													<Button
+														size='sm'
+														kind='ghost'
+														hasIconOnly
+														renderIcon={TrashCan}
+														iconDescription={t(
+															'applicationInstances:delete-asset-global'
+														)}
+														tooltipPosition='bottom'
+														onClick={e => {
+															e.stopPropagation();
+															setAssetToDelete({ asset, isGlobal: true });
+														}}
+													/>
+												</div>
 											</div>
 										}
 									>

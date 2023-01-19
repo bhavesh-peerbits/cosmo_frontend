@@ -3,15 +3,20 @@ import {
 	ComposedModal,
 	ModalBody,
 	ModalFooter,
-	ModalHeader
+	ModalHeader,
+	UnorderedList,
+	ListItem
 } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import Asset from '@model/Asset';
 import { Dispatch, SetStateAction } from 'react';
+import Instance from '@model/Instance';
 
 type DeleteAssetModalProps = {
-	assetToDelete?: Asset;
-	setAssetToDelete: Dispatch<SetStateAction<Asset | undefined>>;
+	assetToDelete?: { asset: Asset; isGlobal?: boolean; instance?: Instance };
+	setAssetToDelete: Dispatch<
+		SetStateAction<{ asset: Asset; isGlobal?: boolean; instance?: Instance } | undefined>
+	>;
 };
 
 const DeleteAssetModal = ({ assetToDelete, setAssetToDelete }: DeleteAssetModalProps) => {
@@ -30,15 +35,24 @@ const DeleteAssetModal = ({ assetToDelete, setAssetToDelete }: DeleteAssetModalP
 		>
 			<ModalHeader
 				title={t('modals:confirm-delete')}
-				label={assetToDelete?.hostname}
+				label={assetToDelete?.asset.hostname}
 				closeModal={cleanUp}
 			/>
 			<ModalBody>
 				<span>
-					{t('applicationInstances:confirm-asset-delete', {
-						hostname: assetToDelete?.hostname
-					})}
+					{assetToDelete?.isGlobal
+						? t('applicationInstances:confirm-asset-delete-global', {
+								hostname: assetToDelete?.asset.hostname
+						  })
+						: t('applicationInstances:confirm-asset-delete-instance', {
+								hostname: assetToDelete?.asset.hostname,
+								instance: assetToDelete?.instance?.name
+						  })}
 				</span>
+				<UnorderedList nested className='pt-5'>
+					<ListItem>Instance very very long name</ListItem>
+					<ListItem>Instance very very long longlong long name</ListItem>
+				</UnorderedList>
 				{/* {isError && (
 					<div className='mt-5 flex items-center justify-center'>
 						<InlineNotification
