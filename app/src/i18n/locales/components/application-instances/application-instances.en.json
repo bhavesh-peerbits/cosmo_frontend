@@ -10,7 +10,9 @@
 	"description": "Description",
 	"operating-system": "Operating system",
 	"asset-type": "Asset type",
-	"ports": "Ports",
+	"port": "Port",
 	"db-version": "Database version",
-	"db-type": "Database type"
+	"db-type": "Database type",
+	"delete-asset": "Delete asset",
+	"confirm-asset-delete": "Are you sure you want to delete asset with hostname {{hostname}}?"
 }

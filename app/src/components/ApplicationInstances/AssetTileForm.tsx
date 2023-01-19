@@ -2,7 +2,7 @@ import Asset from '@model/Asset';
 import { Grid, Column, TextInput, Layer, Select, SelectItem } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
-import { UseFormRegister } from 'react-hook-form';
+import { UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { AssetDtoTypeEnum, AssetDtoOsEnum } from 'cosmo-api/src/v1';
 
 export interface ApplicationInstanceFormData {
@@ -24,10 +24,11 @@ type AssetTileFormProps = {
 	asset: Asset;
 	register: UseFormRegister<ApplicationInstanceFormData>;
 	index: number;
+	watch: UseFormWatch<ApplicationInstanceFormData>;
 };
 
-const AssetTileForm = ({ asset, register, index }: AssetTileFormProps) => {
-	const { t } = useTranslation('applicationInstances');
+const AssetTileForm = ({ asset, register, index, watch }: AssetTileFormProps) => {
+	const { t } = useTranslation(['applicationInstances', 'modals']);
 
 	return (
 		<Layer>
@@ -37,7 +38,7 @@ const AssetTileForm = ({ asset, register, index }: AssetTileFormProps) => {
 						id={`${asset.id}-hostname-input`}
 						labelText='Hostname *'
 						{...register(`assets.${index}.hostname`, {
-							required: true
+							required: { value: true, message: t('modals:field-required') }
 						})}
 					/>
 				</FullWidthColumn>
@@ -46,25 +47,23 @@ const AssetTileForm = ({ asset, register, index }: AssetTileFormProps) => {
 						id={`${asset.id}-ip-input`}
 						labelText='IP *'
 						{...register(`assets.${index}.ip`, {
-							required: true
+							required: { value: true, message: t('modals:field-required') }
 						})}
 					/>
 				</FullWidthColumn>
 				<FullWidthColumn>
 					<TextInput
 						id={`${asset.id}-ports-input`}
-						labelText={`${t('ports')} *`}
-						{...register(`assets.${index}.ports`, {
-							required: true
-						})}
+						labelText={t('applicationInstances:port')}
+						{...register(`assets.${index}.ports`)}
 					/>
 				</FullWidthColumn>
 				<Column lg={8} md={4} sm={4}>
 					<Select
 						id={`${asset.id}-os-select`}
-						labelText={`${t('operating-system')} *`}
+						labelText={`${t('applicationInstances:operating-system')} *`}
 						{...register(`assets.${index}.os`, {
-							required: true
+							required: { value: true, message: t('modals:field-required') }
 						})}
 					>
 						<SelectItem text='Windows' value='WINDOWS' />
@@ -75,30 +74,32 @@ const AssetTileForm = ({ asset, register, index }: AssetTileFormProps) => {
 				<Column lg={8} md={4} sm={4}>
 					<Select
 						id={`${asset.id}-type-select`}
-						labelText={`${t('asset-type')} *`}
+						labelText={`${t('applicationInstances:asset-type')} *`}
 						{...register(`assets.${index}.type`, {
-							required: true
+							required: { value: true, message: t('modals:field-required') }
 						})}
 					>
-						<SelectItem text={t('operating-system')} value='OS' />
+						<SelectItem text={t('applicationInstances:operating-system')} value='OS' />
 						<SelectItem text='Database' value='DB' />
 					</Select>
 				</Column>
 				<Column lg={8} md={4} sm={4}>
 					<TextInput
 						id={`${asset.id}-db-version-input`}
-						labelText={`${t('db-version')} *`}
+						labelText={`${t('applicationInstances:db-version')} *`}
+						disabled={watch(`assets.${index}.type`) === 'OS'}
 						{...register(`assets.${index}.dbVersion`, {
-							required: true
+							required: { value: true, message: t('modals:field-required') }
 						})}
 					/>
 				</Column>
 				<Column lg={8} md={4} sm={4}>
 					<TextInput
 						id={`${asset.id}-db-type-input`}
-						labelText={`${t('db-type')} *`}
+						labelText={`${t('applicationInstances:db-type')} *`}
+						disabled={watch(`assets.${index}.type`) === 'OS'}
 						{...register(`assets.${index}.dbType`, {
-							required: true
+							required: { value: true, message: t('modals:field-required') }
 						})}
 					/>
 				</Column>
