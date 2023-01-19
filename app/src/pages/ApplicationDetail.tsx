@@ -75,7 +75,7 @@ const ApplicationDetail = () => {
 							<ProcedureInfo />
 						</TabPanel>
 						<TabPanel className='pl-container-1 pr-0'>
-							<ApplicationInstances />
+							<ApplicationInstances application={data} />
 						</TabPanel>
 						<TabPanel className='p-0 px-3'>
 							<ApplicationChangesContainer appId={appId} />

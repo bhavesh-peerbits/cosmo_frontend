@@ -14,5 +14,7 @@
 	"db-version": "Database version",
 	"db-type": "Database type",
 	"delete-asset": "Delete asset",
-	"confirm-asset-delete": "Are you sure you want to delete asset with hostname {{hostname}}?"
+	"confirm-asset-delete": "Are you sure you want to delete asset with hostname {{hostname}}?",
+	"add-new-asset": "Add new asset",
+	"create-new-instance": "Create new application instance"
 }

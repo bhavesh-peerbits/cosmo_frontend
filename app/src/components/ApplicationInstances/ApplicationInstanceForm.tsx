@@ -1,5 +1,5 @@
-import { Button, Form, Grid, Tile, TextArea, TextInput, Layer } from '@carbon/react';
-import { TrashCan } from '@carbon/react/icons';
+import { Button, Form, Grid, Tile, TextArea, TextInput } from '@carbon/react';
+import { TrashCan, Add } from '@carbon/react/icons';
 import FullWidthColumn from '@components/FullWidthColumn';
 import DeleteInstanceModal from '@components/Modals/DeleteInstanceModal';
 import InstanceAsset from '@model/InstanceAsset';
@@ -77,14 +77,24 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 						className='flex items-center justify-between text-fluid-heading-3'
 					>
 						{instance.instance?.name}
-						<Button
-							hasIconOnly
-							kind='ghost'
-							renderIcon={TrashCan}
-							tooltipPosition='bottom'
-							iconDescription={t('applicationInstances:delete-instance')}
-							onClick={() => setIsDeleteInstanceOpen(true)}
-						/>
+						<div>
+							<Button
+								hasIconOnly
+								kind='ghost'
+								renderIcon={Add}
+								tooltipPosition='bottom'
+								iconDescription={t('applicationInstances:delete-asset')}
+								onClick={() => setIsDeleteInstanceOpen(true)}
+							/>
+							<Button
+								hasIconOnly
+								kind='ghost'
+								renderIcon={TrashCan}
+								tooltipPosition='bottom'
+								iconDescription={t('applicationInstances:delete-instance')}
+								onClick={() => setIsDeleteInstanceOpen(true)}
+							/>
+						</div>
 					</FullWidthColumn>
 
 					<FullWidthColumn>
@@ -105,15 +115,12 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 								/>
 							</FullWidthColumn>
 							<FullWidthColumn className='mb-5'>
-								<Layer level={0}>
-									<TextArea
-										labelText={t('applicationInstances:description')}
-										placeholder={t(
-											'applicationInstances:instance-description-placeholder'
-										)}
-										{...register('description')}
-									/>
-								</Layer>
+								<TextArea
+									id={`${instance.instance?.id}-input-description`}
+									labelText={t('applicationInstances:description')}
+									placeholder={t('applicationInstances:instance-description-placeholder')}
+									{...register('description')}
+								/>
 							</FullWidthColumn>
 							{instance.assets?.map(asset => (
 								<FullWidthColumn>
@@ -147,7 +154,7 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 								</FullWidthColumn>
 							))}
 
-							<FullWidthColumn className='mt-7'>
+							<FullWidthColumn className='mt-5'>
 								<div className='flex flex-wrap justify-between space-x-2'>
 									<div className='flex-1'>
 										{/* <InlineLoadingStatus

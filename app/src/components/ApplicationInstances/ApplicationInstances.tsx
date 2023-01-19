@@ -1,22 +1,24 @@
 import useGetAppInstances from '@api/change-monitoring/useGetAppInstances';
-import useGetApp from '@api/management/useGetApp';
 import { Add, Email } from '@carbon/react/icons';
 import FullWidthColumn from '@components/FullWidthColumn';
 import NoDataMessage from '@components/NoDataMessage';
 import TableOfContents from '@components/TableOfContents';
 import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
 import { useResponsive } from 'ahooks';
-import { useMemo, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useMemo, useRef, useState } from 'react';
 import { Button, Grid } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
+import AddNewInstanceModal from '@components/Modals/AddNewInstanceModal';
+import Application from '@model/Application';
 import ApplicationInstanceForm from './ApplicationInstanceForm';
 
-const ApplicationInstances = () => {
+type ApplicationInstancesProps = {
+	application: Application;
+};
+const ApplicationInstances = ({ application }: ApplicationInstancesProps) => {
 	const { t } = useTranslation(['management', 'applicationInstances']);
-	const { appId = '' } = useParams();
-	const { data: app } = useGetApp(appId);
-	const { data: instances } = useGetAppInstances(app?.codeName);
+	const [isAddInstanceOpen, setIsAddInstanceOpen] = useState(false);
+	const { data: instances } = useGetAppInstances(application?.codeName);
 	const { breadcrumbSize } = useBreadcrumbSize();
 	const buttonRef = useRef<HTMLDivElement>(null);
 	const { md } = useResponsive();
@@ -32,6 +34,11 @@ const ApplicationInstances = () => {
 		<TableOfContents stickyOffset={STICKY_OFFSET} tocStickyOffset={breadcrumbSize + 48}>
 			<Grid fullWidth className='h-full pr-3'>
 				<FullWidthColumn className='pt-3'>
+					<AddNewInstanceModal
+						application={application}
+						isOpen={isAddInstanceOpen}
+						setIsOpen={setIsAddInstanceOpen}
+					/>
 					<div className='flex flex-col space-y-5'>
 						<div
 							className='flex w-full flex-wrap items-center bg-layer-1 md:sticky md:z-10  md:space-x-4'
@@ -44,6 +51,7 @@ const ApplicationInstances = () => {
 								size='md'
 								renderIcon={Add}
 								className='md:max-w-auto w-full max-w-full md:w-auto'
+								onClick={() => setIsAddInstanceOpen(true)}
 							>
 								{t('applicationInstances:new-instance')}
 							</Button>
