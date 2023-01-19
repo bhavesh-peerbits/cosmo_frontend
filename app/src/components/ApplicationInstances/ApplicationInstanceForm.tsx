@@ -6,6 +6,8 @@ import InstanceAsset from '@model/InstanceAsset';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { OptionsTile } from '@carbon/ibm-products';
+import AssetTileContent from './AssetTileContent';
 
 type ApplicationInstanceFormData = {
 	name: string;
@@ -15,7 +17,7 @@ type ApplicationInstanceFormProps = {
 	instance: InstanceAsset;
 };
 const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => {
-	const { t } = useTranslation(['management', 'modals', 'applicationInfo']);
+	const { t } = useTranslation(['applicationInstances', 'modals', 'applicationInfo']);
 	const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
 	const {
@@ -54,7 +56,7 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 							kind='ghost'
 							renderIcon={TrashCan}
 							tooltipPosition='bottom'
-							iconDescription={t('management:delete-instance')}
+							iconDescription={t('applicationInstances:delete-instance')}
 							onClick={() => setIsDeleteOpen(true)}
 						/>
 					</FullWidthColumn>
@@ -64,8 +66,8 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 							<FullWidthColumn className='mb-5'>
 								<TextInput
 									id={`${instance.instance?.id}-input-name`}
-									labelText={t('management:instance-name')}
-									placeholder={t('management:instance-name-placeholder')}
+									labelText={t('applicationInstances:instance-name')}
+									placeholder={t('applicationInstances:instance-name-placeholder')}
 									invalidText={errors.name?.message}
 									invalid={Boolean(errors.name)}
 									{...register('name', {
@@ -78,14 +80,19 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 							</FullWidthColumn>
 							<FullWidthColumn className='mb-5'>
 								<TextArea
-									labelText={t('management:description')}
-									placeholder={t('management:instance-description-placeholder')}
+									labelText={t('applicationInstances:description')}
+									placeholder={t('applicationInstances:instance-description-placeholder')}
 									{...register('description')}
 								/>
 							</FullWidthColumn>
-							<FullWidthColumn className='mb-5'>
-								here goes assets container
-							</FullWidthColumn>
+							{instance.assets?.map(asset => (
+								<FullWidthColumn className='mb-5'>
+									<OptionsTile summary={asset.ip} title={asset.hostname}>
+										<AssetTileContent asset={asset} />
+									</OptionsTile>
+								</FullWidthColumn>
+							))}
+
 							<FullWidthColumn className='mt-7'>
 								<div className='flex flex-wrap justify-between space-x-2'>
 									<div className='flex-1'>

@@ -19,7 +19,7 @@ const DeleteInstanceModal = ({
 	setIsOpen,
 	instance
 }: DeleteInstanceModalProps) => {
-	const { t } = useTranslation(['modals', 'management']);
+	const { t } = useTranslation(['modals', 'applicationInstances']);
 
 	const cleanUp = () => {
 		setIsOpen(false);
@@ -34,7 +34,7 @@ const DeleteInstanceModal = ({
 			/>
 			<ModalBody>
 				<span>
-					{t('management:confirm-instance-delete', { instance: instance.name })}
+					{t('applicationInstances:confirm-instance-delete', { instance: instance.name })}
 				</span>
 				{/* {isError && (
 					<div className='mt-5 flex items-center justify-center'>

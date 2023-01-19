@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 import ApplicationInstanceForm from './ApplicationInstanceForm';
 
 const ApplicationInstances = () => {
-	const { t } = useTranslation('management');
+	const { t } = useTranslation(['management', 'applicationInstances']);
 	const { appId = '' } = useParams();
 	const { data: app } = useGetApp(appId);
 	const { data: instances } = useGetAppInstances(app?.codeName);
@@ -45,7 +45,7 @@ const ApplicationInstances = () => {
 								renderIcon={Add}
 								className='md:max-w-auto w-full max-w-full md:w-auto'
 							>
-								{t('new-instance')}
+								{t('applicationInstances:new-instance')}
 							</Button>
 							<Button
 								size='md'
@@ -53,7 +53,7 @@ const ApplicationInstances = () => {
 								renderIcon={Email}
 								kind='tertiary'
 							>
-								{t('review')}
+								{t('management:review')}
 							</Button>
 						</div>
 

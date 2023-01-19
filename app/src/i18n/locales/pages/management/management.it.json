@@ -35,11 +35,5 @@
 	"procedure-info": "Info Procedure",
 	"changes": "Modifiche",
 	"created-by": "Creata da",
-	"instances": "Istanze",
-	"instance-name": "Nome istanza",
-	"instance-name-placeholder": "Inserisci il nome dell'istanza.",
-	"instance-description-placeholder": "Inserisci una descrizione dell'istanza.",
-	"delete-instance": "Rimuovi istanza",
-	"new-instance": "Nuova istanza",
-	"confirm-instance-delete": "Sei sicuro di voler eliminare {{instance}}?"
+	"instances": "Istanze"
 }
