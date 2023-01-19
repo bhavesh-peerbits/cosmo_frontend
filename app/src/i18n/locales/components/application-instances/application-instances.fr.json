@@ -9,11 +9,12 @@
 	"description": "Description",
 	"operating-system": "Operating system",
 	"asset-type": "Asset type",
-	"port": "Port",
+	"ports": "Ports",
 	"db-version": "Database version",
 	"db-type": "Database type",
 	"delete-asset": "Delete asset",
 	"confirm-asset-delete": "Are you sure you want to delete asset with hostname {{hostname}}?",
 	"add-new-asset": "Add new asset",
-	"create-new-instance": "Create new application instance"
+	"create-new-instance": "Create new application instance",
+	"ports-input-placeholder": "Use a semicolon to separate asset ports."
 }

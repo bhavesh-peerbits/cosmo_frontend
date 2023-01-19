@@ -56,7 +56,7 @@ const AddNewInstanceModal = ({
 			<Form className='space-y-5 px-5'>
 				<TextInput
 					id='new-instance-input-name'
-					labelText={t('applicationInstances:instance-name')}
+					labelText={`${t('applicationInstances:instance-name')} *`}
 					placeholder={t('applicationInstances:instance-name-placeholder')}
 					invalidText={errors.name?.message}
 					invalid={Boolean(errors.name)}

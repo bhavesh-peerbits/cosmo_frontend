@@ -54,7 +54,8 @@ const AssetTileForm = ({ asset, register, index, watch }: AssetTileFormProps) =>
 				<FullWidthColumn>
 					<TextInput
 						id={`${asset.id}-ports-input`}
-						labelText={t('applicationInstances:port')}
+						labelText={t('applicationInstances:ports')}
+						placeholder={t('applicationInstances:ports-input-placeholder')}
 						{...register(`assets.${index}.ports`)}
 					/>
 				</FullWidthColumn>
@@ -86,20 +87,30 @@ const AssetTileForm = ({ asset, register, index, watch }: AssetTileFormProps) =>
 				<Column lg={8} md={4} sm={4}>
 					<TextInput
 						id={`${asset.id}-db-version-input`}
-						labelText={`${t('applicationInstances:db-version')} *`}
+						labelText={`${t('applicationInstances:db-version')} ${
+							watch(`assets.${index}.type`) !== 'OS' ? ' *' : ''
+						}`}
 						disabled={watch(`assets.${index}.type`) === 'OS'}
 						{...register(`assets.${index}.dbVersion`, {
-							required: { value: true, message: t('modals:field-required') }
+							required: {
+								value: watch(`assets.${index}.type`) !== 'OS',
+								message: t('modals:field-required')
+							}
 						})}
 					/>
 				</Column>
 				<Column lg={8} md={4} sm={4}>
 					<TextInput
 						id={`${asset.id}-db-type-input`}
-						labelText={`${t('applicationInstances:db-type')} *`}
+						labelText={`${t('applicationInstances:db-type')} ${
+							watch(`assets.${index}.type`) !== 'OS' ? ' *' : ''
+						}`}
 						disabled={watch(`assets.${index}.type`) === 'OS'}
 						{...register(`assets.${index}.dbType`, {
-							required: { value: true, message: t('modals:field-required') }
+							required: {
+								value: watch(`assets.${index}.type`) !== 'OS',
+								message: t('modals:field-required')
+							}
 						})}
 					/>
 				</Column>

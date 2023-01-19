@@ -34,7 +34,7 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 		}
 	});
 
-	const { fields, append } = useFieldArray({
+	const { fields, append, update } = useFieldArray({
 		name: 'assets',
 		control
 	});
@@ -53,6 +53,31 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 			})
 		);
 	}, [append, instance.assets]);
+
+	useEffect(() => {
+		reset({
+			name: instance.instance?.name,
+			description: instance.instance?.description,
+			assets: instance.assets?.map(a => {
+				return {
+					hostname: a.hostname,
+					ports: a.ports,
+					type: a.type,
+					os: a.os,
+					ip: a.ip,
+					dbVersion: a.dbVersion,
+					dbType: a.dbType,
+					key: a.id
+				};
+			})
+		});
+	}, [
+		instance.assets,
+		instance.instance?.description,
+		instance.instance?.name,
+		reset,
+		update
+	]);
 
 	if (!instance || !instance.instance) {
 		return null;
@@ -102,7 +127,7 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 							<FullWidthColumn className='mb-5'>
 								<TextInput
 									id={`${instance.instance?.id}-input-name`}
-									labelText={t('applicationInstances:instance-name')}
+									labelText={`${t('applicationInstances:instance-name')} *`}
 									placeholder={t('applicationInstances:instance-name-placeholder')}
 									invalidText={errors.name?.message}
 									invalid={Boolean(errors.name)}

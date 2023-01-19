@@ -9,11 +9,12 @@
 	"description": "Descrizione",
 	"operating-system": "Sistema operativo",
 	"asset-type": "Tipo di asset",
-	"port": "Porta",
+	"ports": "Porte",
 	"db-version": "Versione database",
 	"db-type": "Tipo database",
 	"delete-asset": "Elimina asset",
 	"confirm-asset-delete": "Sei sicuro di voler eliminare l'asset con hostname {{hostname}}?",
 	"add-new-asset": "Aggiungi nuovo asset",
-	"create-new-instance": "Crea una nuova istanza dell'applicazione"
+	"create-new-instance": "Crea una nuova istanza dell'applicazione",
+	"ports-input-placeholder": "Utilizza una virgola per separare le porte dell'asset."
 }
