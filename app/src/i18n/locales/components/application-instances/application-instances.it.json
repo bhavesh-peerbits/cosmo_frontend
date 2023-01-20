@@ -20,5 +20,7 @@
 	"create-new-instance": "Crea una nuova istanza dell'applicazione",
 	"ports-input-placeholder": "Utilizza una virgola per separare le porte dell'asset.",
 	"add-asset": "Aggiungi asset",
-	"add-new-asset-instance": "Aggiungi un nuovo asset all'istanza"
+	"add-new-asset-instance": "Aggiungi un nuovo asset all'istanza",
+	"new-asset": "Nuovo asset",
+	"existing-asset": "Asset esistente"
 }

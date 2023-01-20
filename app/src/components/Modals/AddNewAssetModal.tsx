@@ -24,6 +24,7 @@ type AddNewAssetModalProps = {
 };
 const AddNewAssetModal = ({ isOpen, setIsOpen, instance }: AddNewAssetModalProps) => {
 	const { t } = useTranslation(['modals', 'applicationInstances']);
+	// const [isNewSelected, setIsNewSelected] = useState(false);
 
 	const {
 		register,
@@ -59,6 +60,19 @@ const AddNewAssetModal = ({ isOpen, setIsOpen, instance }: AddNewAssetModalProps
 		>
 			<Form className='space-y-5 pl-5'>
 				<Grid narrow fullWidth className='space-y-5'>
+					{/* <FullWidthColumn>
+						<Toggle
+							labelA='Nuovo'
+							labelB='Esistente'
+							labelText='Asset da aggiungere'
+							id='new-asset-togddgle'
+							aria-label='New Asset Toggle'
+							toggled={isNewSelected}
+							onToggle={() => {
+								setIsNewSelected(!isNewSelected);
+							}}
+						/>
+					</FullWidthColumn> */}
 					<FullWidthColumn>
 						<TextInput
 							id='new-asset-hostname-input'

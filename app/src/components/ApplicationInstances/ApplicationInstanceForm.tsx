@@ -1,4 +1,13 @@
-import { Button, Form, Grid, Tile, TextArea, TextInput } from '@carbon/react';
+import {
+	Button,
+	Form,
+	Grid,
+	Tile,
+	TextArea,
+	TextInput,
+	OverflowMenu,
+	OverflowMenuItem
+} from '@carbon/react';
 import { TrashCan, SubtractAlt, Add } from '@carbon/react/icons';
 import FullWidthColumn from '@components/FullWidthColumn';
 import DeleteInstanceModal from '@components/Modals/DeleteInstanceModal';
@@ -10,7 +19,8 @@ import { OptionsTile } from '@carbon/ibm-products';
 import DeleteAssetModal from '@components/Modals/DeleteAssetModal';
 import Asset from '@model/Asset';
 import Instance from '@model/Instance';
-import AddNewAssetModal from '@components/Modals/AddNewAsset';
+import AddNewAssetModal from '@components/Modals/AddNewAssetModal';
+import MultiAddSelect from '@components/MultiAddSelect';
 import AssetTileContent from './AssetTileContent';
 import { ApplicationInstanceFormData } from './AssetTileForm';
 
@@ -18,9 +28,16 @@ type ApplicationInstanceFormProps = {
 	instance: InstanceAsset;
 };
 const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => {
-	const { t } = useTranslation(['applicationInstances', 'modals', 'applicationInfo']);
+	const { t } = useTranslation([
+		'applicationInstances',
+		'modals',
+		'applicationInfo',
+		'changeMonitoring',
+		'userSelect'
+	]);
 	const [isDeleteInstanceOpen, setIsDeleteInstanceOpen] = useState(false);
 	const [isAddAssetOpen, setIsAddAssetOpen] = useState(false);
+	const [isAssetSelectOpen, setIsAssetSelectOpen] = useState(false);
 	const [assetToDelete, setAssetToDelete] = useState<{
 		asset: Asset;
 		isGlobal?: boolean;
@@ -89,11 +106,70 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 	if (!instance || !instance.instance) {
 		return null;
 	}
-
+	// TODO Change items and filter items based on already associated assets
 	return (
 		<Tile href={`${instance.instance?.id}`} className='w-full bg-background'>
 			<Form>
 				<Grid fullWidth>
+					<MultiAddSelect
+						itemsLabel='Assets'
+						noResultsTitle={t('userSelect:no-results')}
+						noResultsDescription={t('userSelect:different-keywords')}
+						onCloseButtonText={t('userSelect:cancel')}
+						onSubmit={() => {}}
+						open={isAssetSelectOpen}
+						onClose={() => setIsAssetSelectOpen(false)}
+						onSubmitButtonText={t('userSelect:select')}
+						searchResultsLabel={t('userSelect:search-results')}
+						title={t('changeMonitoring:select-assets')}
+						description={t('changeMonitoring:select-assets-list')}
+						globalSearchLabel={t('changeMonitoring:search-asset')}
+						globalSearchPlaceholder={t('changeMonitoring:search-asset-name')}
+						influencerTitle={t('changeMonitoring:selected-assets')}
+						influencerItemTitle='Hostname'
+						influencerItemSubtitle='IP'
+						globalFilters={[
+							{
+								id: 'tagInfo',
+								label: t('changeMonitoring:operating-system')
+							},
+							{
+								id: t('changeMonitoring:type'),
+								label: t('changeMonitoring:type')
+							}
+						]}
+						globalFiltersIconDescription={t('userSelect:filters')}
+						globalFiltersPlaceholderText={t('userSelect:choose-option')}
+						globalFiltersPrimaryButtonText={t('userSelect:apply')}
+						globalFiltersSecondaryButtonText={t('userSelect:reset')}
+						clearFiltersText={t('userSelect:clear-filters')}
+						items={{
+							entries: instance.assets
+								? instance.assets.map(asset =>
+										asset.type === 'DB'
+											? {
+													id: asset.id,
+													title: asset.hostname || '',
+													tagInfo: asset.os,
+													subtitle: asset.ip,
+													[t('changeMonitoring:type')]: asset.type,
+													[t('changeMonitoring:operating-system')]: asset.os,
+													database: asset.dbType,
+													cpe: 'here goes cpe'
+											  }
+											: {
+													id: asset.id,
+													title: asset.hostname || '',
+													tagInfo: asset.os,
+													subtitle: asset.ip,
+													[t('changeMonitoring:type')]: asset.type,
+													[t('changeMonitoring:operating-system')]: asset.os,
+													cpe: 'here goes cpe'
+											  }
+								  )
+								: []
+						}}
+					/>
 					<DeleteInstanceModal
 						isOpen={isDeleteInstanceOpen}
 						setIsOpen={setIsDeleteInstanceOpen}
@@ -114,15 +190,31 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 						className='flex items-center justify-between text-fluid-heading-3'
 					>
 						{instance.instance?.name}
-						<div>
-							<Button
+						<div className='flex'>
+							<OverflowMenu
+								ariaLabel='Add new asset menu'
+								iconDescription={t('applicationInstances:add-asset')}
+								size='lg'
+								flipped
+								renderIcon={Add}
+							>
+								<OverflowMenuItem
+									itemText={t('applicationInstances:new-asset')}
+									onClick={() => setIsAddAssetOpen(true)}
+								/>
+								<OverflowMenuItem
+									itemText={t('applicationInstances:existing-asset')}
+									onClick={() => setIsAssetSelectOpen(true)}
+								/>
+							</OverflowMenu>
+							{/* <Button
 								hasIconOnly
 								kind='ghost'
 								renderIcon={Add}
 								tooltipPosition='bottom'
 								iconDescription={t('applicationInstances:add-asset')}
 								onClick={() => setIsAddAssetOpen(true)}
-							/>
+							/> */}
 							<Button
 								hasIconOnly
 								kind='ghost'
