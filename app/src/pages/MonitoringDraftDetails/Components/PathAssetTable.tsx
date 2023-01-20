@@ -3,7 +3,7 @@ import { CellContext, ColumnDef } from '@tanstack/react-table';
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 import { MisuseOutline, CheckmarkOutline } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
-import { PathMonitoringDto } from 'cosmo-api/src/v1';
+import { PathMonitoringDto, RunDtoStatusEnum } from 'cosmo-api/src/v1';
 import useCheckPathAssetMonitoring from '@api/change-monitoring/useCheckPathsAsset';
 import useNotification from '@hooks/useNotification';
 import { RunMonitoringAsset } from '../types/RunMonitoringAsset';
@@ -19,12 +19,14 @@ interface PathAssetTableProps {
 	assetData?: RunMonitoringAsset[];
 	setAssetData?: Dispatch<SetStateAction<RunMonitoringAsset[] | undefined>>;
 	canAdd?: boolean;
+	status?: RunDtoStatusEnum;
 }
 const PathAssetTable = ({
 	assetId,
 	canAdd,
 	assetData,
-	setAssetData
+	setAssetData,
+	status
 }: PathAssetTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table']);
 	const [newPaths, setNewPaths] = useState<PathMonitoringDto[]>([]);
@@ -161,10 +163,17 @@ const PathAssetTable = ({
 			columns={columns}
 			noDataMessage={t('table:no-data')}
 			isColumnOrderingEnabled
-			canAdd={canAdd}
+			canAdd={status ? status === 'SETUP' && canAdd : canAdd}
 			toolbar={{
 				searchBar: true,
-				toolbarBatchActions: canAdd ? toolbarBatchActions : [],
+				// eslint-disable-next-line no-nested-ternary
+				toolbarBatchActions: status
+					? status === 'SETUP' && canAdd
+						? toolbarBatchActions
+						: []
+					: canAdd
+					? toolbarBatchActions
+					: [],
 				toolbarTableMenus: []
 			}}
 			exportFileName={({ all }) =>

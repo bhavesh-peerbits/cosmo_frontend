@@ -1,10 +1,10 @@
 import ApiError from '@api/ApiError';
 import useAddPathToAllAssetRun from '@api/change-monitoring/useAddPathToAllAssetRun';
 import useAddPathToAnAssetRun from '@api/change-monitoring/useAddPathToAnAssetRun';
+import useGoNextStepRun from '@api/change-monitoring/useGoNextStepRun';
 import useSaveNotesRun from '@api/change-monitoring/useSaveNotesRun';
 import { Toggle, TextArea, Button, Tooltip, InlineLoading, Layer } from '@carbon/react';
 import { Information } from '@carbon/react/icons';
-import FullWidthColumn from '@components/FullWidthColumn';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import Run from '@model/Run';
 import AssetExpandableTile from '@pages/MonitoringDraftDetails/Components/AssetExpandableTile';
@@ -15,6 +15,7 @@ import { PathMonitoringDto } from 'cosmo-api/src/v1';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import cx from 'classnames';
 
 interface RunSetupContentProps {
 	run: Run;
@@ -28,20 +29,27 @@ const RunSetupContent = ({ run }: RunSetupContentProps) => {
 	const { t } = useTranslation(['runDetails', 'monitoringDashboard', 'changeMonitoring']);
 	const [sameSetup, setSameSetup] = useState(false);
 	const {
-		mutate: mutateAll,
+		mutateAsync: mutateAll,
 		isLoading: isLoadingAll,
 		isSuccess: isSuccessAll,
 		isError: isErrorAll,
 		error: errorAll
 	} = useAddPathToAllAssetRun();
 	const {
-		mutate: mutateNotes,
+		mutateAsync: mutateNotes,
 		isLoading: isLoadingNotes,
 		isSuccess: isSuccessNotes,
 		isError: isErrorNotes,
 		error: errorNotes
 	} = useSaveNotesRun();
-	const { mutate, isLoading, isError, isSuccess, error } = useAddPathToAnAssetRun();
+	const {
+		mutate: mutateGoNext,
+		isLoading: isLoadingGoNext,
+		isSuccess: isSuccessGoNext,
+		isError: isErrorGoNext,
+		error: errorGoNext
+	} = useGoNextStepRun();
+	const { mutateAsync, isLoading, isError, isSuccess, error } = useAddPathToAnAssetRun();
 	const [globalPaths, setGlobalPaths] = useState<PathMonitoringDto[]>([]);
 	const [assetsData, setAssetsData] = useState<RunMonitoringAsset[] | undefined>(
 		run.runAsset
@@ -53,68 +61,91 @@ const RunSetupContent = ({ run }: RunSetupContentProps) => {
 	});
 	const notes = watch('notes');
 	const savePathOnAllAssetsRun = () => {
-		globalPaths.forEach(path => mutateAll({ path: path.path, runId: run.id }));
+		return Promise.all(
+			globalPaths.map(path => mutateAll({ path: path.path, runId: run.id }))
+		);
 	};
 
 	const savePathOnAnAssetRun = () => {
-		assetsData
-			?.map(ad => ({
-				assetId: ad.asset.id,
-				paths: ad.paths
-					.map(p => p.path)
-					.filter(
-						pt =>
-							run.runAsset
-								.find(ra => ra.asset.id === ad.asset.id)
-								?.paths.map(p => p.path)
-								.indexOf(pt) === -1
+		return Promise.all(
+			(assetsData ?? [])
+				.map(ad => ({
+					assetId: ad.asset.id,
+					paths: ad.paths
+						.map(p => p.path)
+						.filter(
+							pt =>
+								run.runAsset
+									.find(ra => ra.asset.id === ad.asset.id)
+									?.paths.map(p => p.path)
+									.indexOf(pt) === -1
+						)
+				}))
+				.filter(toSave => toSave.paths?.length)
+				.flatMap(assetAndPaths =>
+					assetAndPaths.paths.map(assetPath =>
+						mutateAsync({
+							assetId: assetAndPaths.assetId,
+							path: assetPath,
+							runId: run.id
+						})
 					)
-			}))
-			.filter(toSave => toSave.paths?.length)
-			.forEach(assetAndPaths =>
-				assetAndPaths.paths.forEach(assetPath =>
-					mutate({ assetId: assetAndPaths.assetId, path: assetPath, runId: run.id })
 				)
-			);
+		);
 	};
 
 	const saveRunNotes = () => {
-		mutateNotes({ notes, runId: run.id });
+		return mutateNotes({ notes: notes ?? '', runId: run.id });
 	};
 
 	const handleSave = () => {
-		savePathOnAllAssetsRun();
-		savePathOnAnAssetRun();
-		saveRunNotes();
+		return Promise.all([
+			savePathOnAllAssetsRun(),
+			savePathOnAnAssetRun(),
+			saveRunNotes()
+		]);
+	};
+
+	const handleGoNext = async () => {
+		await handleSave();
+		mutateGoNext({ runId: run.id });
 	};
 
 	return (
 		<div className='space-y-7 pb-9 pt-5'>
-			<TextArea labelText={t('monitoringDashboard:note')} {...register('notes')} />
-			<FullWidthColumn>
-				<Toggle
-					aria-label='Path toggle'
-					id='path-toggle'
-					labelA={t('changeMonitoring:different')}
-					labelB={t('changeMonitoring:same')}
-					toggled={sameSetup}
-					onToggle={() => setSameSetup(!sameSetup)}
-					labelText={
-						<div className='flex space-x-3'>
-							<p className='text-label-1'>{t('changeMonitoring:asset-setup-toggle')}</p>
-							<Tooltip
-								align='top'
-								label={t('changeMonitoring:same-setup-additional-info')}
-							>
-								<button type='button' onClick={e => e.preventDefault()}>
-									<Information />
-								</button>
-							</Tooltip>
-						</div>
-					}
+			<Layer>
+				<TextArea
+					labelText={t('monitoringDashboard:note')}
+					{...register('notes')}
+					className={cx('', { 'pointer-events-none': run.status !== 'SETUP' })}
 				/>
-			</FullWidthColumn>
-			<FullWidthColumn className='space-y-7'>
+			</Layer>
+			{run.status === 'SETUP' && (
+				<div>
+					<Toggle
+						aria-label='Path toggle'
+						id='path-toggle'
+						labelA={t('changeMonitoring:different')}
+						labelB={t('changeMonitoring:same')}
+						toggled={sameSetup}
+						onToggle={() => setSameSetup(!sameSetup)}
+						labelText={
+							<div className='flex space-x-3'>
+								<p className='text-label-1'>{t('changeMonitoring:asset-setup-toggle')}</p>
+								<Tooltip
+									align='top'
+									label={t('changeMonitoring:same-setup-additional-info')}
+								>
+									<button type='button' onClick={e => e.preventDefault()}>
+										<Information />
+									</button>
+								</Tooltip>
+							</div>
+						}
+					/>
+				</div>
+			)}
+			<div className='space-y-7'>
 				{sameSetup && (
 					<Layer>
 						<SameSetupPathTable
@@ -133,18 +164,19 @@ const RunSetupContent = ({ run }: RunSetupContentProps) => {
 								setAssetData={setAssetsData}
 								canAdd={!sameSetup}
 								assetId={ma.asset.id || ''}
+								status={run.status}
 							/>
 						</AssetExpandableTile>
 					))}
 				</div>
-			</FullWidthColumn>
-			<FullWidthColumn className='justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
+			</div>
+			<div className='justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
 				<InlineLoadingStatus
 					{...{
 						isLoading: false,
-						isSuccess: isSuccess || isSuccessAll || isSuccessNotes,
-						isError: isError || isErrorAll || isErrorNotes,
-						error: (error || errorAll || errorNotes) as ApiError
+						isSuccess: isSuccess || isSuccessAll || isSuccessNotes || isSuccessGoNext,
+						isError: isError || isErrorAll || isErrorNotes || isErrorGoNext,
+						error: (error || errorAll || errorNotes || errorGoNext) as ApiError
 					}}
 				/>
 				<div>{(isLoading || isLoadingAll || isLoadingNotes) && <InlineLoading />}</div>
@@ -152,9 +184,13 @@ const RunSetupContent = ({ run }: RunSetupContentProps) => {
 					size='md'
 					className='w-full md:w-fit'
 					onClick={() => handleSave()}
+					kind='tertiary'
 					disabled={
+						run.status !== 'SETUP' ||
 						isLoading ||
 						isLoadingAll ||
+						isLoadingNotes ||
+						isLoadingGoNext ||
 						(!sameSetup &&
 							(!assetsData?.length ||
 								!assetsData?.every(
@@ -172,11 +208,13 @@ const RunSetupContent = ({ run }: RunSetupContentProps) => {
 				<Button
 					size='md'
 					className='w-full md:w-fit'
-					onClick={() => handleSave()}
+					onClick={() => handleGoNext()}
 					disabled={
+						run.status !== 'SETUP' ||
 						isLoading ||
 						isLoadingAll ||
 						isLoadingNotes ||
+						isLoadingGoNext ||
 						(!sameSetup &&
 							(!assetsData?.length ||
 								!assetsData?.every(
@@ -191,7 +229,7 @@ const RunSetupContent = ({ run }: RunSetupContentProps) => {
 				>
 					{t('changeMonitoring:save-next')}
 				</Button>
-			</FullWidthColumn>
+			</div>
 		</div>
 	);
 };

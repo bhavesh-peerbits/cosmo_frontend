@@ -23,6 +23,7 @@ export * from './api/csv-reader-controller-api';
 export * from './api/evidence-request-controller-api';
 export * from './api/evidence-request-file-s3-controller-api';
 export * from './api/evidence-request-focal-point-controller-api';
+export * from './api/focal-point-change-monitoring-controller-api';
 export * from './api/framework-tree-controller-api';
 export * from './api/framework-tree-for-evidence-controller-api';
 export * from './api/frequency-controller-api';

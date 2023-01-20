@@ -96,7 +96,7 @@ interface CosmoTableProps<T extends SubRows<T>> {
 	canEdit?: boolean;
 	canDelete?: boolean;
 	modalProps?: ModalProps;
-	inlineActions?: InlineActions[];
+	inlineActions?: InlineActions<T>[];
 	// modalContent?: FC<{ row: Row<T> | undefined; closeModal: () => void; edit: boolean }>;
 	onDelete?: (rows: Row<T>[]) => void;
 }
@@ -160,7 +160,9 @@ const CosmoTable = <T extends SubRows<T>>({
 			header: t('actions'),
 			accessorFn: row => row,
 			accessorKey: 'rowActions',
-			meta: { disableExport }
+			meta: { disableExport },
+			size: 50,
+			maxSize: 40
 		});
 	}
 
@@ -289,7 +291,11 @@ const CosmoTable = <T extends SubRows<T>>({
 
 	return (
 		<>
-			<TableContainer title={title} description={description}>
+			<TableContainer
+				title={title}
+				description={description}
+				data-floating-menu-container
+			>
 				<CosmoTableToolbar
 					disableExport={disableExport}
 					searchBar={toolbar?.searchBar}
