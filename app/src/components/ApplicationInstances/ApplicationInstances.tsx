@@ -1,5 +1,5 @@
 import useGetAppInstances from '@api/change-monitoring/useGetAppInstances';
-import { Add, Email } from '@carbon/react/icons';
+import { Add } from '@carbon/react/icons';
 import FullWidthColumn from '@components/FullWidthColumn';
 import NoDataMessage from '@components/NoDataMessage';
 import TableOfContents from '@components/TableOfContents';
@@ -16,7 +16,7 @@ type ApplicationInstancesProps = {
 	application: Application;
 };
 const ApplicationInstances = ({ application }: ApplicationInstancesProps) => {
-	const { t } = useTranslation(['management', 'applicationInstances']);
+	const { t } = useTranslation('applicationInstances');
 	const [isAddInstanceOpen, setIsAddInstanceOpen] = useState(false);
 	const { data: instances } = useGetAppInstances(application?.codeName);
 	const { breadcrumbSize } = useBreadcrumbSize();
@@ -41,7 +41,7 @@ const ApplicationInstances = ({ application }: ApplicationInstancesProps) => {
 					/>
 					<div className='flex flex-col space-y-5'>
 						<div
-							className='flex w-full flex-wrap items-center bg-layer-1 md:sticky md:z-10  md:space-x-4'
+							className='w-full bg-layer-1 md:sticky md:z-10'
 							ref={buttonRef}
 							style={{
 								top: breadcrumbSize + 48
@@ -53,18 +53,9 @@ const ApplicationInstances = ({ application }: ApplicationInstancesProps) => {
 								className='md:max-w-auto w-full max-w-full md:w-auto'
 								onClick={() => setIsAddInstanceOpen(true)}
 							>
-								{t('applicationInstances:new-instance')}
-							</Button>
-							<Button
-								size='md'
-								className='md:max-w-auto w-full max-w-full md:w-auto'
-								renderIcon={Email}
-								kind='tertiary'
-							>
-								{t('management:review')}
+								{t('new-instance')}
 							</Button>
 						</div>
-
 						<div className='space-y-7'>
 							{instances?.length === 0 && (
 								<div>

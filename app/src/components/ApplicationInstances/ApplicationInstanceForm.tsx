@@ -10,6 +10,7 @@ import { OptionsTile } from '@carbon/ibm-products';
 import DeleteAssetModal from '@components/Modals/DeleteAssetModal';
 import Asset from '@model/Asset';
 import Instance from '@model/Instance';
+import AddNewAssetModal from '@components/Modals/AddNewAsset';
 import AssetTileContent from './AssetTileContent';
 import { ApplicationInstanceFormData } from './AssetTileForm';
 
@@ -19,6 +20,7 @@ type ApplicationInstanceFormProps = {
 const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => {
 	const { t } = useTranslation(['applicationInstances', 'modals', 'applicationInfo']);
 	const [isDeleteInstanceOpen, setIsDeleteInstanceOpen] = useState(false);
+	const [isAddAssetOpen, setIsAddAssetOpen] = useState(false);
 	const [assetToDelete, setAssetToDelete] = useState<{
 		asset: Asset;
 		isGlobal?: boolean;
@@ -97,6 +99,11 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 						setIsOpen={setIsDeleteInstanceOpen}
 						instance={instance.instance}
 					/>
+					<AddNewAssetModal
+						isOpen={isAddAssetOpen}
+						setIsOpen={setIsAddAssetOpen}
+						instance={instance.instance}
+					/>
 					<DeleteAssetModal
 						assetToDelete={assetToDelete}
 						setAssetToDelete={setAssetToDelete}
@@ -114,7 +121,7 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 								renderIcon={Add}
 								tooltipPosition='bottom'
 								iconDescription={t('applicationInstances:add-asset')}
-								onClick={() => setIsDeleteInstanceOpen(true)}
+								onClick={() => setIsAddAssetOpen(true)}
 							/>
 							<Button
 								hasIconOnly
@@ -126,7 +133,6 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 							/>
 						</div>
 					</FullWidthColumn>
-
 					<FullWidthColumn>
 						<Grid fullWidth>
 							<FullWidthColumn className='mb-5'>

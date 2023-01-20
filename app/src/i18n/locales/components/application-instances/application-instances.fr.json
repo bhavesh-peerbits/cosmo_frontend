@@ -19,5 +19,6 @@
 	"add-new-asset": "Add new asset",
 	"create-new-instance": "Create new application instance",
 	"ports-input-placeholder": "Use a semicolon to separate asset ports.",
-	"add-asset": "Aggiungi asset"
+	"add-asset": "Add asset",
+	"add-new-asset-instance": "Add new asset to instance"
 }
