@@ -14,8 +14,8 @@ import {
 	FieldArrayWithId
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import AssetTileContent from './AssetTileContent';
-import { ApplicationInstanceFormData } from './AssetTileForm';
+import AssetPathsTable from './AssetPathsTable';
+import AssetTileForm, { ApplicationInstanceFormData } from './AssetTileForm';
 
 type ApplicationInstanceFormProps = {
 	instance: InstanceAsset;
@@ -23,6 +23,7 @@ type ApplicationInstanceFormProps = {
 	watch: UseFormWatch<ApplicationInstanceFormData>;
 	errors: FieldErrors<ApplicationInstanceFormData>;
 	fields: FieldArrayWithId<ApplicationInstanceFormData, 'assets', 'id'>[];
+	isReview?: boolean;
 };
 
 const ApplicationInstanceForm = ({
@@ -30,7 +31,8 @@ const ApplicationInstanceForm = ({
 	register,
 	watch,
 	errors,
-	fields
+	fields,
+	isReview
 }: ApplicationInstanceFormProps) => {
 	const { t } = useTranslation(['modals', 'applicationInstances']);
 	const [assetToDelete, setAssetToDelete] = useState<{
@@ -75,42 +77,48 @@ const ApplicationInstanceForm = ({
 							title={
 								<div className='flex items-center justify-between'>
 									{asset.hostname}
-									<div className='space-x-3'>
-										<Button
-											size='sm'
-											kind='ghost'
-											hasIconOnly
-											renderIcon={SubtractAlt}
-											iconDescription={t('applicationInstances:delete-asset-instance')}
-											tooltipPosition='bottom'
-											onClick={e => {
-												e.stopPropagation();
-												setAssetToDelete({ asset, instance: instance.instance });
-											}}
-										/>
-										<Button
-											size='sm'
-											kind='ghost'
-											hasIconOnly
-											renderIcon={TrashCan}
-											iconDescription={t('applicationInstances:delete-asset-global')}
-											tooltipPosition='bottom'
-											onClick={e => {
-												e.stopPropagation();
-												setAssetToDelete({ asset, isGlobal: true });
-											}}
-										/>
-									</div>
+									{!isReview && (
+										<div className='space-x-3'>
+											<Button
+												size='sm'
+												kind='ghost'
+												hasIconOnly
+												renderIcon={SubtractAlt}
+												iconDescription={t('applicationInstances:delete-asset-instance')}
+												tooltipPosition='bottom'
+												onClick={e => {
+													e.stopPropagation();
+													setAssetToDelete({ asset, instance: instance.instance });
+												}}
+											/>
+											<Button
+												size='sm'
+												kind='ghost'
+												hasIconOnly
+												renderIcon={TrashCan}
+												iconDescription={t('applicationInstances:delete-asset-global')}
+												tooltipPosition='bottom'
+												onClick={e => {
+													e.stopPropagation();
+													setAssetToDelete({ asset, isGlobal: true });
+												}}
+											/>
+										</div>
+									)}
 								</div>
 							}
 						>
-							<AssetTileContent
-								asset={asset}
-								index={fields.findIndex(f => f.key === asset.id)}
-								register={register}
-								watch={watch}
-								errors={errors}
-							/>
+							<div className='space-y-5'>
+								<AssetTileForm
+									asset={asset}
+									register={register}
+									index={fields.findIndex(f => f.key === asset.id)}
+									watch={watch}
+									errors={errors}
+									readOnly={isReview}
+								/>
+								<AssetPathsTable asset={asset} readOnly />
+							</div>
 						</AssetExpandableTile>
 					))}
 				</FullWidthColumn>

@@ -10,9 +10,10 @@ import { TrashCan } from '@carbon/react/icons';
 
 type AssetPathsTableProps = {
 	asset: Asset;
+	readOnly?: boolean;
 };
 
-const AssetPathsTable = ({ asset }: AssetPathsTableProps) => {
+const AssetPathsTable = ({ asset, readOnly }: AssetPathsTableProps) => {
 	const { t } = useTranslation(['table', 'applicationInstances']);
 
 	const columns = useMemo<ColumnDef<PathDto>[]>(() => {
@@ -73,7 +74,7 @@ const AssetPathsTable = ({ asset }: AssetPathsTableProps) => {
 						canEdit
 						onDelete={() => {}}
 						inlineActions={[{ label: 'ciao', icon: <TrashCan />, onClick: () => {} }]}
-						canAdd
+						canAdd={!readOnly}
 						exportFileName={({ all }) =>
 							all ? 'monitoring-drafts-all' : 'monitoring-drafts-selection'
 						}

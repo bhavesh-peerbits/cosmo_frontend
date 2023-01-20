@@ -14,6 +14,8 @@ import { useMemo, useEffect } from 'react';
 import useGetAppsInReview from '@api/review/useGetAppsInReview';
 import useGetProcedures from '@api/procedures/useGetProcedures';
 import { Procedure } from 'cosmo-api/src/v1';
+import useGetAppInstances from '@api/change-monitoring/useGetAppInstances';
+import ApplicationInstanceReview from '@components/ReviewNarrative/ApplicationInstanceReview';
 
 const ReviewDetail = () => {
 	const { t } = useTranslation('reviewNarrative');
@@ -27,6 +29,9 @@ const ReviewDetail = () => {
 	const data = apps?.get(appId);
 	const navigate = useNavigate();
 
+	// TODO Remove
+	const { data: fakeInstances } = useGetAppInstances('fede');
+
 	useEffect(() => {
 		if (!data) {
 			navigate(routes.REVIEW_NARRATIVE, { replace: true });
@@ -35,6 +40,8 @@ const ReviewDetail = () => {
 	if (!data) {
 		return null;
 	}
+
+	// TODO Change the condition to render instances (data.inReview && data.instance.map)
 	return (
 		<PageHeader
 			pageTitle={data.name}
@@ -80,6 +87,40 @@ const ReviewDetail = () => {
 										</Tile>
 									</div>
 								)}
+								{data.inReview &&
+									fakeInstances?.map(instance => (
+										<Tile className='bg-background'>
+											<Grid>
+												<FullWidthColumn className='flex justify-between space-x-1'>
+													<p
+														data-toc-id={`instance-tile-review-${instance.instance?.name}`}
+														className='flex-1 text-productive-heading-3'
+													>
+														{instance.instance?.name}
+													</p>
+													<div className='justify-end'>
+														<p className='text-text-secondary text-body-compact-1'>
+															{`${t('last-review')}: ${
+																data.lastReview
+																	? data.lastReview.toLocaleString()
+																	: t('never')
+															}`}
+														</p>
+														{data.lastReview && (
+															<p className='text-text-secondary text-body-compact-1'>
+																{`${t('last-reviewer')}: ${
+																	data.lastReviewer?.displayName
+																}`}
+															</p>
+														)}
+													</div>
+												</FullWidthColumn>
+												<FullWidthColumn>
+													<ApplicationInstanceReview instance={instance} />
+												</FullWidthColumn>
+											</Grid>
+										</Tile>
+									))}
 
 								{procedureList.map(
 									procedure =>

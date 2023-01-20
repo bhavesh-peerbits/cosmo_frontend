@@ -26,11 +26,19 @@ type AssetTileFormProps = {
 	index: number;
 	watch: UseFormWatch<ApplicationInstanceFormData>;
 	errors: FieldErrors<ApplicationInstanceFormData>;
+	readOnly?: boolean;
 };
 
 // TODO remove last comma in ports
 
-const AssetTileForm = ({ asset, register, index, watch, errors }: AssetTileFormProps) => {
+const AssetTileForm = ({
+	asset,
+	register,
+	index,
+	watch,
+	errors,
+	readOnly
+}: AssetTileFormProps) => {
 	const { t } = useTranslation(['applicationInstances', 'modals']);
 
 	return (
@@ -46,6 +54,7 @@ const AssetTileForm = ({ asset, register, index, watch, errors }: AssetTileFormP
 						{...register(`assets.${index}.hostname`, {
 							required: { value: true, message: t('modals:field-required') }
 						})}
+						readOnly={readOnly}
 					/>
 				</FullWidthColumn>
 				<FullWidthColumn>
@@ -58,6 +67,7 @@ const AssetTileForm = ({ asset, register, index, watch, errors }: AssetTileFormP
 						{...register(`assets.${index}.ip`, {
 							required: { value: true, message: t('modals:field-required') }
 						})}
+						readOnly={readOnly}
 					/>
 				</FullWidthColumn>
 				<FullWidthColumn>
@@ -77,6 +87,7 @@ const AssetTileForm = ({ asset, register, index, watch, errors }: AssetTileFormP
 								(ports.split(',').every(port => +port < 65535) ||
 									t('applicationInstances:erros-ports-greater'))
 						})}
+						readOnly={readOnly}
 					/>
 				</FullWidthColumn>
 				<Column lg={8} md={4} sm={4}>
@@ -86,6 +97,7 @@ const AssetTileForm = ({ asset, register, index, watch, errors }: AssetTileFormP
 						{...register(`assets.${index}.os`, {
 							required: { value: true, message: t('modals:field-required') }
 						})}
+						readOnly={readOnly}
 					>
 						<SelectItem text='Windows' value='WINDOWS' />
 						<SelectItem text='Unix' value='UNIX' />
@@ -99,6 +111,7 @@ const AssetTileForm = ({ asset, register, index, watch, errors }: AssetTileFormP
 						{...register(`assets.${index}.type`, {
 							required: { value: true, message: t('modals:field-required') }
 						})}
+						readOnly={readOnly}
 					>
 						<SelectItem text={t('applicationInstances:operating-system')} value='OS' />
 						<SelectItem text='Database' value='DB' />
@@ -120,6 +133,7 @@ const AssetTileForm = ({ asset, register, index, watch, errors }: AssetTileFormP
 								message: t('modals:field-required')
 							}
 						})}
+						readOnly={readOnly}
 					/>
 				</Column>
 				<Column lg={8} md={4} sm={4}>
@@ -138,6 +152,7 @@ const AssetTileForm = ({ asset, register, index, watch, errors }: AssetTileFormP
 								message: t('modals:field-required')
 							}
 						})}
+						readOnly={readOnly}
 					/>
 				</Column>
 			</Grid>
