@@ -1,104 +1,96 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
 import {
+	Column,
 	ColumnDef,
-	ModalInfoAllOrdered,
-	ModalInfoDateOrdered,
-	ModalInfoSelectOrdered,
-	ModalInfoUserOrdered
+	ColumnMeta,
+	flexRender,
+	ModalInfo
 } from '@tanstack/react-table';
 import {
 	TextInput,
 	SwitcherDivider,
 	NumberInput,
-	Select,
-	SelectItem,
+	Dropdown,
 	DatePicker,
 	Button,
 	DatePickerInput
 } from '@carbon/react';
 import cx from 'classnames';
 import SingleUserSelect from '@components/SingleUserSelect';
-import { useForm } from 'react-hook-form';
-import User from '@model/User';
-import useGetUsersByRole from '@api/user/useGetUsersByRole';
+import {
+	FieldValues,
+	SubmitHandler,
+	UnpackNestedValue,
+	UseFormReturn
+} from 'react-hook-form';
 import MultipleUserSelect from '@components/MultipleUserSelect';
-import { ChangeEvent, useState } from 'react';
+import { useMemo } from 'react';
 import { Add } from '@carbon/react/icons';
-import { UseMutationResult } from '@tanstack/react-query';
 
-interface TableFormTearsheetProps<T> {
+interface TableFormTearsheetProps<T, F extends FieldValues> {
 	isOpen: boolean;
-	setIsOpen: (val: boolean) => void;
-	columns: ColumnDef<T>[];
+	columns: Column<T>[];
 	title?: string;
 	description?: string;
 	label?: string;
-	mutation: UseMutationResult<any, unknown, any, unknown>;
-	setMutationResult?: (value: any) => void;
-	mutationDefaultValues?: Record<string, any>;
+	onClose: () => void;
+	form: UseFormReturn<F>;
+	onSubmit: SubmitHandler<F>;
 }
 
-const TableFormTearsheet = <T extends object>({
+type MetaColumn<T extends object, F extends FieldValues> = Column<T> & {
+	columnDef: ColumnDef<T, unknown, F> & {
+		meta: ColumnMeta<T, unknown, F> & {
+			modalInfo: ModalInfo<F>;
+		};
+	};
+};
+
+const TableFormTearsheet = <T extends object, F extends FieldValues>({
 	isOpen,
-	setIsOpen,
 	columns,
 	title,
 	description,
 	label,
-	mutation,
-	setMutationResult,
-	mutationDefaultValues
-}: TableFormTearsheetProps<T>) => {
-	// managing object to send to mutation through this state, avoided useForm cause managing the different input programmatically was too difficult
-	const [submitItem, setSubmitItem] = useState<Record<string, unknown>>(
-		mutationDefaultValues ?? {}
-	);
-	const [multipleSubmitItem, setMultipleSubmitItem] = useState<Record<string, unknown>>(
-		{}
-	);
-	const [moreColumns, setMoreColumns] = useState<typeof columns>([]);
-	const isMultiple = columns.filter(col => col.meta?.modalInfo).length === 1;
-	const { mutate, isLoading } = mutation;
+	form,
+	onClose,
+	onSubmit
+}: TableFormTearsheetProps<T, F>) => {
+	const {
+		register,
+		control,
+		handleSubmit,
+		reset,
+		watch,
+		formState: { touchedFields, errors, isValid, isSubmitting }
+	} = form;
+
 	const cleanUp = () => {
-		setIsOpen(false);
-		setMultipleSubmitItem({});
-		setSubmitItem(mutationDefaultValues ?? {});
+		reset(
+			Object.keys(touchedFields).reduce(
+				(acc, n) => ({ ...acc, [n]: null }),
+				{} as UnpackNestedValue<F>
+			)
+		);
+		onClose();
 	};
 
-	const checkFieldorderPresent = (
-		value: NonNullable<typeof columns[number]['meta']>['modalInfo']
-	): value is
-		| ModalInfoAllOrdered
-		| ModalInfoSelectOrdered
-		| ModalInfoDateOrdered
-		| ModalInfoUserOrdered => {
-		return Boolean(value && 'fieldOrder' in value);
-	};
-
-	const handleCreate = () => {
-		if (isMultiple) {
-			mutate(
-				{
-					[columns.filter(c => c.meta?.modalInfo)[0].meta?.modalInfo?.modelKeyName ?? '']:
-						Object.values(multipleSubmitItem),
-					...mutationDefaultValues
-				},
-				{
-					onSuccess: (data: any) => {
-						setMutationResult && setMutationResult((old: any) => [...old, ...data]);
-						cleanUp();
-					}
-				}
-			);
-		} else {
-			mutate(submitItem, {
-				onSuccess: (data: any) => {
-					setMutationResult && setMutationResult(data);
-					cleanUp();
-				}
-			});
-		}
-	};
+	const allColumns = useMemo(
+		() =>
+			columns
+				.filter((col): col is MetaColumn<T, F> =>
+					Boolean(col.columnDef.meta && col.columnDef.meta.modalInfo)
+				)
+				.sort((a, b) =>
+					a.columnDef.meta.modalInfo.fieldOrder !== undefined &&
+					b.columnDef.meta.modalInfo.fieldOrder !== undefined
+						? a.columnDef.meta.modalInfo.fieldOrder -
+						  b.columnDef.meta.modalInfo.fieldOrder
+						: 1
+				),
+		[columns]
+	);
 
 	return (
 		<TearsheetNarrow
@@ -115,209 +107,163 @@ const TableFormTearsheet = <T extends object>({
 					onClick: cleanUp,
 					id: 'cancel'
 				},
-				{ label: 'create', id: 'create', onClick: handleCreate, disabled: isLoading }
+				{
+					label: 'create',
+					id: 'create',
+					onClick: handleSubmit(onSubmit),
+					disabled: !isValid && isSubmitting
+				}
 			]}
 		>
 			<>
 				<SwitcherDivider className='mx-0 mt-5 w-full' />
 				<div className='mt-5 grid grid-cols-2 gap-x-7 gap-y-5 px-5'>
-					{[...columns, ...moreColumns]
-						.filter(col => col.meta?.modalInfo)
-						.sort((a, b) => {
-							const modInfoA = a.meta?.modalInfo;
-							const modInfoB = b.meta?.modalInfo;
-							return checkFieldorderPresent(modInfoA) && checkFieldorderPresent(modInfoB)
-								? (modInfoA.fieldOrder ?? 0) - (modInfoB.fieldOrder ?? 0)
-								: 1;
-						})
-						.map((column, index) => {
-							if (column.meta?.modalInfo?.type === 'string') {
-								const name = `${column.meta?.modalInfo?.modelKeyName}${index}`;
-								return (
-									<TextInput
-										className={cx('', {
-											'col-span-1': column.meta?.modalInfo?.halfWidth,
-											'col-span-2': !column.meta?.modalInfo?.halfWidth
-										})}
-										autoComplete='off'
-										onChange={(e: ChangeEvent<HTMLInputElement>) => {
-											isMultiple
-												? setMultipleSubmitItem(old => ({
-														...old,
-														[name]: e.target.value
-												  }))
-												: setSubmitItem(old => ({
-														...old,
-														[column.meta?.modalInfo?.modelKeyName ?? '']:
-															e.currentTarget.value
-												  }));
-										}}
-										id={isMultiple ? name : column.meta?.modalInfo?.modelKeyName}
-										labelText={column.header?.toString()}
-										{...column.meta?.modalInfo?.validation}
-									/>
-								);
-							}
-							if (column.meta?.modalInfo?.type === 'number') {
-								return (
-									<NumberInput
-										className={cx('', {
-											'col-span-1': column.meta?.modalInfo?.halfWidth,
-											'col-span-2': !column.meta?.modalInfo?.halfWidth
-										})}
-										onChange={(e, { value }) => {
-											setSubmitItem(old => ({
-												...old,
-												[column.meta?.modalInfo?.modelKeyName ?? '']: value
-											}));
-										}}
-										id={column.meta?.modalInfo?.modelKeyName}
-										label={column.header?.toString()}
-										{...column.meta?.modalInfo?.validation}
-									/>
-								);
-							}
-							if (column.meta?.modalInfo?.type === 'select') {
-								return (
-									<Select
-										className={cx('', {
-											'col-span-1': column.meta?.modalInfo?.halfWidth,
-											'col-span-2': !column.meta?.modalInfo?.halfWidth
-										})}
-										onChange={e => {
-											setSubmitItem(old => ({
-												...old,
-												[column.meta?.modalInfo?.modelKeyName ?? '']:
-													e.currentTarget.value
-											}));
-										}}
-										id={column.meta?.modalInfo?.modelKeyName}
-										labelText={column.header?.toString()}
+					{allColumns.map(col => {
+						const modInfo = col.columnDef.meta.modalInfo;
+						const inputLabel =
+							// @ts-ignore
+							modInfo.label || flexRender(col.columnDef.header, { col }) || col.id;
+						const placeholder = modInfo.placeholder ?? inputLabel;
+						const widthClass = cx({
+							'col-span-1': !modInfo.fullWidth,
+							'col-span-2': modInfo.fullWidth
+						});
+
+						if (modInfo.type === 'number') {
+							return (
+								<NumberInput
+									className={widthClass}
+									invalidText={errors[modInfo.id]?.message}
+									invalid={Boolean(errors[modInfo.id])}
+									labelText={inputLabel}
+									id={modInfo.id}
+									// @ts-ignore
+									placeholder={placeholder}
+									{...register(modInfo.id, modInfo.validation)}
+								/>
+							);
+						}
+						if (modInfo.type === 'select') {
+							const { onChange, ...restRegister } = register(
+								modInfo.id,
+								modInfo.validation
+							);
+							return (
+								<Dropdown
+									className={widthClass}
+									id={modInfo.id}
+									titleText={inputLabel}
+									label={placeholder}
+									items={modInfo.values}
+									itemToString={val => (typeof val === 'string' ? val : val.label)}
+									invalidText={errors[modInfo.id]?.message}
+									invalid={Boolean(errors[modInfo.id])}
+									{...restRegister}
+									selectedItem={
+										watch(modInfo.id) as unknown as string | { id: string; label: string }
+									}
+									onChange={({ selectedItem }) =>
+										onChange({
+											target: {
+												value: selectedItem,
+												name: modInfo.id
+											}
+										})
+									}
+								/>
+							);
+						}
+						if (modInfo.type === 'date' && isOpen) {
+							// to reset the input
+							const { onChange, ...restRegister } = register(
+								modInfo.id,
+								modInfo.validation
+							);
+							return (
+								<div className={cx('table-modal-form', widthClass)}>
+									<DatePicker
+										id={modInfo.id}
+										datePickerType='single'
+										dateFormat='d/m/Y'
+										maxDate={modInfo.validation.maxDate}
+										minDate={modInfo.validation.minDate}
+										onChange={e =>
+											onChange({ target: { value: e[0], name: modInfo.id } })
+										}
+										{...restRegister}
 									>
-										{column.meta?.modalInfo?.selectContent.map(item => (
-											<SelectItem text={item} value={item} key={item} />
-										))}
-									</Select>
-								);
-							}
-							if (column.meta?.modalInfo?.type === 'date') {
-								return (
-									<div
-										className={cx('table-modal-form', {
-											'col-span-1': column.meta?.modalInfo?.halfWidth,
-											'col-span-2': !column.meta?.modalInfo?.halfWidth
-										})}
-									>
-										<DatePicker
-											id={column.meta?.modalInfo?.modelKeyName}
-											datePickerType='single'
-											dateFormat='d/m/Y'
-											onChange={e => {
-												setSubmitItem(old => ({
-													...old,
-													[column.meta?.modalInfo?.modelKeyName ?? '']: e[0]
-												}));
-											}}
-											{...column.meta?.modalInfo?.validation}
-										>
-											<DatePickerInput
-												labelText={column.header?.toString()}
-												id='min'
-												size='md'
-												autoComplete='off'
-												placeholder='dd/mm/yyyy'
-											/>
-										</DatePicker>
-									</div>
-								);
-							}
-							if (column.meta?.modalInfo?.type === 'user') {
-								const { roleOfUsers } = column.meta.modalInfo;
-								// eslint-disable-next-line react-hooks/rules-of-hooks
-								const { control } = useForm<{ user: User }>({
-									mode: 'onChange'
-								});
-								return (
-									<div
-										className={cx('table-modal-form', {
-											'col-span-1': column.meta?.modalInfo?.halfWidth,
-											'col-span-2': !column.meta?.modalInfo?.halfWidth
-										})}
-									>
-										<SingleUserSelect
-											control={control}
-											label={column.header?.toString() ?? ''}
-											name='user'
-											setSelectedUser={user => {
-												setSubmitItem(old => ({
-													...old,
-													[column.meta?.modalInfo?.modelKeyName ?? '']: user
-												}));
-											}}
-											level={2}
-											rules={column.meta.modalInfo.validation}
-											getUserFn={() => {
-												// eslint-disable-next-line react-hooks/rules-of-hooks
-												return useGetUsersByRole(roleOfUsers);
-											}}
+										<DatePickerInput
+											labelText={inputLabel}
+											invalidText={errors[modInfo.id]?.message}
+											invalid={Boolean(errors[modInfo.id])}
+											id='min'
+											size='md'
+											autoComplete='off'
+											placeholder='dd/mm/yyyy'
 										/>
-									</div>
-								);
-							}
-							if (column.meta?.modalInfo?.type === 'users') {
-								const { roleOfUsers } = column.meta.modalInfo;
-								// eslint-disable-next-line react-hooks/rules-of-hooks
-								const { control } = useForm<{ users: User[] }>({
-									mode: 'onChange'
-								});
-								return (
-									<div
-										className={cx('table-modal-form', {
-											'col-span-1': column.meta?.modalInfo?.halfWidth,
-											'col-span-2': !column.meta?.modalInfo?.halfWidth
-										})}
-									>
-										<MultipleUserSelect
-											control={control}
-											label={column.header?.toString() ?? ''}
-											name='users'
-											level={2}
-											setSelectedUser={user => {
-												setSubmitItem(old => ({
-													...old,
-													[column.meta?.modalInfo?.modelKeyName ?? '']: user
-												}));
-											}}
-											rules={column.meta.modalInfo.validation}
-											getUserFn={() => {
-												// eslint-disable-next-line react-hooks/rules-of-hooks
-												return useGetUsersByRole(roleOfUsers);
-											}}
-										/>
-									</div>
-								);
-							}
-							return <div>Input not implemented yet</div>;
-						})}
-					{isMultiple && (
-						<Button
-							type='button'
-							renderIcon={Add}
-							size='md'
-							kind='primary'
-							onClick={() => {
-								setMoreColumns(old => {
-									return [...old, columns.filter(c => c.meta?.modalInfo)[0]];
-								});
-							}}
-						>
-							Add
-						</Button>
-					)}
+									</DatePicker>
+								</div>
+							);
+						}
+						if (modInfo.type === 'user') {
+							return (
+								<div className={cx('table-modal-form', widthClass)}>
+									{/* @ts-ignore */}
+									<SingleUserSelect
+										control={control}
+										label={inputLabel}
+										name={modInfo.id}
+										level={2}
+										rules={modInfo.validation}
+										getUserFn={modInfo.userFn}
+										excludedUsers={modInfo.excludedUsers}
+									/>
+								</div>
+							);
+						}
+						if (modInfo.type === 'users') {
+							return (
+								<div className={cx('table-modal-form', widthClass)}>
+									{/* @ts-ignore */}
+									<MultipleUserSelect
+										control={control}
+										label={inputLabel}
+										name={modInfo.id}
+										level={2}
+										rules={modInfo.validation}
+										getUserFn={modInfo.userFn}
+										excludedUsers={modInfo.excludedUsers}
+									/>
+								</div>
+							);
+						}
+						return (
+							<TextInput
+								className={widthClass}
+								autoComplete='off'
+								invalidText={errors[modInfo.id]?.message}
+								invalid={Boolean(errors[modInfo.id])}
+								labelText={inputLabel}
+								id={modInfo.id}
+								// @ts-ignore
+								placeholder={placeholder}
+								{...register(modInfo.id, modInfo.validation)}
+							/>
+						);
+					})}
+
+					{/* <Button */}
+					{/*	type='button' */}
+					{/*	renderIcon={Add} */}
+					{/*	size='md' */}
+					{/*	kind='primary' */}
+					{/*	onClick={() => {}} */}
+					{/* > */}
+					{/*	Add */}
+					{/* </Button> */}
 				</div>
 			</>
 		</TearsheetNarrow>
 	);
 };
-
 export default TableFormTearsheet;

@@ -42,11 +42,11 @@ const PathAssetTable = ({
 				header: 'Path',
 				sortUndefined: 1,
 				meta: {
-					modalInfo: {
-						type: 'string',
-						modelKeyName: 'requestBody',
-						validation: { required: true }
-					}
+					// modalInfo: {
+					// id: 'path',
+					// type: 'string',
+					// validation: { required: true }
+					// } FIXME
 				}
 			}
 		];
@@ -135,12 +135,12 @@ const PathAssetTable = ({
 
 	return (
 		<CosmoTable
-			modalProps={{
-				mutation: useCheckPathAssetMonitoring(),
-				title: t('changeMonitoring:add-path'),
-				setMutationResult: setNewPaths,
-				mutationDefaultValues: { assetId }
-			}}
+			// modalProps={{
+			// 	mutation: useCheckPathAssetMonitoring(),
+			// 	title: t('changeMonitoring:add-path'),
+			// 	setMutationResult: setNewPaths,
+			// 	mutationDefaultValues: { assetId }
+			// }} FIXME use new props
 			tableId={`${assetId}-path-table`}
 			columns={columns}
 			noDataMessage={t('table:no-data')}

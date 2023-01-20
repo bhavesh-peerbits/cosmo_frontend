@@ -207,7 +207,7 @@ const EvidenceRequestActionTableView = ({
 					}}
 					isColumnOrderingEnabled
 					canAdd
-					modalProps={{ title: 'test', mutation }}
+					// modalProps={{ title: 'test',  }} FIXME use new version
 				/>
 			</div>
 		</Fade>

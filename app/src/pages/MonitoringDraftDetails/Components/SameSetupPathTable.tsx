@@ -3,7 +3,6 @@ import { CellContext, ColumnDef } from '@tanstack/react-table';
 import { Dispatch, SetStateAction, useMemo } from 'react';
 import { CheckmarkFilled, CheckmarkOutline, SubtractAlt } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
-import useCheckPathsMultiAssets from '@api/change-monitoring/useCheckPathsMultiAssets';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const BooleanCell = ({ getValue }: CellContext<any, unknown>) => {
@@ -58,11 +57,11 @@ const SameSetupPathTable = ({
 				header: 'Path',
 				sortUndefined: 1,
 				meta: {
-					modalInfo: {
-						type: 'string',
-						modelKeyName: 'paths',
-						validation: { required: true }
-					}
+					// 	modalInfo: {
+					// 		type: 'string',
+					// 		modelKeyName: 'paths',
+					// 		validation: { required: true }
+					// 	} FIXME
 				}
 			}
 		];
@@ -94,12 +93,12 @@ const SameSetupPathTable = ({
 
 	return (
 		<CosmoTable
-			modalProps={{
-				mutation: useCheckPathsMultiAssets(),
-				title: t('changeMonitoring:add-path'),
-				setMutationResult: setGlobalData,
-				mutationDefaultValues: { assetIds }
-			}}
+			// modalProps={{
+			// 	mutation: useCheckPathsMultiAssets(),
+			// 	title: t('changeMonitoring:add-path'),
+			// 	setMutationResult: setGlobalData,
+			// 	mutationDefaultValues: { assetIds }
+			// }} FIXME use new props
 			tableId='path-multi-asset-table'
 			columns={columns}
 			noDataMessage={t('table:no-data')}

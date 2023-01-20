@@ -1,24 +1,28 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import User from '@model/User';
-import { FilterFn, RowData } from '@tanstack/react-table';
+import { AccessorFn, ColumnDefTemplate, FilterFn, RowData } from '@tanstack/react-table';
+import {
+	FieldPath,
+	FieldPathValue,
+	FieldValues,
+	Path,
+	RegisterOptions
+} from 'react-hook-form';
+import { SingleUserSelectProps } from '@components/SingleUserSelect';
 
 declare module '@tanstack/react-table' {
 	import { RankingInfo } from '@tanstack/match-sorter-utils';
 
-	interface ColumnMeta<TData extends RowData, TValue> {
+	interface ColumnMeta<
+		TData extends RowData,
+		TValue,
+		FormValues extends Record<string, any>
+	> {
 		disableExport?: boolean;
 		exportableFn?: (info: TValue) => string;
 		exportLabel?: () => string;
 		initialVisible?: false;
-		modalInfo?:
-			| ModalInfoAll
-			| ModalInfoSelect
-			| ModalInfoDate
-			| ModalInfoUser
-			| ModalInfoAllOrdered
-			| ModalInfoSelectOrdered
-			| ModalInfoDateOrdered
-			| ModalInfoUserOrdered;
+		modalInfo?: ModalInfo<FormValues>;
 
 		filter?:
 			| {
@@ -31,75 +35,45 @@ declare module '@tanstack/react-table' {
 			  };
 	}
 
-	interface ModalInfoBase {
-		modelKeyName: string;
-		halfWidth?: boolean;
-	}
+	export type ModalInfo<FormValues> =
+		| ModalInfoBase<FormValues>
+		| SelectModalInfo<FormValues>
+		| DateModalInfo<FormValues>
+		| UserModalInfo<FormValues>;
 
-	export interface ModalInfoSelect extends ModalInfoBase {
-		type: 'select';
-		selectContent: string[];
-	}
+	type ModalInfoBase<FormValues extends Record<string, any>> = {
+		id: FieldPath<FormValues>;
+		validation: RegisterOptions<FormValues, ModalInfoBase<FormValues>['id']>;
+		label?: string;
+		type?: 'string' | 'number';
 
-	export interface ModalInfoUser extends ModalInfoBase {
-		type: 'user' | 'users';
-		roleOfUsers: string;
-		validation?: {
-			required?: boolean;
-		};
-	}
+		placeholder?: string;
+		fieldOrder?: number;
+		fullWidth?: boolean;
+	};
 
-	export interface ModalInfoDate extends ModalInfoBase {
+	interface DateModalInfo<FormValues> extends ModalInfoBase<FormValues> {
 		type: 'date';
-		validation?: {
+		validation: RegisterOptions<FormValues, ModalInfo<FormValues>['id']> & {
 			maxDate?: Date;
 			minDate?: Date;
 		};
 	}
 
-	export interface ModalInfoAllOrdered extends ModalInfoBase {
-		type: 'number' | 'string';
-		validation?: Validation;
-		fieldOrder: number;
-	}
-
-	export interface ModalInfoSelectOrdered extends ModalInfoBase {
+	interface SelectModalInfo<FormValues> extends ModalInfoBase<FormValues> {
 		type: 'select';
-		selectContent: string[];
-		fieldOrder: number;
+		values:
+			| string[]
+			| {
+					id: string;
+					label: string;
+			  }[];
 	}
 
-	export interface ModalInfoUserOrdered extends ModalInfoBase {
+	interface UserModalInfo<FormValues> extends ModalInfoBase<FormValues> {
 		type: 'user' | 'users';
-		roleOfUsers: string;
-		validation?: {
-			required?: boolean;
-		};
-		fieldOrder: number;
-	}
-
-	export interface ModalInfoDateOrdered extends ModalInfoBase {
-		type: 'date';
-		validation?: {
-			maxDate?: Date;
-			minDate?: Date;
-		};
-		fieldOrder: number;
-	}
-
-	export interface ModalInfoAll extends ModalInfoBase {
-		type: 'number' | 'string';
-		validation?: Validation;
-	}
-
-	interface Validation {
-		min?: number;
-		max?: number;
-		maxLength?: number;
-		minLength?: number;
-		pattern?: string;
-		required?: boolean;
-		disabled?: boolean;
+		userFn?: SingleUserSelectProps<never, never>['getUserFn'];
+		excludedUsers?: SingleUserSelectProps<never, never>['excludedUsers'];
 	}
 
 	interface FilterFns<T> {
