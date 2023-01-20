@@ -24,5 +24,6 @@
 	"new-asset": "New asset",
 	"existing-asset": "Existing asset",
 	"no-path": "No path",
-	"no-path-subtitle": "Add a new path o try changing filters."
+	"no-path-subtitle": "Add a new path o try changing filters.",
+	"monitorings": "Monitorings"
 }

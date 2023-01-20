@@ -49,10 +49,12 @@ const DeleteAssetModal = ({ assetToDelete, setAssetToDelete }: DeleteAssetModalP
 								instance: assetToDelete?.instance?.name
 						  })}
 				</span>
-				<UnorderedList nested className='pt-5'>
-					<ListItem>Instance very very long name</ListItem>
-					<ListItem>Instance very very long longlong long name</ListItem>
-				</UnorderedList>
+				{assetToDelete?.isGlobal && (
+					<UnorderedList nested className='pt-5'>
+						<ListItem>Instance very very long name</ListItem>
+						<ListItem>Instance very very long longlong long name</ListItem>
+					</UnorderedList>
+				)}
 				{/* {isError && (
 					<div className='mt-5 flex items-center justify-center'>
 						<InlineNotification

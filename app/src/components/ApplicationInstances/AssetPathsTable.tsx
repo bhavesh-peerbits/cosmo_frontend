@@ -6,6 +6,7 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Layer, Grid } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
+import { TrashCan } from '@carbon/react/icons';
 
 type AssetPathsTableProps = {
 	asset: Asset;
@@ -13,6 +14,7 @@ type AssetPathsTableProps = {
 
 const AssetPathsTable = ({ asset }: AssetPathsTableProps) => {
 	const { t } = useTranslation(['table', 'applicationInstances']);
+
 	const columns = useMemo<ColumnDef<PathDto>[]>(() => {
 		const ArrayCol: ColumnDef<PathDto>[] = [
 			{
@@ -20,6 +22,21 @@ const AssetPathsTable = ({ asset }: AssetPathsTableProps) => {
 				accessorFn: row => row.path,
 				header: 'Path',
 				sortUndefined: 1
+				// meta: {
+				// 	modalInfo: {
+				// 		type: 'string',
+				// 		modelKeyName: 'requestBody',
+				// 		validation: {
+				// 			required: true,
+				// 			pattern: asset.os === 'WINDOWS' ? '^(?!s*$)[^/]+' : '^(?!s*$)[^\\]+'
+				// 		}
+				// 	}
+				// }
+			},
+			{
+				id: `monitoring-${asset.id}`,
+				accessorFn: row => row.path,
+				header: t('applicationInstances:monitorings')
 				// meta: {
 				// 	modalInfo: {
 				// 		type: 'string',
@@ -34,12 +51,16 @@ const AssetPathsTable = ({ asset }: AssetPathsTableProps) => {
 			}
 		];
 		return ArrayCol;
-	}, [asset.id]);
+	}, [asset.id, t]);
 	return (
 		<Grid narrow fullWidth>
 			<FullWidthColumn>
 				<Layer>
 					<CosmoTable
+						// modalProps={{
+						// 	title: 'titolo',
+						// 	setMutationResult: setNewPaths
+						// }}
 						tableId={`${asset.id}-instance-path-table`}
 						columns={columns}
 						isColumnOrderingEnabled
@@ -48,10 +69,15 @@ const AssetPathsTable = ({ asset }: AssetPathsTableProps) => {
 							toolbarBatchActions: [],
 							toolbarTableMenus: []
 						}}
+						canDelete
+						canEdit
+						onDelete={() => {}}
+						inlineActions={[{ label: 'ciao', icon: <TrashCan />, onClick: () => {} }]}
+						canAdd
 						exportFileName={({ all }) =>
 							all ? 'monitoring-drafts-all' : 'monitoring-drafts-selection'
 						}
-						data={asset.paths || []}
+						data={[{ id: 1, path: 's' }] || []}
 						isSelectable
 						noDataMessage={t('applicationInstances:no-path')}
 						noDataMessageSubtitle={t('applicationInstances:no-path-subtitle')}
