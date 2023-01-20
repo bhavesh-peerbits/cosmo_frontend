@@ -1,39 +1,32 @@
 import Scheduling from '@model/Scheduling';
 import { useTranslation } from 'react-i18next';
-import { TranslateDayOfWeek } from './switchTranslation';
 
 const GetSchedulingDisplayInfo = (scheduling: Scheduling) => {
-	const { t } = useTranslation(['changeMonitoring']);
+	const { t } = useTranslation('changeMonitoring');
 	switch (scheduling.frequency) {
 		case 'ONDEMAND':
-			return t('changeMonitoring:info-ondemand-scheduling');
+			return t('info-ondemand-scheduling');
 		case 'DAILY':
-			return t('changeMonitoring:info-daily-scheduling');
+			return t('info-daily-scheduling');
 		case 'WEEKLY':
-			return t('changeMonitoring:info-weekly-scheduling', {
-				day:
-					scheduling.dayOfWeek?.[0] &&
-					TranslateDayOfWeek(scheduling.dayOfWeek?.[0]).toLowerCase()
+			return t('info-weekly-scheduling', {
+				day: scheduling.dayOfWeek?.[0] && t(scheduling.dayOfWeek[0])
 			});
 		case 'BIWEEKLY':
-			return t('changeMonitoring:info-weekly-scheduling', {
-				day1:
-					scheduling.dayOfWeek?.[0] &&
-					TranslateDayOfWeek(scheduling.dayOfWeek?.[0]).toLowerCase(),
-				day2:
-					scheduling.dayOfWeek?.[1] &&
-					TranslateDayOfWeek(scheduling.dayOfWeek?.[1]).toLowerCase()
+			return t('info-weekly-scheduling', {
+				day1: scheduling.dayOfWeek?.[0] && t(scheduling.dayOfWeek[0]),
+				day2: scheduling.dayOfWeek?.[1] && t(scheduling.dayOfWeek[1])
 			});
 		case 'MONTHLY':
-			return t('changeMonitoring:info-monthly-scheduling', {
+			return t('info-monthly-scheduling', {
 				day: scheduling.dayOfMonth
 			});
 		case 'QUARTERLY':
-			return t('changeMonitoring:info-quarterly-semiannual-scheduling');
+			return t('info-quarterly-semiannual-scheduling', { numberOfMonths: 3 });
 		case 'SEMIANNUAL':
-			return t('changeMonitoring:info-quarterly-semiannual-scheduling');
+			return t('info-quarterly-semiannual-scheduling', { numberOfMonths: 6 });
 		case 'ANNUAL':
-			return t('changeMonitoring:info-annual-scheduling');
+			return t('info-annual-scheduling');
 		default:
 			return '';
 	}

@@ -40,5 +40,9 @@
 	"answer": "Risposta",
 	"actions": "Azioni",
 	"ignore": "Ignora",
-	"confirm": "Conferma"
+	"confirm": "Conferma",
+	"owner": "Responsabile",
+	"file-already-uploaded": "Usa un file già caricato",
+	"upload-new-file": "Carica un nuovo file",
+	"select-file-method": "Scegli il metodo di selezione file"
 }

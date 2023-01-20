@@ -1,96 +1,99 @@
 import {
-	ComposedModal,
-	ModalBody,
-	ModalFooter,
-	ModalHeader,
-	Button,
 	RadioButton,
 	RadioButtonGroup,
 	Select,
 	SelectItem,
 	FileUploaderDropContainer,
-	SwitcherDivider
+	Layer
 } from '@carbon/react';
-import { Dispatch, SetStateAction, useState } from 'react';
+import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
+import addFileToRunAssetStore from '@store/run-details/addFileToRunAssetStore';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useRecoilState } from 'recoil';
 
 type AddFileToPathModalProps = {
-	isOpen: boolean;
-	setIsOpen: Dispatch<SetStateAction<boolean>>;
 	id: string;
 	includeLastRun?: boolean;
 };
-const AddFileToPathModal = ({
-	isOpen,
-	setIsOpen,
-	id,
-	includeLastRun
-}: AddFileToPathModalProps) => {
+const AddFileToPathModal = ({ id, includeLastRun }: AddFileToPathModalProps) => {
 	const { t } = useTranslation(['modals', 'runDetails', 'userRevalidation']);
-	const [includeNewFile, setIncludeNewFile] = useState(true);
+	const [addFileInfo, setAddFileInfo] = useRecoilState(addFileToRunAssetStore);
+	const [inputOptions, setInputOptions] = useState(1);
 
 	const cleanUp = () => {
-		setIsOpen(false);
+		setAddFileInfo(old => ({ ...old, isOpen: false, path: '' }));
 	};
 
 	return (
-		<ComposedModal size='sm' open={isOpen} onClose={cleanUp}>
-			<ModalHeader
-				title={t('runDetails:add-file-path')}
-				label={`Monitoring Name - Run ${id}`}
-			>
+		<TearsheetNarrow
+			open={addFileInfo.isOpen}
+			onClose={cleanUp}
+			hasCloseIcon
+			title={`${t('runDetails:add-file-path')}: ${addFileInfo.path}`}
+			label={`Monitoring Name - Run ${id}`}
+			description={
 				<p className='text-text-secondary text-body-long-1'>
 					{includeLastRun
 						? t('runDetails:add-file-last-run')
 						: t('runDetails:add-file-path-description')}
 				</p>
-			</ModalHeader>
-			<ModalBody className='space-y-7'>
+			}
+			actions={[
+				{
+					label: t('modals:cancel'),
+					kind: 'secondary',
+					onClick: cleanUp,
+					id: 'cancel'
+				},
+				{
+					label: t('runDetails:confirm'),
+					id: 'create'
+				}
+			]}
+		>
+			<div className='space-y-8 p-5'>
 				{includeLastRun && (
 					<RadioButtonGroup
 						name='select-file'
 						orientation='vertical'
-						legendText={t('runDetails:select-file')}
-						defaultSelected='new-file'
+						legendText={t('runDetails:select-file-method')}
+						defaultSelected='1'
 					>
 						<RadioButton
 							labelText={t('runDetails:use-last-run')}
-							value='previous-run-file'
-							onClick={() => setIncludeNewFile(false)}
+							value='1'
+							onClick={() => setInputOptions(1)}
 						/>
 						<RadioButton
-							labelText={t('runDetails:new-file')}
-							value='new-file'
-							onClick={() => setIncludeNewFile(true)}
+							labelText={t('runDetails:file-already-uploaded')}
+							value='2'
+							onClick={() => setInputOptions(2)}
+						/>
+						<RadioButton
+							labelText={t('runDetails:upload-new-file')}
+							value='3'
+							onClick={() => setInputOptions(3)}
 						/>
 					</RadioButtonGroup>
 				)}
-				{includeNewFile && (
-					<div className='space-y-5'>
-						<Select id='file-selection'>
+				{inputOptions === 2 && (
+					<Layer level={0}>
+						<Select size='lg' id='file-selection'>
 							<SelectItem text='file1' value='file1' />
 						</Select>
-						<div className='flex w-full'>
-							<SwitcherDivider className='w-full' /> {t('runDetails:or')}
-							<SwitcherDivider className='w-full' />
-						</div>
-						<div className='space-y-3'>
-							<p className='text-heading-compact-1'>{t('runDetails:upload-file')}</p>
-
-							<FileUploaderDropContainer
-								labelText={t('userRevalidation:upload-instructions')}
-							/>
-						</div>
+					</Layer>
+				)}
+				{inputOptions === 3 && (
+					<div className='space-y-3'>
+						<p className='text-heading-compact-1'>{t('runDetails:upload-file')}</p>
+						<FileUploaderDropContainer
+							labelText={t('userRevalidation:upload-instructions')}
+						/>
 					</div>
 				)}
-			</ModalBody>
-			<ModalFooter>
-				<Button kind='secondary' onClick={cleanUp}>
-					{t('modals:cancel')}
-				</Button>
-				<Button>{t('modals:save')}</Button>
-			</ModalFooter>
-		</ComposedModal>
+			</div>
+		</TearsheetNarrow>
 	);
 };
 export default AddFileToPathModal;

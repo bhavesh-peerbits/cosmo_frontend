@@ -1,31 +1,22 @@
 import CosmoTable from '@components/table/CosmoTable';
 import { CellContext, ColumnDef } from '@tanstack/react-table';
-import { Dispatch, SetStateAction, useMemo } from 'react';
-import { CheckmarkFilled, CheckmarkOutline, SubtractAlt } from '@carbon/react/icons';
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
+import { MisuseOutline, CheckmarkOutline } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
+import useCheckPathsMultiAssets from '@api/change-monitoring/useCheckPathsMultiAssets';
+import { PathMonitoringDto } from 'cosmo-api/src/v1';
+import useNotification from '@hooks/useNotification';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const BooleanCell = ({ getValue }: CellContext<any, unknown>) => {
 	const value = getValue() as boolean;
-	return value && <CheckmarkFilled />;
+	return value ? <CheckmarkOutline /> : <MisuseOutline />;
 };
 
 type SameSetupPathTableProps = {
 	assetIds: string[];
-	globalData: {
-		path: string;
-		selected?: boolean;
-		monitoring: string[];
-	}[];
-	setGlobalData?: Dispatch<
-		SetStateAction<
-			{
-				path: string;
-				selected?: boolean;
-				monitoring: string[];
-			}[]
-		>
-	>;
+	globalData: PathMonitoringDto[];
+	setGlobalData?: Dispatch<SetStateAction<PathMonitoringDto[]>>;
 };
 const SameSetupPathTable = ({
 	assetIds,
@@ -33,18 +24,11 @@ const SameSetupPathTable = ({
 	globalData
 }: SameSetupPathTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table']);
-	const columns = useMemo<
-		ColumnDef<{
-			path: string;
-			selected?: boolean;
-			monitoring: string[];
-		}>[]
-	>(() => {
-		const ArrayCol: ColumnDef<{
-			path: string;
-			selected?: boolean;
-			monitoring: string[];
-		}>[] = [
+	const [newPaths, setNewPaths] = useState<PathMonitoringDto[]>([]);
+	const { showNotification } = useNotification();
+
+	const columns = useMemo<ColumnDef<PathMonitoringDto>[]>(() => {
+		const ArrayCol: ColumnDef<PathMonitoringDto>[] = [
 			{
 				id: 'selected-same-setup',
 				accessorFn: row => row.selected,
@@ -65,10 +49,10 @@ const SameSetupPathTable = ({
 				}
 			}
 		];
-		if (globalData.some(el => el.monitoring.length)) {
+		if (globalData.some(el => el.monitoring?.length)) {
 			ArrayCol.push({
 				id: 'monitoring-same-setup',
-				accessorFn: row => row.monitoring.join(', '),
+				accessorFn: row => row.monitoring?.join(', '),
 				header: t('changeMonitoring:monitorings'),
 				enableGrouping: false
 			});
@@ -81,22 +65,60 @@ const SameSetupPathTable = ({
 			id: 'include',
 			label: t('changeMonitoring:include'),
 			icon: CheckmarkOutline,
-			onClick: () => {}
+			onClick: (selectionElements: PathMonitoringDto[]) => {
+				setGlobalData &&
+					setGlobalData(old => {
+						return old?.map(el => {
+							if (
+								selectionElements.map(selectedEl => selectedEl.path).includes(el.path)
+							) {
+								return { ...el, selected: true };
+							}
+							return el;
+						});
+					});
+			}
 		},
 		{
 			id: 'exclude',
 			label: t('changeMonitoring:exclude'),
-			icon: SubtractAlt,
-			onClick: () => {}
+			icon: MisuseOutline,
+			onClick: (selectionElements: PathMonitoringDto[]) => {
+				setGlobalData &&
+					setGlobalData(old => {
+						return old?.map(el => {
+							if (
+								selectionElements.map(selectedEl => selectedEl.path).includes(el.path)
+							) {
+								return { ...el, selected: false };
+							}
+							return el;
+						});
+					});
+			}
 		}
 	];
+
+	useEffect(() => {
+		setGlobalData && setGlobalData(old => [...old, ...newPaths]);
+	}, [newPaths, setGlobalData]);
+
+	useEffect(() => {
+		newPaths.some(p => p.monitoring?.length) &&
+			showNotification({
+				title: t('changeMonitoring:already-monitored-toast'),
+				message: t('changeMonitoring:already-monitored-description'),
+				type: 'warning'
+			});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [newPaths]);
 
 	return (
 		<CosmoTable
 			// modalProps={{
 			// 	mutation: useCheckPathsMultiAssets(),
 			// 	title: t('changeMonitoring:add-path'),
-			// 	setMutationResult: setGlobalData,
+			// 	setMutationResult: setNewPaths,
 			// 	mutationDefaultValues: { assetIds }
 			// }} FIXME use new props
 			tableId='path-multi-asset-table'
@@ -115,8 +137,6 @@ const SameSetupPathTable = ({
 			data={globalData}
 			isSelectable
 			noDataMessageSubtitle={t('changeMonitoring:no-path-yet')}
-			title={t('changeMonitoring:same-setup-title')}
-			description={t('changeMonitoring:same-setup-description')}
 		/>
 	);
 };

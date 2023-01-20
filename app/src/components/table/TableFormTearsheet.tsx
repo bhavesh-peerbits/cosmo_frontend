@@ -27,6 +27,7 @@ import {
 import MultipleUserSelect from '@components/MultipleUserSelect';
 import { useMemo } from 'react';
 import { Add } from '@carbon/react/icons';
+import { useTranslation } from 'react-i18next';
 
 interface TableFormTearsheetProps<T, F extends FieldValues> {
 	isOpen: boolean;
@@ -65,6 +66,7 @@ const TableFormTearsheet = <T extends object, F extends FieldValues>({
 		watch,
 		formState: { touchedFields, errors, isValid, isSubmitting }
 	} = form;
+	const { t } = useTranslation('table');
 
 	const cleanUp = () => {
 		reset(
@@ -102,13 +104,13 @@ const TableFormTearsheet = <T extends object, F extends FieldValues>({
 			hasCloseIcon
 			actions={[
 				{
-					label: 'cancel',
+					label: t('cancel'),
 					kind: 'secondary',
 					onClick: cleanUp,
 					id: 'cancel'
 				},
 				{
-					label: 'create',
+					label: t('create'),
 					id: 'create',
 					onClick: handleSubmit(onSubmit),
 					disabled: !isValid && isSubmitting
@@ -259,7 +261,7 @@ const TableFormTearsheet = <T extends object, F extends FieldValues>({
 					{/*	kind='primary' */}
 					{/*	onClick={() => {}} */}
 					{/* > */}
-					{/*	Add */}
+					{/* {t('add')} */}
 					{/* </Button> */}
 				</div>
 			</>

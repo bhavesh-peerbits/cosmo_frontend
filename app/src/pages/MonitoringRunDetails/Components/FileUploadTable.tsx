@@ -1,34 +1,34 @@
 import CosmoTable from '@components/table/CosmoTable';
 import { ColumnDef } from '@tanstack/react-table';
-import { Dispatch, SetStateAction, useMemo } from 'react';
+import { useMemo } from 'react';
 import { Upload } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { Layer } from '@carbon/react';
+import { useRecoilState } from 'recoil';
+import addFileToRunAssetStore from '@store/run-details/addFileToRunAssetStore';
+
+interface UploadFileTableItem {
+	path: string;
+	fileLastRun?: string;
+	file?: string;
+}
 
 type FileUploadTableProps = {
 	period: 'current' | 'previous';
 	data: {
-		assetId: string;
 		path: string;
 		fileLastRun?: string;
-		file: string;
+		file?: string;
 	}[];
 	assetId: string;
-	setData: Dispatch<
-		SetStateAction<
-			{ assetId: string; path: string; fileLastRun?: string; file: string }[]
-		>
-	>;
 };
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const FileUploadTable = ({ data, assetId, setData, period }: FileUploadTableProps) => {
+const FileUploadTable = ({ data, assetId, period }: FileUploadTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table', 'runDetails']);
-
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const [addFileInfo, setAddFileInfo] = useRecoilState(addFileToRunAssetStore);
 	// TODO Use tag for files
-	const columns = useMemo<
-		ColumnDef<{ path: string; fileLastRun?: string; file: string }>[]
-	>(() => {
-		const ArrayCol: ColumnDef<{ path: string; fileLastRun?: string; file: string }>[] = [
+	const columns = useMemo<ColumnDef<UploadFileTableItem>[]>(() => {
+		const ArrayCol: ColumnDef<UploadFileTableItem>[] = [
 			{
 				id: `path-${assetId}`,
 				accessorFn: row => row.path,
@@ -79,7 +79,14 @@ const FileUploadTable = ({ data, assetId, setData, period }: FileUploadTableProp
 				exportFileName={({ all }) => (all ? 'file-upload-all' : 'file-upload-selection')}
 				data={data}
 				isSelectable
-				canAdd
+				inlineActions={[
+					{
+						label: t('runDetails:upload-file'),
+						onClick: row => {
+							setAddFileInfo(old => ({ ...old, isOpen: true, path: row.original.path }));
+						}
+					}
+				]}
 			/>
 		</Layer>
 	);

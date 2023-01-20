@@ -58,7 +58,8 @@ import {
 	SchedulingDto,
 	RunDto,
 	RunAssetDto,
-	RunFileLinkDto
+	RunFileLinkDto,
+	SchedulingControllerApi
 } from './v1';
 
 export const ApiConfiguration = Configuration;
@@ -80,7 +81,10 @@ export default function configureApi(config: Configuration) {
 		frameworkTreeApi: new FrameworkTreeForEvidenceControllerApi(config),
 		evidenceRequestFocalPointApi: new EvidenceRequestFocalPointControllerApi(config),
 		EvidenceRequestFileS3Api: new EvidenceRequestFileS3ControllerApi(config),
-		analystChangeMonitoringControllerApi: new AnalystChangeMonitoringControllerApi(config)
+		analystChangeMonitoringControllerApi: new AnalystChangeMonitoringControllerApi(
+			config
+		),
+		schedulingControllerApi: new SchedulingControllerApi(config)
 	};
 }
 export type ApplicationApi = ApplicationDto;

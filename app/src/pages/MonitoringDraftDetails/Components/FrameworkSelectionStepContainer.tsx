@@ -48,7 +48,6 @@ type FrameworkSelectionProps = {
 	draft: MonitoringDraft;
 };
 
-// TODO Reset controls when leaves change
 const FrameworkSelectionStepContainer = ({
 	setCurrentStep,
 	draft
@@ -61,7 +60,7 @@ const FrameworkSelectionStepContainer = ({
 		draft.instance?.id
 	);
 	const { data: draftFrameworkTree } = useGetFrameworkTreeByCode(
-		draft.frameworkName || ''
+		!draft?.frameworkName || draft?.frameworkName === 'FREE' ? '' : draft.frameworkName
 	);
 
 	const findLeaves = useCallback(
@@ -77,11 +76,9 @@ const FrameworkSelectionStepContainer = ({
 		},
 		[draft.frameworkLeafsCodes]
 	);
-	const [selectedLeaves, setSelectedLeaves] = useState<Framework[]>([]);
-
-	useEffect(() => {
-		draftFrameworkTree && setSelectedLeaves(findLeaves(draftFrameworkTree));
-	}, [draft.frameworkLeafsCodes, draftFrameworkTree, findLeaves]);
+	const [selectedLeaves, setSelectedLeaves] = useState<Framework[]>(
+		draftFrameworkTree ? findLeaves(draftFrameworkTree) : []
+	);
 
 	const {
 		register,
@@ -91,10 +88,11 @@ const FrameworkSelectionStepContainer = ({
 		setValue
 	} = useForm<FrameworkStepFormData>({
 		defaultValues: {
-			framework: draft.frameworkName,
+			framework: draft.frameworkName || 'FREE',
 			controls: draftControls,
 			focalPoint: draft.focalPoint,
-			delegates: draft.delegates
+			delegates: draft.delegates,
+			association: 'FREE'
 		}
 	});
 
@@ -116,6 +114,20 @@ const FrameworkSelectionStepContainer = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedFramework]);
 
+	useEffect(() => {
+		if (
+			draftFrameworkTree &&
+			!findLeaves(draftFrameworkTree).every(c =>
+				selectedLeaves.find(el => el.code === c.code)
+			)
+		) {
+			setValue('controls', []);
+		}
+	}, [draftFrameworkTree, findLeaves, selectedLeaves, setValue]);
+
+	useEffect(() => {
+		setValue('association', 'FREE');
+	}, [setValue, draft]);
 	const saveDraft = (data: FrameworkStepFormData) => {
 		return mutate(
 			{
@@ -131,7 +143,7 @@ const FrameworkSelectionStepContainer = ({
 							: selectedControls.find(c => c.id === data.association)?.delegates,
 					controlCode: data.controls.map(c => c.name).join('-'),
 					frameworkLeafsCodes: selectedLeaves.map(leaf => leaf.code).join('-'),
-					frameworkLeafsName: selectedLeaves.map(leaf => leaf.name).join('-'),
+					frameworkLeafsName: selectedLeaves.map(leaf => leaf.name).join('//'),
 					frameworkName: selectedFramework
 				}
 			},
@@ -230,20 +242,22 @@ const FrameworkSelectionStepContainer = ({
 					control={controlForm}
 					rules={{
 						required: {
-							value: true,
+							value: selectedFramework !== 'FREE',
 							message: t('control-required')
 						}
 					}}
-					readOnly={selectedFramework !== 'FREE' && selectedLeaves.length === 0}
+					readOnly={selectedLeaves.length === 0}
 					controls={controls}
 				/>
 			</FullWidthColumn>
-			{selectedControls && selectedControls.length > 0 && (
+			{((selectedControls && selectedControls.length > 0) ||
+				selectedFramework === 'FREE') && (
 				<FullWidthColumn className='overflow-scroll'>
 					<AssociationSelectionList
 						associations={selectedControls}
 						control={controlForm}
 						setValue={setValue}
+						watch={watch}
 					/>
 				</FullWidthColumn>
 			)}
@@ -265,11 +279,12 @@ const FrameworkSelectionStepContainer = ({
 					className='w-full md:w-fit'
 					onClick={handleSubmit(saveDraft)}
 					disabled={
-						!(
-							selectedFramework &&
-							selectedControls &&
-							(focalPoint || selectedAssociation !== 'FREE')
-						) || isLoading
+						(selectedFramework === 'FREE'
+							? !focalPoint
+							: selectedLeaves.length === 0 ||
+							  selectedControls.length === 0 ||
+							  (selectedAssociation === 'FREE' && !focalPoint) ||
+							  !selectedAssociation) || isLoading
 					}
 				>
 					{t('save-next')}

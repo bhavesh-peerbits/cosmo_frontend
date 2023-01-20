@@ -1,7 +1,7 @@
-import { FileUploaderDropContainer, Layer, TextInput, Button, Tag } from '@carbon/react';
+import { Layer, TextInput, Button, Tag } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
 import FullWidthColumn from '@components/FullWidthColumn';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -12,23 +12,57 @@ type AdditionalInfoAssetFormData = {
 
 type AdditionalInfoStepContentProps = {
 	inTile?: boolean;
+	setExtensions: Dispatch<SetStateAction<{ extensions: string[]; assetId?: string }[]>>;
+	extensions?: { extensions: string[]; assetId?: string };
 };
-const AdditionalInfoStepContent = ({ inTile }: AdditionalInfoStepContentProps) => {
+const AdditionalInfoStepContent = ({
+	inTile,
+	setExtensions,
+	extensions
+}: AdditionalInfoStepContentProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'userRevalidation']);
-	const [extensions, setExtensions] = useState<string[]>([]);
+	const [extensionsToAdd, setExtensionsToAdd] = useState<string[]>([]);
 
 	const { register, watch, reset } = useForm<AdditionalInfoAssetFormData>();
-
 	const extensionInput = watch('extension');
+
 	const addExtension = () => {
 		const newExtensions = extensionInput
 			.split(',')
-			.filter(ex => !extensions.includes(ex.toLowerCase()))
+			.filter(ex => !extensionsToAdd.includes(ex.toLowerCase()))
 			.map(ex => ex.replace(/[^a-zA-Z0-9-, ]/g, ''));
 		newExtensions &&
-			setExtensions(old => [...old, ...newExtensions.map(newEx => newEx.toLowerCase())]);
+			setExtensionsToAdd(old => [
+				...old,
+				...newExtensions.map(newEx => newEx.toLowerCase())
+			]);
 		reset({ extension: '' });
 	};
+
+	useEffect(() => {
+		extensions
+			? setExtensions(old => [
+					...old.filter(el => el.assetId !== extensions?.assetId),
+					{
+						...extensions,
+						extensions: [
+							...extensions.extensions,
+							...extensionsToAdd.filter(ex => !extensions.extensions.includes(ex))
+						]
+					}
+			  ])
+			: setExtensions(old =>
+					old.map(el => {
+						return {
+							assetId: el.assetId,
+							extensions: [
+								...el.extensions,
+								...extensionsToAdd.filter(ex => !el.extensions.includes(ex))
+							]
+						};
+					})
+			  );
+	}, [extensions, extensionsToAdd, setExtensions]);
 	return (
 		<FullWidthColumn>
 			<Layer level={inTile ? 1 : 2} className={`${inTile ? 'space-y-5' : 'space-y-7'}`}>
@@ -52,24 +86,35 @@ const AdditionalInfoStepContent = ({ inTile }: AdditionalInfoStepContentProps) =
 							</Button>
 						</div>
 					</Layer>
-					{extensions.map(ex => (
-						<Tag filter onClose={() => setExtensions(old => old.filter(el => el !== ex))}>
-							{ex}
-						</Tag>
-					))}
-				</FullWidthColumn>
-				<FullWidthColumn className='space-y-5'>
-					<div className='flex flex-col space-y-3'>
-						<span className='text-heading-compact-1'>
-							{t('changeMonitoring:first-run-file')}
-						</span>
-						<span className='text-text-secondary text-body-compact-1'>
-							{t('changeMonitoring:first-run-file-description')}
-						</span>
-					</div>
-					<FileUploaderDropContainer
-						labelText={t('userRevalidation:upload-instructions')}
-					/>
+					{!extensions
+						? extensionsToAdd.map(ex => (
+								<Tag
+									filter
+									onClose={() => setExtensionsToAdd(old => old.filter(el => el !== ex))}
+									key={ex}
+								>
+									{ex}
+								</Tag>
+						  ))
+						: extensions.extensions.map(ex => (
+								<Tag
+									filter
+									onClose={() =>
+										setExtensions(old => [
+											...old.filter(el => el.assetId !== extensions?.assetId),
+											{
+												...extensions,
+												extensions: extensions.extensions.filter(
+													el => ex.toLowerCase() !== el.toLowerCase()
+												)
+											}
+										])
+									}
+									key={`${extensions.assetId}-${ex}`}
+								>
+									{ex}
+								</Tag>
+						  ))}
 				</FullWidthColumn>
 			</Layer>
 		</FullWidthColumn>

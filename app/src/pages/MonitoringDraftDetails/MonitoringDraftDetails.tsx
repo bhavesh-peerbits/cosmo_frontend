@@ -73,7 +73,14 @@ const MonitoringDraftDetails = () => {
 					onClick: () => {
 						setIsSendDraftOpen(true);
 					},
-					icon: Send
+					icon: Send,
+					disabled:
+						!draft.instance ||
+						!draft.monitoringAssets ||
+						draft.monitoringAssets?.some(el => el.paths.length === 0) ||
+						!draft.focalPoint ||
+						!draft.script ||
+						!draft.scheduling
 				},
 				{
 					name: t('modals:delete'),
@@ -136,7 +143,7 @@ const MonitoringDraftDetails = () => {
 								{t('changeMonitoring:monitoring-type')}
 							</span>
 							<span className='text-text-secondary text-body-short-1'>
-								{draft?.type
+								{draft?.type === 'AUTOMATIC'
 									? t('changeMonitoring:automatic')
 									: t('changeMonitoring:manual')}
 							</span>
@@ -149,6 +156,14 @@ const MonitoringDraftDetails = () => {
 										<ListItem className='break-words'>{ma.asset.hostname}</ListItem>
 									))}
 								</UnorderedList>
+							</div>
+						)}
+						{draft.frameworkName === 'FREE' && (
+							<div className='flex flex-col'>
+								<span className='text-heading-2'>Framework</span>
+								<span className='text-text-secondary text-body-short-1'>
+									{draft.frameworkName}
+								</span>
 							</div>
 						)}
 						{draft?.frameworkLeafsCodes && (
@@ -169,7 +184,7 @@ const MonitoringDraftDetails = () => {
 									{t('evidenceRequest:framework-name')}
 								</span>
 								<UnorderedList nested className='ml-4'>
-									{draft.frameworkLeafsName.split('-').map(name => (
+									{draft.frameworkLeafsName.split('//').map(name => (
 										<ListItem className='break-words'>{name}</ListItem>
 									))}
 								</UnorderedList>
@@ -183,14 +198,19 @@ const MonitoringDraftDetails = () => {
 								</span>
 							</div>
 						)}
-						{draft?.scheduling && (
-							<div className='flex flex-col'>
-								<span className='text-heading-2'>{t('changeMonitoring:scheduling')}</span>
-								<span className='text-text-secondary text-body-short-1'>
-									{GetSchedulingDisplayInfo(draft.scheduling)}
-								</span>
-							</div>
-						)}
+
+						<div
+							className={`${
+								draft.scheduling ? 'flex flex-col' : 'flex flex-col  opacity-0'
+							}`}
+						>
+							<span className='text-heading-2'>{t('changeMonitoring:scheduling')}</span>
+							<span className='text-text-secondary text-body-short-1'>
+								{GetSchedulingDisplayInfo(
+									draft.scheduling || { frequency: 'ONDEMAND', startDate: new Date() }
+								)}
+							</span>
+						</div>
 					</Column>
 					<Column sm={4} md={8} lg={13}>
 						<NewMonitoringStepsContainer draft={draft} />

@@ -1,32 +1,36 @@
 import CosmoTable from '@components/table/CosmoTable';
 import { CellContext, ColumnDef } from '@tanstack/react-table';
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
-import { CheckmarkFilled, CheckmarkOutline, SubtractAlt } from '@carbon/react/icons';
+import { MisuseOutline, CheckmarkOutline } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
-import { PathMonitoringDto } from 'cosmo-api/src/v1';
-import MonitoringAsset from '@model/MonitoringAsset';
+import { PathMonitoringDto, RunDtoStatusEnum } from 'cosmo-api/src/v1';
 import useCheckPathAssetMonitoring from '@api/change-monitoring/useCheckPathsAsset';
+import useNotification from '@hooks/useNotification';
+import { RunMonitoringAsset } from '../types/RunMonitoringAsset';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const BooleanCell = ({ getValue }: CellContext<any, unknown>) => {
 	const value = getValue() as boolean;
-	return value ? <CheckmarkFilled /> : 'Non incluso';
+	return value ? <CheckmarkOutline /> : <MisuseOutline />;
 };
 
-type PathAssetTableProps = {
+interface PathAssetTableProps {
 	assetId: string;
-	assetData?: MonitoringAsset[];
-	setAssetData?: Dispatch<SetStateAction<MonitoringAsset[] | undefined>>;
+	assetData?: RunMonitoringAsset[];
+	setAssetData?: Dispatch<SetStateAction<RunMonitoringAsset[] | undefined>>;
 	canAdd?: boolean;
-};
+	status?: RunDtoStatusEnum;
+}
 const PathAssetTable = ({
 	assetId,
 	canAdd,
+	assetData,
 	setAssetData,
-	assetData
+	status
 }: PathAssetTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table']);
 	const [newPaths, setNewPaths] = useState<PathMonitoringDto[]>([]);
+	const { showNotification } = useNotification();
 
 	const columns = useMemo<ColumnDef<PathMonitoringDto>[]>(() => {
 		const ArrayCol: ColumnDef<PathMonitoringDto>[] = [
@@ -43,9 +47,13 @@ const PathAssetTable = ({
 				sortUndefined: 1,
 				meta: {
 					// modalInfo: {
-					// id: 'path',
-					// type: 'string',
-					// validation: { required: true }
+					// 	type: 'string',
+					// 	modelKeyName: 'requestBody',
+					// 	validation: {
+					// 		required: true,
+					// 		pattern:
+					// 			assetData?.[0].asset.os === 'WINDOWS' ? '^(?!s*$)[^/]+' : '^(?!s*$)[^\\]+'
+					// 	}
 					// } FIXME
 				}
 			}
@@ -59,7 +67,7 @@ const PathAssetTable = ({
 			});
 		}
 		return ArrayCol;
-	}, [assetData, assetId, t]);
+	}, [assetId, assetData, t]);
 
 	const toolbarBatchActions = [
 		{
@@ -89,7 +97,7 @@ const PathAssetTable = ({
 		{
 			id: 'exclude',
 			label: t('changeMonitoring:exclude'),
-			icon: SubtractAlt,
+			icon: MisuseOutline,
 			onClick: (selectionElements: PathMonitoringDto[]) => {
 				setAssetData &&
 					setAssetData(old => {
@@ -133,6 +141,16 @@ const PathAssetTable = ({
 			);
 	}, [assetId, newPaths, setAssetData]);
 
+	useEffect(() => {
+		newPaths.some(p => p.monitoring?.length) &&
+			showNotification({
+				title: t('changeMonitoring:already-monitored-toast'),
+				message: t('changeMonitoring:already-monitored-description'),
+				type: 'warning'
+			});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [newPaths]);
+
 	return (
 		<CosmoTable
 			// modalProps={{
@@ -145,10 +163,17 @@ const PathAssetTable = ({
 			columns={columns}
 			noDataMessage={t('table:no-data')}
 			isColumnOrderingEnabled
-			canAdd={canAdd}
+			canAdd={status ? status === 'SETUP' && canAdd : canAdd}
 			toolbar={{
 				searchBar: true,
-				toolbarBatchActions: canAdd ? toolbarBatchActions : [],
+				// eslint-disable-next-line no-nested-ternary
+				toolbarBatchActions: status
+					? status === 'SETUP' && canAdd
+						? toolbarBatchActions
+						: []
+					: canAdd
+					? toolbarBatchActions
+					: [],
 				toolbarTableMenus: []
 			}}
 			exportFileName={({ all }) =>
