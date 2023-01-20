@@ -51,6 +51,17 @@ import {
 	evidenceRequestFr,
 	evidenceRequestIt
 } from './pages/evidence-request';
+import {
+	changeMonitoringEn,
+	changeMonitoringFr,
+	changeMonitoringIt
+} from './pages/change-monitoring';
+import {
+	monitoringDashboardEn,
+	monitoringDashboardFr,
+	monitoringDashboardIt
+} from './pages/monitoring-dashboard';
+import { runDetailsEn, runDetailsFr, runDetailsIt } from './pages/run-details';
 import { testEn, testIt } from './pages/test';
 import {
 	errorBoundaryEn,
@@ -80,6 +91,9 @@ export default {
 		applicationInfo: applicationInfoEn,
 		procedureInfo: procedureInfoEn,
 		modals: modalsEn,
+		changeMonitoring: changeMonitoringEn,
+		monitoringDashboard: monitoringDashboardEn,
+		runDetails: runDetailsEn,
 		uploaderS3: uploaders3En
 	},
 	it_IT: {
@@ -102,6 +116,9 @@ export default {
 		applicationInfo: applicationInfoIt,
 		procedureInfo: procedureInfoIt,
 		modals: modalsIt,
+		changeMonitoring: changeMonitoringIt,
+		monitoringDashboard: monitoringDashboardIt,
+		runDetails: runDetailsIt,
 		uploaderS3: uploaders3It
 	},
 	fr_FR: {
@@ -123,6 +140,9 @@ export default {
 		applicationInfo: applicationInfoFr,
 		procedureInfo: procedureInfoFr,
 		modals: modalsFr,
+		changeMonitoring: changeMonitoringFr,
+		monitoringDashboard: monitoringDashboardFr,
+		runDetails: runDetailsFr,
 		uploaderS3: uploaders3Fr
 	}
 } as const;

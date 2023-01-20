@@ -1,4 +1,4 @@
-// import { useQuery } from 'react-query';
+// import { useQuery } from '@tanstack/react-query';
 // import api from '@api/index';
 // import IdentityProvider from '@model/IdentityProvider';
 // import { getCookie } from 'tiny-cookie';

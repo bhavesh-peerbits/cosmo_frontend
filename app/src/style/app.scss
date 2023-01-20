@@ -1,9 +1,15 @@
 @use '@carbon/react' as * with (
 	$font-path: '@ibm/plex'
 );
+@use '@carbon/ibm-products/css/index-full-carbon.css' as ibm-products;
 @use '@carbon/react/scss/theme' as theme;
 @use 'cosmo-theme' as cosmo_theme;
 @use '@carbon/charts/styles.css';
+@use './table';
+@use './table-form.scss';
+@use './no-data-empty-state.scss';
+
+@use '@carbon/react/scss/themes' as default_theme;
 
 .container-w-sidenav {
 	@apply mr-0 p-0 md:ml-[3rem] lg:ml-[calc(32*0.5rem)];
@@ -80,4 +86,24 @@ input:-webkit-autofill:active {
 
 ::-webkit-scrollbar-thumb:hover {
 	border: none;
+}
+
+::-webkit-scrollbar-corner {
+	@apply bg-layer-1;
+}
+
+// fix portal elements theme
+[data-carbon-theme='g10'] {
+	@include theme.theme(default_theme.$g10);
+	@include theme.theme(cosmo_theme.$theme-cosmo-white);
+}
+
+[data-carbon-theme='g90'] {
+	@include theme.theme(default_theme.$g90);
+	@include theme.theme(cosmo_theme.$theme-cosmo-dark);
+}
+
+[data-carbon-theme='g100'] {
+	@include theme.theme(default_theme.$g100);
+	@include theme.theme(cosmo_theme.$theme-cosmo-dark);
 }

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { EvidenceRequestApi } from 'cosmo-api';
 import Application, { fromApplicationApi, toApplicationApi } from './Application';
 import { EvidenceRequestStatus } from './EvidenceRequestStatus';
@@ -80,7 +79,6 @@ export const toEvidenceRequestApi = (
 		steps: evidenceRequest.steps
 			? [...evidenceRequest.steps].map(step => toEvidenceRequestStepApi(step))
 			: [],
-		// @ts-ignore
 		contributors: evidenceRequest.contributors
 			? evidenceRequest.contributors.map(user => toUserApi(user))
 			: undefined,

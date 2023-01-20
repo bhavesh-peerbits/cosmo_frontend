@@ -91,5 +91,6 @@
 	"task-delegates": "Delegati task",
 	"public-comment-not-saved": "Il commento pubblico non verrà salvato finchè non chiuderai lo step upload",
 	"framework-name": "Nome framework",
-	"framework-code": "Codice framework"
+	"framework-code": "Codice framework",
+	"reminder-users-selection": "Seleziona utenti per il promemoria"
 }

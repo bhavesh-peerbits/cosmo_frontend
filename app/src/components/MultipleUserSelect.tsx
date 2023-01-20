@@ -16,7 +16,7 @@ import useGetUsers from '@api/user/useGetUsers';
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { TooltipPosition } from '@carbon/react/typings/shared';
-import { UseQueryResult } from 'react-query';
+import { UseQueryResult } from '@tanstack/react-query';
 
 type MultipleUserSelectProps<
 	T extends FieldValues,
@@ -24,6 +24,7 @@ type MultipleUserSelectProps<
 > = UnpackNestedValue<PathValue<T, TName>> extends User[]
 	? {
 			label: string;
+			hideLabel?: boolean;
 			name: TName;
 			control: UseControllerProps<T, TName>['control'];
 			rules?: UseControllerProps<T, TName>['rules'];
@@ -34,11 +35,13 @@ type MultipleUserSelectProps<
 			tooltipPosition?: TooltipPosition;
 			getUserFn?: () => UseQueryResult<User[]>;
 			excludedUser?: User;
+			setSelectedUser?: (value?: User[]) => void;
 	  }
 	: never;
 
 const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 	label,
+	hideLabel,
 	name,
 	control,
 	rules,
@@ -48,7 +51,8 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 	defaultValue,
 	tooltipPosition,
 	getUserFn = useGetUsers,
-	excludedUser
+	excludedUser,
+	setSelectedUser
 }: MultipleUserSelectProps<T, TName>) => {
 	const { t } = useTranslation('userSelect');
 	const [openSearch, setOpenSearch] = useState(false);
@@ -69,9 +73,11 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 		<>
 			<div className='flex w-full flex-wrap justify-end md:flex-nowrap'>
 				<div className='flex w-full flex-col'>
-					<FormLabel className='mb-3'>
-						<span>{label}</span>
-					</FormLabel>
+					{!hideLabel && (
+						<FormLabel className='mb-3'>
+							<span>{label}</span>
+						</FormLabel>
+					)}
 					<div className='flex w-full  flex-auto flex-col'>
 						<div className='flex w-full items-center'>
 							<Tile
@@ -85,6 +91,7 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 									{
 										'bg-field-1': level === 1,
 										'bg-field-2': level === 2,
+										'bg-field-3': level === 3,
 										'outline-support-error': invalid
 									}
 								)}
@@ -178,6 +185,7 @@ const MultipleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 				onSubmit={id => {
 					onChange(users.filter(user => id.includes(user.id)));
 					setOpenSearch(false);
+					setSelectedUser && setSelectedUser(users.filter(user => id.includes(user.id)));
 				}}
 				onClose={() => setOpenSearch(false)}
 				onSubmitButtonText={t('select')}

@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@api';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,7 +14,7 @@ interface CreateDraftParams {
 
 const createDraft = ({ draftData }: CreateDraftParams) => {
 	return api.evidenceRequest
-		.createDraft({
+		.createDraft1({
 			setUpDraftDto: {
 				...draftData,
 				phaseTypeId: draftData.phaseTypeId ? +draftData.phaseTypeId : undefined

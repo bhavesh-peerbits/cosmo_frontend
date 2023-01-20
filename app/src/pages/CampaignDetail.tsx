@@ -1,5 +1,5 @@
 import PageHeader from '@components/PageHeader';
-import { UserFollow, Exit, Edit } from '@carbon/react/icons';
+import { Collaborate, Exit, Edit, Reminder } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { TabList, Tab, TabPanels, TabPanel, Stack, Button } from '@carbon/react';
 import StickyTabs from '@components/StickyTabs';
@@ -20,7 +20,7 @@ import User from '@model/User';
 import useAddContributorsToCampaign from '@api/user-revalidation/useAddContributorsToCampaign';
 import useUiStore from '@hooks/useUiStore';
 import { interfaces } from '@carbon/charts';
-import { useQueryClient } from 'react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import SetDueDateCampaignModal from '@components/Modals/SetDueDateCampaignModal';
 import { mapCampaignLayerToCampaignDisplayLayer } from '@model/CampaignLayer';
 import RevalidationReminderStore from '@store/user-revalidation/RevalidationReminderStore';
@@ -130,7 +130,12 @@ const CampaignStatus = memo(({ campaign }: { campaign: Campaign }) => {
 });
 
 const CampaignDetail = () => {
-	const { t } = useTranslation(['modals', 'userRevalidation', 'userSelect']);
+	const { t } = useTranslation([
+		'modals',
+		'userRevalidation',
+		'userSelect',
+		'evidenceRequest'
+	]);
 	const { campaignId = '' } = useParams<'campaignId'>();
 	const { data: campaign } = useGetCampaign(campaignId);
 	const { data: users = [] } = useGetPossibleContributors(campaignId);
@@ -189,7 +194,7 @@ const CampaignDetail = () => {
 			actions={[
 				{
 					name: t('userRevalidation:collaborators'),
-					icon: UserFollow,
+					icon: Collaborate,
 					disabled: CLOSED_CAMPAIGN,
 					onClick: () => {
 						setIsCollaboratorsOpen(true);
@@ -202,8 +207,8 @@ const CampaignDetail = () => {
 				// 	disabled: true
 				// },
 				{
-					name: 'Send reminder',
-					icon: Exit,
+					name: t('evidenceRequest:send-reminder'),
+					icon: Reminder,
 					disabled: CLOSED_CAMPAIGN,
 					onClick: () => {
 						setReminderData(old => ({ ...old, open: true }));

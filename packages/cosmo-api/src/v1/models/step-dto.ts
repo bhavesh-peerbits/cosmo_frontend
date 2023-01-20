@@ -23,10 +23,10 @@ import { UserDto } from './user-dto';
 export interface StepDto {
 	/**
 	 *
-	 * @type {Set<UserDto>}
+	 * @type {Array<UserDto>}
 	 * @memberof StepDto
 	 */
-	approvers?: Set<UserDto>;
+	approvers?: Array<UserDto>;
 	/**
 	 *
 	 * @type {UserDto}
@@ -47,10 +47,10 @@ export interface StepDto {
 	type: StepDtoTypeEnum;
 	/**
 	 *
-	 * @type {Set<UserDto>}
+	 * @type {Array<UserDto>}
 	 * @memberof StepDto
 	 */
-	delegates?: Set<UserDto>;
+	delegates?: Array<UserDto>;
 	/**
 	 *
 	 * @type {string}
@@ -65,10 +65,10 @@ export interface StepDto {
 	stepOrder: number;
 	/**
 	 *
-	 * @type {Set<FileLinkDto>}
+	 * @type {Array<FileLinkDto>}
 	 * @memberof StepDto
 	 */
-	fileLinks?: Set<FileLinkDto>;
+	fileLinks?: Array<FileLinkDto>;
 	/**
 	 *
 	 * @type {string}

@@ -15,7 +15,8 @@ import User from '@model/User';
 import cx from 'classnames';
 import useGetUsers from '@api/user/useGetUsers';
 import { useTranslation } from 'react-i18next';
-import { UseQueryResult } from 'react-query';
+import { TooltipPosition } from '@carbon/react/typings/shared';
+import { UseQueryResult } from '@tanstack/react-query';
 
 type SingleUserSelectProps<
 	T extends FieldValues,
@@ -23,6 +24,7 @@ type SingleUserSelectProps<
 > = UnpackNestedValue<PathValue<T, TName>> extends User
 	? {
 			label: string;
+			hideLabel?: boolean;
 			name: TName;
 			control: UseControllerProps<T, TName>['control'];
 			rules?: UseControllerProps<T, TName>['rules'];
@@ -32,11 +34,14 @@ type SingleUserSelectProps<
 			defaultValue?: User;
 			excludedUsers?: User[];
 			getUserFn?: () => UseQueryResult<User[]>;
+			tooltipPosition?: TooltipPosition;
+			setSelectedUser?: (value?: User) => void;
 	  }
 	: never;
 
 const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 	label,
+	hideLabel,
 	control,
 	name,
 	rules,
@@ -45,7 +50,9 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 	readOnly,
 	defaultValue,
 	excludedUsers,
-	getUserFn = useGetUsers
+	tooltipPosition,
+	getUserFn = useGetUsers,
+	setSelectedUser
 }: SingleUserSelectProps<T, TName>) => {
 	const { t } = useTranslation('userSelect');
 	const {
@@ -66,9 +73,11 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 		<>
 			<div className='flex w-full flex-wrap justify-end md:flex-nowrap'>
 				<div className='flex w-full flex-col'>
-					<FormLabel className='mb-3'>
-						<span>{label}</span>
-					</FormLabel>
+					{!hideLabel && (
+						<FormLabel className='mb-3'>
+							<span>{label}</span>
+						</FormLabel>
+					)}
 					<div className='flex w-full  flex-auto flex-col'>
 						<div className='flex w-full items-center'>
 							<Tile
@@ -82,6 +91,7 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 									{
 										'bg-field-1': level === 1,
 										'bg-field-2': level === 2,
+										'bg-field-3': level === 3,
 										'outline-support-error': invalid
 									}
 								)}
@@ -100,6 +110,7 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 												renderIcon={() => <Close size={20} />}
 												hasIconOnly
 												iconDescription={t('remove')}
+												tooltipPosition={tooltipPosition}
 												onClick={() => onChange(null)}
 											/>
 										) : (
@@ -109,6 +120,7 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 												size='sm'
 												hasIconOnly
 												iconDescription={t('add-user')}
+												tooltipPosition={tooltipPosition}
 												onClick={() => setOpenSearch(true)}
 											/>
 										))}
@@ -151,6 +163,7 @@ const SingleUserSelect = <T extends FieldValues, TName extends FieldPath<T>>({
 				onSubmit={id => {
 					onChange(users.find(user => user.id === id));
 					setOpenSearch(false);
+					setSelectedUser && setSelectedUser(users.find(user => user.id === id));
 				}}
 				onClose={() => setOpenSearch(false)}
 				onSubmitButtonText={t('select')}

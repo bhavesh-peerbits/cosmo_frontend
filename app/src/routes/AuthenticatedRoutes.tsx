@@ -7,8 +7,6 @@ import ErrorBoundary from '@error/components/ErrorBoundary';
 import PageSkeleton from '@components/PageSkeleton';
 import usePolicyStore from '@hooks/usePolicyStore';
 import ProtectRoute from '@routes/ProtectRoute';
-import StartedEvidenceRequest from '@pages/StartedEvidenceRequest';
-import ActionEvidenceRequest from '@pages/ActionEvidenceRequest';
 
 const Home = React.lazy(() => import('@pages/Home'));
 const Test = React.lazy(() => import('@pages/Test'));
@@ -41,6 +39,23 @@ const StartedEvidenceRequestDashboard = React.lazy(
 const ActionEvidenceRequestDashboard = React.lazy(
 	() => import('@pages/ActionEvidenceRequestDashboard')
 );
+const NewMonitoring = React.lazy(
+	() => import('@pages/NewMonitoringDashboard/NewMonitoring')
+);
+const MonitoringDraftDetails = React.lazy(
+	() => import('@pages/MonitoringDraftDetails/MonitoringDraftDetails')
+);
+const MonitoringDashboard = React.lazy(
+	() => import('@pages/MonitoringDashboard/MonitoringDashboard')
+);
+const MonitoringDetails = React.lazy(
+	() => import('@pages/MonitoringDetails/MonitoringDetails')
+);
+const MonitoringRunDetails = React.lazy(
+	() => import('@pages/MonitoringRunDetails/MonitoringRunDetails')
+);
+const ActionEvidenceRequest = React.lazy(() => import('@pages/ActionEvidenceRequest'));
+const StartedEvidenceRequest = React.lazy(() => import('@pages/StartedEvidenceRequest'));
 
 const AuthenticatedRoutes = () => {
 	const {
@@ -53,7 +68,8 @@ const AuthenticatedRoutes = () => {
 		canReviewUser,
 		canRevalidateUser,
 		canCreateRequest,
-		canWorkflowApprover
+		canWorkflowApprover,
+		canCreateMonitoring
 	} = usePolicyStore();
 	return (
 		<>
@@ -258,6 +274,52 @@ const AuthenticatedRoutes = () => {
 								/>
 							</Route>
 
+							<Route path='new-monitoring'>
+								<Route
+									index
+									element={
+										<ProtectRoute canNavigate={canCreateMonitoring}>
+											<NewMonitoring />
+										</ProtectRoute>
+									}
+								/>
+								<Route
+									path=':monitoringDraftId'
+									element={
+										<ProtectRoute canNavigate={canCreateMonitoring}>
+											<MonitoringDraftDetails />
+										</ProtectRoute>
+									}
+								/>
+							</Route>
+							<Route path='monitoring-dashboard'>
+								<Route
+									index
+									element={
+										<ProtectRoute canNavigate={canCreateMonitoring}>
+											<MonitoringDashboard />
+										</ProtectRoute>
+									}
+								/>
+								<Route path=':monitoringId'>
+									<Route
+										index
+										element={
+											<ProtectRoute canNavigate={canCreateMonitoring}>
+												<MonitoringDetails />
+											</ProtectRoute>
+										}
+									/>
+									<Route
+										path=':runId'
+										element={
+											<ProtectRoute canNavigate={canCreateMonitoring}>
+												<MonitoringRunDetails />
+											</ProtectRoute>
+										}
+									/>
+								</Route>
+							</Route>
 							<Route path='test' element={<Test />} />
 							<Route path='*' element={<Navigate replace to='/404' />} />
 						</Routes>

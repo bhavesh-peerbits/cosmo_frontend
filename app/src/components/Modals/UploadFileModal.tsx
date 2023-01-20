@@ -4,7 +4,7 @@ import CreateTearsheetStep from '@components/CreateTearsheet/CreateTearsheepStep
 import FullWidthColumn from '@components/FullWidthColumn';
 import SingleApplicationSelect from '@components/SingleApplicationSelect';
 import Application from '@model/Application';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import CosmoFileUploader from '@components/CosmoFileUploader';
@@ -14,7 +14,8 @@ import ApiError from '@api/ApiError';
 import AnswerTable from '@components/UserRevalidation/AnswerTable';
 import CampaignApplication from '@model/CampaignApplication';
 import useGetCampaignApplications from '@api/user-revalidation/useGetCampaignApplications';
-import { useQueryClient } from 'react-query';
+import { useQueryClient } from '@tanstack/react-query';
+import useGetRevalidationApps from '@api/user-revalidation/useGetRevalidationApps';
 
 type UploadFileModalProps = {
 	isOpen: boolean;
@@ -50,8 +51,18 @@ const UploadFileModal = ({
 		criteriaMode: 'all'
 	});
 	const [responseState, setResponseState] = useState<FileAnswerStatus>();
-	const { data: applications = new Map<string, CampaignApplication>() } =
+	const { data: revalidationApps = new Map() } = useGetRevalidationApps();
+	const { data: campaignApplications = new Map<string, CampaignApplication>() } =
 		useGetCampaignApplications(campaignId, !isEmpty);
+
+	const applications = useMemo(() => {
+		let apps = [...revalidationApps.values()] || [];
+		const campaignApps = [...campaignApplications.values()] || [];
+		apps = apps.filter(
+			app => !campaignApps.find(campaignApp => campaignApp.application.id === app.id)
+		);
+		return apps;
+	}, [revalidationApps, campaignApplications]);
 
 	const cleanUp = () => {
 		resetApi();
@@ -119,12 +130,9 @@ const UploadFileModal = ({
 					<SingleApplicationSelect
 						readOnly={Boolean(application)}
 						defaultValue={application}
-						level={2}
+						level={0}
 						label={`${t('userRevalidation:app-related')} *`}
 						name='application'
-						excludedApps={[...applications.values()].map(
-							campaignApp => campaignApp.application.id
-						)}
 						rules={{
 							required: {
 								value: true,
@@ -132,6 +140,7 @@ const UploadFileModal = ({
 							}
 						}}
 						control={control}
+						applications={applications}
 					/>
 				</div>
 			</CreateTearsheetStep>

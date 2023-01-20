@@ -40,11 +40,11 @@ const ReviewDetail = () => {
 			pageTitle={data.name}
 			intermediateRoutes={[{ name: 'Review', to: routes.REVIEW_NARRATIVE }]}
 		>
-			<div className='md:p-container-1'>
+			<div className='p-container-1 pr-3'>
 				<TableOfContents stickyOffset={30} tocStickyOffset={breadcrumbSize + 10}>
-					<Grid fullWidth className='h-full p-5'>
+					<Grid fullWidth className='h-full'>
 						<FullWidthColumn>
-							<div className='space-y-7'>
+							<div className='space-y-5'>
 								{data.inReview && (
 									<Tile className='bg-background'>
 										<Grid>

@@ -23,6 +23,9 @@ import {
 	FileLinkDto,
 	GenerateReportControllerApi,
 	IdentityProviderDto,
+	InstanceDto,
+	InstanceAssetDto,
+	MonitoringDtoStatusEnum,
 	NarrativeReviewControllerApi,
 	NewDraftDto,
 	PairListAnswerDtoListString,
@@ -46,7 +49,17 @@ import {
 	EvidenceRequestFileS3ControllerApi,
 	FrameworkTreeDto,
 	FrameworkTreeForEvidenceControllerApi,
-	EvidenceRequestFocalPointControllerApi
+	EvidenceRequestFocalPointControllerApi,
+	MonitoringDto,
+	MonitoringDraftDto,
+	AnalystChangeMonitoringControllerApi,
+	MonitoringAssetDto,
+	AssetDto,
+	SchedulingDto,
+	RunDto,
+	RunAssetDto,
+	RunFileLinkDto,
+	SchedulingControllerApi
 } from './v1';
 
 export const ApiConfiguration = Configuration;
@@ -67,7 +80,11 @@ export default function configureApi(config: Configuration) {
 		evidenceRequest: new EvidenceRequestControllerApi(config),
 		frameworkTreeApi: new FrameworkTreeForEvidenceControllerApi(config),
 		evidenceRequestFocalPointApi: new EvidenceRequestFocalPointControllerApi(config),
-		EvidenceRequestFileS3Api: new EvidenceRequestFileS3ControllerApi(config)
+		EvidenceRequestFileS3Api: new EvidenceRequestFileS3ControllerApi(config),
+		analystChangeMonitoringControllerApi: new AnalystChangeMonitoringControllerApi(
+			config
+		),
+		schedulingControllerApi: new SchedulingControllerApi(config)
 	};
 }
 export type ApplicationApi = ApplicationDto;
@@ -104,3 +121,15 @@ export type PhaseTypeApi = PhaseTypeDto;
 export type FrameworkApi = FrameworkTreeDto;
 export type CloseEvidenceApi = CloseEvidenceDto;
 export type AssociationApi = AssociationDto;
+export const MonitoringDtoStatusApiEnum = MonitoringDtoStatusEnum;
+export type MonitoringDtoStatusApi = MonitoringDtoStatusEnum;
+export type InstanceApi = InstanceDto;
+export type MonitoringApi = MonitoringDto;
+export type MonitoringAssetApi = MonitoringAssetDto;
+export type AssetApi = AssetDto;
+export type SchedulingApi = SchedulingDto;
+export type RunApi = RunDto;
+export type RunAssetApi = RunAssetDto;
+export type RunFileLinkApi = RunFileLinkDto;
+export type InstanceAssetApi = InstanceAssetDto;
+export type MonitoringDraftApi = MonitoringDraftDto;

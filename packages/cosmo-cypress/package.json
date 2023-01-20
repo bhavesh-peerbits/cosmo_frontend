@@ -5,7 +5,7 @@
 	"scripts": {
 		"test:e2e": "cypress open --config baseUrl='http://localhost:5173'",
 		"test:ci": "start-server-and-test 'yarn node server-test.mjs' http://localhost:4173 'cypress run'",
-		"comm:tsc": "yarn run -T tsc"
+		"comm:tsc": "bash -c tsc"
 	},
 	"dependencies": {
 		"@cypress/code-coverage": "^3.10.0",

@@ -34,7 +34,6 @@ const EvidenceRequestInfo = ({
 	const [resetTip, setResetTip] = useState(false);
 	const { mutate, isLoading } = useSaveStep();
 	const { showNotification } = useNotification();
-
 	const {
 		register,
 		control,

@@ -1,12 +1,14 @@
 import { createRoot } from 'react-dom/client';
 import './style/index.css';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import initSentry from '@error/initSentry';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import App from './App';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import './i18n';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import App from './App';
 
 const MAX_RETRIES = 3;
 const queryClient = new QueryClient({
@@ -27,7 +29,9 @@ root.render(
 	<QueryClientProvider client={queryClient}>
 		<BrowserRouter>
 			<RecoilRoot>
-				<App />
+				<DndProvider backend={HTML5Backend}>
+					<App />
+				</DndProvider>
 			</RecoilRoot>
 		</BrowserRouter>
 		<ReactQueryDevtools initialIsOpen={false} />

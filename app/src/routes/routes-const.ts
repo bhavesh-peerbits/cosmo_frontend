@@ -9,6 +9,8 @@ const routes = {
 	NEW_EVIDENCE_REQUEST: '/new-evidence-request',
 	STARTED_EVIDENCE_REQUEST: '/started-evidence-request',
 	EVIDENCE_REQUEST_ACTION: '/evidence-request-action',
+	NEW_MONITORING: '/new-monitoring',
+	MONITORING_DASHBOARD: '/monitoring-dashboard',
 	ADMIN: '/admin',
 	LOGOUT: '/logout',
 	NEWLOGIN: '/newlogin',

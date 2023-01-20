@@ -13,7 +13,7 @@
  */
 
 import { PageableObject } from './pageable-object';
-import { Sort } from './sort';
+import { SortObject } from './sort-object';
 import { UserDto } from './user-dto';
 
 /**
@@ -54,10 +54,10 @@ export interface PageUserDto {
 	number?: number;
 	/**
 	 *
-	 * @type {Sort}
+	 * @type {SortObject}
 	 * @memberof PageUserDto
 	 */
-	sort?: Sort;
+	sort?: SortObject;
 	/**
 	 *
 	 * @type {PageableObject}

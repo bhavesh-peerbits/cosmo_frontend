@@ -1,5 +1,5 @@
 import api from '@api';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
 export const logoutApi = (refreshToken: string | null) => {
 	if (refreshToken != null) {

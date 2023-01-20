@@ -3,7 +3,7 @@ import EvidenceRequestDraft, {
 	fromEvidenceRequestDraftApi,
 	toEvidenceRequestDraftApi
 } from '@model/EvidenceRequestDraft';
-import { useQueryClient, useMutation } from 'react-query';
+import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 const saveDraft = (requestDraft: EvidenceRequestDraft) => {
 	return api.evidenceRequest

@@ -1,6 +1,6 @@
 import api from '@api';
 import Application, { toApplicationApi } from '@model/Application';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface SetUserApplicationParams {
 	userId: string;

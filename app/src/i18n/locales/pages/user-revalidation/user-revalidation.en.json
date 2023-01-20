@@ -86,5 +86,7 @@
 	"reminder-recap": "Recap",
 	"recap-descrition": "User that are going to receive an email and corespective applications",
 	"select-user-descrition": "Select user that are going to recive the reminder",
-	"select-app-descrition": "Selecting an application will select all the possible user for it"
+	"select-app-descrition": "Selecting an application will select all the possible user for it",
+	"ongoing": "Ongoing",
+	"closed": "Closed"
 }

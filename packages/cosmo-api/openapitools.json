@@ -5,7 +5,7 @@
 		"version": "6.0.0-beta",
 		"generators": {
 			"cosmo-axios": {
-				"inputSpec": "https://172.17.0.157/api/swagger/api-docs",
+				"inputSpec": "https://172.17.0.46/api/swagger/api-docs",
 				"generatorName": "typescript-axios",
 				"skipValidateSpec": true,
 				"output": "src/v1",
@@ -19,6 +19,9 @@
 					"ensureUniqueParams": true,
 					"useSingleRequestParameter": true,
 					"withSeparateModelsAndApi": true
+				},
+				"typeMappings": {
+					"set": "Array"
 				},
 				"glob": "/"
 			}

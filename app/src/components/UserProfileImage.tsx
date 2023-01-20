@@ -43,14 +43,14 @@ const FillItem = memo(
 		const icons = useMemo(
 			() => ({
 				user: {
-					xs: <User size={12} />,
+					xs: <User size={16} />,
 					sm: <User size={16} />,
 					md: <User size={20} />,
 					lg: <User size={24} />,
 					xlg: <User size={32} />
 				},
 				group: {
-					xs: <Group size={12} />,
+					xs: <Group size={16} />,
 					sm: <Group size={16} />,
 					md: <Group size={20} />,
 					lg: <Group size={24} />,
@@ -108,7 +108,8 @@ const UserProfileImage = forwardRef<HTMLDivElement, UserProfileImageProps>(
 			image,
 			imageDescription,
 			size,
-			tooltipText
+			tooltipText,
+			tooltipPosition
 		},
 		ref
 	) => {
@@ -165,7 +166,7 @@ const UserProfileImage = forwardRef<HTMLDivElement, UserProfileImageProps>(
 		);
 
 		return tooltipText ? (
-			<Tooltip align='left' label={tooltipText}>
+			<Tooltip align={tooltipPosition || 'left'} label={tooltipText}>
 				<button
 					type='button'
 					onClick={e => e.preventDefault()}
@@ -222,6 +223,20 @@ interface UserProfileImageProps {
 	 * Pass in the display name to have it shown on hover
 	 */
 	tooltipText?: string;
+
+	tooltipPosition?:
+		| 'top'
+		| 'top-left'
+		| 'top-right'
+		| 'bottom'
+		| 'bottom-left'
+		| 'bottom-right'
+		| 'left'
+		| 'left-bottom'
+		| 'left-top'
+		| 'right'
+		| 'right-bottom'
+		| 'right-top';
 }
 
 export default memo(UserProfileImage);

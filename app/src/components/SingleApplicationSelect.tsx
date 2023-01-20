@@ -1,7 +1,7 @@
 import { Button, FormLabel, Tile } from '@carbon/react';
 import { Close, EditOff, Add } from '@carbon/react/icons';
 import SingleAddSelect from '@components/SingleAddSelect';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import {
 	FieldPath,
 	FieldValues,
@@ -13,7 +13,6 @@ import {
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
 import Application from '@model/Application';
-import useGetRevalidationApps from '@api/user-revalidation/useGetRevalidationApps';
 
 type SingleApplicationSelectProps<
 	T extends FieldValues,
@@ -29,6 +28,7 @@ type SingleApplicationSelectProps<
 			readOnly?: boolean;
 			defaultValue?: Application;
 			excludedApps?: string[];
+			applications: Application[];
 	  }
 	: never;
 
@@ -41,7 +41,7 @@ const SingleApplicationSelect = <T extends FieldValues, TName extends FieldPath<
 	helperText,
 	readOnly,
 	defaultValue,
-	excludedApps
+	applications
 }: SingleApplicationSelectProps<T, TName>) => {
 	const { t } = useTranslation('applicationSelect');
 	const {
@@ -55,14 +55,6 @@ const SingleApplicationSelect = <T extends FieldValues, TName extends FieldPath<
 	});
 	const value = formValue as Application | undefined;
 	const [openSearch, setOpenSearch] = useState(false);
-	const { data = new Map() } = useGetRevalidationApps();
-	const applications = useMemo(() => {
-		let apps = [...data.values()] || [];
-		if (excludedApps) {
-			apps = apps.filter(app => !excludedApps.includes(app.id));
-		}
-		return apps;
-	}, [data, excludedApps]);
 	const invalidText = error?.message;
 
 	return (
@@ -83,8 +75,9 @@ const SingleApplicationSelect = <T extends FieldValues, TName extends FieldPath<
 								className={cx(
 									'relative flex h-container-3 min-h-fit w-full items-center border-b-[1px] border-solid border-border-strong-1 p-0',
 									{
-										'bg-field-1': level === 1,
-										'bg-field-2': level === 2,
+										'bg-field-1': level === 0,
+										'bg-field-2': level === 1,
+										'bg-field-3': level === 2,
 										'outline-support-error': invalid
 									}
 								)}

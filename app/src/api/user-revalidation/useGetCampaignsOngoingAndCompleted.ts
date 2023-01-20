@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import api from '@api';
 import { toMap } from '@model/util';
 import { fromCampaignWithReviewApi } from '@model/CampaignWithReview';

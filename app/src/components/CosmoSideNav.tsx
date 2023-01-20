@@ -13,7 +13,8 @@ import {
 	Fade,
 	UserAdmin,
 	UserRole,
-	Archive
+	Archive,
+	Compare
 } from '@carbon/react/icons';
 import routes from '@routes/routes-const';
 import useUiStore from '@hooks/useUiStore';
@@ -35,6 +36,7 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 		canSeeNarrativeManagement,
 		canRevalidateUser,
 		canCreateRequest,
+		canCreateMonitoring,
 		canWorkflowApprover
 	} = usePolicyStore();
 	const { md, lg } = useResponsive();
@@ -101,7 +103,7 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 								New Revalidation
 							</SideNavMenuItem>
 							<SideNavMenuItem element={Link} to={routes.REVALIDATIONS_ONGOING}>
-								Revalidations Ongoing
+								Dashboard
 							</SideNavMenuItem>
 						</SideNavMenu>
 					)}
@@ -115,7 +117,22 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 								New Requests
 							</SideNavMenuItem>
 							<SideNavMenuItem element={Link} to={routes.STARTED_EVIDENCE_REQUEST}>
-								Started Requests
+								Dashboard
+							</SideNavMenuItem>
+						</SideNavMenu>
+					)}
+
+					{canCreateMonitoring && (
+						<SideNavMenu
+							renderIcon={Compare}
+							title='Change Monitoring'
+							className='transition-all'
+						>
+							<SideNavMenuItem element={Link} to={routes.NEW_MONITORING}>
+								New Monitoring
+							</SideNavMenuItem>
+							<SideNavMenuItem element={Link} to={routes.MONITORING_DASHBOARD}>
+								Dashboard
 							</SideNavMenuItem>
 						</SideNavMenu>
 					)}

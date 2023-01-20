@@ -58,8 +58,8 @@ export interface Procedure {
 	orderNumber?: number;
 	/**
 	 *
-	 * @type {Set<string>}
+	 * @type {Array<string>}
 	 * @memberof Procedure
 	 */
-	controlObjectives?: Set<string>;
+	controlObjectives?: Array<string>;
 }
