@@ -46,35 +46,39 @@ const ReviewDetail = () => {
 						<FullWidthColumn>
 							<div className='space-y-5'>
 								{data.inReview && (
-									<Tile className='bg-background'>
-										<Grid>
-											<FullWidthColumn className='flex justify-between space-x-1'>
-												<p
-													data-toc-id={`application-container-${data.id}`}
-													className='flex-1 text-productive-heading-3'
-												>
-													{t('application-info')}
-												</p>
-												<div className='justify-end'>
-													<p className='text-text-secondary text-body-compact-1'>
-														{`${t('last-review')}: ${
-															data.lastReview
-																? data.lastReview.toLocaleString()
-																: t('never')
-														}`}
+									<div className='space-y-5'>
+										<Tile className='bg-background'>
+											<Grid>
+												<FullWidthColumn className='flex justify-between space-x-1'>
+													<p
+														data-toc-id={`application-container-${data.id}`}
+														className='flex-1 text-productive-heading-3'
+													>
+														{t('application-info')}
 													</p>
-													{data.lastReview && (
+													<div className='justify-end'>
 														<p className='text-text-secondary text-body-compact-1'>
-															{`${t('last-reviewer')}: ${data.lastReviewer?.displayName}`}
+															{`${t('last-review')}: ${
+																data.lastReview
+																	? data.lastReview.toLocaleString()
+																	: t('never')
+															}`}
 														</p>
-													)}
-												</div>
-											</FullWidthColumn>
-											<FullWidthColumn>
-												<ApplicationInfoReview application={data} />
-											</FullWidthColumn>
-										</Grid>
-									</Tile>
+														{data.lastReview && (
+															<p className='text-text-secondary text-body-compact-1'>
+																{`${t('last-reviewer')}: ${
+																	data.lastReviewer?.displayName
+																}`}
+															</p>
+														)}
+													</div>
+												</FullWidthColumn>
+												<FullWidthColumn>
+													<ApplicationInfoReview application={data} />
+												</FullWidthColumn>
+											</Grid>
+										</Tile>
+									</div>
 								)}
 
 								{procedureList.map(

@@ -10,7 +10,7 @@ import { Button, Grid } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import AddNewInstanceModal from '@components/Modals/AddNewInstanceModal';
 import Application from '@model/Application';
-import ApplicationInstanceForm from './ApplicationInstanceForm';
+import ApplicationInstanceTile from './ApplicationInstanceTile';
 
 type ApplicationInstancesProps = {
 	application: Application;
@@ -67,7 +67,7 @@ const ApplicationInstances = ({ application }: ApplicationInstancesProps) => {
 								</div>
 							)}
 							{instances?.map(instance => (
-								<ApplicationInstanceForm instance={instance} />
+								<ApplicationInstanceTile instance={instance} />
 							))}
 						</div>
 					</div>
