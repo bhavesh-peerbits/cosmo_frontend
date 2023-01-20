@@ -15,12 +15,12 @@ import InstanceAsset from '@model/InstanceAsset';
 import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { OptionsTile } from '@carbon/ibm-products';
 import DeleteAssetModal from '@components/Modals/DeleteAssetModal';
 import Asset from '@model/Asset';
 import Instance from '@model/Instance';
 import AddNewAssetModal from '@components/Modals/AddNewAssetModal';
 import MultiAddSelect from '@components/MultiAddSelect';
+import AssetExpandableTile from '@pages/MonitoringDraftDetails/Components/AssetExpandableTile';
 import AssetTileContent from './AssetTileContent';
 import { ApplicationInstanceFormData } from './AssetTileForm';
 
@@ -252,8 +252,7 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 							</FullWidthColumn>
 							{instance.assets?.map(asset => (
 								<FullWidthColumn>
-									<OptionsTile
-										summary={asset.ip}
+									<AssetExpandableTile
 										title={
 											<div className='flex items-center justify-between'>
 												{asset.hostname}
@@ -296,7 +295,7 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 											register={register}
 											watch={watch}
 										/>
-									</OptionsTile>
+									</AssetExpandableTile>
 								</FullWidthColumn>
 							))}
 

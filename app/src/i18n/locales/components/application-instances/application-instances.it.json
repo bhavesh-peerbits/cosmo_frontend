@@ -22,5 +22,7 @@
 	"add-asset": "Aggiungi asset",
 	"add-new-asset-instance": "Aggiungi un nuovo asset all'istanza",
 	"new-asset": "Nuovo asset",
-	"existing-asset": "Asset esistente"
+	"existing-asset": "Asset esistente",
+	"no-path": "Nessun path",
+	"no-path-subtitle": "Aggiungere un nuovo path o provare a cambiare i filtri."
 }

@@ -22,5 +22,7 @@
 	"add-asset": "Add asset",
 	"add-new-asset-instance": "Add new asset to instance",
 	"new-asset": "New asset",
-	"existing-asset": "Existing asset"
+	"existing-asset": "Existing asset",
+	"no-path": "No path",
+	"no-path-subtitle": "Add a new path o try changing filters."
 }
