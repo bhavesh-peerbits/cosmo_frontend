@@ -18,12 +18,16 @@
 	"confirm-asset-delete-global": "Warning, you are about to delete the asset with hostname {{hostname}} from ALL instances where it is present. Are you sure you want to proceed? Please read the involved instances carefully before continuing.",
 	"add-new-asset": "Add new asset",
 	"create-new-instance": "Create new application instance",
-	"ports-input-placeholder": "Use a semicolon to separate asset ports.",
+	"ports-input-placeholder": "Use a semicolon to separate asset ports",
 	"add-asset": "Add asset",
 	"add-new-asset-instance": "Add new asset to instance",
 	"new-asset": "New asset",
 	"existing-asset": "Existing asset",
 	"no-path": "No path",
 	"no-path-subtitle": "Add a new path o try changing filters.",
-	"monitorings": "Monitorings"
+	"monitorings": "Monitorings",
+	"hostname-placeholder": "Label to identify the asset on the network",
+	"ip-placeholder": "Address to identify the asset on the network",
+	"error-ports-input": "Only comma separated numbers are allowed",
+	"erros-ports-greater": "The port number must be less than 65536"
 }

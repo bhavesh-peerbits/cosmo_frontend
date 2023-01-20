@@ -36,8 +36,7 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 		'userSelect'
 	]);
 	const [isDeleteInstanceOpen, setIsDeleteInstanceOpen] = useState(false);
-	const [isAddAssetOpen, setIsAddAssetOpen] = useState(false);
-	const [isAssetSelectOpen, setIsAssetSelectOpen] = useState(false);
+	const [addAssetToOpen, setAddAssetToOpen] = useState<'new' | 'existing' | undefined>();
 	const [assetToDelete, setAssetToDelete] = useState<{
 		asset: Asset;
 		isGlobal?: boolean;
@@ -58,7 +57,7 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 		}
 	});
 
-	const { fields, append, update } = useFieldArray({
+	const { fields, append } = useFieldArray({
 		name: 'assets',
 		control
 	});
@@ -78,35 +77,11 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 		);
 	}, [append, instance.assets]);
 
-	useEffect(() => {
-		reset({
-			name: instance.instance?.name,
-			description: instance.instance?.description,
-			assets: instance.assets?.map(a => {
-				return {
-					hostname: a.hostname,
-					ports: a.ports,
-					type: a.type,
-					os: a.os,
-					ip: a.ip,
-					dbVersion: a.dbVersion,
-					dbType: a.dbType,
-					key: a.id
-				};
-			})
-		});
-	}, [
-		instance.assets,
-		instance.instance?.description,
-		instance.instance?.name,
-		reset,
-		update
-	]);
-
 	if (!instance || !instance.instance) {
 		return null;
 	}
 	// TODO Change items and filter items based on already associated assets
+	// TODO Edit items in onSubmit filter
 	return (
 		<Tile href={`${instance.instance?.id}`} className='w-full bg-background'>
 			<Form>
@@ -116,9 +91,11 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 						noResultsTitle={t('userSelect:no-results')}
 						noResultsDescription={t('userSelect:different-keywords')}
 						onCloseButtonText={t('userSelect:cancel')}
-						onSubmit={() => {}}
-						open={isAssetSelectOpen}
-						onClose={() => setIsAssetSelectOpen(false)}
+						onSubmit={() => {
+							setAddAssetToOpen(undefined);
+						}}
+						open={addAssetToOpen === 'existing'}
+						onClose={() => setAddAssetToOpen(undefined)}
 						onSubmitButtonText={t('userSelect:select')}
 						searchResultsLabel={t('userSelect:search-results')}
 						title={t('changeMonitoring:select-assets')}
@@ -176,8 +153,8 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 						instance={instance.instance}
 					/>
 					<AddNewAssetModal
-						isOpen={isAddAssetOpen}
-						setIsOpen={setIsAddAssetOpen}
+						isOpen={addAssetToOpen}
+						setIsOpen={setAddAssetToOpen}
 						instance={instance.instance}
 					/>
 					<DeleteAssetModal
@@ -200,11 +177,11 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 							>
 								<OverflowMenuItem
 									itemText={t('applicationInstances:new-asset')}
-									onClick={() => setIsAddAssetOpen(true)}
+									onClick={() => setAddAssetToOpen('new')}
 								/>
 								<OverflowMenuItem
 									itemText={t('applicationInstances:existing-asset')}
-									onClick={() => setIsAssetSelectOpen(true)}
+									onClick={() => setAddAssetToOpen('existing')}
 								/>
 							</OverflowMenu>
 							{/* <Button
@@ -294,6 +271,7 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 											index={fields.findIndex(f => f.key === asset.id)}
 											register={register}
 											watch={watch}
+											errors={errors}
 										/>
 									</AssetExpandableTile>
 								</FullWidthColumn>
@@ -315,7 +293,9 @@ const ApplicationInstanceForm = ({ instance }: ApplicationInstanceFormProps) => 
 											type='reset'
 											kind='secondary'
 											disabled={!isDirty}
-											onClick={() => reset()}
+											onClick={() => {
+												reset();
+											}}
 										>
 											{t('applicationInfo:discard')}
 										</Button>

@@ -18,12 +18,16 @@
 	"confirm-asset-delete-global": "Attenzione, stai per eliminare l'asset con hostname {{hostname}} da TUTTE le istanze in cui esso è presente. Sei sicuro di voler procedere? Si prega di leggere attentamente le istanze coinvolte prima di proseguire.",
 	"add-new-asset": "Aggiungi nuovo asset",
 	"create-new-instance": "Crea una nuova istanza dell'applicazione",
-	"ports-input-placeholder": "Utilizza una virgola per separare le porte dell'asset.",
+	"ports-input-placeholder": "Utilizza una virgola per separare le porte dell'asset",
 	"add-asset": "Aggiungi asset",
 	"add-new-asset-instance": "Aggiungi un nuovo asset all'istanza",
 	"new-asset": "Nuovo asset",
 	"existing-asset": "Asset esistente",
 	"no-path": "Nessun path",
 	"no-path-subtitle": "Aggiungere un nuovo path o provare a cambiare i filtri.",
-	"monitorings": "Monitoraggi"
+	"monitorings": "Monitoraggi",
+	"hostname-placeholder": "Nome per identificare l'asset nella rete",
+	"ip-placeholder": "Indirizzo per identificare l'asset nella rete",
+	"error-ports-input": "Sono ammessi solo numeri separati da una virgola",
+	"erros-ports-greater": "Il numero della porta deve essere minore di 65536"
 }

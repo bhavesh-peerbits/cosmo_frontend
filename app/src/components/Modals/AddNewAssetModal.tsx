@@ -18,8 +18,8 @@ type NewAssetFormData = {
 };
 
 type AddNewAssetModalProps = {
-	isOpen: boolean;
-	setIsOpen: Dispatch<SetStateAction<boolean>>;
+	isOpen: 'new' | 'existing' | undefined;
+	setIsOpen: Dispatch<SetStateAction<'new' | 'existing' | undefined>>;
 	instance: Instance;
 };
 const AddNewAssetModal = ({ isOpen, setIsOpen, instance }: AddNewAssetModalProps) => {
@@ -29,19 +29,19 @@ const AddNewAssetModal = ({ isOpen, setIsOpen, instance }: AddNewAssetModalProps
 	const {
 		register,
 		watch,
-		formState: { isValid }
+		formState: { isValid, errors }
 	} = useForm<NewAssetFormData>({ mode: 'onChange' });
 
 	const cleanUp = () => {
-		setIsOpen(false);
+		setIsOpen(undefined);
 	};
-
+	// TODO remove last comma in ports
 	return (
 		<TearsheetNarrow
 			hasCloseIcon
 			label={instance.name}
 			title={t('applicationInstances:add-new-asset-instance')}
-			open={isOpen}
+			open={isOpen === 'new'}
 			onClose={cleanUp}
 			actions={[
 				{
@@ -77,6 +77,9 @@ const AddNewAssetModal = ({ isOpen, setIsOpen, instance }: AddNewAssetModalProps
 						<TextInput
 							id='new-asset-hostname-input'
 							labelText='Hostname *'
+							placeholder={t('applicationInstances:hostname-placeholder')}
+							invalid={Boolean(errors.hostname)}
+							invalidText={errors.hostname?.message}
 							{...register(`hostname`, {
 								required: { value: true, message: t('modals:field-required') }
 							})}
@@ -86,6 +89,9 @@ const AddNewAssetModal = ({ isOpen, setIsOpen, instance }: AddNewAssetModalProps
 						<TextInput
 							id='new-asset-ip-input'
 							labelText='IP *'
+							placeholder={t('applicationInstances:ip-placeholder')}
+							invalid={Boolean(errors.ip)}
+							invalidText={errors.ip?.message}
 							{...register(`ip`, {
 								required: { value: true, message: t('modals:field-required') }
 							})}
@@ -96,7 +102,16 @@ const AddNewAssetModal = ({ isOpen, setIsOpen, instance }: AddNewAssetModalProps
 							id='new-asset-ports-input'
 							labelText={t('applicationInstances:ports')}
 							placeholder={t('applicationInstances:ports-input-placeholder')}
-							{...register(`ports`)}
+							{...register('ports', {
+								pattern: {
+									value: /^([0-9]+,?)+$/,
+									message: t('applicationInstances:error-ports-input')
+								},
+								validate: ports =>
+									ports.length > 0 &&
+									(ports.split(',').every(port => +port < 65535) ||
+										t('applicationInstances:erros-ports-greater'))
+							})}
 						/>
 					</FullWidthColumn>
 					<Column lg={8} md={4} sm={4}>
@@ -130,6 +145,8 @@ const AddNewAssetModal = ({ isOpen, setIsOpen, instance }: AddNewAssetModalProps
 							labelText={`${t('applicationInstances:db-version')} ${
 								watch(`type`) !== 'OS' ? ' *' : ''
 							}`}
+							invalid={Boolean(errors.dbVersion)}
+							invalidText={errors.dbVersion?.message}
 							disabled={watch(`type`) === 'OS'}
 							{...register(`dbVersion`, {
 								required: {
@@ -145,6 +162,8 @@ const AddNewAssetModal = ({ isOpen, setIsOpen, instance }: AddNewAssetModalProps
 							labelText={`${t('applicationInstances:db-type')} ${
 								watch(`type`) !== 'OS' ? ' *' : ''
 							}`}
+							invalid={Boolean(errors.dbType)}
+							invalidText={errors.dbType?.message}
 							disabled={watch(`type`) === 'OS'}
 							{...register(`dbType`, {
 								required: {
