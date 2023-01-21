@@ -42,7 +42,7 @@ import TableHeaders from './TableHeaders';
 import TableInnerBody from './TableInnerBody';
 import TableBodySkeleton from './TableBodySkeleton';
 import CosmoTableToolbar from './CosmoTableToolbar';
-import TableFormTearsheet from './TableFormTearsheet';
+import TableFormTearsheet from './insert/TableFormTearsheet';
 import { InlineActions } from './types/InlineActionType';
 
 interface ToolbarProps<T extends object> {
