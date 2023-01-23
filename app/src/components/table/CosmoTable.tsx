@@ -31,7 +31,7 @@ import { useDebounce, useMount, useUnmount, useUpdateEffect } from 'ahooks';
 import { rankItem } from '@tanstack/match-sorter-utils';
 import usePaginationStore from '@hooks/pagination/usePaginationStore';
 import useExportTablePlugin from '@hooks/useExportTablePlugin';
-import { UseMutationResult } from '@tanstack/react-query';
+import { FieldValues, SubmitHandler, UseFormReturn } from 'react-hook-form';
 import TablePagination from './TablePagination';
 import CosmoTableToolbarAction from './types/CosmoTableToolbarAction';
 import CosmoTableToolbarMenu from './types/CosmoTableToolbarMenu';
@@ -41,7 +41,7 @@ import TableHeaders from './TableHeaders';
 import TableInnerBody from './TableInnerBody';
 import TableBodySkeleton from './TableBodySkeleton';
 import CosmoTableToolbar from './CosmoTableToolbar';
-import TableFormTearsheet from './TableFormTearsheet';
+import TableFormTearsheet from './insert/TableFormTearsheet';
 import { InlineActions } from './types/InlineActionType';
 
 interface ToolbarProps<T extends object> {
@@ -54,21 +54,20 @@ interface ToolbarProps<T extends object> {
 	};
 }
 
-interface ModalProps {
+interface ModalProps<F extends FieldValues> {
 	title: string;
 	description?: string;
 	label?: string;
-	mutation: UseMutationResult<any, unknown, any, unknown>;
-	setMutationResult?: (value: any) => void;
-	mutationDefaultValues?: Record<string, any>;
+	form: UseFormReturn<F>;
+	onSubmit: SubmitHandler<F>;
 }
 
 type SubRows<T> = object & {
 	subRows?: T[];
 };
 
-interface CosmoTableProps<T extends SubRows<T>> {
-	columns: ColumnDef<T>[];
+interface CosmoTableProps<T extends SubRows<T>, F extends FieldValues = never> {
+	columns: ColumnDef<T, unknown, F>[];
 	data: T[];
 	tableId: string;
 	isSelectable?: boolean | 'radio';
@@ -94,7 +93,7 @@ interface CosmoTableProps<T extends SubRows<T>> {
 	noDataMessageSubtitle?: string;
 	canEdit?: boolean;
 	canDelete?: boolean;
-	modalProps?: ModalProps;
+	modalProps?: ModalProps<F>;
 	inlineActions?: InlineActions<T>[];
 	// modalContent?: FC<{ row: Row<T> | undefined; closeModal: () => void; edit: boolean }>;
 	onDelete?: (rows: Row<T>[]) => void;
@@ -123,7 +122,7 @@ const tableSizes: Record<TableSize, { value: number; label: string }> = {
 	}
 };
 
-const CosmoTable = <T extends SubRows<T>>({
+const CosmoTable = <T extends SubRows<T>, F extends FieldValues = never>({
 	columns,
 	modalProps,
 	data: tableData,
@@ -151,7 +150,7 @@ const CosmoTable = <T extends SubRows<T>>({
 	noDataMessageSubtitle,
 	onDelete,
 	inlineActions
-}: CosmoTableProps<T>) => {
+}: CosmoTableProps<T, F>) => {
 	const data = useMemo(() => tableData, [tableData]);
 	if (inlineActions) {
 		columns.push({
@@ -212,7 +211,7 @@ const CosmoTable = <T extends SubRows<T>>({
 
 	const table = useReactTable({
 		data,
-		columns,
+		columns: columns as ColumnDef<T>[],
 		autoResetPageIndex: false,
 		manualPagination: Boolean(serverSidePagination),
 		manualFiltering: Boolean(serverSidePagination),
@@ -401,8 +400,8 @@ const CosmoTable = <T extends SubRows<T>>({
 			{modalProps && (
 				<TableFormTearsheet
 					isOpen={isModalOpen}
-					setIsOpen={() => setIsModalOpen(false)}
-					columns={columns}
+					columns={allLeafColumns}
+					onClose={() => setIsModalOpen(false)}
 					{...modalProps}
 				/>
 			)}

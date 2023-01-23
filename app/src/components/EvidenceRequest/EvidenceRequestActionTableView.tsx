@@ -16,7 +16,6 @@ import { useCallback, useMemo } from 'react';
 import { CellContext, ColumnDef } from '@tanstack/react-table';
 import EvidenceRequestStep from '@model/EvidenceRequestStep';
 import CosmoTable from '@components/table/CosmoTable';
-import useSaveDraft from '@api/evidence-request/useSaveDraft';
 
 interface EvidenceRequestActionTableViewProps {
 	view: string;
@@ -27,7 +26,6 @@ const EvidenceRequestActionTableView = ({
 }: EvidenceRequestActionTableViewProps) => {
 	const { requests, setFilters } = useEvidenceRequestAction();
 	const { t } = useTranslation('evidenceRequest');
-	const mutation = useSaveDraft();
 
 	const tooltipCell = useCallback(
 		({ getValue }: CellContext<EvidenceRequest, unknown>) => {
@@ -207,7 +205,7 @@ const EvidenceRequestActionTableView = ({
 					}}
 					isColumnOrderingEnabled
 					canAdd
-					modalProps={{ title: 'test', mutation }}
+					// modalProps={{ title: 'test',  }} FIXME use new version
 				/>
 			</div>
 		</Fade>

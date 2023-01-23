@@ -4,7 +4,6 @@ import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 import { MisuseOutline, CheckmarkOutline } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { PathMonitoringDto, RunDtoStatusEnum } from 'cosmo-api/src/v1';
-import useCheckPathAssetMonitoring from '@api/change-monitoring/useCheckPathsAsset';
 import useNotification from '@hooks/useNotification';
 import { RunMonitoringAsset } from '../types/RunMonitoringAsset';
 
@@ -29,6 +28,7 @@ const PathAssetTable = ({
 	status
 }: PathAssetTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table']);
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [newPaths, setNewPaths] = useState<PathMonitoringDto[]>([]);
 	const { showNotification } = useNotification();
 
@@ -46,15 +46,15 @@ const PathAssetTable = ({
 				header: 'Path',
 				sortUndefined: 1,
 				meta: {
-					modalInfo: {
-						type: 'string',
-						modelKeyName: 'requestBody',
-						validation: {
-							required: true,
-							pattern:
-								assetData?.[0].asset.os === 'WINDOWS' ? '^(?!s*$)[^/]+' : '^(?!s*$)[^\\]+'
-						}
-					}
+					// modalInfo: {
+					// 	type: 'string',
+					// 	modelKeyName: 'requestBody',
+					// 	validation: {
+					// 		required: true,
+					// 		pattern:
+					// 			assetData?.[0].asset.os === 'WINDOWS' ? '^(?!s*$)[^/]+' : '^(?!s*$)[^\\]+'
+					// 	}
+					// } FIXME
 				}
 			}
 		];
@@ -153,12 +153,12 @@ const PathAssetTable = ({
 
 	return (
 		<CosmoTable
-			modalProps={{
-				mutation: useCheckPathAssetMonitoring(),
-				title: t('changeMonitoring:add-path'),
-				setMutationResult: setNewPaths,
-				mutationDefaultValues: { assetId }
-			}}
+			// modalProps={{
+			// 	mutation: useCheckPathAssetMonitoring(),
+			// 	title: t('changeMonitoring:add-path'),
+			// 	setMutationResult: setNewPaths,
+			// 	mutationDefaultValues: { assetId }
+			// }} FIXME use new props
 			tableId={`${assetId}-path-table`}
 			columns={columns}
 			noDataMessage={t('table:no-data')}
