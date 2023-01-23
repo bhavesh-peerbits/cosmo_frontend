@@ -3,10 +3,9 @@ import { CellContext, ColumnDef } from '@tanstack/react-table';
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 import { MisuseOutline, CheckmarkOutline } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
-import { PathMonitoringDto } from 'cosmo-api/src/v1';
-import MonitoringAsset from '@model/MonitoringAsset';
-import useCheckPathAssetMonitoring from '@api/change-monitoring/useCheckPathsAsset';
+import { PathMonitoringDto, RunDtoStatusEnum } from 'cosmo-api/src/v1';
 import useNotification from '@hooks/useNotification';
+import { RunMonitoringAsset } from '../types/RunMonitoringAsset';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const BooleanCell = ({ getValue }: CellContext<any, unknown>) => {
@@ -14,19 +13,22 @@ const BooleanCell = ({ getValue }: CellContext<any, unknown>) => {
 	return value ? <CheckmarkOutline /> : <MisuseOutline />;
 };
 
-type PathAssetTableProps = {
+interface PathAssetTableProps {
 	assetId: string;
-	assetData?: MonitoringAsset[];
-	setAssetData?: Dispatch<SetStateAction<MonitoringAsset[] | undefined>>;
+	assetData?: RunMonitoringAsset[];
+	setAssetData?: Dispatch<SetStateAction<RunMonitoringAsset[] | undefined>>;
 	canAdd?: boolean;
-};
+	status?: RunDtoStatusEnum;
+}
 const PathAssetTable = ({
 	assetId,
 	canAdd,
+	assetData,
 	setAssetData,
-	assetData
+	status
 }: PathAssetTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table']);
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [newPaths, setNewPaths] = useState<PathMonitoringDto[]>([]);
 	const { showNotification } = useNotification();
 
@@ -44,15 +46,15 @@ const PathAssetTable = ({
 				header: 'Path',
 				sortUndefined: 1,
 				meta: {
-					modalInfo: {
-						type: 'string',
-						modelKeyName: 'requestBody',
-						validation: {
-							required: true,
-							pattern:
-								assetData?.[0].asset.os === 'WINDOWS' ? '^(?!s*$)[^/]+' : '^(?!s*$)[^\\]+'
-						}
-					}
+					// modalInfo: {
+					// 	type: 'string',
+					// 	modelKeyName: 'requestBody',
+					// 	validation: {
+					// 		required: true,
+					// 		pattern:
+					// 			assetData?.[0].asset.os === 'WINDOWS' ? '^(?!s*$)[^/]+' : '^(?!s*$)[^\\]+'
+					// 	}
+					// } FIXME
 				}
 			}
 		];
@@ -65,7 +67,7 @@ const PathAssetTable = ({
 			});
 		}
 		return ArrayCol;
-	}, [assetData, assetId, t]);
+	}, [assetId, assetData, t]);
 
 	const toolbarBatchActions = [
 		{
@@ -151,20 +153,27 @@ const PathAssetTable = ({
 
 	return (
 		<CosmoTable
-			modalProps={{
-				mutation: useCheckPathAssetMonitoring(),
-				title: t('changeMonitoring:add-path'),
-				setMutationResult: setNewPaths,
-				mutationDefaultValues: { assetId }
-			}}
+			// modalProps={{
+			// 	mutation: useCheckPathAssetMonitoring(),
+			// 	title: t('changeMonitoring:add-path'),
+			// 	setMutationResult: setNewPaths,
+			// 	mutationDefaultValues: { assetId }
+			// }} FIXME use new props
 			tableId={`${assetId}-path-table`}
 			columns={columns}
 			noDataMessage={t('table:no-data')}
 			isColumnOrderingEnabled
-			canAdd={canAdd}
+			canAdd={status ? status === 'SETUP' && canAdd : canAdd}
 			toolbar={{
 				searchBar: true,
-				toolbarBatchActions: canAdd ? toolbarBatchActions : [],
+				// eslint-disable-next-line no-nested-ternary
+				toolbarBatchActions: status
+					? status === 'SETUP' && canAdd
+						? toolbarBatchActions
+						: []
+					: canAdd
+					? toolbarBatchActions
+					: [],
 				toolbarTableMenus: []
 			}}
 			exportFileName={({ all }) =>

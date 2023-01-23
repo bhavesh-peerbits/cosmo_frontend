@@ -8,7 +8,7 @@
 @use './table';
 @use './table-form.scss';
 @use './no-data-empty-state.scss';
-
+@use './radio-button-width.scss';
 @use '@carbon/react/scss/themes' as default_theme;
 
 .container-w-sidenav {

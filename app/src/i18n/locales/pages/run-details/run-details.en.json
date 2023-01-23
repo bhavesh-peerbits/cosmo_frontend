@@ -40,5 +40,9 @@
 	"answer": "Answer",
 	"actions": "Actions",
 	"ignore": "Ignore",
-	"confirm": "Confirm"
+	"confirm": "Confirm",
+	"owner": "Owner",
+	"file-already-uploaded": "Use a file already uploaded",
+	"upload-new-file": "Upload new file",
+	"select-file-method": "Choose file selection method"
 }

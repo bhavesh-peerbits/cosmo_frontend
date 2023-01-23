@@ -67,10 +67,11 @@
 	"resolutions": {
 		"react-dnd": "^16.0.1",
 		"react-dnd-html5-backend": "^16.0.1",
-		"@carbon/react@1.19.0": "patch:@carbon/react@npm:1.19.0#.yarn/patches/@carbon-react-npm-1.19.0-985c79b931.patch"
+		"@carbon/react@1.19.0": "patch:@carbon/react@npm:1.19.0#.yarn/patches/@carbon-react-npm-1.19.0-985c79b931.patch",
+		"@tanstack/table-core@npm:8.7.6": "patch:@tanstack/table-core@npm%3A8.7.6#~/.yarn/patches/@tanstack-table-core-npm-8.7.6-b5b0c8b868.patch"
 	},
 	"prettier": "./.prettierrc.js",
-	"packageManager": "yarn@3.2.2",
+	"packageManager": "yarn@4.0.0-rc.35",
 	"dependenciesMeta": {
 		"open@7.4.2": {
 			"unplugged": true

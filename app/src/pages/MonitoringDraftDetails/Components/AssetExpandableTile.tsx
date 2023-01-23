@@ -13,7 +13,6 @@ const AssetExpandableTile = ({ children, title }: AssetExpandableTileProps) => {
 			className={`flex items-center border-b-1 border-solid border-border-subtle-1 bg-layer-3 py-0 ${
 				!isExpanded && 'hover:bg-layer-hover-3'
 			}`}
-			onClick={e => e.stopPropagation()}
 		>
 			<div className='w-full space-y-3'>
 				<div className='flex h-[64px] w-full items-center space-x-5'>
