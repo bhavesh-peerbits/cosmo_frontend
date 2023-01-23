@@ -152,6 +152,7 @@ const RunSetupContent = ({ run }: RunSetupContentProps) => {
 							globalData={globalPaths}
 							setGlobalData={setGlobalPaths}
 							assetIds={run.runAsset.map(ma => ma.asset.id)}
+							os={run.runAsset[0].asset.os}
 						/>
 					</Layer>
 				)}

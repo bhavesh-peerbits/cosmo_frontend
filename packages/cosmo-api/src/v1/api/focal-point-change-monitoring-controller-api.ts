@@ -41,6 +41,8 @@ import { ApiErrorResponse } from '../models';
 // @ts-ignore
 import { FileLinkDto } from '../models';
 // @ts-ignore
+import { InlineObject16 } from '../models';
+// @ts-ignore
 import { MonitoringDto } from '../models';
 // @ts-ignore
 import { RunDto } from '../models';
@@ -403,6 +405,68 @@ export const FocalPointChangeMonitoringControllerApiAxiosParamCreator = function
 				url: toPathString(localVarUrlObj),
 				options: localVarRequestOptions
 			};
+		},
+		/**
+		 *
+		 * @param {number} deltaId
+		 * @param {InlineObject16} inlineObject16
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		uploadCsvAnswer: async (
+			deltaId: number,
+			inlineObject16: InlineObject16,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'deltaId' is not null or undefined
+			assertParamExists('uploadCsvAnswer', 'deltaId', deltaId);
+			// verify required parameter 'inlineObject16' is not null or undefined
+			assertParamExists('uploadCsvAnswer', 'inlineObject16', inlineObject16);
+			const localVarPath =
+				`/api/change-monitoring/focal-point/upload-csv-answer/{deltaId}`.replace(
+					`{${'deltaId'}}`,
+					encodeURIComponent(String(deltaId))
+				);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				inlineObject16,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
 		}
 	};
 };
@@ -588,6 +652,33 @@ export const FocalPointChangeMonitoringControllerApiFp = function (
 				BASE_PATH,
 				configuration
 			);
+		},
+		/**
+		 *
+		 * @param {number} deltaId
+		 * @param {InlineObject16} inlineObject16
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async uploadCsvAnswer(
+			deltaId: number,
+			inlineObject16: InlineObject16,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.uploadCsvAnswer(
+				deltaId,
+				inlineObject16,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
 		}
 	};
 };
@@ -712,6 +803,24 @@ export const FocalPointChangeMonitoringControllerApiFactory = function (
 		): AxiosPromise<RunDto> {
 			return localVarFp
 				.getRun(runId, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} deltaId
+		 * @param {InlineObject16} inlineObject16
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		uploadCsvAnswer(
+			deltaId: number,
+			inlineObject16: InlineObject16,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<void> {
+			return localVarFp
+				.uploadCsvAnswer(deltaId, inlineObject16, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		}
 	};
@@ -858,6 +967,34 @@ export interface FocalPointChangeMonitoringControllerApiGetRunRequest {
 }
 
 /**
+ * Request parameters for uploadCsvAnswer operation in FocalPointChangeMonitoringControllerApi.
+ * @export
+ * @interface FocalPointChangeMonitoringControllerApiUploadCsvAnswerRequest
+ */
+export interface FocalPointChangeMonitoringControllerApiUploadCsvAnswerRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof FocalPointChangeMonitoringControllerApiUploadCsvAnswer
+	 */
+	readonly deltaId: number;
+
+	/**
+	 *
+	 * @type {InlineObject16}
+	 * @memberof FocalPointChangeMonitoringControllerApiUploadCsvAnswer
+	 */
+	readonly inlineObject16: InlineObject16;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof FocalPointChangeMonitoringControllerApiUploadCsvAnswer
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
  * FocalPointChangeMonitoringControllerApi - object-oriented interface
  * @export
  * @class FocalPointChangeMonitoringControllerApi
@@ -991,6 +1128,27 @@ export class FocalPointChangeMonitoringControllerApi extends BaseAPI {
 	) {
 		return FocalPointChangeMonitoringControllerApiFp(this.configuration)
 			.getRun(requestParameters.runId, requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {FocalPointChangeMonitoringControllerApiUploadCsvAnswerRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof FocalPointChangeMonitoringControllerApi
+	 */
+	public uploadCsvAnswer(
+		requestParameters: FocalPointChangeMonitoringControllerApiUploadCsvAnswerRequest,
+		options?: AxiosRequestConfig
+	) {
+		return FocalPointChangeMonitoringControllerApiFp(this.configuration)
+			.uploadCsvAnswer(
+				requestParameters.deltaId,
+				requestParameters.inlineObject16,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 }

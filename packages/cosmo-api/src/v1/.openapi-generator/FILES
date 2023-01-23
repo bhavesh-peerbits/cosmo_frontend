@@ -8,11 +8,11 @@ api/application-controller-api.ts
 api/auth-controller-api.ts
 api/config-element-controller-api.ts
 api/config-element-module-controller-api.ts
-api/control-controller-api.ts
 api/csv-reader-controller-api.ts
 api/evidence-request-controller-api.ts
 api/evidence-request-file-s3-controller-api.ts
 api/evidence-request-focal-point-controller-api.ts
+api/focal-point-change-monitoring-controller-api.ts
 api/framework-tree-controller-api.ts
 api/framework-tree-for-evidence-controller-api.ts
 api/frequency-controller-api.ts
@@ -66,6 +66,7 @@ models/draft-dto.ts
 models/email.ts
 models/evidence-request-draft-dto.ts
 models/evidence-request-dto.ts
+models/file-for-delta-dto.ts
 models/file-link-dto-list.ts
 models/file-link-dto.ts
 models/focal-point-and-delegates-dto.ts
@@ -78,6 +79,8 @@ models/inline-object10.ts
 models/inline-object11.ts
 models/inline-object13.ts
 models/inline-object14.ts
+models/inline-object16.ts
+models/inline-object17.ts
 models/inline-object8.ts
 models/inline-object9.ts
 models/instance-asset-dto.ts

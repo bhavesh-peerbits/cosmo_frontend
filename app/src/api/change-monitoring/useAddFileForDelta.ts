@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@api';
 import RunFileLink, { toRunFileLinkApi } from '@model/RunFileLink';
+import { FileForDeltaDto } from 'cosmo-api/src/v1';
 
 interface AddFileForDeltaParameters {
 	assetId: string;
@@ -19,7 +20,7 @@ const addFileForDelta = ({
 		assetId: +assetId,
 		runId: +runId,
 		file,
-		runFileLink: toRunFileLinkApi(runFileLink)
+		fileForDelta: toRunFileLinkApi(runFileLink) as unknown as FileForDeltaDto
 	});
 };
 

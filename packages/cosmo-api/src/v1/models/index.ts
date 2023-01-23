@@ -40,6 +40,8 @@ export * from './inline-object10';
 export * from './inline-object11';
 export * from './inline-object13';
 export * from './inline-object14';
+export * from './inline-object16';
+export * from './inline-object17';
 export * from './inline-object8';
 export * from './inline-object9';
 export * from './instance';
