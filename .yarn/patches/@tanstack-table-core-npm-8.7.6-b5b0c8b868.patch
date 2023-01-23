@@ -1,0 +1,158 @@
+diff --git a/build/lib/types.d.ts b/build/lib/types.d.ts
+index deaf229aabfe3a9d468cbf0c6c397e528aca1d5d..4cfe5acc4e11ea696e0e5d984a16fd6a72068fe9 100644
+--- a/build/lib/types.d.ts
++++ b/build/lib/types.d.ts
+@@ -16,7 +16,7 @@ import { CellContext, CoreCell } from './core/cell';
+ import { CoreColumn } from './core/column';
+ export interface TableMeta<TData extends RowData> {
+ }
+-export interface ColumnMeta<TData extends RowData, TValue> {
++export interface ColumnMeta<TData extends RowData, TValue, FormValues extends Record<string, any> = never> {
+ }
+ export interface FilterMeta {
+ }
+@@ -64,32 +64,32 @@ interface IdIdentifier<TData extends RowData, TValue> {
+ type ColumnIdentifiers<TData extends RowData, TValue> = IdIdentifier<TData, TValue> | StringHeaderIdentifier;
+ interface ColumnDefExtensions<TData extends RowData, TValue = unknown> extends VisibilityColumnDef, ColumnPinningColumnDef, FiltersColumnDef<TData>, SortingColumnDef<TData>, GroupingColumnDef<TData, TValue>, ColumnSizingColumnDef {
+ }
+-export interface ColumnDefBase<TData extends RowData, TValue = unknown> extends ColumnDefExtensions<TData, TValue> {
++export interface ColumnDefBase<TData extends RowData, TValue = unknown, FormValues extends Record<string, any> = never> extends ColumnDefExtensions<TData, TValue> {
+     getUniqueValues?: AccessorFn<TData, unknown[]>;
+     footer?: ColumnDefTemplate<HeaderContext<TData, TValue>>;
+     cell?: ColumnDefTemplate<CellContext<TData, TValue>>;
+-    meta?: ColumnMeta<TData, TValue>;
++    meta?: ColumnMeta<TData, TValue, FormValues>;
+ }
+ export interface IdentifiedColumnDef<TData extends RowData, TValue = unknown> extends ColumnDefBase<TData, TValue> {
+     id?: string;
+     header?: StringOrTemplateHeader<TData, TValue>;
+ }
+-export type DisplayColumnDef<TData extends RowData, TValue = unknown> = ColumnDefBase<TData, TValue> & ColumnIdentifiers<TData, TValue>;
+-interface GroupColumnDefBase<TData extends RowData, TValue = unknown> extends ColumnDefBase<TData, TValue> {
++export type DisplayColumnDef<TData extends RowData, TValue = unknown, FormValues extends Record<string, any> = never> = ColumnDefBase<TData, TValue, FormValues> & ColumnIdentifiers<TData, TValue>;
++interface GroupColumnDefBase<TData extends RowData, TValue = unknown, FormValues extends Record<string, any> = never> extends ColumnDefBase<TData, TValue, FormValues> {
+     columns?: ColumnDef<TData, any>[];
+ }
+-export type GroupColumnDef<TData extends RowData, TValue = unknown> = GroupColumnDefBase<TData, TValue> & ColumnIdentifiers<TData, TValue>;
+-interface AccessorFnColumnDefBase<TData extends RowData, TValue = unknown> extends ColumnDefBase<TData, TValue> {
++export type GroupColumnDef<TData extends RowData, TValue = unknown, FormValues extends Record<string, any> = never> = GroupColumnDefBase<TData, TValue, FormValues> & ColumnIdentifiers<TData, TValue>;
++interface AccessorFnColumnDefBase<TData extends RowData, TValue = unknown, FormValues extends Record<string, any>=never > extends ColumnDefBase<TData, TValue, FormValues> {
+     accessorFn: AccessorFn<TData, TValue>;
+ }
+-export type AccessorFnColumnDef<TData extends RowData, TValue = unknown> = AccessorFnColumnDefBase<TData, TValue> & ColumnIdentifiers<TData, TValue>;
+-interface AccessorKeyColumnDefBase<TData extends RowData, TValue = unknown> extends ColumnDefBase<TData, TValue> {
++export type AccessorFnColumnDef<TData extends RowData, TValue = unknown, FormValues extends Record<string, any>=never > = AccessorFnColumnDefBase<TData, TValue, FormValues> & ColumnIdentifiers<TData, TValue>;
++interface AccessorKeyColumnDefBase<TData extends RowData, TValue = unknown,  FormValues extends Record<string, any>=never > extends ColumnDefBase<TData, TValue,FormValues> {
+     id?: string;
+     accessorKey: (string & {}) | keyof TData;
+ }
+-export type AccessorKeyColumnDef<TData extends RowData, TValue = unknown> = AccessorKeyColumnDefBase<TData, TValue> & Partial<ColumnIdentifiers<TData, TValue>>;
+-export type AccessorColumnDef<TData extends RowData, TValue = unknown> = AccessorKeyColumnDef<TData, TValue> | AccessorFnColumnDef<TData, TValue>;
+-export type ColumnDef<TData extends RowData, TValue = unknown> = DisplayColumnDef<TData, TValue> | GroupColumnDef<TData, TValue> | AccessorColumnDef<TData, TValue>;
++export type AccessorKeyColumnDef<TData extends RowData, TValue = unknown, FormValues extends Record<string, any>=never > = AccessorKeyColumnDefBase<TData, TValue, FormValues> & Partial<ColumnIdentifiers<TData, TValue>>;
++export type AccessorColumnDef<TData extends RowData, TValue = unknown, FormValues extends Record<string, any>=never > = AccessorKeyColumnDef<TData, TValue, FormValues> | AccessorFnColumnDef<TData, TValue, FormValues>;
++export type ColumnDef<TData extends RowData, TValue = unknown, FormValues extends Record<string, any> = never> = DisplayColumnDef<TData, TValue, FormValues> | GroupColumnDef<TData, TValue, FormValues> | AccessorColumnDef<TData, TValue, FormValues>;
+ export type ColumnDefResolved<TData extends RowData, TValue = unknown> = Partial<UnionToIntersection<ColumnDef<TData, TValue>>> & {
+     accessorKey?: string;
+ };
+diff --git a/src/types.ts b/src/types.ts
+index 3487c535db2e04ccbdde5e3256c28759c5a02728..fdc32f230a60c328aa8306670f8b4724e5172358 100644
+--- a/src/types.ts
++++ b/src/types.ts
+@@ -83,7 +83,7 @@ import { CoreColumn } from './core/column'
+ 
+ export interface TableMeta<TData extends RowData> {}
+ 
+-export interface ColumnMeta<TData extends RowData, TValue> {}
++export interface ColumnMeta<TData extends RowData, TValue, FormValues extends Record<string, any> = never> {}
+ 
+ export interface FilterMeta {}
+ 
+@@ -215,12 +215,12 @@ interface ColumnDefExtensions<TData extends RowData, TValue = unknown>
+     GroupingColumnDef<TData, TValue>,
+     ColumnSizingColumnDef {}
+ 
+-export interface ColumnDefBase<TData extends RowData, TValue = unknown>
++export interface ColumnDefBase<TData extends RowData, TValue = unknown, FormValues extends Record<string, any> = never>
+   extends ColumnDefExtensions<TData, TValue> {
+   getUniqueValues?: AccessorFn<TData, unknown[]>
+   footer?: ColumnDefTemplate<HeaderContext<TData, TValue>>
+   cell?: ColumnDefTemplate<CellContext<TData, TValue>>
+-  meta?: ColumnMeta<TData, TValue>
++  meta?: ColumnMeta<TData, TValue, FormValues>
+ }
+ 
+ //
+@@ -233,51 +233,51 @@ export interface IdentifiedColumnDef<TData extends RowData, TValue = unknown>
+ 
+ export type DisplayColumnDef<
+   TData extends RowData,
+-  TValue = unknown
+-> = ColumnDefBase<TData, TValue> & ColumnIdentifiers<TData, TValue>
++  TValue = unknown, FormValues extends Record<string, any> = never
++> = ColumnDefBase<TData, TValue, FormValues> & ColumnIdentifiers<TData, TValue>
+ 
+-interface GroupColumnDefBase<TData extends RowData, TValue = unknown>
+-  extends ColumnDefBase<TData, TValue> {
++interface GroupColumnDefBase<TData extends RowData, TValue = unknown, FormValues extends Record<string, any> = never>
++  extends ColumnDefBase<TData, TValue, FormValues> {
+   columns?: ColumnDef<TData, any>[]
+ }
+ 
+ export type GroupColumnDef<
+   TData extends RowData,
+-  TValue = unknown
+-> = GroupColumnDefBase<TData, TValue> & ColumnIdentifiers<TData, TValue>
++  TValue = unknown, FormValues extends Record<string, any> = never
++> = GroupColumnDefBase<TData, TValue, FormValues> & ColumnIdentifiers<TData, TValue>
+ 
+-interface AccessorFnColumnDefBase<TData extends RowData, TValue = unknown>
+-  extends ColumnDefBase<TData, TValue> {
++interface AccessorFnColumnDefBase<TData extends RowData, TValue = unknown, FormValues extends Record<string, any> = never>
++  extends ColumnDefBase<TData, TValue, FormValues> {
+   accessorFn: AccessorFn<TData, TValue>
+ }
+ 
+ export type AccessorFnColumnDef<
+   TData extends RowData,
+-  TValue = unknown
+-> = AccessorFnColumnDefBase<TData, TValue> & ColumnIdentifiers<TData, TValue>
++  TValue = unknown, FormValues extends Record<string, any> = never
++> = AccessorFnColumnDefBase<TData, TValue, FormValues> & ColumnIdentifiers<TData, TValue>
+ 
+-interface AccessorKeyColumnDefBase<TData extends RowData, TValue = unknown>
+-  extends ColumnDefBase<TData, TValue> {
++interface AccessorKeyColumnDefBase<TData extends RowData, TValue = unknown, FormValues extends Record<string, any> = never>
++  extends ColumnDefBase<TData, TValue, FormValues> {
+   id?: string
+   accessorKey: (string & {}) | keyof TData
+ }
+ 
+ export type AccessorKeyColumnDef<
+   TData extends RowData,
+-  TValue = unknown
+-> = AccessorKeyColumnDefBase<TData, TValue> &
++  TValue = unknown, FormValues extends Record<string, any> = never
++> = AccessorKeyColumnDefBase<TData, TValue, FormValues> &
+   Partial<ColumnIdentifiers<TData, TValue>>
+ 
+-export type AccessorColumnDef<TData extends RowData, TValue = unknown> =
+-  | AccessorKeyColumnDef<TData, TValue>
+-  | AccessorFnColumnDef<TData, TValue>
++export type AccessorColumnDef<TData extends RowData, TValue = unknown, FormValues extends Record<string, any> = never> =
++  | AccessorKeyColumnDef<TData, TValue, FormValues>
++  | AccessorFnColumnDef<TData, TValue, FormValues>
+ 
+ //
+ 
+-export type ColumnDef<TData extends RowData, TValue = unknown> =
+-  | DisplayColumnDef<TData, TValue>
+-  | GroupColumnDef<TData, TValue>
+-  | AccessorColumnDef<TData, TValue>
++export type ColumnDef<TData extends RowData, TValue = unknown, FormValues extends Record<string, any> = never> =
++  | DisplayColumnDef<TData, TValue, FormValues>
++  | GroupColumnDef<TData, TValue, FormValues>
++  | AccessorColumnDef<TData, TValue, FormValues>
+ 
+ export type ColumnDefResolved<
+   TData extends RowData,

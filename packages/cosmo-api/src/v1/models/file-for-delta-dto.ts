@@ -12,37 +12,22 @@
  * Do not edit the class manually.
  */
 
-import { FileLinkDto } from './file-link-dto';
-import { PathDto } from './path-dto';
-
 /**
  *
  * @export
- * @interface RunFileLinkDto
+ * @interface FileForDeltaDto
  */
-export interface RunFileLinkDto {
+export interface FileForDeltaDto {
 	/**
 	 *
-	 * @type {number}
-	 * @memberof RunFileLinkDto
+	 * @type {string}
+	 * @memberof FileForDeltaDto
 	 */
-	id?: number;
-	/**
-	 *
-	 * @type {FileLinkDto}
-	 * @memberof RunFileLinkDto
-	 */
-	fileLink: FileLinkDto;
-	/**
-	 *
-	 * @type {PathDto}
-	 * @memberof RunFileLinkDto
-	 */
-	path: PathDto;
+	path?: string;
 	/**
 	 *
 	 * @type {boolean}
-	 * @memberof RunFileLinkDto
+	 * @memberof FileForDeltaDto
 	 */
 	old?: boolean;
 }

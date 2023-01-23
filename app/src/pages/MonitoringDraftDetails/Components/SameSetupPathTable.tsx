@@ -3,7 +3,6 @@ import { CellContext, ColumnDef } from '@tanstack/react-table';
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 import { MisuseOutline, CheckmarkOutline } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
-import useCheckPathsMultiAssets from '@api/change-monitoring/useCheckPathsMultiAssets';
 import { PathMonitoringDto } from 'cosmo-api/src/v1';
 import useNotification from '@hooks/useNotification';
 
@@ -19,11 +18,13 @@ type SameSetupPathTableProps = {
 	setGlobalData?: Dispatch<SetStateAction<PathMonitoringDto[]>>;
 };
 const SameSetupPathTable = ({
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	assetIds,
 	setGlobalData,
 	globalData
 }: SameSetupPathTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table']);
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [newPaths, setNewPaths] = useState<PathMonitoringDto[]>([]);
 	const { showNotification } = useNotification();
 
@@ -41,11 +42,11 @@ const SameSetupPathTable = ({
 				header: 'Path',
 				sortUndefined: 1,
 				meta: {
-					modalInfo: {
-						type: 'string',
-						modelKeyName: 'paths',
-						validation: { required: true }
-					}
+					// 	modalInfo: {
+					// 		type: 'string',
+					// 		modelKeyName: 'paths',
+					// 		validation: { required: true }
+					// 	} FIXME
 				}
 			}
 		];
@@ -115,12 +116,12 @@ const SameSetupPathTable = ({
 
 	return (
 		<CosmoTable
-			modalProps={{
-				mutation: useCheckPathsMultiAssets(),
-				title: t('changeMonitoring:add-path'),
-				setMutationResult: setNewPaths,
-				mutationDefaultValues: { assetIds }
-			}}
+			// modalProps={{
+			// 	mutation: useCheckPathsMultiAssets(),
+			// 	title: t('changeMonitoring:add-path'),
+			// 	setMutationResult: setNewPaths,
+			// 	mutationDefaultValues: { assetIds }
+			// }} FIXME use new props
 			tableId='path-multi-asset-table'
 			columns={columns}
 			noDataMessage={t('table:no-data')}

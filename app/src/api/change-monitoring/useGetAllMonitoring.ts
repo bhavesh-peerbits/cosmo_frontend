@@ -4,7 +4,7 @@ import { fromMonitoringApi } from '@model/Monitoring';
 
 const getAllMonitoring = () => {
 	return api.analystChangeMonitoringControllerApi
-		.getAllMonitoring()
+		.getAllMonitoring1()
 		.then(({ data }) => (data ? data.map(fromMonitoringApi) : []));
 };
 
