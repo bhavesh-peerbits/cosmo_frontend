@@ -7,34 +7,29 @@ import Instance from '@model/Instance';
 import InstanceAsset from '@model/InstanceAsset';
 import AssetExpandableTile from '@pages/MonitoringDraftDetails/Components/AssetExpandableTile';
 import { useState } from 'react';
-import {
-	UseFormRegister,
-	UseFormWatch,
-	FieldErrors,
-	FieldArrayWithId
-} from 'react-hook-form';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import AssetPathsTable from './AssetPathsTable';
-import AssetTileForm, { ApplicationInstanceFormData } from './AssetTileForm';
+import AssetFormContainer from './AssetFormContainer';
+
+export interface ApplicationInstanceFormData {
+	name: string;
+	description: string;
+}
 
 type ApplicationInstanceFormProps = {
 	instance: InstanceAsset;
-	register: UseFormRegister<ApplicationInstanceFormData>;
-	watch: UseFormWatch<ApplicationInstanceFormData>;
-	errors: FieldErrors<ApplicationInstanceFormData>;
-	fields: FieldArrayWithId<ApplicationInstanceFormData, 'assets', 'id'>[];
 	isReview?: boolean;
+	register: UseFormRegister<ApplicationInstanceFormData>;
+	errors: FieldErrors<ApplicationInstanceFormData>;
 };
 
 const ApplicationInstanceForm = ({
 	instance,
+	isReview,
 	register,
-	watch,
-	errors,
-	fields,
-	isReview
+	errors
 }: ApplicationInstanceFormProps) => {
-	const { t } = useTranslation(['modals', 'applicationInstances']);
+	const { t } = useTranslation(['modals', 'applicationInstances', 'applicationInfo']);
 	const [assetToDelete, setAssetToDelete] = useState<{
 		asset: Asset;
 		isGlobal?: boolean;
@@ -108,17 +103,7 @@ const ApplicationInstanceForm = ({
 								</div>
 							}
 						>
-							<div className='space-y-5'>
-								<AssetTileForm
-									asset={asset}
-									register={register}
-									index={fields.findIndex(f => f.key === asset.id)}
-									watch={watch}
-									errors={errors}
-									readOnly={isReview}
-								/>
-								<AssetPathsTable asset={asset} readOnly />
-							</div>
+							<AssetFormContainer asset={asset} isReview={isReview} />
 						</AssetExpandableTile>
 					))}
 				</FullWidthColumn>

@@ -3,13 +3,14 @@ import { TrashCan, Add } from '@carbon/react/icons';
 import FullWidthColumn from '@components/FullWidthColumn';
 import DeleteInstanceModal from '@components/Modals/DeleteInstanceModal';
 import InstanceAsset from '@model/InstanceAsset';
-import { useEffect, useState } from 'react';
-import { useFieldArray, useForm } from 'react-hook-form';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AddNewAssetModal from '@components/Modals/AddNewAssetModal';
 import MultiAddSelect from '@components/MultiAddSelect';
-import { ApplicationInstanceFormData } from './AssetTileForm';
-import ApplicationInstanceForm from './ApplicationInstanceForm';
+import { useForm } from 'react-hook-form';
+import ApplicationInstanceForm, {
+	ApplicationInstanceFormData
+} from './ApplicationInstanceForm';
 
 type ApplicationInstanceTileProps = {
 	instance: InstanceAsset;
@@ -28,8 +29,6 @@ const ApplicationInstanceTile = ({ instance }: ApplicationInstanceTileProps) => 
 	const {
 		register,
 		reset,
-		control,
-		watch,
 		formState: { errors, isDirty, isValid }
 	} = useForm<ApplicationInstanceFormData>({
 		mode: 'onChange',
@@ -38,45 +37,6 @@ const ApplicationInstanceTile = ({ instance }: ApplicationInstanceTileProps) => 
 			description: instance.instance?.description
 		}
 	});
-
-	const { fields, append } = useFieldArray({
-		name: 'assets',
-		control
-	});
-
-	useEffect(() => {
-		instance.assets?.map(a =>
-			append({
-				hostname: a.hostname,
-				ports: a.ports,
-				type: a.type,
-				os: a.os,
-				ip: a.ip,
-				dbVersion: a.dbVersion,
-				dbType: a.dbType,
-				key: a.id
-			})
-		);
-	}, [append, instance.assets]);
-
-	useEffect(() => {
-		reset({
-			name: instance.instance?.name,
-			description: instance.instance?.description,
-			assets: instance.assets?.map(a => {
-				return {
-					hostname: a.hostname,
-					ports: a.ports,
-					type: a.type,
-					os: a.os,
-					ip: a.ip,
-					dbVersion: a.dbVersion,
-					dbType: a.dbType,
-					key: a.id
-				};
-			})
-		});
-	}, [instance.assets, instance.instance?.description, instance.instance?.name, reset]);
 
 	if (!instance || !instance.instance) {
 		return null;
@@ -203,40 +163,36 @@ const ApplicationInstanceTile = ({ instance }: ApplicationInstanceTileProps) => 
 						<ApplicationInstanceForm
 							instance={instance}
 							register={register}
-							watch={watch}
 							errors={errors}
-							fields={fields}
 						/>
-						<Grid fullWidth>
-							<FullWidthColumn>
-								<div className='flex flex-wrap justify-between space-x-2'>
-									<div className='flex-1'>
-										{/* <InlineLoadingStatus
+					</FullWidthColumn>
+					<FullWidthColumn>
+						<div className='flex flex-wrap justify-between space-x-2'>
+							<div className='flex-1'>
+								{/* <InlineLoadingStatus
 											isLoading={isAddLoading || isEditLoading}
 											isSuccess={isAddSuccess || isEditSuccess}
 											isError={isAddError || isEditError}
 											error={(addError || editError) as ApiError}
 										/> */}
-									</div>
-									<div className='flex w-full flex-1 justify-end space-x-5'>
-										<Button
-											size='md'
-											type='reset'
-											kind='secondary'
-											disabled={!isDirty}
-											onClick={() => {
-												reset();
-											}}
-										>
-											{t('applicationInfo:discard')}
-										</Button>
-										<Button size='md' type='submit' disabled={!isValid || !isDirty}>
-											{t('modals:save')}
-										</Button>
-									</div>
-								</div>
-							</FullWidthColumn>
-						</Grid>
+							</div>
+							<div className='flex w-full flex-1 justify-end space-x-5 pb-5'>
+								<Button
+									size='md'
+									type='reset'
+									kind='secondary'
+									disabled={!isDirty}
+									onClick={() => {
+										reset();
+									}}
+								>
+									{t('applicationInfo:discard')}
+								</Button>
+								<Button size='md' type='submit' disabled={!isValid || !isDirty}>
+									{t('modals:save')}
+								</Button>
+							</div>
+						</div>
 					</FullWidthColumn>
 				</Grid>
 			</Form>

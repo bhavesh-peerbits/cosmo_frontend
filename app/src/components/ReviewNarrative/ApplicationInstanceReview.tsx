@@ -1,11 +1,11 @@
-import ApplicationInstanceForm from '@components/ApplicationInstances/ApplicationInstanceForm';
-import { ApplicationInstanceFormData } from '@components/ApplicationInstances/AssetTileForm';
+import ApplicationInstanceForm, {
+	ApplicationInstanceFormData
+} from '@components/ApplicationInstances/ApplicationInstanceForm';
 import InstanceAsset from '@model/InstanceAsset';
-import { useEffect } from 'react';
-import { useForm, useFieldArray } from 'react-hook-form';
 import { Grid, Button } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
+import { useForm } from 'react-hook-form';
 
 type ApplicationInstanceReviewProps = {
 	instance: InstanceAsset;
@@ -13,12 +13,11 @@ type ApplicationInstanceReviewProps = {
 
 const ApplicationInstanceReview = ({ instance }: ApplicationInstanceReviewProps) => {
 	const { t } = useTranslation('applicationInfo');
+
 	const {
 		register,
 		reset,
-		control,
-		watch,
-		formState: { errors }
+		formState: { errors, isDirty, isValid }
 	} = useForm<ApplicationInstanceFormData>({
 		mode: 'onChange',
 		defaultValues: {
@@ -27,67 +26,30 @@ const ApplicationInstanceReview = ({ instance }: ApplicationInstanceReviewProps)
 		}
 	});
 
-	const { fields, append } = useFieldArray({
-		name: 'assets',
-		control
-	});
-
-	useEffect(() => {
-		instance.assets?.map(a =>
-			append({
-				hostname: a.hostname,
-				ports: a.ports,
-				type: a.type,
-				os: a.os,
-				ip: a.ip,
-				dbVersion: a.dbVersion,
-				dbType: a.dbType,
-				key: a.id
-			})
-		);
-	}, [append, instance.assets]);
-
-	useEffect(() => {
-		reset({
-			name: instance.instance?.name,
-			description: instance.instance?.description,
-			assets: instance.assets?.map(a => {
-				return {
-					hostname: a.hostname,
-					ports: a.ports,
-					type: a.type,
-					os: a.os,
-					ip: a.ip,
-					dbVersion: a.dbVersion,
-					dbType: a.dbType,
-					key: a.id
-				};
-			})
-		});
-	}, [instance.assets, instance.instance?.description, instance.instance?.name, reset]);
-
 	return (
 		<Grid className='space-y-7'>
 			<FullWidthColumn>
 				<ApplicationInstanceForm
 					instance={instance}
-					register={register}
-					watch={watch}
-					errors={errors}
-					fields={fields}
 					isReview
+					register={register}
+					errors={errors}
 				/>
 			</FullWidthColumn>
 			<FullWidthColumn className='flex justify-end'>
 				<Button
 					className='mr-5'
 					type='reset'
-					kind='tertiary'
+					kind='secondary'
 					// disabled={!isDirty || isSuccess}
+					disabled={!isDirty}
 					// onClick={() => {
 					// 	reset();
 					// 	apiReset();
 					// }}
+					onClick={() => {
+						reset();
+					}}
 					size='md'
 				>
 					{t('discard')}
@@ -95,6 +57,7 @@ const ApplicationInstanceReview = ({ instance }: ApplicationInstanceReviewProps)
 				<Button
 					type='submit'
 					//  disabled={!isValid || isLoading}
+					disabled={!isValid}
 					size='md'
 				>
 					{t('confirm')}

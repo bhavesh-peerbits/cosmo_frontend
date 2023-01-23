@@ -5,39 +5,33 @@ import { useTranslation } from 'react-i18next';
 import { FieldErrors, UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { AssetDtoTypeEnum, AssetDtoOsEnum } from 'cosmo-api/src/v1';
 
-export interface ApplicationInstanceFormData {
-	name: string;
-	description: string;
-	assets: {
-		hostname: string;
-		ports: string;
-		type: AssetDtoTypeEnum;
-		os: AssetDtoOsEnum;
-		ip: string;
-		dbVersion: string;
-		dbType: string;
-		key: string;
-	}[];
+export interface AssetFormData {
+	hostname: string;
+	ports: string;
+	type: AssetDtoTypeEnum;
+	os: AssetDtoOsEnum;
+	ip: string;
+	dbVersion: string;
+	dbType: string;
+	key: string;
 }
 
 type AssetTileFormProps = {
 	asset: Asset;
-	register: UseFormRegister<ApplicationInstanceFormData>;
-	index: number;
-	watch: UseFormWatch<ApplicationInstanceFormData>;
-	errors: FieldErrors<ApplicationInstanceFormData>;
 	readOnly?: boolean;
+	register: UseFormRegister<AssetFormData>;
+	watch: UseFormWatch<AssetFormData>;
+	errors: FieldErrors<AssetFormData>;
 };
 
 // TODO remove last comma in ports
 
 const AssetTileForm = ({
 	asset,
+	readOnly,
 	register,
-	index,
 	watch,
-	errors,
-	readOnly
+	errors
 }: AssetTileFormProps) => {
 	const { t } = useTranslation(['applicationInstances', 'modals']);
 
@@ -49,9 +43,9 @@ const AssetTileForm = ({
 						id={`${asset.id}-hostname-input`}
 						placeholder={t('applicationInstances:hostname-placeholder')}
 						labelText='Hostname *'
-						invalid={Boolean(errors.assets?.[index]?.hostname)}
-						invalidText={errors.assets?.[index]?.hostname?.message}
-						{...register(`assets.${index}.hostname`, {
+						invalid={Boolean(errors.hostname)}
+						invalidText={errors.hostname?.message}
+						{...register('hostname', {
 							required: { value: true, message: t('modals:field-required') }
 						})}
 						readOnly={readOnly}
@@ -62,9 +56,9 @@ const AssetTileForm = ({
 						id={`${asset.id}-ip-input`}
 						labelText='IP *'
 						placeholder={t('applicationInstances:ip-placeholder')}
-						invalid={Boolean(errors.assets?.[index]?.ip)}
-						invalidText={errors.assets?.[index]?.ip?.message}
-						{...register(`assets.${index}.ip`, {
+						invalid={Boolean(errors.ip)}
+						invalidText={errors.ip?.message}
+						{...register('ip', {
 							required: { value: true, message: t('modals:field-required') }
 						})}
 						readOnly={readOnly}
@@ -75,9 +69,9 @@ const AssetTileForm = ({
 						id={`${asset.id}-ports-input`}
 						labelText={t('applicationInstances:ports')}
 						placeholder={t('applicationInstances:ports-input-placeholder')}
-						invalid={Boolean(errors.assets?.[index]?.ports)}
-						invalidText={errors.assets?.[index]?.ports?.message}
-						{...register(`assets.${index}.ports`, {
+						invalid={Boolean(errors.ports)}
+						invalidText={errors.ports?.message}
+						{...register('ports', {
 							pattern: {
 								value: /^([0-9]+,?)+$/,
 								message: t('applicationInstances:error-ports-input')
@@ -94,7 +88,7 @@ const AssetTileForm = ({
 					<Select
 						id={`${asset.id}-os-select`}
 						labelText={`${t('applicationInstances:operating-system')} *`}
-						{...register(`assets.${index}.os`, {
+						{...register('os', {
 							required: { value: true, message: t('modals:field-required') }
 						})}
 						readOnly={readOnly}
@@ -108,7 +102,7 @@ const AssetTileForm = ({
 					<Select
 						id={`${asset.id}-type-select`}
 						labelText={`${t('applicationInstances:asset-type')} *`}
-						{...register(`assets.${index}.type`, {
+						{...register('type', {
 							required: { value: true, message: t('modals:field-required') }
 						})}
 						readOnly={readOnly}
@@ -121,15 +115,15 @@ const AssetTileForm = ({
 					<TextInput
 						id={`${asset.id}-db-version-input`}
 						labelText={`${t('applicationInstances:db-version')} ${
-							watch(`assets.${index}.type`) !== 'OS' ? ' *' : ''
+							watch('type') !== 'OS' ? ' *' : ''
 						}`}
 						placeholder='here goes placeholder'
-						invalid={Boolean(errors.assets?.[index]?.dbVersion)}
-						invalidText={errors.assets?.[index]?.dbVersion?.message}
-						disabled={watch(`assets.${index}.type`) === 'OS'}
-						{...register(`assets.${index}.dbVersion`, {
+						invalid={Boolean(errors.dbVersion)}
+						invalidText={errors.dbVersion?.message}
+						disabled={watch('type') === 'OS'}
+						{...register('dbVersion', {
 							required: {
-								value: watch(`assets.${index}.type`) !== 'OS',
+								value: watch('type') !== 'OS',
 								message: t('modals:field-required')
 							}
 						})}
@@ -140,15 +134,15 @@ const AssetTileForm = ({
 					<TextInput
 						id={`${asset.id}-db-type-input`}
 						labelText={`${t('applicationInstances:db-type')} ${
-							watch(`assets.${index}.type`) !== 'OS' ? ' *' : ''
+							watch('type') !== 'OS' ? ' *' : ''
 						}`}
 						placeholder='here goes placeholder'
-						invalid={Boolean(errors.assets?.[index]?.dbType)}
-						invalidText={errors.assets?.[index]?.dbType?.message}
-						disabled={watch(`assets.${index}.type`) === 'OS'}
-						{...register(`assets.${index}.dbType`, {
+						invalid={Boolean(errors.dbType)}
+						invalidText={errors.dbType?.message}
+						disabled={watch('type') === 'OS'}
+						{...register('dbType', {
 							required: {
-								value: watch(`assets.${index}.type`) !== 'OS',
+								value: watch('type') !== 'OS',
 								message: t('modals:field-required')
 							}
 						})}

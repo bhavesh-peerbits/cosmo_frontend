@@ -16,13 +16,22 @@ type AssetPathsTableProps = {
 const AssetPathsTable = ({ asset, readOnly }: AssetPathsTableProps) => {
 	const { t } = useTranslation(['table', 'applicationInstances']);
 
-	const columns = useMemo<ColumnDef<PathDto>[]>(() => {
-		const ArrayCol: ColumnDef<PathDto>[] = [
+	const columns = useMemo(() => {
+		const ArrayCol: ColumnDef<PathDto, unknown, { path: string[] }>[] = [
 			{
 				id: `path-${asset.id}`,
 				accessorFn: row => row.path,
 				header: 'Path',
-				sortUndefined: 1
+				sortUndefined: 1,
+				meta: {
+					modalInfo: {
+						type: 'string',
+						id: 'path',
+						validation: {
+							required: { value: true, message: 'prova' }
+						}
+					}
+				}
 				// meta: {
 				// 	modalInfo: {
 				// 		type: 'string',
@@ -59,8 +68,9 @@ const AssetPathsTable = ({ asset, readOnly }: AssetPathsTableProps) => {
 				<Layer>
 					<CosmoTable
 						// modalProps={{
-						// 	title: 'titolo',
-						// 	setMutationResult: setNewPaths
+						// 	form,
+						// 	onSubmit: data => console.log(data),
+						// 	title: 'titolo'
 						// }}
 						tableId={`${asset.id}-instance-path-table`}
 						columns={columns}
