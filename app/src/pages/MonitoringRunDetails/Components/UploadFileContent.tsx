@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import { Button, SwitcherDivider, Layer } from '@carbon/react';
+import { Button, SwitcherDivider, Layer, DataTableSkeleton } from '@carbon/react';
 import AssetExpandableTile from '@pages/MonitoringDraftDetails/Components/AssetExpandableTile';
 import Run from '@model/Run';
+import { Suspense } from 'react';
 import AddFileToPathModal from '../Modals/AddFileToPathModal';
 import RunAssetPeriodContent from './RunAssetPeriodContent';
 
@@ -20,13 +21,26 @@ const UploadFileContent = ({ run }: UploadFileContentProps) => {
 						key={`upload-${runAsset.asset.hostname}`}
 						title={runAsset.asset.hostname ?? ''}
 					>
-						<div className='space-y-5'>
-							<RunAssetPeriodContent old runAsset={runAsset} />
-							<SwitcherDivider className='mr-7 w-auto' />
-							<RunAssetPeriodContent old={false} runAsset={runAsset} />
-						</div>
+						<Suspense
+							fallback={
+								<div className='space-y-7'>
+									<DataTableSkeleton showHeader={false} />
+									<DataTableSkeleton showHeader={false} />
+								</div>
+							}
+						>
+							<div className='space-y-5'>
+								<RunAssetPeriodContent old runAsset={runAsset} />
+								<SwitcherDivider className='mr-7 w-auto' />
+								<RunAssetPeriodContent old={false} runAsset={runAsset} />
+							</div>
+						</Suspense>
 						<Layer level={0}>
-							<AddFileToPathModal includeLastRun id='c' />
+							<AddFileToPathModal
+								includeLastRun
+								id={`${run.orderNumber}`}
+								assetId={runAsset.asset.id}
+							/>
 						</Layer>
 					</AssetExpandableTile>
 				))}

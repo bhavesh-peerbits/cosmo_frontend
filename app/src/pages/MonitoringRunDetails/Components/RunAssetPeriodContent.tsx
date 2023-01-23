@@ -7,6 +7,8 @@ import FileLink from '@model/FileLink';
 import { useRecoilState } from 'recoil';
 import addFileToRunAssetStore from '@store/run-details/addFileToRunAssetStore';
 import { useEffect } from 'react';
+import useGetFileFromCurrentPeriodPreviousRun from '@api/change-monitoring/useGetFileFromCurrentPeriodPreviousRun';
+import { useParams } from 'react-router-dom';
 import FileUploadTable from './FileUploadTable';
 
 interface RunAssetPeriodContentProps {
@@ -16,6 +18,12 @@ interface RunAssetPeriodContentProps {
 
 const RunAssetPeriodContent = ({ runAsset, old }: RunAssetPeriodContentProps) => {
 	const [addFileInfo, setAddFileInfo] = useRecoilState(addFileToRunAssetStore);
+	const { monitoringId = '', runId = '' } = useParams();
+	const { data: prevFile } = useGetFileFromCurrentPeriodPreviousRun(
+		runAsset.asset.id,
+		monitoringId,
+		runId
+	);
 	const DownloadFile = (fileLink: FileLink) => {
 		useGetFile(fileLink.id).then(({ data, headers }) => {
 			const fileName =
@@ -91,9 +99,9 @@ const RunAssetPeriodContent = ({ runAsset, old }: RunAssetPeriodContentProps) =>
 			<Layer level={0}>
 				<FileUploadTable
 					data={runAsset.paths.map(p => ({
-						file: runAsset.runFileLinks?.find(rfl => rfl.path.path === p.path)?.fileLink
-							.name,
-						path: p.path
+						runFileLink: runAsset.runFileLinks?.find(rfl => rfl.path.path === p.path),
+						path: p.path,
+						fileLastRun: prevFile?.find(pf => pf.path.path === p.path)?.fileLink
 					}))}
 					assetId={runAsset.asset.id}
 					period={old ? 'previous' : 'current'}

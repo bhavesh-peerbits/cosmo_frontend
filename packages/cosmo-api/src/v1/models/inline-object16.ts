@@ -12,30 +12,16 @@
  * Do not edit the class manually.
  */
 
-import { FileLinkDto } from './file-link-dto';
-
 /**
  *
  * @export
- * @interface FileForDeltaDto
+ * @interface InlineObject16
  */
-export interface FileForDeltaDto {
+export interface InlineObject16 {
 	/**
 	 *
-	 * @type {string}
-	 * @memberof FileForDeltaDto
+	 * @type {any}
+	 * @memberof InlineObject16
 	 */
-	path?: string;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof FileForDeltaDto
-	 */
-	old?: boolean;
-	/**
-	 *
-	 * @type {FileLinkDto}
-	 * @memberof FileForDeltaDto
-	 */
-	fileLink?: FileLinkDto;
+	file?: any;
 }

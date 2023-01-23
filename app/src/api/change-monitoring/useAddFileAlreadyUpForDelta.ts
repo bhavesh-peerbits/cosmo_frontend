@@ -2,34 +2,34 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@api';
 import FileForDelta, { toFileForDeltaApi } from '@model/FileForDelta';
 
-interface AddFileForDeltaParameters {
+interface AddFileAlreadyUpForDeltaParameters {
 	assetId: string;
-	file: File;
+	fileLinkId: string;
 	runId: string;
 	fileForDelta: FileForDelta;
 }
 
-const addFileForDelta = ({
+const addFileAlreadyUpForDelta = ({
 	assetId,
 	runId,
-	file,
+	fileLinkId,
 	fileForDelta
-}: AddFileForDeltaParameters) => {
-	return api.analystChangeMonitoringControllerApi.addFileForDelta({
+}: AddFileAlreadyUpForDeltaParameters) => {
+	return api.analystChangeMonitoringControllerApi.addAlreadyUploadedFileForDelta({
 		assetId: +assetId,
 		runId: +runId,
-		file,
-		fileForDelta: toFileForDeltaApi(fileForDelta)
+		fileLinkId: +fileLinkId,
+		fileForDeltaDto: toFileForDeltaApi(fileForDelta)
 	});
 };
 
-const useAddFileForDelta = () => {
+const useAddFileAlreadyUpForDelta = () => {
 	const queryClient = useQueryClient();
-	return useMutation(addFileForDelta, {
+	return useMutation(addFileAlreadyUpForDelta, {
 		onSuccess: (data, variables) => {
 			queryClient.invalidateQueries(['run-monitoring', variables.runId]);
 		}
 	});
 };
 
-export default useAddFileForDelta;
+export default useAddFileAlreadyUpForDelta;

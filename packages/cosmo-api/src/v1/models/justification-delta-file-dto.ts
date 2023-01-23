@@ -62,7 +62,8 @@ export interface JustificationDeltaFileDto {
 export const JustificationDeltaFileDtoStatusEnum = {
 	ToAnswer: 'TO_ANSWER',
 	Answered: 'ANSWERED',
-	Ignore: 'IGNORE'
+	Ignore: 'IGNORE',
+	None: 'NONE'
 } as const;
 
 export type JustificationDeltaFileDtoStatusEnum =
