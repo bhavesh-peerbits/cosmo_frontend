@@ -164,35 +164,10 @@ const ApplicationInstanceTile = ({ instance }: ApplicationInstanceTileProps) => 
 							instance={instance}
 							register={register}
 							errors={errors}
+							reset={reset}
+							isDirty={isDirty}
+							isValid={isValid}
 						/>
-					</FullWidthColumn>
-					<FullWidthColumn>
-						<div className='flex flex-wrap justify-between space-x-2'>
-							<div className='flex-1'>
-								{/* <InlineLoadingStatus
-											isLoading={isAddLoading || isEditLoading}
-											isSuccess={isAddSuccess || isEditSuccess}
-											isError={isAddError || isEditError}
-											error={(addError || editError) as ApiError}
-										/> */}
-							</div>
-							<div className='flex w-full flex-1 justify-end space-x-5 pb-5'>
-								<Button
-									size='md'
-									type='reset'
-									kind='secondary'
-									disabled={!isDirty}
-									onClick={() => {
-										reset();
-									}}
-								>
-									{t('applicationInfo:discard')}
-								</Button>
-								<Button size='md' type='submit' disabled={!isValid || !isDirty}>
-									{t('modals:save')}
-								</Button>
-							</div>
-						</div>
 					</FullWidthColumn>
 				</Grid>
 			</Form>

@@ -7,7 +7,7 @@ import Instance from '@model/Instance';
 import InstanceAsset from '@model/InstanceAsset';
 import AssetExpandableTile from '@pages/MonitoringDraftDetails/Components/AssetExpandableTile';
 import { useState } from 'react';
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister, UseFormReset } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import AssetFormContainer from './AssetFormContainer';
 
@@ -21,13 +21,19 @@ type ApplicationInstanceFormProps = {
 	isReview?: boolean;
 	register: UseFormRegister<ApplicationInstanceFormData>;
 	errors: FieldErrors<ApplicationInstanceFormData>;
+	reset?: UseFormReset<ApplicationInstanceFormData>;
+	isDirty?: boolean;
+	isValid?: boolean;
 };
 
 const ApplicationInstanceForm = ({
 	instance,
 	isReview,
 	register,
-	errors
+	errors,
+	isDirty,
+	isValid,
+	reset
 }: ApplicationInstanceFormProps) => {
 	const { t } = useTranslation(['modals', 'applicationInstances', 'applicationInfo']);
 	const [assetToDelete, setAssetToDelete] = useState<{
@@ -65,6 +71,40 @@ const ApplicationInstanceForm = ({
 					{...register('description')}
 				/>
 			</FullWidthColumn>
+			{!isReview && (
+				<FullWidthColumn>
+					<div className='flex flex-wrap justify-between space-x-2'>
+						<div className='flex-1'>
+							{/* <InlineLoadingStatus
+											isLoading={isAddLoading || isEditLoading}
+											isSuccess={isAddSuccess || isEditSuccess}
+											isError={isAddError || isEditError}
+											error={(addError || editError) as ApiError}
+										/> */}
+						</div>
+						<div className='flex w-full flex-1 justify-end space-x-5 pb-5'>
+							<Button
+								size='md'
+								type='reset'
+								kind='secondary'
+								disabled={!isDirty}
+								onClick={() => {
+									reset &&
+										reset({
+											description: instance.instance?.description,
+											name: instance.instance?.name
+										});
+								}}
+							>
+								{t('applicationInfo:discard')}
+							</Button>
+							<Button size='md' type='submit' disabled={!isValid || !isDirty}>
+								{t('modals:save')}
+							</Button>
+						</div>
+					</div>
+				</FullWidthColumn>
+			)}
 			{!!instance.assets?.length && (
 				<FullWidthColumn>
 					{instance.assets?.map(asset => (

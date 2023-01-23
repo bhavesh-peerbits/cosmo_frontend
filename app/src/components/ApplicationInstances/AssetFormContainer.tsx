@@ -17,6 +17,7 @@ const AssetFormContainer = ({ asset, isReview }: AssetFormContainerProps) => {
 		register,
 		reset,
 		watch,
+
 		formState: { errors, isDirty, isValid }
 	} = useForm<AssetFormData>({
 		mode: 'onChange',
@@ -49,7 +50,15 @@ const AssetFormContainer = ({ asset, isReview }: AssetFormContainerProps) => {
 						kind='secondary'
 						disabled={!isDirty}
 						onClick={() => {
-							reset();
+							reset({
+								hostname: asset.hostname,
+								ports: asset.ports,
+								type: asset.type || 'DB',
+								os: asset.os || 'WINDOWS',
+								ip: asset.ip,
+								dbVersion: asset.dbVersion,
+								dbType: asset.dbType
+							});
 						}}
 					>
 						{t('applicationInfo:discard')}
