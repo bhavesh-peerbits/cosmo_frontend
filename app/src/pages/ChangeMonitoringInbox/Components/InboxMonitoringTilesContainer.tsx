@@ -1,6 +1,6 @@
 import { Column, Grid } from '@carbon/react';
 import useInboxMonitorings from '@hooks/inbox-monitoring/useInboxMonitorings';
-import MonitoringDashboardTile from '@pages/MonitoringDashboard/Components/MonitoringDashboardTile';
+import MonitoringDashboardTile from '@components/ChangeMonitoring/MonitoringDashboardTile';
 
 const InboxMonitoringTilesContainer = () => {
 	const { monitorings } = useInboxMonitorings();

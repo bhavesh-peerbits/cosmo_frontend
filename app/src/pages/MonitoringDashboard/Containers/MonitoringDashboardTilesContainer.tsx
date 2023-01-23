@@ -1,6 +1,6 @@
 import useStartedMonitorings from '@hooks/monitoring-dashboard/useStartedMonitorings';
 import { Column, Grid } from '@carbon/react';
-import MonitoringDashboardTile from '../Components/MonitoringDashboardTile';
+import MonitoringDashboardTile from '@components/ChangeMonitoring/MonitoringDashboardTile';
 
 const MonitoringDashboardTilesContainer = () => {
 	const { monitorings } = useStartedMonitorings();

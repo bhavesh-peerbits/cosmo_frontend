@@ -1,7 +1,6 @@
 import CosmoTable from '@components/table/CosmoTable';
 import { CellContext, ColumnDef } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
-import useStartedMonitorings from '@hooks/monitoring-dashboard/useStartedMonitorings';
 import Monitoring from '@model/Monitoring';
 import { useMemo } from 'react';
 import DateCell from '@components/table/Cell/DateCell';
@@ -16,9 +15,11 @@ const CellLink = ({ getValue }: CellContext<any, unknown>) => {
 	return <span>{value.name}</span>;
 };
 
-const MonitoringDashboardTable = () => {
+type MonitoringDashboardTableProps = {
+	monitorings: Monitoring[];
+};
+const MonitoringDashboardTable = ({ monitorings }: MonitoringDashboardTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'monitoringDashboard', 'table']);
-	const { monitorings } = useStartedMonitorings();
 	// TODO Fix meta export
 	const columns = useMemo<ColumnDef<Monitoring>[]>(() => {
 		const ArrayCol: ColumnDef<Monitoring>[] = [

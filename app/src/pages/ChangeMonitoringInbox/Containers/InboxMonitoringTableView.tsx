@@ -1,10 +1,10 @@
 import { ContentSwitcher, Switch } from '@carbon/react';
 import { Grid as GridIcon, HorizontalView } from '@carbon/react/icons';
 import useInboxMonitorings from '@hooks/inbox-monitoring/useInboxMonitorings';
-import InboxMonitoringTable from '../Components/InboxMonitoringTable';
+import MonitoringDashboardTable from '@components/ChangeMonitoring/MonitoringDashboardTable';
 
 const InboxMonitoringTableView = () => {
-	const { setFilters } = useInboxMonitorings();
+	const { setFilters, monitorings } = useInboxMonitorings();
 	return (
 		<div className='space-y-5'>
 			<div className='flex justify-end'>
@@ -21,7 +21,7 @@ const InboxMonitoringTableView = () => {
 					</Switch>
 				</ContentSwitcher>
 			</div>
-			<InboxMonitoringTable />
+			<MonitoringDashboardTable monitorings={monitorings} />
 		</div>
 	);
 };

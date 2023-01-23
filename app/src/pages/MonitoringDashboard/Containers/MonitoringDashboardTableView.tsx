@@ -1,10 +1,10 @@
 import { ContentSwitcher, Switch } from '@carbon/react';
 import { Grid as GridIcon, HorizontalView } from '@carbon/react/icons';
 import useStartedMonitorings from '@hooks/monitoring-dashboard/useStartedMonitorings';
-import MonitoringDashboardTable from '../Components/MonitoringDashboardTable';
+import MonitoringDashboardTable from '../../../components/ChangeMonitoring/MonitoringDashboardTable';
 
 const MonitoringDashboardTableView = () => {
-	const { setFilters } = useStartedMonitorings();
+	const { setFilters, monitorings } = useStartedMonitorings();
 	return (
 		<div className='space-y-5'>
 			<div className='flex justify-end'>
@@ -21,7 +21,7 @@ const MonitoringDashboardTableView = () => {
 					</Switch>
 				</ContentSwitcher>
 			</div>
-			<MonitoringDashboardTable />
+			<MonitoringDashboardTable monitorings={monitorings} />
 		</div>
 	);
 };
