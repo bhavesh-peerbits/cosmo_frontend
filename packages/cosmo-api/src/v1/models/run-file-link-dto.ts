@@ -26,7 +26,7 @@ export interface RunFileLinkDto {
 	 * @type {number}
 	 * @memberof RunFileLinkDto
 	 */
-	id: number;
+	id?: number;
 	/**
 	 *
 	 * @type {FileLinkDto}

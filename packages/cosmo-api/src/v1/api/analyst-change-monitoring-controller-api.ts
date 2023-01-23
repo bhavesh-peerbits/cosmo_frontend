@@ -53,6 +53,8 @@ import { DeltaDto } from '../models';
 // @ts-ignore
 import { DeltaFileDto } from '../models';
 // @ts-ignore
+import { FileForDeltaDto } from '../models';
+// @ts-ignore
 import { FileLinkDto } from '../models';
 // @ts-ignore
 import { FileLinkDtoList } from '../models';
@@ -71,6 +73,8 @@ import { PathMonitoringDto } from '../models';
 // @ts-ignore
 import { RunDto } from '../models';
 // @ts-ignore
+import { RunFileLinkDto } from '../models';
+// @ts-ignore
 import { ScriptDto } from '../models';
 /**
  * AnalystChangeMonitoringControllerApi - axios parameter creator
@@ -80,6 +84,158 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 	configuration?: Configuration
 ) {
 	return {
+		/**
+		 *
+		 * @param {number} runId
+		 * @param {number} assetId
+		 * @param {number} fileLinkId
+		 * @param {FileForDeltaDto} fileForDeltaDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		addAlreadyUploadedFileForDelta: async (
+			runId: number,
+			assetId: number,
+			fileLinkId: number,
+			fileForDeltaDto: FileForDeltaDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'runId' is not null or undefined
+			assertParamExists('addAlreadyUploadedFileForDelta', 'runId', runId);
+			// verify required parameter 'assetId' is not null or undefined
+			assertParamExists('addAlreadyUploadedFileForDelta', 'assetId', assetId);
+			// verify required parameter 'fileLinkId' is not null or undefined
+			assertParamExists('addAlreadyUploadedFileForDelta', 'fileLinkId', fileLinkId);
+			// verify required parameter 'fileForDeltaDto' is not null or undefined
+			assertParamExists(
+				'addAlreadyUploadedFileForDelta',
+				'fileForDeltaDto',
+				fileForDeltaDto
+			);
+			const localVarPath =
+				`/api/change-monitoring/analyst/run/{runId}/asset/{assetId}/file/{fileLinkId}/add-file-already-uploaded-for-delta`
+					.replace(`{${'runId'}}`, encodeURIComponent(String(runId)))
+					.replace(`{${'assetId'}}`, encodeURIComponent(String(assetId)))
+					.replace(`{${'fileLinkId'}}`, encodeURIComponent(String(fileLinkId)));
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				fileForDeltaDto,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} runId
+		 * @param {number} assetId
+		 * @param {RunFileLinkDto} runFileLink
+		 * @param {any} file
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		addFileForDelta: async (
+			runId: number,
+			assetId: number,
+			runFileLink: RunFileLinkDto,
+			file: any,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'runId' is not null or undefined
+			assertParamExists('addFileForDelta', 'runId', runId);
+			// verify required parameter 'assetId' is not null or undefined
+			assertParamExists('addFileForDelta', 'assetId', assetId);
+			// verify required parameter 'runFileLink' is not null or undefined
+			assertParamExists('addFileForDelta', 'runFileLink', runFileLink);
+			// verify required parameter 'file' is not null or undefined
+			assertParamExists('addFileForDelta', 'file', file);
+			const localVarPath =
+				`/api/change-monitoring/analyst/run/{runId}/asset/{assetId}/add-file-for-delta`
+					.replace(`{${'runId'}}`, encodeURIComponent(String(runId)))
+					.replace(`{${'assetId'}}`, encodeURIComponent(String(assetId)));
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+			const localVarFormParams = new ((configuration && configuration.formDataCtor) ||
+				FormData)();
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			if (runFileLink !== undefined) {
+				localVarFormParams.append(
+					'runFileLink',
+					new Blob([JSON.stringify(runFileLink)], { type: 'application/json' })
+				);
+			}
+
+			if (file !== undefined) {
+				localVarFormParams.append('file', file as any);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = localVarFormParams;
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
 		/**
 		 *
 		 * @param {number} draftId
@@ -1205,6 +1361,60 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
+		 * @param {number} runId
+		 * @param {number} monitoringId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getFileFromCurrentPreviousRun: async (
+			runId: number,
+			monitoringId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'runId' is not null or undefined
+			assertParamExists('getFileFromCurrentPreviousRun', 'runId', runId);
+			// verify required parameter 'monitoringId' is not null or undefined
+			assertParamExists('getFileFromCurrentPreviousRun', 'monitoringId', monitoringId);
+			const localVarPath =
+				`/api/change-monitoring/analyst/monitoring/{monitoringId}/run/{runId}/get-file-previous`
+					.replace(`{${'runId'}}`, encodeURIComponent(String(runId)))
+					.replace(`{${'monitoringId'}}`, encodeURIComponent(String(monitoringId)));
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
 		 * @param {string} frameworkCode
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
@@ -1893,6 +2103,73 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 	return {
 		/**
 		 *
+		 * @param {number} runId
+		 * @param {number} assetId
+		 * @param {number} fileLinkId
+		 * @param {FileForDeltaDto} fileForDeltaDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async addAlreadyUploadedFileForDelta(
+			runId: number,
+			assetId: number,
+			fileLinkId: number,
+			fileForDeltaDto: FileForDeltaDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.addAlreadyUploadedFileForDelta(
+					runId,
+					assetId,
+					fileLinkId,
+					fileForDeltaDto,
+					acceptLanguage,
+					options
+				);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} runId
+		 * @param {number} assetId
+		 * @param {RunFileLinkDto} runFileLink
+		 * @param {any} file
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async addFileForDelta(
+			runId: number,
+			assetId: number,
+			runFileLink: RunFileLinkDto,
+			file: any,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.addFileForDelta(
+				runId,
+				assetId,
+				runFileLink,
+				file,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
 		 * @param {number} draftId
 		 * @param {number} assetId
 		 * @param {string} body
@@ -2443,6 +2720,36 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		},
 		/**
 		 *
+		 * @param {number} runId
+		 * @param {number} monitoringId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getFileFromCurrentPreviousRun(
+			runId: number,
+			monitoringId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<RunFileLinkDto>>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.getFileFromCurrentPreviousRun(
+					runId,
+					monitoringId,
+					acceptLanguage,
+					options
+				);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
 		 * @param {string} frameworkCode
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
@@ -2773,6 +3080,57 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 ) {
 	const localVarFp = AnalystChangeMonitoringControllerApiFp(configuration);
 	return {
+		/**
+		 *
+		 * @param {number} runId
+		 * @param {number} assetId
+		 * @param {number} fileLinkId
+		 * @param {FileForDeltaDto} fileForDeltaDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		addAlreadyUploadedFileForDelta(
+			runId: number,
+			assetId: number,
+			fileLinkId: number,
+			fileForDeltaDto: FileForDeltaDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<void> {
+			return localVarFp
+				.addAlreadyUploadedFileForDelta(
+					runId,
+					assetId,
+					fileLinkId,
+					fileForDeltaDto,
+					acceptLanguage,
+					options
+				)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} runId
+		 * @param {number} assetId
+		 * @param {RunFileLinkDto} runFileLink
+		 * @param {any} file
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		addFileForDelta(
+			runId: number,
+			assetId: number,
+			runFileLink: RunFileLinkDto,
+			file: any,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<void> {
+			return localVarFp
+				.addFileForDelta(runId, assetId, runFileLink, file, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
 		/**
 		 *
 		 * @param {number} draftId
@@ -3125,6 +3483,24 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		},
 		/**
 		 *
+		 * @param {number} runId
+		 * @param {number} monitoringId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getFileFromCurrentPreviousRun(
+			runId: number,
+			monitoringId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<RunFileLinkDto>> {
+			return localVarFp
+				.getFileFromCurrentPreviousRun(runId, monitoringId, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
 		 * @param {string} frameworkCode
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
@@ -3338,6 +3714,90 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		}
 	};
 };
+
+/**
+ * Request parameters for addAlreadyUploadedFileForDelta operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiAddAlreadyUploadedFileForDeltaRequest
+ */
+export interface AnalystChangeMonitoringControllerApiAddAlreadyUploadedFileForDeltaRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiAddAlreadyUploadedFileForDelta
+	 */
+	readonly runId: number;
+
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiAddAlreadyUploadedFileForDelta
+	 */
+	readonly assetId: number;
+
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiAddAlreadyUploadedFileForDelta
+	 */
+	readonly fileLinkId: number;
+
+	/**
+	 *
+	 * @type {FileForDeltaDto}
+	 * @memberof AnalystChangeMonitoringControllerApiAddAlreadyUploadedFileForDelta
+	 */
+	readonly fileForDeltaDto: FileForDeltaDto;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiAddAlreadyUploadedFileForDelta
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for addFileForDelta operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiAddFileForDeltaRequest
+ */
+export interface AnalystChangeMonitoringControllerApiAddFileForDeltaRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiAddFileForDelta
+	 */
+	readonly runId: number;
+
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiAddFileForDelta
+	 */
+	readonly assetId: number;
+
+	/**
+	 *
+	 * @type {RunFileLinkDto}
+	 * @memberof AnalystChangeMonitoringControllerApiAddFileForDelta
+	 */
+	readonly runFileLink: RunFileLinkDto;
+
+	/**
+	 *
+	 * @type {any}
+	 * @memberof AnalystChangeMonitoringControllerApiAddFileForDelta
+	 */
+	readonly file: any;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiAddFileForDelta
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
 
 /**
  * Request parameters for addPath operation in AnalystChangeMonitoringControllerApi.
@@ -3809,6 +4269,34 @@ export interface AnalystChangeMonitoringControllerApiGetDraftRequest {
 }
 
 /**
+ * Request parameters for getFileFromCurrentPreviousRun operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiGetFileFromCurrentPreviousRunRequest
+ */
+export interface AnalystChangeMonitoringControllerApiGetFileFromCurrentPreviousRunRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiGetFileFromCurrentPreviousRun
+	 */
+	readonly runId: number;
+
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiGetFileFromCurrentPreviousRun
+	 */
+	readonly monitoringId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiGetFileFromCurrentPreviousRun
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
  * Request parameters for getFrameworkByCode operation in AnalystChangeMonitoringControllerApi.
  * @export
  * @interface AnalystChangeMonitoringControllerApiGetFrameworkByCodeRequest
@@ -4109,6 +4597,52 @@ export interface AnalystChangeMonitoringControllerApiStartMonitoringRequest {
  * @extends {BaseAPI}
  */
 export class AnalystChangeMonitoringControllerApi extends BaseAPI {
+	/**
+	 *
+	 * @param {AnalystChangeMonitoringControllerApiAddAlreadyUploadedFileForDeltaRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystChangeMonitoringControllerApi
+	 */
+	public addAlreadyUploadedFileForDelta(
+		requestParameters: AnalystChangeMonitoringControllerApiAddAlreadyUploadedFileForDeltaRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.addAlreadyUploadedFileForDelta(
+				requestParameters.runId,
+				requestParameters.assetId,
+				requestParameters.fileLinkId,
+				requestParameters.fileForDeltaDto,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystChangeMonitoringControllerApiAddFileForDeltaRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystChangeMonitoringControllerApi
+	 */
+	public addFileForDelta(
+		requestParameters: AnalystChangeMonitoringControllerApiAddFileForDeltaRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.addFileForDelta(
+				requestParameters.runId,
+				requestParameters.assetId,
+				requestParameters.runFileLink,
+				requestParameters.file,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
 	/**
 	 *
 	 * @param {AnalystChangeMonitoringControllerApiAddPathRequest} requestParameters Request parameters.
@@ -4504,6 +5038,27 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 	) {
 		return AnalystChangeMonitoringControllerApiFp(this.configuration)
 			.getDraft(requestParameters.draftId, requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystChangeMonitoringControllerApiGetFileFromCurrentPreviousRunRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystChangeMonitoringControllerApi
+	 */
+	public getFileFromCurrentPreviousRun(
+		requestParameters: AnalystChangeMonitoringControllerApiGetFileFromCurrentPreviousRunRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.getFileFromCurrentPreviousRun(
+				requestParameters.runId,
+				requestParameters.monitoringId,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 

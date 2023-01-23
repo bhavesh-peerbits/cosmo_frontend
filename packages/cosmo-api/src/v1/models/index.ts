@@ -28,6 +28,7 @@ export * from './draft-dto';
 export * from './email';
 export * from './evidence-request-draft-dto';
 export * from './evidence-request-dto';
+export * from './file-for-delta-dto';
 export * from './file-link-dto';
 export * from './file-link-dto-list';
 export * from './focal-point-and-delegates-dto';

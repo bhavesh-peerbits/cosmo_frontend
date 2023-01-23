@@ -1,14 +1,9 @@
-import {
-	RadioButton,
-	RadioButtonGroup,
-	Select,
-	SelectItem,
-	FileUploaderDropContainer,
-	Layer
-} from '@carbon/react';
+import { RadioButton, RadioButtonGroup, Select, SelectItem, Layer } from '@carbon/react';
+import UploaderS3Monitoring from '@components/common/UploaderS3Monitoring';
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
 import addFileToRunAssetStore from '@store/run-details/addFileToRunAssetStore';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState } from 'recoil';
 
@@ -21,9 +16,18 @@ const AddFileToPathModal = ({ id, includeLastRun }: AddFileToPathModalProps) => 
 	const [addFileInfo, setAddFileInfo] = useRecoilState(addFileToRunAssetStore);
 	const [inputOptions, setInputOptions] = useState(1);
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const { control, getValues } = useForm<{ files: File[] }>({
+		defaultValues: { files: [] }
+	});
+
 	const cleanUp = () => {
 		setAddFileInfo(old => ({ ...old, isOpen: false, path: '' }));
 	};
+
+	// const handleSave = () => {
+
+	// }
 
 	return (
 		<TearsheetNarrow
@@ -59,6 +63,7 @@ const AddFileToPathModal = ({ id, includeLastRun }: AddFileToPathModalProps) => 
 						orientation='vertical'
 						legendText={t('runDetails:select-file-method')}
 						defaultSelected='1'
+						className='fix-width-radio'
 					>
 						<RadioButton
 							labelText={t('runDetails:use-last-run')}
@@ -66,31 +71,50 @@ const AddFileToPathModal = ({ id, includeLastRun }: AddFileToPathModalProps) => 
 							onClick={() => setInputOptions(1)}
 						/>
 						<RadioButton
-							labelText={t('runDetails:file-already-uploaded')}
+							disabled={
+								(addFileInfo.old
+									? addFileInfo.possiblePreviousFiles
+									: addFileInfo.possibleCurrentFiles
+								).length === 0
+							}
+							labelText={
+								<div className='w-full space-y-3'>
+									<p className='whitespace-nowrap'>
+										{t('runDetails:file-already-uploaded')}
+									</p>
+									<Layer level={1}>
+										<Select id='file-selection' noLabel disabled={inputOptions !== 2}>
+											<SelectItem text='no file present' hidden value='' />
+											{(addFileInfo.old
+												? addFileInfo.possiblePreviousFiles
+												: addFileInfo.possibleCurrentFiles
+											).map(file => (
+												<SelectItem text={file.name ?? ''} value={file.id} />
+											))}
+										</Select>
+									</Layer>
+								</div>
+							}
+							className='flex w-full justify-start'
 							value='2'
 							onClick={() => setInputOptions(2)}
 						/>
 						<RadioButton
-							labelText={t('runDetails:upload-new-file')}
+							labelText={
+								<div className='space-y-3'>
+									<p>{t('runDetails:upload-new-file')}</p>
+									<Layer>
+										<UploaderS3Monitoring
+											control={control}
+											disabled={inputOptions !== 3}
+										/>
+									</Layer>
+								</div>
+							}
 							value='3'
 							onClick={() => setInputOptions(3)}
 						/>
 					</RadioButtonGroup>
-				)}
-				{inputOptions === 2 && (
-					<Layer level={0}>
-						<Select size='lg' id='file-selection'>
-							<SelectItem text='file1' value='file1' />
-						</Select>
-					</Layer>
-				)}
-				{inputOptions === 3 && (
-					<div className='space-y-3'>
-						<p className='text-heading-compact-1'>{t('runDetails:upload-file')}</p>
-						<FileUploaderDropContainer
-							labelText={t('userRevalidation:upload-instructions')}
-						/>
-					</div>
 				)}
 			</div>
 		</TearsheetNarrow>

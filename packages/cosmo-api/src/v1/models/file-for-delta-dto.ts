@@ -15,25 +15,19 @@
 /**
  *
  * @export
- * @interface SortObject
+ * @interface FileForDeltaDto
  */
-export interface SortObject {
+export interface FileForDeltaDto {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof FileForDeltaDto
+	 */
+	path?: string;
 	/**
 	 *
 	 * @type {boolean}
-	 * @memberof SortObject
+	 * @memberof FileForDeltaDto
 	 */
-	empty?: boolean;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof SortObject
-	 */
-	sorted?: boolean;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof SortObject
-	 */
-	unsorted?: boolean;
+	old?: boolean;
 }

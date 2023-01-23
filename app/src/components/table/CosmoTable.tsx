@@ -32,7 +32,6 @@ import { rankItem } from '@tanstack/match-sorter-utils';
 import usePaginationStore from '@hooks/pagination/usePaginationStore';
 import useExportTablePlugin from '@hooks/useExportTablePlugin';
 import { UseMutationResult } from '@tanstack/react-query';
-import { useTranslation } from 'react-i18next';
 import TablePagination from './TablePagination';
 import CosmoTableToolbarAction from './types/CosmoTableToolbarAction';
 import CosmoTableToolbarMenu from './types/CosmoTableToolbarMenu';
@@ -154,15 +153,17 @@ const CosmoTable = <T extends SubRows<T>>({
 	inlineActions
 }: CosmoTableProps<T>) => {
 	const data = useMemo(() => tableData, [tableData]);
-	const { t } = useTranslation('table');
 	if (inlineActions) {
 		columns.push({
-			header: t('actions'),
+			header: '',
 			accessorFn: row => row,
 			accessorKey: 'rowActions',
 			meta: { disableExport },
-			size: 50,
-			maxSize: 40
+			enableResizing: false,
+			enableSorting: false,
+			size: 30,
+			maxSize: 30,
+			minSize: 30
 		});
 	}
 

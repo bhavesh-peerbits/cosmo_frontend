@@ -1,6 +1,5 @@
 import { flexRender, Header } from '@tanstack/react-table';
-import { TableHeader, OverflowMenu, OverflowMenuItem } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
+import { TableHeader } from '@carbon/react';
 import cx from 'classnames';
 
 interface ColumnHeaderProps<T> {
@@ -8,7 +7,6 @@ interface ColumnHeaderProps<T> {
 }
 
 const ColumnHeader = <T extends object>({ header }: ColumnHeaderProps<T>) => {
-	const { t } = useTranslation('table');
 	return (
 		<TableHeader
 			key={header.id}
@@ -26,30 +24,6 @@ const ColumnHeader = <T extends object>({ header }: ColumnHeaderProps<T>) => {
 				<div className='flex items-center justify-between'>
 					<div className='text-ellipsis whitespace-nowrap leading-normal'>
 						{flexRender(header.column.columnDef.header, header.getContext())}
-					</div>
-					<div className='mr-3'>
-						<OverflowMenu ariaLabel='Overflow Menu' iconDescription='Menu'>
-							<OverflowMenuItem
-								itemText={
-									(header.column.getNextSortingOrder() === 'desc' &&
-										t('sort-descending')) ||
-									(header.column.getNextSortingOrder() === 'asc' &&
-										t('sort-ascending')) ||
-									t('original-sort')
-								}
-								onClick={header.column.getToggleSortingHandler()}
-							/>
-
-							{header.column.getCanGroup() && (
-								<OverflowMenuItem
-									hasDivider
-									itemText={
-										header.column.getIsGrouped() ? t('remove-group') : t('group-by')
-									}
-									onClick={header.column.getToggleGroupingHandler()}
-								/>
-							)}
-						</OverflowMenu>
 					</div>
 				</div>
 			</div>

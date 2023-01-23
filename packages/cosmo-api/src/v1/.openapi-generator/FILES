@@ -66,6 +66,7 @@ models/draft-dto.ts
 models/email.ts
 models/evidence-request-draft-dto.ts
 models/evidence-request-dto.ts
+models/file-for-delta-dto.ts
 models/file-link-dto-list.ts
 models/file-link-dto.ts
 models/focal-point-and-delegates-dto.ts
