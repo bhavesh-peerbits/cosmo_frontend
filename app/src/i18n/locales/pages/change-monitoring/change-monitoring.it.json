@@ -147,5 +147,9 @@
 	"PENDING": "In attesa",
 	"already-monitored-toast": "Attenzione! Alcuni path sono già monitorati",
 	"already-monitored-description": "Sono stati aggiunti path già presenti in altri monitoraggi. Per rimuoverli da questo monitoraggio selezionare i path e cliccare Escludi.",
-	"no-extensions": "Nessuna estensione"
+	"no-extensions": "Nessuna estensione",
+	"min-start-date": "Data di inizio minima",
+	"max-start-date": "Data di inizio massima",
+	"min-end-date": "Data di fine minima",
+	"max-end-date": "Data di fine massima"
 }
