@@ -13,7 +13,7 @@ const GetSchedulingDisplayInfo = (scheduling: Scheduling) => {
 				day: scheduling.dayOfWeek?.[0] && t(scheduling.dayOfWeek[0])
 			});
 		case 'BIWEEKLY':
-			return t('info-weekly-scheduling', {
+			return t('info-biweekly-scheduling', {
 				day1: scheduling.dayOfWeek?.[0] && t(scheduling.dayOfWeek[0]),
 				day2: scheduling.dayOfWeek?.[1] && t(scheduling.dayOfWeek[1])
 			});

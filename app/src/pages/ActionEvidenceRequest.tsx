@@ -1,4 +1,3 @@
-import useGetEvidenceRequestById from '@api/evidence-request/useGetEvidenceRequestById';
 import PageHeader from '@components/PageHeader';
 import { Tab, TabList, TabPanel, TabPanels, Grid, Column } from '@carbon/react';
 import StickyTabs from '@components/StickyTabs';
@@ -8,10 +7,11 @@ import EvidenceRequestInfo from '@components/EvidenceRequest/EvidenceRequestInfo
 import ActionEvidenceRequestInfo from '@components/EvidenceRequest/ActionEvidenceRequestInfo';
 import ActionEvidenceRequestModal from '@components/Modals/ActionEvidenceRequestModal';
 import { useState } from 'react';
+import useGetEvidenceRequestByIdFocalPoint from '@api/evidence-request/useGetEvidenceRequestByIdFocalPoint';
 
 const ActionEvidenceRequest = () => {
 	const { requestId = '' } = useParams<'requestId'>();
-	const { data } = useGetEvidenceRequestById(requestId);
+	const { data } = useGetEvidenceRequestByIdFocalPoint(requestId);
 	const [isOpen, setIsOpen] = useState(false);
 	const path = `${new Date().getFullYear()}/${data?.application.codeName}/${
 		data?.workflowName

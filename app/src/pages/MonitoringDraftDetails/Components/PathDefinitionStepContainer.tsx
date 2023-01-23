@@ -75,6 +75,7 @@ const PathDefinitionStepContainer = ({ setCurrentStep, draft }: PathDefinitionPr
 							globalData={globalPaths}
 							setGlobalData={setGlobalPaths}
 							assetIds={draft.monitoringAssets?.map(ma => ma.asset.id) || []}
+							os={draft.monitoringAssets?.[0].asset.os}
 						/>
 					</Layer>
 				)}
@@ -84,9 +85,9 @@ const PathDefinitionStepContainer = ({ setCurrentStep, draft }: PathDefinitionPr
 						<AssetExpandableTile title={ma.asset.hostname || ''} key={ma.id}>
 							<PathAssetTable
 								assetData={assetsData}
-								setAssetData={setAssetsData}
 								canAdd={!sameSetup}
 								assetId={ma.asset.id || ''}
+								setAssetData={setAssetsData}
 							/>
 						</AssetExpandableTile>
 					))}
