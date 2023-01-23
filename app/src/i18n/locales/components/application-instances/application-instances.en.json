@@ -30,5 +30,6 @@
 	"hostname-placeholder": "Label to identify the asset on the network",
 	"ip-placeholder": "Address to identify the asset on the network",
 	"error-ports-input": "Only comma separated numbers are allowed",
-	"erros-ports-greater": "The port number must be less than 65536"
+	"erros-ports-greater": "The port number must be less than 65536",
+	"path-regex-error": "The path should match the regex: {{regex}}"
 }
