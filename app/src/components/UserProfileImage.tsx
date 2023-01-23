@@ -108,7 +108,8 @@ const UserProfileImage = forwardRef<HTMLDivElement, UserProfileImageProps>(
 			image,
 			imageDescription,
 			size,
-			tooltipText
+			tooltipText,
+			tooltipPosition
 		},
 		ref
 	) => {
@@ -165,7 +166,7 @@ const UserProfileImage = forwardRef<HTMLDivElement, UserProfileImageProps>(
 		);
 
 		return tooltipText ? (
-			<Tooltip align='left' label={tooltipText}>
+			<Tooltip align={tooltipPosition || 'left'} label={tooltipText}>
 				<button
 					type='button'
 					onClick={e => e.preventDefault()}
@@ -222,6 +223,20 @@ interface UserProfileImageProps {
 	 * Pass in the display name to have it shown on hover
 	 */
 	tooltipText?: string;
+
+	tooltipPosition?:
+		| 'top'
+		| 'top-left'
+		| 'top-right'
+		| 'bottom'
+		| 'bottom-left'
+		| 'bottom-right'
+		| 'left'
+		| 'left-bottom'
+		| 'left-top'
+		| 'right'
+		| 'right-bottom'
+		| 'right-top';
 }
 
 export default memo(UserProfileImage);

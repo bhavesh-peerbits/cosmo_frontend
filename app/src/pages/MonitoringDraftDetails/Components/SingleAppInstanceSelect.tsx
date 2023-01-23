@@ -13,11 +13,12 @@ import {
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
 import Application from '@model/Application';
+import Instance from '@model/Instance';
 
-type SingleApplicationSelectProps<
+type SingleInstanceSelectProps<
 	T extends FieldValues,
 	TName extends FieldPath<T>
-> = UnpackNestedValue<PathValue<T, TName>> extends Application
+> = UnpackNestedValue<PathValue<T, TName>> extends Instance
 	? {
 			label: string;
 			name: TName;
@@ -28,7 +29,7 @@ type SingleApplicationSelectProps<
 			readOnly?: boolean;
 			defaultValue?: Application;
 			excludedApps?: string[];
-			applications: Application[];
+			instances: Instance[];
 	  }
 	: never;
 
@@ -41,8 +42,8 @@ const SingleApplicationSelect = <T extends FieldValues, TName extends FieldPath<
 	helperText,
 	readOnly,
 	defaultValue,
-	applications
-}: SingleApplicationSelectProps<T, TName>) => {
+	instances
+}: SingleInstanceSelectProps<T, TName>) => {
 	const { t } = useTranslation(['applicationSelect', 'changeMonitoring']);
 	const {
 		field: { onChange, onBlur, value: formValue, ref },
@@ -140,7 +141,7 @@ const SingleApplicationSelect = <T extends FieldValues, TName extends FieldPath<
 				noResultsDescription={t('applicationSelect:different-keywords')}
 				onCloseButtonText={t('applicationSelect:cancel')}
 				onSubmit={id => {
-					onChange(applications.find(app => app.id === id));
+					onChange(instances.find(instance => instance.id === id));
 					setOpenSearch(false);
 				}}
 				onClose={() => setOpenSearch(false)}
@@ -152,11 +153,12 @@ const SingleApplicationSelect = <T extends FieldValues, TName extends FieldPath<
 				globalSearchPlaceholder={t('changeMonitoring:search-by-instance-name')}
 				open={openSearch}
 				items={{
-					entries: applications
-						.filter(a => a.id !== value?.id)
-						.map(a => ({
-							id: a.id,
-							title: a.name
+					entries: instances
+						.filter(i => i.id !== value?.id)
+						.map(i => ({
+							id: i.id,
+							title: i.name,
+							subtitle: i.description
 						}))
 				}}
 			/>

@@ -52,6 +52,8 @@ import { UserApplicationDto } from '../models';
 import { UserBase } from '../models';
 // @ts-ignore
 import { UserDto } from '../models';
+// @ts-ignore
+import { UserUpload } from '../models';
 /**
  * UserAdminControllerApi - axios parameter creator
  * @export
@@ -108,6 +110,62 @@ export const UserAdminControllerApiAxiosParamCreator = function (
 				localVarRequestOptions,
 				configuration
 			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {any} file
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		addUsersWithoutProfile: async (
+			file: any,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'file' is not null or undefined
+			assertParamExists('addUsersWithoutProfile', 'file', file);
+			const localVarPath = `/api/users/admin/onlyUsers`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+			const localVarFormParams = new ((configuration && configuration.formDataCtor) ||
+				FormData)();
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			if (file !== undefined) {
+				localVarFormParams.append('file', file as any);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = localVarFormParams;
 
 			return {
 				url: toPathString(localVarUrlObj),
@@ -1073,6 +1131,30 @@ export const UserAdminControllerApiFp = function (configuration?: Configuration)
 		},
 		/**
 		 *
+		 * @param {any} file
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async addUsersWithoutProfile(
+			file: any,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserUpload>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.addUsersWithoutProfile(
+				file,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
@@ -1272,7 +1354,7 @@ export const UserAdminControllerApiFp = function (configuration?: Configuration)
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<ApplicationDto>>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApplicationDto>>
 		> {
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.getApplicationVisibilityOfUser(
@@ -1561,6 +1643,22 @@ export const UserAdminControllerApiFactory = function (
 		},
 		/**
 		 *
+		 * @param {any} file
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		addUsersWithoutProfile(
+			file: any,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<UserUpload> {
+			return localVarFp
+				.addUsersWithoutProfile(file, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
@@ -1684,7 +1782,7 @@ export const UserAdminControllerApiFactory = function (
 			id: string,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Set<ApplicationDto>> {
+		): AxiosPromise<Array<ApplicationDto>> {
 			return localVarFp
 				.getApplicationVisibilityOfUser(id, acceptLanguage, options)
 				.then(request => request(axios, basePath));
@@ -1886,6 +1984,27 @@ export interface UserAdminControllerApiAddUserRequest {
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
 	 * @memberof UserAdminControllerApiAddUser
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for addUsersWithoutProfile operation in UserAdminControllerApi.
+ * @export
+ * @interface UserAdminControllerApiAddUsersWithoutProfileRequest
+ */
+export interface UserAdminControllerApiAddUsersWithoutProfileRequest {
+	/**
+	 *
+	 * @type {any}
+	 * @memberof UserAdminControllerApiAddUsersWithoutProfile
+	 */
+	readonly file: any;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof UserAdminControllerApiAddUsersWithoutProfile
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
@@ -2330,6 +2449,26 @@ export class UserAdminControllerApi extends BaseAPI {
 	) {
 		return UserAdminControllerApiFp(this.configuration)
 			.addUser(requestParameters.userBase, requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {UserAdminControllerApiAddUsersWithoutProfileRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof UserAdminControllerApi
+	 */
+	public addUsersWithoutProfile(
+		requestParameters: UserAdminControllerApiAddUsersWithoutProfileRequest,
+		options?: AxiosRequestConfig
+	) {
+		return UserAdminControllerApiFp(this.configuration)
+			.addUsersWithoutProfile(
+				requestParameters.file,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 

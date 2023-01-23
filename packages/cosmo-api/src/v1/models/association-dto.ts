@@ -34,10 +34,10 @@ export interface AssociationDto {
 	reviewer?: UserDto;
 	/**
 	 *
-	 * @type {Set<UserDto>}
+	 * @type {Array<UserDto>}
 	 * @memberof AssociationDto
 	 */
-	delegates?: Set<UserDto>;
+	delegates?: Array<UserDto>;
 	/**
 	 *
 	 * @type {string}

@@ -4,8 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import MultiAddSelect from '@components/MultiAddSelect';
-import useGetUsers from '@api/user/useGetUsers';
 import User from '@model/User';
+import useGetMonitoringById from '@api/change-monitoring/useGetMonitoringById';
+import useGetUsersByRoles from '@api/user/useGetUsersByRoles';
+import useSetMonitoringCollaborator from '@api/change-monitoring/useSetMonitoringCollaborators';
 import CloseMonitoringModal from './Modals/CloseMonitoringModal';
 import EditFocalPointModal from './Modals/EditFocalPointModal';
 import MonitoringDetailsContent from './Containers/MonitoringDetailsContent';
@@ -15,11 +17,14 @@ type MonitoringDetailsProps = {
 };
 const MonitoringDetails = ({ isFocalPoint }: MonitoringDetailsProps) => {
 	const { t } = useTranslation(['evidenceRequest', 'userSelect', 'modals']);
-	const { monitoringId = '' } = useParams();
 	const [modalToOpen, setModalToOpen] = useState<string>();
-
-	// TODO Add selected user and change get users fn for collaborators
-	const { data: users = [] } = useGetUsers();
+	const { monitoringId = '' } = useParams();
+	const { data: monitoring } = useGetMonitoringById(monitoringId);
+	const { data: possibleCollab } = useGetUsersByRoles(
+		'MONITORING_ANALYST',
+		'MONITORING_ADMIN'
+	);
+	const { mutate } = useSetMonitoringCollaborator();
 
 	const userMapper = (u: User) => ({
 		id: u.id,
@@ -33,19 +38,30 @@ const MonitoringDetails = ({ isFocalPoint }: MonitoringDetailsProps) => {
 		}
 	});
 
+	const addCollaborators = (usersId: string[]) => {
+		return mutate(
+			{
+				id: `${monitoring?.id}`,
+				usersId
+			},
+			{ onSuccess: () => setModalToOpen('') }
+		);
+	};
+
+	if (!monitoring) return null;
+
 	return (
 		<PageHeader
-			pageTitle='Monitoring Name'
+			pageTitle={monitoring?.name || ''}
 			intermediateRoutes={[
-				isFocalPoint
-					? { name: 'Change Monitoring', to: '/change-monitoring' }
-					: { name: 'Change Monitoring Dashboard', to: '/monitoring-dashboard' }
+				{ name: 'Change Monitoring Dashboard', to: '/monitoring-dashboard' }
 			]}
 			actions={
 				!isFocalPoint
 					? [
 							{
 								name: t('evidenceRequest:collaborators'),
+								disabled: monitoring.status === 'TERMINATED',
 								onClick: () => {
 									setModalToOpen('collaborators');
 								},
@@ -53,6 +69,7 @@ const MonitoringDetails = ({ isFocalPoint }: MonitoringDetailsProps) => {
 							},
 							{
 								name: 'Focal Point',
+								disabled: monitoring.status === 'TERMINATED',
 								onClick: () => {
 									setModalToOpen('focalPoint');
 								},
@@ -60,6 +77,7 @@ const MonitoringDetails = ({ isFocalPoint }: MonitoringDetailsProps) => {
 							},
 							{
 								name: t('evidenceRequest:close'),
+								disabled: monitoring.status === 'TERMINATED',
 								onClick: () => {
 									setModalToOpen('close');
 								},
@@ -73,15 +91,21 @@ const MonitoringDetails = ({ isFocalPoint }: MonitoringDetailsProps) => {
 				<CloseMonitoringModal
 					isOpen={modalToOpen === 'close'}
 					setIsOpen={setModalToOpen}
-					id={monitoringId}
+					monitoring={monitoring}
 				/>
 				<EditFocalPointModal
+					monitoring={monitoring}
 					isOpen={modalToOpen === 'focalPoint'}
 					setIsOpen={setModalToOpen}
 				/>
 				<MultiAddSelect
 					items={{
-						entries: users.map(userMapper)
+						entries: possibleCollab?.length ? possibleCollab.map(userMapper) : []
+					}}
+					selectedItems={{
+						entries: monitoring?.collaborators
+							? monitoring?.collaborators.map(userMapper)
+							: []
 					}}
 					title={t('userSelect:select-user')}
 					description={t('userSelect:select-users')}
@@ -89,7 +113,7 @@ const MonitoringDetails = ({ isFocalPoint }: MonitoringDetailsProps) => {
 					onSubmitButtonText={t('modals:save')}
 					onCloseButtonText={t('modals:cancel')}
 					onClose={() => setModalToOpen('')}
-					onSubmit={() => {}}
+					onSubmit={selectedItems => addCollaborators(selectedItems)}
 					globalSearchLabel={t('userSelect:username-email')}
 					globalSearchPlaceholder={t('userSelect:find-user')}
 					globalFilters={[
@@ -108,7 +132,7 @@ const MonitoringDetails = ({ isFocalPoint }: MonitoringDetailsProps) => {
 					noResultsTitle={t('userSelect:no-results')}
 					noResultsDescription={t('userSelect:different-keywords')}
 				/>
-				<MonitoringDetailsContent />
+				<MonitoringDetailsContent monitoring={monitoring} />
 			</>
 		</PageHeader>
 	);

@@ -14,6 +14,7 @@
 
 import { Inet } from './inet';
 import { Instance } from './instance';
+import { Path } from './path';
 import { Tenant } from './tenant';
 
 /**
@@ -48,10 +49,10 @@ export interface Asset {
 	hostname?: string;
 	/**
 	 *
-	 * @type {Set<string>}
+	 * @type {Array<Path>}
 	 * @memberof Asset
 	 */
-	paths?: Set<string>;
+	paths?: Array<Path>;
 	/**
 	 *
 	 * @type {string}
@@ -88,6 +89,12 @@ export interface Asset {
 	 * @memberof Asset
 	 */
 	dbVersion?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Asset
+	 */
+	cpe?: string;
 }
 
 export const AssetTypeEnum = {

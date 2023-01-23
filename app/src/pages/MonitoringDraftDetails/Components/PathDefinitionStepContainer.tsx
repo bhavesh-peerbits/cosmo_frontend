@@ -1,28 +1,50 @@
 import FullWidthColumn from '@components/FullWidthColumn';
-import { Toggle, Tooltip, Layer } from '@carbon/react';
+import { Toggle, Tooltip, Button, InlineLoading, Layer } from '@carbon/react';
 import { Information } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
-import AssetExpandableTile from './AssetExpandableTile';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import MonitoringDraft from '@model/MonitoringDraft';
+import useSaveMonitoringDraft from '@api/change-monitoring/useSaveMonitoringDraft';
+import ApiError from '@api/ApiError';
+import InlineLoadingStatus from '@components/InlineLoadingStatus';
+import { PathMonitoringDto } from 'cosmo-api/src/v1';
 import PathAssetTable from './PathAssetTable';
+import AssetExpandableTile from './AssetExpandableTile';
+import SameSetupPathTable from './SameSetupPathTable';
+import { RunMonitoringAsset } from '../types/RunMonitoringAsset';
 
-const PathDefinitionStepContainer = () => {
+type PathDefinitionProps = {
+	setCurrentStep: Dispatch<SetStateAction<number>>;
+	draft: MonitoringDraft;
+};
+
+const PathDefinitionStepContainer = ({ setCurrentStep, draft }: PathDefinitionProps) => {
 	const { t } = useTranslation('changeMonitoring');
 	const [sameSetup, setSameSetup] = useState(false);
+	const { mutate, isLoading, isError, isSuccess, error } = useSaveMonitoringDraft();
+	const [globalPaths, setGlobalPaths] = useState<PathMonitoringDto[]>([]);
+	const [assetsData, setAssetsData] = useState<RunMonitoringAsset[] | undefined>(
+		draft.monitoringAssets
+	);
 
-	const fakeDataPath = [
-		{
-			assetId: 'asset1',
-			included: true,
-			path: 'path1veryveryveryveryveryveryveryveryveryveryveryveryveryveryveryverylong'
-		},
-		{ assetId: 'asset1', included: false, path: 'path2' },
-		{ assetId: 'asset2', included: true, path: 'path3' },
-		{ assetId: 'asset2', included: true, path: 'path4' }
-	];
-	const [newPaths, setNewPaths] = useState<{ path: string; included: boolean }[]>([]);
-	const [assetsPath, setAssetsPath] =
-		useState<{ assetId?: string; path: string; included: boolean }[]>(fakeDataPath);
+	const saveDraft = () => {
+		return mutate(
+			{
+				draft: {
+					...draft,
+					monitoringAssets: assetsData?.map(asset => {
+						return { ...asset, paths: [...asset.paths, ...globalPaths] };
+					})
+				}
+			},
+			{ onSuccess: () => setCurrentStep(old => old + 1) }
+		);
+	};
+
+	useEffect(() => {
+		setGlobalPaths([]);
+		setAssetsData(draft.monitoringAssets);
+	}, [setGlobalPaths, sameSetup, setAssetsData, draft.monitoringAssets]);
 
 	return (
 		<>
@@ -49,27 +71,61 @@ const PathDefinitionStepContainer = () => {
 			<FullWidthColumn className='space-y-7'>
 				{sameSetup && (
 					<Layer>
-						<PathAssetTable isSameSetup data={newPaths} canAdd setData={setNewPaths} />
+						<SameSetupPathTable
+							globalData={globalPaths}
+							setGlobalData={setGlobalPaths}
+							assetIds={draft.monitoringAssets?.map(ma => ma.asset.id) || []}
+							os={draft.monitoringAssets?.[0].asset.os}
+						/>
 					</Layer>
 				)}
+
 				<div>
-					<AssetExpandableTile title='Asset'>
-						<PathAssetTable
-							data={assetsPath.filter(path => path.assetId === 'asset1')}
-							assetId='1'
-							canAdd={!sameSetup}
-							setData={setAssetsPath}
-						/>
-					</AssetExpandableTile>
-					<AssetExpandableTile title='Asset'>
-						<PathAssetTable
-							data={assetsPath.filter(path => path.assetId === 'asset2')}
-							assetId='2'
-							canAdd={!sameSetup}
-							setData={setAssetsPath}
-						/>
-					</AssetExpandableTile>
+					{draft.monitoringAssets?.map(ma => (
+						<AssetExpandableTile title={ma.asset.hostname || ''} key={ma.id}>
+							<PathAssetTable
+								assetData={assetsData}
+								canAdd={!sameSetup}
+								assetId={ma.asset.id || ''}
+								setAssetData={setAssetsData}
+							/>
+						</AssetExpandableTile>
+					))}
 				</div>
+			</FullWidthColumn>
+			<FullWidthColumn className='justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
+				<InlineLoadingStatus
+					{...{ isLoading: false, isSuccess, isError, error: error as ApiError }}
+				/>
+				<div>{isLoading && <InlineLoading />}</div>
+				<Button
+					size='md'
+					kind='secondary'
+					className='w-full md:w-fit'
+					onClick={() => setCurrentStep(old => old - 1)}
+				>
+					{t('back')}
+				</Button>
+				<Button
+					size='md'
+					className='w-full md:w-fit'
+					onClick={() => saveDraft()}
+					disabled={
+						isLoading ||
+						(!sameSetup &&
+							(!assetsData?.length ||
+								!assetsData?.every(
+									assetData =>
+										assetData.paths.length && assetData.paths.some(p => p.selected)
+								))) ||
+						(sameSetup &&
+							assetsData?.some(asset => asset.paths.length === 0) &&
+							!globalPaths.length) ||
+						(globalPaths.length > 0 && !globalPaths?.some(p => p.selected))
+					}
+				>
+					{t('save-next')}
+				</Button>
 			</FullWidthColumn>
 		</>
 	);

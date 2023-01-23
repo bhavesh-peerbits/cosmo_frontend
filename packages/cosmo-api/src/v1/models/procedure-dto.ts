@@ -44,10 +44,10 @@ export interface ProcedureDto {
 	majorProcedure?: string;
 	/**
 	 * Set of control objectives
-	 * @type {Set<string>}
+	 * @type {Array<string>}
 	 * @memberof ProcedureDto
 	 */
-	controlObjectives?: Set<string>;
+	controlObjectives?: Array<string>;
 	/**
 	 * Order number
 	 * @type {number}

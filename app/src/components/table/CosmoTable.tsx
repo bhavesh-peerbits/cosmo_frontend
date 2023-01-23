@@ -27,11 +27,11 @@ import {
 import { FC, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import cx from 'classnames';
-import { useBoolean, useDebounce, useMount, useUnmount, useUpdateEffect } from 'ahooks';
+import { useDebounce, useMount, useUnmount, useUpdateEffect } from 'ahooks';
 import { rankItem } from '@tanstack/match-sorter-utils';
 import usePaginationStore from '@hooks/pagination/usePaginationStore';
 import useExportTablePlugin from '@hooks/useExportTablePlugin';
-// import { TearsheetNarrow } from '@carbon/ibm-products';
+import { FieldValues, SubmitHandler, UseFormReturn } from 'react-hook-form';
 import TablePagination from './TablePagination';
 import CosmoTableToolbarAction from './types/CosmoTableToolbarAction';
 import CosmoTableToolbarMenu from './types/CosmoTableToolbarMenu';
@@ -41,7 +41,8 @@ import TableHeaders from './TableHeaders';
 import TableInnerBody from './TableInnerBody';
 import TableBodySkeleton from './TableBodySkeleton';
 import CosmoTableToolbar from './CosmoTableToolbar';
-import TableFormTearsheet from './TableFormTearsheet';
+import TableFormTearsheet from './insert/TableFormTearsheet';
+import { InlineActions } from './types/InlineActionType';
 
 interface ToolbarProps<T extends object> {
 	searchBar?: boolean;
@@ -53,12 +54,20 @@ interface ToolbarProps<T extends object> {
 	};
 }
 
+interface ModalProps<F extends FieldValues> {
+	title: string;
+	description?: string;
+	label?: string;
+	form: UseFormReturn<F>;
+	onSubmit: SubmitHandler<F>;
+}
+
 type SubRows<T> = object & {
 	subRows?: T[];
 };
 
-interface CosmoTableProps<T extends SubRows<T>> {
-	columns: ColumnDef<T>[];
+interface CosmoTableProps<T extends SubRows<T>, F extends FieldValues = never> {
+	columns: ColumnDef<T, unknown, F>[];
 	data: T[];
 	tableId: string;
 	isSelectable?: boolean | 'radio';
@@ -84,6 +93,8 @@ interface CosmoTableProps<T extends SubRows<T>> {
 	noDataMessageSubtitle?: string;
 	canEdit?: boolean;
 	canDelete?: boolean;
+	modalProps?: ModalProps<F>;
+	inlineActions?: InlineActions<T>[];
 	// modalContent?: FC<{ row: Row<T> | undefined; closeModal: () => void; edit: boolean }>;
 	onDelete?: (rows: Row<T>[]) => void;
 }
@@ -111,8 +122,9 @@ const tableSizes: Record<TableSize, { value: number; label: string }> = {
 	}
 };
 
-const CosmoTable = <T extends SubRows<T>>({
+const CosmoTable = <T extends SubRows<T>, F extends FieldValues = never>({
 	columns,
+	modalProps,
 	data: tableData,
 	isSelectable,
 	isExpandable,
@@ -136,9 +148,23 @@ const CosmoTable = <T extends SubRows<T>>({
 	size = 'md',
 	showSizeOption,
 	noDataMessageSubtitle,
-	onDelete
-}: CosmoTableProps<T>) => {
+	onDelete,
+	inlineActions
+}: CosmoTableProps<T, F>) => {
 	const data = useMemo(() => tableData, [tableData]);
+	if (inlineActions) {
+		columns.push({
+			header: '',
+			accessorFn: row => row,
+			accessorKey: 'rowActions',
+			meta: { disableExport },
+			enableResizing: false,
+			enableSorting: false,
+			size: 30,
+			maxSize: 30,
+			minSize: 30
+		});
+	}
 
 	const tableContainerRef = useRef<HTMLDivElement>(null);
 	const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
@@ -166,7 +192,6 @@ const CosmoTable = <T extends SubRows<T>>({
 	});
 
 	// FILTER
-	const [showFilter, { toggle: toggleShowFilter }] = useBoolean(false);
 	const fuzzyFilter: FilterFn<T> = useCallback((row, columnId, value, addMeta) => {
 		// Rank the item
 		const itemRank = rankItem(row.getValue(columnId), value);
@@ -186,7 +211,7 @@ const CosmoTable = <T extends SubRows<T>>({
 
 	const table = useReactTable({
 		data,
-		columns,
+		columns: columns as ColumnDef<T>[],
 		autoResetPageIndex: false,
 		manualPagination: Boolean(serverSidePagination),
 		manualFiltering: Boolean(serverSidePagination),
@@ -266,7 +291,11 @@ const CosmoTable = <T extends SubRows<T>>({
 
 	return (
 		<>
-			<TableContainer title={title} description={description}>
+			<TableContainer
+				title={title}
+				description={description}
+				data-floating-menu-container
+			>
 				<CosmoTableToolbar
 					disableExport={disableExport}
 					searchBar={toolbar?.searchBar}
@@ -282,7 +311,6 @@ const CosmoTable = <T extends SubRows<T>>({
 					selectedSize={tableSize}
 					sizeOptions={showSizeOption ? tableSizes : undefined}
 					changeTableSize={setTableSize}
-					onFilterClick={toggleShowFilter}
 					setIsModalOpen={setIsModalOpen}
 					// isAddingInline={isInlineAdd}
 					// addingInline={addingInline}
@@ -293,6 +321,8 @@ const CosmoTable = <T extends SubRows<T>>({
 					onDelete={onDelete}
 					setColumnOrder={table.setColumnOrder}
 					setColumnVisibility={table.setColumnVisibility}
+					tableId={tableId}
+					prefilteredValues={table.getPreFilteredRowModel().flatRows[0]}
 				/>
 				<div className='relative overflow-hidden'>
 					<div
@@ -315,8 +345,6 @@ const CosmoTable = <T extends SubRows<T>>({
 									isSelectable={isSelectable}
 									headerGroups={headerGroups}
 									isExpandable={isExpandable && Boolean(subComponent)}
-									table={table}
-									showFilter={showFilter}
 								/>
 							</TableHead>
 							<TableBody>
@@ -330,6 +358,7 @@ const CosmoTable = <T extends SubRows<T>>({
 									// setAddingInline={setAddingInline}
 									// columns={columns}
 									// isInlineAdd={isInlineAdd}
+									inlineActions={inlineActions}
 									noDataMessageSubtitle={noDataMessageSubtitle}
 									rows={virtualRows.map(v => rows[v.index])}
 									isSelectable={isSelectable}
@@ -361,16 +390,21 @@ const CosmoTable = <T extends SubRows<T>>({
 						/>
 					</div>
 				</div>
-				{data.length > 10 && (
-					<TablePagination tableId={tableId} dataLength={status?.total ?? data.length} />
+				{(serverSidePagination || data.length > 10) && (
+					<TablePagination
+						tableId={tableId}
+						dataLength={status?.total ?? table.getFilteredRowModel().rows.length}
+					/>
 				)}
 			</TableContainer>
-			<TableFormTearsheet
-				isOpen={isModalOpen}
-				setIsOpen={() => setIsModalOpen(false)}
-				columns={columns}
-			/>
-			{/* <TearsheetNarrow open={isModalOpen} onClose={() => setIsModalOpen(false)} /> */}
+			{modalProps && (
+				<TableFormTearsheet
+					isOpen={isModalOpen}
+					columns={allLeafColumns}
+					onClose={() => setIsModalOpen(false)}
+					{...modalProps}
+				/>
+			)}
 			{/* <ComposedModal open={isModalOpen} preventCloseOnClickOutside>
 				{ModalContent && (
 					<ModalContent

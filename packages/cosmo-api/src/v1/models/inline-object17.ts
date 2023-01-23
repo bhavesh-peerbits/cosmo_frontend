@@ -12,8 +12,6 @@
  * Do not edit the class manually.
  */
 
-import { ApplicationDto } from './application-dto';
-
 /**
  *
  * @export
@@ -22,14 +20,8 @@ import { ApplicationDto } from './application-dto';
 export interface InlineObject17 {
 	/**
 	 *
-	 * @type {string}
+	 * @type {any}
 	 * @memberof InlineObject17
 	 */
-	userId?: string;
-	/**
-	 *
-	 * @type {Array<ApplicationDto>}
-	 * @memberof InlineObject17
-	 */
-	applications?: Array<ApplicationDto>;
+	file?: any;
 }

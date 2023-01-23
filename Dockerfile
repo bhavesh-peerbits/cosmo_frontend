@@ -4,6 +4,7 @@ ARG PROXY=http://srvprx01.aizoon.it:3128
 ENV http_proxy=${PROXY} \
   https_proxy=${PROXY}
 ################ Aizoon-Proxy end ############
+ENV npm_registry=https://aramis-nexus.aizoon.it/repository/aramis-npm-group/
 
 ARG APP_PATH=/opt/cosmo
 
@@ -20,7 +21,7 @@ COPY packages/server/dist packages/server/package.json ./server/
 COPY ./app/dist ./server/cosmo
 COPY ./package.json ./yarn.lock .yarnrc.yml ./
 
-RUN https_proxy= yarn workspaces focus --production server
+RUN http_proxy= https_proxy= yarn workspaces focus --production server
 
 RUN chown -R node:node $APP_PATH/server
 

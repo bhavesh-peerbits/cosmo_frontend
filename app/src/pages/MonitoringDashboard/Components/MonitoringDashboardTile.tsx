@@ -8,7 +8,6 @@ type MonitoringDashboardTileProps = {
 	monitoring: Monitoring;
 };
 const MonitoringDashboardTile = ({ monitoring }: MonitoringDashboardTileProps) => {
-	// TODO Check info, control code
 	const { t } = useTranslation([
 		'changeMonitoring',
 		'monitoringDashboard',
@@ -26,14 +25,16 @@ const MonitoringDashboardTile = ({ monitoring }: MonitoringDashboardTileProps) =
 								{t('changeMonitoring:frequency')}:
 							</p>
 							<p className='block truncate text-body-short-1'>
-								{monitoring.scheduling.frequency}
+								{t(`changeMonitoring:${monitoring.scheduling.frequency}`)}
 							</p>
 						</span>
 						<span className='flex space-x-2'>
 							<p className='whitespace-nowrap text-text-secondary text-body-short-1'>
 								{t('changeMonitoring:total-runs')}:
 							</p>
-							<p className='block truncate text-body-short-1'>{monitoring.numberOfRun}</p>
+							<p className='block truncate text-body-short-1'>
+								{monitoring.scheduling.totalRuns}
+							</p>
 						</span>
 						<span className='flex space-x-2'>
 							<p className='whitespace-nowrap text-text-secondary text-body-short-1'>
@@ -56,7 +57,9 @@ const MonitoringDashboardTile = ({ monitoring }: MonitoringDashboardTileProps) =
 								{t('changeMonitoring:end-date')}:
 							</p>
 							<p className='block truncate text-body-short-1'>
-								{formatDate(monitoring.scheduling.endDate, 'short')}
+								{monitoring.scheduling.endDate
+									? formatDate(monitoring.scheduling.endDate, 'short')
+									: '-'}
 							</p>
 						</span>
 					</div>
@@ -64,22 +67,26 @@ const MonitoringDashboardTile = ({ monitoring }: MonitoringDashboardTileProps) =
 						<p className='whitespace-nowrap text-text-secondary text-body-short-1'>
 							{t('monitoringDashboard:status')}:
 						</p>
-						<p className='block truncate text-body-short-1'>{monitoring.status}</p>
+						<p className='block truncate text-body-short-1'>
+							{t(`changeMonitoring:${monitoring.status}`)}
+						</p>
 					</span>
 					<div className='space-y-2'>
 						<span className='flex space-x-2'>
 							<p className='whitespace-nowrap text-text-secondary text-body-short-1'>
 								Framework:
 							</p>
-							<p className='block truncate text-body-short-1'>{monitoring.framework}</p>
+							<p className='block truncate text-body-short-1'>
+								{monitoring.frameworkName ?? '-'}
+							</p>
 						</span>
 						<span className='flex space-x-2'>
 							<p className='whitespace-nowrap text-text-secondary text-body-short-1'>
-								{t('changeMonitoring:controls')}:
+								{t('changeMonitoring:control-code')}:
 							</p>
 							<p className='block truncate text-body-short-1'>
-								{monitoring.controls
-									? monitoring.controls?.join(', ')
+								{monitoring.controlCode
+									? monitoring.controlCode
 									: t('evidenceRequest:no-control')}
 							</p>
 						</span>

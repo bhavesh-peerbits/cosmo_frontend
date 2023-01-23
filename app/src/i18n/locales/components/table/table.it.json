@@ -35,5 +35,10 @@
 	"customize-columns-reset": "Reimposta su default",
 	"customize-columns-assistive": "Premi la space bar per abilitare la modalità drag and drop, usa i tasti freccia per muovere gli elementi selezionati.",
 	"customize-columns-assistive-disabled": "Il riordinamento delle colonne è disabilitato perchè sono correntemente filtrate.",
-	"customize-columns-column-name": "Tutte le colonne"
+	"customize-columns-column-name": "Tutte le colonne",
+	"actions": "Azioni",
+	"add-new": "Aggiungi",
+	"add": "Aggiungi",
+	"cancel": "Annulla",
+	"create": "Crea"
 }

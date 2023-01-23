@@ -40,7 +40,7 @@ const ActionEvidenceRequestDashboard = React.lazy(
 	() => import('@pages/ActionEvidenceRequestDashboard')
 );
 const NewMonitoring = React.lazy(
-	() => import('@pages/MonitoringDashboard/NewMonitoring')
+	() => import('@pages/NewMonitoringDashboard/NewMonitoring')
 );
 const MonitoringDraftDetails = React.lazy(
 	() => import('@pages/MonitoringDraftDetails/MonitoringDraftDetails')

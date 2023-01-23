@@ -23,16 +23,16 @@ import { Asset } from './asset';
 export interface Instance {
 	/**
 	 *
-	 * @type {Array<Asset>}
-	 * @memberof Instance
-	 */
-	assets?: Array<Asset>;
-	/**
-	 *
 	 * @type {number}
 	 * @memberof Instance
 	 */
 	id?: number;
+	/**
+	 *
+	 * @type {Array<Asset>}
+	 * @memberof Instance
+	 */
+	assets?: Array<Asset>;
 	/**
 	 *
 	 * @type {string}

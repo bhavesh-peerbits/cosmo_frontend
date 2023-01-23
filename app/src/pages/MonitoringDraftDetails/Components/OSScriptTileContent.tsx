@@ -2,12 +2,10 @@ import { ChevronDown, ChevronUp } from '@carbon/react/icons';
 import { Button } from '@carbon/react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import Script from '@model/Script';
 
 type OSScriptTileContentProps = {
-	script: {
-		script: string;
-		description: string;
-	};
+	script: Script;
 };
 const OSScriptTileContent = ({ script }: OSScriptTileContentProps) => {
 	const [isExpanded, setIsExpanded] = useState(false);
@@ -15,10 +13,10 @@ const OSScriptTileContent = ({ script }: OSScriptTileContentProps) => {
 
 	return (
 		<div className='space-y-5'>
-			<span className='text-productive-heading-3'>{script.script}</span>
+			<span className='text-productive-heading-3'>{script.name}</span>
 			<div className='flex items-end justify-between space-x-5'>
 				<span
-					id={`${script.description}-${script.script}`}
+					id={`description-${script.id}`}
 					className={`${!isExpanded && 'h-[36px] line-clamp-2'} text-text-secondary `}
 				>
 					{script.description}

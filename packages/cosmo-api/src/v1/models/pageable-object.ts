@@ -37,23 +37,23 @@ export interface PageableObject {
 	 * @type {number}
 	 * @memberof PageableObject
 	 */
-	pageSize?: number;
+	pageNumber?: number;
 	/**
 	 *
 	 * @type {number}
 	 * @memberof PageableObject
 	 */
-	pageNumber?: number;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof PageableObject
-	 */
-	unpaged?: boolean;
+	pageSize?: number;
 	/**
 	 *
 	 * @type {boolean}
 	 * @memberof PageableObject
 	 */
 	paged?: boolean;
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof PageableObject
+	 */
+	unpaged?: boolean;
 }

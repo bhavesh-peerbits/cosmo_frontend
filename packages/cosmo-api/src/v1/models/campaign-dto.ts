@@ -76,10 +76,10 @@ export interface CampaignDto {
 	archived?: boolean;
 	/**
 	 * Campaign contributors, users that have same rights of campaign owner
-	 * @type {Set<UserDto>}
+	 * @type {Array<UserDto>}
 	 * @memberof CampaignDto
 	 */
-	contributors?: Set<UserDto>;
+	contributors?: Array<UserDto>;
 	/**
 	 * Campaign number of applications
 	 * @type {number}

@@ -38,6 +38,7 @@ import TableSize from './types/TableSize';
 import ExportSelectionAction from './ExportSelectionAction';
 import AvailableFileType from './types/FileType';
 import CustomizeColumnsModal from './columnCustomize/CustomizeColumnsModal';
+import TableFilters from './filter/TableFilters';
 
 interface CosmoTableToolbarProps<T extends object> {
 	selectionRows: Row<T>[];
@@ -65,9 +66,10 @@ interface CosmoTableToolbarProps<T extends object> {
 	canDelete?: boolean;
 	onDelete?: (rows: Row<T>[]) => void;
 	onSearch: (value: string) => void;
-	onFilterClick: () => void;
 	setColumnOrder: (columnOrder: ColumnOrderState) => void;
 	setColumnVisibility: (visibilityState: VisibilityState) => void;
+	prefilteredValues: Row<T>;
+	tableId: string;
 }
 
 const CosmoTableToolbar = <T extends object>({
@@ -85,7 +87,6 @@ const CosmoTableToolbar = <T extends object>({
 	sizeOptions,
 	changeTableSize,
 	onSearch,
-	onFilterClick,
 	primaryButton,
 	toolbarBatchActions = [],
 	toolbarTableMenus = [],
@@ -95,10 +96,13 @@ const CosmoTableToolbar = <T extends object>({
 	canDelete,
 	onDelete,
 	setColumnOrder,
-	setColumnVisibility
+	setColumnVisibility,
+	prefilteredValues,
+	tableId
 }: CosmoTableToolbarProps<T>) => {
 	const { t } = useTranslation('table');
 	const [openModal, { toggle: toggleOpen }] = useBoolean(false);
+	const [openFilter, { toggle: toggleFilter, setFalse: filterFalse }] = useBoolean(false);
 	const selectionElements = useMemo(
 		() => selectionRows.map(row => row.original).filter(r => r),
 		[selectionRows]
@@ -208,12 +212,19 @@ const CosmoTableToolbar = <T extends object>({
 			</TableBatchActions>
 			<TableToolbarContent>
 				<TableToolbarMenu
-					onClick={() => onFilterClick()}
+					onClick={() => toggleFilter()}
+					open={openFilter}
+					onClose={filterFalse}
 					renderIcon={() => <FilterEdit />}
 					iconDescription='Show filters'
 					ariaLabel='Show Filters'
 				>
-					{null}
+					<TableFilters
+						tableId={tableId}
+						onApplyFilters={filterFalse}
+						prefilteredValues={prefilteredValues}
+						allColumns={allColumns}
+					/>
 				</TableToolbarMenu>
 				{searchBar && (
 					<TableToolbarSearch
@@ -305,7 +316,7 @@ const CosmoTableToolbar = <T extends object>({
 						iconDescription='Add'
 						onClick={() => setIsModalOpen(true)}
 					>
-						Add New
+						{t('add-new')}
 					</Button>
 				)}
 				{/* {canAdd && !addingInline ? (

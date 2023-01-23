@@ -3,36 +3,58 @@ import {
 	ComposedModal,
 	ModalBody,
 	ModalFooter,
-	ModalHeader
+	ModalHeader,
+	InlineNotification
 } from '@carbon/react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction } from 'react';
+import useTerminateMonitoring from '@api/change-monitoring/useTerminateMonitoring';
+import ApiError from '@api/ApiError';
+import Monitoring from '@model/Monitoring';
 
 type CloseMonitoringProps = {
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<string | undefined>>;
-	id: string;
+	monitoring: Monitoring;
 };
 
-const CloseMonitoringModal = ({ isOpen, setIsOpen, id }: CloseMonitoringProps) => {
+const CloseMonitoringModal = ({
+	isOpen,
+	setIsOpen,
+	monitoring
+}: CloseMonitoringProps) => {
 	const navigate = useNavigate();
 	const { t } = useTranslation(['modals', 'monitoringDashboard']);
-
+	const { mutate, isError, error } = useTerminateMonitoring();
 	const cleanUp = () => {
 		setIsOpen('');
+	};
+
+	const handleTerminate = () => {
+		mutate(
+			{ monitoringId: +monitoring.id },
+			{
+				onSuccess: () => {
+					cleanUp();
+					navigate('/monitoring-dashboard');
+				}
+			}
+		);
 	};
 
 	return (
 		<ComposedModal size='xs' open={isOpen} onClose={cleanUp}>
 			<ModalHeader
-				label='Monitoring Name'
+				label={monitoring.name}
 				title={t('monitoringDashboard:confirm-close')}
 				closeModal={cleanUp}
 			/>
 			<ModalBody>
-				<span>{`${t('monitoringDashboard:close-monitoring', { name: id })}`}</span>
-				{/* {isError && (
+				<span>{`${t('monitoringDashboard:close-monitoring', {
+					name: monitoring.name
+				})}`}</span>
+				{isError && (
 					<div className='mt-5 flex items-center justify-center'>
 						<InlineNotification
 							kind='error'
@@ -44,13 +66,13 @@ const CloseMonitoringModal = ({ isOpen, setIsOpen, id }: CloseMonitoringProps) =
 							}
 						/>
 					</div>
-				)} */}
+				)}
 			</ModalBody>
 			<ModalFooter>
 				<Button kind='secondary' onClick={cleanUp}>
 					{t('modals:cancel')}
 				</Button>
-				<Button kind='danger' onClick={() => navigate('/monitoring-dashboard')}>
+				<Button kind='danger' onClick={handleTerminate}>
 					{t('modals:close')}
 				</Button>
 			</ModalFooter>

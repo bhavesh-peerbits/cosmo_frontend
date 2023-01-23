@@ -5,21 +5,15 @@ import useStartedMonitorings from '@hooks/monitoring-dashboard/useStartedMonitor
 import Monitoring from '@model/Monitoring';
 import { useMemo } from 'react';
 import DateCell from '@components/table/Cell/DateCell';
-import { UnorderedList, ListItem, Layer } from '@carbon/react';
+import { Layer } from '@carbon/react';
+import { Link } from 'react-router-dom';
 
-const BulletListCell = ({ getValue }: CellContext<any, unknown>) => {
-	const { t } = useTranslation('evidenceRequest');
-
-	const value = getValue() as string[];
-	return value && value.length ? (
-		<UnorderedList nested className='ml-0'>
-			{value.map(val => {
-				return <ListItem className='flex items-center space-x-2'>{val}</ListItem>;
-			})}
-		</UnorderedList>
-	) : (
-		<p>{t('no-control')}</p>
-	);
+const CellLink = ({ getValue }: CellContext<any, unknown>) => {
+	const value = getValue() as { name?: string; id?: string };
+	if (value.id) {
+		return <Link to={`/monitoring-dashboard/${value.id}`}>{value.name}</Link>;
+	}
+	return <span>{value.name}</span>;
 };
 
 const MonitoringDashboardTable = () => {
@@ -30,7 +24,11 @@ const MonitoringDashboardTable = () => {
 		const ArrayCol: ColumnDef<Monitoring>[] = [
 			{
 				id: 'monitoring-name',
-				accessorFn: row => row.name,
+				accessorFn: row => ({
+					name: row.name,
+					id: row.id
+				}),
+				cell: CellLink,
 				header: t('changeMonitoring:monitoring-name'),
 				sortUndefined: 1
 			},
@@ -53,7 +51,7 @@ const MonitoringDashboardTable = () => {
 			},
 			{
 				id: 'total-runs',
-				accessorFn: row => row.numberOfRun,
+				accessorFn: row => row.scheduling.totalRuns,
 				header: t('changeMonitoring:total-runs')
 			},
 			{
@@ -68,14 +66,13 @@ const MonitoringDashboardTable = () => {
 			},
 			{
 				id: 'framework',
-				accessorFn: row => row.framework,
-				header: 'Framework'
+				accessorFn: row => row.frameworkLeafsCodes,
+				header: t('changeMonitoring:framework-leafs')
 			},
 			{
 				id: 'controls',
-				accessorFn: row => row.controls,
-				header: t('changeMonitoring:controls'),
-				cell: BulletListCell
+				accessorFn: row => row.controlCode,
+				header: t('changeMonitoring:control-code')
 			}
 		];
 		return ArrayCol;
@@ -84,7 +81,7 @@ const MonitoringDashboardTable = () => {
 	return (
 		<Layer>
 			<CosmoTable
-				tableId='path-asset-table'
+				tableId='monitoring-dashboard-table'
 				columns={columns}
 				noDataMessage={t('table:no-data')}
 				isColumnOrderingEnabled

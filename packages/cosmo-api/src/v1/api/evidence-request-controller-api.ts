@@ -185,13 +185,13 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		createDraft: async (
+		createDraft1: async (
 			setUpDraftDto: SetUpDraftDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'setUpDraftDto' is not null or undefined
-			assertParamExists('createDraft', 'setUpDraftDto', setUpDraftDto);
+			assertParamExists('createDraft1', 'setUpDraftDto', setUpDraftDto);
 			const localVarPath = `/api/analyst/evidence-request/create-draft`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -972,7 +972,9 @@ export const EvidenceRequestControllerApiFp = function (configuration?: Configur
 			requestBody: Array<string>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<UserDto>>> {
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserDto>>
+		> {
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.addCollaboratorsToEvidence(
 					erId,
@@ -1018,12 +1020,12 @@ export const EvidenceRequestControllerApiFp = function (configuration?: Configur
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async createDraft(
+		async createDraft1(
 			setUpDraftDto: SetUpDraftDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<number>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.createDraft(
+			const localVarAxiosArgs = await localVarAxiosParamCreator.createDraft1(
 				setUpDraftDto,
 				acceptLanguage,
 				options
@@ -1117,7 +1119,9 @@ export const EvidenceRequestControllerApiFp = function (configuration?: Configur
 		async getAllUniqueEvidenceNames(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Set<string>>> {
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>
+		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.getAllUniqueEvidenceNames(
 				acceptLanguage,
 				options
@@ -1402,7 +1406,7 @@ export const EvidenceRequestControllerApiFactory = function (
 			requestBody: Array<string>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Set<UserDto>> {
+		): AxiosPromise<Array<UserDto>> {
 			return localVarFp
 				.addCollaboratorsToEvidence(erId, requestBody, acceptLanguage, options)
 				.then(request => request(axios, basePath));
@@ -1430,13 +1434,13 @@ export const EvidenceRequestControllerApiFactory = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		createDraft(
+		createDraft1(
 			setUpDraftDto: SetUpDraftDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<number> {
 			return localVarFp
-				.createDraft(setUpDraftDto, acceptLanguage, options)
+				.createDraft1(setUpDraftDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -1492,7 +1496,7 @@ export const EvidenceRequestControllerApiFactory = function (
 		getAllUniqueEvidenceNames(
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Set<string>> {
+		): AxiosPromise<Array<string>> {
 			return localVarFp
 				.getAllUniqueEvidenceNames(acceptLanguage, options)
 				.then(request => request(axios, basePath));
@@ -1710,22 +1714,22 @@ export interface EvidenceRequestControllerApiCloseEvidenceRequest {
 }
 
 /**
- * Request parameters for createDraft operation in EvidenceRequestControllerApi.
+ * Request parameters for createDraft1 operation in EvidenceRequestControllerApi.
  * @export
- * @interface EvidenceRequestControllerApiCreateDraftRequest
+ * @interface EvidenceRequestControllerApiCreateDraft1Request
  */
-export interface EvidenceRequestControllerApiCreateDraftRequest {
+export interface EvidenceRequestControllerApiCreateDraft1Request {
 	/**
 	 *
 	 * @type {SetUpDraftDto}
-	 * @memberof EvidenceRequestControllerApiCreateDraft
+	 * @memberof EvidenceRequestControllerApiCreateDraft1
 	 */
 	readonly setUpDraftDto: SetUpDraftDto;
 
 	/**
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof EvidenceRequestControllerApiCreateDraft
+	 * @memberof EvidenceRequestControllerApiCreateDraft1
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
@@ -2053,17 +2057,17 @@ export class EvidenceRequestControllerApi extends BaseAPI {
 
 	/**
 	 *
-	 * @param {EvidenceRequestControllerApiCreateDraftRequest} requestParameters Request parameters.
+	 * @param {EvidenceRequestControllerApiCreateDraft1Request} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
 	 * @memberof EvidenceRequestControllerApi
 	 */
-	public createDraft(
-		requestParameters: EvidenceRequestControllerApiCreateDraftRequest,
+	public createDraft1(
+		requestParameters: EvidenceRequestControllerApiCreateDraft1Request,
 		options?: AxiosRequestConfig
 	) {
 		return EvidenceRequestControllerApiFp(this.configuration)
-			.createDraft(
+			.createDraft1(
 				requestParameters.setUpDraftDto,
 				requestParameters.acceptLanguage,
 				options

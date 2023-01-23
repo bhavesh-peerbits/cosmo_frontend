@@ -14,16 +14,16 @@
 
 export * from './api/access-controller-api';
 export * from './api/analyst-campaign-controller-api';
+export * from './api/analyst-change-monitoring-controller-api';
 export * from './api/application-controller-api';
 export * from './api/auth-controller-api';
 export * from './api/config-element-controller-api';
 export * from './api/config-element-module-controller-api';
-export * from './api/control-controller-api';
 export * from './api/csv-reader-controller-api';
-export * from './api/dev-home-redirect-controller-api';
 export * from './api/evidence-request-controller-api';
 export * from './api/evidence-request-file-s3-controller-api';
 export * from './api/evidence-request-focal-point-controller-api';
+export * from './api/focal-point-change-monitoring-controller-api';
 export * from './api/framework-tree-controller-api';
 export * from './api/framework-tree-for-evidence-controller-api';
 export * from './api/frequency-controller-api';
@@ -35,6 +35,7 @@ export * from './api/profile-controller-api';
 export * from './api/realm-controller-api';
 export * from './api/reviewer-campaign-controller-api';
 export * from './api/reviewer-controller-api';
+export * from './api/scheduling-controller-api';
 export * from './api/send-mail-controller-api';
 export * from './api/template-controller-api';
 export * from './api/tenant-controller-api';

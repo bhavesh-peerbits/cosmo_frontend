@@ -18,7 +18,7 @@ import { useTranslation } from 'react-i18next';
 import { TooltipPosition } from '@carbon/react/typings/shared';
 import { UseQueryResult } from '@tanstack/react-query';
 
-type SingleUserSelectProps<
+export type SingleUserSelectProps<
 	T extends FieldValues,
 	TName extends FieldPath<T>
 > = UnpackNestedValue<PathValue<T, TName>> extends User

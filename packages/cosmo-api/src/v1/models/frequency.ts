@@ -35,11 +35,13 @@ export interface Frequency {
 export const FrequencyFrequencyTypesEnum = {
 	Daily: 'DAILY',
 	Weekly: 'WEEKLY',
+	Biweekly: 'BIWEEKLY',
 	Monthly: 'MONTHLY',
 	Quarterly: 'QUARTERLY',
 	Semiannual: 'SEMIANNUAL',
 	Annual: 'ANNUAL',
-	Ondemand: 'ONDEMAND'
+	Ondemand: 'ONDEMAND',
+	MultipleTimesPerDay: 'MULTIPLE_TIMES_PER_DAY'
 } as const;
 
 export type FrequencyFrequencyTypesEnum =

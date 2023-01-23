@@ -71,7 +71,7 @@ const InboxMonitoringTable = () => {
 			},
 			{
 				id: 'total-runs',
-				accessorFn: row => row.numberOfRun,
+				accessorFn: row => row.scheduling.totalRuns,
 				header: t('changeMonitoring:total-runs')
 			},
 			{
@@ -86,12 +86,12 @@ const InboxMonitoringTable = () => {
 			},
 			{
 				id: 'framework',
-				accessorFn: row => row.framework,
+				accessorFn: row => row.frameworkLeafsCodes,
 				header: 'Framework'
 			},
 			{
 				id: 'controls',
-				accessorFn: row => row.controls,
+				accessorFn: row => row.controlCode,
 				header: t('changeMonitoring:controls'),
 				cell: BulletListCell
 			}

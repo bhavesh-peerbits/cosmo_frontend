@@ -38,10 +38,10 @@ export interface DraftDto {
 	text?: string;
 	/**
 	 *
-	 * @type {Set<UserDto>}
+	 * @type {Array<UserDto>}
 	 * @memberof DraftDto
 	 */
-	collaborators?: Set<UserDto>;
+	collaborators?: Array<UserDto>;
 	/**
 	 *
 	 * @type {UserDto}
@@ -56,10 +56,10 @@ export interface DraftDto {
 	dueDate?: string;
 	/**
 	 *
-	 * @type {Set<FileLinkDto>}
+	 * @type {Array<FileLinkDto>}
 	 * @memberof DraftDto
 	 */
-	files?: Set<FileLinkDto>;
+	files?: Array<FileLinkDto>;
 	/**
 	 *
 	 * @type {PhaseType}

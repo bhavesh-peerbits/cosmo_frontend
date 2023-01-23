@@ -8,6 +8,8 @@
 @use './table';
 @use './table-form.scss';
 @use './no-data-empty-state.scss';
+@use './radio-button-width.scss';
+@use '@carbon/react/scss/themes' as default_theme;
 
 .container-w-sidenav {
 	@apply mr-0 p-0 md:ml-[3rem] lg:ml-[calc(32*0.5rem)];
@@ -88,4 +90,20 @@ input:-webkit-autofill:active {
 
 ::-webkit-scrollbar-corner {
 	@apply bg-layer-1;
+}
+
+// fix portal elements theme
+[data-carbon-theme='g10'] {
+	@include theme.theme(default_theme.$g10);
+	@include theme.theme(cosmo_theme.$theme-cosmo-white);
+}
+
+[data-carbon-theme='g90'] {
+	@include theme.theme(default_theme.$g90);
+	@include theme.theme(cosmo_theme.$theme-cosmo-dark);
+}
+
+[data-carbon-theme='g100'] {
+	@include theme.theme(default_theme.$g100);
+	@include theme.theme(cosmo_theme.$theme-cosmo-dark);
 }

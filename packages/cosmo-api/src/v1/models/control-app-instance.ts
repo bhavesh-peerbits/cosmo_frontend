@@ -42,10 +42,10 @@ export interface ControlAppInstance {
 	application?: Application;
 	/**
 	 *
-	 * @type {Set<string>}
+	 * @type {Array<string>}
 	 * @memberof ControlAppInstance
 	 */
-	controlOwnersDelegated?: Set<string>;
+	controlOwnersDelegated?: Array<string>;
 	/**
 	 *
 	 * @type {string}
