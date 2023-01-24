@@ -1,5 +1,6 @@
 import useAddFileAlreadyUpForDelta from '@api/change-monitoring/useAddFileAlreadyUpForDelta';
 import useAddFileForDelta from '@api/change-monitoring/useAddFileForDelta';
+import useAddOldRunFileForDelta from '@api/change-monitoring/useAddOldRunFileForDelta';
 import { RadioButton, RadioButtonGroup, Select, SelectItem, Layer } from '@carbon/react';
 import UploaderS3Monitoring from '@components/common/UploaderS3Monitoring';
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
@@ -19,12 +20,13 @@ type AddFileToPathModalProps = {
 const AddFileToPathModal = ({ id, includeLastRun, assetId }: AddFileToPathModalProps) => {
 	const { t } = useTranslation(['modals', 'runDetails', 'userRevalidation']);
 	const [addFileInfo, setAddFileInfo] = useRecoilState(addFileToRunAssetStore);
-	const [inputOptions, setInputOptions] = useState(1);
+	const [inputOptions, setInputOptions] = useState(id === '1' ? 2 : 1);
 	const { monitoringId = '', runId = '' } = useParams();
 	const { mutate: mutateAU } = useAddFileAlreadyUpForDelta();
 	const { mutate: mutateNew } = useAddFileForDelta();
+	const { mutate: mutateOld } = useAddOldRunFileForDelta();
 
-	const { control, getValues } = useForm<{ files: File[] }>({
+	const { control, getValues, reset } = useForm<{ files: File[] }>({
 		defaultValues: { files: [] }
 	});
 
@@ -33,6 +35,7 @@ const AddFileToPathModal = ({ id, includeLastRun, assetId }: AddFileToPathModalP
 	});
 
 	const cleanUp = () => {
+		reset({ files: [] });
 		setAddFileInfo(old => ({ ...old, isOpen: false, path: [] }));
 	};
 
@@ -44,35 +47,43 @@ const AddFileToPathModal = ({ id, includeLastRun, assetId }: AddFileToPathModalP
 
 	const handleSave = () => {
 		if (inputOptions === 1) {
-			mutateAU({
-				assetId,
-				runId,
-				fileLinkId: addFileInfo.previousRunFileId ?? '',
-				fileForDelta: { old: addFileInfo.old, path: addFileInfo.path }
-			});
+			mutateOld(
+				{
+					assetId,
+					runId,
+					fileForDelta: { old: addFileInfo.old, path: addFileInfo.path }
+				},
+				{ onSuccess: cleanUp }
+			);
 		}
 		if (inputOptions === 2) {
-			mutateAU({
-				assetId,
-				runId,
-				fileLinkId: getValuesSelect('fileId'),
-				fileForDelta: { old: addFileInfo.old, path: addFileInfo.path }
-			});
+			mutateNew(
+				{
+					assetId,
+					file: getValues('files')[0],
+					fileForDelta: {
+						fileLink: fromFiletoFileLink(
+							getValues('files')[0],
+							generatePathS3(addFileInfo.old)
+						),
+						old: addFileInfo.old,
+						path: addFileInfo.path
+					},
+					runId
+				},
+				{ onSuccess: cleanUp }
+			);
 		}
 		if (inputOptions === 3) {
-			mutateNew({
-				assetId,
-				file: getValues('files')[0],
-				fileForDelta: {
-					fileLink: fromFiletoFileLink(
-						getValues('files')[0],
-						generatePathS3(addFileInfo.old)
-					),
-					old: addFileInfo.old,
-					path: addFileInfo.path
+			mutateAU(
+				{
+					assetId,
+					runId,
+					fileLinkId: getValuesSelect('fileId'),
+					fileForDelta: { old: addFileInfo.old, path: addFileInfo.path }
 				},
-				runId
-			});
+				{ onSuccess: cleanUp }
+			);
 		}
 	};
 	return (
@@ -109,13 +120,31 @@ const AddFileToPathModal = ({ id, includeLastRun, assetId }: AddFileToPathModalP
 						name='select-file'
 						orientation='vertical'
 						legendText={t('runDetails:select-file-method')}
-						defaultSelected='1'
+						defaultSelected={id === '1' || !addFileInfo.old ? '2' : '1'}
 						className='fix-width-radio'
 					>
+						{!addFileInfo.old && (
+							<RadioButton
+								labelText={t('runDetails:use-last-run')}
+								value='1'
+								disabled={id === '1'}
+								onClick={() => setInputOptions(1)}
+							/>
+						)}
 						<RadioButton
-							labelText={t('runDetails:use-last-run')}
-							value='1'
-							onClick={() => setInputOptions(1)}
+							labelText={
+								<div className='space-y-3'>
+									<p>{t('runDetails:upload-new-file')}</p>
+									<Layer>
+										<UploaderS3Monitoring
+											control={control}
+											disabled={inputOptions !== 2}
+										/>
+									</Layer>
+								</div>
+							}
+							value='2'
+							onClick={() => setInputOptions(2)}
 						/>
 						<RadioButton
 							disabled={
@@ -133,7 +162,7 @@ const AddFileToPathModal = ({ id, includeLastRun, assetId }: AddFileToPathModalP
 										<Select
 											id='file-selection'
 											noLabel
-											disabled={inputOptions !== 2}
+											disabled={inputOptions !== 3}
 											{...register('fileId')}
 										>
 											{(addFileInfo.old
@@ -153,21 +182,6 @@ const AddFileToPathModal = ({ id, includeLastRun, assetId }: AddFileToPathModalP
 								</div>
 							}
 							className='flex w-full justify-start'
-							value='2'
-							onClick={() => setInputOptions(2)}
-						/>
-						<RadioButton
-							labelText={
-								<div className='space-y-3'>
-									<p>{t('runDetails:upload-new-file')}</p>
-									<Layer>
-										<UploaderS3Monitoring
-											control={control}
-											disabled={inputOptions !== 3}
-										/>
-									</Layer>
-								</div>
-							}
 							value='3'
 							onClick={() => setInputOptions(3)}
 						/>

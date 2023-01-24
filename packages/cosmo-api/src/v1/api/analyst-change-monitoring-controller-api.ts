@@ -240,6 +240,71 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
+		 * @param {number} runId
+		 * @param {number} assetId
+		 * @param {FileForDeltaDto} fileForDeltaDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		addOldRunFileForDelta: async (
+			runId: number,
+			assetId: number,
+			fileForDeltaDto: FileForDeltaDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'runId' is not null or undefined
+			assertParamExists('addOldRunFileForDelta', 'runId', runId);
+			// verify required parameter 'assetId' is not null or undefined
+			assertParamExists('addOldRunFileForDelta', 'assetId', assetId);
+			// verify required parameter 'fileForDeltaDto' is not null or undefined
+			assertParamExists('addOldRunFileForDelta', 'fileForDeltaDto', fileForDeltaDto);
+			const localVarPath =
+				`/api/change-monitoring/analyst/run/{runId}/asset/{assetId}/add-old-run-file-for-delta`
+					.replace(`{${'runId'}}`, encodeURIComponent(String(runId)))
+					.replace(`{${'assetId'}}`, encodeURIComponent(String(assetId)));
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				fileForDeltaDto,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
 		 * @param {number} draftId
 		 * @param {number} assetId
 		 * @param {string} body
@@ -2239,6 +2304,36 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		},
 		/**
 		 *
+		 * @param {number} runId
+		 * @param {number} assetId
+		 * @param {FileForDeltaDto} fileForDeltaDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async addOldRunFileForDelta(
+			runId: number,
+			assetId: number,
+			fileForDeltaDto: FileForDeltaDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.addOldRunFileForDelta(
+				runId,
+				assetId,
+				fileForDeltaDto,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
 		 * @param {number} draftId
 		 * @param {number} assetId
 		 * @param {string} body
@@ -3232,6 +3327,26 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		},
 		/**
 		 *
+		 * @param {number} runId
+		 * @param {number} assetId
+		 * @param {FileForDeltaDto} fileForDeltaDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		addOldRunFileForDelta(
+			runId: number,
+			assetId: number,
+			fileForDeltaDto: FileForDeltaDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<void> {
+			return localVarFp
+				.addOldRunFileForDelta(runId, assetId, fileForDeltaDto, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
 		 * @param {number} draftId
 		 * @param {number} assetId
 		 * @param {string} body
@@ -3920,6 +4035,41 @@ export interface AnalystChangeMonitoringControllerApiAddFileForDeltaRequest {
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
 	 * @memberof AnalystChangeMonitoringControllerApiAddFileForDelta
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for addOldRunFileForDelta operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiAddOldRunFileForDeltaRequest
+ */
+export interface AnalystChangeMonitoringControllerApiAddOldRunFileForDeltaRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiAddOldRunFileForDelta
+	 */
+	readonly runId: number;
+
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiAddOldRunFileForDelta
+	 */
+	readonly assetId: number;
+
+	/**
+	 *
+	 * @type {FileForDeltaDto}
+	 * @memberof AnalystChangeMonitoringControllerApiAddOldRunFileForDelta
+	 */
+	readonly fileForDeltaDto: FileForDeltaDto;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiAddOldRunFileForDelta
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
@@ -4797,6 +4947,28 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 				requestParameters.assetId,
 				requestParameters.fileForDelta,
 				requestParameters.file,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystChangeMonitoringControllerApiAddOldRunFileForDeltaRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystChangeMonitoringControllerApi
+	 */
+	public addOldRunFileForDelta(
+		requestParameters: AnalystChangeMonitoringControllerApiAddOldRunFileForDeltaRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.addOldRunFileForDelta(
+				requestParameters.runId,
+				requestParameters.assetId,
+				requestParameters.fileForDeltaDto,
 				requestParameters.acceptLanguage,
 				options
 			)
