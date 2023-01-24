@@ -76,30 +76,38 @@ const RunAssetPeriodContent = ({ runAsset, old }: RunAssetPeriodContentProps) =>
 							: t('runDetails:current-period-description')}
 					</p>
 					<div className='space-x-3'>
-						{(old
-							? addFileInfo.possiblePreviousFiles
-							: addFileInfo.possibleCurrentFiles
-						).map(file => (
-							<Tag key={file.name} filter size='md' type='gray'>
-								<button
-									type='button'
-									className='flex space-x-2'
-									onClick={() => DownloadFile(file)}
-								>
-									<Download />
-									<span className='text-link-primary hover:text-link-primary-hover hover:underline'>
-										{file.name}
-									</span>
-								</button>
-							</Tag>
-						))}
+						{[
+							...new Map(
+								(old
+									? addFileInfo.possiblePreviousFiles
+									: addFileInfo.possibleCurrentFiles
+								).map(item => [item.id, item])
+							).values()
+						].map(file => {
+							return (
+								<Tag key={file.name} filter size='md' type='gray'>
+									<button
+										type='button'
+										className='flex space-x-2'
+										onClick={() => DownloadFile(file)}
+									>
+										<Download />
+										<span className='text-link-primary hover:text-link-primary-hover hover:underline'>
+											{file.name}
+										</span>
+									</button>
+								</Tag>
+							);
+						})}
 					</div>
 				</div>
 			</div>
 			<Layer level={0}>
 				<FileUploadTable
 					data={runAsset.paths.map(p => ({
-						runFileLink: runAsset.runFileLinks?.find(rfl => rfl.path.path === p.path),
+						runFileLink: runAsset.runFileLinks?.find(
+							rfl => rfl.path.path === p.path && rfl.old === old
+						),
 						path: p.path,
 						fileLastRun: prevFile?.find(pf => pf.path.path === p.path)?.fileLink
 					}))}

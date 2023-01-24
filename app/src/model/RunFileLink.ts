@@ -1,6 +1,6 @@
 import { RunFileLinkApi } from 'cosmo-api';
 import { PathDto } from 'cosmo-api/src/v1';
-import FileLink, { toFileLinkApi } from './FileLink';
+import FileLink, { fromFileLinkApi, toFileLinkApi } from './FileLink';
 
 interface RunFileLink {
 	id: string;
@@ -13,7 +13,7 @@ export default RunFileLink;
 
 export const fromRunFileLinkApi = (runFileLinkApi: RunFileLinkApi): RunFileLink => ({
 	id: `${runFileLinkApi.id}`,
-	fileLink: fromRunFileLinkApi(runFileLinkApi),
+	fileLink: fromFileLinkApi(runFileLinkApi.fileLink),
 	path: runFileLinkApi.path,
 	old: runFileLinkApi.old
 });
