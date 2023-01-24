@@ -1,8 +1,9 @@
 /* eslint-disable no-nested-ternary */
 import { atom, selector } from 'recoil';
 import { GetRecoilType } from '@store/util';
-import { isAfter, isBefore } from 'date-fns';
 import Monitoring from '@model/Monitoring';
+import { isAfter, isBefore } from 'date-fns';
+import authStore from '@store/auth/authStore';
 
 type Filters = {
 	frequency: string[];
@@ -17,8 +18,8 @@ type Filters = {
 	isTile: boolean | undefined;
 };
 
-const dashboardFilters = atom<Filters>({
-	key: 'monitoringDashboardFilters',
+const inboxMonitoringFilters = atom<Filters>({
+	key: 'inboxMonitoringFilters',
 	default: {
 		frequency: [],
 		numberOfRun: undefined,
@@ -33,14 +34,15 @@ const dashboardFilters = atom<Filters>({
 	}
 });
 
-const startedMonitorings = atom<Monitoring[]>({
-	key: 'startedMonitorings',
+const inboxMonitorings = atom<Monitoring[]>({
+	key: 'inboxMonitorings',
 	default: []
 });
 
 const applyFilters = (
-	monitorings: GetRecoilType<typeof startedMonitorings>,
-	filters: GetRecoilType<typeof dashboardFilters>
+	monitorings: GetRecoilType<typeof inboxMonitorings>,
+	filters: GetRecoilType<typeof inboxMonitoringFilters>,
+	auth: GetRecoilType<typeof authStore>
 ) => {
 	const filteredMonitorings = monitorings
 		// filter by query term string
@@ -88,8 +90,7 @@ const applyFilters = (
 					filters.frequency.length
 						? filters.frequency.some(
 								freq =>
-									monitoring.scheduling.frequency.toLocaleLowerCase() ===
-									freq.toLowerCase()
+									monitoring.scheduling.frequency.toLowerCase() === freq.toLowerCase()
 						  )
 						: true
 				)
@@ -104,52 +105,55 @@ const applyFilters = (
 					filters.currentRun ? filters.currentRun === monitoring.currentRun : true
 				)
 				// filter by tab
-				.filter(monitoring =>
-					filters.tab === 1
-						? monitoring.status === 'PENDING'
+				.filter(monitoring => {
+					const isWaitingForAuthUser =
+						monitoring.status === 'WAITING_FOR_FOCALPOINT' &&
+						monitoring.runs.find(r => r.orderNumber === monitoring.currentRun)?.focalPoint
+							?.id === auth?.user?.id;
+					return filters.tab === 1
+						? isWaitingForAuthUser
 						: filters.tab === 2
-						? monitoring.status === 'ONGOING'
-						: filters.tab === 3
-						? monitoring.status === 'COMPLETED'
-						: monitoring
-				)
+						? !isWaitingForAuthUser
+						: monitoring;
+				})
 		);
 	}
 	return filteredMonitorings;
 };
 
-const filteredStartedMonitorings = selector({
-	key: 'filteredStartedMonitorings',
+const filteredInboxMonitorings = selector({
+	key: 'filteredInboxMonitorings',
 	get: ({ get }) => {
-		const filters = get(dashboardFilters);
-		const monitorings = get(startedMonitorings);
+		const filters = get(inboxMonitoringFilters);
+		const monitorings = get(inboxMonitorings);
+		const auth = get(authStore);
 		return {
-			monitorings: applyFilters(monitorings, filters),
+			monitorings: applyFilters(monitorings, filters, auth),
 			maxStartDate: new Date(
 				Math.max(
 					...monitorings.map(element => {
-						return element.scheduling.startDate.getTime();
+						return new Date(element.scheduling.startDate).getTime();
 					})
 				)
 			),
 			minStartDate: new Date(
 				Math.min(
 					...monitorings.map(element => {
-						return element.scheduling.startDate.getTime();
+						return new Date(element.scheduling.startDate).getTime();
 					})
 				)
 			),
 			maxEndDate: new Date(
 				Math.max(
 					...monitorings.map(element => {
-						return element.scheduling.endDate ? element.scheduling.endDate.getTime() : 0;
+						return element.scheduling.endDate?.getTime() || 0;
 					})
 				)
 			),
 			minEndDate: new Date(
 				Math.min(
 					...monitorings.map(element => {
-						return element.scheduling.endDate ? element.scheduling.endDate.getTime() : 0;
+						return element.scheduling.endDate?.getTime() || 0;
 					})
 				)
 			),
@@ -187,4 +191,4 @@ const filteredStartedMonitorings = selector({
 	}
 });
 
-export { dashboardFilters, startedMonitorings, filteredStartedMonitorings };
+export { inboxMonitoringFilters, inboxMonitorings, filteredInboxMonitorings };

@@ -1,9 +1,9 @@
-import useStartedMonitorings from '@hooks/monitoring-dashboard/useStartedMonitorings';
 import { Column, Grid } from '@carbon/react';
+import useInboxMonitorings from '@hooks/inbox-monitoring/useInboxMonitorings';
 import MonitoringDashboardTile from '@components/ChangeMonitoring/MonitoringDashboardTile';
 
-const MonitoringDashboardTilesContainer = () => {
-	const { monitorings } = useStartedMonitorings();
+const InboxMonitoringTilesContainer = () => {
+	const { monitorings } = useInboxMonitorings();
 	return (
 		<Grid fullWidth narrow className='pl-5'>
 			{monitorings.map(monitoring => (
@@ -14,4 +14,4 @@ const MonitoringDashboardTilesContainer = () => {
 		</Grid>
 	);
 };
-export default MonitoringDashboardTilesContainer;
+export default InboxMonitoringTilesContainer;

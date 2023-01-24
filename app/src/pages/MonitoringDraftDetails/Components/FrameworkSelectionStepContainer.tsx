@@ -128,6 +128,7 @@ const FrameworkSelectionStepContainer = ({
 	useEffect(() => {
 		setValue('association', 'FREE');
 	}, [setValue, draft]);
+
 	const saveDraft = (data: FrameworkStepFormData) => {
 		return mutate(
 			{

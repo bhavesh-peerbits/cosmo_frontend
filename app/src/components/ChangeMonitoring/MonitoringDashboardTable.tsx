@@ -1,7 +1,6 @@
 import CosmoTable from '@components/table/CosmoTable';
 import { CellContext, ColumnDef } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
-import useStartedMonitorings from '@hooks/monitoring-dashboard/useStartedMonitorings';
 import Monitoring from '@model/Monitoring';
 import { useMemo } from 'react';
 import DateCell from '@components/table/Cell/DateCell';
@@ -16,9 +15,11 @@ const CellLink = ({ getValue }: CellContext<any, unknown>) => {
 	return <span>{value.name}</span>;
 };
 
-const MonitoringDashboardTable = () => {
+type MonitoringDashboardTableProps = {
+	monitorings: Monitoring[];
+};
+const MonitoringDashboardTable = ({ monitorings }: MonitoringDashboardTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'monitoringDashboard', 'table']);
-	const { monitorings } = useStartedMonitorings();
 	// TODO Fix meta export
 	const columns = useMemo<ColumnDef<Monitoring>[]>(() => {
 		const ArrayCol: ColumnDef<Monitoring>[] = [
@@ -30,11 +31,20 @@ const MonitoringDashboardTable = () => {
 				}),
 				cell: CellLink,
 				header: t('changeMonitoring:monitoring-name'),
-				sortUndefined: 1
+				sortUndefined: 1,
+				meta: {
+					exportableFn: info =>
+						(
+							info as {
+								name: string;
+								id: string;
+							}
+						).name
+				}
 			},
 			{
 				id: 'frequency',
-				accessorFn: row => row.scheduling.frequency,
+				accessorFn: row => t(`changeMonitoring:${row.scheduling.frequency}`),
 				header: t('changeMonitoring:frequency')
 			},
 			{
@@ -61,7 +71,7 @@ const MonitoringDashboardTable = () => {
 			},
 			{
 				id: 'status',
-				accessorFn: row => row.status,
+				accessorFn: row => t(`changeMonitoring:${row.status}`),
 				header: t('monitoringDashboard:status')
 			},
 			{
@@ -83,7 +93,6 @@ const MonitoringDashboardTable = () => {
 			<CosmoTable
 				tableId='monitoring-dashboard-table'
 				columns={columns}
-				noDataMessage={t('table:no-data')}
 				isColumnOrderingEnabled
 				toolbar={{
 					searchBar: true,
@@ -93,6 +102,8 @@ const MonitoringDashboardTable = () => {
 				exportFileName={({ all }) => (all ? 'monitorings-all' : 'monitorings-selection')}
 				data={monitorings}
 				isSelectable
+				noDataMessage={t('changeMonitoring:no-monitoring')}
+				noDataMessageSubtitle={t('changeMonitoring:no-monitoring-subtitle')}
 			/>
 		</Layer>
 	);

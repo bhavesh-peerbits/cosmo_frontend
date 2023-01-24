@@ -1,16 +1,16 @@
 import { Grid, Layer, Search, ContentSwitcher, Switch } from '@carbon/react';
-import useStartedMonitorings from '@hooks/monitoring-dashboard/useStartedMonitorings';
 import { useTranslation } from 'react-i18next';
 import { Grid as GridIcon, HorizontalView } from '@carbon/react/icons';
+import useInboxMonitorings from '@hooks/inbox-monitoring/useInboxMonitorings';
 import Centered from '@components/Centered';
+import FullWidthColumn from '@components/FullWidthColumn';
 import NoDataMessage from '@components/NoDataMessage';
 import Fade from '@components/Fade';
-import FullWidthColumn from '@components/FullWidthColumn';
-import MonitoringDashboardFilters from '../Components/MonitoringDashboardFilters';
-import MonitoringDashboardTilesContainer from './MonitoringDashboardTilesContainer';
+import InboxMonitoringTilesContainer from '../Components/InboxMonitoringTilesContainer';
+import InboxMonitoringFilters from '../Components/InboxMonitoringFilters';
 
 const SearchBar = () => {
-	const { filters, setFilters } = useStartedMonitorings();
+	const { filters, setFilters } = useInboxMonitorings();
 	const { t } = useTranslation('changeMonitoring');
 	return (
 		<Layer className='w-full'>
@@ -26,19 +26,19 @@ const SearchBar = () => {
 };
 
 const MonitoringDashboardTileView = () => {
-	const { setFilters, monitorings } = useStartedMonitorings();
+	const { setFilters, monitorings } = useInboxMonitorings();
 	const { t } = useTranslation('changeMonitoring');
 	return (
 		<Grid fullWidth className='space-y-5'>
 			<FullWidthColumn>
 				<div className='w-full items-center sm:space-y-5 md:flex md:space-x-5 md:space-y-0'>
 					<div className='flex w-full space-x-5'>
-						<MonitoringDashboardFilters />
+						<InboxMonitoringFilters />
 						<SearchBar />
 					</div>
 					<div className='flex items-center space-x-5'>
 						<div className='whitespace-nowrap'>{`${monitorings.length} ${t(
-							'monitorings'
+							'drafts'
 						)}`}</div>
 						<ContentSwitcher
 							onChange={() => {
@@ -54,7 +54,7 @@ const MonitoringDashboardTileView = () => {
 							</Switch>
 						</ContentSwitcher>
 					</div>
-				</div>{' '}
+				</div>
 			</FullWidthColumn>
 			<FullWidthColumn>
 				{monitorings.length === 0 ? (
@@ -64,7 +64,7 @@ const MonitoringDashboardTileView = () => {
 						</Centered>
 					</Fade>
 				) : (
-					<MonitoringDashboardTilesContainer />
+					<InboxMonitoringTilesContainer />
 				)}
 			</FullWidthColumn>
 		</Grid>

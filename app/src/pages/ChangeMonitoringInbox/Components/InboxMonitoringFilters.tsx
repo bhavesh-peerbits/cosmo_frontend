@@ -1,11 +1,11 @@
 import { Checkbox, Layer, Button, TextInput, Form } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
-import useStartedMonitorings from '@hooks/monitoring-dashboard/useStartedMonitorings';
 import CosmoFiltersPanel from '@components/CosmoFiltersPanel';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import DatePickerWrapper from '@components/DatePickerWrapper';
 import { FrequencyFrequencyTypesEnum } from 'cosmo-api/src/v1';
+import useInboxMonitorings from '@hooks/inbox-monitoring/useInboxMonitorings';
 
 type MonitoringFiltersForm = {
 	minStartDate: Date;
@@ -16,14 +16,14 @@ type MonitoringFiltersForm = {
 	totalRuns: string;
 	frequency: string[];
 };
-const MonitoringDashboardFilters = () => {
+const InboxMonitoringFilters = () => {
 	const { t } = useTranslation([
 		'changeMonitoring',
 		'monitoringDashboard',
 		'evidenceRequest',
 		'userSelect'
 	]);
-	const { filtersAvailable, setFilters } = useStartedMonitorings();
+	const { filtersAvailable, setFilters } = useInboxMonitorings();
 
 	const {
 		register,
@@ -179,4 +179,4 @@ const MonitoringDashboardFilters = () => {
 	);
 };
 
-export default MonitoringDashboardFilters;
+export default InboxMonitoringFilters;
