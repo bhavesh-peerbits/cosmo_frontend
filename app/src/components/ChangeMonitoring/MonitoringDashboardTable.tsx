@@ -31,11 +31,20 @@ const MonitoringDashboardTable = ({ monitorings }: MonitoringDashboardTableProps
 				}),
 				cell: CellLink,
 				header: t('changeMonitoring:monitoring-name'),
-				sortUndefined: 1
+				sortUndefined: 1,
+				meta: {
+					exportableFn: info =>
+						(
+							info as {
+								name: string;
+								id: string;
+							}
+						).name
+				}
 			},
 			{
 				id: 'frequency',
-				accessorFn: row => row.scheduling.frequency,
+				accessorFn: row => t(`changeMonitoring:${row.scheduling.frequency}`),
 				header: t('changeMonitoring:frequency')
 			},
 			{
@@ -62,7 +71,7 @@ const MonitoringDashboardTable = ({ monitorings }: MonitoringDashboardTableProps
 			},
 			{
 				id: 'status',
-				accessorFn: row => row.status,
+				accessorFn: row => t(`changeMonitoring:${row.status}`),
 				header: t('monitoringDashboard:status')
 			},
 			{
@@ -84,7 +93,6 @@ const MonitoringDashboardTable = ({ monitorings }: MonitoringDashboardTableProps
 			<CosmoTable
 				tableId='monitoring-dashboard-table'
 				columns={columns}
-				noDataMessage={t('table:no-data')}
 				isColumnOrderingEnabled
 				toolbar={{
 					searchBar: true,
@@ -94,6 +102,8 @@ const MonitoringDashboardTable = ({ monitorings }: MonitoringDashboardTableProps
 				exportFileName={({ all }) => (all ? 'monitorings-all' : 'monitorings-selection')}
 				data={monitorings}
 				isSelectable
+				noDataMessage={t('changeMonitoring:no-monitoring')}
+				noDataMessageSubtitle={t('changeMonitoring:no-monitoring-subtitle')}
 			/>
 		</Layer>
 	);

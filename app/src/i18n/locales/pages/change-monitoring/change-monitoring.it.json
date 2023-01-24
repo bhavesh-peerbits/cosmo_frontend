@@ -151,5 +151,6 @@
 	"min-start-date": "Data di inizio minima",
 	"max-start-date": "Data di inizio massima",
 	"min-end-date": "Data di fine minima",
-	"max-end-date": "Data di fine massima"
+	"max-end-date": "Data di fine massima",
+	"no-monitoring-subtitle": "Nessun monitoraggio trovato per questa tabella. Prova a cambiare i filtri o riprova più tardi."
 }

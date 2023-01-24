@@ -3,6 +3,7 @@ import { atom, selector } from 'recoil';
 import { GetRecoilType } from '@store/util';
 import Monitoring from '@model/Monitoring';
 import { isAfter, isBefore } from 'date-fns';
+import authStore from '@store/auth/authStore';
 
 type Filters = {
 	frequency: string[];
@@ -40,7 +41,8 @@ const inboxMonitorings = atom<Monitoring[]>({
 
 const applyFilters = (
 	monitorings: GetRecoilType<typeof inboxMonitorings>,
-	filters: GetRecoilType<typeof inboxMonitoringFilters>
+	filters: GetRecoilType<typeof inboxMonitoringFilters>,
+	auth: GetRecoilType<typeof authStore>
 ) => {
 	const filteredMonitorings = monitorings
 		// filter by query term string
@@ -103,13 +105,17 @@ const applyFilters = (
 					filters.currentRun ? filters.currentRun === monitoring.currentRun : true
 				)
 				// filter by tab
-				.filter(monitoring =>
-					filters.tab === 1
-						? monitoring.status === 'PENDING'
+				.filter(monitoring => {
+					const isWaitingForAuthUser =
+						monitoring.status === 'WAITING_FOR_FOCALPOINT' &&
+						monitoring.runs.find(r => r.orderNumber === monitoring.currentRun)?.focalPoint
+							?.id === auth?.user?.id;
+					return filters.tab === 1
+						? isWaitingForAuthUser
 						: filters.tab === 2
-						? monitoring.status === 'COMPLETED'
-						: monitoring
-				)
+						? !isWaitingForAuthUser
+						: monitoring;
+				})
 		);
 	}
 	return filteredMonitorings;
@@ -120,8 +126,9 @@ const filteredInboxMonitorings = selector({
 	get: ({ get }) => {
 		const filters = get(inboxMonitoringFilters);
 		const monitorings = get(inboxMonitorings);
+		const auth = get(authStore);
 		return {
-			monitorings: applyFilters(monitorings, filters),
+			monitorings: applyFilters(monitorings, filters, auth),
 			maxStartDate: new Date(
 				Math.max(
 					...monitorings.map(element => {

@@ -148,5 +148,6 @@
 	"min-start-date": "Minimum start date",
 	"max-start-date": "Maximum start date",
 	"min-end-date": "Minimum end date",
-	"max-end-date": "Maximum end date"
+	"max-end-date": "Maximum end date",
+	"no-monitoring-subtitle": "No monitoring found for this table, try changing your filters or try again later."
 }

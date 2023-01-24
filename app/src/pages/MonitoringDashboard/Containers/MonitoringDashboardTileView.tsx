@@ -38,7 +38,7 @@ const MonitoringDashboardTileView = () => {
 					</div>
 					<div className='flex items-center space-x-5'>
 						<div className='whitespace-nowrap'>{`${monitorings.length} ${t(
-							'drafts'
+							'monitorings'
 						)}`}</div>
 						<ContentSwitcher
 							onChange={() => {

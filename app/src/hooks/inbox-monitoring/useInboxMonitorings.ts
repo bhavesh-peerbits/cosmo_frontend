@@ -6,7 +6,7 @@ import {
 } from '@store/inbox-monitoring/inboxMonitoringFilters';
 import { useEffect } from 'react';
 import useUrlState from '@hooks/useUrlState';
-import useGetAllMonitoring from '@api/change-monitoring/useGetAllMonitoring';
+import useGetAllMonitoringInbox from '@api/change-monitoring-inbox/useGetAllMonitoringInbox';
 
 const useInboxMonitorings = () => {
 	const [urlFilters, setUrlFilters] = useUrlState<{
@@ -44,7 +44,8 @@ const useInboxMonitorings = () => {
 		maxEndDate,
 		currentRun
 	} = useRecoilValue(filteredInboxMonitorings);
-	const { data = new Map() } = useGetAllMonitoring();
+
+	const { data = new Map() } = useGetAllMonitoringInbox();
 
 	useEffect(() => {
 		setMonitorings([...data.values()]);
