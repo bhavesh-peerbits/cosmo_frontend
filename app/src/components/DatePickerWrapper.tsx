@@ -7,6 +7,7 @@ interface DatePickerWrapperProps<T extends FieldValues, TName extends FieldPath<
 	control: UseControllerProps<T, TName>['control'];
 	name: TName;
 	minDate?: Date;
+	maxDate?: Date;
 	label: string;
 	rules?: UseControllerProps<T, TName>['rules'];
 }
@@ -16,7 +17,8 @@ const DatePickerWrapper = <T extends FieldValues, TName extends FieldPath<T>>({
 	label,
 	rules,
 	name,
-	minDate
+	minDate,
+	maxDate
 }: DatePickerWrapperProps<T, TName>) => {
 	const { format, placeholder, localeCode, locale } = useGetDateFormat();
 	const formatShort = (date: Date) => formatDate(date, 'P', { locale });
@@ -36,6 +38,7 @@ const DatePickerWrapper = <T extends FieldValues, TName extends FieldPath<T>>({
 					allowInput
 					className='w-full'
 					minDate={minDate ? formatShort(minDate) : undefined}
+					maxDate={maxDate ? formatShort(maxDate) : undefined}
 					value={value}
 				>
 					<DatePickerInput

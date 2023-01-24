@@ -2,7 +2,7 @@ import { Checkbox, Layer, Button, TextInput, Form } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import CosmoFiltersPanel from '@components/CosmoFiltersPanel';
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DatePickerWrapper from '@components/DatePickerWrapper';
 import { FrequencyFrequencyTypesEnum } from 'cosmo-api/src/v1';
 import useInboxMonitorings from '@hooks/inbox-monitoring/useInboxMonitorings';
@@ -14,6 +14,7 @@ type MonitoringFiltersForm = {
 	maxEndDate: Date;
 	currentRun: string;
 	totalRuns: string;
+	frequency: string[];
 };
 const InboxMonitoringFilters = () => {
 	const { t } = useTranslation([
@@ -24,17 +25,26 @@ const InboxMonitoringFilters = () => {
 	]);
 	const { filtersAvailable, setFilters } = useInboxMonitorings();
 
-	const { register, control, reset, handleSubmit } = useForm<MonitoringFiltersForm>({
+	const {
+		register,
+		control,
+		reset,
+		getValues,
+		handleSubmit,
+		setValue,
+		formState: { isDirty }
+	} = useForm<MonitoringFiltersForm>({
 		defaultValues: {
 			minStartDate: undefined,
 			maxStartDate: undefined,
 			minEndDate: undefined,
 			maxEndDate: undefined,
 			currentRun: undefined,
-			totalRuns: undefined
+			totalRuns: undefined,
+			frequency: []
 		}
 	});
-	const [frequencyChecked, setFrequencyChecked] = useState(['']);
+	const [frequencyChecked, setFrequencyChecked] = useState<string[]>([]);
 
 	const saveFilters = (data: MonitoringFiltersForm) => {
 		setFilters({
@@ -47,6 +57,10 @@ const InboxMonitoringFilters = () => {
 			numberOfRun: +data.totalRuns || undefined
 		});
 	};
+
+	useEffect(() => {
+		setValue('frequency', frequencyChecked, { shouldDirty: frequencyChecked.length > 0 });
+	}, [setValue, frequencyChecked]);
 
 	return (
 		<CosmoFiltersPanel flipped>
@@ -70,21 +84,25 @@ const InboxMonitoringFilters = () => {
 					<DatePickerWrapper
 						control={control}
 						name='minStartDate'
+						maxDate={getValues('maxStartDate')}
 						label={t('changeMonitoring:min-start-date')}
 					/>
 					<DatePickerWrapper
 						control={control}
 						name='maxStartDate'
+						minDate={getValues('minStartDate')}
 						label={t('changeMonitoring:max-start-date')}
 					/>
 					<DatePickerWrapper
 						control={control}
 						name='minEndDate'
+						maxDate={getValues('maxEndDate')}
 						label={t('changeMonitoring:min-end-date')}
 					/>
 					<DatePickerWrapper
 						control={control}
 						name='maxEndDate'
+						minDate={getValues('minEndDate')}
 						label={t('changeMonitoring:max-end-date')}
 					/>
 					<div className='space-y-3'>
@@ -105,9 +123,11 @@ const InboxMonitoringFilters = () => {
 						{filtersAvailable.frequency.map(filter => (
 							<Checkbox
 								key={filter.frequency}
-								// checked={filter.enabled}
+								checked={frequencyChecked.includes(filter.frequency)}
 								onChange={(_, { checked, id }) =>
-									setFrequencyChecked(old => (checked ? [...old, id] : old))
+									setFrequencyChecked(old =>
+										checked ? [...old, id] : old.filter(f => f !== id)
+									)
 								}
 								id={filter.frequency}
 								labelText={t(
@@ -131,12 +151,23 @@ const InboxMonitoringFilters = () => {
 					<div>
 						<div className='space-y-3'>
 							<div className='w-full'>
-								<Button className='w-full' size='sm' kind='secondary' type='reset'>
+								<Button
+									className='w-full'
+									size='sm'
+									kind='secondary'
+									type='reset'
+									disabled={!isDirty}
+								>
 									Reset
 								</Button>
 							</div>
 							<div className='w-full'>
-								<Button className='w-full' size='sm' onClick={handleSubmit(saveFilters)}>
+								<Button
+									className='w-full'
+									size='sm'
+									onClick={handleSubmit(saveFilters)}
+									disabled={!isDirty}
+								>
 									{t('evidenceRequest:save')}
 								</Button>
 							</div>
