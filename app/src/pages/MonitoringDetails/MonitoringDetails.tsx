@@ -18,6 +18,7 @@ type MonitoringDetailsProps = {
 	isFocalPoint?: boolean;
 	getMonitoringFn?: (monitoringId: string) => UseQueryResult<Monitoring, unknown>;
 };
+
 const MonitoringDetails = ({
 	isFocalPoint,
 	getMonitoringFn = useGetMonitoringById

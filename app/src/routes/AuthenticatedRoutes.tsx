@@ -8,6 +8,7 @@ import PageSkeleton from '@components/PageSkeleton';
 import usePolicyStore from '@hooks/usePolicyStore';
 import ProtectRoute from '@routes/ProtectRoute';
 import useGetMonitoringByIdInbox from '@api/change-monitoring-inbox/useGetMonitoringById';
+import useGetRunByIdInbox from '@api/change-monitoring-inbox/useGetRunByIdInbox';
 
 const Home = React.lazy(() => import('@pages/Home'));
 const Test = React.lazy(() => import('@pages/Test'));
@@ -354,7 +355,10 @@ const AuthenticatedRoutes = () => {
 										path=':runId'
 										element={
 											<ProtectRoute canNavigate={canReview}>
-												<MonitoringRunDetails />
+												<MonitoringRunDetails
+													getMonitoringFn={useGetMonitoringByIdInbox}
+													getRunFn={useGetRunByIdInbox}
+												/>
 											</ProtectRoute>
 										}
 									/>
