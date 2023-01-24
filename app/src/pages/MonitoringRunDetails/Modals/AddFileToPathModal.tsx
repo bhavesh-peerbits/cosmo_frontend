@@ -33,13 +33,13 @@ const AddFileToPathModal = ({ id, includeLastRun, assetId }: AddFileToPathModalP
 	});
 
 	const cleanUp = () => {
-		setAddFileInfo(old => ({ ...old, isOpen: false, path: '' }));
+		setAddFileInfo(old => ({ ...old, isOpen: false, path: [] }));
 	};
 
 	const generatePathS3 = (old: boolean) => {
-		return `${new Date().getFullYear()}/change_monitoring/monitoring/${monitoringId}/run/${runId}/${id}/asset/${assetId}/${
-			old ? 'previous' : 'current'
-		}`;
+		return `${new Date().getFullYear()}/change_monitoring/monitoring/${monitoringId}/run/${runId}/${id}/asset/${assetId}/${(
+			Math.random() * 100000000
+		).toFixed()}/${old ? 'previous' : 'current'}`;
 	};
 
 	const handleSave = () => {
@@ -75,7 +75,6 @@ const AddFileToPathModal = ({ id, includeLastRun, assetId }: AddFileToPathModalP
 			});
 		}
 	};
-
 	return (
 		<TearsheetNarrow
 			open={addFileInfo.isOpen}
@@ -137,7 +136,12 @@ const AddFileToPathModal = ({ id, includeLastRun, assetId }: AddFileToPathModalP
 											disabled={inputOptions !== 2}
 											{...register('fileId')}
 										>
-											<SelectItem text='no file present' hidden value='' />
+											{(addFileInfo.old
+												? addFileInfo.possiblePreviousFiles
+												: addFileInfo.possibleCurrentFiles
+											).length === 0 && (
+												<SelectItem text='no file present' hidden value='' />
+											)}
 											{(addFileInfo.old
 												? addFileInfo.possiblePreviousFiles
 												: addFileInfo.possibleCurrentFiles

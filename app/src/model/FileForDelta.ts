@@ -2,7 +2,7 @@ import { FileForDeltaDto } from 'cosmo-api/src/v1';
 import FileLink, { toFileLinkApi } from './FileLink';
 
 interface FileForDelta {
-	path: string;
+	path: string[];
 	old: boolean;
 	fileLink?: FileLink;
 }

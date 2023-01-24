@@ -1,6 +1,6 @@
 import CosmoTable from '@components/table/CosmoTable';
 import { ColumnDef } from '@tanstack/react-table';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Upload } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { Layer } from '@carbon/react';
@@ -29,6 +29,8 @@ const FileUploadTable = ({ data, assetId, period }: FileUploadTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table', 'runDetails']);
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [addFileInfo, setAddFileInfo] = useRecoilState(addFileToRunAssetStore);
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const [selectedRows, setSelectedRows] = useState([]);
 	// TODO Use tag for files
 	const columns = useMemo<ColumnDef<UploadFileTableItem>[]>(() => {
 		const ArrayCol: ColumnDef<UploadFileTableItem>[] = [
@@ -74,6 +76,7 @@ const FileUploadTable = ({ data, assetId, period }: FileUploadTableProps) => {
 						: `previous-period-${assetId}`
 				}
 				columns={columns}
+				// onRowSelection={row => setSelectedRows([row])}
 				noDataMessage={t('table:no-data')}
 				isColumnOrderingEnabled
 				toolbar={{
@@ -91,9 +94,10 @@ const FileUploadTable = ({ data, assetId, period }: FileUploadTableProps) => {
 							setAddFileInfo(old => ({
 								...old,
 								isOpen: true,
-								path: row.original.path,
+								path: [row.original.path],
 								previousRunFileId: row.original.fileLastRun?.id,
-								selectedRow: row.original.runFileLink
+								selectedRow: row.original.runFileLink,
+								old: period === 'previous'
 							}));
 						}
 					}

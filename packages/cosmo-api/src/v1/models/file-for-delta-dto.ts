@@ -22,10 +22,10 @@ import { FileLinkDto } from './file-link-dto';
 export interface FileForDeltaDto {
 	/**
 	 *
-	 * @type {string}
+	 * @type {Array<string>}
 	 * @memberof FileForDeltaDto
 	 */
-	path?: string;
+	path?: Array<string>;
 	/**
 	 *
 	 * @type {boolean}

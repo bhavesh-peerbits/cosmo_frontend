@@ -3,7 +3,7 @@ import { atom } from 'recoil';
 
 const addFileToRunAssetStore = atom<{
 	isOpen: boolean;
-	path: string;
+	path: string[];
 	old: boolean;
 	previousRunFileId?: string;
 	possiblePreviousFiles: FileLink[];
@@ -12,7 +12,7 @@ const addFileToRunAssetStore = atom<{
 	key: 'addFileToRunAssetStore',
 	default: {
 		isOpen: false,
-		path: '',
+		path: [],
 		old: false,
 		possiblePreviousFiles: [],
 		possibleCurrentFiles: []
