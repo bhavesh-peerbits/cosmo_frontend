@@ -46,5 +46,8 @@
 	"upload-new-file": "Upload new file",
 	"select-file-method": "Choose file selection method",
 	"additional-info": "Additional info",
-	"answer-date": "Answer date"
+	"answer-date": "Answer date",
+	"files-already-uploaded": "Files already uploaded",
+	"files-already-uploaded-description": "These are the files that have already been used as an answer. You can indicate these files for new answers.",
+	"completed": "Completed"
 }

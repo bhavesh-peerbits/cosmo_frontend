@@ -8,6 +8,15 @@ import { DeltaFileDto, FileLinkDto } from 'cosmo-api/src/v1';
 import TagFileLinkCell from '@components/table/Cell/TagFileLinkCell';
 import AddAnswerToDeltaModal from '../Modals/AddAnswerToDeltaModal';
 
+export interface DeltaTableRowType {
+	givenBy?: string | undefined;
+	givenAt?: string | undefined;
+	asset?: string | undefined;
+	deltaFile: DeltaFileDto;
+	answerFile?: FileLinkDto;
+	answerValue?: string;
+}
+
 type ActionsCellProps = {
 	setModalToOpen: Dispatch<SetStateAction<string>>;
 };
@@ -25,29 +34,16 @@ const ActionsCell = ({ setModalToOpen }: ActionsCellProps) => {
 };
 
 type DeltaResultTableProps = {
-	data?: {
-		givenBy?: string | undefined;
-		givenAt?: string | undefined;
-		asset?: string | undefined;
-		deltaFile: DeltaFileDto;
-	}[];
+	data?: DeltaTableRowType[];
+	monitoringName: string;
+	runNumber: number;
 };
 
-const DeltaResultTable = ({ data }: DeltaResultTableProps) => {
+const DeltaResultTable = ({ data, monitoringName, runNumber }: DeltaResultTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table', 'runDetails']);
 	const [modalToOpen, setModalToOpen] = useState('');
 
-	// TODO Use tag for files
-	const columns = useMemo<
-		ColumnDef<{
-			givenBy?: string | undefined;
-			givenAt?: string | undefined;
-			asset?: string | undefined;
-			deltaFile: DeltaFileDto;
-			answerFile?: FileLinkDto;
-			answerValue?: string;
-		}>[]
-	>(
+	const columns = useMemo<ColumnDef<DeltaTableRowType>[]>(
 		() => [
 			{
 				id: 'name',
@@ -94,14 +90,21 @@ const DeltaResultTable = ({ data }: DeltaResultTableProps) => {
 					info.row.original.answerFile
 						? TagFileLinkCell
 						: info.getValue() !== 'NONE' && info.getValue(),
-				header: t('runDetails:answer')
+				header: t('runDetails:answer'),
+				meta: {
+					exportableFn: info =>
+						(info as DeltaTableRowType).answerFile
+							? (info as DeltaTableRowType).answerFile?.name || ''
+							: (info as DeltaTableRowType).answerValue || ''
+				}
 			},
 			{
 				id: 'actions',
 				header: t('runDetails:actions'),
 				cell: () => ActionsCell({ setModalToOpen }),
 				enableSorting: false,
-				enableGrouping: false
+				enableGrouping: false,
+				meta: { disableExport: true }
 			}
 		],
 		[t]
@@ -125,13 +128,15 @@ const DeltaResultTable = ({ data }: DeltaResultTableProps) => {
 			}
 		}
 	];
-	// TODO change name of export file
+
 	return (
 		<Layer level={2}>
 			<AddAnswerToDeltaModal
 				isOpen={modalToOpen === 'add-answer' || modalToOpen === 'ignore'}
 				setIsOpen={setModalToOpen}
 				isIgnore={modalToOpen === 'ignore'}
+				monitoringName={monitoringName}
+				runNumber={runNumber}
 			/>
 			<CosmoTable
 				tableId='delta-table'
@@ -143,10 +148,18 @@ const DeltaResultTable = ({ data }: DeltaResultTableProps) => {
 					toolbarBatchActions,
 					toolbarTableMenus: []
 				}}
-				exportFileName={({ all }) => (all ? 'file-upload-all' : 'file-upload-selection')}
+				exportFileName={({ all }) =>
+					all
+						? `${monitoringName}-run-${runNumber}-all`
+						: `${monitoringName}-run-${runNumber}-selection`
+				}
 				data={data || []}
 				isSelectable
 				canAdd
+				// inlineActions={[
+				// 	{ label: t('runDetails:confirm'), onClick: () => setModalToOpen('add-answer') },
+				// 	{ label: t('runDetails:ignore'), onClick: () => setModalToOpen('ignore') }
+				// ]}
 			/>
 		</Layer>
 	);

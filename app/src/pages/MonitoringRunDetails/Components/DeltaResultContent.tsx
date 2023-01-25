@@ -5,13 +5,12 @@ import { Download } from '@carbon/react/icons';
 import FileLink from '@model/FileLink';
 import Run from '@model/Run';
 import authStore from '@store/auth/authStore';
-import { DeltaFileDto, FileLinkDto } from 'cosmo-api/src/v1';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilValue } from 'recoil';
 import CompleteRunModal from '../Modals/CompleteRunModal';
 import SendToFocalPointModal from '../Modals/SendToFocalPoint';
-import DeltaResultTable from './DeltaResultTable';
+import DeltaResultTable, { DeltaTableRowType } from './DeltaResultTable';
 
 type DeltaResultContentProps = {
 	run: Run;
@@ -22,16 +21,7 @@ const DeltaResultContent = ({ run, monitoringName }: DeltaResultContentProps) =>
 	const { t } = useTranslation('runDetails');
 	const [modalToOpen, setModalToOpen] = useState('');
 	const { data: filesAnswers } = useGetAllFilesAnswer(run.id);
-	const [dataTable, setDataTable] = useState<
-		{
-			givenBy?: string;
-			givenAt?: string;
-			asset?: string;
-			deltaFile: DeltaFileDto;
-			answerFile?: FileLinkDto;
-			answerValue?: string;
-		}[]
-	>([]);
+	const [dataTable, setDataTable] = useState<DeltaTableRowType[]>([]);
 
 	const auth = useRecoilValue(authStore);
 
@@ -76,25 +66,31 @@ const DeltaResultContent = ({ run, monitoringName }: DeltaResultContentProps) =>
 
 	return (
 		<div className='space-y-7 pt-5 pb-9'>
-			<div>
-				<p className='text-productive-heading-2'>File already uploaded</p>
-				<p className='text-caption-2'>description</p>
-				{filesAnswers?.map(file => (
-					<Tag key={file.name} size='md' type='gray'>
-						<button
-							type='button'
-							className='flex space-x-2'
-							onClick={() => DownloadFile(file)}
-						>
-							<Download />
-							<span className='text-link-primary hover:text-link-primary-hover hover:underline'>
-								{file.name}
-							</span>
-						</button>
-					</Tag>
-				))}
-			</div>
-			<DeltaResultTable data={dataTable} />
+			{!!filesAnswers?.length && (
+				<div>
+					<p className='text-productive-heading-2'>{t('files-already-uploaded')}</p>
+					<p className='text-caption-2'>{t('files-already-uploaded-description')}</p>
+					{filesAnswers?.map(file => (
+						<Tag key={file.name} size='md' type='gray'>
+							<button
+								type='button'
+								className='flex space-x-2'
+								onClick={() => DownloadFile(file)}
+							>
+								<Download />
+								<span className='text-link-primary hover:text-link-primary-hover hover:underline'>
+									{file.name}
+								</span>
+							</button>
+						</Tag>
+					))}
+				</div>
+			)}
+			<DeltaResultTable
+				data={dataTable}
+				runNumber={run.orderNumber}
+				monitoringName={monitoringName}
+			/>
 			<CompleteRunModal
 				isOpen={modalToOpen === 'close'}
 				setIsOpen={setModalToOpen}

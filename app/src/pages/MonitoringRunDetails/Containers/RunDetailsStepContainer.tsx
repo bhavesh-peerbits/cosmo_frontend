@@ -19,7 +19,7 @@ type RunDetailsStepProps = {
 };
 
 const RunDetailsStepContainer = ({ monitoring, run }: RunDetailsStepProps) => {
-	const { t } = useTranslation(['monitoringDashboard', 'evidenceRequest', 'runDetails']);
+	const { t } = useTranslation(['evidenceRequest', 'runDetails']);
 
 	// TODO (also fix isCurrent for RunDetailsStepTile)
 
@@ -35,11 +35,11 @@ const RunDetailsStepContainer = ({ monitoring, run }: RunDetailsStepProps) => {
 		}
 		if (run?.status === 'UPLOAD') {
 			return stepStatus === 'SETUP'
-				? t('monitoringDashboard:completed')
+				? t('runDetails:completed')
 				: t('runDetails:not-started');
 		}
 		if (run?.status === 'WAITING_FOR_ANALYST') {
-			return t('monitoringDashboard:completed');
+			return t('runDetails:completed');
 		}
 		return t('runDetails:not-started');
 	};

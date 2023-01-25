@@ -14,11 +14,15 @@ type AddAnswerToDeltaModalProps = {
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<string>>;
 	isIgnore: boolean;
+	monitoringName: string;
+	runNumber: number;
 };
 const AddAnswerToDeltaModal = ({
 	isOpen,
 	setIsOpen,
-	isIgnore
+	isIgnore,
+	monitoringName,
+	runNumber
 }: AddAnswerToDeltaModalProps) => {
 	const { t } = useTranslation([
 		'modals',
@@ -35,7 +39,7 @@ const AddAnswerToDeltaModal = ({
 		<TearsheetNarrow
 			hasCloseIcon
 			title={isIgnore ? t('runDetails:ignore') : t('runDetails:add-file-path')}
-			label={`Monitoring Name - Run `}
+			label={`${monitoringName} - RUN ${runNumber}`}
 			description={
 				isIgnore
 					? t('runDetails:ignore-description')

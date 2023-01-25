@@ -46,5 +46,8 @@
 	"upload-new-file": "Carica un nuovo file",
 	"select-file-method": "Scegli il metodo di selezione file",
 	"additional-info": "Info aggiuntive",
-	"answer-date": "Data risposta"
+	"answer-date": "Data risposta",
+	"files-already-uploaded": "Files già caricati",
+	"files-already-uploaded-description": "Questi sono i file già utilizzati come risposta. È possibile indicare questi file per nuove risposte.",
+	"completed": "Completato"
 }
