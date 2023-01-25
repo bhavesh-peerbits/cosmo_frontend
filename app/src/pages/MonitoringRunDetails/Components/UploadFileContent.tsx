@@ -46,9 +46,6 @@ const UploadFileContent = ({ run }: UploadFileContentProps) => {
 				))}
 			</div>
 			<div className='flex justify-end space-x-5'>
-				<Button size='md' kind='tertiary'>
-					{t('runDetails:save')}
-				</Button>
 				<Button size='md'>{t('changeMonitoring:save-next')}</Button>
 			</div>
 		</div>
