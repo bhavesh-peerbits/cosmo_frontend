@@ -5,7 +5,7 @@ import { Download } from '@carbon/react/icons';
 import FileLink from '@model/FileLink';
 import Run from '@model/Run';
 import authStore from '@store/auth/authStore';
-import { DeltaFileDto } from 'cosmo-api/src/v1';
+import { DeltaFileDto, FileLinkDto } from 'cosmo-api/src/v1';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilValue } from 'recoil';
@@ -23,7 +23,14 @@ const DeltaResultContent = ({ run, monitoringName }: DeltaResultContentProps) =>
 	const [modalToOpen, setModalToOpen] = useState('');
 	const { data: filesAnswers } = useGetAllFilesAnswer(run.id);
 	const [dataTable, setDataTable] = useState<
-		{ givenBy?: string; givenAt?: string; asset?: string; deltaFile: DeltaFileDto }[]
+		{
+			givenBy?: string;
+			givenAt?: string;
+			asset?: string;
+			deltaFile: DeltaFileDto;
+			answerFile?: FileLinkDto;
+			answerValue?: string;
+		}[]
 	>([]);
 
 	const auth = useRecoilValue(authStore);
@@ -55,8 +62,11 @@ const DeltaResultContent = ({ run, monitoringName }: DeltaResultContentProps) =>
 						{
 							givenAt: justification?.givenAt,
 							givenBy: `${justification?.givenBy?.name} ${justification?.givenBy?.surname}`,
+							answerFiles: justification?.files,
+							answerValue: justification?.value,
 							asset,
-							deltaFile: d
+							deltaFile: d,
+							answer: data.deltaAnswers
 						}
 					]);
 				});

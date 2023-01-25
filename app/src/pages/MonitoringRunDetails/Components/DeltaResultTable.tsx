@@ -4,7 +4,8 @@ import { Dispatch, SetStateAction, useMemo, useState } from 'react';
 import { MisuseOutline, CheckmarkOutline } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { Layer, OverflowMenu, OverflowMenuItem } from '@carbon/react';
-import { DeltaFileDto } from 'cosmo-api/src/v1';
+import { DeltaFileDto, FileLinkDto } from 'cosmo-api/src/v1';
+import TagFileLinkCell from '@components/table/Cell/TagFileLinkCell';
 import AddAnswerToDeltaModal from '../Modals/AddAnswerToDeltaModal';
 
 type ActionsCellProps = {
@@ -43,14 +44,11 @@ const DeltaResultTable = ({ data }: DeltaResultTableProps) => {
 			givenAt?: string | undefined;
 			asset?: string | undefined;
 			deltaFile: DeltaFileDto;
+			answerFile?: FileLinkDto;
+			answerValue?: string;
 		}>[]
-	>(() => {
-		const ArrayCol: ColumnDef<{
-			givenBy?: string | undefined;
-			givenAt?: string | undefined;
-			asset?: string | undefined;
-			deltaFile: DeltaFileDto;
-		}>[] = [
+	>(
+		() => [
 			{
 				id: 'name',
 				accessorFn: row => row.deltaFile.name,
@@ -91,7 +89,11 @@ const DeltaResultTable = ({ data }: DeltaResultTableProps) => {
 			},
 			{
 				id: 'answer',
-				accessorFn: () => 'HERE GOES ANSWER',
+				accessorFn: row => row.answerFile || row.answerValue,
+				cell: info =>
+					info.row.original.answerFile
+						? TagFileLinkCell
+						: info.getValue() !== 'NONE' && info.getValue(),
 				header: t('runDetails:answer')
 			},
 			{
@@ -101,9 +103,9 @@ const DeltaResultTable = ({ data }: DeltaResultTableProps) => {
 				enableSorting: false,
 				enableGrouping: false
 			}
-		];
-		return ArrayCol;
-	}, [t]);
+		],
+		[t]
+	);
 
 	const toolbarBatchActions = [
 		{
