@@ -44,5 +44,7 @@
 	"owner": "Responsabile",
 	"file-already-uploaded": "Usa un file già caricato",
 	"upload-new-file": "Carica un nuovo file",
-	"select-file-method": "Scegli il metodo di selezione file"
+	"select-file-method": "Scegli il metodo di selezione file",
+	"additional-info": "Info aggiuntive",
+	"answer-date": "Data risposta"
 }

@@ -5,7 +5,8 @@ import { Download } from '@carbon/react/icons';
 import FileLink from '@model/FileLink';
 import Run from '@model/Run';
 import authStore from '@store/auth/authStore';
-import { useState } from 'react';
+import { DeltaFileDto } from 'cosmo-api/src/v1';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilValue } from 'recoil';
 import CompleteRunModal from '../Modals/CompleteRunModal';
@@ -21,6 +22,10 @@ const DeltaResultContent = ({ run, monitoringName }: DeltaResultContentProps) =>
 	const { t } = useTranslation('runDetails');
 	const [modalToOpen, setModalToOpen] = useState('');
 	const { data: filesAnswers } = useGetAllFilesAnswer(run.id);
+	const [dataTable, setDataTable] = useState<
+		{ givenBy?: string; givenAt?: string; asset?: string; deltaFile: DeltaFileDto }[]
+	>([]);
+
 	const auth = useRecoilValue(authStore);
 
 	const DownloadFile = (fileLink: FileLink) => {
@@ -38,6 +43,26 @@ const DeltaResultContent = ({ run, monitoringName }: DeltaResultContentProps) =>
 			link.click();
 		});
 	};
+
+	useEffect(() => {
+		run.deltas?.forEach(data => {
+			const asset = data.asset.hostname;
+			data.deltaAnswers?.forEach(delta => {
+				const { justification } = delta;
+				delta.deltaFiles?.forEach(d => {
+					setDataTable(old => [
+						...old,
+						{
+							givenAt: justification?.givenAt,
+							givenBy: `${justification?.givenBy?.name} ${justification?.givenBy?.surname}`,
+							asset,
+							deltaFile: d
+						}
+					]);
+				});
+			});
+		});
+	}, [run.deltas]);
 
 	return (
 		<div className='space-y-7 pt-5 pb-9'>
@@ -59,7 +84,7 @@ const DeltaResultContent = ({ run, monitoringName }: DeltaResultContentProps) =>
 					</Tag>
 				))}
 			</div>
-			<DeltaResultTable data={run.deltas} />
+			<DeltaResultTable data={dataTable} />
 			<CompleteRunModal
 				isOpen={modalToOpen === 'close'}
 				setIsOpen={setModalToOpen}

@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useMemo, useState } from 'react';
 import { MisuseOutline, CheckmarkOutline } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { Layer, OverflowMenu, OverflowMenuItem } from '@carbon/react';
-import { DeltaFile } from 'cosmo-api/src/v1';
+import { DeltaFileDto } from 'cosmo-api/src/v1';
 import AddAnswerToDeltaModal from '../Modals/AddAnswerToDeltaModal';
 
 type ActionsCellProps = {
@@ -24,7 +24,12 @@ const ActionsCell = ({ setModalToOpen }: ActionsCellProps) => {
 };
 
 type DeltaResultTableProps = {
-	data?: DeltaFile[];
+	data?: {
+		givenBy?: string | undefined;
+		givenAt?: string | undefined;
+		asset?: string | undefined;
+		deltaFile: DeltaFileDto;
+	}[];
 };
 
 const DeltaResultTable = ({ data }: DeltaResultTableProps) => {
@@ -32,36 +37,57 @@ const DeltaResultTable = ({ data }: DeltaResultTableProps) => {
 	const [modalToOpen, setModalToOpen] = useState('');
 
 	// TODO Use tag for files
-	const columns = useMemo<ColumnDef<DeltaFile>[]>(() => {
-		const ArrayCol: ColumnDef<DeltaFile>[] = [
+	const columns = useMemo<
+		ColumnDef<{
+			givenBy?: string | undefined;
+			givenAt?: string | undefined;
+			asset?: string | undefined;
+			deltaFile: DeltaFileDto;
+		}>[]
+	>(() => {
+		const ArrayCol: ColumnDef<{
+			givenBy?: string | undefined;
+			givenAt?: string | undefined;
+			asset?: string | undefined;
+			deltaFile: DeltaFileDto;
+		}>[] = [
 			{
 				id: 'name',
-				accessorFn: row => row.name,
+				accessorFn: row => row.deltaFile.name,
 				header: t('runDetails:name'),
 				sortUndefined: 1
 			},
 			{
 				id: 'directory',
-				accessorFn: row => row.directory,
+				accessorFn: row => row.deltaFile.directory,
 				header: t('runDetails:directory')
 			},
 			{
 				id: 'dimension',
-				accessorFn: row => row.dimension,
+				accessorFn: row => row.deltaFile.dimension,
 				header: t('runDetails:dimension')
 			},
 			{
+				id: 'additional-info',
+				accessorFn: row => row.deltaFile.additionalInfo,
+				header: t('runDetails:additional-info'),
+				meta: { initialVisible: false }
+			},
+			{
 				id: 'date-time',
-				accessorFn: row => row.lastModify,
+				accessorFn: row => row.deltaFile.lastModify,
 				header: t('runDetails:date-time')
 			},
 			{
 				id: 'answered-by',
-				accessorFn: row =>
-					row.deltaAnswer?.justification?.givenBy
-						? `${row.deltaAnswer?.justification?.givenBy?.name} ${row.deltaAnswer?.justification?.givenBy?.surname}`
-						: null,
+				accessorFn: row => row.givenBy,
 				header: t('runDetails:answered-by')
+			},
+			{
+				id: 'answered-at',
+				accessorFn: row => row.givenAt,
+				header: t('runDetails:answer-date'),
+				meta: { initialVisible: false }
 			},
 			{
 				id: 'answer',

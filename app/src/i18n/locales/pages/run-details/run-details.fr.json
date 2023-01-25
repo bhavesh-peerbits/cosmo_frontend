@@ -44,5 +44,7 @@
 	"owner": "Owner",
 	"file-already-uploaded": "Use a file already uploaded",
 	"upload-new-file": "Upload new file",
-	"select-file-method": "Choose file selection method"
+	"select-file-method": "Choose file selection method",
+	"additional-info": "Additional info",
+	"answer-date": "Answer date"
 }
