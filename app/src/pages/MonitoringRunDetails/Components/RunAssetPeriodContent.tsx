@@ -85,7 +85,7 @@ const RunAssetPeriodContent = ({ runAsset, old }: RunAssetPeriodContentProps) =>
 							).values()
 						].map(file => {
 							return (
-								<Tag key={file.name} filter size='md' type='gray'>
+								<Tag key={file.name} size='md' type='gray'>
 									<button
 										type='button'
 										className='flex space-x-2'

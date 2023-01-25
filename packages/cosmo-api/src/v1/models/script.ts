@@ -12,68 +12,56 @@
  * Do not edit the class manually.
  */
 
-import { Association } from './association';
-import { FrameworkTreeStatus } from './framework-tree-status';
 import { Tenant } from './tenant';
 
 /**
  *
  * @export
- * @interface FrameworkTree
+ * @interface Script
  */
-export interface FrameworkTree {
+export interface Script {
 	/**
 	 *
 	 * @type {Tenant}
-	 * @memberof FrameworkTree
+	 * @memberof Script
 	 */
 	tenant?: Tenant;
 	/**
 	 *
-	 * @type {FrameworkTreeStatus}
-	 * @memberof FrameworkTree
-	 */
-	status?: FrameworkTreeStatus;
-	/**
-	 *
 	 * @type {number}
-	 * @memberof FrameworkTree
+	 * @memberof Script
 	 */
 	id?: number;
 	/**
 	 *
-	 * @type {number}
-	 * @memberof FrameworkTree
-	 */
-	parentId?: number;
-	/**
-	 *
-	 * @type {Array<Association>}
-	 * @memberof FrameworkTree
-	 */
-	association?: Array<Association>;
-	/**
-	 *
 	 * @type {string}
-	 * @memberof FrameworkTree
+	 * @memberof Script
 	 */
 	name?: string;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof FrameworkTree
+	 * @memberof Script
+	 */
+	scriptCode?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Script
 	 */
 	description?: string;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof FrameworkTree
+	 * @memberof Script
 	 */
-	code?: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof FrameworkTree
-	 */
-	rootCode?: string;
+	os?: ScriptOsEnum;
 }
+
+export const ScriptOsEnum = {
+	Windows: 'WINDOWS',
+	Unix: 'UNIX',
+	Mainframe: 'MAINFRAME'
+} as const;
+
+export type ScriptOsEnum = typeof ScriptOsEnum[keyof typeof ScriptOsEnum];

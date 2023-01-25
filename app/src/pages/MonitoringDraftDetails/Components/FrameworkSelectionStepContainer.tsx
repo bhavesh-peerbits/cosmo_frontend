@@ -28,10 +28,11 @@ import useGetFrameworkCodes from '@api/change-monitoring/useGetFrameworkCodes';
 import Association from '@model/Association';
 import useGetControls from '@api/change-monitoring/useGetControls';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
-import useSaveMonitoringDraft from '@api/change-monitoring/useSaveMonitoringDraft';
 import ApiError from '@api/ApiError';
 import MonitoringDraft from '@model/MonitoringDraft';
 import useGetFrameworkTreeByCode from '@api/framework/useGetFrameworkTreeByCode';
+import useSaveDraftAssociation from '@api/change-monitoring/useSaveDraftAssociation';
+import { useParams } from 'react-router-dom';
 import AssociationSelectionList from './AssociationSelectionList';
 import MultipleControlSelect from './MultipleControlSelect';
 
@@ -53,8 +54,9 @@ const FrameworkSelectionStepContainer = ({
 	draft
 }: FrameworkSelectionProps) => {
 	const { t } = useTranslation('changeMonitoring');
+	const { monitoringDraftId = '' } = useParams();
 	const [isTreeSelectionOpen, setIsTreeSelectionOpen] = useState(false);
-	const { mutate, isLoading, isError, isSuccess, error } = useSaveMonitoringDraft();
+	const { mutate, isLoading, isError, isSuccess, error } = useSaveDraftAssociation();
 	const { data: draftControls } = useGetControls(
 		draft.frameworkLeafsCodes,
 		draft.instance?.id
@@ -132,21 +134,19 @@ const FrameworkSelectionStepContainer = ({
 	const saveDraft = (data: FrameworkStepFormData) => {
 		return mutate(
 			{
-				draft: {
-					...draft,
-					focalPoint:
-						data.association === 'FREE'
-							? data.focalPoint
-							: selectedControls.find(c => c.id === data.association)?.reviewer,
-					delegates:
-						data.association === 'FREE'
-							? data.delegates
-							: selectedControls.find(c => c.id === data.association)?.delegates,
-					controlCode: data.controls.map(c => c.name).join('-'),
-					frameworkLeafsCodes: selectedLeaves.map(leaf => leaf.code).join('-'),
-					frameworkLeafsName: selectedLeaves.map(leaf => leaf.name).join('//'),
-					frameworkName: selectedFramework
-				}
+				monitoringId: monitoringDraftId,
+				focalPoint:
+					data.association === 'FREE'
+						? data.focalPoint
+						: selectedControls.find(c => c.id === data.association)?.reviewer,
+				delegates:
+					data.association === 'FREE'
+						? data.delegates
+						: selectedControls.find(c => c.id === data.association)?.delegates,
+				controlCode: data.controls.map(c => c.name).join('-'),
+				frameworkLeafsCodes: selectedLeaves.map(leaf => leaf.code).join('-'),
+				frameworkLeafsNames: selectedLeaves.map(leaf => leaf.name).join('//'),
+				frameworkName: selectedFramework
 			},
 			{ onSuccess: () => setCurrentStep(old => old + 1) }
 		);

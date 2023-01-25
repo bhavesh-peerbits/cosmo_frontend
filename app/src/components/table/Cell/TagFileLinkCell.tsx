@@ -22,7 +22,7 @@ const TagFileLinkCell = ({ getValue }: CellContext<any, unknown>) => {
 		});
 	};
 	return value ? (
-		<Tag key={value.name} filter size='md' type='gray'>
+		<Tag key={value.name} size='md' type='gray'>
 			<button
 				type='button'
 				className='flex space-x-2'

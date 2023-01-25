@@ -123,14 +123,14 @@ const AddFileToPathModal = ({ id, includeLastRun, assetId }: AddFileToPathModalP
 						defaultSelected={id === '1' || !addFileInfo.old ? '2' : '1'}
 						className='fix-width-radio'
 					>
-						{!addFileInfo.old && (
-							<RadioButton
-								labelText={t('runDetails:use-last-run')}
-								value='1'
-								disabled={id === '1'}
-								onClick={() => setInputOptions(1)}
-							/>
-						)}
+						{/* {!addFileInfo.old && ( */}
+						<RadioButton
+							labelText={t('runDetails:use-last-run')}
+							value='1'
+							disabled={id === '1'}
+							onClick={() => setInputOptions(1)}
+						/>
+						{/* )} */}
 						<RadioButton
 							labelText={
 								<div className='space-y-3'>
@@ -171,10 +171,14 @@ const AddFileToPathModal = ({ id, includeLastRun, assetId }: AddFileToPathModalP
 											).length === 0 && (
 												<SelectItem text='no file present' hidden value='' />
 											)}
-											{(addFileInfo.old
-												? addFileInfo.possiblePreviousFiles
-												: addFileInfo.possibleCurrentFiles
-											).map(file => (
+											{[
+												...new Map(
+													(addFileInfo.old
+														? addFileInfo.possiblePreviousFiles
+														: addFileInfo.possibleCurrentFiles
+													).map(item => [item.id, item])
+												).values()
+											].map(file => (
 												<SelectItem text={file.name ?? ''} value={file.id} />
 											))}
 										</Select>

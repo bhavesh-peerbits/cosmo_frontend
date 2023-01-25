@@ -10,9 +10,10 @@ import Asset, { toAssetApi } from '@model/Asset';
 import { Button, InlineLoading } from '@carbon/react';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import MonitoringDraft from '@model/MonitoringDraft';
-import useSaveMonitoringDraft from '@api/change-monitoring/useSaveMonitoringDraft';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';
+import useSaveDraftAsset from '@api/change-monitoring/useSaveDraftAsset';
+import { useParams } from 'react-router-dom';
 import SingleAppInstanceSelect from './SingleAppInstanceSelect';
 import MultipleAssetSelect from './MultipleAssetSelect';
 
@@ -29,7 +30,8 @@ type AssetSelectionProps = {
 
 const AssetsSelectionStepContainer = ({ setCurrentStep, draft }: AssetSelectionProps) => {
 	const { t } = useTranslation(['modals', 'changeMonitoring']);
-	const { mutate, isLoading, isError, isSuccess, error } = useSaveMonitoringDraft();
+	const { mutate, isLoading, isError, isSuccess, error } = useSaveDraftAsset();
+	const { monitoringDraftId = '' } = useParams();
 
 	const { control, watch, handleSubmit, setValue, resetField } = useForm<FormData>({
 		mode: 'onChange'
@@ -44,20 +46,20 @@ const AssetsSelectionStepContainer = ({ setCurrentStep, draft }: AssetSelectionP
 	const saveDraft = (data: FormData) => {
 		return mutate(
 			{
-				draft: {
-					...draft,
-					instance,
-					monitoringAssets: data.assets.map(asset => {
-						return (
-							draft.monitoringAssets?.find(ma => ma.asset.id === asset.id) ?? {
-								asset,
-								paths: asset.paths.map(p => {
-									return { path: p.path, asset: toAssetApi(asset), id: p.id };
-								})
-							}
-						);
-					})
-				}
+				instance,
+				monitoringId: monitoringDraftId,
+				monitoringAssets: data.assets.map(asset => {
+					return (
+						draft.monitoringAssets?.find(ma => ma.asset.id === asset.id) ?? {
+							asset,
+							paths: asset.paths.map(p => ({
+								path: p.path,
+								asset: toAssetApi(asset),
+								id: p.id
+							}))
+						}
+					);
+				})
 			},
 			{ onSuccess: () => setCurrentStep(old => old + 1) }
 		);

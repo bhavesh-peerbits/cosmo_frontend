@@ -43,10 +43,10 @@ export interface Association {
 	reviewer?: User;
 	/**
 	 *
-	 * @type {Set<User>}
+	 * @type {Array<User>}
 	 * @memberof Association
 	 */
-	delegates?: Set<User>;
+	delegates?: Array<User>;
 	/**
 	 *
 	 * @type {Application}
@@ -83,6 +83,12 @@ export interface Association {
 	 * @memberof Association
 	 */
 	leaf?: FrameworkTree;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Association
+	 */
+	code?: string;
 }
 
 export const AssociationLayerEnum = {

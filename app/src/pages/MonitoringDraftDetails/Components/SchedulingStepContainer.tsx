@@ -16,9 +16,10 @@ import { Dispatch, SetStateAction, Suspense } from 'react';
 import MonitoringDraft from '@model/MonitoringDraft';
 import { SchedulingDtoDayOfWeekEnum, SchedulingDtoFrequencyEnum } from 'cosmo-api/src/v1';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
-import useSaveMonitoringDraft from '@api/change-monitoring/useSaveMonitoringDraft';
 import ApiError from '@api/ApiError';
 import DatePickerWrapper from '@components/DatePickerWrapper';
+import useSaveDraftScheduling from '@api/change-monitoring/useSaveDraftScheduling';
+import { useParams } from 'react-router-dom';
 import SchedulingTotalRunsContainer from './SchedulingTotalRunsContainer';
 
 type SchedulingFormData = {
@@ -38,7 +39,8 @@ type SchedulingStepProps = {
 
 const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps) => {
 	const { t } = useTranslation('changeMonitoring');
-	const { mutate, isLoading, isError, isSuccess, error } = useSaveMonitoringDraft();
+	const { monitoringDraftId = '' } = useParams();
+	const { mutate, isLoading, isError, isSuccess, error } = useSaveDraftScheduling();
 
 	const {
 		register,
@@ -172,23 +174,21 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 	const saveDraft = (data: SchedulingFormData) => {
 		return mutate(
 			{
-				draft: {
-					...draft,
-					scheduling: {
-						frequency: data.frequency,
-						startDate: setHours(data.startDate, +data.startHour + 1),
-						endDate:
-							data.frequency !== 'ONDEMAND'
-								? setHours(data.endDate, +data.startHour + 1)
-								: setHours(data.startDate, +data.startHour + 1),
-						dayOfMonth: data.frequency === 'MONTHLY' ? data.dayOfMonth : undefined,
-						dayOfWeek:
-							data.frequency === 'BIWEEKLY'
-								? data.daysOfWeek
-								: data.frequency === 'WEEKLY'
-								? [data.dayOfWeek]
-								: undefined
-					}
+				monitoringId: monitoringDraftId,
+				scheduling: {
+					frequency: data.frequency,
+					startDate: setHours(data.startDate, +data.startHour + 1),
+					endDate:
+						data.frequency !== 'ONDEMAND'
+							? setHours(data.endDate, +data.startHour + 1)
+							: setHours(data.startDate, +data.startHour + 1),
+					dayOfMonth: data.frequency === 'MONTHLY' ? data.dayOfMonth : undefined,
+					dayOfWeek:
+						data.frequency === 'BIWEEKLY'
+							? data.daysOfWeek
+							: data.frequency === 'WEEKLY'
+							? [data.dayOfWeek]
+							: undefined
 				}
 			},
 			{ onSuccess: () => setCurrentStep(old => old + 1) }
