@@ -24,7 +24,7 @@
 	"or": "",
 	"delta-result": "",
 	"complete-run": "",
-	"add-answer-description": "",
+	"add-answer-description": "Indicate a file or enter a text as an answer. You can select a file from those already uploaded or upload a new one.",
 	"ignore-description": "",
 	"complete-run-body": "",
 	"complete-and-close": "",
@@ -49,5 +49,6 @@
 	"answer-date": "Answer date",
 	"files-already-uploaded": "Files already uploaded",
 	"files-already-uploaded-description": "These are the files that have already been used as an answer. You can indicate these files for new answers.",
-	"completed": "Completed"
+	"completed": "Completed",
+	"no-files": "No files"
 }

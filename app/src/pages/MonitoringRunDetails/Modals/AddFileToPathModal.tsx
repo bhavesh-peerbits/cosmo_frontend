@@ -173,7 +173,7 @@ const AddFileToPathModal = ({
 												? addFileInfo.possiblePreviousFiles
 												: addFileInfo.possibleCurrentFiles
 											).length === 0 && (
-												<SelectItem text='no file present' hidden value='' />
+												<SelectItem text={t('runDetails:no-files')} hidden value='' />
 											)}
 											{[
 												...new Map(

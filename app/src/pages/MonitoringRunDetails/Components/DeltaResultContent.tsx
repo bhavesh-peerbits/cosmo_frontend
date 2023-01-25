@@ -90,6 +90,7 @@ const DeltaResultContent = ({ run, monitoringName }: DeltaResultContentProps) =>
 				data={dataTable}
 				runNumber={run.orderNumber}
 				monitoringName={monitoringName}
+				filesAnswers={filesAnswers}
 			/>
 			<CompleteRunModal
 				isOpen={modalToOpen === 'close'}

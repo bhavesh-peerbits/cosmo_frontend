@@ -24,7 +24,7 @@
 	"or": "o",
 	"delta-result": "Risultato delta",
 	"complete-run": "Completa run",
-	"add-answer-description": "ADD descriptionnn",
+	"add-answer-description": "Indicare un file o inserire un testo come risposta. Puoi selezionare un file tra quelli già caricati o caricarne uno nuovo.",
 	"ignore-description": "Inserire una nota per motivare la risposta.",
 	"complete-run-body": "Sei sicuro di voler completare la run? Completando la run, questa verrà chiusa.",
 	"complete-and-close": "Completa e chiudi",
@@ -49,5 +49,6 @@
 	"answer-date": "Data risposta",
 	"files-already-uploaded": "Files già caricati",
 	"files-already-uploaded-description": "Questi sono i file già utilizzati come risposta. È possibile indicare questi file per nuove risposte.",
-	"completed": "Completato"
+	"completed": "Completato",
+	"no-files": "Nessun file presente"
 }

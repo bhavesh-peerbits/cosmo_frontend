@@ -1,11 +1,12 @@
 import CosmoTable from '@components/table/CosmoTable';
 import { ColumnDef } from '@tanstack/react-table';
-import { Dispatch, SetStateAction, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { MisuseOutline, CheckmarkOutline } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
-import { Layer, OverflowMenu, OverflowMenuItem } from '@carbon/react';
+import { Layer } from '@carbon/react';
 import { DeltaFileDto, FileLinkDto } from 'cosmo-api/src/v1';
 import TagFileLinkCell from '@components/table/Cell/TagFileLinkCell';
+import FileLink from '@model/FileLink';
 import AddAnswerToDeltaModal from '../Modals/AddAnswerToDeltaModal';
 
 export interface DeltaTableRowType {
@@ -17,29 +18,19 @@ export interface DeltaTableRowType {
 	answerValue?: string;
 }
 
-type ActionsCellProps = {
-	setModalToOpen: Dispatch<SetStateAction<string>>;
-};
-const ActionsCell = ({ setModalToOpen }: ActionsCellProps) => {
-	const { t } = useTranslation('runDetails');
-	return (
-		<OverflowMenu ariaLabel='Actions' iconDescription={t('actions')} direction='top'>
-			<OverflowMenuItem
-				itemText={t('confirm')}
-				onClick={() => setModalToOpen('add-answer')}
-			/>
-			<OverflowMenuItem itemText={t('ignore')} onClick={() => setModalToOpen('ignore')} />
-		</OverflowMenu>
-	);
-};
-
 type DeltaResultTableProps = {
 	data?: DeltaTableRowType[];
 	monitoringName: string;
 	runNumber: number;
+	filesAnswers?: FileLink[];
 };
 
-const DeltaResultTable = ({ data, monitoringName, runNumber }: DeltaResultTableProps) => {
+const DeltaResultTable = ({
+	data,
+	monitoringName,
+	runNumber,
+	filesAnswers
+}: DeltaResultTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table', 'runDetails']);
 	const [modalToOpen, setModalToOpen] = useState('');
 
@@ -97,14 +88,6 @@ const DeltaResultTable = ({ data, monitoringName, runNumber }: DeltaResultTableP
 							? (info as DeltaTableRowType).answerFile?.name || ''
 							: (info as DeltaTableRowType).answerValue || ''
 				}
-			},
-			{
-				id: 'actions',
-				header: t('runDetails:actions'),
-				cell: () => ActionsCell({ setModalToOpen }),
-				enableSorting: false,
-				enableGrouping: false,
-				meta: { disableExport: true }
 			}
 		],
 		[t]
@@ -129,6 +112,8 @@ const DeltaResultTable = ({ data, monitoringName, runNumber }: DeltaResultTableP
 		}
 	];
 
+	// TODO Add upload for answers
+
 	return (
 		<Layer level={2}>
 			<AddAnswerToDeltaModal
@@ -137,6 +122,7 @@ const DeltaResultTable = ({ data, monitoringName, runNumber }: DeltaResultTableP
 				isIgnore={modalToOpen === 'ignore'}
 				monitoringName={monitoringName}
 				runNumber={runNumber}
+				filesAnswers={filesAnswers}
 			/>
 			<CosmoTable
 				tableId='delta-table'
@@ -156,10 +142,10 @@ const DeltaResultTable = ({ data, monitoringName, runNumber }: DeltaResultTableP
 				data={data || []}
 				isSelectable
 				canAdd
-				// inlineActions={[
-				// 	{ label: t('runDetails:confirm'), onClick: () => setModalToOpen('add-answer') },
-				// 	{ label: t('runDetails:ignore'), onClick: () => setModalToOpen('ignore') }
-				// ]}
+				inlineActions={[
+					{ label: t('runDetails:confirm'), onClick: () => setModalToOpen('add-answer') },
+					{ label: t('runDetails:ignore'), onClick: () => setModalToOpen('ignore') }
+				]}
 			/>
 		</Layer>
 	);
