@@ -38,7 +38,7 @@ const UploadFileContent = ({ run }: UploadFileContentProps) => {
 						<Layer level={0}>
 							<AddFileToPathModal
 								includeLastRun
-								id={`${run.orderNumber}`}
+								orderNumber={`${run.orderNumber}`}
 								assetId={runAsset.asset.id}
 							/>
 						</Layer>
