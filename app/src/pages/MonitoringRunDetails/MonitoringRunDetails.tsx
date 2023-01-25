@@ -7,20 +7,30 @@ import { Grid, Column } from '@carbon/react';
 import MonitoringSummaryDetails from '@pages/MonitoringDetails/Components/MonitoringSummaryDetails';
 import InfoRunModal from '@pages/MonitoringDetails/Modals/InfoRunModal';
 import useGetMonitoringById from '@api/change-monitoring/useGetMonitoringById';
-import CloseRunModal from './Modals/CloseRunModal';
+import useGetRunById from '@api/change-monitoring/useGetRunById';
+import Monitoring from '@model/Monitoring';
+import Run from '@model/Run';
+import { UseQueryResult } from '@tanstack/react-query';
 import RunDetailsStepContainer from './Containers/RunDetailsStepContainer';
+import CloseRunModal from './Modals/CloseRunModal';
 
-const MonitoringRunDetails = () => {
+type MonitoringRunDetailsProps = {
+	getMonitoringFn?: (monitoringId: string) => UseQueryResult<Monitoring, unknown>;
+	getRunFn?: (runId: string) => UseQueryResult<Run, unknown>;
+};
+
+const MonitoringRunDetails = ({
+	getMonitoringFn = useGetMonitoringById,
+	getRunFn = useGetRunById
+}: MonitoringRunDetailsProps) => {
 	const { monitoringId = '', runId = '' } = useParams();
 	const { t } = useTranslation('runDetails');
-	const { data: monitoring } = useGetMonitoringById(monitoringId);
-	const run = monitoring?.runs.find(r => r.id === runId);
+	const { data: monitoring } = getMonitoringFn(monitoringId);
+	const { data: run } = getRunFn(runId);
 	const [isCloseOpen, setIsCloseOpen] = useState(false);
 	const [isInfoOpen, setIsInfoOpen] = useState(false);
 	const location = useLocation();
 	const isInbox = location.pathname.includes('change-monitoring');
-
-	// TODO Change monitoring name in breadcrumb
 
 	if (!monitoring || !run) return null;
 

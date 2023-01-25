@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import { Upload } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { Layer } from '@carbon/react';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import addFileToRunAssetStore from '@store/run-details/addFileToRunAssetStore';
 import FileLink from '@model/FileLink';
 import TagFileLinkCell from '@components/table/Cell/TagFileLinkCell';
@@ -27,10 +27,8 @@ type FileUploadTableProps = {
 };
 const FileUploadTable = ({ data, assetId, period }: FileUploadTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table', 'runDetails']);
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const [addFileInfo, setAddFileInfo] = useRecoilState(addFileToRunAssetStore);
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const [selectedRows, setSelectedRows] = useState([]);
+	const setAddFileInfo = useSetRecoilState(addFileToRunAssetStore);
+	const [selectedRows, setSelectedRows] = useState<UploadFileTableItem[]>([]);
 	// TODO Use tag for files
 	const columns = useMemo<ColumnDef<UploadFileTableItem>[]>(() => {
 		const ArrayCol: ColumnDef<UploadFileTableItem>[] = [
@@ -63,7 +61,15 @@ const FileUploadTable = ({ data, assetId, period }: FileUploadTableProps) => {
 			id: 'upload',
 			label: 'Upload',
 			icon: Upload,
-			onClick: () => {}
+			onClick: () => {
+				setAddFileInfo(old => ({
+					...old,
+					isOpen: true,
+					path: selectedRows.map(sr => sr?.path),
+					selectedRow: selectedRows.map(sr => sr.runFileLink),
+					old: period === 'previous'
+				}));
+			}
 		}
 	];
 	// TODO change name of export file
@@ -76,7 +82,7 @@ const FileUploadTable = ({ data, assetId, period }: FileUploadTableProps) => {
 						: `previous-period-${assetId}`
 				}
 				columns={columns}
-				// onRowSelection={row => setSelectedRows([row])}
+				onRowSelection={row => setSelectedRows(row.map(r => r.original))}
 				noDataMessage={t('table:no-data')}
 				isColumnOrderingEnabled
 				toolbar={{
