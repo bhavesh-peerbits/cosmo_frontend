@@ -83,7 +83,7 @@ const RunDetailsStepContainer = ({ monitoring, run }: RunDetailsStepProps) => {
 				// isFuture={run.status === 'UPLOAD' || run.status === 'SETUP'}
 				detail={statusMessage({ stepStatus: 'WAITING_FOR_ANALYST' })}
 			>
-				<DeltaResultContent />
+				<DeltaResultContent run={run} />
 			</RunDetailsStepTile>
 		</Layer>
 	);

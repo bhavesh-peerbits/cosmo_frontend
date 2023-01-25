@@ -4,8 +4,7 @@ import { Dispatch, SetStateAction, useMemo, useState } from 'react';
 import { MisuseOutline, CheckmarkOutline } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { Layer, OverflowMenu, OverflowMenuItem } from '@carbon/react';
-import User from '@model/User';
-import { formatDate } from '@i18n';
+import { DeltaFile } from 'cosmo-api/src/v1';
 import AddAnswerToDeltaModal from '../Modals/AddAnswerToDeltaModal';
 
 type ActionsCellProps = {
@@ -25,39 +24,16 @@ const ActionsCell = ({ setModalToOpen }: ActionsCellProps) => {
 };
 
 type DeltaResultTableProps = {
-	data: {
-		name: string;
-		directory: string;
-		dimension: string;
-		date: Date;
-		answeredBy?: User;
-		answer: string;
-	}[];
+	data?: DeltaFile[];
 };
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 const DeltaResultTable = ({ data }: DeltaResultTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table', 'runDetails']);
 	const [modalToOpen, setModalToOpen] = useState('');
 
 	// TODO Use tag for files
-	const columns = useMemo<
-		ColumnDef<{
-			name: string;
-			directory: string;
-			dimension: string;
-			date: Date;
-			answeredBy?: User;
-			answer: string;
-		}>[]
-	>(() => {
-		const ArrayCol: ColumnDef<{
-			name: string;
-			directory: string;
-			dimension: string;
-			date: Date;
-			answeredBy?: User;
-			answer: string;
-		}>[] = [
+	const columns = useMemo<ColumnDef<DeltaFile>[]>(() => {
+		const ArrayCol: ColumnDef<DeltaFile>[] = [
 			{
 				id: 'name',
 				accessorFn: row => row.name,
@@ -76,17 +52,20 @@ const DeltaResultTable = ({ data }: DeltaResultTableProps) => {
 			},
 			{
 				id: 'date-time',
-				accessorFn: row => formatDate(row.date),
+				accessorFn: row => row.lastModify,
 				header: t('runDetails:date-time')
 			},
 			{
 				id: 'answered-by',
-				accessorFn: row => row.answeredBy?.displayName,
+				accessorFn: row =>
+					row.deltaAnswer?.justification?.givenBy
+						? `${row.deltaAnswer?.justification?.givenBy?.name} ${row.deltaAnswer?.justification?.givenBy?.surname}`
+						: null,
 				header: t('runDetails:answered-by')
 			},
 			{
 				id: 'answer',
-				accessorFn: row => row.answer,
+				accessorFn: () => 'HERE GOES ANSWER',
 				header: t('runDetails:answer')
 			},
 			{
@@ -137,7 +116,7 @@ const DeltaResultTable = ({ data }: DeltaResultTableProps) => {
 					toolbarTableMenus: []
 				}}
 				exportFileName={({ all }) => (all ? 'file-upload-all' : 'file-upload-selection')}
-				data={data}
+				data={data || []}
 				isSelectable
 				canAdd
 			/>
