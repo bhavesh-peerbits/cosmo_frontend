@@ -53,14 +53,20 @@ const UploadFileContent = ({ run }: UploadFileContentProps) => {
 					</AssetExpandableTile>
 				))}
 			</div>
-			<div className='flex justify-end space-x-5'>
-				<InlineLoadingStatus
-					{...{ isLoading, isSuccess, isError, error: error as ApiError }}
-				/>
-				<Button size='md' onClick={() => calculateDelta()}>
-					{t('changeMonitoring:save-next')}
-				</Button>
-			</div>
+			{(run.status === 'UPLOAD' || run.status === 'SETUP') && (
+				<div className='flex justify-end space-x-5'>
+					<InlineLoadingStatus
+						{...{ isLoading, isSuccess, isError, error: error as ApiError }}
+					/>
+					<Button
+						size='md'
+						onClick={() => calculateDelta()}
+						disabled={run.status !== 'UPLOAD'}
+					>
+						{t('changeMonitoring:save-next')}
+					</Button>
+				</div>
+			)}
 		</div>
 	);
 };

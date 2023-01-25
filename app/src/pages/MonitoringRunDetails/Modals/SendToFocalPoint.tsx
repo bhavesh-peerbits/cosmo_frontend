@@ -9,10 +9,13 @@ import MultipleUserSelect from '@components/MultipleUserSelect';
 import DatePickerWrapper from '@components/DatePickerWrapper';
 import { startOfTomorrow } from 'date-fns';
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
+import Run from '@model/Run';
 
 type SendToFocalPointProps = {
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<string>>;
+	run: Run;
+	monitoringName: string;
 };
 
 type SendFocalPointFormData = {
@@ -21,7 +24,12 @@ type SendFocalPointFormData = {
 	dueDate: Date;
 };
 
-const SendToFocalPointModal = ({ isOpen, setIsOpen }: SendToFocalPointProps) => {
+const SendToFocalPointModal = ({
+	isOpen,
+	setIsOpen,
+	run,
+	monitoringName
+}: SendToFocalPointProps) => {
 	const navigate = useNavigate();
 	const { t } = useTranslation(['modals', 'runDetails', 'evidenceRequest']);
 	const { monitoringId = '' } = useParams();
@@ -33,13 +41,14 @@ const SendToFocalPointModal = ({ isOpen, setIsOpen }: SendToFocalPointProps) => 
 	const {
 		control,
 		formState: { isValid }
-	} = useForm<SendFocalPointFormData>();
-	// TODO Fix number in modal body
+	} = useForm<SendFocalPointFormData>({
+		defaultValues: { delegates: run.focalPointDelegates, focalPoint: run.focalPoint }
+	});
 
 	return (
 		<TearsheetNarrow
 			hasCloseIcon
-			label='Monitoring Name - Run 5'
+			label={`${monitoringName} - RUN ${run.orderNumber}`}
 			description={t('runDetails:helper-focal-point')}
 			title={t('runDetails:complete-run')}
 			open={isOpen}
@@ -73,6 +82,7 @@ const SendToFocalPointModal = ({ isOpen, setIsOpen }: SendToFocalPointProps) => 
 					}}
 					control={control}
 					tooltipPosition='left'
+					defaultValue={run.focalPoint}
 				/>
 				<MultipleUserSelect
 					level={2}
@@ -86,6 +96,7 @@ const SendToFocalPointModal = ({ isOpen, setIsOpen }: SendToFocalPointProps) => 
 					}}
 					control={control}
 					tooltipPosition='left'
+					defaultValue={run.focalPointDelegates}
 				/>
 				<DatePickerWrapper
 					control={control}

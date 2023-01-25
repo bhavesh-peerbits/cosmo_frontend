@@ -8,13 +8,21 @@ import {
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction } from 'react';
+import Run from '@model/Run';
 
 type CompleteRunProps = {
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<string>>;
+	run: Run;
+	monitoringName: string;
 };
 
-const CompleteRunModal = ({ isOpen, setIsOpen }: CompleteRunProps) => {
+const CompleteRunModal = ({
+	isOpen,
+	setIsOpen,
+	run,
+	monitoringName
+}: CompleteRunProps) => {
 	const navigate = useNavigate();
 	const { t } = useTranslation(['modals', 'runDetails']);
 	const { monitoringId = '' } = useParams();
@@ -23,12 +31,10 @@ const CompleteRunModal = ({ isOpen, setIsOpen }: CompleteRunProps) => {
 		setIsOpen('');
 	};
 
-	// TODO Fix number in modal body
-
 	return (
 		<ComposedModal size='xs' open={isOpen} onClose={cleanUp}>
 			<ModalHeader
-				label='Monitoring Name - Run N'
+				label={`${monitoringName} - RUN ${run.orderNumber}`}
 				title={t('runDetails:complete-run')}
 				closeModal={cleanUp}
 			/>

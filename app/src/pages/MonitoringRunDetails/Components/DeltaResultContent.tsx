@@ -4,20 +4,24 @@ import { Tag, Button } from '@carbon/react';
 import { Download } from '@carbon/react/icons';
 import FileLink from '@model/FileLink';
 import Run from '@model/Run';
+import authStore from '@store/auth/authStore';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useRecoilValue } from 'recoil';
 import CompleteRunModal from '../Modals/CompleteRunModal';
 import SendToFocalPointModal from '../Modals/SendToFocalPoint';
 import DeltaResultTable from './DeltaResultTable';
 
 type DeltaResultContentProps = {
 	run: Run;
+	monitoringName: string;
 };
 
-const DeltaResultContent = ({ run }: DeltaResultContentProps) => {
+const DeltaResultContent = ({ run, monitoringName }: DeltaResultContentProps) => {
 	const { t } = useTranslation('runDetails');
 	const [modalToOpen, setModalToOpen] = useState('');
 	const { data: filesAnswers } = useGetAllFilesAnswer(run.id);
+	const auth = useRecoilValue(authStore);
 
 	const DownloadFile = (fileLink: FileLink) => {
 		useGetFile(fileLink.id).then(({ data, headers }) => {
@@ -56,23 +60,39 @@ const DeltaResultContent = ({ run }: DeltaResultContentProps) => {
 				))}
 			</div>
 			<DeltaResultTable data={run.deltas} />
-			<Button onClick={() => setModalToOpen('close')}>TEST CLOSE RUN MODAL</Button>
-			<Button onClick={() => setModalToOpen('send-focal-point')}>
-				TEST SEND FOCAL POINT MODAL
-			</Button>
-
-			<CompleteRunModal isOpen={modalToOpen === 'close'} setIsOpen={setModalToOpen} />
+			<CompleteRunModal
+				isOpen={modalToOpen === 'close'}
+				setIsOpen={setModalToOpen}
+				run={run}
+				monitoringName={monitoringName}
+			/>
 			<SendToFocalPointModal
 				isOpen={modalToOpen === 'send-focal-point'}
 				setIsOpen={setModalToOpen}
+				run={run}
+				monitoringName={monitoringName}
 			/>
-			<div className='flex justify-end space-x-5'>
-				<Button size='md' kind='tertiary'>
-					{t('save')}
-				</Button>
-				<Button size='md'>{t('complete-run')}</Button>
-				{/* // TODO Add text in case of partial answers to send request to focal point t('send-to-focal-point') */}
-			</div>
+			{((run.status === 'WAITING_FOR_FOCALPOINT' &&
+				(auth?.user?.id !== run.focalPoint ||
+					!run.focalPointDelegates
+						?.map(d => d.id)
+						.includes(auth?.user?.id as unknown as string))) ||
+				run.status !== 'COMPLETED') && (
+				<div className='flex justify-end'>
+					<Button
+						size='md'
+						onClick={() => {
+							run.deltas?.every(delta => delta.status === 'FINISHED')
+								? setModalToOpen('close')
+								: setModalToOpen('send-focal-point');
+						}}
+					>
+						{run.deltas?.every(delta => delta.status === 'FINISHED')
+							? t('complete-run')
+							: t('send-to-focal-point')}
+					</Button>
+				</div>
+			)}
 		</div>
 	);
 };
