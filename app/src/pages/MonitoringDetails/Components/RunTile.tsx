@@ -10,6 +10,7 @@ type RunTileProps = {
 const RunTile = ({ run }: RunTileProps) => {
 	const { t } = useTranslation('monitoringDashboard');
 	const navigate = useNavigate();
+
 	// TODO Add info for not started/ongoing runs and remove clickable for not started runs
 	return (
 		<ClickableTile

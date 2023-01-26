@@ -1,8 +1,7 @@
-import { User } from '@sentry/react';
 import { RunApi } from 'cosmo-api';
 import { DeltaDto, RunDtoStatusEnum } from 'cosmo-api/src/v1';
 import RunAsset, { fromRunAssetApi } from './RunAsset';
-import { fromUserApi } from './User';
+import User, { fromUserApi } from './User';
 
 interface Run {
 	id: string;

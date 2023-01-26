@@ -1,31 +1,34 @@
 import CosmoTable from '@components/table/CosmoTable';
 import { ColumnDef } from '@tanstack/react-table';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Upload } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { Layer } from '@carbon/react';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import addFileToRunAssetStore from '@store/run-details/addFileToRunAssetStore';
+import FileLink from '@model/FileLink';
+import TagFileLinkCell from '@components/table/Cell/TagFileLinkCell';
+import RunFileLink from '@model/RunFileLink';
 
 interface UploadFileTableItem {
 	path: string;
-	fileLastRun?: string;
-	file?: string;
+	fileLastRun?: FileLink;
+	runFileLink?: RunFileLink;
 }
 
 type FileUploadTableProps = {
 	period: 'current' | 'previous';
 	data: {
 		path: string;
-		fileLastRun?: string;
-		file?: string;
+		fileLastRun?: FileLink;
+		runFileLink?: RunFileLink;
 	}[];
 	assetId: string;
 };
 const FileUploadTable = ({ data, assetId, period }: FileUploadTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table', 'runDetails']);
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const [addFileInfo, setAddFileInfo] = useRecoilState(addFileToRunAssetStore);
+	const setAddFileInfo = useSetRecoilState(addFileToRunAssetStore);
+	const [selectedRows, setSelectedRows] = useState<UploadFileTableItem[]>([]);
 	// TODO Use tag for files
 	const columns = useMemo<ColumnDef<UploadFileTableItem>[]>(() => {
 		const ArrayCol: ColumnDef<UploadFileTableItem>[] = [
@@ -37,7 +40,8 @@ const FileUploadTable = ({ data, assetId, period }: FileUploadTableProps) => {
 			},
 			{
 				id: `file-${assetId}`,
-				accessorFn: row => row.file,
+				accessorFn: row => row.runFileLink?.fileLink,
+				cell: TagFileLinkCell,
 				header: 'File'
 			}
 		];
@@ -45,6 +49,7 @@ const FileUploadTable = ({ data, assetId, period }: FileUploadTableProps) => {
 			ArrayCol.splice(1, 0, {
 				id: `file-last-run-${assetId}`,
 				accessorFn: row => row.fileLastRun,
+				cell: TagFileLinkCell,
 				header: t('runDetails:last-run-file')
 			});
 		}
@@ -56,7 +61,15 @@ const FileUploadTable = ({ data, assetId, period }: FileUploadTableProps) => {
 			id: 'upload',
 			label: 'Upload',
 			icon: Upload,
-			onClick: () => {}
+			onClick: () => {
+				setAddFileInfo(old => ({
+					...old,
+					isOpen: true,
+					path: selectedRows.map(sr => sr?.path),
+					selectedRow: selectedRows.map(sr => sr.runFileLink),
+					old: period === 'previous'
+				}));
+			}
 		}
 	];
 	// TODO change name of export file
@@ -69,6 +82,7 @@ const FileUploadTable = ({ data, assetId, period }: FileUploadTableProps) => {
 						: `previous-period-${assetId}`
 				}
 				columns={columns}
+				onRowSelection={row => setSelectedRows(row.map(r => r.original))}
 				noDataMessage={t('table:no-data')}
 				isColumnOrderingEnabled
 				toolbar={{
@@ -83,7 +97,14 @@ const FileUploadTable = ({ data, assetId, period }: FileUploadTableProps) => {
 					{
 						label: t('runDetails:upload-file'),
 						onClick: row => {
-							setAddFileInfo(old => ({ ...old, isOpen: true, path: row.original.path }));
+							setAddFileInfo(old => ({
+								...old,
+								isOpen: true,
+								path: [row.original.path],
+								previousRunFileId: row.original.fileLastRun?.id,
+								selectedRow: row.original.runFileLink,
+								old: period === 'previous'
+							}));
 						}
 					}
 				]}

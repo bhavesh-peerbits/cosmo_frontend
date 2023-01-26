@@ -4,10 +4,10 @@ import { Information } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import MonitoringDraft from '@model/MonitoringDraft';
-import useSaveMonitoringDraft from '@api/change-monitoring/useSaveMonitoringDraft';
 import ApiError from '@api/ApiError';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import { PathMonitoringDto } from 'cosmo-api/src/v1';
+import useSaveDraftPath from '@api/change-monitoring/useSaveDraftPath';
 import PathAssetTable from './PathAssetTable';
 import AssetExpandableTile from './AssetExpandableTile';
 import SameSetupPathTable from './SameSetupPathTable';
@@ -21,7 +21,7 @@ type PathDefinitionProps = {
 const PathDefinitionStepContainer = ({ setCurrentStep, draft }: PathDefinitionProps) => {
 	const { t } = useTranslation('changeMonitoring');
 	const [sameSetup, setSameSetup] = useState(false);
-	const { mutate, isLoading, isError, isSuccess, error } = useSaveMonitoringDraft();
+	const { mutate, isLoading, isError, isSuccess, error } = useSaveDraftPath();
 	const [globalPaths, setGlobalPaths] = useState<PathMonitoringDto[]>([]);
 	const [assetsData, setAssetsData] = useState<RunMonitoringAsset[] | undefined>(
 		draft.monitoringAssets
@@ -30,12 +30,9 @@ const PathDefinitionStepContainer = ({ setCurrentStep, draft }: PathDefinitionPr
 	const saveDraft = () => {
 		return mutate(
 			{
-				draft: {
-					...draft,
-					monitoringAssets: assetsData?.map(asset => {
-						return { ...asset, paths: [...asset.paths, ...globalPaths] };
-					})
-				}
+				monitoringAssets: assetsData?.map(asset => {
+					return { ...asset, paths: [...asset.paths, ...globalPaths] };
+				})
 			},
 			{ onSuccess: () => setCurrentStep(old => old + 1) }
 		);
@@ -75,6 +72,7 @@ const PathDefinitionStepContainer = ({ setCurrentStep, draft }: PathDefinitionPr
 							globalData={globalPaths}
 							setGlobalData={setGlobalPaths}
 							assetIds={draft.monitoringAssets?.map(ma => ma.asset.id) || []}
+							os={draft.monitoringAssets?.[0].asset.os}
 						/>
 					</Layer>
 				)}
@@ -84,9 +82,9 @@ const PathDefinitionStepContainer = ({ setCurrentStep, draft }: PathDefinitionPr
 						<AssetExpandableTile title={ma.asset.hostname || ''} key={ma.id}>
 							<PathAssetTable
 								assetData={assetsData}
-								setAssetData={setAssetsData}
 								canAdd={!sameSetup}
 								assetId={ma.asset.id || ''}
+								setAssetData={setAssetsData}
 							/>
 						</AssetExpandableTile>
 					))}

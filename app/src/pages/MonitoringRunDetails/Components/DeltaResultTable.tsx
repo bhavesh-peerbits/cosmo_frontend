@@ -1,130 +1,129 @@
 import CosmoTable from '@components/table/CosmoTable';
 import { ColumnDef } from '@tanstack/react-table';
-import { Dispatch, SetStateAction, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { MisuseOutline, CheckmarkOutline } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
-import { Layer, OverflowMenu, OverflowMenuItem } from '@carbon/react';
-import User from '@model/User';
-import { formatDate } from '@i18n';
-import AddAnswerToDeltaModal from '../Modals/AddAnswerToDeltaModal';
-
-type ActionsCellProps = {
-	setModalToOpen: Dispatch<SetStateAction<string>>;
-};
-const ActionsCell = ({ setModalToOpen }: ActionsCellProps) => {
-	const { t } = useTranslation('runDetails');
-	return (
-		<OverflowMenu ariaLabel='Actions' iconDescription={t('actions')} direction='top'>
-			<OverflowMenuItem
-				itemText={t('confirm')}
-				onClick={() => setModalToOpen('add-answer')}
-			/>
-			<OverflowMenuItem itemText={t('ignore')} onClick={() => setModalToOpen('ignore')} />
-		</OverflowMenu>
-	);
-};
+import { Layer } from '@carbon/react';
+import TagFileLinkCell from '@components/table/Cell/TagFileLinkCell';
+import FileLink from '@model/FileLink';
+import AddAnswerToDeltaModal, {
+	DeltaTableRowType
+} from '../Modals/AddAnswerToDeltaModal';
 
 type DeltaResultTableProps = {
-	data: {
-		name: string;
-		directory: string;
-		dimension: string;
-		date: Date;
-		answeredBy?: User;
-		answer: string;
-	}[];
+	data?: DeltaTableRowType[];
+	monitoringName: string;
+	runNumber: number;
+	filesAnswers?: FileLink[];
 };
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const DeltaResultTable = ({ data }: DeltaResultTableProps) => {
-	const { t } = useTranslation(['changeMonitoring', 'table', 'runDetails']);
-	const [modalToOpen, setModalToOpen] = useState('');
 
-	// TODO Use tag for files
-	const columns = useMemo<
-		ColumnDef<{
-			name: string;
-			directory: string;
-			dimension: string;
-			date: Date;
-			answeredBy?: User;
-			answer: string;
-		}>[]
-	>(() => {
-		const ArrayCol: ColumnDef<{
-			name: string;
-			directory: string;
-			dimension: string;
-			date: Date;
-			answeredBy?: User;
-			answer: string;
-		}>[] = [
+const DeltaResultTable = ({
+	data,
+	monitoringName,
+	runNumber,
+	filesAnswers
+}: DeltaResultTableProps) => {
+	const { t } = useTranslation(['changeMonitoring', 'table', 'runDetails']);
+	const [modalToOpen, setModalToOpen] = useState<{
+		modal: string;
+		rows: DeltaTableRowType[];
+	}>({ modal: '', rows: [] });
+
+	const columns = useMemo<ColumnDef<DeltaTableRowType>[]>(
+		() => [
 			{
 				id: 'name',
-				accessorFn: row => row.name,
+				accessorFn: row => row.deltaFile.name,
 				header: t('runDetails:name'),
 				sortUndefined: 1
 			},
 			{
 				id: 'directory',
-				accessorFn: row => row.directory,
+				accessorFn: row => row.deltaFile.directory,
 				header: t('runDetails:directory')
 			},
 			{
 				id: 'dimension',
-				accessorFn: row => row.dimension,
+				accessorFn: row => row.deltaFile.dimension,
 				header: t('runDetails:dimension')
 			},
 			{
+				id: 'additional-info',
+				accessorFn: row => row.deltaFile.additionalInfo,
+				header: t('runDetails:additional-info'),
+				meta: { initialVisible: false }
+			},
+			{
+				id: 'asset',
+				accessorFn: row => row.asset,
+				header: 'Asset'
+			},
+			{
 				id: 'date-time',
-				accessorFn: row => formatDate(row.date),
+				accessorFn: row =>
+					row.deltaFile.lastModify && new Date(row.deltaFile.lastModify).toLocaleString(),
 				header: t('runDetails:date-time')
 			},
 			{
 				id: 'answered-by',
-				accessorFn: row => row.answeredBy?.displayName,
+				accessorFn: row => row.givenBy,
 				header: t('runDetails:answered-by')
 			},
 			{
-				id: 'answer',
-				accessorFn: row => row.answer,
-				header: t('runDetails:answer')
+				id: 'answered-at',
+				accessorFn: row => row.givenAt && new Date(row.givenAt).toLocaleString(),
+				header: t('runDetails:answer-date'),
+				meta: { initialVisible: false }
 			},
 			{
-				id: 'actions',
-				header: t('runDetails:actions'),
-				cell: () => ActionsCell({ setModalToOpen }),
-				enableSorting: false,
-				enableGrouping: false
+				id: 'answer',
+				accessorFn: row => row.answerFile || row.answerValue,
+				cell: info =>
+					info.row.original.answerFile
+						? TagFileLinkCell
+						: info.getValue() !== 'NONE' && info.getValue(),
+				header: t('runDetails:answer'),
+				meta: {
+					exportableFn: info =>
+						(info as DeltaTableRowType).answerFile
+							? (info as DeltaTableRowType).answerFile?.name || ''
+							: (info as DeltaTableRowType).answerValue || ''
+				}
 			}
-		];
-		return ArrayCol;
-	}, [t]);
+		],
+		[t]
+	);
 
 	const toolbarBatchActions = [
 		{
 			id: 'confirm',
 			label: t('runDetails:confirm'),
 			icon: CheckmarkOutline,
-			onClick: () => {
-				setModalToOpen('add-answer');
+			onClick: (rows: DeltaTableRowType[]) => {
+				setModalToOpen({ modal: 'add-answer', rows });
 			}
 		},
 		{
 			id: 'ignore',
 			label: t('runDetails:ignore'),
 			icon: MisuseOutline,
-			onClick: () => {
-				setModalToOpen('ignore');
+			onClick: (rows: DeltaTableRowType[]) => {
+				setModalToOpen({ modal: 'ignore', rows });
 			}
 		}
 	];
-	// TODO change name of export file
+
+	// TODO Add upload for answers
+
 	return (
 		<Layer level={2}>
 			<AddAnswerToDeltaModal
-				isOpen={modalToOpen === 'add-answer' || modalToOpen === 'ignore'}
+				isOpen={modalToOpen}
 				setIsOpen={setModalToOpen}
-				isIgnore={modalToOpen === 'ignore'}
+				monitoringName={monitoringName}
+				runNumber={runNumber}
+				filesAnswers={filesAnswers}
+				orderNumber={runNumber}
 			/>
 			<CosmoTable
 				tableId='delta-table'
@@ -136,10 +135,24 @@ const DeltaResultTable = ({ data }: DeltaResultTableProps) => {
 					toolbarBatchActions,
 					toolbarTableMenus: []
 				}}
-				exportFileName={({ all }) => (all ? 'file-upload-all' : 'file-upload-selection')}
-				data={data}
+				exportFileName={({ all }) =>
+					all
+						? `${monitoringName}-run-${runNumber}-all`
+						: `${monitoringName}-run-${runNumber}-selection`
+				}
+				data={data || []}
 				isSelectable
 				canAdd
+				inlineActions={[
+					{
+						label: t('runDetails:confirm'),
+						onClick: row => setModalToOpen({ modal: 'add-answer', rows: [row.original] })
+					},
+					{
+						label: t('runDetails:ignore'),
+						onClick: row => setModalToOpen({ modal: 'ignore', rows: [row.original] })
+					}
+				]}
 			/>
 		</Layer>
 	);

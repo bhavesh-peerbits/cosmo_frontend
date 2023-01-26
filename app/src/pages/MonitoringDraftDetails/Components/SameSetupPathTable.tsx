@@ -3,8 +3,10 @@ import { CellContext, ColumnDef } from '@tanstack/react-table';
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 import { MisuseOutline, CheckmarkOutline } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
-import { PathMonitoringDto } from 'cosmo-api/src/v1';
+import { AssetOsEnum, PathMonitoringDto } from 'cosmo-api/src/v1';
 import useNotification from '@hooks/useNotification';
+import useCheckPathsMultiAsset from '@api/change-monitoring/useCheckPathsMultiAssets';
+import { useForm } from 'react-hook-form';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const BooleanCell = ({ getValue }: CellContext<any, unknown>) => {
@@ -12,24 +14,33 @@ const BooleanCell = ({ getValue }: CellContext<any, unknown>) => {
 	return value ? <CheckmarkOutline /> : <MisuseOutline />;
 };
 
+type PathAssetTableFormData = {
+	path: string[];
+};
+
 type SameSetupPathTableProps = {
 	assetIds: string[];
 	globalData: PathMonitoringDto[];
 	setGlobalData?: Dispatch<SetStateAction<PathMonitoringDto[]>>;
+	os?: AssetOsEnum;
 };
 const SameSetupPathTable = ({
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	assetIds,
 	setGlobalData,
-	globalData
+	globalData,
+	os
 }: SameSetupPathTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table']);
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [newPaths, setNewPaths] = useState<PathMonitoringDto[]>([]);
 	const { showNotification } = useNotification();
+	const { mutate } = useCheckPathsMultiAsset();
+	const form = useForm<PathAssetTableFormData>();
 
-	const columns = useMemo<ColumnDef<PathMonitoringDto>[]>(() => {
-		const ArrayCol: ColumnDef<PathMonitoringDto>[] = [
+	const columns = useMemo<
+		ColumnDef<PathMonitoringDto, unknown, PathAssetTableFormData>[]
+	>(() => {
+		const ArrayCol: ColumnDef<PathMonitoringDto, unknown, PathAssetTableFormData>[] = [
 			{
 				id: 'selected-same-setup',
 				accessorFn: row => row.selected,
@@ -42,11 +53,17 @@ const SameSetupPathTable = ({
 				header: 'Path',
 				sortUndefined: 1,
 				meta: {
-					// 	modalInfo: {
-					// 		type: 'string',
-					// 		modelKeyName: 'paths',
-					// 		validation: { required: true }
-					// 	} FIXME
+					modalInfo: {
+						type: 'string',
+						id: 'path',
+						validation: {
+							required: { value: true, message: t('changeMonitoring:field-required') },
+							pattern: {
+								value: os === 'WINDOWS' ? /^(?!s*$)[^/]+/ : /^(?!s*$)[^\\]+/,
+								message: 'to'
+							}
+						}
+					}
 				}
 			}
 		];
@@ -59,7 +76,7 @@ const SameSetupPathTable = ({
 			});
 		}
 		return ArrayCol;
-	}, [globalData, t]);
+	}, [globalData, os, t]);
 
 	const toolbarBatchActions = [
 		{
@@ -114,14 +131,20 @@ const SameSetupPathTable = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [newPaths]);
 
+	const checkPaths = (data: string[]) => {
+		return mutate(
+			{ assetIds, paths: data },
+			{ onSuccess: resultData => setNewPaths(resultData) }
+		);
+	};
+
 	return (
 		<CosmoTable
-			// modalProps={{
-			// 	mutation: useCheckPathsMultiAssets(),
-			// 	title: t('changeMonitoring:add-path'),
-			// 	setMutationResult: setNewPaths,
-			// 	mutationDefaultValues: { assetIds }
-			// }} FIXME use new props
+			modalProps={{
+				form,
+				onSubmit: data => checkPaths(data.path),
+				title: t('changeMonitoring:add-path')
+			}}
 			tableId='path-multi-asset-table'
 			columns={columns}
 			noDataMessage={t('table:no-data')}

@@ -5,12 +5,18 @@ import { MisuseOutline, CheckmarkOutline } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { PathMonitoringDto, RunDtoStatusEnum } from 'cosmo-api/src/v1';
 import useNotification from '@hooks/useNotification';
+import { useForm } from 'react-hook-form';
+import useCheckPathAssetMonitoring from '@api/change-monitoring/useCheckPathsAsset';
 import { RunMonitoringAsset } from '../types/RunMonitoringAsset';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const BooleanCell = ({ getValue }: CellContext<any, unknown>) => {
 	const value = getValue() as boolean;
 	return value ? <CheckmarkOutline /> : <MisuseOutline />;
+};
+
+type PathAssetTableFormData = {
+	path: string[];
 };
 
 interface PathAssetTableProps {
@@ -28,12 +34,15 @@ const PathAssetTable = ({
 	status
 }: PathAssetTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table']);
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [newPaths, setNewPaths] = useState<PathMonitoringDto[]>([]);
 	const { showNotification } = useNotification();
+	const form = useForm<PathAssetTableFormData>();
+	const { mutate } = useCheckPathAssetMonitoring();
 
-	const columns = useMemo<ColumnDef<PathMonitoringDto>[]>(() => {
-		const ArrayCol: ColumnDef<PathMonitoringDto>[] = [
+	const columns = useMemo<
+		ColumnDef<PathMonitoringDto, unknown, PathAssetTableFormData>[]
+	>(() => {
+		const ArrayCol: ColumnDef<PathMonitoringDto, unknown, PathAssetTableFormData>[] = [
 			{
 				id: `selected-${assetId}`,
 				accessorFn: row => row.selected,
@@ -46,15 +55,20 @@ const PathAssetTable = ({
 				header: 'Path',
 				sortUndefined: 1,
 				meta: {
-					// modalInfo: {
-					// 	type: 'string',
-					// 	modelKeyName: 'requestBody',
-					// 	validation: {
-					// 		required: true,
-					// 		pattern:
-					// 			assetData?.[0].asset.os === 'WINDOWS' ? '^(?!s*$)[^/]+' : '^(?!s*$)[^\\]+'
-					// 	}
-					// } FIXME
+					modalInfo: {
+						type: 'string',
+						id: 'path',
+						validation: {
+							required: { value: true, message: t('changeMonitoring:field-required') },
+							pattern: {
+								value:
+									assetData?.[0].asset.os === 'WINDOWS'
+										? /^(?!s*$)[^/]+/
+										: /^(?!s*$)[^\\]+/,
+								message: 'to'
+							}
+						}
+					}
 				}
 			}
 		];
@@ -120,6 +134,13 @@ const PathAssetTable = ({
 		}
 	];
 
+	const checkPaths = (data: string[]) => {
+		return mutate(
+			{ assetId, requestBody: data },
+			{ onSuccess: resultData => setNewPaths(resultData) }
+		);
+	};
+
 	useEffect(() => {
 		setAssetData &&
 			setAssetData(old =>
@@ -153,12 +174,11 @@ const PathAssetTable = ({
 
 	return (
 		<CosmoTable
-			// modalProps={{
-			// 	mutation: useCheckPathAssetMonitoring(),
-			// 	title: t('changeMonitoring:add-path'),
-			// 	setMutationResult: setNewPaths,
-			// 	mutationDefaultValues: { assetId }
-			// }} FIXME use new props
+			modalProps={{
+				form,
+				onSubmit: data => checkPaths(data.path),
+				title: t('changeMonitoring:add-path')
+			}}
 			tableId={`${assetId}-path-table`}
 			columns={columns}
 			noDataMessage={t('table:no-data')}

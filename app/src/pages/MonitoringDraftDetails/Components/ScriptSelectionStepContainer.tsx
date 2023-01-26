@@ -4,9 +4,10 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import MonitoringDraft from '@model/MonitoringDraft';
 import { Button, InlineLoading } from '@carbon/react';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
-import useSaveMonitoringDraft from '@api/change-monitoring/useSaveMonitoringDraft';
 import ApiError from '@api/ApiError';
 import { useTranslation } from 'react-i18next';
+import useSaveDraftScript from '@api/change-monitoring/useSaveDraftScript';
+import { useParams } from 'react-router-dom';
 import AssetsList from './AssetsList';
 import OSScriptListContainer from './OSScriptListContainer';
 
@@ -21,16 +22,15 @@ const ScriptSelectionStepContainer = ({
 }: ScriptSelectionProps) => {
 	const { t } = useTranslation('changeMonitoring');
 	const { data: scripts } = useGetAllScripts(draft.id);
+	const { monitoringDraftId = '' } = useParams();
 	const [selectedScript, setSelectedScript] = useState(draft.script?.id);
-	const { mutate, isLoading, isError, isSuccess, error } = useSaveMonitoringDraft();
+	const { mutate, isLoading, isError, isSuccess, error } = useSaveDraftScript();
 
 	const saveDraft = () => {
 		return mutate(
 			{
-				draft: {
-					...draft,
-					script: scripts?.find(s => s.id === selectedScript)
-				}
+				monitoringId: monitoringDraftId,
+				script: scripts?.find(s => s.id === selectedScript)
 			},
 			{ onSuccess: () => setCurrentStep(old => old + 1) }
 		);

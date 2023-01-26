@@ -7,6 +7,8 @@ import ErrorBoundary from '@error/components/ErrorBoundary';
 import PageSkeleton from '@components/PageSkeleton';
 import usePolicyStore from '@hooks/usePolicyStore';
 import ProtectRoute from '@routes/ProtectRoute';
+import useGetMonitoringByIdInbox from '@api/change-monitoring-inbox/useGetMonitoringById';
+import useGetRunByIdInbox from '@api/change-monitoring-inbox/useGetRunByIdInbox';
 
 const Home = React.lazy(() => import('@pages/Home'));
 const Test = React.lazy(() => import('@pages/Test'));
@@ -54,7 +56,11 @@ const MonitoringDetails = React.lazy(
 const MonitoringRunDetails = React.lazy(
 	() => import('@pages/MonitoringRunDetails/MonitoringRunDetails')
 );
+const ChangeMonitoringInbox = React.lazy(
+	() => import('@pages/ChangeMonitoringInbox/ChangeMonitoringInbox')
+);
 const ActionEvidenceRequest = React.lazy(() => import('@pages/ActionEvidenceRequest'));
+
 const StartedEvidenceRequest = React.lazy(() => import('@pages/StartedEvidenceRequest'));
 
 const AuthenticatedRoutes = () => {
@@ -237,6 +243,7 @@ const AuthenticatedRoutes = () => {
 									}
 								/>
 							</Route>
+
 							<Route path='started-evidence-request'>
 								<Route
 									index
@@ -255,6 +262,7 @@ const AuthenticatedRoutes = () => {
 									}
 								/>
 							</Route>
+
 							<Route path='evidence-request-action'>
 								<Route
 									index
@@ -292,6 +300,7 @@ const AuthenticatedRoutes = () => {
 									}
 								/>
 							</Route>
+
 							<Route path='monitoring-dashboard'>
 								<Route
 									index
@@ -315,6 +324,41 @@ const AuthenticatedRoutes = () => {
 										element={
 											<ProtectRoute canNavigate={canCreateMonitoring}>
 												<MonitoringRunDetails />
+											</ProtectRoute>
+										}
+									/>
+								</Route>
+							</Route>
+
+							<Route path='change-monitoring'>
+								<Route
+									index
+									element={
+										<ProtectRoute canNavigate={canReview}>
+											<ChangeMonitoringInbox />
+										</ProtectRoute>
+									}
+								/>
+								<Route path=':monitoringId'>
+									<Route
+										index
+										element={
+											<ProtectRoute canNavigate={canReview}>
+												<MonitoringDetails
+													getMonitoringFn={useGetMonitoringByIdInbox}
+													isFocalPoint
+												/>
+											</ProtectRoute>
+										}
+									/>
+									<Route
+										path=':runId'
+										element={
+											<ProtectRoute canNavigate={canReview}>
+												<MonitoringRunDetails
+													getMonitoringFn={useGetMonitoringByIdInbox}
+													getRunFn={useGetRunByIdInbox}
+												/>
 											</ProtectRoute>
 										}
 									/>

@@ -1,25 +1,25 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@api';
-import RunFileLink, { toRunFileLinkApi } from '@model/RunFileLink';
+import FileForDelta, { toFileForDeltaApi } from '@model/FileForDelta';
 
 interface AddFileForDeltaParameters {
 	assetId: string;
 	file: File;
-	runFileLink: RunFileLink;
 	runId: string;
+	fileForDelta: FileForDelta;
 }
 
 const addFileForDelta = ({
 	assetId,
 	runId,
-	runFileLink,
-	file
+	file,
+	fileForDelta
 }: AddFileForDeltaParameters) => {
 	return api.analystChangeMonitoringControllerApi.addFileForDelta({
 		assetId: +assetId,
 		runId: +runId,
 		file,
-		runFileLink: toRunFileLinkApi(runFileLink)
+		fileForDelta: toFileForDeltaApi(fileForDelta)
 	});
 };
 
