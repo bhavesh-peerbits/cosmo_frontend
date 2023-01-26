@@ -14,7 +14,7 @@ import {
 } from '@carbon/react';
 import UploaderS3Monitoring from '@components/common/UploaderS3Monitoring';
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
-import FileLink from '@model/FileLink';
+import FileLink, { fromFiletoFileLink } from '@model/FileLink';
 import { DeltaFileDto, FileLinkDto } from 'cosmo-api/src/v1/models';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -72,15 +72,15 @@ const AddAnswerToDeltaModal = ({
 	const { monitoringId = '', runId = '' } = useParams();
 
 	const [inputOptions, setInputOptions] = useState(1);
-	const { control } = useForm<{ files: File[] }>({
+	const { control, getValues: getValuesFiles } = useForm<{ files: File[] }>({
 		defaultValues: { files: [] }
 	});
 	const {
 		register,
-		handleSubmit,
-		formState: { isValid }
+		getValues,
+		formState: { errors }
 	} = useForm<AddAnswerFormData>({
-		defaultValues: { fileId: '' }
+		defaultValues: { fileId: '', text: '' }
 	});
 
 	const {
@@ -96,8 +96,10 @@ const AddAnswerToDeltaModal = ({
 		reset: resetApiWithFile
 	} = useSaveAnswerWithFile();
 
-	const generatePathS3 = (justificationId?: number) => {
-		return `${new Date().getFullYear()}/change_monitoring/monitoring/${monitoringId}/run/${runId}/${orderNumber}/justification/${justificationId}`;
+	const generatePathS3 = () => {
+		return `${new Date().getFullYear()}/change_monitoring/monitoring/${monitoringId}/run/${runId}/${orderNumber}/${(
+			Math.random() * 100000000
+		).toFixed()}`;
 	};
 
 	const cleanUp = () => {
@@ -106,13 +108,13 @@ const AddAnswerToDeltaModal = ({
 		resetApiWithoutFile();
 	};
 
-	const saveAnswerWithoutFile = (data: AddAnswerFormData) => {
+	const saveAnswerWithoutFile = () => {
 		const uniqueDeltaIds = [...new Set(isOpen.rows.map(row => row.deltaId))];
 		return uniqueDeltaIds.forEach(deltaId =>
 			mutateWithoutFile({
 				deltaId,
 				deltaFilesId: isOpen.rows.map(row => row.deltaFile.id),
-				text: data.text,
+				text: getValues('text'),
 				runId
 			})
 		);
@@ -120,14 +122,17 @@ const AddAnswerToDeltaModal = ({
 
 	const saveAnswerWithFile = () => {
 		const uniqueDeltaIds = [...new Set(isOpen.rows.map(row => row.deltaId))];
-		return uniqueDeltaIds.forEach(deltaId =>
+		return uniqueDeltaIds.forEach(deltaId => {
 			mutateWithFile({
 				deltaId,
 				deltaFilesId: isOpen.rows.map(row => row.deltaFile.id),
-				files: isOpen.rows.map(row => generatePathS3(row.justificationId)),
-				runId
-			})
-		);
+				files: getValuesFiles('files'),
+				runId,
+				fileLinks: getValuesFiles('files').map(file =>
+					fromFiletoFileLink(file, generatePathS3())
+				)
+			});
+		});
 	};
 
 	return (
@@ -156,11 +161,10 @@ const AddAnswerToDeltaModal = ({
 				{
 					label: t('modals:save'),
 					id: 'save-answer',
-					disabled: !isValid,
+					type: 'submit',
+					// disabled: !isValid,
 					onClick: () => {
-						inputOptions === 1
-							? handleSubmit(saveAnswerWithoutFile)
-							: handleSubmit(saveAnswerWithFile);
+						inputOptions === 1 ? saveAnswerWithoutFile() : saveAnswerWithFile();
 					}
 				}
 			]}
@@ -183,11 +187,13 @@ const AddAnswerToDeltaModal = ({
 									id='input-text-answer'
 									labelText={t('runDetails:ticket-code')}
 									placeholder={t('runDetails:ticket-code-placeholder')}
+									invalid={Boolean(errors.text)}
+									invalidText={errors.text?.message}
 									disabled={inputOptions !== 1}
 									{...register('text', {
 										required: {
 											value: inputOptions === 1,
-											message: `${t('modals:field-required')}`
+											message: t('modals:field-required')
 										}
 									})}
 								/>
@@ -200,7 +206,7 @@ const AddAnswerToDeltaModal = ({
 							labelText={
 								<div className='space-y-3'>
 									<p>{t('runDetails:upload-new-file')}</p>
-									<Layer>
+									<Layer level={1}>
 										<UploaderS3Monitoring
 											control={control}
 											disabled={inputOptions !== 2}

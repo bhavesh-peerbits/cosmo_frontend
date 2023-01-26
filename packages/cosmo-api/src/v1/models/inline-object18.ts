@@ -20,14 +20,8 @@
 export interface InlineObject18 {
 	/**
 	 *
-	 * @type {Array<string>}
+	 * @type {any}
 	 * @memberof InlineObject18
 	 */
-	delegates?: Array<string>;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof InlineObject18
-	 */
-	focalPoint?: string;
+	file?: any;
 }

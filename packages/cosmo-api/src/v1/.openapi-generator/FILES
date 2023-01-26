@@ -85,11 +85,11 @@ models/index.ts
 models/inet.ts
 models/inline-object10.ts
 models/inline-object11.ts
-models/inline-object13.ts
+models/inline-object12.ts
 models/inline-object14.ts
-models/inline-object16.ts
+models/inline-object15.ts
 models/inline-object17.ts
-models/inline-object8.ts
+models/inline-object18.ts
 models/inline-object9.ts
 models/instance-asset-dto.ts
 models/instance-dto.ts

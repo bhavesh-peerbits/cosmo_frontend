@@ -43,6 +43,7 @@ const DeltaResultContent = ({ run, monitoringName }: DeltaResultContentProps) =>
 	};
 
 	useEffect(() => {
+		setDataTable([]);
 		run.deltas?.forEach(data => {
 			data.deltaAnswers?.forEach(delta => {
 				const { justification } = delta;

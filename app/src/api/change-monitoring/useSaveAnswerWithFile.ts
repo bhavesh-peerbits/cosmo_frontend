@@ -1,21 +1,27 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@api';
+import FileLink, { toFileLinkApi } from '@model/FileLink';
 
 interface SaveAnswerWithFileParameters {
-	files: string[];
+	files: File[];
 	deltaFilesId: number[];
 	deltaId: number;
 	runId: string;
+	fileLinks: FileLink[];
 }
 
 const saveAnswerWithFile = ({
 	files,
 	deltaFilesId,
-	deltaId
+	deltaId,
+	fileLinks
 }: SaveAnswerWithFileParameters) => {
 	return api.analystChangeMonitoringControllerApi.saveAnswerWithFile({
 		deltaId,
-		deltaFilesId,
+		answer: {
+			deltaFilesId,
+			fileslinks: { fileLinks: fileLinks.map(toFileLinkApi) }
+		},
 		files
 	});
 };
