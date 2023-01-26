@@ -4,19 +4,11 @@ import { useMemo, useState } from 'react';
 import { MisuseOutline, CheckmarkOutline } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { Layer } from '@carbon/react';
-import { DeltaFileDto, FileLinkDto } from 'cosmo-api/src/v1';
 import TagFileLinkCell from '@components/table/Cell/TagFileLinkCell';
 import FileLink from '@model/FileLink';
-import AddAnswerToDeltaModal from '../Modals/AddAnswerToDeltaModal';
-
-export interface DeltaTableRowType {
-	givenBy?: string | undefined;
-	givenAt?: string | undefined;
-	asset?: string | undefined;
-	deltaFile: DeltaFileDto;
-	answerFile?: FileLinkDto;
-	answerValue?: string;
-}
+import AddAnswerToDeltaModal, {
+	DeltaTableRowType
+} from '../Modals/AddAnswerToDeltaModal';
 
 type DeltaResultTableProps = {
 	data?: DeltaTableRowType[];
@@ -32,7 +24,10 @@ const DeltaResultTable = ({
 	filesAnswers
 }: DeltaResultTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table', 'runDetails']);
-	const [modalToOpen, setModalToOpen] = useState('');
+	const [modalToOpen, setModalToOpen] = useState<{
+		modal: string;
+		rows: DeltaTableRowType[];
+	}>({ modal: '', rows: [] });
 
 	const columns = useMemo<ColumnDef<DeltaTableRowType>[]>(
 		() => [
@@ -98,16 +93,16 @@ const DeltaResultTable = ({
 			id: 'confirm',
 			label: t('runDetails:confirm'),
 			icon: CheckmarkOutline,
-			onClick: () => {
-				setModalToOpen('add-answer');
+			onClick: (rows: DeltaTableRowType[]) => {
+				setModalToOpen({ modal: 'add-answer', rows });
 			}
 		},
 		{
 			id: 'ignore',
 			label: t('runDetails:ignore'),
 			icon: MisuseOutline,
-			onClick: () => {
-				setModalToOpen('ignore');
+			onClick: (rows: DeltaTableRowType[]) => {
+				setModalToOpen({ modal: 'ignore', rows });
 			}
 		}
 	];
@@ -117,12 +112,12 @@ const DeltaResultTable = ({
 	return (
 		<Layer level={2}>
 			<AddAnswerToDeltaModal
-				isOpen={modalToOpen === 'add-answer' || modalToOpen === 'ignore'}
+				isOpen={modalToOpen}
 				setIsOpen={setModalToOpen}
-				isIgnore={modalToOpen === 'ignore'}
 				monitoringName={monitoringName}
 				runNumber={runNumber}
 				filesAnswers={filesAnswers}
+				orderNumber={runNumber}
 			/>
 			<CosmoTable
 				tableId='delta-table'
@@ -143,8 +138,14 @@ const DeltaResultTable = ({
 				isSelectable
 				canAdd
 				inlineActions={[
-					{ label: t('runDetails:confirm'), onClick: () => setModalToOpen('add-answer') },
-					{ label: t('runDetails:ignore'), onClick: () => setModalToOpen('ignore') }
+					{
+						label: t('runDetails:confirm'),
+						onClick: row => setModalToOpen({ modal: 'add-answer', rows: [row.original] })
+					},
+					{
+						label: t('runDetails:ignore'),
+						onClick: row => setModalToOpen({ modal: 'ignore', rows: [row.original] })
+					}
 				]}
 			/>
 		</Layer>

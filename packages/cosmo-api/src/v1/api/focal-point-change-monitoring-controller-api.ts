@@ -370,7 +370,7 @@ export const FocalPointChangeMonitoringControllerApiAxiosParamCreator = function
 		): Promise<RequestArgs> => {
 			// verify required parameter 'runId' is not null or undefined
 			assertParamExists('getRun', 'runId', runId);
-			const localVarPath = `/api/change-monitoring/focal-point/get-run/{runId}`.replace(
+			const localVarPath = `/api/change-monitoring/focal-point/run/{runId}`.replace(
 				`{${'runId'}}`,
 				encodeURIComponent(String(runId))
 			);

@@ -38,6 +38,7 @@ git_push.sh
 index.ts
 models/access-login-dto.ts
 models/answer-dto.ts
+models/answer-monitoring-dto.ts
 models/api-error-response.ts
 models/application-audit-dto.ts
 models/application-campaign-dto.ts

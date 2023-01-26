@@ -12,28 +12,36 @@
  * Do not edit the class manually.
  */
 
+import { FileLinkDtoList } from './file-link-dto-list';
+
 /**
  *
  * @export
- * @interface SortObject
+ * @interface AnswerMonitoringDto
  */
-export interface SortObject {
+export interface AnswerMonitoringDto {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AnswerMonitoringDto
+	 */
+	text?: string;
+	/**
+	 *
+	 * @type {Array<number>}
+	 * @memberof AnswerMonitoringDto
+	 */
+	deltaFilesId: Array<number>;
+	/**
+	 *
+	 * @type {FileLinkDtoList}
+	 * @memberof AnswerMonitoringDto
+	 */
+	fileslinks?: FileLinkDtoList;
 	/**
 	 *
 	 * @type {boolean}
-	 * @memberof SortObject
+	 * @memberof AnswerMonitoringDto
 	 */
-	empty?: boolean;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof SortObject
-	 */
-	unsorted?: boolean;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof SortObject
-	 */
-	sorted?: boolean;
+	ignore?: boolean;
 }

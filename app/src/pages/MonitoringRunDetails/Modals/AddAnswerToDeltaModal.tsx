@@ -1,3 +1,6 @@
+import ApiError from '@api/ApiError';
+import useSaveAnswerWithFile from '@api/change-monitoring/useSaveAnswerWithFile';
+import useSaveAnswerWithoutFile from '@api/change-monitoring/useSaveAnswerWithoutFile';
 import {
 	Form,
 	Select,
@@ -6,30 +9,59 @@ import {
 	RadioButton,
 	TextArea,
 	Layer,
-	TextInput
+	TextInput,
+	InlineNotification
 } from '@carbon/react';
 import UploaderS3Monitoring from '@components/common/UploaderS3Monitoring';
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
 import FileLink from '@model/FileLink';
+import { DeltaFileDto, FileLinkDto } from 'cosmo-api/src/v1/models';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import cx from 'classnames';
+import { useParams } from 'react-router-dom';
+
+export interface DeltaTableRowType {
+	givenBy?: string | undefined;
+	givenAt?: string | undefined;
+	asset?: string | undefined;
+	deltaFile: DeltaFileDto;
+	answerFile?: FileLinkDto;
+	answerValue?: string;
+	deltaId: number;
+	justificationId?: number;
+}
+
+type AddAnswerFormData = {
+	fileId: string;
+	text: string;
+};
 
 type AddAnswerToDeltaModalProps = {
-	isOpen: boolean;
-	setIsOpen: Dispatch<SetStateAction<string>>;
-	isIgnore: boolean;
+	isOpen: {
+		modal: string;
+		rows: DeltaTableRowType[];
+	};
+	setIsOpen: Dispatch<
+		SetStateAction<{
+			modal: string;
+			rows: DeltaTableRowType[];
+		}>
+	>;
 	monitoringName: string;
 	runNumber: number;
 	filesAnswers?: FileLink[];
+	orderNumber: number;
 };
+
 const AddAnswerToDeltaModal = ({
 	isOpen,
 	setIsOpen,
-	isIgnore,
 	monitoringName,
 	runNumber,
-	filesAnswers
+	filesAnswers,
+	orderNumber
 }: AddAnswerToDeltaModalProps) => {
 	const { t } = useTranslation([
 		'modals',
@@ -37,29 +69,82 @@ const AddAnswerToDeltaModal = ({
 		'userRevalidation',
 		'changeMonitoring'
 	]);
+	const { monitoringId = '', runId = '' } = useParams();
+
 	const [inputOptions, setInputOptions] = useState(1);
 	const { control } = useForm<{ files: File[] }>({
 		defaultValues: { files: [] }
 	});
-	const { register } = useForm<{ fileId: string }>({
+	const {
+		register,
+		handleSubmit,
+		formState: { isValid }
+	} = useForm<AddAnswerFormData>({
 		defaultValues: { fileId: '' }
 	});
 
+	const {
+		mutate: mutateWithoutFile,
+		isError: isErrorWithoutFile,
+		error: errorWithoutFile,
+		reset: resetApiWithoutFile
+	} = useSaveAnswerWithoutFile();
+	const {
+		mutate: mutateWithFile,
+		isError: isErrorWithFile,
+		error: errorWithFile,
+		reset: resetApiWithFile
+	} = useSaveAnswerWithFile();
+
+	const generatePathS3 = (justificationId?: number) => {
+		return `${new Date().getFullYear()}/change_monitoring/monitoring/${monitoringId}/run/${runId}/${orderNumber}/justification/${justificationId}`;
+	};
+
 	const cleanUp = () => {
-		setIsOpen('');
+		setIsOpen({ modal: '', rows: [] });
+		resetApiWithFile();
+		resetApiWithoutFile();
+	};
+
+	const saveAnswerWithoutFile = (data: AddAnswerFormData) => {
+		const uniqueDeltaIds = [...new Set(isOpen.rows.map(row => row.deltaId))];
+		return uniqueDeltaIds.forEach(deltaId =>
+			mutateWithoutFile({
+				deltaId,
+				deltaFilesId: isOpen.rows.map(row => row.deltaFile.id),
+				text: data.text,
+				runId
+			})
+		);
+	};
+
+	const saveAnswerWithFile = () => {
+		const uniqueDeltaIds = [...new Set(isOpen.rows.map(row => row.deltaId))];
+		return uniqueDeltaIds.forEach(deltaId =>
+			mutateWithFile({
+				deltaId,
+				deltaFilesId: isOpen.rows.map(row => row.deltaFile.id),
+				files: isOpen.rows.map(row => generatePathS3(row.justificationId)),
+				runId
+			})
+		);
 	};
 
 	return (
 		<TearsheetNarrow
 			hasCloseIcon
-			title={isIgnore ? t('runDetails:ignore') : t('runDetails:add-file-path')}
+			title={
+				isOpen?.modal === 'ignore'
+					? t('runDetails:ignore')
+					: t('runDetails:add-file-path')
+			}
 			label={`${monitoringName} - RUN ${runNumber}`}
 			description={
-				isIgnore
+				isOpen?.modal === 'ignore'
 					? t('runDetails:ignore-description')
 					: t('runDetails:add-answer-description')
 			}
-			open={isOpen}
+			open={isOpen?.modal === 'add-answer' || isOpen?.modal === 'ignore'}
 			onClose={cleanUp}
 			actions={[
 				{
@@ -71,17 +156,24 @@ const AddAnswerToDeltaModal = ({
 				{
 					label: t('modals:save'),
 					id: 'save-answer',
-					onClick: () => {}
+					disabled: !isValid,
+					onClick: () => {
+						inputOptions === 1
+							? handleSubmit(saveAnswerWithoutFile)
+							: handleSubmit(saveAnswerWithFile);
+					}
 				}
 			]}
 		>
 			<Form className='space-y-5 px-5'>
-				{isIgnore && <TextArea labelText={t('changeMonitoring:note')} />}
-				{!isIgnore && (
+				{isOpen?.modal === 'ignore' && (
+					<TextArea labelText={t('changeMonitoring:note')} />
+				)}
+				{isOpen?.modal !== 'ignore' && (
 					<RadioButtonGroup
-						name='select-file'
+						name='add-answer'
 						orientation='vertical'
-						legendText={t('runDetails:select-file-method')}
+						legendText={t('runDetails:select-answer-type')}
 						defaultSelected='1'
 						className='fix-width-radio'
 					>
@@ -89,13 +181,20 @@ const AddAnswerToDeltaModal = ({
 							labelText={
 								<TextInput
 									id='input-text-answer'
-									labelText='ADD LABEL'
-									placeholder='ADD PPLACEHOLDER'
+									labelText={t('runDetails:ticket-code')}
+									placeholder={t('runDetails:ticket-code-placeholder')}
 									disabled={inputOptions !== 1}
+									{...register('text', {
+										required: {
+											value: inputOptions === 1,
+											message: `${t('modals:field-required')}`
+										}
+									})}
 								/>
 							}
 							value='1'
 							onClick={() => setInputOptions(1)}
+							className='w-full'
 						/>
 						<RadioButton
 							labelText={
@@ -138,24 +237,29 @@ const AddAnswerToDeltaModal = ({
 							className='flex w-full justify-start'
 							value='3'
 							onClick={() => setInputOptions(3)}
+							disabled={filesAnswers?.length === 0}
 						/>
 					</RadioButtonGroup>
-					// <div className='space-y-7'>
-					// 	<TextInput
-					// 		id='answer'
-					// 		labelText='CHANGE LABEL'
-					// 		placeholder='CHANGE PLACEHOLDER'
-					// 	/>
-
-					// 	<div className='space-y-3'>
-					// 		<p className='text-heading-compact-1'>{t('runDetails:upload-file')}</p>
-
-					// 		<FileUploaderDropContainer
-					// 			labelText={t('userRevalidation:upload-instructions')}
-					// 		/>
-					// 	</div>
-					// </div>
 				)}
+				<div
+					className={cx(
+						'flex items-center justify-center transition-all duration-fast-2 ease-entrance-expressive',
+						{
+							'opacity-0': !isErrorWithFile || !isErrorWithoutFile
+						}
+					)}
+				>
+					<InlineNotification
+						kind='error'
+						title='Error'
+						hideCloseButton
+						subtitle={
+							(errorWithFile as ApiError)?.message ||
+							(errorWithoutFile as ApiError)?.message ||
+							'An error has occurred, please try again later'
+						}
+					/>
+				</div>
 			</Form>
 		</TearsheetNarrow>
 	);

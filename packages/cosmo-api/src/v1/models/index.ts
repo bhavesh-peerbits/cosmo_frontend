@@ -1,5 +1,6 @@
 export * from './access-login-dto';
 export * from './answer-dto';
+export * from './answer-monitoring-dto';
 export * from './api-error-response';
 export * from './application';
 export * from './application-audit-dto';

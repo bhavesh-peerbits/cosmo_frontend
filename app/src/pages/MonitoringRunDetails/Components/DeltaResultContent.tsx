@@ -8,9 +8,10 @@ import authStore from '@store/auth/authStore';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilValue } from 'recoil';
+import { DeltaTableRowType } from '../Modals/AddAnswerToDeltaModal';
 import CompleteRunModal from '../Modals/CompleteRunModal';
 import SendToFocalPointModal from '../Modals/SendToFocalPoint';
-import DeltaResultTable, { DeltaTableRowType } from './DeltaResultTable';
+import DeltaResultTable from './DeltaResultTable';
 
 type DeltaResultContentProps = {
 	run: Run;
@@ -43,7 +44,6 @@ const DeltaResultContent = ({ run, monitoringName }: DeltaResultContentProps) =>
 
 	useEffect(() => {
 		run.deltas?.forEach(data => {
-			const asset = data.asset.hostname;
 			data.deltaAnswers?.forEach(delta => {
 				const { justification } = delta;
 				delta.deltaFiles?.forEach(d => {
@@ -54,9 +54,11 @@ const DeltaResultContent = ({ run, monitoringName }: DeltaResultContentProps) =>
 							givenBy: `${justification?.givenBy?.name} ${justification?.givenBy?.surname}`,
 							answerFiles: justification?.files,
 							answerValue: justification?.value,
-							asset,
+							asset: data.asset.hostname,
 							deltaFile: d,
-							answer: data.deltaAnswers
+							answer: data.deltaAnswers,
+							deltaId: data.id,
+							justificationId: justification?.id
 						}
 					]);
 				});

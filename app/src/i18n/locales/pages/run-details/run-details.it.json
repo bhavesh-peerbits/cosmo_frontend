@@ -50,5 +50,8 @@
 	"files-already-uploaded": "Files già caricati",
 	"files-already-uploaded-description": "Questi sono i file già utilizzati come risposta. È possibile indicare questi file per nuove risposte.",
 	"completed": "Completato",
-	"no-files": "Nessun file presente"
+	"no-files": "Nessun file presente",
+	"select-answer-type": "Seleziona un tipo di risposta",
+	"ticket-code": "Codice ticket",
+	"ticket-code-placeholder": "Inserire il codice del ticket"
 }
