@@ -30,5 +30,7 @@
 	"ip-placeholder": "Indirizzo per identificare l'asset nella rete",
 	"error-ports-input": "Sono ammessi solo numeri separati da una virgola",
 	"erros-ports-greater": "Il numero della porta deve essere minore di 65536",
-	"path-regex-error": "Il path deve rispettare la regex: {{regex}}"
+	"path-regex-error": "Il path deve rispettare la regex: {{regex}}",
+	"no-instance": "Nessuna istanza presente",
+	"no-instance-subtitle": "Non è presente nessuna istanza. Utilizza il pulsante in alto per crearne una nuova."
 }

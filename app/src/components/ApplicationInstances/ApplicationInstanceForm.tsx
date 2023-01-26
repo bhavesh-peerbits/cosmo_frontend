@@ -4,7 +4,6 @@ import FullWidthColumn from '@components/FullWidthColumn';
 import DeleteAssetModal from '@components/Modals/DeleteAssetModal';
 import Asset from '@model/Asset';
 import Instance from '@model/Instance';
-import InstanceAsset from '@model/InstanceAsset';
 import AssetExpandableTile from '@pages/MonitoringDraftDetails/Components/AssetExpandableTile';
 import { useState } from 'react';
 import { FieldErrors, UseFormRegister, UseFormReset } from 'react-hook-form';
@@ -17,7 +16,8 @@ export interface ApplicationInstanceFormData {
 }
 
 type ApplicationInstanceFormProps = {
-	instance: InstanceAsset;
+	instance: Instance;
+	instanceAssets?: Asset[];
 	isReview?: boolean;
 	register: UseFormRegister<ApplicationInstanceFormData>;
 	errors: FieldErrors<ApplicationInstanceFormData>;
@@ -28,6 +28,7 @@ type ApplicationInstanceFormProps = {
 
 const ApplicationInstanceForm = ({
 	instance,
+	instanceAssets,
 	isReview,
 	register,
 	errors,
@@ -50,7 +51,7 @@ const ApplicationInstanceForm = ({
 			/>
 			<FullWidthColumn>
 				<TextInput
-					id={`${instance.instance?.id}-input-name`}
+					id={`${instance?.id}-input-name`}
 					labelText={`${t('applicationInstances:instance-name')} *`}
 					placeholder={t('applicationInstances:instance-name-placeholder')}
 					invalidText={errors.name?.message}
@@ -65,7 +66,7 @@ const ApplicationInstanceForm = ({
 			</FullWidthColumn>
 			<FullWidthColumn>
 				<TextArea
-					id={`${instance.instance?.id}-input-description`}
+					id={`${instance.id}-input-description`}
 					labelText={t('applicationInstances:description')}
 					placeholder={t('applicationInstances:instance-description-placeholder')}
 					{...register('description')}
@@ -91,8 +92,8 @@ const ApplicationInstanceForm = ({
 								onClick={() => {
 									reset &&
 										reset({
-											description: instance.instance?.description,
-											name: instance.instance?.name
+											description: instance.description,
+											name: instance.name
 										});
 								}}
 							>
@@ -105,9 +106,9 @@ const ApplicationInstanceForm = ({
 					</div>
 				</FullWidthColumn>
 			)}
-			{!!instance.assets?.length && (
+			{!!instanceAssets?.length && (
 				<FullWidthColumn>
-					{instance.assets?.map(asset => (
+					{instanceAssets.map(asset => (
 						<AssetExpandableTile
 							title={
 								<div className='flex items-center justify-between'>
@@ -123,7 +124,7 @@ const ApplicationInstanceForm = ({
 												tooltipPosition='bottom'
 												onClick={e => {
 													e.stopPropagation();
-													setAssetToDelete({ asset, instance: instance.instance });
+													setAssetToDelete({ asset, instance });
 												}}
 											/>
 											<Button

@@ -1,4 +1,6 @@
-import { Form, TextInput, TextArea } from '@carbon/react';
+import ApiError from '@api/ApiError';
+import useCreateInstanceForApp from '@api/management/useCreateInstanceForApp';
+import { Form, TextInput, TextArea, InlineNotification } from '@carbon/react';
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
 import Application from '@model/Application';
 import { Dispatch, SetStateAction } from 'react';
@@ -21,14 +23,40 @@ const AddNewInstanceModal = ({
 	application
 }: AddNewInstanceModalProps) => {
 	const { t } = useTranslation(['modals', 'applicationInstances']);
+	const {
+		mutate,
+		isError,
+		error,
+		isLoading,
+		reset: resetApi
+	} = useCreateInstanceForApp();
 
 	const {
 		register,
+		handleSubmit,
+		reset,
 		formState: { errors, isValid }
 	} = useForm<NewInstanceFormData>({ mode: 'onChange' });
 
 	const cleanUp = () => {
 		setIsOpen(false);
+		resetApi();
+		reset();
+	};
+
+	const createInstance = (data: NewInstanceFormData) => {
+		return mutate(
+			{
+				appId: application.id,
+				instance: {
+					application,
+					id: '',
+					name: data.name,
+					description: data.description
+				}
+			},
+			{ onSuccess: cleanUp }
+		);
 	};
 
 	return (
@@ -48,8 +76,8 @@ const AddNewInstanceModal = ({
 				{
 					label: t('modals:create'),
 					id: 'send-focal-point',
-					disabled: !isValid
-					// onClick: handleSubmit(createInstance)
+					disabled: !isValid || isLoading,
+					onClick: handleSubmit(createInstance)
 				}
 			]}
 		>
@@ -73,7 +101,7 @@ const AddNewInstanceModal = ({
 					placeholder={t('applicationInstances:instance-description-placeholder')}
 					{...register('description')}
 				/>
-				{/* {isError && (
+				{isError && (
 					<div className='mt-5 flex items-center justify-center'>
 						<InlineNotification
 							kind='error'
@@ -85,7 +113,7 @@ const AddNewInstanceModal = ({
 							}
 						/>
 					</div>
-				)} */}
+				)}
 			</Form>
 		</TearsheetNarrow>
 	);

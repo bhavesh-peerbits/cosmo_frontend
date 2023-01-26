@@ -14,8 +14,8 @@ import { useMemo, useEffect } from 'react';
 import useGetAppsInReview from '@api/review/useGetAppsInReview';
 import useGetProcedures from '@api/procedures/useGetProcedures';
 import { Procedure } from 'cosmo-api/src/v1';
-import useGetAppInstances from '@api/change-monitoring/useGetAppInstances';
 import ApplicationInstanceReview from '@components/ReviewNarrative/ApplicationInstanceReview';
+import useGetAllInstancesForApp from '@api/management/useGetAllInstancesForApp';
 
 const ReviewDetail = () => {
 	const { t } = useTranslation('reviewNarrative');
@@ -23,14 +23,12 @@ const ReviewDetail = () => {
 	const { data: apps } = useGetAppsInReview();
 	const { data: proceduresApp = new Map<string, ProcedureAppInstance>() } =
 		useGetProcedureForReview(appId);
+	const { data: instances } = useGetAllInstancesForApp(appId);
 	const procedureList = useMemo(() => [...proceduresApp.values()], [proceduresApp]);
 	const { data: procedures = new Map<string, Procedure>() } = useGetProcedures();
 	const { breadcrumbSize } = useBreadcrumbSize();
 	const data = apps?.get(appId);
 	const navigate = useNavigate();
-
-	// TODO Remove
-	const { data: fakeInstances } = useGetAppInstances('fede');
 
 	useEffect(() => {
 		if (!data) {
@@ -88,15 +86,15 @@ const ReviewDetail = () => {
 									</div>
 								)}
 								{data.inReview &&
-									fakeInstances?.map(instance => (
+									instances?.map(instance => (
 										<Tile className='bg-background'>
 											<Grid>
 												<FullWidthColumn className='flex justify-between space-x-1'>
 													<p
-														data-toc-id={`instance-tile-review-${instance.instance?.name}`}
+														data-toc-id={`instance-tile-review-${instance.name}`}
 														className='flex-1 text-productive-heading-3'
 													>
-														{instance.instance?.name}
+														{instance.name}
 													</p>
 													<div className='justify-end'>
 														<p className='text-text-secondary text-body-compact-1'>

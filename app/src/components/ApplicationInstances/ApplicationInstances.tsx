@@ -1,4 +1,3 @@
-import useGetAppInstances from '@api/change-monitoring/useGetAppInstances';
 import { Add } from '@carbon/react/icons';
 import FullWidthColumn from '@components/FullWidthColumn';
 import NoDataMessage from '@components/NoDataMessage';
@@ -10,6 +9,7 @@ import { Button, Grid } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import AddNewInstanceModal from '@components/Modals/AddNewInstanceModal';
 import Application from '@model/Application';
+import useGetAllInstancesForApp from '@api/management/useGetAllInstancesForApp';
 import ApplicationInstanceTile from './ApplicationInstanceTile';
 
 type ApplicationInstancesProps = {
@@ -18,7 +18,7 @@ type ApplicationInstancesProps = {
 const ApplicationInstances = ({ application }: ApplicationInstancesProps) => {
 	const { t } = useTranslation('applicationInstances');
 	const [isAddInstanceOpen, setIsAddInstanceOpen] = useState(false);
-	const { data: instances } = useGetAppInstances(application?.codeName);
+	const { data: instances } = useGetAllInstancesForApp(application?.id);
 	const { breadcrumbSize } = useBreadcrumbSize();
 	const buttonRef = useRef<HTMLDivElement>(null);
 	const { md } = useResponsive();
@@ -61,8 +61,8 @@ const ApplicationInstances = ({ application }: ApplicationInstancesProps) => {
 								<div>
 									<NoDataMessage
 										className='mt-10 p-5'
-										title='NO instances'
-										subtitle='sub'
+										title={t('no-instance')}
+										subtitle={t('no-instance-subtitle')}
 									/>
 								</div>
 							)}

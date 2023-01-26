@@ -1,18 +1,23 @@
 import ApplicationInstanceForm, {
 	ApplicationInstanceFormData
 } from '@components/ApplicationInstances/ApplicationInstanceForm';
-import InstanceAsset from '@model/InstanceAsset';
 import { Grid, Button } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
+import Instance from '@model/Instance';
+import useGetAssetList from '@api/instance-asset/useGetAssetList';
 
 type ApplicationInstanceReviewProps = {
-	instance: InstanceAsset;
+	instance: Instance;
 };
 
 const ApplicationInstanceReview = ({ instance }: ApplicationInstanceReviewProps) => {
 	const { t } = useTranslation('applicationInfo');
+	const { data: instanceAssets } = useGetAssetList({
+		instanceId: instance.id,
+		appId: instance.application.id
+	});
 
 	const {
 		register,
@@ -21,8 +26,8 @@ const ApplicationInstanceReview = ({ instance }: ApplicationInstanceReviewProps)
 	} = useForm<ApplicationInstanceFormData>({
 		mode: 'onChange',
 		defaultValues: {
-			name: instance.instance?.name,
-			description: instance.instance?.description
+			name: instance.name,
+			description: instance.description
 		}
 	});
 
@@ -30,6 +35,7 @@ const ApplicationInstanceReview = ({ instance }: ApplicationInstanceReviewProps)
 		<Grid className='space-y-7'>
 			<FullWidthColumn>
 				<ApplicationInstanceForm
+					instanceAssets={instanceAssets}
 					instance={instance}
 					isReview
 					register={register}

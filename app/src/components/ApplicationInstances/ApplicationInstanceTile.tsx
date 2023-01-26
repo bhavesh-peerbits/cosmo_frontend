@@ -2,18 +2,19 @@ import { Button, Form, Grid, Tile, OverflowMenu, OverflowMenuItem } from '@carbo
 import { TrashCan, Add } from '@carbon/react/icons';
 import FullWidthColumn from '@components/FullWidthColumn';
 import DeleteInstanceModal from '@components/Modals/DeleteInstanceModal';
-import InstanceAsset from '@model/InstanceAsset';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AddNewAssetModal from '@components/Modals/AddNewAssetModal';
 import MultiAddSelect from '@components/MultiAddSelect';
 import { useForm } from 'react-hook-form';
+import Instance from '@model/Instance';
+import useGetAssetList from '@api/instance-asset/useGetAssetList';
 import ApplicationInstanceForm, {
 	ApplicationInstanceFormData
 } from './ApplicationInstanceForm';
 
 type ApplicationInstanceTileProps = {
-	instance: InstanceAsset;
+	instance: Instance;
 };
 const ApplicationInstanceTile = ({ instance }: ApplicationInstanceTileProps) => {
 	const { t } = useTranslation([
@@ -25,6 +26,10 @@ const ApplicationInstanceTile = ({ instance }: ApplicationInstanceTileProps) => 
 	]);
 	const [isDeleteInstanceOpen, setIsDeleteInstanceOpen] = useState(false);
 	const [addAssetToOpen, setAddAssetToOpen] = useState<'new' | 'existing' | undefined>();
+	const { data: instanceAssets } = useGetAssetList({
+		instanceId: instance.id,
+		appId: instance.application.id
+	});
 
 	const {
 		register,
@@ -33,18 +38,18 @@ const ApplicationInstanceTile = ({ instance }: ApplicationInstanceTileProps) => 
 	} = useForm<ApplicationInstanceFormData>({
 		mode: 'onChange',
 		defaultValues: {
-			name: instance.instance?.name,
-			description: instance.instance?.description
+			name: instance.name,
+			description: instance.description
 		}
 	});
 
-	if (!instance || !instance.instance) {
+	if (!instance) {
 		return null;
 	}
 	// TODO Change items and filter items based on already associated assets
 	// TODO Edit items in onSubmit filter
 	return (
-		<Tile href={`${instance.instance?.id}`} className='w-full bg-background'>
+		<Tile href={`${instance.id}`} className='w-full bg-background'>
 			<Form>
 				<Grid fullWidth>
 					<MultiAddSelect
@@ -82,8 +87,8 @@ const ApplicationInstanceTile = ({ instance }: ApplicationInstanceTileProps) => 
 						globalFiltersSecondaryButtonText={t('userSelect:reset')}
 						clearFiltersText={t('userSelect:clear-filters')}
 						items={{
-							entries: instance.assets
-								? instance.assets.map(asset =>
+							entries: instanceAssets
+								? instanceAssets.map(asset =>
 										asset.type === 'DB'
 											? {
 													id: asset.id,
@@ -111,19 +116,19 @@ const ApplicationInstanceTile = ({ instance }: ApplicationInstanceTileProps) => 
 					<DeleteInstanceModal
 						isOpen={isDeleteInstanceOpen}
 						setIsOpen={setIsDeleteInstanceOpen}
-						instance={instance.instance}
+						instance={instance}
 					/>
 					<AddNewAssetModal
 						isOpen={addAssetToOpen}
 						setIsOpen={setAddAssetToOpen}
-						instance={instance.instance}
+						instance={instance}
 					/>
 					<FullWidthColumn
-						data-toc-id={`instance-container-${instance.instance?.id}`}
-						data-toc-title={instance.instance?.name}
+						data-toc-id={`instance-container-${instance.id}`}
+						data-toc-title={instance.name}
 						className='flex items-center justify-between text-fluid-heading-3'
 					>
-						{instance.instance?.name}
+						{instance.name}
 						<div className='flex'>
 							<OverflowMenu
 								ariaLabel='Add new asset menu'
@@ -162,6 +167,7 @@ const ApplicationInstanceTile = ({ instance }: ApplicationInstanceTileProps) => 
 					<FullWidthColumn className='space-y-7'>
 						<ApplicationInstanceForm
 							instance={instance}
+							instanceAssets={instanceAssets}
 							register={register}
 							errors={errors}
 							reset={reset}
