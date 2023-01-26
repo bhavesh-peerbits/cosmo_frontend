@@ -9,6 +9,9 @@ import MultiAddSelect from '@components/MultiAddSelect';
 import { useForm } from 'react-hook-form';
 import Instance from '@model/Instance';
 import useGetAssetList from '@api/instance-asset/useGetAssetList';
+import useUpdateInstanceForApp from '@api/app-instances/useUpdateInstanceForApp';
+import ApiError from '@api/ApiError';
+import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApplicationInstanceForm, {
 	ApplicationInstanceFormData
 } from './ApplicationInstanceForm';
@@ -34,14 +37,29 @@ const ApplicationInstanceTile = ({ instance }: ApplicationInstanceTileProps) => 
 	const {
 		register,
 		reset,
+		handleSubmit,
+		setValue,
 		formState: { errors, isDirty, isValid }
 	} = useForm<ApplicationInstanceFormData>({
-		mode: 'onChange',
+		mode: 'all',
 		defaultValues: {
 			name: instance.name,
 			description: instance.description
 		}
 	});
+
+	const { mutate, isError, isLoading, error, isSuccess } = useUpdateInstanceForApp();
+
+	const updateInstance = (data: ApplicationInstanceFormData) => {
+		return mutate({
+			appId: instance.application.id,
+			instance: {
+				...instance,
+				name: data.name,
+				description: data.description
+			}
+		});
+	};
 
 	if (!instance) {
 		return null;
@@ -170,10 +188,45 @@ const ApplicationInstanceTile = ({ instance }: ApplicationInstanceTileProps) => 
 							instanceAssets={instanceAssets}
 							register={register}
 							errors={errors}
-							reset={reset}
-							isDirty={isDirty}
-							isValid={isValid}
+							setValue={setValue}
 						/>
+					</FullWidthColumn>
+					<FullWidthColumn className='pt-7'>
+						<div className='flex flex-wrap justify-between space-x-2'>
+							<div className='flex-1'>
+								<InlineLoadingStatus
+									isLoading={isLoading}
+									isSuccess={isSuccess}
+									isError={isError}
+									error={error as ApiError}
+								/>
+							</div>
+							<div className='flex w-full flex-1 justify-end space-x-5 pb-5'>
+								<Button
+									size='md'
+									type='reset'
+									kind='secondary'
+									disabled={!isDirty}
+									onClick={() => {
+										reset &&
+											reset({
+												description: instance.description,
+												name: instance.name
+											});
+									}}
+								>
+									{t('applicationInfo:discard')}
+								</Button>
+								<Button
+									size='md'
+									type='submit'
+									disabled={!isValid || !isDirty}
+									onClick={handleSubmit(updateInstance)}
+								>
+									{t('modals:save')}
+								</Button>
+							</div>
+						</div>
 					</FullWidthColumn>
 				</Grid>
 			</Form>

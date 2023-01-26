@@ -9,4 +9,4 @@ const useGetAllInstancesForApp = (appId: string) => {
 };
 
 export default (appId: string) =>
-	useQuery(['instances-app'], () => useGetAllInstancesForApp(appId));
+	useQuery(['instances-app', appId], () => useGetAllInstancesForApp(appId));

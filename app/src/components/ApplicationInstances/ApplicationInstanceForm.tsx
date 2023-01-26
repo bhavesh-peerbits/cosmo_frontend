@@ -6,7 +6,7 @@ import Asset from '@model/Asset';
 import Instance from '@model/Instance';
 import AssetExpandableTile from '@pages/MonitoringDraftDetails/Components/AssetExpandableTile';
 import { useState } from 'react';
-import { FieldErrors, UseFormRegister, UseFormReset } from 'react-hook-form';
+import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import AssetFormContainer from './AssetFormContainer';
 
@@ -21,9 +21,7 @@ type ApplicationInstanceFormProps = {
 	isReview?: boolean;
 	register: UseFormRegister<ApplicationInstanceFormData>;
 	errors: FieldErrors<ApplicationInstanceFormData>;
-	reset?: UseFormReset<ApplicationInstanceFormData>;
-	isDirty?: boolean;
-	isValid?: boolean;
+	setValue: UseFormSetValue<ApplicationInstanceFormData>;
 };
 
 const ApplicationInstanceForm = ({
@@ -32,9 +30,7 @@ const ApplicationInstanceForm = ({
 	isReview,
 	register,
 	errors,
-	isDirty,
-	isValid,
-	reset
+	setValue
 }: ApplicationInstanceFormProps) => {
 	const { t } = useTranslation(['modals', 'applicationInstances', 'applicationInfo']);
 	const [assetToDelete, setAssetToDelete] = useState<{
@@ -69,19 +65,20 @@ const ApplicationInstanceForm = ({
 					id={`${instance.id}-input-description`}
 					labelText={t('applicationInstances:description')}
 					placeholder={t('applicationInstances:instance-description-placeholder')}
-					{...register('description')}
+					onChange={e => setValue('description', e.currentTarget.value)}
+					defaultValue={instance.description}
 				/>
 			</FullWidthColumn>
-			{!isReview && (
+			{/* {!isReview && (
 				<FullWidthColumn>
 					<div className='flex flex-wrap justify-between space-x-2'>
 						<div className='flex-1'>
-							{/* <InlineLoadingStatus
-											isLoading={isAddLoading || isEditLoading}
-											isSuccess={isAddSuccess || isEditSuccess}
-											isError={isAddError || isEditError}
-											error={(addError || editError) as ApiError}
-										/> */}
+							<InlineLoadingStatus
+								isLoading={isLoading}
+								isSuccess={isSuccess}
+								isError={isError}
+								error={error as ApiError}
+							/>
 						</div>
 						<div className='flex w-full flex-1 justify-end space-x-5 pb-5'>
 							<Button
@@ -99,13 +96,18 @@ const ApplicationInstanceForm = ({
 							>
 								{t('applicationInfo:discard')}
 							</Button>
-							<Button size='md' type='submit' disabled={!isValid || !isDirty}>
+							<Button
+								size='md'
+								type='submit'
+								disabled={!isValid || !isDirty}
+								onClick={handleSubmit(updateInstance)}
+							>
 								{t('modals:save')}
 							</Button>
 						</div>
 					</div>
 				</FullWidthColumn>
-			)}
+			)} */}
 			{!!instanceAssets?.length && (
 				<FullWidthColumn>
 					{instanceAssets.map(asset => (

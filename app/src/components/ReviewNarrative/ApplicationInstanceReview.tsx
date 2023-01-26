@@ -22,6 +22,7 @@ const ApplicationInstanceReview = ({ instance }: ApplicationInstanceReviewProps)
 	const {
 		register,
 		reset,
+		setValue,
 		formState: { errors, isDirty, isValid }
 	} = useForm<ApplicationInstanceFormData>({
 		mode: 'onChange',
@@ -40,6 +41,7 @@ const ApplicationInstanceReview = ({ instance }: ApplicationInstanceReviewProps)
 					isReview
 					register={register}
 					errors={errors}
+					setValue={setValue}
 				/>
 			</FullWidthColumn>
 			<FullWidthColumn className='flex justify-end'>

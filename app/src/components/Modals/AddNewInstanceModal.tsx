@@ -1,5 +1,5 @@
 import ApiError from '@api/ApiError';
-import useCreateInstanceForApp from '@api/management/useCreateInstanceForApp';
+import useCreateInstanceForApp from '@api/app-instances/useCreateInstanceForApp';
 import { Form, TextInput, TextArea, InlineNotification } from '@carbon/react';
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
 import Application from '@model/Application';
@@ -16,13 +16,15 @@ type AddNewInstanceModalProps = {
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<boolean>>;
 	application: Application;
+	allInstancesNames?: string[];
 };
 const AddNewInstanceModal = ({
 	isOpen,
 	setIsOpen,
-	application
+	application,
+	allInstancesNames
 }: AddNewInstanceModalProps) => {
-	const { t } = useTranslation(['modals', 'applicationInstances']);
+	const { t } = useTranslation(['modals', 'applicationInstances', 'applicationInfo']);
 	const {
 		mutate,
 		isError,
@@ -35,8 +37,12 @@ const AddNewInstanceModal = ({
 		register,
 		handleSubmit,
 		reset,
+		setValue,
 		formState: { errors, isValid }
-	} = useForm<NewInstanceFormData>({ mode: 'onChange' });
+	} = useForm<NewInstanceFormData>({
+		mode: 'onChange',
+		defaultValues: { name: '', description: '' }
+	});
 
 	const cleanUp = () => {
 		setIsOpen(false);
@@ -92,14 +98,18 @@ const AddNewInstanceModal = ({
 						required: {
 							value: true,
 							message: `${t('modals:field-required')}`
-						}
+						},
+						validate: name =>
+							!allInstancesNames?.includes(name.toLowerCase()) ||
+							t('applicationInfo:name-exists')
 					})}
 				/>
+				{/* //TODO Fix with register when carbon bug is fixed */}
 				<TextArea
 					id='new-instance-input-description'
 					labelText={t('applicationInstances:description')}
 					placeholder={t('applicationInstances:instance-description-placeholder')}
-					{...register('description')}
+					onChange={e => setValue('description', e.currentTarget.value)}
 				/>
 				{isError && (
 					<div className='mt-5 flex items-center justify-center'>

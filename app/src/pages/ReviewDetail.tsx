@@ -15,7 +15,7 @@ import useGetAppsInReview from '@api/review/useGetAppsInReview';
 import useGetProcedures from '@api/procedures/useGetProcedures';
 import { Procedure } from 'cosmo-api/src/v1';
 import ApplicationInstanceReview from '@components/ReviewNarrative/ApplicationInstanceReview';
-import useGetAllInstancesForApp from '@api/management/useGetAllInstancesForApp';
+import useGetAllInstancesForApp from '@api/app-instances/useGetAllInstancesForApp';
 
 const ReviewDetail = () => {
 	const { t } = useTranslation('reviewNarrative');

@@ -9,7 +9,7 @@ import { Button, Grid } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import AddNewInstanceModal from '@components/Modals/AddNewInstanceModal';
 import Application from '@model/Application';
-import useGetAllInstancesForApp from '@api/management/useGetAllInstancesForApp';
+import useGetAllInstancesForApp from '@api/app-instances/useGetAllInstancesForApp';
 import ApplicationInstanceTile from './ApplicationInstanceTile';
 
 type ApplicationInstancesProps = {
@@ -38,6 +38,7 @@ const ApplicationInstances = ({ application }: ApplicationInstancesProps) => {
 						application={application}
 						isOpen={isAddInstanceOpen}
 						setIsOpen={setIsAddInstanceOpen}
+						allInstancesNames={instances?.map(instance => instance.name.toLowerCase())}
 					/>
 					<div className='flex flex-col space-y-5'>
 						<div
