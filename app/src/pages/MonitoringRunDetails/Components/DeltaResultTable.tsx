@@ -54,8 +54,14 @@ const DeltaResultTable = ({
 				meta: { initialVisible: false }
 			},
 			{
+				id: 'asset',
+				accessorFn: row => row.asset,
+				header: 'Asset'
+			},
+			{
 				id: 'date-time',
-				accessorFn: row => row.deltaFile.lastModify,
+				accessorFn: row =>
+					row.deltaFile.lastModify && new Date(row.deltaFile.lastModify).toLocaleString(),
 				header: t('runDetails:date-time')
 			},
 			{
@@ -65,7 +71,7 @@ const DeltaResultTable = ({
 			},
 			{
 				id: 'answered-at',
-				accessorFn: row => row.givenAt,
+				accessorFn: row => row.givenAt && new Date(row.givenAt).toLocaleString(),
 				header: t('runDetails:answer-date'),
 				meta: { initialVisible: false }
 			},

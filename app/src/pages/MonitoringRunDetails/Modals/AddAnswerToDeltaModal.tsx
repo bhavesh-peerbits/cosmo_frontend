@@ -5,8 +5,7 @@ import {
 	Form,
 	Select,
 	SelectItem,
-	RadioButtonGroup,
-	RadioButton,
+	Toggle,
 	TextArea,
 	Layer,
 	TextInput,
@@ -69,9 +68,9 @@ const AddAnswerToDeltaModal = ({
 		'userRevalidation',
 		'changeMonitoring'
 	]);
+	const [isUploadSelected, setIsUploadSelected] = useState(true);
 	const { monitoringId = '', runId = '' } = useParams();
 
-	const [inputOptions, setInputOptions] = useState(1);
 	const { control, getValues: getValuesFiles } = useForm<{ files: File[] }>({
 		defaultValues: { files: [] }
 	});
@@ -139,9 +138,7 @@ const AddAnswerToDeltaModal = ({
 		<TearsheetNarrow
 			hasCloseIcon
 			title={
-				isOpen?.modal === 'ignore'
-					? t('runDetails:ignore')
-					: t('runDetails:add-file-path')
+				isOpen?.modal === 'ignore' ? t('runDetails:ignore') : t('runDetails:confirm')
 			}
 			label={`${monitoringName} - RUN ${runNumber}`}
 			description={
@@ -164,7 +161,9 @@ const AddAnswerToDeltaModal = ({
 					type: 'submit',
 					// disabled: !isValid,
 					onClick: () => {
-						inputOptions === 1 ? saveAnswerWithoutFile() : saveAnswerWithFile();
+						getValues('fileId') || getValuesFiles('files')
+							? saveAnswerWithFile()
+							: saveAnswerWithoutFile();
 					}
 				}
 			]}
@@ -174,78 +173,61 @@ const AddAnswerToDeltaModal = ({
 					<TextArea labelText={t('changeMonitoring:note')} />
 				)}
 				{isOpen?.modal !== 'ignore' && (
-					<RadioButtonGroup
-						name='add-answer'
-						orientation='vertical'
-						legendText={t('runDetails:select-answer-type')}
-						defaultSelected='1'
-						className='fix-width-radio'
-					>
-						<RadioButton
-							labelText={
-								<TextInput
-									id='input-text-answer'
-									labelText={t('runDetails:ticket-code')}
-									placeholder={t('runDetails:ticket-code-placeholder')}
-									invalid={Boolean(errors.text)}
-									invalidText={errors.text?.message}
-									disabled={inputOptions !== 1}
-									{...register('text', {
-										required: {
-											value: inputOptions === 1,
-											message: t('modals:field-required')
-										}
-									})}
-								/>
-							}
-							value='1'
-							onClick={() => setInputOptions(1)}
-							className='w-full'
+					<div className='space-y-5'>
+						<TextInput
+							id='input-text-answer'
+							labelText={t('runDetails:ticket-code')}
+							placeholder={t('runDetails:ticket-code-placeholder')}
+							invalid={Boolean(errors.text)}
+							invalidText={errors.text?.message}
+							{...register('text', {
+								required: {
+									value: !getValuesFiles('files') || !getValues('fileId'),
+									message: t('modals:field-required')
+								}
+							})}
 						/>
-						<RadioButton
-							labelText={
-								<div className='space-y-3'>
-									<p>{t('runDetails:upload-new-file')}</p>
-									<Layer level={1}>
-										<UploaderS3Monitoring
-											control={control}
-											disabled={inputOptions !== 2}
+						<Toggle
+							labelA={t('runDetails:upload-file')}
+							labelB={t('runDetails:select-from-uploaded')}
+							id='add-answer-toggle'
+							toggled={!isUploadSelected}
+							aria-label='Toggle for add answer'
+							onToggle={() => setIsUploadSelected(!isUploadSelected)}
+						/>
+						{isUploadSelected && (
+							<div className='space-y-3'>
+								<p>{t('runDetails:upload-new-file')}</p>
+								<Layer level={1}>
+									<UploaderS3Monitoring control={control} disabled={false} />
+								</Layer>
+							</div>
+						)}
+						{!isUploadSelected && (
+							<div className='w-full space-y-3'>
+								<p className='whitespace-nowrap'>
+									{t('runDetails:file-already-uploaded')}
+								</p>
+								<Layer level={1}>
+									<Select id='file-selection' noLabel {...register('fileId')}>
+										<SelectItem
+											text={
+												filesAnswers?.length === 0
+													? t('runDetails:no-files')
+													: t('runDetails:select-file')
+											}
+											hidden
+											value=''
 										/>
-									</Layer>
-								</div>
-							}
-							value='2'
-							onClick={() => setInputOptions(2)}
-						/>
-						<RadioButton
-							labelText={
-								<div className='w-full space-y-3'>
-									<p className='whitespace-nowrap'>
-										{t('runDetails:file-already-uploaded')}
-									</p>
-									<Layer level={1}>
-										<Select
-											id='file-selection'
-											noLabel
-											disabled={inputOptions !== 3}
-											{...register('fileId')}
-										>
-											{filesAnswers?.length === 0 && (
-												<SelectItem text={t('runDetails:no-files')} hidden value='' />
-											)}
-											{filesAnswers?.map(file => (
-												<SelectItem text={file.name ?? ''} value={file.id} />
-											))}
-										</Select>
-									</Layer>
-								</div>
-							}
-							className='flex w-full justify-start'
-							value='3'
-							onClick={() => setInputOptions(3)}
-							disabled={filesAnswers?.length === 0}
-						/>
-					</RadioButtonGroup>
+
+										{filesAnswers?.map(file => (
+											<SelectItem text={file.name ?? ''} value={file.id} />
+										))}
+									</Select>
+								</Layer>
+							</div>
+						)}
+					</div>
 				)}
 				<div
 					className={cx(
