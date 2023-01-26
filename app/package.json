@@ -18,7 +18,7 @@
 		"@carbon/ibm-products": "^2.0.0-rc.11",
 		"@carbon/layout": "^11.9.0",
 		"@carbon/motion": "^11.7.0",
-		"@carbon/react": "patch:@carbon/react@npm%3A1.19.0#../.yarn/patches/@carbon-react-npm-1.19.0-985c79b931.patch",
+		"@carbon/react": "patch:@carbon/react@npm%3A1.21.0#../.yarn/patches/@carbon-react-npm-1.19.0-985c79b931.patch",
 		"@carbon/themes": "^11.14.0",
 		"@ibm/plex": "6.0.2",
 		"@recoiljs/refine": "^0.1.1",
