@@ -39,7 +39,7 @@ const CosmoFiltersPanel = ({
 			case 'lg':
 				return '48';
 			default:
-				return '48';
+				return '40';
 		}
 	};
 	return (
