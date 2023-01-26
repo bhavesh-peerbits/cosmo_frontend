@@ -43,6 +43,8 @@ import { ApplicationAuditDto } from '../models';
 // @ts-ignore
 import { ApplicationDto } from '../models';
 // @ts-ignore
+import { InstanceDto } from '../models';
+// @ts-ignore
 import { ProcedureAppInstance } from '../models';
 // @ts-ignore
 import { ProcedureAppInstanceDto } from '../models';
@@ -111,6 +113,67 @@ export const ApplicationControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} appId
+		 * @param {InstanceDto} instanceDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		createInstanceForApplication: async (
+			appId: number,
+			instanceDto: InstanceDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'appId' is not null or undefined
+			assertParamExists('createInstanceForApplication', 'appId', appId);
+			// verify required parameter 'instanceDto' is not null or undefined
+			assertParamExists('createInstanceForApplication', 'instanceDto', instanceDto);
+			const localVarPath = `/api/applications/{appId}/instance`.replace(
+				`{${'appId'}}`,
+				encodeURIComponent(String(appId))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				instanceDto,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} appId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
@@ -126,6 +189,59 @@ export const ApplicationControllerApiAxiosParamCreator = function (
 				`{${'appId'}}`,
 				encodeURIComponent(String(appId))
 			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} appId
+		 * @param {number} instanceId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		deleteInstanceForApplication: async (
+			appId: number,
+			instanceId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'appId' is not null or undefined
+			assertParamExists('deleteInstanceForApplication', 'appId', appId);
+			// verify required parameter 'instanceId' is not null or undefined
+			assertParamExists('deleteInstanceForApplication', 'instanceId', instanceId);
+			const localVarPath = `/api/applications/{appId}/instance/{instanceId}`
+				.replace(`{${'appId'}}`, encodeURIComponent(String(appId)))
+				.replace(`{${'instanceId'}}`, encodeURIComponent(String(instanceId)));
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -216,6 +332,56 @@ export const ApplicationControllerApiAxiosParamCreator = function (
 			// verify required parameter 'appId' is not null or undefined
 			assertParamExists('getAllAuditForApplication', 'appId', appId);
 			const localVarPath = `/api/applications/{appId}/audit`.replace(
+				`{${'appId'}}`,
+				encodeURIComponent(String(appId))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} appId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllInstanceForApplication: async (
+			appId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'appId' is not null or undefined
+			assertParamExists('getAllInstanceForApplication', 'appId', appId);
+			const localVarPath = `/api/applications/{appId}/instance`.replace(
 				`{${'appId'}}`,
 				encodeURIComponent(String(appId))
 			);
@@ -483,6 +649,70 @@ export const ApplicationControllerApiAxiosParamCreator = function (
 				url: toPathString(localVarUrlObj),
 				options: localVarRequestOptions
 			};
+		},
+		/**
+		 *
+		 * @param {number} appId
+		 * @param {number} instanceId
+		 * @param {InstanceDto} instanceDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		updateInstanceForApplication: async (
+			appId: number,
+			instanceId: number,
+			instanceDto: InstanceDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'appId' is not null or undefined
+			assertParamExists('updateInstanceForApplication', 'appId', appId);
+			// verify required parameter 'instanceId' is not null or undefined
+			assertParamExists('updateInstanceForApplication', 'instanceId', instanceId);
+			// verify required parameter 'instanceDto' is not null or undefined
+			assertParamExists('updateInstanceForApplication', 'instanceDto', instanceDto);
+			const localVarPath = `/api/applications/{appId}/instance/{instanceId}`
+				.replace(`{${'appId'}}`, encodeURIComponent(String(appId)))
+				.replace(`{${'instanceId'}}`, encodeURIComponent(String(instanceId)));
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				instanceDto,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
 		}
 	};
 };
@@ -524,6 +754,34 @@ export const ApplicationControllerApiFp = function (configuration?: Configuratio
 		/**
 		 *
 		 * @param {number} appId
+		 * @param {InstanceDto} instanceDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async createInstanceForApplication(
+			appId: number,
+			instanceDto: InstanceDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InstanceDto>> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.createInstanceForApplication(
+					appId,
+					instanceDto,
+					acceptLanguage,
+					options
+				);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} appId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
@@ -538,6 +796,34 @@ export const ApplicationControllerApiFp = function (configuration?: Configuratio
 				acceptLanguage,
 				options
 			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} appId
+		 * @param {number} instanceId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async deleteInstanceForApplication(
+			appId: number,
+			instanceId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.deleteInstanceForApplication(
+					appId,
+					instanceId,
+					acceptLanguage,
+					options
+				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
@@ -590,6 +876,33 @@ export const ApplicationControllerApiFp = function (configuration?: Configuratio
 				acceptLanguage,
 				options
 			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} appId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getAllInstanceForApplication(
+			appId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InstanceDto>>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.getAllInstanceForApplication(
+					appId,
+					acceptLanguage,
+					options
+				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
@@ -715,6 +1028,37 @@ export const ApplicationControllerApiFp = function (configuration?: Configuratio
 				BASE_PATH,
 				configuration
 			);
+		},
+		/**
+		 *
+		 * @param {number} appId
+		 * @param {number} instanceId
+		 * @param {InstanceDto} instanceDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async updateInstanceForApplication(
+			appId: number,
+			instanceId: number,
+			instanceDto: InstanceDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InstanceDto>> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.updateInstanceForApplication(
+					appId,
+					instanceId,
+					instanceDto,
+					acceptLanguage,
+					options
+				);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
 		}
 	};
 };
@@ -749,6 +1093,24 @@ export const ApplicationControllerApiFactory = function (
 		/**
 		 *
 		 * @param {number} appId
+		 * @param {InstanceDto} instanceDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		createInstanceForApplication(
+			appId: number,
+			instanceDto: InstanceDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<InstanceDto> {
+			return localVarFp
+				.createInstanceForApplication(appId, instanceDto, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} appId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
@@ -760,6 +1122,24 @@ export const ApplicationControllerApiFactory = function (
 		): AxiosPromise<string> {
 			return localVarFp
 				.deleteApplication(appId, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} appId
+		 * @param {number} instanceId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		deleteInstanceForApplication(
+			appId: number,
+			instanceId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<string> {
+			return localVarFp
+				.deleteInstanceForApplication(appId, instanceId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -790,6 +1170,22 @@ export const ApplicationControllerApiFactory = function (
 		): AxiosPromise<Array<ApplicationAuditDto>> {
 			return localVarFp
 				.getAllAuditForApplication(appId, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} appId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAllInstanceForApplication(
+			appId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<InstanceDto>> {
+			return localVarFp
+				.getAllInstanceForApplication(appId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -868,6 +1264,32 @@ export const ApplicationControllerApiFactory = function (
 			return localVarFp
 				.updateApplication(appId, applicationDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} appId
+		 * @param {number} instanceId
+		 * @param {InstanceDto} instanceDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		updateInstanceForApplication(
+			appId: number,
+			instanceId: number,
+			instanceDto: InstanceDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<InstanceDto> {
+			return localVarFp
+				.updateInstanceForApplication(
+					appId,
+					instanceId,
+					instanceDto,
+					acceptLanguage,
+					options
+				)
+				.then(request => request(axios, basePath));
 		}
 	};
 };
@@ -894,6 +1316,34 @@ export interface ApplicationControllerApiCreateApplicationRequest {
 }
 
 /**
+ * Request parameters for createInstanceForApplication operation in ApplicationControllerApi.
+ * @export
+ * @interface ApplicationControllerApiCreateInstanceForApplicationRequest
+ */
+export interface ApplicationControllerApiCreateInstanceForApplicationRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof ApplicationControllerApiCreateInstanceForApplication
+	 */
+	readonly appId: number;
+
+	/**
+	 *
+	 * @type {InstanceDto}
+	 * @memberof ApplicationControllerApiCreateInstanceForApplication
+	 */
+	readonly instanceDto: InstanceDto;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ApplicationControllerApiCreateInstanceForApplication
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
  * Request parameters for deleteApplication operation in ApplicationControllerApi.
  * @export
  * @interface ApplicationControllerApiDeleteApplicationRequest
@@ -910,6 +1360,34 @@ export interface ApplicationControllerApiDeleteApplicationRequest {
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
 	 * @memberof ApplicationControllerApiDeleteApplication
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for deleteInstanceForApplication operation in ApplicationControllerApi.
+ * @export
+ * @interface ApplicationControllerApiDeleteInstanceForApplicationRequest
+ */
+export interface ApplicationControllerApiDeleteInstanceForApplicationRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof ApplicationControllerApiDeleteInstanceForApplication
+	 */
+	readonly appId: number;
+
+	/**
+	 *
+	 * @type {number}
+	 * @memberof ApplicationControllerApiDeleteInstanceForApplication
+	 */
+	readonly instanceId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ApplicationControllerApiDeleteInstanceForApplication
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
@@ -945,6 +1423,27 @@ export interface ApplicationControllerApiGetAllAuditForApplicationRequest {
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
 	 * @memberof ApplicationControllerApiGetAllAuditForApplication
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getAllInstanceForApplication operation in ApplicationControllerApi.
+ * @export
+ * @interface ApplicationControllerApiGetAllInstanceForApplicationRequest
+ */
+export interface ApplicationControllerApiGetAllInstanceForApplicationRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof ApplicationControllerApiGetAllInstanceForApplication
+	 */
+	readonly appId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ApplicationControllerApiGetAllInstanceForApplication
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
@@ -1055,6 +1554,41 @@ export interface ApplicationControllerApiUpdateApplicationRequest {
 }
 
 /**
+ * Request parameters for updateInstanceForApplication operation in ApplicationControllerApi.
+ * @export
+ * @interface ApplicationControllerApiUpdateInstanceForApplicationRequest
+ */
+export interface ApplicationControllerApiUpdateInstanceForApplicationRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof ApplicationControllerApiUpdateInstanceForApplication
+	 */
+	readonly appId: number;
+
+	/**
+	 *
+	 * @type {number}
+	 * @memberof ApplicationControllerApiUpdateInstanceForApplication
+	 */
+	readonly instanceId: number;
+
+	/**
+	 *
+	 * @type {InstanceDto}
+	 * @memberof ApplicationControllerApiUpdateInstanceForApplication
+	 */
+	readonly instanceDto: InstanceDto;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof ApplicationControllerApiUpdateInstanceForApplication
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
  * ApplicationControllerApi - object-oriented interface
  * @export
  * @class ApplicationControllerApi
@@ -1083,6 +1617,27 @@ export class ApplicationControllerApi extends BaseAPI {
 
 	/**
 	 *
+	 * @param {ApplicationControllerApiCreateInstanceForApplicationRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof ApplicationControllerApi
+	 */
+	public createInstanceForApplication(
+		requestParameters: ApplicationControllerApiCreateInstanceForApplicationRequest,
+		options?: AxiosRequestConfig
+	) {
+		return ApplicationControllerApiFp(this.configuration)
+			.createInstanceForApplication(
+				requestParameters.appId,
+				requestParameters.instanceDto,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
 	 * @param {ApplicationControllerApiDeleteApplicationRequest} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
@@ -1095,6 +1650,27 @@ export class ApplicationControllerApi extends BaseAPI {
 		return ApplicationControllerApiFp(this.configuration)
 			.deleteApplication(
 				requestParameters.appId,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {ApplicationControllerApiDeleteInstanceForApplicationRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof ApplicationControllerApi
+	 */
+	public deleteInstanceForApplication(
+		requestParameters: ApplicationControllerApiDeleteInstanceForApplicationRequest,
+		options?: AxiosRequestConfig
+	) {
+		return ApplicationControllerApiFp(this.configuration)
+			.deleteInstanceForApplication(
+				requestParameters.appId,
+				requestParameters.instanceId,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -1130,6 +1706,26 @@ export class ApplicationControllerApi extends BaseAPI {
 	) {
 		return ApplicationControllerApiFp(this.configuration)
 			.getAllAuditForApplication(
+				requestParameters.appId,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {ApplicationControllerApiGetAllInstanceForApplicationRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof ApplicationControllerApi
+	 */
+	public getAllInstanceForApplication(
+		requestParameters: ApplicationControllerApiGetAllInstanceForApplicationRequest,
+		options?: AxiosRequestConfig
+	) {
+		return ApplicationControllerApiFp(this.configuration)
+			.getAllInstanceForApplication(
 				requestParameters.appId,
 				requestParameters.acceptLanguage,
 				options
@@ -1215,6 +1811,28 @@ export class ApplicationControllerApi extends BaseAPI {
 			.updateApplication(
 				requestParameters.appId,
 				requestParameters.applicationDto,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {ApplicationControllerApiUpdateInstanceForApplicationRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof ApplicationControllerApi
+	 */
+	public updateInstanceForApplication(
+		requestParameters: ApplicationControllerApiUpdateInstanceForApplicationRequest,
+		options?: AxiosRequestConfig
+	) {
+		return ApplicationControllerApiFp(this.configuration)
+			.updateInstanceForApplication(
+				requestParameters.appId,
+				requestParameters.instanceId,
+				requestParameters.instanceDto,
 				requestParameters.acceptLanguage,
 				options
 			)

@@ -12,48 +12,44 @@
  * Do not edit the class manually.
  */
 
-import { SortObject } from './sort-object';
+import { FileLink } from './file-link';
+import { Path } from './path';
+import { RunAsset } from './run-asset';
 
 /**
  *
  * @export
- * @interface PageableObject
+ * @interface RunFileLink
  */
-export interface PageableObject {
+export interface RunFileLink {
 	/**
 	 *
 	 * @type {number}
-	 * @memberof PageableObject
+	 * @memberof RunFileLink
 	 */
-	offset?: number;
+	id?: number;
 	/**
 	 *
-	 * @type {SortObject}
-	 * @memberof PageableObject
+	 * @type {FileLink}
+	 * @memberof RunFileLink
 	 */
-	sort?: SortObject;
+	fileLink?: FileLink;
 	/**
 	 *
-	 * @type {number}
-	 * @memberof PageableObject
+	 * @type {Path}
+	 * @memberof RunFileLink
 	 */
-	pageNumber?: number;
-	/**
-	 *
-	 * @type {number}
-	 * @memberof PageableObject
-	 */
-	pageSize?: number;
+	path?: Path;
 	/**
 	 *
 	 * @type {boolean}
-	 * @memberof PageableObject
+	 * @memberof RunFileLink
 	 */
-	paged?: boolean;
+	old?: boolean;
 	/**
 	 *
-	 * @type {boolean}
-	 * @memberof PageableObject
+	 * @type {RunAsset}
+	 * @memberof RunFileLink
 	 */
-	unpaged?: boolean;
+	runAsset?: RunAsset;
 }

@@ -12,34 +12,36 @@
  * Do not edit the class manually.
  */
 
+import { FileLinkDtoList } from './file-link-dto-list';
+
 /**
  *
  * @export
- * @interface PathMonitoringDto
+ * @interface AnswerMonitoringDto
  */
-export interface PathMonitoringDto {
-	/**
-	 * The list of the monitoring\'s names which the paths is involved
-	 * @type {Array<string>}
-	 * @memberof PathMonitoringDto
-	 */
-	monitoring?: Array<string>;
+export interface AnswerMonitoringDto {
 	/**
 	 *
-	 * @type {number}
-	 * @memberof PathMonitoringDto
-	 */
-	id?: number;
-	/**
-	 * The path
 	 * @type {string}
-	 * @memberof PathMonitoringDto
+	 * @memberof AnswerMonitoringDto
 	 */
-	path: string;
+	text?: string;
 	/**
-	 * Tells if the path was selected in monitoring or run
-	 * @type {boolean}
-	 * @memberof PathMonitoringDto
+	 *
+	 * @type {Array<number>}
+	 * @memberof AnswerMonitoringDto
 	 */
-	selected?: boolean;
+	deltaFilesId: Array<number>;
+	/**
+	 *
+	 * @type {FileLinkDtoList}
+	 * @memberof AnswerMonitoringDto
+	 */
+	fileslinks?: FileLinkDtoList;
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof AnswerMonitoringDto
+	 */
+	ignore?: boolean;
 }

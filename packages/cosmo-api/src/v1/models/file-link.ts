@@ -12,36 +12,48 @@
  * Do not edit the class manually.
  */
 
-import { ApplicationDto } from './application-dto';
+import { Tenant } from './tenant';
 
 /**
  *
  * @export
- * @interface InstanceDto
+ * @interface FileLink
  */
-export interface InstanceDto {
-	/**
-	 * The id of the instance
-	 * @type {number}
-	 * @memberof InstanceDto
-	 */
-	id: number;
-	/**
-	 * The name of the instance.
-	 * @type {string}
-	 * @memberof InstanceDto
-	 */
-	name: string;
-	/**
-	 * The description of the instance.
-	 * @type {string}
-	 * @memberof InstanceDto
-	 */
-	description?: string;
+export interface FileLink {
 	/**
 	 *
-	 * @type {ApplicationDto}
-	 * @memberof InstanceDto
+	 * @type {Tenant}
+	 * @memberof FileLink
 	 */
-	application: ApplicationDto;
+	tenant?: Tenant;
+	/**
+	 *
+	 * @type {number}
+	 * @memberof FileLink
+	 */
+	id?: number;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof FileLink
+	 */
+	link?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof FileLink
+	 */
+	type?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof FileLink
+	 */
+	name?: string;
+	/**
+	 *
+	 * @type {number}
+	 * @memberof FileLink
+	 */
+	dimension?: number;
 }

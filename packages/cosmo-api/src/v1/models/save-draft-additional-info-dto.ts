@@ -12,16 +12,24 @@
  * Do not edit the class manually.
  */
 
+import { MonitoringAssetDto } from './monitoring-asset-dto';
+
 /**
  *
  * @export
- * @interface InlineObject18
+ * @interface SaveDraftAdditionalInfoDto
  */
-export interface InlineObject18 {
+export interface SaveDraftAdditionalInfoDto {
 	/**
 	 *
-	 * @type {any}
-	 * @memberof InlineObject18
+	 * @type {string}
+	 * @memberof SaveDraftAdditionalInfoDto
 	 */
-	file?: any;
+	note?: string;
+	/**
+	 *
+	 * @type {Array<MonitoringAssetDto>}
+	 * @memberof SaveDraftAdditionalInfoDto
+	 */
+	monitoringAssets?: Array<MonitoringAssetDto>;
 }

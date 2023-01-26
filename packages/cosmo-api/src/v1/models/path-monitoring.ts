@@ -12,16 +12,36 @@
  * Do not edit the class manually.
  */
 
+import { Tenant } from './tenant';
+
 /**
  *
  * @export
- * @interface InlineObject18
+ * @interface PathMonitoring
  */
-export interface InlineObject18 {
+export interface PathMonitoring {
 	/**
 	 *
-	 * @type {any}
-	 * @memberof InlineObject18
+	 * @type {Tenant}
+	 * @memberof PathMonitoring
 	 */
-	file?: any;
+	tenant?: Tenant;
+	/**
+	 *
+	 * @type {number}
+	 * @memberof PathMonitoring
+	 */
+	id?: number;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof PathMonitoring
+	 */
+	route?: string;
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof PathMonitoring
+	 */
+	selected?: boolean;
 }

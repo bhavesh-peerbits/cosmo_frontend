@@ -37,6 +37,8 @@ import {
 	RequiredError
 } from '../base';
 // @ts-ignore
+import { AnswerMonitoringDto } from '../models';
+// @ts-ignore
 import { ApiErrorResponse } from '../models';
 // @ts-ignore
 import { ApplicationDto } from '../models';
@@ -51,19 +53,19 @@ import { CreateMonitoringDto } from '../models';
 // @ts-ignore
 import { DeltaDto } from '../models';
 // @ts-ignore
-import { DeltaFileDto } from '../models';
-// @ts-ignore
 import { FileForDeltaDto } from '../models';
 // @ts-ignore
 import { FileLinkDto } from '../models';
-// @ts-ignore
-import { FileLinkDtoList } from '../models';
 // @ts-ignore
 import { FocalPointAndDelegatesDto } from '../models';
 // @ts-ignore
 import { FrameworkTreeDto } from '../models';
 // @ts-ignore
+import { InlineObject18 } from '../models';
+// @ts-ignore
 import { InstanceAssetDto } from '../models';
+// @ts-ignore
+import { MonitoringAsset } from '../models';
 // @ts-ignore
 import { MonitoringDraftDto } from '../models';
 // @ts-ignore
@@ -74,6 +76,18 @@ import { PathMonitoringDto } from '../models';
 import { RunDto } from '../models';
 // @ts-ignore
 import { RunFileLinkDto } from '../models';
+// @ts-ignore
+import { SaveDraftAdditionalInfoDto } from '../models';
+// @ts-ignore
+import { SaveDraftAssetDto } from '../models';
+// @ts-ignore
+import { SaveDraftAssociationDto } from '../models';
+// @ts-ignore
+import { SaveDraftPathDto } from '../models';
+// @ts-ignore
+import { SaveDraftSchedulingDto } from '../models';
+// @ts-ignore
+import { SaveDraftScriptDto } from '../models';
 // @ts-ignore
 import { ScriptDto } from '../models';
 /**
@@ -162,7 +176,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		 *
 		 * @param {number} runId
 		 * @param {number} assetId
-		 * @param {RunFileLinkDto} runFileLink
+		 * @param {FileForDeltaDto} fileForDelta
 		 * @param {any} file
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
@@ -171,7 +185,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		addFileForDelta: async (
 			runId: number,
 			assetId: number,
-			runFileLink: RunFileLinkDto,
+			fileForDelta: FileForDeltaDto,
 			file: any,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
@@ -180,8 +194,8 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			assertParamExists('addFileForDelta', 'runId', runId);
 			// verify required parameter 'assetId' is not null or undefined
 			assertParamExists('addFileForDelta', 'assetId', assetId);
-			// verify required parameter 'runFileLink' is not null or undefined
-			assertParamExists('addFileForDelta', 'runFileLink', runFileLink);
+			// verify required parameter 'fileForDelta' is not null or undefined
+			assertParamExists('addFileForDelta', 'fileForDelta', fileForDelta);
 			// verify required parameter 'file' is not null or undefined
 			assertParamExists('addFileForDelta', 'file', file);
 			const localVarPath =
@@ -208,10 +222,10 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
 			}
 
-			if (runFileLink !== undefined) {
+			if (fileForDelta !== undefined) {
 				localVarFormParams.append(
-					'runFileLink',
-					new Blob([JSON.stringify(runFileLink)], { type: 'application/json' })
+					'fileForDelta',
+					new Blob([JSON.stringify(fileForDelta)], { type: 'application/json' })
 				);
 			}
 
@@ -230,6 +244,71 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = localVarFormParams;
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} runId
+		 * @param {number} assetId
+		 * @param {FileForDeltaDto} fileForDeltaDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		addOldRunFileForDelta: async (
+			runId: number,
+			assetId: number,
+			fileForDeltaDto: FileForDeltaDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'runId' is not null or undefined
+			assertParamExists('addOldRunFileForDelta', 'runId', runId);
+			// verify required parameter 'assetId' is not null or undefined
+			assertParamExists('addOldRunFileForDelta', 'assetId', assetId);
+			// verify required parameter 'fileForDeltaDto' is not null or undefined
+			assertParamExists('addOldRunFileForDelta', 'fileForDeltaDto', fileForDeltaDto);
+			const localVarPath =
+				`/api/change-monitoring/analyst/run/{runId}/asset/{assetId}/add-old-run-file-for-delta`
+					.replace(`{${'runId'}}`, encodeURIComponent(String(runId)))
+					.replace(`{${'assetId'}}`, encodeURIComponent(String(assetId)));
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				fileForDeltaDto,
+				localVarRequestOptions,
+				configuration
+			);
 
 			return {
 				url: toPathString(localVarUrlObj),
@@ -420,6 +499,57 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				localVarRequestOptions,
 				configuration
 			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} runId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		calculateDelta: async (
+			runId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'runId' is not null or undefined
+			assertParamExists('calculateDelta', 'runId', runId);
+			const localVarPath =
+				`/api/change-monitoring/analyst/run/{runId}/calculate-delta`.replace(
+					`{${'runId'}}`,
+					encodeURIComponent(String(runId))
+				);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
 
 			return {
 				url: toPathString(localVarUrlObj),
@@ -1362,6 +1492,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} runId
+		 * @param {number} assetId
 		 * @param {number} monitoringId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
@@ -1369,17 +1500,21 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		 */
 		getFileFromCurrentPreviousRun: async (
 			runId: number,
+			assetId: number,
 			monitoringId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'runId' is not null or undefined
 			assertParamExists('getFileFromCurrentPreviousRun', 'runId', runId);
+			// verify required parameter 'assetId' is not null or undefined
+			assertParamExists('getFileFromCurrentPreviousRun', 'assetId', assetId);
 			// verify required parameter 'monitoringId' is not null or undefined
 			assertParamExists('getFileFromCurrentPreviousRun', 'monitoringId', monitoringId);
 			const localVarPath =
-				`/api/change-monitoring/analyst/monitoring/{monitoringId}/run/{runId}/get-file-previous`
+				`/api/change-monitoring/analyst/monitoring/{monitoringId}/run/{runId}/asset/{assetId}/get-file-previous`
 					.replace(`{${'runId'}}`, encodeURIComponent(String(runId)))
+					.replace(`{${'assetId'}}`, encodeURIComponent(String(assetId)))
 					.replace(`{${'monitoringId'}}`, encodeURIComponent(String(monitoringId)));
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1713,31 +1848,25 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} deltaId
+		 * @param {AnswerMonitoringDto} answer
 		 * @param {Array<any>} files
-		 * @param {Array<DeltaFileDto>} deltaFiles
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {string} [text]
-		 * @param {FileLinkDtoList} [fileslinks]
-		 * @param {boolean} [ignore]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		saveAnswerWithFile: async (
 			deltaId: number,
+			answer: AnswerMonitoringDto,
 			files: Array<any>,
-			deltaFiles: Array<DeltaFileDto>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			text?: string,
-			fileslinks?: FileLinkDtoList,
-			ignore?: boolean,
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'deltaId' is not null or undefined
 			assertParamExists('saveAnswerWithFile', 'deltaId', deltaId);
+			// verify required parameter 'answer' is not null or undefined
+			assertParamExists('saveAnswerWithFile', 'answer', answer);
 			// verify required parameter 'files' is not null or undefined
 			assertParamExists('saveAnswerWithFile', 'files', files);
-			// verify required parameter 'deltaFiles' is not null or undefined
-			assertParamExists('saveAnswerWithFile', 'deltaFiles', deltaFiles);
 			const localVarPath =
 				`/api/change-monitoring/analyst/save-answer-with-file/{deltaId}`.replace(
 					`{${'deltaId'}}`,
@@ -1759,30 +1888,20 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
 
-			if (files) {
-				localVarQueryParameter['files'] = files;
-			}
-
 			if (acceptLanguage !== undefined && acceptLanguage !== null) {
 				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
 			}
 
-			if (text !== undefined) {
-				localVarFormParams.append('text', text as any);
-			}
-			if (deltaFiles) {
-				localVarFormParams.append('deltaFiles', deltaFiles.join(COLLECTION_FORMATS.csv));
-			}
-
-			if (fileslinks !== undefined) {
+			if (answer !== undefined) {
 				localVarFormParams.append(
-					'fileslinks',
-					new Blob([JSON.stringify(fileslinks)], { type: 'application/json' })
+					'answer',
+					new Blob([JSON.stringify(answer)], { type: 'application/json' })
 				);
 			}
-
-			if (ignore !== undefined) {
-				localVarFormParams.append('ignore', ignore as any);
+			if (files) {
+				files.forEach(element => {
+					localVarFormParams.append('files', element as any);
+				});
 			}
 
 			localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
@@ -1796,6 +1915,72 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = localVarFormParams;
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} deltaId
+		 * @param {AnswerMonitoringDto} answerMonitoringDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveAnswerWithoutFile: async (
+			deltaId: number,
+			answerMonitoringDto: AnswerMonitoringDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'deltaId' is not null or undefined
+			assertParamExists('saveAnswerWithoutFile', 'deltaId', deltaId);
+			// verify required parameter 'answerMonitoringDto' is not null or undefined
+			assertParamExists(
+				'saveAnswerWithoutFile',
+				'answerMonitoringDto',
+				answerMonitoringDto
+			);
+			const localVarPath =
+				`/api/change-monitoring/analyst/save-answer-without-file/{deltaId}`.replace(
+					`{${'deltaId'}}`,
+					encodeURIComponent(String(deltaId))
+				);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				answerMonitoringDto,
+				localVarRequestOptions,
+				configuration
+			);
 
 			return {
 				url: toPathString(localVarUrlObj),
@@ -1847,6 +2032,382 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
 				monitoringDraftDto,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} monitoringId
+		 * @param {SaveDraftAdditionalInfoDto} saveDraftAdditionalInfoDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveDraftAdditionalInfo: async (
+			monitoringId: number,
+			saveDraftAdditionalInfoDto: SaveDraftAdditionalInfoDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'monitoringId' is not null or undefined
+			assertParamExists('saveDraftAdditionalInfo', 'monitoringId', monitoringId);
+			// verify required parameter 'saveDraftAdditionalInfoDto' is not null or undefined
+			assertParamExists(
+				'saveDraftAdditionalInfo',
+				'saveDraftAdditionalInfoDto',
+				saveDraftAdditionalInfoDto
+			);
+			const localVarPath =
+				`/api/change-monitoring/analyst/draft/{monitoringId}/save-draft-additional-info`.replace(
+					`{${'monitoringId'}}`,
+					encodeURIComponent(String(monitoringId))
+				);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				saveDraftAdditionalInfoDto,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} monitoringId
+		 * @param {SaveDraftAssetDto} saveDraftAssetDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveDraftAssets: async (
+			monitoringId: number,
+			saveDraftAssetDto: SaveDraftAssetDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'monitoringId' is not null or undefined
+			assertParamExists('saveDraftAssets', 'monitoringId', monitoringId);
+			// verify required parameter 'saveDraftAssetDto' is not null or undefined
+			assertParamExists('saveDraftAssets', 'saveDraftAssetDto', saveDraftAssetDto);
+			const localVarPath =
+				`/api/change-monitoring/analyst/draft/{monitoringId}/save-draft-asset`.replace(
+					`{${'monitoringId'}}`,
+					encodeURIComponent(String(monitoringId))
+				);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				saveDraftAssetDto,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} monitoringId
+		 * @param {SaveDraftAssociationDto} saveDraftAssociationDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveDraftAssociation: async (
+			monitoringId: number,
+			saveDraftAssociationDto: SaveDraftAssociationDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'monitoringId' is not null or undefined
+			assertParamExists('saveDraftAssociation', 'monitoringId', monitoringId);
+			// verify required parameter 'saveDraftAssociationDto' is not null or undefined
+			assertParamExists(
+				'saveDraftAssociation',
+				'saveDraftAssociationDto',
+				saveDraftAssociationDto
+			);
+			const localVarPath =
+				`/api/change-monitoring/analyst/draft/{monitoringId}/save-draft-association`.replace(
+					`{${'monitoringId'}}`,
+					encodeURIComponent(String(monitoringId))
+				);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				saveDraftAssociationDto,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {SaveDraftPathDto} saveDraftPathDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveDraftPath: async (
+			saveDraftPathDto: SaveDraftPathDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'saveDraftPathDto' is not null or undefined
+			assertParamExists('saveDraftPath', 'saveDraftPathDto', saveDraftPathDto);
+			const localVarPath = `/api/change-monitoring/analyst/draft/save-draft-path`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				saveDraftPathDto,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} monitoringId
+		 * @param {SaveDraftSchedulingDto} saveDraftSchedulingDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveDraftScheduling: async (
+			monitoringId: number,
+			saveDraftSchedulingDto: SaveDraftSchedulingDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'monitoringId' is not null or undefined
+			assertParamExists('saveDraftScheduling', 'monitoringId', monitoringId);
+			// verify required parameter 'saveDraftSchedulingDto' is not null or undefined
+			assertParamExists(
+				'saveDraftScheduling',
+				'saveDraftSchedulingDto',
+				saveDraftSchedulingDto
+			);
+			const localVarPath =
+				`/api/change-monitoring/analyst/draft/{monitoringId}/save-draft-scheduling`.replace(
+					`{${'monitoringId'}}`,
+					encodeURIComponent(String(monitoringId))
+				);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				saveDraftSchedulingDto,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} monitoringId
+		 * @param {SaveDraftScriptDto} saveDraftScriptDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveDraftScript: async (
+			monitoringId: number,
+			saveDraftScriptDto: SaveDraftScriptDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'monitoringId' is not null or undefined
+			assertParamExists('saveDraftScript', 'monitoringId', monitoringId);
+			// verify required parameter 'saveDraftScriptDto' is not null or undefined
+			assertParamExists('saveDraftScript', 'saveDraftScriptDto', saveDraftScriptDto);
+			const localVarPath =
+				`/api/change-monitoring/analyst/draft/{monitoringId}/save-draft-script`.replace(
+					`{${'monitoringId'}}`,
+					encodeURIComponent(String(monitoringId))
+				);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				saveDraftScriptDto,
 				localVarRequestOptions,
 				configuration
 			);
@@ -2087,6 +2648,68 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				url: toPathString(localVarUrlObj),
 				options: localVarRequestOptions
 			};
+		},
+		/**
+		 *
+		 * @param {number} deltaId
+		 * @param {InlineObject18} inlineObject18
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		uploadCsvAnswer1: async (
+			deltaId: number,
+			inlineObject18: InlineObject18,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'deltaId' is not null or undefined
+			assertParamExists('uploadCsvAnswer1', 'deltaId', deltaId);
+			// verify required parameter 'inlineObject18' is not null or undefined
+			assertParamExists('uploadCsvAnswer1', 'inlineObject18', inlineObject18);
+			const localVarPath =
+				`/api/change-monitoring/analyst/upload-csv-answer/{deltaId}`.replace(
+					`{${'deltaId'}}`,
+					encodeURIComponent(String(deltaId))
+				);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				inlineObject18,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
 		}
 	};
 };
@@ -2139,7 +2762,7 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		 *
 		 * @param {number} runId
 		 * @param {number} assetId
-		 * @param {RunFileLinkDto} runFileLink
+		 * @param {FileForDeltaDto} fileForDelta
 		 * @param {any} file
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
@@ -2148,7 +2771,7 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		async addFileForDelta(
 			runId: number,
 			assetId: number,
-			runFileLink: RunFileLinkDto,
+			fileForDelta: FileForDeltaDto,
 			file: any,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
@@ -2156,8 +2779,38 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 			const localVarAxiosArgs = await localVarAxiosParamCreator.addFileForDelta(
 				runId,
 				assetId,
-				runFileLink,
+				fileForDelta,
 				file,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} runId
+		 * @param {number} assetId
+		 * @param {FileForDeltaDto} fileForDeltaDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async addOldRunFileForDelta(
+			runId: number,
+			assetId: number,
+			fileForDeltaDto: FileForDeltaDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.addOldRunFileForDelta(
+				runId,
+				assetId,
+				fileForDeltaDto,
 				acceptLanguage,
 				options
 			);
@@ -2247,6 +2900,30 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 			const localVarAxiosArgs = await localVarAxiosParamCreator.addPathsRun(
 				runId,
 				body,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} runId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async calculateDelta(
+			runId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RunDto>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.calculateDelta(
+				runId,
 				acceptLanguage,
 				options
 			);
@@ -2721,6 +3398,7 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		/**
 		 *
 		 * @param {number} runId
+		 * @param {number} assetId
 		 * @param {number} monitoringId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
@@ -2728,6 +3406,7 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		 */
 		async getFileFromCurrentPreviousRun(
 			runId: number,
+			assetId: number,
 			monitoringId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
@@ -2737,6 +3416,7 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.getFileFromCurrentPreviousRun(
 					runId,
+					assetId,
 					monitoringId,
 					acceptLanguage,
 					options
@@ -2900,33 +3580,51 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		/**
 		 *
 		 * @param {number} deltaId
+		 * @param {AnswerMonitoringDto} answer
 		 * @param {Array<any>} files
-		 * @param {Array<DeltaFileDto>} deltaFiles
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {string} [text]
-		 * @param {FileLinkDtoList} [fileslinks]
-		 * @param {boolean} [ignore]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async saveAnswerWithFile(
 			deltaId: number,
+			answer: AnswerMonitoringDto,
 			files: Array<any>,
-			deltaFiles: Array<DeltaFileDto>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			text?: string,
-			fileslinks?: FileLinkDtoList,
-			ignore?: boolean,
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeltaDto>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.saveAnswerWithFile(
 				deltaId,
+				answer,
 				files,
-				deltaFiles,
 				acceptLanguage,
-				text,
-				fileslinks,
-				ignore,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} deltaId
+		 * @param {AnswerMonitoringDto} answerMonitoringDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async saveAnswerWithoutFile(
+			deltaId: number,
+			answerMonitoringDto: AnswerMonitoringDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeltaDto>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.saveAnswerWithoutFile(
+				deltaId,
+				answerMonitoringDto,
+				acceptLanguage,
 				options
 			);
 			return createRequestFunction(
@@ -2952,6 +3650,177 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.saveDraft1(
 				monitoringDraftDto,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} monitoringId
+		 * @param {SaveDraftAdditionalInfoDto} saveDraftAdditionalInfoDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async saveDraftAdditionalInfo(
+			monitoringId: number,
+			saveDraftAdditionalInfoDto: SaveDraftAdditionalInfoDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MonitoringDto>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.saveDraftAdditionalInfo(
+				monitoringId,
+				saveDraftAdditionalInfoDto,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} monitoringId
+		 * @param {SaveDraftAssetDto} saveDraftAssetDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async saveDraftAssets(
+			monitoringId: number,
+			saveDraftAssetDto: SaveDraftAssetDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MonitoringDto>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.saveDraftAssets(
+				monitoringId,
+				saveDraftAssetDto,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} monitoringId
+		 * @param {SaveDraftAssociationDto} saveDraftAssociationDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async saveDraftAssociation(
+			monitoringId: number,
+			saveDraftAssociationDto: SaveDraftAssociationDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MonitoringDto>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.saveDraftAssociation(
+				monitoringId,
+				saveDraftAssociationDto,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {SaveDraftPathDto} saveDraftPathDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async saveDraftPath(
+			saveDraftPathDto: SaveDraftPathDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<MonitoringAsset>>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.saveDraftPath(
+				saveDraftPathDto,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} monitoringId
+		 * @param {SaveDraftSchedulingDto} saveDraftSchedulingDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async saveDraftScheduling(
+			monitoringId: number,
+			saveDraftSchedulingDto: SaveDraftSchedulingDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MonitoringDto>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.saveDraftScheduling(
+				monitoringId,
+				saveDraftSchedulingDto,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} monitoringId
+		 * @param {SaveDraftScriptDto} saveDraftScriptDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async saveDraftScript(
+			monitoringId: number,
+			saveDraftScriptDto: SaveDraftScriptDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MonitoringDto>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.saveDraftScript(
+				monitoringId,
+				saveDraftScriptDto,
 				acceptLanguage,
 				options
 			);
@@ -3065,6 +3934,33 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 				BASE_PATH,
 				configuration
 			);
+		},
+		/**
+		 *
+		 * @param {number} deltaId
+		 * @param {InlineObject18} inlineObject18
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async uploadCsvAnswer1(
+			deltaId: number,
+			inlineObject18: InlineObject18,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.uploadCsvAnswer1(
+				deltaId,
+				inlineObject18,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
 		}
 	};
 };
@@ -3113,7 +4009,7 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		 *
 		 * @param {number} runId
 		 * @param {number} assetId
-		 * @param {RunFileLinkDto} runFileLink
+		 * @param {FileForDeltaDto} fileForDelta
 		 * @param {any} file
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
@@ -3122,13 +4018,33 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		addFileForDelta(
 			runId: number,
 			assetId: number,
-			runFileLink: RunFileLinkDto,
+			fileForDelta: FileForDeltaDto,
 			file: any,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<void> {
 			return localVarFp
-				.addFileForDelta(runId, assetId, runFileLink, file, acceptLanguage, options)
+				.addFileForDelta(runId, assetId, fileForDelta, file, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} runId
+		 * @param {number} assetId
+		 * @param {FileForDeltaDto} fileForDeltaDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		addOldRunFileForDelta(
+			runId: number,
+			assetId: number,
+			fileForDeltaDto: FileForDeltaDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<void> {
+			return localVarFp
+				.addOldRunFileForDelta(runId, assetId, fileForDeltaDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -3187,6 +4103,22 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		): AxiosPromise<void> {
 			return localVarFp
 				.addPathsRun(runId, body, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} runId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		calculateDelta(
+			runId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<RunDto> {
+			return localVarFp
+				.calculateDelta(runId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -3484,6 +4416,7 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		/**
 		 *
 		 * @param {number} runId
+		 * @param {number} assetId
 		 * @param {number} monitoringId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
@@ -3491,12 +4424,19 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		 */
 		getFileFromCurrentPreviousRun(
 			runId: number,
+			assetId: number,
 			monitoringId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<Array<RunFileLinkDto>> {
 			return localVarFp
-				.getFileFromCurrentPreviousRun(runId, monitoringId, acceptLanguage, options)
+				.getFileFromCurrentPreviousRun(
+					runId,
+					assetId,
+					monitoringId,
+					acceptLanguage,
+					options
+				)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -3596,36 +4536,39 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		/**
 		 *
 		 * @param {number} deltaId
+		 * @param {AnswerMonitoringDto} answer
 		 * @param {Array<any>} files
-		 * @param {Array<DeltaFileDto>} deltaFiles
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {string} [text]
-		 * @param {FileLinkDtoList} [fileslinks]
-		 * @param {boolean} [ignore]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		saveAnswerWithFile(
 			deltaId: number,
+			answer: AnswerMonitoringDto,
 			files: Array<any>,
-			deltaFiles: Array<DeltaFileDto>,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			text?: string,
-			fileslinks?: FileLinkDtoList,
-			ignore?: boolean,
 			options?: any
 		): AxiosPromise<DeltaDto> {
 			return localVarFp
-				.saveAnswerWithFile(
-					deltaId,
-					files,
-					deltaFiles,
-					acceptLanguage,
-					text,
-					fileslinks,
-					ignore,
-					options
-				)
+				.saveAnswerWithFile(deltaId, answer, files, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} deltaId
+		 * @param {AnswerMonitoringDto} answerMonitoringDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveAnswerWithoutFile(
+			deltaId: number,
+			answerMonitoringDto: AnswerMonitoringDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<DeltaDto> {
+			return localVarFp
+				.saveAnswerWithoutFile(deltaId, answerMonitoringDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -3642,6 +4585,127 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		): AxiosPromise<MonitoringDraftDto> {
 			return localVarFp
 				.saveDraft1(monitoringDraftDto, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} monitoringId
+		 * @param {SaveDraftAdditionalInfoDto} saveDraftAdditionalInfoDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveDraftAdditionalInfo(
+			monitoringId: number,
+			saveDraftAdditionalInfoDto: SaveDraftAdditionalInfoDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<MonitoringDto> {
+			return localVarFp
+				.saveDraftAdditionalInfo(
+					monitoringId,
+					saveDraftAdditionalInfoDto,
+					acceptLanguage,
+					options
+				)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} monitoringId
+		 * @param {SaveDraftAssetDto} saveDraftAssetDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveDraftAssets(
+			monitoringId: number,
+			saveDraftAssetDto: SaveDraftAssetDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<MonitoringDto> {
+			return localVarFp
+				.saveDraftAssets(monitoringId, saveDraftAssetDto, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} monitoringId
+		 * @param {SaveDraftAssociationDto} saveDraftAssociationDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveDraftAssociation(
+			monitoringId: number,
+			saveDraftAssociationDto: SaveDraftAssociationDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<MonitoringDto> {
+			return localVarFp
+				.saveDraftAssociation(
+					monitoringId,
+					saveDraftAssociationDto,
+					acceptLanguage,
+					options
+				)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {SaveDraftPathDto} saveDraftPathDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveDraftPath(
+			saveDraftPathDto: SaveDraftPathDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<MonitoringAsset>> {
+			return localVarFp
+				.saveDraftPath(saveDraftPathDto, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} monitoringId
+		 * @param {SaveDraftSchedulingDto} saveDraftSchedulingDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveDraftScheduling(
+			monitoringId: number,
+			saveDraftSchedulingDto: SaveDraftSchedulingDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<MonitoringDto> {
+			return localVarFp
+				.saveDraftScheduling(
+					monitoringId,
+					saveDraftSchedulingDto,
+					acceptLanguage,
+					options
+				)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} monitoringId
+		 * @param {SaveDraftScriptDto} saveDraftScriptDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveDraftScript(
+			monitoringId: number,
+			saveDraftScriptDto: SaveDraftScriptDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<MonitoringDto> {
+			return localVarFp
+				.saveDraftScript(monitoringId, saveDraftScriptDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -3711,6 +4775,24 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 			return localVarFp
 				.startMonitoring(monitoringDraftDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} deltaId
+		 * @param {InlineObject18} inlineObject18
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		uploadCsvAnswer1(
+			deltaId: number,
+			inlineObject18: InlineObject18,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<void> {
+			return localVarFp
+				.uploadCsvAnswer1(deltaId, inlineObject18, acceptLanguage, options)
+				.then(request => request(axios, basePath));
 		}
 	};
 };
@@ -3779,10 +4861,10 @@ export interface AnalystChangeMonitoringControllerApiAddFileForDeltaRequest {
 
 	/**
 	 *
-	 * @type {RunFileLinkDto}
+	 * @type {FileForDeltaDto}
 	 * @memberof AnalystChangeMonitoringControllerApiAddFileForDelta
 	 */
-	readonly runFileLink: RunFileLinkDto;
+	readonly fileForDelta: FileForDeltaDto;
 
 	/**
 	 *
@@ -3795,6 +4877,41 @@ export interface AnalystChangeMonitoringControllerApiAddFileForDeltaRequest {
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
 	 * @memberof AnalystChangeMonitoringControllerApiAddFileForDelta
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for addOldRunFileForDelta operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiAddOldRunFileForDeltaRequest
+ */
+export interface AnalystChangeMonitoringControllerApiAddOldRunFileForDeltaRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiAddOldRunFileForDelta
+	 */
+	readonly runId: number;
+
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiAddOldRunFileForDelta
+	 */
+	readonly assetId: number;
+
+	/**
+	 *
+	 * @type {FileForDeltaDto}
+	 * @memberof AnalystChangeMonitoringControllerApiAddOldRunFileForDelta
+	 */
+	readonly fileForDeltaDto: FileForDeltaDto;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiAddOldRunFileForDelta
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
@@ -3893,6 +5010,27 @@ export interface AnalystChangeMonitoringControllerApiAddPathsRunRequest {
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
 	 * @memberof AnalystChangeMonitoringControllerApiAddPathsRun
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for calculateDelta operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiCalculateDeltaRequest
+ */
+export interface AnalystChangeMonitoringControllerApiCalculateDeltaRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiCalculateDelta
+	 */
+	readonly runId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiCalculateDelta
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
@@ -4286,6 +5424,13 @@ export interface AnalystChangeMonitoringControllerApiGetFileFromCurrentPreviousR
 	 * @type {number}
 	 * @memberof AnalystChangeMonitoringControllerApiGetFileFromCurrentPreviousRun
 	 */
+	readonly assetId: number;
+
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiGetFileFromCurrentPreviousRun
+	 */
 	readonly monitoringId: number;
 
 	/**
@@ -4430,6 +5575,13 @@ export interface AnalystChangeMonitoringControllerApiSaveAnswerWithFileRequest {
 
 	/**
 	 *
+	 * @type {AnswerMonitoringDto}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveAnswerWithFile
+	 */
+	readonly answer: AnswerMonitoringDto;
+
+	/**
+	 *
 	 * @type {Array<any>}
 	 * @memberof AnalystChangeMonitoringControllerApiSaveAnswerWithFile
 	 */
@@ -4437,38 +5589,38 @@ export interface AnalystChangeMonitoringControllerApiSaveAnswerWithFileRequest {
 
 	/**
 	 *
-	 * @type {Array<DeltaFileDto>}
-	 * @memberof AnalystChangeMonitoringControllerApiSaveAnswerWithFile
-	 */
-	readonly deltaFiles: Array<DeltaFileDto>;
-
-	/**
-	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
 	 * @memberof AnalystChangeMonitoringControllerApiSaveAnswerWithFile
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for saveAnswerWithoutFile operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiSaveAnswerWithoutFileRequest
+ */
+export interface AnalystChangeMonitoringControllerApiSaveAnswerWithoutFileRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveAnswerWithoutFile
+	 */
+	readonly deltaId: number;
 
 	/**
 	 *
-	 * @type {string}
-	 * @memberof AnalystChangeMonitoringControllerApiSaveAnswerWithFile
+	 * @type {AnswerMonitoringDto}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveAnswerWithoutFile
 	 */
-	readonly text?: string;
+	readonly answerMonitoringDto: AnswerMonitoringDto;
 
 	/**
 	 *
-	 * @type {FileLinkDtoList}
-	 * @memberof AnalystChangeMonitoringControllerApiSaveAnswerWithFile
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveAnswerWithoutFile
 	 */
-	readonly fileslinks?: FileLinkDtoList;
-
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof AnalystChangeMonitoringControllerApiSaveAnswerWithFile
-	 */
-	readonly ignore?: boolean;
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
 
 /**
@@ -4488,6 +5640,167 @@ export interface AnalystChangeMonitoringControllerApiSaveDraft1Request {
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
 	 * @memberof AnalystChangeMonitoringControllerApiSaveDraft1
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for saveDraftAdditionalInfo operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiSaveDraftAdditionalInfoRequest
+ */
+export interface AnalystChangeMonitoringControllerApiSaveDraftAdditionalInfoRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveDraftAdditionalInfo
+	 */
+	readonly monitoringId: number;
+
+	/**
+	 *
+	 * @type {SaveDraftAdditionalInfoDto}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveDraftAdditionalInfo
+	 */
+	readonly saveDraftAdditionalInfoDto: SaveDraftAdditionalInfoDto;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveDraftAdditionalInfo
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for saveDraftAssets operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiSaveDraftAssetsRequest
+ */
+export interface AnalystChangeMonitoringControllerApiSaveDraftAssetsRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveDraftAssets
+	 */
+	readonly monitoringId: number;
+
+	/**
+	 *
+	 * @type {SaveDraftAssetDto}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveDraftAssets
+	 */
+	readonly saveDraftAssetDto: SaveDraftAssetDto;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveDraftAssets
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for saveDraftAssociation operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiSaveDraftAssociationRequest
+ */
+export interface AnalystChangeMonitoringControllerApiSaveDraftAssociationRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveDraftAssociation
+	 */
+	readonly monitoringId: number;
+
+	/**
+	 *
+	 * @type {SaveDraftAssociationDto}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveDraftAssociation
+	 */
+	readonly saveDraftAssociationDto: SaveDraftAssociationDto;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveDraftAssociation
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for saveDraftPath operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiSaveDraftPathRequest
+ */
+export interface AnalystChangeMonitoringControllerApiSaveDraftPathRequest {
+	/**
+	 *
+	 * @type {SaveDraftPathDto}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveDraftPath
+	 */
+	readonly saveDraftPathDto: SaveDraftPathDto;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveDraftPath
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for saveDraftScheduling operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiSaveDraftSchedulingRequest
+ */
+export interface AnalystChangeMonitoringControllerApiSaveDraftSchedulingRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveDraftScheduling
+	 */
+	readonly monitoringId: number;
+
+	/**
+	 *
+	 * @type {SaveDraftSchedulingDto}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveDraftScheduling
+	 */
+	readonly saveDraftSchedulingDto: SaveDraftSchedulingDto;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveDraftScheduling
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for saveDraftScript operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiSaveDraftScriptRequest
+ */
+export interface AnalystChangeMonitoringControllerApiSaveDraftScriptRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveDraftScript
+	 */
+	readonly monitoringId: number;
+
+	/**
+	 *
+	 * @type {SaveDraftScriptDto}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveDraftScript
+	 */
+	readonly saveDraftScriptDto: SaveDraftScriptDto;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveDraftScript
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
@@ -4591,6 +5904,34 @@ export interface AnalystChangeMonitoringControllerApiStartMonitoringRequest {
 }
 
 /**
+ * Request parameters for uploadCsvAnswer1 operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiUploadCsvAnswer1Request
+ */
+export interface AnalystChangeMonitoringControllerApiUploadCsvAnswer1Request {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiUploadCsvAnswer1
+	 */
+	readonly deltaId: number;
+
+	/**
+	 *
+	 * @type {InlineObject18}
+	 * @memberof AnalystChangeMonitoringControllerApiUploadCsvAnswer1
+	 */
+	readonly inlineObject18: InlineObject18;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiUploadCsvAnswer1
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
  * AnalystChangeMonitoringControllerApi - object-oriented interface
  * @export
  * @class AnalystChangeMonitoringControllerApi
@@ -4635,8 +5976,30 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 			.addFileForDelta(
 				requestParameters.runId,
 				requestParameters.assetId,
-				requestParameters.runFileLink,
+				requestParameters.fileForDelta,
 				requestParameters.file,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystChangeMonitoringControllerApiAddOldRunFileForDeltaRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystChangeMonitoringControllerApi
+	 */
+	public addOldRunFileForDelta(
+		requestParameters: AnalystChangeMonitoringControllerApiAddOldRunFileForDeltaRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.addOldRunFileForDelta(
+				requestParameters.runId,
+				requestParameters.assetId,
+				requestParameters.fileForDeltaDto,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -4705,6 +6068,22 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 				requestParameters.acceptLanguage,
 				options
 			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystChangeMonitoringControllerApiCalculateDeltaRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystChangeMonitoringControllerApi
+	 */
+	public calculateDelta(
+		requestParameters: AnalystChangeMonitoringControllerApiCalculateDeltaRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.calculateDelta(requestParameters.runId, requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 
@@ -5055,6 +6434,7 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 		return AnalystChangeMonitoringControllerApiFp(this.configuration)
 			.getFileFromCurrentPreviousRun(
 				requestParameters.runId,
+				requestParameters.assetId,
 				requestParameters.monitoringId,
 				requestParameters.acceptLanguage,
 				options
@@ -5184,12 +6564,30 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 		return AnalystChangeMonitoringControllerApiFp(this.configuration)
 			.saveAnswerWithFile(
 				requestParameters.deltaId,
+				requestParameters.answer,
 				requestParameters.files,
-				requestParameters.deltaFiles,
 				requestParameters.acceptLanguage,
-				requestParameters.text,
-				requestParameters.fileslinks,
-				requestParameters.ignore,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystChangeMonitoringControllerApiSaveAnswerWithoutFileRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystChangeMonitoringControllerApi
+	 */
+	public saveAnswerWithoutFile(
+		requestParameters: AnalystChangeMonitoringControllerApiSaveAnswerWithoutFileRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.saveAnswerWithoutFile(
+				requestParameters.deltaId,
+				requestParameters.answerMonitoringDto,
+				requestParameters.acceptLanguage,
 				options
 			)
 			.then(request => request(this.axios, this.basePath));
@@ -5209,6 +6607,131 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 		return AnalystChangeMonitoringControllerApiFp(this.configuration)
 			.saveDraft1(
 				requestParameters.monitoringDraftDto,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystChangeMonitoringControllerApiSaveDraftAdditionalInfoRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystChangeMonitoringControllerApi
+	 */
+	public saveDraftAdditionalInfo(
+		requestParameters: AnalystChangeMonitoringControllerApiSaveDraftAdditionalInfoRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.saveDraftAdditionalInfo(
+				requestParameters.monitoringId,
+				requestParameters.saveDraftAdditionalInfoDto,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystChangeMonitoringControllerApiSaveDraftAssetsRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystChangeMonitoringControllerApi
+	 */
+	public saveDraftAssets(
+		requestParameters: AnalystChangeMonitoringControllerApiSaveDraftAssetsRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.saveDraftAssets(
+				requestParameters.monitoringId,
+				requestParameters.saveDraftAssetDto,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystChangeMonitoringControllerApiSaveDraftAssociationRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystChangeMonitoringControllerApi
+	 */
+	public saveDraftAssociation(
+		requestParameters: AnalystChangeMonitoringControllerApiSaveDraftAssociationRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.saveDraftAssociation(
+				requestParameters.monitoringId,
+				requestParameters.saveDraftAssociationDto,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystChangeMonitoringControllerApiSaveDraftPathRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystChangeMonitoringControllerApi
+	 */
+	public saveDraftPath(
+		requestParameters: AnalystChangeMonitoringControllerApiSaveDraftPathRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.saveDraftPath(
+				requestParameters.saveDraftPathDto,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystChangeMonitoringControllerApiSaveDraftSchedulingRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystChangeMonitoringControllerApi
+	 */
+	public saveDraftScheduling(
+		requestParameters: AnalystChangeMonitoringControllerApiSaveDraftSchedulingRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.saveDraftScheduling(
+				requestParameters.monitoringId,
+				requestParameters.saveDraftSchedulingDto,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystChangeMonitoringControllerApiSaveDraftScriptRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystChangeMonitoringControllerApi
+	 */
+	public saveDraftScript(
+		requestParameters: AnalystChangeMonitoringControllerApiSaveDraftScriptRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.saveDraftScript(
+				requestParameters.monitoringId,
+				requestParameters.saveDraftScriptDto,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -5287,6 +6810,27 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 		return AnalystChangeMonitoringControllerApiFp(this.configuration)
 			.startMonitoring(
 				requestParameters.monitoringDraftDto,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystChangeMonitoringControllerApiUploadCsvAnswer1Request} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystChangeMonitoringControllerApi
+	 */
+	public uploadCsvAnswer1(
+		requestParameters: AnalystChangeMonitoringControllerApiUploadCsvAnswer1Request,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.uploadCsvAnswer1(
+				requestParameters.deltaId,
+				requestParameters.inlineObject18,
 				requestParameters.acceptLanguage,
 				options
 			)

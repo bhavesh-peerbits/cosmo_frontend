@@ -12,16 +12,18 @@
  * Do not edit the class manually.
  */
 
+import { ScriptDto } from './script-dto';
+
 /**
  *
  * @export
- * @interface InlineObject18
+ * @interface SaveDraftScriptDto
  */
-export interface InlineObject18 {
+export interface SaveDraftScriptDto {
 	/**
 	 *
-	 * @type {any}
-	 * @memberof InlineObject18
+	 * @type {ScriptDto}
+	 * @memberof SaveDraftScriptDto
 	 */
-	file?: any;
+	script?: ScriptDto;
 }

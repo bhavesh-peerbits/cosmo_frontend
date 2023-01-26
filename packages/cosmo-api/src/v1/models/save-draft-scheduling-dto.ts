@@ -12,16 +12,18 @@
  * Do not edit the class manually.
  */
 
+import { SchedulingDto } from './scheduling-dto';
+
 /**
  *
  * @export
- * @interface InlineObject18
+ * @interface SaveDraftSchedulingDto
  */
-export interface InlineObject18 {
+export interface SaveDraftSchedulingDto {
 	/**
 	 *
-	 * @type {any}
-	 * @memberof InlineObject18
+	 * @type {SchedulingDto}
+	 * @memberof SaveDraftSchedulingDto
 	 */
-	file?: any;
+	scheduling?: SchedulingDto;
 }

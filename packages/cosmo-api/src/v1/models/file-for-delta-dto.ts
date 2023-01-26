@@ -12,6 +12,8 @@
  * Do not edit the class manually.
  */
 
+import { FileLinkDto } from './file-link-dto';
+
 /**
  *
  * @export
@@ -20,14 +22,20 @@
 export interface FileForDeltaDto {
 	/**
 	 *
-	 * @type {string}
+	 * @type {Array<string>}
 	 * @memberof FileForDeltaDto
 	 */
-	path?: string;
+	path?: Array<string>;
 	/**
 	 *
 	 * @type {boolean}
 	 * @memberof FileForDeltaDto
 	 */
 	old?: boolean;
+	/**
+	 *
+	 * @type {FileLinkDto}
+	 * @memberof FileForDeltaDto
+	 */
+	fileLink?: FileLinkDto;
 }
