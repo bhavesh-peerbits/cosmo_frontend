@@ -13,6 +13,7 @@ import useUpdateInstanceForApp from '@api/app-instances/useUpdateInstanceForApp'
 import ApiError from '@api/ApiError';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import useGetAllAssetsTenant from '@api/asset/useGetAllAssetsTenant';
+import useCreateAssetInstance from '@api/instance-asset/useCreateAssetInstance';
 import ApplicationInstanceForm, {
 	ApplicationInstanceFormData
 } from './ApplicationInstanceForm';
@@ -50,6 +51,7 @@ const ApplicationInstanceTile = ({ instance }: ApplicationInstanceTileProps) => 
 	});
 
 	const { mutate, isError, isLoading, error, isSuccess } = useUpdateInstanceForApp();
+	const { mutate: mutateAddAsset } = useCreateAssetInstance();
 
 	const updateInstance = (data: ApplicationInstanceFormData) => {
 		return mutate({
@@ -60,6 +62,19 @@ const ApplicationInstanceTile = ({ instance }: ApplicationInstanceTileProps) => 
 				description: data.description
 			}
 		});
+	};
+
+	const addAssetToInstance = (assetIds: string[]) => {
+		return assetIds.forEach(assetId =>
+			mutateAddAsset(
+				{
+					instanceId: instance.id,
+					appId: instance.application.id,
+					assetId
+				},
+				{ onSuccess: () => setAddAssetToOpen(undefined) }
+			)
+		);
 	};
 
 	if (!instance) {
@@ -76,8 +91,8 @@ const ApplicationInstanceTile = ({ instance }: ApplicationInstanceTileProps) => 
 						noResultsTitle={t('userSelect:no-results')}
 						noResultsDescription={t('userSelect:different-keywords')}
 						onCloseButtonText={t('userSelect:cancel')}
-						onSubmit={() => {
-							setAddAssetToOpen(undefined);
+						onSubmit={ids => {
+							addAssetToInstance(ids);
 						}}
 						open={addAssetToOpen === 'existing'}
 						onClose={() => setAddAssetToOpen(undefined)}
