@@ -76,7 +76,6 @@ export * from './path';
 export * from './path-dto';
 export * from './path-monitoring';
 export * from './path-monitoring-dto';
-export * from './phase-type';
 export * from './phase-type-dto';
 export * from './procedure';
 export * from './procedure-app-instance';

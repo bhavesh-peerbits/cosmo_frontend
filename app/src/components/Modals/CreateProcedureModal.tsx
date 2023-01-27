@@ -166,12 +166,7 @@ const CreateProcedureModal = ({ isOpen, setIsOpen }: CreateProcedureModalProps) 
 					<Button kind='secondary' onClick={cleanUp}>
 						{t('modals:cancel')}
 					</Button>
-					<Button
-						kind='primary'
-						type='submit'
-						disabled={!isValid || isLoading}
-						onClick={() => handleSubmit(createProcedure)}
-					>
+					<Button kind='primary' type='submit' disabled={!isValid || isLoading}>
 						{t('modals:create')}
 					</Button>
 				</ModalFooter>

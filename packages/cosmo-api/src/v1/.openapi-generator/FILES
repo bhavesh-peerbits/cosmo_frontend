@@ -118,7 +118,6 @@ models/path-monitoring-dto.ts
 models/path-monitoring.ts
 models/path.ts
 models/phase-type-dto.ts
-models/phase-type.ts
 models/procedure-app-instance-dto.ts
 models/procedure-app-instance.ts
 models/procedure-dto.ts

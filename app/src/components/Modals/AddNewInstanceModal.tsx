@@ -37,7 +37,6 @@ const AddNewInstanceModal = ({
 		register,
 		handleSubmit,
 		reset,
-		setValue,
 		formState: { errors, isValid }
 	} = useForm<NewInstanceFormData>({
 		mode: 'onChange',
@@ -109,9 +108,7 @@ const AddNewInstanceModal = ({
 					id='new-instance-input-description'
 					labelText={t('applicationInstances:description')}
 					placeholder={t('applicationInstances:instance-description-placeholder')}
-					onChange={e =>
-						setValue('description', e.currentTarget.value, { shouldDirty: true })
-					}
+					{...register('description')}
 				/>
 				{isError && (
 					<div className='mt-5 flex items-center justify-center'>

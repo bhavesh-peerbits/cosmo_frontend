@@ -121,6 +121,65 @@ export const InstanceAssetControllerApiAxiosParamCreator = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
+		createAssetRelationship: async (
+			appId: number,
+			instanceId: number,
+			assetId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'appId' is not null or undefined
+			assertParamExists('createAssetRelationship', 'appId', appId);
+			// verify required parameter 'instanceId' is not null or undefined
+			assertParamExists('createAssetRelationship', 'instanceId', instanceId);
+			// verify required parameter 'assetId' is not null or undefined
+			assertParamExists('createAssetRelationship', 'assetId', assetId);
+			const localVarPath =
+				`/api/applications/{appId}/instance/{instanceId}/asset/{assetId}`
+					.replace(`{${'appId'}}`, encodeURIComponent(String(appId)))
+					.replace(`{${'instanceId'}}`, encodeURIComponent(String(instanceId)))
+					.replace(`{${'assetId'}}`, encodeURIComponent(String(assetId)));
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} appId
+		 * @param {number} instanceId
+		 * @param {number} assetId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
 		deleteAssetRelationship: async (
 			appId: number,
 			instanceId: number,
@@ -333,6 +392,36 @@ export const InstanceAssetControllerApiFp = function (configuration?: Configurat
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
+		async createAssetRelationship(
+			appId: number,
+			instanceId: number,
+			assetId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AssetDto>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.createAssetRelationship(
+				appId,
+				instanceId,
+				assetId,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} appId
+		 * @param {number} instanceId
+		 * @param {number} assetId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
 		async deleteAssetRelationship(
 			appId: number,
 			instanceId: number,
@@ -456,6 +545,26 @@ export const InstanceAssetControllerApiFactory = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
+		createAssetRelationship(
+			appId: number,
+			instanceId: number,
+			assetId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<AssetDto> {
+			return localVarFp
+				.createAssetRelationship(appId, instanceId, assetId, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} appId
+		 * @param {number} instanceId
+		 * @param {number} assetId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
 		deleteAssetRelationship(
 			appId: number,
 			instanceId: number,
@@ -539,6 +648,41 @@ export interface InstanceAssetControllerApiCreateAssetRequest {
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
 	 * @memberof InstanceAssetControllerApiCreateAsset
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for createAssetRelationship operation in InstanceAssetControllerApi.
+ * @export
+ * @interface InstanceAssetControllerApiCreateAssetRelationshipRequest
+ */
+export interface InstanceAssetControllerApiCreateAssetRelationshipRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof InstanceAssetControllerApiCreateAssetRelationship
+	 */
+	readonly appId: number;
+
+	/**
+	 *
+	 * @type {number}
+	 * @memberof InstanceAssetControllerApiCreateAssetRelationship
+	 */
+	readonly instanceId: number;
+
+	/**
+	 *
+	 * @type {number}
+	 * @memberof InstanceAssetControllerApiCreateAssetRelationship
+	 */
+	readonly assetId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof InstanceAssetControllerApiCreateAssetRelationship
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
@@ -664,6 +808,28 @@ export class InstanceAssetControllerApi extends BaseAPI {
 				requestParameters.appId,
 				requestParameters.instanceId,
 				requestParameters.assetDto,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {InstanceAssetControllerApiCreateAssetRelationshipRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof InstanceAssetControllerApi
+	 */
+	public createAssetRelationship(
+		requestParameters: InstanceAssetControllerApiCreateAssetRelationshipRequest,
+		options?: AxiosRequestConfig
+	) {
+		return InstanceAssetControllerApiFp(this.configuration)
+			.createAssetRelationship(
+				requestParameters.appId,
+				requestParameters.instanceId,
+				requestParameters.assetId,
 				requestParameters.acceptLanguage,
 				options
 			)

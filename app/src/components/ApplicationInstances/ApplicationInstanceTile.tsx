@@ -40,7 +40,6 @@ const ApplicationInstanceTile = ({ instance }: ApplicationInstanceTileProps) => 
 		register,
 		reset,
 		handleSubmit,
-		setValue,
 		formState: { errors, isDirty, isValid }
 	} = useForm<ApplicationInstanceFormData>({
 		mode: 'all',
@@ -197,7 +196,6 @@ const ApplicationInstanceTile = ({ instance }: ApplicationInstanceTileProps) => 
 							instanceAssets={instanceAssets}
 							register={register}
 							errors={errors}
-							setValue={setValue}
 						/>
 					</FullWidthColumn>
 					<FullWidthColumn className='pt-7'>

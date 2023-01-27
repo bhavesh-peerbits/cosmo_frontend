@@ -6,7 +6,7 @@ import Asset from '@model/Asset';
 import Instance from '@model/Instance';
 import AssetExpandableTile from '@pages/MonitoringDraftDetails/Components/AssetExpandableTile';
 import { useState } from 'react';
-import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import AssetFormContainer from './AssetFormContainer';
 
@@ -21,7 +21,6 @@ type ApplicationInstanceFormProps = {
 	isReview?: boolean;
 	register: UseFormRegister<ApplicationInstanceFormData>;
 	errors: FieldErrors<ApplicationInstanceFormData>;
-	setValue: UseFormSetValue<ApplicationInstanceFormData>;
 };
 
 const ApplicationInstanceForm = ({
@@ -29,8 +28,7 @@ const ApplicationInstanceForm = ({
 	instanceAssets,
 	isReview,
 	register,
-	errors,
-	setValue
+	errors
 }: ApplicationInstanceFormProps) => {
 	const { t } = useTranslation(['modals', 'applicationInstances', 'applicationInfo']);
 	const [assetToDelete, setAssetToDelete] = useState<{
@@ -65,10 +63,7 @@ const ApplicationInstanceForm = ({
 					id={`${instance.id}-input-description`}
 					labelText={t('applicationInstances:description')}
 					placeholder={t('applicationInstances:instance-description-placeholder')}
-					onChange={e =>
-						setValue('description', e.currentTarget.value, { shouldDirty: true })
-					}
-					defaultValue={instance.description}
+					{...register('description')}
 				/>
 			</FullWidthColumn>
 			{!!instanceAssets?.length && (
