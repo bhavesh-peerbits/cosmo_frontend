@@ -217,11 +217,10 @@ const ApplicationInstanceTile = ({ instance }: ApplicationInstanceTileProps) => 
 									kind='secondary'
 									disabled={!isDirty}
 									onClick={() => {
-										reset &&
-											reset({
-												description: instance.description,
-												name: instance.name
-											});
+										reset({
+											description: instance.description,
+											name: instance.name
+										});
 									}}
 								>
 									{t('applicationInfo:discard')}

@@ -35,5 +35,6 @@
 	"no-instance-subtitle": "Non è presente nessuna istanza. Utilizza il pulsante in alto per crearne una nuova.",
 	"ip-pattern-error": "Deve essere un indirizzo IPv4 o IPv6 valido.",
 	"db-version-placeholder": "Inserisci la versione del DB",
-	"db-type-placeholder": "Inserisci il tipo del DB"
+	"db-type-placeholder": "Inserisci il tipo del DB",
+	"no-path-asset": "Nessun path trovato per questo asset."
 }

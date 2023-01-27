@@ -60,7 +60,7 @@ const AssetFormContainer = ({ asset, isReview }: AssetFormContainerProps) => {
 			/>
 			<AssetPathsTable
 				asset={asset}
-				readOnly
+				readOnly={isReview}
 				assetPaths={assetPaths}
 				setAssetPaths={setAssetPaths}
 			/>

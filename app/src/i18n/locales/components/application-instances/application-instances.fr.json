@@ -35,5 +35,6 @@
 	"no-instance-subtitle": "There is no instance. Use the button above to create a new one.",
 	"ip-pattern-error": "It must be IPv4 or IPv6 format.",
 	"db-version-placeholder": "Fill in with DB version",
-	"db-type-placeholder": "Fill in with DB type"
+	"db-type-placeholder": "Fill in with DB type",
+	"no-path-asset": "No path found for this asset."
 }

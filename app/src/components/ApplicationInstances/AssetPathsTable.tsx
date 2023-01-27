@@ -55,10 +55,6 @@ const AssetPathsTable = ({
 						}
 					}
 				}
-			},
-			{
-				id: `monitoring-${asset.id}`,
-				header: t('applicationInstances:monitorings')
 			}
 		],
 		[asset.id, t, asset.os]
@@ -105,14 +101,18 @@ const AssetPathsTable = ({
 								}
 							}
 						]}
-						canAdd={!!readOnly}
+						canAdd={!readOnly}
 						exportFileName={({ all }) =>
 							all ? 'monitoring-drafts-all' : 'monitoring-drafts-selection'
 						}
 						data={assetPaths}
 						isSelectable
 						noDataMessage={t('applicationInstances:no-path')}
-						noDataMessageSubtitle={t('applicationInstances:no-path-subtitle')}
+						noDataMessageSubtitle={
+							!readOnly
+								? t('applicationInstances:no-path-subtitle')
+								: t('applicationInstances:no-path-asset')
+						}
 					/>
 				</Layer>
 			</FullWidthColumn>
