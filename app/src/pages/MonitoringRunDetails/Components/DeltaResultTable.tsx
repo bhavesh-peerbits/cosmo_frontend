@@ -4,8 +4,8 @@ import { useMemo, useState } from 'react';
 import { MisuseOutline, CheckmarkOutline } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { Layer } from '@carbon/react';
-import TagFileLinkCell from '@components/table/Cell/TagFileLinkCell';
 import FileLink from '@model/FileLink';
+import MultiTagFileLinkCell from '@components/table/Cell/MultiTagFileLinkCell';
 import AddAnswerToDeltaModal, {
 	DeltaTableRowType
 } from '../Modals/AddAnswerToDeltaModal';
@@ -77,16 +77,18 @@ const DeltaResultTable = ({
 			},
 			{
 				id: 'answer',
-				accessorFn: row => row.answerFile || row.answerValue,
+				accessorFn: row => (row.answerFile?.length ? row.answerFile : row.answerValue),
 				cell: info =>
-					info.row.original.answerFile
-						? TagFileLinkCell
+					info.row.original.answerFile?.length
+						? MultiTagFileLinkCell(info)
 						: info.getValue() !== 'NONE' && info.getValue(),
 				header: t('runDetails:answer'),
 				meta: {
 					exportableFn: info =>
 						(info as DeltaTableRowType).answerFile
-							? (info as DeltaTableRowType).answerFile?.name || ''
+							? (info as DeltaTableRowType).answerFile
+									?.map(file => file.name)
+									.join(',') || ''
 							: (info as DeltaTableRowType).answerValue || ''
 				}
 			}

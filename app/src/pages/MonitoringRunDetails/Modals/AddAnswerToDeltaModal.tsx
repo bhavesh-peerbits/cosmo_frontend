@@ -26,7 +26,7 @@ export interface DeltaTableRowType {
 	givenAt?: string | undefined;
 	asset?: string | undefined;
 	deltaFile: DeltaFileDto;
-	answerFile?: FileLinkDto;
+	answerFile?: FileLinkDto[];
 	answerValue?: string;
 	deltaId: number;
 	justificationId?: number;

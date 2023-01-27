@@ -53,7 +53,7 @@ const DeltaResultContent = ({ run, monitoringName }: DeltaResultContentProps) =>
 						{
 							givenAt: justification?.givenAt,
 							givenBy: `${justification?.givenBy?.name} ${justification?.givenBy?.surname}`,
-							answerFiles: justification?.files,
+							answerFile: justification?.files,
 							answerValue: justification?.value,
 							asset: data.asset.hostname,
 							deltaFile: d,
