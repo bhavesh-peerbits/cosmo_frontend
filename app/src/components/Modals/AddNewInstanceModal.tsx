@@ -109,7 +109,9 @@ const AddNewInstanceModal = ({
 					id='new-instance-input-description'
 					labelText={t('applicationInstances:description')}
 					placeholder={t('applicationInstances:instance-description-placeholder')}
-					onChange={e => setValue('description', e.currentTarget.value)}
+					onChange={e =>
+						setValue('description', e.currentTarget.value, { shouldDirty: true })
+					}
 				/>
 				{isError && (
 					<div className='mt-5 flex items-center justify-center'>

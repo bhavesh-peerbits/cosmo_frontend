@@ -40,6 +40,8 @@ import {
 import { ApiErrorResponse } from '../models';
 // @ts-ignore
 import { AssetDto } from '../models';
+// @ts-ignore
+import { InstanceDto } from '../models';
 /**
  * AssetControllerApi - axios parameter creator
  * @export
@@ -48,6 +50,106 @@ export const AssetControllerApiAxiosParamCreator = function (
 	configuration?: Configuration
 ) {
 	return {
+		/**
+		 *
+		 * @param {number} assetId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		deleteAsset: async (
+			assetId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'assetId' is not null or undefined
+			assertParamExists('deleteAsset', 'assetId', assetId);
+			const localVarPath = `/api/asset/{assetId}`.replace(
+				`{${'assetId'}}`,
+				encodeURIComponent(String(assetId))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} assetId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAssetInstances: async (
+			assetId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'assetId' is not null or undefined
+			assertParamExists('getAssetInstances', 'assetId', assetId);
+			const localVarPath = `/api/asset/{assetId}/instance`.replace(
+				`{${'assetId'}}`,
+				encodeURIComponent(String(assetId))
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
 		/**
 		 *
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
@@ -103,6 +205,56 @@ export const AssetControllerApiFp = function (configuration?: Configuration) {
 	return {
 		/**
 		 *
+		 * @param {number} assetId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async deleteAsset(
+			assetId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.deleteAsset(
+				assetId,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} assetId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getAssetInstances(
+			assetId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InstanceDto>>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAssetInstances(
+				assetId,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
@@ -140,6 +292,38 @@ export const AssetControllerApiFactory = function (
 	return {
 		/**
 		 *
+		 * @param {number} assetId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		deleteAsset(
+			assetId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<string> {
+			return localVarFp
+				.deleteAsset(assetId, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} assetId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAssetInstances(
+			assetId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<Array<InstanceDto>> {
+			return localVarFp
+				.getAssetInstances(assetId, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
@@ -154,6 +338,48 @@ export const AssetControllerApiFactory = function (
 		}
 	};
 };
+
+/**
+ * Request parameters for deleteAsset operation in AssetControllerApi.
+ * @export
+ * @interface AssetControllerApiDeleteAssetRequest
+ */
+export interface AssetControllerApiDeleteAssetRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AssetControllerApiDeleteAsset
+	 */
+	readonly assetId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AssetControllerApiDeleteAsset
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for getAssetInstances operation in AssetControllerApi.
+ * @export
+ * @interface AssetControllerApiGetAssetInstancesRequest
+ */
+export interface AssetControllerApiGetAssetInstancesRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AssetControllerApiGetAssetInstances
+	 */
+	readonly assetId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AssetControllerApiGetAssetInstances
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
 
 /**
  * Request parameters for getTenantAssets operation in AssetControllerApi.
@@ -176,6 +402,42 @@ export interface AssetControllerApiGetTenantAssetsRequest {
  * @extends {BaseAPI}
  */
 export class AssetControllerApi extends BaseAPI {
+	/**
+	 *
+	 * @param {AssetControllerApiDeleteAssetRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AssetControllerApi
+	 */
+	public deleteAsset(
+		requestParameters: AssetControllerApiDeleteAssetRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AssetControllerApiFp(this.configuration)
+			.deleteAsset(requestParameters.assetId, requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AssetControllerApiGetAssetInstancesRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AssetControllerApi
+	 */
+	public getAssetInstances(
+		requestParameters: AssetControllerApiGetAssetInstancesRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AssetControllerApiFp(this.configuration)
+			.getAssetInstances(
+				requestParameters.assetId,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
 	/**
 	 *
 	 * @param {AssetControllerApiGetTenantAssetsRequest} requestParameters Request parameters.

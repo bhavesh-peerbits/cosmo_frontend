@@ -12,6 +12,7 @@ import useGetAssetList from '@api/instance-asset/useGetAssetList';
 import useUpdateInstanceForApp from '@api/app-instances/useUpdateInstanceForApp';
 import ApiError from '@api/ApiError';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
+import useGetAllAssetsTenant from '@api/asset/useGetAllAssetsTenant';
 import ApplicationInstanceForm, {
 	ApplicationInstanceFormData
 } from './ApplicationInstanceForm';
@@ -33,6 +34,7 @@ const ApplicationInstanceTile = ({ instance }: ApplicationInstanceTileProps) => 
 		instanceId: instance.id,
 		appId: instance.application.id
 	});
+	const { data: allAssets } = useGetAllAssetsTenant();
 
 	const {
 		register,
@@ -105,29 +107,36 @@ const ApplicationInstanceTile = ({ instance }: ApplicationInstanceTileProps) => 
 						globalFiltersSecondaryButtonText={t('userSelect:reset')}
 						clearFiltersText={t('userSelect:clear-filters')}
 						items={{
-							entries: instanceAssets
-								? instanceAssets.map(asset =>
-										asset.type === 'DB'
-											? {
-													id: asset.id,
-													title: asset.hostname || '',
-													tagInfo: asset.os,
-													subtitle: asset.ip,
-													[t('changeMonitoring:type')]: asset.type,
-													[t('changeMonitoring:operating-system')]: asset.os,
-													database: asset.dbType,
-													cpe: 'here goes cpe'
-											  }
-											: {
-													id: asset.id,
-													title: asset.hostname || '',
-													tagInfo: asset.os,
-													subtitle: asset.ip,
-													[t('changeMonitoring:type')]: asset.type,
-													[t('changeMonitoring:operating-system')]: asset.os,
-													cpe: 'here goes cpe'
-											  }
-								  )
+							entries: allAssets
+								? allAssets
+										.filter(
+											asset =>
+												!instanceAssets?.find(
+													instanceAsset => instanceAsset.id === asset.id
+												)
+										)
+										.map(asset =>
+											asset.type === 'DB'
+												? {
+														id: asset.id,
+														title: asset.hostname || '',
+														tagInfo: asset.os,
+														subtitle: asset.ip,
+														[t('changeMonitoring:type')]: asset.type,
+														[t('changeMonitoring:operating-system')]: asset.os,
+														database: asset.dbType,
+														cpe: asset.cpe
+												  }
+												: {
+														id: asset.id,
+														title: asset.hostname || '',
+														tagInfo: asset.os,
+														subtitle: asset.ip,
+														[t('changeMonitoring:type')]: asset.type,
+														[t('changeMonitoring:operating-system')]: asset.os,
+														cpe: asset.cpe
+												  }
+										)
 								: []
 						}}
 					/>

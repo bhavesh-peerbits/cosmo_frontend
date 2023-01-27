@@ -40,6 +40,7 @@ git_push.sh
 index.ts
 models/access-login-dto.ts
 models/answer-dto.ts
+models/answer-file-already-uploaded-dto.ts
 models/answer-monitoring-dto.ts
 models/api-error-response.ts
 models/application-audit-dto.ts
@@ -92,6 +93,7 @@ models/inline-object14.ts
 models/inline-object15.ts
 models/inline-object17.ts
 models/inline-object18.ts
+models/inline-object21.ts
 models/inline-object9.ts
 models/instance-asset-dto.ts
 models/instance-dto.ts
