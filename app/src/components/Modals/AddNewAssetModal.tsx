@@ -52,7 +52,7 @@ const AddNewAssetModal = ({ isOpen, setIsOpen, instance }: AddNewAssetModalProps
 	};
 
 	const createAsset = (data: NewAssetFormData) => {
-		const { dbType, dbVersion, hostname, ip, os, type, ports } = data;
+		const { dbType, dbVersion, hostname, ip, os, type, ports, cpe } = data;
 		return mutate(
 			{
 				appId: instance.application.id,
@@ -65,6 +65,7 @@ const AddNewAssetModal = ({ isOpen, setIsOpen, instance }: AddNewAssetModalProps
 					hostname,
 					ip,
 					os,
+					cpe,
 					ports: ports.replace(/,*$/, ''),
 					type
 				}
