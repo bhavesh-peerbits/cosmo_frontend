@@ -23,7 +23,11 @@ const EvidenceRequestsTableView = ({ view }: EvidenceRequestsTableViewProps) => 
 		const ArrayCol: ColumnDef<EvidenceRequest>[] = [
 			{
 				id: `name${view}`,
-				accessorFn: row => ({ name: row.name, id: row.id }),
+				accessorFn: row => ({
+					name: row.name,
+					id: row.id,
+					preUrl: '/started-evidence-request'
+				}),
 				header: t('request-name'),
 				cell: CellLink
 			},

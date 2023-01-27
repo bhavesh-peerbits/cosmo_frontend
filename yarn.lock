@@ -2803,9 +2803,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@carbon/react@patch:@carbon/react@npm%3A1.21.0#../.yarn/patches/@carbon-react-npm-1.19.0-985c79b931.patch::locator=app%40workspace%3Aapp":
+"@carbon/react@patch:@carbon/react@npm%3A1.21.0#~/.yarn/patches/@carbon-react-npm-1.21.0-68497838a6.patch":
   version: 1.21.0
-  resolution: "@carbon/react@patch:@carbon/react@npm%3A1.21.0#../.yarn/patches/@carbon-react-npm-1.19.0-985c79b931.patch::version=1.21.0&hash=039d75&locator=app%40workspace%3Aapp"
+  resolution: "@carbon/react@patch:@carbon/react@npm%3A1.21.0#~/.yarn/patches/@carbon-react-npm-1.21.0-68497838a6.patch::version=1.21.0&hash=6b837e"
   dependencies:
     "@babel/runtime": "npm:^7.18.3"
     "@carbon/feature-flags": "npm:^0.12.0"
@@ -2832,7 +2832,7 @@ __metadata:
     react: ^16.8.6 || ^17.0.1
     react-dom: ^16.8.6 || ^17.0.1
     sass: ^1.33.0
-  checksum: 6125a540904fcb5c3b4e8abd47050c450f2f1820eaf39875c88494add3981d76ca695deb0af4949ee3eeeb22608df3b639f2dc9d1ceda71b990dbee39fb424f4
+  checksum: c93f4c992942241f95f3aeeeab285324867c6b81f0ebba11f798e2c6be43c7e53a64aeacdf867e4940fd56bc4a0217a59f3a877e69dbf60937bdc2044177eebf
   languageName: node
   linkType: hard
 
@@ -9163,7 +9163,7 @@ __metadata:
     "@carbon/ibm-products": "npm:^2.0.0-rc.11"
     "@carbon/layout": "npm:^11.9.0"
     "@carbon/motion": "npm:^11.7.0"
-    "@carbon/react": "patch:@carbon/react@npm%3A1.21.0#../.yarn/patches/@carbon-react-npm-1.19.0-985c79b931.patch"
+    "@carbon/react": "patch:@carbon/react@npm%3A1.21.0#~/.yarn/patches/@carbon-react-npm-1.21.0-68497838a6.patch"
     "@carbon/themes": "npm:^11.14.0"
     "@ibm/plex": "npm:6.0.2"
     "@nabla/vite-plugin-eslint": "npm:^1.4.0"

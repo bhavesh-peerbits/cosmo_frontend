@@ -1,0 +1,65 @@
+diff --git a/es/components/Checkbox/Checkbox.js b/es/components/Checkbox/Checkbox.js
+index 55fdcfcb4f91eca01fcc9a7dffc44699afcfe412..f2436d2bf03aae274964af621970c7e89b511d74 100644
+--- a/es/components/Checkbox/Checkbox.js
++++ b/es/components/Checkbox/Checkbox.js
+@@ -45,7 +45,7 @@ var Checkbox = /*#__PURE__*/React__default.forwardRef(function (_ref, _ref2) {
+     className: "".concat(prefix, "--checkbox"),
+     id: id,
+     ref: function ref(el) {
+-      if (el && indeterminate) {
++      if (el) {
+         el.indeterminate = indeterminate;
+       }
+ 
+diff --git a/es/components/TextArea/TextArea.js b/es/components/TextArea/TextArea.js
+index 65dfc37c647a1aa8b0212050a760227a78f97a73..e72420cf81918004be18d65d5a36f4056d9d17ad 100644
+--- a/es/components/TextArea/TextArea.js
++++ b/es/components/TextArea/TextArea.js
+@@ -98,14 +98,6 @@ var TextArea = /*#__PURE__*/React__default.forwardRef(function TextArea(_ref, re
+     className: "".concat(prefix, "--text-area__invalid-icon")
+   })) : null;
+   var textareaClasses = cx("".concat(prefix, "--text-area"), [enabled ? null : className], (_classNames4 = {}, _defineProperty(_classNames4, "".concat(prefix, "--text-area--light"), light), _defineProperty(_classNames4, "".concat(prefix, "--text-area--invalid"), invalid), _classNames4));
+-  var textareaRef = useRef();
+-  useIsomorphicEffect(function () {
+-    if (other.cols) {
+-      textareaRef.current.style.width = null;
+-    } else {
+-      textareaRef.current.style.width = "100%";
+-    }
+-  }, [other.cols]);
+   var input = /*#__PURE__*/React__default.createElement("textarea", _extends({}, other, textareaProps, {
+     placeholder: placeholder || null,
+     className: textareaClasses,
+@@ -113,7 +105,7 @@ var TextArea = /*#__PURE__*/React__default.forwardRef(function TextArea(_ref, re
+     "aria-describedby": invalid ? errorId : null,
+     disabled: other.disabled,
+     readOnly: other.readOnly,
+-    ref: textareaRef
++    ref: ref
+   }));
+   return /*#__PURE__*/React__default.createElement("div", {
+     className: enabled ? cx("".concat(prefix, "--form-item"), className) : "".concat(prefix, "--form-item")
+diff --git a/es/components/Tile/Tile.js b/es/components/Tile/Tile.js
+index e053d79e25e8a6c6d570c4a4ec180d54af544af8..e6b568722a1d880efc086df3db5f61d64989704c 100644
+--- a/es/components/Tile/Tile.js
++++ b/es/components/Tile/Tile.js
+@@ -398,10 +398,6 @@ function ExpandableTile(_ref4) {
+     evt.persist();
+     setIsExpanded(!isExpanded);
+     setMaxHeight();
+-
+-    if (onClick) {
+-      onClick(evt);
+-    }
+   }
+ 
+   function handleKeyUp(evt) {
+@@ -431,7 +427,7 @@ function ExpandableTile(_ref4) {
+     var paddingBottom = parseInt(getStyle.getPropertyValue('padding-bottom'), 10);
+     setIsTileMaxHeight(height);
+     setIsTilePadding(paddingTop + paddingBottom);
+-  }, []);
++  }, [isTileMaxHeight]);
+   useIsomorphicEffect(function () {
+     if (getInteractiveContent(belowTheFold.current)) {
+       setInteractive(true);
