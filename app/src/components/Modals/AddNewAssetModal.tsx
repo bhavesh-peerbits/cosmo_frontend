@@ -1,4 +1,14 @@
-import { Form, Grid, TextInput, Column, Select, SelectItem } from '@carbon/react';
+import ApiError from '@api/ApiError';
+import useCreateAsset from '@api/instance-asset/useCreateAsset';
+import {
+	Form,
+	Grid,
+	TextInput,
+	Column,
+	Select,
+	SelectItem,
+	InlineNotification
+} from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
 import Instance from '@model/Instance';
@@ -15,6 +25,7 @@ type NewAssetFormData = {
 	ip: string;
 	dbVersion: string;
 	dbType: string;
+	cpe: string;
 };
 
 type AddNewAssetModalProps = {
@@ -24,18 +35,44 @@ type AddNewAssetModalProps = {
 };
 const AddNewAssetModal = ({ isOpen, setIsOpen, instance }: AddNewAssetModalProps) => {
 	const { t } = useTranslation(['modals', 'applicationInstances']);
-	// const [isNewSelected, setIsNewSelected] = useState(false);
+	const { mutate, isError, error, isLoading, reset: resetApi } = useCreateAsset();
 
 	const {
 		register,
 		watch,
+		handleSubmit,
+		reset,
 		formState: { isValid, errors }
 	} = useForm<NewAssetFormData>({ mode: 'onChange' });
 
 	const cleanUp = () => {
 		setIsOpen(undefined);
+		resetApi();
+		reset();
 	};
-	// TODO remove last comma in ports
+
+	const createAsset = (data: NewAssetFormData) => {
+		const { dbType, dbVersion, hostname, ip, os, type, ports } = data;
+		return mutate(
+			{
+				appId: instance.application.id,
+				instanceId: instance.id,
+				asset: {
+					id: '',
+					paths: [],
+					dbType,
+					dbVersion,
+					hostname,
+					ip,
+					os,
+					ports: ports.replace(/,*$/, ''),
+					type
+				}
+			},
+			{ onSuccess: () => cleanUp() }
+		);
+	};
+
 	return (
 		<TearsheetNarrow
 			hasCloseIcon
@@ -53,26 +90,13 @@ const AddNewAssetModal = ({ isOpen, setIsOpen, instance }: AddNewAssetModalProps
 				{
 					label: t('modals:create'),
 					id: 'send-focal-point',
-					disabled: !isValid
-					// onClick: handleSubmit(createInstance)
+					disabled: !isValid || isLoading,
+					onClick: handleSubmit(createAsset)
 				}
 			]}
 		>
 			<Form className='space-y-5 pl-5'>
 				<Grid narrow fullWidth className='space-y-5'>
-					{/* <FullWidthColumn>
-						<Toggle
-							labelA='Nuovo'
-							labelB='Esistente'
-							labelText='Asset da aggiungere'
-							id='new-asset-togddgle'
-							aria-label='New Asset Toggle'
-							toggled={isNewSelected}
-							onToggle={() => {
-								setIsNewSelected(!isNewSelected);
-							}}
-						/>
-					</FullWidthColumn> */}
 					<FullWidthColumn>
 						<TextInput
 							id='new-asset-hostname-input'
@@ -80,7 +104,7 @@ const AddNewAssetModal = ({ isOpen, setIsOpen, instance }: AddNewAssetModalProps
 							placeholder={t('applicationInstances:hostname-placeholder')}
 							invalid={Boolean(errors.hostname)}
 							invalidText={errors.hostname?.message}
-							{...register(`hostname`, {
+							{...register('hostname', {
 								required: { value: true, message: t('modals:field-required') }
 							})}
 						/>
@@ -92,9 +116,22 @@ const AddNewAssetModal = ({ isOpen, setIsOpen, instance }: AddNewAssetModalProps
 							placeholder={t('applicationInstances:ip-placeholder')}
 							invalid={Boolean(errors.ip)}
 							invalidText={errors.ip?.message}
-							{...register(`ip`, {
-								required: { value: true, message: t('modals:field-required') }
+							{...register('ip', {
+								required: { value: true, message: t('modals:field-required') },
+								pattern: {
+									message: 'Should be ipv4 o ipv6',
+									value:
+										/((^\s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\s*$)|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$))/
+								}
 							})}
+						/>
+					</FullWidthColumn>
+					<FullWidthColumn>
+						<TextInput
+							id='new-asset-cpe-input'
+							labelText='CPE'
+							placeholder='Customer Premises Equipment'
+							{...register('cpe')}
 						/>
 					</FullWidthColumn>
 					<FullWidthColumn>
@@ -102,15 +139,18 @@ const AddNewAssetModal = ({ isOpen, setIsOpen, instance }: AddNewAssetModalProps
 							id='new-asset-ports-input'
 							labelText={t('applicationInstances:ports')}
 							placeholder={t('applicationInstances:ports-input-placeholder')}
+							invalid={Boolean(errors.ports)}
+							invalidText={errors.ports?.message}
 							{...register('ports', {
 								pattern: {
 									value: /^([0-9]+,?)+$/,
 									message: t('applicationInstances:error-ports-input')
 								},
 								validate: ports =>
-									ports.length > 0 &&
-									(ports.split(',').every(port => +port < 65535) ||
-										t('applicationInstances:erros-ports-greater'))
+									ports.length > 0
+										? ports.split(',').every(port => +port < 65535) ||
+										  t('applicationInstances:erros-ports-greater')
+										: undefined
 							})}
 						/>
 					</FullWidthColumn>
@@ -173,20 +213,20 @@ const AddNewAssetModal = ({ isOpen, setIsOpen, instance }: AddNewAssetModalProps
 							})}
 						/>
 					</Column>
+					{isError && (
+						<FullWidthColumn className='mt-5 flex items-center justify-center'>
+							<InlineNotification
+								kind='error'
+								title='Error'
+								hideCloseButton
+								subtitle={
+									(error as ApiError)?.message ||
+									'An error has occurred, please try again later'
+								}
+							/>
+						</FullWidthColumn>
+					)}
 				</Grid>
-				{/* {isError && (
-					<div className='mt-5 flex items-center justify-center'>
-						<InlineNotification
-							kind='error'
-							title='Error'
-							hideCloseButton
-							subtitle={
-								(error as ApiError)?.message ||
-								'An error has occurred, please try again later'
-							}
-						/>
-					</div>
-				)} */}
 			</Form>
 		</TearsheetNarrow>
 	);

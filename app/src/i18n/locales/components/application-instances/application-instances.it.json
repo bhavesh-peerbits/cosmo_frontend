@@ -32,5 +32,6 @@
 	"erros-ports-greater": "Il numero della porta deve essere minore di 65536",
 	"path-regex-error": "Il path deve rispettare la regex: {{regex}}",
 	"no-instance": "Nessuna istanza presente",
-	"no-instance-subtitle": "Non è presente nessuna istanza. Utilizza il pulsante in alto per crearne una nuova."
+	"no-instance-subtitle": "Non è presente nessuna istanza. Utilizza il pulsante in alto per crearne una nuova.",
+	"ip-pattern-error": "Deve essere un indirizzo IPv4 o IPv6 valido."
 }

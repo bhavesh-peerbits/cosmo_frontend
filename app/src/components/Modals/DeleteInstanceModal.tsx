@@ -3,10 +3,13 @@ import {
 	ComposedModal,
 	ModalBody,
 	ModalFooter,
-	ModalHeader
+	ModalHeader,
+	InlineNotification
 } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import Instance from '@model/Instance';
+import useDeleteInstanceForApp from '@api/app-instances/useDeleteInstanceForApp';
+import ApiError from '@api/ApiError';
 
 type DeleteInstanceModalProps = {
 	isOpen: boolean;
@@ -20,9 +23,18 @@ const DeleteInstanceModal = ({
 	instance
 }: DeleteInstanceModalProps) => {
 	const { t } = useTranslation(['modals', 'applicationInstances']);
+	const { mutate, isError, isLoading, error, reset } = useDeleteInstanceForApp();
 
 	const cleanUp = () => {
 		setIsOpen(false);
+		reset();
+	};
+
+	const deleteInstance = () => {
+		return mutate(
+			{ appId: instance.application.id, instanceId: instance.id },
+			{ onSuccess: () => cleanUp() }
+		);
 	};
 
 	return (
@@ -36,7 +48,7 @@ const DeleteInstanceModal = ({
 				<span>
 					{t('applicationInstances:confirm-instance-delete', { instance: instance.name })}
 				</span>
-				{/* {isError && (
+				{isError && (
 					<div className='mt-5 flex items-center justify-center'>
 						<InlineNotification
 							kind='error'
@@ -48,16 +60,13 @@ const DeleteInstanceModal = ({
 							}
 						/>
 					</div>
-				)} */}
+				)}
 			</ModalBody>
 			<ModalFooter>
 				<Button kind='secondary' onClick={cleanUp}>
 					{t('modals:cancel')}
 				</Button>
-				{/* <Button kind='danger' disabled={isLoading} onClick={DeleteInstance}>
-					{t('delete')}
-				</Button> */}
-				<Button kind='danger' onClick={cleanUp}>
+				<Button kind='danger' disabled={isLoading} onClick={() => deleteInstance()}>
 					{t('modals:delete')}
 				</Button>
 			</ModalFooter>

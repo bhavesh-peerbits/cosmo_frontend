@@ -33,5 +33,6 @@
 	"erros-ports-greater": "The port number must be less than 65536",
 	"path-regex-error": "The path should match the regex: {{regex}}",
 	"no-instance": "No instance",
-	"no-instance-subtitle": "There is no instance. Use the button above to create a new one."
+	"no-instance-subtitle": "There is no instance. Use the button above to create a new one.",
+	"ip-pattern-error": "It must be IPv4 or IPv6 format."
 }
