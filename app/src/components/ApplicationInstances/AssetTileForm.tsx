@@ -3,7 +3,7 @@ import { Grid, Column, TextInput, Layer, Select, SelectItem } from '@carbon/reac
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
 import { FieldErrors, UseFormRegister, UseFormWatch } from 'react-hook-form';
-import { AssetDtoTypeEnum, AssetDtoOsEnum } from 'cosmo-api/src/v1';
+import { AssetDtoTypeEnum, AssetDtoOsEnum, PathDto } from 'cosmo-api/src/v1';
 
 export interface AssetFormData {
 	hostname: string;
@@ -14,6 +14,7 @@ export interface AssetFormData {
 	dbVersion: string;
 	dbType: string;
 	cpe: string;
+	paths: PathDto[];
 }
 
 type AssetTileFormProps = {
@@ -23,8 +24,6 @@ type AssetTileFormProps = {
 	watch: UseFormWatch<AssetFormData>;
 	errors: FieldErrors<AssetFormData>;
 };
-
-// TODO remove last comma in ports
 
 const AssetTileForm = ({
 	asset,

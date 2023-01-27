@@ -1,13 +1,14 @@
 import CosmoTable from '@components/table/CosmoTable';
 import Asset from '@model/Asset';
 import { ColumnDef } from '@tanstack/react-table';
-import { Dispatch, SetStateAction, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Layer, Grid } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { TrashCan } from '@carbon/react/icons';
-import { useForm } from 'react-hook-form';
+import { useForm, UseFormSetValue } from 'react-hook-form';
 import { PathDto } from 'cosmo-api/src/v1';
+import { AssetFormData } from './AssetTileForm';
 
 type PathsFormData = {
 	path: string[];
@@ -16,13 +17,13 @@ type PathsFormData = {
 type AssetPathsTableProps = {
 	readOnly?: boolean;
 	assetPaths: PathDto[];
-	setAssetPaths: Dispatch<SetStateAction<PathDto[]>>;
+	setValue: UseFormSetValue<AssetFormData>;
 	asset: Asset;
 };
 
 const AssetPathsTable = ({
 	assetPaths,
-	setAssetPaths,
+	setValue,
 	readOnly,
 	asset
 }: AssetPathsTableProps) => {
@@ -60,6 +61,7 @@ const AssetPathsTable = ({
 		],
 		[asset.id, t, asset.os]
 	);
+
 	return (
 		<Grid narrow fullWidth>
 			<FullWidthColumn>
@@ -68,17 +70,23 @@ const AssetPathsTable = ({
 						modalProps={{
 							form,
 							onSubmit: data =>
-								setAssetPaths(old => [
-									...old,
-									...data.path
-										.filter(
-											path =>
-												!old.map(p => p.path.toLowerCase()).includes(path.toLowerCase())
-										)
-										.map(path => {
-											return { path, id: 0 };
-										})
-								]),
+								setValue(
+									'paths',
+									[
+										...assetPaths,
+										...data.path
+											.filter(
+												path =>
+													!assetPaths
+														.map(p => p.path.toLowerCase())
+														.includes(path.toLowerCase())
+											)
+											.map(path => {
+												return { path, id: 0 };
+											})
+									],
+									{ shouldDirty: true }
+								),
 							title: t('changeMonitoring:add-path')
 						}}
 						tableId={`${asset.id}-instance-path-table`}
@@ -91,8 +99,10 @@ const AssetPathsTable = ({
 						}}
 						canDelete
 						onDelete={data => {
-							setAssetPaths(old =>
-								old.filter(path => !data.find(p => p.original.path === path.path))
+							setValue(
+								'paths',
+								assetPaths.filter(path => !data.find(p => p.original.path === path.path)),
+								{ shouldDirty: true }
 							);
 						}}
 						inlineActions={[
@@ -100,8 +110,10 @@ const AssetPathsTable = ({
 								label: t('modals:delete'),
 								icon: <TrashCan />,
 								onClick: data => {
-									setAssetPaths(old =>
-										old.filter(path => path.path !== data.original.path)
+									setValue(
+										'paths',
+										assetPaths.filter(path => path.path !== data.original.path),
+										{ shouldDirty: true }
 									);
 								}
 							}

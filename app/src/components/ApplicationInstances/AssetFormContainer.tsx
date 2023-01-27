@@ -3,7 +3,6 @@ import Asset from '@model/Asset';
 import { useForm } from 'react-hook-form';
 import { Button } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
 import useModifyAsset from '@api/asset/useModifyAsset';
 import ApiError from '@api/ApiError';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
@@ -17,13 +16,14 @@ type AssetFormContainerProps = {
 const AssetFormContainer = ({ asset, isReview }: AssetFormContainerProps) => {
 	const { t } = useTranslation(['applicationInfo', 'modals']);
 	const { mutate, isError, isSuccess, isLoading, error } = useModifyAsset();
-	const [assetPaths, setAssetPaths] = useState(asset.paths);
 
 	const {
 		register,
 		reset,
 		watch,
 		handleSubmit,
+		setValue,
+		getValues,
 		formState: { errors, isDirty, isValid }
 	} = useForm<AssetFormData>({
 		mode: 'onChange',
@@ -35,7 +35,8 @@ const AssetFormContainer = ({ asset, isReview }: AssetFormContainerProps) => {
 			ip: asset.ip,
 			dbVersion: asset.dbVersion,
 			dbType: asset.dbType,
-			cpe: asset.cpe
+			cpe: asset.cpe,
+			paths: asset.paths.length ? asset.paths : []
 		}
 	});
 
@@ -52,12 +53,12 @@ const AssetFormContainer = ({ asset, isReview }: AssetFormContainerProps) => {
 	// };
 
 	const modifyAsset = (data: AssetFormData) => {
-		const { dbType, dbVersion, hostname, ip, os, type, ports, cpe } = data;
+		const { dbType, dbVersion, hostname, ip, os, type, ports, cpe, paths } = data;
 		return mutate({
 			assetId: asset.id,
 			asset: {
 				...asset,
-				paths: assetPaths,
+				paths,
 				dbType,
 				dbVersion,
 				hostname,
@@ -69,6 +70,14 @@ const AssetFormContainer = ({ asset, isReview }: AssetFormContainerProps) => {
 			}
 		});
 	};
+
+	// useEffect(() => {
+	// 	setValue(
+	// 		'paths',
+	// 		assetPaths.map(path => path.path),
+	// 		{ shouldDirty: true }
+	// 	);
+	// }, [assetPaths, setValue]);
 
 	return (
 		<FullWidthColumn className='space-y-5'>
@@ -82,8 +91,8 @@ const AssetFormContainer = ({ asset, isReview }: AssetFormContainerProps) => {
 			<AssetPathsTable
 				asset={asset}
 				readOnly={isReview}
-				assetPaths={assetPaths}
-				setAssetPaths={setAssetPaths}
+				assetPaths={getValues('paths')}
+				setValue={setValue}
 			/>
 			{!isReview && (
 				<div className='flex w-full flex-1 justify-end space-x-5 pb-5'>
@@ -108,9 +117,10 @@ const AssetFormContainer = ({ asset, isReview }: AssetFormContainerProps) => {
 								os: asset.os || 'WINDOWS',
 								ip: asset.ip,
 								dbVersion: asset.dbVersion,
-								dbType: asset.dbType
+								dbType: asset.dbType,
+								paths: asset.paths.length ? asset.paths : []
 							});
-							setAssetPaths(asset.paths);
+							// setAssetPaths(asset.paths);
 						}}
 					>
 						{t('applicationInfo:discard')}
