@@ -4,6 +4,9 @@ import { useForm } from 'react-hook-form';
 import { Button } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
+import useModifyAsset from '@api/asset/useModifyAsset';
+import ApiError from '@api/ApiError';
+import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import AssetPathsTable from './AssetPathsTable';
 import AssetTileForm, { AssetFormData } from './AssetTileForm';
 
@@ -13,16 +16,14 @@ type AssetFormContainerProps = {
 };
 const AssetFormContainer = ({ asset, isReview }: AssetFormContainerProps) => {
 	const { t } = useTranslation(['applicationInfo', 'modals']);
-	const [assetPaths, setAssetPaths] = useState(
-		asset.paths.map(path => {
-			return { path: path.path };
-		})
-	);
+	const { mutate, isError, isSuccess, isLoading, error } = useModifyAsset();
+	const [assetPaths, setAssetPaths] = useState(asset.paths);
 
 	const {
 		register,
 		reset,
 		watch,
+		handleSubmit,
 		formState: { errors, isDirty, isValid }
 	} = useForm<AssetFormData>({
 		mode: 'onChange',
@@ -33,20 +34,40 @@ const AssetFormContainer = ({ asset, isReview }: AssetFormContainerProps) => {
 			os: asset.os || 'WINDOWS',
 			ip: asset.ip,
 			dbVersion: asset.dbVersion,
-			dbType: asset.dbType
+			dbType: asset.dbType,
+			cpe: asset.cpe
 		}
 	});
 
-	const checkIfPathsEqual = () => {
-		return (
-			asset.paths.map(path => path.path).length ===
-				assetPaths.map(path => path.path).length &&
-			asset.paths
-				.map(path => path.path)
-				.every(path => {
-					return assetPaths.map(el => el.path).includes(path);
-				})
-		);
+	// const checkIfPathsEqual = () => {
+	// 	return (
+	// 		asset.paths.map(path => path.path).length ===
+	// 			assetPaths.map(path => path.path).length &&
+	// 		asset.paths
+	// 			.map(path => path.path)
+	// 			.every(path => {
+	// 				return assetPaths.map(el => el.path).includes(path);
+	// 			})
+	// 	);
+	// };
+
+	const modifyAsset = (data: AssetFormData) => {
+		const { dbType, dbVersion, hostname, ip, os, type, ports, cpe } = data;
+		return mutate({
+			assetId: asset.id,
+			asset: {
+				...asset,
+				paths: assetPaths,
+				dbType,
+				dbVersion,
+				hostname,
+				ip,
+				os,
+				cpe,
+				ports: ports.replace(/,*$/, ''),
+				type
+			}
+		});
 	};
 
 	return (
@@ -66,11 +87,19 @@ const AssetFormContainer = ({ asset, isReview }: AssetFormContainerProps) => {
 			/>
 			{!isReview && (
 				<div className='flex w-full flex-1 justify-end space-x-5 pb-5'>
+					<div className='flex-1'>
+						<InlineLoadingStatus
+							isLoading={isLoading}
+							isSuccess={isSuccess}
+							isError={isError}
+							error={error as ApiError}
+						/>
+					</div>
 					<Button
 						size='md'
 						type='reset'
 						kind='secondary'
-						disabled={!isDirty || !checkIfPathsEqual()}
+						disabled={!isDirty || isLoading}
 						onClick={() => {
 							reset({
 								hostname: asset.hostname,
@@ -81,11 +110,7 @@ const AssetFormContainer = ({ asset, isReview }: AssetFormContainerProps) => {
 								dbVersion: asset.dbVersion,
 								dbType: asset.dbType
 							});
-							setAssetPaths(
-								asset.paths.map(path => {
-									return { path: path.path };
-								})
-							);
+							setAssetPaths(asset.paths);
 						}}
 					>
 						{t('applicationInfo:discard')}
@@ -93,7 +118,8 @@ const AssetFormContainer = ({ asset, isReview }: AssetFormContainerProps) => {
 					<Button
 						size='md'
 						type='submit'
-						disabled={!isValid || !isDirty || checkIfPathsEqual()}
+						disabled={!isValid || !isDirty}
+						onClick={handleSubmit(modifyAsset)}
 					>
 						{t('modals:save')}
 					</Button>

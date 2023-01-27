@@ -7,6 +7,7 @@ import { Layer, Grid } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { TrashCan } from '@carbon/react/icons';
 import { useForm } from 'react-hook-form';
+import { PathDto } from 'cosmo-api/src/v1';
 
 type PathsFormData = {
 	path: string[];
@@ -14,8 +15,8 @@ type PathsFormData = {
 
 type AssetPathsTableProps = {
 	readOnly?: boolean;
-	assetPaths: { path: string }[];
-	setAssetPaths: Dispatch<SetStateAction<{ path: string }[]>>;
+	assetPaths: PathDto[];
+	setAssetPaths: Dispatch<SetStateAction<PathDto[]>>;
 	asset: Asset;
 };
 
@@ -33,7 +34,7 @@ const AssetPathsTable = ({
 	]);
 	const form = useForm<PathsFormData>();
 
-	const columns = useMemo<ColumnDef<{ path: string }, unknown, PathsFormData>[]>(
+	const columns = useMemo<ColumnDef<PathDto, unknown, PathsFormData>[]>(
 		() => [
 			{
 				id: `path-${asset.id}`,
@@ -69,9 +70,14 @@ const AssetPathsTable = ({
 							onSubmit: data =>
 								setAssetPaths(old => [
 									...old,
-									...data.path.map(path => {
-										return { path };
-									})
+									...data.path
+										.filter(
+											path =>
+												!old.map(p => p.path.toLowerCase()).includes(path.toLowerCase())
+										)
+										.map(path => {
+											return { path, id: 0 };
+										})
 								]),
 							title: t('changeMonitoring:add-path')
 						}}
@@ -84,7 +90,6 @@ const AssetPathsTable = ({
 							toolbarTableMenus: []
 						}}
 						canDelete
-						canEdit
 						onDelete={data => {
 							setAssetPaths(old =>
 								old.filter(path => !data.find(p => p.original.path === path.path))

@@ -13,7 +13,7 @@ export interface AssetFormData {
 	ip: string;
 	dbVersion: string;
 	dbType: string;
-	key: string;
+	cpe: string;
 }
 
 type AssetTileFormProps = {
@@ -77,9 +77,10 @@ const AssetTileForm = ({
 								message: t('applicationInstances:error-ports-input')
 							},
 							validate: ports =>
-								ports.length > 0 &&
-								(ports.split(',').every(port => +port < 65535) ||
-									t('applicationInstances:erros-ports-greater'))
+								ports.length > 0
+									? ports.split(',').every(port => +port < 65535) ||
+									  t('applicationInstances:erros-ports-greater')
+									: undefined
 						})}
 						readOnly={readOnly}
 					/>
