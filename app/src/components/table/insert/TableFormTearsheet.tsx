@@ -1,6 +1,6 @@
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
 import { Column } from '@tanstack/react-table';
-import { SwitcherDivider, Button } from '@carbon/react';
+import { SwitcherDivider, Button, InlineNotification } from '@carbon/react';
 import {
 	FieldArray,
 	FieldValues,
@@ -14,12 +14,16 @@ import { Add, TrashCan } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import ColumnInput, { MetaColumn } from '@components/table/insert/ColumnInput';
 import cx from 'classnames';
+import ApiError from '@api/ApiError';
 
 interface TableFormTearsheetProps<T, F extends FieldValues> {
 	isOpen: boolean;
 	columns: Column<T>[];
 	title?: string;
 	description?: string;
+	error?: ApiError;
+	isError?: boolean;
+	isSuccess?: boolean;
 	label?: string;
 	onClose: () => void;
 	form: UseFormReturn<F>;
@@ -33,6 +37,9 @@ const TableFormTearsheet = <T extends object, F extends FieldValues>({
 	description,
 	label,
 	form,
+	error,
+	isError,
+	isSuccess,
 	onClose,
 	onSubmit
 }: TableFormTearsheetProps<T, F>) => {
@@ -90,7 +97,13 @@ const TableFormTearsheet = <T extends object, F extends FieldValues>({
 				event
 			);
 		} else onSubmit(data, event);
+		isSuccess === undefined && cleanUp();
 	};
+
+	useEffect(() => {
+		isSuccess && cleanUp();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isSuccess]);
 
 	useEffect(() => {
 		if (allColumns.length === 1 && fields.length === 0) {
@@ -194,6 +207,16 @@ const TableFormTearsheet = <T extends object, F extends FieldValues>({
 						))
 					)}
 				</div>
+				{isError && (
+					<div className='p-5'>
+						<InlineNotification
+							kind='error'
+							title='Error'
+							hideCloseButton
+							subtitle={error?.message || 'An error has occurred, please try again later'}
+						/>
+					</div>
+				)}
 			</>
 		</TearsheetNarrow>
 	);

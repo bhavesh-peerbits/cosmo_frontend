@@ -60,7 +60,9 @@ import {
 	RunAssetDto,
 	RunFileLinkDto,
 	SchedulingControllerApi,
-	FocalPointChangeMonitoringControllerApi
+	FocalPointChangeMonitoringControllerApi,
+	InstanceAssetControllerApi,
+	AssetControllerApi
 } from './v1';
 
 export const ApiConfiguration = Configuration;
@@ -88,7 +90,9 @@ export default function configureApi(config: Configuration) {
 		schedulingControllerApi: new SchedulingControllerApi(config),
 		focalPointChangeMonitoringControllerApi: new FocalPointChangeMonitoringControllerApi(
 			config
-		)
+		),
+		instanceAssetControllerApi: new InstanceAssetControllerApi(config),
+		assetControllerApi: new AssetControllerApi(config)
 	};
 }
 export type ApplicationApi = ApplicationDto;

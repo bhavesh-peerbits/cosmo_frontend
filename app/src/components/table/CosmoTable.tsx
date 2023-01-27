@@ -32,6 +32,7 @@ import { rankItem } from '@tanstack/match-sorter-utils';
 import usePaginationStore from '@hooks/pagination/usePaginationStore';
 import useExportTablePlugin from '@hooks/useExportTablePlugin';
 import { FieldValues, SubmitHandler, UseFormReturn } from 'react-hook-form';
+import ApiError from '@api/ApiError';
 import TablePagination from './TablePagination';
 import CosmoTableToolbarAction from './types/CosmoTableToolbarAction';
 import CosmoTableToolbarMenu from './types/CosmoTableToolbarMenu';
@@ -58,6 +59,9 @@ interface ModalProps<F extends FieldValues> {
 	title: string;
 	description?: string;
 	label?: string;
+	error?: ApiError;
+	isError?: boolean;
+	isSuccess?: boolean;
 	form: UseFormReturn<F>;
 	onSubmit: SubmitHandler<F>;
 }
@@ -157,7 +161,7 @@ const CosmoTable = <T extends SubRows<T>, F extends FieldValues = never>({
 			header: '',
 			accessorFn: row => row,
 			accessorKey: 'rowActions',
-			meta: { disableExport },
+			meta: { disableExport: true },
 			enableResizing: false,
 			enableSorting: false,
 			size: 30,

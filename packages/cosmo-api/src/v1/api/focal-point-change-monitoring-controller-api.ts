@@ -41,7 +41,7 @@ import { ApiErrorResponse } from '../models';
 // @ts-ignore
 import { FileLinkDto } from '../models';
 // @ts-ignore
-import { InlineObject16 } from '../models';
+import { InlineObject17 } from '../models';
 // @ts-ignore
 import { MonitoringDto } from '../models';
 // @ts-ignore
@@ -370,7 +370,7 @@ export const FocalPointChangeMonitoringControllerApiAxiosParamCreator = function
 		): Promise<RequestArgs> => {
 			// verify required parameter 'runId' is not null or undefined
 			assertParamExists('getRun', 'runId', runId);
-			const localVarPath = `/api/change-monitoring/focal-point/get-run/{runId}`.replace(
+			const localVarPath = `/api/change-monitoring/focal-point/run/{runId}`.replace(
 				`{${'runId'}}`,
 				encodeURIComponent(String(runId))
 			);
@@ -409,21 +409,21 @@ export const FocalPointChangeMonitoringControllerApiAxiosParamCreator = function
 		/**
 		 *
 		 * @param {number} deltaId
-		 * @param {InlineObject16} inlineObject16
+		 * @param {InlineObject17} inlineObject17
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		uploadCsvAnswer: async (
 			deltaId: number,
-			inlineObject16: InlineObject16,
+			inlineObject17: InlineObject17,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'deltaId' is not null or undefined
 			assertParamExists('uploadCsvAnswer', 'deltaId', deltaId);
-			// verify required parameter 'inlineObject16' is not null or undefined
-			assertParamExists('uploadCsvAnswer', 'inlineObject16', inlineObject16);
+			// verify required parameter 'inlineObject17' is not null or undefined
+			assertParamExists('uploadCsvAnswer', 'inlineObject17', inlineObject17);
 			const localVarPath =
 				`/api/change-monitoring/focal-point/upload-csv-answer/{deltaId}`.replace(
 					`{${'deltaId'}}`,
@@ -458,7 +458,7 @@ export const FocalPointChangeMonitoringControllerApiAxiosParamCreator = function
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				inlineObject16,
+				inlineObject17,
 				localVarRequestOptions,
 				configuration
 			);
@@ -656,20 +656,20 @@ export const FocalPointChangeMonitoringControllerApiFp = function (
 		/**
 		 *
 		 * @param {number} deltaId
-		 * @param {InlineObject16} inlineObject16
+		 * @param {InlineObject17} inlineObject17
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async uploadCsvAnswer(
 			deltaId: number,
-			inlineObject16: InlineObject16,
+			inlineObject17: InlineObject17,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.uploadCsvAnswer(
 				deltaId,
-				inlineObject16,
+				inlineObject17,
 				acceptLanguage,
 				options
 			);
@@ -808,19 +808,19 @@ export const FocalPointChangeMonitoringControllerApiFactory = function (
 		/**
 		 *
 		 * @param {number} deltaId
-		 * @param {InlineObject16} inlineObject16
+		 * @param {InlineObject17} inlineObject17
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		uploadCsvAnswer(
 			deltaId: number,
-			inlineObject16: InlineObject16,
+			inlineObject17: InlineObject17,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<void> {
 			return localVarFp
-				.uploadCsvAnswer(deltaId, inlineObject16, acceptLanguage, options)
+				.uploadCsvAnswer(deltaId, inlineObject17, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		}
 	};
@@ -981,10 +981,10 @@ export interface FocalPointChangeMonitoringControllerApiUploadCsvAnswerRequest {
 
 	/**
 	 *
-	 * @type {InlineObject16}
+	 * @type {InlineObject17}
 	 * @memberof FocalPointChangeMonitoringControllerApiUploadCsvAnswer
 	 */
-	readonly inlineObject16: InlineObject16;
+	readonly inlineObject17: InlineObject17;
 
 	/**
 	 *
@@ -1145,7 +1145,7 @@ export class FocalPointChangeMonitoringControllerApi extends BaseAPI {
 		return FocalPointChangeMonitoringControllerApiFp(this.configuration)
 			.uploadCsvAnswer(
 				requestParameters.deltaId,
-				requestParameters.inlineObject16,
+				requestParameters.inlineObject17,
 				requestParameters.acceptLanguage,
 				options
 			)

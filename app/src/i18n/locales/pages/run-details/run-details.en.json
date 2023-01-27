@@ -24,7 +24,7 @@
 	"or": "or",
 	"delta-result": "Delta result",
 	"complete-run": "Complete run",
-	"add-answer-description": "ADD descriptionnn",
+	"add-answer-description": "Indicate a file or enter a text as an answer. You can select a file from those already uploaded or upload a new one.",
 	"ignore-description": "Please, insert a note to justify the answer.",
 	"complete-run-body": "Are you sure you want to complete this run? By completing the run, it will be closed.",
 	"complete-and-close": "Complete and close",
@@ -44,5 +44,14 @@
 	"owner": "Owner",
 	"file-already-uploaded": "Use a file already uploaded",
 	"upload-new-file": "Upload new file",
-	"select-file-method": "Choose file selection method"
+	"select-file-method": "Choose file selection method",
+	"additional-info": "Additional info",
+	"answer-date": "Answer date",
+	"files-already-uploaded": "Files already uploaded",
+	"files-already-uploaded-description": "These are the files that have already been used as an answer. You can indicate these files for new answers.",
+	"completed": "Completed",
+	"no-files": "No files",
+	"select-answer-type": "Select an answer type",
+	"ticket-code": "Ticket code",
+	"ticket-code-placeholder": "Fill in with a ticket code"
 }

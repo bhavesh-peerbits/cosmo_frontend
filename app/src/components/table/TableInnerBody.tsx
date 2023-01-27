@@ -123,6 +123,7 @@ TableInnerBodyProps<T>) => {
 										ariaLabel='Actions'
 										iconDescription={t('actions')}
 										direction='top'
+										flipped
 									>
 										{inlineActions.map(action => (
 											<OverflowMenuItem

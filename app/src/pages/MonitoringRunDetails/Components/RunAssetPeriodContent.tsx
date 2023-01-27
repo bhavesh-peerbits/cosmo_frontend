@@ -20,9 +20,9 @@ const RunAssetPeriodContent = ({ runAsset, old }: RunAssetPeriodContentProps) =>
 	const [addFileInfo, setAddFileInfo] = useRecoilState(addFileToRunAssetStore);
 	const { monitoringId = '', runId = '' } = useParams();
 	const { data: prevFile } = useGetFileFromCurrentPeriodPreviousRun(
-		runAsset.asset.id,
+		runId,
 		monitoringId,
-		runId
+		runAsset.asset.id
 	);
 	const DownloadFile = (fileLink: FileLink) => {
 		useGetFile(fileLink.id).then(({ data, headers }) => {

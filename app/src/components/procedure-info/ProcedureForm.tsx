@@ -241,7 +241,7 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 										<Button
 											size='md'
 											type='reset'
-											kind='tertiary'
+											kind='secondary'
 											disabled={!isDirty}
 											onClick={() => reset()}
 										>

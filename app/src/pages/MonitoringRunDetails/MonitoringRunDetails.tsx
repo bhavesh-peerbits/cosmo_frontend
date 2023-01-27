@@ -78,7 +78,7 @@ const MonitoringRunDetails = ({
 					<MonitoringSummaryDetails monitoring={monitoring} />
 				</Column>
 				<Column sm={4} md={6} lg={13}>
-					<RunDetailsStepContainer />
+					<RunDetailsStepContainer run={run} monitoring={monitoring} />
 				</Column>
 			</Grid>
 		</PageHeader>

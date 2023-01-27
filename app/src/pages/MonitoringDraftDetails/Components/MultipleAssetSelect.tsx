@@ -203,7 +203,7 @@ const MultipleAssetSelect = <T extends FieldValues, TName extends FieldPath<T>>(
 											[t('changeMonitoring:type')]: asset.type,
 											[t('changeMonitoring:operating-system')]: asset.os,
 											database: asset.dbType,
-											cpe: 'here goes cpe'
+											cpe: asset.cpe
 									  }
 									: {
 											id: asset.id,
@@ -212,7 +212,7 @@ const MultipleAssetSelect = <T extends FieldValues, TName extends FieldPath<T>>(
 											subtitle: asset.ip,
 											[t('changeMonitoring:type')]: asset.type,
 											[t('changeMonitoring:operating-system')]: asset.os,
-											cpe: 'here goes cpe'
+											cpe: asset.cpe
 									  }
 						  )
 						: []

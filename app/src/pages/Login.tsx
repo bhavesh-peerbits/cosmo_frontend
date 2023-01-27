@@ -129,7 +129,7 @@ const Login = () => {
 							<div className='w-7/10 mt-[82px] '>
 								<div className='mb-3  text-productive-heading-5'>Log in</div>
 								<div className='mb-6 text-text-secondary text-caption-1'>
-									Click the button below to log in with Tenant single sign on
+									Click the button below to log in with Single Sign On
 								</div>
 								{error && errorCodes.includes(error) && (
 									<InlineNotification className='my-3 w-full px-2 py-1'>

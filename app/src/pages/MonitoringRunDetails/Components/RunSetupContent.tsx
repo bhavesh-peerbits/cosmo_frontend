@@ -171,66 +171,67 @@ const RunSetupContent = ({ run }: RunSetupContentProps) => {
 					))}
 				</div>
 			</div>
-			<div className='justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
-				<InlineLoadingStatus
-					{...{
-						isLoading: false,
-						isSuccess: isSuccess || isSuccessAll || isSuccessNotes || isSuccessGoNext,
-						isError: isError || isErrorAll || isErrorNotes || isErrorGoNext,
-						error: (error || errorAll || errorNotes || errorGoNext) as ApiError
-					}}
-				/>
-				<div>{(isLoading || isLoadingAll || isLoadingNotes) && <InlineLoading />}</div>
-				<Button
-					size='md'
-					className='w-full md:w-fit'
-					onClick={() => handleSave()}
-					kind='tertiary'
-					disabled={
-						run.status !== 'SETUP' ||
-						isLoading ||
-						isLoadingAll ||
-						isLoadingNotes ||
-						isLoadingGoNext ||
-						(!sameSetup &&
-							(!assetsData?.length ||
-								!assetsData?.every(
-									assetData =>
-										assetData.paths.length && assetData.paths.some(p => p.selected)
-								))) ||
-						(sameSetup &&
-							assetsData?.some(asset => asset.paths.length === 0) &&
-							!globalPaths.length) ||
-						(globalPaths.length > 0 && !globalPaths?.some(p => p.selected))
-					}
-				>
-					{t('runDetails:save')}
-				</Button>
-				<Button
-					size='md'
-					className='w-full md:w-fit'
-					onClick={() => handleGoNext()}
-					disabled={
-						run.status !== 'SETUP' ||
-						isLoading ||
-						isLoadingAll ||
-						isLoadingNotes ||
-						isLoadingGoNext ||
-						(!sameSetup &&
-							(!assetsData?.length ||
-								!assetsData?.every(
-									assetData =>
-										assetData.paths.length && assetData.paths.some(p => p.selected)
-								))) ||
-						(sameSetup &&
-							assetsData?.some(asset => asset.paths.length === 0) &&
-							!globalPaths.length) ||
-						(globalPaths.length > 0 && !globalPaths?.some(p => p.selected))
-					}
-				>
-					{t('changeMonitoring:save-next')}
-				</Button>
-			</div>
+			{run.status === 'SETUP' && (
+				<div className='justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
+					<InlineLoadingStatus
+						{...{
+							isLoading: false,
+							isSuccess: isSuccess || isSuccessAll || isSuccessNotes || isSuccessGoNext,
+							isError: isError || isErrorAll || isErrorNotes || isErrorGoNext,
+							error: (error || errorAll || errorNotes || errorGoNext) as ApiError
+						}}
+					/>
+					<div>{(isLoading || isLoadingAll || isLoadingNotes) && <InlineLoading />}</div>
+					<Button
+						size='md'
+						className='w-full md:w-fit'
+						onClick={() => handleSave()}
+						kind='tertiary'
+						disabled={
+							isLoading ||
+							isLoadingAll ||
+							isLoadingNotes ||
+							isLoadingGoNext ||
+							(!sameSetup &&
+								(!assetsData?.length ||
+									!assetsData?.every(
+										assetData =>
+											assetData.paths.length && assetData.paths.some(p => p.selected)
+									))) ||
+							(sameSetup &&
+								assetsData?.some(asset => asset.paths.length === 0) &&
+								!globalPaths.length) ||
+							(globalPaths.length > 0 && !globalPaths?.some(p => p.selected))
+						}
+					>
+						{t('runDetails:save')}
+					</Button>
+					<Button
+						size='md'
+						className='w-full md:w-fit'
+						onClick={() => handleGoNext()}
+						disabled={
+							run.status !== 'SETUP' ||
+							isLoading ||
+							isLoadingAll ||
+							isLoadingNotes ||
+							isLoadingGoNext ||
+							(!sameSetup &&
+								(!assetsData?.length ||
+									!assetsData?.every(
+										assetData =>
+											assetData.paths.length && assetData.paths.some(p => p.selected)
+									))) ||
+							(sameSetup &&
+								assetsData?.some(asset => asset.paths.length === 0) &&
+								!globalPaths.length) ||
+							(globalPaths.length > 0 && !globalPaths?.some(p => p.selected))
+						}
+					>
+						{t('changeMonitoring:save-next')}
+					</Button>
+				</div>
+			)}
 		</div>
 	);
 };

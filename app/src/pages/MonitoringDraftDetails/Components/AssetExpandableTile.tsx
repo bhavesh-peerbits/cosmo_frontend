@@ -4,7 +4,7 @@ import { ReactNode, useState } from 'react';
 
 type AssetExpandableTileProps = {
 	children: ReactNode;
-	title: string;
+	title: ReactNode;
 };
 const AssetExpandableTile = ({ children, title }: AssetExpandableTileProps) => {
 	const [isExpanded, setIsExpanded] = useState(false);
@@ -13,9 +13,10 @@ const AssetExpandableTile = ({ children, title }: AssetExpandableTileProps) => {
 			className={`flex items-center border-b-1 border-solid border-border-subtle-1 bg-layer-3 py-0 ${
 				!isExpanded && 'hover:bg-layer-hover-3'
 			}`}
+			onClick={e => e.preventDefault()}
 		>
 			<div className='w-full space-y-3'>
-				<div className='flex h-[64px] items-center space-x-5 '>
+				<div className='flex h-[64px] w-full items-center space-x-5'>
 					{isExpanded ? (
 						<ChevronUp
 							className='hover:cursor-pointer'
@@ -28,8 +29,8 @@ const AssetExpandableTile = ({ children, title }: AssetExpandableTileProps) => {
 						/>
 					)}
 
-					<div>
-						<span className='text-heading-1'>{title}</span>
+					<div className='w-full'>
+						<span className='w-full text-heading-1'>{title}</span>
 					</div>
 				</div>
 				{isExpanded && <div className='pb-6 pl-7'>{children}</div>}

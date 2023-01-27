@@ -13,14 +13,18 @@ import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
 type AddFileToPathModalProps = {
-	id: string;
+	orderNumber: string;
 	includeLastRun?: boolean;
 	assetId: string;
 };
-const AddFileToPathModal = ({ id, includeLastRun, assetId }: AddFileToPathModalProps) => {
+const AddFileToPathModal = ({
+	orderNumber,
+	includeLastRun,
+	assetId
+}: AddFileToPathModalProps) => {
 	const { t } = useTranslation(['modals', 'runDetails', 'userRevalidation']);
 	const [addFileInfo, setAddFileInfo] = useRecoilState(addFileToRunAssetStore);
-	const [inputOptions, setInputOptions] = useState(id === '1' ? 2 : 1);
+	const [inputOptions, setInputOptions] = useState(orderNumber === '1' ? 2 : 1);
 	const { monitoringId = '', runId = '' } = useParams();
 	const { mutate: mutateAU } = useAddFileAlreadyUpForDelta();
 	const { mutate: mutateNew } = useAddFileForDelta();
@@ -40,7 +44,7 @@ const AddFileToPathModal = ({ id, includeLastRun, assetId }: AddFileToPathModalP
 	};
 
 	const generatePathS3 = (old: boolean) => {
-		return `${new Date().getFullYear()}/change_monitoring/monitoring/${monitoringId}/run/${runId}/${id}/asset/${assetId}/${(
+		return `${new Date().getFullYear()}/change_monitoring/monitoring/${monitoringId}/run/${runId}/${orderNumber}/asset/${assetId}/${(
 			Math.random() * 100000000
 		).toFixed()}/${old ? 'previous' : 'current'}`;
 	};
@@ -92,7 +96,7 @@ const AddFileToPathModal = ({ id, includeLastRun, assetId }: AddFileToPathModalP
 			onClose={cleanUp}
 			hasCloseIcon
 			title={`${t('runDetails:add-file-path')}: ${addFileInfo.path}`}
-			label={`Monitoring Name - Run ${id}`}
+			label={`Monitoring Name - Run ${orderNumber}`}
 			description={
 				<p className='text-text-secondary text-body-long-1'>
 					{includeLastRun
@@ -120,14 +124,14 @@ const AddFileToPathModal = ({ id, includeLastRun, assetId }: AddFileToPathModalP
 						name='select-file'
 						orientation='vertical'
 						legendText={t('runDetails:select-file-method')}
-						defaultSelected={id === '1' || !addFileInfo.old ? '2' : '1'}
+						defaultSelected={orderNumber === '1' || !addFileInfo.old ? '2' : '1'}
 						className='fix-width-radio'
 					>
-						{/* {!addFileInfo.old && ( */}
+						{/* {addFileInfo.old && ( */}
 						<RadioButton
 							labelText={t('runDetails:use-last-run')}
 							value='1'
-							disabled={id === '1'}
+							disabled={orderNumber === '1'}
 							onClick={() => setInputOptions(1)}
 						/>
 						{/* )} */}
@@ -169,7 +173,7 @@ const AddFileToPathModal = ({ id, includeLastRun, assetId }: AddFileToPathModalP
 												? addFileInfo.possiblePreviousFiles
 												: addFileInfo.possibleCurrentFiles
 											).length === 0 && (
-												<SelectItem text='no file present' hidden value='' />
+												<SelectItem text={t('runDetails:no-files')} hidden value='' />
 											)}
 											{[
 												...new Map(
