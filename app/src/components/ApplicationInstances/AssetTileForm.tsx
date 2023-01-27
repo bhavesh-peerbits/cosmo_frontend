@@ -111,44 +111,48 @@ const AssetTileForm = ({
 						<SelectItem text='Database' value='DB' />
 					</Select>
 				</Column>
-				<Column lg={8} md={4} sm={4}>
-					<TextInput
-						id={`${asset.id}-db-version-input`}
-						labelText={`${t('applicationInstances:db-version')} ${
-							watch('type') !== 'OS' ? ' *' : ''
-						}`}
-						placeholder='here goes placeholder'
-						invalid={Boolean(errors.dbVersion)}
-						invalidText={errors.dbVersion?.message}
-						disabled={watch('type') === 'OS'}
-						{...register('dbVersion', {
-							required: {
-								value: watch('type') !== 'OS',
-								message: t('modals:field-required')
-							}
-						})}
-						readOnly={readOnly}
-					/>
-				</Column>
-				<Column lg={8} md={4} sm={4}>
-					<TextInput
-						id={`${asset.id}-db-type-input`}
-						labelText={`${t('applicationInstances:db-type')} ${
-							watch('type') !== 'OS' ? ' *' : ''
-						}`}
-						placeholder='here goes placeholder'
-						invalid={Boolean(errors.dbType)}
-						invalidText={errors.dbType?.message}
-						disabled={watch('type') === 'OS'}
-						{...register('dbType', {
-							required: {
-								value: watch('type') !== 'OS',
-								message: t('modals:field-required')
-							}
-						})}
-						readOnly={readOnly}
-					/>
-				</Column>
+				{watch('type') !== 'OS' && (
+					<Column lg={8} md={4} sm={4}>
+						<TextInput
+							id={`${asset.id}-db-version-input`}
+							labelText={`${t('applicationInstances:db-version')} ${
+								watch('type') !== 'OS' ? ' *' : ''
+							}`}
+							placeholder={t('applicationInstances:db-version-placeholder')}
+							invalid={Boolean(errors.dbVersion)}
+							invalidText={errors.dbVersion?.message}
+							disabled={watch('type') === 'OS'}
+							{...register('dbVersion', {
+								required: {
+									value: watch('type') !== 'OS',
+									message: t('modals:field-required')
+								}
+							})}
+							readOnly={readOnly}
+						/>
+					</Column>
+				)}
+				{watch('type') !== 'OS' && (
+					<Column lg={8} md={4} sm={4}>
+						<TextInput
+							id={`${asset.id}-db-type-input`}
+							labelText={`${t('applicationInstances:db-type')} ${
+								watch('type') !== 'OS' ? ' *' : ''
+							}`}
+							placeholder={t('applicationInstances:db-type-placeholder')}
+							invalid={Boolean(errors.dbType)}
+							invalidText={errors.dbType?.message}
+							disabled={watch('type') === 'OS'}
+							{...register('dbType', {
+								required: {
+									value: watch('type') !== 'OS',
+									message: t('modals:field-required')
+								}
+							})}
+							readOnly={readOnly}
+						/>
+					</Column>
+				)}
 			</Grid>
 		</Layer>
 	);

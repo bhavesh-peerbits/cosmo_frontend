@@ -66,7 +66,7 @@ const ApplicationInstanceTile = ({ instance }: ApplicationInstanceTileProps) => 
 	if (!instance) {
 		return null;
 	}
-	// TODO Change items and filter items based on already associated assets
+
 	// TODO Edit items in onSubmit filter
 	return (
 		<Tile href={`${instance.id}`} className='w-full bg-background'>
