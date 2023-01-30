@@ -53,5 +53,9 @@
 	"no-files": "Nessun file presente",
 	"select-answer-type": "Seleziona un tipo di risposta",
 	"ticket-code": "Codice ticket",
-	"ticket-code-placeholder": "Inserire il codice del ticket"
+	"ticket-code-placeholder": "Inserire il codice del ticket",
+	"add-file": "Aggiungi files",
+	"yes": "Sì",
+	"select-files": "Seleziona i files",
+	"ignore-placeholder": "Motiva la risposta"
 }

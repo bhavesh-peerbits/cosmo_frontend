@@ -3,23 +3,29 @@ import useSaveAnswerWithFile from '@api/change-monitoring/useSaveAnswerWithFile'
 import useSaveAnswerWithoutFile from '@api/change-monitoring/useSaveAnswerWithoutFile';
 import {
 	Form,
-	Select,
-	SelectItem,
+	MultiSelect,
 	Toggle,
 	TextArea,
 	Layer,
 	TextInput,
-	InlineNotification
+	InlineNotification,
+	RadioButton,
+	RadioButtonGroup
 } from '@carbon/react';
 import UploaderS3Monitoring from '@components/common/UploaderS3Monitoring';
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
 import FileLink, { fromFiletoFileLink } from '@model/FileLink';
-import { DeltaFileDto, FileLinkDto } from 'cosmo-api/src/v1/models';
+import {
+	DeltaFileDto,
+	FileLinkDto,
+	JustificationDeltaFileDtoStatusEnum
+} from 'cosmo-api/src/v1/models';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 import { useParams } from 'react-router-dom';
+import useSaveAnswerWithFileUploaded from '@api/change-monitoring/usaSaveAnswerWithFileUploaded';
 
 export interface DeltaTableRowType {
 	givenBy?: string | undefined;
@@ -30,11 +36,13 @@ export interface DeltaTableRowType {
 	answerValue?: string;
 	deltaId: number;
 	justificationId?: number;
+	justificationStatus?: JustificationDeltaFileDtoStatusEnum;
 }
 
 type AddAnswerFormData = {
-	fileId: string;
+	filesId: number[];
 	text: string;
+	ignoreNote: string;
 };
 
 type AddAnswerToDeltaModalProps = {
@@ -68,7 +76,8 @@ const AddAnswerToDeltaModal = ({
 		'userRevalidation',
 		'changeMonitoring'
 	]);
-	const [isUploadSelected, setIsUploadSelected] = useState(true);
+	const [isUploadSelected, setIsUploadSelected] = useState(false);
+	const [radioSelected, setRadioSelected] = useState(1);
 	const { monitoringId = '', runId = '' } = useParams();
 
 	const { control, getValues: getValuesFiles } = useForm<{ files: File[] }>({
@@ -77,10 +86,10 @@ const AddAnswerToDeltaModal = ({
 	const {
 		register,
 		getValues,
+		watch,
+		setValue,
 		formState: { errors }
-	} = useForm<AddAnswerFormData>({
-		defaultValues: { fileId: '', text: '' }
-	});
+	} = useForm<AddAnswerFormData>();
 
 	const {
 		mutate: mutateWithoutFile,
@@ -94,6 +103,12 @@ const AddAnswerToDeltaModal = ({
 		error: errorWithFile,
 		reset: resetApiWithFile
 	} = useSaveAnswerWithFile();
+	const {
+		mutate: mutateWithFileUploaded,
+		isError: isErrorWithFileUploaded,
+		error: errorWithFileUploaded,
+		reset: resetApiWithFileUploaded
+	} = useSaveAnswerWithFileUploaded();
 
 	const generatePathS3 = () => {
 		return `${new Date().getFullYear()}/change_monitoring/monitoring/${monitoringId}/run/${runId}/${orderNumber}/${(
@@ -105,28 +120,32 @@ const AddAnswerToDeltaModal = ({
 		setIsOpen({ modal: '', rows: [] });
 		resetApiWithFile();
 		resetApiWithoutFile();
+		resetApiWithFileUploaded();
+		setIsUploadSelected(false);
 	};
 
+	const uniqueDeltaIds = [...new Set(isOpen.rows.map(row => row.deltaId))];
+
 	const saveAnswerWithoutFile = () => {
-		const uniqueDeltaIds = [...new Set(isOpen.rows.map(row => row.deltaId))];
 		return uniqueDeltaIds.forEach(deltaId =>
 			mutateWithoutFile({
 				deltaId,
 				deltaFilesId: isOpen.rows.map(row => row.deltaFile.id),
-				text: getValues('text'),
+				text: isOpen?.modal === 'ignore' ? getValues('ignoreNote') : getValues('text'),
+				ignore: isOpen?.modal === 'ignore',
 				runId
 			})
 		);
 	};
 
 	const saveAnswerWithFile = () => {
-		const uniqueDeltaIds = [...new Set(isOpen.rows.map(row => row.deltaId))];
 		return uniqueDeltaIds.forEach(deltaId => {
 			mutateWithFile({
 				deltaId,
 				deltaFilesId: isOpen.rows.map(row => row.deltaFile.id),
 				files: getValuesFiles('files'),
 				runId,
+				text: watch('text'),
 				fileLinks: getValuesFiles('files').map(file =>
 					fromFiletoFileLink(file, generatePathS3())
 				)
@@ -134,6 +153,20 @@ const AddAnswerToDeltaModal = ({
 		});
 	};
 
+	const saveAnswerWithUploadedFile = () => {
+		return uniqueDeltaIds.forEach(deltaId => {
+			mutateWithFileUploaded({
+				deltaId,
+				deltaFilesId: isOpen.rows.map(row => row.deltaFile.id),
+				fileLinkIds: getValues('filesId'),
+				text: watch('text')
+			});
+		});
+	};
+
+	const saveAnswerFile = () => {
+		radioSelected === 1 ? saveAnswerWithFile() : saveAnswerWithUploadedFile();
+	};
 	return (
 		<TearsheetNarrow
 			hasCloseIcon
@@ -158,74 +191,99 @@ const AddAnswerToDeltaModal = ({
 				{
 					label: t('modals:save'),
 					id: 'save-answer',
-					type: 'submit',
 					// disabled: !isValid,
 					onClick: () => {
-						getValues('fileId') || getValuesFiles('files')
-							? saveAnswerWithFile()
-							: saveAnswerWithoutFile();
+						isUploadSelected ? saveAnswerFile() : saveAnswerWithoutFile();
 					}
 				}
 			]}
 		>
 			<Form className='space-y-5 px-5'>
 				{isOpen?.modal === 'ignore' && (
-					<TextArea labelText={t('changeMonitoring:note')} />
+					<TextArea
+						labelText={`${t('changeMonitoring:note')} *`}
+						placeholder={t('runDetails:ignore-placeholder')}
+						invalid={Boolean(errors.ignoreNote)}
+						invalidText={errors.ignoreNote?.message}
+						{...register('ignoreNote', {
+							required: { value: true, message: t('modals:field-required') }
+						})}
+					/>
 				)}
 				{isOpen?.modal !== 'ignore' && (
 					<div className='space-y-5'>
 						<TextInput
 							id='input-text-answer'
-							labelText={t('runDetails:ticket-code')}
+							labelText={`${t('runDetails:ticket-code')} ${isUploadSelected ? '' : ' *'}`}
 							placeholder={t('runDetails:ticket-code-placeholder')}
 							invalid={Boolean(errors.text)}
 							invalidText={errors.text?.message}
 							{...register('text', {
 								required: {
-									value: !getValuesFiles('files') || !getValues('fileId'),
+									value: !isUploadSelected,
 									message: t('modals:field-required')
 								}
 							})}
 						/>
 						<Toggle
-							labelA={t('runDetails:upload-file')}
-							labelB={t('runDetails:select-from-uploaded')}
-							id='add-answer-toggle'
-							toggled={!isUploadSelected}
-							aria-label='Toggle for add answer'
+							labelA='No'
+							labelB={t('runDetails:yes')}
+							id='add-file-toggle'
+							labelText={t('runDetails:add-file')}
+							toggled={isUploadSelected}
+							aria-label='Toggle for add files'
 							onToggle={() => setIsUploadSelected(!isUploadSelected)}
 						/>
 						{isUploadSelected && (
-							<div className='space-y-3'>
-								<p>{t('runDetails:upload-new-file')}</p>
-								<Layer level={1}>
-									<UploaderS3Monitoring control={control} disabled={false} />
-								</Layer>
-							</div>
-						)}
-						{!isUploadSelected && (
-							<div className='w-full space-y-3'>
-								<p className='whitespace-nowrap'>
-									{t('runDetails:file-already-uploaded')}
-								</p>
-								<Layer level={1}>
-									<Select id='file-selection' noLabel {...register('fileId')}>
-										<SelectItem
-											text={
-												filesAnswers?.length === 0
-													? t('runDetails:no-files')
-													: t('runDetails:select-file')
+							<RadioButtonGroup
+								name='select-file'
+								orientation='vertical'
+								legendText={t('runDetails:select-file-method')}
+								defaultSelected='1'
+								className='fix-width-radio'
+							>
+								<RadioButton
+									labelText={
+										<div className='space-y-3'>
+											<p>{t('runDetails:upload-new-file')}</p>
+											<Layer>
+												<UploaderS3Monitoring
+													control={control}
+													disabled={radioSelected !== 1}
+												/>
+											</Layer>
+										</div>
+									}
+									value='1'
+									onClick={() => setRadioSelected(1)}
+								/>
+								<RadioButton
+									labelText={
+										<MultiSelect
+											id='already-uploaded-select'
+											titleText={t('runDetails:file-already-uploaded')}
+											label={
+												filesAnswers?.length !== 0
+													? t('runDetails:select-files')
+													: t('runDetails:no-files')
 											}
-											hidden
-											value=''
+											items={filesAnswers || []}
+											itemToString={item => item.name || ''}
+											className='w-full'
+											onChange={e =>
+												setValue(
+													'filesId',
+													e.selectedItems.map(item => +item.id)
+												)
+											}
+											disabled={radioSelected !== 2}
 										/>
-
-										{filesAnswers?.map(file => (
-											<SelectItem text={file.name ?? ''} value={file.id} />
-										))}
-									</Select>
-								</Layer>
-							</div>
+									}
+									value='2'
+									disabled={filesAnswers?.length === 0}
+									onClick={() => setRadioSelected(2)}
+								/>
+							</RadioButtonGroup>
 						)}
 					</div>
 				)}
@@ -233,7 +291,8 @@ const AddAnswerToDeltaModal = ({
 					className={cx(
 						'flex items-center justify-center transition-all duration-fast-2 ease-entrance-expressive',
 						{
-							'opacity-0': !isErrorWithFile || !isErrorWithoutFile
+							'opacity-0':
+								!isErrorWithFile || !isErrorWithoutFile || !isErrorWithFileUploaded
 						}
 					)}
 				>
@@ -243,6 +302,7 @@ const AddAnswerToDeltaModal = ({
 						hideCloseButton
 						subtitle={
 							(errorWithFile as ApiError)?.message ||
+							(errorWithFileUploaded as ApiError)?.message ||
 							(errorWithoutFile as ApiError)?.message ||
 							'An error has occurred, please try again later'
 						}

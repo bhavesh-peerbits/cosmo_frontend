@@ -59,7 +59,8 @@ const DeltaResultContent = ({ run, monitoringName }: DeltaResultContentProps) =>
 							deltaFile: d,
 							answer: data.deltaAnswers,
 							deltaId: data.id,
-							justificationId: justification?.id
+							justificationId: justification?.id,
+							status: justification?.status
 						}
 					]);
 				});

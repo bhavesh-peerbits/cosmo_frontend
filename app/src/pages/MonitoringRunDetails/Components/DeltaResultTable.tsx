@@ -76,20 +76,25 @@ const DeltaResultTable = ({
 				meta: { initialVisible: false }
 			},
 			{
-				id: 'answer',
+				id: 'answer-ticket',
+				accessorFn: row => row.answerValue,
+				cell: info =>
+					info.getValue() && info.getValue() !== 'NONE' ? info.getValue() : '-',
+				header: t('runDetails:ticket-code')
+			},
+			{
+				id: 'answer-files',
 				accessorFn: row => (row.answerFile?.length ? row.answerFile : row.answerValue),
 				cell: info =>
-					info.row.original.answerFile?.length
-						? MultiTagFileLinkCell(info)
-						: info.getValue() !== 'NONE' && info.getValue(),
-				header: t('runDetails:answer'),
+					info.row.original.answerFile?.length ? MultiTagFileLinkCell(info) : '-',
+				header: 'Files',
 				meta: {
 					exportableFn: info =>
 						(info as DeltaTableRowType).answerFile
 							? (info as DeltaTableRowType).answerFile
 									?.map(file => file.name)
 									.join(',') || ''
-							: (info as DeltaTableRowType).answerValue || ''
+							: '-'
 				}
 			}
 		],
