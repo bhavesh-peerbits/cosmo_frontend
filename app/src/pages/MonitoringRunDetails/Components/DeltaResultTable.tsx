@@ -1,13 +1,14 @@
 import CosmoTable from '@components/table/CosmoTable';
 import { ColumnDef } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
-import { MisuseOutline, CheckmarkOutline, Csv } from '@carbon/react/icons';
+import { MisuseOutline, CheckmarkOutline, Csv, TrashCan } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { Layer } from '@carbon/react';
 import FileLink from '@model/FileLink';
 import MultiTagFileLinkCell from '@components/table/Cell/MultiTagFileLinkCell';
 import { JustificationDeltaFileDtoStatusEnum } from 'cosmo-api/src/v1';
 import useGetCsvAnswer from '@api/change-monitoring/useGetCsvAnswer';
+import useDeleteAnswer from '@api/change-monitoring/useDeleteAnswer';
 import AddAnswerToDeltaModal, {
 	DeltaTableRowType
 } from '../Modals/AddAnswerToDeltaModal';
@@ -32,6 +33,14 @@ const DeltaResultTable = ({
 		rows: DeltaTableRowType[];
 	}>({ modal: '', rows: [] });
 	const [isUploadOpen, setIsUploadOpen] = useState(false);
+
+	const { mutate } = useDeleteAnswer();
+	const removeAnswer = (row: DeltaTableRowType) => {
+		return mutate({
+			deltaId: row.deltaId,
+			justificationId: row.justificationId as number
+		});
+	};
 
 	const columns = useMemo<ColumnDef<DeltaTableRowType>[]>(
 		() => [
@@ -132,6 +141,14 @@ const DeltaResultTable = ({
 			onClick: (rows: DeltaTableRowType[]) => {
 				setModalToOpen({ modal: 'ignore', rows });
 			}
+		},
+		{
+			id: 'delete',
+			label: t('runDetails:remove-answer'),
+			icon: TrashCan,
+			onClick: (rows: DeltaTableRowType[]) => {
+				rows.forEach(row => removeAnswer(row));
+			}
 		}
 	];
 
@@ -221,6 +238,10 @@ const DeltaResultTable = ({
 					{
 						label: t('runDetails:ignore'),
 						onClick: row => setModalToOpen({ modal: 'ignore', rows: [row.original] })
+					},
+					{
+						label: t('runDetails:remove-answer'),
+						onClick: row => removeAnswer(row.original)
 					}
 				]}
 			/>

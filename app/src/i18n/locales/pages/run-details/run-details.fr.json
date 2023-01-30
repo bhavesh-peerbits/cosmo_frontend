@@ -66,5 +66,6 @@
 	"upload-answers": "Upload answers",
 	"upload-answers-description": "Upload the file containing the answers",
 	"terminated": "",
-	"terminated-on": ""
+	"terminated-on": "",
+	"remove-answer": "Remove answer"
 }

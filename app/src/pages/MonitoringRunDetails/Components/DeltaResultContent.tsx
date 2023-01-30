@@ -118,12 +118,16 @@ const DeltaResultContent = ({ run, monitoringName }: DeltaResultContentProps) =>
 					<Button
 						size='md'
 						onClick={() => {
-							run.deltas?.every(delta => delta.status === 'FINISHED')
+							run.deltas?.every(delta =>
+								delta.deltaAnswers?.every(d => d.justification?.status !== 'NONE')
+							)
 								? setModalToOpen('close')
 								: setModalToOpen('send-focal-point');
 						}}
 					>
-						{run.deltas?.every(delta => delta.status === 'FINISHED')
+						{run.deltas?.every(delta =>
+							delta.deltaAnswers?.every(d => d.justification?.status !== 'NONE')
+						)
 							? t('complete-run')
 							: t('send-to-focal-point')}
 					</Button>
