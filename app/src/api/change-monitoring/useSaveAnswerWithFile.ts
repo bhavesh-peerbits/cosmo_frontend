@@ -8,19 +8,22 @@ interface SaveAnswerWithFileParameters {
 	deltaId: number;
 	runId: string;
 	fileLinks: FileLink[];
+	text?: string;
 }
 
 const saveAnswerWithFile = ({
 	files,
 	deltaFilesId,
 	deltaId,
-	fileLinks
+	fileLinks,
+	text
 }: SaveAnswerWithFileParameters) => {
 	return api.analystChangeMonitoringControllerApi.saveAnswerWithFile({
 		deltaId,
 		answer: {
 			deltaFilesId,
-			fileslinks: { fileLinks: fileLinks.map(toFileLinkApi) }
+			fileslinks: { fileLinks: fileLinks.map(toFileLinkApi) },
+			text
 		},
 		files
 	});

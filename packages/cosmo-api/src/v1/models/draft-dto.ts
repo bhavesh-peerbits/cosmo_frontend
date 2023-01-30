@@ -14,7 +14,7 @@
 
 import { EvidenceRequestDraftDto } from './evidence-request-draft-dto';
 import { FileLinkDto } from './file-link-dto';
-import { PhaseType } from './phase-type';
+import { PhaseTypeDto } from './phase-type-dto';
 import { UserDto } from './user-dto';
 import { WorkflowDto } from './workflow-dto';
 
@@ -62,10 +62,10 @@ export interface DraftDto {
 	files?: Array<FileLinkDto>;
 	/**
 	 *
-	 * @type {PhaseType}
+	 * @type {PhaseTypeDto}
 	 * @memberof DraftDto
 	 */
-	phaseType?: PhaseType;
+	phaseType?: PhaseTypeDto;
 	/**
 	 *
 	 * @type {WorkflowDto}
@@ -102,4 +102,10 @@ export interface DraftDto {
 	 * @memberof DraftDto
 	 */
 	stepInfo?: { [key: string]: string | undefined };
+	/**
+	 * The suggest text to show on preview
+	 * @type {string}
+	 * @memberof DraftDto
+	 */
+	suggestedText?: string;
 }

@@ -15,25 +15,31 @@
 /**
  *
  * @export
- * @interface SortObject
+ * @interface AnswerFileAlreadyUploadedDto
  */
-export interface SortObject {
+export interface AnswerFileAlreadyUploadedDto {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AnswerFileAlreadyUploadedDto
+	 */
+	text?: string;
+	/**
+	 *
+	 * @type {Array<number>}
+	 * @memberof AnswerFileAlreadyUploadedDto
+	 */
+	deltaFilesId: Array<number>;
+	/**
+	 *
+	 * @type {Array<number>}
+	 * @memberof AnswerFileAlreadyUploadedDto
+	 */
+	fileslinkIds?: Array<number>;
 	/**
 	 *
 	 * @type {boolean}
-	 * @memberof SortObject
+	 * @memberof AnswerFileAlreadyUploadedDto
 	 */
-	empty?: boolean;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof SortObject
-	 */
-	unsorted?: boolean;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof SortObject
-	 */
-	sorted?: boolean;
+	ignore?: boolean;
 }

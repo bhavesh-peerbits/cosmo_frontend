@@ -12,28 +12,18 @@
  * Do not edit the class manually.
  */
 
+import { AnswerFileAlreadyUploadedDto } from './answer-file-already-uploaded-dto';
+
 /**
  *
  * @export
- * @interface SortObject
+ * @interface InlineObject21
  */
-export interface SortObject {
+export interface InlineObject21 {
 	/**
 	 *
-	 * @type {boolean}
-	 * @memberof SortObject
+	 * @type {AnswerFileAlreadyUploadedDto}
+	 * @memberof InlineObject21
 	 */
-	empty?: boolean;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof SortObject
-	 */
-	unsorted?: boolean;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof SortObject
-	 */
-	sorted?: boolean;
+	answer: AnswerFileAlreadyUploadedDto;
 }

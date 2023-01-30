@@ -7,7 +7,7 @@ interface Asset {
 	ports?: string;
 	type?: AssetDtoTypeEnum;
 	os?: AssetDtoOsEnum;
-	ip?: string;
+	ip: string;
 	dbVersion?: string;
 	dbType?: string;
 	paths: PathDto[];

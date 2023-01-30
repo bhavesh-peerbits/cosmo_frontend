@@ -55,7 +55,7 @@ export interface AssetDto {
 	 * @type {string}
 	 * @memberof AssetDto
 	 */
-	ip?: string;
+	ip: string;
 	/**
 	 * The db version of the asset, if its type is DB
 	 * @type {string}
@@ -80,6 +80,12 @@ export interface AssetDto {
 	 * @memberof AssetDto
 	 */
 	extensions?: string;
+	/**
+	 * The cpe field
+	 * @type {string}
+	 * @memberof AssetDto
+	 */
+	cpe?: string;
 }
 
 export const AssetDtoTypeEnum = {
