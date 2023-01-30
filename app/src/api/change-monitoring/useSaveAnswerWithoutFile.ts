@@ -31,6 +31,7 @@ const useSaveAnswerWithoutFile = () => {
 		onSuccess: (data, variables) => {
 			queryClient.invalidateQueries(['run-monitoring-inbox', variables.runId]);
 			queryClient.invalidateQueries(['run-monitoring', variables.runId]);
+			queryClient.invalidateQueries(['answers-files']);
 		}
 	});
 };

@@ -19,6 +19,7 @@ const useDeleteAnswer = () => {
 		onSuccess: () => {
 			queryClient.invalidateQueries(['run-monitoring-inbox']);
 			queryClient.invalidateQueries(['run-monitoring']);
+			queryClient.invalidateQueries(['answers-files']);
 		}
 	});
 };

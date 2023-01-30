@@ -132,46 +132,54 @@ const AddAnswerToDeltaModal = ({
 
 	const saveAnswerWithoutFile = () => {
 		return uniqueDeltaIds.forEach(deltaId =>
-			mutateWithoutFile({
-				deltaId,
-				deltaFilesId: isOpen.rows.map(row => row.deltaFile.id),
-				text: isOpen?.modal === 'ignore' ? getValues('ignoreNote') : getValues('text'),
-				ignore: isOpen?.modal === 'ignore',
-				runId
-			})
+			mutateWithoutFile(
+				{
+					deltaId,
+					deltaFilesId: isOpen.rows.map(row => row.deltaFile.id),
+					text: isOpen?.modal === 'ignore' ? getValues('ignoreNote') : getValues('text'),
+					ignore: isOpen?.modal === 'ignore',
+					runId
+				},
+				{ onSuccess: () => cleanUp() }
+			)
 		);
 	};
 
 	const saveAnswerWithFile = () => {
 		return uniqueDeltaIds.forEach(deltaId => {
-			mutateWithFile({
-				deltaId,
-				deltaFilesId: isOpen.rows.map(row => row.deltaFile.id),
-				files: getValuesFiles('files'),
-				runId,
-				text: watch('text'),
-				fileLinks: getValuesFiles('files').map(file =>
-					fromFiletoFileLink(file, generatePathS3())
-				)
-			});
+			mutateWithFile(
+				{
+					deltaId,
+					deltaFilesId: isOpen.rows.map(row => row.deltaFile.id),
+					files: getValuesFiles('files'),
+					runId,
+					text: watch('text'),
+					fileLinks: getValuesFiles('files').map(file =>
+						fromFiletoFileLink(file, generatePathS3())
+					)
+				},
+				{ onSuccess: () => cleanUp() }
+			);
 		});
 	};
 
 	const saveAnswerWithUploadedFile = () => {
 		return uniqueDeltaIds.forEach(deltaId => {
-			mutateWithFileUploaded({
-				deltaId,
-				deltaFilesId: isOpen.rows.map(row => row.deltaFile.id),
-				fileLinkIds: getValues('filesId'),
-				text: watch('text')
-			});
+			mutateWithFileUploaded(
+				{
+					deltaId,
+					deltaFilesId: isOpen.rows.map(row => row.deltaFile.id),
+					fileLinkIds: getValues('filesId'),
+					text: watch('text')
+				},
+				{ onSuccess: () => cleanUp() }
+			);
 		});
 	};
 
 	const saveAnswerFile = () => {
 		radioSelected === 1 ? saveAnswerWithFile() : saveAnswerWithUploadedFile();
 	};
-
 	return (
 		<TearsheetNarrow
 			hasCloseIcon
@@ -196,8 +204,11 @@ const AddAnswerToDeltaModal = ({
 				{
 					label: t('modals:save'),
 					id: 'save-answer',
+					// eslint-disable-next-line no-nested-ternary
 					disabled: isUploadSelected
-						? watch('filesId')?.length === 0 || watchFiles('files')?.length === 0
+						? radioSelected === 1
+							? watchFiles('files')?.length === 0
+							: watch('filesId')?.length === 0
 						: !watch('text'),
 					onClick: () => {
 						isUploadSelected ? saveAnswerFile() : saveAnswerWithoutFile();
@@ -252,8 +263,8 @@ const AddAnswerToDeltaModal = ({
 								<RadioButton
 									labelText={
 										<div className='space-y-3'>
-											<p>{t('runDetails:upload-new-file')}</p>
-											<Layer>
+											<p className='text-label-'>{t('runDetails:upload-new-file')}</p>
+											<Layer level={1}>
 												<UploaderS3Monitoring
 													control={control}
 													disabled={radioSelected !== 1}
