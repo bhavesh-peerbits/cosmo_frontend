@@ -25,7 +25,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 import { useParams } from 'react-router-dom';
-import useSaveAnswerWithFileUploaded from '@api/change-monitoring/usaSaveAnswerWithFileUploaded';
+import useSaveAnswerWithFileUploaded from '@api/change-monitoring/useSaveAnswerWithFileUploaded';
 
 export interface DeltaTableRowType {
 	givenBy?: string | undefined;
@@ -167,6 +167,7 @@ const AddAnswerToDeltaModal = ({
 	const saveAnswerFile = () => {
 		radioSelected === 1 ? saveAnswerWithFile() : saveAnswerWithUploadedFile();
 	};
+
 	return (
 		<TearsheetNarrow
 			hasCloseIcon
@@ -191,7 +192,9 @@ const AddAnswerToDeltaModal = ({
 				{
 					label: t('modals:save'),
 					id: 'save-answer',
-					// disabled: !isValid,
+					disabled: isUploadSelected
+						? getValues('filesId').length > 0 || getValuesFiles('files').length > 0
+						: !watch('text'),
 					onClick: () => {
 						isUploadSelected ? saveAnswerFile() : saveAnswerWithoutFile();
 					}
@@ -220,7 +223,7 @@ const AddAnswerToDeltaModal = ({
 							invalidText={errors.text?.message}
 							{...register('text', {
 								required: {
-									value: !isUploadSelected,
+									value: true,
 									message: t('modals:field-required')
 								}
 							})}

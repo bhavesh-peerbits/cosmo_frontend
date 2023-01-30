@@ -1,8 +1,26 @@
 import api from '@api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-const closeCompletedRun = (runId: string) => {
-	return api.analystChangeMonitoringControllerApi.closeCompletedRun1({ runId: +runId });
+interface CloseCompleteRunParams {
+	runId: string;
+	focalPointId?: string;
+	delegatesId?: string[];
+	dueDate?: Date;
+}
+const closeCompletedRun = ({
+	runId,
+	focalPointId,
+	delegatesId,
+	dueDate
+}: CloseCompleteRunParams) => {
+	return api.analystChangeMonitoringControllerApi.closeCompletedRun1({
+		runId: +runId,
+		closeRunDto: {
+			focalPoint: focalPointId,
+			delegates: delegatesId,
+			dueDate: dueDate?.toString()
+		}
+	});
 };
 
 const useCloseCompletedRun = () => {

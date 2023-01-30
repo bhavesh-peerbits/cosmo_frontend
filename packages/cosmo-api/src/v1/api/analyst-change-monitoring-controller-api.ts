@@ -37,6 +37,8 @@ import {
 	RequiredError
 } from '../base';
 // @ts-ignore
+import { AnswerFileAlreadyUploadedDto } from '../models';
+// @ts-ignore
 import { AnswerMonitoringDto } from '../models';
 // @ts-ignore
 import { ApiErrorResponse } from '../models';
@@ -49,6 +51,8 @@ import { CheckPathAssetsDto } from '../models';
 // @ts-ignore
 import { CheckPathDto } from '../models';
 // @ts-ignore
+import { CloseRunDto } from '../models';
+// @ts-ignore
 import { CreateMonitoringDto } from '../models';
 // @ts-ignore
 import { DeltaDto } from '../models';
@@ -60,10 +64,6 @@ import { FileLinkDto } from '../models';
 import { FocalPointAndDelegatesDto } from '../models';
 // @ts-ignore
 import { FrameworkTreeDto } from '../models';
-// @ts-ignore
-import { InlineObject18 } from '../models';
-// @ts-ignore
-import { InlineObject21 } from '../models';
 // @ts-ignore
 import { InstanceAssetDto } from '../models';
 // @ts-ignore
@@ -680,17 +680,21 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} runId
+		 * @param {CloseRunDto} closeRunDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		closeCompletedRun1: async (
 			runId: number,
+			closeRunDto: CloseRunDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'runId' is not null or undefined
 			assertParamExists('closeCompletedRun1', 'runId', runId);
+			// verify required parameter 'closeRunDto' is not null or undefined
+			assertParamExists('closeCompletedRun1', 'closeRunDto', closeRunDto);
 			const localVarPath =
 				`/api/change-monitoring/analyst/run/close-completed/{runId}`.replace(
 					`{${'runId'}}`,
@@ -714,6 +718,8 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
 			}
 
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -722,6 +728,11 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				...headersFromBaseOptions,
 				...options.headers
 			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				closeRunDto,
+				localVarRequestOptions,
+				configuration
+			);
 
 			return {
 				url: toPathString(localVarUrlObj),
@@ -1926,19 +1937,25 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} deltaId
+		 * @param {AnswerFileAlreadyUploadedDto} answerFileAlreadyUploadedDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {InlineObject21} [inlineObject21]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		saveAnswerWithFileAlreadyUploaded: async (
 			deltaId: number,
+			answerFileAlreadyUploadedDto: AnswerFileAlreadyUploadedDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			inlineObject21?: InlineObject21,
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'deltaId' is not null or undefined
 			assertParamExists('saveAnswerWithFileAlreadyUploaded', 'deltaId', deltaId);
+			// verify required parameter 'answerFileAlreadyUploadedDto' is not null or undefined
+			assertParamExists(
+				'saveAnswerWithFileAlreadyUploaded',
+				'answerFileAlreadyUploadedDto',
+				answerFileAlreadyUploadedDto
+			);
 			const localVarPath =
 				`/api/change-monitoring/analyst/save-answer-with-file-already-uploaded/{deltaId}`.replace(
 					`{${'deltaId'}}`,
@@ -1973,7 +1990,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				...options.headers
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				inlineObject21,
+				answerFileAlreadyUploadedDto,
 				localVarRequestOptions,
 				configuration
 			);
@@ -2714,21 +2731,21 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} deltaId
-		 * @param {InlineObject18} inlineObject18
+		 * @param {any} file
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		uploadCsvAnswer1: async (
 			deltaId: number,
-			inlineObject18: InlineObject18,
+			file: any,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'deltaId' is not null or undefined
 			assertParamExists('uploadCsvAnswer1', 'deltaId', deltaId);
-			// verify required parameter 'inlineObject18' is not null or undefined
-			assertParamExists('uploadCsvAnswer1', 'inlineObject18', inlineObject18);
+			// verify required parameter 'file' is not null or undefined
+			assertParamExists('uploadCsvAnswer1', 'file', file);
 			const localVarPath =
 				`/api/change-monitoring/analyst/upload-csv-answer/{deltaId}`.replace(
 					`{${'deltaId'}}`,
@@ -2744,6 +2761,8 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
 			const localVarHeaderParameter = {} as any;
 			const localVarQueryParameter = {} as any;
+			const localVarFormParams = new ((configuration && configuration.formDataCtor) ||
+				FormData)();
 
 			// authentication bearerAuth required
 			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
@@ -2752,7 +2771,11 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
 			}
 
-			localVarHeaderParameter['Content-Type'] = 'application/json';
+			if (file !== undefined) {
+				localVarFormParams.append('file', file as any);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
@@ -2762,11 +2785,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				...headersFromBaseOptions,
 				...options.headers
 			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				inlineObject18,
-				localVarRequestOptions,
-				configuration
-			);
+			localVarRequestOptions.data = localVarFormParams;
 
 			return {
 				url: toPathString(localVarUrlObj),
@@ -3055,17 +3074,20 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		/**
 		 *
 		 * @param {number} runId
+		 * @param {CloseRunDto} closeRunDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async closeCompletedRun1(
 			runId: number,
+			closeRunDto: CloseRunDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RunDto>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.closeCompletedRun1(
 				runId,
+				closeRunDto,
 				acceptLanguage,
 				options
 			);
@@ -3672,22 +3694,22 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		/**
 		 *
 		 * @param {number} deltaId
+		 * @param {AnswerFileAlreadyUploadedDto} answerFileAlreadyUploadedDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {InlineObject21} [inlineObject21]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async saveAnswerWithFileAlreadyUploaded(
 			deltaId: number,
+			answerFileAlreadyUploadedDto: AnswerFileAlreadyUploadedDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			inlineObject21?: InlineObject21,
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeltaDto>> {
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.saveAnswerWithFileAlreadyUploaded(
 					deltaId,
+					answerFileAlreadyUploadedDto,
 					acceptLanguage,
-					inlineObject21,
 					options
 				);
 			return createRequestFunction(
@@ -4028,20 +4050,20 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		/**
 		 *
 		 * @param {number} deltaId
-		 * @param {InlineObject18} inlineObject18
+		 * @param {any} file
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async uploadCsvAnswer1(
 			deltaId: number,
-			inlineObject18: InlineObject18,
+			file: any,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.uploadCsvAnswer1(
 				deltaId,
-				inlineObject18,
+				file,
 				acceptLanguage,
 				options
 			);
@@ -4248,17 +4270,19 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		/**
 		 *
 		 * @param {number} runId
+		 * @param {CloseRunDto} closeRunDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		closeCompletedRun1(
 			runId: number,
+			closeRunDto: CloseRunDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<RunDto> {
 			return localVarFp
-				.closeCompletedRun1(runId, acceptLanguage, options)
+				.closeCompletedRun1(runId, closeRunDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -4646,22 +4670,22 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		/**
 		 *
 		 * @param {number} deltaId
+		 * @param {AnswerFileAlreadyUploadedDto} answerFileAlreadyUploadedDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {InlineObject21} [inlineObject21]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		saveAnswerWithFileAlreadyUploaded(
 			deltaId: number,
+			answerFileAlreadyUploadedDto: AnswerFileAlreadyUploadedDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			inlineObject21?: InlineObject21,
 			options?: any
 		): AxiosPromise<DeltaDto> {
 			return localVarFp
 				.saveAnswerWithFileAlreadyUploaded(
 					deltaId,
+					answerFileAlreadyUploadedDto,
 					acceptLanguage,
-					inlineObject21,
 					options
 				)
 				.then(request => request(axios, basePath));
@@ -4892,19 +4916,19 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		/**
 		 *
 		 * @param {number} deltaId
-		 * @param {InlineObject18} inlineObject18
+		 * @param {any} file
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		uploadCsvAnswer1(
 			deltaId: number,
-			inlineObject18: InlineObject18,
+			file: any,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<void> {
 			return localVarFp
-				.uploadCsvAnswer1(deltaId, inlineObject18, acceptLanguage, options)
+				.uploadCsvAnswer1(deltaId, file, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		}
 	};
@@ -5209,6 +5233,13 @@ export interface AnalystChangeMonitoringControllerApiCloseCompletedRun1Request {
 	 * @memberof AnalystChangeMonitoringControllerApiCloseCompletedRun1
 	 */
 	readonly runId: number;
+
+	/**
+	 *
+	 * @type {CloseRunDto}
+	 * @memberof AnalystChangeMonitoringControllerApiCloseCompletedRun1
+	 */
+	readonly closeRunDto: CloseRunDto;
 
 	/**
 	 *
@@ -5723,17 +5754,17 @@ export interface AnalystChangeMonitoringControllerApiSaveAnswerWithFileAlreadyUp
 
 	/**
 	 *
+	 * @type {AnswerFileAlreadyUploadedDto}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveAnswerWithFileAlreadyUploaded
+	 */
+	readonly answerFileAlreadyUploadedDto: AnswerFileAlreadyUploadedDto;
+
+	/**
+	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
 	 * @memberof AnalystChangeMonitoringControllerApiSaveAnswerWithFileAlreadyUploaded
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
-
-	/**
-	 *
-	 * @type {InlineObject21}
-	 * @memberof AnalystChangeMonitoringControllerApiSaveAnswerWithFileAlreadyUploaded
-	 */
-	readonly inlineObject21?: InlineObject21;
 }
 
 /**
@@ -6059,10 +6090,10 @@ export interface AnalystChangeMonitoringControllerApiUploadCsvAnswer1Request {
 
 	/**
 	 *
-	 * @type {InlineObject18}
+	 * @type {any}
 	 * @memberof AnalystChangeMonitoringControllerApiUploadCsvAnswer1
 	 */
-	readonly inlineObject18: InlineObject18;
+	readonly file: any;
 
 	/**
 	 *
@@ -6283,6 +6314,7 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 		return AnalystChangeMonitoringControllerApiFp(this.configuration)
 			.closeCompletedRun1(
 				requestParameters.runId,
+				requestParameters.closeRunDto,
 				requestParameters.acceptLanguage,
 				options
 			)
@@ -6727,8 +6759,8 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 		return AnalystChangeMonitoringControllerApiFp(this.configuration)
 			.saveAnswerWithFileAlreadyUploaded(
 				requestParameters.deltaId,
+				requestParameters.answerFileAlreadyUploadedDto,
 				requestParameters.acceptLanguage,
-				requestParameters.inlineObject21,
 				options
 			)
 			.then(request => request(this.axios, this.basePath));
@@ -6992,7 +7024,7 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 		return AnalystChangeMonitoringControllerApiFp(this.configuration)
 			.uploadCsvAnswer1(
 				requestParameters.deltaId,
-				requestParameters.inlineObject18,
+				requestParameters.file,
 				requestParameters.acceptLanguage,
 				options
 			)

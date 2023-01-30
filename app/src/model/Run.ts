@@ -15,6 +15,7 @@ interface Run {
 	runAsset: RunAsset[];
 	deltas?: DeltaDto[];
 	notes?: string;
+	dueDate?: Date;
 }
 export const fromRunApi = (runApi: RunApi): Run => ({
 	id: `${runApi.id}`,

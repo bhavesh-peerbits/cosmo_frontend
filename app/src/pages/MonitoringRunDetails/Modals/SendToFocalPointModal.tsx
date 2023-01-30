@@ -40,6 +40,7 @@ const SendToFocalPointModal = ({
 	const {
 		control,
 		reset,
+		handleSubmit,
 		formState: { isValid }
 	} = useForm<SendFocalPointFormData>({
 		defaultValues: { delegates: run.focalPointDelegates, focalPoint: run.focalPoint }
@@ -51,13 +52,21 @@ const SendToFocalPointModal = ({
 		reset();
 	};
 
-	const closeRun = () => {
-		return mutate(run.id, {
-			onSuccess: () => {
-				cleanUp();
-				navigate(`/monitoring-dashboard/${monitoringId}`);
+	const closeRun = (data: SendFocalPointFormData) => {
+		return mutate(
+			{
+				runId: run.id,
+				delegatesId: data.delegates.map(del => del.id),
+				focalPointId: data.focalPoint.id,
+				dueDate: data.dueDate
+			},
+			{
+				onSuccess: () => {
+					cleanUp();
+					navigate(`/monitoring-dashboard/${monitoringId}`);
+				}
 			}
-		});
+		);
 	};
 
 	return (
@@ -79,7 +88,7 @@ const SendToFocalPointModal = ({
 					label: t('runDetails:send-request'),
 					id: 'send-focal-point',
 					disabled: !isValid || isLoading,
-					onClick: () => closeRun()
+					onClick: handleSubmit(closeRun)
 				}
 			]}
 		>

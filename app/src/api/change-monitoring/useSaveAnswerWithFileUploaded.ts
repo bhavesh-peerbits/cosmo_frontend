@@ -16,12 +16,10 @@ const saveAnswerWithFileUploaded = ({
 }: SaveAnswerWithFileUploadedParameters) => {
 	return api.analystChangeMonitoringControllerApi.saveAnswerWithFileAlreadyUploaded({
 		deltaId,
-		inlineObject21: {
-			answer: {
-				text,
-				fileslinkIds: fileLinkIds,
-				deltaFilesId
-			}
+		answerFileAlreadyUploadedDto: {
+			text,
+			fileslinkIds: fileLinkIds,
+			deltaFilesId
 		}
 	});
 };

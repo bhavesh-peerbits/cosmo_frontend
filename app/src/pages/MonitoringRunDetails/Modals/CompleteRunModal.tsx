@@ -37,12 +37,15 @@ const CompleteRunModal = ({
 	};
 
 	const closeRun = () => {
-		return mutate(run.id, {
-			onSuccess: () => {
-				cleanUp();
-				navigate(`/monitoring-dashboard/${monitoringId}`);
+		return mutate(
+			{ runId: run.id },
+			{
+				onSuccess: () => {
+					cleanUp();
+					navigate(`/monitoring-dashboard/${monitoringId}`);
+				}
 			}
-		});
+		);
 	};
 
 	return (

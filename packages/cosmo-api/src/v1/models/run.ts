@@ -55,6 +55,12 @@ export interface Run {
 	completionDate?: string;
 	/**
 	 *
+	 * @type {string}
+	 * @memberof Run
+	 */
+	dueDate?: string;
+	/**
+	 *
 	 * @type {User}
 	 * @memberof Run
 	 */

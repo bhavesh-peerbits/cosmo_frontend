@@ -59,6 +59,7 @@ models/campaign-template-dto.ts
 models/check-path-assets-dto.ts
 models/check-path-dto.ts
 models/close-evidence-dto.ts
+models/close-run-dto.ts
 models/config-element.ts
 models/config-module-key.ts
 models/config-module.ts
@@ -92,8 +93,6 @@ models/inline-object12.ts
 models/inline-object14.ts
 models/inline-object15.ts
 models/inline-object17.ts
-models/inline-object18.ts
-models/inline-object21.ts
 models/inline-object9.ts
 models/instance-asset-dto.ts
 models/instance-dto.ts
