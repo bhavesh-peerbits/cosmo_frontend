@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { useRecoilValue } from 'recoil';
 import { DeltaTableRowType } from '../Modals/AddAnswerToDeltaModal';
 import CompleteRunModal from '../Modals/CompleteRunModal';
-import SendToFocalPointModal from '../Modals/SendToFocalPoint';
+import SendToFocalPointModal from '../Modals/SendToFocalPointModal';
 import DeltaResultTable from './DeltaResultTable';
 
 type DeltaResultContentProps = {

@@ -1,4 +1,4 @@
-import { Form } from '@carbon/react';
+import { Form, InlineNotification } from '@carbon/react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction } from 'react';
@@ -10,6 +10,8 @@ import DatePickerWrapper from '@components/DatePickerWrapper';
 import { startOfTomorrow } from 'date-fns';
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
 import Run from '@model/Run';
+import useCloseCompletedRun from '@api/change-monitoring/useCloseCompletedRun';
+import ApiError from '@api/ApiError';
 
 type SendToFocalPointProps = {
 	isOpen: boolean;
@@ -33,17 +35,30 @@ const SendToFocalPointModal = ({
 	const navigate = useNavigate();
 	const { t } = useTranslation(['modals', 'runDetails', 'evidenceRequest']);
 	const { monitoringId = '' } = useParams();
-
-	const cleanUp = () => {
-		setIsOpen('');
-	};
+	const { mutate, isError, error, isLoading, reset: resetApi } = useCloseCompletedRun();
 
 	const {
 		control,
+		reset,
 		formState: { isValid }
 	} = useForm<SendFocalPointFormData>({
 		defaultValues: { delegates: run.focalPointDelegates, focalPoint: run.focalPoint }
 	});
+
+	const cleanUp = () => {
+		setIsOpen('');
+		resetApi();
+		reset();
+	};
+
+	const closeRun = () => {
+		return mutate(run.id, {
+			onSuccess: () => {
+				cleanUp();
+				navigate(`/monitoring-dashboard/${monitoringId}`);
+			}
+		});
+	};
 
 	return (
 		<TearsheetNarrow
@@ -63,13 +78,12 @@ const SendToFocalPointModal = ({
 				{
 					label: t('runDetails:send-request'),
 					id: 'send-focal-point',
-					disabled: !isValid,
-					onClick: () => navigate(`/monitoring-dashboard/${monitoringId}`)
+					disabled: !isValid || isLoading,
+					onClick: () => closeRun()
 				}
 			]}
 		>
 			<Form className='space-y-5 px-5'>
-				{/* // TODO Add default values */}
 				<SingleUserSelect
 					level={2}
 					label='Focal Point *'
@@ -77,7 +91,7 @@ const SendToFocalPointModal = ({
 					rules={{
 						required: {
 							value: true,
-							message: 'A owner is required'
+							message: t('modals:field-required')
 						}
 					}}
 					control={control}
@@ -88,12 +102,6 @@ const SendToFocalPointModal = ({
 					level={2}
 					label={`${t('evidenceRequest:focal-point-delegates')} *`}
 					name='delegates'
-					rules={{
-						required: {
-							value: true,
-							message: t('modals:field-required')
-						}
-					}}
 					control={control}
 					tooltipPosition='left'
 					defaultValue={run.focalPointDelegates}
@@ -110,7 +118,7 @@ const SendToFocalPointModal = ({
 					}}
 					minDate={startOfTomorrow()}
 				/>
-				{/* {isError && (
+				{isError && (
 					<div className='mt-5 flex items-center justify-center'>
 						<InlineNotification
 							kind='error'
@@ -122,7 +130,7 @@ const SendToFocalPointModal = ({
 							}
 						/>
 					</div>
-				)} */}
+				)}
 			</Form>
 		</TearsheetNarrow>
 	);

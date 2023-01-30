@@ -3,12 +3,15 @@ import {
 	ComposedModal,
 	ModalBody,
 	ModalFooter,
-	ModalHeader
+	ModalHeader,
+	InlineNotification
 } from '@carbon/react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction } from 'react';
 import Run from '@model/Run';
+import useCloseCompletedRun from '@api/change-monitoring/useCloseCompletedRun';
+import ApiError from '@api/ApiError';
 
 type CompleteRunProps = {
 	isOpen: boolean;
@@ -26,9 +29,20 @@ const CompleteRunModal = ({
 	const navigate = useNavigate();
 	const { t } = useTranslation(['modals', 'runDetails']);
 	const { monitoringId = '' } = useParams();
+	const { mutate, isError, error, isLoading, reset } = useCloseCompletedRun();
 
 	const cleanUp = () => {
 		setIsOpen('');
+		reset();
+	};
+
+	const closeRun = () => {
+		return mutate(run.id, {
+			onSuccess: () => {
+				cleanUp();
+				navigate(`/monitoring-dashboard/${monitoringId}`);
+			}
+		});
 	};
 
 	return (
@@ -40,7 +54,7 @@ const CompleteRunModal = ({
 			/>
 			<ModalBody>
 				<span>{`${t('runDetails:complete-run-body', { number: 5 })}`}</span>
-				{/* {isError && (
+				{isError && (
 					<div className='mt-5 flex items-center justify-center'>
 						<InlineNotification
 							kind='error'
@@ -52,13 +66,13 @@ const CompleteRunModal = ({
 							}
 						/>
 					</div>
-				)} */}
+				)}
 			</ModalBody>
 			<ModalFooter>
 				<Button kind='secondary' onClick={cleanUp}>
 					{t('modals:cancel')}
 				</Button>
-				<Button onClick={() => navigate(`/monitoring-dashboard/${monitoringId}`)}>
+				<Button onClick={() => closeRun()} disabled={isLoading}>
 					{t('runDetails:complete-and-close')}
 				</Button>
 			</ModalFooter>
