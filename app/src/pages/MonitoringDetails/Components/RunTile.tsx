@@ -8,7 +8,7 @@ type RunTileProps = {
 	run: Run;
 };
 const RunTile = ({ run }: RunTileProps) => {
-	const { t } = useTranslation('monitoringDashboard');
+	const { t } = useTranslation(['monitoringDashboard', 'runDetails']);
 	const navigate = useNavigate();
 
 	// TODO Add info for not started/ongoing runs and remove clickable for not started runs
@@ -28,7 +28,8 @@ const RunTile = ({ run }: RunTileProps) => {
 								'text-text-secondary': run.status !== 'PLANNED'
 							})}
 						>
-							{t('started-on')} {run.startingDate.toLocaleDateString()}
+							{t('monitoringDashboard:started-on')}{' '}
+							{run.startingDate.toLocaleDateString()}
 						</p>
 					)}
 					{run.completionDate && (
@@ -37,19 +38,22 @@ const RunTile = ({ run }: RunTileProps) => {
 								'text-text-secondary': run.status !== 'PLANNED'
 							})}
 						>
-							{t('completed-on')} {run.completionDate.toLocaleDateString()}
+							{run.status === 'COMPLETED'
+								? t('monitoringDashboard:completed-on')
+								: t('runDetails:terminated-on')}{' '}
+							{run.completionDate.toLocaleDateString()}
 						</p>
 					)}
 				</div>
 			</div>
 			<div className='flex items-center space-x-2'>
-				<p className='text-heading-1'>{t('delta-found')}:</p>
+				<p className='text-heading-1'>{t('monitoringDashboard:delta-found')}:</p>
 				<p className='text-body-long-1'>
 					{run.deltas?.flatMap(d => d.deltaAnswers).flatMap(da => da?.deltaFiles).length}
 				</p>
 			</div>
 			<div className='flex items-start space-x-2 align-top'>
-				<p className='text-heading-1'>{t('note')}:</p>
+				<p className='text-heading-1'>{t('monitoringDashboard:note')}:</p>
 				<p className='line-clamp-1 text-body-long-1'>{run.notes}</p>
 			</div>
 		</ClickableTile>

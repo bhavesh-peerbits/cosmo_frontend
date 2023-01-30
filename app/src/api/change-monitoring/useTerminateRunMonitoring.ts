@@ -15,7 +15,7 @@ const useTerminateRunMonitoring = () => {
 	const queryClient = useQueryClient();
 	return useMutation(terminateRunMonitoring, {
 		onSuccess: () => {
-			queryClient.invalidateQueries(['monitoring']);
+			queryClient.invalidateQueries(['run-monitoring']);
 		}
 	});
 };

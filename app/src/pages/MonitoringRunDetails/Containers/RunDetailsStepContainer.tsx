@@ -24,6 +24,9 @@ const RunDetailsStepContainer = ({ monitoring, run }: RunDetailsStepProps) => {
 	// TODO (also fix isCurrent for RunDetailsStepTile)
 
 	const statusMessage = ({ stepStatus }: StatusTranslatorProps) => {
+		if (run.status === 'TERMINATED') {
+			return t('runDetails:terminated');
+		}
 		if (run?.status === stepStatus) {
 			return t('evidenceRequest:current-step');
 		}

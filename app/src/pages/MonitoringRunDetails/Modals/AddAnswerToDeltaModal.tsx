@@ -80,7 +80,11 @@ const AddAnswerToDeltaModal = ({
 	const [radioSelected, setRadioSelected] = useState(1);
 	const { monitoringId = '', runId = '' } = useParams();
 
-	const { control, getValues: getValuesFiles } = useForm<{ files: File[] }>({
+	const {
+		control,
+		getValues: getValuesFiles,
+		watch: watchFiles
+	} = useForm<{ files: File[] }>({
 		defaultValues: { files: [] }
 	});
 	const {
@@ -193,7 +197,7 @@ const AddAnswerToDeltaModal = ({
 					label: t('modals:save'),
 					id: 'save-answer',
 					disabled: isUploadSelected
-						? getValues('filesId').length > 0 || getValuesFiles('files').length > 0
+						? watch('filesId')?.length === 0 || watchFiles('files')?.length === 0
 						: !watch('text'),
 					onClick: () => {
 						isUploadSelected ? saveAnswerFile() : saveAnswerWithoutFile();

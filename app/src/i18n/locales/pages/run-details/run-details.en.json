@@ -64,5 +64,7 @@
 	"NONE": "Waiting for answer",
 	"answer-status": "Answer status",
 	"upload-answers": "Upload answers",
-	"upload-answers-description": "Upload the file containing the answers"
+	"upload-answers-description": "Upload the file containing the answers",
+	"terminated": "Terminated",
+	"terminated-on": "Terminated on"
 }

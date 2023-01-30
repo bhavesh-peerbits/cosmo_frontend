@@ -64,5 +64,7 @@
 	"NONE": "In attesa di risposta",
 	"answer-status": "Stato risposta",
 	"upload-answers": "Carica risposte",
-	"upload-answers-description": "Carica il file contenente le risposte"
+	"upload-answers-description": "Carica il file contenente le risposte",
+	"terminated": "Terminata",
+	"terminated-on": "Terminata il"
 }

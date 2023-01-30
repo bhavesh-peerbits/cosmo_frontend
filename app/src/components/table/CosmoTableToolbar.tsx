@@ -49,6 +49,7 @@ interface CosmoTableToolbarProps<T extends object> {
 		label: ReactNode;
 		onClick: () => void;
 	};
+	disableToolbarBatchAction?: boolean;
 	allColumns: Column<T, RowData>[];
 	onExportClick: (fileType: AvailableFileType, all?: boolean | 'selection') => void;
 	disableExport?: boolean;
@@ -68,7 +69,6 @@ interface CosmoTableToolbarProps<T extends object> {
 	onSearch: (value: string) => void;
 	setColumnOrder: (columnOrder: ColumnOrderState) => void;
 	setColumnVisibility: (visibilityState: VisibilityState) => void;
-	prefilteredValues: Row<T>;
 	tableId: string;
 }
 
@@ -88,6 +88,7 @@ const CosmoTableToolbar = <T extends object>({
 	changeTableSize,
 	onSearch,
 	primaryButton,
+	disableToolbarBatchAction,
 	toolbarBatchActions = [],
 	toolbarTableMenus = [],
 	setIsModalOpen,
@@ -97,7 +98,6 @@ const CosmoTableToolbar = <T extends object>({
 	onDelete,
 	setColumnOrder,
 	setColumnVisibility,
-	prefilteredValues,
 	tableId
 }: CosmoTableToolbarProps<T>) => {
 	const { t } = useTranslation('table');
@@ -195,14 +195,19 @@ const CosmoTableToolbar = <T extends object>({
 			<TableBatchActions
 				onCancel={onCancel}
 				totalSelected={selectionElements.length}
-				shouldShowBatchActions={selectionElements.length > 0}
+				shouldShowBatchActions={
+					selectionElements.length > 0 && !disableToolbarBatchAction
+				}
 				translateWithId={t}
 			>
 				{toolbarBatchActionsWithEditAndDelete.map(action => (
 					<TableBatchAction
 						key={action.id}
 						renderIcon={action.icon as JSX.Element}
-						onClick={() => action.onClick(selectionElements)}
+						onClick={() => {
+							action.onClick(selectionElements);
+							onCancel();
+						}}
 						disabled={action.disabled}
 					>
 						{action.label}
@@ -211,21 +216,6 @@ const CosmoTableToolbar = <T extends object>({
 				<ExportSelectionAction exportFn={onExportClick} />
 			</TableBatchActions>
 			<TableToolbarContent>
-				<TableToolbarMenu
-					onClick={() => toggleFilter()}
-					open={openFilter}
-					onClose={filterFalse}
-					renderIcon={() => <FilterEdit />}
-					iconDescription='Show filters'
-					ariaLabel='Show Filters'
-				>
-					<TableFilters
-						tableId={tableId}
-						onApplyFilters={filterFalse}
-						prefilteredValues={prefilteredValues}
-						allColumns={allColumns}
-					/>
-				</TableToolbarMenu>
 				{searchBar && (
 					<TableToolbarSearch
 						size='lg'
@@ -235,6 +225,7 @@ const CosmoTableToolbar = <T extends object>({
 						onChange={e => onSearch(e.currentTarget?.value)}
 					/>
 				)}
+
 				{actions.map(action => (
 					<TableToolbarMenu
 						key={action.id}
@@ -309,6 +300,20 @@ const CosmoTableToolbar = <T extends object>({
 						))}
 					</TableToolbarMenu>
 				)}
+				<TableToolbarMenu
+					onClick={() => toggleFilter()}
+					open={openFilter}
+					onClose={filterFalse}
+					renderIcon={() => <FilterEdit />}
+					iconDescription='Show filters'
+					ariaLabel='Show Filters'
+				>
+					<TableFilters
+						tableId={tableId}
+						onApplyFilters={filterFalse}
+						allColumns={allColumns}
+					/>
+				</TableToolbarMenu>
 				{canAdd && (
 					<Button
 						kind='primary'
