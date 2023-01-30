@@ -1,12 +1,13 @@
 import CosmoTable from '@components/table/CosmoTable';
 import { ColumnDef } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
-import { MisuseOutline, CheckmarkOutline } from '@carbon/react/icons';
+import { MisuseOutline, CheckmarkOutline, Download } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { Layer } from '@carbon/react';
 import FileLink from '@model/FileLink';
 import MultiTagFileLinkCell from '@components/table/Cell/MultiTagFileLinkCell';
 import { JustificationDeltaFileDtoStatusEnum } from 'cosmo-api/src/v1';
+import useGetCsvAnswer from '@api/change-monitoring/useGetCsvAnswer';
 import AddAnswerToDeltaModal, {
 	DeltaTableRowType
 } from '../Modals/AddAnswerToDeltaModal';
@@ -128,7 +129,28 @@ const DeltaResultTable = ({
 		}
 	];
 
-	// TODO Add upload for answers
+	const downloadTemplateAnswer = () => {
+		const uniqueDeltaIds = [...new Set(data?.map(el => el.deltaId))];
+		uniqueDeltaIds.forEach(id =>
+			// eslint-disable-next-line react-hooks/rules-of-hooks
+			useGetCsvAnswer({
+				deltaFilesIds: data?.map(el => el.deltaFile.id) || [],
+				deltaId: id
+			}).then(({ data: resultData, headers }) => {
+				const fileName =
+					headers['content-disposition']
+						?.split('filename=')?.[1]
+						?.replace(/^"/, '')
+						?.replace(/"$/, '') || `${monitoringName}-RUN${runNumber}-answers.csv`;
+				const fileBlob = new Blob([resultData as unknown as BlobPart]);
+				const dataUrl = URL.createObjectURL(fileBlob);
+				const link = document.createElement('a');
+				link.download = fileName;
+				link.href = dataUrl;
+				link.click();
+			})
+		);
+	};
 
 	return (
 		<Layer level={2}>
@@ -148,7 +170,21 @@ const DeltaResultTable = ({
 				toolbar={{
 					searchBar: true,
 					toolbarBatchActions,
-					toolbarTableMenus: []
+					toolbarTableMenus: [
+						{
+							icon: Download,
+							id: 'download-csv',
+							tableToolbarActions: [
+								{
+									id: 'bo',
+									label: 'ciao',
+									onClick: () => {
+										downloadTemplateAnswer();
+									}
+								}
+							]
+						}
+					]
 				}}
 				exportFileName={({ all }) =>
 					all
