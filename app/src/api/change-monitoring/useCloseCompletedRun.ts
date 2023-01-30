@@ -18,7 +18,7 @@ const closeCompletedRun = ({
 		closeRunDto: {
 			focalPoint: focalPointId,
 			delegates: delegatesId,
-			dueDate: dueDate?.toString()
+			dueDate: dueDate?.toISOString()
 		}
 	});
 };

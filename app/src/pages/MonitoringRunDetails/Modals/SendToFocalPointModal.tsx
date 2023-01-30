@@ -37,12 +37,7 @@ const SendToFocalPointModal = ({
 	const { monitoringId = '' } = useParams();
 	const { mutate, isError, error, isLoading, reset: resetApi } = useCloseCompletedRun();
 
-	const {
-		control,
-		reset,
-		handleSubmit,
-		formState: { isValid }
-	} = useForm<SendFocalPointFormData>({
+	const { control, reset, handleSubmit, watch } = useForm<SendFocalPointFormData>({
 		defaultValues: { delegates: run.focalPointDelegates, focalPoint: run.focalPoint }
 	});
 
@@ -87,7 +82,7 @@ const SendToFocalPointModal = ({
 				{
 					label: t('runDetails:send-request'),
 					id: 'send-focal-point',
-					disabled: !isValid || isLoading,
+					disabled: !watch('focalPoint') || !watch('dueDate') || isLoading,
 					onClick: handleSubmit(closeRun)
 				}
 			]}
