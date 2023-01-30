@@ -1,4 +1,3 @@
-import { Column, Grid } from '@carbon/react';
 import Fade from '@components/Fade';
 import CosmoTable from '@components/table/CosmoTable';
 import useEvidenceRequests from '@hooks/evidence-request/useEvidenceRequests';
@@ -9,7 +8,6 @@ import CellLink from '@components/table/Cell/CellLink';
 import { ColumnDef } from '@tanstack/react-table';
 import TooltipCell from '@components/table/Cell/TooltipCell';
 import DateCell from '@components/table/Cell/DateCell';
-import EvidenceRequestFilters from './EvidenceRequestFilters';
 
 interface EvidenceRequestsTableViewProps {
 	view: string;
@@ -92,32 +90,23 @@ const EvidenceRequestsTableView = ({ view }: EvidenceRequestsTableViewProps) => 
 
 	return (
 		<Fade>
-			<Grid fullWidth narrow className='p-3'>
-				<Column sm={4} md={8} lg={4}>
-					<div className='pl-5 md:ml-0'>
-						<EvidenceRequestFilters view={view} />
-					</div>
-				</Column>
-				<Column sm={4} md={8} lg={12}>
-					<CosmoTable
-						tableId={view}
-						isColumnOrderingEnabled
-						data={
-							view === 'OnGoing'
-								? requests.filter(req => req.status === 'IN_PROGRESS')
-								: requests.filter(
-										req => req.status !== 'DRAFT' && req.status !== 'IN_PROGRESS'
-								  )
-						}
-						columns={columns}
-						toolbar={{
-							searchBar: true,
-							toolbarBatchActions: [],
-							toolbarTableMenus: []
-						}}
-					/>
-				</Column>
-			</Grid>
+			<CosmoTable
+				tableId={view}
+				isColumnOrderingEnabled
+				data={
+					view === 'OnGoing'
+						? requests.filter(req => req.status === 'IN_PROGRESS')
+						: requests.filter(
+								req => req.status !== 'DRAFT' && req.status !== 'IN_PROGRESS'
+						  )
+				}
+				columns={columns}
+				toolbar={{
+					searchBar: true,
+					toolbarBatchActions: [],
+					toolbarTableMenus: []
+				}}
+			/>
 		</Fade>
 	);
 };

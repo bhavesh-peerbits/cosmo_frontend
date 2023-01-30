@@ -1,6 +1,5 @@
 import { DatePicker, DatePickerInput, Toggle } from '@carbon/react';
-import { useBoolean, useUpdate } from 'ahooks';
-import { useEffect } from 'react';
+import { useState } from 'react';
 import TableFilterProp from '@components/table/filter/TableFilterProp';
 
 interface DateFilterProps<T extends object> extends TableFilterProp<T> {
@@ -15,12 +14,9 @@ const DateFilter = <T extends object>({
 	tableId,
 	label
 }: DateFilterProps<T>) => {
-	const [range, { toggle }] = useBoolean(
+	const [range, setRange] = useState(
 		filteredValue instanceof Array && filteredValue.length > 1
 	);
-	const update = useUpdate();
-	useEffect(() => update(), [range, update]);
-
 	// eslint-disable-next-line no-param-reassign
 	column.columnDef.filterFn = 'dateCompare';
 	return (
@@ -59,7 +55,7 @@ const DateFilter = <T extends object>({
 				labelA='Single'
 				labelB='Range'
 				toggled={range}
-				onToggle={toggle}
+				onToggle={t => setRange(t)}
 				id='toggle-2'
 				aria-label='single-range'
 			/>

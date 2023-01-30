@@ -33,6 +33,7 @@ import usePaginationStore from '@hooks/pagination/usePaginationStore';
 import useExportTablePlugin from '@hooks/useExportTablePlugin';
 import { FieldValues, SubmitHandler, UseFormReturn } from 'react-hook-form';
 import ApiError from '@api/ApiError';
+import { isAfter, isWithinInterval } from 'date-fns';
 import TablePagination from './TablePagination';
 import CosmoTableToolbarAction from './types/CosmoTableToolbarAction';
 import CosmoTableToolbarMenu from './types/CosmoTableToolbarMenu';
@@ -77,6 +78,7 @@ interface CosmoTableProps<T extends SubRows<T>, F extends FieldValues = never> {
 	isSelectable?: boolean | 'radio';
 	isExpandable?: boolean;
 	isColumnOrderingEnabled?: boolean;
+	disableToolbarBatchAction?: boolean;
 	// isInlineAdd?: boolean;
 	exportFileName?: (param: {
 		fileType: AvailableFileType;
@@ -133,6 +135,7 @@ const CosmoTable = <T extends SubRows<T>, F extends FieldValues = never>({
 	isSelectable,
 	isExpandable,
 	isColumnOrderingEnabled,
+	disableToolbarBatchAction,
 	canAdd = false,
 	// isInlineAdd = false,
 	canEdit = false,
@@ -196,6 +199,20 @@ const CosmoTable = <T extends SubRows<T>, F extends FieldValues = never>({
 	});
 
 	// FILTER
+	const dateFilter: FilterFn<T> = useCallback((row, columnId, value) => {
+		if (value instanceof Array) {
+			const [start, end] = value;
+			return start && end
+				? isWithinInterval(row.getValue(columnId), { start, end })
+				: isAfter(row.getValue(columnId), start);
+		}
+		return false;
+	}, []);
+	const checkboxFilter: FilterFn<T> = useCallback((row, columnId, value) => {
+		if (value.length === 0) return true;
+		const rowValue = row.getValue(columnId);
+		return (value as string[]).some(v => v === rowValue);
+	}, []);
 	const fuzzyFilter: FilterFn<T> = useCallback((row, columnId, value, addMeta) => {
 		// Rank the item
 		const itemRank = rankItem(row.getValue(columnId), value);
@@ -222,6 +239,8 @@ const CosmoTable = <T extends SubRows<T>, F extends FieldValues = never>({
 		columnResizeMode: 'onChange',
 		enableMultiRowSelection: isSelectable !== 'radio',
 		filterFns: {
+			dateCompare: dateFilter,
+			checkboxCompare: checkboxFilter,
 			fuzzy: fuzzyFilter
 		},
 		globalFilterFn: fuzzyFilter,
@@ -304,6 +323,7 @@ const CosmoTable = <T extends SubRows<T>, F extends FieldValues = never>({
 					disableExport={disableExport}
 					searchBar={toolbar?.searchBar}
 					onExportClick={exportData}
+					disableToolbarBatchAction={disableToolbarBatchAction}
 					onSearch={value => setGlobalFilter(value)}
 					selectionRows={selectedRows}
 					onCancel={() => table.toggleAllRowsSelected(false)}
@@ -326,7 +346,6 @@ const CosmoTable = <T extends SubRows<T>, F extends FieldValues = never>({
 					setColumnOrder={table.setColumnOrder}
 					setColumnVisibility={table.setColumnVisibility}
 					tableId={tableId}
-					prefilteredValues={table.getPreFilteredRowModel().flatRows[0]}
 				/>
 				<div className='relative overflow-hidden'>
 					<div
