@@ -47,7 +47,6 @@ const CloseRunModal = ({
 		);
 	};
 
-	// TODO Fix number in modal body
 	return (
 		<ComposedModal size='xs' open={isOpen} onClose={cleanUp}>
 			<ModalHeader

@@ -106,7 +106,11 @@ const DeltaResultTable = ({
 				accessorFn: row => row.justificationStatus,
 				cell: info =>
 					t(`runDetails:${info.getValue() as JustificationDeltaFileDtoStatusEnum}`),
-				header: t('runDetails:answer-status')
+				header: t('runDetails:answer-status'),
+				meta: {
+					exportableFn: info =>
+						t(`runDetails:${info as JustificationDeltaFileDtoStatusEnum}`)
+				}
 			}
 		],
 		[t]
@@ -209,7 +213,6 @@ const DeltaResultTable = ({
 				}
 				data={data || []}
 				isSelectable
-				canAdd
 				inlineActions={[
 					{
 						label: t('runDetails:confirm'),
