@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Layer } from '@carbon/react';
 import FileLink from '@model/FileLink';
 import MultiTagFileLinkCell from '@components/table/Cell/MultiTagFileLinkCell';
+import { JustificationDeltaFileDtoStatusEnum } from 'cosmo-api/src/v1';
 import AddAnswerToDeltaModal, {
 	DeltaTableRowType
 } from '../Modals/AddAnswerToDeltaModal';
@@ -96,6 +97,13 @@ const DeltaResultTable = ({
 									.join(',') || ''
 							: '-'
 				}
+			},
+			{
+				id: 'status',
+				accessorFn: row => row.justificationStatus,
+				cell: info =>
+					t(`runDetails:${info.getValue() as JustificationDeltaFileDtoStatusEnum}`),
+				header: t('runDetails:answer-status')
 			}
 		],
 		[t]

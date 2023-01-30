@@ -57,5 +57,10 @@
 	"add-file": "Aggiungi files",
 	"yes": "Sì",
 	"select-files": "Seleziona i files",
-	"ignore-placeholder": "Motiva la risposta"
+	"ignore-placeholder": "Motiva la risposta",
+	"ANSWERED": "Risposto",
+	"IGNORE": "Ignora",
+	"TO_ANSWER": "In attesa di risposta",
+	"NONE": "In attesa di risposta",
+	"answer-status": "Stato risposta"
 }

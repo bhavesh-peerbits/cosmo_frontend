@@ -57,5 +57,10 @@
 	"add-file": "Add files",
 	"yes": "Yes",
 	"select-files": "Select files",
-	"ignore-placeholder": "Justify the answer"
+	"ignore-placeholder": "Justify the answer",
+	"ANSWERED": "Answered",
+	"IGNORE": "Ignore",
+	"TO_ANSWER": "Waiting for answer",
+	"NONE": "Waiting for answer",
+	"answer-status": "Answer status"
 }

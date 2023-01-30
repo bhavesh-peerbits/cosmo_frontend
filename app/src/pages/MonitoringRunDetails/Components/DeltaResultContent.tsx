@@ -60,7 +60,7 @@ const DeltaResultContent = ({ run, monitoringName }: DeltaResultContentProps) =>
 							answer: data.deltaAnswers,
 							deltaId: data.id,
 							justificationId: justification?.id,
-							status: justification?.status
+							justificationStatus: justification?.status
 						}
 					]);
 				});
