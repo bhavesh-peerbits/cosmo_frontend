@@ -1,7 +1,7 @@
 import CosmoTable from '@components/table/CosmoTable';
 import { ColumnDef } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
-import { MisuseOutline, CheckmarkOutline, Download } from '@carbon/react/icons';
+import { MisuseOutline, CheckmarkOutline, Csv } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { Layer } from '@carbon/react';
 import FileLink from '@model/FileLink';
@@ -11,6 +11,7 @@ import useGetCsvAnswer from '@api/change-monitoring/useGetCsvAnswer';
 import AddAnswerToDeltaModal, {
 	DeltaTableRowType
 } from '../Modals/AddAnswerToDeltaModal';
+import UploadCsvAnswersModal from '../Modals/UploadCsvAnswersModal';
 
 type DeltaResultTableProps = {
 	data?: DeltaTableRowType[];
@@ -30,6 +31,7 @@ const DeltaResultTable = ({
 		modal: string;
 		rows: DeltaTableRowType[];
 	}>({ modal: '', rows: [] });
+	const [isUploadOpen, setIsUploadOpen] = useState(false);
 
 	const columns = useMemo<ColumnDef<DeltaTableRowType>[]>(
 		() => [
@@ -162,6 +164,13 @@ const DeltaResultTable = ({
 				filesAnswers={filesAnswers}
 				orderNumber={runNumber}
 			/>
+			<UploadCsvAnswersModal
+				isOpen={isUploadOpen}
+				setIsOpen={setIsUploadOpen}
+				monitoringName={monitoringName}
+				runNumber={runNumber}
+				deltaIds={data?.map(d => d.deltaId) || []}
+			/>
 			<CosmoTable
 				tableId='delta-table'
 				columns={columns}
@@ -172,14 +181,21 @@ const DeltaResultTable = ({
 					toolbarBatchActions,
 					toolbarTableMenus: [
 						{
-							icon: Download,
-							id: 'download-csv',
+							icon: Csv,
+							id: 'csv-menus',
 							tableToolbarActions: [
 								{
-									id: 'bo',
-									label: 'ciao',
+									id: 'download-template',
+									label: 'Download template',
 									onClick: () => {
 										downloadTemplateAnswer();
+									}
+								},
+								{
+									id: 'upload-answers',
+									label: t('runDetails:upload-answers'),
+									onClick: () => {
+										setIsUploadOpen(true);
 									}
 								}
 							]

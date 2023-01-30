@@ -6,9 +6,16 @@ import cx from 'classnames';
 interface UploaderS3MonitoringProps {
 	control: Control<{ files: File[] }, any>;
 	disabled: boolean;
+	multiple?: boolean;
+	accept?: string[];
 }
 
-const UploaderS3Monitoring = ({ control, disabled }: UploaderS3MonitoringProps) => {
+const UploaderS3Monitoring = ({
+	control,
+	disabled,
+	multiple = true,
+	accept
+}: UploaderS3MonitoringProps) => {
 	const { t } = useTranslation(['userRevalidation', 'uploaderS3']);
 	const {
 		field: { onChange, value: formValue }
@@ -22,13 +29,15 @@ const UploaderS3Monitoring = ({ control, disabled }: UploaderS3MonitoringProps) 
 			<div className='space-y-5'>
 				<div className='space-y-3'>
 					<FileUploaderDropContainer
-						disabled={disabled}
+						disabled={disabled || (!multiple && !!files.length)}
 						labelText={t('userRevalidation:upload-instructions')}
 						className='w-full'
 						onAddFiles={(e, { addedFiles }) => {
 							files.push(addedFiles[0]);
 							onChange(files);
 						}}
+						multiple={multiple}
+						accept={accept}
 					/>
 				</div>
 				<div className='max-h-[160px] max-w-[20rem] space-y-3 overflow-y-auto'>

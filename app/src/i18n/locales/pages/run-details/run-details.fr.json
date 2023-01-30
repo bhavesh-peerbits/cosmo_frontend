@@ -62,5 +62,7 @@
 	"IGNORE": "Ignore",
 	"TO_ANSWER": "Waiting for answer",
 	"NONE": "Waiting for answer",
-	"answer-status": "Answer status"
+	"answer-status": "Answer status",
+	"upload-answers": "Upload answers",
+	"upload-answers-description": "Upload the file containing the answers"
 }
