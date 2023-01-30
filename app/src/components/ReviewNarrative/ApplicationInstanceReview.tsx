@@ -13,7 +13,7 @@ type ApplicationInstanceReviewProps = {
 };
 
 const ApplicationInstanceReview = ({ instance }: ApplicationInstanceReviewProps) => {
-	const { t } = useTranslation('applicationInfo');
+	const { t } = useTranslation(['applicationInfo', 'applicationInstances']);
 	const { data: instanceAssets } = useGetAssetList({
 		instanceId: instance.id,
 		appId: instance.application.id
@@ -33,6 +33,11 @@ const ApplicationInstanceReview = ({ instance }: ApplicationInstanceReviewProps)
 
 	return (
 		<Grid className='space-y-7'>
+			<FullWidthColumn>
+				<span className='text-text-secondary text-body-long-1'>
+					{t('applicationInstances:tile-instance-review-description')}
+				</span>
+			</FullWidthColumn>
 			<FullWidthColumn>
 				<ApplicationInstanceForm
 					instanceAssets={instanceAssets}
@@ -58,7 +63,7 @@ const ApplicationInstanceReview = ({ instance }: ApplicationInstanceReviewProps)
 					}}
 					size='md'
 				>
-					{t('discard')}
+					{t('applicationInfo:discard')}
 				</Button>
 				<Button
 					type='submit'
@@ -66,7 +71,7 @@ const ApplicationInstanceReview = ({ instance }: ApplicationInstanceReviewProps)
 					disabled={!isValid}
 					size='md'
 				>
-					{t('confirm')}
+					{t('applicationInfo:confirm')}
 				</Button>
 			</FullWidthColumn>
 		</Grid>
