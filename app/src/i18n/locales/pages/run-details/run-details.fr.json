@@ -50,5 +50,7 @@
 	"files-already-uploaded": "Files already uploaded",
 	"files-already-uploaded-description": "These are the files that have already been used as an answer. You can indicate these files for new answers.",
 	"completed": "Completed",
-	"no-files": "No files"
+	"no-files": "No files",
+	"terminated": "",
+	"terminated-on": ""
 }
