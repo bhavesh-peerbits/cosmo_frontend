@@ -92,6 +92,7 @@ const AddAnswerToDeltaModal = ({
 		getValues,
 		watch,
 		setValue,
+		reset,
 		formState: { errors }
 	} = useForm<AddAnswerFormData>();
 
@@ -126,6 +127,7 @@ const AddAnswerToDeltaModal = ({
 		resetApiWithoutFile();
 		resetApiWithFileUploaded();
 		setIsUploadSelected(false);
+		reset();
 	};
 
 	const uniqueDeltaIds = [...new Set(isOpen.rows.map(row => row.deltaId))];
@@ -180,6 +182,15 @@ const AddAnswerToDeltaModal = ({
 	const saveAnswerFile = () => {
 		radioSelected === 1 ? saveAnswerWithFile() : saveAnswerWithUploadedFile();
 	};
+
+	const isSaveDisabled = () => {
+		if (isUploadSelected) {
+			return radioSelected === 1
+				? watchFiles('files')?.length === 0
+				: watch('filesId')?.length === 0;
+		}
+		return isOpen.modal === 'ignore' ? !watch('ignoreNote') : !watch('text');
+	};
 	return (
 		<TearsheetNarrow
 			hasCloseIcon
@@ -204,12 +215,7 @@ const AddAnswerToDeltaModal = ({
 				{
 					label: t('modals:save'),
 					id: 'save-answer',
-					// eslint-disable-next-line no-nested-ternary
-					disabled: isUploadSelected
-						? radioSelected === 1
-							? watchFiles('files')?.length === 0
-							: watch('filesId')?.length === 0
-						: !watch('text'),
+					disabled: isSaveDisabled(),
 					onClick: () => {
 						isUploadSelected ? saveAnswerFile() : saveAnswerWithoutFile();
 					}
