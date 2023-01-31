@@ -14,9 +14,9 @@ import {
 } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import CosmoFiltersPanel from '@components/CosmoFiltersPanel';
-import useCreateDraftMonitoring from '@api/change-monitoring/useCreateMonitoringDraft';
+import useCreateDraftMonitoring from '@api/change-monitoring-analyst/useCreateMonitoringDraft';
 import { useForm } from 'react-hook-form';
-import useGetAllMonitoringDraftNames from '@api/change-monitoring/useGetAllMonitoringDraftNames';
+import useGetAllMonitoringDraftNames from '@api/change-monitoring-analyst/useGetAllMonitoringDraftNames';
 import { useNavigate } from 'react-router-dom';
 import ApiError from '@api/ApiError';
 import useMonitoringForNewDraft from '@hooks/new-monitoring/useMonitoringForNewDraft';

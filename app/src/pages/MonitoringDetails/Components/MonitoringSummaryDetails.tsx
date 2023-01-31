@@ -54,15 +54,13 @@ const MonitoringSummaryDetails = ({ monitoring }: MonitoringSummaryDetailsProps)
 			{monitoring?.script && (
 				<div className='flex flex-col'>
 					<span className='text-heading-2'>Script</span>
-					<span className='text-text-secondary text-body-short-1'>
-						{monitoring.script.name}
-					</span>
+					<span className='text-body-short-1'>{monitoring.script.name}</span>
 				</div>
 			)}
 			{monitoring?.scheduling && (
 				<div className='flex flex-col'>
 					<span className='text-heading-2'>{t('changeMonitoring:scheduling')}</span>
-					<span className='text-text-secondary text-body-short-1'>
+					<span className='text-body-short-1'>
 						{GetSchedulingDisplayInfo(monitoring.scheduling)}
 					</span>
 				</div>

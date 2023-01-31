@@ -44,4 +44,16 @@ export interface PageableObject {
 	 * @memberof PageableObject
 	 */
 	unpaged?: boolean;
+	/**
+	 *
+	 * @type {number}
+	 * @memberof PageableObject
+	 */
+	pageNumber?: number;
+	/**
+	 *
+	 * @type {number}
+	 * @memberof PageableObject
+	 */
+	pageSize?: number;
 }

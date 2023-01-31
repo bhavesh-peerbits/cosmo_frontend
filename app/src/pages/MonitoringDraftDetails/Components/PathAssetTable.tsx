@@ -3,10 +3,11 @@ import { CellContext, ColumnDef } from '@tanstack/react-table';
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 import { MisuseOutline, CheckmarkOutline } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
-import { PathMonitoringDto } from 'cosmo-api/src/v1';
-import MonitoringAsset from '@model/MonitoringAsset';
-import useCheckPathAssetMonitoring from '@api/change-monitoring/useCheckPathsAsset';
+import { PathMonitoringDto, RunDtoStatusEnum } from 'cosmo-api/src/v1';
 import useNotification from '@hooks/useNotification';
+import { useForm } from 'react-hook-form';
+import useCheckPathAssetMonitoring from '@api/change-monitoring-analyst/useCheckPathsAsset';
+import { RunMonitoringAsset } from '../types/RunMonitoringAsset';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const BooleanCell = ({ getValue }: CellContext<any, unknown>) => {
@@ -14,24 +15,34 @@ const BooleanCell = ({ getValue }: CellContext<any, unknown>) => {
 	return value ? <CheckmarkOutline /> : <MisuseOutline />;
 };
 
-type PathAssetTableProps = {
-	assetId: string;
-	assetData?: MonitoringAsset[];
-	setAssetData?: Dispatch<SetStateAction<MonitoringAsset[] | undefined>>;
-	canAdd?: boolean;
+type PathAssetTableFormData = {
+	path: string[];
 };
+
+interface PathAssetTableProps {
+	assetId: string;
+	assetData?: RunMonitoringAsset[];
+	setAssetData?: Dispatch<SetStateAction<RunMonitoringAsset[] | undefined>>;
+	canAdd?: boolean;
+	status?: RunDtoStatusEnum;
+}
 const PathAssetTable = ({
 	assetId,
 	canAdd,
+	assetData,
 	setAssetData,
-	assetData
+	status
 }: PathAssetTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table']);
 	const [newPaths, setNewPaths] = useState<PathMonitoringDto[]>([]);
 	const { showNotification } = useNotification();
+	const form = useForm<PathAssetTableFormData>();
+	const { mutate } = useCheckPathAssetMonitoring();
 
-	const columns = useMemo<ColumnDef<PathMonitoringDto>[]>(() => {
-		const ArrayCol: ColumnDef<PathMonitoringDto>[] = [
+	const columns = useMemo<
+		ColumnDef<PathMonitoringDto, unknown, PathAssetTableFormData>[]
+	>(() => {
+		const ArrayCol: ColumnDef<PathMonitoringDto, unknown, PathAssetTableFormData>[] = [
 			{
 				id: `selected-${assetId}`,
 				accessorFn: row => row.selected,
@@ -46,11 +57,16 @@ const PathAssetTable = ({
 				meta: {
 					modalInfo: {
 						type: 'string',
-						modelKeyName: 'requestBody',
+						id: 'path',
 						validation: {
-							required: true,
-							pattern:
-								assetData?.[0].asset.os === 'WINDOWS' ? '^(?!s*$)[^/]+' : '^(?!s*$)[^\\]+'
+							required: { value: true, message: t('changeMonitoring:field-required') },
+							pattern: {
+								value:
+									assetData?.[0].asset.os === 'WINDOWS'
+										? /^(?!s*$)[^/]+/
+										: /^(?!s*$)[^\\]+/,
+								message: 'to'
+							}
 						}
 					}
 				}
@@ -65,7 +81,7 @@ const PathAssetTable = ({
 			});
 		}
 		return ArrayCol;
-	}, [assetData, assetId, t]);
+	}, [assetId, assetData, t]);
 
 	const toolbarBatchActions = [
 		{
@@ -118,6 +134,13 @@ const PathAssetTable = ({
 		}
 	];
 
+	const checkPaths = (data: string[]) => {
+		return mutate(
+			{ assetId, requestBody: data },
+			{ onSuccess: resultData => setNewPaths(resultData) }
+		);
+	};
+
 	useEffect(() => {
 		setAssetData &&
 			setAssetData(old =>
@@ -152,19 +175,25 @@ const PathAssetTable = ({
 	return (
 		<CosmoTable
 			modalProps={{
-				mutation: useCheckPathAssetMonitoring(),
-				title: t('changeMonitoring:add-path'),
-				setMutationResult: setNewPaths,
-				mutationDefaultValues: { assetId }
+				form,
+				onSubmit: data => checkPaths(data.path),
+				title: t('changeMonitoring:add-path')
 			}}
 			tableId={`${assetId}-path-table`}
 			columns={columns}
 			noDataMessage={t('table:no-data')}
 			isColumnOrderingEnabled
-			canAdd={canAdd}
+			canAdd={status ? status === 'SETUP' && canAdd : canAdd}
 			toolbar={{
 				searchBar: true,
-				toolbarBatchActions: canAdd ? toolbarBatchActions : [],
+				// eslint-disable-next-line no-nested-ternary
+				toolbarBatchActions: status
+					? status === 'SETUP' && canAdd
+						? toolbarBatchActions
+						: []
+					: canAdd
+					? toolbarBatchActions
+					: [],
 				toolbarTableMenus: []
 			}}
 			exportFileName={({ all }) =>

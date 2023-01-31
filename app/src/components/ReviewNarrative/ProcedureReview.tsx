@@ -174,7 +174,7 @@ const ProcedureReview = ({ procedureApp, appId }: ProcedureReviewProps) => {
 									<Button
 										className='mr-5'
 										type='reset'
-										kind='tertiary'
+										kind='secondary'
 										disabled={!isDirty || isSuccess}
 										onClick={() => {
 											reset();

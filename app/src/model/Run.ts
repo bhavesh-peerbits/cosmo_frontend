@@ -1,8 +1,7 @@
-import { User } from '@sentry/react';
 import { RunApi } from 'cosmo-api';
 import { DeltaDto, RunDtoStatusEnum } from 'cosmo-api/src/v1';
 import RunAsset, { fromRunAssetApi } from './RunAsset';
-import { fromUserApi } from './User';
+import User, { fromUserApi } from './User';
 
 interface Run {
 	id: string;
@@ -16,6 +15,7 @@ interface Run {
 	runAsset: RunAsset[];
 	deltas?: DeltaDto[];
 	notes?: string;
+	dueDate?: Date;
 }
 export const fromRunApi = (runApi: RunApi): Run => ({
 	id: `${runApi.id}`,
@@ -30,6 +30,7 @@ export const fromRunApi = (runApi: RunApi): Run => ({
 		: [],
 	runAsset: [...runApi.runAsset].map(fromRunAssetApi),
 	deltas: runApi.deltas ? [...runApi.deltas] : undefined,
-	notes: runApi.notes
+	notes: runApi.notes,
+	dueDate: runApi.dueDate ? new Date(runApi.dueDate) : undefined
 });
 export default Run;

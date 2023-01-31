@@ -34,19 +34,20 @@ interface ActionCellProps {
 }
 
 const ActionsCell = ({ info, onActionClick, setIsModalOpen }: ActionCellProps) => {
-	const { translateAnswer } = useMapAnswerType();
 	const { t } = useTranslation(['userAdmin', 'userRevalidation']);
-	const value = info.getValue() as { answerType: AnswerApiTypeEnum; note?: string };
+	const value = info.getValue() as string;
+	const { note } = info.row.original;
+	const notTranslated = info.row.original.answerType;
 	return (
-		<div className='flex items-center justify-between'>
+		<div className=' flex w-full items-center justify-between'>
 			<div>
-				{value.answerType !== 'MODIFY' && value.answerType !== 'REPORT_ERROR' ? (
-					translateAnswer(value.answerType)
+				{notTranslated !== 'MODIFY' && notTranslated !== 'REPORT_ERROR' ? (
+					value
 				) : (
 					<div className='grid grid-cols-6'>
-						<span className='col-span-5'>{translateAnswer(value.answerType)}</span>
+						<span className='col-span-5'>{value}</span>
 						<span className='self-center text-right'>
-							<Tooltip description={value.note} align='top'>
+							<Tooltip description={note} align='top'>
 								<button type='button'>
 									<Information />
 								</button>
@@ -58,6 +59,7 @@ const ActionsCell = ({ info, onActionClick, setIsModalOpen }: ActionCellProps) =
 			<div>
 				<OverflowMenu
 					ariaLabel='Actions'
+					flipped
 					iconDescription={t('userAdmin:actions')}
 					direction='top'
 				>
@@ -81,7 +83,7 @@ const ActionsCell = ({ info, onActionClick, setIsModalOpen }: ActionCellProps) =
 							setIsModalOpen({
 								isOpen: true,
 								actionSelected: 'Change',
-								note: value?.note,
+								note,
 								onSuccess: ({ description }) => onActionClick('MODIFY', description)
 							});
 						}}
@@ -97,7 +99,7 @@ const ActionsCell = ({ info, onActionClick, setIsModalOpen }: ActionCellProps) =
 							setIsModalOpen({
 								isOpen: true,
 								actionSelected: 'Error',
-								note: value?.note,
+								note,
 								onSuccess: ({ description }) => onActionClick('REPORT_ERROR', description)
 							});
 						}}
@@ -118,6 +120,7 @@ const ActionsCell = ({ info, onActionClick, setIsModalOpen }: ActionCellProps) =
 };
 
 const RevalidationUserTable = ({ review }: CosmoTableRevalidationUsersProps) => {
+	const { translateAnswer } = useMapAnswerType();
 	const { campaignId = '' } = useParams<'campaignId'>();
 	const { data: answersMap = new Map<string, Answer>() } = useGetRevalidatorAnswers(
 		campaignId,
@@ -246,10 +249,14 @@ const RevalidationUserTable = ({ review }: CosmoTableRevalidationUsersProps) => 
 
 			{
 				enableGrouping: false,
-				accessorFn: row => ({
-					answerType: row.answerType,
-					note: row.note
-				}),
+				accessorFn: row => translateAnswer(row.answerType) ?? '',
+				meta: {
+					filter: {
+						enabled: true,
+						type: 'checkbox',
+						label: 'prova'
+					}
+				},
 				id: `answer${review.id}`,
 				header: t('userRevalidation:answer'),
 				cell: ActionCellComponent
@@ -280,7 +287,7 @@ const RevalidationUserTable = ({ review }: CosmoTableRevalidationUsersProps) => 
 			);
 		}
 		return ArrayCol;
-	}, [ActionCellComponent, isFireFighter, isSuid, review.id, t]);
+	}, [ActionCellComponent, isFireFighter, isSuid, review.id, t, translateAnswer]);
 
 	return (
 		<>

@@ -18,9 +18,7 @@ const ApplicationsSelectionContainer = ({
 	setCurrentStep
 }: ApplicationsSelectionContainerProps) => {
 	const { t } = useTranslation(['evidenceRequest', 'management', 'modals']);
-	const [selectedRows, setSelectedRows] = useState<
-		(Application | undefined)[] | undefined
-	>();
+	const [selectedRows, setSelectedRows] = useState<Application[]>([]);
 	const [requestDraft, setRequestDraft] = useRecoilState(evidenceRequestDraftStore);
 	const apps = useMemo(
 		() =>
@@ -102,14 +100,14 @@ const ApplicationsSelectionContainer = ({
 		[t, associationCell]
 	);
 
-	const handleNext = useCallback(() => {
+	const handleNext = useCallback((selRows: Application[]) => {
 		const newRequests = requestDraft.requests?.map(req => {
-			if (selectedRows?.find(app => app?.id === req.application?.id)) {
+			if (selRows?.find(app => app?.id === req.application?.id)) {
 				return { ...req, selected: true };
 			}
 			return { ...req, selected: false };
 		});
-		if (selectedRows?.length) {
+		if (selRows?.length) {
 			setRequestDraft(old => ({
 				...old,
 				requests: newRequests
@@ -146,7 +144,11 @@ const ApplicationsSelectionContainer = ({
 				/>
 			</FullWidthColumn>
 			<FullWidthColumn className='flex justify-end'>
-				<Button size='md' disabled={!selectedRows?.length} onClick={handleNext}>
+				<Button
+					size='md'
+					disabled={!selectedRows?.length}
+					onClick={() => handleNext(selectedRows)}
+				>
 					{t('modals:next')}
 				</Button>
 			</FullWidthColumn>

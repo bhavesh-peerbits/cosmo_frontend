@@ -44,7 +44,7 @@ const AssetsList = ({ assets }: AssetListProps) => {
 						{assets.some(a => a.type === 'DB') && (
 							<StructuredListCell>{asset.dbVersion ?? '-'}</StructuredListCell>
 						)}
-						<StructuredListCell>HERE GOES CPE</StructuredListCell>
+						<StructuredListCell>{asset.cpe}</StructuredListCell>
 					</StructuredListRow>
 				))}
 			</StructuredListBody>

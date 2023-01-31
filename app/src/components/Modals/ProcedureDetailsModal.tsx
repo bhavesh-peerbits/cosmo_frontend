@@ -112,7 +112,7 @@ const ProcedureDetailsModal = ({
 	};
 
 	return (
-		<Layer level={2}>
+		<Layer level={0}>
 			<ComposedModal
 				open={isOpen}
 				onClose={cleanUp}

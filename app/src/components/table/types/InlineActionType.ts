@@ -1,7 +1,8 @@
+import { Row } from '@tanstack/react-table';
 import { ReactNode } from 'react';
 
-export interface InlineActions {
+export interface InlineActions<T> {
 	label: string;
 	icon?: ReactNode;
-	onClick: () => void;
+	onClick: (row: Row<T>) => void;
 }

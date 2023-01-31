@@ -6,8 +6,7 @@ import {
 	Layer,
 	Button,
 	InlineLoading,
-	Tag,
-	FileUploaderDropContainer
+	Tag
 } from '@carbon/react';
 import { Information } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
@@ -15,8 +14,9 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import MonitoringDraft from '@model/MonitoringDraft';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
-import useSaveMonitoringDraft from '@api/change-monitoring/useSaveMonitoringDraft';
 import ApiError from '@api/ApiError';
+import useSaveDraftAdditionalInfo from '@api/change-monitoring-analyst/useSaveDraftAdditionalInfo';
+import { useParams } from 'react-router-dom';
 import AssetExpandableTile from './AssetExpandableTile';
 import AdditionalInfoStepContent from './AdditionalInfoStepContent';
 
@@ -39,8 +39,9 @@ const AdditionalInfoStepContainer = ({
 		'evidenceRequest',
 		'userRevalidation'
 	]);
-	const { mutate, isLoading, isError, isSuccess, error } = useSaveMonitoringDraft();
+	const { mutate, isLoading, isError, isSuccess, error } = useSaveDraftAdditionalInfo();
 	const [sameSetup, setSameSetup] = useState(false);
+	const { monitoringDraftId = '' } = useParams();
 	const [extensions, setExtensions] = useState<
 		{ extensions: string[]; assetId?: string }[]
 	>([]);
@@ -60,18 +61,14 @@ const AdditionalInfoStepContainer = ({
 
 	const saveDraft = (data: AdditionalInfoFormData) => {
 		return mutate({
-			draft: {
-				...draft,
-				note: data.note,
-				monitoringAssets: draft.monitoringAssets?.map(ma => {
-					return {
-						...ma,
-						extensions: extensions
-							?.find(el => el.assetId === ma.id)
-							?.extensions?.join('~')
-					};
-				})
-			}
+			monitoringId: monitoringDraftId,
+			note: data.note,
+			monitoringAssets: draft.monitoringAssets?.map(ma => {
+				return {
+					...ma,
+					extensions: extensions?.find(el => el.assetId === ma.id)?.extensions?.join('~')
+				};
+			})
 		});
 	};
 
@@ -84,19 +81,6 @@ const AdditionalInfoStepContainer = ({
 					placeholder={t('changeMonitoring:monitoring-note-placeholder')}
 				/>
 			</Layer>
-			<FullWidthColumn className='space-y-5'>
-				<div className='flex flex-col space-y-3'>
-					<span className='text-heading-compact-1'>
-						{t('changeMonitoring:example-files')}
-					</span>
-					<span className='text-text-secondary text-body-compact-1'>
-						{t('changeMonitoring:example-files-description')}
-					</span>
-				</div>
-				<FileUploaderDropContainer
-					labelText={t('userRevalidation:upload-instructions')}
-				/>
-			</FullWidthColumn>
 			<FullWidthColumn>
 				<Toggle
 					aria-label='Additional info toggle'

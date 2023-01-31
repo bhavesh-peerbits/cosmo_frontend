@@ -16,6 +16,11 @@ import {
 	applicationInfoFr,
 	applicationInfoIt
 } from '@i18n/locales/components/application-info';
+import {
+	applicationInstancesEn,
+	applicationInstancesFr,
+	applicationInstancesIt
+} from '@i18n/locales/components/application-instances';
 import { modalsEn, modalsFr, modalsIt } from '@i18n/locales/components/modals';
 import { changesEn, changesFr, changesIt } from '@i18n/locales/components/changes';
 import {
@@ -89,6 +94,7 @@ export default {
 		tiptapEditor: tiptapEditorEn,
 		table: tableEn,
 		applicationInfo: applicationInfoEn,
+		applicationInstances: applicationInstancesEn,
 		procedureInfo: procedureInfoEn,
 		modals: modalsEn,
 		changeMonitoring: changeMonitoringEn,
@@ -114,6 +120,7 @@ export default {
 		tiptapEditor: tiptapEditorIt,
 		table: tableIt,
 		applicationInfo: applicationInfoIt,
+		applicationInstances: applicationInstancesIt,
 		procedureInfo: procedureInfoIt,
 		modals: modalsIt,
 		changeMonitoring: changeMonitoringIt,
@@ -138,6 +145,7 @@ export default {
 		tiptapEditor: tiptapEditorFr,
 		table: tableFr,
 		applicationInfo: applicationInfoFr,
+		applicationInstances: applicationInstancesFr,
 		procedureInfo: procedureInfoFr,
 		modals: modalsFr,
 		changeMonitoring: changeMonitoringFr,

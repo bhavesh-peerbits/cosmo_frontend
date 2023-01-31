@@ -130,7 +130,6 @@ const GeneralInfo = ({
 					invalidText={errors.generalInfo?.name?.message}
 					labelText={`${t('applicationInfo:name')} *`}
 					placeholder={`${t('applicationInfo:name')}`}
-					helperText={`${t('applicationInfo:application-name')}`}
 					invalid={Boolean(errors.generalInfo?.name)}
 					{...register('generalInfo.name', {
 						required: {
@@ -150,7 +149,6 @@ const GeneralInfo = ({
 					invalidText={errors.generalInfo?.codeName?.message}
 					labelText={`${t('applicationInfo:code')} *`}
 					placeholder={`${t('applicationInfo:code')}`}
-					helperText={`${t('applicationInfo:application-acronym')}`}
 					invalid={Boolean(errors.generalInfo?.codeName)}
 					{...register('generalInfo.codeName', {
 						required: {

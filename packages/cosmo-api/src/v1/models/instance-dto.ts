@@ -15,7 +15,7 @@
 import { ApplicationDto } from './application-dto';
 
 /**
- * Monitoring\'s instance
+ *
  * @export
  * @interface InstanceDto
  */

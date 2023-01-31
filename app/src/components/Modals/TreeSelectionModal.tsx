@@ -8,7 +8,7 @@ import Framework from '@model/Framework';
 import { TreeView, TreeNode } from '@carbon/react';
 import { TrashCan } from '@carbon/react/icons';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import useGetFrameworkByCode from '@api/change-monitoring/useGetFrameworkByCode';
+import useGetFrameworkByCode from '@api/change-monitoring-analyst/useGetFrameworkByCode';
 
 type TreeSelectionModalProps = {
 	selectedFramework: string;

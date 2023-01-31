@@ -34,5 +34,6 @@
 	"application-info": "Application Info",
 	"procedure-info": "Procedure Info",
 	"changes": "Changes",
-	"created-by": "Created by"
+	"created-by": "Created by",
+	"instances": "Instances"
 }

@@ -40,7 +40,8 @@ const RevalidationsTable = () => {
 				sortUndefined: 1,
 				accessorFn: row => ({
 					name: row.campaign.name,
-					id: row.id
+					id: row.id,
+					preUrl: '/revalidations-ongoing'
 				}),
 				cell: CellLink
 			},

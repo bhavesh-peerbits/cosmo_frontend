@@ -5,18 +5,28 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import MultiAddSelect from '@components/MultiAddSelect';
 import User from '@model/User';
-import useGetMonitoringById from '@api/change-monitoring/useGetMonitoringById';
 import useGetUsersByRoles from '@api/user/useGetUsersByRoles';
-import useSetMonitoringCollaborator from '@api/change-monitoring/useSetMonitoringCollaborators';
+import useSetMonitoringCollaborator from '@api/change-monitoring-analyst/useSetMonitoringCollaborators';
+import Monitoring from '@model/Monitoring';
+import { UseQueryResult } from '@tanstack/react-query/build/lib/types';
+import useGetMonitoringById from '@api/change-monitoring-analyst/useGetMonitoringById';
 import CloseMonitoringModal from './Modals/CloseMonitoringModal';
 import EditFocalPointModal from './Modals/EditFocalPointModal';
 import MonitoringDetailsContent from './Containers/MonitoringDetailsContent';
 
-const MonitoringDetails = () => {
+type MonitoringDetailsProps = {
+	isFocalPoint?: boolean;
+	getMonitoringFn?: (monitoringId: string) => UseQueryResult<Monitoring, unknown>;
+};
+
+const MonitoringDetails = ({
+	isFocalPoint,
+	getMonitoringFn = useGetMonitoringById
+}: MonitoringDetailsProps) => {
 	const { t } = useTranslation(['evidenceRequest', 'userSelect', 'modals']);
 	const [modalToOpen, setModalToOpen] = useState<string>();
 	const { monitoringId = '' } = useParams();
-	const { data: monitoring } = useGetMonitoringById(monitoringId);
+	const { data: monitoring } = getMonitoringFn(monitoringId);
 	const { data: possibleCollab } = useGetUsersByRoles(
 		'MONITORING_ANALYST',
 		'MONITORING_ADMIN'
@@ -51,34 +61,40 @@ const MonitoringDetails = () => {
 		<PageHeader
 			pageTitle={monitoring?.name || ''}
 			intermediateRoutes={[
-				{ name: 'Change Monitoring Dashboard', to: '/monitoring-dashboard' }
+				isFocalPoint
+					? { name: 'Change Monitoring', to: '/change-monitoring' }
+					: { name: 'Change Monitoring Dashboard', to: '/monitoring-dashboard' }
 			]}
-			actions={[
-				{
-					name: t('evidenceRequest:collaborators'),
-					disabled: monitoring.status === 'TERMINATED',
-					onClick: () => {
-						setModalToOpen('collaborators');
-					},
-					icon: Collaborate
-				},
-				{
-					name: 'Focal Point',
-					disabled: monitoring.status === 'TERMINATED',
-					onClick: () => {
-						setModalToOpen('focalPoint');
-					},
-					icon: Group
-				},
-				{
-					name: t('evidenceRequest:close'),
-					disabled: monitoring.status === 'TERMINATED',
-					onClick: () => {
-						setModalToOpen('close');
-					},
-					icon: CloseOutline
-				}
-			]}
+			actions={
+				!isFocalPoint
+					? [
+							{
+								name: t('evidenceRequest:collaborators'),
+								disabled: monitoring.status === 'TERMINATED',
+								onClick: () => {
+									setModalToOpen('collaborators');
+								},
+								icon: Collaborate
+							},
+							{
+								name: 'Focal Point',
+								disabled: monitoring.status === 'TERMINATED',
+								onClick: () => {
+									setModalToOpen('focalPoint');
+								},
+								icon: Group
+							},
+							{
+								name: t('evidenceRequest:close'),
+								disabled: monitoring.status === 'TERMINATED',
+								onClick: () => {
+									setModalToOpen('close');
+								},
+								icon: CloseOutline
+							}
+					  ]
+					: []
+			}
 		>
 			<>
 				<CloseMonitoringModal

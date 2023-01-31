@@ -30,6 +30,12 @@ export interface FrameworkTree {
 	tenant?: Tenant;
 	/**
 	 *
+	 * @type {FrameworkTreeStatus}
+	 * @memberof FrameworkTree
+	 */
+	status?: FrameworkTreeStatus;
+	/**
+	 *
 	 * @type {number}
 	 * @memberof FrameworkTree
 	 */
@@ -42,10 +48,10 @@ export interface FrameworkTree {
 	parentId?: number;
 	/**
 	 *
-	 * @type {Set<Association>}
+	 * @type {Array<Association>}
 	 * @memberof FrameworkTree
 	 */
-	association?: Set<Association>;
+	association?: Array<Association>;
 	/**
 	 *
 	 * @type {string}
@@ -66,8 +72,8 @@ export interface FrameworkTree {
 	code?: string;
 	/**
 	 *
-	 * @type {FrameworkTreeStatus}
+	 * @type {string}
 	 * @memberof FrameworkTree
 	 */
-	status?: FrameworkTreeStatus;
+	rootCode?: string;
 }

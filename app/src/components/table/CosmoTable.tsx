@@ -31,8 +31,9 @@ import { useDebounce, useMount, useUnmount, useUpdateEffect } from 'ahooks';
 import { rankItem } from '@tanstack/match-sorter-utils';
 import usePaginationStore from '@hooks/pagination/usePaginationStore';
 import useExportTablePlugin from '@hooks/useExportTablePlugin';
-import { UseMutationResult } from '@tanstack/react-query';
-import { useTranslation } from 'react-i18next';
+import { FieldValues, SubmitHandler, UseFormReturn } from 'react-hook-form';
+import ApiError from '@api/ApiError';
+import { isAfter, isWithinInterval } from 'date-fns';
 import TablePagination from './TablePagination';
 import CosmoTableToolbarAction from './types/CosmoTableToolbarAction';
 import CosmoTableToolbarMenu from './types/CosmoTableToolbarMenu';
@@ -42,7 +43,7 @@ import TableHeaders from './TableHeaders';
 import TableInnerBody from './TableInnerBody';
 import TableBodySkeleton from './TableBodySkeleton';
 import CosmoTableToolbar from './CosmoTableToolbar';
-import TableFormTearsheet from './TableFormTearsheet';
+import TableFormTearsheet from './insert/TableFormTearsheet';
 import { InlineActions } from './types/InlineActionType';
 
 interface ToolbarProps<T extends object> {
@@ -55,26 +56,29 @@ interface ToolbarProps<T extends object> {
 	};
 }
 
-interface ModalProps {
+interface ModalProps<F extends FieldValues> {
 	title: string;
 	description?: string;
 	label?: string;
-	mutation: UseMutationResult<any, unknown, any, unknown>;
-	setMutationResult?: (value: any) => void;
-	mutationDefaultValues?: Record<string, any>;
+	error?: ApiError;
+	isError?: boolean;
+	isSuccess?: boolean;
+	form: UseFormReturn<F>;
+	onSubmit: SubmitHandler<F>;
 }
 
 type SubRows<T> = object & {
 	subRows?: T[];
 };
 
-interface CosmoTableProps<T extends SubRows<T>> {
-	columns: ColumnDef<T>[];
+interface CosmoTableProps<T extends SubRows<T>, F extends FieldValues = never> {
+	columns: ColumnDef<T, unknown, F>[];
 	data: T[];
 	tableId: string;
 	isSelectable?: boolean | 'radio';
 	isExpandable?: boolean;
 	isColumnOrderingEnabled?: boolean;
+	disableToolbarBatchAction?: boolean;
 	// isInlineAdd?: boolean;
 	exportFileName?: (param: {
 		fileType: AvailableFileType;
@@ -95,8 +99,8 @@ interface CosmoTableProps<T extends SubRows<T>> {
 	noDataMessageSubtitle?: string;
 	canEdit?: boolean;
 	canDelete?: boolean;
-	modalProps?: ModalProps;
-	inlineActions?: InlineActions[];
+	modalProps?: ModalProps<F>;
+	inlineActions?: InlineActions<T>[];
 	// modalContent?: FC<{ row: Row<T> | undefined; closeModal: () => void; edit: boolean }>;
 	onDelete?: (rows: Row<T>[]) => void;
 }
@@ -124,13 +128,14 @@ const tableSizes: Record<TableSize, { value: number; label: string }> = {
 	}
 };
 
-const CosmoTable = <T extends SubRows<T>>({
+const CosmoTable = <T extends SubRows<T>, F extends FieldValues = never>({
 	columns,
 	modalProps,
 	data: tableData,
 	isSelectable,
 	isExpandable,
 	isColumnOrderingEnabled,
+	disableToolbarBatchAction,
 	canAdd = false,
 	// isInlineAdd = false,
 	canEdit = false,
@@ -152,15 +157,19 @@ const CosmoTable = <T extends SubRows<T>>({
 	noDataMessageSubtitle,
 	onDelete,
 	inlineActions
-}: CosmoTableProps<T>) => {
+}: CosmoTableProps<T, F>) => {
 	const data = useMemo(() => tableData, [tableData]);
-	const { t } = useTranslation('table');
 	if (inlineActions) {
 		columns.push({
-			header: t('actions'),
+			header: '',
 			accessorFn: row => row,
 			accessorKey: 'rowActions',
-			meta: { disableExport }
+			meta: { disableExport: true },
+			enableResizing: false,
+			enableSorting: false,
+			size: 30,
+			maxSize: 30,
+			minSize: 30
 		});
 	}
 
@@ -190,6 +199,20 @@ const CosmoTable = <T extends SubRows<T>>({
 	});
 
 	// FILTER
+	const dateFilter: FilterFn<T> = useCallback((row, columnId, value) => {
+		if (value instanceof Array) {
+			const [start, end] = value;
+			return start && end
+				? isWithinInterval(row.getValue(columnId), { start, end })
+				: isAfter(row.getValue(columnId), start);
+		}
+		return false;
+	}, []);
+	const checkboxFilter: FilterFn<T> = useCallback((row, columnId, value) => {
+		if (value.length === 0) return true;
+		const rowValue = row.getValue(columnId);
+		return (value as string[]).some(v => v === rowValue);
+	}, []);
 	const fuzzyFilter: FilterFn<T> = useCallback((row, columnId, value, addMeta) => {
 		// Rank the item
 		const itemRank = rankItem(row.getValue(columnId), value);
@@ -209,13 +232,15 @@ const CosmoTable = <T extends SubRows<T>>({
 
 	const table = useReactTable({
 		data,
-		columns,
+		columns: columns as ColumnDef<T>[],
 		autoResetPageIndex: false,
 		manualPagination: Boolean(serverSidePagination),
 		manualFiltering: Boolean(serverSidePagination),
 		columnResizeMode: 'onChange',
 		enableMultiRowSelection: isSelectable !== 'radio',
 		filterFns: {
+			dateCompare: dateFilter,
+			checkboxCompare: checkboxFilter,
 			fuzzy: fuzzyFilter
 		},
 		globalFilterFn: fuzzyFilter,
@@ -289,11 +314,16 @@ const CosmoTable = <T extends SubRows<T>>({
 
 	return (
 		<>
-			<TableContainer title={title} description={description}>
+			<TableContainer
+				title={title}
+				description={description}
+				data-floating-menu-container
+			>
 				<CosmoTableToolbar
 					disableExport={disableExport}
 					searchBar={toolbar?.searchBar}
 					onExportClick={exportData}
+					disableToolbarBatchAction={disableToolbarBatchAction}
 					onSearch={value => setGlobalFilter(value)}
 					selectionRows={selectedRows}
 					onCancel={() => table.toggleAllRowsSelected(false)}
@@ -316,7 +346,6 @@ const CosmoTable = <T extends SubRows<T>>({
 					setColumnOrder={table.setColumnOrder}
 					setColumnVisibility={table.setColumnVisibility}
 					tableId={tableId}
-					prefilteredValues={table.getPreFilteredRowModel().flatRows[0]}
 				/>
 				<div className='relative overflow-hidden'>
 					<div
@@ -394,8 +423,8 @@ const CosmoTable = <T extends SubRows<T>>({
 			{modalProps && (
 				<TableFormTearsheet
 					isOpen={isModalOpen}
-					setIsOpen={() => setIsModalOpen(false)}
-					columns={columns}
+					columns={allLeafColumns}
+					onClose={() => setIsModalOpen(false)}
 					{...modalProps}
 				/>
 			)}

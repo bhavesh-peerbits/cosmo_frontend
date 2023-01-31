@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { Column, flexRender, RowData } from '@tanstack/react-table';
 import DateFilter from '@components/table/filter/DateFilter';
 import NumberFilter from '@components/table/filter/NumberFilter';
@@ -10,7 +10,6 @@ import DropdownFilter from '@components/table/filter/DropdownFilter';
 
 interface FilterElementProps<T extends object> {
 	column: Column<T, RowData>;
-	prefilteredValue: unknown;
 	filterContainerRef: HTMLElement;
 	filteredValue: unknown;
 	onFilterChange: (value: unknown) => void;
@@ -19,17 +18,17 @@ interface FilterElementProps<T extends object> {
 
 const FilterElement = <T extends object>({
 	column,
-	prefilteredValue,
 	filterContainerRef,
 	filteredValue,
 	onFilterChange,
 	tableId
 }: FilterElementProps<T>) => {
-	const firstValue = useRef(prefilteredValue).current;
-	const facetUniqueValues = column.getFacetedUniqueValues().keys();
-
+	const [facetUniqueValues] = useState(
+		[...column.getFacetedUniqueValues().keys()].filter(v => Boolean(v))
+	);
+	const firstValue = useRef(facetUniqueValues.at(0)).current;
 	const sortedUniqueValues = useMemo(
-		() => (typeof firstValue === 'string' ? Array.from(facetUniqueValues).sort() : []),
+		() => (typeof firstValue === 'string' ? facetUniqueValues.sort() : []),
 		[facetUniqueValues, firstValue]
 	);
 
@@ -46,7 +45,6 @@ const FilterElement = <T extends object>({
 		tableId,
 		label
 	};
-
 	switch (typeof firstValue) {
 		case 'number':
 			return <NumberFilter {...filterProps} />;

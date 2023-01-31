@@ -1,5 +1,5 @@
 import ApiError from '@api/ApiError';
-import useStartMonitoring from '@api/change-monitoring/useStartMonitoring';
+import useStartMonitoring from '@api/change-monitoring-analyst/useStartMonitoring';
 import {
 	ComposedModal,
 	ModalHeader,

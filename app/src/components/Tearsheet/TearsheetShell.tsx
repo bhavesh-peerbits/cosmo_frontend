@@ -270,7 +270,7 @@ const TearsheetShell = React.forwardRef<HTMLDivElement, TearsheetShellProps>(
 									>
 										{title}
 									</Wrap>
-									<Wrap className='mt-5 max-w-full overflow-hidden text-text-secondary line-clamp-2 text-body-short-1 md:max-w-[60%]'>
+									<Wrap className='mt-5 max-w-full overflow-hidden text-text-secondary line-clamp-2 text-body-short-1'>
 										{description}
 									</Wrap>
 								</Wrap>

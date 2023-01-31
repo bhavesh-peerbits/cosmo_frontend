@@ -78,9 +78,9 @@ const applyFilters = (
 						: true
 				)
 				.filter(request =>
-					filters.maxStartDate
-						? request.scheduling.startDate &&
-						  isBefore(request.scheduling.startDate, new Date(filters.maxStartDate))
+					filters.maxEndDate
+						? request.scheduling.endDate &&
+						  isBefore(request.scheduling.endDate, new Date(filters.maxEndDate))
 						: true
 				)
 				// filter by frequency
@@ -110,7 +110,7 @@ const applyFilters = (
 						: filters.tab === 2
 						? monitoring.status === 'ONGOING'
 						: filters.tab === 3
-						? monitoring.status === 'COMPLETED'
+						? monitoring.status === 'COMPLETED' || monitoring.status === 'TERMINATED'
 						: monitoring
 				)
 		);

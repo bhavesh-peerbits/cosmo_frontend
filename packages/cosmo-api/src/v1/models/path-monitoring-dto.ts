@@ -29,7 +29,7 @@ export interface PathMonitoringDto {
 	 * @type {number}
 	 * @memberof PathMonitoringDto
 	 */
-	id: number;
+	id?: number;
 	/**
 	 * The path
 	 * @type {string}

@@ -28,7 +28,7 @@ interface TableInnerBodyProps<T> {
 	noDataMessageSubtitle?: string;
 	isExpandable: boolean | undefined;
 	SubComponent?: FC<{ row: Row<T> }>;
-	inlineActions?: InlineActions[];
+	inlineActions?: InlineActions<T>[];
 }
 
 const TableInnerBody = <T extends object>({
@@ -90,6 +90,7 @@ TableInnerBodyProps<T>) => {
 							))}
 
 						{visibleCells.map((cell, index) => {
+							if (inlineActions?.length && index === visibleCells.length - 1) return null;
 							return (
 								<TableCell key={cell.id}>
 									<div
@@ -111,23 +112,33 @@ TableInnerBodyProps<T>) => {
 							);
 						})}
 						{inlineActions && (
-							<OverflowMenu
-								ariaLabel='Actions'
-								iconDescription={t('actions')}
-								direction='top'
-							>
-								{inlineActions.map(action => (
-									<OverflowMenuItem
-										itemText={
-											<div className='flex space-x-3'>
-												{action.icon && action.icon}
-												<div>{action.label}</div>
-											</div>
-										}
-										onClick={() => action.onClick()}
-									/>
-								))}
-							</OverflowMenu>
+							<TableCell key='action'>
+								<div
+									className='flex h-full w-full items-center'
+									style={{
+										paddingLeft: `${row.depth * 2}rem`
+									}}
+								>
+									<OverflowMenu
+										ariaLabel='Actions'
+										iconDescription={t('actions')}
+										direction='top'
+										flipped
+									>
+										{inlineActions.map(action => (
+											<OverflowMenuItem
+												itemText={
+													<div className='flex space-x-3'>
+														{action.icon && action.icon}
+														<div>{action.label}</div>
+													</div>
+												}
+												onClick={() => action.onClick(row)}
+											/>
+										))}
+									</OverflowMenu>
+								</div>
+							</TableCell>
 						)}
 					</ExpandableRow>
 				);

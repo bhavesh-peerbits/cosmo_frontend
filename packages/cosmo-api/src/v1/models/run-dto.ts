@@ -66,6 +66,12 @@ export interface RunDto {
 	focalPoint?: UserDto;
 	/**
 	 *
+	 * @type {string}
+	 * @memberof RunDto
+	 */
+	dueDate?: string;
+	/**
+	 *
 	 * @type {Array<UserDto>}
 	 * @memberof RunDto
 	 */

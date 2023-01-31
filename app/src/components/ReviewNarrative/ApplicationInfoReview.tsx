@@ -128,7 +128,7 @@ const ApplicationInfoReview = ({ application }: ApplicationInfoReviewProps) => {
 								<Button
 									className='mr-5'
 									type='reset'
-									kind='tertiary'
+									kind='secondary'
 									disabled={!isDirty || isSuccess}
 									onClick={() => {
 										reset();

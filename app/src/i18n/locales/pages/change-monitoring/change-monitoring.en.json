@@ -147,5 +147,10 @@
 	"PENDING": "Pending",
 	"already-monitored-toast": "Warning! Some paths are already monitored",
 	"already-monitored-description": "Paths already present in other monitors have been added. To remove them from this monitoring select the paths and click Exclude.",
-	"no-extensions": "No extensions"
+	"no-extensions": "No extensions",
+	"min-start-date": "Minimum start date",
+	"max-start-date": "Maximum start date",
+	"min-end-date": "Minimum end date",
+	"max-end-date": "Maximum end date",
+	"no-monitoring-subtitle": "No monitoring found for this table, try changing your filters or try again later."
 }

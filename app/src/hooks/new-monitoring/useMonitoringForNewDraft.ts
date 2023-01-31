@@ -1,7 +1,7 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useEffect } from 'react';
 import useUrlState from '@hooks/useUrlState';
-import useGetAllMonitoring from '@api/change-monitoring/useGetAllMonitoring';
+import useGetAllMonitoring from '@api/change-monitoring-analyst/useGetAllMonitoring';
 import {
 	newDraftFilters,
 	newDraftMonitorings,
