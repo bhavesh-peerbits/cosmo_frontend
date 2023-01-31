@@ -1,25 +1,22 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@api';
+import RunAsset, { toRunAssetApi } from '@model/RunAsset';
 
 interface AddPathToAnAssetRunParameters {
-	path: string;
-	runId: string;
-	assetId: string;
+	runAssets: RunAsset[];
 }
 
-const addPathToAnAssetRun = ({ path, runId, assetId }: AddPathToAnAssetRunParameters) => {
-	return api.analystChangeMonitoringControllerApi.addPathRun({
-		assetId: +assetId,
-		body: path,
-		runId: +runId
+const addPathToAnAssetRun = ({ runAssets }: AddPathToAnAssetRunParameters) => {
+	return api.analystChangeMonitoringControllerApi.saveRunAsset({
+		runAssetDto: runAssets.map(toRunAssetApi)
 	});
 };
 
 const useAddPathToAnAssetRun = () => {
 	const queryClient = useQueryClient();
 	return useMutation(addPathToAnAssetRun, {
-		onSuccess: (data, variables) => {
-			queryClient.invalidateQueries(['run-monitoring', variables.runId]);
+		onSuccess: () => {
+			queryClient.invalidateQueries(['run-monitoring']);
 		}
 	});
 };

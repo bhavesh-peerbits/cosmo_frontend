@@ -52,8 +52,6 @@ export * from './inline-object12';
 export * from './inline-object14';
 export * from './inline-object15';
 export * from './inline-object17';
-export * from './inline-object18';
-export * from './inline-object21';
 export * from './inline-object9';
 export * from './instance';
 export * from './instance-asset-dto';
