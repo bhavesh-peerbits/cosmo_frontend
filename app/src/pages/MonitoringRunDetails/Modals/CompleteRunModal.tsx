@@ -6,7 +6,6 @@ import {
 	ModalHeader,
 	InlineNotification
 } from '@carbon/react';
-import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction } from 'react';
 import Run from '@model/Run';
@@ -35,9 +34,7 @@ const CompleteRunModal = ({
 	monitoringName,
 	closeCompleteRunFn
 }: CompleteRunProps) => {
-	const navigate = useNavigate();
 	const { t } = useTranslation(['modals', 'runDetails']);
-	const { monitoringId = '' } = useParams();
 	const { mutate, isError, error, isLoading, reset } = closeCompleteRunFn();
 
 	const cleanUp = () => {
@@ -51,7 +48,6 @@ const CompleteRunModal = ({
 			{
 				onSuccess: () => {
 					cleanUp();
-					navigate(`/monitoring-dashboard/${monitoringId}`);
 				}
 			}
 		);

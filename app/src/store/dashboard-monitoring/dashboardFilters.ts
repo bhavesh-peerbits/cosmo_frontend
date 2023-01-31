@@ -110,7 +110,7 @@ const applyFilters = (
 						: filters.tab === 2
 						? monitoring.status === 'ONGOING'
 						: filters.tab === 3
-						? monitoring.status === 'COMPLETED'
+						? monitoring.status === 'COMPLETED' || monitoring.status === 'TERMINATED'
 						: monitoring
 				)
 		);

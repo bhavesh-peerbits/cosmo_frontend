@@ -61,7 +61,15 @@ const UploadFileContent = ({ run }: UploadFileContentProps) => {
 					<Button
 						size='md'
 						onClick={() => calculateDelta()}
-						disabled={run.status !== 'UPLOAD'}
+						disabled={
+							run.status !== 'UPLOAD' ||
+							!run.runAsset.every(
+								runAsset =>
+									runAsset.runFileLinks?.length === runAsset.paths.length * 2 &&
+									runAsset.runFileLinks.filter(file => file.old).length ===
+										runAsset.paths.length
+							)
+						}
 					>
 						{t('changeMonitoring:save-next')}
 					</Button>

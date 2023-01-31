@@ -197,7 +197,8 @@ const DeltaResultTable = ({
 			<CosmoTable
 				tableId='delta-table'
 				columns={columns}
-				noDataMessage={t('table:no-data')}
+				noDataMessage={t('runDetails:no-data-delta')}
+				noDataMessageSubtitle={t('runDetails:no-delta-subtitle')}
 				isColumnOrderingEnabled
 				toolbar={{
 					searchBar: true,

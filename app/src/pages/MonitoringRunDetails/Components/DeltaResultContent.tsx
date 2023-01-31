@@ -139,6 +139,10 @@ const DeltaResultContent = ({
 					<Button
 						size='md'
 						onClick={() => {
+							run.deltas?.flatMap(delta =>
+								delta.deltaAnswers?.flatMap(deltaAnswer => deltaAnswer.deltaFiles)
+							).length === 0 ||
+							run.status === 'WAITING_FOR_FOCALPOINT' ||
 							run.deltas?.every(delta =>
 								delta.deltaAnswers?.every(d => d.justification?.status !== 'NONE')
 							)
@@ -146,7 +150,10 @@ const DeltaResultContent = ({
 								: setModalToOpen('send-focal-point');
 						}}
 					>
-						{run.status === 'WAITING_FOR_FOCALPOINT' ||
+						{run.deltas?.flatMap(delta =>
+							delta.deltaAnswers?.flatMap(deltaAnswer => deltaAnswer.deltaFiles)
+						).length === 0 ||
+						run.status === 'WAITING_FOR_FOCALPOINT' ||
 						run.deltas?.every(delta =>
 							delta.deltaAnswers?.every(d => d.justification?.status !== 'NONE')
 						)

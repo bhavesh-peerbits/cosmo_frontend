@@ -67,5 +67,7 @@
 	"upload-answers-description": "Upload the file containing the answers",
 	"terminated": "Terminated",
 	"terminated-on": "Terminated on",
-	"remove-answer": "Remove answer"
+	"remove-answer": "Remove answer",
+	"no-data-delta": "No data",
+	"no-delta-subtitle": "No delta found for this run"
 }
