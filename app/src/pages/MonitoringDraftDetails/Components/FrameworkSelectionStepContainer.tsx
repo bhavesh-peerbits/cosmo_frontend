@@ -24,14 +24,14 @@ import {
 import { useTranslation } from 'react-i18next';
 import Framework from '@model/Framework';
 import User from '@model/User';
-import useGetFrameworkCodes from '@api/change-monitoring/useGetFrameworkCodes';
+import useGetFrameworkCodes from '@api/change-monitoring-analyst/useGetFrameworkCodes';
 import Association from '@model/Association';
-import useGetControls from '@api/change-monitoring/useGetControls';
+import useGetControls from '@api/change-monitoring-analyst/useGetControls';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';
 import MonitoringDraft from '@model/MonitoringDraft';
 import useGetFrameworkTreeByCode from '@api/framework/useGetFrameworkTreeByCode';
-import useSaveDraftAssociation from '@api/change-monitoring/useSaveDraftAssociation';
+import useSaveDraftAssociation from '@api/change-monitoring-analyst/useSaveDraftAssociation';
 import { useParams } from 'react-router-dom';
 import AssociationSelectionList from './AssociationSelectionList';
 import MultipleControlSelect from './MultipleControlSelect';

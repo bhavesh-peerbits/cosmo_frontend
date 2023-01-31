@@ -1,4 +1,4 @@
-import useGetAllFilesAnswer from '@api/change-monitoring/useGetAllFilesAnswer';
+import useGetAllFilesAnswer from '@api/change-monitoring-analyst/useGetAllFilesAnswer';
 import useGetFile from '@api/uploaders3/useGetFile';
 import { Tag, Button } from '@carbon/react';
 import { Download } from '@carbon/react/icons';

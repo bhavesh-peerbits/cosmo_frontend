@@ -18,7 +18,7 @@ const saveAnswerWithFile = ({
 	fileLinks,
 	text
 }: SaveAnswerWithFileParameters) => {
-	return api.analystChangeMonitoringControllerApi.saveAnswerWithFile({
+	return api.changeMonitoringControllerApi.saveAnswerWithFile({
 		deltaId,
 		answer: {
 			deltaFilesId,

@@ -14,7 +14,7 @@ const saveAnswerWithFileUploaded = ({
 	deltaId,
 	text
 }: SaveAnswerWithFileUploadedParameters) => {
-	return api.analystChangeMonitoringControllerApi.saveAnswerWithFileAlreadyUploaded({
+	return api.changeMonitoringControllerApi.saveAnswerWithFileAlreadyUploaded({
 		deltaId,
 		answerFileAlreadyUploadedDto: {
 			text,

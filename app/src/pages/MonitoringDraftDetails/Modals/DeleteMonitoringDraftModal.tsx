@@ -1,5 +1,5 @@
 import ApiError from '@api/ApiError';
-import useDeleteMonitoringDraft from '@api/change-monitoring/useDeleteMonitoringDraft';
+import useDeleteMonitoringDraft from '@api/change-monitoring-analyst/useDeleteMonitoringDraft';
 import {
 	Button,
 	ComposedModal,

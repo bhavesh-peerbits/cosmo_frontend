@@ -7,6 +7,7 @@ api/analyst-change-monitoring-controller-api.ts
 api/application-controller-api.ts
 api/asset-controller-api.ts
 api/auth-controller-api.ts
+api/change-monitoring-controller-api.ts
 api/config-element-controller-api.ts
 api/config-element-module-controller-api.ts
 api/csv-reader-controller-api.ts

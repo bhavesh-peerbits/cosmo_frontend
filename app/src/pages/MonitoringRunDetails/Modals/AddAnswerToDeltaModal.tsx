@@ -1,6 +1,4 @@
 import ApiError from '@api/ApiError';
-import useSaveAnswerWithFile from '@api/change-monitoring/useSaveAnswerWithFile';
-import useSaveAnswerWithoutFile from '@api/change-monitoring/useSaveAnswerWithoutFile';
 import {
 	Form,
 	MultiSelect,
@@ -26,6 +24,8 @@ import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 import { useParams } from 'react-router-dom';
 import useSaveAnswerWithFileUploaded from '@api/change-monitoring/useSaveAnswerWithFileUploaded';
+import useSaveAnswerWithFile from '@api/change-monitoring/useSaveAnswerWithFile';
+import useSaveAnswerWithoutFile from '@api/change-monitoring/useSaveAnswerWithoutFile';
 
 export interface DeltaTableRowType {
 	givenBy?: string | undefined;

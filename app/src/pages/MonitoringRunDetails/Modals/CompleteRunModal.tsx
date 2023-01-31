@@ -10,7 +10,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction } from 'react';
 import Run from '@model/Run';
-import useCloseCompletedRun from '@api/change-monitoring/useCloseCompletedRun';
+import useCloseCompletedRun from '@api/change-monitoring-analyst/useCloseCompletedRun';
 import ApiError from '@api/ApiError';
 
 type CompleteRunProps = {

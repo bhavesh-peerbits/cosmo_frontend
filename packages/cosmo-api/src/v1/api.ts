@@ -18,6 +18,7 @@ export * from './api/analyst-change-monitoring-controller-api';
 export * from './api/application-controller-api';
 export * from './api/asset-controller-api';
 export * from './api/auth-controller-api';
+export * from './api/change-monitoring-controller-api';
 export * from './api/config-element-controller-api';
 export * from './api/config-element-module-controller-api';
 export * from './api/csv-reader-controller-api';

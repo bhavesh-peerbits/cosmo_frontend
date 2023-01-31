@@ -15,7 +15,7 @@ const saveAnswerWithoutFile = ({
 	deltaFilesId,
 	deltaId
 }: SaveAnswerWithoutFileParameters) => {
-	return api.analystChangeMonitoringControllerApi.saveAnswerWithoutFile({
+	return api.changeMonitoringControllerApi.saveAnswerWithoutFile({
 		deltaId,
 		answerMonitoringDto: {
 			text,

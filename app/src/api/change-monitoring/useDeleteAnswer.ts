@@ -7,7 +7,7 @@ interface DeleteAnswerParameters {
 }
 
 const deleteAnswer = ({ deltaId, justificationId }: DeleteAnswerParameters) => {
-	return api.analystChangeMonitoringControllerApi.deleteAnswer({
+	return api.changeMonitoringControllerApi.deleteAnswer({
 		deltaId,
 		justificationId
 	});

@@ -3,7 +3,7 @@ import { Column, Grid, Layer, Search } from '@carbon/react';
 import PageHeader from '@components/PageHeader';
 import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction, useMemo, useState } from 'react';
-import useGetAllMonitoringDrafts from '@api/change-monitoring/useGetAllMonitoringDrafts';
+import useGetAllMonitoringDrafts from '@api/change-monitoring-analyst/useGetAllMonitoringDrafts';
 import Centered from '@components/Centered';
 import NoDataMessage from '@components/NoDataMessage';
 import MonitoringDraft from '@model/MonitoringDraft';

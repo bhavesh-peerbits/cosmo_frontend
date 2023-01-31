@@ -1,12 +1,12 @@
 import FullWidthColumn from '@components/FullWidthColumn';
-import useGetAllScripts from '@api/change-monitoring/useGetAllScripts';
+import useGetAllScripts from '@api/change-monitoring-analyst/useGetAllScripts';
 import { Dispatch, SetStateAction, useState } from 'react';
 import MonitoringDraft from '@model/MonitoringDraft';
 import { Button, InlineLoading } from '@carbon/react';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';
 import { useTranslation } from 'react-i18next';
-import useSaveDraftScript from '@api/change-monitoring/useSaveDraftScript';
+import useSaveDraftScript from '@api/change-monitoring-analyst/useSaveDraftScript';
 import { useParams } from 'react-router-dom';
 import AssetsList from './AssetsList';
 import OSScriptListContainer from './OSScriptListContainer';

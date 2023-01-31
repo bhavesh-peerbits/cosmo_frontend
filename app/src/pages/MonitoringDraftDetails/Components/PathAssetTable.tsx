@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { PathMonitoringDto, RunDtoStatusEnum } from 'cosmo-api/src/v1';
 import useNotification from '@hooks/useNotification';
 import { useForm } from 'react-hook-form';
-import useCheckPathAssetMonitoring from '@api/change-monitoring/useCheckPathsAsset';
+import useCheckPathAssetMonitoring from '@api/change-monitoring-analyst/useCheckPathsAsset';
 import { RunMonitoringAsset } from '../types/RunMonitoringAsset';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

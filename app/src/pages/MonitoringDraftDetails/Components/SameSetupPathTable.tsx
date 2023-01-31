@@ -5,7 +5,7 @@ import { MisuseOutline, CheckmarkOutline } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { AssetOsEnum, PathMonitoringDto } from 'cosmo-api/src/v1';
 import useNotification from '@hooks/useNotification';
-import useCheckPathsMultiAsset from '@api/change-monitoring/useCheckPathsMultiAssets';
+import useCheckPathsMultiAsset from '@api/change-monitoring-analyst/useCheckPathsMultiAssets';
 import { useForm } from 'react-hook-form';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

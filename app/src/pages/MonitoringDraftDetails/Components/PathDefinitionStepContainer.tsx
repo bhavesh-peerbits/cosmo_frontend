@@ -7,7 +7,7 @@ import MonitoringDraft from '@model/MonitoringDraft';
 import ApiError from '@api/ApiError';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import { PathMonitoringDto } from 'cosmo-api/src/v1';
-import useSaveDraftPath from '@api/change-monitoring/useSaveDraftPath';
+import useSaveDraftPath from '@api/change-monitoring-analyst/useSaveDraftPath';
 import PathAssetTable from './PathAssetTable';
 import AssetExpandableTile from './AssetExpandableTile';
 import SameSetupPathTable from './SameSetupPathTable';

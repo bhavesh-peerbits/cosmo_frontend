@@ -7,9 +7,9 @@ interface UploadCsvAnswerParameters {
 }
 
 const uploadCsvAnswer = ({ file, deltaId }: UploadCsvAnswerParameters) => {
-	return api.analystChangeMonitoringControllerApi.uploadCsvAnswer1({
+	return api.changeMonitoringControllerApi.uploadCsvAnswer({
 		deltaId,
-		file
+		inlineObject17: { file }
 	});
 };
 

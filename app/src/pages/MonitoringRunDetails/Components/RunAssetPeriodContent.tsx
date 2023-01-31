@@ -7,7 +7,7 @@ import FileLink from '@model/FileLink';
 import { useRecoilState } from 'recoil';
 import addFileToRunAssetStore from '@store/run-details/addFileToRunAssetStore';
 import { useEffect } from 'react';
-import useGetFileFromCurrentPeriodPreviousRun from '@api/change-monitoring/useGetFileFromCurrentPeriodPreviousRun';
+import useGetFileFromCurrentPeriodPreviousRun from '@api/change-monitoring-analyst/useGetFileFromCurrentPeriodPreviousRun';
 import { useParams } from 'react-router-dom';
 import FileUploadTable from './FileUploadTable';
 

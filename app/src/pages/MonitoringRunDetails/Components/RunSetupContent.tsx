@@ -1,8 +1,8 @@
 import ApiError from '@api/ApiError';
-import useAddPathToAllAssetRun from '@api/change-monitoring/useAddPathToAllAssetRun';
-import useAddPathToAnAssetRun from '@api/change-monitoring/useAddPathToAnAssetRun';
-import useGoNextStepRun from '@api/change-monitoring/useGoNextStepRun';
-import useSaveNotesRun from '@api/change-monitoring/useSaveNotesRun';
+import useAddPathToAllAssetRun from '@api/change-monitoring-analyst/useAddPathToAllAssetRun';
+import useAddPathToAnAssetRun from '@api/change-monitoring-analyst/useAddPathToAnAssetRun';
+import useGoNextStepRun from '@api/change-monitoring-analyst/useGoNextStepRun';
+import useSaveNotesRun from '@api/change-monitoring-analyst/useSaveNotesRun';
 import { Toggle, TextArea, Button, Tooltip, InlineLoading, Layer } from '@carbon/react';
 import { Information } from '@carbon/react/icons';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';

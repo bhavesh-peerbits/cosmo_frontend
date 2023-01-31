@@ -1,6 +1,6 @@
-import useAddFileAlreadyUpForDelta from '@api/change-monitoring/useAddFileAlreadyUpForDelta';
-import useAddFileForDelta from '@api/change-monitoring/useAddFileForDelta';
-import useAddOldRunFileForDelta from '@api/change-monitoring/useAddOldRunFileForDelta';
+import useAddFileAlreadyUpForDelta from '@api/change-monitoring-analyst/useAddFileAlreadyUpForDelta';
+import useAddFileForDelta from '@api/change-monitoring-analyst/useAddFileForDelta';
+import useAddOldRunFileForDelta from '@api/change-monitoring-analyst/useAddOldRunFileForDelta';
 import { RadioButton, RadioButtonGroup, Select, SelectItem, Layer } from '@carbon/react';
 import UploaderS3Monitoring from '@components/common/UploaderS3Monitoring';
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';

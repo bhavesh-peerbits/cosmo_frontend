@@ -3,7 +3,7 @@ import { Layer, Tile, Grid, Button } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
 import { Report } from '@carbon/react/icons';
-import useGetMonitoringDraftById from '@api/change-monitoring/useGetMonitoringDraftById';
+import useGetMonitoringDraftById from '@api/change-monitoring-analyst/useGetMonitoringDraftById';
 import { useParams } from 'react-router-dom';
 import MonitoringDraftRecapModal from '../Modals/MonitoringDraftRecapModal';
 

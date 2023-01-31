@@ -3,7 +3,7 @@ import { Button, SwitcherDivider, Layer, DataTableSkeleton } from '@carbon/react
 import AssetExpandableTile from '@pages/MonitoringDraftDetails/Components/AssetExpandableTile';
 import Run from '@model/Run';
 import { Suspense } from 'react';
-import useCalculateDelta from '@api/change-monitoring/useCalculateDelta';
+import useCalculateDelta from '@api/change-monitoring-analyst/useCalculateDelta';
 import ApiError from '@api/ApiError';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import AddFileToPathModal from '../Modals/AddFileToPathModal';

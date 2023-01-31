@@ -18,7 +18,7 @@ import { SchedulingDtoDayOfWeekEnum, SchedulingDtoFrequencyEnum } from 'cosmo-ap
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';
 import DatePickerWrapper from '@components/DatePickerWrapper';
-import useSaveDraftScheduling from '@api/change-monitoring/useSaveDraftScheduling';
+import useSaveDraftScheduling from '@api/change-monitoring-analyst/useSaveDraftScheduling';
 import { useParams } from 'react-router-dom';
 import SchedulingTotalRunsContainer from './SchedulingTotalRunsContainer';
 

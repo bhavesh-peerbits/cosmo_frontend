@@ -16,7 +16,7 @@ import { useForm } from 'react-hook-form';
 import MonitoringDraft from '@model/MonitoringDraft';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';
-import useSaveDraftAdditionalInfo from '@api/change-monitoring/useSaveDraftAdditionalInfo';
+import useSaveDraftAdditionalInfo from '@api/change-monitoring-analyst/useSaveDraftAdditionalInfo';
 import { useParams } from 'react-router-dom';
 import AssetExpandableTile from './AssetExpandableTile';
 import AdditionalInfoStepContent from './AdditionalInfoStepContent';

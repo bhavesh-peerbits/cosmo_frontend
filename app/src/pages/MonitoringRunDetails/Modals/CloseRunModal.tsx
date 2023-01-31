@@ -9,7 +9,7 @@ import {
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction } from 'react';
-import useTerminateRunMonitoring from '@api/change-monitoring/useTerminateRunMonitoring';
+import useTerminateRunMonitoring from '@api/change-monitoring-analyst/useTerminateRunMonitoring';
 import ApiError from '@api/ApiError';
 
 type CloseRunProps = {

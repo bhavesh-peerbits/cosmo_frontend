@@ -8,7 +8,7 @@ export default async function getCsvAnswer({
 	deltaId,
 	deltaFilesIds
 }: GetCsvAnswerParams) {
-	return api.analystChangeMonitoringControllerApi.getCsvAnswer1(
+	return api.changeMonitoringControllerApi.getCsvAnswer(
 		{
 			deltaId,
 			requestBody: deltaFilesIds
