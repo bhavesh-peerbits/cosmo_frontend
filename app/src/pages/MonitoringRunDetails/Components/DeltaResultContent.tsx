@@ -108,12 +108,13 @@ const DeltaResultContent = ({ run, monitoringName }: DeltaResultContentProps) =>
 				run={run}
 				monitoringName={monitoringName}
 			/>
-			{((run.status === 'WAITING_FOR_FOCALPOINT' &&
+			{((window.location.pathname.includes('change-monitoring') &&
+				run.status === 'WAITING_FOR_FOCALPOINT' &&
 				(auth?.user?.id !== run.focalPoint ||
 					!run.focalPointDelegates
 						?.map(d => d.id)
 						.includes(auth?.user?.id as unknown as string))) ||
-				run.status !== 'COMPLETED') && (
+				run.status === 'WAITING_FOR_ANALYST') && (
 				<div className='flex justify-end'>
 					<Button
 						size='md'
