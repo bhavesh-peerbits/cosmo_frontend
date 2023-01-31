@@ -1,4 +1,5 @@
 import ApiError from '@api/ApiError';
+import useGetAllAssetsTenant from '@api/asset/useGetAllAssetsTenant';
 import useCreateAsset from '@api/instance-asset/useCreateAsset';
 import {
 	Form,
@@ -50,6 +51,10 @@ const AddNewAssetModal = ({ isOpen, setIsOpen, instance }: AddNewAssetModalProps
 		resetApi();
 		reset();
 	};
+	const { data: allAssets } = useGetAllAssetsTenant();
+	const allHostnameIpPairs = allAssets?.map(asset => {
+		return { hostname: asset.hostname, ip: `${asset.ip}` };
+	});
 
 	const createAsset = (data: NewAssetFormData) => {
 		const { dbType, dbVersion, hostname, ip, os, type, ports, cpe } = data;
@@ -102,11 +107,16 @@ const AddNewAssetModal = ({ isOpen, setIsOpen, instance }: AddNewAssetModalProps
 						<TextInput
 							id='new-asset-hostname-input'
 							labelText='Hostname *'
+							autoComplete='off'
 							placeholder={t('applicationInstances:hostname-placeholder')}
 							invalid={Boolean(errors.hostname)}
 							invalidText={errors.hostname?.message}
 							{...register('hostname', {
-								required: { value: true, message: t('modals:field-required') }
+								required: { value: true, message: t('modals:field-required') },
+								validate: hostname =>
+									!allHostnameIpPairs?.find(
+										asset => asset.hostname === hostname && asset.ip === watch('ip')
+									) || t('applicationInstances:hostname-ip-error')
 							})}
 						/>
 					</FullWidthColumn>
@@ -114,11 +124,16 @@ const AddNewAssetModal = ({ isOpen, setIsOpen, instance }: AddNewAssetModalProps
 						<TextInput
 							id='new-asset-ip-input'
 							labelText='IP *'
+							autoComplete='off'
 							placeholder={t('applicationInstances:ip-placeholder')}
 							invalid={Boolean(errors.ip)}
 							invalidText={errors.ip?.message}
 							{...register('ip', {
 								required: { value: true, message: t('modals:field-required') },
+								validate: ip =>
+									!allHostnameIpPairs?.find(
+										asset => asset.hostname === watch('hostname') && asset.ip === ip
+									) || t('applicationInstances:hostname-ip-error'),
 								pattern: {
 									message: 'Should be ipv4 o ipv6',
 									value:
@@ -131,6 +146,7 @@ const AddNewAssetModal = ({ isOpen, setIsOpen, instance }: AddNewAssetModalProps
 						<TextInput
 							id='new-asset-cpe-input'
 							labelText='CPE'
+							autoComplete='off'
 							placeholder='Customer Premises Equipment'
 							{...register('cpe')}
 						/>
@@ -139,6 +155,7 @@ const AddNewAssetModal = ({ isOpen, setIsOpen, instance }: AddNewAssetModalProps
 						<TextInput
 							id='new-asset-ports-input'
 							labelText={t('applicationInstances:ports')}
+							autoComplete='off'
 							placeholder={t('applicationInstances:ports-input-placeholder')}
 							invalid={Boolean(errors.ports)}
 							invalidText={errors.ports?.message}
@@ -186,6 +203,7 @@ const AddNewAssetModal = ({ isOpen, setIsOpen, instance }: AddNewAssetModalProps
 							labelText={`${t('applicationInstances:db-version')} ${
 								watch(`type`) !== 'OS' ? ' *' : ''
 							}`}
+							autoComplete='off'
 							invalid={Boolean(errors.dbVersion)}
 							invalidText={errors.dbVersion?.message}
 							disabled={watch(`type`) === 'OS'}
@@ -203,6 +221,7 @@ const AddNewAssetModal = ({ isOpen, setIsOpen, instance }: AddNewAssetModalProps
 							labelText={`${t('applicationInstances:db-type')} ${
 								watch(`type`) !== 'OS' ? ' *' : ''
 							}`}
+							autoComplete='off'
 							invalid={Boolean(errors.dbType)}
 							invalidText={errors.dbType?.message}
 							disabled={watch(`type`) === 'OS'}

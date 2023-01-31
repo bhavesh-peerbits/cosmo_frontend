@@ -70,6 +70,7 @@ const ApplicationInstanceForm = ({
 				<FullWidthColumn>
 					{instanceAssets.map(asset => (
 						<AssetExpandableTile
+							key={asset.id}
 							title={
 								<div className='flex items-center justify-between'>
 									{asset.hostname}

@@ -37,5 +37,6 @@
 	"db-version-placeholder": "Fill in with DB version",
 	"db-type-placeholder": "Fill in with DB type",
 	"no-path-asset": "No path found for this asset.",
-	"tile-instance-review-description": "If there are any details that seem incorrect to you, please contact the ICFR team for any adjustments."
+	"tile-instance-review-description": "If there are any details that seem incorrect to you, please contact the ICFR team for any adjustments.",
+	"hostname-ip-error": "This Hostname-IP pair already exists"
 }
