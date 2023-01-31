@@ -83,7 +83,8 @@ const AddAnswerToDeltaModal = ({
 	const {
 		control,
 		getValues: getValuesFiles,
-		watch: watchFiles
+		watch: watchFiles,
+		reset: resetFiles
 	} = useForm<{ files: File[] }>({
 		defaultValues: { files: [] }
 	});
@@ -128,6 +129,7 @@ const AddAnswerToDeltaModal = ({
 		resetApiWithFileUploaded();
 		setIsUploadSelected(false);
 		reset();
+		resetFiles();
 	};
 
 	const uniqueDeltaIds = [...new Set(isOpen.rows.map(row => row.deltaId))];

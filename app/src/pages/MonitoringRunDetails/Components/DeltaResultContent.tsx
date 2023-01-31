@@ -1,10 +1,12 @@
-import useGetAllFilesAnswer from '@api/change-monitoring-analyst/useGetAllFilesAnswer';
 import useGetFile from '@api/uploaders3/useGetFile';
 import { Tag, Button } from '@carbon/react';
 import { Download } from '@carbon/react/icons';
 import FileLink from '@model/FileLink';
 import Run from '@model/Run';
 import authStore from '@store/auth/authStore';
+import { UseMutationResult, UseQueryResult } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
+import { RunDto } from 'cosmo-api/src/v1';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilValue } from 'recoil';
@@ -16,15 +18,37 @@ import DeltaResultTable from './DeltaResultTable';
 type DeltaResultContentProps = {
 	run: Run;
 	monitoringName: string;
+	closeCompleteRunFn: () => UseMutationResult<
+		AxiosResponse<RunDto, any>,
+		unknown,
+		{ runId: string },
+		unknown
+	>;
+	getAllFilesFn: (runId: string) => UseQueryResult<FileLink[], unknown>;
 };
 
-const DeltaResultContent = ({ run, monitoringName }: DeltaResultContentProps) => {
+const DeltaResultContent = ({
+	run,
+	monitoringName,
+	closeCompleteRunFn,
+	getAllFilesFn
+}: DeltaResultContentProps) => {
 	const { t } = useTranslation('runDetails');
 	const [modalToOpen, setModalToOpen] = useState('');
-	const { data: filesAnswers } = useGetAllFilesAnswer(run.id);
+	const { data: filesAnswers } = getAllFilesFn(run.id);
 	const [dataTable, setDataTable] = useState<DeltaTableRowType[]>([]);
 
 	const auth = useRecoilValue(authStore);
+	const getUserCanEdit = () => {
+		if (window.location.pathname.includes('change-monitoring')) {
+			return (
+				run.status === 'WAITING_FOR_FOCALPOINT' &&
+				(run.focalPoint?.id === auth?.user?.id ||
+					run.focalPointDelegates?.map(d => d.id).includes(auth?.user?.id || ''))
+			);
+		}
+		return run.status === 'WAITING_FOR_ANALYST';
+	};
 
 	const DownloadFile = (fileLink: FileLink) => {
 		useGetFile(fileLink.id).then(({ data, headers }) => {
@@ -95,12 +119,14 @@ const DeltaResultContent = ({ run, monitoringName }: DeltaResultContentProps) =>
 				runNumber={run.orderNumber}
 				monitoringName={monitoringName}
 				filesAnswers={filesAnswers}
+				canEdit={getUserCanEdit()}
 			/>
 			<CompleteRunModal
 				isOpen={modalToOpen === 'close'}
 				setIsOpen={setModalToOpen}
 				run={run}
 				monitoringName={monitoringName}
+				closeCompleteRunFn={closeCompleteRunFn}
 			/>
 			<SendToFocalPointModal
 				isOpen={modalToOpen === 'send-focal-point'}
@@ -108,13 +134,7 @@ const DeltaResultContent = ({ run, monitoringName }: DeltaResultContentProps) =>
 				run={run}
 				monitoringName={monitoringName}
 			/>
-			{((window.location.pathname.includes('change-monitoring') &&
-				run.status === 'WAITING_FOR_FOCALPOINT' &&
-				(auth?.user?.id !== run.focalPoint ||
-					!run.focalPointDelegates
-						?.map(d => d.id)
-						.includes(auth?.user?.id as unknown as string))) ||
-				run.status === 'WAITING_FOR_ANALYST') && (
+			{getUserCanEdit() && (
 				<div className='flex justify-end'>
 					<Button
 						size='md'
@@ -126,7 +146,8 @@ const DeltaResultContent = ({ run, monitoringName }: DeltaResultContentProps) =>
 								: setModalToOpen('send-focal-point');
 						}}
 					>
-						{run.deltas?.every(delta =>
+						{run.status === 'WAITING_FOR_FOCALPOINT' ||
+						run.deltas?.every(delta =>
 							delta.deltaAnswers?.every(d => d.justification?.status !== 'NONE')
 						)
 							? t('complete-run')

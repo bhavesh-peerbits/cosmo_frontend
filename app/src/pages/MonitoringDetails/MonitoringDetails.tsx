@@ -61,7 +61,9 @@ const MonitoringDetails = ({
 		<PageHeader
 			pageTitle={monitoring?.name || ''}
 			intermediateRoutes={[
-				{ name: 'Change Monitoring Dashboard', to: '/monitoring-dashboard' }
+				isFocalPoint
+					? { name: 'Change Monitoring', to: '/change-monitoring' }
+					: { name: 'Change Monitoring Dashboard', to: '/monitoring-dashboard' }
 			]}
 			actions={
 				!isFocalPoint

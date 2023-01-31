@@ -5,6 +5,10 @@ import { Layer } from '@carbon/react';
 import { RunDtoStatusEnum } from 'cosmo-api/src/v1';
 import Monitoring from '@model/Monitoring';
 import Run from '@model/Run';
+import useGetAllFilesAnswersInbox from '@api/change-monitoring-inbox/useGetAllFilesAnswersInbox';
+import useGetAllFilesAnswer from '@api/change-monitoring-analyst/useGetAllFilesAnswer';
+import useCloseCompleteRunInbox from '@api/change-monitoring-inbox/useCloseCompleteRunInbox';
+import useCloseCompletedRun from '@api/change-monitoring-analyst/useCloseCompletedRun';
 import DeltaResultContent from '../Components/DeltaResultContent';
 import RunDetailsStepTile from '../Components/RunDetailsStepTile';
 import RunSetupContent from '../Components/RunSetupContent';
@@ -58,6 +62,8 @@ const RunDetailsStepContainer = ({ monitoring, run }: RunDetailsStepProps) => {
 	}, [run.id]);
 	if (!run) return null;
 
+	const isInbox = window.location.pathname.includes('change-monitoring');
+
 	return (
 		<Layer className='space-y-5'>
 			<RunDetailsStepTile
@@ -89,7 +95,12 @@ const RunDetailsStepContainer = ({ monitoring, run }: RunDetailsStepProps) => {
 				isCurrent={run.status === 'WAITING_FOR_ANALYST'}
 				detail={statusMessage({ stepStatus: run.status })}
 			>
-				<DeltaResultContent run={run} monitoringName={monitoring.name} />
+				<DeltaResultContent
+					run={run}
+					monitoringName={monitoring.name}
+					getAllFilesFn={isInbox ? useGetAllFilesAnswersInbox : useGetAllFilesAnswer}
+					closeCompleteRunFn={isInbox ? useCloseCompleteRunInbox : useCloseCompletedRun}
+				/>
 			</RunDetailsStepTile>
 		</Layer>
 	);

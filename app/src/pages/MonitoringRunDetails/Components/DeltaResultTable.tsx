@@ -19,13 +19,15 @@ type DeltaResultTableProps = {
 	monitoringName: string;
 	runNumber: number;
 	filesAnswers?: FileLink[];
+	canEdit?: boolean;
 };
 
 const DeltaResultTable = ({
 	data,
 	monitoringName,
 	runNumber,
-	filesAnswers
+	filesAnswers,
+	canEdit
 }: DeltaResultTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table', 'runDetails']);
 	const [modalToOpen, setModalToOpen] = useState<{
@@ -199,29 +201,31 @@ const DeltaResultTable = ({
 				isColumnOrderingEnabled
 				toolbar={{
 					searchBar: true,
-					toolbarBatchActions,
-					toolbarTableMenus: [
-						{
-							icon: Csv,
-							id: 'csv-menus',
-							tableToolbarActions: [
+					toolbarBatchActions: canEdit ? toolbarBatchActions : [],
+					toolbarTableMenus: canEdit
+						? [
 								{
-									id: 'download-template',
-									label: 'Download template',
-									onClick: () => {
-										downloadTemplateAnswer();
-									}
-								},
-								{
-									id: 'upload-answers',
-									label: t('runDetails:upload-answers'),
-									onClick: () => {
-										setIsUploadOpen(true);
-									}
+									icon: Csv,
+									id: 'csv-menus',
+									tableToolbarActions: [
+										{
+											id: 'download-template',
+											label: 'Download template',
+											onClick: () => {
+												downloadTemplateAnswer();
+											}
+										},
+										{
+											id: 'upload-answers',
+											label: t('runDetails:upload-answers'),
+											onClick: () => {
+												setIsUploadOpen(true);
+											}
+										}
+									]
 								}
-							]
-						}
-					]
+						  ]
+						: []
 				}}
 				exportFileName={({ all }) =>
 					all
@@ -230,20 +234,26 @@ const DeltaResultTable = ({
 				}
 				data={data || []}
 				isSelectable
-				inlineActions={[
-					{
-						label: t('runDetails:confirm'),
-						onClick: row => setModalToOpen({ modal: 'add-answer', rows: [row.original] })
-					},
-					{
-						label: t('runDetails:ignore'),
-						onClick: row => setModalToOpen({ modal: 'ignore', rows: [row.original] })
-					},
-					{
-						label: t('runDetails:remove-answer'),
-						onClick: row => removeAnswer(row.original)
-					}
-				]}
+				inlineActions={
+					canEdit
+						? [
+								{
+									label: t('runDetails:confirm'),
+									onClick: row =>
+										setModalToOpen({ modal: 'add-answer', rows: [row.original] })
+								},
+								{
+									label: t('runDetails:ignore'),
+									onClick: row =>
+										setModalToOpen({ modal: 'ignore', rows: [row.original] })
+								},
+								{
+									label: t('runDetails:remove-answer'),
+									onClick: row => removeAnswer(row.original)
+								}
+						  ]
+						: undefined
+				}
 			/>
 		</Layer>
 	);

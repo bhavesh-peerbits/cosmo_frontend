@@ -10,26 +10,35 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction } from 'react';
 import Run from '@model/Run';
-import useCloseCompletedRun from '@api/change-monitoring-analyst/useCloseCompletedRun';
 import ApiError from '@api/ApiError';
+import { UseMutationResult } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
+import { RunDto } from 'cosmo-api/src/v1';
 
 type CompleteRunProps = {
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<string>>;
 	run: Run;
 	monitoringName: string;
+	closeCompleteRunFn: () => UseMutationResult<
+		AxiosResponse<RunDto, any>,
+		unknown,
+		{ runId: string },
+		unknown
+	>;
 };
 
 const CompleteRunModal = ({
 	isOpen,
 	setIsOpen,
 	run,
-	monitoringName
+	monitoringName,
+	closeCompleteRunFn
 }: CompleteRunProps) => {
 	const navigate = useNavigate();
 	const { t } = useTranslation(['modals', 'runDetails']);
 	const { monitoringId = '' } = useParams();
-	const { mutate, isError, error, isLoading, reset } = useCloseCompletedRun();
+	const { mutate, isError, error, isLoading, reset } = closeCompleteRunFn();
 
 	const cleanUp = () => {
 		setIsOpen('');

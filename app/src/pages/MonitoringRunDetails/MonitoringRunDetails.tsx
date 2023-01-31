@@ -37,10 +37,17 @@ const MonitoringRunDetails = ({
 	return (
 		<PageHeader
 			pageTitle={`${monitoring.name} - RUN ${run?.orderNumber}`}
-			intermediateRoutes={[
-				{ name: 'Change Monitoring Dashboard', to: '/monitoring-dashboard' },
-				{ name: monitoring.name, to: `/monitoring-dashboard/${monitoringId}` }
-			]}
+			intermediateRoutes={
+				isInbox
+					? [
+							{ name: 'Change Monitoring', to: '/change-monitoring' },
+							{ name: monitoring.name, to: `/change-monitoring/${monitoringId}` }
+					  ]
+					: [
+							{ name: 'Change Monitoring Dashboard', to: '/monitoring-dashboard' },
+							{ name: monitoring.name, to: `/monitoring-dashboard/${monitoringId}` }
+					  ]
+			}
 			actions={
 				!isInbox
 					? [

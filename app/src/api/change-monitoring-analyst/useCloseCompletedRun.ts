@@ -28,8 +28,9 @@ const useCloseCompletedRun = () => {
 	return useMutation(closeCompletedRun, {
 		onSuccess: (data, runId) => {
 			queryClient.invalidateQueries(['monitoring']);
-			queryClient.removeQueries(['run-monitoring-inbox', runId]);
-			queryClient.removeQueries(['monitoring-inbox']);
+			queryClient.invalidateQueries(['run-monitoring-inbox', runId]);
+			queryClient.invalidateQueries(['run-monitoring', runId]);
+			queryClient.invalidateQueries(['monitoring-inbox']);
 		}
 	});
 };
