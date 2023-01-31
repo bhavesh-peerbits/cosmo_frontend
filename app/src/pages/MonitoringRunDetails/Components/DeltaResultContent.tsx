@@ -94,9 +94,11 @@ const DeltaResultContent = ({
 
 	return (
 		<div className='space-y-7 pt-5 pb-9'>
-			<div>
-				{t('due-date')}: {run.dueDate?.toLocaleDateString()}
-			</div>
+			{run.dueDate && (
+				<div>
+					{t('due-date')}: {run.dueDate?.toLocaleDateString()}
+				</div>
+			)}
 			{!!filesAnswers?.length && (
 				<div>
 					<p className='text-productive-heading-2'>{t('files-already-uploaded')}</p>
@@ -137,39 +139,44 @@ const DeltaResultContent = ({
 				run={run}
 				monitoringName={monitoringName}
 			/>
-			{getUserCanEdit() && (
-				<div className='flex justify-end'>
-					<Button
-						size='md'
-						disabled={
-							!run.deltas?.every(delta =>
-								delta.deltaAnswers?.every(d => d.justification?.status !== 'NONE')
-							)
-						}
-						onClick={() => {
-							run.deltas?.flatMap(delta =>
+			{(run.status === 'WAITING_FOR_ANALYST' ||
+				run.status === 'WAITING_FOR_FOCALPOINT') &&
+				getUserCanEdit() && (
+					<div className='flex justify-end'>
+						<Button
+							size='md'
+							disabled={
+								!run.deltas?.every(delta =>
+									delta.deltaAnswers?.every(d => d.justification?.status !== 'NONE')
+								) &&
+								!!run.deltas?.flatMap(delta =>
+									delta.deltaAnswers?.flatMap(deltaAnswer => deltaAnswer.deltaFiles)
+								).length
+							}
+							onClick={() => {
+								run.deltas?.flatMap(delta =>
+									delta.deltaAnswers?.flatMap(deltaAnswer => deltaAnswer.deltaFiles)
+								).length === 0 ||
+								run.status === 'WAITING_FOR_FOCALPOINT' ||
+								run.deltas?.every(delta =>
+									delta.deltaAnswers?.every(d => d.justification?.status !== 'NONE')
+								)
+									? setModalToOpen('close')
+									: setModalToOpen('send-focal-point');
+							}}
+						>
+							{run.deltas?.flatMap(delta =>
 								delta.deltaAnswers?.flatMap(deltaAnswer => deltaAnswer.deltaFiles)
 							).length === 0 ||
 							run.status === 'WAITING_FOR_FOCALPOINT' ||
 							run.deltas?.every(delta =>
 								delta.deltaAnswers?.every(d => d.justification?.status !== 'NONE')
 							)
-								? setModalToOpen('close')
-								: setModalToOpen('send-focal-point');
-						}}
-					>
-						{run.deltas?.flatMap(delta =>
-							delta.deltaAnswers?.flatMap(deltaAnswer => deltaAnswer.deltaFiles)
-						).length === 0 ||
-						run.status === 'WAITING_FOR_FOCALPOINT' ||
-						run.deltas?.every(delta =>
-							delta.deltaAnswers?.every(d => d.justification?.status !== 'NONE')
-						)
-							? t('complete-run')
-							: t('send-to-focal-point')}
-					</Button>
-				</div>
-			)}
+								? t('complete-run')
+								: t('send-to-focal-point')}
+						</Button>
+					</div>
+				)}
 		</div>
 	);
 };

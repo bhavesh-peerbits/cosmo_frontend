@@ -53,7 +53,7 @@ const UploadFileContent = ({ run }: UploadFileContentProps) => {
 					</AssetExpandableTile>
 				))}
 			</div>
-			{(run.status === 'UPLOAD' || run.status === 'SETUP') && (
+			{run.status === 'UPLOAD' && (
 				<div className='flex justify-end space-x-5'>
 					<InlineLoadingStatus
 						{...{ isLoading, isSuccess, isError, error: error as ApiError }}
