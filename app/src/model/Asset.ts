@@ -11,6 +11,7 @@ interface Asset {
 	dbVersion?: string;
 	dbType?: string;
 	paths: PathDto[];
+	cpe?: string;
 	extensions?: string;
 }
 
@@ -24,6 +25,7 @@ export const fromAssetApi = (assetApi: AssetApi): Asset => ({
 	dbVersion: assetApi.dbVersion,
 	dbType: assetApi.dbType,
 	paths: assetApi.paths ? [...assetApi.paths] : [],
+	cpe: assetApi.cpe,
 	extensions: assetApi.extensions
 });
 
@@ -37,6 +39,7 @@ export const toAssetApi = (asset: Asset): AssetApi => ({
 	dbVersion: asset.dbVersion,
 	dbType: asset.dbType,
 	paths: asset.paths,
+	cpe: asset.cpe,
 	extensions: asset.extensions
 });
 

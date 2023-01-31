@@ -12,6 +12,7 @@ import StickyTabs from '@components/StickyTabs';
 import useGetApp from '@api/management/useGetApp';
 import DeleteAppModal from '@components/Modals/DeleteAppModal';
 import { useTranslation } from 'react-i18next';
+import ApplicationInstances from '@components/ApplicationInstances/ApplicationInstances';
 
 const ApplicationDetail = () => {
 	const { t } = useTranslation('management');
@@ -63,6 +64,7 @@ const ApplicationDetail = () => {
 					>
 						<Tab>{t('application-info')}</Tab>
 						<Tab>{t('procedure-info')}</Tab>
+						<Tab>{t('instances')}</Tab>
 						<Tab>{t('changes')}</Tab>
 					</TabList>
 					<TabPanels>
@@ -71,6 +73,9 @@ const ApplicationDetail = () => {
 						</TabPanel>
 						<TabPanel className='pl-container-1 pr-0'>
 							<ProcedureInfo />
+						</TabPanel>
+						<TabPanel className='pl-container-1 pr-0'>
+							<ApplicationInstances application={data} />
 						</TabPanel>
 						<TabPanel className='p-0 px-3'>
 							<ApplicationChangesContainer appId={appId} />
