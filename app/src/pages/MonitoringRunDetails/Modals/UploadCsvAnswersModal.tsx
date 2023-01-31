@@ -37,7 +37,18 @@ const UploadCsvAnswersModal = ({
 
 	const uploadAnswers = () => {
 		const uniqueDeltaIds = [...new Set(deltaIds)];
-		uniqueDeltaIds.forEach(id => mutate({ deltaId: id, file: getValues('files')[0] }));
+		return Promise.all(
+			uniqueDeltaIds.map(id =>
+				mutate(
+					{ deltaId: id, file: getValues('files')[0] },
+					{ onSuccess: () => cleanUp() }
+				)
+			)
+		);
+	};
+
+	const handleUploadAnswers = async () => {
+		await uploadAnswers();
 	};
 
 	return (
@@ -60,7 +71,7 @@ const UploadCsvAnswersModal = ({
 					id: 'save-answer',
 					disabled: isLoading || !watch('files').length,
 					onClick: () => {
-						uploadAnswers();
+						handleUploadAnswers();
 					}
 				}
 			]}

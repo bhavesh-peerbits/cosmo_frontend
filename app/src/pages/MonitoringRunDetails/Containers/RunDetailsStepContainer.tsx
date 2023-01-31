@@ -27,12 +27,17 @@ const RunDetailsStepContainer = ({ monitoring, run }: RunDetailsStepProps) => {
 		if (run.status === 'TERMINATED') {
 			return t('runDetails:terminated');
 		}
+		if (run.status === 'COMPLETED') {
+			return t('runDetails:completed');
+		}
 		if (run?.status === stepStatus) {
 			return t('evidenceRequest:current-step');
 		}
 		if (
 			run?.status === 'SETUP' &&
-			(stepStatus === 'UPLOAD' || stepStatus === 'WAITING_FOR_ANALYST')
+			(stepStatus === 'UPLOAD' ||
+				stepStatus === 'WAITING_FOR_ANALYST' ||
+				stepStatus === 'WAITING_FOR_FOCALPOINT')
 		) {
 			return t('runDetails:not-started');
 		}
@@ -41,10 +46,10 @@ const RunDetailsStepContainer = ({ monitoring, run }: RunDetailsStepProps) => {
 				? t('runDetails:completed')
 				: t('runDetails:not-started');
 		}
-		if (run?.status === 'WAITING_FOR_ANALYST') {
+		if (stepStatus === 'WAITING_FOR_ANALYST') {
 			return t('runDetails:completed');
 		}
-		return t('runDetails:not-started');
+		return t('runDetails:completed');
 	};
 
 	useLayoutEffect(() => {
@@ -68,7 +73,6 @@ const RunDetailsStepContainer = ({ monitoring, run }: RunDetailsStepProps) => {
 				id={`tile-upload-${run.id}`}
 				title={t('runDetails:file-upload')}
 				isCurrent={run.status === 'UPLOAD'}
-				// isFuture={run.status === 'SETUP'}
 				inCharge={monitoring.owner.displayName}
 				detail={statusMessage({ stepStatus: 'UPLOAD' })}
 			>
@@ -83,8 +87,7 @@ const RunDetailsStepContainer = ({ monitoring, run }: RunDetailsStepProps) => {
 						: monitoring.owner.displayName
 				}
 				isCurrent={run.status === 'WAITING_FOR_ANALYST'}
-				// isFuture={run.status === 'UPLOAD' || run.status === 'SETUP'}
-				detail={statusMessage({ stepStatus: 'WAITING_FOR_ANALYST' })}
+				detail={statusMessage({ stepStatus: run.status })}
 			>
 				<DeltaResultContent run={run} monitoringName={monitoring.name} />
 			</RunDetailsStepTile>
