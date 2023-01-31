@@ -2288,7 +2288,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		): Promise<RequestArgs> => {
 			// verify required parameter 'runAssetDto' is not null or undefined
 			assertParamExists('saveRunAsset', 'runAssetDto', runAssetDto);
-			const localVarPath = `/api/change-monitoring/analyst/run/save-run-asset`;
+			const localVarPath = `/api/change-monitoring/analyst/save-run-asset`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
