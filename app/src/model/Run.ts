@@ -30,6 +30,7 @@ export const fromRunApi = (runApi: RunApi): Run => ({
 		: [],
 	runAsset: [...runApi.runAsset].map(fromRunAssetApi),
 	deltas: runApi.deltas ? [...runApi.deltas] : undefined,
-	notes: runApi.notes
+	notes: runApi.notes,
+	dueDate: runApi.dueDate ? new Date(runApi.dueDate) : undefined
 });
 export default Run;

@@ -94,6 +94,9 @@ const DeltaResultContent = ({
 
 	return (
 		<div className='space-y-7 pt-5 pb-9'>
+			<div>
+				{t('due-date')}: {run.dueDate?.toLocaleDateString()}
+			</div>
 			{!!filesAnswers?.length && (
 				<div>
 					<p className='text-productive-heading-2'>{t('files-already-uploaded')}</p>
@@ -138,6 +141,11 @@ const DeltaResultContent = ({
 				<div className='flex justify-end'>
 					<Button
 						size='md'
+						disabled={
+							!run.deltas?.every(delta =>
+								delta.deltaAnswers?.every(d => d.justification?.status !== 'NONE')
+							)
+						}
 						onClick={() => {
 							run.deltas?.flatMap(delta =>
 								delta.deltaAnswers?.flatMap(deltaAnswer => deltaAnswer.deltaFiles)

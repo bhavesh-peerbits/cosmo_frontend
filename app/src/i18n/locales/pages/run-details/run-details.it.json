@@ -69,5 +69,6 @@
 	"terminated-on": "Terminata il",
 	"remove-answer": "Rimuovi risposta",
 	"no-data-delta": "Nessun dato",
-	"no-delta-subtitle": "Nessun delta trovato per questa run"
+	"no-delta-subtitle": "Nessun delta trovato per questa run",
+	"due-date": "Data di scadenza"
 }

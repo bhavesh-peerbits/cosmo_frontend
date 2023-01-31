@@ -107,7 +107,7 @@ const applyFilters = (
 				// filter by tab
 				.filter(monitoring => {
 					const isWaitingForAuthUser =
-						(monitoring.status === 'WAITING_FOR_FOCALPOINT' &&
+						(monitoring.status === 'PENDING' &&
 							monitoring.runs.find(r => r.orderNumber === monitoring.currentRun)
 								?.focalPoint?.id === auth?.user?.id) ||
 						monitoring.runs
