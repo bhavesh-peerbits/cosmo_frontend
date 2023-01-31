@@ -14,10 +14,6 @@ export const mapMonitoringStatusToMonitoringDisplayStatus = (
 			return 'Ongoing';
 		case MonitoringDtoStatusApiEnum.Pending:
 			return 'Pending';
-		case MonitoringDtoStatusApiEnum.WaitingForAnalyst:
-			return 'Waiting for analyst';
-		case MonitoringDtoStatusApiEnum.WaitingForFocalpoint:
-			return 'Waiting for focal point';
 		default:
 			return '';
 	}

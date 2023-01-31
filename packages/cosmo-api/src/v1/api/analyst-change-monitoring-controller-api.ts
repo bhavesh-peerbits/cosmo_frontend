@@ -69,6 +69,8 @@ import { MonitoringDto } from '../models';
 // @ts-ignore
 import { PathMonitoringDto } from '../models';
 // @ts-ignore
+import { RunAssetDto } from '../models';
+// @ts-ignore
 import { RunDto } from '../models';
 // @ts-ignore
 import { RunFileLinkDto } from '../models';
@@ -337,70 +339,6 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				`/api/change-monitoring/analyst/draft/{draftId}/add-path/{assetId}`
 					.replace(`{${'draftId'}}`, encodeURIComponent(String(draftId)))
 					.replace(`{${'assetId'}}`, encodeURIComponent(String(assetId)));
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication bearerAuth required
-			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-			if (acceptLanguage !== undefined && acceptLanguage !== null) {
-				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
-			}
-
-			localVarHeaderParameter['Content-Type'] = 'text/plain';
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				body,
-				localVarRequestOptions,
-				configuration
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions
-			};
-		},
-		/**
-		 *
-		 * @param {number} runId
-		 * @param {number} assetId
-		 * @param {string} body
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		addPathRun: async (
-			runId: number,
-			assetId: number,
-			body: string,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'runId' is not null or undefined
-			assertParamExists('addPathRun', 'runId', runId);
-			// verify required parameter 'assetId' is not null or undefined
-			assertParamExists('addPathRun', 'assetId', assetId);
-			// verify required parameter 'body' is not null or undefined
-			assertParamExists('addPathRun', 'body', body);
-			const localVarPath = `/api/change-monitoring/analyst/run/{runId}/add-path/{assetId}`
-				.replace(`{${'runId'}}`, encodeURIComponent(String(runId)))
-				.replace(`{${'assetId'}}`, encodeURIComponent(String(assetId)));
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -2338,6 +2276,60 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
+		 * @param {Array<RunAssetDto>} runAssetDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveRunAsset: async (
+			runAssetDto: Array<RunAssetDto>,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'runAssetDto' is not null or undefined
+			assertParamExists('saveRunAsset', 'runAssetDto', runAssetDto);
+			const localVarPath = `/api/change-monitoring/analyst/run/save-run-asset`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				runAssetDto,
+				localVarRequestOptions,
+				configuration
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
 		 * @param {number} monitoringId
 		 * @param {Array<string>} requestBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
@@ -2582,36 +2574,6 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.addPath(
 				draftId,
-				assetId,
-				body,
-				acceptLanguage,
-				options
-			);
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			);
-		},
-		/**
-		 *
-		 * @param {number} runId
-		 * @param {number} assetId
-		 * @param {string} body
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async addPathRun(
-			runId: number,
-			assetId: number,
-			body: string,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.addPathRun(
-				runId,
 				assetId,
 				body,
 				acceptLanguage,
@@ -3544,6 +3506,30 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		},
 		/**
 		 *
+		 * @param {Array<RunAssetDto>} runAssetDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async saveRunAsset(
+			runAssetDto: Array<RunAssetDto>,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.saveRunAsset(
+				runAssetDto,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
 		 * @param {number} monitoringId
 		 * @param {Array<string>} requestBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
@@ -3698,26 +3684,6 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		): AxiosPromise<PathMonitoringDto> {
 			return localVarFp
 				.addPath(draftId, assetId, body, acceptLanguage, options)
-				.then(request => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @param {number} runId
-		 * @param {number} assetId
-		 * @param {string} body
-		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		addPathRun(
-			runId: number,
-			assetId: number,
-			body: string,
-			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
-			options?: any
-		): AxiosPromise<void> {
-			return localVarFp
-				.addPathRun(runId, assetId, body, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -4323,6 +4289,22 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		},
 		/**
 		 *
+		 * @param {Array<RunAssetDto>} runAssetDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		saveRunAsset(
+			runAssetDto: Array<RunAssetDto>,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<void> {
+			return localVarFp
+				.saveRunAsset(runAssetDto, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
 		 * @param {number} monitoringId
 		 * @param {Array<string>} requestBody
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
@@ -4508,41 +4490,6 @@ export interface AnalystChangeMonitoringControllerApiAddPathRequest {
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
 	 * @memberof AnalystChangeMonitoringControllerApiAddPath
-	 */
-	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
-}
-
-/**
- * Request parameters for addPathRun operation in AnalystChangeMonitoringControllerApi.
- * @export
- * @interface AnalystChangeMonitoringControllerApiAddPathRunRequest
- */
-export interface AnalystChangeMonitoringControllerApiAddPathRunRequest {
-	/**
-	 *
-	 * @type {number}
-	 * @memberof AnalystChangeMonitoringControllerApiAddPathRun
-	 */
-	readonly runId: number;
-
-	/**
-	 *
-	 * @type {number}
-	 * @memberof AnalystChangeMonitoringControllerApiAddPathRun
-	 */
-	readonly assetId: number;
-
-	/**
-	 *
-	 * @type {string}
-	 * @memberof AnalystChangeMonitoringControllerApiAddPathRun
-	 */
-	readonly body: string;
-
-	/**
-	 *
-	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
-	 * @memberof AnalystChangeMonitoringControllerApiAddPathRun
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
@@ -5332,6 +5279,27 @@ export interface AnalystChangeMonitoringControllerApiSaveRunRequest {
 }
 
 /**
+ * Request parameters for saveRunAsset operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiSaveRunAssetRequest
+ */
+export interface AnalystChangeMonitoringControllerApiSaveRunAssetRequest {
+	/**
+	 *
+	 * @type {Array<RunAssetDto>}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveRunAsset
+	 */
+	readonly runAssetDto: Array<RunAssetDto>;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiSaveRunAsset
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
  * Request parameters for setMonitoringCollaborator operation in AnalystChangeMonitoringControllerApi.
  * @export
  * @interface AnalystChangeMonitoringControllerApiSetMonitoringCollaboratorRequest
@@ -5469,28 +5437,6 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 		return AnalystChangeMonitoringControllerApiFp(this.configuration)
 			.addPath(
 				requestParameters.draftId,
-				requestParameters.assetId,
-				requestParameters.body,
-				requestParameters.acceptLanguage,
-				options
-			)
-			.then(request => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @param {AnalystChangeMonitoringControllerApiAddPathRunRequest} requestParameters Request parameters.
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof AnalystChangeMonitoringControllerApi
-	 */
-	public addPathRun(
-		requestParameters: AnalystChangeMonitoringControllerApiAddPathRunRequest,
-		options?: AxiosRequestConfig
-	) {
-		return AnalystChangeMonitoringControllerApiFp(this.configuration)
-			.addPathRun(
-				requestParameters.runId,
 				requestParameters.assetId,
 				requestParameters.body,
 				requestParameters.acceptLanguage,
@@ -6158,6 +6104,26 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 	) {
 		return AnalystChangeMonitoringControllerApiFp(this.configuration)
 			.saveRun(requestParameters.runDto, requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystChangeMonitoringControllerApiSaveRunAssetRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystChangeMonitoringControllerApi
+	 */
+	public saveRunAsset(
+		requestParameters: AnalystChangeMonitoringControllerApiSaveRunAssetRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.saveRunAsset(
+				requestParameters.runAssetDto,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 

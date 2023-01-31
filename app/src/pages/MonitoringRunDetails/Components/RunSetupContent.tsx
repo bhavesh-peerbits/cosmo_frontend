@@ -10,7 +10,10 @@ import Run from '@model/Run';
 import AssetExpandableTile from '@pages/MonitoringDraftDetails/Components/AssetExpandableTile';
 import PathAssetTable from '@pages/MonitoringDraftDetails/Components/PathAssetTable';
 import SameSetupPathTable from '@pages/MonitoringDraftDetails/Components/SameSetupPathTable';
-import { RunMonitoringAsset } from '@pages/MonitoringDraftDetails/types/RunMonitoringAsset';
+import {
+	fromRunMonitoringAssetToRunAsset,
+	RunMonitoringAsset
+} from '@pages/MonitoringDraftDetails/types/RunMonitoringAsset';
 import { PathMonitoringDto } from 'cosmo-api/src/v1';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -67,35 +70,12 @@ const RunSetupContent = ({ run }: RunSetupContentProps) => {
 	};
 
 	const savePathOnAnAssetRun = () => {
-		return Promise.all(
-			(assetsData ?? [])
-				.map(ad => ({
-					assetId: ad.asset.id,
-					paths: ad.paths
-						.map(p => p.path)
-						.filter(
-							pt =>
-								run.runAsset
-									.find(ra => ra.asset.id === ad.asset.id)
-									?.paths.map(p => p.path)
-									.indexOf(pt) === -1
-						)
-				}))
-				.filter(toSave => toSave.paths?.length)
-				.flatMap(assetAndPaths =>
-					assetAndPaths.paths.map(assetPath =>
-						mutateAsync({
-							assetId: assetAndPaths.assetId,
-							path: assetPath,
-							runId: run.id
-						})
-					)
-				)
-		);
+		return mutateAsync({
+			runAssets: assetsData?.map(fromRunMonitoringAssetToRunAsset) ?? []
+		});
 	};
-
 	const saveRunNotes = () => {
-		return mutateNotes({ notes: notes ?? '', runId: run.id });
+		return mutateNotes({ notes: notes || ' ', runId: run.id });
 	};
 
 	const handleSave = () => {
