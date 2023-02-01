@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Button } from '@carbon/react';
+import { Button, Layer } from '@carbon/react';
 import { useMemo, useState } from 'react';
 import Application from '@model/Application';
 import { UserFollow } from '@carbon/react/icons';
@@ -78,7 +78,7 @@ const AppsVisibilityTable = () => {
 	);
 
 	return (
-		<>
+		<Layer>
 			{appSelectedId ? (
 				<SelectUserApplication
 					appSelectedId={appSelectedId}
@@ -104,7 +104,7 @@ const AppsVisibilityTable = () => {
 					toolbarTableMenus: []
 				}}
 			/>
-		</>
+		</Layer>
 	);
 };
 

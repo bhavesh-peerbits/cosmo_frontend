@@ -8,7 +8,8 @@ import {
 	TableToolbarAction,
 	TableToolbarContent,
 	TableToolbarMenu,
-	TableToolbarSearch
+	TableToolbarSearch,
+	Layer
 } from '@carbon/react';
 import {
 	Column,
@@ -308,11 +309,13 @@ const CosmoTableToolbar = <T extends object>({
 					iconDescription='Show filters'
 					ariaLabel='Show Filters'
 				>
-					<TableFilters
-						tableId={tableId}
-						onApplyFilters={filterFalse}
-						allColumns={allColumns}
-					/>
+					<Layer>
+						<TableFilters
+							tableId={tableId}
+							onApplyFilters={filterFalse}
+							allColumns={allColumns}
+						/>
+					</Layer>
 				</TableToolbarMenu>
 				{canAdd && (
 					<Button

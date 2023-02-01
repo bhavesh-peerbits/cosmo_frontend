@@ -193,7 +193,7 @@ const EvidenceRequestActionTableView = ({
 					</div>
 				</div>
 			</div>
-			<div className='p-3'>
+			<Layer className='p-3'>
 				<CosmoTable
 					tableId={view}
 					data={requests}
@@ -207,7 +207,7 @@ const EvidenceRequestActionTableView = ({
 					canAdd
 					// modalProps={{ title: 'test',  }} FIXME use new version
 				/>
-			</div>
+			</Layer>
 		</Fade>
 	);
 };

@@ -51,7 +51,7 @@ const TableFilters = <T extends object>({
 			<span className='relative w-5' ref={e => setFilterRef(e)}>
 				f
 			</span>
-			<div className='absolute -top-[2px] right-0 flex w-[400px] flex-col justify-end bg-layer-1 shadow-background drop-shadow drop-shadow-2xl lg:w-[670px]'>
+			<div className='absolute -top-[2px] right-0  flex w-[400px] flex-col justify-end bg-layer-2 shadow-background drop-shadow drop-shadow-2xl lg:w-[670px]'>
 				<div className='px-5 pt-5 pb-9'>
 					<span className='typography-productive-heading-1 mb-6 block'>Filters</span>
 					<Layer className='grid grid-cols-[1fr] gap-y-5 gap-x-7 lg:grid-cols-[1fr,1fr]'>

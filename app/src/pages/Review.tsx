@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import ProcedureAppInstance from '@model/ProcedureAppInstance';
 import ApplicationReview from '@model/ApplicationReview';
 import { useTranslation } from 'react-i18next';
+import { Layer } from '@carbon/react';
 import Application from '@model/Application';
 import useGetApps from '@api/management/useGetApps';
 import useGetProcedureApps from '@api/app-procedures/useGetProcedureApps';
@@ -104,7 +105,7 @@ const Review = () => {
 	return (
 		<div>
 			<PageHeader pageTitle='Narrative History'>
-				<div className='h-full p-container-1'>
+				<Layer className='h-full p-container-1'>
 					<CosmoTable
 						tableId='review'
 						isColumnOrderingEnabled
@@ -112,7 +113,7 @@ const Review = () => {
 						columns={columns}
 						noDataMessage='No data'
 					/>
-				</div>
+				</Layer>
 			</PageHeader>
 		</div>
 	);

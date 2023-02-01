@@ -1,6 +1,7 @@
 import useManagementApps from '@hooks/management/useManagementApps';
 import { useTranslation } from 'react-i18next';
 import Application from '@model/Application';
+import { Layer } from '@carbon/react';
 import { CloudDownload, Email } from '@carbon/react/icons';
 import CosmoTable from '@components/table/CosmoTable';
 import { useMemo, useState } from 'react';
@@ -110,7 +111,7 @@ const ApplicationsTable = () => {
 	};
 
 	return (
-		<div>
+		<Layer>
 			{isModalOpen && modalToOpen()}
 			<CosmoTable
 				tableId='applications'
@@ -128,7 +129,7 @@ const ApplicationsTable = () => {
 					all ? 'applications-all' : 'applications-selection'
 				}
 			/>
-		</div>
+		</Layer>
 	);
 };
 

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Button, Grid, UnorderedList, ListItem } from '@carbon/react';
+import { Button, Grid, UnorderedList, ListItem, Layer } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import StringDashCell from '@components/table/Cell/StringDashCell';
 import CosmoTable from '@components/table/CosmoTable';
@@ -127,21 +127,23 @@ const ApplicationsSelectionContainer = ({
 				</FullWidthColumn>
 			</FullWidthColumn>
 			<FullWidthColumn>
-				<CosmoTable
-					tableId='applicationselection'
-					data={apps}
-					columns={columns}
-					isColumnOrderingEnabled
-					noDataMessage={t('management:no-applications')}
-					toolbar={{
-						searchBar: true,
-						toolbarBatchActions: [],
-						toolbarTableMenus: []
-					}}
-					isSelectable
-					onRowSelection={selRows => setSelectedRows(selRows.map(v => v.original))}
-					defaultSelectedRows={selectedAppsIndex as RowSelectionState}
-				/>
+				<Layer>
+					<CosmoTable
+						tableId='applicationselection'
+						data={apps}
+						columns={columns}
+						isColumnOrderingEnabled
+						noDataMessage={t('management:no-applications')}
+						toolbar={{
+							searchBar: true,
+							toolbarBatchActions: [],
+							toolbarTableMenus: []
+						}}
+						isSelectable
+						onRowSelection={selRows => setSelectedRows(selRows.map(v => v.original))}
+						defaultSelectedRows={selectedAppsIndex as RowSelectionState}
+					/>
+				</Layer>
 			</FullWidthColumn>
 			<FullWidthColumn className='flex justify-end'>
 				<Button

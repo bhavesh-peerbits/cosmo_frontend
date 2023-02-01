@@ -1,4 +1,4 @@
-import { Button, Grid } from '@carbon/react';
+import { Button, Grid, Layer } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
 import CampaignApplication from '@model/CampaignApplication';
@@ -85,7 +85,9 @@ const RevalidationUsersContainer = ({ review }: RevalidationUsersContainerProps)
 				<Actions review={review} />
 			</FullWidthColumn>
 			<FullWidthColumn>
-				<RevalidationUserTable review={review} />
+				<Layer>
+					<RevalidationUserTable review={review} />
+				</Layer>
 			</FullWidthColumn>
 		</Grid>
 	);

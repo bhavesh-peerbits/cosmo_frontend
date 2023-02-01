@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import User from '@model/User';
-import { OverflowMenu, OverflowMenuItem } from '@carbon/react';
+import { OverflowMenu, OverflowMenuItem, Layer } from '@carbon/react';
 import CosmoTable from '@components/table/CosmoTable';
 import { useMemo, useState } from 'react';
 import useRoleAssignmentUsers from '@hooks/admin-panel/useRoleAssignmentUsers';
@@ -122,7 +122,7 @@ const UsersTable = () => {
 	);
 
 	return (
-		<>
+		<Layer>
 			{isModalOpen && modalToOpen()}
 			<CosmoTable
 				tableId='userstable'
@@ -137,7 +137,7 @@ const UsersTable = () => {
 				}}
 				exportFileName={({ all }) => (all ? 'users-all' : 'users-selection')}
 			/>
-		</>
+		</Layer>
 	);
 };
 

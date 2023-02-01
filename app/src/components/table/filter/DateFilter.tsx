@@ -56,7 +56,7 @@ const DateFilter = <T extends object>({
 				labelB='Range'
 				toggled={range}
 				onToggle={t => setRange(t)}
-				id='toggle-2'
+				id={`toggle-${column.id}`}
 				aria-label='single-range'
 			/>
 		</div>

@@ -1,4 +1,4 @@
-import { Button } from '@carbon/react';
+import { Button, Layer } from '@carbon/react';
 import { useMemo, useState } from 'react';
 import User from '@model/User';
 import { Add } from '@carbon/react/icons';
@@ -74,7 +74,7 @@ const UserAppsVisibilityTable = () => {
 	);
 
 	return (
-		<>
+		<Layer>
 			{userSelectedId ? (
 				<SelectApplicationUser
 					userSelectedId={userSelectedId}
@@ -98,7 +98,7 @@ const UserAppsVisibilityTable = () => {
 					toolbarTableMenus: []
 				}}
 			/>
-		</>
+		</Layer>
 	);
 };
 

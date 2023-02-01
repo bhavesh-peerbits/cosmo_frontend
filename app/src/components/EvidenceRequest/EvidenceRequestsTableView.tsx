@@ -1,9 +1,9 @@
-import Fade from '@components/Fade';
 import CosmoTable from '@components/table/CosmoTable';
 import useEvidenceRequests from '@hooks/evidence-request/useEvidenceRequests';
 import EvidenceRequest from '@model/EvidenceRequest';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
+import { Layer } from '@carbon/react';
 import CellLink from '@components/table/Cell/CellLink';
 import { ColumnDef } from '@tanstack/react-table';
 import TooltipCell from '@components/table/Cell/TooltipCell';
@@ -89,7 +89,7 @@ const EvidenceRequestsTableView = ({ view }: EvidenceRequestsTableViewProps) => 
 	}, [t, view]);
 
 	return (
-		<Fade>
+		<Layer>
 			<CosmoTable
 				tableId={view}
 				isColumnOrderingEnabled
@@ -107,7 +107,7 @@ const EvidenceRequestsTableView = ({ view }: EvidenceRequestsTableViewProps) => 
 					toolbarTableMenus: []
 				}}
 			/>
-		</Fade>
+		</Layer>
 	);
 };
 
