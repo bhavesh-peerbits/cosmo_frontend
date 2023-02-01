@@ -9,7 +9,7 @@
 	"create-new": "New revalidation campaign",
 	"create-campaign": "Create campaign",
 	"download-modal-body": "Select a revalidation type to download the CSV file",
-	"name-placeholder": "Enter campaign name",
+	"name-placeholder": "If empty it will be generated automatically",
 	"no-campaigns": "No campaigns",
 	"send-revalidation": "Send revalidation",
 	"send-request": "Send revalidation request",
@@ -88,5 +88,6 @@
 	"select-user-descrition": "Select user that are going to recive the reminder",
 	"select-app-descrition": "Selecting an application will select all the possible user for it",
 	"ongoing": "Ongoing",
-	"closed": "Closed"
+	"closed": "Closed",
+	"body-send": "Please fill in all required fields, then click on {{action}}."
 }

@@ -84,8 +84,8 @@ const SendCampaignModal = ({ isOpen, setIsOpen, campaign }: SendCampaignModalPro
 		>
 			<ModalHeader title={t('userRevalidation:send-request')} closeModal={cleanUp} />
 			<ModalBody hasForm>
-				{t('modals:body-add', {
-					action: `"${t('userRevalidation:send-revalidation')}".`
+				{t('userRevalidation:body-send', {
+					action: `"${t('userRevalidation:send-revalidation')}"`
 				})}
 				<Grid className='mt-5'>
 					<Column lg={8} md={4} sm={4} className='mb-5'>
