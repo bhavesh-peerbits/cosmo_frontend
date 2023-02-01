@@ -22,7 +22,6 @@ import AdditionalInfoStepContent from './AdditionalInfoStepContent';
 
 type AdditionalInfoFormData = {
 	note: string;
-	files: File[];
 };
 
 type AdditionalInfoStepProps = {

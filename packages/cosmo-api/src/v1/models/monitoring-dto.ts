@@ -165,8 +165,6 @@ export const MonitoringDtoStatusEnum = {
 	Pending: 'PENDING',
 	Ongoing: 'ONGOING',
 	Completed: 'COMPLETED',
-	WaitingForFocalpoint: 'WAITING_FOR_FOCALPOINT',
-	WaitingForAnalyst: 'WAITING_FOR_ANALYST',
 	Terminated: 'TERMINATED'
 } as const;
 

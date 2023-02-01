@@ -28,6 +28,7 @@ const applyFilters = (
 	filters: GetRecoilType<typeof newDraftFilters>
 ) => {
 	const filteredMonitorings = monitorings
+		.filter(monitoring => monitoring.status === 'COMPLETED')
 		// filter by query term string
 		.filter(monitoring =>
 			filters.q

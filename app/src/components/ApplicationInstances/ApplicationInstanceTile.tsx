@@ -2,7 +2,7 @@ import { Button, Form, Grid, Tile, OverflowMenu, OverflowMenuItem } from '@carbo
 import { TrashCan, Add } from '@carbon/react/icons';
 import FullWidthColumn from '@components/FullWidthColumn';
 import DeleteInstanceModal from '@components/Modals/DeleteInstanceModal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AddNewAssetModal from '@components/Modals/AddNewAssetModal';
 import MultiAddSelect from '@components/MultiAddSelect';
@@ -41,7 +41,7 @@ const ApplicationInstanceTile = ({ instance }: ApplicationInstanceTileProps) => 
 		register,
 		reset,
 		handleSubmit,
-		formState: { errors, isDirty, isValid }
+		formState: { errors, isDirty, isValid, isSubmitSuccessful }
 	} = useForm<ApplicationInstanceFormData>({
 		mode: 'all',
 		defaultValues: {
@@ -77,11 +77,16 @@ const ApplicationInstanceTile = ({ instance }: ApplicationInstanceTileProps) => 
 		);
 	};
 
+	useEffect(() => {
+		if (isSubmitSuccessful) {
+			reset({});
+		}
+	}, [reset, isSubmitSuccessful]);
+
 	if (!instance) {
 		return null;
 	}
 
-	// TODO Edit items in onSubmit filter
 	return (
 		<Tile href={`${instance.id}`} className='w-full bg-background'>
 			<Form>
@@ -187,14 +192,6 @@ const ApplicationInstanceTile = ({ instance }: ApplicationInstanceTileProps) => 
 									onClick={() => setAddAssetToOpen('existing')}
 								/>
 							</OverflowMenu>
-							{/* <Button
-								hasIconOnly
-								kind='ghost'
-								renderIcon={Add}
-								tooltipPosition='bottom'
-								iconDescription={t('applicationInstances:add-asset')}
-								onClick={() => setIsAddAssetOpen(true)}
-							/> */}
 							<Button
 								hasIconOnly
 								kind='ghost'

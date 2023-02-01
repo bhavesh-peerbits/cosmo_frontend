@@ -134,7 +134,11 @@ const NewMonitoringModal = ({ isOpen, setIsOpen }: NewMonitoringModalProps) => {
 									.includes(name.toLowerCase()) || t('applicationInfo:name-exists')
 						})}
 					/>
-					{(monitorings.length > 0 || (!monitorings.length && filters)) && (
+					{(monitorings.length > 0 ||
+						((filters.application.length > 0 ||
+							filters.controlCode.length > 0 ||
+							!!filters.q?.length) &&
+							monitorings.length === 0)) && (
 						<Toggle
 							id='copy-monitoring-toggle'
 							labelText={t('changeMonitoring:copy-monitoring')}
