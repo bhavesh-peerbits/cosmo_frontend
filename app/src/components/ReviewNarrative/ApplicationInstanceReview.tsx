@@ -33,12 +33,10 @@ const ApplicationInstanceReview = ({ instance }: ApplicationInstanceReviewProps)
 
 	return (
 		<Grid className='space-y-7'>
-			<FullWidthColumn>
+			<FullWidthColumn className=''>
 				<span className='text-text-secondary text-body-long-1'>
 					{t('applicationInstances:tile-instance-review-description')}
 				</span>
-			</FullWidthColumn>
-			<FullWidthColumn>
 				<ApplicationInstanceForm
 					instanceAssets={instanceAssets}
 					instance={instance}
