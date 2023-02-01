@@ -70,7 +70,10 @@ const AppsVisibilityTable = () => {
 				accessorFn: row => row.id,
 				cell: info => ActionsCell({ setIsSelectOpen, setAppSelectedId, info }),
 				meta: {
-					disableExport: true
+					disableExport: true,
+					filter: {
+						enabled: false
+					}
 				}
 			}
 		],

@@ -34,13 +34,14 @@ const TableFilters = <T extends object>({
 		)
 	);
 	const onFilterChange = useCallback(
-		(f: NonNullable<ReturnType<typeof filterState['get']>>, value: unknown) =>
+		(f: NonNullable<ReturnType<typeof filterState['get']>>, value: unknown) => {
 			setFilterState(oldFilter =>
 				new Map(oldFilter).set(f.id, {
 					...f,
 					value
 				})
-			),
+			);
+		},
 		[]
 	);
 
@@ -51,10 +52,16 @@ const TableFilters = <T extends object>({
 			<span className='relative w-5' ref={e => setFilterRef(e)}>
 				f
 			</span>
-			<div className='absolute -top-[2px] right-0  flex w-[400px] flex-col justify-end bg-layer-2 shadow-background drop-shadow drop-shadow-2xl lg:w-[670px]'>
-				<div className='px-5 pt-5 pb-9'>
+			<div
+				style={{ boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)' }}
+				className='absolute -top-[2px] right-0 flex w-[400px]  flex-col justify-end bg-layer-1 lg:w-[670px]'
+			>
+				<div className=' px-5 pt-5 pb-9'>
 					<span className='typography-productive-heading-1 mb-6 block'>Filters</span>
-					<Layer className='grid grid-cols-[1fr] gap-y-5 gap-x-7 lg:grid-cols-[1fr,1fr]'>
+					<Layer
+						level={1}
+						className='grid  grid-cols-[1fr] gap-y-5 gap-x-7  lg:grid-cols-[1fr,1fr]'
+					>
 						{filterRef &&
 							[...filterState.values()].map(f => (
 								<FilterElement
@@ -71,17 +78,6 @@ const TableFilters = <T extends object>({
 				<ButtonSet>
 					<Button
 						className='max-w-none flex-1'
-						kind='primary'
-						size='md'
-						onClick={() => {
-							[...filterState.values()].forEach(c => c.column.setFilterValue(c.value));
-							onApplyFilters();
-						}}
-					>
-						Apply
-					</Button>
-					<Button
-						className='max-w-none flex-1'
 						kind='secondary'
 						size='md'
 						onClick={() => {
@@ -90,6 +86,17 @@ const TableFilters = <T extends object>({
 						}}
 					>
 						Reset
+					</Button>
+					<Button
+						className='max-w-none flex-1'
+						kind='primary'
+						size='md'
+						onClick={() => {
+							[...filterState.values()].forEach(c => c.column.setFilterValue(c.value));
+							onApplyFilters();
+						}}
+					>
+						Apply
 					</Button>
 				</ButtonSet>
 			</div>

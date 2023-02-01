@@ -45,7 +45,8 @@ const MonitoringDashboardTable = ({ monitorings }: MonitoringDashboardTableProps
 			{
 				id: 'frequency',
 				accessorFn: row => t(`changeMonitoring:${row.scheduling.frequency}`),
-				header: t('changeMonitoring:frequency')
+				header: t('changeMonitoring:frequency'),
+				meta: { filter: { type: 'multiselect' } }
 			},
 			{
 				id: 'start-date',
@@ -72,7 +73,8 @@ const MonitoringDashboardTable = ({ monitorings }: MonitoringDashboardTableProps
 			{
 				id: 'status',
 				accessorFn: row => t(`changeMonitoring:${row.status}`),
-				header: t('monitoringDashboard:status')
+				header: t('monitoringDashboard:status'),
+				meta: { filter: { type: 'checkbox' } }
 			},
 			{
 				id: 'framework',
