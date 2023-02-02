@@ -16,7 +16,7 @@ import EvidenceRequestStep from '@model/EvidenceRequestStep';
 import evidenceRequestActionModal from '@store/evidence-request/evidenceRequestActionModal';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 interface StepUploadForm {
 	publicComment: string;
@@ -38,7 +38,7 @@ const ActionEvidenceRequestModal = ({
 	erId
 }: ActionModalProps) => {
 	const { t } = useTranslation(['modals', 'evidenceRequest']);
-	const action = useRecoilValue(evidenceRequestActionModal);
+	const [action, setAction] = useRecoilState(evidenceRequestActionModal);
 	const { mutate: mutateApprove } = useSaveStepAndGoNext();
 	const { mutate: mutateReject } = useSaveStepAndReject();
 	const { mutate: mutateReturn } = useSaveStepAndReturn();
@@ -64,6 +64,7 @@ const ActionEvidenceRequestModal = ({
 				?.publicComment
 		});
 		setIsOpen(false);
+		setAction('approve');
 	};
 
 	const handleSaveStep = (data: StepUploadForm) => {
