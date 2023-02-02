@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import Answer from '@model/Answer';
-import User from '@model/User';
 import { ColumnDef } from '@tanstack/react-table';
 import TooltipCell from '@components/table/Cell/TooltipCell';
 import UsersListCell from '@components/table/Cell/UsersListCell';
@@ -36,15 +35,9 @@ const AnswerTable = ({ answers, reviewId, campaignType }: AnswerTableProp) => {
 			{
 				id: `delegated${reviewId}`,
 				header: t('userRevalidation:delegates'),
-				cell: UsersListCell,
-				accessorFn: row => ({ delegates: row.delegated }),
-				enableGrouping: false,
-				meta: {
-					exportableFn: info =>
-						(info as { delegates: User[] | undefined }).delegates
-							?.map(delegate => delegate.displayName)
-							.join(', ') ?? '-'
-				}
+				cell: info => UsersListCell({ users: info.row.original.delegated }),
+				accessorFn: row =>
+					row.delegated?.map(delegate => delegate.displayName).join(', ') ?? '-'
 			},
 
 			{
@@ -56,20 +49,9 @@ const AnswerTable = ({ answers, reviewId, campaignType }: AnswerTableProp) => {
 			{
 				id: `permissions${reviewId}`,
 				header: t('userRevalidation:permission'),
-				accessorFn: row => ({
-					content: row.permissions,
-					description: row.permissionDescription
-				}),
-				cell: TooltipCell,
-				meta: {
-					exportableFn: info =>
-						(
-							info as {
-								content: string;
-								description?: string;
-							}
-						).content
-				}
+				accessorFn: row => row.permissions,
+				cell: info =>
+					TooltipCell({ info, description: info.row.original.permissionDescription })
 			}
 		];
 		if (isFireFighter) {
@@ -86,21 +68,13 @@ const AnswerTable = ({ answers, reviewId, campaignType }: AnswerTableProp) => {
 
 				{
 					id: `risk${reviewId}`,
-					accessorFn: row => ({
-						content: row.jsonApplicationData?.risk,
-						description: row.jsonApplicationData?.riskDescription
-					}),
+					accessorFn: row => row.jsonApplicationData?.risk,
 					header: t('userRevalidation:risk'),
-					cell: TooltipCell,
-					meta: {
-						exportableFn: info =>
-							(
-								info as {
-									content: string;
-									description?: string;
-								}
-							).content
-					}
+					cell: info =>
+						TooltipCell({
+							info,
+							description: info.row.original.jsonApplicationData?.riskDescription
+						})
 				}
 			);
 		}

@@ -7,6 +7,7 @@ import InputFilter from '@components/table/filter/InputFilter';
 import CheckboxFilter from '@components/table/filter/CheckboxFilter';
 import RadioFilter from '@components/table/filter/RadioFilter';
 import DropdownFilter from '@components/table/filter/DropdownFilter';
+import MultiSelectFilter from './MultiSelectFilter';
 
 interface FilterElementProps<T extends object> {
 	column: Column<T, RowData>;
@@ -64,6 +65,11 @@ const FilterElement = <T extends object>({
 				if (column.columnDef.meta.filter.type === 'dropdown') {
 					return (
 						<DropdownFilter {...filterProps} sortedUniqueValues={sortedUniqueValues} />
+					);
+				}
+				if (column.columnDef.meta.filter.type === 'multiselect') {
+					return (
+						<MultiSelectFilter {...filterProps} sortedUniqueValues={sortedUniqueValues} />
 					);
 				}
 			}

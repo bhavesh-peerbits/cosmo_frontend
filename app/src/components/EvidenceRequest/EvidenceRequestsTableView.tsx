@@ -1,9 +1,9 @@
-import Fade from '@components/Fade';
 import CosmoTable from '@components/table/CosmoTable';
 import useEvidenceRequests from '@hooks/evidence-request/useEvidenceRequests';
 import EvidenceRequest from '@model/EvidenceRequest';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
+import { Layer } from '@carbon/react';
 import CellLink from '@components/table/Cell/CellLink';
 import { ColumnDef } from '@tanstack/react-table';
 import TooltipCell from '@components/table/Cell/TooltipCell';
@@ -21,13 +21,9 @@ const EvidenceRequestsTableView = ({ view }: EvidenceRequestsTableViewProps) => 
 		const ArrayCol: ColumnDef<EvidenceRequest>[] = [
 			{
 				id: `name${view}`,
-				accessorFn: row => ({
-					name: row.name,
-					id: row.id,
-					preUrl: '/started-evidence-request'
-				}),
+				accessorFn: row => row.name,
 				header: t('request-name'),
-				cell: CellLink
+				cell: info => CellLink({ info, preUrl: '/started-evidence-request' })
 			},
 			{
 				id: `applicationname${view}`,
@@ -72,11 +68,12 @@ const EvidenceRequestsTableView = ({ view }: EvidenceRequestsTableViewProps) => 
 			ArrayCol.splice(3, 0, {
 				id: `status${view}`,
 				header: t('status'),
-				accessorFn: row => ({
-					content: `${row.status}`,
-					description: `${row.currentStep}/${row.steps.length}`
-				}),
-				cell: TooltipCell
+				accessorFn: row => `${row.status}`,
+				cell: info =>
+					TooltipCell({
+						info,
+						description: `${info.row.original.currentStep}/${info.row.original.steps.length}`
+					})
 			});
 			ArrayCol.splice(3, 0, {
 				id: `completionDate${view}`,
@@ -89,7 +86,7 @@ const EvidenceRequestsTableView = ({ view }: EvidenceRequestsTableViewProps) => 
 	}, [t, view]);
 
 	return (
-		<Fade>
+		<Layer>
 			<CosmoTable
 				tableId={view}
 				isColumnOrderingEnabled
@@ -107,7 +104,7 @@ const EvidenceRequestsTableView = ({ view }: EvidenceRequestsTableViewProps) => 
 					toolbarTableMenus: []
 				}}
 			/>
-		</Fade>
+		</Layer>
 	);
 };
 

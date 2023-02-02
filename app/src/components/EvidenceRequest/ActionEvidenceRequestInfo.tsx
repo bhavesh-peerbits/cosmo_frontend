@@ -153,7 +153,9 @@ const ActionEvidenceRequestInfo = ({
 															{step.fileLinks.length ? (
 																<div className='col-span-4 mt-5'>
 																	<p>{t('attachments')} :</p>
-																	<FileLinkTable files={step.fileLinks} />
+																	<Layer>
+																		<FileLinkTable files={step.fileLinks} />
+																	</Layer>
 																</div>
 															) : null}
 														</>

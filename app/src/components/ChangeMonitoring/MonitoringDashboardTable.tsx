@@ -1,19 +1,11 @@
 import CosmoTable from '@components/table/CosmoTable';
-import { CellContext, ColumnDef } from '@tanstack/react-table';
+import { ColumnDef } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
 import Monitoring from '@model/Monitoring';
 import { useMemo } from 'react';
 import DateCell from '@components/table/Cell/DateCell';
 import { Layer } from '@carbon/react';
-import { Link } from 'react-router-dom';
-
-const CellLink = ({ getValue }: CellContext<any, unknown>) => {
-	const value = getValue() as { name?: string; id?: string };
-	if (value.id) {
-		return <Link to={`/monitoring-dashboard/${value.id}`}>{value.name}</Link>;
-	}
-	return <span>{value.name}</span>;
-};
+import CellLink from '@components/table/Cell/CellLink';
 
 type MonitoringDashboardTableProps = {
 	monitorings: Monitoring[];
@@ -25,27 +17,16 @@ const MonitoringDashboardTable = ({ monitorings }: MonitoringDashboardTableProps
 		const ArrayCol: ColumnDef<Monitoring>[] = [
 			{
 				id: 'monitoring-name',
-				accessorFn: row => ({
-					name: row.name,
-					id: row.id
-				}),
-				cell: CellLink,
+				accessorFn: row => row.name,
+				cell: info => CellLink({ info, preUrl: '/monitoring-dashboard/' }),
 				header: t('changeMonitoring:monitoring-name'),
-				sortUndefined: 1,
-				meta: {
-					exportableFn: info =>
-						(
-							info as {
-								name: string;
-								id: string;
-							}
-						).name
-				}
+				sortUndefined: 1
 			},
 			{
 				id: 'frequency',
 				accessorFn: row => t(`changeMonitoring:${row.scheduling.frequency}`),
-				header: t('changeMonitoring:frequency')
+				header: t('changeMonitoring:frequency'),
+				meta: { filter: { type: 'multiselect' } }
 			},
 			{
 				id: 'start-date',
@@ -72,7 +53,8 @@ const MonitoringDashboardTable = ({ monitorings }: MonitoringDashboardTableProps
 			{
 				id: 'status',
 				accessorFn: row => t(`changeMonitoring:${row.status}`),
-				header: t('monitoringDashboard:status')
+				header: t('monitoringDashboard:status'),
+				meta: { filter: { type: 'checkbox' } }
 			},
 			{
 				id: 'framework',

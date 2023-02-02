@@ -49,13 +49,15 @@ const FileLinkTable = ({ files }: { files: FileLink[] }) => {
 			{
 				id: 'type',
 				accessorFn: row => row.type,
-				header: t('file-link-type')
+				header: t('file-link-type'),
+				meta: { filter: { type: 'checkbox' } }
 			},
 
 			{
 				id: 'owner',
 				accessorFn: row => row.dimension,
-				header: `${t('file-link-dimension')} [Byte]`
+				header: `${t('file-link-dimension')} [Byte]`,
+				meta: { filter: { enabled: false } }
 			}
 		],
 		[linkCell, t]
@@ -65,7 +67,7 @@ const FileLinkTable = ({ files }: { files: FileLink[] }) => {
 			tableId='filelinktable'
 			columns={columns}
 			data={files}
-			toolbar={{ searchBar: false, toolbarBatchActions: [], toolbarTableMenus: [] }}
+			toolbar={{ searchBar: true, toolbarBatchActions: [], toolbarTableMenus: [] }}
 			isColumnOrderingEnabled
 		/>
 	);

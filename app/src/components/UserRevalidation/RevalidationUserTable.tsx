@@ -225,13 +225,11 @@ const RevalidationUserTable = ({ review }: CosmoTableRevalidationUsersProps) => 
 
 			{
 				id: `permissions${review.id}`,
-				accessorFn: row => ({
-					content: row.permissions,
-					description: row.permissionDescription
-				}),
+				accessorFn: row => row.permissions,
 				header: t('userRevalidation:permission'),
 				enableGrouping: false,
-				cell: TooltipCell
+				cell: info =>
+					TooltipCell({ info, description: info.row.original.permissionDescription })
 			},
 
 			{
@@ -252,9 +250,7 @@ const RevalidationUserTable = ({ review }: CosmoTableRevalidationUsersProps) => 
 				accessorFn: row => translateAnswer(row.answerType) ?? '',
 				meta: {
 					filter: {
-						enabled: true,
-						type: 'checkbox',
-						label: 'prova'
+						type: 'checkbox'
 					}
 				},
 				id: `answer${review.id}`,
@@ -276,13 +272,13 @@ const RevalidationUserTable = ({ review }: CosmoTableRevalidationUsersProps) => 
 
 				{
 					id: `risk${review.id}`,
-					accessorFn: row => ({
-						content: row.jsonApplicationData?.risk,
-						description: row.jsonApplicationData?.riskDescription
-					}),
+					accessorFn: row => row.jsonApplicationData?.risk,
 					header: t('userRevalidation:risk'),
-					enableGrouping: false,
-					cell: TooltipCell
+					cell: info =>
+						TooltipCell({
+							info,
+							description: info.row.original.jsonApplicationData?.riskDescription
+						})
 				}
 			);
 		}

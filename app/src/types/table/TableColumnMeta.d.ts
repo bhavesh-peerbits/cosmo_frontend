@@ -30,8 +30,8 @@ declare module '@tanstack/react-table' {
 			  }
 			| {
 					enabled?: true;
-					type?: 'checkbox' | 'radio' | 'dropdown';
-					label: string;
+					type?: 'checkbox' | 'radio' | 'dropdown' | 'multiselect';
+					label?: string;
 			  };
 	}
 
