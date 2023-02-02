@@ -26,7 +26,7 @@ const ApplicationsTable = () => {
 			{
 				id: 'name',
 				header: t('application-name'),
-				accessorFn: row => ({ content: row.name, icon: row.icon }),
+				accessorFn: row => row.name,
 				cell: IconCell
 			},
 			{

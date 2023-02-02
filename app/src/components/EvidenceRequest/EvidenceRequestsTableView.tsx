@@ -21,13 +21,9 @@ const EvidenceRequestsTableView = ({ view }: EvidenceRequestsTableViewProps) => 
 		const ArrayCol: ColumnDef<EvidenceRequest>[] = [
 			{
 				id: `name${view}`,
-				accessorFn: row => ({
-					name: row.name,
-					id: row.id,
-					preUrl: '/started-evidence-request'
-				}),
+				accessorFn: row => row.name,
 				header: t('request-name'),
-				cell: CellLink
+				cell: info => CellLink({ info, preUrl: '/started-evidence-request' })
 			},
 			{
 				id: `applicationname${view}`,
@@ -72,11 +68,12 @@ const EvidenceRequestsTableView = ({ view }: EvidenceRequestsTableViewProps) => 
 			ArrayCol.splice(3, 0, {
 				id: `status${view}`,
 				header: t('status'),
-				accessorFn: row => ({
-					content: `${row.status}`,
-					description: `${row.currentStep}/${row.steps.length}`
-				}),
-				cell: TooltipCell
+				accessorFn: row => `${row.status}`,
+				cell: info =>
+					TooltipCell({
+						info,
+						description: `${info.row.original.currentStep}/${info.row.original.steps.length}`
+					})
 			});
 			ArrayCol.splice(3, 0, {
 				id: `completionDate${view}`,

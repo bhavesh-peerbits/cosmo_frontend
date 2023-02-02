@@ -2,14 +2,19 @@ import { CellContext } from '@tanstack/react-table';
 import { Tooltip } from '@carbon/react';
 import { Information } from '@carbon/react/icons';
 
-const TooltipCell = ({ getValue }: CellContext<any, unknown>) => {
-	const value = getValue() as { content: string; description?: string };
+interface TooltipCellProps {
+	info: CellContext<any, unknown>;
+	description?: string;
+}
+
+const TooltipCell = ({ info, description }: TooltipCellProps) => {
+	const value = info.getValue() as string;
 	return (
 		<div className='flex items-center space-x-2'>
-			<span>{value.content}</span>
+			<span>{value}</span>
 			<span>
 				<Tooltip
-					description={value.description ?? 'no description'}
+					description={description ?? 'no description'}
 					align='top'
 					className='mt-2'
 				>

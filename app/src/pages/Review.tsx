@@ -96,7 +96,8 @@ const Review = () => {
 			{
 				id: 'Status',
 				accessorFn: row => row.status,
-				header: t('status')
+				header: t('status'),
+				meta: { filter: { type: 'checkbox' } }
 			}
 		],
 		[t]
@@ -108,6 +109,7 @@ const Review = () => {
 				<Layer className='h-full p-container-1'>
 					<CosmoTable
 						tableId='review'
+						toolbar={{ searchBar: true, toolbarBatchActions: [], toolbarTableMenus: [] }}
 						isColumnOrderingEnabled
 						data={reviews}
 						columns={columns}

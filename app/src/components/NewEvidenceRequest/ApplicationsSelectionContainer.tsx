@@ -80,21 +80,20 @@ const ApplicationsSelectionContainer = ({
 			},
 			{
 				id: `control`,
-				accessorFn: row => row.id,
+				accessorFn: row =>
+					requestDraft.requests
+						?.find(req => req.application.id === row.id)
+						?.associations?.map(association => association.name)
+						.join(',')
+						.toString() || t('evidenceRequest:no-control'),
 				header: t('evidenceRequest:control'),
 				cell: info =>
 					associationCell(
-						requestDraft.requests?.find(req => req.application.id === info.getValue())
-							?.associations || []
+						requestDraft.requests?.find(
+							req => req.application.id === info.row.original.id
+						)?.associations || []
 					),
-				meta: {
-					exportableFn: info =>
-						requestDraft.requests
-							?.find(req => req.application.id === info)
-							?.associations?.map(association => association.name)
-							.join(',')
-							.toString() || t('evidenceRequest:no-control')
-				}
+				meta: { filter: { type: 'multiselect' } }
 			}
 		],
 		[t, associationCell]
