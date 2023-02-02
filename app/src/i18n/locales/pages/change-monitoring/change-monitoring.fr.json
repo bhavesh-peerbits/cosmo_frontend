@@ -149,5 +149,7 @@
 	"max-start-date": "Maximum start date",
 	"min-end-date": "Minimum end date",
 	"max-end-date": "Maximum end date",
-	"no-monitoring-subtitle": "No monitoring found for this table, try changing your filters or try again later."
+	"no-monitoring-subtitle": "No monitoring found for this table, try changing your filters or try again later.",
+	"no-scripts": "No scripts found",
+	"no-scripts-subtitle": "No scripts found for the selected operating system."
 }

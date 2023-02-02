@@ -152,5 +152,7 @@
 	"max-start-date": "Data di inizio massima",
 	"min-end-date": "Data di fine minima",
 	"max-end-date": "Data di fine massima",
-	"no-monitoring-subtitle": "Nessun monitoraggio trovato per questa tabella. Prova a cambiare i filtri o riprova più tardi."
+	"no-monitoring-subtitle": "Nessun monitoraggio trovato per questa tabella. Prova a cambiare i filtri o riprova più tardi.",
+	"no-scripts": "Nessuno script trovato.",
+	"no-scripts-subtitle": "Non è stato trovato nessuno script per il sistema operativo selezionato."
 }
