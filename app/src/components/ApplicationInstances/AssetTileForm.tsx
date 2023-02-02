@@ -35,9 +35,11 @@ const AssetTileForm = ({
 }: AssetTileFormProps) => {
 	const { t } = useTranslation(['applicationInstances', 'modals']);
 	const { data: allAssets } = useGetAllAssetsTenant();
-	const allHostnameIpPairs = allAssets?.map(a => {
-		return { hostname: a.hostname, ip: `${a.ip}` };
-	});
+	const allHostnameIpPairs = allAssets
+		?.filter(a => a.hostname !== asset.hostname && a.ip !== asset.ip)
+		.map(a => {
+			return { hostname: a.hostname, ip: `${a.ip}` };
+		});
 
 	return (
 		<Layer>

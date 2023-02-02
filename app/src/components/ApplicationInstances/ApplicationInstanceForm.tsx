@@ -82,7 +82,7 @@ const ApplicationInstanceForm = ({
 												hasIconOnly
 												renderIcon={SubtractAlt}
 												iconDescription={t('applicationInstances:delete-asset-instance')}
-												tooltipPosition='bottom'
+												tooltipPosition='left'
 												onClick={e => {
 													e.stopPropagation();
 													setAssetToDelete({ asset, instance, isGlobal: false });
@@ -94,7 +94,7 @@ const ApplicationInstanceForm = ({
 												hasIconOnly
 												renderIcon={TrashCan}
 												iconDescription={t('applicationInstances:delete-asset-global')}
-												tooltipPosition='bottom'
+												tooltipPosition='left'
 												onClick={e => {
 													e.stopPropagation();
 													setAssetToDelete({ asset, isGlobal: true });
