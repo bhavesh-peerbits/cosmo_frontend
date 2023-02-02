@@ -14,6 +14,7 @@ import {
 } from '@carbon/react';
 import EvidenceRequestStep from '@model/EvidenceRequestStep';
 import evidenceRequestActionModal from '@store/evidence-request/evidenceRequestActionModal';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState } from 'recoil';
@@ -48,6 +49,7 @@ const ActionEvidenceRequestModal = ({
 		handleSubmit,
 		reset,
 		watch,
+		setValue,
 		formState: { isValid }
 	} = useForm<StepUploadForm>({
 		mode: 'onChange',
@@ -57,6 +59,13 @@ const ActionEvidenceRequestModal = ({
 		}
 	});
 	const publicComment = watch('publicComment');
+	useEffect(() => {
+		setValue(
+			'publicComment',
+			steps.filter(step => step.stepOrder === currentStep)[0].stepInfo?.publicComment ||
+				''
+		);
+	}, [steps, currentStep, setValue]);
 
 	const cleanUp = () => {
 		reset({
