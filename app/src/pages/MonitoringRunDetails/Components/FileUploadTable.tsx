@@ -24,8 +24,9 @@ type FileUploadTableProps = {
 		runFileLink?: RunFileLink;
 	}[];
 	assetId: string;
+	canEdit?: boolean;
 };
-const FileUploadTable = ({ data, assetId, period }: FileUploadTableProps) => {
+const FileUploadTable = ({ data, assetId, period, canEdit }: FileUploadTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table', 'runDetails']);
 	const setAddFileInfo = useSetRecoilState(addFileToRunAssetStore);
 	const [selectedRows, setSelectedRows] = useState<UploadFileTableItem[]>([]);
@@ -87,27 +88,31 @@ const FileUploadTable = ({ data, assetId, period }: FileUploadTableProps) => {
 				isColumnOrderingEnabled
 				toolbar={{
 					searchBar: true,
-					toolbarBatchActions,
+					toolbarBatchActions: canEdit ? toolbarBatchActions : [],
 					toolbarTableMenus: []
 				}}
 				exportFileName={({ all }) => (all ? 'file-upload-all' : 'file-upload-selection')}
 				data={data}
 				isSelectable
-				inlineActions={[
-					{
-						label: t('runDetails:upload-file'),
-						onClick: row => {
-							setAddFileInfo(old => ({
-								...old,
-								isOpen: true,
-								path: [row.original.path],
-								previousRunFileId: row.original.fileLastRun?.id,
-								selectedRow: row.original.runFileLink,
-								old: period === 'previous'
-							}));
-						}
-					}
-				]}
+				inlineActions={
+					canEdit
+						? [
+								{
+									label: t('runDetails:upload-file'),
+									onClick: row => {
+										setAddFileInfo(old => ({
+											...old,
+											isOpen: true,
+											path: [row.original.path],
+											previousRunFileId: row.original.fileLastRun?.id,
+											selectedRow: row.original.runFileLink,
+											old: period === 'previous'
+										}));
+									}
+								}
+						  ]
+						: undefined
+				}
 			/>
 		</Layer>
 	);

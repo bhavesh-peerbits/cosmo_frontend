@@ -38,9 +38,17 @@ const UploadFileContent = ({ run }: UploadFileContentProps) => {
 							}
 						>
 							<div className='space-y-5'>
-								<RunAssetPeriodContent old runAsset={runAsset} />
+								<RunAssetPeriodContent
+									old
+									runAsset={runAsset}
+									canEdit={run.status === 'UPLOAD'}
+								/>
 								<SwitcherDivider className='mr-7 w-auto' />
-								<RunAssetPeriodContent old={false} runAsset={runAsset} />
+								<RunAssetPeriodContent
+									old={false}
+									runAsset={runAsset}
+									canEdit={run.status === 'UPLOAD'}
+								/>
 							</div>
 						</Suspense>
 						<Layer level={0}>

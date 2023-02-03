@@ -100,57 +100,75 @@ const RunSetupContent = ({ run }: RunSetupContentProps) => {
 					className={cx('', { 'pointer-events-none': run.status !== 'SETUP' })}
 				/>
 			</Layer>
-			{run.status === 'SETUP' && (
-				<div>
-					<Toggle
-						aria-label='Path toggle'
-						id='path-toggle'
-						labelA={t('changeMonitoring:different')}
-						labelB={t('changeMonitoring:same')}
-						toggled={sameSetup}
-						onToggle={() => setSameSetup(!sameSetup)}
-						labelText={
-							<div className='flex space-x-3'>
-								<p className='text-label-1'>{t('changeMonitoring:asset-setup-toggle')}</p>
-								<Tooltip
-									align='top'
-									label={t('changeMonitoring:same-setup-additional-info')}
-								>
-									<button type='button' onClick={e => e.preventDefault()}>
-										<Information />
-									</button>
-								</Tooltip>
-							</div>
-						}
-					/>
-				</div>
-			)}
-			<div className='space-y-7'>
-				{sameSetup && (
-					<Layer>
-						<SameSetupPathTable
-							globalData={globalPaths}
-							setGlobalData={setGlobalPaths}
-							assetIds={run.runAsset.map(ma => ma.asset.id)}
-							os={run.runAsset[0].asset.os}
-						/>
-					</Layer>
-				)}
-
-				<div>
-					{run.runAsset.map(ma => (
-						<AssetExpandableTile title={ma.asset.hostname || ''} key={ma.id}>
-							<PathAssetTable
-								assetData={assetsData}
-								setAssetData={setAssetsData}
-								canAdd={!sameSetup}
-								assetId={ma.asset.id || ''}
-								status={run.status}
+			{run.runAsset.length > 1 ? (
+				run.status === 'SETUP' && (
+					<>
+						<div>
+							<Toggle
+								aria-label='Path toggle'
+								id='path-toggle'
+								labelA={t('changeMonitoring:different')}
+								labelB={t('changeMonitoring:same')}
+								toggled={sameSetup}
+								onToggle={() => setSameSetup(!sameSetup)}
+								labelText={
+									<div className='flex space-x-3'>
+										<p className='text-label-1'>
+											{t('changeMonitoring:asset-setup-toggle')}
+										</p>
+										<Tooltip
+											align='top'
+											label={t('changeMonitoring:same-setup-additional-info')}
+										>
+											<button type='button' onClick={e => e.preventDefault()}>
+												<Information />
+											</button>
+										</Tooltip>
+									</div>
+								}
 							/>
-						</AssetExpandableTile>
-					))}
-				</div>
-			</div>
+						</div>
+
+						<div className='space-y-7'>
+							{sameSetup && (
+								<Layer>
+									<SameSetupPathTable
+										globalData={globalPaths}
+										setGlobalData={setGlobalPaths}
+										assetIds={run.runAsset.map(ma => ma.asset.id)}
+										os={run.runAsset[0].asset.os}
+									/>
+								</Layer>
+							)}
+
+							<div>
+								{run.runAsset.map(ma => (
+									<AssetExpandableTile title={ma.asset.hostname || ''} key={ma.id}>
+										<PathAssetTable
+											assetData={assetsData}
+											setAssetData={setAssetsData}
+											canAdd={!sameSetup}
+											assetId={ma.asset.id || ''}
+											status={run.status}
+										/>
+									</AssetExpandableTile>
+								))}
+							</div>
+						</div>
+					</>
+				)
+			) : (
+				<Layer>
+					<PathAssetTable
+						assetData={assetsData}
+						setAssetData={setAssetsData}
+						canAdd={!sameSetup}
+						assetId={run.runAsset[0].asset.id || ''}
+						status={run.status}
+					/>
+				</Layer>
+			)}
+
 			{run.status === 'SETUP' && (
 				<div className='justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
 					<InlineLoadingStatus

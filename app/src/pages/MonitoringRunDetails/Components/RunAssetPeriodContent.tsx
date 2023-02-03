@@ -14,9 +14,14 @@ import FileUploadTable from './FileUploadTable';
 interface RunAssetPeriodContentProps {
 	runAsset: RunAsset;
 	old: boolean;
+	canEdit: boolean;
 }
 
-const RunAssetPeriodContent = ({ runAsset, old }: RunAssetPeriodContentProps) => {
+const RunAssetPeriodContent = ({
+	runAsset,
+	old,
+	canEdit
+}: RunAssetPeriodContentProps) => {
 	const [addFileInfo, setAddFileInfo] = useRecoilState(addFileToRunAssetStore);
 	const { monitoringId = '', runId = '' } = useParams();
 	const { data: prevFile } = useGetFileFromCurrentPeriodPreviousRun(
@@ -113,6 +118,7 @@ const RunAssetPeriodContent = ({ runAsset, old }: RunAssetPeriodContentProps) =>
 					}))}
 					assetId={runAsset.asset.id}
 					period={old ? 'previous' : 'current'}
+					canEdit={canEdit}
 				/>
 			</Layer>
 		</div>

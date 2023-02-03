@@ -15,7 +15,7 @@ export const fromInstanceApi = (instanceApi: InstanceApi): Instance => ({
 	name: instanceApi.name,
 	description: instanceApi.description,
 	application: fromApplicationApi(instanceApi.application),
-	isInReview: instanceApi.isInReview,
+	isInReview: instanceApi.isInReview || false,
 	lastReview: instanceApi.lastReview ? new Date(instanceApi.lastReview) : undefined
 });
 
@@ -24,7 +24,7 @@ export const toInstanceApi = (instance: Instance): InstanceApi => ({
 	name: instance.name,
 	description: instance.description,
 	application: toApplicationApi(instance.application),
-	isInReview: instance.isInReview,
+	isInReview: instance.isInReview || false,
 	lastReview: instance.lastReview?.toISOString()
 });
 

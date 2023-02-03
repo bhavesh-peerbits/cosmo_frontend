@@ -31,7 +31,7 @@ const RunTile = ({ run }: RunTileProps) => {
 			onClick={() =>
 				run.status !== 'PLANNED' && isInbox
 					? isInbox && focalPointCanNavigate() && navigate(run.id)
-					: navigate(run.id)
+					: run.status !== 'PLANNED' && navigate(run.id)
 			}
 			disabled={run.status === 'PLANNED' || (isInbox && !focalPointCanNavigate())}
 			id={`run-${run.orderNumber}`}
