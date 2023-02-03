@@ -14,11 +14,13 @@ type AdditionalInfoStepContentProps = {
 	inTile?: boolean;
 	setExtensions: Dispatch<SetStateAction<{ extensions: string[]; assetId?: string }[]>>;
 	extensions?: { extensions: string[]; assetId?: string };
+	inputLabel?: string;
 };
 const AdditionalInfoStepContent = ({
 	inTile,
 	setExtensions,
-	extensions
+	extensions,
+	inputLabel
 }: AdditionalInfoStepContentProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'userRevalidation']);
 	const [extensionsToAdd, setExtensionsToAdd] = useState<string[]>([]);
@@ -27,10 +29,12 @@ const AdditionalInfoStepContent = ({
 	const extensionInput = watch('extension');
 
 	const addExtension = () => {
-		const newExtensions = extensionInput
-			.split(',')
-			.filter(ex => !extensionsToAdd.includes(ex.toLowerCase()))
-			.map(ex => ex.replace(/[^a-zA-Z0-9-, ]/g, ''));
+		const newExtensions =
+			extensionInput.length &&
+			extensionInput
+				.split(',')
+				.filter(ex => !extensionsToAdd.includes(ex.toLowerCase()))
+				.map(ex => ex.replace(/[^a-zA-Z0-9-, ]/g, ''));
 		newExtensions &&
 			setExtensionsToAdd(old => [
 				...old,
@@ -71,7 +75,7 @@ const AdditionalInfoStepContent = ({
 						<div className='flex items-end space-x-3'>
 							<TextInput
 								id='extensions-ignore'
-								labelText={t('changeMonitoring:extensions-to-ignore')}
+								labelText={inputLabel || t('changeMonitoring:extensions-to-ignore')}
 								placeholder={t('changeMonitoring:placeholder-extensions')}
 								onKeyDown={e => e.key === 'Enter' && addExtension()}
 								{...register('extension')}

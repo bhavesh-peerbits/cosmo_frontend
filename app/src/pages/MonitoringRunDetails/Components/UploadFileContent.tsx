@@ -24,42 +24,67 @@ const UploadFileContent = ({ run }: UploadFileContentProps) => {
 	return (
 		<div className='space-y-7 pb-9 pt-5'>
 			<div>
-				{run.runAsset.map(runAsset => (
-					<AssetExpandableTile
-						key={`upload-${runAsset.asset.hostname}`}
-						title={runAsset.asset.hostname ?? ''}
-					>
-						<Suspense
-							fallback={
-								<div className='space-y-7'>
-									<DataTableSkeleton showHeader={false} />
-									<DataTableSkeleton showHeader={false} />
-								</div>
-							}
+				{run.runAsset.length > 1 ? (
+					run.runAsset.map(runAsset => (
+						<AssetExpandableTile
+							key={`upload-${runAsset.asset.hostname}`}
+							title={runAsset.asset.hostname ?? ''}
 						>
-							<div className='space-y-5'>
-								<RunAssetPeriodContent
-									old
-									runAsset={runAsset}
-									canEdit={run.status === 'UPLOAD'}
+							<Suspense
+								fallback={
+									<div className='space-y-7'>
+										<DataTableSkeleton showHeader={false} />
+										<DataTableSkeleton showHeader={false} />
+									</div>
+								}
+							>
+								<div className='space-y-5'>
+									<RunAssetPeriodContent
+										old
+										runAsset={runAsset}
+										canEdit={run.status === 'UPLOAD'}
+										level={0}
+									/>
+									<SwitcherDivider className='mr-7 w-auto' />
+									<RunAssetPeriodContent
+										old={false}
+										runAsset={runAsset}
+										canEdit={run.status === 'UPLOAD'}
+										level={0}
+									/>
+								</div>
+							</Suspense>
+							<Layer level={0}>
+								<AddFileToPathModal
+									includeLastRun
+									orderNumber={`${run.orderNumber}`}
+									assetId={runAsset.asset.id}
 								/>
-								<SwitcherDivider className='mr-7 w-auto' />
-								<RunAssetPeriodContent
-									old={false}
-									runAsset={runAsset}
-									canEdit={run.status === 'UPLOAD'}
-								/>
-							</div>
-						</Suspense>
+							</Layer>
+						</AssetExpandableTile>
+					))
+				) : (
+					<div className='space-y-5'>
+						<RunAssetPeriodContent
+							old
+							runAsset={run.runAsset[0]}
+							canEdit={run.status === 'UPLOAD'}
+						/>
+						<SwitcherDivider className='mr-7 w-auto' />
+						<RunAssetPeriodContent
+							old={false}
+							runAsset={run.runAsset[0]}
+							canEdit={run.status === 'UPLOAD'}
+						/>
 						<Layer level={0}>
 							<AddFileToPathModal
 								includeLastRun
 								orderNumber={`${run.orderNumber}`}
-								assetId={runAsset.asset.id}
+								assetId={run.runAsset[0].asset.id}
 							/>
 						</Layer>
-					</AssetExpandableTile>
-				))}
+					</div>
+				)}
 			</div>
 			{run.status === 'UPLOAD' && (
 				<div className='flex justify-end space-x-5'>

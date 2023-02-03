@@ -148,24 +148,15 @@ const AdditionalInfoStepContainer = ({
 					)}
 				</>
 			) : (
-				<div className='space-y-3'>
-					<p className='whitespace-nowrap text-heading-1'>
-						{t('changeMonitoring:extensions-to-ignore-asset', {
-							asset: `"${draft.monitoringAssets?.[0].asset.hostname}"`
-						})}
-					</p>
-					<div>
-						{draft.monitoringAssets?.[0].extensions?.length ? (
-							draft.monitoringAssets?.[0].extensions?.split('~').map(ex => (
-								<Tag className='mr-3' key={`${draft.monitoringAssets?.[0].id}-${ex}`}>
-									{ex}
-								</Tag>
-							))
-						) : (
-							<p>{t('changeMonitoring:no-extensions')}</p>
-						)}
-					</div>
-				</div>
+				<AdditionalInfoStepContent
+					inputLabel={t('changeMonitoring:extensions-to-ignore-asset', {
+						asset: `"${draft.monitoringAssets?.[0].asset.hostname}"`
+					})}
+					setExtensions={setExtensions}
+					extensions={extensions.find(
+						el => el.assetId === draft.monitoringAssets?.[0]?.id
+					)}
+				/>
 			)}
 
 			<div className='items-center justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>

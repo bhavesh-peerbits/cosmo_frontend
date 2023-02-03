@@ -15,12 +15,14 @@ interface RunAssetPeriodContentProps {
 	runAsset: RunAsset;
 	old: boolean;
 	canEdit: boolean;
+	level?: 0 | 1 | 2;
 }
 
 const RunAssetPeriodContent = ({
 	runAsset,
 	old,
-	canEdit
+	canEdit,
+	level
 }: RunAssetPeriodContentProps) => {
 	const [addFileInfo, setAddFileInfo] = useRecoilState(addFileToRunAssetStore);
 	const { monitoringId = '', runId = '' } = useParams();
@@ -29,6 +31,7 @@ const RunAssetPeriodContent = ({
 		monitoringId,
 		runAsset.asset.id
 	);
+
 	const DownloadFile = (fileLink: FileLink) => {
 		useGetFile(fileLink.id).then(({ data, headers }) => {
 			const fileName =
@@ -107,7 +110,7 @@ const RunAssetPeriodContent = ({
 					</div>
 				</div>
 			</div>
-			<Layer level={0}>
+			<Layer level={level}>
 				<FileUploadTable
 					data={runAsset.paths.map(p => ({
 						runFileLink: runAsset.runFileLinks?.find(
