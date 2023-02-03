@@ -96,7 +96,9 @@ const EvidenceRequestInfo = ({
 	const attachmentsContent = () => {
 		if (disabled || `${currentStep}` !== '1') {
 			return stepRequest.fileLinks.length > 0 ? (
-				<FileLinkTable files={stepRequest.fileLinks} />
+				<Layer level={2}>
+					<FileLinkTable files={stepRequest.fileLinks} />
+				</Layer>
 			) : (
 				<span className='italic text-text-secondary'>
 					{t('evidenceRequest:no-attachment')}

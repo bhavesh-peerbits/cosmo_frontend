@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Button, Grid, UnorderedList, ListItem } from '@carbon/react';
+import { Button, Grid, UnorderedList, ListItem, Layer } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import StringDashCell from '@components/table/Cell/StringDashCell';
 import CosmoTable from '@components/table/CosmoTable';
@@ -80,21 +80,20 @@ const ApplicationsSelectionContainer = ({
 			},
 			{
 				id: `control`,
-				accessorFn: row => row.id,
+				accessorFn: row =>
+					requestDraft.requests
+						?.find(req => req.application.id === row.id)
+						?.associations?.map(association => association.name)
+						.join(',')
+						.toString() || t('evidenceRequest:no-control'),
 				header: t('evidenceRequest:control'),
 				cell: info =>
 					associationCell(
-						requestDraft.requests?.find(req => req.application.id === info.getValue())
-							?.associations || []
+						requestDraft.requests?.find(
+							req => req.application.id === info.row.original.id
+						)?.associations || []
 					),
-				meta: {
-					exportableFn: info =>
-						requestDraft.requests
-							?.find(req => req.application.id === info)
-							?.associations?.map(association => association.name)
-							.join(',')
-							.toString() || t('evidenceRequest:no-control')
-				}
+				meta: { filter: { type: 'multiselect' } }
 			}
 		],
 		[t, associationCell]
@@ -127,21 +126,23 @@ const ApplicationsSelectionContainer = ({
 				</FullWidthColumn>
 			</FullWidthColumn>
 			<FullWidthColumn>
-				<CosmoTable
-					tableId='applicationselection'
-					data={apps}
-					columns={columns}
-					isColumnOrderingEnabled
-					noDataMessage={t('management:no-applications')}
-					toolbar={{
-						searchBar: true,
-						toolbarBatchActions: [],
-						toolbarTableMenus: []
-					}}
-					isSelectable
-					onRowSelection={selRows => setSelectedRows(selRows.map(v => v.original))}
-					defaultSelectedRows={selectedAppsIndex as RowSelectionState}
-				/>
+				<Layer>
+					<CosmoTable
+						tableId='applicationselection'
+						data={apps}
+						columns={columns}
+						isColumnOrderingEnabled
+						noDataMessage={t('management:no-applications')}
+						toolbar={{
+							searchBar: true,
+							toolbarBatchActions: [],
+							toolbarTableMenus: []
+						}}
+						isSelectable
+						onRowSelection={selRows => setSelectedRows(selRows.map(v => v.original))}
+						defaultSelectedRows={selectedAppsIndex as RowSelectionState}
+					/>
+				</Layer>
 			</FullWidthColumn>
 			<FullWidthColumn className='flex justify-end'>
 				<Button

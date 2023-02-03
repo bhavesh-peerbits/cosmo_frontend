@@ -9,7 +9,7 @@
 	"create-new": "Nuova campagna di rivalidazione",
 	"create-campaign": "Crea campagna",
 	"download-modal-body": "Selezionare il tipo di rivalidazione per scaricare il file CSV",
-	"name-placeholder": "Inserisci nome della campagna",
+	"name-placeholder": "Se vuoto verrà generato adatto in maniera automatica",
 	"no-campaigns": "Nessuna campagna",
 	"send-revalidation": "Invia rivalidazione",
 	"send-request": "Invia richiesta di rivalidazione",
@@ -88,5 +88,6 @@
 	"select-user-descrition": "Seleziona gli utenti che riceveranno un reminder",
 	"select-app-descrition": "Selezionando un applicazione verranno selezionati tutti i possibili utenti per essa",
 	"ongoing": "In corso",
-	"closed": "Chiuse"
+	"closed": "Chiuse",
+	"body-send": "Compila tutti i campi obbligatori, poi clicca su {{action}}."
 }

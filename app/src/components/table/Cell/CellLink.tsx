@@ -1,11 +1,17 @@
 import { CellContext } from '@tanstack/react-table';
 import { Link } from 'react-router-dom';
 
-const CellLink = ({ getValue }: CellContext<any, unknown>) => {
-	const value = getValue() as { name?: string; id?: string; preUrl?: string };
-	if (value.id) {
-		return <Link to={`${value.preUrl}/${value.id}`}>{value.name}</Link>;
+interface CellLinkProps {
+	info: CellContext<any, unknown>;
+	preUrl?: string;
+}
+
+const CellLink = ({ info, preUrl }: CellLinkProps) => {
+	const value = info.getValue() as string;
+	const { id } = info.row.original;
+	if (id) {
+		return <Link to={`${preUrl}/${id}`}>{value}</Link>;
 	}
-	return <span>{value.name}</span>;
+	return <span>{value}</span>;
 };
 export default CellLink;

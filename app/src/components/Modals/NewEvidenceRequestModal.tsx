@@ -1,7 +1,7 @@
 import useCreateDraft from '@api/evidence-request/useCreateDraft';
 import { CreateTearsheet } from '@components/CreateTearsheet';
 import Framework from '@model/Framework';
-import { useCallback, useEffect, useState } from 'react';
+import { Suspense, useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import RequestBasicInfo, {
@@ -9,6 +9,8 @@ import RequestBasicInfo, {
 } from '@components/EvidenceRequest/RequestBasicInfo';
 import FrameworkSelection from '@components/EvidenceRequest/FrameworkSelection';
 import CreateTearsheetStep from '@components/CreateTearsheet/CreateTearsheepStep';
+import { InlineNotification } from '@carbon/react';
+import ApiError from '@api/ApiError';
 
 type NewEvidenceRequestModalProps = {
 	isOpen: boolean;
@@ -22,7 +24,7 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 		'applicationInfo',
 		'userSelect'
 	]);
-	const { mutate } = useCreateDraft(); // TODO Handle errors
+	const { mutate, isError, error, isLoading, reset: resetApi } = useCreateDraft();
 	const [selectedLeaves, setSelectedLeaves] = useState<Framework[]>([]);
 	const {
 		register,
@@ -37,6 +39,7 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 
 	const cleanUp = () => {
 		reset();
+		resetApi();
 		setIsOpen(false);
 	};
 	useEffect(() => {
@@ -70,12 +73,12 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 			<CreateTearsheetStep
 				keyValue='basicInfoStep'
 				title={t('evidenceRequest:basic-info')}
-				disableSubmit={!isValid}
+				disableSubmit={!isValid || isLoading}
 			>
 				<RequestBasicInfo register={register} errors={errors} />
 			</CreateTearsheetStep>
 		),
-		[errors, isValid, register, t]
+		[errors, isValid, register, t, isLoading]
 	);
 
 	const generateFrameworkSelection = useCallback(
@@ -85,16 +88,18 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 				title='Framework'
 				includeStep={requestType !== 'FREE'}
 				className='overflow-auto'
-				disableSubmit={selectedLeaves.length === 0}
+				disableSubmit={isLoading || selectedLeaves.length === 0}
 			>
-				<FrameworkSelection
-					requestType={requestType}
-					selectedLeaves={selectedLeaves}
-					setSelectedLeaves={setSelectedLeaves}
-				/>
+				<Suspense>
+					<FrameworkSelection
+						requestType={requestType}
+						selectedLeaves={selectedLeaves}
+						setSelectedLeaves={setSelectedLeaves}
+					/>
+				</Suspense>
 			</CreateTearsheetStep>
 		),
-		[requestType, selectedLeaves]
+		[requestType, selectedLeaves, isLoading]
 	);
 
 	return (
@@ -115,6 +120,19 @@ const NewEvidenceRequestModal = ({ isOpen, setIsOpen }: NewEvidenceRequestModalP
 		>
 			{generateRequestBasicInfo()}
 			{generateFrameworkSelection()}
+			{isError && (
+				<div className='mt-5 flex items-center justify-center'>
+					<InlineNotification
+						kind='error'
+						title='Error'
+						hideCloseButton
+						subtitle={
+							(error as ApiError)?.message ||
+							'An error has occurred, please try again later'
+						}
+					/>
+				</div>
+			)}
 		</CreateTearsheet>
 	);
 };

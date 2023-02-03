@@ -19,6 +19,7 @@ const NumberFilter = <T extends object>({
 						e.stopPropagation();
 					}}
 					label={label}
+					allowEmpty
 					min={Number(column.getFacetedMinMaxValues()?.[0] ?? '0')}
 					max={Number(column.getFacetedMinMaxValues()?.[1] ?? Number.MAX_VALUE)}
 					value={(filteredValue as [number, number])?.[0]}
@@ -33,6 +34,7 @@ const NumberFilter = <T extends object>({
 				<NumberInput
 					type='number'
 					size='sm'
+					allowEmpty
 					min={Number(column.getFacetedMinMaxValues()?.[0] ?? '0')}
 					max={Number(column.getFacetedMinMaxValues()?.[1] ?? Number.MAX_VALUE)}
 					onClick={e => {

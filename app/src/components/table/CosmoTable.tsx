@@ -15,7 +15,6 @@ import {
 	getExpandedRowModel,
 	getFacetedMinMaxValues,
 	getFacetedRowModel,
-	getFacetedUniqueValues,
 	getFilteredRowModel,
 	getPaginationRowModel,
 	getSortedRowModel,
@@ -45,6 +44,7 @@ import TableBodySkeleton from './TableBodySkeleton';
 import CosmoTableToolbar from './CosmoTableToolbar';
 import TableFormTearsheet from './insert/TableFormTearsheet';
 import { InlineActions } from './types/InlineActionType';
+import getFacetedUniqueValues from './function/getFacetedUniqueValue';
 
 interface ToolbarProps<T extends object> {
 	searchBar?: boolean;

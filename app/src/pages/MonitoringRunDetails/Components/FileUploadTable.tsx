@@ -43,6 +43,7 @@ const FileUploadTable = ({ data, assetId, period, canEdit }: FileUploadTableProp
 				id: `file-${assetId}`,
 				accessorFn: row => row.runFileLink?.fileLink,
 				cell: TagFileLinkCell,
+				meta: { filter: { enabled: false } },
 				header: 'File'
 			}
 		];
@@ -51,6 +52,7 @@ const FileUploadTable = ({ data, assetId, period, canEdit }: FileUploadTableProp
 				id: `file-last-run-${assetId}`,
 				accessorFn: row => row.fileLastRun,
 				cell: TagFileLinkCell,
+				meta: { filter: { enabled: false } },
 				header: t('runDetails:last-run-file')
 			});
 		}

@@ -8,7 +8,6 @@ import { mapCampaignLayerToCampaignDisplayLayer } from '@model/CampaignLayer';
 import DateCell from '@components/table/Cell/DateCell';
 import { ColumnDef } from '@tanstack/react-table';
 import CellLink from '@components/table/Cell/CellLink';
-import { CampaignDtoLayerEnum, CampaignDtoTypeEnum } from 'cosmo-api/src/v1';
 
 const RevalidationsTable = () => {
 	const { t } = useTranslation(['userRevalidation', 'table']);
@@ -38,12 +37,8 @@ const RevalidationsTable = () => {
 				id: 'name',
 				header: t('userRevalidation:campaign-name'),
 				sortUndefined: 1,
-				accessorFn: row => ({
-					name: row.campaign.name,
-					id: row.id,
-					preUrl: '/revalidations-ongoing'
-				}),
-				cell: CellLink
+				accessorFn: row => row.campaign.name,
+				cell: info => CellLink({ info, preUrl: '/revalidations-ongoing' })
 			},
 			{
 				id: 'due-date',
@@ -53,17 +48,14 @@ const RevalidationsTable = () => {
 			},
 			{
 				id: 'layer',
-				accessorFn: row => row.campaign.layer,
-				header: t('userRevalidation:layer'),
-				cell: info =>
-					mapCampaignLayerToCampaignDisplayLayer(info.getValue() as CampaignDtoLayerEnum)
+				accessorFn: row => mapCampaignLayerToCampaignDisplayLayer(row.campaign.layer),
+				header: t('userRevalidation:layer')
 			},
 			{
 				id: 'type',
-				accessorFn: row => row.campaign.type,
+				accessorFn: row => mapCampaignTypeToCampaignDisplayType(row.campaign.type),
 				header: t('userRevalidation:revalidation-type'),
-				cell: info =>
-					mapCampaignTypeToCampaignDisplayType(info.getValue() as CampaignDtoTypeEnum)
+				meta: { filter: { type: 'checkbox' } }
 			},
 			{
 				id: 'applicationsCount',
@@ -75,7 +67,7 @@ const RevalidationsTable = () => {
 				accessorFn: row => translateStatus(row.campaign.status),
 				header: t('userRevalidation:status'),
 				meta: {
-					exportableFn: info => translateStatus(info as string)
+					filter: { type: 'checkbox' }
 				}
 			}
 		],

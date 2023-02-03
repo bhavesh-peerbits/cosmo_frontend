@@ -130,10 +130,18 @@ TableInnerBodyProps<T>) => {
 												itemText={
 													<div className='flex space-x-3'>
 														{action.icon && action.icon}
-														<div>{action.label}</div>
+														<div>
+															{action.label ??
+																(action.conditionalLabel &&
+																	action.conditionalLabel(row)) ??
+																'Missing Label'}
+														</div>
 													</div>
 												}
+												id={row.id}
 												onClick={() => action.onClick(row)}
+												disabled={action.disabled && action.disabled(row)}
+												isDelete={action.isDelete && action.isDelete(row)}
 											/>
 										))}
 									</OverflowMenu>
