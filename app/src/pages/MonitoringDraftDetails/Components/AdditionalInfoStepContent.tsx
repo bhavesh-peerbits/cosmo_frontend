@@ -64,9 +64,9 @@ const AdditionalInfoStepContent = ({
 			  );
 	}, [extensions, extensionsToAdd, setExtensions]);
 	return (
-		<FullWidthColumn>
-			<Layer level={inTile ? 1 : 2} className={`${inTile ? 'space-y-5' : 'space-y-7'}`}>
-				<FullWidthColumn>
+		<FullWidthColumn className='m-0'>
+			<Layer level={inTile ? 1 : 2} className={`${inTile ? 'space-y-5' : 'space-y-5'}`}>
+				<FullWidthColumn className='m-0'>
 					<Layer level={inTile ? 1 : 2}>
 						<div className='flex items-end space-x-3'>
 							<TextInput

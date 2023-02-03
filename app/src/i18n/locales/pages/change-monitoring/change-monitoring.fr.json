@@ -97,6 +97,7 @@
 	"scheduling-step-description": "",
 	"add": "",
 	"extensions-to-ignore": "",
+	"extensions-to-ignore-asset": "",
 	"example-files": "Example files",
 	"example-files-description": "These files will be used as an example for the monitoring.",
 	"note": "",

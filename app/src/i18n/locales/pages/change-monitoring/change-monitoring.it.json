@@ -97,6 +97,7 @@
 	"scheduling-step-description": "In questo step è necessario selezionare un tipo di frequenza di esecuzione delle run del monitoraggio. Per ogni tipologia di frequenza è necessario indicare diverse informazioni",
 	"add": "Aggiungi",
 	"extensions-to-ignore": "Estensioni da ignorare",
+	"extensions-to-ignore-asset": "Estensioni da ignorare per l'asset {{asset}}",
 	"example-files": "Files di esempio",
 	"example-files-description": "Questi files verrano utilizzati come esempio nel monitoraggio.",
 	"note": "Nota",

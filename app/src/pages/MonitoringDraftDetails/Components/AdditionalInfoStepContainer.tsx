@@ -80,70 +80,94 @@ const AdditionalInfoStepContainer = ({
 					placeholder={t('changeMonitoring:monitoring-note-placeholder')}
 				/>
 			</Layer>
-			{draft.monitoringAssets?.length && draft.monitoringAssets?.length > 1 && (
-				<FullWidthColumn>
-					<Toggle
-						aria-label='Additional info toggle'
-						id='additional-info-toggle'
-						labelA={t('changeMonitoring:different')}
-						labelB={t('changeMonitoring:same')}
-						toggled={sameSetup}
-						onToggle={() => setSameSetup(!sameSetup)}
-						labelText={
-							<div className='flex space-x-3'>
-								<p className='text-label-1'>{t('changeMonitoring:asset-setup-toggle')}</p>
-								<Tooltip
-									align='top'
-									label={t('changeMonitoring:same-setup-additional-info')}
-								>
-									<button type='button' onClick={e => e.preventDefault()}>
-										<Information />
-									</button>
-								</Tooltip>
-							</div>
-						}
-					/>
-				</FullWidthColumn>
-			)}
-			{sameSetup ? (
-				<div className='space-y-7'>
-					<AdditionalInfoStepContent setExtensions={setExtensions} />
-					<div>
-						{draft.monitoringAssets?.map(ma => (
-							<AssetExpandableTile title={ma.asset.hostname || ''} key={ma.id}>
-								<div className='space-y-3'>
-									<p className='whitespace-nowrap text-heading-1'>
-										{t('changeMonitoring:extensions-to-ignore')}
+			{draft.monitoringAssets?.length && draft.monitoringAssets?.length > 1 ? (
+				<>
+					<FullWidthColumn>
+						<Toggle
+							aria-label='Additional info toggle'
+							id='additional-info-toggle'
+							labelA={t('changeMonitoring:different')}
+							labelB={t('changeMonitoring:same')}
+							toggled={sameSetup}
+							onToggle={() => setSameSetup(!sameSetup)}
+							labelText={
+								<div className='flex space-x-3'>
+									<p className='text-label-1'>
+										{t('changeMonitoring:asset-setup-toggle')}
 									</p>
-									<div>
-										{ma.extensions?.length ? (
-											ma.extensions?.split('~').map(ex => (
-												<Tag className='mr-3' key={`${ma.id}-${ex}`}>
-													{ex}
-												</Tag>
-											))
-										) : (
-											<p>{t('changeMonitoring:no-extensions')}</p>
-										)}
-									</div>
+									<Tooltip
+										align='top'
+										label={t('changeMonitoring:same-setup-additional-info')}
+									>
+										<button type='button' onClick={e => e.preventDefault()}>
+											<Information />
+										</button>
+									</Tooltip>
 								</div>
-							</AssetExpandableTile>
-						))}
+							}
+						/>
+					</FullWidthColumn>
+					{sameSetup ? (
+						<div className='space-y-7'>
+							<AdditionalInfoStepContent setExtensions={setExtensions} />
+							<div>
+								{draft.monitoringAssets?.map(ma => (
+									<AssetExpandableTile title={ma.asset.hostname || ''} key={ma.id}>
+										<div className='space-y-3'>
+											<p className='whitespace-nowrap text-heading-1'>
+												{t('changeMonitoring:extensions-to-ignore')}
+											</p>
+											<div>
+												{ma.extensions?.length ? (
+													ma.extensions?.split('~').map(ex => (
+														<Tag className='mr-3' key={`${ma.id}-${ex}`}>
+															{ex}
+														</Tag>
+													))
+												) : (
+													<p>{t('changeMonitoring:no-extensions')}</p>
+												)}
+											</div>
+										</div>
+									</AssetExpandableTile>
+								))}
+							</div>
+						</div>
+					) : (
+						<div>
+							{draft.monitoringAssets?.map(ma => (
+								<AssetExpandableTile title={ma.asset.hostname || ''} key={ma.id}>
+									<AdditionalInfoStepContent
+										inTile
+										setExtensions={setExtensions}
+										extensions={extensions.find(el => el.assetId === ma.id)}
+									/>
+								</AssetExpandableTile>
+							))}
+						</div>
+					)}
+				</>
+			) : (
+				<div className='space-y-3'>
+					<p className='whitespace-nowrap text-heading-1'>
+						{t('changeMonitoring:extensions-to-ignore-asset', {
+							asset: `"${draft.monitoringAssets?.[0].asset.hostname}"`
+						})}
+					</p>
+					<div>
+						{draft.monitoringAssets?.[0].extensions?.length ? (
+							draft.monitoringAssets?.[0].extensions?.split('~').map(ex => (
+								<Tag className='mr-3' key={`${draft.monitoringAssets?.[0].id}-${ex}`}>
+									{ex}
+								</Tag>
+							))
+						) : (
+							<p>{t('changeMonitoring:no-extensions')}</p>
+						)}
 					</div>
 				</div>
-			) : (
-				<div>
-					{draft.monitoringAssets?.map(ma => (
-						<AssetExpandableTile title={ma.asset.hostname || ''} key={ma.id}>
-							<AdditionalInfoStepContent
-								inTile
-								setExtensions={setExtensions}
-								extensions={extensions.find(el => el.assetId === ma.id)}
-							/>
-						</AssetExpandableTile>
-					))}
-				</div>
 			)}
+
 			<div className='items-center justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
 				<InlineLoadingStatus
 					{...{ isLoading: false, isSuccess, isError, error: error as ApiError }}

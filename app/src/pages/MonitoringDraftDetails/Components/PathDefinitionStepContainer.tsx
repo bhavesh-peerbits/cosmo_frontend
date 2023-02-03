@@ -45,53 +45,70 @@ const PathDefinitionStepContainer = ({ setCurrentStep, draft }: PathDefinitionPr
 
 	return (
 		<>
-			{draft.monitoringAssets?.length && draft.monitoringAssets.length > 1 && (
-				<FullWidthColumn>
-					<Toggle
-						aria-label='Path toggle'
-						id='path-toggle'
-						labelA={t('different')}
-						labelB={t('same')}
-						toggled={sameSetup}
-						onToggle={() => setSameSetup(!sameSetup)}
-						labelText={
-							<div className='flex space-x-3'>
-								<p className='text-label-1'>{t('asset-setup-toggle')}</p>
-								<Tooltip align='top' label={t('same-setup-additional-info')}>
-									<button type='button' onClick={e => e.preventDefault()}>
-										<Information />
-									</button>
-								</Tooltip>
-							</div>
-						}
-					/>
+			{draft.monitoringAssets?.length && draft.monitoringAssets.length > 1 ? (
+				<FullWidthColumn className='mr-0 space-y-7'>
+					<FullWidthColumn>
+						<Toggle
+							aria-label='Path toggle'
+							id='path-toggle'
+							labelA={t('different')}
+							labelB={t('same')}
+							toggled={sameSetup}
+							onToggle={() => setSameSetup(!sameSetup)}
+							labelText={
+								<div className='flex space-x-3'>
+									<p className='text-label-1'>{t('asset-setup-toggle')}</p>
+									<Tooltip align='top' label={t('same-setup-additional-info')}>
+										<button type='button' onClick={e => e.preventDefault()}>
+											<Information />
+										</button>
+									</Tooltip>
+								</div>
+							}
+						/>
+					</FullWidthColumn>
+					<FullWidthColumn className='space-y-7'>
+						{sameSetup && (
+							<Layer>
+								<SameSetupPathTable
+									globalData={globalPaths}
+									setGlobalData={setGlobalPaths}
+									assetIds={draft.monitoringAssets?.map(ma => ma.asset.id) || []}
+									os={draft.monitoringAssets?.[0].asset.os}
+								/>
+							</Layer>
+						)}
+
+						<Layer>
+							{draft.monitoringAssets?.map(ma => (
+								<AssetExpandableTile title={ma.asset.hostname || ''} key={ma.id}>
+									<Layer level={1}>
+										<PathAssetTable
+											assetData={assetsData}
+											canAdd={!sameSetup}
+											assetId={ma.asset.id || ''}
+											setAssetData={setAssetsData}
+										/>
+									</Layer>
+								</AssetExpandableTile>
+							))}
+						</Layer>
+					</FullWidthColumn>
 				</FullWidthColumn>
-			)}
-			<FullWidthColumn className='space-y-7'>
-				{sameSetup && (
+			) : (
+				<FullWidthColumn>
 					<Layer>
-						<SameSetupPathTable
-							globalData={globalPaths}
-							setGlobalData={setGlobalPaths}
-							assetIds={draft.monitoringAssets?.map(ma => ma.asset.id) || []}
-							os={draft.monitoringAssets?.[0].asset.os}
+						<PathAssetTable
+							assetData={assetsData}
+							canAdd={!sameSetup}
+							assetId={draft.monitoringAssets?.[0].asset.id || ''}
+							setAssetData={setAssetsData}
+							title={draft.monitoringAssets?.[0].asset.hostname || ''}
 						/>
 					</Layer>
-				)}
+				</FullWidthColumn>
+			)}
 
-				<div>
-					{draft.monitoringAssets?.map(ma => (
-						<AssetExpandableTile title={ma.asset.hostname || ''} key={ma.id}>
-							<PathAssetTable
-								assetData={assetsData}
-								canAdd={!sameSetup}
-								assetId={ma.asset.id || ''}
-								setAssetData={setAssetsData}
-							/>
-						</AssetExpandableTile>
-					))}
-				</div>
-			</FullWidthColumn>
 			<FullWidthColumn className='justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
 				<InlineLoadingStatus
 					{...{ isLoading: false, isSuccess, isError, error: error as ApiError }}
