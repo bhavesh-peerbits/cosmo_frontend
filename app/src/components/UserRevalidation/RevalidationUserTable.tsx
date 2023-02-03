@@ -11,7 +11,7 @@ import {
 	Information
 } from '@carbon/react/icons';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { OverflowMenu, OverflowMenuItem, Tooltip } from '@carbon/react';
+import { OverflowMenu, OverflowMenuItem, Tooltip, Layer } from '@carbon/react';
 import { AnswerApiTypeEnum } from 'cosmo-api/src';
 import useMapAnswerType from '@hooks/user-revalidation-review/useMapAnswerType';
 import UserRevalidationActionModal, {
@@ -288,20 +288,22 @@ const RevalidationUserTable = ({ review }: CosmoTableRevalidationUsersProps) => 
 	return (
 		<>
 			<UserRevalidationActionModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
-			<CosmoTable
-				tableId={review.id}
-				columns={columns}
-				noDataMessage={t('table:no-data')}
-				isColumnOrderingEnabled
-				toolbar={{
-					searchBar: true,
-					toolbarBatchActions,
-					toolbarTableMenus: []
-				}}
-				exportFileName={({ all }) => (all ? 'answers-all' : 'answers-selection')}
-				data={answersList}
-				isSelectable
-			/>
+			<Layer>
+				<CosmoTable
+					tableId={review.id}
+					columns={columns}
+					noDataMessage={t('table:no-data')}
+					isColumnOrderingEnabled
+					toolbar={{
+						searchBar: true,
+						toolbarBatchActions,
+						toolbarTableMenus: []
+					}}
+					exportFileName={({ all }) => (all ? 'answers-all' : 'answers-selection')}
+					data={answersList}
+					isSelectable
+				/>
+			</Layer>
 		</>
 	);
 };
