@@ -1,5 +1,5 @@
-import { Button } from '@carbon/react';
-import { useMemo, useState } from 'react';
+import { Button, Layer } from '@carbon/react';
+import { Suspense, useMemo, useState } from 'react';
 import User from '@model/User';
 import { Add } from '@carbon/react/icons';
 import useGetFilteredPagedUser from '@api/user-admin/useGetFilteredPagedUser';
@@ -66,7 +66,8 @@ const UserAppsVisibilityTable = () => {
 				enableSorting: false,
 				cell: info => ActionsCell({ setIsSelectOpen, setUserSelectedId, info }),
 				meta: {
-					disableExport: true
+					disableExport: true,
+					filter: { enabled: false }
 				}
 			}
 		],
@@ -74,14 +75,16 @@ const UserAppsVisibilityTable = () => {
 	);
 
 	return (
-		<>
+		<Layer>
 			{userSelectedId ? (
-				<SelectApplicationUser
-					userSelectedId={userSelectedId}
-					setIsSelectOpen={setIsSelectOpen}
-					isSelectOpen={isSelectOpen}
-					applications={applications || []}
-				/>
+				<Suspense>
+					<SelectApplicationUser
+						userSelectedId={userSelectedId}
+						setIsSelectOpen={setIsSelectOpen}
+						isSelectOpen={isSelectOpen}
+						applications={applications || []}
+					/>
+				</Suspense>
 			) : null}
 
 			<CosmoTable
@@ -98,7 +101,7 @@ const UserAppsVisibilityTable = () => {
 					toolbarTableMenus: []
 				}}
 			/>
-		</>
+		</Layer>
 	);
 };
 

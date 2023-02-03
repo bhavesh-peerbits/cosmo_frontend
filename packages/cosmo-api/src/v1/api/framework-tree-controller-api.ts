@@ -48,18 +48,16 @@ export const FrameworkTreeControllerApiAxiosParamCreator = function (
 	return {
 		/**
 		 *
-		 * @param {any} file
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {any} [file]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		addAssociation: async (
-			file: any,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			file?: any,
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
-			// verify required parameter 'file' is not null or undefined
-			assertParamExists('addAssociation', 'file', file);
 			const localVarPath = `/api/framework/uploadcsv/uploadassociation`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -115,19 +113,19 @@ export const FrameworkTreeControllerApiFp = function (configuration?: Configurat
 	return {
 		/**
 		 *
-		 * @param {any} file
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {any} [file]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async addAssociation(
-			file: any,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			file?: any,
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.addAssociation(
-				file,
 				acceptLanguage,
+				file,
 				options
 			);
 			return createRequestFunction(
@@ -153,18 +151,18 @@ export const FrameworkTreeControllerApiFactory = function (
 	return {
 		/**
 		 *
-		 * @param {any} file
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {any} [file]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		addAssociation(
-			file: any,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			file?: any,
 			options?: any
 		): AxiosPromise<object> {
 			return localVarFp
-				.addAssociation(file, acceptLanguage, options)
+				.addAssociation(acceptLanguage, file, options)
 				.then(request => request(axios, basePath));
 		}
 	};
@@ -178,17 +176,17 @@ export const FrameworkTreeControllerApiFactory = function (
 export interface FrameworkTreeControllerApiAddAssociationRequest {
 	/**
 	 *
-	 * @type {any}
-	 * @memberof FrameworkTreeControllerApiAddAssociation
-	 */
-	readonly file: any;
-
-	/**
-	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
 	 * @memberof FrameworkTreeControllerApiAddAssociation
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+
+	/**
+	 *
+	 * @type {any}
+	 * @memberof FrameworkTreeControllerApiAddAssociation
+	 */
+	readonly file?: any;
 }
 
 /**
@@ -206,11 +204,11 @@ export class FrameworkTreeControllerApi extends BaseAPI {
 	 * @memberof FrameworkTreeControllerApi
 	 */
 	public addAssociation(
-		requestParameters: FrameworkTreeControllerApiAddAssociationRequest,
+		requestParameters: FrameworkTreeControllerApiAddAssociationRequest = {},
 		options?: AxiosRequestConfig
 	) {
 		return FrameworkTreeControllerApiFp(this.configuration)
-			.addAssociation(requestParameters.file, requestParameters.acceptLanguage, options)
+			.addAssociation(requestParameters.acceptLanguage, requestParameters.file, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 }

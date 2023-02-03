@@ -6,9 +6,9 @@ import { useTranslation } from 'react-i18next';
 import { Layer } from '@carbon/react';
 import FileLink from '@model/FileLink';
 import MultiTagFileLinkCell from '@components/table/Cell/MultiTagFileLinkCell';
-import { JustificationDeltaFileDtoStatusEnum } from 'cosmo-api/src/v1';
 import useGetCsvAnswer from '@api/change-monitoring/useGetCsvAnswer';
 import useDeleteAnswer from '@api/change-monitoring/useDeleteAnswer';
+import DateCell from '@components/table/Cell/DateCell';
 import AddAnswerToDeltaModal, {
 	DeltaTableRowType
 } from '../Modals/AddAnswerToDeltaModal';
@@ -75,8 +75,8 @@ const DeltaResultTable = ({
 			},
 			{
 				id: 'date-time',
-				accessorFn: row =>
-					row.deltaFile.lastModify && new Date(row.deltaFile.lastModify).toLocaleString(),
+				accessorFn: row => row.deltaFile.lastModify && new Date(row.deltaFile.lastModify),
+				cell: DateCell,
 				header: t('runDetails:date-time')
 			},
 			{
@@ -86,7 +86,8 @@ const DeltaResultTable = ({
 			},
 			{
 				id: 'answered-at',
-				accessorFn: row => row.givenAt && new Date(row.givenAt).toLocaleString(),
+				accessorFn: row => row.givenAt && new Date(row.givenAt),
+				cell: DateCell,
 				header: t('runDetails:answer-date'),
 				meta: { initialVisible: false }
 			},
@@ -104,6 +105,7 @@ const DeltaResultTable = ({
 					info.row.original.answerFile?.length ? MultiTagFileLinkCell(info) : '-',
 				header: 'Files',
 				meta: {
+					filter: { enabled: false },
 					exportableFn: info =>
 						(info as DeltaTableRowType).answerFile
 							? (info as DeltaTableRowType).answerFile
@@ -114,13 +116,11 @@ const DeltaResultTable = ({
 			},
 			{
 				id: 'status',
-				accessorFn: row => row.justificationStatus,
-				cell: info =>
-					t(`runDetails:${info.getValue() as JustificationDeltaFileDtoStatusEnum}`),
+				accessorFn: row =>
+					row.justificationStatus ? t(`runDetails:${row.justificationStatus}`) : '',
 				header: t('runDetails:answer-status'),
 				meta: {
-					exportableFn: info =>
-						t(`runDetails:${info as JustificationDeltaFileDtoStatusEnum}`)
+					filter: { type: 'checkbox' }
 				}
 			}
 		],

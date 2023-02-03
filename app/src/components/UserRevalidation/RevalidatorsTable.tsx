@@ -9,7 +9,6 @@ import { Edit } from '@carbon/react/icons';
 import { SetterOrUpdater, useSetRecoilState } from 'recoil';
 import modifyAnswerModalInfo from '@store/user-revalidation/modifyAnswerModalInfo';
 import { CampaignDtoStatusEnum } from 'cosmo-api/src/v1/models/campaign-dto';
-import User from '@model/User';
 import { CellContext, ColumnDef } from '@tanstack/react-table';
 import DateCell from '@components/table/Cell/DateCell';
 import TooltipCell from '@components/table/Cell/TooltipCell';
@@ -95,24 +94,16 @@ const RevalidatorsTable = ({
 			},
 			{
 				id: `delegated${reviewId}`,
-				accessorFn: row => ({ delegates: row.delegated }),
 				header: t('userRevalidation:delegates'),
-				cell: UsersListCell,
-				enableGrouping: false,
-				meta: {
-					exportableFn: info =>
-						(info as { delegates: User[] | undefined }).delegates
-							?.map(delegate => delegate.displayName)
-							.join(', ') ?? '-'
-				}
+				cell: info => UsersListCell({ users: info.row.original.delegated }),
+				accessorFn: row =>
+					row.delegated?.map(delegate => delegate.displayName).join(', ') ?? '-'
 			},
 			{
 				id: `answer${reviewId}`,
-				accessorFn: row => row.answerType,
-				header: t('userRevalidation:answer'),
-				cell: info => {
-					if (info.getValue()) {
-						return info.getValue();
+				accessorFn: row => {
+					if (row.answerType) {
+						return row.answerType;
 					}
 
 					if (dueDate && isAfter(new Date(), dueDate)) {
@@ -120,7 +111,9 @@ const RevalidatorsTable = ({
 					}
 
 					return t('userRevalidation:not-completed');
-				}
+				},
+				header: t('userRevalidation:answer'),
+				meta: { filter: { type: 'checkbox' } }
 			},
 			{
 				id: `answerNote${reviewId}`,
@@ -151,21 +144,10 @@ const RevalidatorsTable = ({
 			},
 			{
 				id: `permissions${reviewId}`,
-				accessorFn: row => ({
-					content: row.permissions,
-					description: row.permissionDescription
-				}),
 				header: t('userRevalidation:permission'),
-				cell: TooltipCell,
-				meta: {
-					exportableFn: info =>
-						(
-							info as {
-								content: string;
-								description?: string;
-							}
-						).content
-				}
+				accessorFn: row => row.permissions,
+				cell: info =>
+					TooltipCell({ info, description: info.row.original.permissionDescription })
 			}
 		];
 		if (status !== 'COMPLETED' && status !== 'COMPLETED_WITH_PARTIAL_ANSWERS') {
@@ -194,21 +176,13 @@ const RevalidatorsTable = ({
 
 				{
 					id: `risk${reviewId}`,
+					accessorFn: row => row.jsonApplicationData?.risk,
 					header: t('userRevalidation:risk'),
-					accessorFn: row => ({
-						content: row.jsonApplicationData?.risk,
-						description: row.jsonApplicationData?.riskDescription
-					}),
-					cell: TooltipCell,
-					meta: {
-						exportableFn: info =>
-							(
-								info as {
-									content: string;
-									description?: string;
-								}
-							).content
-					}
+					cell: info =>
+						TooltipCell({
+							info,
+							description: info.row.original.jsonApplicationData?.riskDescription
+						})
 				}
 			);
 		}

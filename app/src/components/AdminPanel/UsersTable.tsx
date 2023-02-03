@@ -1,50 +1,12 @@
 import { useTranslation } from 'react-i18next';
 import User from '@model/User';
-import { OverflowMenu, OverflowMenuItem } from '@carbon/react';
+import { Layer } from '@carbon/react';
 import CosmoTable from '@components/table/CosmoTable';
 import { useMemo, useState } from 'react';
 import useRoleAssignmentUsers from '@hooks/admin-panel/useRoleAssignmentUsers';
 import SetUserStatusModal from '@components/Modals/SetUserStatusModal';
 import EditUserModal from '@components/Modals/EditUserModal';
 import { ColumnDef } from '@tanstack/react-table';
-
-type ActionCellProps = {
-	setIsModalOpen: (val: boolean) => void;
-	setActionSelected: (val: string) => void;
-	user: User | undefined;
-	setUser: (val: User) => void;
-};
-
-const ActionsCell = ({
-	setIsModalOpen,
-	setActionSelected,
-	user,
-	setUser
-}: ActionCellProps) => {
-	const { t } = useTranslation('userAdmin');
-	user && setUser(user);
-	return (
-		<OverflowMenu ariaLabel='Actions' iconDescription={t('actions')} direction='top'>
-			<OverflowMenuItem
-				itemText={t('edit')}
-				onClick={() => {
-					setIsModalOpen(true);
-					setActionSelected('edit');
-				}}
-				disabled={user?.inactive || user?.roles.includes('SYS_ADMIN')}
-			/>
-			<OverflowMenuItem
-				isDelete={!user?.inactive}
-				itemText={t(user?.inactive ? 'unblock' : 'block')}
-				onClick={() => {
-					setIsModalOpen(true);
-					setActionSelected('Block');
-				}}
-				disabled={user?.roles.includes('SYS_ADMIN')}
-			/>
-		</OverflowMenu>
-	);
-};
 
 const UsersTable = () => {
 	const { t } = useTranslation('userAdmin');
@@ -77,55 +39,84 @@ const UsersTable = () => {
 				id: 'username',
 				accessorFn: row => row.username,
 				header: t('username'),
-				sortUndefined: 1
+				sortUndefined: 1,
+				meta: { filter: { enabled: false } }
 			},
 			{
 				id: 'name',
 				accessorFn: row => row.name,
 				header: t('name'),
-				sortUndefined: 1
+				sortUndefined: 1,
+				meta: { filter: { enabled: false } }
 			},
 			{
 				id: 'surname',
 				accessorFn: row => row.surname,
-				header: t('surname')
+				header: t('surname'),
+				meta: { filter: { enabled: false } }
 			},
 			{
 				id: 'email',
 				accessorFn: row => row.email,
-				header: 'Email'
+				header: 'Email',
+				meta: { filter: { enabled: false } }
 			},
 			{
 				id: 'role',
 				accessorFn: row => row.principalRole,
 				header: t('role'),
-				cell: info => info.getValue() || '-'
-			},
-			{
-				id: 'status',
-				accessorFn: row => row.inactive,
-				header: t('status'),
-				cell: info => (info.getValue() ? t('blocked') : t('active')),
+				cell: info => info.getValue() || '-',
 				meta: {
-					exportableFn: info => ((info as string) ? t('blocked') : t('active'))
+					filter: {
+						type: 'multiselect',
+						label: t('role')
+					}
 				}
 			},
 			{
-				id: `action`,
-				header: tTable('action'),
-				accessorFn: row => row,
-				enableGrouping: false,
-				cell: () => ActionsCell({ setIsModalOpen, setActionSelected, user, setUser })
+				id: 'status',
+				accessorFn: row => (row.inactive ? t('blocked') : t('active')),
+				header: t('status'),
+
+				meta: {
+					exportableFn: info => ((info as string) ? t('blocked') : t('active')),
+					filter: {
+						type: 'checkbox',
+						label: t('status')
+					}
+				}
 			}
 		],
-		[t, tTable, user]
+		[t]
 	);
 
 	return (
-		<>
+		<Layer>
 			{isModalOpen && modalToOpen()}
 			<CosmoTable
 				tableId='userstable'
+				inlineActions={[
+					{
+						label: t('edit'),
+						onClick: data => {
+							setIsModalOpen(true);
+							setActionSelected('edit');
+							setUser(data.original);
+						},
+						disabled: data =>
+							data.original.inactive || data.original.roles.includes('SYS_ADMIN')
+					},
+					{
+						isDelete: data => !data.original.inactive,
+						conditionalLabel: data => t(data.original.inactive ? 'unblock' : 'block'),
+						onClick: data => {
+							setIsModalOpen(true);
+							setActionSelected('Block');
+							setUser(data.original);
+						},
+						disabled: data => data.original.roles.includes('SYS_ADMIN')
+					}
+				]}
 				data={users}
 				columns={columns}
 				isColumnOrderingEnabled
@@ -137,7 +128,7 @@ const UsersTable = () => {
 				}}
 				exportFileName={({ all }) => (all ? 'users-all' : 'users-selection')}
 			/>
-		</>
+		</Layer>
 	);
 };
 

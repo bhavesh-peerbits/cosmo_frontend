@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import {
 	Tooltip,
 	ContentSwitcher,
@@ -14,8 +15,8 @@ import { Link } from 'react-router-dom';
 import { Information, Grid as GridIcon, HorizontalView } from '@carbon/react/icons';
 import { useCallback, useMemo } from 'react';
 import { CellContext, ColumnDef } from '@tanstack/react-table';
-import EvidenceRequestStep from '@model/EvidenceRequestStep';
 import CosmoTable from '@components/table/CosmoTable';
+import DateCell from '@components/table/Cell/DateCell';
 
 interface EvidenceRequestActionTableViewProps {
 	view: string;
@@ -54,18 +55,6 @@ const EvidenceRequestActionTableView = ({
 		[]
 	);
 
-	const CellAction = useCallback(
-		({ getValue }: CellContext<EvidenceRequest, unknown>) => {
-			const info = getValue() as { currentStep: number; steps: EvidenceRequestStep[] };
-			const steps = [...info.steps];
-			steps.sort((a, b) => a.stepOrder - b.stepOrder);
-			return steps[info.currentStep - 1].type === 'APPROVAL'
-				? t('approve').toUpperCase()
-				: t('upload').toUpperCase();
-		},
-		[t]
-	);
-
 	const CellLinkComponent = useCallback(
 		({ getValue, row }: CellContext<EvidenceRequest, unknown>) =>
 			row.original.id ? (
@@ -93,12 +82,14 @@ const EvidenceRequestActionTableView = ({
 			},
 			{
 				accessorKey: `startDate${view}`,
-				accessorFn: row => row.startDate?.toLocaleDateString(),
+				accessorFn: row => row.startDate,
+				cell: DateCell,
 				header: t('start-date')
 			},
 			{
 				accessorKey: `dueDate${view}`,
-				accessorFn: row => row.dueDate?.toLocaleDateString(),
+				accessorFn: row => row.dueDate,
+				cell: DateCell,
 				header: t('due-date')
 			},
 			{
@@ -121,9 +112,15 @@ const EvidenceRequestActionTableView = ({
 			ArrayCol.splice(2, 0, {
 				accessorKey: `action${view}`,
 				header: t('action'),
-				accessorFn: row => ({ currentStep: row.currentStep, steps: row.steps }),
+				accessorFn: row => {
+					const steps = [...row.steps];
+					steps.sort((a, b) => a.stepOrder - b.stepOrder);
+					return steps[row.currentStep - 1].type === 'APPROVAL'
+						? t('approve').toUpperCase()
+						: t('upload').toUpperCase();
+				},
 				enableGrouping: false,
-				cell: CellAction
+				meta: { filter: { type: 'checkbox' } }
 			});
 		}
 
@@ -150,7 +147,7 @@ const EvidenceRequestActionTableView = ({
 			});
 		}
 		return ArrayCol;
-	}, [CellAction, CellLinkComponent, t, tooltipCell, view]);
+	}, [CellLinkComponent, t, tooltipCell, view]);
 
 	return (
 		<Fade>
@@ -193,7 +190,7 @@ const EvidenceRequestActionTableView = ({
 					</div>
 				</div>
 			</div>
-			<div className='p-3'>
+			<Layer className='p-3'>
 				<CosmoTable
 					tableId={view}
 					data={requests}
@@ -204,10 +201,8 @@ const EvidenceRequestActionTableView = ({
 						toolbarTableMenus: []
 					}}
 					isColumnOrderingEnabled
-					canAdd
-					// modalProps={{ title: 'test',  }} FIXME use new version
 				/>
-			</div>
+			</Layer>
 		</Fade>
 	);
 };

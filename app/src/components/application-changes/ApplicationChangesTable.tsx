@@ -1,10 +1,10 @@
 import useGetApplicationChanges from '@api/management/useGetApplicationChanges';
 import ApplicationAudit from '@model/ApplicationAudit';
-import { formatDate } from '@i18n';
 import { useTranslation } from 'react-i18next';
 import { ColumnDef } from '@tanstack/react-table';
 import { useMemo } from 'react';
 import StringDashCell from '@components/table/Cell/StringDashCell';
+import DateCell from '@components/table/Cell/DateCell';
 import CosmoTable from '../table/CosmoTable';
 
 interface ApplicationChangesTableProps {
@@ -36,7 +36,8 @@ const ApplicationChangesTable = ({ appId }: ApplicationChangesTableProps) => {
 			},
 			{
 				id: 'modify-date',
-				accessorFn: row => formatDate(row.date),
+				accessorFn: row => row.date,
+				cell: DateCell,
 				header: t('date'),
 				enableGlobalFilter: false
 			},
