@@ -45,26 +45,28 @@ const PathDefinitionStepContainer = ({ setCurrentStep, draft }: PathDefinitionPr
 
 	return (
 		<>
-			<FullWidthColumn>
-				<Toggle
-					aria-label='Path toggle'
-					id='path-toggle'
-					labelA={t('different')}
-					labelB={t('same')}
-					toggled={sameSetup}
-					onToggle={() => setSameSetup(!sameSetup)}
-					labelText={
-						<div className='flex space-x-3'>
-							<p className='text-label-1'>{t('asset-setup-toggle')}</p>
-							<Tooltip align='top' label={t('same-setup-additional-info')}>
-								<button type='button' onClick={e => e.preventDefault()}>
-									<Information />
-								</button>
-							</Tooltip>
-						</div>
-					}
-				/>
-			</FullWidthColumn>
+			{draft.monitoringAssets?.length && draft.monitoringAssets.length > 1 && (
+				<FullWidthColumn>
+					<Toggle
+						aria-label='Path toggle'
+						id='path-toggle'
+						labelA={t('different')}
+						labelB={t('same')}
+						toggled={sameSetup}
+						onToggle={() => setSameSetup(!sameSetup)}
+						labelText={
+							<div className='flex space-x-3'>
+								<p className='text-label-1'>{t('asset-setup-toggle')}</p>
+								<Tooltip align='top' label={t('same-setup-additional-info')}>
+									<button type='button' onClick={e => e.preventDefault()}>
+										<Information />
+									</button>
+								</Tooltip>
+							</div>
+						}
+					/>
+				</FullWidthColumn>
+			)}
 			<FullWidthColumn className='space-y-7'>
 				{sameSetup && (
 					<Layer>

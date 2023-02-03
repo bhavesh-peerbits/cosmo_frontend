@@ -80,29 +80,31 @@ const AdditionalInfoStepContainer = ({
 					placeholder={t('changeMonitoring:monitoring-note-placeholder')}
 				/>
 			</Layer>
-			<FullWidthColumn>
-				<Toggle
-					aria-label='Additional info toggle'
-					id='additional-info-toggle'
-					labelA={t('changeMonitoring:different')}
-					labelB={t('changeMonitoring:same')}
-					toggled={sameSetup}
-					onToggle={() => setSameSetup(!sameSetup)}
-					labelText={
-						<div className='flex space-x-3'>
-							<p className='text-label-1'>{t('changeMonitoring:asset-setup-toggle')}</p>
-							<Tooltip
-								align='top'
-								label={t('changeMonitoring:same-setup-additional-info')}
-							>
-								<button type='button' onClick={e => e.preventDefault()}>
-									<Information />
-								</button>
-							</Tooltip>
-						</div>
-					}
-				/>
-			</FullWidthColumn>
+			{draft.monitoringAssets?.length && draft.monitoringAssets?.length > 1 && (
+				<FullWidthColumn>
+					<Toggle
+						aria-label='Additional info toggle'
+						id='additional-info-toggle'
+						labelA={t('changeMonitoring:different')}
+						labelB={t('changeMonitoring:same')}
+						toggled={sameSetup}
+						onToggle={() => setSameSetup(!sameSetup)}
+						labelText={
+							<div className='flex space-x-3'>
+								<p className='text-label-1'>{t('changeMonitoring:asset-setup-toggle')}</p>
+								<Tooltip
+									align='top'
+									label={t('changeMonitoring:same-setup-additional-info')}
+								>
+									<button type='button' onClick={e => e.preventDefault()}>
+										<Information />
+									</button>
+								</Tooltip>
+							</div>
+						}
+					/>
+				</FullWidthColumn>
+			)}
 			{sameSetup ? (
 				<div className='space-y-7'>
 					<AdditionalInfoStepContent setExtensions={setExtensions} />

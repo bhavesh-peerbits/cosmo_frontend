@@ -34,7 +34,10 @@ const NewMonitoringStepsContainer = ({ draft }: NewMonitoringStepsContainerProps
 						<PathDefinitionStepContainer setCurrentStep={setCurrentStep} draft={draft} />
 					),
 					title: 'Path',
-					description: t('changeMonitoring:path-step-description')
+					description:
+						draft.monitoringAssets?.length && draft.monitoringAssets.length > 1
+							? t('changeMonitoring:path-step-description-multi')
+							: t('changeMonitoring:path-step-description-single')
 				};
 			case 2:
 				return {
@@ -69,8 +72,12 @@ const NewMonitoringStepsContainer = ({ draft }: NewMonitoringStepsContainerProps
 						<AdditionalInfoStepContainer setCurrentStep={setCurrentStep} draft={draft} />
 					),
 					title: t('evidenceRequest:additional-info'),
-					description: t('changeMonitoring:additional-info-step-description')
+					description:
+						draft.monitoringAssets?.length && draft.monitoringAssets.length > 1
+							? t('changeMonitoring:additional-info-description-multi')
+							: t('changeMonitoring:additional-info-description-single')
 				};
+
 			default:
 				return {
 					content: (
