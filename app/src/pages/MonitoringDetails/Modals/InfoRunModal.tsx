@@ -10,6 +10,8 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction } from 'react';
 import UserProfileImage from '@components/UserProfileImage';
+import Run from '@model/Run';
+import Monitoring from '@model/Monitoring';
 
 type RecapStringRowProps = {
 	title: string;
@@ -29,10 +31,11 @@ const RecapStringRow = ({ title, info }: RecapStringRowProps) => {
 type InfoRunProps = {
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<boolean>>;
-	id: string;
+	run: Run;
+	monitoring: Monitoring;
 };
 
-const InfoRunModal = ({ isOpen, setIsOpen, id }: InfoRunProps) => {
+const InfoRunModal = ({ isOpen, setIsOpen, run, monitoring }: InfoRunProps) => {
 	const { t } = useTranslation([
 		'modals',
 		'monitoringDashboard',
@@ -47,17 +50,34 @@ const InfoRunModal = ({ isOpen, setIsOpen, id }: InfoRunProps) => {
 	return (
 		<ComposedModal open={isOpen} onClose={cleanUp}>
 			<ModalHeader
-				label={`Monitoring Name - Run ${id}`}
+				label={`Monitoring Name - Run ${run.id}`}
 				title='Run Recap'
 				closeModal={cleanUp}
 			/>
 			<ModalBody className='space-y-5'>
 				<div className='divide-y-[1px] divide-solid divide-border-subtle-0 bg-background'>
-					<RecapStringRow title={t('modals:application')} info='info' />
-					<RecapStringRow title={t('changeMonitoring:app-instance')} info='info' />
-					<RecapStringRow title='Run' info='run ex' />
-					<RecapStringRow title='Framework' info='info' />
-					<RecapStringRow title={t('changeMonitoring:control')} info='info' />
+					<RecapStringRow
+						title={t('modals:application')}
+						info={monitoring.instance.application.name}
+					/>
+					<RecapStringRow
+						title={t('changeMonitoring:app-instance')}
+						info={monitoring.instance.name}
+					/>
+					<RecapStringRow title='Run' info={`RUN ${run.orderNumber}`} />
+					<RecapStringRow title='Framework' info={monitoring.frameworkName || ''} />
+					{monitoring.frameworkLeafsName && (
+						<RecapStringRow
+							title={t('evidenceRequest:framework-name')}
+							info={monitoring.frameworkLeafsName.split('-').join(', ')}
+						/>
+					)}
+					{monitoring.frameworkLeafsCodes && (
+						<RecapStringRow
+							title={t('evidenceRequest:framework-code')}
+							info={monitoring.frameworkLeafsCodes.split('-').join(', ')}
+						/>
+					)}
 					<div className='flex divide-x-[1px] divide-solid divide-border-subtle-0'>
 						<div className='h-[40px] w-1/3 py-3 pl-3'>
 							<p className='text-heading-1'>{t('evidenceRequest:owner')}</p>
@@ -71,33 +91,39 @@ const InfoRunModal = ({ isOpen, setIsOpen, id }: InfoRunProps) => {
 							/>
 						</div>
 					</div>
-
 					<div className='flex divide-x-[1px] divide-solid divide-border-subtle-0'>
 						<div className='h-[40px] w-1/3 py-3 pl-3'>
 							<p className='text-heading-1'>
 								{t('changeMonitoring:extensions-to-ignore')}
 							</p>
 						</div>
-						<div className='flex h-[40px] items-center py-3 pl-3'>
-							<Tag>Estensione</Tag>
-						</div>
+						{monitoring.monitoringAssets
+							.map(ma => ma.extensions)
+							?.map(extension => (
+								<div className='flex h-[40px] items-center py-3 pl-3'>
+									<Tag>{extension}</Tag>
+								</div>
+							))}
 					</div>
 				</div>
 				<Accordion>
-					<AccordionItem title='Asset'>
-						<p className='pb-5 text-heading-1 '>Paths:</p>
-						<div className='space-y-5'>
-							<TextInput
-								id='path'
-								labelText=''
-								hideLabel
-								readOnly
-								size='sm'
-								value='VeryVeryVeryVeryVeryVeryLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongPath'
-							/>
-							<TextInput id='path' labelText='' hideLabel readOnly size='sm' />
-						</div>
-					</AccordionItem>
+					{monitoring.monitoringAssets.map(ma => (
+						<AccordionItem title={ma.asset.hostname}>
+							<p className='pb-5 text-heading-1 '>Paths:</p>
+							<div className='space-y-5'>
+								{ma.paths.map(path => (
+									<TextInput
+										id={`${path.id}`}
+										labelText=''
+										hideLabel
+										readOnly
+										size='sm'
+										value={path.path}
+									/>
+								))}
+							</div>
+						</AccordionItem>
+					))}
 				</Accordion>
 			</ModalBody>
 		</ComposedModal>
