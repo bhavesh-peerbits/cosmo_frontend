@@ -80,7 +80,12 @@ const MonitoringRunDetails = ({
 					monitoringName={monitoring.name}
 					runNumber={run.orderNumber}
 				/>
-				<InfoRunModal id={runId} isOpen={isInfoOpen} setIsOpen={setIsInfoOpen} />
+				<InfoRunModal
+					run={run}
+					isOpen={isInfoOpen}
+					setIsOpen={setIsInfoOpen}
+					monitoring={monitoring}
+				/>
 				<Column sm={4} md={2} lg={3}>
 					<MonitoringSummaryDetails monitoring={monitoring} />
 				</Column>

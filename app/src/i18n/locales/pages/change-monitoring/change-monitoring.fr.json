@@ -39,7 +39,8 @@
 	"asset-name": "",
 	"search-asset": "",
 	"selected-assets": "",
-	"path-step-description": "",
+	"path-step-description-single": "In this step it is necessary to define, for each asset, one or more paths",
+	"path-step-description-multi": "In this step it is necessary to define, for each asset, one or more paths. It is also possible to indicate the same paths for all assets",
 	"same": "",
 	"different": "",
 	"asset-setup-toggle": "",
@@ -96,11 +97,13 @@
 	"scheduling-step-description": "",
 	"add": "",
 	"extensions-to-ignore": "",
+	"extensions-to-ignore-asset": "",
 	"example-files": "Example files",
 	"example-files-description": "These files will be used as an example for the monitoring.",
 	"note": "",
 	"select-an-option": "",
-	"additional-info-step-description": "",
+	"additional-info-description-single": "In this step you can add additional and optional information",
+	"additional-info-description-multi": "In this step you can add additional and optional information. You can add for each asset same or different information",
 	"same-setup-path": "",
 	"placeholder-extensions": "",
 	"monitoring-note-placeholder": "",
@@ -149,5 +152,7 @@
 	"max-start-date": "Maximum start date",
 	"min-end-date": "Minimum end date",
 	"max-end-date": "Maximum end date",
-	"no-monitoring-subtitle": "No monitoring found for this table, try changing your filters or try again later."
+	"no-monitoring-subtitle": "No monitoring found for this table, try changing your filters or try again later.",
+	"no-scripts": "No scripts found",
+	"no-scripts-subtitle": "No scripts found for the selected operating system."
 }

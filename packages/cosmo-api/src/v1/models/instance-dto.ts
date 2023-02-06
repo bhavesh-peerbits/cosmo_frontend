@@ -44,4 +44,16 @@ export interface InstanceDto {
 	 * @memberof InstanceDto
 	 */
 	application: ApplicationDto;
+	/**
+	 * Last Review Date
+	 * @type {string}
+	 * @memberof InstanceDto
+	 */
+	lastReview?: string;
+	/**
+	 * Is in review
+	 * @type {boolean}
+	 * @memberof InstanceDto
+	 */
+	isInReview?: boolean;
 }

@@ -152,7 +152,7 @@ const ApplicationReviewModal = ({
 						disabled={!isValid || isLoading}
 						onClick={handleSubmit(sendMail)}
 					>
-						{t('send-email')}
+						{isLoading ? t('sending-email') : t('send-email')}
 					</Button>
 				</ModalFooter>
 			</ComposedModal>

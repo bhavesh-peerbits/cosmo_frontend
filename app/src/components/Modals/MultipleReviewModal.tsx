@@ -226,7 +226,7 @@ const MultipleReviewModal = ({
 						disabled={!isValid || isLoadingApp || isLoadingProc}
 						onClick={handleSubmit(sendMail)}
 					>
-						{t('send-email')}
+						{isLoadingApp || isLoadingProc ? t('sending-email') : t('send-email')}
 					</Button>
 				</ModalFooter>
 			</ComposedModal>

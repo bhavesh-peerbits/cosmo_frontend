@@ -166,6 +166,12 @@ export interface Monitoring {
 	 * @type {string}
 	 * @memberof Monitoring
 	 */
+	controlCode?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Monitoring
+	 */
 	frameworkLeafsName?: string;
 	/**
 	 *
@@ -173,12 +179,6 @@ export interface Monitoring {
 	 * @memberof Monitoring
 	 */
 	frameworkLeafsCode?: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof Monitoring
-	 */
-	controlCode?: string;
 }
 
 export const MonitoringStatusEnum = {

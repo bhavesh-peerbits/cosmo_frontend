@@ -28,6 +28,7 @@ const useSaveDraftAsset = () => {
 	return useMutation(saveDraftAsset, {
 		onSuccess: (data, variables) => {
 			queryClient.invalidateQueries(['monitoring-draft', `${variables.monitoringId}`]);
+			queryClient.invalidateQueries(['scripts', `${variables.monitoringId}`]);
 		}
 	});
 };

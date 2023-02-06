@@ -43,6 +43,7 @@ const AssetPathsTable = ({
 				accessorFn: row => row.path,
 				sortUndefined: 1,
 				meta: {
+					filter: { enabled: false },
 					modalInfo: {
 						type: 'string',
 						id: 'path',
@@ -82,7 +83,7 @@ const AssetPathsTable = ({
 														.includes(path.toLowerCase())
 											)
 											.map(path => {
-												return { path, id: 0 };
+												return { id: 0, path };
 											})
 									],
 									{ shouldDirty: true }
