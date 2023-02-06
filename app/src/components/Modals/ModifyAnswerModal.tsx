@@ -130,7 +130,6 @@ const ModifyAnswerModal = () => {
 								label={t('userRevalidation:revalidators')}
 								name='revalidationUser'
 								level={2}
-								// TODO Add default value
 								getUserFn={() => {
 									// eslint-disable-next-line react-hooks/rules-of-hooks
 									return useGetUsersByRole('FOCAL_POINT');
