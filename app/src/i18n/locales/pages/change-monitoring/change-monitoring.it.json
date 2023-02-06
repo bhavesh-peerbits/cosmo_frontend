@@ -157,5 +157,8 @@
 	"max-end-date": "Data di fine massima",
 	"no-monitoring-subtitle": "Nessun monitoraggio trovato per questa tabella. Prova a cambiare i filtri o riprova più tardi.",
 	"no-scripts": "Nessuno script trovato.",
-	"no-scripts-subtitle": "Non è stato trovato nessuno script per il sistema operativo selezionato."
+	"no-scripts-subtitle": "Non è stato trovato nessuno script per il sistema operativo selezionato.",
+	"toggle-start-today": "Indicare se si vuol far partire la run oggi, nonostante l'orario di partenza indicato per la data odierna sia stato già superato.",
+	"start-run-today": "Fai partire la prima run oggi",
+	"yes": "Sì"
 }

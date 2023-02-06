@@ -35,7 +35,7 @@ const OSScriptListContainer = ({
 							defaultSelected={selectedScript}
 						>
 							{scripts.map(script => (
-								<RadioTile value={script.id} className='mt-5'>
+								<RadioTile value={script.id} className='mt-5' key={script.id}>
 									<OSScriptTileContent script={script} />
 								</RadioTile>
 							))}

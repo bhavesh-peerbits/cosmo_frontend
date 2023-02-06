@@ -157,5 +157,8 @@
 	"max-end-date": "Maximum end date",
 	"no-monitoring-subtitle": "No monitoring found for this table, try changing your filters or try again later.",
 	"no-scripts": "No scripts found",
-	"no-scripts-subtitle": "No scripts found for the selected operating systems."
+	"no-scripts-subtitle": "No scripts found for the selected operating systems.",
+	"toggle-start-today": "Indicate whether you want to start the run today, although the start time indicated for today has already been exceeded.",
+	"start-run-today": "Start run today",
+	"yes": "Yes"
 }
