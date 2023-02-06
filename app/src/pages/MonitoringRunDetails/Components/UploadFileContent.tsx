@@ -69,12 +69,14 @@ const UploadFileContent = ({ run }: UploadFileContentProps) => {
 							old
 							runAsset={run.runAsset[0]}
 							canEdit={run.status === 'UPLOAD'}
+							tableTitle={run.runAsset[0].asset.hostname}
 						/>
 						<SwitcherDivider className='mr-7 w-auto' />
 						<RunAssetPeriodContent
 							old={false}
 							runAsset={run.runAsset[0]}
 							canEdit={run.status === 'UPLOAD'}
+							tableTitle={run.runAsset[0].asset.hostname}
 						/>
 						<Layer level={0}>
 							<AddFileToPathModal

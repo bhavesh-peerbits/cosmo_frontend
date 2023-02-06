@@ -25,8 +25,15 @@ type FileUploadTableProps = {
 	}[];
 	assetId: string;
 	canEdit?: boolean;
+	title?: string;
 };
-const FileUploadTable = ({ data, assetId, period, canEdit }: FileUploadTableProps) => {
+const FileUploadTable = ({
+	data,
+	assetId,
+	period,
+	canEdit,
+	title
+}: FileUploadTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table', 'runDetails']);
 	const setAddFileInfo = useSetRecoilState(addFileToRunAssetStore);
 	const [selectedRows, setSelectedRows] = useState<UploadFileTableItem[]>([]);
@@ -85,6 +92,7 @@ const FileUploadTable = ({ data, assetId, period, canEdit }: FileUploadTableProp
 						: `previous-period-${assetId}`
 				}
 				columns={columns}
+				title={title}
 				onRowSelection={row => setSelectedRows(row.map(r => r.original))}
 				noDataMessage={t('table:no-data')}
 				isColumnOrderingEnabled

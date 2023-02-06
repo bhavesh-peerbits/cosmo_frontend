@@ -16,13 +16,15 @@ interface RunAssetPeriodContentProps {
 	old: boolean;
 	canEdit: boolean;
 	level?: 0 | 1 | 2;
+	tableTitle?: string;
 }
 
 const RunAssetPeriodContent = ({
 	runAsset,
 	old,
 	canEdit,
-	level
+	level,
+	tableTitle
 }: RunAssetPeriodContentProps) => {
 	const [addFileInfo, setAddFileInfo] = useRecoilState(addFileToRunAssetStore);
 	const { monitoringId = '', runId = '' } = useParams();
@@ -122,6 +124,7 @@ const RunAssetPeriodContent = ({
 					assetId={runAsset.asset.id}
 					period={old ? 'previous' : 'current'}
 					canEdit={canEdit}
+					title={tableTitle}
 				/>
 			</Layer>
 		</div>
