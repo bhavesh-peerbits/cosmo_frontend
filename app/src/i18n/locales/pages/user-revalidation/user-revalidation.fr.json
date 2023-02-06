@@ -28,6 +28,7 @@
 	"app-required": "L'application est obligatoire",
 	"results": "Résultats",
 	"revalidators": "Revalidateurs",
+	"confirm-delete-answer": "Are you sure you want to delete the review for user {{userDetails}} for permissions {{permissions}} ?",
 	"users-to-revalidate": "Utilisateurs à revalider",
 	"status": "État",
 	"application": "Application",

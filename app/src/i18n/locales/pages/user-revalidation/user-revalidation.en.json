@@ -36,6 +36,7 @@
 	"confirm-close": "Are you sure you want to close {{campaign}}?",
 	"close": "Close",
 	"confirm-delete-upload": "Are you sure you want to delete the upload of {{application}}?",
+	"confirm-delete-answer": "Are you sure you want to delete the review for user {{userDetails}} and permissions: {{permissions}} ?",
 	"all": "All",
 	"multi": "Multi Applications",
 	"single": "Single Application",

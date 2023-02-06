@@ -360,6 +360,7 @@ const CosmoTable = <T extends SubRows<T>, F extends FieldValues = never>({
 						>
 							<TableHead className='sticky top-0 z-[2]'>
 								<TableHeaders
+									tableId={tableId}
 									getIsAllRowsSelected={table.getIsAllRowsSelected}
 									getIsSomeRowsSelected={table.getIsSomeRowsSelected}
 									getToggleAllRowsSelectedHandler={table.getToggleAllRowsSelectedHandler()}

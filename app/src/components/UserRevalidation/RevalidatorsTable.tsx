@@ -1,89 +1,42 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Button } from '@carbon/react';
 import CosmoTable from '@components/table/CosmoTable';
-import { useEffect, useMemo, useRef } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Answer from '@model/Answer';
 import isAfter from 'date-fns/isAfter';
-import { Edit } from '@carbon/react/icons';
-import { SetterOrUpdater, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import modifyAnswerModalInfo from '@store/user-revalidation/modifyAnswerModalInfo';
 import { CampaignDtoStatusEnum } from 'cosmo-api/src/v1/models/campaign-dto';
-import { CellContext, ColumnDef } from '@tanstack/react-table';
+import { ColumnDef } from '@tanstack/react-table';
 import DateCell from '@components/table/Cell/DateCell';
 import TooltipCell from '@components/table/Cell/TooltipCell';
 import UsersListCell from '@components/table/Cell/UsersListCell';
+import { InlineActions } from '@components/table/types/InlineActionType';
+import DeleteAnswerModal from './DeleteAnswerModal';
 
 interface RevalidatorsTableProp {
 	answers: Answer[];
 	dueDate: Date | undefined;
 	campaignType: string;
+	campaignId: string;
 	reviewId: string;
 	status?: CampaignDtoStatusEnum;
 }
-
-type ActionCellProps = {
-	setModifyModal: SetterOrUpdater<{
-		open: boolean;
-		answer: Answer | undefined;
-		revId: string | undefined;
-		campaignType: string | undefined;
-	}>;
-	info: CellContext<Answer, unknown>;
-	campaignType: string;
-	revId: string;
-};
-
-const ActionCell = ({ setModifyModal, info, campaignType, revId }: ActionCellProps) => {
-	const answer = info.getValue() as Answer;
-	return (
-		<div className='flex justify-center'>
-			<Button
-				size='sm'
-				kind='ghost'
-				hasIconOnly
-				iconDescription='Edit'
-				renderIcon={Edit}
-				onClick={() =>
-					setModifyModal({
-						open: true,
-						answer,
-						campaignType,
-						revId
-					})
-				}
-			/>
-		</div>
-	);
-};
 
 const RevalidatorsTable = ({
 	answers,
 	dueDate,
 	campaignType,
+	campaignId,
 	reviewId,
 	status
 }: RevalidatorsTableProp) => {
-	const { t } = useTranslation(['table', 'userRevalidation', 'userAdmin']);
+	const { t } = useTranslation(['table', 'userRevalidation', 'userAdmin', 'modals']);
 	const isFireFighter = campaignType === 'FIREFIGHTER';
 	const setModifyModal = useSetRecoilState(modifyAnswerModalInfo);
 	const isSuid = campaignType === 'SUID';
-	const ref = useRef<HTMLDivElement>(null);
-
-	useEffect(() => {
-		const el = ref.current?.getElementsByClassName('cds--data-table-content')?.[0];
-		if (el) {
-			// @ts-ignore
-			const onWheel = evt => {
-				if (evt.deltaY === 0) return;
-				evt.preventDefault();
-				el.scrollTo({
-					left: el.scrollLeft + evt.deltaY
-				});
-			};
-			el.addEventListener('wheel', onWheel);
-		}
-	}, []);
+	const [answerToDelete, setAnswerToDelete] = useState<Answer>();
+	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
 	const columns = useMemo<ColumnDef<Answer>[]>(() => {
 		const ArrayCol: ColumnDef<Answer>[] = [
@@ -150,18 +103,6 @@ const RevalidatorsTable = ({
 					TooltipCell({ info, description: info.row.original.permissionDescription })
 			}
 		];
-		if (status !== 'COMPLETED' && status !== 'COMPLETED_WITH_PARTIAL_ANSWERS') {
-			ArrayCol.push({
-				id: `action${reviewId}`,
-				accessorFn: row => row,
-				header: t('userAdmin:actions'),
-				cell: info => ActionCell({ setModifyModal, info, campaignType, revId: reviewId }),
-				enableGrouping: false,
-				meta: {
-					disableExport: true
-				}
-			});
-		}
 		if (isFireFighter) {
 			ArrayCol.splice(6, 0, {
 				id: `fireFighter${reviewId}`,
@@ -187,12 +128,44 @@ const RevalidatorsTable = ({
 			);
 		}
 		return ArrayCol;
-	}, [campaignType, dueDate, isFireFighter, isSuid, reviewId, setModifyModal, status, t]);
+	}, [dueDate, isFireFighter, isSuid, reviewId, t]);
+
+	const inlineActions: InlineActions<Answer>[] =
+		status !== 'COMPLETED' && status !== 'COMPLETED_WITH_PARTIAL_ANSWERS'
+			? [
+					{
+						label: t('modals:edit'),
+						onClick: data => {
+							setModifyModal({
+								open: true,
+								answer: data.original,
+								campaignType,
+								revId: reviewId
+							});
+						}
+					},
+					{
+						isDelete: () => true,
+						label: t('modals:delete'),
+						onClick: data => {
+							setIsDeleteModalOpen(true);
+							setAnswerToDelete(data.original);
+						}
+					}
+			  ]
+			: [];
 
 	return (
-		<div ref={ref}>
+		<>
+			<DeleteAnswerModal
+				answer={answerToDelete}
+				campaignId={campaignId}
+				isOpen={isDeleteModalOpen}
+				setIsOpen={setIsDeleteModalOpen}
+			/>
 			<CosmoTable
 				tableId={reviewId}
+				inlineActions={inlineActions}
 				data={answers}
 				columns={columns}
 				toolbar={{
@@ -204,7 +177,7 @@ const RevalidatorsTable = ({
 				noDataMessage={t('table:no-data')}
 				exportFileName={() => 'revalidators'}
 			/>
-		</div>
+		</>
 	);
 };
 export default RevalidatorsTable;

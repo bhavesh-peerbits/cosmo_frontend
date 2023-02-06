@@ -53,7 +53,6 @@ models/application.ts
 models/asset-dto.ts
 models/asset.ts
 models/association-dto.ts
-models/association.ts
 models/campaign-dto.ts
 models/campaign-review-dto.ts
 models/campaign-template-dto.ts
@@ -67,11 +66,8 @@ models/config-module.ts
 models/create-monitoring-dto.ts
 models/csv-answer-parsing-dto.ts
 models/delta-answer-dto.ts
-models/delta-answer.ts
 models/delta-dto.ts
 models/delta-file-dto.ts
-models/delta-file.ts
-models/delta.ts
 models/draft-dto.ts
 models/email.ts
 models/evidence-request-draft-dto.ts
@@ -79,11 +75,8 @@ models/evidence-request-dto.ts
 models/file-for-delta-dto.ts
 models/file-link-dto-list.ts
 models/file-link-dto.ts
-models/file-link.ts
 models/focal-point-and-delegates-dto.ts
 models/framework-tree-dto.ts
-models/framework-tree-status.ts
-models/framework-tree.ts
 models/frequency.ts
 models/identity-provider-dto.ts
 models/index.ts
@@ -99,14 +92,11 @@ models/instance-asset-dto.ts
 models/instance-dto.ts
 models/instance.ts
 models/justification-delta-file-dto.ts
-models/justification-delta-file.ts
 models/mail-template-dto.ts
 models/module.ts
 models/monitoring-asset-dto.ts
-models/monitoring-asset.ts
 models/monitoring-draft-dto.ts
 models/monitoring-dto.ts
-models/monitoring.ts
 models/multiple-narrative-review-body.ts
 models/narrative-review-body.ts
 models/new-draft-dto.ts
@@ -115,7 +105,6 @@ models/pageable-object.ts
 models/pair-list-answer-dto-list-string.ts
 models/path-dto.ts
 models/path-monitoring-dto.ts
-models/path-monitoring.ts
 models/path.ts
 models/phase-type-dto.ts
 models/procedure-app-instance-dto.ts
@@ -129,11 +118,8 @@ models/review-application-dto.ts
 models/review-dto.ts
 models/review-procedure-dto.ts
 models/run-asset-dto.ts
-models/run-asset.ts
 models/run-dto.ts
 models/run-file-link-dto.ts
-models/run-file-link.ts
-models/run.ts
 models/save-draft-additional-info-dto.ts
 models/save-draft-asset-dto.ts
 models/save-draft-association-dto.ts
@@ -141,9 +127,7 @@ models/save-draft-path-dto.ts
 models/save-draft-scheduling-dto.ts
 models/save-draft-script-dto.ts
 models/scheduling-dto.ts
-models/scheduling.ts
 models/script-dto.ts
-models/script.ts
 models/set-up-draft-dto.ts
 models/sort-object.ts
 models/start-campaign-dto.ts

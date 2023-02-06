@@ -61,7 +61,7 @@ import { FrameworkTreeDto } from '../models';
 // @ts-ignore
 import { InstanceAssetDto } from '../models';
 // @ts-ignore
-import { MonitoringAsset } from '../models';
+import { MonitoringAssetDto } from '../models';
 // @ts-ignore
 import { MonitoringDraftDto } from '../models';
 // @ts-ignore
@@ -1733,6 +1733,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		 * @param {MonitoringDraftDto} monitoringDraftDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		saveDraft1: async (
@@ -3261,6 +3262,7 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		 * @param {MonitoringDraftDto} monitoringDraftDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		async saveDraft1(
@@ -3381,7 +3383,10 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<MonitoringAsset>>
+			(
+				axios?: AxiosInstance,
+				basePath?: string
+			) => AxiosPromise<Array<MonitoringAssetDto>>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.saveDraftPath(
 				saveDraftPathDto,
@@ -4121,6 +4126,7 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		 * @param {MonitoringDraftDto} monitoringDraftDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
+		 * @deprecated
 		 * @throws {RequiredError}
 		 */
 		saveDraft1(
@@ -4207,7 +4213,7 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 			saveDraftPathDto: SaveDraftPathDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
-		): AxiosPromise<Array<MonitoringAsset>> {
+		): AxiosPromise<Array<MonitoringAssetDto>> {
 			return localVarFp
 				.saveDraftPath(saveDraftPathDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
@@ -5929,6 +5935,7 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 	 *
 	 * @param {AnalystChangeMonitoringControllerApiSaveDraft1Request} requestParameters Request parameters.
 	 * @param {*} [options] Override http request option.
+	 * @deprecated
 	 * @throws {RequiredError}
 	 * @memberof AnalystChangeMonitoringControllerApi
 	 */

@@ -51,4 +51,16 @@ export interface Instance {
 	 * @memberof Instance
 	 */
 	application?: Application;
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof Instance
+	 */
+	inReview?: boolean;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Instance
+	 */
+	lastReview?: string;
 }

@@ -112,6 +112,7 @@ const CampaignDetailsContainer = ({
 							dueDate={campaign.dueDate}
 							campaignType={campaign.type}
 							reviewId={reviewId}
+							campaignId={campaign.id}
 							status={campaign.status}
 						/>
 					</Tile>
