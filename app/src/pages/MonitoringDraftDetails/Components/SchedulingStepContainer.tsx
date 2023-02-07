@@ -15,7 +15,7 @@ import { Information } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { Controller, useForm } from 'react-hook-form';
 import { setHours, isBefore, startOfToday } from 'date-fns';
-import { Dispatch, SetStateAction, Suspense } from 'react';
+import { Dispatch, SetStateAction, Suspense, useState } from 'react';
 import MonitoringDraft from '@model/MonitoringDraft';
 import { SchedulingDtoDayOfWeekEnum, SchedulingDtoFrequencyEnum } from 'cosmo-api/src/v1';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
@@ -42,6 +42,7 @@ type SchedulingStepProps = {
 
 const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps) => {
 	const { t } = useTranslation('changeMonitoring');
+	const [startToday, setStartToday] = useState(draft.scheduling?.startToday || false);
 	const { monitoringDraftId = '' } = useParams();
 	const { mutate, isLoading, isError, isSuccess, error } = useSaveDraftScheduling();
 
@@ -191,7 +192,13 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 							? data.daysOfWeek
 							: data.frequency === 'WEEKLY'
 							? [data.dayOfWeek]
-							: undefined
+							: undefined,
+					startToday: isBefore(
+						new Date(watch('startDate')).setHours(watch('startHour')),
+						new Date()
+					)
+						? startToday
+						: undefined
 				}
 			},
 			{ onSuccess: () => setCurrentStep(old => old + 1) }
@@ -277,6 +284,8 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 						id='toggle-start-today'
 						labelA='No'
 						labelB={t('yes')}
+						toggled={startToday}
+						onToggle={() => setStartToday(!startToday)}
 						labelText={
 							<div className='flex space-x-3'>
 								<p className='text-label-1'>{t('start-run-today')}</p>
@@ -310,7 +319,13 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 										? watch('daysOfWeek')
 										: watch('frequency') === 'WEEKLY'
 										? [watch('dayOfWeek')]
-										: undefined
+										: undefined,
+								startToday: isBefore(
+									new Date(watch('startDate')).setHours(watch('startHour')),
+									new Date()
+								)
+									? startToday
+									: undefined
 							}}
 						/>
 					)}
