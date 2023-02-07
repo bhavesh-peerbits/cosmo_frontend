@@ -54,6 +54,12 @@ export interface SchedulingDto {
 	 * @memberof SchedulingDto
 	 */
 	totalRun?: number;
+	/**
+	 * If the scheduling should be started today
+	 * @type {boolean}
+	 * @memberof SchedulingDto
+	 */
+	startToday?: boolean;
 }
 
 export const SchedulingDtoFrequencyEnum = {

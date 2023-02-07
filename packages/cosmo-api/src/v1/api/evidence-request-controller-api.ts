@@ -126,19 +126,26 @@ export const EvidenceRequestControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
+		 * @param {number} erId
 		 * @param {CloseEvidenceDto} closeEvidenceDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		closeEvidence: async (
+			erId: number,
 			closeEvidenceDto: CloseEvidenceDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
+			// verify required parameter 'erId' is not null or undefined
+			assertParamExists('closeEvidence', 'erId', erId);
 			// verify required parameter 'closeEvidenceDto' is not null or undefined
 			assertParamExists('closeEvidence', 'closeEvidenceDto', closeEvidenceDto);
-			const localVarPath = `/api/analyst/evidence-request/evidence/{erId}/close`;
+			const localVarPath = `/api/analyst/evidence-request/evidence/{erId}/close`.replace(
+				`{${'erId'}}`,
+				encodeURIComponent(String(erId))
+			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -991,17 +998,20 @@ export const EvidenceRequestControllerApiFp = function (configuration?: Configur
 		},
 		/**
 		 *
+		 * @param {number} erId
 		 * @param {CloseEvidenceDto} closeEvidenceDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async closeEvidence(
+			erId: number,
 			closeEvidenceDto: CloseEvidenceDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.closeEvidence(
+				erId,
 				closeEvidenceDto,
 				acceptLanguage,
 				options
@@ -1413,18 +1423,20 @@ export const EvidenceRequestControllerApiFactory = function (
 		},
 		/**
 		 *
+		 * @param {number} erId
 		 * @param {CloseEvidenceDto} closeEvidenceDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		closeEvidence(
+			erId: number,
 			closeEvidenceDto: CloseEvidenceDto,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<void> {
 			return localVarFp
-				.closeEvidence(closeEvidenceDto, acceptLanguage, options)
+				.closeEvidence(erId, closeEvidenceDto, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -1698,6 +1710,13 @@ export interface EvidenceRequestControllerApiAddCollaboratorsToEvidenceRequest {
  * @interface EvidenceRequestControllerApiCloseEvidenceRequest
  */
 export interface EvidenceRequestControllerApiCloseEvidenceRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof EvidenceRequestControllerApiCloseEvidence
+	 */
+	readonly erId: number;
+
 	/**
 	 *
 	 * @type {CloseEvidenceDto}
@@ -2048,6 +2067,7 @@ export class EvidenceRequestControllerApi extends BaseAPI {
 	) {
 		return EvidenceRequestControllerApiFp(this.configuration)
 			.closeEvidence(
+				requestParameters.erId,
 				requestParameters.closeEvidenceDto,
 				requestParameters.acceptLanguage,
 				options

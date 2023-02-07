@@ -48,6 +48,7 @@ const CloseEvidenceRequestModal = ({
 	const handleCloseEvidence = useCallback(
 		(data: CloseEvidenceForm) => {
 			return mutateClose({
+				erId,
 				data: {
 					id: erId,
 					stepInfo: {
