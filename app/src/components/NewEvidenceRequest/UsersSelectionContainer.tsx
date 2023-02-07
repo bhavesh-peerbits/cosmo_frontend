@@ -83,22 +83,21 @@ const UsersSelectionContainer = ({
 						</Layer>
 					</FullWidthColumn>
 				))}
-			<FullWidthColumn>
-				<FullWidthColumn className='flex justify-end space-x-5'>
-					<Button kind='secondary' size='md' onClick={() => setCurrentStep(0)}>
-						{t('modals:back')}
-					</Button>
-					<Button
-						size='md'
-						disabled={
-							isCompleted &&
-							!Object.values(isCompleted).reduce((curr, prev) => curr && prev)
-						}
-						onClick={handleNext}
-					>
-						{t('modals:next')}
-					</Button>
-				</FullWidthColumn>
+
+			<FullWidthColumn className='flex justify-end space-x-5'>
+				<Button kind='secondary' size='md' onClick={() => setCurrentStep(0)}>
+					{t('modals:back')}
+				</Button>
+				<Button
+					size='md'
+					disabled={
+						isCompleted &&
+						!Object.values(isCompleted).reduce((curr, prev) => curr && prev)
+					}
+					onClick={handleNext}
+				>
+					{t('modals:next')}
+				</Button>
 			</FullWidthColumn>
 		</Grid>
 	);

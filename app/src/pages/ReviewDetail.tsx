@@ -39,7 +39,6 @@ const ReviewDetail = () => {
 		return null;
 	}
 
-	// TODO Change the condition to render instances (data.inReview && data.instance.map)
 	return (
 		<PageHeader
 			pageTitle={data.name}

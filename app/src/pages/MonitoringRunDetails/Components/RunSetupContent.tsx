@@ -101,8 +101,8 @@ const RunSetupContent = ({ run }: RunSetupContentProps) => {
 				/>
 			</Layer>
 			{run.runAsset.length > 1 ? (
-				run.status === 'SETUP' && (
-					<>
+				<>
+					{run.status === 'SETUP' && (
 						<div>
 							<Toggle
 								aria-label='Path toggle'
@@ -128,35 +128,35 @@ const RunSetupContent = ({ run }: RunSetupContentProps) => {
 								}
 							/>
 						</div>
+					)}
 
-						<div className='space-y-7'>
-							{sameSetup && (
-								<Layer>
-									<SameSetupPathTable
-										globalData={globalPaths}
-										setGlobalData={setGlobalPaths}
-										assetIds={run.runAsset.map(ma => ma.asset.id)}
-										os={run.runAsset[0].asset.os}
+					<div className='space-y-7'>
+						{sameSetup && (
+							<Layer>
+								<SameSetupPathTable
+									globalData={globalPaths}
+									setGlobalData={setGlobalPaths}
+									assetIds={run.runAsset.map(ma => ma.asset.id)}
+									os={run.runAsset[0].asset.os}
+								/>
+							</Layer>
+						)}
+
+						<div>
+							{run.runAsset.map(ma => (
+								<AssetExpandableTile title={ma.asset.hostname || ''} key={ma.id}>
+									<PathAssetTable
+										assetData={assetsData}
+										setAssetData={setAssetsData}
+										canAdd={!sameSetup}
+										assetId={ma.asset.id || ''}
+										status={run.status}
 									/>
-								</Layer>
-							)}
-
-							<div>
-								{run.runAsset.map(ma => (
-									<AssetExpandableTile title={ma.asset.hostname || ''} key={ma.id}>
-										<PathAssetTable
-											assetData={assetsData}
-											setAssetData={setAssetsData}
-											canAdd={!sameSetup}
-											assetId={ma.asset.id || ''}
-											status={run.status}
-										/>
-									</AssetExpandableTile>
-								))}
-							</div>
+								</AssetExpandableTile>
+							))}
 						</div>
-					</>
-				)
+					</div>
+				</>
 			) : (
 				<Layer>
 					<PathAssetTable
@@ -165,6 +165,7 @@ const RunSetupContent = ({ run }: RunSetupContentProps) => {
 						canAdd={!sameSetup}
 						assetId={run.runAsset[0].asset.id || ''}
 						status={run.status}
+						title={run.runAsset[0].asset.hostname}
 					/>
 				</Layer>
 			)}

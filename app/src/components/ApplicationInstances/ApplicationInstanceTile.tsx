@@ -1,4 +1,12 @@
-import { Button, Form, Grid, Tile, OverflowMenu, OverflowMenuItem } from '@carbon/react';
+import {
+	Button,
+	Form,
+	Grid,
+	Tile,
+	OverflowMenu,
+	OverflowMenuItem,
+	Layer
+} from '@carbon/react';
 import { TrashCan, Add } from '@carbon/react/icons';
 import FullWidthColumn from '@components/FullWidthColumn';
 import DeleteInstanceModal from '@components/Modals/DeleteInstanceModal';
@@ -88,165 +96,167 @@ const ApplicationInstanceTile = ({ instance }: ApplicationInstanceTileProps) => 
 	}
 
 	return (
-		<Tile href={`${instance.id}`} className='w-full bg-background'>
+		<Tile href={`${instance.id}`} className='w-full'>
 			<Form>
-				<Grid fullWidth>
-					<MultiAddSelect
-						itemsLabel='Assets'
-						noResultsTitle={t('userSelect:no-results')}
-						noResultsDescription={t('userSelect:different-keywords')}
-						onCloseButtonText={t('userSelect:cancel')}
-						onSubmit={ids => {
-							addAssetToInstance(ids);
-						}}
-						open={addAssetToOpen === 'existing'}
-						onClose={() => setAddAssetToOpen(undefined)}
-						onSubmitButtonText={t('userSelect:select')}
-						searchResultsLabel={t('userSelect:search-results')}
-						title={t('changeMonitoring:select-assets')}
-						description={t('changeMonitoring:select-assets-list')}
-						globalSearchLabel={t('changeMonitoring:search-asset')}
-						globalSearchPlaceholder={t('changeMonitoring:search-asset-name')}
-						influencerTitle={t('changeMonitoring:selected-assets')}
-						influencerItemTitle='Hostname'
-						influencerItemSubtitle='IP'
-						globalFilters={[
-							{
-								id: 'tagInfo',
-								label: t('changeMonitoring:operating-system')
-							},
-							{
-								id: t('changeMonitoring:type'),
-								label: t('changeMonitoring:type')
-							}
-						]}
-						globalFiltersIconDescription={t('userSelect:filters')}
-						globalFiltersPlaceholderText={t('userSelect:choose-option')}
-						globalFiltersPrimaryButtonText={t('userSelect:apply')}
-						globalFiltersSecondaryButtonText={t('userSelect:reset')}
-						clearFiltersText={t('userSelect:clear-filters')}
-						items={{
-							entries: allAssets
-								? allAssets
-										.filter(
-											asset =>
-												!instanceAssets?.find(
-													instanceAsset => instanceAsset.id === asset.id
-												)
-										)
-										.map(asset =>
-											asset.type === 'DB'
-												? {
-														id: asset.id,
-														title: asset.hostname || '',
-														tagInfo: asset.os,
-														subtitle: asset.ip,
-														[t('changeMonitoring:type')]: asset.type,
-														[t('changeMonitoring:operating-system')]: asset.os,
-														database: asset.dbType,
-														cpe: asset.cpe
-												  }
-												: {
-														id: asset.id,
-														title: asset.hostname || '',
-														tagInfo: asset.os,
-														subtitle: asset.ip,
-														[t('changeMonitoring:type')]: asset.type,
-														[t('changeMonitoring:operating-system')]: asset.os,
-														cpe: asset.cpe
-												  }
-										)
-								: []
-						}}
-					/>
-					<DeleteInstanceModal
-						isOpen={isDeleteInstanceOpen}
-						setIsOpen={setIsDeleteInstanceOpen}
-						instance={instance}
-					/>
-					<AddNewAssetModal
-						isOpen={addAssetToOpen}
-						setIsOpen={setAddAssetToOpen}
-						instance={instance}
-					/>
-					<FullWidthColumn
-						data-toc-id={`instance-container-${instance.id}`}
-						data-toc-title={instance.name}
-						className='flex items-center justify-between text-fluid-heading-3'
-					>
-						{instance.name}
-						<div className='flex'>
-							<OverflowMenu
-								ariaLabel='Add new asset menu'
-								iconDescription={t('applicationInstances:add-asset')}
-								size='lg'
-								flipped
-								renderIcon={Add}
-							>
-								<OverflowMenuItem
-									itemText={t('applicationInstances:new-asset')}
-									onClick={() => setAddAssetToOpen('new')}
-								/>
-								<OverflowMenuItem
-									itemText={t('applicationInstances:existing-asset')}
-									onClick={() => setAddAssetToOpen('existing')}
-								/>
-							</OverflowMenu>
-							<Button
-								hasIconOnly
-								kind='ghost'
-								renderIcon={TrashCan}
-								tooltipPosition='bottom'
-								iconDescription={t('applicationInstances:delete-instance')}
-								onClick={() => setIsDeleteInstanceOpen(true)}
-							/>
-						</div>
-					</FullWidthColumn>
-					<FullWidthColumn className='space-y-7'>
-						<ApplicationInstanceForm
-							instance={instance}
-							instanceAssets={instanceAssets}
-							register={register}
-							errors={errors}
+				<Layer>
+					<Grid fullWidth>
+						<MultiAddSelect
+							itemsLabel='Assets'
+							noResultsTitle={t('userSelect:no-results')}
+							noResultsDescription={t('userSelect:different-keywords')}
+							onCloseButtonText={t('userSelect:cancel')}
+							onSubmit={ids => {
+								addAssetToInstance(ids);
+							}}
+							open={addAssetToOpen === 'existing'}
+							onClose={() => setAddAssetToOpen(undefined)}
+							onSubmitButtonText={t('userSelect:select')}
+							searchResultsLabel={t('userSelect:search-results')}
+							title={t('changeMonitoring:select-assets')}
+							description={t('changeMonitoring:select-assets-list')}
+							globalSearchLabel={t('changeMonitoring:search-asset')}
+							globalSearchPlaceholder={t('changeMonitoring:search-asset-name')}
+							influencerTitle={t('changeMonitoring:selected-assets')}
+							influencerItemTitle='Hostname'
+							influencerItemSubtitle='IP'
+							globalFilters={[
+								{
+									id: 'tagInfo',
+									label: t('changeMonitoring:operating-system')
+								},
+								{
+									id: t('changeMonitoring:type'),
+									label: t('changeMonitoring:type')
+								}
+							]}
+							globalFiltersIconDescription={t('userSelect:filters')}
+							globalFiltersPlaceholderText={t('userSelect:choose-option')}
+							globalFiltersPrimaryButtonText={t('userSelect:apply')}
+							globalFiltersSecondaryButtonText={t('userSelect:reset')}
+							clearFiltersText={t('userSelect:clear-filters')}
+							items={{
+								entries: allAssets
+									? allAssets
+											.filter(
+												asset =>
+													!instanceAssets?.find(
+														instanceAsset => instanceAsset.id === asset.id
+													)
+											)
+											.map(asset =>
+												asset.type === 'DB'
+													? {
+															id: asset.id,
+															title: asset.hostname || '',
+															tagInfo: asset.os,
+															subtitle: asset.ip,
+															[t('changeMonitoring:type')]: asset.type,
+															[t('changeMonitoring:operating-system')]: asset.os,
+															database: asset.dbType,
+															cpe: asset.cpe
+													  }
+													: {
+															id: asset.id,
+															title: asset.hostname || '',
+															tagInfo: asset.os,
+															subtitle: asset.ip,
+															[t('changeMonitoring:type')]: asset.type,
+															[t('changeMonitoring:operating-system')]: asset.os,
+															cpe: asset.cpe
+													  }
+											)
+									: []
+							}}
 						/>
-					</FullWidthColumn>
-					<FullWidthColumn className='pt-7'>
-						<div className='flex flex-wrap justify-between space-x-2'>
-							<div className='flex-1'>
-								<InlineLoadingStatus
-									isLoading={isLoading}
-									isSuccess={isSuccess}
-									isError={isError}
-									error={error as ApiError}
+						<DeleteInstanceModal
+							isOpen={isDeleteInstanceOpen}
+							setIsOpen={setIsDeleteInstanceOpen}
+							instance={instance}
+						/>
+						<AddNewAssetModal
+							isOpen={addAssetToOpen}
+							setIsOpen={setAddAssetToOpen}
+							instance={instance}
+						/>
+						<FullWidthColumn
+							data-toc-id={`instance-container-${instance.id}`}
+							data-toc-title={instance.name}
+							className='flex items-center justify-between text-fluid-heading-3'
+						>
+							{instance.name}
+							<div className='flex'>
+								<OverflowMenu
+									ariaLabel='Add new asset menu'
+									iconDescription={t('applicationInstances:add-asset')}
+									size='lg'
+									flipped
+									renderIcon={Add}
+								>
+									<OverflowMenuItem
+										itemText={t('applicationInstances:new-asset')}
+										onClick={() => setAddAssetToOpen('new')}
+									/>
+									<OverflowMenuItem
+										itemText={t('applicationInstances:existing-asset')}
+										onClick={() => setAddAssetToOpen('existing')}
+									/>
+								</OverflowMenu>
+								<Button
+									hasIconOnly
+									kind='ghost'
+									renderIcon={TrashCan}
+									tooltipPosition='bottom'
+									iconDescription={t('applicationInstances:delete-instance')}
+									onClick={() => setIsDeleteInstanceOpen(true)}
 								/>
 							</div>
-							<div className='flex w-full flex-1 justify-end space-x-5 pb-5'>
-								<Button
-									size='md'
-									type='reset'
-									kind='secondary'
-									disabled={!isDirty}
-									onClick={() => {
-										reset({
-											description: instance.description,
-											name: instance.name
-										});
-									}}
-								>
-									{t('applicationInfo:discard')}
-								</Button>
-								<Button
-									size='md'
-									type='submit'
-									disabled={!isValid || !isDirty}
-									onClick={handleSubmit(updateInstance)}
-								>
-									{t('modals:save')}
-								</Button>
+						</FullWidthColumn>
+						<FullWidthColumn className='space-y-7'>
+							<ApplicationInstanceForm
+								instance={instance}
+								instanceAssets={instanceAssets}
+								register={register}
+								errors={errors}
+							/>
+						</FullWidthColumn>
+						<FullWidthColumn className='pt-7'>
+							<div className='flex flex-wrap justify-between space-x-2'>
+								<div className='flex-1'>
+									<InlineLoadingStatus
+										isLoading={isLoading}
+										isSuccess={isSuccess}
+										isError={isError}
+										error={error as ApiError}
+									/>
+								</div>
+								<div className='flex w-full flex-1 justify-end space-x-5 pb-5'>
+									<Button
+										size='md'
+										type='reset'
+										kind='secondary'
+										disabled={!isDirty}
+										onClick={() => {
+											reset({
+												description: instance.description,
+												name: instance.name
+											});
+										}}
+									>
+										{t('applicationInfo:discard')}
+									</Button>
+									<Button
+										size='md'
+										type='submit'
+										disabled={!isValid || !isDirty}
+										onClick={handleSubmit(updateInstance)}
+									>
+										{t('modals:save')}
+									</Button>
+								</div>
 							</div>
-						</div>
-					</FullWidthColumn>
-				</Grid>
+						</FullWidthColumn>
+					</Grid>
+				</Layer>
 			</Form>
 		</Tile>
 	);

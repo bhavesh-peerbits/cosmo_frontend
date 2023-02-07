@@ -7,12 +7,15 @@ import {
 	MultiSelect,
 	NumberInput,
 	Button,
-	InlineLoading
+	InlineLoading,
+	Toggle,
+	Tooltip
 } from '@carbon/react';
+import { Information } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { Controller, useForm } from 'react-hook-form';
-import { startOfTomorrow, setHours } from 'date-fns';
-import { Dispatch, SetStateAction, Suspense } from 'react';
+import { setHours, isBefore, startOfToday } from 'date-fns';
+import { Dispatch, SetStateAction, Suspense, useState } from 'react';
 import MonitoringDraft from '@model/MonitoringDraft';
 import { SchedulingDtoDayOfWeekEnum, SchedulingDtoFrequencyEnum } from 'cosmo-api/src/v1';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
@@ -39,6 +42,7 @@ type SchedulingStepProps = {
 
 const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps) => {
 	const { t } = useTranslation('changeMonitoring');
+	const [startToday, setStartToday] = useState(draft.scheduling?.startToday || false);
 	const { monitoringDraftId = '' } = useParams();
 	const { mutate, isLoading, isError, isSuccess, error } = useSaveDraftScheduling();
 
@@ -104,7 +108,7 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 					defaultValue='MONDAY'
 				>
 					{daysOfWeek.map(day => (
-						<SelectItem value={day} text={t(day)} />
+						<SelectItem value={day} text={t(day)} key={day} />
 					))}
 				</Select>
 			);
@@ -188,7 +192,13 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 							? data.daysOfWeek
 							: data.frequency === 'WEEKLY'
 							? [data.dayOfWeek]
-							: undefined
+							: undefined,
+					startToday: isBefore(
+						new Date(watch('startDate')).setHours(watch('startHour')),
+						new Date()
+					)
+						? startToday
+						: undefined
 				}
 			},
 			{ onSuccess: () => setCurrentStep(old => old + 1) }
@@ -196,72 +206,102 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 	};
 
 	return (
-		<FullWidthColumn className='space-y-7 overflow-auto'>
-			<div className='w-full space-y-7 md:w-fit'>
-				<Layer className='flex flex-col space-y-7 md:flex-row md:space-y-0 md:space-x-5'>
-					<Select
-						id={`${draft.id}-frequency-select`}
-						labelText={`${t('frequency')} *`}
-						className='w-full'
-						{...register('frequency', {
-							required: {
-								value: true,
-								message: `${t('field-required')}`
-							}
-						})}
-					>
-						<SelectItem text={t('select-frequency-type')} value='select' hidden />
-						{frequencyList.map(option => (
-							<SelectItem text={t(option)} value={option} key={option} />
-						))}
-					</Select>
-					{frequencySetup()}
-				</Layer>
-				<Layer className='flex flex-col space-y-7  sm:flex-col md:flex-row md:space-x-5 md:space-y-0 '>
-					<div className='flex flex-col space-y-7 md:flex-row md:space-y-0 md:space-x-1'>
-						<DatePickerWrapper
-							control={control}
-							name='startDate'
-							label={`${t('start-date')} *`}
-							rules={{
+		<>
+			<FullWidthColumn className='space-y-7 overflow-auto'>
+				<div className='w-full space-y-7 md:w-fit'>
+					<Layer className='flex flex-col space-y-7 md:flex-row md:space-y-0 md:space-x-5'>
+						<Select
+							id={`${draft.id}-frequency-select`}
+							labelText={`${t('frequency')} *`}
+							className='w-full'
+							{...register('frequency', {
 								required: {
 									value: true,
 									message: `${t('field-required')}`
 								}
-							}}
-							minDate={startOfTomorrow()}
-						/>
-						{selectedFrequency !== 'ONDEMAND' && (
+							})}
+						>
+							<SelectItem text={t('select-frequency-type')} value='select' hidden />
+							{frequencyList.map(option => (
+								<SelectItem text={t(option)} value={option} key={option} />
+							))}
+						</Select>
+						{frequencySetup()}
+					</Layer>
+					<Layer className='flex flex-col space-y-7 sm:flex-col md:flex-row md:space-x-5 md:space-y-0 '>
+						<div className='flex flex-col space-y-7 md:flex-row md:space-y-0 md:space-x-1'>
 							<DatePickerWrapper
 								control={control}
-								name='endDate'
-								label={`${t('end-date')} *`}
+								name='startDate'
+								label={`${t('start-date')} *`}
 								rules={{
 									required: {
 										value: true,
 										message: `${t('field-required')}`
 									}
 								}}
-								minDate={getValues('startDate')}
+								minDate={startOfToday()}
 							/>
-						)}
-					</div>
-					<Select
-						id={`${draft.id}-select-hour`}
-						labelText={`${t('start-time')} *`}
-						{...register('startHour', {
-							required: {
-								value: true,
-								message: `${t('field-required')}`
-							}
-						})}
-					>
-						{Array.from(Array(24).keys()).map(hour => (
-							<SelectItem value={hour} text={`${hour}:00`} />
-						))}
-					</Select>
-				</Layer>
+							{selectedFrequency !== 'ONDEMAND' && (
+								<DatePickerWrapper
+									control={control}
+									name='endDate'
+									label={`${t('end-date')} *`}
+									rules={{
+										required: {
+											value: true,
+											message: `${t('field-required')}`
+										}
+									}}
+									minDate={getValues('startDate')}
+								/>
+							)}
+						</div>
+						<Select
+							id={`${draft.id}-select-hour`}
+							labelText={`${t('start-time')} *`}
+							{...register('startHour', {
+								required: {
+									value: true,
+									message: `${t('field-required')}`
+								}
+							})}
+						>
+							{Array.from(Array(24).keys()).map(hour => (
+								<SelectItem value={hour} text={`${hour}:00`} />
+							))}
+						</Select>
+					</Layer>
+				</div>
+			</FullWidthColumn>
 
+			{isBefore(
+				new Date(watch('startDate')).setHours(watch('startHour')),
+				new Date()
+			) && (
+				<FullWidthColumn>
+					<Toggle
+						id='toggle-start-today'
+						labelA='No'
+						labelB={t('yes')}
+						toggled={startToday}
+						onToggle={() => setStartToday(!startToday)}
+						labelText={
+							<div className='flex space-x-3'>
+								<p className='text-label-1'>{t('start-run-today')}</p>
+								<Tooltip align='top' label={t('toggle-start-today')}>
+									<button type='button' onClick={e => e.preventDefault()}>
+										<Information />
+									</button>
+								</Tooltip>
+							</div>
+						}
+						aria-label='Toggle start today'
+					/>
+				</FullWidthColumn>
+			)}
+
+			<FullWidthColumn>
 				<Suspense>
 					{watch('startDate') && (
 						<SchedulingTotalRunsContainer
@@ -279,13 +319,20 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 										? watch('daysOfWeek')
 										: watch('frequency') === 'WEEKLY'
 										? [watch('dayOfWeek')]
-										: undefined
+										: undefined,
+								startToday: isBefore(
+									new Date(watch('startDate')).setHours(watch('startHour')),
+									new Date()
+								)
+									? startToday
+									: undefined
 							}}
 						/>
 					)}
 				</Suspense>
-			</div>
-			<div className='items-center justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
+			</FullWidthColumn>
+
+			<FullWidthColumn className='items-center justify-end space-y-5 md:flex md:space-y-0 md:space-x-5'>
 				<InlineLoadingStatus
 					{...{ isLoading: false, isSuccess, isError, error: error as ApiError }}
 				/>
@@ -310,8 +357,8 @@ const SchedulingStepContainer = ({ draft, setCurrentStep }: SchedulingStepProps)
 				>
 					{t('save-next')}
 				</Button>
-			</div>
-		</FullWidthColumn>
+			</FullWidthColumn>
+		</>
 	);
 };
 export default SchedulingStepContainer;

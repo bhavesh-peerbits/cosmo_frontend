@@ -1,6 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-// TODO wait BE
 import { ProcedureAppInstanceApi } from 'cosmo-api/src';
 import User, { fromUserApi, toUserApi } from '@model/User';
 import formatIso from 'date-fns/formatISO';

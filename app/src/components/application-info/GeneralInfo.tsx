@@ -1,4 +1,4 @@
-import { Column, Grid, TextInput } from '@carbon/react';
+import { Column, Grid, TextInput, Layer } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import {
 	Control,
@@ -112,167 +112,171 @@ const GeneralInfo = ({
 	});
 
 	return (
-		<Grid fullWidth>
-			<FullWidthColumn>
-				<IconPicker
-					{...{ ref, onBlur }}
-					className={cx({
-						'outline outline-support-error': Boolean(errors.generalInfo?.icon)
-					})}
-					icon={value}
-					onChange={onChange}
-				/>
-			</FullWidthColumn>
-			<Column sm={4} md={8} lg={8} className='mb-5'>
-				<TextInput
-					className='w-full'
-					id='name'
-					invalidText={errors.generalInfo?.name?.message}
-					labelText={`${t('applicationInfo:name')} *`}
-					placeholder={`${t('applicationInfo:name')}`}
-					invalid={Boolean(errors.generalInfo?.name)}
-					{...register('generalInfo.name', {
-						required: {
-							value: true,
-							message: `${t('applicationInfo:required')}`
-						},
-						validate: name =>
-							!appNameList.includes(name.toLowerCase()) ||
-							`${t('applicationInfo:name-exists')}`
-					})}
-				/>
-			</Column>
-			<Column sm={4} md={8} lg={8} className='mb-5'>
-				<TextInput
-					className='w-full'
-					id='code'
-					invalidText={errors.generalInfo?.codeName?.message}
-					labelText={`${t('applicationInfo:code')} *`}
-					placeholder={`${t('applicationInfo:code')}`}
-					invalid={Boolean(errors.generalInfo?.codeName)}
-					{...register('generalInfo.codeName', {
-						required: {
-							value: true,
-							message: `${t('applicationInfo:required')}`
-						},
-						pattern: {
-							value: /^([a-zA-Z0-9\s._-]+)$/,
-							message: t('applicationInfo:wrong-code-pattern')
-						},
-						validate: code =>
-							!appCodeList.includes(code.toLowerCase()) ||
-							`${t('applicationInfo:code-exists')}`
-					})}
-				/>
-			</Column>
-			<FullWidthColumn className='mb-5'>
-				<SingleUserSelect
-					control={control}
-					label={`${t('applicationInfo:owner')} *`}
-					name='generalInfo.owner'
-					rules={{
-						required: true
-					}}
-					excludedUsers={selectedDelegates}
-				/>
-			</FullWidthColumn>
-			<FullWidthColumn className='z-10 mb-5'>
-				<MultipleUserSelect
-					control={control}
-					label={`${t('applicationInfo:owner-delegates')}`}
-					name='generalInfo.delegates'
-					excludedUser={selectedOwner}
-				/>
-			</FullWidthColumn>
-			<Column sm={4} md={8} lg={8} className='mb-5'>
-				<TextInput
-					className='w-full'
-					id='application-maintenance-supplier'
-					labelText={t('applicationInfo:app-maintenance')}
-					placeholder={t('applicationInfo:app-maintenance')}
-					{...register('generalInfo.appMaintenance')}
-				/>
-			</Column>
-			<Column sm={4} md={8} lg={8} className='mb-5'>
-				<TextInput
-					className='w-full'
-					id='operation-supplier'
-					labelText={t('applicationInfo:operation-supplier')}
-					placeholder={t('applicationInfo:operation-supplier')}
-					{...register('generalInfo.operationSupplier')}
-				/>
-			</Column>
-			{!excludesLastModify && (
-				<>
-					<Column sm={4} md={8} lg={8} className='mb-5'>
-						<TextInput
-							id='last-modifier'
-							labelText={`${t('procedureInfo:last-modifier')}`}
-							readOnly
-							value={
-								getValues && getValues('generalInfo.lastModifier')
-									? getValues('generalInfo.lastModifier.displayName')
-									: ''
-							}
-						/>
-					</Column>
-					<Column sm={4} md={8} lg={8} className='mb-5'>
-						<TextInput
-							id='last-modify'
-							labelText={`${t('procedureInfo:last-modify')}`}
-							readOnly
-							value={
-								getValues && getValues('generalInfo.lastModify')
-									? getValues('generalInfo.lastModify').toLocaleString()
-									: ''
-							}
-						/>
-					</Column>
-				</>
-			)}
-			{!excludesLastReview && (
-				<>
-					<Column sm={4} md={8} lg={8} className='mb-5'>
-						<TextInput
-							id='last-reviewer'
-							labelText={`${t('procedureInfo:last-reviewer')}`}
-							readOnly
-							value={
-								getValues && getValues('generalInfo.lastReviewer')
-									? getValues('generalInfo.lastReviewer.displayName')
-									: ''
-							}
-						/>
-					</Column>
-					<Column sm={4} md={8} lg={8} className='mb-5'>
-						<TextInput
-							id='last-review'
-							labelText={`${t('procedureInfo:last-review')}`}
-							readOnly
-							value={
-								getValues && getValues('generalInfo.lastReview')
-									? getValues('generalInfo.lastReview').toLocaleString()
-									: ''
-							}
-						/>
-					</Column>
-				</>
-			)}
-
-			<FullWidthColumn>
-				<div>
-					<p className='mb-3 text-text-secondary text-label-1'>
-						{t('applicationInfo:description')}
-					</p>
-					<TiptapEditor
-						content={descriptionValue}
-						onChange={onChangeDescription}
-						onBlur={onBlurDescription}
-						ref={descriptionRef}
+		<Layer>
+			<Grid fullWidth>
+				<FullWidthColumn>
+					<IconPicker
+						{...{ ref, onBlur }}
+						className={cx({
+							'outline outline-support-error': Boolean(errors.generalInfo?.icon)
+						})}
+						icon={value}
+						onChange={onChange}
 					/>
-				</div>
-			</FullWidthColumn>
-		</Grid>
+				</FullWidthColumn>
+				<Column sm={4} md={8} lg={8} className='mb-5'>
+					<TextInput
+						className='w-full'
+						id='name'
+						invalidText={errors.generalInfo?.name?.message}
+						labelText={`${t('applicationInfo:name')} *`}
+						placeholder={`${t('applicationInfo:name')}`}
+						invalid={Boolean(errors.generalInfo?.name)}
+						{...register('generalInfo.name', {
+							required: {
+								value: true,
+								message: `${t('applicationInfo:required')}`
+							},
+							validate: name =>
+								!appNameList.includes(name.toLowerCase()) ||
+								`${t('applicationInfo:name-exists')}`
+						})}
+					/>
+				</Column>
+				<Column sm={4} md={8} lg={8} className='mb-5'>
+					<TextInput
+						className='w-full'
+						id='code'
+						invalidText={errors.generalInfo?.codeName?.message}
+						labelText={`${t('applicationInfo:code')} *`}
+						placeholder={`${t('applicationInfo:code')}`}
+						invalid={Boolean(errors.generalInfo?.codeName)}
+						{...register('generalInfo.codeName', {
+							required: {
+								value: true,
+								message: `${t('applicationInfo:required')}`
+							},
+							pattern: {
+								value: /^([a-zA-Z0-9\s._-]+)$/,
+								message: t('applicationInfo:wrong-code-pattern')
+							},
+							validate: code =>
+								!appCodeList.includes(code.toLowerCase()) ||
+								`${t('applicationInfo:code-exists')}`
+						})}
+					/>
+				</Column>
+				<FullWidthColumn className='mb-5'>
+					<SingleUserSelect
+						control={control}
+						label={`${t('applicationInfo:owner')} *`}
+						name='generalInfo.owner'
+						rules={{
+							required: true
+						}}
+						excludedUsers={selectedDelegates}
+						level={3}
+					/>
+				</FullWidthColumn>
+				<FullWidthColumn className='z-10 mb-5'>
+					<MultipleUserSelect
+						control={control}
+						label={`${t('applicationInfo:owner-delegates')}`}
+						name='generalInfo.delegates'
+						excludedUser={selectedOwner}
+						level={3}
+					/>
+				</FullWidthColumn>
+				<Column sm={4} md={8} lg={8} className='mb-5'>
+					<TextInput
+						className='w-full'
+						id='application-maintenance-supplier'
+						labelText={t('applicationInfo:app-maintenance')}
+						placeholder={t('applicationInfo:app-maintenance')}
+						{...register('generalInfo.appMaintenance')}
+					/>
+				</Column>
+				<Column sm={4} md={8} lg={8} className='mb-5'>
+					<TextInput
+						className='w-full'
+						id='operation-supplier'
+						labelText={t('applicationInfo:operation-supplier')}
+						placeholder={t('applicationInfo:operation-supplier')}
+						{...register('generalInfo.operationSupplier')}
+					/>
+				</Column>
+				{!excludesLastModify && (
+					<>
+						<Column sm={4} md={8} lg={8} className='mb-5'>
+							<TextInput
+								id='last-modifier'
+								labelText={`${t('procedureInfo:last-modifier')}`}
+								readOnly
+								value={
+									getValues && getValues('generalInfo.lastModifier')
+										? getValues('generalInfo.lastModifier.displayName')
+										: ''
+								}
+							/>
+						</Column>
+						<Column sm={4} md={8} lg={8} className='mb-5'>
+							<TextInput
+								id='last-modify'
+								labelText={`${t('procedureInfo:last-modify')}`}
+								readOnly
+								value={
+									getValues && getValues('generalInfo.lastModify')
+										? getValues('generalInfo.lastModify').toLocaleString()
+										: ''
+								}
+							/>
+						</Column>
+					</>
+				)}
+				{!excludesLastReview && (
+					<>
+						<Column sm={4} md={8} lg={8} className='mb-5'>
+							<TextInput
+								id='last-reviewer'
+								labelText={`${t('procedureInfo:last-reviewer')}`}
+								readOnly
+								value={
+									getValues && getValues('generalInfo.lastReviewer')
+										? getValues('generalInfo.lastReviewer.displayName')
+										: ''
+								}
+							/>
+						</Column>
+						<Column sm={4} md={8} lg={8} className='mb-5'>
+							<TextInput
+								id='last-review'
+								labelText={`${t('procedureInfo:last-review')}`}
+								readOnly
+								value={
+									getValues && getValues('generalInfo.lastReview')
+										? getValues('generalInfo.lastReview').toLocaleString()
+										: ''
+								}
+							/>
+						</Column>
+					</>
+				)}
+
+				<FullWidthColumn>
+					<div>
+						<p className='mb-3 text-text-secondary text-label-1'>
+							{t('applicationInfo:description')}
+						</p>
+						<TiptapEditor
+							content={descriptionValue}
+							onChange={onChangeDescription}
+							onBlur={onBlurDescription}
+							ref={descriptionRef}
+						/>
+					</div>
+				</FullWidthColumn>
+			</Grid>
+		</Layer>
 	);
 };
 export default GeneralInfo;

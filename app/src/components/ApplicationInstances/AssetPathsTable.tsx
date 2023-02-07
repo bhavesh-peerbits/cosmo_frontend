@@ -66,7 +66,7 @@ const AssetPathsTable = ({
 	return (
 		<Grid narrow fullWidth>
 			<FullWidthColumn>
-				<Layer>
+				<Layer level={1}>
 					<CosmoTable
 						modalProps={{
 							form,

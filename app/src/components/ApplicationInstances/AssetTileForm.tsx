@@ -42,7 +42,7 @@ const AssetTileForm = ({
 		});
 
 	return (
-		<Layer>
+		<Layer level={1}>
 			<Grid narrow fullWidth className='space-y-5'>
 				<FullWidthColumn>
 					<TextInput
