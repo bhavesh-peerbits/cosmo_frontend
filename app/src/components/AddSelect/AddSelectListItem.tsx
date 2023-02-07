@@ -38,6 +38,7 @@ const AddSelectListItem = ({
 	multiSelection,
 	onNavigateItem,
 	shrink,
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	isFirstLevel
 }: AddSelectItemProps) => {
 	const [showModifier, setShowModifier] = useState(false);
@@ -59,12 +60,8 @@ const AddSelectListItem = ({
 			<StructuredListCell
 				onMouseEnter={() => setShowModifier(true)}
 				onMouseLeave={() => setShowModifier(false)}
-				onClick={e => {
-					isFirstLevel
-						? ref.current?.click()
-						: e.target !== ref.current &&
-						  (e.target as HTMLElement).tagName !== 'LABEL' &&
-						  ref.current?.click();
+				onClick={() => {
+					ref.current?.click();
 				}}
 				className={cx({ 'p-0': shrink })}
 			>

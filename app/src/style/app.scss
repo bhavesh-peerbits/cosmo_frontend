@@ -34,6 +34,10 @@
 	outline: 0 !important;
 }
 
+.cds--body--with-modal-open .cds--tooltip {
+	z-index: 0 !important;
+}
+
 .#{$prefix}--overflow-menu-options {
 	z-index: 9090 !important;
 }
