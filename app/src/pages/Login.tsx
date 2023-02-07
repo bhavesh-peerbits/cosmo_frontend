@@ -259,7 +259,9 @@ const Login = () => {
 							</Form>
 						)}
 					</div>
-					<StellantisLogo className='flex h-[50px] w-[236.11px]  items-end self-center ' />
+					{window.location.href.includes('stellantis') && (
+						<StellantisLogo className='flex h-[50px] w-[236.11px]  items-end self-center ' />
+					)}
 				</Column>
 				<Column
 					sm={4}
