@@ -89,5 +89,11 @@
 	"select-user-descrition": "Seleziona gli utenti che riceveranno un reminder",
 	"select-app-descrition": "Selezionando un applicazione verranno selezionati tutti i possibili utenti per essa",
 	"ongoing": "In corso",
-	"closed": "Chiuse"
+	"closed": "Chiuse",
+	"WAITING_FOR_DATA": "In attesa di dati",
+	"READY_FOR_REVIEW": "Pronta per la rivalidazione",
+	"REVIEW_IN_PROGRESS": "Rivalidazione in corso",
+	"COMPLETED": "Completata",
+	"COMPLETED_WITH_PARTIAL_ANSWERS": "Completata con risposte parziali",
+	"ANNULLED": "Annullata"
 }

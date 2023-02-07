@@ -97,6 +97,9 @@ const CampaignStatus = memo(({ campaign }: { campaign: Campaign }) => {
 				/>
 			)}
 			<h2 className='text-heading-3'>{t('userRevalidation:status')}</h2>
+			<div className='text-label-1'>
+				{campaign.status && t(`userRevalidation:${campaign.status}`)}
+			</div>
 			<MeterChart options={meterData.options} data={meterData.data} />
 			<Stack gap={5}>
 				{statusData.map(({ id: statusId, label, value }) =>

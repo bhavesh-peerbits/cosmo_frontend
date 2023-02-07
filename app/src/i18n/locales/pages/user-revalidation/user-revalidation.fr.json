@@ -89,5 +89,11 @@
 	"select-user-descrition": "",
 	"select-app-descrition": "",
 	"ongoing": "",
-	"closed": ""
+	"closed": "",
+	"WAITING_FOR_DATA": "",
+	"READY_FOR_REVIEW": "",
+	"REVIEW_IN_PROGRESS": "",
+	"COMPLETED": "",
+	"COMPLETED_WITH_PARTIAL_ANSWERS": "",
+	"ANNULLED": ""
 }
