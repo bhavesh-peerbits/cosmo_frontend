@@ -1,4 +1,4 @@
-import { Button, Grid, TextArea, TextInput } from '@carbon/react';
+import { Button, Grid, TextArea, TextInput, Layer } from '@carbon/react';
 import { TrashCan, SubtractAlt } from '@carbon/react/icons';
 import FullWidthColumn from '@components/FullWidthColumn';
 import DeleteAssetModal from '@components/Modals/DeleteAssetModal';
@@ -38,79 +38,83 @@ const ApplicationInstanceForm = ({
 	}>();
 
 	return (
-		<Grid fullWidth className='space-y-5'>
-			<DeleteAssetModal
-				assetToDelete={assetToDelete}
-				setAssetToDelete={setAssetToDelete}
-			/>
-			<FullWidthColumn>
-				<TextInput
-					id={`${instance?.id}-input-name`}
-					labelText={`${t('applicationInstances:instance-name')} *`}
-					placeholder={t('applicationInstances:instance-name-placeholder')}
-					invalidText={errors.name?.message}
-					invalid={Boolean(errors.name)}
-					{...register('name', {
-						required: {
-							value: true,
-							message: `${t('modals:field-required')}`
-						}
-					})}
+		<Layer>
+			<Grid fullWidth className='space-y-5'>
+				<DeleteAssetModal
+					assetToDelete={assetToDelete}
+					setAssetToDelete={setAssetToDelete}
 				/>
-			</FullWidthColumn>
-			<FullWidthColumn>
-				<TextArea
-					id={`${instance.id}-input-description`}
-					labelText={t('applicationInstances:description')}
-					placeholder={t('applicationInstances:instance-description-placeholder')}
-					{...register('description')}
-				/>
-			</FullWidthColumn>
-			{!!instanceAssets?.length && (
 				<FullWidthColumn>
-					{instanceAssets.map(asset => (
-						<AssetExpandableTile
-							key={asset.id}
-							title={
-								<div className='flex items-center justify-between'>
-									{asset.hostname}
-									{!isReview && (
-										<div className='space-x-3'>
-											<Button
-												size='sm'
-												kind='ghost'
-												hasIconOnly
-												renderIcon={SubtractAlt}
-												iconDescription={t('applicationInstances:delete-asset-instance')}
-												tooltipPosition='left'
-												onClick={e => {
-													e.stopPropagation();
-													setAssetToDelete({ asset, instance, isGlobal: false });
-												}}
-											/>
-											<Button
-												size='sm'
-												kind='ghost'
-												hasIconOnly
-												renderIcon={TrashCan}
-												iconDescription={t('applicationInstances:delete-asset-global')}
-												tooltipPosition='left'
-												onClick={e => {
-													e.stopPropagation();
-													setAssetToDelete({ asset, isGlobal: true });
-												}}
-											/>
-										</div>
-									)}
-								</div>
+					<TextInput
+						id={`${instance?.id}-input-name`}
+						labelText={`${t('applicationInstances:instance-name')} *`}
+						placeholder={t('applicationInstances:instance-name-placeholder')}
+						invalidText={errors.name?.message}
+						invalid={Boolean(errors.name)}
+						{...register('name', {
+							required: {
+								value: true,
+								message: `${t('modals:field-required')}`
 							}
-						>
-							<AssetFormContainer asset={asset} isReview={isReview} />
-						</AssetExpandableTile>
-					))}
+						})}
+					/>
 				</FullWidthColumn>
-			)}
-		</Grid>
+				<FullWidthColumn>
+					<TextArea
+						id={`${instance.id}-input-description`}
+						labelText={t('applicationInstances:description')}
+						placeholder={t('applicationInstances:instance-description-placeholder')}
+						{...register('description')}
+					/>
+				</FullWidthColumn>
+				{!!instanceAssets?.length && (
+					<FullWidthColumn>
+						{instanceAssets.map(asset => (
+							<AssetExpandableTile
+								key={asset.id}
+								title={
+									<div className='flex items-center justify-between'>
+										{asset.hostname}
+										{!isReview && (
+											<div className='space-x-3'>
+												<Button
+													size='sm'
+													kind='ghost'
+													hasIconOnly
+													renderIcon={SubtractAlt}
+													iconDescription={t(
+														'applicationInstances:delete-asset-instance'
+													)}
+													tooltipPosition='left'
+													onClick={e => {
+														e.stopPropagation();
+														setAssetToDelete({ asset, instance, isGlobal: false });
+													}}
+												/>
+												<Button
+													size='sm'
+													kind='ghost'
+													hasIconOnly
+													renderIcon={TrashCan}
+													iconDescription={t('applicationInstances:delete-asset-global')}
+													tooltipPosition='left'
+													onClick={e => {
+														e.stopPropagation();
+														setAssetToDelete({ asset, isGlobal: true });
+													}}
+												/>
+											</div>
+										)}
+									</div>
+								}
+							>
+								<AssetFormContainer asset={asset} isReview={isReview} />
+							</AssetExpandableTile>
+						))}
+					</FullWidthColumn>
+				)}
+			</Grid>
+		</Layer>
 	);
 };
 export default ApplicationInstanceForm;

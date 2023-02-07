@@ -5,7 +5,7 @@ import TableOfContents from '@components/TableOfContents';
 import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
 import { useResponsive } from 'ahooks';
 import { useMemo, useRef, useState } from 'react';
-import { Button, Grid } from '@carbon/react';
+import { Button, Grid, Layer } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import AddNewInstanceModal from '@components/Modals/AddNewInstanceModal';
 import Application from '@model/Application';
@@ -68,7 +68,9 @@ const ApplicationInstances = ({ application }: ApplicationInstancesProps) => {
 								</div>
 							)}
 							{instances?.map(instance => (
-								<ApplicationInstanceTile instance={instance} />
+								<Layer>
+									<ApplicationInstanceTile instance={instance} />
+								</Layer>
 							))}
 						</div>
 					</div>
