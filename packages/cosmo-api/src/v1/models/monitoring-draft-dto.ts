@@ -133,6 +133,12 @@ export interface MonitoringDraftDto {
 	 * @memberof MonitoringDraftDto
 	 */
 	files?: Array<FileLinkDto>;
+	/**
+	 * A boolean value to let the creation of the run on same day.
+	 * @type {boolean}
+	 * @memberof MonitoringDraftDto
+	 */
+	startToday?: boolean;
 }
 
 export const MonitoringDraftDtoStatusEnum = {

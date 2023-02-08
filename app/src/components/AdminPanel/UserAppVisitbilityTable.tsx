@@ -2,11 +2,11 @@ import { Button, Layer } from '@carbon/react';
 import { Suspense, useMemo, useState } from 'react';
 import User from '@model/User';
 import { Add } from '@carbon/react/icons';
-import useGetFilteredPagedUser from '@api/user-admin/useGetFilteredPagedUser';
 import useGetAppsAdminNotMap from '@api/user-admin/useGetAppsAdminNotMap';
 import { CellContext, ColumnDef } from '@tanstack/react-table';
 import CosmoTable from '@components/table/CosmoTable';
 import { useTranslation } from 'react-i18next';
+import useGetAllAnalystAndAdminUsers from '@api/user-admin/useGetAllAnalystAndAdminUsers';
 import SelectApplicationUser from './SelectApplicationUser';
 
 type ActionCellProps = {
@@ -39,7 +39,7 @@ const UserAppsVisibilityTable = () => {
 	const [isSelectOpen, setIsSelectOpen] = useState(false);
 	const [userSelectedId, setUserSelectedId] = useState<string>();
 	const { data: applications } = useGetAppsAdminNotMap();
-	const { data: { content } = {} } = useGetFilteredPagedUser('userappvisibility');
+	const { data: content } = useGetAllAnalystAndAdminUsers();
 
 	const columns = useMemo<ColumnDef<User>[]>(
 		() => [
@@ -91,7 +91,6 @@ const UserAppsVisibilityTable = () => {
 				tableId='userappvisibility'
 				data={content || []}
 				columns={columns}
-				serverSidePagination
 				isColumnOrderingEnabled
 				noDataMessage='no-data'
 				exportFileName={({ all }) => (all ? 'users-all' : 'users-selection')}

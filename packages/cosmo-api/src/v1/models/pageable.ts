@@ -15,25 +15,25 @@
 /**
  *
  * @export
- * @interface SortObject
+ * @interface Pageable
  */
-export interface SortObject {
+export interface Pageable {
 	/**
 	 *
-	 * @type {boolean}
-	 * @memberof SortObject
+	 * @type {number}
+	 * @memberof Pageable
 	 */
-	empty?: boolean;
+	page?: number;
 	/**
 	 *
-	 * @type {boolean}
-	 * @memberof SortObject
+	 * @type {number}
+	 * @memberof Pageable
 	 */
-	sorted?: boolean;
+	size?: number;
 	/**
 	 *
-	 * @type {boolean}
-	 * @memberof SortObject
+	 * @type {Array<string>}
+	 * @memberof Pageable
 	 */
-	unsorted?: boolean;
+	sort?: Array<string>;
 }
