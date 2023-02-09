@@ -4,7 +4,7 @@ import FullWidthColumn from '@components/FullWidthColumn';
 import DeleteAssetModal from '@components/Modals/DeleteAssetModal';
 import Asset from '@model/Asset';
 import Instance from '@model/Instance';
-import AssetExpandableTile from '@pages/MonitoringDraftDetails/Components/AssetExpandableTile';
+import AssetExpandableTile from '@pages/ChangeMonitoring/MonitoringDraftDetails/Components/AssetExpandableTile';
 import { useState } from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';

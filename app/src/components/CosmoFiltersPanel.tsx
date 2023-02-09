@@ -39,7 +39,7 @@ const CosmoFiltersPanel = ({
 			case 'lg':
 				return '48';
 			default:
-				return '40';
+				return '48';
 		}
 	};
 	return (
@@ -65,7 +65,7 @@ const CosmoFiltersPanel = ({
 			/>
 			{isOpen && (
 				<div
-					className={`absolute z-[999] mt-[${buttonHeight()}px] inline-block max-h-[calc(67%-2rem)] overflow-auto bg-layer-1 p-3`}
+					className={`absolute z-[999] mt-[${buttonHeight}px] inline-block max-h-[calc(67%-2rem)] overflow-auto bg-layer-1 p-3`}
 					style={{
 						boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)'
 					}}
