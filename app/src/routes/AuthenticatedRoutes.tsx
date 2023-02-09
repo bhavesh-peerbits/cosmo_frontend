@@ -32,38 +32,51 @@ const UserRevalidationDetails = React.lazy(
 	() => import('@pages/UserRevalidationDetails')
 );
 const NewEvidenceRequestDashboard = React.lazy(
-	() => import('@pages/NewEvidenceRequestDashboard')
+	() =>
+		import(
+			'@pages/EvidenceRequest/NewEvidenceRequestDashboard/NewEvidenceRequestDashboard'
+		)
 );
-const NewEvidenceRequest = React.lazy(() => import('@pages/NewEvidenceRequest'));
+const NewEvidenceRequest = React.lazy(
+	() => import('@pages/EvidenceRequest/NewEvidenceRequest/NewEvidenceRequest')
+);
 const StartedEvidenceRequestDashboard = React.lazy(
-	() => import('@pages/StartedEvidenceRequestDashboard')
+	() =>
+		import(
+			'@pages/EvidenceRequest/StartedEvidenceRequestDashboard/StartedEvidenceRequestDashboard'
+		)
 );
 const ActionEvidenceRequestDashboard = React.lazy(
-	() => import('@pages/ActionEvidenceRequestDashboard')
+	() =>
+		import(
+			'@pages/EvidenceRequest/ActionEvidenceRequestDashboard/ActionEvidenceRequestDashboard'
+		)
 );
 const NewMonitoring = React.lazy(
-	() => import('@pages/NewMonitoringDashboard/NewMonitoring')
+	() => import('@pages/ChangeMonitoring/NewMonitoringDashboard/NewMonitoring')
 );
 const MonitoringDraftDetails = React.lazy(
-	() => import('@pages/MonitoringDraftDetails/MonitoringDraftDetails')
+	() => import('@pages/ChangeMonitoring/MonitoringDraftDetails/MonitoringDraftDetails')
 );
 const MonitoringDashboard = React.lazy(
-	() => import('@pages/MonitoringDashboard/MonitoringDashboard')
+	() => import('@pages/ChangeMonitoring/MonitoringDashboard/MonitoringDashboard')
 );
 const MonitoringDetails = React.lazy(
-	() => import('@pages/MonitoringDetails/MonitoringDetails')
+	() => import('@pages/ChangeMonitoring/MonitoringDetails/MonitoringDetails')
 );
 const MonitoringRunDetails = React.lazy(
-	() => import('@pages/MonitoringRunDetails/MonitoringRunDetails')
+	() => import('@pages/ChangeMonitoring/MonitoringRunDetails/MonitoringRunDetails')
 );
 const ChangeMonitoringInbox = React.lazy(
-	() => import('@pages/ChangeMonitoringInbox/ChangeMonitoringInbox')
+	() => import('@pages/ChangeMonitoring/ChangeMonitoringInbox/ChangeMonitoringInbox')
 );
 const ActionEvidenceRequest = React.lazy(
-	() => import('@pages/ActionEvidenceRequest/ActionEvidenceRequest')
+	() => import('@pages/EvidenceRequest/ActionEvidenceRequest/ActionEvidenceRequest')
 );
 
-const StartedEvidenceRequest = React.lazy(() => import('@pages/StartedEvidenceRequest'));
+const StartedEvidenceRequest = React.lazy(
+	() => import('@pages/EvidenceRequest/StartedEvidenceRequest/StartedEvidenceRequest')
+);
 
 const AuthenticatedRoutes = () => {
 	const {
