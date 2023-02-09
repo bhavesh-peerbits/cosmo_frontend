@@ -2,10 +2,10 @@ import PageHeader from '@components/PageHeader';
 import { Tab, TabList, TabPanel, TabPanels, Grid, Column } from '@carbon/react';
 import StickyTabs from '@components/StickyTabs';
 import { useParams } from 'react-router-dom';
-import EvidenceRequestDetails from '@components/EvidenceRequest/EvidenceRequestDetails';
-import EvidenceRequestInfo from '@components/EvidenceRequest/EvidenceRequestInfo';
-import ActionEvidenceRequestInfo from '@components/EvidenceRequest/ActionEvidenceRequestInfo';
-import ActionEvidenceRequestModal from '@components/Modals/ActionEvidenceRequestModal';
+import EvidenceRequestDetails from '@pages/ActionEvidenceRequest/Components/EvidenceRequestDetails';
+import EvidenceRequestInfo from '@pages/ActionEvidenceRequest/Components/EvidenceRequestInfo';
+import ActionEvidenceRequestInfo from '@pages/ActionEvidenceRequest/Containers/ActionEvidenceRequestInfo';
+import ActionEvidenceRequestModal from '@pages/ActionEvidenceRequest/Modals/ActionEvidenceRequestModal';
 import { useState } from 'react';
 import useGetEvidenceRequestByIdFocalPoint from '@api/evidence-request/useGetEvidenceRequestByIdFocalPoint';
 

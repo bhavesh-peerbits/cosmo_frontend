@@ -9,9 +9,9 @@ import User from '@model/User';
 import { smoothScroll, triggerFocus } from '@components/TableOfContents/utils';
 import useLoginStore from '@hooks/auth/useLoginStore';
 import { EvidenceRequestStatus } from '@model/EvidenceRequestStatus';
-import EvidenceRequestApproveForm from './EvidenceRequestApproveForm';
-import EvidenceRequestUploadForm from './EvidenceRequestUploadForm';
-import FileLinkTable from './FileLinkTable';
+import EvidenceRequestApproveForm from '../Components/EvidenceRequestApproveForm';
+import EvidenceRequestUploadForm from '../Components/EvidenceRequestUploadForm';
+import FileLinkTable from '../../../components/EvidenceRequest/FileLinkTable';
 
 const ActionEvidenceRequestInfo = ({
 	steps,

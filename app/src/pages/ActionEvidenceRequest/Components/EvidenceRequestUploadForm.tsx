@@ -1,5 +1,5 @@
 import { Form, Button, TextArea, Layer } from '@carbon/react';
-import ConfirmCloseStepUploadModal from '@components/Modals/ConfirmCloseStepUploadModal';
+import ConfirmCloseStepUploadModal from '@pages/ActionEvidenceRequest/Modals/ConfirmCloseStepUploadModal';
 import UploaderS3 from '@components/util/UploaderS3';
 import EvidenceRequestStep from '@model/EvidenceRequestStep';
 import evidenceRequestUploaderStore from '@store/evidence-request/evidenceRequestUploaderStore';

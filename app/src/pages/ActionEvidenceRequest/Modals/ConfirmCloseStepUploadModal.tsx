@@ -1,7 +1,7 @@
 import useSaveStepAndGoNext from '@api/evidence-request/useSaveStepAndGoNext';
 import useSaveStepAndGoNextAnalyst from '@api/evidence-request/useSaveStepAndGoNextAnalyst';
 import { Modal, InlineLoading } from '@carbon/react';
-import { StepUploadForm } from '@components/EvidenceRequest/EvidenceRequestUploadForm';
+import { StepUploadForm } from '@pages/ActionEvidenceRequest/Components/EvidenceRequestUploadForm';
 import EvidenceRequestStep from '@model/EvidenceRequestStep';
 import evidenceRequestUploaderStore from '@store/evidence-request/evidenceRequestUploaderStore';
 import { useCallback, useEffect } from 'react';

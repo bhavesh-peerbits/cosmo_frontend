@@ -59,7 +59,9 @@ const MonitoringRunDetails = React.lazy(
 const ChangeMonitoringInbox = React.lazy(
 	() => import('@pages/ChangeMonitoringInbox/ChangeMonitoringInbox')
 );
-const ActionEvidenceRequest = React.lazy(() => import('@pages/ActionEvidenceRequest'));
+const ActionEvidenceRequest = React.lazy(
+	() => import('@pages/ActionEvidenceRequest/ActionEvidenceRequest')
+);
 
 const StartedEvidenceRequest = React.lazy(() => import('@pages/StartedEvidenceRequest'));
 
