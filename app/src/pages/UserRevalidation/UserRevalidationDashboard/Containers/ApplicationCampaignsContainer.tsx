@@ -1,6 +1,6 @@
 import { Column, Grid } from '@carbon/react';
 import Campaign from '@model/Campaign';
-import ApplicationCampaignStatus from './ApplicationCampaignStatus';
+import ApplicationCampaignStatus from '../Components/ApplicationCampaignStatus';
 
 interface ApplicationCampaignsContainerProps {
 	campaigns: Campaign[];

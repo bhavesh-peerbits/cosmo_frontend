@@ -2,13 +2,13 @@ import { Button, Grid } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { TrashCan, Upload } from '@carbon/react/icons';
 import { useState } from 'react';
-import DeleteUploadModal from '@components/Modals/DeleteUploadModal';
+import DeleteUploadModal from '@pages/UserRevalidation/NewRevalidationDetail/Modals/DeleteUploadModal';
 import CampaignApplication from '@model/CampaignApplication';
 import useGetAnswersForReview from '@api/user-revalidation/useGetAnswersForReview';
 import AnswerTable from '@components/UserRevalidation/AnswerTable';
 import Answer from '@model/Answer';
-import UploadFileModal from '@components/Modals/UploadFileModal';
 import { useTranslation } from 'react-i18next';
+import UploadFileModal from '@pages/UserRevalidation/NewRevalidationDetail/Modals/UploadFileModal';
 
 interface UploadResultsTileProps {
 	campaignApplication: CampaignApplication;

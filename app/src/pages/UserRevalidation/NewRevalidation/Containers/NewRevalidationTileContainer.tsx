@@ -1,6 +1,6 @@
 import { Grid, Column } from '@carbon/react';
 import useRevalidations from '@hooks/user-revalidation/useRevalidations';
-import NewRevalidationTile from './NewRevalidationTile';
+import NewRevalidationTile from '../Components/NewRevalidationTile';
 
 const NewRevalidationTileContainer = () => {
 	const { revalidations } = useRevalidations();

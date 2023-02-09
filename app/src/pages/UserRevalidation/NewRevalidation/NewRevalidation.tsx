@@ -1,16 +1,16 @@
 import PageHeader from '@components/PageHeader';
 import { Add, Download } from '@carbon/react/icons';
-import NewRevalidationTileContainer from '@components/UserRevalidation/NewRevalidationTileContainer';
+import NewRevalidationTileContainer from '@pages/UserRevalidation/NewRevalidation/Containers/NewRevalidationTileContainer';
 import { Grid, Column, Layer, Search } from '@carbon/react';
 import Fade from '@components/Fade';
 import { useTranslation } from 'react-i18next';
-import DownloadTemplateModal from '@components/Modals/DownloadTemplateModal';
+import DownloadTemplateModal from '@pages/UserRevalidation/NewRevalidation/Modals/DownloadTemplateModal';
 import { useState } from 'react';
-import NewCampaignModal from '@components/Modals/NewCampaignModal';
-import RevalidationsFilters from '@components/UserRevalidation/RevalidationsFilters';
+import RevalidationsFilters from '@pages/UserRevalidation/NewRevalidation/Components/RevalidationsFilters';
 import useRevalidations from '@hooks/user-revalidation/useRevalidations';
 import Centered from '@components/Centered';
 import NoDataMessage from '@components/NoDataMessage';
+import NewCampaignModal from './Modals/NewCampaignModal';
 
 const SearchBar = () => {
 	const { filters, setFilters } = useRevalidations();

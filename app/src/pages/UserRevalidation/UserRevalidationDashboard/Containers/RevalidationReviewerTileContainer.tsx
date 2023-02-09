@@ -2,7 +2,7 @@ import { Grid, Column, Layer, Search } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
 import useRevalidationReview from '@hooks/user-revalidation-review/useRevalidationReview';
-import RevalidationReviewerTile from './RevalidationReviewerTile';
+import RevalidationReviewerTile from '../Components/RevalidationReviewerTile';
 
 const SearchBar = () => {
 	const { filters, setFilters } = useRevalidationReview();

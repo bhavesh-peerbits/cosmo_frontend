@@ -9,7 +9,7 @@ import {
 import IconResolver from '@components/IconResolver';
 import { useTranslation } from 'react-i18next';
 import ApplicationWithCampaigns from '@model/ApplicationWithCampaigns';
-import ApplicationCampaignsContainer from './ApplicationCampaignsContainer';
+import ApplicationCampaignsContainer from '../Containers/ApplicationCampaignsContainer';
 
 interface RevalidationReviewTileProps {
 	revalidation: ApplicationWithCampaigns;

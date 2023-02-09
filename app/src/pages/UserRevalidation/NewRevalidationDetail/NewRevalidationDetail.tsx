@@ -2,14 +2,11 @@ import PageHeader from '@components/PageHeader';
 import { Email, TrashCan, Upload, Download } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { LegacyRef, useRef, useState } from 'react';
-import SendRevalidationModal from '@components/Modals/SendRevalidationModal';
-import DeleteCampaignModal from '@components/Modals/DeleteCampaignModal';
 import { Grid, Button, Tile } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import TableOfContents from '@components/TableOfContents';
 import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
-import UploadFileModal from '@components/Modals/UploadFileModal';
-import UploadResultsTile from '@components/UserRevalidation/UploadResultsTile';
+import UploadResultsTile from '@pages/UserRevalidation/NewRevalidationDetail/Components/UploadResultsTile';
 import { useParams } from 'react-router-dom';
 import useGetCampaign from '@api/user-revalidation/useGetCampaign';
 import NoDataMessage from '@components/NoDataMessage';
@@ -18,6 +15,9 @@ import CampaignApplication from '@model/CampaignApplication';
 import Papa from 'papaparse';
 import useGetCampaignTemplate from '@api/user-revalidation/useGetCampaignTemplate';
 import { downloadFileViaBlob } from '@components/util/fileUtil';
+import DeleteCampaignModal from './Modals/DeleteCampaignModal';
+import UploadFileModal from './Modals/UploadFileModal';
+import SendCampaignModal from './Modals/SendRevalidationModal';
 
 interface RevalidationContentProps {
 	buttonRef: LegacyRef<HTMLDivElement>;
@@ -155,7 +155,7 @@ const NewRevalidationDetail = () => {
 			]}
 		>
 			<div className='pl-5'>
-				<SendRevalidationModal
+				<SendCampaignModal
 					campaign={campaign}
 					isOpen={isSendModalOpen}
 					setIsOpen={setIsSendModalOpen}

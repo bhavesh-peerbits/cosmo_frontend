@@ -21,15 +21,20 @@ const AdminPanel = React.lazy(() => import('@pages/AdminPanel'));
 const RoleAssignment = React.lazy(() => import('@pages/RoleAssignment'));
 const ApplicationsVisibility = React.lazy(() => import('@pages/ApplicationsVisibility'));
 const Procedures = React.lazy(() => import('@pages/Procedures'));
-const NewRevalidation = React.lazy(() => import('@pages/NewRevalidation'));
-const NewRevalidationDetail = React.lazy(() => import('@pages/NewRevalidationDetail'));
+const NewRevalidation = React.lazy(
+	() => import('@pages/UserRevalidation/NewRevalidation/NewRevalidation')
+);
+const NewRevalidationDetail = React.lazy(
+	() => import('@pages/UserRevalidation/NewRevalidationDetail/NewRevalidationDetail')
+);
 const RevalidationsOngoing = React.lazy(() => import('@pages/RevalidationsOngoing'));
 const CampaignDetail = React.lazy(() => import('@pages/CampaignDetail'));
 const UserRevalidationDashboard = React.lazy(
-	() => import('@pages/UserRevalidationDashboard')
+	() =>
+		import('@pages/UserRevalidation/UserRevalidationDashboard/UserRevalidationDashboard')
 );
 const UserRevalidationDetails = React.lazy(
-	() => import('@pages/UserRevalidationDetails')
+	() => import('@pages/UserRevalidation/UserRevalidationDetails/UserRevalidationDetails')
 );
 const NewEvidenceRequestDashboard = React.lazy(
 	() =>

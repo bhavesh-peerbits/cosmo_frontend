@@ -1,7 +1,7 @@
 import { Column, Grid } from '@carbon/react';
 import PageHeader from '@components/PageHeader';
-import RevalidationReviewerTileContainer from '@components/reviewCampaign/RevalidationReviewerTileContainer';
-import RevalidationReviewerFilters from '@components/reviewCampaign/RevalidationReviewerFilters';
+import RevalidationReviewerTileContainer from '@pages/UserRevalidation/UserRevalidationDashboard/Containers/RevalidationReviewerTileContainer';
+import RevalidationReviewerFilters from '@pages/UserRevalidation/UserRevalidationDashboard/Components/RevalidationReviewerFilters';
 
 const UserRevalidationDashboard = () => {
 	return (
