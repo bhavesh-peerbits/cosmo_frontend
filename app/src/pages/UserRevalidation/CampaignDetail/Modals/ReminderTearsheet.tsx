@@ -4,9 +4,9 @@ import { useRecoilState } from 'recoil';
 import Tearsheet from '@components/Tearsheet';
 import { useTranslation } from 'react-i18next';
 import useSendRevReminder from '@api/user-revalidation/useSendRevReminder';
-import ReminderApplicationSelection from './ReminderApplicationSelection';
-import ReminderUserSelection from './ReminderUserSelection';
-import ReminderRecap from './ReminderRecap';
+import ReminderApplicationSelection from '../Components/ReminderApplicationSelection';
+import ReminderUserSelection from '../Components/ReminderUserSelection';
+import ReminderRecap from '../Components/ReminderRecap';
 
 const ReminderTearsheet = () => {
 	const [reminderData, setReminderData] = useRecoilState(RevalidationReminderStore);

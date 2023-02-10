@@ -1,7 +1,7 @@
 import { TabList, Tab, TabPanels, TabPanel } from '@carbon/react';
 import PageHeader from '@components/PageHeader';
 import StickyTabs from '@components/StickyTabs';
-import RevalidationTabContent from '@components/UserRevalidation/RevalidationTabContent';
+import RevalidationTabContent from '@pages/UserRevalidation/RevalidationOngoing/Containers/RevalidationTabContent';
 import { useTranslation } from 'react-i18next';
 
 const RevalidationsOngoing = () => {

@@ -8,11 +8,11 @@ import Campaign from '@model/Campaign';
 import useUiStore from '@hooks/useUiStore';
 import useGetAnswersForReview from '@api/user-revalidation/useGetAnswersForReview';
 import Answer from '@model/Answer';
-import ModifyAnswerModal from '@components/Modals/ModifyAnswerModal';
+import ModifyAnswerModal from '@pages/UserRevalidation/CampaignDetail/Modals/ModifyAnswerModal';
 import { useSetRecoilState } from 'recoil';
 import RevalidationReminderStore from '@store/user-revalidation/RevalidationReminderStore';
 import User from '@model/User';
-import RevalidatorsTable from './RevalidatorsTable';
+import RevalidatorsTable from '../Components/RevalidatorsTable';
 
 interface CampaignDetailsContainerProps {
 	application: Application;

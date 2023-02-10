@@ -11,7 +11,7 @@ import CosmoFileUploader from '@components/CosmoFileUploader';
 import useAddApplicationsAndAnswersToCampaign from '@api/user-revalidation/useAddApplicationsAndAnswersToCampaign';
 import FileAnswerStatus from '@model/FileAnswerStatus';
 import ApiError from '@api/ApiError';
-import AnswerTable from '@components/UserRevalidation/AnswerTable';
+import AnswerTable from '@pages/UserRevalidation/NewRevalidationDetail/Components/AnswerTable';
 import CampaignApplication from '@model/CampaignApplication';
 import useGetCampaignApplications from '@api/user-revalidation/useGetCampaignApplications';
 import { useQueryClient } from '@tanstack/react-query';

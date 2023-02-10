@@ -12,7 +12,7 @@ import DateCell from '@components/table/Cell/DateCell';
 import TooltipCell from '@components/table/Cell/TooltipCell';
 import UsersListCell from '@components/table/Cell/UsersListCell';
 import { InlineActions } from '@components/table/types/InlineActionType';
-import DeleteAnswerModal from './DeleteAnswerModal';
+import DeleteAnswerModal from '../Modals/DeleteAnswerModal';
 
 interface RevalidatorsTableProp {
 	answers: Answer[];

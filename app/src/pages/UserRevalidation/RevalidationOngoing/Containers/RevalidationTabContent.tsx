@@ -1,5 +1,5 @@
 import { Column, Grid, Layer } from '@carbon/react';
-import RevalidationsTable from './RevalidationsTable';
+import RevalidationsTable from '../Components/RevalidationsTable';
 
 const RevalidationTabContent = () => {
 	return (

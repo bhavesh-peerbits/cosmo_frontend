@@ -16,7 +16,7 @@ import { AnswerApiTypeEnum } from 'cosmo-api/src';
 import useMapAnswerType from '@hooks/user-revalidation-review/useMapAnswerType';
 import UserRevalidationActionModal, {
 	UserRevalidationActionState
-} from '@components/Modals/UserRevalidationActionModal';
+} from '@pages/UserRevalidation/UserRevalidationDetails/Modals/UserRevalidationActionModal';
 import useGetRevalidatorAnswers from '@api/review-campaign/useGetRevalidatorAnswers';
 import { useParams } from 'react-router-dom';
 import { CellContext, ColumnDef } from '@tanstack/react-table';

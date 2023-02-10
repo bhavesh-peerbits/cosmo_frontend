@@ -3,7 +3,7 @@ import PageHeader from '@components/PageHeader';
 import StickyTabs from '@components/StickyTabs';
 import { useParams } from 'react-router-dom';
 import useGetCampaignReview from '@api/review-campaign/useGetCampaignReview';
-import UserRevalidationTabContent from '@components/reviewCampaign/UserRevalidationTabContent';
+import UserRevalidationTabContent from '@pages/UserRevalidation/UserRevalidationDetails/Containers/UserRevalidationTabContent';
 
 const UserRevalidationDetails = () => {
 	const { campaignId = '' } = useParams<'campaignId'>();

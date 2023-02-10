@@ -27,8 +27,12 @@ const NewRevalidation = React.lazy(
 const NewRevalidationDetail = React.lazy(
 	() => import('@pages/UserRevalidation/NewRevalidationDetail/NewRevalidationDetail')
 );
-const RevalidationsOngoing = React.lazy(() => import('@pages/RevalidationsOngoing'));
-const CampaignDetail = React.lazy(() => import('@pages/CampaignDetail'));
+const RevalidationsOngoing = React.lazy(
+	() => import('@pages/UserRevalidation/RevalidationOngoing/RevalidationsOngoing')
+);
+const CampaignDetail = React.lazy(
+	() => import('@pages/UserRevalidation/CampaignDetail/CampaignDetail')
+);
 const UserRevalidationDashboard = React.lazy(
 	() =>
 		import('@pages/UserRevalidation/UserRevalidationDashboard/UserRevalidationDashboard')

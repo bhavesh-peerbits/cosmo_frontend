@@ -1,4 +1,4 @@
-import RevalidationUsersContainer from '@components/reviewCampaign/RevalidationUsersContainer';
+import RevalidationUsersContainer from '@pages/UserRevalidation/UserRevalidationDetails/Containers/RevalidationUsersContainer';
 import CampaignApplication from '@model/CampaignApplication';
 import { useMemo } from 'react';
 import useAnswerStore from '@hooks/user-revalidation-review/useAnswerStore';

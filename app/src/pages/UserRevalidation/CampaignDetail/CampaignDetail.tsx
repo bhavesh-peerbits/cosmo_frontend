@@ -1,136 +1,24 @@
 import PageHeader from '@components/PageHeader';
-import { Collaborate, Exit, Edit, Reminder } from '@carbon/react/icons';
+import { Collaborate, Exit, Reminder } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
-import { TabList, Tab, TabPanels, TabPanel, Stack, Button } from '@carbon/react';
+import { TabList, Tab, TabPanels, TabPanel } from '@carbon/react';
 import StickyTabs from '@components/StickyTabs';
-import { memo, useCallback, useEffect, useMemo, useState } from 'react';
-import CloseCampaignModal from '@components/Modals/CloseCampaignModal';
+import { useCallback, useEffect, useState } from 'react';
+import CloseCampaignModal from '@pages/UserRevalidation/CampaignDetail/Modals/CloseCampaignModal';
 import MultiAddSelect from '@components/MultiAddSelect';
-import CampaignDetailsContainer from '@components/UserRevalidation/CampaignDetailsContainer';
+import CampaignDetailsContainer from '@pages/UserRevalidation/CampaignDetail/Containers/CampaignDetailsContainer';
 import { useParams } from 'react-router-dom';
 import useGetCampaignApplications from '@api/user-revalidation/useGetCampaignApplications';
 import CampaignApplication from '@model/CampaignApplication';
-import { MeterChart } from '@carbon/charts-react';
-import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
 import useGetCampaign from '@api/user-revalidation/useGetCampaign';
-import Campaign from '@model/Campaign';
-import useGetCampaignStatus from '@api/user-revalidation/useGetCampaignStatus';
 import useGetPossibleContributors from '@api/user-revalidation/useGetPossibleContributors';
 import User from '@model/User';
 import useAddContributorsToCampaign from '@api/user-revalidation/useAddContributorsToCampaign';
-import useUiStore from '@hooks/useUiStore';
-import { interfaces } from '@carbon/charts';
 import { useQueryClient } from '@tanstack/react-query';
-import SetDueDateCampaignModal from '@components/Modals/SetDueDateCampaignModal';
-import { mapCampaignLayerToCampaignDisplayLayer } from '@model/CampaignLayer';
 import RevalidationReminderStore from '@store/user-revalidation/RevalidationReminderStore';
 import { useSetRecoilState } from 'recoil';
-import ReminderTearsheet from '@components/reviewCampaign/ReminderTearsheet';
-
-const CampaignStatus = memo(({ campaign }: { campaign: Campaign }) => {
-	const { id, type, layer, startDate, dueDate } = campaign;
-	const { data: status = 0 } = useGetCampaignStatus(id);
-	const { t } = useTranslation(['userRevalidation', 'reviewNarrative', 'modals']);
-	const [isDueDateModalOpen, setIsDueDateModalOpen] = useState(false);
-	const { theme } = useUiStore();
-
-	const meterData = useMemo(
-		() => ({
-			data: [
-				{
-					group: t('userRevalidation:percentage'),
-					value: (status * 100).toFixed(2)
-				}
-			],
-			options: {
-				title: ' ',
-				toolbar: {
-					enabled: false
-				},
-				meter: {
-					peak: 100
-				},
-				height: '100px',
-				color: {
-					scale: {
-						[t('userRevalidation:percentage')]: 'blue'
-					}
-				},
-				theme: theme as interfaces.ChartTheme
-			}
-		}),
-		[status, theme, t]
-	);
-	const statusData = useMemo(
-		() => [
-			{
-				id: 'revalidation',
-				label: `${t('userRevalidation:revalidation-type')}:`,
-				value: mapCampaignTypeToCampaignDisplayType(type)
-			},
-			{
-				id: 'layer',
-				label: `${t('userRevalidation:layer')}:`,
-				value: mapCampaignLayerToCampaignDisplayLayer(layer)
-			},
-			{
-				id: 'start-date',
-				label: `${t('reviewNarrative:start-date')}:`,
-				value: startDate ? startDate.toLocaleDateString('it-IT') : undefined
-			},
-			{
-				id: 'due-date',
-				label: `${t('reviewNarrative:due-date')}:`,
-				value: dueDate ? dueDate.toLocaleDateString('it-IT') : undefined
-			}
-		],
-		[dueDate, layer, startDate, type, t]
-	);
-
-	return (
-		<>
-			{isDueDateModalOpen && (
-				<SetDueDateCampaignModal
-					isOpen={isDueDateModalOpen}
-					setIsOpen={setIsDueDateModalOpen}
-					campaignId={id}
-				/>
-			)}
-			<h2 className='text-heading-3'>{t('userRevalidation:status')}</h2>
-			<div className='text-label-1'>
-				{campaign.status && t(`userRevalidation:${campaign.status}`)}
-			</div>
-			<MeterChart options={meterData.options} data={meterData.data} />
-			<Stack gap={5}>
-				{statusData.map(({ id: statusId, label, value }) =>
-					statusId === 'due-date' ? (
-						<div key={statusId} className='flex w-full items-center justify-between'>
-							<div>
-								<span className='mr-2 font-bold'>{label}</span>
-								<span>{value?.toString()}</span>
-							</div>
-							{campaign.status === 'REVIEW_IN_PROGRESS' && (
-								<Button
-									size='sm'
-									kind='ghost'
-									hasIconOnly
-									iconDescription={t('userRevalidation:change-due-date')}
-									renderIcon={Edit}
-									onClick={() => setIsDueDateModalOpen(true)}
-								/>
-							)}
-						</div>
-					) : (
-						<div key={statusId} className='flex w-full'>
-							<span className='mr-2 font-bold'>{label}</span>
-							<span>{value?.toString()}</span>
-						</div>
-					)
-				)}
-			</Stack>
-		</>
-	);
-});
+import CampaignStatus from './Components/CampaignStatus';
+import ReminderTearsheet from './Modals/ReminderTearsheet';
 
 const CampaignDetail = () => {
 	const { t } = useTranslation([

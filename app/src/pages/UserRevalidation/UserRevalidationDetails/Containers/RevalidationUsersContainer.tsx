@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 import useNotification from '@hooks/useNotification';
 import ApiError from '@api/ApiError';
 import { useMemo } from 'react';
-import RevalidationUserTable from '@components/UserRevalidation/RevalidationUserTable';
+import RevalidationUserTable from '@pages/UserRevalidation/UserRevalidationDetails/Components/RevalidationUserTable';
 
 type RevalidationUsersContainerProps = {
 	review: CampaignApplication;
