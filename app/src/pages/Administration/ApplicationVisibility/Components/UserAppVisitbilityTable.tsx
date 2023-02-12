@@ -7,7 +7,7 @@ import { CellContext, ColumnDef } from '@tanstack/react-table';
 import CosmoTable from '@components/table/CosmoTable';
 import { useTranslation } from 'react-i18next';
 import useGetAllAnalystAndAdminUsers from '@api/user-admin/useGetAllAnalystAndAdminUsers';
-import SelectApplicationUser from './SelectApplicationUser';
+import SelectApplicationUser from '../Modals/SelectApplicationUser';
 
 type ActionCellProps = {
 	setIsSelectOpen: (val: boolean) => void;

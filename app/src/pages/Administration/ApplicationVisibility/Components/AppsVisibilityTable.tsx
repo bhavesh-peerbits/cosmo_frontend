@@ -8,7 +8,7 @@ import useVisibilityApps from '@hooks/admin-panel/useVisibilityApps';
 import { CellContext, ColumnDef } from '@tanstack/react-table';
 import StringDashCell from '@components/table/Cell/StringDashCell';
 import CosmoTable from '@components/table/CosmoTable';
-import SelectUserApplication from './SelectUserApplication';
+import SelectUserApplication from '../Modals/SelectUserApplication';
 
 type ActionCellProps = {
 	setIsSelectOpen: (val: boolean) => void;

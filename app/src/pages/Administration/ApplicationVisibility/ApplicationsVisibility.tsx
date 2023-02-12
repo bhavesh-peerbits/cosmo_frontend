@@ -1,9 +1,9 @@
 import { TabList, TabPanels, Tab, TabPanel } from '@carbon/react';
-import AppsVisibilityTable from '@components/AdminPanel/AppsVisibilityTable';
-import UserAppsVisibilityTable from '@components/AdminPanel/UserAppVisitbilityTable';
+import UserAppsVisibilityTable from '@pages/Administration/ApplicationVisibility/Components/UserAppVisitbilityTable';
 import PageHeader from '@components/PageHeader';
 import StickyTabs from '@components/StickyTabs';
 import { useTranslation } from 'react-i18next';
+import AppsVisibilityTable from './Components/AppsVisibilityTable';
 
 const ApplicationsVisibility = () => {
 	const { t } = useTranslation('userAdmin');

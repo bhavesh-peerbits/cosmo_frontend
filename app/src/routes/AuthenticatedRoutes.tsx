@@ -23,9 +23,13 @@ const Review = React.lazy(() => import('@pages/Narrative/Review/Review'));
 const ReviewDetail = React.lazy(
 	() => import('@pages/Narrative/ReviewDetail/ReviewDetail')
 );
-const AdminPanel = React.lazy(() => import('@pages/AdminPanel'));
+const AdminPanel = React.lazy(
+	() => import('@pages/Administration/AdminPanel/AdminPanel')
+);
 const RoleAssignment = React.lazy(() => import('@pages/RoleAssignment'));
-const ApplicationsVisibility = React.lazy(() => import('@pages/ApplicationsVisibility'));
+const ApplicationsVisibility = React.lazy(
+	() => import('@pages/Administration/ApplicationVisibility/ApplicationsVisibility')
+);
 const Procedures = React.lazy(() => import('@pages/Procedures'));
 const NewRevalidation = React.lazy(
 	() => import('@pages/UserRevalidation/NewRevalidation/NewRevalidation')

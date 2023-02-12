@@ -1,6 +1,6 @@
 import { Grid, Column } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
-import AdminTile from './AdminTile';
+import AdminTile from '../Components/AdminTile';
 
 const NarrativeAdmin = () => {
 	const { t } = useTranslation('narrativeAdmin');
