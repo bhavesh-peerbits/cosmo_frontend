@@ -1,7 +1,7 @@
 import { Button, Grid, TextArea, TextInput } from '@carbon/react';
 import { TrashCan, SubtractAlt } from '@carbon/react/icons';
 import FullWidthColumn from '@components/FullWidthColumn';
-import DeleteAssetModal from '@components/Modals/DeleteAssetModal';
+import DeleteAssetModal from '@pages/Narrative/ReviewDetail/Modals/DeleteAssetModal';
 import Asset from '@model/Asset';
 import Instance from '@model/Instance';
 import AssetExpandableTile from '@pages/ChangeMonitoring/MonitoringDraftDetails/Components/AssetExpandableTile';

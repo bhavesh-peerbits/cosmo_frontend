@@ -1,6 +1,6 @@
 import ApplicationInstanceForm, {
 	ApplicationInstanceFormData
-} from '@components/ApplicationInstances/ApplicationInstanceForm';
+} from '@pages/Narrative/ReviewDetail/Containers/ApplicationInstanceForm';
 import { Grid, Button } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';

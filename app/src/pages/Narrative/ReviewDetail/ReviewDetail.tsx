@@ -3,9 +3,9 @@ import PageHeader from '@components/PageHeader';
 import { Grid, Tile } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import TableOfContents from '@components/TableOfContents';
-import ProcedureReview from '@components/ReviewNarrative/ProcedureReview';
+import ProcedureReview from '@pages/Narrative/ReviewDetail/Components/ProcedureReview';
 import { useTranslation } from 'react-i18next';
-import ApplicationInfoReview from '@components/ReviewNarrative/ApplicationInfoReview';
+import ApplicationInfoReview from '@pages/Narrative/ReviewDetail/Containers/ApplicationInfoReview';
 import { useNavigate, useParams } from 'react-router-dom';
 import ProcedureAppInstance from '@model/ProcedureAppInstance';
 import routes from '@routes/routes-const';
@@ -14,7 +14,7 @@ import { useMemo, useEffect } from 'react';
 import useGetAppsInReview from '@api/review/useGetAppsInReview';
 import useGetProcedures from '@api/procedures/useGetProcedures';
 import { Procedure } from 'cosmo-api/src/v1';
-import ApplicationInstanceReview from '@components/ReviewNarrative/ApplicationInstanceReview';
+import ApplicationInstanceReview from '@pages/Narrative/ReviewDetail/Containers/ApplicationInstanceReview';
 import useGetAllInstancesForApp from '@api/app-instances/useGetAllInstancesForApp';
 
 const ReviewDetail = () => {

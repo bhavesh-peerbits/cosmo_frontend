@@ -16,7 +16,7 @@ import useGetAllAssetsTenant from '@api/asset/useGetAllAssetsTenant';
 import useCreateAssetInstance from '@api/instance-asset/useCreateAssetInstance';
 import ApplicationInstanceForm, {
 	ApplicationInstanceFormData
-} from './ApplicationInstanceForm';
+} from '../../pages/Narrative/ReviewDetail/Containers/ApplicationInstanceForm';
 
 type ApplicationInstanceTileProps = {
 	instance: Instance;

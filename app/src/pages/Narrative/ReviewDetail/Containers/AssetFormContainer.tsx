@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next';
 import useModifyAsset from '@api/asset/useModifyAsset';
 import ApiError from '@api/ApiError';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
-import AssetPathsTable from './AssetPathsTable';
-import AssetTileForm, { AssetFormData } from './AssetTileForm';
+import AssetPathsTable from '../Components/AssetPathsTable';
+import AssetTileForm, { AssetFormData } from '../Components/AssetTileForm';
 
 type AssetFormContainerProps = {
 	asset: Asset;
