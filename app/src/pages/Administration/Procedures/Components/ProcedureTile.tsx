@@ -1,11 +1,11 @@
 import { Layer, Tile, Button, UnorderedList, ListItem } from '@carbon/react';
 import { Maximize, TrashCan } from '@carbon/react/icons';
-import DeleteProcedureModal from '@components/Modals/DeleteProcedureModal';
+import DeleteProcedureModal from '@pages/Administration/Procedures/Modals/DeleteProcedureModal';
 import Procedure from '@model/Procedure';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import useGetProcedureApps from '@api/app-procedures/useGetProcedureApps';
-import ProcedureDetailsModal from '@components/Modals/ProcedureDetailsModal';
+import ProcedureDetailsModal from '../Modals/ProcedureDetailsModal';
 
 type ProcedureTileProps = {
 	procedure: Procedure;

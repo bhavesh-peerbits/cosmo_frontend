@@ -26,11 +26,15 @@ const ReviewDetail = React.lazy(
 const AdminPanel = React.lazy(
 	() => import('@pages/Administration/AdminPanel/AdminPanel')
 );
-const RoleAssignment = React.lazy(() => import('@pages/RoleAssignment'));
+const RoleAssignment = React.lazy(
+	() => import('@pages/Administration/RoleAssignment/RoleAssignment')
+);
 const ApplicationsVisibility = React.lazy(
 	() => import('@pages/Administration/ApplicationVisibility/ApplicationsVisibility')
 );
-const Procedures = React.lazy(() => import('@pages/Procedures'));
+const Procedures = React.lazy(
+	() => import('@pages/Administration/Procedures/Procedures')
+);
 const NewRevalidation = React.lazy(
 	() => import('@pages/UserRevalidation/NewRevalidation/NewRevalidation')
 );

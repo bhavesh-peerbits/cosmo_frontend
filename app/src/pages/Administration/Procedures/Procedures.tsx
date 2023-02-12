@@ -1,9 +1,9 @@
 import PageHeader from '@components/PageHeader';
 import { Add } from '@carbon/react/icons';
-import CreateProcedureModal from '@components/Modals/CreateProcedureModal';
+import CreateProcedureModal from '@pages/Administration/Procedures/Modals/CreateProcedureModal';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import ProceduresTileContainer from '@components/AdminPanel/ProceduresTileContainer';
+import ProceduresTileContainer from '@pages/Administration/Procedures/Containers/ProceduresTileContainer';
 import { Grid, Layer, Search } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import useAdminProcedures from '@hooks/admin-panel/useAdminProcedures';

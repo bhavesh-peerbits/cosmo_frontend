@@ -4,8 +4,8 @@ import { Layer } from '@carbon/react';
 import CosmoTable from '@components/table/CosmoTable';
 import { useMemo, useState } from 'react';
 import useRoleAssignmentUsers from '@hooks/admin-panel/useRoleAssignmentUsers';
-import SetUserStatusModal from '@components/Modals/SetUserStatusModal';
-import EditUserModal from '@components/Modals/EditUserModal';
+import SetUserStatusModal from '@pages/Administration/RoleAssignment/Modals/SetUserStatusModal';
+import EditUserModal from '@pages/Administration/RoleAssignment/Modals/EditUserModal';
 import { ColumnDef } from '@tanstack/react-table';
 
 const UsersTable = () => {

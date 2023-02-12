@@ -1,10 +1,10 @@
 import { Grid, Column } from '@carbon/react';
-import UsersTable from '@components/AdminPanel/UsersTable';
+import UsersTable from '@pages/Administration/RoleAssignment/Components/UsersTable';
 import PageHeader from '@components/PageHeader';
 import { useTranslation } from 'react-i18next';
 import { Add } from '@carbon/react/icons';
 import { useState } from 'react';
-import AddUserModal from '@components/Modals/AddUserModal';
+import AddUserModal from '@pages/Administration/RoleAssignment/Modals/AddUserModal';
 
 const RoleAssignment = () => {
 	const { t } = useTranslation('userAdmin');

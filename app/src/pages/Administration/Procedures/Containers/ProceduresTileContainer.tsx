@@ -1,6 +1,6 @@
 import { Column, Grid } from '@carbon/react';
 import useAdminProcedures from '@hooks/admin-panel/useAdminProcedures';
-import ProcedureTile from './ProcedureTile';
+import ProcedureTile from '../Components/ProcedureTile';
 
 const ProceduresTileContainer = () => {
 	const { procedures } = useAdminProcedures();
