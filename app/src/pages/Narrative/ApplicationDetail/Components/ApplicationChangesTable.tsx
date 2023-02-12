@@ -5,7 +5,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { useMemo } from 'react';
 import StringDashCell from '@components/table/Cell/StringDashCell';
 import DateCell from '@components/table/Cell/DateCell';
-import CosmoTable from '../table/CosmoTable';
+import CosmoTable from '@components/table/CosmoTable';
 
 interface ApplicationChangesTableProps {
 	appId: string;

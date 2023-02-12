@@ -7,10 +7,10 @@ import { useResponsive } from 'ahooks';
 import { useMemo, useRef, useState } from 'react';
 import { Button, Grid } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
-import AddNewInstanceModal from '@components/Modals/AddNewInstanceModal';
+import AddNewInstanceModal from '@pages/Narrative/ApplicationDetail/Modals/AddNewInstanceModal';
 import Application from '@model/Application';
 import useGetAllInstancesForApp from '@api/app-instances/useGetAllInstancesForApp';
-import ApplicationInstanceTile from './ApplicationInstanceTile';
+import ApplicationInstanceTile from '../Components/ApplicationInstanceTile';
 
 type ApplicationInstancesProps = {
 	application: Application;

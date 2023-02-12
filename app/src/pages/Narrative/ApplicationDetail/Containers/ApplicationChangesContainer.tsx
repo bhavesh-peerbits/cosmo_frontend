@@ -1,6 +1,6 @@
 import { Grid, Layer } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
-import ApplicationChangesTable from './ApplicationChangesTable';
+import ApplicationChangesTable from '../Components/ApplicationChangesTable';
 
 interface ApplicationChangesContainerProps {
 	appId: string;

@@ -1,18 +1,18 @@
-import ApplicationInfo from '@components/application-info/ApplicationInfo';
+import ApplicationInfo from '@pages/Narrative/ApplicationDetail/Components/ApplicationInfo';
 import { Tab, TabList, TabPanel, TabPanels } from '@carbon/react';
 import PageHeader from '@components/PageHeader';
 import { CloudDownload, Email } from '@carbon/react/icons';
 import { useState } from 'react';
-import ProcedureInfo from '@components/procedure-info/ProcedureInfo';
-import ApplicationChangesContainer from '@components/application-changes/ApplicationChangesContainer';
-import ApplicationReviewModal from '@components/Modals/ApplicationReviewModal';
-import GenerateModal from '@components/Modals/GenerateModal';
+import ProcedureInfo from '@pages/Narrative/ApplicationDetail/Containers/ProcedureInfo';
+import ApplicationChangesContainer from '@pages/Narrative/ApplicationDetail/Containers/ApplicationChangesContainer';
+import ApplicationReviewModal from '@pages/Narrative/ApplicationDetail/Modals/ApplicationReviewModal';
 import { useParams } from 'react-router-dom';
 import StickyTabs from '@components/StickyTabs';
 import useGetApp from '@api/management/useGetApp';
-import DeleteAppModal from '@components/Modals/DeleteAppModal';
 import { useTranslation } from 'react-i18next';
-import ApplicationInstances from '@components/ApplicationInstances/ApplicationInstances';
+import ApplicationInstances from '@pages/Narrative/ApplicationDetail/Containers/ApplicationInstances';
+import GenerateModal from './Modals/GenerateModal';
+import DeleteAppModal from './Modals/DeleteAppModal';
 
 const ApplicationDetail = () => {
 	const { t } = useTranslation('management');

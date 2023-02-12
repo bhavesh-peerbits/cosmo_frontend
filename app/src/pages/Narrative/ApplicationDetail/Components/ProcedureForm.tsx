@@ -9,13 +9,13 @@ import ProcedureAppInstance from '@model/ProcedureAppInstance';
 import User from '@model/User';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';
-import DeleteProcedureAppModal from '@components/Modals/DeleteProcedureAppModal';
+import DeleteProcedureAppModal from '@pages/Narrative/ApplicationDetail/Modals/DeleteProcedureAppModal';
 import { useTranslation } from 'react-i18next';
 import useGetProcedures from '@api/procedures/useGetProcedures';
 import useAddProcedureApp from '@api/app-procedures/useAddProcedureApp';
 import useEditProcedureApp from '@api/app-procedures/useEditProcedureApp';
 import Procedure from '@model/Procedure';
-import TiptapEditor from '../tiptap/TiptapEditor';
+import TiptapEditor from '@components/tiptap/TiptapEditor';
 
 interface ProcedureFormData {
 	owner: User;

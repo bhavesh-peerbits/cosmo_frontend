@@ -1,6 +1,6 @@
 import { Grid, Column } from '@carbon/react';
 import useAppsInReview from '@hooks/review/useAppsInReview';
-import ReviewTile from './ReviewTile';
+import ReviewTile from '../Components/ReviewTile';
 
 const ReviewsTileContainer = () => {
 	const { apps } = useAppsInReview();

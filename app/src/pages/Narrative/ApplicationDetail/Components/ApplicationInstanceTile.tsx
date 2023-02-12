@@ -1,10 +1,9 @@
 import { Button, Form, Grid, Tile, OverflowMenu, OverflowMenuItem } from '@carbon/react';
 import { TrashCan, Add } from '@carbon/react/icons';
 import FullWidthColumn from '@components/FullWidthColumn';
-import DeleteInstanceModal from '@components/Modals/DeleteInstanceModal';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import AddNewAssetModal from '@components/Modals/AddNewAssetModal';
+import AddNewAssetModal from '@pages/Narrative/ApplicationDetail/Modals/AddNewAssetModal';
 import MultiAddSelect from '@components/MultiAddSelect';
 import { useForm } from 'react-hook-form';
 import Instance from '@model/Instance';
@@ -16,7 +15,8 @@ import useGetAllAssetsTenant from '@api/asset/useGetAllAssetsTenant';
 import useCreateAssetInstance from '@api/instance-asset/useCreateAssetInstance';
 import ApplicationInstanceForm, {
 	ApplicationInstanceFormData
-} from '../../pages/Narrative/ReviewDetail/Containers/ApplicationInstanceForm';
+} from '../../ReviewDetail/Containers/ApplicationInstanceForm';
+import DeleteInstanceModal from '../Modals/DeleteInstanceModal';
 
 type ApplicationInstanceTileProps = {
 	instance: Instance;

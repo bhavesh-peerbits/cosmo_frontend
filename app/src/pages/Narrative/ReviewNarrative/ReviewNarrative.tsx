@@ -3,8 +3,8 @@ import Centered from '@components/Centered';
 import Fade from '@components/Fade';
 import NoDataMessage from '@components/NoDataMessage';
 import PageHeader from '@components/PageHeader';
-import ReviewsFilters from '@components/ReviewNarrative/ReviewsFilters';
-import ReviewsTileContainer from '@components/ReviewNarrative/ReviewsTileContainer';
+import ReviewsFilters from '@pages/Narrative/ReviewNarrative/Components/ReviewsFilters';
+import ReviewsTileContainer from '@pages/Narrative/ReviewNarrative/Containers/ReviewsTileContainer';
 import useAppsInReview from '@hooks/review/useAppsInReview';
 import { useTranslation } from 'react-i18next';
 

@@ -5,17 +5,17 @@ import TableOfContents from '@components/TableOfContents';
 import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useParams } from 'react-router-dom';
-import ProcedureForm from '@components/procedure-info/ProcedureForm';
+import ProcedureForm from '@pages/Narrative/ApplicationDetail/Components/ProcedureForm';
 import NoDataMessage from '@components/NoDataMessage';
 import ProcedureAppInstance from '@model/ProcedureAppInstance';
 import useGetProcedureByApp from '@api/app-procedures/useGetProcedureByApp';
 import useGetProcedures from '@api/procedures/useGetProcedures';
-import ProcedureReviewModal from '@components/Modals/ProcedureReviewModal';
 import { useTranslation } from 'react-i18next';
 import { useResponsive } from 'ahooks';
 import { smoothScroll, triggerFocus } from '@components/TableOfContents/utils';
 import MultipleReviewModal from '@pages/Narrative/Menagement/Modals/MultipleReviewModal';
 import NewProcedureModal from '../Modals/NewProcedureModal';
+import ProcedureReviewModal from '../Modals/ProcedureReviewModal';
 
 type ProcedureState = Partial<ProcedureAppInstance> & {
 	id: string;
