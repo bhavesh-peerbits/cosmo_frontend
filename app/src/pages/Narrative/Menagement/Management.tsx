@@ -1,10 +1,10 @@
 import PageHeader from '@components/PageHeader';
 import { Add } from '@carbon/react/icons';
 import useManagementApps from '@hooks/management/useManagementApps';
-import ManagementTileView from '@components/management/ManagementTileView';
-import ManagementTableView from '@components/management/ManagementTableView';
+import ManagementTileView from '@pages/Narrative/Menagement/Containers/ManagementTileView';
+import ManagementTableView from '@pages/Narrative/Menagement/Containers/ManagementTableView';
 import { useTranslation } from 'react-i18next';
-import NewApplicationModal from '@components/Modals/NewApplicationModal';
+import NewApplicationModal from '@pages/Narrative/Menagement/Modals/NewApplicationModal';
 import { useState } from 'react';
 
 const Management = () => {

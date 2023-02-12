@@ -1,6 +1,6 @@
 import { Column, Grid } from '@carbon/react';
 import useManagementApps from '@hooks/management/useManagementApps';
-import ApplicationTile from '@components/management/ApplicationTile';
+import ApplicationTile from '@pages/Narrative/Menagement/Components/ApplicationTile';
 
 const ApplicationsTileContainer = () => {
 	const { apps } = useManagementApps();

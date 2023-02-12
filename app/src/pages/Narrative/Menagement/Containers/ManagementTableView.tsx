@@ -1,7 +1,7 @@
 import Fade from '@components/Fade';
 import { ContentSwitcher, Grid, Switch } from '@carbon/react';
 import { Grid as GridIcon, HorizontalView } from '@carbon/react/icons';
-import ApplicationsTable from '@components/management/ApplicationsTable';
+import ApplicationsTable from '@pages/Narrative/Menagement/Components/ApplicationsTable';
 import useManagementApps from '@hooks/management/useManagementApps';
 import { useTranslation } from 'react-i18next';
 import FullWidthColumn from '@components/FullWidthColumn';

@@ -1,9 +1,9 @@
 import { Column, ContentSwitcher, Grid, Layer, Search, Switch } from '@carbon/react';
 import Fade from '@components/Fade';
-import ApplicationsFilters from '@components/management/ApplicationsFilters';
+import ApplicationsFilters from '@pages/Narrative/Menagement/Components/ApplicationsFilters';
 import { Grid as GridIcon, HorizontalView } from '@carbon/react/icons';
 import Centered from '@components/Centered';
-import ApplicationsTileContainer from '@components/management/ApplicationsTileContainer';
+import ApplicationsTileContainer from '@pages/Narrative/Menagement/Containers/ApplicationsTileContainer';
 import useManagementApps from '@hooks/management/useManagementApps';
 import { useTranslation } from 'react-i18next';
 import NoDataMessage from '@components/NoDataMessage';

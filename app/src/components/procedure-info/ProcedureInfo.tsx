@@ -10,11 +10,11 @@ import NoDataMessage from '@components/NoDataMessage';
 import ProcedureAppInstance from '@model/ProcedureAppInstance';
 import useGetProcedureByApp from '@api/app-procedures/useGetProcedureByApp';
 import useGetProcedures from '@api/procedures/useGetProcedures';
-import MultipleReviewModal from '@components/Modals/MultipleReviewModal';
 import ProcedureReviewModal from '@components/Modals/ProcedureReviewModal';
 import { useTranslation } from 'react-i18next';
 import { useResponsive } from 'ahooks';
 import { smoothScroll, triggerFocus } from '@components/TableOfContents/utils';
+import MultipleReviewModal from '@pages/Narrative/Menagement/Modals/MultipleReviewModal';
 import NewProcedureModal from '../Modals/NewProcedureModal';
 
 type ProcedureState = Partial<ProcedureAppInstance> & {

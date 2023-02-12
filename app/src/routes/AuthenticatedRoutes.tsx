@@ -12,7 +12,7 @@ import useGetRunByIdInbox from '@api/change-monitoring-inbox/useGetRunByIdInbox'
 
 const Home = React.lazy(() => import('@pages/Home'));
 const Test = React.lazy(() => import('@pages/Test'));
-const Management = React.lazy(() => import('@pages/Management'));
+const Management = React.lazy(() => import('@pages/Narrative/Menagement/Management'));
 const ApplicationDetail = React.lazy(() => import('@pages/ApplicationDetail'));
 const ReviewNarrative = React.lazy(() => import('@pages/ReviewNarrative'));
 const Review = React.lazy(() => import('@pages/Review'));

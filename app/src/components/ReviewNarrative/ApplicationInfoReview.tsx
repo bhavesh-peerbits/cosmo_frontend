@@ -1,8 +1,7 @@
 import FullWidthColumn from '@components/FullWidthColumn';
-import GeneralInfo, { GeneralInfoForm } from '@components/application-info/GeneralInfo';
 import TechnicalInfo, {
 	TechnicalInfoForm
-} from '@components/application-info/TechnicalInfo';
+} from '@pages/Narrative/Menagement/Components/TechnicalInfo';
 import {
 	Control,
 	FieldErrors,
@@ -18,6 +17,9 @@ import { useTranslation } from 'react-i18next';
 import ApiError from '@api/ApiError';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import useReviewApplication from '@api/review/useReviewApplication';
+import GeneralInfo, {
+	GeneralInfoForm
+} from '@pages/Narrative/Menagement/Components/GeneralInfo';
 
 type ApplicationForm = GeneralInfoForm & TechnicalInfoForm;
 

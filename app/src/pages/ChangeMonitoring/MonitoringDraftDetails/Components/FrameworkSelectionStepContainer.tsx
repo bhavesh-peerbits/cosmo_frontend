@@ -12,7 +12,6 @@ import {
 import { Add, EditOff } from '@carbon/react/icons';
 import cx from 'classnames';
 import { useForm } from 'react-hook-form';
-import TreeSelectionModal from '@components/Modals/TreeSelectionModal';
 import {
 	Dispatch,
 	SetStateAction,
@@ -35,6 +34,7 @@ import useSaveDraftAssociation from '@api/change-monitoring-analyst/useSaveDraft
 import { useParams } from 'react-router-dom';
 import AssociationSelectionList from './AssociationSelectionList';
 import MultipleControlSelect from './MultipleControlSelect';
+import TreeSelectionModal from '../Modals/TreeSelectionModal';
 
 type FrameworkStepFormData = {
 	framework: string;

@@ -3,10 +3,9 @@ import { useEffect, useRef } from 'react';
 import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
 import FullWidthColumn from '@components/FullWidthColumn';
 import TableOfContents from '@components/TableOfContents';
-import GeneralInfo, { GeneralInfoForm } from '@components/application-info/GeneralInfo';
 import TechnicalInfo, {
 	TechnicalInfoForm
-} from '@components/application-info/TechnicalInfo';
+} from '@pages/Narrative/Menagement/Components/TechnicalInfo';
 import {
 	Control,
 	FieldErrors,
@@ -20,6 +19,9 @@ import useEditApp from '@api/management/useEditApp';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';
 import { useTranslation } from 'react-i18next';
+import GeneralInfo, {
+	GeneralInfoForm
+} from '@pages/Narrative/Menagement/Components/GeneralInfo';
 
 type ApplicationForm = GeneralInfoForm & TechnicalInfoForm;
 

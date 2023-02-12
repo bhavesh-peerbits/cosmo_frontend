@@ -1,5 +1,4 @@
 import { MeterChart } from '@carbon/charts-react';
-import SetDueDateCampaignModal from '@components/Modals/SetDueDateCampaignModal';
 import { Stack, Button } from '@carbon/react';
 import { memo, useMemo, useState } from 'react';
 import Campaign from '@model/Campaign';
@@ -10,6 +9,7 @@ import { interfaces } from '@carbon/charts';
 import { mapCampaignLayerToCampaignDisplayLayer } from '@model/CampaignLayer';
 import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
 import { Edit } from '@carbon/react/icons';
+import SetDueDateCampaignModal from '../Modals/SetDueDateCampaignModal';
 
 const CampaignStatus = memo(({ campaign }: { campaign: Campaign }) => {
 	const { id, type, layer, startDate, dueDate } = campaign;

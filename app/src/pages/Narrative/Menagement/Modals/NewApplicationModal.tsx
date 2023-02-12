@@ -1,16 +1,15 @@
 import { Checkbox, InlineNotification, Stack } from '@carbon/react';
 import { CreateTearsheet } from '@components/CreateTearsheet';
 import { useCallback, useState } from 'react';
-
 import { useForm } from 'react-hook-form';
 import CreateTearsheetStep from '@components/CreateTearsheet/CreateTearsheepStep';
-import GeneralInfo, { GeneralInfoForm } from '@components/application-info/GeneralInfo';
 import TechnicalInfo, {
 	TechnicalInfoForm
-} from '@components/application-info/TechnicalInfo';
+} from '@pages/Narrative/Menagement/Components/TechnicalInfo';
 import useCreateApp from '@api/management/useCreateApp';
 import ApiError from '@api/ApiError';
 import { useTranslation } from 'react-i18next';
+import GeneralInfo, { GeneralInfoForm } from '../Components/GeneralInfo';
 
 type NewApplicationProps = {
 	isOpen: boolean;
