@@ -10,8 +10,8 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction } from 'react';
 import UserProfileImage from '@components/UserProfileImage';
-import Run from '@model/Run';
-import Monitoring from '@model/Monitoring';
+import Run from '@model/ChangeMonitoring/Run';
+import Monitoring from '@model/ChangeMonitoring/Monitoring';
 
 type RecapStringRowProps = {
 	title: string;

@@ -4,13 +4,13 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface CloseEvidenceProps {
 	data: CloseEvidenceApi;
-	erId: string;
+	erId: number;
 }
 
 const closeEvidence = ({ data, erId }: CloseEvidenceProps) => {
 	return api.evidenceRequest.closeEvidence({
 		closeEvidenceDto: data,
-		erId: +erId
+		erId
 	});
 };
 
