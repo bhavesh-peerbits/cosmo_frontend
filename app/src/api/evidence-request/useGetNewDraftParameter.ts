@@ -1,5 +1,5 @@
 import api from '@api';
-import { fromNewDraftParameterApi } from '@model/NewDraftParameter';
+import { fromNewDraftParameterApi } from '@model/EvidenceRequest/NewDraftParameter';
 import { useQuery } from '@tanstack/react-query';
 
 const getNewDraftParameter = () => {

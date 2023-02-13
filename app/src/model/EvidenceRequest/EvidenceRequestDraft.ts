@@ -5,7 +5,7 @@ import ApplicationStepRequest, {
 	toApplicationStepRequestApi
 } from './ApplicationStepRequest';
 import Workflow, { fromWorkflowApi, toWorkflowApi } from '../Workflow';
-import PhaseType, { fromPhaseTypeApi, toPhaseTypeApi } from '../PhaseType';
+import PhaseType, { fromPhaseTypeApi, toPhaseTypeApi } from './PhaseType';
 import FileLink, { fromFileLinkApi } from '../common/FileLink';
 
 export type StepInfoType = {
