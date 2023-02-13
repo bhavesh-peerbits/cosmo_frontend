@@ -146,6 +146,7 @@ const SameSetupPathTable = ({
 				title: t('changeMonitoring:add-path')
 			}}
 			tableId='path-multi-asset-table'
+			disableFilter
 			columns={columns}
 			noDataMessage={t('table:no-data')}
 			isColumnOrderingEnabled

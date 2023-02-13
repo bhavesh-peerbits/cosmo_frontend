@@ -79,6 +79,7 @@ interface CosmoTableProps<T extends SubRows<T>, F extends FieldValues = never> {
 	isExpandable?: boolean;
 	isColumnOrderingEnabled?: boolean;
 	disableToolbarBatchAction?: boolean;
+	disableFilter?: boolean;
 	// isInlineAdd?: boolean;
 	exportFileName?: (param: {
 		fileType: AvailableFileType;
@@ -151,6 +152,7 @@ const CosmoTable = <T extends SubRows<T>, F extends FieldValues = never>({
 	toolbar = {} as ToolbarProps<T>,
 	subComponent,
 	onRowSelection,
+	disableFilter = false,
 	defaultSelectedRows,
 	size = 'md',
 	showSizeOption,
@@ -199,6 +201,17 @@ const CosmoTable = <T extends SubRows<T>, F extends FieldValues = never>({
 	});
 
 	// FILTER
+	const numberRangeFilter: FilterFn<T> = useCallback((row, columnId, value) => {
+		if (value instanceof Array) {
+			const [min, max] = value as number[];
+			return (
+				(row.getValue(columnId) as number) >= min &&
+				(row.getValue(columnId) as number) <= max
+			);
+		}
+		return false;
+	}, []);
+
 	const dateFilter: FilterFn<T> = useCallback((row, columnId, value) => {
 		if (value instanceof Array) {
 			const [start, end] = value;
@@ -239,6 +252,7 @@ const CosmoTable = <T extends SubRows<T>, F extends FieldValues = never>({
 		columnResizeMode: 'onChange',
 		enableMultiRowSelection: isSelectable !== 'radio',
 		filterFns: {
+			numberRangeCompare: numberRangeFilter,
 			dateCompare: dateFilter,
 			checkboxCompare: checkboxFilter,
 			fuzzy: fuzzyFilter
@@ -322,6 +336,7 @@ const CosmoTable = <T extends SubRows<T>, F extends FieldValues = never>({
 				<CosmoTableToolbar
 					disableExport={disableExport}
 					searchBar={toolbar?.searchBar}
+					disableFilter={disableFilter}
 					onExportClick={exportData}
 					disableToolbarBatchAction={disableToolbarBatchAction}
 					onSearch={value => setGlobalFilter(value)}

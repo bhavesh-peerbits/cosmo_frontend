@@ -180,6 +180,7 @@ const PathAssetTable = ({
 				title: t('changeMonitoring:add-path')
 			}}
 			tableId={`${assetId}-path-table`}
+			disableFilter
 			columns={columns}
 			noDataMessage={t('table:no-data')}
 			isColumnOrderingEnabled

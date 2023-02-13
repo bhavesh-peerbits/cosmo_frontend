@@ -40,5 +40,8 @@
 	"add-new": "Add new",
 	"add": "Add",
 	"cancel": "Cancel",
-	"create": "Create"
+	"create": "Create",
+	"reset": "Reset",
+	"apply": "Apply",
+	"filters": "Filters"
 }

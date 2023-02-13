@@ -33,7 +33,7 @@ build:
   variables:
     http_proxy: ''
     https_proxy: ''
-    no_proxy: localhost,127.0.0.1,*.aizoon.it
+    no_proxy: localhost,127.0.0.1
   before_script:
     - YARN_CHECKSUM_BEHAVIOR=update yarn install
   script: yarn build
