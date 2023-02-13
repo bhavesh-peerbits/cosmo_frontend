@@ -21,7 +21,7 @@ import {
 	useState
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import Framework from '@model/Framework';
+import Framework from '@model/EvidenceRequest/Framework';
 import User from '@model/User';
 import useGetFrameworkCodes from '@api/change-monitoring-analyst/useGetFrameworkCodes';
 import Association from '@model/EvidenceRequest/Association';

@@ -5,7 +5,7 @@ import Application from '@model/Narrative/Application';
 import { useForm } from 'react-hook-form';
 import useGetAllApplications from '@api/change-monitoring-analyst/useGetAllApplications';
 import useGetAppInstances from '@api/change-monitoring-analyst/useGetAppInstances';
-import Instance from '@model/Instance';
+import Instance from '@model/Narrative/Instance';
 import Asset, { toAssetApi } from '@model/Narrative/Asset';
 import { Button, InlineLoading } from '@carbon/react';
 import { Dispatch, SetStateAction, useEffect } from 'react';

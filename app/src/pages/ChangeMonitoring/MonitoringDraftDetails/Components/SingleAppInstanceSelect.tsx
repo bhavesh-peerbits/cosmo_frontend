@@ -13,7 +13,7 @@ import {
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
 import Application from '@model/Narrative/Application';
-import Instance from '@model/Instance';
+import Instance from '@model/Narrative/Instance';
 
 type SingleInstanceSelectProps<
 	T extends FieldValues,

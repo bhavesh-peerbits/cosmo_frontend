@@ -1,5 +1,5 @@
 import { InstanceAssetApi } from 'cosmo-api';
-import Asset, { fromAssetApi } from './Narrative/Asset';
+import Asset, { fromAssetApi } from './Asset';
 import Instance, { fromInstanceApi } from './Instance';
 
 interface InstanceAsset {

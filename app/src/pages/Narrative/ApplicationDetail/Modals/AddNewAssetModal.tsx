@@ -12,7 +12,7 @@ import {
 } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
-import Instance from '@model/Instance';
+import Instance from '@model/Narrative/Instance';
 import { AssetDtoTypeEnum, AssetDtoOsEnum } from 'cosmo-api/src/v1';
 import { Dispatch, SetStateAction } from 'react';
 import { useForm } from 'react-hook-form';

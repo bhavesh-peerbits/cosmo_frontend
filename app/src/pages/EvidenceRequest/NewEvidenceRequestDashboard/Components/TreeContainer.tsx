@@ -1,4 +1,4 @@
-import Framework from '@model/Framework';
+import Framework from '@model/EvidenceRequest/Framework';
 import React, { Dispatch, SetStateAction } from 'react';
 import { TreeView, TreeNode } from '@carbon/react';
 

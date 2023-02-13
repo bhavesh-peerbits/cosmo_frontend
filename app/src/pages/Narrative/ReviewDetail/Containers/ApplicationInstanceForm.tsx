@@ -3,7 +3,7 @@ import { TrashCan, SubtractAlt } from '@carbon/react/icons';
 import FullWidthColumn from '@components/FullWidthColumn';
 import DeleteAssetModal from '@pages/Narrative/ReviewDetail/Modals/DeleteAssetModal';
 import Asset from '@model/Narrative/Asset';
-import Instance from '@model/Instance';
+import Instance from '@model/Narrative/Instance';
 import AssetExpandableTile from '@pages/ChangeMonitoring/MonitoringDraftDetails/Components/AssetExpandableTile';
 import { useState } from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';

@@ -3,7 +3,7 @@
 
 import { useTranslation } from 'react-i18next';
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
-import Framework from '@model/Framework';
+import Framework from '@model/EvidenceRequest/Framework';
 import { TreeView, TreeNode } from '@carbon/react';
 import { TrashCan } from '@carbon/react/icons';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import AddNewAssetModal from '@pages/Narrative/ApplicationDetail/Modals/AddNewAssetModal';
 import MultiAddSelect from '@components/MultiAddSelect';
 import { useForm } from 'react-hook-form';
-import Instance from '@model/Instance';
+import Instance from '@model/Narrative/Instance';
 import useGetAssetList from '@api/instance-asset/useGetAssetList';
 import useUpdateInstanceForApp from '@api/app-instances/useUpdateInstanceForApp';
 import ApiError from '@api/ApiError';

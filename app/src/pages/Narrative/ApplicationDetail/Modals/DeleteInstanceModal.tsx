@@ -7,7 +7,7 @@ import {
 	InlineNotification
 } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
-import Instance from '@model/Instance';
+import Instance from '@model/Narrative/Instance';
 import useDeleteInstanceForApp from '@api/app-instances/useDeleteInstanceForApp';
 import ApiError from '@api/ApiError';
 

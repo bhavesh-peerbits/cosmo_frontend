@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import { Dispatch, SetStateAction } from 'react';
 import { TreeView, TreeNode } from '@carbon/react';
-import Framework from '@model/Framework';
+import Framework from '@model/EvidenceRequest/Framework';
 import { useTranslation } from 'react-i18next';
 import { TrashCan } from '@carbon/react/icons';
 import useGetFrameworkTreeByCode from '@api/framework/useGetFrameworkTreeByCode';

@@ -1,6 +1,6 @@
 import useCreateDraft from '@api/evidence-request/useCreateDraft';
 import { CreateTearsheet } from '@components/CreateTearsheet';
-import Framework from '@model/Framework';
+import Framework from '@model/EvidenceRequest/Framework';
 import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';

@@ -5,7 +5,7 @@ import { Grid, Button } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
-import Instance from '@model/Instance';
+import Instance from '@model/Narrative/Instance';
 import useGetAssetList from '@api/instance-asset/useGetAssetList';
 
 type ApplicationInstanceReviewProps = {
