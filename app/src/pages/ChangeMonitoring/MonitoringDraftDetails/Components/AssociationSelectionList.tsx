@@ -11,7 +11,7 @@ import MultipleUserSelect from '@components/MultipleUserSelect';
 import SingleUserSelect from '@components/SingleUserSelect';
 import UserProfileImage from '@components/UserProfileImage';
 import Association from '@model/EvidenceRequest/Association';
-import User from '@model/User';
+import User from '@model/common/User';
 import { useEffect, useState } from 'react';
 import { Control, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';

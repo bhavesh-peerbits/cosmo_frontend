@@ -1,5 +1,5 @@
 import { AnswerApi, AnswerApiTypeEnum } from 'cosmo-api';
-import User, { fromUserApi, toUserApi } from '@model/User';
+import User, { fromUserApi, toUserApi } from '@model/common/User';
 
 interface Answer {
 	id: string;

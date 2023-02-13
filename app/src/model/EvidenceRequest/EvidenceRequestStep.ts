@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { EvidenceRequestStepApi } from 'cosmo-api';
 import FileLink, { fromFileLinkApi } from '../common/FileLink';
-import User, { fromUserApi, toUserApi } from '../User';
+import User, { fromUserApi, toUserApi } from '../common/User';
 
 export type StepInfoType = {
 	publicComment: string | undefined;

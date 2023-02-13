@@ -13,7 +13,7 @@ import {
 import { useForm } from 'react-hook-form';
 import SingleUserSelect from '@components/SingleUserSelect';
 import FullWidthColumn from '@components/FullWidthColumn';
-import User from '@model/User';
+import User from '@model/common/User';
 import DatePickerWrapper from '@components/DatePickerWrapper';
 import ApiError from '@api/ApiError';
 import cx from 'classnames';

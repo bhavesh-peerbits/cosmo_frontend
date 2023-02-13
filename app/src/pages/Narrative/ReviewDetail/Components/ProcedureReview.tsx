@@ -5,7 +5,7 @@ import SingleUserSelect from '@components/SingleUserSelect';
 import TiptapEditor from '@components/tiptap/TiptapEditor';
 import { Checkmark } from '@carbon/react/icons';
 import ProcedureAppInstance from '@model/Narrative/ProcedureAppInstance';
-import User from '@model/User';
+import User from '@model/common/User';
 import { useController, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import useReviewProcedure from '@api/review/useReviewProcedure';

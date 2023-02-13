@@ -1,7 +1,7 @@
 import useGetApplicationUser from '@api/user-admin/useGetApplicationUser';
 import useSetApplicationUser from '@api/user-admin/useSetApplicationUser';
 import MultiAddSelect from '@components/MultiAddSelect';
-import User from '@model/User';
+import User from '@model/common/User';
 import { useTranslation } from 'react-i18next';
 
 type SelectUserApplicationProps = {

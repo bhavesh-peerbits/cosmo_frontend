@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 import { Accordion, AccordionItem } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
-import User from '@model/User';
+import User from '@model/common/User';
 
 const ReminderRecap = () => {
 	const { t } = useTranslation(['userRevalidation']);

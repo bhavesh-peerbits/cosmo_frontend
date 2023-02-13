@@ -9,7 +9,7 @@ import {
 	Button,
 	InlineNotification
 } from '@carbon/react';
-import User from '@model/User';
+import User from '@model/common/User';
 import { useTranslation } from 'react-i18next';
 
 type SetUserStatusModalProps = {

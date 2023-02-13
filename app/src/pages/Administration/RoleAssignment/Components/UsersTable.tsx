@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import User from '@model/User';
+import User from '@model/common/User';
 import { Layer } from '@carbon/react';
 import CosmoTable from '@components/table/CosmoTable';
 import { useMemo, useState } from 'react';

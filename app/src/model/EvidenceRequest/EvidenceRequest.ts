@@ -8,7 +8,7 @@ import EvidenceRequestStep, {
 	fromEvidenceRequestStepApi,
 	toEvidenceRequestStepApi
 } from './EvidenceRequestStep';
-import User, { fromUserApi, toUserApi } from '../User';
+import User, { fromUserApi, toUserApi } from '../common/User';
 
 interface EvidenceRequest {
 	id: string;

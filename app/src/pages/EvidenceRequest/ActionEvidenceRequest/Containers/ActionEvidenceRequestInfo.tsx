@@ -5,7 +5,7 @@ import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
 import { useLayoutEffect, useState } from 'react';
 import { ChevronDown, ChevronUp } from '@carbon/react/icons';
-import User from '@model/User';
+import User from '@model/common/User';
 import { smoothScroll, triggerFocus } from '@components/TableOfContents/utils';
 import useLoginStore from '@hooks/auth/useLoginStore';
 import { EvidenceRequestStatus } from '@model/EvidenceRequest/EvidenceRequestStatus';

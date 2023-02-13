@@ -2,7 +2,7 @@ import { Button, FormLabel, Tile, Tag } from '@carbon/react';
 import { EditOff, Add } from '@carbon/react/icons';
 import { useState } from 'react';
 import MultiAddSelect from '@components/MultiAddSelect';
-import User from '@model/User';
+import User from '@model/common/User';
 import {
 	FieldPath,
 	FieldValues,

@@ -12,7 +12,7 @@ import useGetCampaignApplications from '@api/user-revalidation/useGetCampaignApp
 import CampaignApplication from '@model/UserRevalidation/CampaignApplication';
 import useGetCampaign from '@api/user-revalidation/useGetCampaign';
 import useGetPossibleContributors from '@api/user-revalidation/useGetPossibleContributors';
-import User from '@model/User';
+import User from '@model/common/User';
 import useAddContributorsToCampaign from '@api/user-revalidation/useAddContributorsToCampaign';
 import { useQueryClient } from '@tanstack/react-query';
 import RevalidationReminderStore from '@store/user-revalidation/RevalidationReminderStore';

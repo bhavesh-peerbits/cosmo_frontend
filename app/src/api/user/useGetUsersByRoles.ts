@@ -1,6 +1,6 @@
 import api from '@api';
 import { useQuery } from '@tanstack/react-query';
-import { fromUserApi } from '@model/User';
+import { fromUserApi } from '@model/common/User';
 
 export async function getUsersByRoles(role1: string, role2: string) {
 	return api.userApi

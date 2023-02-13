@@ -6,7 +6,7 @@ import FullWidthColumn from '@components/FullWidthColumn';
 import MultipleUserSelect from '@components/MultipleUserSelect';
 import SingleUserSelect from '@components/SingleUserSelect';
 import ProcedureAppInstance from '@model/Narrative/ProcedureAppInstance';
-import User from '@model/User';
+import User from '@model/common/User';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';
 import DeleteProcedureAppModal from '@pages/Narrative/ApplicationDetail/Modals/DeleteProcedureAppModal';

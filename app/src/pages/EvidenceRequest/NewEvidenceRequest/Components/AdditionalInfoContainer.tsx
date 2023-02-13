@@ -2,7 +2,7 @@ import useGetUsersByRoles from '@api/user/useGetUsersByRoles';
 import { Button, Grid, Layer, TextArea } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import MultipleUserSelect from '@components/MultipleUserSelect';
-import User from '@model/User';
+import User from '@model/common/User';
 import evidenceRequestDraftStore from '@store/evidenceRequestDraft/evidenceRequestDraftStore';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';

@@ -2,7 +2,7 @@ import { Accordion, AccordionItem, Button, HeaderPanel } from '@carbon/react';
 import UserProfileImage from '@components/UserProfileImage';
 import { mapUserRoleToDisplayRole } from '@model/UserRole';
 import routes from '@routes/routes-const';
-import User from '@model/User';
+import User from '@model/common/User';
 import { useClickAway } from 'ahooks';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';

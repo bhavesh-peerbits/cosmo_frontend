@@ -5,7 +5,7 @@ import { Checkbox } from '@carbon/react';
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { useCallback } from 'react';
-import User from '@model/User';
+import User from '@model/common/User';
 
 const ReminderUserSelection = () => {
 	const [reminderData, setReminderData] = useRecoilState(RevalidationReminderStore);

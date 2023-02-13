@@ -1,5 +1,5 @@
 import Application from '@model/Narrative/Application';
-import User from '@model/User';
+import User from '@model/common/User';
 import { atom } from 'recoil';
 
 const RevalidationReminderStore = atom<{

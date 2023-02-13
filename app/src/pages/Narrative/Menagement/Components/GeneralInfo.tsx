@@ -8,7 +8,7 @@ import {
 	UseFormRegister,
 	UseFormWatch
 } from 'react-hook-form';
-import User from '@model/User';
+import User from '@model/common/User';
 import SingleUserSelect from '@components/SingleUserSelect';
 import MultipleUserSelect from '@components/MultipleUserSelect';
 import IconPicker, { icons } from '@components/IconPicker';

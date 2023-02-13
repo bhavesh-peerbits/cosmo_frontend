@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction } from 'react';
 import MultipleUserSelect from '@components/MultipleUserSelect';
 import SingleUserSelect from '@components/SingleUserSelect';
 import { useForm } from 'react-hook-form';
-import User from '@model/User';
+import User from '@model/common/User';
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
 import Monitoring from '@model/ChangeMonitoring/Monitoring';
 import useGetUsersByRole from '@api/user/useGetUsersByRole';

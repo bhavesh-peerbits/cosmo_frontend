@@ -1,4 +1,4 @@
-import User, { fromUserApi } from '@model/User';
+import User, { fromUserApi } from '@model/common/User';
 import { UserApi } from 'cosmo-api/src';
 
 interface ApplicationReview {

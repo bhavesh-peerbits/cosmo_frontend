@@ -1,5 +1,5 @@
 import { EvidenceRequestDraftApi } from 'cosmo-api';
-import User, { fromUserApi, toUserApi } from '../User';
+import User, { fromUserApi, toUserApi } from '../common/User';
 import ApplicationStepRequest, {
 	fromApplicationStepRequestApi,
 	toApplicationStepRequestApi

@@ -1,6 +1,6 @@
 import { Button, Layer } from '@carbon/react';
 import { Suspense, useMemo, useState } from 'react';
-import User from '@model/User';
+import User from '@model/common/User';
 import { Add } from '@carbon/react/icons';
 import useGetAppsAdminNotMap from '@api/user-admin/useGetAppsAdminNotMap';
 import { CellContext, ColumnDef } from '@tanstack/react-table';

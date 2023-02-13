@@ -2,7 +2,7 @@ import { atom } from 'recoil';
 import { getAllCookies, getCookie, removeCookie, setCookie } from 'tiny-cookie';
 import { getAuthInfo } from '@api/user/useUserAuthInfo';
 import { UserRole } from '@model/UserRole';
-import User from '@model/User';
+import User from '@model/common/User';
 import { logoutApp } from '@hooks/auth/useLogout';
 
 const ACCESS_TOKEN_KEY = 'accessToken';

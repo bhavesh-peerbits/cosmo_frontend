@@ -4,7 +4,7 @@ import { Collaborate, Send, TrashCan } from '@carbon/react/icons';
 import { Grid, Column, UnorderedList, ListItem } from '@carbon/react';
 import { useState } from 'react';
 import MultiAddSelect from '@components/MultiAddSelect';
-import User from '@model/User';
+import User from '@model/common/User';
 import NewMonitoringStepsContainer from '@pages/ChangeMonitoring/MonitoringDraftDetails/Containers/NewMonitoringStepsContainer';
 import { useParams } from 'react-router-dom';
 import useGetMonitoringDraftById from '@api/change-monitoring-analyst/useGetMonitoringDraftById';

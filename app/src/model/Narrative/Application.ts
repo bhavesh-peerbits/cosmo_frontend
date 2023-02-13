@@ -1,6 +1,6 @@
 import { ApplicationApi } from 'cosmo-api';
 import { icons } from '@components/IconPicker';
-import User, { fromUserApi, toUserApi } from '@model/User';
+import User, { fromUserApi, toUserApi } from '@model/common/User';
 import formatIso from 'date-fns/formatISO';
 
 interface Application {

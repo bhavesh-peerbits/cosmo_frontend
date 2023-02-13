@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import { atom, selector } from 'recoil';
 import { GetRecoilType } from '@store/util';
-import User from '@model/User';
+import User from '@model/common/User';
 
 type Filters = {
 	role: string[] | undefined;

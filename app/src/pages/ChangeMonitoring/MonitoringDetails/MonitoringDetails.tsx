@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import MultiAddSelect from '@components/MultiAddSelect';
-import User from '@model/User';
+import User from '@model/common/User';
 import useGetUsersByRoles from '@api/user/useGetUsersByRoles';
 import useSetMonitoringCollaborator from '@api/change-monitoring-analyst/useSetMonitoringCollaborators';
 import Monitoring from '@model/ChangeMonitoring/Monitoring';

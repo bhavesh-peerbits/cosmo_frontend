@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction } from 'react';
 import { useForm } from 'react-hook-form';
-import User from '@model/User';
+import User from '@model/common/User';
 import SingleUserSelect from '@components/SingleUserSelect';
 import MultipleUserSelect from '@components/MultipleUserSelect';
 import DatePickerWrapper from '@components/DatePickerWrapper';

@@ -13,7 +13,7 @@ import {
 import DatePickerWrapper from '@components/DatePickerWrapper';
 import FullWidthColumn from '@components/FullWidthColumn';
 import MultipleUserSelect from '@components/MultipleUserSelect';
-import User from '@model/User';
+import User from '@model/common/User';
 import { addDays, startOfTomorrow } from 'date-fns';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';

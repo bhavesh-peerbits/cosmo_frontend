@@ -5,7 +5,7 @@ import {
 	CampaignDtoStatusApi,
 	CampaignDtoTypeApi
 } from 'cosmo-api';
-import User, { fromUserApi, toUserApi } from '@model/User';
+import User, { fromUserApi, toUserApi } from '@model/common/User';
 import formatIso from 'date-fns/formatISO';
 
 interface Campaign {

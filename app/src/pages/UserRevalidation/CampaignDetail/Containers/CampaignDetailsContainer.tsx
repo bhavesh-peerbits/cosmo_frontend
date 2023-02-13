@@ -11,7 +11,7 @@ import Answer from '@model/UserRevalidation/Answer';
 import ModifyAnswerModal from '@pages/UserRevalidation/CampaignDetail/Modals/ModifyAnswerModal';
 import { useSetRecoilState } from 'recoil';
 import RevalidationReminderStore from '@store/user-revalidation/RevalidationReminderStore';
-import User from '@model/User';
+import User from '@model/common/User';
 import RevalidatorsTable from '../Components/RevalidatorsTable';
 
 interface CampaignDetailsContainerProps {

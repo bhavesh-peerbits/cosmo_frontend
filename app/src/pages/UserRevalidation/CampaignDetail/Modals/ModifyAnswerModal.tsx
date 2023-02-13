@@ -4,7 +4,7 @@ import { Form, TextArea, TextInput } from '@carbon/react';
 import MultipleUserSelect from '@components/MultipleUserSelect';
 import SingleUserSelect from '@components/SingleUserSelect';
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
-import User from '@model/User';
+import User from '@model/common/User';
 import modifyAnswerModalInfo from '@store/user-revalidation/modifyAnswerModalInfo';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';

@@ -19,7 +19,7 @@ import SingleUserSelect from '@components/SingleUserSelect';
 import useReviewApps from '@api/management/useReviewApps';
 import Application from '@model/Narrative/Application';
 import ProcedureAppInstance from '@model/Narrative/ProcedureAppInstance';
-import User from '@model/User';
+import User from '@model/common/User';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';

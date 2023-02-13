@@ -22,7 +22,7 @@ import {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import Framework from '@model/EvidenceRequest/Framework';
-import User from '@model/User';
+import User from '@model/common/User';
 import useGetFrameworkCodes from '@api/change-monitoring-analyst/useGetFrameworkCodes';
 import Association from '@model/EvidenceRequest/Association';
 import useGetControls from '@api/change-monitoring-analyst/useGetControls';

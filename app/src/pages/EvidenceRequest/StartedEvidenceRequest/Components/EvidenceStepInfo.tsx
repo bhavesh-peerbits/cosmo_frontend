@@ -5,7 +5,7 @@ import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { ChevronDown, ChevronUp } from '@carbon/react/icons';
-import User from '@model/User';
+import User from '@model/common/User';
 import FileLinkTable from '@pages/EvidenceRequest/ActionEvidenceRequest/Components/FileLinkTable';
 
 const EvidenceStepInfo = ({

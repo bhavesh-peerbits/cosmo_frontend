@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import api from '@api';
-import { fromUserApi } from '@model/User';
+import { fromUserApi } from '@model/common/User';
 
 export function getPossibleContributors(campaignId: string) {
 	return api.analystCampaignApi

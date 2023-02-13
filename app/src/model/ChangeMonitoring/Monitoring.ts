@@ -6,7 +6,7 @@ import { MonitoringStatus } from './MonitoringStatus';
 import Run, { fromRunApi } from './Run';
 import Scheduling, { fromSchedulingApi } from './Scheduling';
 import Script from './Script';
-import User, { fromUserApi } from '../User';
+import User, { fromUserApi } from '../common/User';
 
 interface Monitoring {
 	id: string;
