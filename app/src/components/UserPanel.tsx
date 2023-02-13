@@ -1,6 +1,6 @@
 import { Accordion, AccordionItem, Button, HeaderPanel } from '@carbon/react';
 import UserProfileImage from '@components/UserProfileImage';
-import { mapUserRoleToDisplayRole } from '@model/UserRole';
+import { mapUserRoleToDisplayRole } from '@model/common/UserRole';
 import routes from '@routes/routes-const';
 import User from '@model/common/User';
 import { useClickAway } from 'ahooks';

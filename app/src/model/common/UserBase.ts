@@ -3,7 +3,7 @@ import {
 	UserDisplayRole,
 	UserRole,
 	UserRoleEnum
-} from '@model/UserRole';
+} from '@model/common/UserRole';
 import { UserBaseApi } from 'cosmo-api';
 
 interface UserBase {

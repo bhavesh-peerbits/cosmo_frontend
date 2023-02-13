@@ -11,7 +11,7 @@ import {
 	InlineNotification
 } from '@carbon/react';
 import User from '@model/common/User';
-import { mapUserRoleToDisplayRole } from '@model/UserRole';
+import { mapUserRoleToDisplayRole } from '@model/common/UserRole';
 import { UserDtoRolesEnum } from 'cosmo-api/src/v1/models';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';

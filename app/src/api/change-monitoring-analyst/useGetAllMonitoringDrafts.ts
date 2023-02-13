@@ -1,6 +1,6 @@
 import api from '@api';
 import { useQuery } from '@tanstack/react-query';
-import { toMap } from '@model/util';
+import { toMap } from '@model/common/util';
 import { fromMonitoringDraftApi } from '@model/ChangeMonitoring/MonitoringDraft';
 
 const getAllMonitoringDraft = () => {

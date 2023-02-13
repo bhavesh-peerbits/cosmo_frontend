@@ -1,6 +1,6 @@
 import api from '@api';
 import { useQuery } from '@tanstack/react-query';
-import { toMap } from '@model/util';
+import { toMap } from '@model/common/util';
 import { fromAnswersApi } from '@model/UserRevalidation/Answer';
 
 const getAnswersForReview = (reviewId: string) => {

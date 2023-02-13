@@ -9,7 +9,7 @@ import { useCallback, useState } from 'react';
 import MultiAddSelect from '@components/MultiAddSelect';
 import CloseEvidenceRequestModal from '@pages/EvidenceRequest/StartedEvidenceRequest/Modals/CloseEvidenceRequestModal';
 import ReminderEvidenceRequestModal from '@pages/EvidenceRequest/StartedEvidenceRequest/Modals/ReminderEvidenceRequestModal';
-import { UserRoleEnum } from '@model/UserRole';
+import { UserRoleEnum } from '@model/common/UserRole';
 import User, { fromUserApi } from '@model/common/User';
 import useAddCollaboratorsToEvidence from '@api/evidence-request/useAddCollaboratorsToEvidence';
 import useGetUsersByRoles from '@api/user/useGetUsersByRoles';

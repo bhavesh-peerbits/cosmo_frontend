@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import ProcedureAppInstance, {
 	fromProcedureAppInstanceApi
 } from '@model/Narrative/ProcedureAppInstance';
-import { toMap } from '@model/util';
+import { toMap } from '@model/common/util';
 import formatIso from 'date-fns/formatISO';
 
 interface ReviewProceduresParams {

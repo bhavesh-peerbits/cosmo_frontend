@@ -12,7 +12,7 @@ import {
 	Checkbox,
 	InlineNotification
 } from '@carbon/react';
-import { mapUserRoleToDisplayRole } from '@model/UserRole';
+import { mapUserRoleToDisplayRole } from '@model/common/UserRole';
 import { UserDtoRolesEnum } from 'cosmo-api/src/v1';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';

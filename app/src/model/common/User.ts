@@ -1,5 +1,9 @@
 import { UserApi } from 'cosmo-api/src';
-import { mapUserRoleToDisplayRole, UserDisplayRole, UserRole } from '@model/UserRole';
+import {
+	mapUserRoleToDisplayRole,
+	UserDisplayRole,
+	UserRole
+} from '@model/common/UserRole';
 
 interface User {
 	id: string;

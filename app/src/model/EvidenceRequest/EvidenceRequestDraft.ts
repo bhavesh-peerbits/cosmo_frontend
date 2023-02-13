@@ -4,7 +4,7 @@ import ApplicationStepRequest, {
 	fromApplicationStepRequestApi,
 	toApplicationStepRequestApi
 } from './ApplicationStepRequest';
-import Workflow, { fromWorkflowApi, toWorkflowApi } from '../Workflow';
+import Workflow, { fromWorkflowApi, toWorkflowApi } from './Workflow';
 import PhaseType, { fromPhaseTypeApi, toPhaseTypeApi } from './PhaseType';
 import FileLink, { fromFileLinkApi } from '../common/FileLink';
 

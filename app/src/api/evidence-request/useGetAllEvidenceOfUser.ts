@@ -1,7 +1,7 @@
 import api from '@api';
 import { useQuery } from '@tanstack/react-query';
 import { fromEvidenceRequestApi } from '@model/EvidenceRequest/EvidenceRequest';
-import { toMap } from '@model/util';
+import { toMap } from '@model/common/util';
 
 const getAllEvidenceOfUser = () => {
 	return api.evidenceRequestFocalPointApi

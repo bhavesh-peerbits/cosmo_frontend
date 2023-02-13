@@ -1,7 +1,7 @@
 import api from '@api';
 import { useQuery } from '@tanstack/react-query';
 import { fromProcedureAppInstanceApi } from '@model/Narrative/ProcedureAppInstance';
-import { toMap } from '@model/util';
+import { toMap } from '@model/common/util';
 
 const getApplicationProcedures = () => {
 	return api.procedureApi

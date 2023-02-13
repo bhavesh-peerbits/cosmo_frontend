@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import api from '@api';
-import { toMap } from '@model/util';
+import { toMap } from '@model/common/util';
 import { fromCampaignWithReviewApi } from '@model/UserRevalidation/CampaignWithReview';
 
 export function getAllCampaignsWithReview() {
