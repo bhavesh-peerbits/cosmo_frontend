@@ -1,7 +1,7 @@
 import { Button, Grid, Layer } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
-import CampaignApplication from '@model/CampaignApplication';
+import CampaignApplication from '@model/UserRevalidation/CampaignApplication';
 import useAnswerStore from '@hooks/user-revalidation-review/useAnswerStore';
 import useSaveAnswersToReview from '@api/review-campaign/useSaveAnswersToReview';
 import { useParams } from 'react-router-dom';

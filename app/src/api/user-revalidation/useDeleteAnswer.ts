@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@api';
-import Answer from '@model/Answer';
+import Answer from '@model/UserRevalidation/Answer';
 
 export function deleteAnswerById({
 	answerId,

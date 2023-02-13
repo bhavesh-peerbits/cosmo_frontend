@@ -1,7 +1,7 @@
-import CampaignApplication from '@model/CampaignApplication';
+import CampaignApplication from '@model/UserRevalidation/CampaignApplication';
 import useAnswerStore from '@hooks/user-revalidation-review/useAnswerStore';
 import { useTranslation } from 'react-i18next';
-import Answer from '@model/Answer';
+import Answer from '@model/UserRevalidation/Answer';
 import CosmoTable from '@components/table/CosmoTable';
 import {
 	CheckmarkOutline,

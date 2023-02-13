@@ -1,5 +1,8 @@
 import { InstanceApi } from 'cosmo-api';
-import Application, { fromApplicationApi, toApplicationApi } from './Application';
+import Application, {
+	fromApplicationApi,
+	toApplicationApi
+} from './Narrative/Application';
 
 interface Instance {
 	id: string;

@@ -14,7 +14,7 @@ import {
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { TooltipPosition } from '@carbon/react/typings/shared';
-import Asset from '@model/Asset';
+import Asset from '@model/Narrative/Asset';
 
 type MultipleAssetSelectProps<
 	T extends FieldValues,

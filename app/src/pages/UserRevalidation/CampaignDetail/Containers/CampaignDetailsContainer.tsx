@@ -1,13 +1,13 @@
 import { Grid, Column, Tile } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
-import Application from '@model/Application';
+import Application from '@model/Narrative/Application';
 import { DonutChart } from '@carbon/charts-react';
 import { ReactNode, useEffect, useMemo } from 'react';
 import { interfaces } from '@carbon/charts';
-import Campaign from '@model/Campaign';
+import Campaign from '@model/UserRevalidation/Campaign';
 import useUiStore from '@hooks/useUiStore';
 import useGetAnswersForReview from '@api/user-revalidation/useGetAnswersForReview';
-import Answer from '@model/Answer';
+import Answer from '@model/UserRevalidation/Answer';
 import ModifyAnswerModal from '@pages/UserRevalidation/CampaignDetail/Modals/ModifyAnswerModal';
 import { useSetRecoilState } from 'recoil';
 import RevalidationReminderStore from '@store/user-revalidation/RevalidationReminderStore';

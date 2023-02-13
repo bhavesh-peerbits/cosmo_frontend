@@ -1,12 +1,12 @@
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
 import SingleApplicationSelect from '@components/SingleApplicationSelect';
-import Application from '@model/Application';
+import Application from '@model/Narrative/Application';
 import { useForm } from 'react-hook-form';
 import useGetAllApplications from '@api/change-monitoring-analyst/useGetAllApplications';
 import useGetAppInstances from '@api/change-monitoring-analyst/useGetAppInstances';
 import Instance from '@model/Instance';
-import Asset, { toAssetApi } from '@model/Asset';
+import Asset, { toAssetApi } from '@model/Narrative/Asset';
 import { Button, InlineLoading } from '@carbon/react';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import MonitoringDraft from '@model/MonitoringDraft';

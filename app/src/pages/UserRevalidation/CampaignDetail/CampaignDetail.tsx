@@ -9,7 +9,7 @@ import MultiAddSelect from '@components/MultiAddSelect';
 import CampaignDetailsContainer from '@pages/UserRevalidation/CampaignDetail/Containers/CampaignDetailsContainer';
 import { useParams } from 'react-router-dom';
 import useGetCampaignApplications from '@api/user-revalidation/useGetCampaignApplications';
-import CampaignApplication from '@model/CampaignApplication';
+import CampaignApplication from '@model/UserRevalidation/CampaignApplication';
 import useGetCampaign from '@api/user-revalidation/useGetCampaign';
 import useGetPossibleContributors from '@api/user-revalidation/useGetPossibleContributors';
 import User from '@model/User';

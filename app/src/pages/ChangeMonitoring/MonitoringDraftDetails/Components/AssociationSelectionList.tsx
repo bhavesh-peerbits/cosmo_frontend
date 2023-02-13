@@ -10,7 +10,7 @@ import { CheckmarkFilled } from '@carbon/react/icons';
 import MultipleUserSelect from '@components/MultipleUserSelect';
 import SingleUserSelect from '@components/SingleUserSelect';
 import UserProfileImage from '@components/UserProfileImage';
-import Association from '@model/Association';
+import Association from '@model/EvidenceRequest/Association';
 import User from '@model/User';
 import { useEffect, useState } from 'react';
 import { Control, UseFormSetValue, UseFormWatch } from 'react-hook-form';

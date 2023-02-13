@@ -2,7 +2,7 @@
 import useSaveDraft from '@api/evidence-request/useSaveDraft';
 import { Button, Grid, Layer } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
-import UploaderS3 from '@components/util/UploaderS3';
+import UploaderS3 from '@components/common/UploaderS3';
 import useNotification from '@hooks/useNotification';
 import evidenceRequestUploaderStore from '@store/evidence-request/evidenceRequestUploaderStore';
 import evidenceRequestDraftStore from '@store/evidenceRequestDraft/evidenceRequestDraftStore';

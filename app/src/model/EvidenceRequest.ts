@@ -1,5 +1,8 @@
 import { EvidenceRequestApi } from 'cosmo-api';
-import Application, { fromApplicationApi, toApplicationApi } from './Application';
+import Application, {
+	fromApplicationApi,
+	toApplicationApi
+} from './Narrative/Application';
 import { EvidenceRequestStatus } from './EvidenceRequestStatus';
 import EvidenceRequestStep, {
 	fromEvidenceRequestStepApi,

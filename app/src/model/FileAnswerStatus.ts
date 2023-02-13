@@ -1,5 +1,5 @@
 import { FileAnswerStatusApi } from 'cosmo-api/src';
-import Answer, { fromAnswersApi } from './Answer';
+import Answer, { fromAnswersApi } from './UserRevalidation/Answer';
 
 interface FileAnswerStatus {
 	answers: Answer[];

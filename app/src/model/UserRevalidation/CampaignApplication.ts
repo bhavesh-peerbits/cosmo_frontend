@@ -4,8 +4,8 @@ import {
 	CampaignApplicationApi,
 	CampaignApplicationStatusApi
 } from 'cosmo-api/src';
-import Campaign, { fromCampaignApi } from '@model/Campaign';
-import Application, { fromApplicationApi } from '@model/Application';
+import Campaign, { fromCampaignApi } from '@model/UserRevalidation/Campaign';
+import Application, { fromApplicationApi } from '@model/Narrative/Application';
 
 interface CampaignApplication {
 	id: string;

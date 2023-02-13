@@ -6,7 +6,7 @@ import {
 	ModalHeader
 } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
-import Campaign from '@model/Campaign';
+import Campaign from '@model/UserRevalidation/Campaign';
 import useCloseCampaign from '@api/user-revalidation/useCloseCampaign';
 import ModalError from '@components/Modals/ModalError';
 import ApiError from '@api/ApiError';

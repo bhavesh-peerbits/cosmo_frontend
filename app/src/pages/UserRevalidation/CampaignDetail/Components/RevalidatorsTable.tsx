@@ -2,7 +2,7 @@
 import CosmoTable from '@components/table/CosmoTable';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Answer from '@model/Answer';
+import Answer from '@model/UserRevalidation/Answer';
 import isAfter from 'date-fns/isAfter';
 import { useSetRecoilState } from 'recoil';
 import modifyAnswerModalInfo from '@store/user-revalidation/modifyAnswerModalInfo';

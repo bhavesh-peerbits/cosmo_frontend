@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { AssociationApi } from 'cosmo-api';
-import User, { fromUserApi, toUserApi } from './User';
+import User, { fromUserApi, toUserApi } from '../User';
 
 export type StepInfoType = {
 	publicComment: string | undefined;

@@ -14,7 +14,7 @@ import {
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { TooltipPosition } from '@carbon/react/typings/shared';
-import Association from '@model/Association';
+import Association from '@model/EvidenceRequest/Association';
 import UserProfileImage from '@components/UserProfileImage';
 
 type MultipleControlSelectProps<

@@ -2,7 +2,7 @@ import ApiError from '@api/ApiError';
 import useCreateInstanceForApp from '@api/app-instances/useCreateInstanceForApp';
 import { Form, TextInput, TextArea, InlineNotification } from '@carbon/react';
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
-import Application from '@model/Application';
+import Application from '@model/Narrative/Application';
 import { Dispatch, SetStateAction } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';

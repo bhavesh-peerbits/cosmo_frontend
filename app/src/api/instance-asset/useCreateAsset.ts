@@ -1,5 +1,5 @@
 import api from '@api';
-import Asset, { toAssetApi } from '@model/Asset';
+import Asset, { toAssetApi } from '@model/Narrative/Asset';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface CreateAssetParams {

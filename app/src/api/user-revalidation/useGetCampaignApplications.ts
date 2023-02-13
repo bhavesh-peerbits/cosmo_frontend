@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import api from '@api';
-import { fromCampaignApplicationApi } from '@model/CampaignApplication';
+import { fromCampaignApplicationApi } from '@model/UserRevalidation/CampaignApplication';
 import { toMap } from '@model/util';
 
 export function getCampaignApplications(campaignId: string) {

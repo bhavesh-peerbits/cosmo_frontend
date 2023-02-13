@@ -8,7 +8,7 @@ import {
 } from '@carbon/react';
 import IconResolver from '@components/IconResolver';
 import { useTranslation } from 'react-i18next';
-import ApplicationWithCampaigns from '@model/ApplicationWithCampaigns';
+import ApplicationWithCampaigns from '@model/UserRevalidation/ApplicationWithCampaigns';
 import ApplicationCampaignsContainer from '../Containers/ApplicationCampaignsContainer';
 
 interface RevalidationReviewTileProps {

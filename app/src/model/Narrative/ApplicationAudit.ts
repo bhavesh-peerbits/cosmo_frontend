@@ -1,5 +1,5 @@
 import { ApplicationAuditActionTypeApi, ApplicationAuditApi } from 'cosmo-api/src';
-import Application, { fromApplicationApi } from '@model/Application';
+import Application, { fromApplicationApi } from '@model/Narrative/Application';
 import User, { fromUserApi } from '@model/User';
 
 interface ApplicationAudit {

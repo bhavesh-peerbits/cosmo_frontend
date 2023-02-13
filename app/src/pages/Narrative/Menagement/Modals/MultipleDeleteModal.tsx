@@ -6,7 +6,7 @@ import {
 	ModalFooter,
 	ModalHeader
 } from '@carbon/react';
-import Application from '@model/Application';
+import Application from '@model/Narrative/Application';
 import useDeleteApp from '@api/management/useDeleteApp';
 import ApiError from '@api/ApiError';
 import { useTranslation } from 'react-i18next';

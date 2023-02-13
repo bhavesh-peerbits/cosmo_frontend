@@ -8,7 +8,7 @@ import answersStore, {
 	answersDefault,
 	modifyAnswers
 } from '@store/user-revalidation-review/answersStore';
-import Answer from '@model/Answer';
+import Answer from '@model/UserRevalidation/Answer';
 import { AnswerApiTypeEnum } from 'cosmo-api/src';
 import { useCallback } from 'react';
 

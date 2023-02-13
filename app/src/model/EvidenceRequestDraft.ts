@@ -3,7 +3,7 @@ import User, { fromUserApi, toUserApi } from './User';
 import ApplicationStepRequest, {
 	fromApplicationStepRequestApi,
 	toApplicationStepRequestApi
-} from './ApplicationStepRequest';
+} from './EvidenceRequest/ApplicationStepRequest';
 import Workflow, { fromWorkflowApi, toWorkflowApi } from './Workflow';
 import PhaseType, { fromPhaseTypeApi, toPhaseTypeApi } from './PhaseType';
 import FileLink, { fromFileLinkApi } from './FileLink';

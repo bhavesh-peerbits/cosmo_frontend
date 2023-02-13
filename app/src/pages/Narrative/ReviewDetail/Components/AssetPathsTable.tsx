@@ -1,5 +1,5 @@
 import CosmoTable from '@components/table/CosmoTable';
-import Asset from '@model/Asset';
+import Asset from '@model/Narrative/Asset';
 import { ColumnDef } from '@tanstack/react-table';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';

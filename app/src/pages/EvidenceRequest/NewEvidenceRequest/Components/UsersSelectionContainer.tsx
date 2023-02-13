@@ -1,7 +1,7 @@
 import { Accordion, AccordionItem, Button, Grid, Layer } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
-import Application from '@model/Application';
-import ApplicationStepRequest from '@model/ApplicationStepRequest';
+import Application from '@model/Narrative/Application';
+import ApplicationStepRequest from '@model/EvidenceRequest/ApplicationStepRequest';
 import evidenceRequestDraftStore from '@store/evidenceRequestDraft/evidenceRequestDraftStore';
 import { StepDtoTypeEnum } from 'cosmo-api/src/v1';
 import { useState } from 'react';

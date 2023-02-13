@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import Answer from '@model/Answer';
+import Answer from '@model/UserRevalidation/Answer';
 import { ColumnDef } from '@tanstack/react-table';
 import TooltipCell from '@components/table/Cell/TooltipCell';
 import UsersListCell from '@components/table/Cell/UsersListCell';

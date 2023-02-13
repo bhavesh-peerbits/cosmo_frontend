@@ -1,7 +1,7 @@
 import useGetUserAppVisibility from '@api/user-admin/useGetUserAppVisibility';
 import useSetUserApplication from '@api/user-admin/useSetUserApplication';
 import MultiAddSelect from '@components/MultiAddSelect';
-import Application from '@model/Application';
+import Application from '@model/Narrative/Application';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from '@tanstack/react-query';
 

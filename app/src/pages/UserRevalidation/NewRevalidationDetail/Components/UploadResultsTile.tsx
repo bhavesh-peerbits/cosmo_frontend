@@ -3,10 +3,10 @@ import FullWidthColumn from '@components/FullWidthColumn';
 import { TrashCan, Upload } from '@carbon/react/icons';
 import { useState } from 'react';
 import DeleteUploadModal from '@pages/UserRevalidation/NewRevalidationDetail/Modals/DeleteUploadModal';
-import CampaignApplication from '@model/CampaignApplication';
+import CampaignApplication from '@model/UserRevalidation/CampaignApplication';
 import useGetAnswersForReview from '@api/user-revalidation/useGetAnswersForReview';
 import AnswerTable from '@pages/UserRevalidation/NewRevalidationDetail/Components/AnswerTable';
-import Answer from '@model/Answer';
+import Answer from '@model/UserRevalidation/Answer';
 import { useTranslation } from 'react-i18next';
 import UploadFileModal from '@pages/UserRevalidation/NewRevalidationDetail/Modals/UploadFileModal';
 

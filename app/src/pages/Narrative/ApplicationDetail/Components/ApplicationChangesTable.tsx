@@ -1,5 +1,5 @@
 import useGetApplicationChanges from '@api/management/useGetApplicationChanges';
-import ApplicationAudit from '@model/ApplicationAudit';
+import ApplicationAudit from '@model/Narrative/ApplicationAudit';
 import { useTranslation } from 'react-i18next';
 import { ColumnDef } from '@tanstack/react-table';
 import { useMemo } from 'react';

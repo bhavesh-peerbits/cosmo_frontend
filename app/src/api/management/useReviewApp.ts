@@ -1,5 +1,5 @@
 import api from '@api';
-import { fromApplicationApi } from '@model/Application';
+import { fromApplicationApi } from '@model/Narrative/Application';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import formatIso from 'date-fns/formatISO';
 

@@ -1,5 +1,5 @@
 import FullWidthColumn from '@components/FullWidthColumn';
-import Asset from '@model/Asset';
+import Asset from '@model/Narrative/Asset';
 import { useForm } from 'react-hook-form';
 import { Button } from '@carbon/react';
 import { useTranslation } from 'react-i18next';

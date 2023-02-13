@@ -6,7 +6,7 @@ import {
 	ModalFooter,
 	ModalHeader
 } from '@carbon/react';
-import Campaign from '@model/Campaign';
+import Campaign from '@model/UserRevalidation/Campaign';
 import { useTranslation } from 'react-i18next';
 import useDeleteCampaign from '@api/user-revalidation/useDeleteCampaign';
 import ApiError from '@api/ApiError';

@@ -1,6 +1,6 @@
 import { RunAssetApi } from 'cosmo-api';
 import { PathMonitoringDto } from 'cosmo-api/src/v1';
-import Asset, { fromAssetApi, toAssetApi } from './Asset';
+import Asset, { fromAssetApi, toAssetApi } from './Narrative/Asset';
 import RunFileLink, { fromRunFileLinkApi, toRunFileLinkApi } from './RunFileLink';
 
 interface RunAsset {

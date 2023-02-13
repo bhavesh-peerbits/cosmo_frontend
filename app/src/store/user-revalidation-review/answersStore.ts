@@ -1,5 +1,5 @@
 import { atomFamily, selectorFamily } from 'recoil';
-import Answer from '@model/Answer';
+import Answer from '@model/UserRevalidation/Answer';
 
 export const answersDefault = atomFamily<Map<string, Answer>, string>({
 	key: 'answersDefault',

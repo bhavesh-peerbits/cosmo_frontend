@@ -9,7 +9,7 @@ import {
 	InlineNotification
 } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
-import Asset from '@model/Asset';
+import Asset from '@model/Narrative/Asset';
 import { Dispatch, SetStateAction } from 'react';
 import Instance from '@model/Instance';
 import useDeleteInstanceAsset from '@api/instance-asset/useDeleteInstanceAsset';

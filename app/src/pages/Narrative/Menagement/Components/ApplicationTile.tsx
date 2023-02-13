@@ -1,6 +1,6 @@
 import { ClickableTile, Layer } from '@carbon/react';
 import { useNavigate } from 'react-router-dom';
-import Application from '@model/Application';
+import Application from '@model/Narrative/Application';
 import IconResolver from '@components/IconResolver';
 import { formatDate } from '@i18n';
 import { useTranslation } from 'react-i18next';

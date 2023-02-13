@@ -14,7 +14,7 @@ import { CampaignDtoTypeApi, CampaignDtoTypeApiEnum } from 'cosmo-api/src';
 import useGetCampaignTemplate from '@api/user-revalidation/useGetCampaignTemplate';
 import ApiError from '@api/ApiError';
 import Papa from 'papaparse';
-import { downloadFileViaBlob } from '@components/util/fileUtil';
+import { downloadFileViaBlob } from '@components/common/fileUtil';
 import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
 import { CampaignDtoTypeEnum } from 'cosmo-api/src/v1';
 

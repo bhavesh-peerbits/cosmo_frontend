@@ -9,7 +9,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import useDeleteAppFromCampaign from '@api/user-revalidation/useDeleteAppFromCampaign';
 import ApiError from '@api/ApiError';
-import CampaignApplication from '@model/CampaignApplication';
+import CampaignApplication from '@model/UserRevalidation/CampaignApplication';
 
 type DeleteUploadModalProps = {
 	isOpen: boolean;

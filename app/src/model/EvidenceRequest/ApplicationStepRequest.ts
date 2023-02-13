@@ -1,10 +1,13 @@
 import { ApplicationStepRequestApi } from 'cosmo-api';
-import Application, { fromApplicationApi, toApplicationApi } from './Application';
+import Application, {
+	fromApplicationApi,
+	toApplicationApi
+} from '../Narrative/Application';
 import Association, { fromAssociationApi, toAssociationApi } from './Association';
 import EvidenceRequestStep, {
 	fromEvidenceRequestStepApi,
 	toEvidenceRequestStepApi
-} from './EvidenceRequestStep';
+} from '../EvidenceRequestStep';
 
 interface ApplicationStepRequest {
 	id: string;

@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import { atom, selector } from 'recoil';
 import { GetRecoilType } from '@store/util';
-import Campaign from '@model/Campaign';
+import Campaign from '@model/UserRevalidation/Campaign';
 
 type Filters = {
 	application: 'multi' | 'single' | undefined;

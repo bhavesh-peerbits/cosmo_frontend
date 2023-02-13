@@ -5,7 +5,7 @@ import {
 	StructuredListWrapper,
 	StructuredListHead
 } from '@carbon/react';
-import Asset from '@model/Asset';
+import Asset from '@model/Narrative/Asset';
 import { useTranslation } from 'react-i18next';
 
 type AssetListProps = {

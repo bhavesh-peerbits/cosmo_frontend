@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useController, useForm } from 'react-hook-form';
 import EvidenceRequestStep from '@model/EvidenceRequestStep';
 import { useState } from 'react';
-import UploaderS3 from '@components/util/UploaderS3';
+import UploaderS3 from '@components/common/UploaderS3';
 import useSaveStep from '@api/evidence-request/useSaveStep';
 import useNotification from '@hooks/useNotification';
 import FileLinkTable from '@pages/EvidenceRequest/ActionEvidenceRequest/Components/FileLinkTable';

@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Button, Layer } from '@carbon/react';
 import { useMemo, useState } from 'react';
-import Application from '@model/Application';
+import Application from '@model/Narrative/Application';
 import { UserFollow } from '@carbon/react/icons';
 import useGetAllAnalystUsers from '@api/user-admin/useGetAllAnalystUsers';
 import useVisibilityApps from '@hooks/admin-panel/useVisibilityApps';

@@ -1,4 +1,4 @@
-import Answer from '@model/Answer';
+import Answer from '@model/UserRevalidation/Answer';
 import { atom } from 'recoil';
 
 const modifyAnswerModalInfo = atom<{

@@ -14,7 +14,7 @@ import {
 	UseFormRegister,
 	UseFormWatch
 } from 'react-hook-form';
-import Application from '@model/Application';
+import Application from '@model/Narrative/Application';
 import useEditApp from '@api/management/useEditApp';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';

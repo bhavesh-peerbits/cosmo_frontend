@@ -1,5 +1,5 @@
 import api from '@api';
-import { fromApplicationUserApi } from '@model/ApplicationUser';
+import { fromApplicationUserApi } from '@model/Narrative/ApplicationUser';
 import { useQuery } from '@tanstack/react-query';
 
 const useGetApplicationUser = (appId: string) => {

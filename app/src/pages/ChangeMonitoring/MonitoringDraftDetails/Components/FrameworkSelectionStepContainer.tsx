@@ -24,7 +24,7 @@ import { useTranslation } from 'react-i18next';
 import Framework from '@model/Framework';
 import User from '@model/User';
 import useGetFrameworkCodes from '@api/change-monitoring-analyst/useGetFrameworkCodes';
-import Association from '@model/Association';
+import Association from '@model/EvidenceRequest/Association';
 import useGetControls from '@api/change-monitoring-analyst/useGetControls';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';

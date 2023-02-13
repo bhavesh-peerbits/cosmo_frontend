@@ -1,6 +1,6 @@
 import useManagementApps from '@hooks/management/useManagementApps';
 import { useTranslation } from 'react-i18next';
-import Application from '@model/Application';
+import Application from '@model/Narrative/Application';
 import { Layer } from '@carbon/react';
 import { CloudDownload, Email } from '@carbon/react/icons';
 import CosmoTable from '@components/table/CosmoTable';

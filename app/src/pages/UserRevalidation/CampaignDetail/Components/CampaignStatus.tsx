@@ -1,7 +1,7 @@
 import { MeterChart } from '@carbon/charts-react';
 import { Stack, Button } from '@carbon/react';
 import { memo, useMemo, useState } from 'react';
-import Campaign from '@model/Campaign';
+import Campaign from '@model/UserRevalidation/Campaign';
 import useGetCampaignStatus from '@api/user-revalidation/useGetCampaignStatus';
 import { useTranslation } from 'react-i18next';
 import useUiStore from '@hooks/useUiStore';

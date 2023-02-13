@@ -1,10 +1,10 @@
 import PageHeader from '@components/PageHeader';
 import { useMemo } from 'react';
 import ProcedureAppInstance from '@model/ProcedureAppInstance';
-import ApplicationReview from '@model/ApplicationReview';
+import ApplicationReview from '@model/Narrative/ApplicationReview';
 import { useTranslation } from 'react-i18next';
 import { Layer } from '@carbon/react';
-import Application from '@model/Application';
+import Application from '@model/Narrative/Application';
 import useGetApps from '@api/management/useGetApps';
 import useGetProcedureApps from '@api/app-procedures/useGetProcedureApps';
 import useGetProcedures from '@api/procedures/useGetProcedures';

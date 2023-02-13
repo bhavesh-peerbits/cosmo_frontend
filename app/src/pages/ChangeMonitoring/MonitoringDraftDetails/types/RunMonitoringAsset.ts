@@ -1,4 +1,4 @@
-import Asset from '@model/Asset';
+import Asset from '@model/Narrative/Asset';
 import RunAsset from '@model/RunAsset';
 import { PathMonitoringDto } from 'cosmo-api/src/v1';
 

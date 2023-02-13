@@ -3,7 +3,7 @@ import { CreateTearsheet } from '@components/CreateTearsheet';
 import CreateTearsheetStep from '@components/CreateTearsheet/CreateTearsheepStep';
 import FullWidthColumn from '@components/FullWidthColumn';
 import SingleApplicationSelect from '@components/SingleApplicationSelect';
-import Application from '@model/Application';
+import Application from '@model/Narrative/Application';
 import { useCallback, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -12,7 +12,7 @@ import useAddApplicationsAndAnswersToCampaign from '@api/user-revalidation/useAd
 import FileAnswerStatus from '@model/FileAnswerStatus';
 import ApiError from '@api/ApiError';
 import AnswerTable from '@pages/UserRevalidation/NewRevalidationDetail/Components/AnswerTable';
-import CampaignApplication from '@model/CampaignApplication';
+import CampaignApplication from '@model/UserRevalidation/CampaignApplication';
 import useGetCampaignApplications from '@api/user-revalidation/useGetCampaignApplications';
 import { useQueryClient } from '@tanstack/react-query';
 import useGetRevalidationApps from '@api/user-revalidation/useGetRevalidationApps';

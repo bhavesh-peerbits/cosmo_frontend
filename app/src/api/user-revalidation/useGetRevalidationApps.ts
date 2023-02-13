@@ -1,6 +1,6 @@
 import api from '@api';
 import { useQuery } from '@tanstack/react-query';
-import { fromApplicationApi } from '@model/Application';
+import { fromApplicationApi } from '@model/Narrative/Application';
 import { toMap } from '@model/util';
 
 const useGetRevalidationApps = () => {

@@ -1,4 +1,4 @@
-import Application from '@model/Application';
+import Application from '@model/Narrative/Application';
 import User from '@model/User';
 import { atom } from 'recoil';
 

@@ -1,7 +1,7 @@
 import { Button, Grid } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
-import Campaign from '@model/Campaign';
+import Campaign from '@model/UserRevalidation/Campaign';
 import { useNavigate } from 'react-router-dom';
 import { formatDate } from '@i18n';
 import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';

@@ -1,8 +1,8 @@
 import { CampaignApi, CampaignWithReviewApi } from 'cosmo-api';
-import Campaign, { fromCampaignApi } from '@model/Campaign';
+import Campaign, { fromCampaignApi } from '@model/UserRevalidation/Campaign';
 import CampaignApplication, {
 	fromCampaignApplicationApi
-} from '@model/CampaignApplication';
+} from '@model/UserRevalidation/CampaignApplication';
 
 interface CampaignWithReview {
 	id: string;

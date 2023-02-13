@@ -1,5 +1,5 @@
 import RevalidationUsersContainer from '@pages/UserRevalidation/UserRevalidationDetails/Containers/RevalidationUsersContainer';
-import CampaignApplication from '@model/CampaignApplication';
+import CampaignApplication from '@model/UserRevalidation/CampaignApplication';
 import { useMemo } from 'react';
 import useAnswerStore from '@hooks/user-revalidation-review/useAnswerStore';
 import { MeterChart } from '@carbon/charts-react';

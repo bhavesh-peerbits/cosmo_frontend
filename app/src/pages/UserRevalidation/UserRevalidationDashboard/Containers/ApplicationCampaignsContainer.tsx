@@ -1,5 +1,5 @@
 import { Column, Grid } from '@carbon/react';
-import Campaign from '@model/Campaign';
+import Campaign from '@model/UserRevalidation/Campaign';
 import ApplicationCampaignStatus from '../Components/ApplicationCampaignStatus';
 
 interface ApplicationCampaignsContainerProps {

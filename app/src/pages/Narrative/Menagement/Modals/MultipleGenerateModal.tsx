@@ -9,7 +9,7 @@ import {
 	ModalFooter,
 	ModalHeader
 } from '@carbon/react';
-import Application from '@model/Application';
+import Application from '@model/Narrative/Application';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
 import useGetAppsNarrative from '@api/management/useGetAppsNarrative';

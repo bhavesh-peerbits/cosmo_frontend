@@ -1,5 +1,5 @@
 import { ApplicationUserApi } from 'cosmo-api';
-import User, { fromUserApi } from './User';
+import User, { fromUserApi } from '../User';
 import Application, { fromApplicationApi, toApplicationApi } from './Application';
 
 interface ApplicationUser {

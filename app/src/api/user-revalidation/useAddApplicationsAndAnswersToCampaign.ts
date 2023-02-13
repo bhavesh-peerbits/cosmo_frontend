@@ -1,7 +1,7 @@
 import api from '@api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { fromFileAnswersStatusApi } from '@model/FileAnswerStatus';
-import Application from '@model/Application';
+import Application from '@model/Narrative/Application';
 
 interface AddAnswersToCampaignProps {
 	campaignId: string;

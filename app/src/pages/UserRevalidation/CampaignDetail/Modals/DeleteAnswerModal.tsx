@@ -9,7 +9,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import ApiError from '@api/ApiError';
 import useDeleteAnswer from '@api/user-revalidation/useDeleteAnswer';
-import Answer from '@model/Answer';
+import Answer from '@model/UserRevalidation/Answer';
 
 type DeleteModalProps = {
 	campaignId: string;

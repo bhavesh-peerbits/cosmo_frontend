@@ -1,4 +1,4 @@
-import Application from '@model/Application';
+import Application from '@model/Narrative/Application';
 import RevalidationReminderStore from '@store/user-revalidation/RevalidationReminderStore';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState } from 'recoil';

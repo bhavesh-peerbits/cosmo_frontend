@@ -10,7 +10,7 @@ import {
 	UseFormRegister,
 	UseFormWatch
 } from 'react-hook-form';
-import Application from '@model/Application';
+import Application from '@model/Narrative/Application';
 import { Grid, Form, Button } from '@carbon/react';
 import { Checkmark } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';

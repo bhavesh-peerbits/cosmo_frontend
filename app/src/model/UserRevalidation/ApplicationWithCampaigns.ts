@@ -1,5 +1,5 @@
-import Application, { fromApplicationApi } from '@model/Application';
-import Campaign, { fromCampaignApi } from '@model/Campaign';
+import Application, { fromApplicationApi } from '@model/Narrative/Application';
+import Campaign, { fromCampaignApi } from '@model/UserRevalidation/Campaign';
 import { ApplicationApi, ApplicationCampaignApi } from 'cosmo-api/src';
 
 interface ApplicationWithCampaigns {

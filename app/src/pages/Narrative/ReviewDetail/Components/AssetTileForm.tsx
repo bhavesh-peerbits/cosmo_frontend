@@ -1,4 +1,4 @@
-import Asset from '@model/Asset';
+import Asset from '@model/Narrative/Asset';
 import { Grid, Column, TextInput, Layer, Select, SelectItem } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';

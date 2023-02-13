@@ -17,7 +17,7 @@ import User from '@model/User';
 import { addDays, startOfTomorrow } from 'date-fns';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import Campaign from '@model/Campaign';
+import Campaign from '@model/UserRevalidation/Campaign';
 import useSendCampaignRevalidationRequest from '@api/user-revalidation/useSendCampaignRevalidationRequest';
 import ApiError from '@api/ApiError';
 import useGetPossibleContributors from '@api/user-revalidation/useGetPossibleContributors';
