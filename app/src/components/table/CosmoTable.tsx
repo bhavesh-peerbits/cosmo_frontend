@@ -161,19 +161,26 @@ const CosmoTable = <T extends SubRows<T>, F extends FieldValues = never>({
 	inlineActions
 }: CosmoTableProps<T, F>) => {
 	const data = useMemo(() => tableData, [tableData]);
-	if (inlineActions) {
-		columns.push({
-			header: '',
-			accessorFn: row => row,
-			accessorKey: 'rowActions',
-			meta: { disableExport: true },
-			enableResizing: false,
-			enableSorting: false,
-			size: 30,
-			maxSize: 30,
-			minSize: 30
-		});
-	}
+	const fixedColumns = useMemo(
+		() =>
+			!inlineActions
+				? columns
+				: [
+						...columns,
+						{
+							header: '',
+							accessorFn: row => row,
+							accessorKey: 'rowActions',
+							meta: { disableExport: true },
+							enableResizing: false,
+							enableSorting: false,
+							size: 30,
+							maxSize: 30,
+							minSize: 30
+						}
+				  ],
+		[columns, inlineActions]
+	);
 
 	const tableContainerRef = useRef<HTMLDivElement>(null);
 	const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
@@ -245,7 +252,7 @@ const CosmoTable = <T extends SubRows<T>, F extends FieldValues = never>({
 
 	const table = useReactTable({
 		data,
-		columns: columns as ColumnDef<T>[],
+		columns: fixedColumns as ColumnDef<T>[],
 		autoResetPageIndex: false,
 		manualPagination: Boolean(serverSidePagination),
 		manualFiltering: Boolean(serverSidePagination),
