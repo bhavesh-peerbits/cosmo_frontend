@@ -1,6 +1,6 @@
 import { MonitoringAssetApi } from 'cosmo-api';
 import { PathMonitoringDto } from 'cosmo-api/src/v1';
-import Asset, { fromAssetApi, toAssetApi } from './Narrative/Asset';
+import Asset, { fromAssetApi, toAssetApi } from '../Narrative/Asset';
 
 interface MonitoringAsset {
 	id?: string;

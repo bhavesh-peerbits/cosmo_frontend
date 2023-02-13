@@ -1,7 +1,7 @@
 import { MonitoringApi } from 'cosmo-api';
 import FileLink, { fromFileLinkApi } from '../common/FileLink';
 import Instance, { fromInstanceApi } from '../Narrative/Instance';
-import MonitoringAsset, { fromMonitoringAssetApi } from '../MonitoringAsset';
+import MonitoringAsset, { fromMonitoringAssetApi } from './MonitoringAsset';
 import { MonitoringStatus } from '../MonitoringStatus';
 import Run, { fromRunApi } from '../Run';
 import Scheduling, { fromSchedulingApi } from '../Scheduling';

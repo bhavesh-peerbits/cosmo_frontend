@@ -1,6 +1,6 @@
 import { Grid, ProgressStep, ProgressIndicator } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
-import MonitoringDraft from '@model/MonitoringDraft';
+import MonitoringDraft from '@model/ChangeMonitoring/MonitoringDraft';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AdditionalInfoStepContainer from '../Components/AdditionalInfoStepContainer';

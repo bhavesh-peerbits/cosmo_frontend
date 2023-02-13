@@ -9,7 +9,7 @@ import Instance from '@model/Narrative/Instance';
 import Asset, { toAssetApi } from '@model/Narrative/Asset';
 import { Button, InlineLoading } from '@carbon/react';
 import { Dispatch, SetStateAction, useEffect } from 'react';
-import MonitoringDraft from '@model/MonitoringDraft';
+import MonitoringDraft from '@model/ChangeMonitoring/MonitoringDraft';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';
 import useSaveDraftAsset from '@api/change-monitoring-analyst/useSaveDraftAsset';

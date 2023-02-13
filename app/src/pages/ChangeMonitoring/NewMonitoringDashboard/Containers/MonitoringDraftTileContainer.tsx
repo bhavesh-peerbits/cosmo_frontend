@@ -1,5 +1,5 @@
 import { Column, Grid } from '@carbon/react';
-import MonitoringDraft from '@model/MonitoringDraft';
+import MonitoringDraft from '@model/ChangeMonitoring/MonitoringDraft';
 import MonitoringDraftTile from '../Components/MonitoringDraftTile';
 
 type MonitoringDraftTileContainerProps = {

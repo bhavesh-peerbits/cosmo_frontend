@@ -6,7 +6,7 @@ import { Dispatch, SetStateAction, useMemo, useState } from 'react';
 import useGetAllMonitoringDrafts from '@api/change-monitoring-analyst/useGetAllMonitoringDrafts';
 import Centered from '@components/Centered';
 import NoDataMessage from '@components/NoDataMessage';
-import MonitoringDraft from '@model/MonitoringDraft';
+import MonitoringDraft from '@model/ChangeMonitoring/MonitoringDraft';
 import NewMonitoringModal from './Modals/NewMonitoringModal';
 import MonitoringDraftTileContainer from './Containers/MonitoringDraftTileContainer';
 

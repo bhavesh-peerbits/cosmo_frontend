@@ -12,7 +12,7 @@ import { Information } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import MonitoringDraft from '@model/MonitoringDraft';
+import MonitoringDraft from '@model/ChangeMonitoring/MonitoringDraft';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';
 import useSaveDraftAdditionalInfo from '@api/change-monitoring-analyst/useSaveDraftAdditionalInfo';

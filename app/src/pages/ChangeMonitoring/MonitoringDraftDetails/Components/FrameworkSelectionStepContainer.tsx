@@ -28,7 +28,7 @@ import Association from '@model/EvidenceRequest/Association';
 import useGetControls from '@api/change-monitoring-analyst/useGetControls';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';
-import MonitoringDraft from '@model/MonitoringDraft';
+import MonitoringDraft from '@model/ChangeMonitoring/MonitoringDraft';
 import useGetFrameworkTreeByCode from '@api/framework/useGetFrameworkTreeByCode';
 import useSaveDraftAssociation from '@api/change-monitoring-analyst/useSaveDraftAssociation';
 import { useParams } from 'react-router-dom';

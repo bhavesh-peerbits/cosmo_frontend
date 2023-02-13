@@ -10,7 +10,7 @@ import {
 	InlineNotification
 } from '@carbon/react';
 import UserProfileImage from '@components/UserProfileImage';
-import MonitoringDraft from '@model/MonitoringDraft';
+import MonitoringDraft from '@model/ChangeMonitoring/MonitoringDraft';
 import Scheduling from '@model/Scheduling';
 import { Dispatch, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';

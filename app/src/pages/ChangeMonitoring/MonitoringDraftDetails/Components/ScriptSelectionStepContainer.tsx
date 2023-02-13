@@ -1,7 +1,7 @@
 import FullWidthColumn from '@components/FullWidthColumn';
 import useGetAllScripts from '@api/change-monitoring-analyst/useGetAllScripts';
 import { Dispatch, SetStateAction, useState } from 'react';
-import MonitoringDraft from '@model/MonitoringDraft';
+import MonitoringDraft from '@model/ChangeMonitoring/MonitoringDraft';
 import { Button, InlineLoading } from '@carbon/react';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';

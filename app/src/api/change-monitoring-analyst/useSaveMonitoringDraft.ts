@@ -1,6 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@api';
-import MonitoringDraft, { toMonitoringDraftApi } from '@model/MonitoringDraft';
+import MonitoringDraft, {
+	toMonitoringDraftApi
+} from '@model/ChangeMonitoring/MonitoringDraft';
 
 interface SaveMonitoringDraftParameters {
 	draft: MonitoringDraft;

@@ -1,14 +1,14 @@
 import { MonitoringDraftApi } from 'cosmo-api';
-import FileLink, { fromFileLinkApi, toFileLinkApi } from './common/FileLink';
-import Instance, { fromInstanceApi, toInstanceApi } from './Narrative/Instance';
+import FileLink, { fromFileLinkApi, toFileLinkApi } from '../common/FileLink';
+import Instance, { fromInstanceApi, toInstanceApi } from '../Narrative/Instance';
 import MonitoringAsset, {
 	fromMonitoringAssetApi,
 	toMonitoringAssetApi
 } from './MonitoringAsset';
-import { MonitoringStatus } from './MonitoringStatus';
-import Scheduling, { fromSchedulingApi, toSchedulingApi } from './Scheduling';
-import Script from './Script';
-import User, { fromUserApi, toUserApi } from './User';
+import { MonitoringStatus } from '../MonitoringStatus';
+import Scheduling, { fromSchedulingApi, toSchedulingApi } from '../Scheduling';
+import Script from '../Script';
+import User, { fromUserApi, toUserApi } from '../User';
 
 interface MonitoringDraft {
 	id: string;

@@ -8,7 +8,7 @@ import {
 	ModalHeader,
 	InlineNotification
 } from '@carbon/react';
-import MonitoringDraft from '@model/MonitoringDraft';
+import MonitoringDraft from '@model/ChangeMonitoring/MonitoringDraft';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
