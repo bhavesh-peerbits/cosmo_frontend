@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction } from 'react';
 import useTerminateMonitoring from '@api/change-monitoring-analyst/useTerminateMonitoring';
 import ApiError from '@api/ApiError';
-import Monitoring from '@model/Monitoring';
+import Monitoring from '@model/ChangeMonitoring/Monitoring';
 
 type CloseMonitoringProps = {
 	isOpen: boolean;

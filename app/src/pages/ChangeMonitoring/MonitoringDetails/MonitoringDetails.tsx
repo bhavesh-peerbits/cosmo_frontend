@@ -7,7 +7,7 @@ import MultiAddSelect from '@components/MultiAddSelect';
 import User from '@model/User';
 import useGetUsersByRoles from '@api/user/useGetUsersByRoles';
 import useSetMonitoringCollaborator from '@api/change-monitoring-analyst/useSetMonitoringCollaborators';
-import Monitoring from '@model/Monitoring';
+import Monitoring from '@model/ChangeMonitoring/Monitoring';
 import { UseQueryResult } from '@tanstack/react-query/build/lib/types';
 import useGetMonitoringById from '@api/change-monitoring-analyst/useGetMonitoringById';
 import CloseMonitoringModal from './Modals/CloseMonitoringModal';

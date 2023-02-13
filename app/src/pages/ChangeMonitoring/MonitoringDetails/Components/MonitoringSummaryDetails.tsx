@@ -1,7 +1,7 @@
 import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
 import { useTranslation } from 'react-i18next';
 import { UnorderedList, ListItem } from '@carbon/react';
-import Monitoring from '@model/Monitoring';
+import Monitoring from '@model/ChangeMonitoring/Monitoring';
 import GetSchedulingDisplayInfo from '@i18n/common/displaySchedulingInfo';
 
 type MonitoringSummaryDetailsProps = {

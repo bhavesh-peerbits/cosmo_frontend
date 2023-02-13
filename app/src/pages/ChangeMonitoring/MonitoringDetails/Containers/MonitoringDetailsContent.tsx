@@ -1,5 +1,5 @@
 import { Grid, Column } from '@carbon/react';
-import Monitoring from '@model/Monitoring';
+import Monitoring from '@model/ChangeMonitoring/Monitoring';
 import MonitoringSummaryDetails from '../Components/MonitoringSummaryDetails';
 import RunsTileContainer from './RunsTileContainer';
 

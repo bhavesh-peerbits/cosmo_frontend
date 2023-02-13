@@ -7,7 +7,7 @@ import { Grid, Column } from '@carbon/react';
 import MonitoringSummaryDetails from '@pages/ChangeMonitoring/MonitoringDetails/Components/MonitoringSummaryDetails';
 import useGetMonitoringById from '@api/change-monitoring-analyst/useGetMonitoringById';
 import useGetRunById from '@api/change-monitoring-analyst/useGetRunById';
-import Monitoring from '@model/Monitoring';
+import Monitoring from '@model/ChangeMonitoring/Monitoring';
 import Run from '@model/Run';
 import { UseQueryResult } from '@tanstack/react-query';
 import RunDetailsStepContainer from './Containers/RunDetailsStepContainer';

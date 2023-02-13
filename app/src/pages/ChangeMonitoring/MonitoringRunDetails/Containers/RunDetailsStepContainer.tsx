@@ -3,7 +3,7 @@ import { useLayoutEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Layer } from '@carbon/react';
 import { RunDtoStatusEnum } from 'cosmo-api/src/v1';
-import Monitoring from '@model/Monitoring';
+import Monitoring from '@model/ChangeMonitoring/Monitoring';
 import Run from '@model/Run';
 import useGetAllFilesAnswersInbox from '@api/change-monitoring-inbox/useGetAllFilesAnswersInbox';
 import useGetAllFilesAnswer from '@api/change-monitoring-analyst/useGetAllFilesAnswer';

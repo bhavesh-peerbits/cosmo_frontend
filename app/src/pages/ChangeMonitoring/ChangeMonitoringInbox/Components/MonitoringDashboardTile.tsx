@@ -1,7 +1,7 @@
 import { ClickableTile, Layer } from '@carbon/react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import Monitoring from '@model/Monitoring';
+import Monitoring from '@model/ChangeMonitoring/Monitoring';
 import { formatDate } from '@i18n';
 
 type MonitoringDashboardTileProps = {

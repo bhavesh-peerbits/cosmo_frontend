@@ -6,7 +6,7 @@ import SingleUserSelect from '@components/SingleUserSelect';
 import { useForm } from 'react-hook-form';
 import User from '@model/User';
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
-import Monitoring from '@model/Monitoring';
+import Monitoring from '@model/ChangeMonitoring/Monitoring';
 import useGetUsersByRole from '@api/user/useGetUsersByRole';
 import useEditMonitoringFocalPoint from '@api/change-monitoring-analyst/useEditMonitoringFocalPoint';
 import ApiError from '@api/ApiError';

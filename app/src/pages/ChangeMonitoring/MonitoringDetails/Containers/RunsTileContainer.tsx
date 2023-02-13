@@ -1,5 +1,5 @@
 import { smoothScroll, triggerFocus } from '@components/TableOfContents/utils';
-import Monitoring from '@model/Monitoring';
+import Monitoring from '@model/ChangeMonitoring/Monitoring';
 import { useLayoutEffect } from 'react';
 import RunTile from '../Components/RunTile';
 

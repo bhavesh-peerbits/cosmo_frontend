@@ -2,7 +2,7 @@
 import { atom, selector } from 'recoil';
 import { GetRecoilType } from '@store/util';
 import { isAfter, isBefore } from 'date-fns';
-import Monitoring from '@model/Monitoring';
+import Monitoring from '@model/ChangeMonitoring/Monitoring';
 
 type Filters = {
 	frequency: string[];
