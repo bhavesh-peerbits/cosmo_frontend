@@ -5,7 +5,7 @@ import MonitoringAsset, { fromMonitoringAssetApi } from './MonitoringAsset';
 import { MonitoringStatus } from './MonitoringStatus';
 import Run, { fromRunApi } from './Run';
 import Scheduling, { fromSchedulingApi } from './Scheduling';
-import Script from '../Script';
+import Script from './Script';
 import User, { fromUserApi } from '../User';
 
 interface Monitoring {

@@ -1,5 +1,5 @@
 import { RadioTile, TileGroup, Layer } from '@carbon/react';
-import Script from '@model/Script';
+import Script from '@model/ChangeMonitoring/Script';
 import { Dispatch, SetStateAction } from 'react';
 import OSScriptTileContent from './OSScriptTileContent';
 

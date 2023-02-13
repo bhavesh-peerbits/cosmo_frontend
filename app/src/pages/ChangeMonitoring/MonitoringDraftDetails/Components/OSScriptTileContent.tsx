@@ -2,7 +2,7 @@ import { ChevronDown, ChevronUp } from '@carbon/react/icons';
 import { Button } from '@carbon/react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Script from '@model/Script';
+import Script from '@model/ChangeMonitoring/Script';
 
 type OSScriptTileContentProps = {
 	script: Script;
