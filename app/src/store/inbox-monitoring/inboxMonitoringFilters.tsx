@@ -106,14 +106,21 @@ const applyFilters = (
 				)
 				// filter by tab
 				.filter(monitoring => {
+					const currentRun = monitoring.runs.find(
+						r => r.orderNumber === monitoring.currentRun
+					);
+					const isMonitoringPending = monitoring.status === 'PENDING';
+					const isWaitingForFocalPoint =
+						monitoring.status === 'PENDING' &&
+						currentRun?.status === 'WAITING_FOR_FOCALPOINT';
+					const isAuthUserFocalPoint = currentRun?.focalPoint?.id === auth?.user?.id;
+					const isAuthUserDelegates = currentRun?.focalPointDelegates
+						?.map(del => del.id)
+						.includes(auth?.user?.id as string);
 					const isWaitingForAuthUser =
-						(monitoring.status === 'PENDING' &&
-							monitoring.runs.find(r => r.orderNumber === monitoring.currentRun)
-								?.focalPoint?.id === auth?.user?.id) ||
-						monitoring.runs
-							.find(r => r.orderNumber === monitoring.currentRun)
-							?.focalPointDelegates?.map(del => del.id)
-							.includes(auth?.user?.id as string);
+						isMonitoringPending &&
+						isWaitingForFocalPoint &&
+						(isAuthUserDelegates || isAuthUserFocalPoint);
 					return filters.tab === 1
 						? isWaitingForAuthUser
 						: filters.tab === 2

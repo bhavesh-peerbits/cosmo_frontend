@@ -1,4 +1,4 @@
-import { Button, Form, Grid, Tile } from '@carbon/react';
+import { Button, Form, Grid, Tile, Layer } from '@carbon/react';
 import { useEffect, useRef } from 'react';
 import useBreadcrumbSize from '@hooks/useBreadcrumbSize';
 import FullWidthColumn from '@components/FullWidthColumn';
@@ -156,45 +156,49 @@ const ApplicationInfo = ({ application }: ApplicationInfoProps) => {
 								{...{ isLoading, isSuccess, isError, error: error as ApiError }}
 							/>
 						</div>
-						<div className='space-y-7'>
-							<Tile href='ApplicationName' className='w-full bg-background pb-7'>
-								<Grid fullWidth className='space-y-7'>
-									<FullWidthColumn
-										data-toc-id='general-info'
-										className='text-productive-heading-3'
-									>
-										{t('general-info')}
-									</FullWidthColumn>
-									<FullWidthColumn>
-										<GeneralInfo
-											control={control as unknown as Control<GeneralInfoForm>}
-											errors={errors as FieldErrors<GeneralInfoForm>}
-											register={register as unknown as UseFormRegister<GeneralInfoForm>}
-											getValues={
-												getValues as unknown as UseFormGetValues<GeneralInfoForm>
-											}
-											watch={watch as unknown as UseFormWatch<GeneralInfoForm>}
-										/>
-									</FullWidthColumn>
-								</Grid>
-							</Tile>
-							<Tile href='ApplicationName' className='w-full bg-background pb-7'>
-								<Grid fullWidth className='space-y-7'>
-									<FullWidthColumn
-										data-toc-id='technical-info'
-										className='text-fluid-heading-3'
-									>
-										{t('technical-info')}
-									</FullWidthColumn>
-									<FullWidthColumn>
-										<TechnicalInfo
-											errors={errors as FieldErrors<TechnicalInfoForm>}
-											register={register as unknown as UseFormRegister<TechnicalInfoForm>}
-										/>
-									</FullWidthColumn>
-								</Grid>
-							</Tile>
-						</div>
+						<Layer>
+							<div className='space-y-7'>
+								<Tile href='ApplicationName' className='w-full pb-7'>
+									<Grid fullWidth className='space-y-7'>
+										<FullWidthColumn
+											data-toc-id='general-info'
+											className='text-productive-heading-3'
+										>
+											{t('general-info')}
+										</FullWidthColumn>
+										<FullWidthColumn>
+											<GeneralInfo
+												control={control as unknown as Control<GeneralInfoForm>}
+												errors={errors as FieldErrors<GeneralInfoForm>}
+												register={register as unknown as UseFormRegister<GeneralInfoForm>}
+												getValues={
+													getValues as unknown as UseFormGetValues<GeneralInfoForm>
+												}
+												watch={watch as unknown as UseFormWatch<GeneralInfoForm>}
+											/>
+										</FullWidthColumn>
+									</Grid>
+								</Tile>
+								<Tile href='ApplicationName' className='w-full pb-7'>
+									<Grid fullWidth className='space-y-7'>
+										<FullWidthColumn
+											data-toc-id='technical-info'
+											className='text-fluid-heading-3'
+										>
+											{t('technical-info')}
+										</FullWidthColumn>
+										<FullWidthColumn>
+											<TechnicalInfo
+												errors={errors as FieldErrors<TechnicalInfoForm>}
+												register={
+													register as unknown as UseFormRegister<TechnicalInfoForm>
+												}
+											/>
+										</FullWidthColumn>
+									</Grid>
+								</Tile>
+							</div>
+						</Layer>
 					</Form>
 				</FullWidthColumn>
 			</Grid>

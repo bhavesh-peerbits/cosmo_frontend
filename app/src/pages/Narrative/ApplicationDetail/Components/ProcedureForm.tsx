@@ -1,4 +1,13 @@
-import { Button, Column, Form, Grid, TextArea, TextInput, Tile } from '@carbon/react';
+import {
+	Button,
+	Column,
+	Form,
+	Grid,
+	TextArea,
+	TextInput,
+	Tile,
+	Layer
+} from '@carbon/react';
 import { TrashCan } from '@carbon/react/icons';
 import { useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
@@ -116,153 +125,157 @@ const ProcedureForm = ({ procedureApp, isNew, appId, onDelete }: ProcedureFormPr
 	};
 
 	return (
-		<Tile href='ApplicationName' className='w-full bg-background'>
-			<Form>
-				<Grid fullWidth>
-					<FullWidthColumn
-						data-toc-id={`procedure-container-${procedureApp.id}`}
-						data-toc-title={procedure.name}
-						className='flex items-center justify-between text-fluid-heading-3'
-					>
-						{procedure.name}
-						<Button
-							hasIconOnly
-							kind='ghost'
-							renderIcon={TrashCan}
-							tooltipPosition='bottom'
-							iconDescription={t('procedureInfo:delete-procedure')}
-							onClick={() => setIsDeleteModalOpen(true)}
+		<Layer>
+			<Tile href='ApplicationName' className='w-full'>
+				<Form>
+					<Grid fullWidth>
+						<FullWidthColumn
+							data-toc-id={`procedure-container-${procedureApp.id}`}
+							data-toc-title={procedure.name}
+							className='flex items-center justify-between text-fluid-heading-3'
+						>
+							{procedure.name}
+							<Button
+								hasIconOnly
+								kind='ghost'
+								renderIcon={TrashCan}
+								tooltipPosition='bottom'
+								iconDescription={t('procedureInfo:delete-procedure')}
+								onClick={() => setIsDeleteModalOpen(true)}
+							/>
+						</FullWidthColumn>
+						<DeleteProcedureAppModal
+							isOpen={isDeleteModalOpen}
+							setIsOpen={setIsDeleteModalOpen}
+							procedureId={procedure.id}
+							procedureAppId={procedureApp.id}
+							appId={appId}
+							onDelete={onDelete}
+							softDelete={isNew}
 						/>
-					</FullWidthColumn>
-					<DeleteProcedureAppModal
-						isOpen={isDeleteModalOpen}
-						setIsOpen={setIsDeleteModalOpen}
-						procedureId={procedure.id}
-						procedureAppId={procedureApp.id}
-						appId={appId}
-						onDelete={onDelete}
-						softDelete={isNew}
-					/>
-					<FullWidthColumn>
-						<Grid fullWidth>
-							<FullWidthColumn className='mb-5'>
-								<SingleUserSelect
-									control={control}
-									label={`${t('procedureInfo:procedure-owner')} *`}
-									name='owner'
-									rules={{
-										required: {
-											value: true,
-											message: `${t('procedureInfo:procedure-required')}`
-										}
-									}}
-									excludedUsers={selectedDelegates}
-								/>
-							</FullWidthColumn>
-							<FullWidthColumn className='mb-5'>
-								<MultipleUserSelect
-									control={control}
-									label={`${t('procedureInfo:owner-delegates')}`}
-									name='delegated'
-									excludedUser={selectedOwner}
-								/>
-							</FullWidthColumn>
-							<FullWidthColumn className='mb-5'>
-								<TextArea
-									rows={2}
-									readOnly
-									id='control-objectives'
-									labelText={t('narrativeAdmin:control-objectives')}
-									placeholder={
-										procedure.controlObjectives?.length === 0
-											? 'No control objectives'
-											: ''
-									}
-									{...register('controlObjectives')}
-								/>
-							</FullWidthColumn>
-							<Column sm={4} md={8} lg={8} className='mb-5'>
-								<TextInput
-									id={`last-modify-${procedureApp.id}`}
-									labelText={`${t('procedureInfo:last-modify')}`}
-									value={procedureApp.lastModify?.toLocaleString()}
-									readOnly
-								/>
-							</Column>
-							<Column sm={4} md={8} lg={8} className='mb-5'>
-								<TextInput
-									id={`last-modifier-${procedureApp.id}`}
-									labelText={`${t('procedureInfo:last-modifier')}`}
-									value={procedureApp.lastModifier?.displayName}
-									readOnly
-								/>
-							</Column>
-
-							<Column sm={4} md={8} lg={8} className='mb-5'>
-								<TextInput
-									id={`last-review-${procedureApp.id}`}
-									labelText={`${t('procedureInfo:last-review')}`}
-									value={procedureApp.lastReview?.toLocaleString()}
-									readOnly
-								/>
-							</Column>
-							<Column sm={4} md={8} lg={8} className='mb-5'>
-								<TextInput
-									id={`last-reviewer-${procedureApp.id}`}
-									labelText={`${t('procedureInfo:last-reviewer')}`}
-									value={procedureApp.lastReviewer?.displayName}
-									readOnly
-								/>
-							</Column>
-							<FullWidthColumn>
-								<div>
-									<p className='mb-3 text-text-secondary text-label-1'>
-										{`${t('procedureInfo:description')}`}
-									</p>
-									<TiptapEditor
-										content={descriptionValue}
-										onChange={onChangeDescription}
-										onBlur={onBlurDescription}
-										ref={descriptionRef}
+						<FullWidthColumn>
+							<Grid fullWidth>
+								<FullWidthColumn className='mb-5'>
+									<SingleUserSelect
+										control={control}
+										label={`${t('procedureInfo:procedure-owner')} *`}
+										name='owner'
+										rules={{
+											required: {
+												value: true,
+												message: `${t('procedureInfo:procedure-required')}`
+											}
+										}}
+										excludedUsers={selectedDelegates}
+										level={3}
 									/>
-								</div>
-							</FullWidthColumn>
-							<FullWidthColumn className='mt-7'>
-								<div className='flex flex-wrap justify-between space-x-2'>
-									<div className='flex-1'>
-										<InlineLoadingStatus
-											isLoading={isAddLoading || isEditLoading}
-											isSuccess={isAddSuccess || isEditSuccess}
-											isError={isAddError || isEditError}
-											error={(addError || editError) as ApiError}
+								</FullWidthColumn>
+								<FullWidthColumn className='mb-5'>
+									<MultipleUserSelect
+										control={control}
+										label={`${t('procedureInfo:owner-delegates')}`}
+										name='delegated'
+										excludedUser={selectedOwner}
+										level={3}
+									/>
+								</FullWidthColumn>
+								<FullWidthColumn className='mb-5'>
+									<TextArea
+										rows={2}
+										readOnly
+										id='control-objectives'
+										labelText={t('narrativeAdmin:control-objectives')}
+										placeholder={
+											procedure.controlObjectives?.length === 0
+												? 'No control objectives'
+												: ''
+										}
+										{...register('controlObjectives')}
+									/>
+								</FullWidthColumn>
+								<Column sm={4} md={8} lg={8} className='mb-5'>
+									<TextInput
+										id={`last-modify-${procedureApp.id}`}
+										labelText={`${t('procedureInfo:last-modify')}`}
+										value={procedureApp.lastModify?.toLocaleString()}
+										readOnly
+									/>
+								</Column>
+								<Column sm={4} md={8} lg={8} className='mb-5'>
+									<TextInput
+										id={`last-modifier-${procedureApp.id}`}
+										labelText={`${t('procedureInfo:last-modifier')}`}
+										value={procedureApp.lastModifier?.displayName}
+										readOnly
+									/>
+								</Column>
+
+								<Column sm={4} md={8} lg={8} className='mb-5'>
+									<TextInput
+										id={`last-review-${procedureApp.id}`}
+										labelText={`${t('procedureInfo:last-review')}`}
+										value={procedureApp.lastReview?.toLocaleString()}
+										readOnly
+									/>
+								</Column>
+								<Column sm={4} md={8} lg={8} className='mb-5'>
+									<TextInput
+										id={`last-reviewer-${procedureApp.id}`}
+										labelText={`${t('procedureInfo:last-reviewer')}`}
+										value={procedureApp.lastReviewer?.displayName}
+										readOnly
+									/>
+								</Column>
+								<FullWidthColumn>
+									<div>
+										<p className='mb-3 text-text-secondary text-label-1'>
+											{`${t('procedureInfo:description')}`}
+										</p>
+										<TiptapEditor
+											content={descriptionValue}
+											onChange={onChangeDescription}
+											onBlur={onBlurDescription}
+											ref={descriptionRef}
 										/>
 									</div>
-									<div className='flex w-full flex-1 justify-end space-x-5'>
-										<Button
-											size='md'
-											type='reset'
-											kind='secondary'
-											disabled={!isDirty}
-											onClick={() => reset()}
-										>
-											{t('procedureInfo:cancel')}
-										</Button>
-										<Button
-											size='md'
-											type='submit'
-											onClick={handleSubmit(saveForm)}
-											disabled={!isValid || !isDirty}
-										>
-											{`${t('procedureInfo:save')}`}
-										</Button>
+								</FullWidthColumn>
+								<FullWidthColumn className='mt-7'>
+									<div className='flex flex-wrap justify-between space-x-2'>
+										<div className='flex-1'>
+											<InlineLoadingStatus
+												isLoading={isAddLoading || isEditLoading}
+												isSuccess={isAddSuccess || isEditSuccess}
+												isError={isAddError || isEditError}
+												error={(addError || editError) as ApiError}
+											/>
+										</div>
+										<div className='flex w-full flex-1 justify-end space-x-5'>
+											<Button
+												size='md'
+												type='reset'
+												kind='secondary'
+												disabled={!isDirty}
+												onClick={() => reset()}
+											>
+												{t('procedureInfo:cancel')}
+											</Button>
+											<Button
+												size='md'
+												type='submit'
+												onClick={handleSubmit(saveForm)}
+												disabled={!isValid || !isDirty}
+											>
+												{`${t('procedureInfo:save')}`}
+											</Button>
+										</div>
 									</div>
-								</div>
-							</FullWidthColumn>
-						</Grid>
-					</FullWidthColumn>
-				</Grid>
-			</Form>
-		</Tile>
+								</FullWidthColumn>
+							</Grid>
+						</FullWidthColumn>
+					</Grid>
+				</Form>
+			</Tile>
+		</Layer>
 	);
 };
 export default ProcedureForm;

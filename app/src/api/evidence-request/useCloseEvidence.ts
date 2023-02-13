@@ -2,10 +2,15 @@ import api from '@api';
 import { CloseEvidenceApi } from 'cosmo-api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-const closeEvidence = ({ data }: { data: CloseEvidenceApi }) => {
+interface CloseEvidenceProps {
+	data: CloseEvidenceApi;
+	erId: string;
+}
+
+const closeEvidence = ({ data, erId }: CloseEvidenceProps) => {
 	return api.evidenceRequest.closeEvidence({
 		closeEvidenceDto: data,
-		erId: +(data.id ?? 0)
+		erId: +erId
 	});
 };
 

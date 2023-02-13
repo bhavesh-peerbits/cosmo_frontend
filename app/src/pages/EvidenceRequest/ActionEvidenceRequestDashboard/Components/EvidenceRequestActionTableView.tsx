@@ -176,6 +176,7 @@ const EvidenceRequestActionTableView = ({
 						</Layer>
 
 						<ContentSwitcher
+							size='lg'
 							selectedIndex={1}
 							onChange={() => setFilters({ isTable: false })}
 							className='w-auto'

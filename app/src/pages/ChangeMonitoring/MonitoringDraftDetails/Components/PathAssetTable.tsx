@@ -25,13 +25,15 @@ interface PathAssetTableProps {
 	setAssetData?: Dispatch<SetStateAction<RunMonitoringAsset[] | undefined>>;
 	canAdd?: boolean;
 	status?: RunDtoStatusEnum;
+	title?: string;
 }
 const PathAssetTable = ({
 	assetId,
 	canAdd,
 	assetData,
 	setAssetData,
-	status
+	status,
+	title
 }: PathAssetTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'table']);
 	const [newPaths, setNewPaths] = useState<PathMonitoringDto[]>([]);
@@ -174,6 +176,7 @@ const PathAssetTable = ({
 
 	return (
 		<CosmoTable
+			title={title}
 			modalProps={{
 				form,
 				onSubmit: data => checkPaths(data.path),

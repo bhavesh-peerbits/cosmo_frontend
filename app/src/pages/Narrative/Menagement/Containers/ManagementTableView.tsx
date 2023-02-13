@@ -24,6 +24,7 @@ const ManagementTableView = () => {
 
 									<div>
 										<ContentSwitcher
+											size='lg'
 											selectedIndex={1}
 											onChange={() => setFilters({ isTile: undefined })}
 										>

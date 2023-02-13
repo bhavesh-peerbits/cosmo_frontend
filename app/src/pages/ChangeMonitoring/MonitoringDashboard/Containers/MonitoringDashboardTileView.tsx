@@ -41,6 +41,7 @@ const MonitoringDashboardTileView = () => {
 							'monitorings'
 						)}`}</div>
 						<ContentSwitcher
+							size='lg'
 							onChange={() => {
 								setFilters({ isTile: false });
 							}}

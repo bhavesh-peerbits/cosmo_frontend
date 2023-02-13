@@ -110,21 +110,6 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 							</SideNavMenuItem>
 						</SideNavMenu>
 					)}
-					{canCreateRequest && (
-						<SideNavMenu
-							renderIcon={Archive}
-							title='Evidence Request'
-							className='transition-all'
-						>
-							<SideNavMenuItem element={Link} to={routes.NEW_EVIDENCE_REQUEST}>
-								New Requests
-							</SideNavMenuItem>
-							<SideNavMenuItem element={Link} to={routes.STARTED_EVIDENCE_REQUEST}>
-								Dashboard
-							</SideNavMenuItem>
-						</SideNavMenu>
-					)}
-
 					{canCreateMonitoring && (
 						<SideNavMenu
 							renderIcon={Compare}
@@ -135,6 +120,20 @@ const CosmoSideNav = ({ onClickSideNavExpand, isSideNavExpanded }: CosmoSideNavP
 								New Monitoring
 							</SideNavMenuItem>
 							<SideNavMenuItem element={Link} to={routes.MONITORING_DASHBOARD}>
+								Dashboard
+							</SideNavMenuItem>
+						</SideNavMenu>
+					)}
+					{canCreateRequest && (
+						<SideNavMenu
+							renderIcon={Archive}
+							title='Evidence Request'
+							className='transition-all'
+						>
+							<SideNavMenuItem element={Link} to={routes.NEW_EVIDENCE_REQUEST}>
+								New Requests
+							</SideNavMenuItem>
+							<SideNavMenuItem element={Link} to={routes.STARTED_EVIDENCE_REQUEST}>
 								Dashboard
 							</SideNavMenuItem>
 						</SideNavMenu>

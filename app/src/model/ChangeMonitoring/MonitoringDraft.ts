@@ -29,6 +29,7 @@ interface MonitoringDraft {
 	note?: string;
 	scheduling?: Scheduling;
 	files?: FileLink[];
+	startToday?: boolean;
 }
 
 export const fromMonitoringDraftApi = (
@@ -65,7 +66,8 @@ export const fromMonitoringDraftApi = (
 		: undefined,
 	files: monitoringDraftApi.files
 		? [...monitoringDraftApi.files].map(fromFileLinkApi)
-		: undefined
+		: undefined,
+	startToday: monitoringDraftApi.startToday
 });
 
 export const toMonitoringDraftApi = (
@@ -103,7 +105,8 @@ export const toMonitoringDraftApi = (
 			: undefined,
 		files: monitoringDraft.files
 			? [...monitoringDraft.files].map(toFileLinkApi)
-			: undefined
+			: undefined,
+		startToday: monitoringDraft.startToday
 	};
 };
 

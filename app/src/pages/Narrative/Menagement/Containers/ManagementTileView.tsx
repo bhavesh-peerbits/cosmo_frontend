@@ -46,7 +46,10 @@ const ManagementTileView = () => {
 									{`${apps.length} ${t('applications')}`}
 								</div>
 								<div>
-									<ContentSwitcher onChange={() => setFilters({ isTile: false })}>
+									<ContentSwitcher
+										size='lg'
+										onChange={() => setFilters({ isTile: false })}
+									>
 										<Switch name='first'>
 											<GridIcon />
 										</Switch>

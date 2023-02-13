@@ -69,13 +69,19 @@ const ApplicationProcedureSelect = ({
 				value={procedureSelection.procedureFrom || 'placeholder-item'}
 				text={proceduresApp.size === 0 ? t('no-procedures') : t('select-procedure')}
 			/>
-			{[...proceduresApp.values()].map(proc => (
-				<SelectItem
-					text={`${procedures.get(proc.procedureId)?.name}`}
-					value={proc.id}
-					key={proc.id}
-				/>
-			))}
+			{[...proceduresApp.values()]
+				.sort((a, b) =>
+					`${procedures.get(a.procedureId)?.name.toLowerCase()}`.localeCompare(
+						`${procedures.get(b.procedureId)?.name.toLowerCase()}`
+					)
+				)
+				.map(proc => (
+					<SelectItem
+						text={`${procedures.get(proc.procedureId)?.name}`}
+						value={proc.id}
+						key={proc.id}
+					/>
+				))}
 		</Select>
 	);
 };
@@ -93,7 +99,9 @@ const ApplicationSelect = ({
 		setProcedureSelection(old => ({ ...old, procedureFrom: undefined }));
 	});
 
-	const applications = [...allApplications.values()].filter(app => app.id !== appId);
+	const applications = [...allApplications.values()]
+		.filter(app => app.id !== appId)
+		.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
 	return (
 		<div className='space-y-7'>
 			<Select
@@ -140,11 +148,12 @@ const ProcedureBody = ({
 	const { t } = useTranslation('modals');
 	const { data: procedures = new Map<string, Procedure>() } = useGetProcedures();
 	const { isCopySelected } = procedureSelection;
+
 	const procFiltered = useMemo(
 		() =>
-			[...procedures.values()].filter(
-				p => procedureApps.findIndex(pa => pa.procedureId === p.id) === -1
-			),
+			[...procedures.values()]
+				.filter(p => procedureApps.findIndex(pa => pa.procedureId === p.id) === -1)
+				.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase())),
 		[procedureApps, procedures]
 	);
 

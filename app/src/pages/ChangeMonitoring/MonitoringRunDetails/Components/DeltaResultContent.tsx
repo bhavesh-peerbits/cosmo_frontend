@@ -146,6 +146,7 @@ const DeltaResultContent = ({
 						<Button
 							size='md'
 							disabled={
+								window.location.pathname.includes('change-monitoring') &&
 								!run.deltas?.every(delta =>
 									delta.deltaAnswers?.every(d => d.justification?.status !== 'NONE')
 								) &&

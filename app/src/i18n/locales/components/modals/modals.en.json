@@ -8,6 +8,7 @@
 	"delete-procedure": "Are you sure you want to delete this procedure?",
 	"fill-field": "Please fill out the fields below, then click",
 	"send-email": "Send Email",
+	"sending-email": "Sending Email...",
 	"total-procedures": "Total number of procedures selected to review",
 	"total-applications": "Total number of applications selected to review",
 	"description": "Description",

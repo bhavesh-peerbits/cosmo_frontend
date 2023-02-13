@@ -82,7 +82,9 @@ const RunDetailsStepContainer = ({ monitoring, run }: RunDetailsStepProps) => {
 				inCharge={monitoring.owner.displayName}
 				detail={statusMessage({ stepStatus: 'UPLOAD' })}
 			>
-				<UploadFileContent run={run} />
+				<Layer>
+					<UploadFileContent run={run} />
+				</Layer>
 			</RunDetailsStepTile>
 			<RunDetailsStepTile
 				id={`tile-delta-${run.id}`}

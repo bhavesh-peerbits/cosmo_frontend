@@ -15,7 +15,14 @@ type AssetFormContainerProps = {
 };
 const AssetFormContainer = ({ asset, isReview }: AssetFormContainerProps) => {
 	const { t } = useTranslation(['applicationInfo', 'modals']);
-	const { mutate, isError, isSuccess, isLoading, error } = useModifyAsset();
+	const {
+		mutate,
+		isError,
+		isSuccess,
+		isLoading,
+		error,
+		reset: resetApi
+	} = useModifyAsset();
 
 	const {
 		register,
@@ -23,8 +30,7 @@ const AssetFormContainer = ({ asset, isReview }: AssetFormContainerProps) => {
 		watch,
 		handleSubmit,
 		setValue,
-		getValues,
-		formState: { errors, isDirty, isValid }
+		formState: { errors, isDirty }
 	} = useForm<AssetFormData>({
 		mode: 'onChange',
 		defaultValues: {
@@ -39,18 +45,6 @@ const AssetFormContainer = ({ asset, isReview }: AssetFormContainerProps) => {
 			paths: asset.paths.length ? asset.paths : []
 		}
 	});
-
-	// const checkIfPathsEqual = () => {
-	// 	return (
-	// 		asset.paths.map(path => path.path).length ===
-	// 			assetPaths.map(path => path.path).length &&
-	// 		asset.paths
-	// 			.map(path => path.path)
-	// 			.every(path => {
-	// 				return assetPaths.map(el => el.path).includes(path);
-	// 			})
-	// 	);
-	// };
 
 	const modifyAsset = (data: AssetFormData) => {
 		const { dbType, dbVersion, hostname, ip, os, type, ports, cpe, paths } = data;
@@ -71,14 +65,6 @@ const AssetFormContainer = ({ asset, isReview }: AssetFormContainerProps) => {
 		});
 	};
 
-	// useEffect(() => {
-	// 	setValue(
-	// 		'paths',
-	// 		assetPaths.map(path => path.path),
-	// 		{ shouldDirty: true }
-	// 	);
-	// }, [assetPaths, setValue]);
-
 	return (
 		<FullWidthColumn className='space-y-5'>
 			<AssetTileForm
@@ -91,7 +77,7 @@ const AssetFormContainer = ({ asset, isReview }: AssetFormContainerProps) => {
 			<AssetPathsTable
 				asset={asset}
 				readOnly={isReview}
-				assetPaths={getValues('paths')}
+				assetPaths={watch('paths')}
 				setValue={setValue}
 			/>
 			{!isReview && (
@@ -110,17 +96,21 @@ const AssetFormContainer = ({ asset, isReview }: AssetFormContainerProps) => {
 						kind='secondary'
 						disabled={!isDirty || isLoading}
 						onClick={() => {
-							reset({
-								hostname: asset.hostname,
-								ports: asset.ports,
-								type: asset.type || 'DB',
-								os: asset.os || 'WINDOWS',
-								ip: asset.ip,
-								dbVersion: asset.dbVersion,
-								dbType: asset.dbType,
-								paths: asset.paths.length ? asset.paths : []
-							});
-							// setAssetPaths(asset.paths);
+							resetApi();
+							reset(
+								{
+									hostname: asset.hostname,
+									ports: asset.ports,
+									type: asset.type || 'DB',
+									os: asset.os || 'WINDOWS',
+									ip: asset.ip,
+									dbVersion: asset.dbVersion,
+									dbType: asset.dbType,
+									paths: asset.paths.length ? asset.paths : [],
+									cpe: asset.cpe
+								},
+								{ keepDirty: false }
+							);
 						}}
 					>
 						{t('applicationInfo:discard')}
@@ -128,7 +118,7 @@ const AssetFormContainer = ({ asset, isReview }: AssetFormContainerProps) => {
 					<Button
 						size='md'
 						type='submit'
-						disabled={!isValid || !isDirty}
+						disabled={Object.keys(errors).length > 0 || !isDirty}
 						onClick={handleSubmit(modifyAsset)}
 					>
 						{t('modals:save')}

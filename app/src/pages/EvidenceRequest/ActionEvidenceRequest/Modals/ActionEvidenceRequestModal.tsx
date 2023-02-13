@@ -14,9 +14,10 @@ import {
 } from '@carbon/react';
 import EvidenceRequestStep from '@model/EvidenceRequest/EvidenceRequestStep';
 import evidenceRequestActionModal from '@store/evidence-request/evidenceRequestActionModal';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 interface StepUploadForm {
 	publicComment: string;
@@ -38,7 +39,7 @@ const ActionEvidenceRequestModal = ({
 	erId
 }: ActionModalProps) => {
 	const { t } = useTranslation(['modals', 'evidenceRequest']);
-	const action = useRecoilValue(evidenceRequestActionModal);
+	const [action, setAction] = useRecoilState(evidenceRequestActionModal);
 	const { mutate: mutateApprove } = useSaveStepAndGoNext();
 	const { mutate: mutateReject } = useSaveStepAndReject();
 	const { mutate: mutateReturn } = useSaveStepAndReturn();
@@ -48,6 +49,7 @@ const ActionEvidenceRequestModal = ({
 		handleSubmit,
 		reset,
 		watch,
+		setValue,
 		formState: { isValid }
 	} = useForm<StepUploadForm>({
 		mode: 'onChange',
@@ -57,6 +59,13 @@ const ActionEvidenceRequestModal = ({
 		}
 	});
 	const publicComment = watch('publicComment');
+	useEffect(() => {
+		setValue(
+			'publicComment',
+			steps.filter(step => step.stepOrder === currentStep)[0].stepInfo?.publicComment ||
+				''
+		);
+	}, [steps, currentStep, setValue]);
 
 	const cleanUp = () => {
 		reset({
@@ -64,6 +73,7 @@ const ActionEvidenceRequestModal = ({
 				?.publicComment
 		});
 		setIsOpen(false);
+		setAction('approve');
 	};
 
 	const handleSaveStep = (data: StepUploadForm) => {

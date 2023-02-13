@@ -35,6 +35,7 @@ const UserPanel = ({ expanded, user, onClickOutside }: UserPanelProps) => {
 					<span className='break-words hyphens-auto text-productive-heading-3'>
 						{user?.displayName}
 					</span>
+					<span className='block break-all pb-1 text-caption-1'>{user?.username}</span>
 					<span className='block break-all text-caption-1'>{user?.email}</span>
 				</div>
 			</section>

@@ -74,6 +74,7 @@ const EvidenceRequestActionTileView = () => {
 							</Layer>
 						</div>
 						<ContentSwitcher
+							size='lg'
 							onChange={() => setFilters({ isTable: true })}
 							className='w-auto'
 						>

@@ -4,6 +4,7 @@ import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
 import { FieldErrors, UseFormRegister, UseFormWatch } from 'react-hook-form';
 import { AssetDtoTypeEnum, AssetDtoOsEnum, PathDto } from 'cosmo-api/src/v1';
+import useGetAllAssetsTenant from '@api/asset/useGetAllAssetsTenant';
 
 export interface AssetFormData {
 	hostname: string;
@@ -33,9 +34,15 @@ const AssetTileForm = ({
 	errors
 }: AssetTileFormProps) => {
 	const { t } = useTranslation(['applicationInstances', 'modals']);
+	const { data: allAssets } = useGetAllAssetsTenant();
+	const allHostnameIpPairs = allAssets
+		?.filter(a => a.hostname !== asset.hostname && a.ip !== asset.ip)
+		.map(a => {
+			return { hostname: a.hostname, ip: `${a.ip}` };
+		});
 
 	return (
-		<Layer>
+		<Layer level={1}>
 			<Grid narrow fullWidth className='space-y-5'>
 				<FullWidthColumn>
 					<TextInput
@@ -45,7 +52,11 @@ const AssetTileForm = ({
 						invalid={Boolean(errors.hostname)}
 						invalidText={errors.hostname?.message}
 						{...register('hostname', {
-							required: { value: true, message: t('modals:field-required') }
+							required: { value: true, message: t('modals:field-required') },
+							validate: hostname =>
+								!allHostnameIpPairs?.find(
+									a => a.hostname === hostname && a.ip === watch('ip')
+								) || t('applicationInstances:hostname-ip-error')
 						})}
 						readOnly={readOnly}
 					/>
@@ -58,9 +69,27 @@ const AssetTileForm = ({
 						invalid={Boolean(errors.ip)}
 						invalidText={errors.ip?.message}
 						{...register('ip', {
-							required: { value: true, message: t('modals:field-required') }
+							required: { value: true, message: t('modals:field-required') },
+							validate: ip =>
+								!allHostnameIpPairs?.find(
+									a => a.hostname === watch('hostname') && a.ip === ip
+								) || t('applicationInstances:hostname-ip-error'),
+							pattern: {
+								message: t('applicationInstances:ip-pattern-error'),
+								value:
+									/((^\s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\s*(\/(\d|1\d|2\d|3[0-2]))?$)|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3}(\/(\d{1,2}|1[0-1]\d|12[0-8]))?)|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$))|(^\*$)/g
+							}
 						})}
 						readOnly={readOnly}
+					/>
+				</FullWidthColumn>
+				<FullWidthColumn>
+					<TextInput
+						id={`${asset.id}-cpe-input`}
+						labelText='CPE'
+						placeholder='Customer Premises Equipment'
+						readOnly={readOnly}
+						{...register('cpe')}
 					/>
 				</FullWidthColumn>
 				<FullWidthColumn>

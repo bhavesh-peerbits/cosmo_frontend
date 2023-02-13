@@ -14,9 +14,18 @@ import FileUploadTable from './FileUploadTable';
 interface RunAssetPeriodContentProps {
 	runAsset: RunAsset;
 	old: boolean;
+	canEdit: boolean;
+	level?: 0 | 1 | 2;
+	tableTitle?: string;
 }
 
-const RunAssetPeriodContent = ({ runAsset, old }: RunAssetPeriodContentProps) => {
+const RunAssetPeriodContent = ({
+	runAsset,
+	old,
+	canEdit,
+	level,
+	tableTitle
+}: RunAssetPeriodContentProps) => {
 	const [addFileInfo, setAddFileInfo] = useRecoilState(addFileToRunAssetStore);
 	const { monitoringId = '', runId = '' } = useParams();
 	const { data: prevFile } = useGetFileFromCurrentPeriodPreviousRun(
@@ -24,6 +33,7 @@ const RunAssetPeriodContent = ({ runAsset, old }: RunAssetPeriodContentProps) =>
 		monitoringId,
 		runAsset.asset.id
 	);
+
 	const DownloadFile = (fileLink: FileLink) => {
 		useGetFile(fileLink.id).then(({ data, headers }) => {
 			const fileName =
@@ -102,7 +112,7 @@ const RunAssetPeriodContent = ({ runAsset, old }: RunAssetPeriodContentProps) =>
 					</div>
 				</div>
 			</div>
-			<Layer level={0}>
+			<Layer level={level}>
 				<FileUploadTable
 					data={runAsset.paths.map(p => ({
 						runFileLink: runAsset.runFileLinks?.find(
@@ -113,6 +123,8 @@ const RunAssetPeriodContent = ({ runAsset, old }: RunAssetPeriodContentProps) =>
 					}))}
 					assetId={runAsset.asset.id}
 					period={old ? 'previous' : 'current'}
+					canEdit={canEdit}
+					title={tableTitle}
 				/>
 			</Layer>
 		</div>

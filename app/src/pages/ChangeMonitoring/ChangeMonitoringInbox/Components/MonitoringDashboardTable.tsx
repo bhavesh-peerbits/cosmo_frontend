@@ -12,7 +12,7 @@ type MonitoringDashboardTableProps = {
 };
 const MonitoringDashboardTable = ({ monitorings }: MonitoringDashboardTableProps) => {
 	const { t } = useTranslation(['changeMonitoring', 'monitoringDashboard', 'table']);
-	// TODO Fix meta export
+
 	const columns = useMemo<ColumnDef<Monitoring>[]>(() => {
 		const ArrayCol: ColumnDef<Monitoring>[] = [
 			{

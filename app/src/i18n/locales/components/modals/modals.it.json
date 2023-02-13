@@ -8,6 +8,7 @@
 	"delete-procedure": "Sei sicuro di voler eliminare questa procedura?",
 	"fill-field": "Per favore, compila i campi e clicca",
 	"send-email": "Invia Email",
+	"sending-email": "Invio Email in corso...",
 	"total-procedures": "Numero totale di procedure selezionate per la revisione",
 	"total-applications": "Numero totale di applicazioni selezionate per la revisione",
 	"description": "Descrizione",

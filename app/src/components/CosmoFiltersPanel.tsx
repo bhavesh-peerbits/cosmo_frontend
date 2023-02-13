@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useMemo, useState } from 'react';
 import { Button } from '@carbon/react';
 import { Filter } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
@@ -21,6 +21,7 @@ const CosmoFiltersPanel = ({
 	const { t } = useTranslation('userSelect');
 	const [isOpen, setIsOpen] = useState(false);
 
+	// TODO Fix close panel when click outside (resolve DatePicker Calendar)
 	// useEffect(() => {
 	// 	window.addEventListener('click', e => {
 	// 		if (document.getElementById('cosmo-filters-panel')?.contains(e.target as Node)) {
@@ -30,7 +31,7 @@ const CosmoFiltersPanel = ({
 	// 	});
 	// }, []);
 
-	const buttonHeight = () => {
+	const buttonHeight = useMemo(() => {
 		switch (buttonSize) {
 			case 'sm':
 				return '32';
@@ -41,7 +42,7 @@ const CosmoFiltersPanel = ({
 			default:
 				return '48';
 		}
-	};
+	}, [buttonSize]);
 	return (
 		<div
 			className={`flex ${flipped ? 'justify-start' : 'justify-end'}`}

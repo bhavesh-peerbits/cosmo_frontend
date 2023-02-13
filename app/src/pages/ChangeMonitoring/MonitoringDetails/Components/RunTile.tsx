@@ -3,6 +3,8 @@ import Run from '@model/ChangeMonitoring/Run';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import cx from 'classnames';
+import { useRecoilValue } from 'recoil';
+import authStore from '@store/auth/authStore';
 
 type RunTileProps = {
 	run: Run;
@@ -10,13 +12,28 @@ type RunTileProps = {
 const RunTile = ({ run }: RunTileProps) => {
 	const { t } = useTranslation(['monitoringDashboard', 'runDetails']);
 	const navigate = useNavigate();
+	const isInbox = window.location.pathname.includes('change-monitoring');
+	const auth = useRecoilValue(authStore);
 
-	// TODO Add info for not started/ongoing runs and remove clickable for not started runs
+	const focalPointCanNavigate = () => {
+		const isWaitingForFocalPoint = run?.status === 'WAITING_FOR_FOCALPOINT';
+		const isAuthUserFocalPoint = run?.focalPoint?.id === auth?.user?.id;
+		const isAuthUserDelegates = run?.focalPointDelegates
+			?.map(del => del.id)
+			.includes(auth?.user?.id as string);
+
+		return isWaitingForFocalPoint && (isAuthUserDelegates || isAuthUserFocalPoint);
+	};
+
 	return (
 		<ClickableTile
 			className='space-y-3 bg-layer-2'
-			onClick={() => run.status !== 'PLANNED' && navigate(run.id)}
-			disabled={run.status === 'PLANNED'}
+			onClick={() =>
+				run.status !== 'PLANNED' && isInbox
+					? isInbox && focalPointCanNavigate() && navigate(run.id)
+					: run.status !== 'PLANNED' && navigate(run.id)
+			}
+			disabled={run.status === 'PLANNED' || (isInbox && !focalPointCanNavigate())}
 			id={`run-${run.orderNumber}`}
 		>
 			<div className='flex justify-between'>

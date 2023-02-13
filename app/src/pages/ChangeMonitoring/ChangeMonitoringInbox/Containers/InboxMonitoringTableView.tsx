@@ -9,6 +9,7 @@ const InboxMonitoringTableView = () => {
 		<div className='space-y-5'>
 			<div className='flex justify-end'>
 				<ContentSwitcher
+					size='lg'
 					selectedIndex={1}
 					onChange={() => setFilters({ isTile: true })}
 					className='w-min'

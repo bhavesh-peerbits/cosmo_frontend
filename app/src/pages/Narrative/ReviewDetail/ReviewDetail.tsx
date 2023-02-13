@@ -39,11 +39,10 @@ const ReviewDetail = () => {
 		return null;
 	}
 
-	// TODO Change the condition to render instances (data.inReview && data.instance.map)
 	return (
 		<PageHeader
 			pageTitle={data.name}
-			intermediateRoutes={[{ name: 'Review', to: routes.REVIEW_NARRATIVE }]}
+			intermediateRoutes={[{ name: 'Review Narrative', to: routes.REVIEW_NARRATIVE }]}
 		>
 			<div className='p-container-1 pr-3'>
 				<TableOfContents stickyOffset={30} tocStickyOffset={breadcrumbSize + 10}>
@@ -86,39 +85,41 @@ const ReviewDetail = () => {
 									</div>
 								)}
 								{data.inReview &&
-									instances?.map(instance => (
-										<Tile className='bg-background'>
-											<Grid>
-												<FullWidthColumn className='flex justify-between space-x-1'>
-													<p
-														data-toc-id={`instance-tile-review-${instance.name}`}
-														className='flex-1 text-productive-heading-3'
-													>
-														{instance.name}
-													</p>
-													<div className='justify-end'>
-														<p className='text-text-secondary text-body-compact-1'>
-															{`${t('last-review')}: ${
-																data.lastReview
-																	? data.lastReview.toLocaleString()
-																	: t('never')
-															}`}
+									instances
+										?.filter(instance => instance.isInReview)
+										.map(instance => (
+											<Tile className='bg-background'>
+												<Grid>
+													<FullWidthColumn className='flex justify-between space-x-1'>
+														<p
+															data-toc-id={`instance-tile-review-${instance.name}`}
+															className='flex-1 text-productive-heading-3'
+														>
+															{instance.name}
 														</p>
-														{data.lastReview && (
+														<div className='justify-end'>
 															<p className='text-text-secondary text-body-compact-1'>
-																{`${t('last-reviewer')}: ${
-																	data.lastReviewer?.displayName
+																{`${t('last-review')}: ${
+																	data.lastReview
+																		? data.lastReview.toLocaleString()
+																		: t('never')
 																}`}
 															</p>
-														)}
-													</div>
-												</FullWidthColumn>
-												<FullWidthColumn>
-													<ApplicationInstanceReview instance={instance} />
-												</FullWidthColumn>
-											</Grid>
-										</Tile>
-									))}
+															{data.lastReview && (
+																<p className='text-text-secondary text-body-compact-1'>
+																	{`${t('last-reviewer')}: ${
+																		data.lastReviewer?.displayName
+																	}`}
+																</p>
+															)}
+														</div>
+													</FullWidthColumn>
+													<FullWidthColumn>
+														<ApplicationInstanceReview instance={instance} />
+													</FullWidthColumn>
+												</Grid>
+											</Tile>
+										))}
 
 								{procedureList.map(
 									procedure =>
