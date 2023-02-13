@@ -1,6 +1,6 @@
 import { RunFileLinkApi } from 'cosmo-api';
 import { PathDto } from 'cosmo-api/src/v1';
-import FileLink, { fromFileLinkApi, toFileLinkApi } from './FileLink';
+import FileLink, { fromFileLinkApi, toFileLinkApi } from './common/FileLink';
 
 interface RunFileLink {
 	id: string;

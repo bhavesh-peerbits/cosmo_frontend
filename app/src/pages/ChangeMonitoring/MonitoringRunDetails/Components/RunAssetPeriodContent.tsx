@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Download } from '@carbon/react/icons';
 import RunAsset from '@model/RunAsset';
 import useGetFile from '@api/uploaders3/useGetFile';
-import FileLink from '@model/FileLink';
+import FileLink from '@model/common/FileLink';
 import { useRecoilState } from 'recoil';
 import addFileToRunAssetStore from '@store/run-details/addFileToRunAssetStore';
 import { useEffect } from 'react';

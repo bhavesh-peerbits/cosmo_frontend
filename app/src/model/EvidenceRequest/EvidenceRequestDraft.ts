@@ -6,7 +6,7 @@ import ApplicationStepRequest, {
 } from './ApplicationStepRequest';
 import Workflow, { fromWorkflowApi, toWorkflowApi } from '../Workflow';
 import PhaseType, { fromPhaseTypeApi, toPhaseTypeApi } from '../PhaseType';
-import FileLink, { fromFileLinkApi } from '../FileLink';
+import FileLink, { fromFileLinkApi } from '../common/FileLink';
 
 export type StepInfoType = {
 	publicComment: string | undefined;

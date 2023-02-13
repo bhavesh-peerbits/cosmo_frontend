@@ -1,5 +1,5 @@
 import CosmoTable from '@components/table/CosmoTable';
-import FileLink from '@model/FileLink';
+import FileLink from '@model/common/FileLink';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import useGetFile from '@api/uploaders3/useGetFile';

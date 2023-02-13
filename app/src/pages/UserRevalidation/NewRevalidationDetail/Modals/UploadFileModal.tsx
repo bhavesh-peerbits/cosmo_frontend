@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import CosmoFileUploader from '@components/CosmoFileUploader';
 import useAddApplicationsAndAnswersToCampaign from '@api/user-revalidation/useAddApplicationsAndAnswersToCampaign';
-import FileAnswerStatus from '@model/FileAnswerStatus';
+import FileAnswerStatus from '@model/UserRevalidation/FileAnswerStatus';
 import ApiError from '@api/ApiError';
 import AnswerTable from '@pages/UserRevalidation/NewRevalidationDetail/Components/AnswerTable';
 import CampaignApplication from '@model/UserRevalidation/CampaignApplication';

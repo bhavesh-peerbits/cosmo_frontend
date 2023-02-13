@@ -1,5 +1,5 @@
 import { MonitoringDraftApi } from 'cosmo-api';
-import FileLink, { fromFileLinkApi, toFileLinkApi } from './FileLink';
+import FileLink, { fromFileLinkApi, toFileLinkApi } from './common/FileLink';
 import Instance, { fromInstanceApi, toInstanceApi } from './Instance';
 import MonitoringAsset, {
 	fromMonitoringAssetApi,

@@ -1,6 +1,6 @@
 import api from '@api';
 import { useQuery } from '@tanstack/react-query';
-import { fromFileLinkApi } from '@model/FileLink';
+import { fromFileLinkApi } from '@model/common/FileLink';
 
 interface GetAllFilesAnswerParameter {
 	runId: string;

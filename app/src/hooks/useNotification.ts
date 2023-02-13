@@ -1,5 +1,5 @@
 import { atom, useRecoilState } from 'recoil';
-import PopupNotification from '@model/CosmoNotification';
+import PopupNotification from '@model/common/CosmoNotification';
 import { v4 as uuidv4 } from 'uuid';
 
 type AtomNotification = PopupNotification & { id: string };

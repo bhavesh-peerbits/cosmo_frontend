@@ -4,7 +4,7 @@ import useAddOldRunFileForDelta from '@api/change-monitoring-analyst/useAddOldRu
 import { RadioButton, RadioButtonGroup, Select, SelectItem, Layer } from '@carbon/react';
 import UploaderS3Monitoring from '@components/common/UploaderS3Monitoring';
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
-import { fromFiletoFileLink } from '@model/FileLink';
+import { fromFiletoFileLink } from '@model/common/FileLink';
 import addFileToRunAssetStore from '@store/run-details/addFileToRunAssetStore';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';

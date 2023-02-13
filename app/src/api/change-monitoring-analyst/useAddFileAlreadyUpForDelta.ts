@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@api';
-import FileForDelta, { toFileForDeltaApi } from '@model/FileForDelta';
+import FileForDelta, { toFileForDeltaApi } from '@model/ChangeMonitoring/FileForDelta';
 
 interface AddFileAlreadyUpForDeltaParameters {
 	assetId: string;

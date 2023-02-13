@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import { MisuseOutline, CheckmarkOutline, Csv, TrashCan } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { Layer } from '@carbon/react';
-import FileLink from '@model/FileLink';
+import FileLink from '@model/common/FileLink';
 import MultiTagFileLinkCell from '@components/table/Cell/MultiTagFileLinkCell';
 import useGetCsvAnswer from '@api/change-monitoring/useGetCsvAnswer';
 import useDeleteAnswer from '@api/change-monitoring/useDeleteAnswer';

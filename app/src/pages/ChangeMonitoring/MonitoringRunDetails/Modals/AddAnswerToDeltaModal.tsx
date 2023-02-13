@@ -12,7 +12,7 @@ import {
 } from '@carbon/react';
 import UploaderS3Monitoring from '@components/common/UploaderS3Monitoring';
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
-import FileLink, { fromFiletoFileLink } from '@model/FileLink';
+import FileLink, { fromFiletoFileLink } from '@model/common/FileLink';
 import {
 	DeltaFileDto,
 	FileLinkDto,

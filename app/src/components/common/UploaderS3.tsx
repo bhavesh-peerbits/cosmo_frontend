@@ -10,7 +10,7 @@ import {
 } from '@carbon/react';
 import DeleteFileS3Modal from '@components/Modals/DeleteFileS3Modal';
 import usePrompt from '@hooks/usePreventNavigatePrompt';
-import FileLink, { fromFiletoFileLink } from '@model/FileLink';
+import FileLink, { fromFiletoFileLink } from '@model/common/FileLink';
 import evidenceRequestUploaderStore from '@store/evidence-request/evidenceRequestUploaderStore';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {

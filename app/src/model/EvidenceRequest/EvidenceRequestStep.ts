@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { EvidenceRequestStepApi } from 'cosmo-api';
-import FileLink, { fromFileLinkApi } from '../FileLink';
+import FileLink, { fromFileLinkApi } from '../common/FileLink';
 import User, { fromUserApi, toUserApi } from '../User';
 
 export type StepInfoType = {

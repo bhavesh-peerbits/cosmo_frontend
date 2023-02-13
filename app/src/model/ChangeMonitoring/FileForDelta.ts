@@ -1,5 +1,5 @@
 import { FileForDeltaDto } from 'cosmo-api/src/v1';
-import FileLink, { toFileLinkApi } from './FileLink';
+import FileLink, { toFileLinkApi } from '../common/FileLink';
 
 interface FileForDelta {
 	path: string[];

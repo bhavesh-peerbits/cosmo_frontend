@@ -1,6 +1,6 @@
 import api from '@api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { fromFileAnswersStatusApi } from '@model/FileAnswerStatus';
+import { fromFileAnswersStatusApi } from '@model/UserRevalidation/FileAnswerStatus';
 import Application from '@model/Narrative/Application';
 
 interface AddAnswersToCampaignProps {
