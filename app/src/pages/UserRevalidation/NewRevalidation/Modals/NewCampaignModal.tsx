@@ -23,10 +23,10 @@ import {
 import useCreateCampaign from '@api/user-revalidation/useCreateCampaign';
 import ApiError from '@api/ApiError';
 import { CampaignDtoLayerEnum, CampaignDtoTypeEnum } from 'cosmo-api/src/v1';
-import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
+import { mapCampaignTypeToCampaignDisplayType } from '@model/UserRevalidation/CampaignType';
 import useGetAllCampaigns from '@api/user-revalidation/useGetAllCampaigns';
 import { useEffect, useMemo, useState } from 'react';
-import { mapCampaignLayerToCampaignDisplayLayer } from '@model/CampaignLayer';
+import { mapCampaignLayerToCampaignDisplayLayer } from '@model/UserRevalidation/CampaignLayer';
 
 type NewCampaignModalProps = {
 	isOpen: boolean;

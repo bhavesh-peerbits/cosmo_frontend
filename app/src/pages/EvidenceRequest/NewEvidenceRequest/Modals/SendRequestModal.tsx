@@ -15,7 +15,7 @@ import {
 import DatePickerWrapper from '@components/DatePickerWrapper';
 import FullWidthColumn from '@components/FullWidthColumn';
 import useNotification from '@hooks/useNotification';
-import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
+import EvidenceRequestDraft from '@model/EvidenceRequest/EvidenceRequestDraft';
 import evidenceRequestUploaderStore from '@store/evidence-request/evidenceRequestUploaderStore';
 import { startOfTomorrow } from 'date-fns';
 import { useCallback, useEffect } from 'react';

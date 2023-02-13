@@ -4,7 +4,7 @@ import Campaign, {
 	fromCampaignApi,
 	toCampaignApi
 } from '@model/UserRevalidation/Campaign';
-import CampaignWithReview from '@model/CampaignWithReview';
+import CampaignWithReview from '@model/UserRevalidation/CampaignWithReview';
 
 export function createCampaign({ campaign }: { campaign: Campaign }) {
 	return api.analystCampaignApi

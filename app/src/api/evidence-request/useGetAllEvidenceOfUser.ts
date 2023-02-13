@@ -1,6 +1,6 @@
 import api from '@api';
 import { useQuery } from '@tanstack/react-query';
-import { fromEvidenceRequestApi } from '@model/EvidenceRequest';
+import { fromEvidenceRequestApi } from '@model/EvidenceRequest/EvidenceRequest';
 import { toMap } from '@model/util';
 
 const getAllEvidenceOfUser = () => {

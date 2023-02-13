@@ -1,7 +1,7 @@
 import useSaveStepAndGoNext from '@api/evidence-request/useSaveStepAndGoNext';
 import useSaveStepAndGoNextAnalyst from '@api/evidence-request/useSaveStepAndGoNextAnalyst';
 import { Modal, InlineLoading } from '@carbon/react';
-import EvidenceRequestStep from '@model/EvidenceRequestStep';
+import EvidenceRequestStep from '@model/EvidenceRequest/EvidenceRequestStep';
 import evidenceRequestUploaderStore from '@store/evidence-request/evidenceRequestUploaderStore';
 import { useCallback, useEffect } from 'react';
 import { UseFormReset } from 'react-hook-form';

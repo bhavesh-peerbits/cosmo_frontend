@@ -6,8 +6,8 @@ import useGetCampaignStatus from '@api/user-revalidation/useGetCampaignStatus';
 import { useTranslation } from 'react-i18next';
 import useUiStore from '@hooks/useUiStore';
 import { interfaces } from '@carbon/charts';
-import { mapCampaignLayerToCampaignDisplayLayer } from '@model/CampaignLayer';
-import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
+import { mapCampaignLayerToCampaignDisplayLayer } from '@model/UserRevalidation/CampaignLayer';
+import { mapCampaignTypeToCampaignDisplayType } from '@model/UserRevalidation/CampaignType';
 import { Edit } from '@carbon/react/icons';
 import SetDueDateCampaignModal from '../Modals/SetDueDateCampaignModal';
 

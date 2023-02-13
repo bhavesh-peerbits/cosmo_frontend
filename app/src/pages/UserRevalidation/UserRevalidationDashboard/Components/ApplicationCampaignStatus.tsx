@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Campaign from '@model/UserRevalidation/Campaign';
 import { useNavigate } from 'react-router-dom';
 import { formatDate } from '@i18n';
-import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
+import { mapCampaignTypeToCampaignDisplayType } from '@model/UserRevalidation/CampaignType';
 import useGetCampaignReview from '@api/review-campaign/useGetCampaignReview';
 
 interface ApplicationCampaignStatusProps {

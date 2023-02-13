@@ -1,6 +1,6 @@
 import CosmoTable from '@components/table/CosmoTable';
 import useEvidenceRequests from '@hooks/evidence-request/useEvidenceRequests';
-import EvidenceRequest from '@model/EvidenceRequest';
+import EvidenceRequest from '@model/EvidenceRequest/EvidenceRequest';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import { Layer } from '@carbon/react';

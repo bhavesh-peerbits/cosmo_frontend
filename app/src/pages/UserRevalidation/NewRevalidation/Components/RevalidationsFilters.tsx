@@ -8,9 +8,9 @@ import {
 import { useTranslation } from 'react-i18next';
 import useResponsive from '@hooks/useResponsive';
 import useRevalidations from '@hooks/user-revalidation/useRevalidations';
-import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
+import { mapCampaignTypeToCampaignDisplayType } from '@model/UserRevalidation/CampaignType';
 import { CampaignDtoLayerEnum, CampaignDtoTypeEnum } from 'cosmo-api/src/v1';
-import { mapCampaignLayerToCampaignDisplayLayer } from '@model/CampaignLayer';
+import { mapCampaignLayerToCampaignDisplayLayer } from '@model/UserRevalidation/CampaignLayer';
 
 const RevalidationsFilters = () => {
 	const { t } = useTranslation(['userRevalidation', 'management']);

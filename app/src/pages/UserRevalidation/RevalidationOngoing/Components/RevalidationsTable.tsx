@@ -1,10 +1,10 @@
 import CosmoTable from '@components/table/CosmoTable';
 import useRevalidationsOngoing from '@hooks/user-revalidation/useRevalidationsOngoing';
-import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
+import { mapCampaignTypeToCampaignDisplayType } from '@model/UserRevalidation/CampaignType';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import CampaignWithReview from '@model/CampaignWithReview';
-import { mapCampaignLayerToCampaignDisplayLayer } from '@model/CampaignLayer';
+import CampaignWithReview from '@model/UserRevalidation/CampaignWithReview';
+import { mapCampaignLayerToCampaignDisplayLayer } from '@model/UserRevalidation/CampaignLayer';
 import DateCell from '@components/table/Cell/DateCell';
 import { ColumnDef } from '@tanstack/react-table';
 import CellLink from '@components/table/Cell/CellLink';

@@ -9,7 +9,7 @@ import {
 } from '@carbon/react';
 import Fade from '@components/Fade';
 import useEvidenceRequestAction from '@hooks/evidence-request/useEvidenceRequestAction';
-import EvidenceRequest from '@model/EvidenceRequest';
+import EvidenceRequest from '@model/EvidenceRequest/EvidenceRequest';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Information, Grid as GridIcon, HorizontalView } from '@carbon/react/icons';

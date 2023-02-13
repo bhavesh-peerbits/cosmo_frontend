@@ -1,4 +1,4 @@
-import EvidenceRequest from '@model/EvidenceRequest';
+import EvidenceRequest from '@model/EvidenceRequest/EvidenceRequest';
 import { useTranslation } from 'react-i18next';
 
 const EvidenceRequestDetails = ({ request }: { request: EvidenceRequest }) => {

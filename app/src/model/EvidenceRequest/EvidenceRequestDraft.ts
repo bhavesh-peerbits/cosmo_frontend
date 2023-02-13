@@ -1,12 +1,12 @@
 import { EvidenceRequestDraftApi } from 'cosmo-api';
-import User, { fromUserApi, toUserApi } from './User';
+import User, { fromUserApi, toUserApi } from '../User';
 import ApplicationStepRequest, {
 	fromApplicationStepRequestApi,
 	toApplicationStepRequestApi
-} from './EvidenceRequest/ApplicationStepRequest';
-import Workflow, { fromWorkflowApi, toWorkflowApi } from './Workflow';
-import PhaseType, { fromPhaseTypeApi, toPhaseTypeApi } from './PhaseType';
-import FileLink, { fromFileLinkApi } from './FileLink';
+} from './ApplicationStepRequest';
+import Workflow, { fromWorkflowApi, toWorkflowApi } from '../Workflow';
+import PhaseType, { fromPhaseTypeApi, toPhaseTypeApi } from '../PhaseType';
+import FileLink, { fromFileLinkApi } from '../FileLink';
 
 export type StepInfoType = {
 	publicComment: string | undefined;

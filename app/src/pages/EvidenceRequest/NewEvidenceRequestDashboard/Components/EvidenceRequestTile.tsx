@@ -1,5 +1,5 @@
 import { ClickableTile, Layer } from '@carbon/react';
-import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
+import EvidenceRequestDraft from '@model/EvidenceRequest/EvidenceRequestDraft';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 

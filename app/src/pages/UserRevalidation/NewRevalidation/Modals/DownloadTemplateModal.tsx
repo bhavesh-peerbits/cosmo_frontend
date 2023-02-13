@@ -15,7 +15,7 @@ import useGetCampaignTemplate from '@api/user-revalidation/useGetCampaignTemplat
 import ApiError from '@api/ApiError';
 import Papa from 'papaparse';
 import { downloadFileViaBlob } from '@components/common/fileUtil';
-import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
+import { mapCampaignTypeToCampaignDisplayType } from '@model/UserRevalidation/CampaignType';
 import { CampaignDtoTypeEnum } from 'cosmo-api/src/v1';
 
 type DownloadTemplateModalProps = {

@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Layer, ClickableTile } from '@carbon/react';
-import EvidenceRequest from '@model/EvidenceRequest';
+import EvidenceRequest from '@model/EvidenceRequest/EvidenceRequest';
 import useEvidenceRequestAction from '@hooks/evidence-request/useEvidenceRequestAction';
 
 interface ERATileProp {

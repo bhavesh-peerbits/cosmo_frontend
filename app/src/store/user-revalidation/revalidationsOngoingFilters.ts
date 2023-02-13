@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import { atom, selector } from 'recoil';
 import { GetRecoilType } from '@store/util';
-import CampaignWithReview from '@model/CampaignWithReview';
+import CampaignWithReview from '@model/UserRevalidation/CampaignWithReview';
 
 type Filters = {
 	query: string | undefined;

@@ -1,4 +1,4 @@
-import EnumActionEvidenceRequestApprove from '@model/EnumActionEvidenceRequestApprove';
+import EnumActionEvidenceRequestApprove from '@model/EvidenceRequest/EnumActionEvidenceRequestApprove';
 import { atom } from 'recoil';
 
 const evidenceRequestActionModal = atom<EnumActionEvidenceRequestApprove>({

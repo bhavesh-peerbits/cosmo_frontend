@@ -7,7 +7,7 @@ import SingleUserSelect from '@components/SingleUserSelect';
 import UserProfileImage from '@components/UserProfileImage';
 import ApplicationStepRequest from '@model/EvidenceRequest/ApplicationStepRequest';
 import Association from '@model/EvidenceRequest/Association';
-import EvidenceRequestStep from '@model/EvidenceRequestStep';
+import EvidenceRequestStep from '@model/EvidenceRequest/EvidenceRequestStep';
 import User from '@model/User';
 import evidenceRequestDraftStore from '@store/evidenceRequestDraft/evidenceRequestDraftStore';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';

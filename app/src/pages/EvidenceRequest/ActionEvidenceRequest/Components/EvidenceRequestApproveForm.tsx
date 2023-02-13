@@ -1,5 +1,5 @@
 import { Form, RadioButtonGroup, RadioButton, Button } from '@carbon/react';
-import EnumActionEvidenceRequestApprove from '@model/EnumActionEvidenceRequestApprove';
+import EnumActionEvidenceRequestApprove from '@model/EvidenceRequest/EnumActionEvidenceRequestApprove';
 import evidenceRequestActionModal from '@store/evidence-request/evidenceRequestActionModal';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState } from 'recoil';

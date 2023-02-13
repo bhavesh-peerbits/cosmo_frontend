@@ -7,7 +7,7 @@ import {
 } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import useResponsive from '@hooks/useResponsive';
-import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
+import { mapCampaignTypeToCampaignDisplayType } from '@model/UserRevalidation/CampaignType';
 import { CampaignDtoTypeEnum } from 'cosmo-api/src/v1';
 import useRevalidationReview from '@hooks/user-revalidation-review/useRevalidationReview';
 

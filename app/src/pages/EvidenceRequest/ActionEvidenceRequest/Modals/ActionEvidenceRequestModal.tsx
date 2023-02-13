@@ -12,7 +12,7 @@ import {
 	Select,
 	SelectItem
 } from '@carbon/react';
-import EvidenceRequestStep from '@model/EvidenceRequestStep';
+import EvidenceRequestStep from '@model/EvidenceRequest/EvidenceRequestStep';
 import evidenceRequestActionModal from '@store/evidence-request/evidenceRequestActionModal';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';

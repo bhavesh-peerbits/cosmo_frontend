@@ -1,4 +1,4 @@
-import EvidenceRequest from '@model/EvidenceRequest';
+import EvidenceRequest from '@model/EvidenceRequest/EvidenceRequest';
 import { GetRecoilType } from '@store/util';
 import { atom, selector } from 'recoil';
 import isAfter from 'date-fns/isAfter';

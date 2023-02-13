@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { useCallback, useEffect } from 'react';
 import useCloseEvidence from '@api/evidence-request/useCloseEvidence';
 import { useForm } from 'react-hook-form';
-import EvidenceRequestStep from '@model/EvidenceRequestStep';
+import EvidenceRequestStep from '@model/EvidenceRequest/EvidenceRequestStep';
 import { useNavigate } from 'react-router-dom';
 
 type CloseModalProps = {

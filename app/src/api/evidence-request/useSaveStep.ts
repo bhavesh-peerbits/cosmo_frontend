@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@api';
 import EvidenceRequestStep, {
 	toEvidenceRequestStepApi
-} from '@model/EvidenceRequestStep';
+} from '@model/EvidenceRequest/EvidenceRequestStep';
 
 interface SaveStepParams {
 	step: EvidenceRequestStep;

@@ -2,7 +2,7 @@ import TipTapEditor from '@components/tiptap/TiptapEditor';
 import { TextArea, Button, Form, Layer } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import { useController, useForm } from 'react-hook-form';
-import EvidenceRequestStep from '@model/EvidenceRequestStep';
+import EvidenceRequestStep from '@model/EvidenceRequest/EvidenceRequestStep';
 import { useState } from 'react';
 import UploaderS3 from '@components/common/UploaderS3';
 import useSaveStep from '@api/evidence-request/useSaveStep';

@@ -1,5 +1,5 @@
 import { Column, Grid } from '@carbon/react';
-import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
+import EvidenceRequestDraft from '@model/EvidenceRequest/EvidenceRequestDraft';
 import EvidenceRequestTile from '../Components/EvidenceRequestTile';
 
 type EvidenceRequestContainerProps = {

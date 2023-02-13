@@ -2,8 +2,8 @@ import { Layer, ClickableTile } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import Campaign from '@model/UserRevalidation/Campaign';
-import { mapCampaignTypeToCampaignDisplayType } from '@model/CampaignType';
-import { mapCampaignLayerToCampaignDisplayLayer } from '@model/CampaignLayer';
+import { mapCampaignTypeToCampaignDisplayType } from '@model/UserRevalidation/CampaignType';
+import { mapCampaignLayerToCampaignDisplayLayer } from '@model/UserRevalidation/CampaignLayer';
 
 type NewRevalidationTileProps = {
 	revalidation: Campaign;

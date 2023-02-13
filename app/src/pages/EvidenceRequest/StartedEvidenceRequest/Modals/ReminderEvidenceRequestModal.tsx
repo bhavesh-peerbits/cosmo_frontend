@@ -6,7 +6,7 @@ import {
 	ModalFooter,
 	ModalHeader
 } from '@carbon/react';
-import EvidenceRequest from '@model/EvidenceRequest';
+import EvidenceRequest from '@model/EvidenceRequest/EvidenceRequest';
 import { useTranslation } from 'react-i18next';
 
 type CloseModalProps = {

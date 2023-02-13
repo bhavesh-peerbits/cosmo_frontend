@@ -1,6 +1,6 @@
 import { Form, Button, TextArea, Layer } from '@carbon/react';
 import UploaderS3 from '@components/common/UploaderS3';
-import EvidenceRequestStep from '@model/EvidenceRequestStep';
+import EvidenceRequestStep from '@model/EvidenceRequest/EvidenceRequestStep';
 import evidenceRequestUploaderStore from '@store/evidence-request/evidenceRequestUploaderStore';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';

@@ -2,13 +2,13 @@ import { EvidenceRequestApi } from 'cosmo-api';
 import Application, {
 	fromApplicationApi,
 	toApplicationApi
-} from './Narrative/Application';
+} from '../Narrative/Application';
 import { EvidenceRequestStatus } from './EvidenceRequestStatus';
 import EvidenceRequestStep, {
 	fromEvidenceRequestStepApi,
 	toEvidenceRequestStepApi
 } from './EvidenceRequestStep';
-import User, { fromUserApi, toUserApi } from './User';
+import User, { fromUserApi, toUserApi } from '../User';
 
 interface EvidenceRequest {
 	id: string;

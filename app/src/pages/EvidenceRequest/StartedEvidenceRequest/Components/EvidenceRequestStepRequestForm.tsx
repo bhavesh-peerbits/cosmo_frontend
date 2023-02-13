@@ -1,7 +1,7 @@
 import { Form, Button, TextArea, Layer } from '@carbon/react';
 import TipTapEditor from '@components/tiptap/TiptapEditor';
 import UploaderS3 from '@components/common/UploaderS3';
-import EvidenceRequestStep from '@model/EvidenceRequestStep';
+import EvidenceRequestStep from '@model/EvidenceRequest/EvidenceRequestStep';
 import ConfirmCloseStepUploadModal from '@pages/EvidenceRequest/ActionEvidenceRequest/Modals/ConfirmCloseStepUploadModal';
 import evidenceRequestUploaderStore from '@store/evidence-request/evidenceRequestUploaderStore';
 import { useController, useForm } from 'react-hook-form';

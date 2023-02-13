@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-import EvidenceRequestStep from '@model/EvidenceRequestStep';
+import EvidenceRequestStep from '@model/EvidenceRequest/EvidenceRequestStep';
 import { Grid, Tile, Button, Layer } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +8,7 @@ import { ChevronDown, ChevronUp } from '@carbon/react/icons';
 import User from '@model/User';
 import { smoothScroll, triggerFocus } from '@components/TableOfContents/utils';
 import useLoginStore from '@hooks/auth/useLoginStore';
-import { EvidenceRequestStatus } from '@model/EvidenceRequestStatus';
+import { EvidenceRequestStatus } from '@model/EvidenceRequest/EvidenceRequestStatus';
 import EvidenceRequestApproveForm from '../Components/EvidenceRequestApproveForm';
 import EvidenceRequestUploadForm from '../Components/EvidenceRequestUploadForm';
 import FileLinkTable from '../Components/FileLinkTable';

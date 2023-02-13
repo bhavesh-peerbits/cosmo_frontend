@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import { atom, selector } from 'recoil';
 import { GetRecoilType } from '@store/util';
-import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
+import EvidenceRequestDraft from '@model/EvidenceRequest/EvidenceRequestDraft';
 
 type Filters = {
 	query: string | undefined;

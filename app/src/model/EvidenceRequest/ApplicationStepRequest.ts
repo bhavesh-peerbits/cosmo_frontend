@@ -7,7 +7,7 @@ import Association, { fromAssociationApi, toAssociationApi } from './Association
 import EvidenceRequestStep, {
 	fromEvidenceRequestStepApi,
 	toEvidenceRequestStepApi
-} from '../EvidenceRequestStep';
+} from './EvidenceRequestStep';
 
 interface ApplicationStepRequest {
 	id: string;
