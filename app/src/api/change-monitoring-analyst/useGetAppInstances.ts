@@ -1,6 +1,6 @@
 import api from '@api';
 import { useQuery } from '@tanstack/react-query';
-import { fromInstanceAssetApi } from '@model/InstanceAsset';
+import { fromInstanceAssetApi } from '@model/Narrative/InstanceAsset';
 
 const useGetAppIntances = (applicationCodeName?: string) => {
 	return applicationCodeName

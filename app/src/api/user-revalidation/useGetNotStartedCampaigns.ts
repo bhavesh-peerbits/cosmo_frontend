@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import api from '@api';
-import { toMap } from '@model/util';
-import { fromCampaignApi } from '@model/Campaign';
+import { toMap } from '@model/common/util';
+import { fromCampaignApi } from '@model/UserRevalidation/Campaign';
 
 export function getNotStartedCampaigns() {
 	return api.analystCampaignApi

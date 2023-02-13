@@ -1,7 +1,7 @@
 import { unstable_OverflowMenuV2 as OverflowMenuV2 } from '@carbon/react';
 import { ArrowsVertical } from '@carbon/react/icons';
 import { ItemNoChildren, ItemType } from '@components/AddSelect/utilities';
-import { MenuItem, renderMenuItem } from '@components/util/menuUtil';
+import { MenuItem, renderMenuItem } from '@components/common/menuUtil';
 
 const AddSelectSort = ({
 	items,

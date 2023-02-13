@@ -1,6 +1,6 @@
 import api from '@api';
 import { useQuery } from '@tanstack/react-query';
-import { fromAssociationApi } from '@model/Association';
+import { fromAssociationApi } from '@model/EvidenceRequest/Association';
 
 interface GetControlsParameter {
 	leaves?: string;

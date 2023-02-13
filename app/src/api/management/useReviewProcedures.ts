@@ -2,8 +2,8 @@ import api from '@api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import ProcedureAppInstance, {
 	fromProcedureAppInstanceApi
-} from '@model/ProcedureAppInstance';
-import { toMap } from '@model/util';
+} from '@model/Narrative/ProcedureAppInstance';
+import { toMap } from '@model/common/util';
 import formatIso from 'date-fns/formatISO';
 
 interface ReviewProceduresParams {

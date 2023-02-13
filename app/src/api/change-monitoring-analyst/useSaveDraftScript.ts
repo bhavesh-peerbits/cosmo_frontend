@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@api';
-import Script from '@model/Script';
+import Script from '@model/ChangeMonitoring/Script';
 
 interface SaveDraftScriptParameters {
 	monitoringId: string;

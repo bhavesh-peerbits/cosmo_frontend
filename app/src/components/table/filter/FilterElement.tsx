@@ -2,12 +2,12 @@
 import { useMemo, useRef, useState } from 'react';
 import { Column, flexRender, RowData } from '@tanstack/react-table';
 import DateFilter from '@components/table/filter/DateFilter';
-import NumberFilter from '@components/table/filter/NumberFilter';
 import InputFilter from '@components/table/filter/InputFilter';
 import CheckboxFilter from '@components/table/filter/CheckboxFilter';
 import RadioFilter from '@components/table/filter/RadioFilter';
 import DropdownFilter from '@components/table/filter/DropdownFilter';
 import MultiSelectFilter from './MultiSelectFilter';
+import SliderFilter from './SliderFilter';
 
 interface FilterElementProps<T extends object> {
 	column: Column<T, RowData>;
@@ -48,7 +48,7 @@ const FilterElement = <T extends object>({
 	};
 	switch (typeof firstValue) {
 		case 'number':
-			return <NumberFilter {...filterProps} />;
+			return <SliderFilter {...filterProps} />;
 		case 'string':
 			if (
 				column.columnDef.meta?.filter &&

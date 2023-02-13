@@ -11,7 +11,7 @@ import {
 	useController,
 	UseControllerProps
 } from 'react-hook-form';
-import User from '@model/User';
+import User from '@model/common/User';
 import cx from 'classnames';
 import useGetUsers from '@api/user/useGetUsers';
 import { useTranslation } from 'react-i18next';

@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import { atom, selector } from 'recoil';
 import { GetRecoilType } from '@store/util';
-import Monitoring from '@model/Monitoring';
+import Monitoring from '@model/ChangeMonitoring/Monitoring';
 
 type Filters = {
 	application: string[];

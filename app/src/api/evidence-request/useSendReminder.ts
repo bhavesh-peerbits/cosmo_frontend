@@ -1,6 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 import api from '@api';
-import EvidenceRequest, { toEvidenceRequestApi } from '@model/EvidenceRequest';
+import EvidenceRequest, {
+	toEvidenceRequestApi
+} from '@model/EvidenceRequest/EvidenceRequest';
 
 interface SendReminderParams {
 	evidenceRequest: EvidenceRequest;

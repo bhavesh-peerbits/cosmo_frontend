@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@api';
 import { UserBase } from 'cosmo-api/src/v1/models';
-import { fromUserApi } from '@model/User';
+import { fromUserApi } from '@model/common/User';
 
 interface AddUserParams {
 	userData: UserBase;

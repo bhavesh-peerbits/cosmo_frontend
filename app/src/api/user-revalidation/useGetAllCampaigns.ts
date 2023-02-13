@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import api from '@api';
-import { fromCampaignApi } from '@model/Campaign';
-import { toMap } from '@model/util';
+import { fromCampaignApi } from '@model/UserRevalidation/Campaign';
+import { toMap } from '@model/common/util';
 
 export function getAllCampaigns() {
 	return api.analystCampaignApi

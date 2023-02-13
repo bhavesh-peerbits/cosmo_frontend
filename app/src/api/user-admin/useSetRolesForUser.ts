@@ -1,5 +1,5 @@
 import api from '@api';
-import User, { fromUserApi } from '@model/User';
+import User, { fromUserApi } from '@model/common/User';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface SetRolesForUserParams {

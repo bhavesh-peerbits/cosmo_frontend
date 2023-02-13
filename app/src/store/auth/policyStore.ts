@@ -1,6 +1,6 @@
 import { selector } from 'recoil';
 import authStore from '@store/auth/authStore';
-import { UserRoleEnum } from '@model/UserRole';
+import { UserRoleEnum } from '@model/common/UserRole';
 
 declare global {
 	interface Array<T> {

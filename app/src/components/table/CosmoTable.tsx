@@ -79,6 +79,7 @@ interface CosmoTableProps<T extends SubRows<T>, F extends FieldValues = never> {
 	isExpandable?: boolean;
 	isColumnOrderingEnabled?: boolean;
 	disableToolbarBatchAction?: boolean;
+	disableFilter?: boolean;
 	// isInlineAdd?: boolean;
 	exportFileName?: (param: {
 		fileType: AvailableFileType;
@@ -151,6 +152,7 @@ const CosmoTable = <T extends SubRows<T>, F extends FieldValues = never>({
 	toolbar = {} as ToolbarProps<T>,
 	subComponent,
 	onRowSelection,
+	disableFilter = false,
 	defaultSelectedRows,
 	size = 'md',
 	showSizeOption,
@@ -159,19 +161,26 @@ const CosmoTable = <T extends SubRows<T>, F extends FieldValues = never>({
 	inlineActions
 }: CosmoTableProps<T, F>) => {
 	const data = useMemo(() => tableData, [tableData]);
-	if (inlineActions) {
-		columns.push({
-			header: '',
-			accessorFn: row => row,
-			accessorKey: 'rowActions',
-			meta: { disableExport: true },
-			enableResizing: false,
-			enableSorting: false,
-			size: 30,
-			maxSize: 30,
-			minSize: 30
-		});
-	}
+	const fixedColumns = useMemo(
+		() =>
+			!inlineActions
+				? columns
+				: [
+						...columns,
+						{
+							header: '',
+							accessorFn: row => row,
+							accessorKey: 'rowActions',
+							meta: { disableExport: true },
+							enableResizing: false,
+							enableSorting: false,
+							size: 30,
+							maxSize: 30,
+							minSize: 30
+						}
+				  ],
+		[columns, inlineActions]
+	);
 
 	const tableContainerRef = useRef<HTMLDivElement>(null);
 	const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
@@ -199,6 +208,17 @@ const CosmoTable = <T extends SubRows<T>, F extends FieldValues = never>({
 	});
 
 	// FILTER
+	const numberRangeFilter: FilterFn<T> = useCallback((row, columnId, value) => {
+		if (value instanceof Array) {
+			const [min, max] = value as number[];
+			return (
+				(row.getValue(columnId) as number) >= min &&
+				(row.getValue(columnId) as number) <= max
+			);
+		}
+		return false;
+	}, []);
+
 	const dateFilter: FilterFn<T> = useCallback((row, columnId, value) => {
 		if (value instanceof Array) {
 			const [start, end] = value;
@@ -232,13 +252,14 @@ const CosmoTable = <T extends SubRows<T>, F extends FieldValues = never>({
 
 	const table = useReactTable({
 		data,
-		columns: columns as ColumnDef<T>[],
+		columns: fixedColumns as ColumnDef<T>[],
 		autoResetPageIndex: false,
 		manualPagination: Boolean(serverSidePagination),
 		manualFiltering: Boolean(serverSidePagination),
 		columnResizeMode: 'onChange',
 		enableMultiRowSelection: isSelectable !== 'radio',
 		filterFns: {
+			numberRangeCompare: numberRangeFilter,
 			dateCompare: dateFilter,
 			checkboxCompare: checkboxFilter,
 			fuzzy: fuzzyFilter
@@ -322,6 +343,7 @@ const CosmoTable = <T extends SubRows<T>, F extends FieldValues = never>({
 				<CosmoTableToolbar
 					disableExport={disableExport}
 					searchBar={toolbar?.searchBar}
+					disableFilter={disableFilter}
 					onExportClick={exportData}
 					disableToolbarBatchAction={disableToolbarBatchAction}
 					onSearch={value => setGlobalFilter(value)}
@@ -360,6 +382,7 @@ const CosmoTable = <T extends SubRows<T>, F extends FieldValues = never>({
 						>
 							<TableHead className='sticky top-0 z-[2]'>
 								<TableHeaders
+									tableId={tableId}
 									getIsAllRowsSelected={table.getIsAllRowsSelected}
 									getIsSomeRowsSelected={table.getIsSomeRowsSelected}
 									getToggleAllRowsSelectedHandler={table.getToggleAllRowsSelectedHandler()}

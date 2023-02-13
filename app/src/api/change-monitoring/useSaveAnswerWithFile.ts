@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@api';
-import FileLink, { toFileLinkApi } from '@model/FileLink';
+import FileLink, { toFileLinkApi } from '@model/common/FileLink';
 
 interface SaveAnswerWithFileParameters {
 	files: File[];

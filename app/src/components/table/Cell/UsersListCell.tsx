@@ -1,5 +1,5 @@
 import UserProfileImage from '@components/UserProfileImage';
-import User from '@model/User';
+import User from '@model/common/User';
 
 const UsersListCell = ({ users }: { users?: User[] }) => {
 	return (

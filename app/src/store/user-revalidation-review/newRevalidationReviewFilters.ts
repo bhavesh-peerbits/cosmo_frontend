@@ -1,7 +1,7 @@
 import { atom, selector } from 'recoil';
 import { GetRecoilType } from '@store/util';
 import { formatDate } from '@i18n';
-import ApplicationWithCampaigns from '@model/ApplicationWithCampaigns';
+import ApplicationWithCampaigns from '@model/UserRevalidation/ApplicationWithCampaigns';
 
 type Filters = {
 	dueDate: number | undefined;

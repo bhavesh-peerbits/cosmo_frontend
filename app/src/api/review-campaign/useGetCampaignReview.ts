@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import api from '@api';
-import { fromCampaignWithReviewApi } from '@model/CampaignWithReview';
+import { fromCampaignWithReviewApi } from '@model/UserRevalidation/CampaignWithReview';
 
 export function getCampaign(campaignId: string) {
 	return api.revalidationApi

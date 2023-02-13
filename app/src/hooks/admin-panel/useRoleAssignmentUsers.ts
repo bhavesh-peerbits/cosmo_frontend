@@ -6,7 +6,7 @@ import {
 	roleAssignmentFilters,
 	usersList
 } from '@store/admin-panel/roleAssignmentFilters';
-import { mapUserRoleToDisplayRole, UserDisplayRole } from '@model/UserRole';
+import { mapUserRoleToDisplayRole, UserDisplayRole } from '@model/common/UserRole';
 import { UserDtoRolesEnum } from 'cosmo-api/src/v1/models';
 import useGetActiveAndInactiveUsers from '@api/user-admin/useGetActiveAndInactiveUsers';
 

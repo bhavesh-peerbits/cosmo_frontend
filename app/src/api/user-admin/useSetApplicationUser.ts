@@ -2,7 +2,7 @@ import api from '@api';
 import ApplicationUser, {
 	fromApplicationUserApi,
 	toApplicationUserApi
-} from '@model/ApplicationUser';
+} from '@model/Narrative/ApplicationUser';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface SetApplicationUserParams {

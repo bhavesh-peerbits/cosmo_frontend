@@ -1,5 +1,5 @@
 import api from '@api';
-import { fromRunApi } from '@model/Run';
+import { fromRunApi } from '@model/ChangeMonitoring/Run';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 interface CalculateDeltaParameter {

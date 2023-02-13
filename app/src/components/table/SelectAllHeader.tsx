@@ -8,6 +8,7 @@ interface SelectAllHeaderProps {
 	getIsAllPageRowsSelected: () => boolean;
 	getToggleAllRowsSelectedHandler: (event: unknown) => void;
 	getToggleAllPageRowsSelectedHandler: (event: unknown) => void;
+	tableId: string;
 }
 
 const SelectAllHeader = ({
@@ -15,7 +16,8 @@ const SelectAllHeader = ({
 	getToggleAllPageRowsSelectedHandler,
 	getIsSomeRowsSelected,
 	getIsAllPageRowsSelected,
-	getIsAllRowsSelected
+	getIsAllRowsSelected,
+	tableId
 }: SelectAllHeaderProps) => {
 	const { t } = useTranslation('table');
 
@@ -24,7 +26,7 @@ const SelectAllHeader = ({
 			<div className='relative flex items-center justify-center'>
 				<Checkbox
 					labelText=''
-					id='selectAll'
+					id={`selectAll-${tableId}`}
 					name='selectAll'
 					checked={getIsAllRowsSelected()}
 					indeterminate={getIsSomeRowsSelected()}

@@ -1,5 +1,5 @@
 import api from '@api';
-import Answer, { fromAnswersApi, toAnswersApi } from '@model/Answer';
+import Answer, { fromAnswersApi, toAnswersApi } from '@model/UserRevalidation/Answer';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface SaveModifiedAnswerParams {

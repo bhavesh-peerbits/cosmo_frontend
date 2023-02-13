@@ -1,6 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@api';
-import Application, { fromApplicationApi, toApplicationApi } from '@model/Application';
+import Application, {
+	fromApplicationApi,
+	toApplicationApi
+} from '@model/Narrative/Application';
 
 interface EditAppParams {
 	appId: string;

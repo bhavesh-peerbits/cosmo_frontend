@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import api from '@api/index';
-import { fromProviderApi } from '@model/IdentityProvider';
+import { fromProviderApi } from '@model/common/IdentityProvider';
 
 async function getProviders(tenant: string) {
 	return api.accessApi

@@ -28,6 +28,7 @@
 	"app-required": "L'application est obligatoire",
 	"results": "Résultats",
 	"revalidators": "Revalidateurs",
+	"confirm-delete-answer": "Are you sure you want to delete the review for user {{userDetails}} for permissions {{permissions}} ?",
 	"users-to-revalidate": "Utilisateurs à revalider",
 	"status": "État",
 	"application": "Application",
@@ -89,5 +90,11 @@
 	"select-app-descrition": "",
 	"ongoing": "",
 	"closed": "",
-	"body-send": "Please fill in all required fields, then click on {{action}}."
+	"body-send": "Please fill in all required fields, then click on {{action}}.",
+	"WAITING_FOR_DATA": "",
+	"READY_FOR_REVIEW": "",
+	"REVIEW_IN_PROGRESS": "",
+	"COMPLETED": "",
+	"COMPLETED_WITH_PARTIAL_ANSWERS": "",
+	"ANNULLED": ""
 }

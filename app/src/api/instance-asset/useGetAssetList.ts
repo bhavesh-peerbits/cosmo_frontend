@@ -1,6 +1,6 @@
 import api from '@api';
 import { useQuery } from '@tanstack/react-query';
-import { fromAssetApi } from '@model/Asset';
+import { fromAssetApi } from '@model/Narrative/Asset';
 
 interface GetAssetListParams {
 	appId: string;

@@ -1,6 +1,6 @@
 import { atom, selector } from 'recoil';
 import { GetRecoilType } from '@store/util';
-import Answer from '@model/Answer';
+import Answer from '@model/UserRevalidation/Answer';
 
 type Filters = {
 	query: string | undefined;

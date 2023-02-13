@@ -12,56 +12,94 @@ import useGetRunByIdInbox from '@api/change-monitoring-inbox/useGetRunByIdInbox'
 
 const Home = React.lazy(() => import('@pages/Home'));
 const Test = React.lazy(() => import('@pages/Test'));
-const Management = React.lazy(() => import('@pages/Management'));
-const ApplicationDetail = React.lazy(() => import('@pages/ApplicationDetail'));
-const ReviewNarrative = React.lazy(() => import('@pages/ReviewNarrative'));
-const Review = React.lazy(() => import('@pages/Review'));
-const ReviewDetail = React.lazy(() => import('@pages/ReviewDetail'));
-const AdminPanel = React.lazy(() => import('@pages/AdminPanel'));
-const RoleAssignment = React.lazy(() => import('@pages/RoleAssignment'));
-const ApplicationsVisibility = React.lazy(() => import('@pages/ApplicationsVisibility'));
-const Procedures = React.lazy(() => import('@pages/Procedures'));
-const NewRevalidation = React.lazy(() => import('@pages/NewRevalidation'));
-const NewRevalidationDetail = React.lazy(() => import('@pages/NewRevalidationDetail'));
-const RevalidationsOngoing = React.lazy(() => import('@pages/RevalidationsOngoing'));
-const CampaignDetail = React.lazy(() => import('@pages/CampaignDetail'));
+const Management = React.lazy(() => import('@pages/Narrative/Menagement/Management'));
+const ApplicationDetail = React.lazy(
+	() => import('@pages/Narrative/ApplicationDetail/ApplicationDetail')
+);
+const ReviewNarrative = React.lazy(
+	() => import('@pages/Narrative/ReviewNarrative/ReviewNarrative')
+);
+const Review = React.lazy(() => import('@pages/Narrative/Review/Review'));
+const ReviewDetail = React.lazy(
+	() => import('@pages/Narrative/ReviewDetail/ReviewDetail')
+);
+const AdminPanel = React.lazy(
+	() => import('@pages/Administration/AdminPanel/AdminPanel')
+);
+const RoleAssignment = React.lazy(
+	() => import('@pages/Administration/RoleAssignment/RoleAssignment')
+);
+const ApplicationsVisibility = React.lazy(
+	() => import('@pages/Administration/ApplicationVisibility/ApplicationsVisibility')
+);
+const Procedures = React.lazy(
+	() => import('@pages/Administration/Procedures/Procedures')
+);
+const NewRevalidation = React.lazy(
+	() => import('@pages/UserRevalidation/NewRevalidation/NewRevalidation')
+);
+const NewRevalidationDetail = React.lazy(
+	() => import('@pages/UserRevalidation/NewRevalidationDetail/NewRevalidationDetail')
+);
+const RevalidationsOngoing = React.lazy(
+	() => import('@pages/UserRevalidation/RevalidationOngoing/RevalidationsOngoing')
+);
+const CampaignDetail = React.lazy(
+	() => import('@pages/UserRevalidation/CampaignDetail/CampaignDetail')
+);
 const UserRevalidationDashboard = React.lazy(
-	() => import('@pages/UserRevalidationDashboard')
+	() =>
+		import('@pages/UserRevalidation/UserRevalidationDashboard/UserRevalidationDashboard')
 );
 const UserRevalidationDetails = React.lazy(
-	() => import('@pages/UserRevalidationDetails')
+	() => import('@pages/UserRevalidation/UserRevalidationDetails/UserRevalidationDetails')
 );
 const NewEvidenceRequestDashboard = React.lazy(
-	() => import('@pages/NewEvidenceRequestDashboard')
+	() =>
+		import(
+			'@pages/EvidenceRequest/NewEvidenceRequestDashboard/NewEvidenceRequestDashboard'
+		)
 );
-const NewEvidenceRequest = React.lazy(() => import('@pages/NewEvidenceRequest'));
+const NewEvidenceRequest = React.lazy(
+	() => import('@pages/EvidenceRequest/NewEvidenceRequest/NewEvidenceRequest')
+);
 const StartedEvidenceRequestDashboard = React.lazy(
-	() => import('@pages/StartedEvidenceRequestDashboard')
+	() =>
+		import(
+			'@pages/EvidenceRequest/StartedEvidenceRequestDashboard/StartedEvidenceRequestDashboard'
+		)
 );
 const ActionEvidenceRequestDashboard = React.lazy(
-	() => import('@pages/ActionEvidenceRequestDashboard')
+	() =>
+		import(
+			'@pages/EvidenceRequest/ActionEvidenceRequestDashboard/ActionEvidenceRequestDashboard'
+		)
 );
 const NewMonitoring = React.lazy(
-	() => import('@pages/NewMonitoringDashboard/NewMonitoring')
+	() => import('@pages/ChangeMonitoring/NewMonitoringDashboard/NewMonitoring')
 );
 const MonitoringDraftDetails = React.lazy(
-	() => import('@pages/MonitoringDraftDetails/MonitoringDraftDetails')
+	() => import('@pages/ChangeMonitoring/MonitoringDraftDetails/MonitoringDraftDetails')
 );
 const MonitoringDashboard = React.lazy(
-	() => import('@pages/MonitoringDashboard/MonitoringDashboard')
+	() => import('@pages/ChangeMonitoring/MonitoringDashboard/MonitoringDashboard')
 );
 const MonitoringDetails = React.lazy(
-	() => import('@pages/MonitoringDetails/MonitoringDetails')
+	() => import('@pages/ChangeMonitoring/MonitoringDetails/MonitoringDetails')
 );
 const MonitoringRunDetails = React.lazy(
-	() => import('@pages/MonitoringRunDetails/MonitoringRunDetails')
+	() => import('@pages/ChangeMonitoring/MonitoringRunDetails/MonitoringRunDetails')
 );
 const ChangeMonitoringInbox = React.lazy(
-	() => import('@pages/ChangeMonitoringInbox/ChangeMonitoringInbox')
+	() => import('@pages/ChangeMonitoring/ChangeMonitoringInbox/ChangeMonitoringInbox')
 );
-const ActionEvidenceRequest = React.lazy(() => import('@pages/ActionEvidenceRequest'));
+const ActionEvidenceRequest = React.lazy(
+	() => import('@pages/EvidenceRequest/ActionEvidenceRequest/ActionEvidenceRequest')
+);
 
-const StartedEvidenceRequest = React.lazy(() => import('@pages/StartedEvidenceRequest'));
+const StartedEvidenceRequest = React.lazy(
+	() => import('@pages/EvidenceRequest/StartedEvidenceRequest/StartedEvidenceRequest')
+);
 
 const AuthenticatedRoutes = () => {
 	const {

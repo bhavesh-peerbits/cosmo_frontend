@@ -1,7 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@api';
-import MonitoringAsset, { toMonitoringAssetApi } from '@model/MonitoringAsset';
-import Instance, { toInstanceApi } from '@model/Instance';
+import MonitoringAsset, {
+	toMonitoringAssetApi
+} from '@model/ChangeMonitoring/MonitoringAsset';
+import Instance, { toInstanceApi } from '@model/Narrative/Instance';
 
 interface SaveDraftAssetParameters {
 	monitoringId: string;

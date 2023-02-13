@@ -1,7 +1,7 @@
 import useDeleteFileFromDraft from '@api/uploaders3/useDeleteFileFromDraft';
 import useDeleteFileFromStep from '@api/uploaders3/useDeleteFileFromStep';
 import { Modal, InlineLoading } from '@carbon/react';
-import FileLink from '@model/FileLink';
+import FileLink from '@model/common/FileLink';
 import evidenceRequestDraftStore from '@store/evidenceRequestDraft/evidenceRequestDraftStore';
 import { Dispatch, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';

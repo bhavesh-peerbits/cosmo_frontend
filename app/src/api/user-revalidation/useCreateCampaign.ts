@@ -1,7 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@api';
-import Campaign, { fromCampaignApi, toCampaignApi } from '@model/Campaign';
-import CampaignWithReview from '@model/CampaignWithReview';
+import Campaign, {
+	fromCampaignApi,
+	toCampaignApi
+} from '@model/UserRevalidation/Campaign';
+import CampaignWithReview from '@model/UserRevalidation/CampaignWithReview';
 
 export function createCampaign({ campaign }: { campaign: Campaign }) {
 	return api.analystCampaignApi

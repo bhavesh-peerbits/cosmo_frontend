@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@api';
-import User, { toUserApi } from '@model/User';
+import User, { toUserApi } from '@model/common/User';
 
 interface SaveDraftAssociationParameters {
 	monitoringId: string;

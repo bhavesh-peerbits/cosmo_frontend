@@ -1,4 +1,4 @@
-import FileLink from '@model/FileLink';
+import FileLink from '@model/common/FileLink';
 import { CellContext } from '@tanstack/react-table';
 import { Tag } from '@carbon/react';
 import { Download } from '@carbon/react/icons';

@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import Application from '@model/Application';
-import Campaign from '@model/Campaign';
+import Application from '@model/Narrative/Application';
+import Campaign from '@model/UserRevalidation/Campaign';
 import api from '@api';
 
 interface DeleteAppFromCampaignParams {

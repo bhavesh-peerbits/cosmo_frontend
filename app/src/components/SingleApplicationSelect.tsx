@@ -12,7 +12,7 @@ import {
 } from 'react-hook-form';
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
-import Application from '@model/Application';
+import Application from '@model/Narrative/Application';
 
 type SingleApplicationSelectProps<
 	T extends FieldValues,

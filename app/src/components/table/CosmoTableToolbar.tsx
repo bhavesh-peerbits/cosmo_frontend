@@ -65,6 +65,7 @@ interface CosmoTableToolbarProps<T extends object> {
 	// isAddingInline?: boolean;
 	canEdit?: boolean;
 	canDelete?: boolean;
+	disableFilter: boolean;
 	onDelete?: (rows: Row<T>[]) => void;
 	onSearch: (value: string) => void;
 	setColumnOrder: (columnOrder: ColumnOrderState) => void;
@@ -82,6 +83,7 @@ const CosmoTableToolbar = <T extends object>({
 	allColumns,
 	onExportClick,
 	isColumnOrderingEnabled,
+	disableFilter,
 	disableExport,
 	selectedSize,
 	sizeOptions,
@@ -300,20 +302,22 @@ const CosmoTableToolbar = <T extends object>({
 						))}
 					</TableToolbarMenu>
 				)}
-				<TableToolbarMenu
-					onClick={() => toggleFilter()}
-					open={openFilter}
-					onClose={filterFalse}
-					renderIcon={() => <FilterEdit />}
-					iconDescription='Show filters'
-					ariaLabel='Show Filters'
-				>
-					<TableFilters
-						tableId={tableId}
-						onApplyFilters={filterFalse}
-						allColumns={allColumns}
-					/>
-				</TableToolbarMenu>
+				{!disableFilter && (
+					<TableToolbarMenu
+						onClick={() => toggleFilter()}
+						open={openFilter}
+						onClose={filterFalse}
+						renderIcon={() => <FilterEdit />}
+						iconDescription='Show filters'
+						ariaLabel='Show Filters'
+					>
+						<TableFilters
+							tableId={tableId}
+							onApplyFilters={filterFalse}
+							allColumns={allColumns}
+						/>
+					</TableToolbarMenu>
+				)}
 				{canAdd && (
 					<Button
 						kind='primary'

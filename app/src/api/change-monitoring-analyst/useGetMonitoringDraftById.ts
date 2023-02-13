@@ -1,6 +1,6 @@
 import api from '@api';
 import { useQuery } from '@tanstack/react-query';
-import { fromMonitoringDraftApi } from '@model/MonitoringDraft';
+import { fromMonitoringDraftApi } from '@model/ChangeMonitoring/MonitoringDraft';
 
 const useGetMonitoringDraftById = (draftId: string) => {
 	return api.analystChangeMonitoringControllerApi

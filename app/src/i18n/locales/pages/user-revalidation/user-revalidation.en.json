@@ -36,6 +36,7 @@
 	"confirm-close": "Are you sure you want to close {{campaign}}?",
 	"close": "Close",
 	"confirm-delete-upload": "Are you sure you want to delete the upload of {{application}}?",
+	"confirm-delete-answer": "Are you sure you want to delete the review for user {{userDetails}} and permissions: {{permissions}} ?",
 	"all": "All",
 	"multi": "Multi Applications",
 	"single": "Single Application",
@@ -89,5 +90,11 @@
 	"select-app-descrition": "Selecting an application will select all the possible user for it",
 	"ongoing": "Ongoing",
 	"closed": "Closed",
-	"body-send": "Please fill in all required fields, then click on {{action}}."
+	"body-send": "Please fill in all required fields, then click on {{action}}.",
+	"WAITING_FOR_DATA": "Waiting for data",
+	"READY_FOR_REVIEW": "Ready for review",
+	"REVIEW_IN_PROGRESS": "Review in progress",
+	"COMPLETED": "Completed",
+	"COMPLETED_WITH_PARTIAL_ANSWERS": "Completed with partial answer",
+	"ANNULLED": "Annulled"
 }

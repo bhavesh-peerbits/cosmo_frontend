@@ -1,6 +1,6 @@
 import api from '@api';
 import { useQuery } from '@tanstack/react-query';
-import { fromRunApi } from '@model/Run';
+import { fromRunApi } from '@model/ChangeMonitoring/Run';
 
 const useGetRunById = (runId: string) => {
 	return api.analystChangeMonitoringControllerApi

@@ -6,7 +6,7 @@ import {
 	revalidationsOngoing,
 	filteredRevalidationsOngoing
 } from '@store/user-revalidation/revalidationsOngoingFilters';
-import CampaignWithReview from '@model/CampaignWithReview';
+import CampaignWithReview from '@model/UserRevalidation/CampaignWithReview';
 import useGetCampaignsOngoingAndCompleted from '@api/user-revalidation/useGetCampaignsOngoingAndCompleted';
 
 const useRevalidationsOngoing = () => {

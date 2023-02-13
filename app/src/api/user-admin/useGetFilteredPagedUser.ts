@@ -1,7 +1,7 @@
 import api from '@api';
 import { OpenApiPagination } from '@exportabletypes/pagination';
 import useQueryPagination from '@hooks/pagination/useQueryPagination';
-import { fromUserApi } from '@model/User';
+import { fromUserApi } from '@model/common/User';
 
 const useGetFilteredPagedUser = (pagination: OpenApiPagination) => {
 	return api.userAdminApi

@@ -1,7 +1,7 @@
 import api from '@api';
 import { useQuery } from '@tanstack/react-query';
-import { fromEvidenceRequestDraftApi } from '@model/EvidenceRequestDraft';
-import { toMap } from '@model/util';
+import { fromEvidenceRequestDraftApi } from '@model/EvidenceRequest/EvidenceRequestDraft';
+import { toMap } from '@model/common/util';
 
 const getAllEvidenceRequestDraft = () => {
 	return api.evidenceRequest

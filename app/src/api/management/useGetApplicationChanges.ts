@@ -1,6 +1,6 @@
 import api from '@api';
 import { useQuery } from '@tanstack/react-query';
-import { fromApplicationAuditApi } from '@model/ApplicationAudit';
+import { fromApplicationAuditApi } from '@model/Narrative/ApplicationAudit';
 
 const getApplicationChanges = (appId: string) => {
 	return api.applicationApi

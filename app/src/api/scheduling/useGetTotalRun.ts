@@ -1,5 +1,5 @@
 import api from '@api';
-import Scheduling, { toSchedulingApi } from '@model/Scheduling';
+import Scheduling, { toSchedulingApi } from '@model/ChangeMonitoring/Scheduling';
 import { useQuery } from '@tanstack/react-query';
 
 const useGetTotalRun = (scheduling?: Scheduling) => {

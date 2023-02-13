@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@api';
-import Campaign from '@model/Campaign';
+import Campaign from '@model/UserRevalidation/Campaign';
 
 export function deleteCampaign({ campaignId }: { campaignId: string }) {
 	return api.analystCampaignApi.deleteCampaign({ campaignId: +campaignId });

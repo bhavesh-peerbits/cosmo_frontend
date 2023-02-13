@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import User from '@model/User';
+import User from '@model/common/User';
 import { AccessorFn, ColumnDefTemplate, FilterFn, RowData } from '@tanstack/react-table';
 import {
 	FieldPath,

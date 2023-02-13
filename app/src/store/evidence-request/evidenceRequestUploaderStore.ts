@@ -1,4 +1,4 @@
-import FileLink from '@model/FileLink';
+import FileLink from '@model/common/FileLink';
 import { atom } from 'recoil';
 
 const evidenceRequestUploaderStore = atom<{

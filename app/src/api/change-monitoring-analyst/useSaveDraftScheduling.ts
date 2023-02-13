@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@api';
-import Scheduling, { toSchedulingApi } from '@model/Scheduling';
+import Scheduling, { toSchedulingApi } from '@model/ChangeMonitoring/Scheduling';
 
 interface SaveDraftSchedulingParameters {
 	monitoringId: string;

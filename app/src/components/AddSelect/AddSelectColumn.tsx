@@ -12,7 +12,7 @@ import {
 	NormalizeItem,
 	sortItems
 } from '@components/AddSelect/utilities';
-import { MenuItem, renderMenuItem } from '@components/util/menuUtil';
+import { MenuItem, renderMenuItem } from '@components/common/menuUtil';
 import AddSelectList from './AddSelectList';
 import AddSelectSort from './AddSelectSort';
 

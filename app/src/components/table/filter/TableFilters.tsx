@@ -2,6 +2,7 @@ import { Button, ButtonSet, Layer } from '@carbon/react';
 import { useCallback, useMemo, useState } from 'react';
 import { Column, RowData } from '@tanstack/react-table';
 import usePaginationStore from '@hooks/pagination/usePaginationStore';
+import { useTranslation } from 'react-i18next';
 import FilterElement from './FilterElement';
 
 interface TableFiltersProps<T extends object> {
@@ -15,6 +16,7 @@ const TableFilters = <T extends object>({
 	allColumns,
 	tableId
 }: TableFiltersProps<T>) => {
+	const { t } = useTranslation('table');
 	const { setColumnFilters } = usePaginationStore(tableId);
 	/** Renders all filters */
 	const filters = useMemo(
@@ -54,10 +56,12 @@ const TableFilters = <T extends object>({
 			</span>
 			<div
 				style={{ boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)' }}
-				className='absolute -top-[2px] right-0 flex w-[400px]  flex-col justify-end bg-layer-1 lg:w-[670px]'
+				className='absolute -top-[2px] right-0 flex w-[400px] flex-col justify-end bg-layer-1 lg:w-[670px]'
 			>
 				<div className=' px-5 pt-5 pb-9'>
-					<span className='typography-productive-heading-1 mb-6 block'>Filters</span>
+					<span className='typography-productive-heading-1 mb-6 block'>
+						{t('filters')}
+					</span>
 					<Layer
 						level={1}
 						className='grid  grid-cols-[1fr] gap-y-5 gap-x-7  lg:grid-cols-[1fr,1fr]'
@@ -85,7 +89,7 @@ const TableFilters = <T extends object>({
 							onApplyFilters();
 						}}
 					>
-						Reset
+						{t('reset')}
 					</Button>
 					<Button
 						className='max-w-none flex-1'
@@ -96,7 +100,7 @@ const TableFilters = <T extends object>({
 							onApplyFilters();
 						}}
 					>
-						Apply
+						{t('apply')}
 					</Button>
 				</ButtonSet>
 			</div>

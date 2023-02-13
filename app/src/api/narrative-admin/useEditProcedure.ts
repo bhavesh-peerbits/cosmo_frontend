@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@api';
-import Procedure, { fromProcedureApi, toProcedureApi } from '@model/Procedure';
+import Procedure, { fromProcedureApi, toProcedureApi } from '@model/Narrative/Procedure';
 
 interface EditProcedureParams {
 	procedure: Procedure;

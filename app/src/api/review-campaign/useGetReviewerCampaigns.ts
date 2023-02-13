@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import api from '@api';
-import { fromApplicationWithCampaignsApi } from '@model/ApplicationWithCampaigns';
+import { fromApplicationWithCampaignsApi } from '@model/UserRevalidation/ApplicationWithCampaigns';
 
 const getAllReviewCampaigns = () => {
 	return api.revalidationApi

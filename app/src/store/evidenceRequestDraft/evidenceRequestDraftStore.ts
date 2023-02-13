@@ -1,4 +1,4 @@
-import EvidenceRequestDraft from '@model/EvidenceRequestDraft';
+import EvidenceRequestDraft from '@model/EvidenceRequest/EvidenceRequestDraft';
 import { atom } from 'recoil';
 
 const evidenceRequestDraftStore = atom<EvidenceRequestDraft>({

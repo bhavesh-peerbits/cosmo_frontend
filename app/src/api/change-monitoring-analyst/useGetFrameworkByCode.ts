@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import api from '@api';
-import { fromFrameworkApi } from '@model/Framework';
+import { fromFrameworkApi } from '@model/EvidenceRequest/Framework';
 
 const getFrameworkByCode = (code: string) => {
 	return api.analystChangeMonitoringControllerApi

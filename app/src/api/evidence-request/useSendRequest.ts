@@ -2,7 +2,7 @@ import api from '@api';
 import EvidenceRequestDraft, {
 	fromEvidenceRequestDraftApi,
 	toEvidenceRequestDraftApi
-} from '@model/EvidenceRequestDraft';
+} from '@model/EvidenceRequest/EvidenceRequestDraft';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 const sendRequest = (requestDraft: EvidenceRequestDraft) => {

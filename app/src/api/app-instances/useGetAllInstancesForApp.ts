@@ -1,6 +1,6 @@
 import api from '@api';
 import { useQuery } from '@tanstack/react-query';
-import { fromInstanceApi } from '@model/Instance';
+import { fromInstanceApi } from '@model/Narrative/Instance';
 
 const useGetAllInstancesForApp = (appId: string) => {
 	return api.applicationApi

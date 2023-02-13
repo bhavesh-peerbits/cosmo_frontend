@@ -1,4 +1,4 @@
-import { Dispatch, ReactNode, SetStateAction, useState } from 'react';
+import { ReactNode, useMemo, useState } from 'react';
 import { Button } from '@carbon/react';
 import { Filter } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
@@ -10,15 +10,13 @@ type CosmoFiltersPanelProps = {
 	tooltipPosition?: TooltipPosition;
 	flipped?: boolean;
 	buttonSize?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-	setRef?: Dispatch<SetStateAction<HTMLElement | null>>;
 };
 const CosmoFiltersPanel = ({
 	children,
 	iconDescription,
 	tooltipPosition,
 	flipped,
-	buttonSize,
-	setRef
+	buttonSize
 }: CosmoFiltersPanelProps) => {
 	const { t } = useTranslation('userSelect');
 	const [isOpen, setIsOpen] = useState(false);
@@ -33,18 +31,18 @@ const CosmoFiltersPanel = ({
 	// 	});
 	// }, []);
 
-	const buttonHeight = () => {
+	const buttonHeight = useMemo(() => {
 		switch (buttonSize) {
 			case 'sm':
 				return '32';
 			case 'md':
-				return '48';
+				return '40';
 			case 'lg':
 				return '48';
 			default:
 				return '48';
 		}
-	};
+	}, [buttonSize]);
 	return (
 		<div
 			className={`flex ${flipped ? 'justify-start' : 'justify-end'}`}
@@ -68,8 +66,7 @@ const CosmoFiltersPanel = ({
 			/>
 			{isOpen && (
 				<div
-					ref={e => setRef && setRef(e)}
-					className={`absolute z-[999] mt-[${buttonHeight()}px] inline-block max-h-[calc(67%-2rem)] overflow-auto bg-layer-1 p-3`}
+					className={`absolute z-[999] mt-[${buttonHeight}px] inline-block max-h-[calc(67%-2rem)] overflow-auto bg-layer-1 p-3`}
 					style={{
 						boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)'
 					}}

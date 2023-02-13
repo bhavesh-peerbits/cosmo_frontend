@@ -1,6 +1,6 @@
 import api from '@api';
-import { fromProcedureAppInstanceApi } from '@model/ProcedureAppInstance';
-import { toMap } from '@model/util';
+import { fromProcedureAppInstanceApi } from '@model/Narrative/ProcedureAppInstance';
+import { toMap } from '@model/common/util';
 import { useQuery } from '@tanstack/react-query';
 
 const useGetProcedureForReview = (appId: string) => {

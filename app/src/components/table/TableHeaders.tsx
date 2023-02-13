@@ -16,6 +16,7 @@ interface TableHeadersProps<T> {
 	getToggleAllRowsSelectedHandler: (event: unknown) => void;
 	getToggleAllPageRowsSelectedHandler: (event: unknown) => void;
 	isExpandable: boolean | undefined;
+	tableId: string;
 }
 
 const TableHeaders = <T extends object>({
@@ -26,7 +27,8 @@ const TableHeaders = <T extends object>({
 	getIsAllPageRowsSelected,
 	getToggleAllRowsSelectedHandler,
 	getToggleAllPageRowsSelectedHandler,
-	isExpandable
+	isExpandable,
+	tableId
 }: TableHeadersProps<T>) => {
 	const isTheLastHeaderGroup = useCallback(
 		(index: number) => {
@@ -43,6 +45,7 @@ const TableHeaders = <T extends object>({
 					{isSelectable &&
 						(isSelectable !== 'radio' && isTheLastHeaderGroup(index) ? (
 							<SelectAllHeader
+								tableId={tableId}
 								{...{
 									getIsAllRowsSelected,
 									getIsSomeRowsSelected,

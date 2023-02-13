@@ -1,6 +1,6 @@
 import api from '@api';
-import Answer, { fromAnswersApi, toAnswersApi } from '@model/Answer';
-import { toMap } from '@model/util';
+import Answer, { fromAnswersApi, toAnswersApi } from '@model/UserRevalidation/Answer';
+import { toMap } from '@model/common/util';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface SaveAnswersToReviewParams {

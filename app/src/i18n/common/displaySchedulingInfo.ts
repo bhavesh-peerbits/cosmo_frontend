@@ -1,4 +1,4 @@
-import Scheduling from '@model/Scheduling';
+import Scheduling from '@model/ChangeMonitoring/Scheduling';
 import { useTranslation } from 'react-i18next';
 
 const GetSchedulingDisplayInfo = (scheduling: Scheduling) => {

@@ -21,6 +21,7 @@
 		"@carbon/react": "patch:@carbon/react@npm%3A1.21.0#~/.yarn/patches/@carbon-react-npm-1.21.0-68497838a6.patch",
 		"@carbon/themes": "^11.14.0",
 		"@ibm/plex": "6.0.2",
+		"@radix-ui/react-slider": "^1.1.0",
 		"@recoiljs/refine": "^0.1.1",
 		"@sentry/core": "^6.19.7",
 		"@sentry/react": "6.19.7",

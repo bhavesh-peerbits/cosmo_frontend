@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@api';
-import Instance, { fromInstanceApi, toInstanceApi } from '@model/Instance';
+import Instance, { fromInstanceApi, toInstanceApi } from '@model/Narrative/Instance';
 
 interface UpdateInstanceForAppParams {
 	appId: string;

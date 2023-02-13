@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import { atom, selector } from 'recoil';
-import Application from '@model/Application';
+import Application from '@model/Narrative/Application';
 import { GetRecoilType } from '@store/util';
 
 type Filters = {

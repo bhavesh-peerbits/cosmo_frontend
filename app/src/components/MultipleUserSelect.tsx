@@ -3,7 +3,7 @@ import { Close, EditOff, UserFollow } from '@carbon/react/icons';
 import { useState } from 'react';
 import UserProfileImage from '@components/UserProfileImage';
 import MultiAddSelect from '@components/MultiAddSelect';
-import User from '@model/User';
+import User from '@model/common/User';
 import {
 	FieldPath,
 	FieldValues,
