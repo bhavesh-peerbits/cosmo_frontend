@@ -2,7 +2,7 @@ import useGetFile from '@api/uploaders3/useGetFile';
 import { Tag, Button } from '@carbon/react';
 import { Download } from '@carbon/react/icons';
 import FileLink from '@model/common/FileLink';
-import Run from '@model/Run';
+import Run from '@model/ChangeMonitoring/Run';
 import authStore from '@store/auth/authStore';
 import { UseMutationResult, UseQueryResult } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';

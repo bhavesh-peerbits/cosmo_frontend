@@ -1,5 +1,5 @@
 import Asset from '@model/Narrative/Asset';
-import RunAsset from '@model/RunAsset';
+import RunAsset from '@model/ChangeMonitoring/RunAsset';
 import { PathMonitoringDto } from 'cosmo-api/src/v1';
 
 export interface RunMonitoringAsset {

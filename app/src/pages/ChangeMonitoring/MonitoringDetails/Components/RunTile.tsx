@@ -1,5 +1,5 @@
 import { ClickableTile } from '@carbon/react';
-import Run from '@model/Run';
+import Run from '@model/ChangeMonitoring/Run';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import cx from 'classnames';

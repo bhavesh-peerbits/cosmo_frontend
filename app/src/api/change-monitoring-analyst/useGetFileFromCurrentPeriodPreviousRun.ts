@@ -1,6 +1,6 @@
 import api from '@api';
 import { useQuery } from '@tanstack/react-query';
-import { fromRunFileLinkApi } from '@model/RunFileLink';
+import { fromRunFileLinkApi } from '@model/ChangeMonitoring/RunFileLink';
 
 interface GetFileFromCurrentPeriodPreviousRunParameter {
 	runId: string;

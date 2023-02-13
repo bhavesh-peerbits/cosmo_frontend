@@ -8,7 +8,7 @@ import { useSetRecoilState } from 'recoil';
 import addFileToRunAssetStore from '@store/run-details/addFileToRunAssetStore';
 import FileLink from '@model/common/FileLink';
 import TagFileLinkCell from '@components/table/Cell/TagFileLinkCell';
-import RunFileLink from '@model/RunFileLink';
+import RunFileLink from '@model/ChangeMonitoring/RunFileLink';
 
 interface UploadFileTableItem {
 	path: string;

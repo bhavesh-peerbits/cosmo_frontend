@@ -8,7 +8,7 @@ import MonitoringSummaryDetails from '@pages/ChangeMonitoring/MonitoringDetails/
 import useGetMonitoringById from '@api/change-monitoring-analyst/useGetMonitoringById';
 import useGetRunById from '@api/change-monitoring-analyst/useGetRunById';
 import Monitoring from '@model/ChangeMonitoring/Monitoring';
-import Run from '@model/Run';
+import Run from '@model/ChangeMonitoring/Run';
 import { UseQueryResult } from '@tanstack/react-query';
 import RunDetailsStepContainer from './Containers/RunDetailsStepContainer';
 import CloseRunModal from './Modals/CloseRunModal';

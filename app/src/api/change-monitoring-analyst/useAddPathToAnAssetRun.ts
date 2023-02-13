@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@api';
-import RunAsset, { toRunAssetApi } from '@model/RunAsset';
+import RunAsset, { toRunAssetApi } from '@model/ChangeMonitoring/RunAsset';
 
 interface AddPathToAnAssetRunParameters {
 	runAssets: RunAsset[];

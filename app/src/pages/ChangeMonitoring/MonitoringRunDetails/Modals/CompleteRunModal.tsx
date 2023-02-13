@@ -8,7 +8,7 @@ import {
 } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import { Dispatch, SetStateAction } from 'react';
-import Run from '@model/Run';
+import Run from '@model/ChangeMonitoring/Run';
 import ApiError from '@api/ApiError';
 import { UseMutationResult } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';

@@ -9,7 +9,7 @@ import MultipleUserSelect from '@components/MultipleUserSelect';
 import DatePickerWrapper from '@components/DatePickerWrapper';
 import { startOfTomorrow } from 'date-fns';
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
-import Run from '@model/Run';
+import Run from '@model/ChangeMonitoring/Run';
 import useCloseCompletedRun from '@api/change-monitoring-analyst/useCloseCompletedRun';
 import ApiError from '@api/ApiError';
 

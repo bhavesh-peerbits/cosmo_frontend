@@ -6,7 +6,7 @@ import useSaveNotesRun from '@api/change-monitoring-analyst/useSaveNotesRun';
 import { Toggle, TextArea, Button, Tooltip, InlineLoading, Layer } from '@carbon/react';
 import { Information } from '@carbon/react/icons';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
-import Run from '@model/Run';
+import Run from '@model/ChangeMonitoring/Run';
 import {
 	fromRunMonitoringAssetToRunAsset,
 	RunMonitoringAsset

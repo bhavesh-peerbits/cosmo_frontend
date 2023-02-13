@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Layer } from '@carbon/react';
 import { RunDtoStatusEnum } from 'cosmo-api/src/v1';
 import Monitoring from '@model/ChangeMonitoring/Monitoring';
-import Run from '@model/Run';
+import Run from '@model/ChangeMonitoring/Run';
 import useGetAllFilesAnswersInbox from '@api/change-monitoring-inbox/useGetAllFilesAnswersInbox';
 import useGetAllFilesAnswer from '@api/change-monitoring-analyst/useGetAllFilesAnswer';
 import useCloseCompleteRunInbox from '@api/change-monitoring-inbox/useCloseCompleteRunInbox';

@@ -1,7 +1,7 @@
 import { Tag, Layer } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import { Download } from '@carbon/react/icons';
-import RunAsset from '@model/RunAsset';
+import RunAsset from '@model/ChangeMonitoring/RunAsset';
 import useGetFile from '@api/uploaders3/useGetFile';
 import FileLink from '@model/common/FileLink';
 import { useRecoilState } from 'recoil';
