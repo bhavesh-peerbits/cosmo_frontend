@@ -7,7 +7,7 @@ import ProcedureReview from '@pages/Narrative/ReviewDetail/Components/ProcedureR
 import { useTranslation } from 'react-i18next';
 import ApplicationInfoReview from '@pages/Narrative/ReviewDetail/Containers/ApplicationInfoReview';
 import { useNavigate, useParams } from 'react-router-dom';
-import ProcedureAppInstance from '@model/ProcedureAppInstance';
+import ProcedureAppInstance from '@model/Narrative/ProcedureAppInstance';
 import routes from '@routes/routes-const';
 import useGetProcedureForReview from '@api/review/useGetProcedureForReview';
 import { useMemo, useEffect } from 'react';

@@ -11,7 +11,7 @@ import {
 } from '@carbon/react';
 import UserProfileImage from '@components/UserProfileImage';
 import MonitoringDraft from '@model/ChangeMonitoring/MonitoringDraft';
-import Scheduling from '@model/Scheduling';
+import Scheduling from '@model/ChangeMonitoring/Scheduling';
 import { Dispatch, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';

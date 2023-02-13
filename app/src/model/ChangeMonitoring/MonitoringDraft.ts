@@ -6,7 +6,7 @@ import MonitoringAsset, {
 	toMonitoringAssetApi
 } from './MonitoringAsset';
 import { MonitoringStatus } from './MonitoringStatus';
-import Scheduling, { fromSchedulingApi, toSchedulingApi } from '../Scheduling';
+import Scheduling, { fromSchedulingApi, toSchedulingApi } from './Scheduling';
 import Script from '../Script';
 import User, { fromUserApi, toUserApi } from '../User';
 

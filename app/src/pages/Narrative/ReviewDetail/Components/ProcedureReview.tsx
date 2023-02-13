@@ -4,7 +4,7 @@ import MultipleUserSelect from '@components/MultipleUserSelect';
 import SingleUserSelect from '@components/SingleUserSelect';
 import TiptapEditor from '@components/tiptap/TiptapEditor';
 import { Checkmark } from '@carbon/react/icons';
-import ProcedureAppInstance from '@model/ProcedureAppInstance';
+import ProcedureAppInstance from '@model/Narrative/ProcedureAppInstance';
 import User from '@model/User';
 import { useController, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -12,7 +12,7 @@ import useReviewProcedure from '@api/review/useReviewProcedure';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';
 import useGetProcedures from '@api/procedures/useGetProcedures';
-import Procedure from '@model/Procedure';
+import Procedure from '@model/Narrative/Procedure';
 
 interface ProcedureFormData {
 	owner: User;

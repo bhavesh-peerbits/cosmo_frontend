@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import { atom, selector } from 'recoil';
-import Procedure from '@model/Procedure';
+import Procedure from '@model/Narrative/Procedure';
 import { GetRecoilType } from '@store/util';
 
 type Filters = {

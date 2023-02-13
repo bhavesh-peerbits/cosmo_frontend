@@ -13,7 +13,7 @@ import {
 	TextInput
 } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
-import Procedure from '@model/Procedure';
+import Procedure from '@model/Narrative/Procedure';
 import FullWidthColumn from '@components/FullWidthColumn';
 import { useForm } from 'react-hook-form';
 import useGetProcedures from '@api/procedures/useGetProcedures';

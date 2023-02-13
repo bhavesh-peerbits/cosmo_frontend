@@ -2,7 +2,7 @@ import api from '@api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import ProcedureAppInstance, {
 	fromProcedureAppInstanceApi
-} from '@model/ProcedureAppInstance';
+} from '@model/Narrative/ProcedureAppInstance';
 import { toMap } from '@model/util';
 import formatIso from 'date-fns/formatISO';
 

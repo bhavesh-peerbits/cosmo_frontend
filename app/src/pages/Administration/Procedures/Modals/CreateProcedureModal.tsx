@@ -14,7 +14,7 @@ import {
 	TextInput
 } from '@carbon/react';
 import FullWidthColumn from '@components/FullWidthColumn';
-import Procedure from '@model/Procedure';
+import Procedure from '@model/Narrative/Procedure';
 import { useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';

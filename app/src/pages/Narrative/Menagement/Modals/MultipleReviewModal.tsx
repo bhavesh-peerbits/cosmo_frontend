@@ -18,7 +18,7 @@ import FullWidthColumn from '@components/FullWidthColumn';
 import SingleUserSelect from '@components/SingleUserSelect';
 import useReviewApps from '@api/management/useReviewApps';
 import Application from '@model/Narrative/Application';
-import ProcedureAppInstance from '@model/ProcedureAppInstance';
+import ProcedureAppInstance from '@model/Narrative/ProcedureAppInstance';
 import User from '@model/User';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';

@@ -3,7 +3,7 @@ import api from '@api';
 import ProcedureAppInstance, {
 	fromProcedureAppInstanceApi,
 	toProcedureAppInstanceApi
-} from '@model/ProcedureAppInstance';
+} from '@model/Narrative/ProcedureAppInstance';
 
 interface ReviewProcedureParams {
 	appId: string;

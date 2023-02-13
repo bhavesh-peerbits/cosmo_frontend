@@ -12,7 +12,7 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import useGetAppNarrative from '@api/management/useGetAppNarrative';
 import useGetProcedureByApp from '@api/app-procedures/useGetProcedureByApp';
-import ProcedureAppInstance from '@model/ProcedureAppInstance';
+import ProcedureAppInstance from '@model/Narrative/ProcedureAppInstance';
 
 type GenerateModalProps = {
 	isOpen: boolean;

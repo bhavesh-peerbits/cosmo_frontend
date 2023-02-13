@@ -1,6 +1,6 @@
 import PageHeader from '@components/PageHeader';
 import { useMemo } from 'react';
-import ProcedureAppInstance from '@model/ProcedureAppInstance';
+import ProcedureAppInstance from '@model/Narrative/ProcedureAppInstance';
 import ApplicationReview from '@model/Narrative/ApplicationReview';
 import { useTranslation } from 'react-i18next';
 import { Layer } from '@carbon/react';

@@ -13,8 +13,8 @@ import { Dispatch, SetStateAction, Suspense, useEffect, useMemo, useState } from
 import useGetApps from '@api/management/useGetApps';
 import { useParams } from 'react-router-dom';
 import { useUnmount } from 'ahooks';
-import Procedure from '@model/Procedure';
-import ProcedureAppInstance from '@model/ProcedureAppInstance';
+import Procedure from '@model/Narrative/Procedure';
+import ProcedureAppInstance from '@model/Narrative/ProcedureAppInstance';
 import useGetProcedures from '@api/procedures/useGetProcedures';
 import useGetProcedureByApp from '@api/app-procedures/useGetProcedureByApp';
 import { useTranslation } from 'react-i18next';

@@ -7,7 +7,7 @@ import FullWidthColumn from '@components/FullWidthColumn';
 import { useParams } from 'react-router-dom';
 import ProcedureForm from '@pages/Narrative/ApplicationDetail/Components/ProcedureForm';
 import NoDataMessage from '@components/NoDataMessage';
-import ProcedureAppInstance from '@model/ProcedureAppInstance';
+import ProcedureAppInstance from '@model/Narrative/ProcedureAppInstance';
 import useGetProcedureByApp from '@api/app-procedures/useGetProcedureByApp';
 import useGetProcedures from '@api/procedures/useGetProcedures';
 import { useTranslation } from 'react-i18next';

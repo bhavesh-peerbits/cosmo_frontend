@@ -19,7 +19,7 @@ import ApiError from '@api/ApiError';
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
 import useReviewProcedure from '@api/management/useReviewProcedure';
-import ProcedureAppInstance from '@model/ProcedureAppInstance';
+import ProcedureAppInstance from '@model/Narrative/ProcedureAppInstance';
 import { startOfTomorrow } from 'date-fns';
 
 type ProcedureReviewModalProps = {

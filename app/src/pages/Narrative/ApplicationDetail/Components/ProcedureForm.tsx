@@ -5,7 +5,7 @@ import { useController, useForm } from 'react-hook-form';
 import FullWidthColumn from '@components/FullWidthColumn';
 import MultipleUserSelect from '@components/MultipleUserSelect';
 import SingleUserSelect from '@components/SingleUserSelect';
-import ProcedureAppInstance from '@model/ProcedureAppInstance';
+import ProcedureAppInstance from '@model/Narrative/ProcedureAppInstance';
 import User from '@model/User';
 import InlineLoadingStatus from '@components/InlineLoadingStatus';
 import ApiError from '@api/ApiError';
@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 import useGetProcedures from '@api/procedures/useGetProcedures';
 import useAddProcedureApp from '@api/app-procedures/useAddProcedureApp';
 import useEditProcedureApp from '@api/app-procedures/useEditProcedureApp';
-import Procedure from '@model/Procedure';
+import Procedure from '@model/Narrative/Procedure';
 import TiptapEditor from '@components/tiptap/TiptapEditor';
 
 interface ProcedureFormData {
