@@ -15,25 +15,13 @@
 /**
  *
  * @export
- * @interface SortObject
+ * @interface SetRFLDto
  */
-export interface SortObject {
+export interface SetRFLDto {
 	/**
 	 *
-	 * @type {boolean}
-	 * @memberof SortObject
+	 * @type {Array<number>}
+	 * @memberof SetRFLDto
 	 */
-	empty?: boolean;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof SortObject
-	 */
-	sorted?: boolean;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof SortObject
-	 */
-	unsorted?: boolean;
+	rflIds?: Array<number>;
 }

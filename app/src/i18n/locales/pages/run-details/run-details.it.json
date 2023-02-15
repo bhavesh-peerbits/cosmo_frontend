@@ -74,5 +74,9 @@
 	"type": "Tipo",
 	"return-to-upload": "Ritorna ad upload",
 	"confirm-return": "Conferma ritorno ad upload",
-	"confirm-return-description": "Sei sicuro di voler ritornare allo step upload? Il delta già calcolato verrà eliminato."
+	"confirm-return-description": "Sei sicuro di voler ritornare allo step upload? Il delta già calcolato verrà eliminato.",
+	"delete-file": "Elimina file",
+	"delete-files": "Elimina files",
+	"confirm-delete-file": "Conferma elimina file",
+	"confirm-delete-file-description": "Sei sicuro di eliminare il file? Verrà rimosso da tutti i path in cui è presente."
 }

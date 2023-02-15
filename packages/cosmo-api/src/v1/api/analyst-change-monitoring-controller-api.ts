@@ -88,6 +88,8 @@ import { SaveDraftSchedulingDto } from '../models';
 import { SaveDraftScriptDto } from '../models';
 // @ts-ignore
 import { ScriptDto } from '../models';
+// @ts-ignore
+import { SetRFLDto } from '../models';
 /**
  * AnalystChangeMonitoringControllerApi - axios parameter creator
  * @export
@@ -871,6 +873,130 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				...headersFromBaseOptions,
 				...options.headers
 			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} runId
+		 * @param {number} assetId
+		 * @param {number} fileLinkId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		deleteFileFromAllPaths: async (
+			runId: number,
+			assetId: number,
+			fileLinkId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'runId' is not null or undefined
+			assertParamExists('deleteFileFromAllPaths', 'runId', runId);
+			// verify required parameter 'assetId' is not null or undefined
+			assertParamExists('deleteFileFromAllPaths', 'assetId', assetId);
+			// verify required parameter 'fileLinkId' is not null or undefined
+			assertParamExists('deleteFileFromAllPaths', 'fileLinkId', fileLinkId);
+			const localVarPath =
+				`/api/change-monitoring/analyst/run/{runId}/asset/{assetId}/filelink/{fileLinkId}/delete-file-from-all-paths`
+					.replace(`{${'runId'}}`, encodeURIComponent(String(runId)))
+					.replace(`{${'assetId'}}`, encodeURIComponent(String(assetId)))
+					.replace(`{${'fileLinkId'}}`, encodeURIComponent(String(fileLinkId)));
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
+		 * @param {number} runId
+		 * @param {number} assetId
+		 * @param {SetRFLDto} setRFLDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		deleteFileFromSomePaths: async (
+			runId: number,
+			assetId: number,
+			setRFLDto: SetRFLDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'runId' is not null or undefined
+			assertParamExists('deleteFileFromSomePaths', 'runId', runId);
+			// verify required parameter 'assetId' is not null or undefined
+			assertParamExists('deleteFileFromSomePaths', 'assetId', assetId);
+			// verify required parameter 'setRFLDto' is not null or undefined
+			assertParamExists('deleteFileFromSomePaths', 'setRFLDto', setRFLDto);
+			const localVarPath =
+				`/api/change-monitoring/analyst/run/{runId}/asset/{assetId}/delete-file-from-some-paths`
+					.replace(`{${'runId'}}`, encodeURIComponent(String(runId)))
+					.replace(`{${'assetId'}}`, encodeURIComponent(String(assetId)));
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json';
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				setRFLDto,
+				localVarRequestOptions,
+				configuration
+			);
 
 			return {
 				url: toPathString(localVarUrlObj),
@@ -2874,6 +3000,66 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		},
 		/**
 		 *
+		 * @param {number} runId
+		 * @param {number} assetId
+		 * @param {number} fileLinkId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async deleteFileFromAllPaths(
+			runId: number,
+			assetId: number,
+			fileLinkId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.deleteFileFromAllPaths(
+				runId,
+				assetId,
+				fileLinkId,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
+		 * @param {number} runId
+		 * @param {number} assetId
+		 * @param {SetRFLDto} setRFLDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async deleteFileFromSomePaths(
+			runId: number,
+			assetId: number,
+			setRFLDto: SetRFLDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.deleteFileFromSomePaths(
+				runId,
+				assetId,
+				setRFLDto,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @deprecated
@@ -3918,6 +4104,46 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		},
 		/**
 		 *
+		 * @param {number} runId
+		 * @param {number} assetId
+		 * @param {number} fileLinkId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		deleteFileFromAllPaths(
+			runId: number,
+			assetId: number,
+			fileLinkId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<void> {
+			return localVarFp
+				.deleteFileFromAllPaths(runId, assetId, fileLinkId, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} runId
+		 * @param {number} assetId
+		 * @param {SetRFLDto} setRFLDto
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		deleteFileFromSomePaths(
+			runId: number,
+			assetId: number,
+			setRFLDto: SetRFLDto,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<void> {
+			return localVarFp
+				.deleteFileFromSomePaths(runId, assetId, setRFLDto, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @deprecated
@@ -4797,6 +5023,76 @@ export interface AnalystChangeMonitoringControllerApiDeleteDraftRequest {
 	 *
 	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
 	 * @memberof AnalystChangeMonitoringControllerApiDeleteDraft
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for deleteFileFromAllPaths operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiDeleteFileFromAllPathsRequest
+ */
+export interface AnalystChangeMonitoringControllerApiDeleteFileFromAllPathsRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiDeleteFileFromAllPaths
+	 */
+	readonly runId: number;
+
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiDeleteFileFromAllPaths
+	 */
+	readonly assetId: number;
+
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiDeleteFileFromAllPaths
+	 */
+	readonly fileLinkId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiDeleteFileFromAllPaths
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
+ * Request parameters for deleteFileFromSomePaths operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiDeleteFileFromSomePathsRequest
+ */
+export interface AnalystChangeMonitoringControllerApiDeleteFileFromSomePathsRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiDeleteFileFromSomePaths
+	 */
+	readonly runId: number;
+
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiDeleteFileFromSomePaths
+	 */
+	readonly assetId: number;
+
+	/**
+	 *
+	 * @type {SetRFLDto}
+	 * @memberof AnalystChangeMonitoringControllerApiDeleteFileFromSomePaths
+	 */
+	readonly setRFLDto: SetRFLDto;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiDeleteFileFromSomePaths
 	 */
 	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
 }
@@ -5731,6 +6027,50 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 	) {
 		return AnalystChangeMonitoringControllerApiFp(this.configuration)
 			.deleteDraft(requestParameters.draftId, requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystChangeMonitoringControllerApiDeleteFileFromAllPathsRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystChangeMonitoringControllerApi
+	 */
+	public deleteFileFromAllPaths(
+		requestParameters: AnalystChangeMonitoringControllerApiDeleteFileFromAllPathsRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.deleteFileFromAllPaths(
+				requestParameters.runId,
+				requestParameters.assetId,
+				requestParameters.fileLinkId,
+				requestParameters.acceptLanguage,
+				options
+			)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystChangeMonitoringControllerApiDeleteFileFromSomePathsRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystChangeMonitoringControllerApi
+	 */
+	public deleteFileFromSomePaths(
+		requestParameters: AnalystChangeMonitoringControllerApiDeleteFileFromSomePathsRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.deleteFileFromSomePaths(
+				requestParameters.runId,
+				requestParameters.assetId,
+				requestParameters.setRFLDto,
+				requestParameters.acceptLanguage,
+				options
+			)
 			.then(request => request(this.axios, this.basePath));
 	}
 
