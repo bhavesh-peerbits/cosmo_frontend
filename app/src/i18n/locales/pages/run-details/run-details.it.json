@@ -70,5 +70,6 @@
 	"remove-answer": "Rimuovi risposta",
 	"no-data-delta": "Nessun dato",
 	"no-delta-subtitle": "Nessun delta trovato per questa run",
-	"due-date": "Data di scadenza"
+	"due-date": "Data di scadenza",
+	"type": "Tipo"
 }

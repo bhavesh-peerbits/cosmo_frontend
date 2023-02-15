@@ -15,6 +15,7 @@ const useDeleteMonitoringDraft = () => {
 		onSuccess: (data, params) => {
 			queryClient.invalidateQueries(['all-monitoring-drafts']);
 			queryClient.removeQueries(['monitoring-draft', params.draftId]);
+			queryClient.invalidateQueries(['draft-monitoring-names']);
 		}
 	});
 };

@@ -63,6 +63,12 @@ const DeltaResultTable = ({
 				header: t('runDetails:dimension')
 			},
 			{
+				id: 'type',
+				accessorFn: row => row.deltaFile.deltaType,
+				header: t('runDetails:type'),
+				meta: { filter: { type: 'checkbox' } }
+			},
+			{
 				id: 'additional-info',
 				accessorFn: row => row.deltaFile.additionalInfo,
 				header: t('runDetails:additional-info'),

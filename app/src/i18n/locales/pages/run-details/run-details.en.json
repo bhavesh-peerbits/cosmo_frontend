@@ -70,5 +70,6 @@
 	"remove-answer": "Remove answer",
 	"no-data-delta": "No data",
 	"no-delta-subtitle": "No delta found for this run",
-	"due-date": "Due date"
+	"due-date": "Due date",
+	"type": "Type"
 }

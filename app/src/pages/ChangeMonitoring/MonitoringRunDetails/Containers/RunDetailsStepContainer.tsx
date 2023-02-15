@@ -95,7 +95,7 @@ const RunDetailsStepContainer = ({ monitoring, run }: RunDetailsStepProps) => {
 						: monitoring.owner.displayName
 				}
 				isCurrent={run.status === 'WAITING_FOR_ANALYST'}
-				detail={statusMessage({ stepStatus: run.status })}
+				detail={statusMessage({ stepStatus: 'WAITING_FOR_ANALYST' })}
 			>
 				<DeltaResultContent
 					run={run}
