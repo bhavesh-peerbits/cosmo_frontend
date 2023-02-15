@@ -581,6 +581,7 @@ export const UserAdminControllerApiAxiosParamCreator = function (
 		 * @param {Array<string>} [sort] Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
 		 * @param {string} [searchField]
 		 * @param {string} [lastLogin]
+		 * @param {string} [createdAt]
 		 * @param {Array<string>} [image]
 		 * @param {string} [deletedAt]
 		 * @param {string} [createdBy]
@@ -600,6 +601,7 @@ export const UserAdminControllerApiAxiosParamCreator = function (
 			sort?: Array<string>,
 			searchField?: string,
 			lastLogin?: string,
+			createdAt?: string,
 			image?: Array<string>,
 			deletedAt?: string,
 			createdBy?: string,
@@ -648,6 +650,13 @@ export const UserAdminControllerApiAxiosParamCreator = function (
 					(lastLogin as any) instanceof Date
 						? (lastLogin as any).toISOString()
 						: lastLogin;
+			}
+
+			if (createdAt !== undefined) {
+				localVarQueryParameter['createdAt'] =
+					(createdAt as any) instanceof Date
+						? (createdAt as any).toISOString()
+						: createdAt;
 			}
 
 			if (image) {
@@ -1376,6 +1385,7 @@ export const UserAdminControllerApiFp = function (configuration?: Configuration)
 		 * @param {Array<string>} [sort] Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
 		 * @param {string} [searchField]
 		 * @param {string} [lastLogin]
+		 * @param {string} [createdAt]
 		 * @param {Array<string>} [image]
 		 * @param {string} [deletedAt]
 		 * @param {string} [createdBy]
@@ -1395,6 +1405,7 @@ export const UserAdminControllerApiFp = function (configuration?: Configuration)
 			sort?: Array<string>,
 			searchField?: string,
 			lastLogin?: string,
+			createdAt?: string,
 			image?: Array<string>,
 			deletedAt?: string,
 			createdBy?: string,
@@ -1413,6 +1424,7 @@ export const UserAdminControllerApiFp = function (configuration?: Configuration)
 				sort,
 				searchField,
 				lastLogin,
+				createdAt,
 				image,
 				deletedAt,
 				createdBy,
@@ -1794,6 +1806,7 @@ export const UserAdminControllerApiFactory = function (
 		 * @param {Array<string>} [sort] Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
 		 * @param {string} [searchField]
 		 * @param {string} [lastLogin]
+		 * @param {string} [createdAt]
 		 * @param {Array<string>} [image]
 		 * @param {string} [deletedAt]
 		 * @param {string} [createdBy]
@@ -1813,6 +1826,7 @@ export const UserAdminControllerApiFactory = function (
 			sort?: Array<string>,
 			searchField?: string,
 			lastLogin?: string,
+			createdAt?: string,
 			image?: Array<string>,
 			deletedAt?: string,
 			createdBy?: string,
@@ -1832,6 +1846,7 @@ export const UserAdminControllerApiFactory = function (
 					sort,
 					searchField,
 					lastLogin,
+					createdAt,
 					image,
 					deletedAt,
 					createdBy,
@@ -2189,6 +2204,13 @@ export interface UserAdminControllerApiGetFilteredUserRequest {
 	 * @memberof UserAdminControllerApiGetFilteredUser
 	 */
 	readonly lastLogin?: string;
+
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserAdminControllerApiGetFilteredUser
+	 */
+	readonly createdAt?: string;
 
 	/**
 	 *
@@ -2642,6 +2664,7 @@ export class UserAdminControllerApi extends BaseAPI {
 				requestParameters.sort,
 				requestParameters.searchField,
 				requestParameters.lastLogin,
+				requestParameters.createdAt,
 				requestParameters.image,
 				requestParameters.deletedAt,
 				requestParameters.createdBy,

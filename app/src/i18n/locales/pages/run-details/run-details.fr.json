@@ -71,5 +71,8 @@
 	"no-data-delta": "No data",
 	"no-delta-subtitle": "No delta found for this run",
 	"due-date": "Due date",
-	"type": "Type"
+	"type": "Type",
+	"return-to-upload": "Return to upload",
+	"confirm-return": "Confirm return to upload",
+	"confirm-return-description": "Are you sure you want to return to the upload step ? The delta already calculated will be deleted."
 }

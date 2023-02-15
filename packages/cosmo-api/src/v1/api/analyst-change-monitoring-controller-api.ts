@@ -1730,6 +1730,57 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		},
 		/**
 		 *
+		 * @param {number} runId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		returnToUpload: async (
+			runId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'runId' is not null or undefined
+			assertParamExists('returnToUpload', 'runId', runId);
+			const localVarPath =
+				`/api/change-monitoring/analyst/run/{runId}/return-to-upload`.replace(
+					`{${'runId'}}`,
+					encodeURIComponent(String(runId))
+				);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication bearerAuth required
+			await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+			if (acceptLanguage !== undefined && acceptLanguage !== null) {
+				localVarHeaderParameter['Accept-Language'] = String(acceptLanguage);
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions
+			};
+		},
+		/**
+		 *
 		 * @param {MonitoringDraftDto} monitoringDraftDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
@@ -3259,6 +3310,30 @@ export const AnalystChangeMonitoringControllerApiFp = function (
 		},
 		/**
 		 *
+		 * @param {number} runId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async returnToUpload(
+			runId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.returnToUpload(
+				runId,
+				acceptLanguage,
+				options
+			);
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			);
+		},
+		/**
+		 *
 		 * @param {MonitoringDraftDto} monitoringDraftDto
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
@@ -4119,6 +4194,22 @@ export const AnalystChangeMonitoringControllerApiFactory = function (
 		): AxiosPromise<void> {
 			return localVarFp
 				.goNextStep(runId, acceptLanguage, options)
+				.then(request => request(axios, basePath));
+		},
+		/**
+		 *
+		 * @param {number} runId
+		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		returnToUpload(
+			runId: number,
+			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
+			options?: any
+		): AxiosPromise<void> {
+			return localVarFp
+				.returnToUpload(runId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -5054,6 +5145,27 @@ export interface AnalystChangeMonitoringControllerApiGoNextStepRequest {
 }
 
 /**
+ * Request parameters for returnToUpload operation in AnalystChangeMonitoringControllerApi.
+ * @export
+ * @interface AnalystChangeMonitoringControllerApiReturnToUploadRequest
+ */
+export interface AnalystChangeMonitoringControllerApiReturnToUploadRequest {
+	/**
+	 *
+	 * @type {number}
+	 * @memberof AnalystChangeMonitoringControllerApiReturnToUpload
+	 */
+	readonly runId: number;
+
+	/**
+	 *
+	 * @type {'en-US' | 'it-IT' | 'fr-FR'}
+	 * @memberof AnalystChangeMonitoringControllerApiReturnToUpload
+	 */
+	readonly acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR';
+}
+
+/**
  * Request parameters for saveDraft1 operation in AnalystChangeMonitoringControllerApi.
  * @export
  * @interface AnalystChangeMonitoringControllerApiSaveDraft1Request
@@ -5928,6 +6040,22 @@ export class AnalystChangeMonitoringControllerApi extends BaseAPI {
 	) {
 		return AnalystChangeMonitoringControllerApiFp(this.configuration)
 			.goNextStep(requestParameters.runId, requestParameters.acceptLanguage, options)
+			.then(request => request(this.axios, this.basePath));
+	}
+
+	/**
+	 *
+	 * @param {AnalystChangeMonitoringControllerApiReturnToUploadRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AnalystChangeMonitoringControllerApi
+	 */
+	public returnToUpload(
+		requestParameters: AnalystChangeMonitoringControllerApiReturnToUploadRequest,
+		options?: AxiosRequestConfig
+	) {
+		return AnalystChangeMonitoringControllerApiFp(this.configuration)
+			.returnToUpload(requestParameters.runId, requestParameters.acceptLanguage, options)
 			.then(request => request(this.axios, this.basePath));
 	}
 

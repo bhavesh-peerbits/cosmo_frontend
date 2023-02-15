@@ -14,6 +14,7 @@ import { DeltaTableRowType } from '../Modals/AddAnswerToDeltaModal';
 import CompleteRunModal from '../Modals/CompleteRunModal';
 import SendToFocalPointModal from '../Modals/SendToFocalPointModal';
 import DeltaResultTable from './DeltaResultTable';
+import ConfirmReturnUploadModal from '../Modals/ConfirmReturnUploadModal';
 
 type DeltaResultContentProps = {
 	run: Run;
@@ -37,6 +38,7 @@ const DeltaResultContent = ({
 	const [modalToOpen, setModalToOpen] = useState('');
 	const { data: filesAnswers } = getAllFilesFn(run.id);
 	const [dataTable, setDataTable] = useState<DeltaTableRowType[]>([]);
+	const [open, setOpen] = useState(false);
 
 	const auth = useRecoilValue(authStore);
 	const getUserCanEdit = () => {
@@ -93,92 +95,109 @@ const DeltaResultContent = ({
 	}, [run.deltas]);
 
 	return (
-		<div className='space-y-7 pt-5 pb-9'>
-			{run.dueDate && (
-				<div>
-					{t('due-date')}: {run.dueDate?.toLocaleDateString()}
-				</div>
-			)}
-			{!!filesAnswers?.length && (
-				<div>
-					<p className='text-productive-heading-2'>{t('files-already-uploaded')}</p>
-					<p className='text-caption-2'>{t('files-already-uploaded-description')}</p>
-					{filesAnswers?.map(file => (
-						<Tag key={file.name} size='md' type='gray'>
-							<button
-								type='button'
-								className='flex space-x-2'
-								onClick={() => DownloadFile(file)}
+		<>
+			<ConfirmReturnUploadModal id={run.id} isOpen={open} setIsOpen={setOpen} />
+			<div className='space-y-7 pt-5 pb-9'>
+				{run.dueDate && (
+					<div>
+						{t('due-date')}: {run.dueDate?.toLocaleDateString()}
+					</div>
+				)}
+				{!!filesAnswers?.length && (
+					<div>
+						<p className='text-productive-heading-2'>{t('files-already-uploaded')}</p>
+						<p className='text-caption-2'>{t('files-already-uploaded-description')}</p>
+						{filesAnswers?.map(file => (
+							<Tag key={file.name} size='md' type='gray'>
+								<button
+									type='button'
+									className='flex space-x-2'
+									onClick={() => DownloadFile(file)}
+								>
+									<Download />
+									<span className='text-link-primary hover:text-link-primary-hover hover:underline'>
+										{file.name}
+									</span>
+								</button>
+							</Tag>
+						))}
+					</div>
+				)}
+				<DeltaResultTable
+					data={dataTable}
+					runNumber={run.orderNumber}
+					monitoringName={monitoringName}
+					filesAnswers={filesAnswers}
+					canEdit={getUserCanEdit()}
+				/>
+				<CompleteRunModal
+					isOpen={modalToOpen === 'close'}
+					setIsOpen={setModalToOpen}
+					run={run}
+					monitoringName={monitoringName}
+					closeCompleteRunFn={closeCompleteRunFn}
+				/>
+				<SendToFocalPointModal
+					isOpen={modalToOpen === 'send-focal-point'}
+					setIsOpen={setModalToOpen}
+					run={run}
+					monitoringName={monitoringName}
+				/>
+				{(run.status === 'WAITING_FOR_ANALYST' ||
+					run.status === 'WAITING_FOR_FOCALPOINT') &&
+					getUserCanEdit() && (
+						<div className='flex justify-end space-x-5'>
+							<Button
+								size='md'
+								kind='secondary'
+								disabled={
+									!run.deltas
+										?.flatMap(d => d.deltaAnswers)
+										.flatMap(da => da?.justification)
+										.flatMap(js => js?.status)
+										.every(status => status === 'NONE')
+								}
+								onClick={() => setOpen(true)}
 							>
-								<Download />
-								<span className='text-link-primary hover:text-link-primary-hover hover:underline'>
-									{file.name}
-								</span>
-							</button>
-						</Tag>
-					))}
-				</div>
-			)}
-			<DeltaResultTable
-				data={dataTable}
-				runNumber={run.orderNumber}
-				monitoringName={monitoringName}
-				filesAnswers={filesAnswers}
-				canEdit={getUserCanEdit()}
-			/>
-			<CompleteRunModal
-				isOpen={modalToOpen === 'close'}
-				setIsOpen={setModalToOpen}
-				run={run}
-				monitoringName={monitoringName}
-				closeCompleteRunFn={closeCompleteRunFn}
-			/>
-			<SendToFocalPointModal
-				isOpen={modalToOpen === 'send-focal-point'}
-				setIsOpen={setModalToOpen}
-				run={run}
-				monitoringName={monitoringName}
-			/>
-			{(run.status === 'WAITING_FOR_ANALYST' ||
-				run.status === 'WAITING_FOR_FOCALPOINT') &&
-				getUserCanEdit() && (
-					<div className='flex justify-end'>
-						<Button
-							size='md'
-							disabled={
-								window.location.pathname.includes('change-monitoring') &&
-								!run.deltas?.every(delta =>
-									delta.deltaAnswers?.every(d => d.justification?.status !== 'NONE')
-								) &&
-								!!run.deltas?.flatMap(delta =>
-									delta.deltaAnswers?.flatMap(deltaAnswer => deltaAnswer.deltaFiles)
-								).length
-							}
-							onClick={() => {
-								run.deltas?.flatMap(delta =>
+								{t('return-to-upload')}
+							</Button>
+							<Button
+								size='md'
+								disabled={
+									window.location.pathname.includes('change-monitoring') &&
+									!run.deltas?.every(delta =>
+										delta.deltaAnswers?.every(d => d.justification?.status !== 'NONE')
+									) &&
+									!!run.deltas?.flatMap(delta =>
+										delta.deltaAnswers?.flatMap(deltaAnswer => deltaAnswer.deltaFiles)
+									).length
+								}
+								onClick={() => {
+									run.deltas?.flatMap(delta =>
+										delta.deltaAnswers?.flatMap(deltaAnswer => deltaAnswer.deltaFiles)
+									).length === 0 ||
+									run.status === 'WAITING_FOR_FOCALPOINT' ||
+									run.deltas?.every(delta =>
+										delta.deltaAnswers?.every(d => d.justification?.status !== 'NONE')
+									)
+										? setModalToOpen('close')
+										: setModalToOpen('send-focal-point');
+								}}
+							>
+								{run.deltas?.flatMap(delta =>
 									delta.deltaAnswers?.flatMap(deltaAnswer => deltaAnswer.deltaFiles)
 								).length === 0 ||
 								run.status === 'WAITING_FOR_FOCALPOINT' ||
 								run.deltas?.every(delta =>
 									delta.deltaAnswers?.every(d => d.justification?.status !== 'NONE')
 								)
-									? setModalToOpen('close')
-									: setModalToOpen('send-focal-point');
-							}}
-						>
-							{run.deltas?.flatMap(delta =>
-								delta.deltaAnswers?.flatMap(deltaAnswer => deltaAnswer.deltaFiles)
-							).length === 0 ||
-							run.status === 'WAITING_FOR_FOCALPOINT' ||
-							run.deltas?.every(delta =>
-								delta.deltaAnswers?.every(d => d.justification?.status !== 'NONE')
-							)
-								? t('complete-run')
-								: t('send-to-focal-point')}
-						</Button>
-					</div>
-				)}
-		</div>
+									? t('complete-run')
+									: t('send-to-focal-point')}
+							</Button>
+						</div>
+					)}
+			</div>
+		</>
 	);
 };
 export default DeltaResultContent;
