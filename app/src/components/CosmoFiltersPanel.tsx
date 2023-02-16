@@ -1,4 +1,4 @@
-import { ReactNode, useMemo, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { Button } from '@carbon/react';
 import { Filter } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
@@ -30,19 +30,19 @@ const CosmoFiltersPanel = ({
 	// 		return setIsOpen(false);
 	// 	});
 	// }, []);
-
-	const buttonHeight = useMemo(() => {
+	const getButtonHeight = () => {
 		switch (buttonSize) {
 			case 'sm':
-				return '32';
+				return '32px';
 			case 'md':
-				return '40';
+				return '40px';
 			case 'lg':
-				return '48';
+				return '48px';
 			default:
-				return '48';
+				return '48px';
 		}
-	}, [buttonSize]);
+	};
+
 	return (
 		<div
 			className={`flex ${flipped ? 'justify-start' : 'justify-end'}`}
@@ -66,9 +66,10 @@ const CosmoFiltersPanel = ({
 			/>
 			{isOpen && (
 				<div
-					className={`absolute z-[999] mt-[${buttonHeight}px] inline-block max-h-[calc(67%-2rem)] overflow-auto bg-layer-1 p-3`}
+					className='absolute z-[999] inline-block max-h-[calc(67%-2rem)] overflow-auto bg-layer-1 p-3'
 					style={{
-						boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)'
+						boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
+						marginTop: getButtonHeight()
 					}}
 				>
 					{children}
