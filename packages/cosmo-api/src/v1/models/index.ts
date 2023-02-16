@@ -86,6 +86,7 @@ export * from './save-draft-scheduling-dto';
 export * from './save-draft-script-dto';
 export * from './scheduling-dto';
 export * from './script-dto';
+export * from './set-rfldto';
 export * from './set-up-draft-dto';
 export * from './sort-object';
 export * from './start-campaign-dto';

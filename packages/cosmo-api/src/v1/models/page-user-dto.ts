@@ -27,13 +27,13 @@ export interface PageUserDto {
 	 * @type {number}
 	 * @memberof PageUserDto
 	 */
-	totalPages?: number;
+	totalElements?: number;
 	/**
 	 *
 	 * @type {number}
 	 * @memberof PageUserDto
 	 */
-	totalElements?: number;
+	totalPages?: number;
 	/**
 	 *
 	 * @type {number}
@@ -60,18 +60,6 @@ export interface PageUserDto {
 	sort?: SortObject;
 	/**
 	 *
-	 * @type {boolean}
-	 * @memberof PageUserDto
-	 */
-	first?: boolean;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof PageUserDto
-	 */
-	last?: boolean;
-	/**
-	 *
 	 * @type {number}
 	 * @memberof PageUserDto
 	 */
@@ -82,6 +70,18 @@ export interface PageUserDto {
 	 * @memberof PageUserDto
 	 */
 	pageable?: PageableObject;
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof PageUserDto
+	 */
+	first?: boolean;
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof PageUserDto
+	 */
+	last?: boolean;
 	/**
 	 *
 	 * @type {boolean}

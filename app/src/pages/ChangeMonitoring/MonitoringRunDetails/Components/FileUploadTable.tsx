@@ -1,7 +1,7 @@
 import CosmoTable from '@components/table/CosmoTable';
 import { ColumnDef } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
-import { Upload } from '@carbon/react/icons';
+import { Upload, TrashCan } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { Layer } from '@carbon/react';
 import { useSetRecoilState } from 'recoil';
@@ -9,6 +9,8 @@ import addFileToRunAssetStore from '@store/run-details/addFileToRunAssetStore';
 import FileLink from '@model/common/FileLink';
 import TagFileLinkCell from '@components/table/Cell/TagFileLinkCell';
 import RunFileLink from '@model/ChangeMonitoring/RunFileLink';
+import useDeleteFileFromSomePaths from 'api/change-monitoring-analyst/useDeleteFileFromSomePaths';
+import { useParams } from 'react-router-dom';
 
 interface UploadFileTableItem {
 	path: string;
@@ -37,6 +39,8 @@ const FileUploadTable = ({
 	const { t } = useTranslation(['changeMonitoring', 'table', 'runDetails']);
 	const setAddFileInfo = useSetRecoilState(addFileToRunAssetStore);
 	const [selectedRows, setSelectedRows] = useState<UploadFileTableItem[]>([]);
+	const { mutate: delteRunFileLink } = useDeleteFileFromSomePaths();
+	const { runId = '' } = useParams();
 	// TODO Use tag for files
 	const columns = useMemo<ColumnDef<UploadFileTableItem>[]>(() => {
 		const ArrayCol: ColumnDef<UploadFileTableItem>[] = [
@@ -80,6 +84,23 @@ const FileUploadTable = ({
 					old: period === 'previous'
 				}));
 			}
+		},
+		{
+			id: 'delete',
+			label: t('runDetails:delete-files'),
+			icon: TrashCan,
+			onClick: () => {
+				delteRunFileLink({
+					assetId,
+					runId,
+					rflIds: [
+						// eslint-disable-next-line no-unsafe-optional-chaining, @typescript-eslint/ban-ts-comment
+						// @ts-ignore
+						// eslint-disable-next-line no-unsafe-optional-chaining
+						...selectedRows.filter(row => row.runFileLink).map(sr => +sr.runFileLink?.id)
+					]
+				});
+			}
 		}
 	];
 	// TODO change name of export file
@@ -118,6 +139,19 @@ const FileUploadTable = ({
 											selectedRow: row.original.runFileLink,
 											old: period === 'previous'
 										}));
+									}
+								},
+								{
+									label: t('runDetails:delete-file'),
+									isDelete: () => true,
+									onClick: row => {
+										delteRunFileLink({
+											assetId,
+											rflIds: row.original.runFileLink?.id
+												? [+row.original.runFileLink.id]
+												: [],
+											runId
+										});
 									}
 								}
 						  ]

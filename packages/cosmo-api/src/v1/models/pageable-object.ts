@@ -34,18 +34,6 @@ export interface PageableObject {
 	sort?: SortObject;
 	/**
 	 *
-	 * @type {number}
-	 * @memberof PageableObject
-	 */
-	pageNumber?: number;
-	/**
-	 *
-	 * @type {number}
-	 * @memberof PageableObject
-	 */
-	pageSize?: number;
-	/**
-	 *
 	 * @type {boolean}
 	 * @memberof PageableObject
 	 */
@@ -56,4 +44,16 @@ export interface PageableObject {
 	 * @memberof PageableObject
 	 */
 	paged?: boolean;
+	/**
+	 *
+	 * @type {number}
+	 * @memberof PageableObject
+	 */
+	pageNumber?: number;
+	/**
+	 *
+	 * @type {number}
+	 * @memberof PageableObject
+	 */
+	pageSize?: number;
 }

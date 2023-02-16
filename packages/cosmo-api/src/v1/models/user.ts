@@ -76,6 +76,12 @@ export interface User {
 	lastLogin?: string;
 	/**
 	 *
+	 * @type {string}
+	 * @memberof User
+	 */
+	createdAt?: string;
+	/**
+	 *
 	 * @type {User}
 	 * @memberof User
 	 */
