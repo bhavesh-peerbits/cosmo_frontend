@@ -9,10 +9,10 @@ import MultiTagFileLinkCell from '@components/table/Cell/MultiTagFileLinkCell';
 import useGetCsvAnswer from '@api/change-monitoring/useGetCsvAnswer';
 import useDeleteAnswer from '@api/change-monitoring/useDeleteAnswer';
 import DateCell from '@components/table/Cell/DateCell';
-import AddAnswerToDeltaModal, {
-	DeltaTableRowType
-} from '../Modals/AddAnswerToDeltaModal';
 import UploadCsvAnswersModal from '../Modals/UploadCsvAnswersModal';
+import AddAnswerToDeltaFileModal, {
+	DeltaTableRowType
+} from '../Modals/AddAnswerDeltaFileModal';
 
 type DeltaResultTableProps = {
 	data?: DeltaTableRowType[];
@@ -40,7 +40,7 @@ const DeltaResultTable = ({
 	const removeAnswer = (row: DeltaTableRowType) => {
 		return mutate({
 			deltaId: row.deltaId,
-			justificationId: row.justificationId as number
+			deltaFileId: row.deltaFile.id
 		});
 	};
 
@@ -185,20 +185,20 @@ const DeltaResultTable = ({
 
 	return (
 		<Layer level={2}>
-			<AddAnswerToDeltaModal
-				isOpen={modalToOpen}
-				setIsOpen={setModalToOpen}
-				monitoringName={monitoringName}
-				runNumber={runNumber}
-				filesAnswers={filesAnswers}
-				orderNumber={runNumber}
-			/>
 			<UploadCsvAnswersModal
 				isOpen={isUploadOpen}
 				setIsOpen={setIsUploadOpen}
 				monitoringName={monitoringName}
 				runNumber={runNumber}
 				deltaIds={data?.map(d => d.deltaId) || []}
+			/>
+			<AddAnswerToDeltaFileModal
+				isOpen={modalToOpen}
+				setIsOpen={setModalToOpen}
+				monitoringName={monitoringName}
+				runNumber={runNumber}
+				filesAnswers={filesAnswers}
+				orderNumber={runNumber}
 			/>
 			<CosmoTable
 				tableId='delta-table'

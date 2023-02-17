@@ -1,31 +1,29 @@
-import ApiError from '@api/ApiError';
-import {
-	Form,
-	MultiSelect,
-	Toggle,
-	TextArea,
-	Layer,
-	TextInput,
-	InlineNotification,
-	RadioButton,
-	RadioButtonGroup
-} from '@carbon/react';
-import UploaderS3Monitoring from '@components/common/UploaderS3Monitoring';
 import TearsheetNarrow from '@components/Tearsheet/TearsheetNarrow';
-import FileLink, { fromFiletoFileLink } from '@model/common/FileLink';
+import { useForm } from 'react-hook-form';
+import cx from 'classnames';
+import {
+	TextInput,
+	Toggle,
+	RadioButtonGroup,
+	RadioButton,
+	Layer,
+	InlineNotification,
+	MultiSelect
+} from '@carbon/react';
 import {
 	DeltaFileDto,
 	FileLinkDto,
 	JustificationDeltaFileDtoStatusEnum
-} from 'cosmo-api/src/v1/models';
+} from 'cosmo-api/src/v1';
 import { Dispatch, SetStateAction, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import FileLink, { fromFiletoFileLink } from '@model/common/FileLink';
 import { useTranslation } from 'react-i18next';
-import cx from 'classnames';
+import UploaderS3Monitoring from '@components/common/UploaderS3Monitoring';
 import { useParams } from 'react-router-dom';
 import useSaveAnswerWithFileUploaded from '@api/change-monitoring/useSaveAnswerWithFileUploaded';
 import useSaveAnswerWithFile from '@api/change-monitoring/useSaveAnswerWithFile';
 import useSaveAnswerWithoutFile from '@api/change-monitoring/useSaveAnswerWithoutFile';
+import ApiError from '@api/ApiError';
 
 export interface DeltaTableRowType {
 	givenBy?: string | undefined;
@@ -45,7 +43,7 @@ type AddAnswerFormData = {
 	ignoreNote: string;
 };
 
-type AddAnswerToDeltaModalProps = {
+type AddAnswerToDeltaFileModalProps = {
 	isOpen: {
 		modal: string;
 		rows: DeltaTableRowType[];
@@ -62,14 +60,29 @@ type AddAnswerToDeltaModalProps = {
 	orderNumber: number;
 };
 
-const AddAnswerToDeltaModal = ({
+const AddAnswerToDeltaFileModal = ({
 	isOpen,
 	setIsOpen,
 	monitoringName,
 	runNumber,
 	filesAnswers,
 	orderNumber
-}: AddAnswerToDeltaModalProps) => {
+}: AddAnswerToDeltaFileModalProps) => {
+	const {
+		register,
+		watch,
+		setValue,
+		reset,
+		formState: { errors }
+	} = useForm<AddAnswerFormData>();
+	const {
+		control,
+		getValues: getValuesFiles,
+		watch: watchFiles,
+		reset: resetFiles
+	} = useForm<{ files: File[] }>({
+		defaultValues: { files: [] }
+	});
 	const { t } = useTranslation([
 		'modals',
 		'runDetails',
@@ -79,23 +92,6 @@ const AddAnswerToDeltaModal = ({
 	const [isUploadSelected, setIsUploadSelected] = useState(false);
 	const [radioSelected, setRadioSelected] = useState(1);
 	const { monitoringId = '', runId = '' } = useParams();
-
-	const {
-		control,
-		getValues: getValuesFiles,
-		watch: watchFiles,
-		reset: resetFiles
-	} = useForm<{ files: File[] }>({
-		defaultValues: { files: [] }
-	});
-	const {
-		register,
-		getValues,
-		watch,
-		setValue,
-		reset,
-		formState: { errors }
-	} = useForm<AddAnswerFormData>();
 
 	const {
 		mutate: mutateWithoutFile,
@@ -128,10 +124,17 @@ const AddAnswerToDeltaModal = ({
 		resetApiWithoutFile();
 		resetApiWithFileUploaded();
 		setIsUploadSelected(false);
-		reset();
-		resetFiles();
+		resetFiles({ files: [] });
+		reset({ text: '', filesId: [], ignoreNote: '' });
 	};
-
+	const isSaveDisabled = () => {
+		if (isUploadSelected) {
+			return radioSelected === 1
+				? watchFiles('files')?.length === 0
+				: watch('filesId')?.length === 0;
+		}
+		return isOpen.modal === 'ignore' ? !watch('ignoreNote') : !watch('text');
+	};
 	const uniqueDeltaIds = [...new Set(isOpen.rows.map(row => row.deltaId))];
 
 	const saveAnswerWithoutFile = () => {
@@ -140,7 +143,7 @@ const AddAnswerToDeltaModal = ({
 				{
 					deltaId,
 					deltaFilesId: isOpen.rows.map(row => row.deltaFile.id),
-					text: isOpen?.modal === 'ignore' ? getValues('ignoreNote') : getValues('text'),
+					text: isOpen?.modal === 'ignore' ? watch('ignoreNote') : watch('text'),
 					ignore: isOpen?.modal === 'ignore',
 					runId
 				},
@@ -173,7 +176,7 @@ const AddAnswerToDeltaModal = ({
 				{
 					deltaId,
 					deltaFilesId: isOpen.rows.map(row => row.deltaFile.id),
-					fileLinkIds: getValues('filesId'),
+					fileLinkIds: watch('filesId'),
 					text: watch('text')
 				},
 				{ onSuccess: () => cleanUp() }
@@ -185,14 +188,6 @@ const AddAnswerToDeltaModal = ({
 		radioSelected === 1 ? saveAnswerWithFile() : saveAnswerWithUploadedFile();
 	};
 
-	const isSaveDisabled = () => {
-		if (isUploadSelected) {
-			return radioSelected === 1
-				? watchFiles('files')?.length === 0
-				: watch('filesId')?.length === 0;
-		}
-		return isOpen.modal === 'ignore' ? !watch('ignoreNote') : !watch('text');
-	};
 	return (
 		<TearsheetNarrow
 			hasCloseIcon
@@ -224,18 +219,7 @@ const AddAnswerToDeltaModal = ({
 				}
 			]}
 		>
-			<Form className='space-y-5 px-5'>
-				{isOpen?.modal === 'ignore' && (
-					<TextArea
-						labelText={`${t('changeMonitoring:note')} *`}
-						placeholder={t('runDetails:ignore-placeholder')}
-						invalid={Boolean(errors.ignoreNote)}
-						invalidText={errors.ignoreNote?.message}
-						{...register('ignoreNote', {
-							required: { value: true, message: t('modals:field-required') }
-						})}
-					/>
-				)}
+			<div className='space-y-5 px-5'>
 				{isOpen?.modal !== 'ignore' && (
 					<div className='space-y-5'>
 						<TextInput
@@ -246,7 +230,7 @@ const AddAnswerToDeltaModal = ({
 							invalidText={errors.text?.message}
 							{...register('text', {
 								required: {
-									value: true,
+									value: isOpen?.modal !== 'ignore',
 									message: t('modals:field-required')
 								}
 							})}
@@ -334,8 +318,9 @@ const AddAnswerToDeltaModal = ({
 						}
 					/>
 				</div>
-			</Form>
+			</div>
 		</TearsheetNarrow>
 	);
 };
-export default AddAnswerToDeltaModal;
+
+export default AddAnswerToDeltaFileModal;

@@ -128,6 +128,7 @@ models/save-draft-scheduling-dto.ts
 models/save-draft-script-dto.ts
 models/scheduling-dto.ts
 models/script-dto.ts
+models/set-rfldto.ts
 models/set-up-draft-dto.ts
 models/sort-object.ts
 models/start-campaign-dto.ts
