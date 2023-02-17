@@ -3,13 +3,13 @@ import api from '@api';
 
 interface DeleteAnswerParameters {
 	deltaId: number;
-	justificationId: number;
+	deltaFileId: number;
 }
 
-const deleteAnswer = ({ deltaId, justificationId }: DeleteAnswerParameters) => {
+const deleteAnswer = ({ deltaId, deltaFileId }: DeleteAnswerParameters) => {
 	return api.changeMonitoringControllerApi.deleteAnswer({
 		deltaId,
-		justificationId
+		deltaFileId
 	});
 };
 

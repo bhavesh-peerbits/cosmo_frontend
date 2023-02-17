@@ -57,25 +57,25 @@ export const ChangeMonitoringControllerApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @param {number} deltaId
-		 * @param {number} justificationId
+		 * @param {number} deltaFileId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		deleteAnswer: async (
 			deltaId: number,
-			justificationId: number,
+			deltaFileId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options: AxiosRequestConfig = {}
 		): Promise<RequestArgs> => {
 			// verify required parameter 'deltaId' is not null or undefined
 			assertParamExists('deleteAnswer', 'deltaId', deltaId);
-			// verify required parameter 'justificationId' is not null or undefined
-			assertParamExists('deleteAnswer', 'justificationId', justificationId);
+			// verify required parameter 'deltaFileId' is not null or undefined
+			assertParamExists('deleteAnswer', 'deltaFileId', deltaFileId);
 			const localVarPath =
-				`/api/change-monitoring/delta/{deltaId}/just/{justificationId}/delete-answer`
+				`/api/change-monitoring/delta/{deltaId}/delta-file/{deltaFileId}/delete-answer`
 					.replace(`{${'deltaId'}}`, encodeURIComponent(String(deltaId)))
-					.replace(`{${'justificationId'}}`, encodeURIComponent(String(justificationId)));
+					.replace(`{${'deltaFileId'}}`, encodeURIComponent(String(deltaFileId)));
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -496,20 +496,20 @@ export const ChangeMonitoringControllerApiFp = function (configuration?: Configu
 		/**
 		 *
 		 * @param {number} deltaId
-		 * @param {number} justificationId
+		 * @param {number} deltaFileId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async deleteAnswer(
 			deltaId: number,
-			justificationId: number,
+			deltaFileId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: AxiosRequestConfig
 		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.deleteAnswer(
 				deltaId,
-				justificationId,
+				deltaFileId,
 				acceptLanguage,
 				options
 			);
@@ -698,19 +698,19 @@ export const ChangeMonitoringControllerApiFactory = function (
 		/**
 		 *
 		 * @param {number} deltaId
-		 * @param {number} justificationId
+		 * @param {number} deltaFileId
 		 * @param {'en-US' | 'it-IT' | 'fr-FR'} [acceptLanguage]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		deleteAnswer(
 			deltaId: number,
-			justificationId: number,
+			deltaFileId: number,
 			acceptLanguage?: 'en-US' | 'it-IT' | 'fr-FR',
 			options?: any
 		): AxiosPromise<void> {
 			return localVarFp
-				.deleteAnswer(deltaId, justificationId, acceptLanguage, options)
+				.deleteAnswer(deltaId, deltaFileId, acceptLanguage, options)
 				.then(request => request(axios, basePath));
 		},
 		/**
@@ -846,7 +846,7 @@ export interface ChangeMonitoringControllerApiDeleteAnswerRequest {
 	 * @type {number}
 	 * @memberof ChangeMonitoringControllerApiDeleteAnswer
 	 */
-	readonly justificationId: number;
+	readonly deltaFileId: number;
 
 	/**
 	 *
@@ -1038,7 +1038,7 @@ export class ChangeMonitoringControllerApi extends BaseAPI {
 		return ChangeMonitoringControllerApiFp(this.configuration)
 			.deleteAnswer(
 				requestParameters.deltaId,
-				requestParameters.justificationId,
+				requestParameters.deltaFileId,
 				requestParameters.acceptLanguage,
 				options
 			)

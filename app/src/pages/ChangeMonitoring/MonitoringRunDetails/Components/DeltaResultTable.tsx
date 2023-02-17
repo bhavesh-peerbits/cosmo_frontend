@@ -40,7 +40,7 @@ const DeltaResultTable = ({
 	const removeAnswer = (row: DeltaTableRowType) => {
 		return mutate({
 			deltaId: row.deltaId,
-			justificationId: row.justificationId as number
+			deltaFileId: row.deltaFile.id
 		});
 	};
 
