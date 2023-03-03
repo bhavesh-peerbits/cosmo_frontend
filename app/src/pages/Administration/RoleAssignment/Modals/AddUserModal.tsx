@@ -35,8 +35,12 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 	const { t } = useTranslation('modals');
 	const { t: tHome } = useTranslation('home');
 	const { t: tUser } = useTranslation('userAdmin');
-	const existingUsername = users.map(user => user.username.toLowerCase());
-	const existingEmail = users.map(user => user.email?.toLocaleLowerCase());
+	const existingUsername = users.map((user: { username: string }) =>
+		user.username.toLowerCase()
+	);
+	const existingEmail = users.map((user: { email: string }) =>
+		user.email?.toLocaleLowerCase()
+	);
 	const [selectedRoles, setSelectedRoles] = useState<UserDtoRolesEnum[]>([]);
 	const { mutate, isError, error } = useAddUser();
 	const {
@@ -66,7 +70,10 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 		'REQUEST_ANALYST',
 		'WORKFLOW_APPROVER',
 		'MONITORING_ADMIN',
-		'MONITORING_ANALYST'
+		'MONITORING_ANALYST',
+		'DOCUMENTATION_ANALYST',
+		'DOCUMENTATION_ADMIN',
+		'DOCUMENTATION_READER'
 	];
 
 	const cleanUp = () => {
@@ -142,7 +149,7 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 										value: true,
 										message: t('field-required')
 									},
-									validate: username =>
+									validate: (username: string) =>
 										!existingUsername.includes(username.toLowerCase()) ||
 										t('exists', { value: 'Username' })
 								})}
@@ -159,7 +166,7 @@ const AddUserModal = ({ isOpen, setIsOpen }: AddUserModalProps) => {
 										value: true,
 										message: t('field-required')
 									},
-									validate: email =>
+									validate: (email: string) =>
 										!existingEmail.includes(email.toLowerCase()) ||
 										t('exists', { value: 'Email' })
 								})}

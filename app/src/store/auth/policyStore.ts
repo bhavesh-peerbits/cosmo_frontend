@@ -26,6 +26,7 @@ type Policies = {
 	canCreateRequest: boolean;
 	canCreateMonitoring: boolean;
 	canWorkflowApprover: boolean;
+	canDocumentAdmin: boolean;
 };
 
 const policyStore = selector<Policies>({
@@ -110,6 +111,10 @@ const policyStore = selector<Policies>({
 			canWorkflowApprover: Boolean(
 				!hasNoRole &&
 					policies?.includesMulti(UserRoleEnum.WorkflowApprover, UserRoleEnum.SysAdmin)
+			),
+			canDocumentAdmin: Boolean(
+				!hasNoRole &&
+					policies?.includesMulti(UserRoleEnum.DocumentationAdmin, UserRoleEnum.SysAdmin)
 			)
 		};
 	}

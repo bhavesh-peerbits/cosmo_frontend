@@ -70,7 +70,10 @@ export const UserBaseRolesEnum = {
 	FocalPoint: 'FOCAL_POINT',
 	ReviewerCollaborator: 'REVIEWER_COLLABORATOR',
 	UserUnknown: 'USER_UNKNOWN',
-	WorkflowApprover: 'WORKFLOW_APPROVER'
+	WorkflowApprover: 'WORKFLOW_APPROVER',
+	DocumentationAdmin: 'DOCUMENTATION_ADMIN',
+	DocumentationAnalyst: 'DOCUMENTATION_ANALYST',
+	DocumentationReader: 'DOCUMENTATION_READER'
 } as const;
 
 export type UserBaseRolesEnum = typeof UserBaseRolesEnum[keyof typeof UserBaseRolesEnum];

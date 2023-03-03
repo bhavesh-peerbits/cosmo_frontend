@@ -54,5 +54,7 @@
 	"uploading": "",
 	"close": "",
 	"confirm-close-upload": "",
-	"confirm-close-request": ""
+	"confirm-close-request": "",
+	"new-template": "Nouveau modèle",
+	"delete-template": "Avertissement! Ce modèle est actuellement utilisé dans {{document}} documents."
 }

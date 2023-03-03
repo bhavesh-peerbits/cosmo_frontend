@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
 	AccessControllerApi,
 	AnalystCampaignControllerApi,
@@ -63,7 +64,10 @@ import {
 	FocalPointChangeMonitoringControllerApi,
 	ChangeMonitoringControllerApi,
 	InstanceAssetControllerApi,
-	AssetControllerApi
+	AssetControllerApi,
+	DocumentTemplateControllerApi,
+	DocumentTemplateDto,
+	DocumentTemplateDtoTypeEnum
 } from './v1';
 
 export const ApiConfiguration = Configuration;
@@ -94,7 +98,8 @@ export default function configureApi(config: Configuration) {
 		),
 		changeMonitoringControllerApi: new ChangeMonitoringControllerApi(config),
 		instanceAssetControllerApi: new InstanceAssetControllerApi(config),
-		assetControllerApi: new AssetControllerApi(config)
+		assetControllerApi: new AssetControllerApi(config),
+		documentTemplateControllerApi: new DocumentTemplateControllerApi(config)
 	};
 }
 export type ApplicationApi = ApplicationDto;
@@ -143,3 +148,5 @@ export type RunAssetApi = RunAssetDto;
 export type RunFileLinkApi = RunFileLinkDto;
 export type InstanceAssetApi = InstanceAssetDto;
 export type MonitoringDraftApi = MonitoringDraftDto;
+export type DocumentTemplateApi = DocumentTemplateDto;
+export const DocumentTemplateTypeEnum = DocumentTemplateDtoTypeEnum;

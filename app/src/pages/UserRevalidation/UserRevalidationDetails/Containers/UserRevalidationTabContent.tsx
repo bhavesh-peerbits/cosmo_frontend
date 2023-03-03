@@ -46,7 +46,6 @@ const UserRevalidationTabContent = ({ review }: UserRevalidationTabContentProps)
 					proportional: {
 						total: answersList.length,
 						unit: 'answers',
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any
 						breakdownFormatter: ({
 							datasetsTotal,
 							total

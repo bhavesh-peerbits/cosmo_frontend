@@ -22,6 +22,8 @@ export * from './api/change-monitoring-controller-api';
 export * from './api/config-element-controller-api';
 export * from './api/config-element-module-controller-api';
 export * from './api/csv-reader-controller-api';
+export * from './api/dev-home-redirect-controller-api';
+export * from './api/document-template-controller-api';
 export * from './api/evidence-request-controller-api';
 export * from './api/evidence-request-file-s3-controller-api';
 export * from './api/evidence-request-focal-point-controller-api';

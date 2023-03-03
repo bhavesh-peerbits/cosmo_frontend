@@ -129,7 +129,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				fileForDeltaDto
 			);
 			const localVarPath =
-				`/api/change-monitoring/analyst/run/{runId}/asset/{assetId}/file/{fileLinkId}/add-file-already-uploaded-for-delta`
+				`/api/change-monitoring/analyst/run/id/{runId}/asset/id/{assetId}/file/id/{fileLinkId}/add-file-already-uploaded-for-delta`
 					.replace(`{${'runId'}}`, encodeURIComponent(String(runId)))
 					.replace(`{${'assetId'}}`, encodeURIComponent(String(assetId)))
 					.replace(`{${'fileLinkId'}}`, encodeURIComponent(String(fileLinkId)));
@@ -199,7 +199,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			// verify required parameter 'file' is not null or undefined
 			assertParamExists('addFileForDelta', 'file', file);
 			const localVarPath =
-				`/api/change-monitoring/analyst/run/{runId}/asset/{assetId}/add-file-for-delta`
+				`/api/change-monitoring/analyst/run/id/{runId}/asset/id/{assetId}/add-file-for-delta`
 					.replace(`{${'runId'}}`, encodeURIComponent(String(runId)))
 					.replace(`{${'assetId'}}`, encodeURIComponent(String(assetId)));
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -273,7 +273,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			// verify required parameter 'fileForDeltaDto' is not null or undefined
 			assertParamExists('addOldRunFileForDelta', 'fileForDeltaDto', fileForDeltaDto);
 			const localVarPath =
-				`/api/change-monitoring/analyst/run/{runId}/asset/{assetId}/add-old-run-file-for-delta`
+				`/api/change-monitoring/analyst/run/id/{runId}/asset/id/{assetId}/add-old-run-file-for-delta`
 					.replace(`{${'runId'}}`, encodeURIComponent(String(runId)))
 					.replace(`{${'assetId'}}`, encodeURIComponent(String(assetId)));
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -338,7 +338,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			// verify required parameter 'body' is not null or undefined
 			assertParamExists('addPath', 'body', body);
 			const localVarPath =
-				`/api/change-monitoring/analyst/draft/{draftId}/add-path/{assetId}`
+				`/api/change-monitoring/analyst/draft/id/{draftId}/add-path/id/{assetId}`
 					.replace(`{${'draftId'}}`, encodeURIComponent(String(draftId)))
 					.replace(`{${'assetId'}}`, encodeURIComponent(String(assetId)));
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -398,10 +398,11 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			assertParamExists('addPathsRun', 'runId', runId);
 			// verify required parameter 'body' is not null or undefined
 			assertParamExists('addPathsRun', 'body', body);
-			const localVarPath = `/api/change-monitoring/analyst/run/{runId}/add-paths`.replace(
-				`{${'runId'}}`,
-				encodeURIComponent(String(runId))
-			);
+			const localVarPath =
+				`/api/change-monitoring/analyst/run/id/{runId}/add-paths`.replace(
+					`{${'runId'}}`,
+					encodeURIComponent(String(runId))
+				);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -456,7 +457,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			// verify required parameter 'runId' is not null or undefined
 			assertParamExists('calculateDelta', 'runId', runId);
 			const localVarPath =
-				`/api/change-monitoring/analyst/run/{runId}/calculate-delta`.replace(
+				`/api/change-monitoring/analyst/run/id/{runId}/calculate-delta`.replace(
 					`{${'runId'}}`,
 					encodeURIComponent(String(runId))
 				);
@@ -510,10 +511,11 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			assertParamExists('checkPath', 'assetId', assetId);
 			// verify required parameter 'requestBody' is not null or undefined
 			assertParamExists('checkPath', 'requestBody', requestBody);
-			const localVarPath = `/api/change-monitoring/analyst/check-path/{assetId}`.replace(
-				`{${'assetId'}}`,
-				encodeURIComponent(String(assetId))
-			);
+			const localVarPath =
+				`/api/change-monitoring/analyst/check-path/id/{assetId}`.replace(
+					`{${'assetId'}}`,
+					encodeURIComponent(String(assetId))
+				);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -630,7 +632,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			// verify required parameter 'closeRunDto' is not null or undefined
 			assertParamExists('closeCompletedRun1', 'closeRunDto', closeRunDto);
 			const localVarPath =
-				`/api/change-monitoring/analyst/run/close-completed/{runId}`.replace(
+				`/api/change-monitoring/analyst/run/close-completed/id/{runId}`.replace(
 					`{${'runId'}}`,
 					encodeURIComponent(String(runId))
 				);
@@ -688,7 +690,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			// verify required parameter 'monitoringId' is not null or undefined
 			assertParamExists('closeMonitoring', 'monitoringId', monitoringId);
 			const localVarPath =
-				`/api/change-monitoring/analyst/monitoring/close/{monitoringId}`.replace(
+				`/api/change-monitoring/analyst/monitoring/close/id/{monitoringId}`.replace(
 					`{${'monitoringId'}}`,
 					encodeURIComponent(String(monitoringId))
 				);
@@ -738,7 +740,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		): Promise<RequestArgs> => {
 			// verify required parameter 'runId' is not null or undefined
 			assertParamExists('closeRun', 'runId', runId);
-			const localVarPath = `/api/change-monitoring/analyst/run/close/{runId}`.replace(
+			const localVarPath = `/api/change-monitoring/analyst/run/close/id/{runId}`.replace(
 				`{${'runId'}}`,
 				encodeURIComponent(String(runId))
 			);
@@ -843,7 +845,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			// verify required parameter 'draftId' is not null or undefined
 			assertParamExists('deleteDraft', 'draftId', draftId);
 			const localVarPath =
-				`/api/change-monitoring/analyst/delete-draft/{draftId}`.replace(
+				`/api/change-monitoring/analyst/delete-draft/id/{draftId}`.replace(
 					`{${'draftId'}}`,
 					encodeURIComponent(String(draftId))
 				);
@@ -902,7 +904,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			// verify required parameter 'fileLinkId' is not null or undefined
 			assertParamExists('deleteFileFromAllPaths', 'fileLinkId', fileLinkId);
 			const localVarPath =
-				`/api/change-monitoring/analyst/run/{runId}/asset/{assetId}/filelink/{fileLinkId}/delete-file-from-all-paths`
+				`/api/change-monitoring/analyst/run/id/{runId}/asset/id/{assetId}/filelink/id/{fileLinkId}/delete-file-from-all-paths`
 					.replace(`{${'runId'}}`, encodeURIComponent(String(runId)))
 					.replace(`{${'assetId'}}`, encodeURIComponent(String(assetId)))
 					.replace(`{${'fileLinkId'}}`, encodeURIComponent(String(fileLinkId)));
@@ -961,7 +963,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			// verify required parameter 'setRFLDto' is not null or undefined
 			assertParamExists('deleteFileFromSomePaths', 'setRFLDto', setRFLDto);
 			const localVarPath =
-				`/api/change-monitoring/analyst/run/{runId}/asset/{assetId}/delete-file-from-some-paths`
+				`/api/change-monitoring/analyst/run/id/{runId}/asset/id/{assetId}/delete-file-from-some-paths`
 					.replace(`{${'runId'}}`, encodeURIComponent(String(runId)))
 					.replace(`{${'assetId'}}`, encodeURIComponent(String(assetId)));
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1074,7 +1076,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				focalPointAndDelegatesDto
 			);
 			const localVarPath =
-				`/api/change-monitoring/analyst/monitoring/set-focalpoint-and-delegates/{monitoringId}`.replace(
+				`/api/change-monitoring/analyst/monitoring/set-focalpoint-and-delegates/id/{monitoringId}`.replace(
 					`{${'monitoringId'}}`,
 					encodeURIComponent(String(monitoringId))
 				);
@@ -1217,10 +1219,11 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		): Promise<RequestArgs> => {
 			// verify required parameter 'runId' is not null or undefined
 			assertParamExists('getAllFilesAnswers1', 'runId', runId);
-			const localVarPath = `/api/change-monitoring/analyst/run/{runId}/filelinks`.replace(
-				`{${'runId'}}`,
-				encodeURIComponent(String(runId))
-			);
+			const localVarPath =
+				`/api/change-monitoring/analyst/run/id/{runId}/filelinks`.replace(
+					`{${'runId'}}`,
+					encodeURIComponent(String(runId))
+				);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -1413,7 +1416,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			// verify required parameter 'leafs' is not null or undefined
 			assertParamExists('getControls', 'leafs', leafs);
 			const localVarPath =
-				`/api/change-monitoring/analyst/get-controls/{instanceId}/{leafs}`
+				`/api/change-monitoring/analyst/get-controls/id/{instanceId}/{leafs}`
 					.replace(`{${'instanceId'}}`, encodeURIComponent(String(instanceId)))
 					.replace(`{${'leafs'}}`, encodeURIComponent(String(leafs)));
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1462,7 +1465,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		): Promise<RequestArgs> => {
 			// verify required parameter 'draftId' is not null or undefined
 			assertParamExists('getDraft', 'draftId', draftId);
-			const localVarPath = `/api/change-monitoring/analyst/draft/{draftId}`.replace(
+			const localVarPath = `/api/change-monitoring/analyst/draft/id/{draftId}`.replace(
 				`{${'draftId'}}`,
 				encodeURIComponent(String(draftId))
 			);
@@ -1521,7 +1524,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			// verify required parameter 'monitoringId' is not null or undefined
 			assertParamExists('getFileFromCurrentPreviousRun', 'monitoringId', monitoringId);
 			const localVarPath =
-				`/api/change-monitoring/analyst/monitoring/{monitoringId}/run/{runId}/asset/{assetId}/get-file-previous`
+				`/api/change-monitoring/analyst/monitoring/id/{monitoringId}/run/id/{runId}/asset/id/{assetId}/get-file-previous`
 					.replace(`{${'runId'}}`, encodeURIComponent(String(runId)))
 					.replace(`{${'assetId'}}`, encodeURIComponent(String(assetId)))
 					.replace(`{${'monitoringId'}}`, encodeURIComponent(String(monitoringId)));
@@ -1666,7 +1669,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			// verify required parameter 'monitoringId' is not null or undefined
 			assertParamExists('getMonitoringById', 'monitoringId', monitoringId);
 			const localVarPath =
-				`/api/change-monitoring/analyst/monitoring/{monitoringId}`.replace(
+				`/api/change-monitoring/analyst/monitoring/id/{monitoringId}`.replace(
 					`{${'monitoringId'}}`,
 					encodeURIComponent(String(monitoringId))
 				);
@@ -1716,7 +1719,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 		): Promise<RequestArgs> => {
 			// verify required parameter 'runId' is not null or undefined
 			assertParamExists('getRunById', 'runId', runId);
-			const localVarPath = `/api/change-monitoring/analyst/run/{runId}`.replace(
+			const localVarPath = `/api/change-monitoring/analyst/run/id/{runId}`.replace(
 				`{${'runId'}}`,
 				encodeURIComponent(String(runId))
 			);
@@ -1767,7 +1770,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			// verify required parameter 'draftId' is not null or undefined
 			assertParamExists('getScriptByDraft', 'draftId', draftId);
 			const localVarPath =
-				`/api/change-monitoring/analyst/get-all-script/{draftId}`.replace(
+				`/api/change-monitoring/analyst/get-all-script/id/{draftId}`.replace(
 					`{${'draftId'}}`,
 					encodeURIComponent(String(draftId))
 				);
@@ -1818,7 +1821,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			// verify required parameter 'runId' is not null or undefined
 			assertParamExists('goNextStep', 'runId', runId);
 			const localVarPath =
-				`/api/change-monitoring/analyst/run/{runId}/go-next-step`.replace(
+				`/api/change-monitoring/analyst/run/id/{runId}/go-next-step`.replace(
 					`{${'runId'}}`,
 					encodeURIComponent(String(runId))
 				);
@@ -1869,7 +1872,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			// verify required parameter 'runId' is not null or undefined
 			assertParamExists('returnToUpload', 'runId', runId);
 			const localVarPath =
-				`/api/change-monitoring/analyst/run/{runId}/return-to-upload`.replace(
+				`/api/change-monitoring/analyst/run/id/{runId}/return-to-upload`.replace(
 					`{${'runId'}}`,
 					encodeURIComponent(String(runId))
 				);
@@ -1983,7 +1986,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				saveDraftAdditionalInfoDto
 			);
 			const localVarPath =
-				`/api/change-monitoring/analyst/draft/{monitoringId}/save-draft-additional-info`.replace(
+				`/api/change-monitoring/analyst/draft/id/{monitoringId}/save-draft-additional-info`.replace(
 					`{${'monitoringId'}}`,
 					encodeURIComponent(String(monitoringId))
 				);
@@ -2045,7 +2048,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			// verify required parameter 'saveDraftAssetDto' is not null or undefined
 			assertParamExists('saveDraftAssets', 'saveDraftAssetDto', saveDraftAssetDto);
 			const localVarPath =
-				`/api/change-monitoring/analyst/draft/{monitoringId}/save-draft-asset`.replace(
+				`/api/change-monitoring/analyst/draft/id/{monitoringId}/save-draft-asset`.replace(
 					`{${'monitoringId'}}`,
 					encodeURIComponent(String(monitoringId))
 				);
@@ -2111,7 +2114,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				saveDraftAssociationDto
 			);
 			const localVarPath =
-				`/api/change-monitoring/analyst/draft/{monitoringId}/save-draft-association`.replace(
+				`/api/change-monitoring/analyst/draft/id/{monitoringId}/save-draft-association`.replace(
 					`{${'monitoringId'}}`,
 					encodeURIComponent(String(monitoringId))
 				);
@@ -2231,7 +2234,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 				saveDraftSchedulingDto
 			);
 			const localVarPath =
-				`/api/change-monitoring/analyst/draft/{monitoringId}/save-draft-scheduling`.replace(
+				`/api/change-monitoring/analyst/draft/id/{monitoringId}/save-draft-scheduling`.replace(
 					`{${'monitoringId'}}`,
 					encodeURIComponent(String(monitoringId))
 				);
@@ -2293,7 +2296,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			// verify required parameter 'saveDraftScriptDto' is not null or undefined
 			assertParamExists('saveDraftScript', 'saveDraftScriptDto', saveDraftScriptDto);
 			const localVarPath =
-				`/api/change-monitoring/analyst/draft/{monitoringId}/save-draft-script`.replace(
+				`/api/change-monitoring/analyst/draft/id/{monitoringId}/save-draft-script`.replace(
 					`{${'monitoringId'}}`,
 					encodeURIComponent(String(monitoringId))
 				);
@@ -2355,7 +2358,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			// verify required parameter 'body' is not null or undefined
 			assertParamExists('saveNotes', 'body', body);
 			const localVarPath =
-				`/api/change-monitoring/analyst/run/{runId}/save-notes`.replace(
+				`/api/change-monitoring/analyst/run/id/{runId}/save-notes`.replace(
 					`{${'runId'}}`,
 					encodeURIComponent(String(runId))
 				);
@@ -2525,7 +2528,7 @@ export const AnalystChangeMonitoringControllerApiAxiosParamCreator = function (
 			// verify required parameter 'requestBody' is not null or undefined
 			assertParamExists('setMonitoringCollaborator', 'requestBody', requestBody);
 			const localVarPath =
-				`/api/change-monitoring/analyst/monitoring/set-collaborators/{monitoringId}`.replace(
+				`/api/change-monitoring/analyst/monitoring/set-collaborators/id/{monitoringId}`.replace(
 					`{${'monitoringId'}}`,
 					encodeURIComponent(String(monitoringId))
 				);

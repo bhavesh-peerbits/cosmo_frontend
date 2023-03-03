@@ -24,7 +24,6 @@ const FileLinkTable = ({ files }: { files: FileLink[] }) => {
 		});
 	};
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const linkCell = useCallback(({ getValue }: CellContext<any, unknown>) => {
 		const value = getValue() as FileLink;
 		return (

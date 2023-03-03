@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TableExpandHeader, TableHeader, TableRow } from '@carbon/react';
 import { HeaderGroup } from '@tanstack/react-table';
 import { useCallback } from 'react';

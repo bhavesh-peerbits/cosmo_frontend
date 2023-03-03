@@ -9,7 +9,6 @@ import { useForm } from 'react-hook-form';
 import useCheckPathAssetMonitoring from '@api/change-monitoring-analyst/useCheckPathsAsset';
 import { RunMonitoringAsset } from '../types/RunMonitoringAsset';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const BooleanCell = ({ getValue }: CellContext<any, unknown>) => {
 	const value = getValue() as boolean;
 	return value ? <CheckmarkOutline /> : <MisuseOutline />;

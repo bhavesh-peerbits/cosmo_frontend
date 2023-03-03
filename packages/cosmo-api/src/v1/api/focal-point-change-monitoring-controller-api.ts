@@ -67,7 +67,7 @@ export const FocalPointChangeMonitoringControllerApiAxiosParamCreator = function
 			// verify required parameter 'runId' is not null or undefined
 			assertParamExists('closeCompletedRun', 'runId', runId);
 			const localVarPath =
-				`/api/change-monitoring/focal-point/run/close-completed/{runId}`.replace(
+				`/api/change-monitoring/focal-point/run/close-completed/id/{runId}`.replace(
 					`{${'runId'}}`,
 					encodeURIComponent(String(runId))
 				);
@@ -162,7 +162,7 @@ export const FocalPointChangeMonitoringControllerApiAxiosParamCreator = function
 			// verify required parameter 'runId' is not null or undefined
 			assertParamExists('getAllFilesAnswers', 'runId', runId);
 			const localVarPath =
-				`/api/change-monitoring/focal-point/run/{runId}/filelinks`.replace(
+				`/api/change-monitoring/focal-point/run/id/{runId}/filelinks`.replace(
 					`{${'runId'}}`,
 					encodeURIComponent(String(runId))
 				);
@@ -256,7 +256,7 @@ export const FocalPointChangeMonitoringControllerApiAxiosParamCreator = function
 			// verify required parameter 'monitoringId' is not null or undefined
 			assertParamExists('getMonitoring', 'monitoringId', monitoringId);
 			const localVarPath =
-				`/api/change-monitoring/focal-point/get-monitoring/{monitoringId}`.replace(
+				`/api/change-monitoring/focal-point/get-monitoring/id/{monitoringId}`.replace(
 					`{${'monitoringId'}}`,
 					encodeURIComponent(String(monitoringId))
 				);
@@ -306,7 +306,7 @@ export const FocalPointChangeMonitoringControllerApiAxiosParamCreator = function
 		): Promise<RequestArgs> => {
 			// verify required parameter 'runId' is not null or undefined
 			assertParamExists('getRun', 'runId', runId);
-			const localVarPath = `/api/change-monitoring/focal-point/run/{runId}`.replace(
+			const localVarPath = `/api/change-monitoring/focal-point/run/id/{runId}`.replace(
 				`{${'runId'}}`,
 				encodeURIComponent(String(runId))
 			);

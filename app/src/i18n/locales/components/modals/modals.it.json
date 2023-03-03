@@ -54,5 +54,7 @@
 	"close": "Chiudi",
 	"uploading": "Uploading... ",
 	"confirm-close-upload": "Sei sicuro di voler terminare l'upload? Non sarà più possibile effettuare modifiche.",
-	"confirm-close-request": "Sei sicuro di voler procedere al prossimo step? Non sarà più possibile effettuare modifiche."
+	"confirm-close-request": "Sei sicuro di voler procedere al prossimo step? Non sarà più possibile effettuare modifiche.",
+	"new-template": "Nuovo modello",
+	"delete-template": "Avvertimento! Questo modello è attualmente utilizzato in {{document}} documenti."
 }

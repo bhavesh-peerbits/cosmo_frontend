@@ -83,38 +83,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "SOFT"\
       }]\
     ]],\
-    ["@aizoon/carbon__react", [\
-      ["npm:1.0.54", {\
-        "packageLocation": "../../../.yarn/berry/cache/@aizoon-carbon__react-npm-1.0.54-9f03642646-9.zip/node_modules/@aizoon/carbon__react/",\
-        "packageDependencies": [\
-          ["@aizoon/carbon__react", "npm:1.0.54"]\
-        ],\
-        "linkType": "SOFT"\
-      }],\
-      ["virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.54", {\
-        "packageLocation": "./.yarn/__virtual__/@aizoon-carbon__react-virtual-f34c7484e1/4/.yarn/berry/cache/@aizoon-carbon__react-npm-1.0.54-9f03642646-9.zip/node_modules/@aizoon/carbon__react/",\
-        "packageDependencies": [\
-          ["@aizoon/carbon__react", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.54"],\
-          ["@types/carbon__icons-react", "npm:11.12.0"],\
-          ["@types/react", "npm:18.0.12"],\
-          ["@types/react-dom", "npm:18.0.5"],\
-          ["@types/react-router-dom", null],\
-          ["react", "npm:18.2.0"],\
-          ["react-dom", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:18.2.0"],\
-          ["react-router-dom", "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:6.3.0"]\
-        ],\
-        "packagePeers": [\
-          "@types/carbon__icons-react",\
-          "@types/react-dom",\
-          "@types/react-router-dom",\
-          "@types/react",\
-          "react-dom",\
-          "react-router-dom",\
-          "react"\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["@alloc/quick-lru", [\
       ["npm:5.2.0", {\
         "packageLocation": "../../../.yarn/berry/cache/@alloc-quick-lru-npm-5.2.0-eb83517088-9.zip/node_modules/@alloc/quick-lru/",\
@@ -6276,10 +6244,7 @@ const RAW_RUNTIME_STATE =
           ["@types/carbon__grid", null],\
           ["@types/carbon__layout", "npm:0.0.1"],\
           ["@types/carbon__motion", null],\
-          ["@types/carbon__react", [\
-            "@aizoon/carbon__react",\
-            "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.54"\
-          ]],\
+          ["@types/carbon__react", "link:@types/carbon__react::locator=app%40workspace%3Aapp"],\
           ["@types/carbon__themes", null],\
           ["@types/carbon__type", null],\
           ["@types/ibm__plex", null],\
@@ -12938,6 +12903,16 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@types/carbon__react", [\
+      ["link:@types/carbon__react::locator=app%40workspace%3Aapp", {\
+        "packageLocation": "./app/@types/carbon__react/",\
+        "packageDependencies": [\
+          ["@types/carbon__react", "link:@types/carbon__react::locator=app%40workspace%3Aapp"]\
+        ],\
+        "linkType": "SOFT",\
+        "discardFromLookup": true\
+      }]\
+    ]],\
     ["@types/chai", [\
       ["npm:4.3.0", {\
         "packageLocation": "../../../.yarn/berry/cache/@types-chai-npm-4.3.0-42bcda9bbc-9.zip/node_modules/@types/chai/",\
@@ -15480,10 +15455,7 @@ const RAW_RUNTIME_STATE =
           ["@types/carbon__colors", "npm:10.31.0"],\
           ["@types/carbon__icons-react", "npm:11.12.0"],\
           ["@types/carbon__layout", "npm:0.0.1"],\
-          ["@types/carbon__react", [\
-            "@aizoon/carbon__react",\
-            "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.54"\
-          ]],\
+          ["@types/carbon__react", "link:@types/carbon__react::locator=app%40workspace%3Aapp"],\
           ["@types/css-mediaquery", "npm:0.1.1"],\
           ["@types/eslint", null],\
           ["@types/papaparse", "npm:5.3.2"],\
@@ -15608,10 +15580,7 @@ const RAW_RUNTIME_STATE =
           ["@types/carbon__colors", "npm:10.31.0"],\
           ["@types/carbon__icons-react", "npm:11.12.0"],\
           ["@types/carbon__layout", "npm:0.0.1"],\
-          ["@types/carbon__react", [\
-            "@aizoon/carbon__react",\
-            "virtual:e75651e5332acab272a999511ceb1d590bce71b23805da845e95013f64713cb0d6d5ff642e55e6f52cfffa4aa82d52a8d58226a538b5d6f9574fab8068ba54d2#npm:1.0.54"\
-          ]],\
+          ["@types/carbon__react", "link:@types/carbon__react::locator=app%40workspace%3Aapp"],\
           ["@types/css-mediaquery", "npm:0.1.1"],\
           ["@types/papaparse", "npm:5.3.2"],\
           ["@types/react", "npm:18.0.12"],\

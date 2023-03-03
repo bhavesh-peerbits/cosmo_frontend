@@ -16,7 +16,7 @@ variables:
 sonar:
   image:
     name: sonarsource/sonar-scanner-cli:latest
-    entrypoint: [ '' ]
+    entrypoint: ['']
   variables:
     GIT_DEPTH: 0
   stage: sonar
@@ -60,7 +60,7 @@ build_image:
 trivy scan:
   image:
     name: aramis-nexus.aizoon.it:5000/esra/trivy:0.22.0
-    entrypoint: [ '' ]
+    entrypoint: ['']
   stage: test ✅
   script:
     - trivy image $IMAGE_COSMO
@@ -69,7 +69,7 @@ trivy scan:
 grype scan:
   image:
     name: aramis-nexus.aizoon.it:5000/esra/grype:v0.32.0
-    entrypoint: [ '' ]
+    entrypoint: ['']
   stage: test ✅
   script:
     - grype $IMAGE_COSMO

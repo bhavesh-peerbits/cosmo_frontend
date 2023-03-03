@@ -60,18 +60,6 @@ export interface PageUserDto {
 	sort?: SortObject;
 	/**
 	 *
-	 * @type {PageableObject}
-	 * @memberof PageUserDto
-	 */
-	pageable?: PageableObject;
-	/**
-	 *
-	 * @type {number}
-	 * @memberof PageUserDto
-	 */
-	numberOfElements?: number;
-	/**
-	 *
 	 * @type {boolean}
 	 * @memberof PageUserDto
 	 */
@@ -82,6 +70,18 @@ export interface PageUserDto {
 	 * @memberof PageUserDto
 	 */
 	last?: boolean;
+	/**
+	 *
+	 * @type {number}
+	 * @memberof PageUserDto
+	 */
+	numberOfElements?: number;
+	/**
+	 *
+	 * @type {PageableObject}
+	 * @memberof PageUserDto
+	 */
+	pageable?: PageableObject;
 	/**
 	 *
 	 * @type {boolean}

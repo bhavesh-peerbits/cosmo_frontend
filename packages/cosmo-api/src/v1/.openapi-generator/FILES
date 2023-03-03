@@ -11,6 +11,8 @@ api/change-monitoring-controller-api.ts
 api/config-element-controller-api.ts
 api/config-element-module-controller-api.ts
 api/csv-reader-controller-api.ts
+api/dev-home-redirect-controller-api.ts
+api/document-template-controller-api.ts
 api/evidence-request-controller-api.ts
 api/evidence-request-file-s3-controller-api.ts
 api/evidence-request-focal-point-controller-api.ts
@@ -56,6 +58,7 @@ models/association-dto.ts
 models/campaign-dto.ts
 models/campaign-review-dto.ts
 models/campaign-template-dto.ts
+models/chapter-dto.ts
 models/check-path-assets-dto.ts
 models/check-path-dto.ts
 models/close-evidence-dto.ts
@@ -68,6 +71,7 @@ models/csv-answer-parsing-dto.ts
 models/delta-answer-dto.ts
 models/delta-dto.ts
 models/delta-file-dto.ts
+models/document-template-dto.ts
 models/draft-dto.ts
 models/email.ts
 models/evidence-request-draft-dto.ts
@@ -100,6 +104,7 @@ models/monitoring-dto.ts
 models/multiple-narrative-review-body.ts
 models/narrative-review-body.ts
 models/new-draft-dto.ts
+models/page-document-template-dto.ts
 models/page-user-dto.ts
 models/pageable-object.ts
 models/pair-list-answer-dto-list-string.ts
@@ -133,6 +138,7 @@ models/set-up-draft-dto.ts
 models/sort-object.ts
 models/start-campaign-dto.ts
 models/step-dto.ts
+models/steps-dto.ts
 models/tenant.ts
 models/test-dto.ts
 models/user-application-dto.ts

@@ -101,6 +101,9 @@ const StartedEvidenceRequest = React.lazy(
 	() => import('@pages/EvidenceRequest/StartedEvidenceRequest/StartedEvidenceRequest')
 );
 
+const DocumentTemplates = React.lazy(
+	() => import('@pages/Administration/DocumentTemplates/DocumentTemplates')
+);
 const AuthenticatedRoutes = () => {
 	const {
 		canSeeNarrativeManagement,
@@ -113,7 +116,8 @@ const AuthenticatedRoutes = () => {
 		canRevalidateUser,
 		canCreateRequest,
 		canWorkflowApprover,
-		canCreateMonitoring
+		canCreateMonitoring,
+		canDocumentAdmin
 	} = usePolicyStore();
 	return (
 		<>
@@ -258,6 +262,14 @@ const AuthenticatedRoutes = () => {
 									element={
 										<ProtectRoute canNavigate={canNarrativeAdmin}>
 											<Procedures />
+										</ProtectRoute>
+									}
+								/>
+								<Route
+									path='document-templates'
+									element={
+										<ProtectRoute canNavigate={canDocumentAdmin}>
+											<DocumentTemplates />
 										</ProtectRoute>
 									}
 								/>

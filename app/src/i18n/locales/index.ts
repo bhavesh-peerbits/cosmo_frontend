@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { loginEn, loginFr, loginIt } from '@i18n/locales/pages/login';
 import {
 	httpErrorEn,
@@ -74,6 +75,11 @@ import {
 	errorBoundaryIt
 } from './components/error-boundary';
 import { uploaders3En, uploaders3Fr, uploaders3It } from './components/uploaders3';
+import {
+	documentationAdminEn,
+	documentationAdminFr,
+	documentationAdminIt
+} from './components/documentation-admin';
 
 export default {
 	en_US: {
@@ -100,7 +106,8 @@ export default {
 		changeMonitoring: changeMonitoringEn,
 		monitoringDashboard: monitoringDashboardEn,
 		runDetails: runDetailsEn,
-		uploaderS3: uploaders3En
+		uploaderS3: uploaders3En,
+		documentationAdmin: documentationAdminEn
 	},
 	it_IT: {
 		home: homeIt,
@@ -126,7 +133,8 @@ export default {
 		changeMonitoring: changeMonitoringIt,
 		monitoringDashboard: monitoringDashboardIt,
 		runDetails: runDetailsIt,
-		uploaderS3: uploaders3It
+		uploaderS3: uploaders3It,
+		documentationAdmin: documentationAdminIt
 	},
 	fr_FR: {
 		home: homeFr,
@@ -151,6 +159,7 @@ export default {
 		changeMonitoring: changeMonitoringFr,
 		monitoringDashboard: monitoringDashboardFr,
 		runDetails: runDetailsFr,
-		uploaderS3: uploaders3Fr
+		uploaderS3: uploaders3Fr,
+		documentationAdmin: documentationAdminFr
 	}
 } as const;

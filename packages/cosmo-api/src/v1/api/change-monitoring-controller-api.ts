@@ -73,7 +73,7 @@ export const ChangeMonitoringControllerApiAxiosParamCreator = function (
 			// verify required parameter 'deltaFileId' is not null or undefined
 			assertParamExists('deleteAnswer', 'deltaFileId', deltaFileId);
 			const localVarPath =
-				`/api/change-monitoring/delta/{deltaId}/delta-file/{deltaFileId}/delete-answer`
+				`/api/change-monitoring/delta/{deltaId}/delta-file/id/{deltaFileId}/delete-answer`
 					.replace(`{${'deltaId'}}`, encodeURIComponent(String(deltaId)))
 					.replace(`{${'deltaFileId'}}`, encodeURIComponent(String(deltaFileId)));
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -170,7 +170,7 @@ export const ChangeMonitoringControllerApiAxiosParamCreator = function (
 			assertParamExists('getCsvAnswer', 'deltaId', deltaId);
 			// verify required parameter 'requestBody' is not null or undefined
 			assertParamExists('getCsvAnswer', 'requestBody', requestBody);
-			const localVarPath = `/api/change-monitoring/get-csv-answer/{deltaId}`.replace(
+			const localVarPath = `/api/change-monitoring/get-csv-answer/id/{deltaId}`.replace(
 				`{${'deltaId'}}`,
 				encodeURIComponent(String(deltaId))
 			);
@@ -236,7 +236,7 @@ export const ChangeMonitoringControllerApiAxiosParamCreator = function (
 			// verify required parameter 'files' is not null or undefined
 			assertParamExists('saveAnswerWithFile', 'files', files);
 			const localVarPath =
-				`/api/change-monitoring/save-answer-with-file/{deltaId}`.replace(
+				`/api/change-monitoring/save-answer-with-file/id/{deltaId}`.replace(
 					`{${'deltaId'}}`,
 					encodeURIComponent(String(deltaId))
 				);
@@ -312,7 +312,7 @@ export const ChangeMonitoringControllerApiAxiosParamCreator = function (
 				answerFileAlreadyUploadedDto
 			);
 			const localVarPath =
-				`/api/change-monitoring/save-answer-with-file-already-uploaded/{deltaId}`.replace(
+				`/api/change-monitoring/save-answer-with-file-already-uploaded/id/{deltaId}`.replace(
 					`{${'deltaId'}}`,
 					encodeURIComponent(String(deltaId))
 				);
@@ -378,7 +378,7 @@ export const ChangeMonitoringControllerApiAxiosParamCreator = function (
 				answerMonitoringDto
 			);
 			const localVarPath =
-				`/api/change-monitoring/save-answer-without-file/{deltaId}`.replace(
+				`/api/change-monitoring/save-answer-without-file/id/{deltaId}`.replace(
 					`{${'deltaId'}}`,
 					encodeURIComponent(String(deltaId))
 				);
@@ -439,10 +439,11 @@ export const ChangeMonitoringControllerApiAxiosParamCreator = function (
 			assertParamExists('uploadCsvAnswer', 'deltaId', deltaId);
 			// verify required parameter 'inlineObject17' is not null or undefined
 			assertParamExists('uploadCsvAnswer', 'inlineObject17', inlineObject17);
-			const localVarPath = `/api/change-monitoring/upload-csv-answer/{deltaId}`.replace(
-				`{${'deltaId'}}`,
-				encodeURIComponent(String(deltaId))
-			);
+			const localVarPath =
+				`/api/change-monitoring/upload-csv-answer/id/{deltaId}`.replace(
+					`{${'deltaId'}}`,
+					encodeURIComponent(String(deltaId))
+				);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;

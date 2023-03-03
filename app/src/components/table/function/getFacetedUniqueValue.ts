@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { memo, RowData, Table } from '@tanstack/react-table';
 
 export default function getFacetedUniqueValues<TData extends RowData>(): (

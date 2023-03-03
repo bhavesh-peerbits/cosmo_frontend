@@ -54,5 +54,7 @@
 	"close": "Close",
 	"uploading": "Uploading... ",
 	"confirm-close-upload": "Are you sure you want to close the upload? Any modification isn't allowed after closing it.",
-	"confirm-close-request": "Are you sure you want to go to the next step? Any modification isn't allowed after closing it."
+	"confirm-close-request": "Are you sure you want to go to the next step? Any modification isn't allowed after closing it.",
+	"new-template": "New template",
+	"delete-template": "Warning! This model is currently used in {{document}} documents."
 }

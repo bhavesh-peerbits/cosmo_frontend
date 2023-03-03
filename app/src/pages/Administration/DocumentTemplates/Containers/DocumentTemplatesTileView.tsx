@@ -1,0 +1,74 @@
+import { Grid, Layer, Search, ContentSwitcher, Switch } from '@carbon/react';
+import { useTranslation } from 'react-i18next';
+import { Grid as GridIcon, HorizontalView } from '@carbon/react/icons';
+import Centered from '@components/Centered';
+import FullWidthColumn from '@components/FullWidthColumn';
+import NoDataMessage from '@components/NoDataMessage';
+import Fade from '@components/Fade';
+import useDocumentTemplates from '@hooks/document-templates/useDocumentTemplates';
+import DocumentTemplatesFilters from '../Components/DocumentTemplatesFilters';
+import DocumentTemplatesContainer from '../Components/DocumentTemplatesContainer';
+
+const SearchBar = () => {
+	const { filters, setFilters } = useDocumentTemplates();
+	const { t } = useTranslation('documentationAdmin');
+	return (
+		<Layer className='w-full'>
+			<Search
+				size='lg'
+				labelText=''
+				placeholder={t('search-template-name')}
+				value={filters.q ?? ''}
+				onChange={e => setFilters(old => ({ ...old, q: e.currentTarget?.value }))}
+			/>
+		</Layer>
+	);
+};
+
+const DocumentTemplatesTileView = () => {
+	const { setFilters, templates } = useDocumentTemplates();
+	const { t } = useTranslation('documentationAdmin');
+	return (
+		<Grid fullWidth className='space-y-5'>
+			<FullWidthColumn>
+				<div className='w-full items-center sm:space-y-5 md:flex md:space-x-5 md:space-y-0'>
+					<div className='flex w-full space-x-5'>
+						<DocumentTemplatesFilters />
+						<SearchBar />
+					</div>
+					<div className='flex items-center space-x-5'>
+						<div className='whitespace-nowrap'>{`${templates.length} ${t(
+							'templates'
+						)}`}</div>
+						<ContentSwitcher
+							size='lg'
+							onChange={() => {
+								setFilters({ isTile: false });
+							}}
+							className='w-full md:w-auto'
+						>
+							<Switch name='first'>
+								<GridIcon />
+							</Switch>
+							<Switch name='second'>
+								<HorizontalView />
+							</Switch>
+						</ContentSwitcher>
+					</div>
+				</div>
+			</FullWidthColumn>
+			<FullWidthColumn>
+				{templates.length === 0 ? (
+					<Fade>
+						<Centered>
+							<NoDataMessage title={t('no-template')} />
+						</Centered>
+					</Fade>
+				) : (
+					<DocumentTemplatesContainer />
+				)}
+			</FullWidthColumn>
+		</Grid>
+	);
+};
+export default DocumentTemplatesTileView;
